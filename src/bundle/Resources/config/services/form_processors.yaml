@@ -1,48 +1,52 @@
 parameters:
-    ezplatform.content_forms.form_processor.content_type.options.redirect_route_after_publish: ~
-    ezplatform.content_forms.form_processor.content_type.options:
-        redirectRouteAfterPublish: "%ezplatform.content_forms.form_processor.content_type.options.redirect_route_after_publish%"
+    ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish: ~
+    ibexa.content_forms.form_processor.content_type.options:
+        redirectRouteAfterPublish: '%ibexa.content_forms.form_processor.content_type.options.redirect_route_after_publish%'
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
+
+    Ibexa\AdminUi\Form\Processor\:
+        resource: "../../../../lib/Form/Processor/*"
+        public: true
         tags:
             - { name: kernel.event_subscriber }
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\Content\AutosaveProcessor: ~
+    Ibexa\AdminUi\Form\Processor\Content\AutosaveProcessor: ~
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\Content\ContentOnTheFlyProcessor:
+    Ibexa\AdminUi\Form\Processor\Content\ContentOnTheFlyProcessor:
         arguments:
-            $innerContentFormProcessor: '@ezplatform.content_forms.form_processor.content'
+            $innerContentFormProcessor: '@Ibexa\ContentForms\Form\Processor\ContentFormProcessor'
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\Content\UrlRedirectProcessor:
+    Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor:
         public: true
-        decorates: EzSystems\EzPlatformContentForms\Form\Processor\SystemUrlRedirectProcessor
+        decorates: Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor
         arguments:
-            $siteaccessGroups: '%ezpublish.siteaccess.groups%'
-            $systemUrlRedirectProcessor: '@EzSystems\EzPlatformAdminUi\Form\Processor\Content\UrlRedirectProcessor.inner'
+            $siteaccessGroups: '%ibexa.site_access.groups%'
+            $systemUrlRedirectProcessor: '@Ibexa\AdminUi\Form\Processor\Content\UrlRedirectProcessor.inner'
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\ContentEditNotificationFormProcessor:
+    Ibexa\AdminUi\Form\Processor\ContentEditNotificationFormProcessor:
         public: true
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeDiscardChangesFormProcessor: ~
+    Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeDiscardChangesFormProcessor: ~
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\ContentType\ContentTypeFormProcessor:
+    Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor:
         arguments:
-            - "@ezpublish.api.service.content_type"
+            - '@ibexa.api.service.content_type'
             - "@router"
-            - "%ezplatform.content_forms.form_processor.content_type.options%"
+            - '%ibexa.content_forms.form_processor.content_type.options%'
         calls:
-            - [ setGroupsList, [ "@ezpublish.fields_groups.list" ] ]
+            - [ setGroupsList, [ '@Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList' ] ]
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\PreviewFormProcessor: ~
+    Ibexa\AdminUi\Form\Processor\PreviewFormProcessor: ~
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\TranslationFormProcessor: ~
+    Ibexa\AdminUi\Form\Processor\TranslationFormProcessor: ~
 
-    EzSystems\EzPlatformAdminUi\Form\Processor\User\UserOnTheFlyProcessor:
+    Ibexa\AdminUi\Form\Processor\User\UserOnTheFlyProcessor:
         arguments:
-            $innerUserUpdateFormProcessor: '@ezplatform.content_forms.form_processor.user_update'
+            $innerUserUpdateFormProcessor: '@Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor'

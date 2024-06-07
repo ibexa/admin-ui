@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type;
 
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\DateIntervalToArrayTransformer;
+namespace Ibexa\AdminUi\Form\Type;
+
+use Ibexa\AdminUi\Form\DataTransformer\DateIntervalToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -33,7 +34,7 @@ class DateTimeIntervalType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,3 +48,5 @@ class DateTimeIntervalType extends AbstractType
             ->add('second', IntegerType::class);
     }
 }
+
+class_alias(DateTimeIntervalType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\DateTimeIntervalType');

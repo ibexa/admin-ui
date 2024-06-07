@@ -4,12 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory;
+namespace Ibexa\AdminUi\Menu\Admin\ContentType;
+
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,8 +25,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ContentTypeGroupCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'content_type_group_create__sidebar_right__create';
-    const ITEM__CANCEL = 'content_type_group_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'content_type_group_create__sidebar_right__create';
+    public const ITEM__CREATE_AND_EDIT = 'content_type_group_create__sidebar_right__create_and_edit';
+    public const ITEM__CANCEL = 'content_type_group_create__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -59,25 +61,38 @@ class ContentTypeGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
      */
     public function createStructure(array $options): ItemInterface
     {
+        $saveId = $options['save_id'];
+        $saveAncCloseId = $options['save_and_close_id'];
+
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveAndCloseItem = $this->createMenuItem(
+            self::ITEM__CREATE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveAncCloseId),
+                ],
+            ]
+        );
+
+        $saveAndCloseItem->addChild(
+            self::ITEM__CREATE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveId),
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__CREATE => $this->createMenuItem(
-                self::ITEM__CREATE,
-                [
-                    'attributes' => [
-                        'class' => 'btn--trigger',
-                        'data-click' => '#content_type_group_create_create',
-                    ],
-                    'extras' => ['icon' => 'publish'],
-                ]
-            ),
+            self::ITEM__CREATE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.content_type_group.list',
+                    'route' => 'ibexa.content_type_group.list',
                 ]
             ),
         ]);
@@ -91,8 +106,11 @@ class ContentTypeGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CREATE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 }
+
+class_alias(ContentTypeGroupCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType\ContentTypeGroupCreateRightSidebarBuilder');

@@ -6,36 +6,38 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException as APIRepositoryUnauthorizedException;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\TrashService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationUpdateStruct;
-use eZ\Publish\Core\Base\Exceptions\InvalidArgumentException;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationAssignSubtreeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopyData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationCopySubtreeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationMoveData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationSwapData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasUniqueAssetRelation;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationAssignSectionType;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Tab\LocationView\DetailsTab;
-use EzSystems\EzPlatformAdminUi\Tab\LocationView\LocationsTab;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData;
+use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData;
+use Ibexa\AdminUi\Form\Data\Location\LocationAssignSubtreeData;
+use Ibexa\AdminUi\Form\Data\Location\LocationCopyData;
+use Ibexa\AdminUi\Form\Data\Location\LocationCopySubtreeData;
+use Ibexa\AdminUi\Form\Data\Location\LocationMoveData;
+use Ibexa\AdminUi\Form\Data\Location\LocationSwapData;
+use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
+use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\TrashLocationOptionProvider\HasUniqueAssetRelation;
+use Ibexa\AdminUi\Form\Type\Location\LocationAssignSectionType;
+use Ibexa\AdminUi\Tab\LocationView\DetailsTab;
+use Ibexa\AdminUi\Tab\LocationView\LocationsTab;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIRepositoryUnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationUpdateStruct;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
+use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,55 +46,55 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LocationController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\TrashService */
+    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
     private $trashService;
 
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\TrashService $trashService
-     * @param \eZ\Publish\API\Repository\SectionService $sectionService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\SubmitHandler $submitHandler
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \eZ\Publish\API\Repository\Repository $repository
-     * @param \eZ\Publish\Core\Helper\TranslationHelper $translationHelper
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\Contracts\Core\Repository\TrashService $trashService
+     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
      */
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -130,7 +132,8 @@ class LocationController extends Controller
     public function moveAction(Request $request): Response
     {
         $form = $this->formFactory->moveLocation(
-            new LocationMoveData()
+            new LocationMoveData(),
+            $request->query->get('formName')
         );
         $form->handleRequest($request);
 
@@ -154,10 +157,10 @@ class LocationController extends Controller
                     /** @Desc("'%name%' moved to '%location%'") */
                     'location.move.success',
                     ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $location->contentId,
                     'locationId' => $location->id,
                 ]));
@@ -168,7 +171,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
         ]));
@@ -182,7 +185,8 @@ class LocationController extends Controller
     public function copyAction(Request $request): Response
     {
         $form = $this->formFactory->copyLocation(
-            new LocationCopyData()
+            new LocationCopyData(),
+            $request->query->get('formName')
         );
         $form->handleRequest($request);
 
@@ -212,10 +216,10 @@ class LocationController extends Controller
                     /** @Desc("'%name%' copied to '%location%'") */
                     'location.copy.success',
                     ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $newLocation->contentId,
                     'locationId' => $newLocation->id,
                 ]));
@@ -226,7 +230,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
         ]));
@@ -240,7 +244,8 @@ class LocationController extends Controller
     public function copySubtreeAction(Request $request): Response
     {
         $form = $this->formFactory->copyLocationSubtree(
-            new LocationCopySubtreeData()
+            new LocationCopySubtreeData(),
+            $request->query->get('formName')
         );
         $form->handleRequest($request);
 
@@ -264,7 +269,7 @@ class LocationController extends Controller
                         '%name%' => $location->getContentInfo()->name,
                         '%location%' => $newParentLocation->getContentInfo()->name,
                     ],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return $this->redirectToLocation($newLocation);
@@ -311,10 +316,10 @@ class LocationController extends Controller
                     /** @Desc("Location '%name%' swapped with Location '%location%'") */
                     'location.swap.success',
                     ['%name%' => $currentLocation->getContentInfo()->name, '%location%' => $newLocation->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $currentLocation->contentId,
                     'locationId' => $newLocation->id,
                     '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -326,7 +331,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
             '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -341,7 +346,8 @@ class LocationController extends Controller
     public function trashAction(Request $request): Response
     {
         $form = $this->formFactory->trashLocation(
-            new LocationTrashData()
+            new LocationTrashData(),
+            $request->query->get('formName')
         );
 
         $form->handleRequest($request);
@@ -363,7 +369,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.trash.list'));
+        return $this->redirect($this->generateUrl('ibexa.trash.list'));
     }
 
     private function trashRelatedAsset(ContentInfo $contentInfo): void
@@ -375,12 +381,12 @@ class LocationController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashData $data
+     * @param \Ibexa\AdminUi\Form\Data\Location\LocationTrashData $data
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function handleTrashLocation(LocationTrashData $data): RedirectResponse
     {
@@ -407,40 +413,11 @@ class LocationController extends Controller
                 /** @Desc("Location '%name%' moved to Trash.") */
                 'location.trash.success',
                 ['%name%' => $location->getContentInfo()->name],
-                'location'
+                'ibexa_location'
             )
         );
 
         return $this->redirectToLocation($parentLocation);
-    }
-
-    /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashData|\EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationTrashContainerData $data
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    private function handleTrashLocationForm($data): RedirectResponse
-    {
-        $location = $data->getLocation();
-        $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
-        $this->trashService->trash($location);
-
-        $this->notificationHandler->success(
-            $this->translator->trans(
-                /** @Desc("Location '%name%' moved to Trash.") */
-                'location.trash.success',
-                ['%name%' => $location->getContentInfo()->name],
-                'location'
-            )
-        );
-
-        return new RedirectResponse($this->generateUrl('_ez_content_view', [
-            'contentId' => $parentLocation->contentId,
-            'locationId' => $parentLocation->id,
-        ]));
     }
 
     /**
@@ -457,7 +434,7 @@ class LocationController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
@@ -472,11 +449,11 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' removed.") */
                         'location.delete.success',
                         ['%name%' => $location->getContentInfo()->name],
-                        'location'
+                        'ibexa_location'
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -488,7 +465,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -523,11 +500,11 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' created.") */
                         'location.create.success',
                         ['%name%' => $newLocation->getContentInfo()->name],
-                        'location'
+                        'ibexa_location'
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -539,7 +516,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => LocationsTab::URI_FRAGMENT,
@@ -561,7 +538,7 @@ class LocationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
             $location = $data->getLocation();
             $hidden = $data->getHidden();
 
@@ -574,7 +551,7 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' hidden.") */
                         'location.update_success.success.hidden',
                         ['%name%' => $contentName],
-                        'location'
+                        'ibexa_location'
                     );
                 } else {
                     $this->locationService->unhideLocation($location);
@@ -582,7 +559,7 @@ class LocationController extends Controller
                         /** @Desc("Location '%name%' revealed.") */
                         'location.update_success.success.unhidden',
                         ['%name%' => $contentName],
-                        'location'
+                        'ibexa_location'
                     );
                 }
             } catch (APIRepositoryUnauthorizedException $e) {
@@ -625,10 +602,10 @@ class LocationController extends Controller
                     /** @Desc("Location '%name%' updated.") */
                     'location.update.success',
                     ['%name%' => $location->getContentInfo()->name],
-                    'location'
+                    'ibexa_location'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $location->contentId,
                     'locationId' => $location->getContentInfo()->mainLocationId,
                     '_fragment' => DetailsTab::URI_FRAGMENT,
@@ -642,7 +619,7 @@ class LocationController extends Controller
 
         $contentInfo = $location->getContentInfo();
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => DetailsTab::URI_FRAGMENT,
@@ -664,6 +641,7 @@ class LocationController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data) {
                 $section = $data->getSection();
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $data->getLocation();
 
                 $this->sectionService->assignSectionToSubtree($location, $section);
@@ -672,7 +650,7 @@ class LocationController extends Controller
                     /** @Desc("Subtree assigned to Section '%name%'") */
                     'location.assign_section.success',
                     ['%name%' => $section->name],
-                    'location'
+                    'ibexa_location'
                 );
 
                 return $this->redirectToLocation($location, DetailsTab::URI_FRAGMENT);
@@ -687,6 +665,8 @@ class LocationController extends Controller
             return $this->redirectToLocation($location, DetailsTab::URI_FRAGMENT);
         }
 
-        return $this->redirectToRoute('ezplatform.dashboard');
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 }
+
+class_alias(LocationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LocationController');

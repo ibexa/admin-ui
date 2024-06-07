@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Policy;
+namespace Ibexa\AdminUi\Form\Type\Policy;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,7 +21,8 @@ class PolicyCreateType extends AbstractType
         $builder
             ->add(
                 'policy',
-                PolicyChoiceType::class, [
+                PolicyChoiceType::class,
+                [
                     'label' => /** @Desc("Policy") */ 'role.policy.type',
                     'placeholder' => /** @Desc("Choose a Policy") */ 'role.policy.type.choose',
                 ]
@@ -29,7 +30,7 @@ class PolicyCreateType extends AbstractType
             ->add(
                 'save',
                 SubmitType::class,
-                ['label' => /** @Desc("Create") */ 'policy_create.save']
+                ['label' => /** @Desc("Save") */ 'policy_create.save']
             );
     }
 
@@ -41,3 +42,5 @@ class PolicyCreateType extends AbstractType
         ]);
     }
 }
+
+class_alias(PolicyCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyCreateType');

@@ -6,38 +6,67 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader;
+namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
+use Ibexa\AdminUi\Form\Type\Event\ContentCreateContentTypeChoiceLoaderEvent;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
-    private $contentTypeChoiceLoader;
+    private ContentTypeChoiceLoader $contentTypeChoiceLoader;
 
-    /** @var int[] */
-    private $restrictedContentTypesIds;
+    private EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
-     * @param array $restrictedContentTypesIds
-     */
+    /** @var array<int> */
+    private array $restrictedContentTypesIds;
+
+    private ?Location $targetLocation = null;
+
     public function __construct(
         ContentTypeChoiceLoader $contentTypeChoiceLoader,
-        array $restrictedContentTypesIds
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
-        $this->restrictedContentTypesIds = $restrictedContentTypesIds;
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
+    public function setRestrictedContentTypeIds(array $restrictedContentTypeIds): self
+    {
+        $this->restrictedContentTypesIds = $restrictedContentTypeIds;
+
+        return $this;
+    }
+
+    public function getTargetLocation(): ?Location
+    {
+        return $this->targetLocation;
+    }
+
+    public function setTargetLocation(?Location $targetLocation): self
+    {
+        $this->targetLocation = $targetLocation;
+
+        return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoiceList($value = null)
     {
         $contentTypesGroups = $this->contentTypeChoiceLoader->getChoiceList();
+
+        $event = $this->eventDispatcher->dispatch(
+            new ContentCreateContentTypeChoiceLoaderEvent($contentTypesGroups, $this->targetLocation),
+            ContentCreateContentTypeChoiceLoaderEvent::RESOLVE_CONTENT_TYPES
+        );
+
+        $contentTypesGroups = $event->getContentTypeGroups();
+
         if (empty($this->restrictedContentTypesIds)) {
             return new ArrayChoiceList($contentTypesGroups, $value);
         }
@@ -52,7 +81,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadChoicesForValues(array $values, $value = null)
     {
@@ -66,7 +95,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function loadValuesForChoices(array $choices, $value = null)
     {
@@ -84,3 +113,5 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getValuesForChoices($choices);
     }
 }
+
+class_alias(ContentCreateContentTypeChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader');

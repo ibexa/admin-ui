@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+
+namespace Ibexa\Tests\AdminUi\Validator\Constraint;
+
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifier;
+use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator;
+use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
+
+class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
+{
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $executionContext;
+
+    /**
+     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator
+     */
+    private $validator;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->executionContext = $this->createMock(ExecutionContextInterface::class);
+        $this->validator = new UniqueFieldDefinitionIdentifierValidator();
+        $this->validator->initialize($this->executionContext);
+    }
+
+    public function testNotFieldDefinitionData(): void
+    {
+        $this->executionContext
+            ->expects($this->never())
+            ->method('buildViolation');
+
+        $this->validator->validate('foo', new UniqueFieldDefinitionIdentifier());
+    }
+
+    public function testValid(): void
+    {
+        $this->executionContext
+            ->expects($this->never())
+            ->method('buildViolation');
+
+        $contentTypeData = new ContentTypeData([
+            'contentTypeDraft' => new ContentTypeDraft([
+                'innerContentType' => new ContentType([
+                    'identifier' => 'test',
+                ]),
+            ]),
+        ]);
+
+        $fieldDefData1 = new FieldDefinitionData(['identifier' => 'foo', 'contentTypeData' => $contentTypeData]);
+        $contentTypeData->addFieldDefinitionData($fieldDefData1);
+        $fieldDefData2 = new FieldDefinitionData(['identifier' => 'bar', 'contentTypeData' => $contentTypeData]);
+        $contentTypeData->addFieldDefinitionData($fieldDefData2);
+        $fieldDefData3 = new FieldDefinitionData(['identifier' => 'baz', 'contentTypeData' => $contentTypeData]);
+        $contentTypeData->addFieldDefinitionData($fieldDefData3);
+
+        $this->validator->validate($fieldDefData1, new UniqueFieldDefinitionIdentifier());
+    }
+
+    public function testInvalid(): void
+    {
+        $identifier = 'foo';
+        $constraint = new UniqueFieldDefinitionIdentifier();
+        $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $this->executionContext
+            ->expects($this->once())
+            ->method('buildViolation')
+            ->with($constraint->message)
+            ->willReturn($constraintViolationBuilder);
+        $constraintViolationBuilder
+            ->expects($this->once())
+            ->method('atPath')
+            ->with('identifier')
+            ->willReturn($constraintViolationBuilder);
+        $constraintViolationBuilder
+            ->expects($this->once())
+            ->method('setParameter')
+            ->with('%identifier%', $identifier)
+            ->willReturn($constraintViolationBuilder);
+        $constraintViolationBuilder
+            ->expects($this->once())
+            ->method('addViolation');
+
+        $contentTypeData = new ContentTypeData([
+            'contentTypeDraft' => new ContentTypeDraft([
+                'innerContentType' => new ContentType([
+                    'identifier' => 'test',
+                ]),
+            ]),
+        ]);
+
+        $fieldDefData1 = new FieldDefinitionData(['identifier' => $identifier, 'contentTypeData' => $contentTypeData]);
+        $contentTypeData->addFieldDefinitionData($fieldDefData1);
+        $fieldDefData2 = new FieldDefinitionData(['identifier' => 'bar', 'contentTypeData' => $contentTypeData]);
+        $contentTypeData->addFieldDefinitionData($fieldDefData2);
+        $fieldDefData3 = new FieldDefinitionData(['identifier' => $identifier, 'contentTypeData' => $contentTypeData]);
+        $contentTypeData->addFieldDefinitionData($fieldDefData3);
+
+        $this->validator->validate($fieldDefData1, $constraint);
+    }
+}
+
+class_alias(UniqueFieldDefinitionIdentifierValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueFieldDefinitionIdentifierValidatorTest');

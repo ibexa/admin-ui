@@ -6,22 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Translation\Extractor;
+namespace Ibexa\AdminUi\Translation\Extractor;
 
+use Ibexa\AdminUi\Form\Type\Policy\PolicyChoiceType;
 use JMS\TranslationBundle\Model\Message\XliffMessage;
 use JMS\TranslationBundle\Model\MessageCatalogue;
 use JMS\TranslationBundle\Translation\ExtractorInterface;
 
 /**
  * Generates translation strings for limitation types.
+ *
+ * @deprecated Since ibexa/admin-ui 4.4: The "PolicyTranslationExtractor" class is deprecated, will be removed in 5.0.
  */
 class PolicyTranslationExtractor implements ExtractorInterface
 {
-    const MESSAGE_DOMAIN = 'forms';
-    const MESSAGE_ID_PREFIX = 'role.policy.';
-    const ALL_MODULES = 'all_modules';
-    const ALL_FUNCTIONS = 'all_functions';
-    const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
+    public const MESSAGE_DOMAIN = PolicyChoiceType::MESSAGE_DOMAIN;
+    public const MESSAGE_ID_PREFIX = PolicyChoiceType::MESSAGE_ID_PREFIX;
+    public const ALL_MODULES = PolicyChoiceType::ALL_MODULES;
+    public const ALL_FUNCTIONS = PolicyChoiceType::ALL_FUNCTIONS;
+    public const ALL_MODULES_ALL_FUNCTIONS = PolicyChoiceType::ALL_MODULES_ALL_FUNCTIONS;
 
     /** @var array */
     private $policyMap;
@@ -36,9 +39,13 @@ class PolicyTranslationExtractor implements ExtractorInterface
 
     /**
      * @return \JMS\TranslationBundle\Model\MessageCatalogue
+     *
+     * @deprecated Since ibexa/admin-ui 4.4: The method "PolicyTranslationExtractor::extract()" method is deprecated, will be removed in 5.0.
      */
     public function extract(): MessageCatalogue
     {
+        trigger_deprecation('ibexa/admin', '4.4', 'The %s() method is deprecated, will be removed in 5.0.', __METHOD__);
+
         $catalogue = new MessageCatalogue();
 
         $catalogue->add($this->createMessage(self::ALL_MODULES, 'All modules'));
@@ -91,9 +98,11 @@ class PolicyTranslationExtractor implements ExtractorInterface
      */
     private function humanize(string $text): string
     {
-        $replace = ['Content Type'];
+        $replace = ['Content type'];
         $search = ['class'];
 
         return ucfirst(trim(str_replace($search, $replace, strtolower(preg_replace(['/([A-Z])/', '/[_\s]+/'], ['_$1', ' '], $text)))));
     }
 }
+
+class_alias(PolicyTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\PolicyTranslationExtractor');

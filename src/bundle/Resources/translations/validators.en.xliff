@@ -7,24 +7,34 @@
     </header>
     <body>
       <trans-unit id="facbff93edf91393ba1bb60212f504d35beae555" resname="ez.content_type.descriptions">
-        <source>Content Type description cannot be longer than 255 characters.</source>
-        <target state="new">Content Type description cannot be longer than 255 characters.</target>
+        <source>Content type description cannot be longer than 255 characters.</source>
+        <target state="new">Content type description cannot be longer than 255 characters.</target>
         <note>key: ez.content_type.descriptions</note>
       </trans-unit>
       <trans-unit id="73aad2fb9c8f9a2103bf60d6e9221a619f261f9c" resname="ez.content_type.identifier.pattern">
-        <source>Content Type identifier may only contain letters from "a" to "z", numbers and underscores.</source>
-        <target state="new">Content Type identifier may only contain letters from "a" to "z", numbers and underscores.</target>
+        <source>Content type identifier may only contain letters from "a" to "z", numbers and underscores.</source>
+        <target state="new">Content type identifier may only contain letters from "a" to "z", numbers and underscores.</target>
         <note>key: ez.content_type.identifier.pattern</note>
       </trans-unit>
+      <trans-unit id="e03cdf7df4e43a891269e0bbe734e7bab5cc61eb" resname="ez.content_type.identifier.unique">
+        <source>The content type identifier "%identifier%" is used by another content type. Enter a unique identifier.</source>
+        <target state="new">The content type identifier "%identifier%" is used by another content type. Enter a unique identifier.</target>
+        <note>key: ez.content_type.identifier.unique</note>
+      </trans-unit>
       <trans-unit id="7ecfa6bd2c1993d18d067f3abe3acebeb9c2458c" resname="ez.content_type.names">
-        <source>Content Type name cannot be blank and cannot be longer than 255 characters.</source>
-        <target state="new">Content Type name cannot be blank and cannot be longer than 255 characters.</target>
+        <source>Content type name cannot be blank and cannot be longer than 255 characters.</source>
+        <target state="new">Content type name cannot be blank and cannot be longer than 255 characters.</target>
         <note>key: ez.content_type.names</note>
       </trans-unit>
       <trans-unit id="95f7490a739fd599a8d1d8f2ddec862744a71faa" resname="ez.field_definition.descriptions">
         <source>Field definition description cannot be longer than 255 characters.</source>
         <target state="new">Field definition description cannot be longer than 255 characters.</target>
         <note>key: ez.field_definition.descriptions</note>
+      </trans-unit>
+      <trans-unit id="3c8e362f900d886ce75b34d0fd952128612a2b12" resname="ez.field_definition.identifier.unique">
+        <source>The Field definition identifier "%identifier%" is used by another Field definition. Enter a unique identifier.</source>
+        <target state="new">The Field definition identifier "%identifier%" is used by another Field definition. Enter a unique identifier.</target>
+        <note>key: ez.field_definition.identifier.unique</note>
       </trans-unit>
       <trans-unit id="0f7d936836760a506042c4d25cd38c5a30c3d9de" resname="ez.field_definition.names">
         <source>Field definition name cannot be blank cannot be longer than 255 characters.</source>
@@ -35,11 +45,6 @@
         <source>Section identifier may only contain letters from "a" to "z", numbers and underscores.</source>
         <target state="new">Section identifier may only contain letters from "a" to "z", numbers and underscores.</target>
         <note>key: ez.section.identifier.format</note>
-      </trans-unit>
-      <trans-unit id="54d912b0089483cfd533714e50262851b6d1421a" resname="ezplatform.change_user_password.passwords_must_match">
-        <source>Passwords do not match.</source>
-        <target state="new">Passwords do not match.</target>
-        <note>key: ezplatform.change_user_password.passwords_must_match</note>
       </trans-unit>
       <trans-unit id="1235bb9d75f7a324d6b06742720ab9c18775ddce" resname="ezplatform.copy_subtree.is_not_container">
         <source>Selected Location cannot contain children.</source>
@@ -61,11 +66,6 @@
         <target state="new">Copy subtree limit exceeded. Current limit: %currentLimit%</target>
         <note>key: ezplatform.copy_subtree.limit_exceeded</note>
       </trans-unit>
-      <trans-unit id="58f9ad2e8a8df010fb8abb25e39b46f2ccf92294" resname="ezplatform.reset_user_password.passwords_must_match">
-        <source>Passwords do not match.</source>
-        <target state="new">Passwords do not match.</target>
-        <note>key: ezplatform.reset_user_password.passwords_must_match</note>
-      </trans-unit>
       <trans-unit id="dcdb0ac04fad96ebe26ca71df1c731e6228ff14f" resname="ezplatform.trash.have_used_assets">
         <source>Selected Location has assets that cannot be removed.</source>
         <target state="new">Selected Location has assets that cannot be removed.</target>
@@ -82,8 +82,8 @@
         <note>key: js.error.address_not_found</note>
       </trans-unit>
       <trans-unit id="74dc0c29a623eb80ca8f6460f0176503c7785904" resname="js.error.empty.field">
-        <source>{fieldName} Field is required</source>
-        <target state="new">{fieldName} Field is required</target>
+        <source>{fieldName} Field cannot be empty</source>
+        <target state="new">{fieldName} Field cannot be empty</target>
         <note>key: js.error.empty.field</note>
       </trans-unit>
       <trans-unit id="3ff026ea6e244dbbf70509ebf0a71c5f46cef0e0" resname="js.error.invalid_email">
@@ -95,6 +95,11 @@
         <source>{fieldName}: Cannot upload. File exceeds file size limit.</source>
         <target state="new">{fieldName}: Cannot upload. File exceeds file size limit.</target>
         <note>key: js.error.invalid_file_size</note>
+      </trans-unit>
+      <trans-unit id="e34fdb2fe0c2a86056b2e9084b9226c921044df6" resname="js.error.invalid_file_type">
+        <source>{fieldName}: Cannot upload. File has wrong type.</source>
+        <target state="new">{fieldName}: Cannot upload. File has wrong type.</target>
+        <note>key: js.error.invalid_file_type</note>
       </trans-unit>
       <trans-unit id="21c38818d1cb73ff54f0dc0b184d6de25058f24d" resname="js.error.invalid_url">
         <source>A valid URL is required</source>

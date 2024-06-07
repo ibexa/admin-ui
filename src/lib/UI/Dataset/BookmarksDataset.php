@@ -4,26 +4,27 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+namespace Ibexa\AdminUi\UI\Dataset;
+
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class BookmarksDataset
 {
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Location\Bookmark[] */
+    /** @var \Ibexa\AdminUi\UI\Value\Location\Bookmark[] */
     private $data;
 
     /**
-     * @param \eZ\Publish\API\Repository\BookmarkService $bookmarkService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
+     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
+     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
      */
     public function __construct(
         BookmarkService $bookmarkService,
@@ -37,9 +38,9 @@ class BookmarksDataset
      * @param int $offset
      * @param int $limit
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\BookmarksDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\BookmarksDataset
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function load(int $offset = 0, int $limit = 25): self
     {
@@ -54,10 +55,12 @@ class BookmarksDataset
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Location\Bookmark[]
+     * @return \Ibexa\AdminUi\UI\Value\Location\Bookmark[]
      */
     public function getBookmarks(): array
     {
         return $this->data;
     }
 }
+
+class_alias(BookmarksDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\BookmarksDataset');

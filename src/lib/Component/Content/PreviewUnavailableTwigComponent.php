@@ -6,13 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Component\Content;
+namespace Ibexa\AdminUi\Component\Content;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use EzSystems\EzPlatformAdminUi\Component\Renderable;
-use EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver;
+use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
+use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Twig\Environment;
 
 class PreviewUnavailableTwigComponent implements Renderable
@@ -20,20 +21,20 @@ class PreviewUnavailableTwigComponent implements Renderable
     /** @var \Twig\Environment */
     private $twig;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver */
+    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
     private $siteaccessResolver;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /**
      * @param \Twig\Environment $twig
-     * @param \EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver $siteaccessResolver
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver $siteaccessResolver
+     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
      */
     public function __construct(
         Environment $twig,
-        NonAdminSiteaccessResolver $siteaccessResolver,
+        SiteaccessResolverInterface $siteaccessResolver,
         LocationService $locationService
     ) {
         $this->twig = $twig;
@@ -48,11 +49,11 @@ class PreviewUnavailableTwigComponent implements Renderable
      */
     public function render(array $parameters = []): string
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $parameters['location'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $parameters['content'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Language $language */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
         $language = $parameters['language'];
         $versionNo = $content->getVersionInfo()->versionNo;
 
@@ -63,18 +64,24 @@ class PreviewUnavailableTwigComponent implements Renderable
             $versionNo = null;
         }
 
-        $siteaccesses = $this->siteaccessResolver->getSiteaccessesForLocation(
-            $location,
-            $versionNo,
-            $language->languageCode
-        );
+        try {
+            $siteaccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
+                $location,
+                $versionNo,
+                $language->languageCode
+            );
+        } catch (UnauthorizedException $e) {
+            $siteaccesses = [];
+        }
 
         if (empty($siteaccesses)) {
             return $this->twig->render(
-                '@ezdesign/ui/component/preview_unavailable.html.twig'
+                '@ibexadesign/ui/component/preview_unavailable.html.twig'
             );
         }
 
         return '';
     }
 }
+
+class_alias(PreviewUnavailableTwigComponent::class, 'EzSystems\EzPlatformAdminUi\Component\Content\PreviewUnavailableTwigComponent');

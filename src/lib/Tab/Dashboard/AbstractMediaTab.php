@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\Core\QueryType\QueryType;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Core\QueryType\QueryType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -20,7 +20,7 @@ abstract class AbstractMediaTab extends AbstractTab implements OrderedTabInterfa
     /** @var \Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper */
     protected $pagerLocationToDataMapper;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     protected $searchService;
 
     /** @var \Ibexa\AdminUi\QueryType\MediaLocationSubtreeQueryType */

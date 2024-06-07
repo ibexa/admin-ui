@@ -4,26 +4,27 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\NotificationService;
-use eZ\Publish\API\Repository\Values\Notification\NotificationList;
+namespace Ibexa\AdminUi\Pagination\Pagerfanta;
+
+use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Pagerfanta adapter for eZ Publish content search.
+ * Pagerfanta adapter for Ibexa content search.
  * Will return results as notification list.
  */
 class NotificationAdapter implements AdapterInterface
 {
-    /** @var \eZ\Publish\API\Repository\NotificationService */
+    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
     private $notificationService;
 
     /** @var int */
     private $nbResults;
 
     /**
-     * @param \eZ\Publish\API\Repository\NotificationService $notificationService
+     * @param \Ibexa\Contracts\Core\Repository\NotificationService $notificationService
      */
     public function __construct(
         NotificationService $notificationService
@@ -51,7 +52,7 @@ class NotificationAdapter implements AdapterInterface
      * @param int $offset the offset
      * @param int $length the length
      *
-     * @return \eZ\Publish\API\Repository\Values\Notification\NotificationList
+     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList
      */
     public function getSlice($offset, $length): NotificationList
     {
@@ -64,3 +65,5 @@ class NotificationAdapter implements AdapterInterface
         return $notifications;
     }
 }
+
+class_alias(NotificationAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\NotificationAdapter');

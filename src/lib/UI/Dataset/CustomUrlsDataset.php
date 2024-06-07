@@ -6,33 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Dataset;
+namespace Ibexa\AdminUi\UI\Dataset;
 
-use eZ\Publish\API\Repository\Exceptions\BadStateException;
-use eZ\Publish\API\Repository\URLAliasService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\URLAlias;
-use EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory;
+use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Psr\Log\LoggerInterface;
 
 class CustomUrlsDataset
 {
-    /** @var \eZ\Publish\API\Repository\URLAliasService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
     private $urlAliasService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory */
+    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
     private $valueFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Value\Content\UrlAlias[] */
+    /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
     private $data;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /**
-     * @param \eZ\Publish\API\Repository\URLAliasService $urlAliasService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory $valueFactory
-     */
     public function __construct(
         URLAliasService $urlAliasService,
         ValueFactory $valueFactory,
@@ -44,9 +40,9 @@ class CustomUrlsDataset
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Dataset\CustomUrlsDataset
+     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
      */
     public function load(Location $location): self
     {
@@ -60,7 +56,7 @@ class CustomUrlsDataset
         } catch (BadStateException $e) {
             $this->logger->warning(
                 sprintf(
-                    'At least one custom alias belonging to location %d is broken. Fix it by using the ezplatform:urls:regenerate-aliases command.',
+                    'At least one custom alias belonging to location %d is broken. Fix it by using the ibexa:urls:regenerate-aliases command.',
                     $location->id
                 ),
                 ['exception' => $e]
@@ -79,10 +75,12 @@ class CustomUrlsDataset
     }
 
     /**
-     * @return \EzSystems\EzPlatformAdminUi\UI\Value\Content\UrlAlias[]
+     * @return \Ibexa\AdminUi\UI\Value\Content\UrlAlias[]
      */
     public function getCustomUrlAliases(): array
     {
         return $this->data;
     }
 }
+
+class_alias(CustomUrlsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\CustomUrlsDataset');

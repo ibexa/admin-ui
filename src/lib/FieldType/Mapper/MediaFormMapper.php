@@ -4,13 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
 
-use eZ\Publish\API\Repository\FieldTypeService;
-use eZ\Publish\Core\FieldType\Media\Type;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\ConfigResolver\MaxUploadSize;
+namespace Ibexa\AdminUi\FieldType\Mapper;
+
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
+use Ibexa\Contracts\Core\Repository\FieldTypeService;
+use Ibexa\Core\FieldType\Media\Type;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormInterface;
@@ -19,7 +21,7 @@ use Symfony\Component\Validator\Constraints\Range;
 
 class MediaFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \EzSystems\EzPlatformContentForms\ConfigResolver\MaxUploadSize */
+    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
     private $maxUploadSize;
 
     protected const ACCEPT_VIDEO = 'video/*';
@@ -81,7 +83,9 @@ class MediaFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }
+
+class_alias(MediaFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\MediaFormMapper');

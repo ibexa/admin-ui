@@ -1,14 +1,28 @@
+import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
+const DEFAULT_INSTANCE_URL = window.location.origin;
 const HEADERS_CREATE_VIEW = {
-    Accept: 'application/vnd.ez.api.View+json; version=1.1',
-    'Content-Type': 'application/vnd.ez.api.ViewInput+json; version=1.1',
+    Accept: 'application/vnd.ibexa.api.View+json; version=1.1',
+    'Content-Type': 'application/vnd.ibexa.api.ViewInput+json; version=1.1',
 };
-const ENDPOINT_CREATE_VIEW = '/api/ezp/v2/views';
-const ENDPOINT_BOOKMARK = '/api/ezp/v2/bookmark';
+const ENDPOINT_CREATE_VIEW = '/api/ibexa/v2/views';
+const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
+const ENDPOINT_LOCATION = '/api/ibexa/v2/module/universal-discovery/location';
+const ENDPOINT_ACCORDION = '/api/ibexa/v2/module/universal-discovery/accordion';
+const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locations';
 
 export const QUERY_LIMIT = 50;
+export const AGGREGATIONS_LIMIT = 4;
+
+const showErrorNotificationAbortWrapper = (error) => {
+    if (error?.name === 'AbortError') {
+        return;
+    }
+
+    return showErrorNotification(error);
+};
 
 const mapSubitems = (subitems) => {
     return subitems.locations.map((location) => {
@@ -17,9 +31,7 @@ const mapSubitems = (subitems) => {
         };
 
         if (subitems.versions) {
-            const version = subitems.versions.find(
-                (version) => version.Version.VersionInfo.Content._href === location.Location.Content._href
-            );
+            const version = subitems.versions.find(({ Version }) => Version.VersionInfo.Content._href === location.Location.Content._href);
 
             mappedSubitems.version = version.Version;
         }
@@ -29,24 +41,43 @@ const mapSubitems = (subitems) => {
 };
 
 export const findLocationsByParentLocationId = (
-    { token, parentLocationId, limit = QUERY_LIMIT, offset = 0, sortClause = 'DatePublished', sortOrder = 'ascending', gridView = false },
-    callback
+    {
+        token,
+        siteaccess,
+        accessToken,
+        parentLocationId,
+        limit = QUERY_LIMIT,
+        offset = 0,
+        sortClause = 'DatePublished',
+        sortOrder = 'ascending',
+        gridView = false,
+        instanceUrl = DEFAULT_INSTANCE_URL,
+    },
+    callback,
 ) => {
-    const routeName = gridView ? 'ezplatform.udw.location_gridview.data' : 'ezplatform.udw.location.data';
-    const url = window.Routing.generate(routeName, {
-        locationId: parentLocationId,
-    });
+    let url = `${instanceUrl}${ENDPOINT_LOCATION}/${parentLocationId}`;
+    if (gridView) {
+        url += '/gridview';
+    }
+
     const request = new Request(`${url}?limit=${limit}&offset=${offset}&sortClause=${sortClause}&sortOrder=${sortOrder}`, {
         method: 'GET',
-        headers: { 'X-CSRF-Token': token },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const { bookmarked, location, permissions, subitems, version } = response;
+            const { bookmarked, location, permissions, subitems, version } = response.LocationData;
             const subitemsData = mapSubitems(subitems);
             const locationData = {
                 location: location ? location.Location : null,
@@ -60,51 +91,63 @@ export const findLocationsByParentLocationId = (
 
             callback(locationData);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadAccordionData = (
+export const loadAccordionData = async (
     {
         token,
+        siteaccess,
+        accessToken,
         parentLocationId,
         limit = QUERY_LIMIT,
         sortClause = 'DatePublished',
         sortOrder = 'ascending',
         gridView = false,
         rootLocationId = 1,
+        instanceUrl = DEFAULT_INSTANCE_URL,
     },
-    callback
+    callback,
 ) => {
-    const routeName = gridView ? 'ezplatform.udw.accordion_gridview.data' : 'ezplatform.udw.accordion.data';
-    const url = window.Routing.generate(routeName, {
-        locationId: parentLocationId,
-    });
+    let url = `${instanceUrl}${ENDPOINT_ACCORDION}/${parentLocationId}`;
+    if (gridView) {
+        url += '/gridview';
+    }
+
     const request = new Request(`${url}?limit=${limit}&sortClause=${sortClause}&sortOrder=${sortOrder}&rootLocationId=${rootLocationId}`, {
         method: 'GET',
-        headers: { 'X-CSRF-Token': token },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const mappedItems = response.breadcrumb.map((item) => {
+            const data = response.AccordionData;
+            const mappedItems = data.breadcrumb.map((item) => {
                 const location = item.Location;
-                const itemData = response.columns[location.id];
+                const itemData = data.columns[location.id];
                 const mappedItem = {
                     location,
                     totalCount: itemData ? itemData.subitems.totalCount : undefined,
                     subitems: itemData ? mapSubitems(itemData.subitems) : [],
                     parentLocationId: location.id,
-                    collapsed: !response.columns[location.id],
+                    collapsed: !data.columns[location.id],
                 };
 
                 return mappedItem;
             });
 
-            const rootLocationData = response.columns[1];
-            const lastLocationData = response.columns[parentLocationId];
+            const rootLocationData = data.columns[1];
+            const lastLocationData = data.columns[parentLocationId];
 
             if (rootLocationData) {
                 mappedItems.unshift({
@@ -127,10 +170,24 @@ export const loadAccordionData = (
 
             callback(mappedItems);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const findLocationsBySearchQuery = ({ token, siteaccess, query, limit = QUERY_LIMIT, offset = 0, languageCode = null }, callback) => {
+export const findLocationsBySearchQuery = (
+    {
+        token,
+        siteaccess,
+        accessToken,
+        query,
+        aggregations,
+        filters,
+        limit = QUERY_LIMIT,
+        offset = 0,
+        languageCode = null,
+        instanceUrl = DEFAULT_INSTANCE_URL,
+    },
+    callback,
+) => {
     const useAlwaysAvailable = true;
     const body = JSON.stringify({
         ViewInput: {
@@ -142,34 +199,51 @@ export const findLocationsBySearchQuery = ({ token, siteaccess, query, limit = Q
                 FacetBuilders: {},
                 SortClauses: {},
                 Query: query,
+                Aggregations: aggregations,
+                Filters: filters,
                 limit,
                 offset,
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+    const abortController = new AbortController();
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
+        signal: abortController.signal,
     });
 
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const { count, searchHits } = response.View.Result;
+            const { count, aggregations: searchAggregations, searchHits } = response.View.Result;
             const items = searchHits.searchHit.map((searchHit) => searchHit.value.Location);
 
             callback({
                 items,
+                aggregations: searchAggregations,
                 count,
             });
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
+
+    return {
+        abortController,
+    };
 };
 
-export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, offset = 0 }, callback) => {
+export const findLocationsById = (
+    { token, siteaccess, accessToken, id, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-locations-by-id-${id}`,
@@ -183,11 +257,17 @@ export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, 
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -198,10 +278,13 @@ export const findLocationsById = ({ token, siteaccess, id, limit = QUERY_LIMIT, 
 
             callback(items);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0 }, callback) => {
+export const findContentInfo = (
+    { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -215,11 +298,16 @@ export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: { ...HEADERS_CREATE_VIEW, 'X-Siteaccess': siteaccess, 'X-CSRF-Token': token },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
+        }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
@@ -230,47 +318,44 @@ export const findContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
 
             callback(items);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadBookmarks = ({ token, siteaccess, limit, offset }, callback) => {
-    const request = new Request(`${ENDPOINT_BOOKMARK}?limit=${limit}&offset=${offset}`, {
+export const loadBookmarks = ({ token, siteaccess, accessToken, limit, offset, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+    const request = new Request(`${instanceUrl}${ENDPOINT_BOOKMARK}?limit=${limit}&offset=${offset}`, {
         method: 'GET',
-        headers: {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request)
         .then(handleRequestResponse)
         .then((response) => {
-            const count = response.BookmarkList.count;
+            const { count } = response.BookmarkList;
             const items = response.BookmarkList.items.map((item) => item.Location);
 
             callback({ count, items });
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-const toggleBookmark = ({ siteaccess, token, locationId }, callback, method) => {
-    const request = new Request(`${ENDPOINT_BOOKMARK}/${locationId}`, {
+const toggleBookmark = ({ siteaccess, token, accessToken, locationId, instanceUrl = DEFAULT_INSTANCE_URL }, callback, method) => {
+    const request = new Request(`${instanceUrl}${ENDPOINT_BOOKMARK}/${locationId}`, {
         method,
-        headers: {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({ token, siteaccess, accessToken }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponseStatus)
-        .then(callback)
-        .catch(showErrorNotification);
+    fetch(request).then(handleRequestResponseStatus).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
 export const addBookmark = (options, callback) => {
@@ -281,43 +366,46 @@ export const removeBookmark = (options, callback) => {
     toggleBookmark(options, callback, 'DELETE');
 };
 
-export const loadContentTypes = ({ token, siteaccess }, callback) => {
-    const request = new Request('/api/ezp/v2/content/types', {
+export const loadContentTypes = ({ token, siteaccess, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/content/types`, {
         method: 'GET',
-        headers: {
-            Accept: 'application/vnd.ez.api.ContentTypeInfoList+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.ContentTypeInfoList+json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponse)
-        .then(callback)
-        .catch(showErrorNotification);
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-export const createDraft = ({ token, siteaccess, contentId }, callback) => {
-    const request = new Request(`/api/ezp/v2/content/objects/${contentId}/currentversion`, {
+export const createDraft = ({ token, siteaccess, accessToken, contentId, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/content/objects/${contentId}/currentversion`, {
         method: 'COPY',
-        headers: {
-            Accept: 'application/vnd.ez.api.VersionUpdate+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        mode: 'same-origin',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponse)
-        .then(callback)
-        .catch(showErrorNotification);
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LIMIT, offset = 0 }, callback) => {
+export const loadContentInfo = (
+    { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -331,37 +419,110 @@ export const loadContentInfo = ({ token, siteaccess, contentId, limit = QUERY_LI
             },
         },
     });
-    const request = new Request(ENDPOINT_CREATE_VIEW, {
+    const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
-        headers: Object.assign({}, HEADERS_CREATE_VIEW, {
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_CREATE_VIEW,
         }),
         body,
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
-    fetch(request)
+    fetch(request, { signal })
         .then(handleRequestResponse)
         .then((response) => {
             const items = response.View.Result.searchHits.searchHit.map((searchHit) => searchHit.value.Content);
 
             callback(items);
         })
-        .catch(showErrorNotification);
+        .catch(showErrorNotificationAbortWrapper);
 };
 
-export const loadLocationsWithPermissions = ({ locationIds }, callback) => {
-    const url = window.Routing.generate('ezplatform.udw.locations.data');
-    const request = new Request(`${url}?locationIds=${locationIds}`, {
+export const loadLocationsWithPermissions = (
+    { token, siteaccess, accessToken, locationIds, signal, instanceUrl = DEFAULT_INSTANCE_URL },
+    callback,
+) => {
+    const request = new Request(`${instanceUrl}${ENDPOINT_LOCATION_LIST}?locationIds=${locationIds}`, {
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.VersionUpdate+json',
+            },
+        }),
         method: 'GET',
-        mode: 'same-origin',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
-    fetch(request)
-        .then(handleRequestResponse)
-        .then(callback)
-        .catch(showErrorNotification);
+    fetch(request, { signal }).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
+};
+
+export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }) => {
+    const request = new Request(`${instanceUrl}/api/ibexa/v2/application-config`, {
+        method: 'GET',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
+        credentials: 'same-origin',
+    });
+
+    const adminUiData = await fetch(request);
+    const adminUiConfig = await adminUiData.json();
+
+    return adminUiConfig.ApplicationConfig;
+};
+
+export const findSuggestions = (
+    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
+    callback,
+) => {
+    const body = JSON.stringify({
+        ViewInput: {
+            identifier: 'view_with_aggregation',
+            LocationQuery: {
+                limit,
+                offset,
+                Filter: {
+                    ParentLocationIdCriterion: parentLocationId,
+                },
+                Aggregations: [
+                    {
+                        ContentTypeTermAggregation: {
+                            name: 'suggestions',
+                            limit: AGGREGATIONS_LIMIT,
+                        },
+                    },
+                ],
+            },
+        },
+    });
+
+    const request = new Request(ENDPOINT_CREATE_VIEW, {
+        method: 'POST',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                ...HEADERS_CREATE_VIEW,
+            },
+        }),
+        body,
+        mode: getRequestMode({ instanceUrl }),
+        credentials: 'same-origin',
+    });
+
+    fetch(request).then(handleRequestResponse).then(callback).catch(showErrorNotificationAbortWrapper);
 };

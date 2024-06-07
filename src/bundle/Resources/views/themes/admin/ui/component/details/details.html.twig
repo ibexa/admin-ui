@@ -1,0 +1,57 @@
+{% trans_default_domain 'ibexa_admin_ui' %}
+
+<div class="ibexa-details">
+    {% block details_header %}
+        {% if headline is defined %}
+            <div class="
+                ibexa-details__header 
+                {{ is_inline_headline|default(false) ? 'ibexa-details__header--inline-headline' }}
+                {{ is_small_headline|default(false) ? 'ibexa-details__header--small' }}
+            ">
+                {% include '@ibexadesign/ui/component/table/table_header.html.twig' with {
+                    headline,
+                    actions: headline_items|default([])
+                } %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block details_items %}
+        <div class="ibexa-details__items {{ view_mode|default('') == 'vertical' ? 'ibexa-details__items--vertical' }}">
+            {% set items_have_empty_field = items|filter((item)=> item.is_field_empty|default(false))|length > 0 %}
+            {% if items_have_empty_field %}
+                {% set alert_title = 'details.alert.complete_profile'|trans|desc('Complete your profile.') %}
+                <div class="ibexa-details__alert-container">
+                    {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                        type: 'info',
+                        title: alert_title,
+                        show_close_btn: true,
+                        size: 'small',
+                    } only %}
+                </div>
+            {% endif %}
+            {% for item in items %}
+                {% if item.is_break|default(false) %}
+                    <div class="ibexa-details__item ibexa-details__item--break"></div>
+                {% else %}
+                    {% set is_field_empty = item.is_field_empty|default(false) %}
+
+                    <div 
+                        class="ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' ~
+                        (is_field_empty ? ' ibexa-details__item--hidden') }}"
+                    >
+                        <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
+                        <div class="ibexa-details__item-content">
+                            {% if item.content_raw is defined %}
+                                {{ item.content_raw|raw }}
+                            {% elseif item.content == 'undefined' %}
+                                -
+                            {% else %}
+                                {{ item.content }}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endblock %}
+</div>

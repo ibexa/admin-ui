@@ -9,16 +9,17 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
+use Ibexa\AdminUi\Behat\Component\LeftMenu;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Browser\Page\PageRegistry;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 
 class NavigationContext implements Context
 {
-    /** @var \EzSystems\Behat\Core\Behat\ArgumentParser */
+    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser */
     private $argumentParser;
 
     /** @var \Ibexa\Behat\Browser\Page\PageRegistry[] */
@@ -26,6 +27,9 @@ class NavigationContext implements Context
 
     /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
     private $upperMenu;
+
+    /** @var \Ibexa\AdminUi\Behat\Component\LeftMenu */
+    private $leftMenu;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Breadcrumb */
     private $breadcrumb;
@@ -39,6 +43,7 @@ class NavigationContext implements Context
     public function __construct(
         ArgumentParser $argumentParser,
         UpperMenu $upperMenu,
+        LeftMenu $leftMenu,
         Breadcrumb $breadcrumb,
         ContentViewPage $contentViewPage,
         PageRegistry $pageRegistry,
@@ -47,6 +52,7 @@ class NavigationContext implements Context
         $this->argumentParser = $argumentParser;
         $this->pageRegistry = $pageRegistry;
         $this->upperMenu = $upperMenu;
+        $this->leftMenu = $leftMenu;
         $this->breadcrumb = $breadcrumb;
         $this->contentViewPage = $contentViewPage;
         $this->contentUpdateItemPage = $contentUpdateItemPage;
@@ -72,12 +78,11 @@ class NavigationContext implements Context
     }
 
     /**
-     * @Given I go to change my password
-     * @Given I go to change my password in user preferences
+     * @Given I go to user settings
      */
-    public function iGoToChangeMyPassword()
+    public function iGoToUserSettings()
     {
-        $this->upperMenu->chooseFromUserDropdown('Change password');
+        $this->upperMenu->chooseFromUserDropdown('User settings');
     }
 
     /**
@@ -94,10 +99,10 @@ class NavigationContext implements Context
      */
     public function iGoToTab(string $tabName, string $subTab = null): void
     {
-        $this->upperMenu->goToTab($tabName);
+        $this->leftMenu->goToTab($tabName);
 
-        if ($subTab !== null) {
-            $this->upperMenu->goToSubTab($subTab);
+        if (null !== $subTab) {
+            $this->leftMenu->goToSubTab($subTab);
         }
     }
 
@@ -117,7 +122,7 @@ class NavigationContext implements Context
     {
         $expectedContentPath = sprintf('%s/%s', $path, $contentName);
         $pathParts = explode('/', $expectedContentPath);
-        if ($pathParts[0] === 'root') {
+        if ('root' === $pathParts[0]) {
             $startingLocation = '/';
         } else {
             $startingLocation = $pathParts[0];
@@ -132,7 +137,7 @@ class NavigationContext implements Context
      */
     public function iGoToUserNotifications()
     {
-        $this->upperMenu->chooseFromUserDropdown('View Notifications');
+        $this->upperMenu->openNotifications();
     }
 
     /**
@@ -141,14 +146,6 @@ class NavigationContext implements Context
     public function iLogOutOfBackOffice()
     {
         $this->upperMenu->chooseFromUserDropdown('Logout');
-    }
-
-    /**
-     * @Given I go to user settings
-     */
-    public function iGoToUserSettings()
-    {
-        $this->upperMenu->chooseFromUserDropdown('User Settings');
     }
 
     /**

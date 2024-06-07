@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import FinderLeaf from './finder.leaf';
 import Icon from '../../../common/icon/icon';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper.js';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { useFindLocationsByParentLocationIdFetch } from '../../hooks/useFindLocationsByParentLocationIdFetch';
@@ -15,30 +16,31 @@ import {
     SORTING_OPTIONS,
 } from '../../universal.discovery.module';
 
-const CLASS_IS_BRANCH_RESIZING = 'ez-is-branch-resizing';
+const CLASS_IS_BRANCH_RESIZING = 'ibexa-is-branch-resizing';
 const SCROLL_OFFSET = 200;
 
 const FinderBranch = ({ locationData, itemsPerPage }) => {
     const [offset, setOffset] = useState(0);
     const [branchWidth, setBranchWidth] = useState(0);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const totalCount = useRef(0);
     const branchRef = useRef(null);
     const sortingOptions = SORTING_OPTIONS.find((option) => option.sortClause === sorting);
     const [loadedLocations, isLoading] = useFindLocationsByParentLocationIdFetch(
         locationData,
         { sortClause: sortingOptions.sortClause, sortOrder },
         itemsPerPage,
-        offset
+        offset,
     );
     const { subitems, collapsed } = locationData;
     let resizeStartPositionX = 0;
     let branchCurrentWidth = 0;
     const loadMore = ({ target }) => {
-        const areAllItemsLoaded = locationData.subitems.length >= loadedLocations.totalCount;
+        const areAllItemsLoaded = locationData.subitems.length >= totalCount.current;
         const isOffsetReached = target.scrollHeight - target.clientHeight - target.scrollTop < SCROLL_OFFSET;
 
         if (areAllItemsLoaded || !isOffsetReached || isLoading) {
@@ -82,17 +84,17 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         const selectedLocation = subitems.find(
             (subitem) =>
                 loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === subitem.location.id) ||
-                subitem.location.id === markedLocationId
+                subitem.location.id === markedLocationId,
         );
         const contentName = selectedLocation ? selectedLocation.location.ContentInfo.Content.TranslatedName : '';
         const iconPath = locationData.location
             ? contentTypesMap[locationData.location.ContentInfo.Content.ContentType._href].thumbnail
-            : window.eZ.helpers.icon.getIconPath('folder');
+            : getIconPath('folder');
 
         return (
             <div className="c-finder-branch__info-wrapper">
                 <span className="c-finder-branch__icon-wrapper">
-                    <Icon extraClasses="ez-icon--small ez-icon--primary" customPath={iconPath} />
+                    <Icon extraClasses="ibexa-icon--small" customPath={iconPath} />
                 </span>
                 <span className="c-finder-branch__name">{contentName}</span>
             </div>
@@ -128,15 +130,21 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
 
         return (
             <div className="c-finder-branch__loading-spinner">
-                <Icon name="spinner" extraClasses="ez-icon--medium ez-spin" />
+                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
             </div>
         );
     };
 
     useEffect(() => {
+        setOffset(0);
+        totalCount.current = 0;
+    }, [sortingOptions.sortClause, sortOrder]);
+
+    useEffect(() => {
         if (loadedLocations.subitems) {
             const data = { ...locationData, ...loadedLocations, subitems: [...locationData.subitems, ...loadedLocations.subitems] };
 
+            totalCount.current = loadedLocations.totalCount;
             dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data });
         }
     }, [loadedLocations, dispatchLoadedLocationsAction, isLoading]);

@@ -4,7 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type;
+
+namespace Ibexa\AdminUi\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -32,3 +33,5 @@ class SwitcherType extends AbstractType
         $resolver->setDefault('required', false);
     }
 }
+
+class_alias(SwitcherType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\SwitcherType');

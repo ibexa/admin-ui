@@ -1,8 +1,11 @@
-{% trans_default_domain 'dashboard' %}
+{% trans_default_domain 'ibexa_dashboard' %}
 
-<div class="card border-light ez-card ez-card--no-padding mb-4">
-    <div class="ez-card__title">{{ 'everyone'|trans|desc('Common content') }}</div>
-    <div class="card-body">
-        {{ ez_render_component_group('dashboard-all-tab-groups') }}
+{% set parameters = parameters|default({})|merge({ hide_toggler: true }) %}
+{% set default_block_name = 'everyone'|trans|desc('Common content') %}
+
+<div class="card border-light ibexa-card ibexa-card--no-padding">
+    <div class="ibexa-card__title">{{ block_name|default(default_block_name) }}</div>
+    <div class="ibexa-card__body">
+        {{ ibexa_render_component_group('dashboard-all-tab-groups', parameters) }}
     </div>
 </div>

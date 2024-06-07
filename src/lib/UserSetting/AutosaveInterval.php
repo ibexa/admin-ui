@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UserSetting;
+namespace Ibexa\AdminUi\UserSetting;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformUser\UserSetting\FormMapperInterface;
-use EzSystems\EzPlatformUser\UserSetting\ValueDefinitionInterface;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Contracts\User\UserSetting\FormMapperInterface;
+use Ibexa\Contracts\User\UserSetting\ValueDefinitionInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,10 +18,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
 {
+    public const IDENTIFIER = 'autosave_interval';
+
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -73,7 +75,7 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("Autosave interval") */
             'settings.autosave_interval.value.title',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 
@@ -83,7 +85,9 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
             /** @Desc("Seconds till next draft autosave") */
             'settings.autosave_interval.value.description',
             [],
-            'user_settings'
+            'ibexa_user_settings'
         );
     }
 }
+
+class_alias(AutosaveInterval::class, 'EzSystems\EzPlatformAdminUi\UserSetting\AutosaveInterval');

@@ -1,11 +1,15 @@
-(function(global, doc, eZ) {
-    const getIconPath = (path, iconSet = eZ.adminUiConfig.iconPaths.defaultIconSet) => {
-        const iconSetPath = eZ.adminUiConfig.iconPaths.iconSets[iconSet];
+import { getAdminUiConfig } from './context.helper';
 
-        return `${iconSetPath}#${path}`;
-    };
+const getIconPath = (path, iconSet) => {
+    const adminUiConfig = getAdminUiConfig();
 
-    eZ.addConfig('helpers.icon', {
-        getIconPath,
-    });
-})(window, window.document, window.eZ);
+    if (!iconSet) {
+        iconSet = adminUiConfig.iconPaths.defaultIconSet;
+    }
+
+    const iconSetPath = adminUiConfig.iconPaths.iconSets[iconSet];
+
+    return `${iconSetPath}#${path}`;
+};
+
+export { getIconPath };

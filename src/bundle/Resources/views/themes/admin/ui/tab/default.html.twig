@@ -1,22 +1,16 @@
-<ul class="nav nav-tabs ez-tabs" role="tablist" id="ez-tab-list-{{ group }}">
-    {% for tab in tabs %}
-        {% set id = group ~ '-' ~ tab.identifier %}
-        {% set active = loop.first %}
-        <li class="nav-item">
-            <a class="nav-link{% if active %} active{% endif %}" id="ez-tab-label-{{ group }}"
-               data-toggle="tab" href="#ez-tab-{{ id }}" role="tab" aria-controls="ez-tab-{{ id }}"
-               aria-expanded="{{ active }}">{{ tab.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
-<div class="tab-content" id="ez-tab-list-content-{{ group }}">
-    {% for tab in tabs %}
-        {% set id = group ~ '-' ~ tab.identifier %}
-        {% set active = loop.first %}
+{% set tabs_to_show = tabs|map((tab, index) => { 
+    id: group ~ '-' ~ tab.identifier,
+    label: tab.name,
+    content: tab.view,
+    active: index == 0,
+}) %}
+{% include '@ibexadesign/ui/component/tab/tabs.html.twig' with { 
+    tabs: tabs_to_show,
+} %}
 
-        <div class="tab-pane{% if active %} active{% endif %}" id="ez-tab-{{ id }}" role="tabpanel"
-             aria-labelledby="ez-tab-label-{{ group }}">
-            {{ tab.view|raw }}
-        </div>
-    {% endfor %}
-</div>
+{% block javascripts %}
+    {% set render_encore_entry = render_encore_entry is defined ? render_encore_entry : true %}
+    {% if render_encore_entry %}
+        {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+    {% endif %}
+{% endblock %}

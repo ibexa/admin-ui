@@ -6,19 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Section;
+namespace Ibexa\AdminUi\Form\Data\Section;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @todo add validation
  */
-class SectionCreateData
+class SectionCreateData implements TranslationContainerInterface
 {
     /**
      * @var string|null
      *
      * @Assert\NotBlank()
+     *
      * @Assert\Regex(
      *     pattern="/^[[:alnum:]_]+$/",
      *     message="ez.section.identifier.format"
@@ -82,4 +85,14 @@ class SectionCreateData
 
         return $this;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('ez.section.identifier.format', 'validators')
+                ->setDesc('Section identifier may only contain letters from "a" to "z", numbers and underscores.'),
+        ];
+    }
 }
+
+class_alias(SectionCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData');

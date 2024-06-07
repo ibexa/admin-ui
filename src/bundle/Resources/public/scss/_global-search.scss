@@ -1,0 +1,256 @@
+.ibexa-global-search {
+    width: 100%;
+    max-width: calculateRem(600px);
+    position: relative;
+
+    .ibexa-input-text-wrapper {
+        &--search {
+            width: auto;
+
+            .ibexa-icon {
+                fill: $ibexa-color-light;
+            }
+        }
+
+        &__action-btn {
+            &:hover {
+                .ibexa-icon {
+                    fill: $ibexa-color-info;
+                }
+            }
+
+            &--search {
+                background: $ibexa-color-info-600;
+                width: calculateRem(40px);
+                height: calculateRem(40px);
+                transform: translateX(calculateRem(8px));
+
+                &:hover {
+                    box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-info, 0.2);
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-white;
+                    }
+                }
+            }
+        }
+    }
+
+    .ibexa-input--text:not(:focus):placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--search {
+        background-color: transparent;
+
+        &:hover {
+            box-shadow: none;
+
+            .ibexa-icon {
+                fill: $ibexa-color-info;
+            }
+        }
+    }
+
+    &__input {
+        height: calculateRem(40px);
+        padding: calculateRem(4px) calculateRem(56px) calculateRem(4px) calculateRem(16px);
+        color: $ibexa-color-white;
+        border-color: $ibexa-color-info;
+        background: rgba($ibexa-color-white, 0.1);
+
+        &.ibexa-input--text:not(:focus):placeholder-shown {
+            border-color: transparent;
+        }
+
+        &.ibexa-input--text {
+            &:not(:disabled) {
+                &:focus,
+                &:hover {
+                    border-color: $ibexa-color-info-600;
+                }
+            }
+        }
+
+        &.form-control:focus {
+            color: $ibexa-color-light;
+        }
+
+        &::placeholder {
+            color: $ibexa-color-light;
+        }
+    }
+
+    &__autocomplete-no-results {
+        display: none;
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-dark-400;
+        padding: calculateRem(8px) 0;
+    }
+
+    &__autocomplete-view-all {
+        display: flex;
+        justify-content: space-between;
+        padding: calculateRem(4px) 0;
+
+        .ibexa-btn {
+            &:focus {
+                color: $ibexa-color-dark;
+            }
+        }
+    }
+
+    &__autocomplete-total-count {
+        font-size: $ibexa-text-font-size-medium;
+        color: $ibexa-color-dark-400;
+        display: flex;
+        align-items: center;
+    }
+
+    &__autocomplete-total-count-number {
+        margin-left: calculateRem(4px);
+    }
+
+    &__autocomplete-item {
+        padding: calculateRem(4px) 0;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+    }
+
+    &__autocomplete-highlight {
+        position: relative;
+
+        &::before {
+            content: '';
+            background-color: $ibexa-color-info-200;
+            width: calc(100% + #{calculateRem(4px)});
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: calculateRem(-2px);
+            z-index: -1;
+            padding: 0 calculateRem(2px);
+            border-radius: calculateRem(8px);
+        }
+    }
+
+    &__autocomplete-item-link {
+        text-decoration: none;
+        width: 100%;
+        display: inline-block;
+        padding: calculateRem(8px) calculateRem(4px);
+        border: calculateRem(1px) solid transparent;
+        border-radius: $ibexa-border-radius;
+
+        &:focus {
+            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.2);
+            border-color: $ibexa-color-primary;
+            color: $ibexa-color-dark;
+        }
+
+        &:hover {
+            text-decoration: none;
+            color: $ibexa-color-primary;
+
+            .ibexa-global-search__autocomplete-item-info {
+                color: $ibexa-color-primary;
+
+                .ibexa-middle-ellipsis__name-ellipsized {
+                    color: $ibexa-color-primary;
+                }
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+        }
+    }
+
+    &__autocomplete-item-name {
+        line-height: calculateRem(21px);
+        margin-bottom: calculateRem(4px);
+    }
+
+    &__autocomplete-item-info {
+        font-size: $ibexa-text-font-size-small;
+        display: flex;
+        color: $ibexa-color-dark-400;
+
+        .ibexa-middle-ellipsis__name--start,
+        .ibexa-middle-ellipsis__name--end {
+            .ibexa-middle-ellipsis__name-ellipsized {
+                color: $ibexa-color-dark-400;
+            }
+        }
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-400;
+        }
+    }
+
+    &__autocomplete-item-content-type-wrapper {
+        padding-right: calculateRem(4px);
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+
+        .ibexa-icon {
+            margin-right: calculateRem(4px);
+        }
+    }
+
+    &__autocomplete-item-breadcrumbs {
+        min-width: 0;
+        padding-left: calculateRem(4px);
+        border-left: calculateRem(1px) solid $ibexa-color-light;
+
+        &--empty {
+            border: none;
+        }
+    }
+
+    &__autocomplete-list {
+        padding-left: 0;
+        margin-bottom: calculateRem(8px);
+        list-style: none;
+        font-size: $ibexa-text-font-size-medium;
+    }
+
+    &__autocomplete {
+        position: absolute;
+        background-color: $ibexa-color-white;
+        padding: calculateRem(8px);
+        width: 100%;
+        top: calc(100% + #{calculateRem(4px)});
+        left: 0;
+        border-radius: $ibexa-border-radius;
+        z-index: 1050;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        box-shadow: calculateRem(4px) calculateRem(32px) calculateRem(47px) 0px rgba($ibexa-color-info-600, 0.1);
+
+        &--hidden {
+            display: none;
+        }
+
+        &--results-empty {
+            .ibexa-global-search {
+                &__autocomplete-list,
+                &__autocomplete-view-all {
+                    display: none;
+                }
+
+                &__autocomplete-no-results {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    &__shortcut {
+        display: inline-block;
+        line-height: calculateRem(21px);
+        font-size: $ibexa-text-font-size-medium;
+        padding: 0 calculateRem(4px);
+        background-color: $ibexa-color-light-300;
+        border-radius: calculateRem(4px);
+        font-weight: 400;
+    }
+}

@@ -1,10 +1,10 @@
 <td>
     <a {% if not content.contentInfo.trashed %}
-        href="{{ path('_ez_content_view', { 'contentId': content.id, 'locationId': locationId } ) }}"
+        href="{{ path('ibexa.content.view', { 'contentId': content.id, 'locationId': locationId } ) }}"
     {% endif %}>
         {{ content.getName() }}
         {% if content.contentInfo.trashed %}
-            <em>({{ 'content.in_trash'|trans(domain='content')|desc('In Trash') }})</em>
+            <em>({{ 'content.in_trash'|trans(domain='ibexa_content')|desc('In Trash') }})</em>
         {% endif %}
     </a>
 </td>
@@ -12,5 +12,5 @@
     {{ content_type.getName() }}
 </td>
 <td>
-    {{ content.versionInfo.creationDate|ez_short_datetime }}
+    {{ content.versionInfo.creationDate|ibexa_short_datetime }}
 </td>

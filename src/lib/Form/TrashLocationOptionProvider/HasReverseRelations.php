@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider;
+namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasReverseRelations implements TrashLocationOptionProvider
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -42,7 +42,7 @@ final class HasReverseRelations implements TrashLocationOptionProvider
         $reverseRelationsCount = $this->contentService->countReverseRelations($location->contentInfo);
 
         $translatorParameters = [
-            '%content_name%' => $location->getContent()->getName(),
+            '%content%' => $location->getContent()->getName(),
             '%reverse_relations%' => $reverseRelationsCount,
         ];
 
@@ -52,9 +52,11 @@ final class HasReverseRelations implements TrashLocationOptionProvider
                     /** @Desc("Conflict with reverse Relations") */
                     $this->translator->trans('form.has_reverse_relation.label', [], 'forms'),
                 'help_multiline' => [
-                    /** @Desc("'%content_name%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.") */
+                    /** @Desc("'%content%' is in use by %reverse_relations% Content item(s). You should remove all reverse Relations before deleting the Content item.") */
                     $this->translator->trans('trash_container.modal.message_relations', $translatorParameters),
                 ],
             ]);
     }
 }
+
+class_alias(HasReverseRelations::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasReverseRelations');

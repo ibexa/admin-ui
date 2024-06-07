@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu\UserSetting;
+namespace Ibexa\AdminUi\Menu\UserSetting;
 
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -25,8 +25,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'user_setting_update__sidebar_right__save';
+    public const ITEM__SAVE_AND_EDIT = 'user_setting_update__sidebar_right__save_end_edit';
+    public const ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -34,8 +35,8 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator)
-    {
+        TranslatorInterface $translator
+    ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->translator = $translator;
@@ -61,22 +62,35 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveItem = $this->createMenuItem(
+            self::ITEM__SAVE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#user_setting_update_update',
+                ],
+            ]
+        );
+
+        $saveItem->addChild(
+            self::ITEM__SAVE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#user_setting_update_update_and_edit',
+                ],
+                'extras' => [
+                    'orderNumber' => 10,
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__SAVE => $this->createMenuItem(
-                self::ITEM__SAVE,
-                [
-                    'attributes' => [
-                        'class' => 'btn--trigger',
-                        'data-click' => '#user_setting_update_update',
-                    ],
-                    'extras' => ['icon' => 'save'],
-                ]
-            ),
+            self::ITEM__SAVE => $saveItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.user_settings.list',
+                    'route' => 'ibexa.user_settings.list',
                 ]
             ),
         ]);
@@ -90,8 +104,11 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__SAVE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 }
+
+class_alias(UserSettingUpdateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserSetting\UserSettingUpdateRightSidebarBuilder');

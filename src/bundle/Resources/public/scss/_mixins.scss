@@ -8,131 +8,38 @@
 @import 'mixins/modals';
 @import 'mixins/togglers';
 @import 'mixins/pagination';
+@import 'mixins/font';
+@import 'mixins/containers';
+@import 'mixins/drag-and-drop';
+@import 'mixins/spinner';
 
-@mixin checkbox-icon($color: $ibexa-color-primary) {
-    border: calculateRem(1px) solid $color;
-    margin: 0;
-    padding: 0;
-    width: calculateRem(64px);
-    height: calculateRem(32px);
-    border-radius: $ibexa-border-radius;
-    position: relative;
-    z-index: 0;
-    cursor: pointer;
-
-    &:before {
-        content: '';
-        position: absolute;
-        width: calculateRem(32px);
-        height: calculateRem(32px);
-        top: 50%;
-        left: 0;
-        background-color: $color;
-        z-index: -1;
-        border-radius: $ibexa-border-radius;
-        transform: translate(100%, -50%);
-        transition: all 0.2s $ibexa-admin-transition;
-    }
-
-    .ez-icon {
-        fill: $color;
-        height: calculateRem(20px);
-        width: calculateRem(20px);
-        margin: calculateRem(1px) calculateRem(4px) auto;
-
-        &:first-child {
-            margin-left: calculateRem(5px);
-        }
-    }
-
-    .ez-icon + .ez-icon {
-        fill: $ibexa-white;
-    }
-
-    &.is-checked {
-        &:before {
-            transform: translate(0, -50%);
+@mixin datetime-field() {
+    &.is-invalid {
+        .ibexa-label {
+            color: $ibexa-color-danger;
         }
 
-        .ez-icon {
-            fill: $ibexa-white;
-        }
-
-        .ez-icon + .ez-icon {
-            fill: $color;
-        }
-    }
-
-    &.disabled {
-        cursor: inherit;
-        opacity: 0.5;
-    }
-
-    .ez-checkbox-icon__checkbox {
-        display: none;
-    }
-}
-
-@mixin checkbox-switcher($size: 2.5rem) {
-    $labelHeight: calc(#{$size} - #{calculateRem(16px)});
-    $indicatorOffsetLeft: calc(#{$size} / 10);
-    $indicatorOffsetRight: calc(calc(#{$size} / 2) - #{$indicatorOffsetLeft});
-
-    .ez-data-source__label {
-        position: relative;
-        width: $size;
-        height: $labelHeight;
-        background-color: transparent;
-        border-radius: calculateRem(24px);
-        cursor: pointer;
-        border: calculateRem(1px) solid $ibexa-color-base-dark;
-
-        input {
-            opacity: 0;
-            height: 1px;
-        }
-
-        .ez-data-source__indicator {
-            width: calc(#{$size} - #{calculateRem(24px)});
-            height: calc(#{$size} - #{calculateRem(24px)});
-            display: block;
-            background-color: $ibexa-color-base-dark;
-            border-radius: 50%;
-            position: absolute;
-            top: calculateRem(3px);
-            left: 0;
-            transition: all 0.3s $ibexa-admin-transition;
-            transform: translateX($indicatorOffsetLeft);
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        &.is-checked {
-            background-color: transparent;
-            border: calculateRem(1px) solid $ibexa-color-primary;
-
-            .ez-data-source__indicator {
-                transform: translateX($indicatorOffsetRight);
-                background-color: $ibexa-color-primary;
+        .ibexa-input-text-wrapper__action-btn {
+            .ibexa-icon {
+                fill: $ibexa-color-danger;
             }
         }
 
-        &.is-disabled {
-            opacity: 0.5;
+        .ibexa-data-source__input {
+            border: calculateRem(1px) solid $ibexa-color-danger;
+            background: $ibexa-color-danger-100;
         }
     }
-}
 
-@mixin datetime-field() {
-    .ez-data-source__input-wrapper {
+    .ibexa-data-source__input-wrapper {
         max-width: 30ch;
         position: relative;
     }
 
-    .ez-data-source__btn--clear-input {
+    .ibexa-data-source__btn--clear-input {
         position: absolute;
         top: 50%;
-        right: calculateRem(4px);
+        right: calculateRem(32px);
         transform: translate(0, -50%);
         background: none;
         border: 0;
@@ -145,17 +52,25 @@
         cursor: pointer;
         outline: none;
 
-        .ez-icon {
-            fill: $ibexa-color-base-dark;
-            transition: fill 0.3s $ibexa-admin-transition;
+        .ibexa-icon {
+            transition: fill $ibexa-admin-transition-duration $ibexa-admin-transition;
+            width: calculateRem(8px);
+            height: calculateRem(8px);
         }
 
         &:hover,
         &:focus {
-            .ez-icon {
-                fill: $ibexa-color-base-deep;
+            .ibexa-icon {
+                fill: $ibexa-color-dark-400;
             }
         }
+    }
+
+    .ibexa-icon--date {
+        position: absolute;
+        top: 50%;
+        right: calculateRem(12px);
+        transform: translate(0, -50%);
     }
 
     .flatpickr-input {
@@ -166,18 +81,14 @@
 }
 
 @mixin label-required() {
-    &:after {
-        content: ': ';
-    }
-
     &.required {
         &:after {
-            content: '*: ';
+            content: '* ';
         }
     }
 }
 
-@mixin btn-preview-action {
+@mixin ibexa-btn-preview-action {
     padding: 0;
     border: 0 none;
     border-radius: 50%;
@@ -191,7 +102,7 @@
     justify-content: center;
     align-items: center;
 
-    .ez-icon {
+    .ibexa-icon {
         height: calculateRem(24px);
         width: calculateRem(24px);
     }
@@ -199,13 +110,13 @@
 
 @mixin map-input-invalid() {
     &.is-invalid {
-        .ez-data-source__label {
+        .ibexa-data-source__label {
             color: $ibexa-color-danger;
         }
 
-        .ez-data-source__input {
+        .ibexa-data-source__input {
             border: calculateRem(1px) solid $ibexa-color-danger;
-            background: $ibexa-color-warning-pale;
+            background: $ibexa-color-danger-100;
         }
     }
 }

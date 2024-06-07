@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Language;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData;
+namespace Ibexa\AdminUi\Form\Type\Language;
+
+use Ibexa\AdminUi\Form\Data\Language\LanguageCreateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,6 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LanguageCreateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -29,7 +32,8 @@ class LanguageCreateType extends AbstractType
                 TextType::class,
                 ['label' => /** @Desc("Language code") */ 'ezplatform.language.create.language_code']
             )
-            ->add('enabled',
+            ->add(
+                'enabled',
                 CheckboxType::class,
                 [
                     'label' => /** @Desc("Enabled") */ 'ezplatform.language.create.enabled',
@@ -37,9 +41,14 @@ class LanguageCreateType extends AbstractType
                 ]
             )
             ->add(
-                'save',
+                self::BTN_SAVE,
                 SubmitType::class,
-                ['label' => /** @Desc("Create") */ 'ezplatform.language.create.save']
+                ['label' => /** @Desc("Save") */ 'language.create.save']
+            )
+            ->add(
+                'save_and_close',
+                SubmitType::class,
+                ['label' => /** @Desc("Save and close") */ 'language.create.save_and_close']
             );
     }
 
@@ -51,3 +60,5 @@ class LanguageCreateType extends AbstractType
         ]);
     }
 }
+
+class_alias(LanguageCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageCreateType');

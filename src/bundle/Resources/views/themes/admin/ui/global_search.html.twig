@@ -1,0 +1,47 @@
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig' %}
+
+{% trans_default_domain 'ibexa_search' %}
+
+<div class="ibexa-global-search">
+    {% set is_mac = 'Mac OS X' in app.request.headers.get('user-agent') %}
+    {% set shortcut = is_mac ? '⌘ + /' : 'Ctrl + /' %}
+    {% set shortcut_title = 'global_search.focus.hint'|trans|desc('Search') ~ ' <span class="ibexa-global-search__shortcut">' ~ shortcut ~ '</span>' %}
+
+    {{ form_start(form, { attr: { class: 'form-inline', id: 'ibexa-global-search-form' }}) }}
+        {{ form_widget(form.query, {
+            attr: {
+                class: 'ibexa-global-search__input',
+                placeholder: 'header.search'|trans|desc('Search...'),
+                autocomplete: "off",
+                title: shortcut_title,
+                'data-tooltip-use-html': true,
+                'data-tooltip-trigger': 'hover',
+            }
+        }) }}
+    {{ form_end(form) }}
+    <div class="ibexa-global-search__autocomplete ibexa-global-search__autocomplete--hidden">
+        <ul 
+            class="ibexa-global-search__autocomplete-list" 
+            data-template-highlight="{{ include('@ibexadesign/ui/global_search_autocomplete_highlight.html.twig', {
+                highlight_text: "{{ highlightText }}",
+            })|e('html_attr')  }}">
+        </ul>
+        <div class="ibexa-global-search__autocomplete-view-all">
+            <div class="ibexa-global-search__autocomplete-total-count">
+                {{ 'autocomplete.results_count'|trans|desc('Results') }}:
+                <span class="ibexa-global-search__autocomplete-total-count-number"></span>
+            </div>
+            <button 
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                type="submit"
+                form="ibexa-global-search-form"
+            >
+                {{ 'autocomplete.view_all_results'|trans|desc('View all results') }}
+            </button>
+        </div>
+        <div class="ibexa-global-search__autocomplete-no-results">
+            {{ 'autocomplete.no_results'|trans|desc('No suggestions available.') }}
+        </div>
+        {{ ibexa_render_component_group('global-search-autocomplete-templates') }}
+    </div>
+</div>

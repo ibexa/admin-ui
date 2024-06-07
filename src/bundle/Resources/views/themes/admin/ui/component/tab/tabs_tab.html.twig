@@ -1,0 +1,14 @@
+<li
+    class="
+        nav-item ibexa-tabs__tab ibexa-adaptive-items__item
+        {% if active|default(false) %}ibexa-tabs__tab--active{% endif %}
+        {% if has_error|default(false) %}ibexa-tabs__tab--error{% endif %}"
+>
+    {% block tab_link %}
+        {% include '@ibexadesign/ui/component/tab/tabs_link.html.twig' with {
+            id: tab.id,
+            label: tab.label,
+        } %}
+    {% endblock %}
+    {% include '@ibexadesign/ui/component/tab/tab_corner.html.twig' %}
+</li>

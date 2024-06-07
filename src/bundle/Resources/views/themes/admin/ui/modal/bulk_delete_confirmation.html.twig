@@ -1,22 +1,21 @@
-<div class="modal fade ez-modal ez-modal--no-header ez-modal--notice ez-modal--send-to-trash" id="{{ id }}" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" title="{{ 'modal.close'|trans|desc('Close') }}" data-dismiss="modal">
-                <svg class="ez-icon ez-icon--small-medium" aria-hidden="true">
-                    <use xlink:href="{{ ez_icon_path('discard') }}"></use>
-                </svg>
-            </button>
-            <div class="modal-body">
-                {{ message }}
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary btn--trigger" data-click="{{ data_click }}">
-                    {{ 'modal.delete'|trans|desc('Delete') }}
-                </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    {{ 'modal.cancel'|trans|desc('Cancel') }}
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    class: 'ibexa-modal--send-to-trash',
+    no_header: true,
+    id,
+    message,
+} %}
+    {% block body_content %}
+        {{ message }}
+    {% endblock %}
+    {% block footer_content %}
+        <button class="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger" data-click="{{ data_click }}">
+            {% if not delete_label is defined %}
+                {% set delete_label = 'modal.delete'|trans|desc('Delete') %}
+            {% endif %}
+            {{ delete_label }}
+        </button>
+        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            {{ 'modal.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+{% endembed %}

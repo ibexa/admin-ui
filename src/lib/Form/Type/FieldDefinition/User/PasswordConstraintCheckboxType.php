@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\User;
+namespace Ibexa\AdminUi\Form\Type\FieldDefinition\User;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class PasswordConstraintCheckboxType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,7 +27,7 @@ class PasswordConstraintCheckboxType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
@@ -35,18 +35,18 @@ class PasswordConstraintCheckboxType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'required' => false,
-            'translation_domain' => 'content_type',
+            'translation_domain' => 'ibexa_content_type',
         ]);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getParent(): string
     {
@@ -65,3 +65,5 @@ class PasswordConstraintCheckboxType extends AbstractType
         return strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($string)));
     }
 }
+
+class_alias(PasswordConstraintCheckboxType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType');

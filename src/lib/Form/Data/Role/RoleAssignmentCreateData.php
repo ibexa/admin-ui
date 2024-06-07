@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Role;
+namespace Ibexa\AdminUi\Form\Data\Role;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,18 +17,18 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class RoleAssignmentCreateData implements TranslationContainerInterface
 {
-    const LIMITATION_TYPE_NONE = 'none';
-    const LIMITATION_TYPE_SECTION = 'section';
-    const LIMITATION_TYPE_LOCATION = 'location';
+    public const LIMITATION_TYPE_NONE = 'none';
+    public const LIMITATION_TYPE_SECTION = 'section';
+    public const LIMITATION_TYPE_LOCATION = 'location';
 
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] */
     private $groups;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User[] */
     private $users;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Section[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
      *
      * @Assert\Expression(
      *     "this.getLimitationType() != 'section' or (this.getLimitationType() == 'section' and value != [])",
@@ -38,7 +38,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     private $sections;
 
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      *
      * @Assert\Expression(
      *     "this.getLimitationType() != 'location' or (this.getLimitationType() == 'location' and value != [])",
@@ -51,6 +51,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
      * @var string
      *
      * @Assert\NotNull()
+     *
      * @Assert\Choice({
      *     RoleAssignmentCreateData::LIMITATION_TYPE_NONE,
      *     RoleAssignmentCreateData::LIMITATION_TYPE_SECTION,
@@ -60,10 +61,10 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     private $limitationType;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup[] $groups
-     * @param \eZ\Publish\API\Repository\Values\User\User[] $users
-     * @param \eZ\Publish\API\Repository\Values\Content\Section[] $sections
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $groups
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[] $users
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      * @param string $limitationType
      */
     public function __construct(
@@ -81,7 +82,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]
      */
     public function getGroups(): ?array
     {
@@ -89,7 +90,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup[] $groups
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $groups
      *
      * @return self
      */
@@ -101,7 +102,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\User[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
      */
     public function getUsers(): ?array
     {
@@ -109,7 +110,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User[] $users
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[] $users
      *
      * @return self
      */
@@ -121,7 +122,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Section[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
      */
     public function getSections(): ?array
     {
@@ -129,7 +130,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section[] $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
      *
      * @return self
      */
@@ -141,7 +142,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getLocations(): ?array
     {
@@ -149,7 +150,7 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      *
      * @return self
      */
@@ -190,8 +191,9 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     {
         if (empty($this->getUsers()) && empty($this->getGroups())) {
             $context->buildViolation(
-            'validator.assign_users_or_groups')
-                ->setTranslationDomain('role')
+                'validator.assign_users_or_groups'
+            )
+                ->setTranslationDomain('ibexa_role')
                 ->addViolation();
         }
     }
@@ -199,10 +201,12 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     public static function getTranslationMessages()
     {
         return [
-            Message::create('validator.assign_users_or_groups', 'role')
+            Message::create('validator.assign_users_or_groups', 'ibexa_role')
                 ->setDesc('Assign User(s) and/or Group(s) to the Role'),
             Message::create('validator.define_subtree_or_section_limitation', 'validators')
                 ->setDesc('Define a Subtree or Section limitation'),
         ];
     }
 }
+
+class_alias(RoleAssignmentCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData');

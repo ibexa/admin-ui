@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+namespace Ibexa\AdminUi\EventListener;
+
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -77,3 +78,5 @@ class RequestListener implements EventSubscriberInterface
         throw new NotFoundHttpException('The route is not allowed in the current SiteAccess');
     }
 }
+
+class_alias(RequestListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestListener');

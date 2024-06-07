@@ -1,18 +1,16 @@
-<td>
+{% set name_cell_raw %}
     {% if content.contentInfo.mainLocationId is not null %}
-        <a href="{{ path('_ez_content_view', { 'contentId': content.id, 'locationId': content.contentInfo.mainLocationId } ) }}">
+        <a href="{{ path('ibexa.content.view', { 'contentId': content.id, 'locationId': content.contentInfo.mainLocationId } ) }}">
             {{ content.getName() }}
         </a>
     {% else %}
         {{ content.getName() }}
         {% if content.contentInfo.trashed %}
-            <em>({{ 'content.in_trash'|trans(domain='content')|desc('In Trash') }})</em>
+            <em>({{ 'content.in_trash'|trans(domain='ibexa_content')|desc('In Trash') }})</em>
         {% endif %}
     {% endif %}
-</td>
-<td>
-    {{ contentType.getName() }}
-</td>
-<td>
-    {{ content.versionInfo.creationDate|ez_short_datetime }}
-</td>
+{% endset %}
+
+{% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { content: name_cell_raw, raw: true } %}
+{% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { content: contentType.getName() } %}
+{% include '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { content: content.versionInfo.creationDate|ibexa_short_datetime } %}

@@ -1,0 +1,148 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+
+{% block root %}
+    {% set menu_items %}
+        {% for item in item.children %}
+            {% if loop.first %}
+                {%- do item.setExtras(item.extras|merge({
+                    primary: true,
+                    noDefaultBtnStyling: false,
+                })) -%}
+            {% endif %}
+
+            {{ block('item') }}
+        {% endfor %}
+    {% endset %}
+
+    {% set default_selector_btn_classes = options.selector_btn_classes|default('') %}
+
+    {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
+        menu_items: menu_items,
+        selector_btn_classes: item.extras.adaptiveItemsSelectorBtnClass|default(default_selector_btn_classes)
+    }) }}
+{% endblock %}
+
+{% block item -%}
+    {%- set default_classes = 'btn ibexa-btn' -%}
+    {%- set list_item_default_classes = 'ibexa-context-menu__item ibexa-adaptive-items__item' -%}
+    {% if item.extras.adaptiveItemsForceHide|default(false) %}
+        {%- set list_item_default_classes = list_item_default_classes ~ ' ibexa-adaptive-items__item--force-hide ibexa-context-menu__item--hidden' -%}
+    {% endif %}
+
+    <li class="{{ list_item_default_classes }}">
+        {%- if item.displayed -%}
+            {%- set attributes = item.attributes|merge({'class': (item.attributes.class|default('') ~ ' ' ~ default_classes|default('btn btn-secondary btn-block'))|trim}) -%}
+            {%- set attributes = attributes|merge({'id': item.name ~ '-tab'}) -%}
+
+            {%- if item.uri is not empty %}
+                {% set attributes = attributes|merge({'href': item.uri}) %}
+                {% set element = 'a' %}
+            {%- else %}
+                {% set element = 'button' %}
+            {%- endif %}
+
+            {{ block('element') }}
+
+            {%- if item.extras.template is defined -%}
+                {% include item.extras.template with item.extras.template_parameters|default({}) %}
+            {%- endif -%}
+        {%- endif -%}
+    </li>
+{%- endblock %}
+
+{% block element %}
+    {% import 'knp_menu.html.twig' as macros %}
+
+    {% set element = element|default('a') %}
+
+    {% if item.children|length > 0 %}
+        {% set subitems = [] %}
+        {% for item in item.children %}
+            {% set is_btn_label = false %}
+            {% set label %}
+                {{ block('label') }}
+            {% endset %}
+
+            {% set action_attr = item.attributes %}
+            {%- if item.uri is not empty %}
+                {% set action_attr = action_attr|merge({ href: item.uri }) %}
+            {% endif %}
+
+            {% set subitems = subitems|merge([{
+                label,
+                action_attr,
+            }]) %}
+        {% endfor %}
+
+        {% set is_btn_label = false %}
+        {% set label %}
+            {{ block('label') }}
+        {% endset %}
+
+        {% set is_btn_label = true %}
+        {% set btn_label %}
+            {{ block('label') }}
+        {% endset %}
+
+        {%- set split_btn_type = null -%}
+
+        {% if not item.extras.noDefaultBtnStyling|default(false) %}
+            {%- set split_btn_type = item.extras.primary|default(false) ? 'primary' : 'secondary' -%}
+        {% endif %}
+
+        {{ include('@ibexadesign/ui/component/split_btn/split_btn.html.twig', {
+            type: split_btn_type,
+            attr: {
+                'data-alternative-main-btn-label': attributes['data-alternative-main-btn-label']|default(label),
+                'data-alternative-main-btn-sublabel': attributes['data-alternative-main-btn-sublabel']|default(''),
+                'data-alternative-toggle-label': attributes['data-alternative-toggle-label']|default(label),
+            },
+            main_btn_attr: attributes,
+            main_btn_element: element,
+            toggler_btn_attr: {
+                class: attributes.class|replace({ 'ibexa-btn--trigger': '' }),
+            },
+            label: btn_label,
+            subitems,
+        }) }}
+
+        {% for item in item.children %}
+            {%- if item.extras.template is defined -%}
+                {% include item.extras.template with item.extras.template_parameters|default({}) %}
+            {%- endif -%}
+        {% endfor %}
+    {% else %}
+        {%- set default_classes = 'btn ibexa-btn' -%}
+
+        {% if not item.extras.noDefaultBtnStyling|default(false) %}
+            {% if item.extras.primary|default(false) %}
+                {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ibexa-btn--primary') -%}
+            {% else %}
+                {%- set default_classes = default_classes ~ ' ' ~ options.secondary_item_class|default('ibexa-btn--secondary') -%}
+            {% endif %}
+        {% endif %}
+
+        {%- set attributes = attributes|merge({
+            class: (attributes.class|default('') ~ ' ' ~ default_classes|default('btn btn-secondary btn-block'))|trim
+        }) -%}
+
+        <{{element}}{{macros.attributes(attributes)}}>
+            {% if item.extras.icon is defined %}
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
+                </svg>
+            {% endif %}
+
+            {% set is_btn_label = true %}
+            {{ block('label') }}
+        </{{element}}>
+    {% endif %}
+{% endblock %}
+
+{% block label %}
+    {% if is_btn_label|default(false) %}
+        <span class="ibexa-btn__label">{{ parent() }}</span>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

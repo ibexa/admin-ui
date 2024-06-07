@@ -1,0 +1,29 @@
+{% extends '@ibexadesign/ui/edit_section.html.twig' %}
+
+{% set one_column_layout = one_column_layout|default(false) %}
+{% set attr = { class: 'ibexa-content-type-edit__section ' ~ (one_column_layout ? 'ibexa-content-type-edit__section--one-column-layout') } %}
+
+{% block content %}
+    <div class="ibexa-content-type-edit__section-column ibexa-content-type-edit__section-column--left-col {{ left_column_class|default('') }}">
+        <h2 class="ibexa-content-type-edit__section-column-header">{% block title %}{% endblock %}</h2>
+        {% if notice_message is defined %}
+            <div class="ibexa-content-type-edit__notice">
+                <svg class="ibexa-icon ibexa-icon--small ibexa-content-type-edit__notice-icon">
+                    <use xlink:href="{{ ibexa_icon_path('about-info') }}"></use>
+                </svg>
+                {{ notice_message }}
+            </div>
+        {% endif %}
+        <div class="ibexa-content-type-edit__section-column-body">
+            {% block left_column %}{% endblock %}
+        </div>
+    </div>
+
+    {% if not one_column_layout %}
+        <div class="ibexa-content-type-edit__section-column ibexa-content-type-edit__section-column--right-col {{ right_column_class|default('') }}">
+            <div class="ibexa-content-type-edit__section-column-body">
+                {% block right_column %}{% endblock %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

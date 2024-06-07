@@ -4,42 +4,45 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\Core\Helper\TranslationHelper;
-use EzSystems\EzPlatformAdminUi\Form\Data\Version\VersionRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Tab\LocationView\VersionsTab;
+namespace Ibexa\Bundle\AdminUi\Controller;
+
+use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Tab\LocationView\VersionsTab;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Core\Helper\TranslationHelper;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class VersionController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    /** @var \Ibexa\Core\Helper\TranslationHelper */
     private $translationHelper;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory $formFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\SubmitHandler $submitHandler
-     * @param \eZ\Publish\Core\Helper\TranslationHelper $translationHelper
+     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
+     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
+     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
+     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
      */
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -62,9 +65,9 @@ class VersionController extends Controller
      *
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
     public function removeAction(Request $request): Response
@@ -83,7 +86,7 @@ class VersionController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (VersionRemoveData $data) {
@@ -100,10 +103,10 @@ class VersionController extends Controller
                     [
                         '%name%' => $this->translationHelper->getTranslatedContentNameByContentInfo($contentInfo),
                     ],
-                    'version'
+                    'ibexa_admin_ui'
                 );
 
-                return new RedirectResponse($this->generateUrl('_ez_content_view', [
+                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                     'contentId' => $contentInfo->id,
                     'locationId' => $contentInfo->mainLocationId,
                     '_fragment' => VersionsTab::URI_FRAGMENT,
@@ -115,10 +118,12 @@ class VersionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('_ez_content_view', [
+        return $this->redirect($this->generateUrl('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => VersionsTab::URI_FRAGMENT,
         ]));
     }
 }
+
+class_alias(VersionController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\VersionController');

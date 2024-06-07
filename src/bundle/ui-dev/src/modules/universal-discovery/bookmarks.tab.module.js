@@ -18,14 +18,18 @@ import {
 } from './universal.discovery.module';
 import { loadAccordionData } from './services/universal.discovery.service';
 
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 const BookmarksTabModule = () => {
-    const shouldRestorePreviousStateRef = useRef(true);
+    const isMarkedLocationSetByBookmarksRef = useRef(false);
+    const restorationStateRef = useRef(null);
     const restInfo = useContext(RestInfoContext);
     const tabsConfig = useContext(TabsConfigContext);
-    const [currentView, setCurrentView] = useContext(CurrentViewContext);
+    const [currentView] = useContext(CurrentViewContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [sorting, setSorting] = useContext(SortingContext);
-    const [sortOrder, setSortOrder] = useContext(SortOrderContext);
+    const [sorting] = useContext(SortingContext);
+    const [sortOrder] = useContext(SortOrderContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [bookmarkedLocationMarked, setBookmarkedLocationMarked] = useState(null);
@@ -43,13 +47,24 @@ const BookmarksTabModule = () => {
     };
 
     useEffect(() => {
-        setMarkedLocationId(null);
-        dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
+        const isCleared = markedLocationId === null && loadedLocationsMap?.length === 0;
 
+        if (!isCleared && !isMarkedLocationSetByBookmarksRef.current) {
+            restorationStateRef.current = {
+                markedLocationId,
+                loadedLocationsMap,
+            };
+
+            setMarkedLocationId(null);
+            dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
+        }
+    }, [setMarkedLocationId, dispatchLoadedLocationsAction, markedLocationId, loadedLocationsMap]);
+
+    useEffect(() => {
         return () => {
-            if (shouldRestorePreviousStateRef.current) {
-                setMarkedLocationId(markedLocationId);
-                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
+            if (!isMarkedLocationSetByBookmarksRef.current) {
+                setMarkedLocationId(restorationStateRef.current.markedLocationId);
+                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: restorationStateRef.current.loadedLocationsMap });
             }
         };
     }, []);
@@ -59,8 +74,9 @@ const BookmarksTabModule = () => {
             return;
         }
 
-        shouldRestorePreviousStateRef.current = false;
+        isMarkedLocationSetByBookmarksRef.current = true;
         setMarkedLocationId(bookmarkedLocationMarked);
+
         loadAccordionData(
             {
                 ...restInfo,
@@ -72,7 +88,7 @@ const BookmarksTabModule = () => {
             },
             (locationsMap) => {
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
-            }
+            },
         );
     }, [bookmarkedLocationMarked, currentView, restInfo, dispatchLoadedLocationsAction, setMarkedLocationId]);
 
@@ -86,24 +102,29 @@ const BookmarksTabModule = () => {
     return (
         <div className="m-bookmarks-tab">
             <Tab>
-                <BookmarksList itemsPerPage={tabsConfig.bookmarks.itemsPerPage} setBookmarkedLocationMarked={setBookmarkedLocationMarked} />
-                {renderBrowseLocations()}
+                {restorationStateRef.current && (
+                    <>
+                        <BookmarksList
+                            itemsPerPage={tabsConfig.bookmarks.itemsPerPage}
+                            setBookmarkedLocationMarked={setBookmarkedLocationMarked}
+                        />
+                        {renderBrowseLocations()}
+                    </>
+                )}
             </Tab>
         </div>
     );
 };
 
-eZ.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'bookmarks',
-            component: BookmarksTabModule,
-            label: Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('bookmark'),
-        },
-    ],
-    true
-);
+export const BookmarksTab = {
+    id: 'bookmarks',
+    component: BookmarksTabModule,
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Bookmarks")*/ 'bookmarks.label', {}, 'ibexa_universal_discovery_widget');
+    },
+    getIcon: () => getIconPath('bookmark'),
+};
 
 export default BookmarksTabModule;

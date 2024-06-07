@@ -6,14 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\NotificationService;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\Notification\Renderer\Registry;
-use EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\NotificationAdapter;
-use EzSystems\EzPlatformAdminUiBundle\View\EzPagerfantaView;
-use EzSystems\EzPlatformAdminUiBundle\View\Template\EzPagerfantaTemplate;
+use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
+use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
+use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,16 +23,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NotificationController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\NotificationService */
+    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
     protected $notificationService;
 
-    /** @var \eZ\Publish\Core\Notification\Renderer\Registry */
+    /** @var \Ibexa\Core\Notification\Renderer\Registry */
     protected $registry;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     protected $translator;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -96,17 +97,18 @@ class NotificationController extends Controller
         }
 
         $routeGenerator = function ($page) {
-            return $this->generateUrl('ezplatform.notifications.render.page', [
+            return $this->generateUrl('ibexa.notifications.render.page', [
                 'page' => $page,
             ]);
         };
 
         $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
 
-        return new Response($this->render('@ezdesign/account/notifications/list.html.twig', [
+        return new Response($this->render('@ibexadesign/account/notifications/list.html.twig', [
             'page' => $page,
             'pagination' => $pagination,
             'notifications' => $notifications,
+            'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
         ])->getContent());
     }
@@ -175,3 +177,5 @@ class NotificationController extends Controller
         return $response;
     }
 }
+
+class_alias(NotificationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\NotificationController');

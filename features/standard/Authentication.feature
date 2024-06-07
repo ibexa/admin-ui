@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Feature: Verify that Admin Panel is available only for authenticated users
 
   @javascript

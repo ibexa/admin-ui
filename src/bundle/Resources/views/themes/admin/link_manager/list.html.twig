@@ -1,88 +1,93 @@
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain "linkmanager" %}
+{% trans_default_domain 'ibexa_linkmanager' %}
 
 {%- block content -%}
-    <section class="container">
-        {{ form_start(form, {'attr': {'class': 'form-inline justify-content-between'}}) }}
-            <div class="input-group">
+    <section>
+        {{ form_start(form, {'attr': {'class': 'ibexa-search-links-form'}}) }}
+            <div class="ibexa-search-links-form__input-wrapper">
                 {{ form_widget(form.searchQuery, { attr: {
-                    'placeholder': 'url.search.placeholder'|trans,
+                    'placeholder': 'url.search.placeholder'|trans|desc('Search for URLs'),
                 }}) }}
-
-                <button class="btn btn-primary ml-2">
-                    {{ 'url.search'|trans|desc("Search") }}
-                </button>
             </div>
-            <div class="d-inline-flex">
-                {{ form_label(form.status) }} &nbsp;
+            <div class="ibexa-search-links-form__status-wrapper">
+                {{ form_label(form.status) }}
                 {{ form_widget(form.status) }}
             </div>
-
-        {{ form_widget(form.page, { attr: { value: '1' }}) }}
+            {{ form_widget(form.page, { attr: { value: '1' }}) }}
         {{ form_end(form) }}
     </section>
 
-    <section class="container">
-        <div class="ez-table-header">
-            <div class="ez-table-header__headline">{{ 'url.list.title'|trans({ '%count%': urls.count })|desc('Links (%count%)') }}</div>
-        </div>
-        <table class="ez-table table table-hover">
-            <thead>
-                <tr>
-                    <th>{{ 'url.label.address'|trans }}</th>
-                    <th>{{ 'url.label.status'|trans }}</th>
-                    <th>{{ 'url.label.last_checked'|trans }}</th>
-                    <th>{{ 'url.label.modified'|trans }}</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for url in urls %}
-                {% set edit_url = path('ezplatform.link_manager.edit', {urlId: url.id}) %}
-                {% set view_url = path('ezplatform.link_manager.view', {urlId: url.id}) %}
-                <tr>
-                    <td class="ez-table__cell">
-                                <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
-                        (<a href="{{ url.url }}" target="_blank">{{ 'url.open'|trans }}</a>)
-                    </td>
-                    <td class="ez-table__cell">{{ url.isValid ? 'url.status.valid'|trans : 'url.status.invalid'|trans }}</td>
-                    <td class="ez-table__cell">
-                        {% if url.lastChecked %}
-                            {{ url.lastChecked|ez_full_datetime }}
-                        {% else %}
-                            Never
-                        {% endif %}
-                    </td>
-                    <td class="ez-table__cell">{{ url.modified|ez_full_datetime }}</td>
-                    <td class="ez-table__cell ez-table__cell--has-action-btns">
-                        {% if can_edit %}
-                            <a href="{{ edit_url }}" class="btn btn-icon mx-2" title="{{ 'url.action.edit'|trans|desc('Edit URL') }}">
-                                <svg class="ez-icon ez-icon--secondary ez-icon-edit">
-                                    <use xlink:href="{{ ez_icon_path('edit') }}"></use>
-                                </svg>
-                            </a>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td class="ez-table__cell ez-table__cell--no-content" colspan="5">
-                        <span class="mb-0 py-1 pl-0">{{ 'url.list.no_urls'|trans }}</span>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <section>
+        {% set body_rows = [] %}
+        {% for url in urls %}
+            {% set body_row_cols = [] %}
+            {% set edit_url = path('ibexa.link_manager.edit', { urlId: url.id }) %}
+            {% set view_url = path('ibexa.link_manager.view', { urlId: url.id }) %}
+
+            {% set col_raw %}
+                <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
+                <a href="{{ url.url }}" target="_blank">
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
+                    </svg>
+                </a>
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                content: col_raw,
+                raw: true,
+            }]) %}
+
+            {% set body_row_cols = body_row_cols|merge([
+                { content: url.isValid ? 'url.status.valid'|trans : 'url.status.invalid'|trans },
+                { content: url.lastChecked ? url.lastChecked|ibexa_full_datetime : 'Never' },
+                { content: url.modified|ibexa_full_datetime },
+            ]) %}
+
+            {% set col_raw %}
+                {% if can_edit %}
+                    <a
+                        href="{{ edit_url }}"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                        title="{{ 'url.action.edit'|trans|desc('Edit') }}"
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                            <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                        </svg>
+                    </a>
+                {% endif %}
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                has_action_btns: true,
+                content: col_raw,
+                raw: true,
+            }]) %}
+
+            {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+        {% endfor %}
+
+        {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+            headline: 'url.list.title'|trans({ '%count%': urls.count })|desc('Links (%count%)'),
+            head_cols: [
+                { content: 'url.label.address'|trans|desc('Address') },
+                { content: 'url.label.status'|trans|desc('Status') },
+                { content: 'url.label.last_checked'|trans|desc('Last checked') },
+                { content: 'url.label.modified'|trans|desc('Modified') },
+                { },
+            ],
+            body_rows,
+            empty_table_info_text: 'url.list.no_urls'|trans|desc('No URLs'),
+        } %}
 
         {% if urls.haveToPaginate %}
-            <div class="row justify-content-center align-items-center ez-pagination__spacing mb-5">
-                {{ pagerfanta(urls, 'ez', {'pageParameter': '[search_data][page]'}) }}
-            </div>
+            {% include '@ibexadesign/ui/pagination.html.twig' with {
+                'pager': urls,
+                'paginaton_params' : {'pageParameter': '[search_data][page]'}
+            } %}
         {% endif %}
     </section>
 {%- endblock -%}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-link-manager-list-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-link-manager-list-js', null, 'ibexa') }}
 {% endblock %}

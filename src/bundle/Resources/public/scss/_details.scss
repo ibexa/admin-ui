@@ -1,0 +1,69 @@
+.ibexa-details {
+    &:not(:first-child) {
+        margin-top: calculateRem(40px);
+    }
+
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+
+        &--vertical {
+            display: block;
+        }
+    }
+
+    &__item {
+        flex-basis: 25%;
+        padding: calculateRem(8px) calculateRem(8px) calculateRem(8px) 0;
+
+        .ibexa-label {
+            margin-top: calculateRem(8px);
+            margin-bottom: 0;
+        }
+
+        &--break {
+            flex-basis: 100%;
+            height: 0;
+        }
+
+        &--inline {
+            display: flex;
+
+            .ibexa-details {
+                &__item-label {
+                    min-width: calculateRem(350px);
+                    margin-right: calculateRem(16px);
+                }
+            }
+        }
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__item-content {
+        .ibexa-dropdown {
+            margin-left: 0;
+        }
+    }
+
+    &__header {
+        &--inline-headline {
+            .ibexa-table-header {
+                justify-content: flex-start;
+            }
+        }
+
+        &--small {
+            .ibexa-table-header {
+                margin-top: 0;
+                padding-bottom: 0;
+            }
+        }
+    }
+
+    &__alert-container {
+        margin-top: calculateRem(16px);
+    }
+}

@@ -1,44 +1,47 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
-{% trans_default_domain 'dashboard' %}
+{% trans_default_domain 'ibexa_dashboard' %}
 
-{% block body_class %}ez-dashboard ez-has-full-width-footer{% endblock %}
+{% block body_class %}ibexa-dashboard{% endblock %}
+
+{% block breadcrumbs %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'dashboard.breadcrumbs.dashboard'|trans|desc('Dashboard') }
+    ]} %}
+{% endblock %}
+
+{% block context_menu %}
+    <div class="ibexa-dashboard__create">
+        <button
+            class="btn ibexa-btn ibexa-btn--primary ibexa-btn--cotf-create"
+            data-udw-config="{{ ibexa_udw_config('create', {'type': 'content_create'}) }}"
+            {% if not can_create_content %}disabled{% endif %}
+        >
+            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
+            </svg>
+            <span>{{ 'dashboard.create'|trans|desc('Create content') }}</span>
+        </button>
+    </div>
+{% endblock %}
+
+{% block header %}
+    <h1>{{ 'my.dashboard'|trans|desc('My dashboard') }}</h1>
+{% endblock %}
 
 {% block content %}
-    <div class="row align-items-stretch ez-main-row ez-dashboard-row">
-        {% block left_sidebar %}{% endblock left_sidebar %}
-        <div class="ez-content-container">
-            <div class="container-fluid ez-header ez-header--light">
-                <div class="container ez-dashboard__header">
-                    <h1 class="py-3">{{ 'my.dashboard'|trans|desc('My dashboard') }}</h1>
-                    <div class="ez-dashboard__create">
-                        <button
-                            class="btn btn-link ez-btn--cotf-create"
-                            data-udw-config="{{ ez_udw_config('create', {'type': 'content_create'}) }}"
-                            {% if not can_create_content %}disabled{% endif %}
-                        >
-                            <svg class="ez-icon ez-icon--small-medium ez-icon--primary ez-icon-create">
-                                <use xlink:href="{{ ez_icon_path('create') }}"></use>
-                            </svg>
-                            <span>{{ 'dashboard.create'|trans|desc('Create') }}</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                {{ ez_render_component_group('dashboard-blocks') }}
-            </div>
-        </div>
-        {{ form_start(form_edit, {
-            'action': path('ezplatform.content.edit'),
-            'attr': { 'class': 'ez-edit-content-form'}
-        }) }}
+    {{ ibexa_render_component_group('dashboard-blocks') }}
+
+    {{ form_start(form_edit, {
+        'action': path('ibexa.content.edit'),
+        'attr': { 'class': 'ibexa-edit-content-form'}
+    }) }}
         {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
-        {{ form_end(form_edit) }}
-    </div>
-    {% include '@ezdesign/content/modal/version_conflict.html.twig' %}
+    {{ form_end(form_edit) }}
+
+    {% include '@ibexadesign/content/modal/version_conflict.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-dashboard-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-dashboard-js', null, 'ibexa') }}
 {% endblock %}

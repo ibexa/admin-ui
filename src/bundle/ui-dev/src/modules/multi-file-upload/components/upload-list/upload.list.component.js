@@ -8,89 +8,60 @@ export default class UploadListComponent extends Component {
         super(props);
 
         this.state = {
-            itemsToUpload: props.itemsToUpload,
             items: [],
+            erroredItems: [],
         };
     }
 
-    UNSAFE_componentWillReceiveProps(props) {
-        this.setState((state) => {
-            const stateItems = state.itemsToUpload.filter(
-                (stateItem) => !props.itemsToUpload.find((propItem) => propItem.id === stateItem.id)
-            );
-
-            return { itemsToUpload: [...stateItems, ...props.itemsToUpload] };
-        });
-    }
-
-    componentDidUpdate() {
-        this.props.onAfterUpload(this.state.items);
-    }
-
-    /**
-     * Handles after file upload event
-     *
-     * @method handleAfterUpload
-     * @param {Object} item
-     * @memberof UploadListComponent
-     */
     handleAfterUpload(item) {
-        this.setState((state) => ({
-            itemsToUpload: state.itemsToUpload.filter((data) => data.id !== item.id),
-            items: [...state.items, item],
-        }));
+        this.setState(
+            (state) => {
+                return {
+                    items: [...state.items, item],
+                };
+            },
+            () => {
+                this.props.removeItemsToUpload([item]);
+                this.props.onAfterUpload(this.state.items);
+            },
+        );
     }
 
-    /**
-     * Handles after file upload abort event
-     *
-     * @method handleAfterAbort
-     * @param {Object} item
-     * @memberof UploadListComponent
-     */
     handleAfterAbort(item) {
+        this.props.removeItemsToUpload([item]);
         this.setState((state) => {
             const items = state.items.filter((data) => data.id !== item.id);
-            const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
 
-            return Object.assign({}, state, {
-                uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items,
-            });
+            return { uploaded: items.length, items };
         });
     }
 
-    /**
-     * Handles after file delete event
-     *
-     * @method handleAfterDelete
-     * @param {Object} item
-     * @memberof UploadListComponent
-     */
     handleAfterDelete(item) {
-        this.setState((state) => {
-            const items = state.items.filter((data) => data.id !== item.id);
-            const itemsToUpload = state.itemsToUpload.filter((data) => data.id !== item.id);
+        this.setState(
+            (state) => {
+                const items = state.items.filter((data) => data.id !== item.id);
+                const erroredItems = state.erroredItems.filter((data) => data.id !== item.id);
 
-            return Object.assign({}, state, {
-                uploaded: items.length,
-                total: items.length + itemsToUpload.length,
-                itemsToUpload,
-                items,
-            });
+                return { uploaded: items.length, items, erroredItems };
+            },
+            () => this.props.onAfterDelete(item),
+        );
+    }
+
+    handleCreateError(item) {
+        this.props.removeItemsToUpload([item]);
+
+        this.setState((state) => {
+            const isAlredyAddedToErroredItems = !!state.erroredItems.find((erroredItem) => erroredItem.id === item.id);
+
+            if (!isAlredyAddedToErroredItems) {
+                return {
+                    erroredItems: [...state.erroredItems, item],
+                };
+            }
         });
     }
 
-    /**
-     * Renders an item to upload
-     *
-     * @method renderItemToUpload
-     * @param {Object} item
-     * @memberof UploadListComponent
-     * @returns {Element}
-     */
     renderItemToUpload(item) {
         return this.renderItem(item, {
             isUploaded: false,
@@ -98,18 +69,12 @@ export default class UploadListComponent extends Component {
             publishFile: this.props.publishFile,
             onAfterAbort: this.handleAfterAbort.bind(this),
             onAfterUpload: this.handleAfterUpload.bind(this),
+            onCreateError: this.handleCreateError.bind(this),
             checkCanUpload: this.props.checkCanUpload,
+            removeItemsToUpload: this.props.removeItemsToUpload,
         });
     }
 
-    /**
-     * Renders an uploaded item
-     *
-     * @method renderUploadedItem
-     * @param {Object} item
-     * @memberof UploadListComponent
-     * @returns {Element}
-     */
     renderUploadedItem(item) {
         return this.renderItem(item, {
             isUploaded: true,
@@ -118,45 +83,39 @@ export default class UploadListComponent extends Component {
         });
     }
 
-    /**
-     * Renders an item
-     *
-     * @method renderItem
-     * @param {Object} item
-     * @param {Object} customAttrs component's custom attrs
-     * @memberof UploadListComponent
-     * @returns {Element}
-     */
+    renderErroredItem(item) {
+        return this.renderItem(item, {
+            isFailed: true,
+            deleteFile: this.props.deleteFile,
+            onAfterDelete: this.handleAfterDelete.bind(this),
+        });
+    }
+
     renderItem(item, customAttrs) {
         const { adminUiConfig, parentInfo, contentCreatePermissionsConfig, contentTypesMap, currentLanguage } = this.props;
-        const attrs = Object.assign(
-            {
-                key: item.id,
-                data: item,
-                adminUiConfig,
-                parentInfo,
-                contentCreatePermissionsConfig,
-                contentTypesMap,
-                currentLanguage,
-            },
-            customAttrs
-        );
+        const attrs = {
+            item,
+            key: item.id,
+            adminUiConfig,
+            parentInfo,
+            contentCreatePermissionsConfig,
+            contentTypesMap,
+            currentLanguage,
+            ...customAttrs,
+        };
 
         return <UploadItemComponent {...attrs} />;
     }
 
     render() {
-        const { items, itemsToUpload } = this.state;
-        const uploaded = items.length;
-        const total = uploaded + itemsToUpload.length;
+        const { itemsToUpload } = this.props;
+        const { items, erroredItems } = this.state;
 
         return (
             <div className="c-upload-list">
-                <div className="c-upload-list__title">
-                    {this.props.uploadedItemsListTitle} ({uploaded}/{total})
-                </div>
                 <div className="c-upload-list__items">
                     {itemsToUpload.map(this.renderItemToUpload.bind(this))}
+                    {erroredItems.map(this.renderErroredItem.bind(this))}
                     {items.map(this.renderUploadedItem.bind(this))}
                 </div>
             </div>
@@ -178,22 +137,21 @@ UploadListComponent.propTypes = {
             locationMappings: PropTypes.arrayOf(PropTypes.object).isRequired,
             maxFileSize: PropTypes.number.isRequired,
         }).isRequired,
-        token: PropTypes.string.isRequired,
-        siteaccess: PropTypes.string.isRequired,
     }).isRequired,
     parentInfo: PropTypes.shape({
         contentTypeIdentifier: PropTypes.string.isRequired,
-        contentTypeId: PropTypes.number.isRequired,
         locationPath: PropTypes.string.isRequired,
         language: PropTypes.string.isRequired,
     }).isRequired,
-    uploadedItemsListTitle: PropTypes.string.isRequired,
     contentCreatePermissionsConfig: PropTypes.object.isRequired,
     contentTypesMap: PropTypes.object.isRequired,
     currentLanguage: PropTypes.string,
+    removeItemsToUpload: PropTypes.func.isRequired,
+    onAfterDelete: PropTypes.func,
 };
 
 UploadListComponent.defaultProps = {
     itemsToUpload: [],
     currentLanguage: '',
+    onAfterDelete: () => {},
 };

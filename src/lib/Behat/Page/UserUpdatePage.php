@@ -4,20 +4,28 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Notification;
-use Ibexa\AdminUi\Behat\Component\RightMenu;
+use Ibexa\Behat\API\Facade\ContentFacade;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Routing\Router;
 use Traversable;
 
 class UserUpdatePage extends ContentUpdateItemPage
 {
-    public function __construct(Session $session, Router $router, RightMenu $rightMenu, Traversable $fieldTypeComponents, Notification $notification)
-    {
-        parent::__construct($session, $router, $rightMenu, $fieldTypeComponents, $notification);
+    public function __construct(
+        Session $session,
+        Router $router,
+        ContentActionsMenu $contentActionsMenu,
+        Traversable $fieldTypeComponents,
+        Notification $notification,
+        ContentFacade $contentFacade
+    ) {
+        parent::__construct($session, $router, $contentActionsMenu, $fieldTypeComponents, $notification, $contentFacade);
         $this->locators->replace(
             new VisibleCSSLocator(
                 'formElement',

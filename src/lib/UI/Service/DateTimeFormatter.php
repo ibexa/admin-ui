@@ -6,9 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Service;
+namespace Ibexa\AdminUi\UI\Service;
 
 use DateTimeInterface;
+use JMS\TranslationBundle\Annotation\Desc;
+use JMS\TranslationBundle\Annotation\Ignore;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -57,8 +59,9 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
     private function getDiffMessage(int $count, bool $invert, string $unit): string
     {
         $id = sprintf('diff.%s.%s', $invert ? 'ago' : 'in', $unit);
+
         /** @Ignore */
-        return $this->translator->trans($id, ['%count%' => $count], 'time_diff');
+        return $this->translator->trans($id, ['%count%' => $count], 'ibexa_time_diff');
     }
 
     private function getEmptyDiffMessage(): string
@@ -67,7 +70,7 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
             /** @Desc("now") */
             'diff.empty',
             [],
-            'time_diff'
+            'ibexa_time_diff'
         );
     }
 
@@ -77,18 +80,20 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message('diff.ago.year', 'time_diff'))->setDesc('1 year ago|%count% years ago'),
-            (new Message('diff.ago.month', 'time_diff'))->setDesc('1 month ago|%count% months ago'),
-            (new Message('diff.ago.day', 'time_diff'))->setDesc('1 day ago|%count% days ago'),
-            (new Message('diff.ago.hour', 'time_diff'))->setDesc('1 hour ago|%count% hours ago'),
-            (new Message('diff.ago.minute', 'time_diff'))->setDesc('1 minute ago|%count% minutes ago'),
-            (new Message('diff.ago.second', 'time_diff'))->setDesc('1 second ago|%count% seconds ago'),
-            (new Message('diff.in.year', 'time_diff'))->setDesc('in 1 second|in %count% seconds'),
-            (new Message('diff.in.month', 'time_diff'))->setDesc('in 1 hour|in %count% hours'),
-            (new Message('diff.in.day', 'time_diff'))->setDesc('in 1 minute|in %count% minutes'),
-            (new Message('diff.in.hour', 'time_diff'))->setDesc('in 1 day|in %count% days'),
-            (new Message('diff.in.minute', 'time_diff'))->setDesc('in 1 month|in %count% months'),
-            (new Message('diff.in.second', 'time_diff'))->setDesc('in 1 year|in %count% years'),
+            (new Message('diff.ago.year', 'ibexa_time_diff'))->setDesc('1 year ago|%count% years ago'),
+            (new Message('diff.ago.month', 'ibexa_time_diff'))->setDesc('1 month ago|%count% months ago'),
+            (new Message('diff.ago.day', 'ibexa_time_diff'))->setDesc('1 day ago|%count% days ago'),
+            (new Message('diff.ago.hour', 'ibexa_time_diff'))->setDesc('1 hour ago|%count% hours ago'),
+            (new Message('diff.ago.minute', 'ibexa_time_diff'))->setDesc('1 minute ago|%count% minutes ago'),
+            (new Message('diff.ago.second', 'ibexa_time_diff'))->setDesc('1 second ago|%count% seconds ago'),
+            (new Message('diff.in.year', 'ibexa_time_diff'))->setDesc('in 1 second|in %count% seconds'),
+            (new Message('diff.in.month', 'ibexa_time_diff'))->setDesc('in 1 hour|in %count% hours'),
+            (new Message('diff.in.day', 'ibexa_time_diff'))->setDesc('in 1 minute|in %count% minutes'),
+            (new Message('diff.in.hour', 'ibexa_time_diff'))->setDesc('in 1 day|in %count% days'),
+            (new Message('diff.in.minute', 'ibexa_time_diff'))->setDesc('in 1 month|in %count% months'),
+            (new Message('diff.in.second', 'ibexa_time_diff'))->setDesc('in 1 year|in %count% years'),
         ];
     }
 }
+
+class_alias(DateTimeFormatter::class, 'EzSystems\EzPlatformAdminUi\UI\Service\DateTimeFormatter');

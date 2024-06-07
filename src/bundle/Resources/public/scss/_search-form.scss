@@ -1,33 +1,91 @@
-.ez-search-form {
-    &__icon {
+.ibexa-search-form {
+    display: grid;
+    grid-template-areas:
+        'search search'
+        'results filters'
+        'results .';
+    grid-template-columns: calc(100% - #{calculateRem(294px)}) calculateRem(270px);
+    grid-column-gap: calculateRem(24px);
+    padding: calculateRem(16px);
+    overflow: hidden;
+
+    &__search-wrapper {
         display: flex;
-        align-items: center;
-        padding-right: calculateRem(8px);
+        justify-content: flex-start;
+        align-items: flex-start;
+        border: calculateRem(1px) solid $ibexa-color-light;
+        padding: calculateRem(24px);
+        border-radius: $ibexa-border-radius;
+        grid-area: search;
     }
 
-    &__input-wrapper {
-        width: 50%;
+    &__filters {
+        grid-area: filters;
     }
 
-    &__language-wrapper {
-        padding-left: calculateRem(8px);
-        display: inline-block;
-    }
+    &__results {
+        grid-area: results;
 
-    .input-group-btn {
-        display: flex;
+        .ibexa-scrollable-wrapper {
+            max-height: initial;
+        }
 
-        .ez-btn {
-            margin-left: calculateRem(8px);
+        .ibexa-table-header {
+            border-bottom: none;
+            padding-bottom: calculateRem(4px);
+            margin-top: 0;
+            font-size: $ibexa-text-font-size-extra-large;
+        }
+
+        .ibexa-table-sub-header {
+            border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
+            padding-bottom: calculateRem(8px);
         }
     }
 
-    .form-group {
-        margin-bottom: calculateRem(32px);
+    &__results-language {
+        display: inline-block;
+        margin-bottom: calculateRem(8px);
+        font-size: $ibexa-text-font-size-medium;
     }
 
-    .ez-filters {
-        padding-top: calculateRem(32px);
-        border-top: calculateRem(1px) solid $ibexa-color-base;
+    &__results-location-cell {
+        font-size: $ibexa-text-font-size-small;
     }
+
+    &__results-other-translations {
+        display: flex;
+        align-items: center;
+    }
+
+    &__results-other-translation-url {
+        font-size: $ibexa-text-font-size-small;
+        margin-left: calculateRem(8px);
+    }
+
+    &__input-wrapper {
+        margin-right: calculateRem(28px);
+        width: calculateRem(430px);
+
+        .ibexa-input-text-wrapper {
+            width: auto;
+        }
+    }
+
+    &__language-wrapper {
+        margin-right: calculateRem(28px);
+        width: calculateRem(330px);
+
+        .ibexa-dropdown__selection-info {
+            margin-bottom: 0;
+        }
+    }
+
+    .ibexa-btn--secondary.ibexa-btn {
+        max-width: 100%;
+        overflow: hidden;
+        white-space: inherit;
+    }
+
+    @import 'mixins/search-form-no-results';
 }

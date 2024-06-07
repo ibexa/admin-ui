@@ -1,98 +1,121 @@
-{% form_theme form_role_assignments_delete '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form_role_assignments_delete '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain 'role' %}
+{% trans_default_domain 'ibexa_role' %}
 
-<section class="container ez-container">
-    <div class="ez-table-header">
-        <div class="ez-table-header__headline">{{ 'role_assignment.view.list.header'|trans|desc('Users and Groups') }}</div>
-        <div class="ez-table-header__tools">
+<section>
+    {% set body_rows = [] %}
+    {% for role_assignment in pager.currentPageResults %}
+        {% set body_row_cols = [] %}
+
+        {% set col_raw %}
             {% if can_assign %}
-                <a
-                    href="{{ path('ezplatform.role_assignment.create', {roleId: role.id}) }}"
-                    title="{{ 'role_assignment.view.list.action.add'|trans|desc('Assign to Users/Groups') }}"
-                    class="btn btn-icon">
-                    <svg class="ez-icon ez-icon-relations ez-icon--secondary">
-                        <use xlink:href="{{ ez_icon_path('assign-user') }}"></use>
-                    </svg>
-
-                </a>
-                {% set modal_data_target = 'delete-role-assignments-modal' %}
-                <button
-                    id="delete-role-assignments"
-                    type="button"
-                    class="btn btn-icon"
-                    disabled
-                    data-toggle="modal"
-                    data-target="#{{ modal_data_target }}"
-                    title="{{ 'role_assignment.view.list.action.delete'|trans|desc('Unassign') }}">
-                    <svg class="ez-icon ez-icon-trash">
-                        <use xlink:href="{{ ez_icon_path('trash') }}"></use>
-                    </svg>
-                </button>
-                {% include '@ezdesign/ui/modal/bulk_delete_confirmation.html.twig' with {
-                    'id': modal_data_target,
-                    'message': 'role_assignments.modal.message'|trans|desc('Do you want to unassign the Users/Groups?'),
-                    'data_click': '#role_assignments_delete_delete',
-                }%}
+                {{ form_widget(form_role_assignments_delete.role_assignments[role_assignment.id]) }}
+            {% else %}
+                {% do form_role_assignments_delete.role_assignments.setRendered %}
             {% endif %}
-        </div>
-    </div>
-    {{ form_start(form_role_assignments_delete, {
-        'action': path('ezplatform.role_assignment.bulk_delete', {"roleId": role.id} ),
-        'attr': { 'class': 'ez-toggle-btn-state', 'data-toggle-button-id': '#delete-role-assignments' }
-    }) }}
-    <table class="ez-table table table-hover">
-        <thead>
-        <tr>
-            <th></th>
-            <th>{{ 'role_assignment.view.list.panel.assignments.column.user_group'|trans|desc('User/Group') }}</th>
-            <th>{{ 'role_assignment.view.list.panel.assignments.column.limitation'|trans|desc('Limitation') }}</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for role_assignment in pager.currentPageResults %}
-            <tr>
-                <td class="ez-table__cell ez-table__cell--has-checkbox">
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            has_checkbox: true,
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set body_row_cols = body_row_cols|merge([
+            { content: role_assignment.usergroup is defined ? ibexa_content_name(role_assignment.usergroup) : ibexa_content_name(role_assignment.user) },
+        ]) %}
+
+        {% set col_raw %}
+            {%- set limitation = role_assignment.rolelimitation -%}
+            {%- if limitation -%}
+                <ul class="list-unstyled m-0">
+                    <li>
+                        <span class="font-weight-bold" title="{{ 'policy.limitation.identifier_tooltip' | trans({'%identifier%': limitation.identifier})|desc('"%identifier%" Limitation') }}">
+                            {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ibexa_content_forms_policies')|desc('%identifier%') }}:
+                        </span>
+                        {{ ibexa_render_limitation_value(limitation) }}
+                    </li>
+                </ul>
+            {%- else -%}
+                {{- 'policy.limitation.none'|trans|desc('None') -}}
+            {%- endif -%}
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+    {% endfor %}
+
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+        headline: 'role_assignment.view.list.header'|trans|desc('Users and Groups'),
+        head_cols: [
+            { has_checkbox: true },
+            { content: 'role_assignment.view.list.panel.assignments.column.user_group'|trans|desc('User/Group') },
+            { content: 'role_assignment.view.list.panel.assignments.column.limitation'|trans|desc('Limitation') },
+        ],
+        body_rows,
+        empty_table_info_text: 'role_assignment.view.list.no_assignments.info'|trans|desc('Add users assignment'),
+        empty_table_action_text: 'role_assignment.view.list.no_assignments.action'|trans|desc('Select assignments to effectively manage user roles access by adding them to specific groups.'),
+    } %}
+        {% block header %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
+                {% trans_default_domain 'ibexa_role' %}
+
+                {% block actions %}
                     {% if can_assign %}
-                        {{ form_widget(form_role_assignments_delete.role_assignments[role_assignment.id], {'attr': {'class': 'ez-input ez-input--checkbox'}}) }}
-                    {% else %}
-                        {% do form_role_assignments_delete.role_assignments.setRendered %}
+                        <a
+                            href="{{ path('ibexa.role_assignment.create', {roleId: role.id}) }}"
+                            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small">
+                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--relations">
+                                <use xlink:href="{{ ibexa_icon_path('assign-user') }}"></use>
+                            </svg>
+                            <span class="ibexa-btn__label">
+                                {{ 'role_assignment.view.list.action.add'|trans|desc('Assign to Users/Groups') }}
+                            </span>
+                        </a>
+                        {% set modal_data_target = 'delete-role-assignments-modal' %}
+                        <button
+                            id="delete-role-assignments"
+                            type="button"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                            disabled
+                            data-bs-toggle="modal"
+                            data-bs-target="#{{ modal_data_target }}"
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+                                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                            </svg>
+                            <span class="ibexa-btn__label">
+                                {{ 'role_assignment.view.list.action.delete'|trans|desc('Unassign') }}
+                            </span>
+                        </button>
+                        {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                            'id': modal_data_target,
+                            'message': 'role_assignments.modal.message'|trans|desc('Do you want to unassign the Users/Groups?'),
+                            'data_click': '#role_assignments_delete_delete',
+                            'delete_label': 'role_assignments.modal.delete_label'|trans|desc('Unassign'),
+                        }%}
                     {% endif %}
-                </td>
-                <td class="ez-table__cell">
-                    {%- if role_assignment.usergroup is defined -%}
-                        {{ ez_content_name( role_assignment.usergroup ) }}
-                    {%- else -%}
-                        {{ ez_content_name( role_assignment.user ) }}
-                    {%- endif -%}
-                </td>
-                <td class="ez-table__cell ez-table__cell--limitation">
-                    {%- set limitation = role_assignment.rolelimitation -%}
-                    {%- if limitation -%}
-                        <ul class="list-unstyled">
-                            <li>
-                                <span class="font-weight-bold" title="{{ 'policy.limitation.identifier_tooltip' | trans({'%identifier%': limitation.identifier})|desc('"%identifier%" Limitation') }}">
-                                    {{ ('policy.limitation.identifier.' ~ limitation.identifier|lower)|trans({'%identifier%': limitation.identifier}, 'ezplatform_content_forms_policies')|desc('%identifier%') }}:
-                                </span>
-                                {{ ez_render_limitation_value(limitation) }}
-                            </li>
-                        </ul>
-                    {%- else -%}
-                        {{- 'policy.limitation.none'|trans|desc('None') -}}
-                    {%- endif -%}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+        {% block between_header_and_table %}
+            {{ form_start(form_role_assignments_delete, {
+                'action': path('ibexa.role_assignment.bulk_delete', {"roleId": role.id} ),
+                'attr': { 'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-role-assignments' }
+            }) }}
+        {% endblock %}
+    {% endembed %}
+
     {{ form_end(form_role_assignments_delete) }}
 
     {% if pager.haveToPaginate %}
-        {% include '@ezdesign/ui/pagination.html.twig' with {
+        {% include '@ibexadesign/ui/pagination.html.twig' with {
             'pager': pager,
             'paginaton_params' : {
                 'routeName': route_name,
-                'routeParams': {'_fragment': 'users-and-groups', 'roleId': role.id},
+                'routeParams': {'_fragment': 'ibexa-tab-users-and-groups', 'roleId': role.id},
                 'pageParameter': '[assignmentPage]',
             }
         } %}

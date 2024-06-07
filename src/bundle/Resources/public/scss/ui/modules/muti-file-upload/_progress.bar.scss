@@ -1,38 +1,35 @@
 .c-progress-bar {
-    background: #d8d8d8;
-    height: calculateRem(6px);
     width: 100%;
-    border-radius: calculateRem(4px);
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     &__value {
-        height: 100%;
-        background: $ibexa-color-primary;
+        background: linear-gradient(90deg, $ibexa-color-warning 0%, $ibexa-color-accent 44.95%, $ibexa-color-success 100%);
         border-radius: calculateRem(4px);
         transition: width 0.2s linear;
-    }
+        height: calculateRem(8px);
+        width: calculateRem(176px);
+        position: relative;
 
-    &__label,
-    &__uploaded {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        font-weight: bold;
-        font-size: calculateRem(12px);
-        padding: 0 calculateRem(6px);
-        line-height: 1;
-        text-align: center;
-        width: 100%;
+        &::after {
+            content: '';
+            width: calc(100% - var(--progress));
+            height: calculateRem(11px);
+            border-radius: calculateRem(4px);
+            position: absolute;
+            right: 0;
+            top: calculateRem(-1px);
+            background: radial-gradient(
+                circle at 0 50%,
+                rgba($ibexa-color-light, 0) calculateRem(4px),
+                $ibexa-color-light calculateRem(0px)
+            );
+        }
     }
 
     &__label {
-        transform: translate(-50%, -100%);
-    }
-
-    &__uploaded {
-        margin-top: calculateRem(-7px);
-        transform: translate(-50%, 150%);
-        font-weight: normal;
-        font-size: calculateRem(10px);
+        font-size: $ibexa-text-font-size-medium;
+        color: $ibexa-color-dark-400;
     }
 }

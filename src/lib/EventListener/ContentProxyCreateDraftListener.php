@@ -6,43 +6,38 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\EventListener;
+namespace Ibexa\AdminUi\EventListener;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent;
-use EzSystems\EzPlatformAdminUi\Event\ContentProxyTranslateEvent;
-use EzSystems\EzPlatformAdminUi\UserSetting\Autosave as AutosaveSetting;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
+use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class ContentProxyCreateDraftListener implements EventSubscriberInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingService */
-    private $userSettingService;
+    private AutosaveServiceInterface $autosaveService;
 
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    private $router;
+    private RouterInterface $router;
 
     public function __construct(
         ContentService $contentService,
         LocationService $locationService,
-        UserSettingService $userSettingService,
+        AutosaveServiceInterface $autosaveService,
         RouterInterface $router
     ) {
         $this->contentService = $contentService;
         $this->locationService = $locationService;
-        $this->userSettingService = $userSettingService;
+        $this->autosaveService = $autosaveService;
         $this->router = $router;
     }
 
@@ -56,9 +51,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
     public function create(ContentProxyCreateEvent $event): void
     {
-        $isAutosaveEnabled = $this->userSettingService->getUserSetting('autosave')->value === AutosaveSetting::ENABLED_OPTION;
-
-        if (!$isAutosaveEnabled) {
+        if (!$this->autosaveService->isEnabled()) {
             return;
         }
 
@@ -77,9 +70,11 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
             []
         );
 
-        if ($options->get('isOnTheFly', false)) {
+        $options->set(ContentProxyCreateEvent::OPTION_CONTENT_DRAFT, $contentDraft);
+
+        if ($options->get(ContentProxyCreateEvent::OPTION_IS_ON_THE_FLY, false)) {
             $response = new RedirectResponse(
-                $this->router->generate('ezplatform.content_on_the_fly.edit', [
+                $this->router->generate('ibexa.content.on_the_fly.edit', [
                     'contentId' => $contentDraft->id,
                     'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                     'languageCode' => $event->getLanguageCode(),
@@ -88,7 +83,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
             );
         } else {
             $response = new RedirectResponse(
-                $this->router->generate('ezplatform.content.draft.edit', [
+                $this->router->generate('ibexa.content.draft.edit', [
                     'contentId' => $contentDraft->id,
                     'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                     'language' => $event->getLanguageCode(),
@@ -101,9 +96,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
     public function translate(ContentProxyTranslateEvent $event): void
     {
-        $isAutosaveEnabled = $this->userSettingService->getUserSetting('autosave')->value === AutosaveSetting::ENABLED_OPTION;
-
-        if (!$isAutosaveEnabled) {
+        if (!$this->autosaveService->isEnabled()) {
             return;
         }
 
@@ -132,7 +125,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         );
 
         $response = new RedirectResponse(
-            $this->router->generate('ezplatform.content.draft.edit', [
+            $this->router->generate('ibexa.content.draft.edit', [
                 'contentId' => $contentDraft->id,
                 'versionNo' => $contentDraft->getVersionInfo()->versionNo,
                 'language' => $toLanguageCode,
@@ -161,3 +154,5 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         }, $translatableFields);
     }
 }
+
+class_alias(ContentProxyCreateDraftListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ContentProxyCreateDraftListener');

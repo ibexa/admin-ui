@@ -4,49 +4,68 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
-use EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver;
+namespace Ibexa\AdminUi\UI\Config\Provider;
+
+use Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent;
+use Ibexa\AdminUi\Event\FilterContentTypesEvent;
+use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * @phpstan-type TContentTypeData array{
+ *      id: int,
+ *      identifier: string,
+ *      name: string|null,
+ *      isContainer: bool,
+ *      thumbnail: string,
+ *      href: string,
+ *      isHidden: bool,
+ *  }
+ */
 class ContentTypes implements ProviderInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver */
+    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
     private $contentTypeIconResolver;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     private $urlGenerator;
 
+    private EventDispatcherInterface $eventDispatcher;
+
     /**
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         ContentTypeService $contentTypeService,
         UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
         ContentTypeIconResolver $contentTypeIconResolver,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->contentTypeService = $contentTypeService;
         $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
         $this->contentTypeIconResolver = $contentTypeIconResolver;
         $this->urlGenerator = $urlGenerator;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * @return mixed Anything that is serializable via json_encode()
+     * @phpstan-return array<string, array<TContentTypeData>>
      */
     public function getConfig()
     {
@@ -56,7 +75,16 @@ class ContentTypes implements ProviderInterface
         $loadedContentTypeGroups = $this->contentTypeService->loadContentTypeGroups(
             $preferredLanguages
         );
+
+        $eventContentTypeGroups = [];
         foreach ($loadedContentTypeGroups as $contentTypeGroup) {
+            $eventContentTypeGroups[] = $contentTypeGroup;
+        }
+
+        /** @var \Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent $event */
+        $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($eventContentTypeGroups));
+
+        foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
             $contentTypes = $this->contentTypeService->loadContentTypes(
                 $contentTypeGroup,
                 $preferredLanguages
@@ -67,19 +95,36 @@ class ContentTypes implements ProviderInterface
             });
 
             foreach ($contentTypes as $contentType) {
-                $contentTypeGroups[$contentTypeGroup->identifier][] = [
-                    'id' => $contentType->id,
-                    'identifier' => $contentType->identifier,
-                    'name' => $contentType->getName(),
-                    'isContainer' => $contentType->isContainer,
-                    'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier),
-                    'href' => $this->urlGenerator->generate('ezpublish_rest_loadContentType', [
-                        'contentTypeId' => $contentType->id,
-                    ]),
-                ];
+                $contentTypeGroups[$contentTypeGroup->identifier][] = $this->getContentTypeData(
+                    $contentType,
+                    $contentTypeGroup->isSystem,
+                );
             }
         }
 
-        return $contentTypeGroups;
+        /** @var \Ibexa\AdminUi\Event\FilterContentTypesEvent $event */
+        $event = $this->eventDispatcher->dispatch(new FilterContentTypesEvent($contentTypeGroups));
+
+        return $event->getContentTypeGroups();
+    }
+
+    /**
+     * @phpstan-return TContentTypeData
+     */
+    private function getContentTypeData(ContentType $contentType, bool $isHidden): array
+    {
+        return [
+            'id' => $contentType->id,
+            'identifier' => $contentType->identifier,
+            'name' => $contentType->getName(),
+            'isContainer' => $contentType->isContainer,
+            'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier),
+            'href' => $this->urlGenerator->generate('ibexa.rest.load_content_type', [
+                'contentTypeId' => $contentType->id,
+            ]),
+            'isHidden' => $isHidden,
+        ];
     }
 }
+
+class_alias(ContentTypes::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ContentTypes');

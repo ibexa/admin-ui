@@ -4,14 +4,18 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+namespace Ibexa\AdminUi\Limitation\Mapper;
+
+use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\FormInterface;
 
-class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface
+class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var string
@@ -40,4 +44,16 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
     {
         return $limitation->limitationValues;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('status'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Status'),
+        ];
+    }
 }
+
+class_alias(NullLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\NullLimitationMapper');

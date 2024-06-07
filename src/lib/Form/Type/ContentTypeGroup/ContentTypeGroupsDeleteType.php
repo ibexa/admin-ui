@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup;
+namespace Ibexa\AdminUi\Form\Type\ContentTypeGroup;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -30,7 +30,7 @@ class ContentTypeGroupsDeleteType extends AbstractType
             ])
             ->add('delete', SubmitType::class, [
                 'attr' => ['hidden' => true],
-                'label' => /** @Desc("Delete Content Type groups") */ 'content_type_groups_delete_form.delete',
+                'label' => /** @Desc("Delete content type groups") */ 'content_type_groups_delete_form.delete',
             ]);
     }
 
@@ -42,3 +42,5 @@ class ContentTypeGroupsDeleteType extends AbstractType
         ]);
     }
 }
+
+class_alias(ContentTypeGroupsDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupsDeleteType');

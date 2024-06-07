@@ -4,14 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
 
-use eZ\Publish\Core\FieldType\Author\Type;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
-use EzSystems\EzPlatformContentForms\FieldType\FieldValueFormMapperInterface;
-use EzSystems\EzPlatformContentForms\Form\Type\FieldType\AuthorFieldType;
+namespace Ibexa\AdminUi\FieldType\Mapper;
+
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\AuthorFieldType;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\ContentForms\FieldType\FieldValueFormMapperInterface;
+use Ibexa\Core\FieldType\Author\Type;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,7 +41,7 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultAuthor]',
                     'label' => /** @Desc("Default value") */ 'field_definition.ezauthor.default_author',
-                    'translation_domain' => 'content_type',
+                    'translation_domain' => 'ibexa_content_type',
                     'disabled' => $isTranslation,
                 ]
             );
@@ -71,7 +73,9 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }
+
+class_alias(AuthorFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\AuthorFormMapper');

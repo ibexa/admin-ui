@@ -6,9 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ObjectState;
+namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateDeleteData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateDeleteData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ObjectStateDeleteType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,13 +31,15 @@ class ObjectStateDeleteType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateDeleteData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }
+
+class_alias(ObjectStateDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateDeleteType');

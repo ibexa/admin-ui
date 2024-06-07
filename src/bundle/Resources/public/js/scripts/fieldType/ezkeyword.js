@@ -1,10 +1,12 @@
-(function(global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezkeyword';
-    const SELECTOR_TAGGIFY = '.ez-data-source__taggify';
-    const SELECTOR_ERROR_NODE = '.ez-data-source'
-    const CLASS_TAGGIFY_FOCUS = 'ez-data-source__taggify--focused';
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezkeyword';
+    const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
+    const SELECTOR_ERROR_NODE = '.ibexa-form-error';
+    const CLASS_TAGGIFY_FOCUS = 'ibexa-data-source__taggify--focused';
+    const ENTER_KEY_CODE = 13;
+    const COMMA_KEY_CODE = 188;
 
-    class EzKeywordValidator extends eZ.BaseFieldValidator {
+    class EzKeywordValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the keywords input
          *
@@ -15,15 +17,15 @@
          */
         validateKeywords(event) {
             const fieldContainer = event.currentTarget.closest(SELECTOR_FIELD);
-            const input = fieldContainer.querySelector('.ez-data-source__input-wrapper .ez-data-source__input');
-            const label = fieldContainer.querySelector('.ez-field-edit__label').innerHTML;
+            const input = fieldContainer.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input');
+            const label = fieldContainer.querySelector('.ibexa-field-edit__label').innerHTML;
             const isRequired = input.required;
             const isEmpty = !input.value.trim().length;
             const isError = isEmpty && isRequired;
             const result = { isError };
 
             if (isError) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             }
 
             return result;
@@ -58,7 +60,7 @@
                     invalidStateSelectors: [SELECTOR_TAGGIFY],
                 },
                 {
-                    selector: `${SELECTOR_FIELD} .ez-data-source__input.form-control`,
+                    selector: `${SELECTOR_FIELD} .ibexa-data-source__input.form-control`,
                     eventName: 'change',
                     callback: 'validateKeywords',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
@@ -70,10 +72,9 @@
             containerNode: taggifyContainer,
             displayLabel: false,
             displayInputValues: false,
-            // The "," key code
-            hotKeys: [188],
+            hotKeys: [ENTER_KEY_CODE, COMMA_KEY_CODE],
         });
-        const keywordInput = field.querySelector('.ez-data-source__input-wrapper .ez-data-source__input.form-control');
+        const keywordInput = field.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
         const updateKeywords = updateValue.bind(this, keywordInput);
         const addFocusState = () => taggifyContainer.classList.add(CLASS_TAGGIFY_FOCUS);
         const removeFocusState = () => taggifyContainer.classList.remove(CLASS_TAGGIFY_FOCUS);
@@ -90,7 +91,7 @@
                 keywordInput.value.split(',').map((item) => ({
                     id: Math.floor((1 + Math.random()) * 0x10000).toString(16),
                     label: item,
-                }))
+                })),
             );
         }
 
@@ -99,6 +100,6 @@
         taggifyInput.addEventListener('focus', addFocusState, false);
         taggifyInput.addEventListener('blur', removeFocusState, false);
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

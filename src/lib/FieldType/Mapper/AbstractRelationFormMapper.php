@@ -4,18 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
+namespace Ibexa\AdminUi\FieldType\Mapper;
+
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
 
 abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
     public function __construct(ContentTypeService $contentTypeService, LocationService $locationService)
@@ -42,3 +43,5 @@ abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperIn
         return $contentTypeHash;
     }
 }
+
+class_alias(AbstractRelationFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\AbstractRelationFormMapper');

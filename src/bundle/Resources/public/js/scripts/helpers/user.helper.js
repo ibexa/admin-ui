@@ -1,7 +1,13 @@
-(function(global, doc, eZ) {
-    const getId = () => doc.querySelector('meta[name="UserId"]').content;
+import { getAdminUiConfig } from './context.helper';
 
-    eZ.addConfig('helpers.user', {
-        getId,
-    });
-})(window, window.document, window.eZ);
+const { document: doc } = window;
+
+const getId = () => {
+    const { user } = getAdminUiConfig();
+    const metaUserId = doc.querySelector('meta[name="UserId"]')?.content;
+    const userId = metaUserId ?? user.user?.User;
+
+    return userId ? parseInt(userId, 10) : 0;
+};
+
+export { getId };

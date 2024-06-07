@@ -1,59 +1,109 @@
 .c-upload-list-item {
     display: flex;
-    background: $ibexa-white;
-    padding: calculateRem(8px) calculateRem(32px);
+    flex-wrap: wrap;
+    background: $ibexa-color-white;
+    padding: 0;
+    margin: calculateRem(12px) 0;
+    height: calculateRem(48px);
 
-    &:first-child {
-        margin-top: calculateRem(16px);
+    &--errored {
+        background: $ibexa-color-danger-200;
+        color: $ibexa-color-danger-600;
+        border-radius: $ibexa-border-radius;
+
+        .ibexa-icon {
+            fill: $ibexa-color-danger-600;
+        }
+
+        .c-upload-list-item__size {
+            color: $ibexa-color-danger-600;
+        }
+    }
+
+    &--expanded-multiple-errors {
+        padding-bottom: 0;
+        height: auto;
+
+        .c-upload-list-item {
+            &__multiple-errors-list {
+                display: block;
+                padding: calculateRem(4px) 0 calculateRem(8px) calculateRem(26px);
+                margin-top: calculateRem(4px);
+            }
+
+            &__multiple-errors-toggle-btn {
+                transform: rotate(180deg);
+            }
+        }
     }
 
     &__icon-wrapper {
         flex: 0 0 calculateRem(20px);
         display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__meta {
-        padding: 0 calculateRem(16px);
-        line-height: 1.4;
+        padding: 0 calculateRem(8px);
         max-width: 25vw;
+        height: calculateRem(48px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     &__name {
-        font-size: calculateRem(16px);
-        width: 100%;
-        text-overflow: ellipsis;
+        margin-right: calculateRem(8px);
+        max-width: calculateRem(172px);
         white-space: nowrap;
         overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__size {
-        color: $ibexa-color-base-dark;
-        font-size: calculateRem(14px);
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
     }
 
     &__info {
         flex: 1 1 auto;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 
     &__message {
-        font-style: italic;
-        font-size: calculateRem(12px);
+        font-size: $ibexa-text-font-size-medium;
+        line-height: $ibexa-text-font-size-medium;
 
-        &--error {
-            padding-top: calculateRem(3px);
-            color: $ibexa-color-warning-dark;
-            font-weight: bold;
+        .ibexa-icon {
+            margin-right: calculateRem(4px);
         }
 
         &--success {
-            color: $ibexa-color-positive;
+            color: $ibexa-color-success;
+
+            .ibexa-icon {
+                fill: $ibexa-color-success;
+            }
+        }
+
+        &--error {
+            display: flex;
+            align-items: center;
+            font-size: $ibexa-text-font-size-small;
+            line-height: $ibexa-text-font-size-small;
+            padding-right: calculateRem(32px);
         }
     }
 
     &__actions {
-        flex: 1 1 calculateRem(44px);
-        max-width: calculateRem(88px);
         text-align: right;
+
+        .ibexa-btn {
+            margin: 0;
+        }
     }
 
     &__action {
@@ -68,40 +118,28 @@
         &:last-child {
             margin-right: 0;
         }
-
-        &--edit {
-            fill: $ibexa-color-primary;
-            transition: all 0.3s $ibexa-admin-transition;
-            width: calculateRem(20px);
-            height: calculateRem(20px);
-        }
-
-        &--edit:hover,
-        &--edit:focus {
-            fill: $ibexa-color-primary-hover;
-        }
-
-        &--delete {
-            fill: $ibexa-color-danger;
-        }
-
-        &--delete:hover,
-        &--delete:focus {
-            fill: darken($ibexa-color-danger, 15%);
-        }
-
-        &--abort {
-            fill: $ibexa-color-base-dark;
-        }
-
-        &--abort:hover,
-        &--abort:focus {
-            fill: darken($ibexa-color-base-dark, 15%);
-        }
     }
 
-    .c-progress-bar {
-        max-width: calculateRem(200px);
-        float: right;
+    &__multiple-errors-toggle-btn {
+        border: none;
+        outline: none;
+        margin: 0 0 0 calculateRem(8px);
+        padding: 0;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    }
+
+    &__multiple-errors-list {
+        display: none;
+        flex-basis: 100%;
+        background: $ibexa-color-danger-100;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+    }
+
+    &__multiple-errors-item {
+        margin: calculateRem(4px) 0;
+        font-size: $ibexa-text-font-size-medium;
     }
 }

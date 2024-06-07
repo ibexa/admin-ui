@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer;
+namespace Ibexa\AdminUi\Form\DataTransformer;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -21,7 +21,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class VersionInfoTransformer implements DataTransformerInterface
 {
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
     public function __construct(ContentService $contentService)
@@ -30,7 +30,7 @@ final class VersionInfoTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo|null $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $value
      */
     public function transform($value): ?array
     {
@@ -76,3 +76,5 @@ final class VersionInfoTransformer implements DataTransformerInterface
         }
     }
 }
+
+class_alias(VersionInfoTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\VersionInfoTransformer');

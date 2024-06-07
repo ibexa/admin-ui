@@ -28,6 +28,14 @@ abstract class FieldTypeComponent extends Component implements FieldTypeComponen
         $this->getHTMLPage()->find($fieldSelector)->setValue($value);
     }
 
+    public function verifyValidationMessage(string $expectedMessage): void
+    {
+        $this->getHTMLPage()
+            ->find($this->parentLocator)
+            ->find(new VisibleCSSLocator('validation', '.ibexa-form-error'))
+            ->assert()->textEquals($expectedMessage);
+    }
+
     public function getValue(): array
     {
         $fieldSelector = CSSLocatorBuilder::base($this->parentLocator)

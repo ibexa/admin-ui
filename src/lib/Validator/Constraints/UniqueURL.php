@@ -4,7 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
+
+namespace Ibexa\AdminUi\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -21,7 +22,7 @@ class UniqueURL extends Constraint
     public $message = 'ez.url.unique';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function validatedBy()
     {
@@ -29,10 +30,12 @@ class UniqueURL extends Constraint
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
 }
+
+class_alias(UniqueURL::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueURL');

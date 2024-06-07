@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Embedded;
+namespace Ibexa\AdminUi\Form\Type\Embedded;
 
-use eZ\Publish\API\Repository\SectionService;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\SectionsTransformer;
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\SectionTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\SectionsTransformer;
+use Ibexa\AdminUi\Form\DataTransformer\SectionTransformer;
+use Ibexa\Contracts\Core\Repository\SectionService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,11 +18,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     protected $sectionService;
 
     /**
-     * @param \eZ\Publish\API\Repository\SectionService $sectionService
+     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
      */
     public function __construct(SectionService $sectionService)
     {
@@ -31,7 +31,8 @@ class SectionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addViewTransformer($options['multiple']
+        $builder->addViewTransformer(
+            $options['multiple']
             ? new SectionsTransformer($this->sectionService)
             : new SectionTransformer($this->sectionService)
         );
@@ -49,3 +50,5 @@ class SectionType extends AbstractType
         return HiddenType::class;
     }
 }
+
+class_alias(SectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Embedded\SectionType');

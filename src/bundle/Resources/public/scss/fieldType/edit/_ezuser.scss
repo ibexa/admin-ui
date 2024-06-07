@@ -1,23 +1,16 @@
-.ez-field-edit--ezuser {
-    .ez-field-edit__data {
-        background: $ibexa-white;
+.ibexa-field-edit--ezuser {
+    .ibexa-field-edit__data {
+        background: $ibexa-color-white;
 
-        .ez-data-source {
-            max-width: 30%;
+        .ibexa-data-source {
+            max-width: 80%;
+            padding-top: calculateRem(24px);
+
+            .ibexa-data-source__field:first-of-type {
+                .ibexa-label {
+                    margin-top: 0;
+                }
+            }
         }
-    }
-
-    .ez-data-source {
-        &__input-wrapper {
-            @include checkbox-switcher();
-        }
-
-        &__label:after {
-            display: none;
-        }
-    }
-
-    .ez-field-edit__error {
-        margin-bottom: calculateRem(8px);
     }
 }

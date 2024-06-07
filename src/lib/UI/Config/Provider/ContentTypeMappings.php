@@ -4,39 +4,45 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+namespace Ibexa\AdminUi\UI\Config\Provider;
+
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 /**
  * Class responsible for generating PlatformUI configuration for Multi File Upload functionality.
  */
 class ContentTypeMappings implements ProviderInterface
 {
-    /** @var array */
-    protected $locationMappings = [];
+    private ContentTypeService $contentTypeService;
 
-    /** @var array */
-    protected $defaultMappings = [];
+    /** @var array<string, mixed> */
+    protected array $locationMappings = [];
 
-    /** @var array */
-    protected $fallbackContentType = [];
+    /** @var array<string, mixed> */
+    protected array $defaultMappings = [];
 
-    /** @var int */
+    /** @var array<string, mixed> */
+    protected array $fallbackContentType = [];
+
+    /** @var numeric */
     protected $maxFileSize = 0;
 
     /**
-     * @param array $locationMappings
-     * @param array $defaultMappings
-     * @param array $fallbackContentType
-     * @param int $maxFileSize
+     * @param array<string, mixed> $locationMappings
+     * @param array<string, mixed> $defaultMappings
+     * @param array<string, mixed> $fallbackContentType
+     * @param numeric $maxFileSize
      */
     public function __construct(
+        ContentTypeService $contentTypeService,
         array $locationMappings,
         array $defaultMappings,
         array $fallbackContentType,
         $maxFileSize
     ) {
+        $this->contentTypeService = $contentTypeService;
         $this->locationMappings = $locationMappings;
         $this->defaultMappings = $defaultMappings;
         $this->fallbackContentType = $fallbackContentType;
@@ -44,9 +50,9 @@ class ContentTypeMappings implements ProviderInterface
     }
 
     /**
-     * Returns configuration structure compatible with PlatformUI.
+     * Returns configuration structure compatible with AdminUI.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
@@ -77,31 +83,73 @@ class ContentTypeMappings implements ProviderInterface
     }
 
     /**
-     * @param array $mappingGroup
+     * @param array<string> $mappingGroup
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    private function buildMappingGroupStructure(array $mappingGroup)
+    private function buildMappingGroupStructure(array $mappingGroup): array
     {
+        $contentTypeIdentifier = $mappingGroup['content_type_identifier'];
+        $contentFieldIdentifier = $mappingGroup['content_field_identifier'];
+
         return [
             'mimeTypes' => $mappingGroup['mime_types'],
-            'contentTypeIdentifier' => $mappingGroup['content_type_identifier'],
-            'contentFieldIdentifier' => $mappingGroup['content_field_identifier'],
+            'contentTypeIdentifier' => $contentTypeIdentifier,
+            'contentFieldIdentifier' => $contentFieldIdentifier,
             'nameFieldIdentifier' => $mappingGroup['name_field_identifier'],
+            'maxFileSize' => $this->getContentTypeConfiguredMaxFileSize(
+                $contentTypeIdentifier,
+                $contentFieldIdentifier
+            ),
         ];
     }
 
     /**
-     * @param array $fallbackContentType
+     * @param array<string> $fallbackContentType
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    private function buildFallbackContentTypeStructure(array $fallbackContentType)
+    private function buildFallbackContentTypeStructure(array $fallbackContentType): array
     {
+        $fallbackContentTypeIdentifier = $fallbackContentType['content_type_identifier'];
+        $fallbackContentFieldIdentifier = $fallbackContentType['content_field_identifier'];
+
         return [
             'contentTypeIdentifier' => $fallbackContentType['content_type_identifier'],
             'contentFieldIdentifier' => $fallbackContentType['content_field_identifier'],
             'nameFieldIdentifier' => $fallbackContentType['name_field_identifier'],
+            'maxFileSize' => $this->getContentTypeConfiguredMaxFileSize(
+                $fallbackContentTypeIdentifier,
+                $fallbackContentFieldIdentifier
+            ),
         ];
     }
+
+    /**
+     * @return numeric
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
+    private function getContentTypeConfiguredMaxFileSize(
+        string $contentTypeIdentifier,
+        string $imageFieldTypeIdentifier
+    ) {
+        $contentType = $this->contentTypeService->loadContentTypeByIdentifier(
+            $contentTypeIdentifier
+        );
+
+        $imgFieldType = $contentType->getFieldDefinition($imageFieldTypeIdentifier);
+        if ($imgFieldType === null) {
+            return $this->maxFileSize;
+        }
+
+        $validatorConfig = $imgFieldType->getValidatorConfiguration();
+        if (isset($validatorConfig['FileSizeValidator']['maxFileSize'])) {
+            return $validatorConfig['FileSizeValidator']['maxFileSize'] * 1024 * 1024;
+        }
+
+        return $this->maxFileSize;
+    }
 }
+
+class_alias(ContentTypeMappings::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ContentTypeMappings');

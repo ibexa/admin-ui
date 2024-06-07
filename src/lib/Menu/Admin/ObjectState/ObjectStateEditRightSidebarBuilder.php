@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState;
+namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,8 +23,9 @@ use Knp\Menu\ItemInterface;
 class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
-    const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
+    public const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
+    public const ITEM__SAVE_AND_CLOSE = 'object_state_edit__sidebar_right__save_and_close';
+    public const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
 
     /**
      * @return string
@@ -47,29 +48,40 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     {
         $groupId = $options['group_id'];
         $saveId = $options['save_id'];
+        $saveAncCloseId = $options['save_and_close_id'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $saveAndCloseItem = $this->createMenuItem(
+            self::ITEM__SAVE_AND_CLOSE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveAncCloseId),
+                ],
+            ]
+        );
+
+        $saveAndCloseItem->addChild(
+            self::ITEM__SAVE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $saveId),
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__SAVE => $this->createMenuItem(
-                self::ITEM__SAVE,
-                [
-                    'attributes' => [
-                        'class' => 'btn--trigger',
-                        'data-click' => sprintf('#%s', $saveId),
-                    ],
-                    'extras' => ['icon' => 'save'],
-                ]
-            ),
+            self::ITEM__SAVE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.object_state.group.view',
+                    'route' => 'ibexa.object_state.group.view',
                     'routeParameters' => [
                         'objectStateGroupId' => $groupId,
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -83,8 +95,11 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Save'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE_AND_CLOSE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
 }
+
+class_alias(ObjectStateEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ObjectState\ObjectStateEditRightSidebarBuilder');

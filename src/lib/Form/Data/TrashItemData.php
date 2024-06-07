@@ -4,31 +4,32 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\Content\TrashItem as APITrashItem;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\API\Repository\Values\User\User;
+namespace Ibexa\AdminUi\Form\Data;
+
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 /**
  * @todo This class cannot be a part of Form/ namespace, it should be moved to UI/Value.
  */
 class TrashItemData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\TrashItem */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem */
     protected $location;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
     protected $ancestors;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
     private $creator;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $ancestors
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $ancestors
      */
     public function __construct(
         APITrashItem $location,
@@ -43,7 +44,7 @@ class TrashItemData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\TrashItem
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem
      */
     public function getLocation(): APITrashItem
     {
@@ -51,7 +52,7 @@ class TrashItemData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\TrashItem $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $location
      */
     public function setLocation(APITrashItem $location)
     {
@@ -59,7 +60,7 @@ class TrashItemData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\ContentType\ContentType
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
      */
     public function getContentType(): ContentType
     {
@@ -67,7 +68,7 @@ class TrashItemData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      */
     public function setContentType(ContentType $contentType)
     {
@@ -75,7 +76,7 @@ class TrashItemData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getAncestors(): array
     {
@@ -83,7 +84,7 @@ class TrashItemData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $ancestors
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $ancestors
      */
     public function setAncestors(array $ancestors)
     {
@@ -102,3 +103,5 @@ class TrashItemData
         return $this->creator;
     }
 }
+
+class_alias(TrashItemData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\TrashItemData');

@@ -1,7 +1,7 @@
 import { useContext, useCallback, useReducer } from 'react';
 
 import { findLocationsBySearchQuery } from '../services/universal.discovery.service';
-import { RestInfoContext } from '../universal.discovery.module';
+import { RestInfoContext, LoadedLocationsMapContext } from '../universal.discovery.module';
 
 const SEARCH_START = 'SEARCH_START';
 const SEARCH_END = 'SEARCH_END';
@@ -22,13 +22,40 @@ const searchByQueryReducer = (state, action) => {
 
 export const useSearchByQueryFetch = () => {
     const restInfo = useContext(RestInfoContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
     const searchByQuery = useCallback(
-        (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
+        (
+            searchText,
+            contentTypesIdentifiers,
+            sectionIdentifier,
+            subtreePathString,
+            limit,
+            offset,
+            languageCode,
+            imageCriterionData = null,
+            aggregations = {},
+            filters = {},
+            fullTextCriterion = null,
+            contentNameCriterion = null,
+        ) => {
             const handleFetch = (response) => {
+                dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            const query = { FullTextCriterion: `${searchText}*` };
+            const query = {};
+
+            if (searchText) {
+                query.FullTextCriterion = `${searchText}*`;
+            }
+
+            if (fullTextCriterion) {
+                query.FullTextCriterion = fullTextCriterion;
+            }
+
+            if (contentNameCriterion) {
+                query.ContentNameCriterion = contentNameCriterion;
+            }
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;
@@ -42,10 +69,21 @@ export const useSearchByQueryFetch = () => {
                 query.SubtreeCriterion = subtreePathString;
             }
 
+            const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
+
+            if (!isImageCriterionDataEmpty) {
+                const imageCriterion = {
+                    fieldDefIdentifier: 'image',
+                    ...imageCriterionData,
+                };
+
+                query.ImageCriterion = imageCriterion;
+            }
+
             dispatch({ type: SEARCH_START });
-            findLocationsBySearchQuery({ ...restInfo, query, limit, offset, languageCode }, handleFetch);
+            return findLocationsBySearchQuery({ ...restInfo, query, aggregations, filters, limit, offset, languageCode }, handleFetch);
         },
-        [restInfo, dispatch]
+        [restInfo, dispatch],
     );
 
     return [isLoading, data, searchByQuery];

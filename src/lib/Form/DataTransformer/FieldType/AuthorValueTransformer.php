@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\Author\Author;
-use eZ\Publish\Core\FieldType\Author\Value;
+namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
+
+use Ibexa\Core\FieldType\Author\Author;
+use Ibexa\Core\FieldType\Author\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -51,3 +52,5 @@ class AuthorValueTransformer implements DataTransformerInterface
         return new Value($authors);
     }
 }
+
+class_alias(AuthorValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\AuthorValueTransformer');

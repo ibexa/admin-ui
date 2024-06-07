@@ -4,13 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData;
+namespace Ibexa\AdminUi\Form\DataMapper;
+
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Form\Data\Section\SectionUpdateData;
+use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Maps between SectionUpdateStruct and SectionUpdateData objects.
@@ -20,11 +22,11 @@ class SectionUpdateMapper implements DataMapperInterface
     /**
      * Maps given SectionUpdateStruct object to a SectionUpdateData object.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData
+     * @return \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): SectionUpdateData
     {
@@ -38,11 +40,11 @@ class SectionUpdateMapper implements DataMapperInterface
     /**
      * Maps given SectionUpdateData object to a SectionUpdateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\SectionUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): SectionUpdateStruct
     {
@@ -56,3 +58,5 @@ class SectionUpdateMapper implements DataMapperInterface
         ]);
     }
 }
+
+class_alias(SectionUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionUpdateMapper');

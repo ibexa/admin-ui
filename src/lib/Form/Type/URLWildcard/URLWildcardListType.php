@@ -46,7 +46,7 @@ final class URLWildcardListType extends AbstractType implements TranslationConta
     {
         $resolver->setDefaults([
             'data_class' => URLWildcardListData::class,
-            'translation_domain' => 'ezplatform_url_wildcard',
+            'translation_domain' => 'ibexa_url_wildcard',
         ]);
     }
 
@@ -56,9 +56,9 @@ final class URLWildcardListType extends AbstractType implements TranslationConta
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::TYPE_DIRECT, 'ezplatform_url_wildcard'))->setDesc('Direct'),
-            (new Message(self::TYPE_FORWARD, 'ezplatform_url_wildcard'))->setDesc('Forward'),
-            (new Message(self::PLACEHOLDER, 'ezplatform_url_wildcard'))->setDesc('All'),
+            (new Message(self::TYPE_DIRECT, 'ibexa_url_wildcard'))->setDesc('Direct'),
+            (new Message(self::TYPE_FORWARD, 'ibexa_url_wildcard'))->setDesc('Forward'),
+            (new Message(self::PLACEHOLDER, 'ibexa_url_wildcard'))->setDesc('All'),
         ];
     }
 }

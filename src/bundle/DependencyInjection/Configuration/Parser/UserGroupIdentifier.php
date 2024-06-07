@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -34,7 +34,7 @@ class UserGroupIdentifier extends AbstractParser
     {
         $nodeBuilder
             ->arrayNode('user_group_content_type_identifier')
-                ->info('User Group Content Type identifier configuration.')
+                ->info('User Group content type identifier configuration.')
                 ->example(['user_group', 'my_custom_user_group_identifier'])
                 ->requiresAtLeastOneElement()
                 ->prototype('scalar')->end()
@@ -42,7 +42,7 @@ class UserGroupIdentifier extends AbstractParser
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
@@ -57,3 +57,5 @@ class UserGroupIdentifier extends AbstractParser
         );
     }
 }
+
+class_alias(UserGroupIdentifier::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\UserGroupIdentifier');

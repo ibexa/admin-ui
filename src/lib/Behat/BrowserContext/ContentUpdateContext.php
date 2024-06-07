@@ -37,8 +37,17 @@ class ContentUpdateContext implements Context
         $this->contentUpdateItemPage->verifyIsLoaded();
         foreach ($table->getHash() as $row) {
             $values = $this->filterOutNonEmptyValues($row);
-            $this->contentUpdateItemPage->fillFieldWithValue($row['label'], $values);
+            $fieldPosition = array_key_exists('fieldPosition', $values) ? (int)$values['fieldPosition'] : null;
+            $this->contentUpdateItemPage->fillFieldWithValue($row['label'], $values, $fieldPosition);
         }
+    }
+
+    /**
+     * @When field :fieldName contains validation error :errorMessage
+     */
+    public function fieldContainsValidationError(string $fieldName, string $errorMessage): void
+    {
+        $this->contentUpdateItemPage->verifyValidationMessage($fieldName, $errorMessage);
     }
 
     /**
@@ -53,7 +62,7 @@ class ContentUpdateContext implements Context
     /**
      * @When the :fieldName field cannot be edited due to limitation
      */
-    public function theFieldCannotBeEditedDueToLimitation(string $fieldName): void
+    public function fieldCannotBeEditedDueToLimitation(string $fieldName): void
     {
         $this->contentUpdateItemPage->verifyFieldCannotBeEditedDueToLimitation($fieldName);
     }
@@ -97,14 +106,6 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When I click on the close button
-     */
-    public function iClickCloseButton(): void
-    {
-        $this->contentUpdateItemPage->close();
-    }
-
-    /**
      * @When I switch to :tabName field group
      */
     public function iSwitchToContentTab(string $tabName)
@@ -114,13 +115,30 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @When I wait for :autosaveIntervalTime seconds for Content Item to be autosaved
+     * @When I switch to :tabName field tab
      */
-    public function iWaitForAutosaveNotification(int $autosaveIntervalTime): void
+    public function iSwitchToContentGroup(string $tabName)
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->switchToFieldTab($tabName);
+    }
+
+    /**
+     * @When I wait for Content Item to be autosaved
+     */
+    public function iWaitForAutosaveNotification(): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->verifyAutosaveNotificationIsDisplayed();
-        sleep($autosaveIntervalTime + 3);
         $this->contentUpdateItemPage->verifyAutosaveDraftIsSavedNotificationIsDisplayed();
+    }
+
+    /**
+     * @When I check if "Autosave is off, draft not created" notification is displayed
+     */
+    public function iCheckAutosaveNotification(): void
+    {
+        $this->contentUpdateItemPage->verifyIsLoaded();
+        $this->contentUpdateItemPage->verifyAutosaveIsOffNotificationIsDisplayed();
     }
 }

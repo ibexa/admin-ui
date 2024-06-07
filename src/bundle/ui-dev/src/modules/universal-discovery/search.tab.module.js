@@ -1,17 +1,44 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import Tab from './components/tab/tab';
 import Search from './components/search/search';
 
-import { TabsConfigContext } from './universal.discovery.module';
+import { LoadedLocationsMapContext, MarkedLocationIdContext, TabsConfigContext } from './universal.discovery.module';
+
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 
 const SearchTabModule = () => {
     const tabsConfig = useContext(TabsConfigContext);
+    const restorationStateRef = useRef(null);
+    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+
     const actionsDisabledMap = {
-        'content-create-button': true,
+        'content-create-button': false,
         'sort-switcher': true,
         'view-switcher': true,
     };
+
+    useEffect(() => {
+        const isCleared = markedLocationId === null && loadedLocationsMap?.length === 0;
+
+        if (!isCleared) {
+            restorationStateRef.current = {
+                markedLocationId,
+                loadedLocationsMap,
+            };
+        }
+    }, [setMarkedLocationId, dispatchLoadedLocationsAction, markedLocationId, loadedLocationsMap]);
+
+    useEffect(() => {
+        return () => {
+            if (restorationStateRef.current) {
+                setMarkedLocationId(restorationStateRef.current.markedLocationId);
+                dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: restorationStateRef.current.loadedLocationsMap });
+            }
+        };
+    }, []);
 
     return (
         <div className="m-search-tab">
@@ -22,17 +49,16 @@ const SearchTabModule = () => {
     );
 };
 
-eZ.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'search',
-            component: SearchTabModule,
-            label: Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
-        },
-    ],
-    true
-);
+const SearchTab = {
+    id: 'search',
+    component: SearchTabModule,
+    getLabel: () => {
+        const Translator = getTranslator();
 
-export default SearchTabModule;
+        return Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'ibexa_universal_discovery_widget');
+    },
+    getIcon: () => getIconPath('search'),
+    isHiddenOnList: true,
+};
+
+export { SearchTabModule as ValueTypeDefault, SearchTab };

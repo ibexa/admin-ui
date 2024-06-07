@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Form\Type\FieldType\ISBNFieldType;
+namespace Ibexa\AdminUi\FieldType\Mapper;
+
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\ISBNFieldType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +34,9 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
 
         $fieldDefinitionForm
             ->add(
-                'isISBN13', CheckboxType::class, [
+                'isISBN13',
+                CheckboxType::class,
+                [
                     'required' => false,
                     'property_path' => 'fieldSettings[isISBN13]',
                     'label' => /** @Desc("ISBN-13 format") */ 'field_definition.ezisbn.is_isbn13',
@@ -49,7 +53,9 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }
+
+class_alias(ISBNFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\ISBNFormMapper');

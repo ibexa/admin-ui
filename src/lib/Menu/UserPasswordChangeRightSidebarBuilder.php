@@ -6,10 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -24,8 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
-    const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
+    public const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
+    public const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -67,17 +68,18 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
                 self::ITEM__UPDATE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#user_password_change_change',
                     ],
-                    'extras' => ['icon' => 'publish'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'route' => 'ezplatform.dashboard',
-                    'extras' => ['icon' => 'circle-close'],
+                    'route' => 'ibexa.user_settings.list',
+                    'routeParameters' => [
+                        '_fragment' => 'ibexa-tab-my-account-settings',
+                    ],
                 ]
             ),
         ]);
@@ -91,8 +93,10 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__UPDATE, 'menu'))->setDesc('Update'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__UPDATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 }
+
+class_alias(UserPasswordChangeRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserPasswordChangeRightSidebarBuilder');

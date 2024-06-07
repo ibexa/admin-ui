@@ -6,14 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\ContentType;
+namespace Ibexa\AdminUi\Tab\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 
 class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-content-type-view-details';
+    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-details';
 
     /**
      * @return string
@@ -29,7 +30,7 @@ class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     public function getName(): string
     {
         /** @Desc("View") */
-        return $this->translator->trans('tab.name.view', [], 'content_type');
+        return $this->translator->trans('tab.name.view', [], 'ibexa_content_type');
     }
 
     /**
@@ -45,7 +46,7 @@ class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content_type/tab/view.html.twig';
+        return '@ibexadesign/content_type/tab/view.html.twig';
     }
 
     /**
@@ -58,3 +59,5 @@ class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         return $contextParameters;
     }
 }
+
+class_alias(ViewTab::class, 'EzSystems\EzPlatformAdminUi\Tab\ContentType\ViewTab');

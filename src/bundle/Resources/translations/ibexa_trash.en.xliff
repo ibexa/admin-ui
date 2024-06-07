@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="3d9f547776de4846ff54fcd1cd173ac5937e5a46" resname="search.creator_input.placeholder">
+        <source>Search by creator</source>
+        <target state="new">Search by creator</target>
+        <note>key: search.creator_input.placeholder</note>
+      </trans-unit>
+      <trans-unit id="6aa460340bed42d0d1baf9d1ea542c83a3f00821" resname="trash">
+        <source>Trash</source>
+        <target state="new">Trash</target>
+        <note>key: trash</note>
+      </trans-unit>
+      <trans-unit id="49df4e6f73344ab17f4dfd94818974848f74f53a" resname="trash.button.restore">
+        <source>Restore</source>
+        <target state="new">Restore</target>
+        <note>key: trash.button.restore</note>
+      </trans-unit>
+      <trans-unit id="5424e0925328bb62806b43b2a65cc86fef6ad7d9" resname="trash.button.restore_new_location">
+        <source>Restore in a new location</source>
+        <target state="new">Restore in a new location</target>
+        <note>key: trash.button.restore_new_location</note>
+      </trans-unit>
+      <trans-unit id="a644965219fc4d129dd4a5ef1cdb6eb073003702" resname="trash.content_type">
+        <source>Content type</source>
+        <target state="new">Content type</target>
+        <note>key: trash.content_type</note>
+      </trans-unit>
+      <trans-unit id="937a500a6ede32aeaf33dcc2bfc7233578c8e48c" resname="trash.creator">
+        <source>Creator</source>
+        <target state="new">Creator</target>
+        <note>key: trash.creator</note>
+      </trans-unit>
+      <trans-unit id="a05764fe660902e89eefa65d4834f03cf3954160" resname="trash.date">
+        <source>Trashed</source>
+        <target state="new">Trashed</target>
+        <note>key: trash.date</note>
+      </trans-unit>
+      <trans-unit id="45548aed8adb5019c3b806992e903965699c7e08" resname="trash.deleted.success">
+        <source>Deleted selected item(s) from Trash.</source>
+        <target state="new">Deleted selected item(s) from Trash.</target>
+        <note>key: trash.deleted.success</note>
+      </trans-unit>
+      <trans-unit id="7883128cdfb813826271abe90b3a1f3190833ce6" resname="trash.empty">
+        <source>Trash is empty. Content you send to Trash will show up here.</source>
+        <target state="new">Trash is empty. Content you send to Trash will show up here.</target>
+        <note>key: trash.empty</note>
+      </trans-unit>
+      <trans-unit id="17b503b33de4f7e60958b7824dd959dd0144ae13" resname="trash.empty.success">
+        <source>Trash emptied.</source>
+        <target state="new">Trash emptied.</target>
+        <note>key: trash.empty.success</note>
+      </trans-unit>
+      <trans-unit id="eb7cd78bb919141f66cabfea95a60e0e6b02e9f4" resname="trash.headline">
+        <source>Trash</source>
+        <target state="new">Trash</target>
+        <note>key: trash.headline</note>
+      </trans-unit>
+      <trans-unit id="5d4b7350cb3bfc77e9edd02190eb530d866c7565" resname="trash.item.ancesor_in_trash">
+        <source>Ancestor is unknown</source>
+        <target state="new">Ancestor is unknown</target>
+        <note>key: trash.item.ancesor_in_trash</note>
+      </trans-unit>
+      <trans-unit id="02b7fe2ffdf670f9d5e2dadd3cd1be5109a22b49" resname="trash.item.deleted_user">
+        <source>Deleted user</source>
+        <target state="new">Deleted user</target>
+        <note>key: trash.item.deleted_user</note>
+      </trans-unit>
+      <trans-unit id="34525fc5da381111c2104d20a55021eb8b698c7c" resname="trash.name">
+        <source>Name</source>
+        <target state="new">Name</target>
+        <note>key: trash.name</note>
+      </trans-unit>
+      <trans-unit id="c28510c675be753842996980b0e5d175cec4a8d8" resname="trash.original_location">
+        <source>Location</source>
+        <target state="new">Location</target>
+        <note>key: trash.original_location</note>
+      </trans-unit>
+      <trans-unit id="a8c2da925faa48def8e407037a6115f1340070c7" resname="trash.restore_new_location.success">
+        <source>Restored content under Location '%location%'.</source>
+        <target state="new">Restored content under Location '%location%'.</target>
+        <note>key: trash.restore_new_location.success</note>
+      </trans-unit>
+      <trans-unit id="d4e8ddb6a84d9ca3a3b39485e9b7c5ef2860d879" resname="trash.restore_original_location.success">
+        <source>Restored content to its original Location.</source>
+        <target state="new">Restored content to its original Location.</target>
+        <note>key: trash.restore_original_location.success</note>
+      </trans-unit>
+      <trans-unit id="3a46b65a9b678fb947285b2c9509943ee6764195" resname="trash.search.any_content_types">
+        <source>All</source>
+        <target state="new">All</target>
+        <note>key: trash.search.any_content_types</note>
+      </trans-unit>
+      <trans-unit id="9a88e9a17cd461dcd7d54dca50c6d3b981aba7fc" resname="trash.search.any_time">
+        <source>Any time</source>
+        <target state="new">Any time</target>
+        <note>key: trash.search.any_time</note>
+      </trans-unit>
+      <trans-unit id="c2b2679781ad4a22bb232e2ab34669ffe49c760b" resname="trash.search.section.any">
+        <source>All</source>
+        <target state="new">All</target>
+        <note>key: trash.search.section.any</note>
+      </trans-unit>
+      <trans-unit id="8b64a1510f907791766cbccffcff7898bda76bde" resname="trash.section">
+        <source>Section</source>
+        <target state="new">Section</target>
+        <note>key: trash.section</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

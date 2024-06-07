@@ -1,4 +1,4 @@
-import { useEffect, useContext, useReducer } from 'react';
+import { useEffect, useContext, useReducer, useRef } from 'react';
 
 import { loadBookmarks } from '../services/universal.discovery.service';
 import { RestInfoContext } from '../universal.discovery.module';
@@ -20,11 +20,11 @@ const fetchReducer = (state, action) => {
 };
 
 export const useLoadBookmarksFetch = (limit, offset) => {
+    const effectCleanedRef = useRef(false);
     const restInfo = useContext(RestInfoContext);
     const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
-
-    useEffect(() => {
-        let effectCleaned = false;
+    const reload = () => {
+        effectCleanedRef.current = false;
 
         dispatch({ type: 'FETCH_START' });
         loadBookmarks(
@@ -34,18 +34,38 @@ export const useLoadBookmarksFetch = (limit, offset) => {
                 offset,
             },
             (response) => {
-                if (effectCleaned) {
+                if (effectCleanedRef.current) {
                     return;
                 }
 
                 dispatch({ type: 'FETCH_END', data: response });
-            }
+            },
+        );
+    };
+
+    useEffect(() => {
+        effectCleanedRef.current = false;
+
+        dispatch({ type: 'FETCH_START' });
+        loadBookmarks(
+            {
+                ...restInfo,
+                limit,
+                offset,
+            },
+            (response) => {
+                if (effectCleanedRef.current) {
+                    return;
+                }
+
+                dispatch({ type: 'FETCH_END', data: response });
+            },
         );
 
         return () => {
-            effectCleaned = true;
+            effectCleanedRef.current = true;
         };
     }, [restInfo, limit, offset]);
 
-    return [state.data, !state.dataFetched];
+    return [state.data, !state.dataFetched, reload];
 };

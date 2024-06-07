@@ -6,29 +6,31 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\TrashService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\TrashItem;
-use eZ\Publish\API\Repository\Values\User\User;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\Search\TrashSearchData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashEmptyData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashItemDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashItemRestoreData;
-use EzSystems\EzPlatformAdminUi\Form\Data\TrashItemData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\TrashFormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Form\Type\Search\TrashSearchType;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\TrashItemAdapter;
-use EzSystems\EzPlatformAdminUi\QueryType\TrashSearchQueryType;
-use EzSystems\EzPlatformAdminUi\Specification\UserExists;
-use EzSystems\EzPlatformAdminUi\UI\Service\PathService as UiPathService;
+use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
+use Ibexa\AdminUi\Form\Data\Trash\TrashEmptyData;
+use Ibexa\AdminUi\Form\Data\Trash\TrashItemDeleteData;
+use Ibexa\AdminUi\Form\Data\Trash\TrashItemRestoreData;
+use Ibexa\AdminUi\Form\Data\TrashItemData;
+use Ibexa\AdminUi\Form\Factory\TrashFormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\Search\TrashSearchType;
+use Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter;
+use Ibexa\AdminUi\QueryType\TrashSearchQueryType;
+use Ibexa\AdminUi\Specification\UserExists;
+use Ibexa\AdminUi\UI\Service\PathService as UiPathService;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\UserService;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Util\StringUtil;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -37,34 +39,34 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TrashController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\TrashService */
+    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
     private $trashService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\TrashFormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\TrashFormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\PathService */
+    /** @var \Ibexa\AdminUi\UI\Service\PathService */
     private $uiPathService;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\QueryType\TrashSearchQueryType */
+    /** @var \Ibexa\AdminUi\QueryType\TrashSearchQueryType */
     private $trashSearchQueryType;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
+    /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
     public function __construct(
@@ -100,13 +102,10 @@ class TrashController extends Controller
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @internal param int $page Current page
-     * @internal param int $limit Number of items per page
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \LogicException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
      * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
@@ -137,7 +136,7 @@ class TrashController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.trash_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\TrashItem $item */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $item */
         foreach ($pagerfanta->getCurrentPageResults() as $item) {
             $contentType = $this->contentTypeService->loadContentType(
                 $item->getContentInfo()->contentTypeId,
@@ -161,7 +160,7 @@ class TrashController extends Controller
             new TrashEmptyData(true)
         );
 
-        return $this->render('@ezdesign/trash/list.html.twig', [
+        return $this->render('@ibexadesign/trash/list.html.twig', [
             'can_delete' => $this->isGranted(new Attribute('content', 'remove')),
             'can_restore' => $this->isGranted(new Attribute('content', 'restore')),
             'can_cleantrash' => $this->isGranted(new Attribute('content', 'cleantrash')),
@@ -188,7 +187,7 @@ class TrashController extends Controller
     public function emptyAction(Request $request): Response
     {
         if (!$this->isGranted(new Attribute('content', 'cleantrash'))) {
-            return $this->redirect($this->generateUrl('ezplatform.trash.list'));
+            return $this->redirect($this->generateUrl('ibexa.trash.list'));
         }
 
         $form = $this->formFactory->emptyTrash(
@@ -204,10 +203,10 @@ class TrashController extends Controller
                     /** @Desc("Trash emptied.") */
                     'trash.empty.success',
                     [],
-                    'trash'
+                    'ibexa_trash'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.trash.list'));
+                return new RedirectResponse($this->generateUrl('ibexa.trash.list'));
             });
 
             if ($result instanceof Response) {
@@ -215,7 +214,7 @@ class TrashController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.trash.list'));
+        return $this->redirect($this->generateUrl('ibexa.trash.list'));
     }
 
     /**
@@ -251,14 +250,14 @@ class TrashController extends Controller
                             /** @Desc("Restored content to its original Location.") */
                             'trash.restore_original_location.success',
                             [],
-                            'trash'
+                            'ibexa_trash'
                         );
                     } else {
                         $this->notificationHandler->success(
                             /** @Desc("Restored content under Location '%location%'.") */
                             'trash.restore_new_location.success',
                             ['%location%' => $newParentLocation->getContentInfo()->name],
-                            'trash'
+                            'ibexa_trash'
                         );
                     }
 
@@ -305,7 +304,7 @@ class TrashController extends Controller
                         /** @Desc("Deleted selected item(s) from Trash.") */
                         'trash.deleted.success',
                         [],
-                        'trash'
+                        'ibexa_trash'
                     );
 
                     return $this->redirectToTrashList($request);
@@ -326,12 +325,12 @@ class TrashController extends Controller
         $params = $trashSearchParams ? ['trash_search' => $trashSearchParams] : [];
 
         return $this->redirect(
-            $this->generateUrl('ezplatform.trash.list', $params)
+            $this->generateUrl('ibexa.trash.list', $params)
         );
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getCreatorFromTrashItem(TrashItem $trashItem): ?User
     {
@@ -344,3 +343,5 @@ class TrashController extends Controller
         return $this->userService->loadUser($trashItem->getContentInfo()->ownerId);
     }
 }
+
+class_alias(TrashController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\TrashController');

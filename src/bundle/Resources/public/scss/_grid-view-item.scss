@@ -1,0 +1,191 @@
+.ibexa-grid-view-item {
+    $self: &;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: calculateRem(1px) solid $ibexa-color-light;
+    border-radius: calculateRem(12px);
+    background: $ibexa-color-white;
+    box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-black, 0.05);
+    transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    min-width: calculateRem(290px);
+    max-width: calculateRem(290px);
+    margin: 0 calculateRem(14px) calculateRem(32px);
+    cursor: pointer;
+
+    &:link {
+        text-decoration: none;
+    }
+
+    &:active,
+    &:hover,
+    &:focus {
+        color: $ibexa-color-dark;
+        border-color: $ibexa-color-dark;
+        text-decoration: none;
+
+        .ibexa-input--checkbox,
+        .ibexa-input--radio {
+            border-color: $ibexa-color-primary;
+        }
+    }
+
+    &:active {
+        border-color: $ibexa-color-dark;
+    }
+
+    &:hover {
+        border-color: $ibexa-color-primary;
+    }
+
+    &:focus {
+        border-color: $ibexa-color-dark;
+        box-shadow: $ibexa-btn-focus-box-shadow;
+    }
+
+    &__image {
+        &:not(.ibexa-grid-view-item__image--none) {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__image-wrapper {
+        height: calculateRem(160px);
+        border-top-left-radius: calculateRem(12px);
+        border-top-right-radius: calculateRem(12px);
+        overflow: hidden;
+        background: $ibexa-color-light-200;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__footer {
+        display: grid;
+        row-gap: calculateRem(16px);
+        padding: calculateRem(16px);
+    }
+
+    &__title {
+        grid-area: 1/-1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-decoration: none;
+        font-size: $ibexa-text-font-size-medium;
+        line-height: calculateRem(21px);
+    }
+
+    &__details-wrapper {
+        display: grid;
+    }
+
+    &__detail-a {
+        grid-area: 2/1;
+    }
+
+    &__detail-b {
+        grid-area: 2/2;
+    }
+
+    &__detail-a,
+    &__detail-b {
+        display: flex;
+        align-items: center;
+        gap: calculateRem(8px);
+        line-height: calculateRem(16px);
+        color: $ibexa-color-dark-400;
+
+        .ibexa-icon {
+            fill: $ibexa-color-dark-400;
+        }
+    }
+
+    &__checkbox {
+        position: absolute;
+        top: calculateRem(8px);
+        left: calculateRem(8px);
+        line-height: 1;
+    }
+
+    &--marked {
+        border: calculateRem(1px) solid $ibexa-color-dark;
+    }
+
+    &--not-selectable {
+        background-color: $ibexa-color-light-200;
+        cursor: not-allowed;
+    }
+
+    &--selected {
+        background: $ibexa-color-light-300;
+
+        .ibexa-grid-view-item {
+            &__title {
+                font-weight: 600;
+            }
+        }
+
+        #{$self}__radio {
+            &--checked {
+                display: block;
+            }
+        }
+    }
+
+    &--vertical {
+        padding: calculateRem(12px);
+        max-width: initial;
+        flex-direction: row;
+
+        #{$self}__image-wrapper {
+            height: calculateRem(72px);
+            width: calculateRem(120px);
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        #{$self}__footer {
+            width: 100%;
+            padding: 0 calculateRem(16px);
+            row-gap: 0;
+        }
+
+        #{$self}__title {
+            font-size: $ibexa-text-font-size;
+            font-weight: 600;
+            line-height: calculateRem(24px);
+        }
+
+        #{$self}__details-wrapper {
+            padding-top: calculateRem(8px);
+            color: $ibexa-color-dark-400;
+            font-size: $ibexa-text-font-size-small;
+            font-weight: 400;
+            line-height: calculateRem(18px);
+        }
+    }
+
+    &__radio {
+        position: absolute;
+        left: calculateRem(10px);
+        top: calculateRem(10px);
+        display: none;
+
+        .ibexa-input {
+            background-color: $ibexa-color-white;
+        }
+    }
+
+    &:hover {
+        #{$self}__radio {
+            &--hovered {
+                display: block;
+            }
+        }
+    }
+}

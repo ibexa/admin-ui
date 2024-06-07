@@ -4,25 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta;
 
-use eZ\Publish\API\Repository\TrashService;
-use eZ\Publish\API\Repository\Values\Content\Query;
+namespace Ibexa\AdminUi\Pagination\Pagerfanta;
+
+use Ibexa\Contracts\Core\Repository\TrashService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Pagerfanta adapter for eZ Publish content search.
+ * Pagerfanta adapter for Ibexa content search.
  * Will return results as SearchHit objects.
  */
 class TrashItemAdapter implements AdapterInterface
 {
     /**
-     * @var \eZ\Publish\API\Repository\Values\Content\Query
+     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query
      */
     private $query;
 
     /**
-     * @var \eZ\Publish\API\Repository\TrashService
+     * @var \Ibexa\Contracts\Core\Repository\TrashService
      */
     private $trashService;
 
@@ -60,7 +61,7 @@ class TrashItemAdapter implements AdapterInterface
      * @param int $offset the offset
      * @param int $length the length
      *
-     * @return \eZ\Publish\API\Repository\Values\ValueObject[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject[]
      */
     public function getSlice($offset, $length): array
     {
@@ -78,3 +79,5 @@ class TrashItemAdapter implements AdapterInterface
         return $trashItems->items;
     }
 }
+
+class_alias(TrashItemAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\TrashItemAdapter');

@@ -1,45 +1,35 @@
-{% extends '@ezdesign/language/base.html.twig' %}
+{% extends '@ibexadesign/language/base.html.twig' %}
 
-{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+{% form_theme form '@ibexadesign/ui/form_fields.html.twig'  %}
 
-{% trans_default_domain 'language' %}
+{% trans_default_domain 'ibexa_language' %}
 
-{% block breadcrumbs_admin %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
-        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.language.list'), value: 'language.list'|trans|desc('Languages') },
-        { value: 'language.new'|trans|desc('Create a new language') },
-    ]} %}
-{% endblock %}
+{% block header_admin %}
+    {% set language_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.language_create.sidebar_right', [], {
+        save_id: form.save.vars.id,
+        save_and_close_id: form.save_and_close.vars.id,
+    }) %}
 
-{% block page_title_admin %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
-        title: 'language.new.title'|trans|desc('Creating a new language'),
-        icon_name: 'languages'
+    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+        action_name: 'language.creating'|trans|desc('Adding'),
+        title: 'language.new.title'|trans|desc('New Language'),
+        subtitle: 'language.subtitle'|trans|desc('Languages'),
+        context_actions: knp_menu_render(language_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
 {% endblock %}
 
-{% block title %}{{ 'language.new.title'|trans|desc('Creating a new language') }}{% endblock %}
-
 {% block form %}
     {{ form_start(form, {'action': actionUrl}) }}
-
-    <section>
-        <div class="card ez-card ez-card--light">
-            <div class="card-body ez-card__body">
-                {{ form_row(form.name, {'label_attr': {'class': 'ez-label'}, 'attr': {'autofocus': 'autofocus'}}) }}
-                {{ form_row(form.languageCode, {'label_attr': {'class': 'ez-label'}}) }}
-                {{ form_row(form.enabled, {'attr': {'class': 'ez-input ez-input--checkbox'}, 'label_attr': {'class': 'checkbox-inline ez-label'}}) }}
+        <section>
+            <div class="card ibexa-card ibexa-card--light">
+                <div class="card-body ibexa-card__body ibexa-form-block">
+                    {{ form_row(form.name, {'attr': {'autofocus': 'autofocus'}}) }}
+                    {{ form_row(form.languageCode) }}
+                    {{ form_row(form.enabled, {'label_attr': {'class': 'checkbox-inline'}}) }}
+                </div>
             </div>
-        </div>
-    </section>
-
-    {{ form_widget(form.save, {"attr": {"hidden": "hidden"}}) }}
-
+        </section>
+        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+        {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
-{% endblock %}
-
-{% block right_sidebar %}
-    {% set language_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.language_create.sidebar_right') %}
-    {{ knp_menu_render(language_create_sidebar_right, {'template': '@ezdesign/ui/menu/sidebar_right.html.twig'}) }}
 {% endblock %}

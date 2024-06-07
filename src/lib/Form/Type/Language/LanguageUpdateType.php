@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Language;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData;
+namespace Ibexa\AdminUi\Form\Type\Language;
+
+use Ibexa\AdminUi\Form\Data\Language\LanguageUpdateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,6 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LanguageUpdateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -29,7 +32,8 @@ class LanguageUpdateType extends AbstractType
                 TextType::class,
                 ['label' => /** @Desc("Name") */ 'ezplatform.language.update.name']
             )
-            ->add('enabled',
+            ->add(
+                'enabled',
                 CheckboxType::class,
                 [
                     'label' => /** @Desc("Enabled") */ 'ezplatform.language.update.enabled',
@@ -37,9 +41,14 @@ class LanguageUpdateType extends AbstractType
                 ]
             )
             ->add(
-                'save',
+                self::BTN_SAVE,
                 SubmitType::class,
                 ['label' => /** @Desc("Save") */ 'ezplatform.language.update.save']
+            )
+            ->add(
+                'save_and_close',
+                SubmitType::class,
+                ['label' => /** @Desc("Save and close") */ 'language.update.save_and_close']
             );
     }
 
@@ -51,3 +60,5 @@ class LanguageUpdateType extends AbstractType
         ]);
     }
 }
+
+class_alias(LanguageUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageUpdateType');

@@ -1,79 +1,234 @@
-.ez-field-edit {
+.ibexa-field-edit {
+    margin-top: calculateRem(8px);
+
     &__label {
         @include label-required();
     }
 
-    &__label-wrapper {
+    &__data {
+        &--compound {
+            border: calculateRem(1px) solid $ibexa-color-dark-200;
+            border-radius: $ibexa-border-radius;
+            padding: 0 calculateRem(23px) calculateRem(26px);
+        }
+    }
+
+    &__error {
+        color: $ibexa-color-danger;
+    }
+
+    &__distraction-free-mode {
         display: flex;
-        align-items: center;
-        flex-wrap: wrap;
+        flex-direction: column;
+        height: auto;
+        background: $ibexa-color-white;
+        border-radius: $ibexa-border-radius $ibexa-border-radius 0 0;
     }
 
-    &__icon-wrapper {
-        width: calculateRem(16px);
-        height: calculateRem(16px);
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: calculateRem(4px);
+    &__distraction-free-mode-notice-container {
+        display: none;
+    }
 
-        .ez-icon {
-            fill: $ibexa-color-base-dark;
+    &__distraction-free-mode-control-container {
+        display: flex;
+        align-self: flex-end;
+
+        .ibexa-label {
+            display: none;
+            padding-bottom: calculateRem(8px);
         }
     }
 
-    &__data,
-    &__preview {
-        padding-top: calculateRem(8px);
-    }
+    &__distraction-free-mode-control-btn {
+        align-self: flex-end;
+        align-items: center;
 
-    .ez-data-description {
-        margin-bottom: calculateRem(16px);
-        color: $ibexa-color-base-dark;
-    }
-
-    .ez-data-source__label {
-        &:after {
-            content: ': ';
+        &--enable {
+            display: inline-flex;
         }
+
+        &--disable {
+            display: none;
+        }
+
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
+        }
+    }
+
+    .ibexa-input-text-wrapper {
+        width: auto;
+    }
+
+    .ibexa-form-error {
+        flex-direction: column;
+    }
+
+    .form-control {
+        margin-bottom: 0;
     }
 
     &--nontranslatable,
     &--disabled {
-        opacity: 0.4;
         pointer-events: none;
+
+        .ibexa-label {
+            color: $ibexa-color-black-300;
+        }
+
+        h2 {
+            color: $ibexa-color-dark-300;
+        }
+
+        &__data {
+            &--compound {
+                border-color: $ibexa-color-light-400;
+            }
+        }
     }
 
-    &__error {
-        @include error-under-input();
+    &--ibexa_seo {
+        margin-top: calculateRem(32px);
+
+        .ibexa-data-source__label {
+            float: none;
+        }
+
+        .ibexa-data-source__input-wrapper {
+            .ibexa-content-type-edit__section-column-header:first-of-type {
+                margin-top: 0;
+            }
+        }
     }
 
-    .ez-data-source__input {
-        &.is-invalid {
-            @include input-invalid;
+    &--has-distraction-free-mode {
+        display: flex;
+        flex-wrap: wrap;
+
+        .ibexa-field-edit {
+            &__distraction-free-mode {
+                margin: auto 0 0;
+                align-self: baseline;
+                width: 20%;
+            }
+
+            &__label-wrapper {
+                width: 80%;
+            }
+
+            &__data {
+                width: 100%;
+            }
+        }
+    }
+
+    &--distraction-free-mode-active {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1080;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        width: 100vw;
+        height: 100vh;
+        margin-top: 0;
+        padding: calculateRem(16px);
+        background: $ibexa-color-black;
+
+        .ibexa-field-edit {
+            &__label-wrapper {
+                display: none;
+            }
+
+            &__distraction-free-mode {
+                width: 100%;
+                height: fit-content;
+                padding: calculateRem(32px) calculateRem(32px) 0 calculateRem(32px);
+            }
+
+            &__distraction-free-mode-notice-container {
+                display: block;
+                width: 100%;
+            }
+
+            &__distraction-free-mode-control-container {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                .ibexa-label {
+                    display: inline-flex;
+                    margin: calculateRem(8px) 0 0 0;
+                }
+            }
+
+            &__distraction-free-mode-control-btn {
+                margin: 0;
+
+                &--enable {
+                    display: none;
+                }
+
+                &--disable {
+                    display: inline-flex;
+                }
+            }
+
+            &__data {
+                width: 100%;
+                overflow-y: auto;
+                align-self: stretch;
+                flex-grow: 1;
+                padding: 0 calculateRem(32px) calculateRem(32px);
+                background: $ibexa-color-white;
+                border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+
+                .ibexa-data-source {
+                    height: 100%;
+                }
+            }
+        }
+
+        .ibexa-alert {
+            margin-bottom: calculateRem(4px);
+        }
+    }
+
+    &--distraction-free-mode-active.is-invalid {
+        .ibexa-field-edit {
+            &__data {
+                border-radius: 0;
+                padding-bottom: 0;
+            }
+        }
+
+        .ibexa-form-error {
+            padding: 0 calculateRem(32px) calculateRem(16px);
+            background: $ibexa-color-white;
+            border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
         }
     }
 }
 
-.ez-content-edit {
-    .ez-field-edit {
+.ibexa-content-edit {
+    .ibexa-field-edit {
         padding: calculateRem(24px) 0;
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
 
         &__label-wrapper {
             flex: 0 0 calculateRem(200px);
 
-            .ez-field-edit__label {
+            .ibexa-field-edit__label {
                 margin: 0;
                 font-size: calculateRem(16px);
                 font-weight: normal;
-                color: $ibexa-color-font-pale;
+                color: $ibexa-color-dark-300;
             }
         }
 
-        .ez-data-source__label {
+        .ibexa-data-source__label {
             margin-bottom: calculateRem(10px);
-            color: $ibexa-color-font-pale;
+            color: $ibexa-color-dark-300;
         }
 
         &__data {

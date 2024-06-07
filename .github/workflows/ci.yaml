@@ -3,23 +3,20 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
       - '[0-9]+.[0-9]+'
   pull_request: ~
-
-env:
-  COMPOSER_ROOT_VERSION: 2.3.x-dev
 
 jobs:
   cs-fix:
     name: Run code style check
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-22.04"
     strategy:
       matrix:
         php:
           - '8.0'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@v2
@@ -29,7 +26,7 @@ jobs:
           extensions: 'pdo_sqlite, gd'
           tools: cs2pr
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: ramsey/composer-install@v2
         with:
           dependency-versions: "highest"
 
@@ -38,20 +35,19 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-22.04"
     timeout-minutes: 10
 
     strategy:
       fail-fast: false
       matrix:
         php:
-          - '7.3'
           - '7.4'
           - '8.0'
           - '8.1'
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup PHP Action
         uses: shivammathur/setup-php@v2
@@ -61,7 +57,7 @@ jobs:
           extensions: pdo_sqlite, gd
           tools: cs2pr
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: ramsey/composer-install@v2
         with:
           dependency-versions: "highest"
           composer-options: "--prefer-dist --no-progress"
@@ -70,4 +66,113 @@ jobs:
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Run test suite
-        run: composer run-script --timeout=600 test
+        run: composer run-script --timeout=600 test-unit
+
+      - name: Run PHPStan analysis
+        run: composer run-script phpstan
+
+  integration-tests-postgres:
+    name: PostgreSQL integration tests
+    needs: tests
+    services:
+      postgres:
+        image: postgres:10
+        ports:
+          - 5432
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+          --tmpfs /var/lib/postgresql/data
+    runs-on: "ubuntu-22.04"
+    timeout-minutes: 20
+
+    strategy:
+      matrix:
+        php:
+          - '7.4'
+          - '8.0'
+          - '8.1'
+
+    steps:
+      -   uses: actions/checkout@v3
+
+      -   name: Setup PHP Action
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php }}
+            coverage: none
+            extensions: pdo_pgsql, gd
+            tools: cs2pr
+
+      -   uses: ramsey/composer-install@v2
+          with:
+            dependency-versions: "highest"
+
+      -   name: Setup problem matchers for PHPUnit
+          run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      -   name: Run integration test suite on Postgres
+          run: composer run-script --timeout=600 test-integration
+          env:
+            SEARCH_ENGINE: legacy
+            DATABASE_URL: "pgsql://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/testdb?server_version=10"
+
+  integration-tests-mysql:
+    name: MySQL integration tests
+    needs: tests
+
+    services:
+      mysql:
+        image: ghcr.io/ibexa/core/mysql
+        ports:
+          - 3306/tcp
+        env:
+          MYSQL_RANDOM_ROOT_PASSWORD: true
+          MYSQL_USER: mysql
+          MYSQL_PASSWORD: mysql
+          MYSQL_DATABASE: testdb
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+          --tmpfs=/var/lib/mysql
+    runs-on: "ubuntu-22.04"
+    timeout-minutes: 20
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - '7.4'
+          - '8.0'
+          - '8.1'
+
+    steps:
+      -   uses: actions/checkout@v3
+
+      -   name: Setup PHP Action
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: ${{ matrix.php }}
+            coverage: none
+            extensions: pdo_mysql, gd
+            tools: cs2pr
+
+      -   uses: ramsey/composer-install@v2
+          with:
+            dependency-versions: "highest"
+
+      -   name: Setup problem matchers for PHPUnit
+          run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      -   name: Run integration test suite vs MySQL
+          run: composer run-script --timeout=600 test-integration
+          env:
+            SEARCH_ENGINE: legacy
+            DATABASE_URL: "mysql://mysql:mysql@127.0.0.1:${{ job.services.mysql.ports[3306] }}/testdb"

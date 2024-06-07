@@ -1,5 +1,7 @@
 imports:
     - { resource: services/service_aliases.yaml }
+    - { resource: services/config.yaml }
+    - { resource: services/controller_argument_resolvers.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/tabs.yaml }
     - { resource: services/menu.yaml }
@@ -9,28 +11,34 @@ imports:
     - { resource: services/dashboard.yaml }
     - { resource: services/modules/subitems.yaml }
     - { resource: services/modules/content_tree.yaml }
+    - { resource: services/modules/field_type_toolbar.yaml }
     - { resource: services/form_processors.yaml }
     - { resource: services/validators.yaml }
+    - { resource: services/services.yaml }
     - { resource: services/siteaccess.yaml }
     - { resource: services/universal_discovery_widget.yaml }
     - { resource: services/utils.yaml }
     - { resource: services/form_ui_action_mappers.yaml }
     - { resource: services/views.yaml }
     - { resource: services/translation.yaml }
+    - { resource: services/user_profile.yaml }
     - { resource: services/user_settings.yaml }
     - { resource: services/rest.yaml }
     - { resource: services/permissions.yaml }
     - { resource: services/forms.yaml }
     - { resource: services/strategies.yaml }
     - { resource: services/query_types.yaml }
-    - { resource: services/search.yaml }
     - { resource: services/role_form_mappers.yaml }
     - { resource: services/fieldtype_form_mappers.yaml }
     - { resource: services/action_dispatchers.yaml }
     - { resource: services/events.yaml }
     - { resource: services/twig.yaml }
     - { resource: services/autosave.yaml }
+    - { resource: services/user.yaml }
+    - { resource: services/commands.yaml }
+    - { resource: services/icons.yaml }
     - { resource: services/role_form_mappers.yaml }
+    - { resource: services/security.yaml }
 
 services:
     _defaults:
@@ -38,108 +46,112 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzPlatformAdminUiBundle\Controller\Controller:
+    Ibexa\Contracts\AdminUi\Controller\Controller:
         tags: ['controller.service_arguments']
         calls:
             - [setContainer, ["@service_container"]]
             - [performAccessCheck, []]
 
-    EzSystems\EzPlatformAdminUiBundle\ParamConverter\:
+    Ibexa\Bundle\AdminUi\ParamConverter\:
         resource: "../../ParamConverter/*"
         public: true
         tags:
             - { name: 'request.param_converter' }
 
-    EzSystems\EzPlatformAdminUiBundle\ParamConverter\ContentTypeParamConverter:
+    Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeParamConverter:
         public: true
         tags:
             - { name: 'request.param_converter' }
 
-    EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory:
+    Ibexa\AdminUi\UI\Dataset\DatasetFactory:
         lazy: true
         arguments:
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
         tags:
             - { name: 'monolog.logger', channel: 'ibexa.admin_ui' }
 
-    EzSystems\EzPlatformAdminUi\UI\Service\:
+    Ibexa\AdminUi\UI\Service\:
         resource: '../../../lib/UI/Service'
 
-    EzSystems\EzPlatformAdminUi\UI\Value\Content\Location\Mapper: ~
+    Ibexa\AdminUi\UI\Value\Content\Location\Mapper: ~
 
-    EzSystems\EzPlatformAdminUi\UI\Value\ValueFactory:
+    Ibexa\AdminUi\UI\Value\ValueFactory:
         lazy: true
         tags:
             - { name: form.type }
 
-    EzSystems\EzPlatformAdminUi\Notification\FlashBagNotificationHandler: ~
-    EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandler: ~
+    Ibexa\AdminUi\Form\SubmitHandler:
+        decorates: Ibexa\User\Form\BaseSubmitHandler
 
-    EzSystems\EzPlatformAdminUi\Notification\NotificationHandlerInterface: '@EzSystems\EzPlatformAdminUi\Notification\FlashBagNotificationHandler'
-    EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface: '@EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandler'
+    Ibexa\AdminUi\Notification\FlashBagNotificationHandler: ~
+    Ibexa\AdminUi\Notification\TranslatableNotificationHandler:
+        decorates: Ibexa\User\ExceptionHandler\NullActionResultHandler
 
-    EzSystems\EzPlatformAdminUi\Menu\Voter\LocationVoter:
+    Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface: '@Ibexa\AdminUi\Notification\FlashBagNotificationHandler'
+    Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface: '@Ibexa\AdminUi\Notification\TranslatableNotificationHandler'
+
+    Ibexa\AdminUi\Menu\Voter\LocationVoter:
         arguments: [ '@request_stack' ]
         tags:
             - { name: knp_menu.voter }
 
-    EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+    Ibexa\AdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher:
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
-    EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+    Ibexa\AdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher:
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
-    EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\EditContentOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+    Ibexa\AdminUi\Form\ActionDispatcher\EditContentOnTheFlyDispatcher:
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
-    EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher:
-        parent: ezplatform.content_forms.action_dispatcher.base
+    Ibexa\AdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher:
+        parent: Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher
         autowire: true
         autoconfigure: false
         public: false
 
-    EzSystems\EzPlatformAdminUi\EventListener\MenuPermissionsListener:
+    Ibexa\AdminUi\EventListener\MenuPermissionsListener:
         tags:
             - {name: kernel.event_subscriber, priority: -250}
 
-    EzSystems\EzPlatformAdminUi\EventListener\CredentialsExpiredListener:
+    Ibexa\AdminUi\EventListener\CredentialsExpiredListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
 
-    EzSystems\EzPlatformAdminUi\EventListener\CredentialsExpirationWarningListener:
+    Ibexa\AdminUi\EventListener\CredentialsExpirationWarningListener:
         arguments:
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
 
-    EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UserPreferencesGlobalExtension:
+    Ibexa\Bundle\AdminUi\Templating\Twig\UserPreferencesGlobalExtension:
         lazy: true
 
-    EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver: ~
+    Ibexa\AdminUi\UI\Service\ContentTypeIconResolver: ~
 
-    EzSystems\EzPlatformContentForms\ConfigResolver\MaxUploadSize: ~
+    Ibexa\ContentForms\ConfigResolver\MaxUploadSize: ~
 
-    EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTypeDraftMapper: ~
+    Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper: ~
 
-    EzSystems\EzPlatformAdminUi\UI\Service\DateTimeFormatter: ~
-    EzSystems\EzPlatformAdminUi\UI\Service\DateTimeFormatterInterface: '@EzSystems\EzPlatformAdminUi\UI\Service\DateTimeFormatter'
+    Ibexa\AdminUi\UI\Service\DateTimeFormatter: ~
+    Ibexa\AdminUi\UI\Service\DateTimeFormatterInterface: '@Ibexa\AdminUi\UI\Service\DateTimeFormatter'
 
-    EzSystems\EzPlatformAdminUi\EventListener\SearchViewFilterParametersListener:
+    Ibexa\AdminUi\EventListener\SearchViewFilterParametersListener:
         arguments:
             $formFactory: '@form.factory'
-            $configResolver: '@ezpublish.config.resolver'
+            $configResolver: '@ibexa.config.resolver'
             $requestStack: '@request_stack'
-            $siteAccessGroups: '%ezpublish.siteaccess.groups%'
+            $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}

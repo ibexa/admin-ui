@@ -1,9 +1,11 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
-
-import Icon from '../../../common/icon/icon';
+import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import Icon from '../../../common/icon/icon';
+import Dropdown from '../../../common/dropdown/dropdown';
+
 import {
+    DropdownPortalRefContext,
     CreateContentWidgetContext,
     ActiveTabContext,
     ContentOnTheFlyDataContext,
@@ -11,22 +13,30 @@ import {
     LoadedLocationsMapContext,
     ContentOnTheFlyConfigContext,
     AllowedContentTypesContext,
+    SuggestionsStorageContext,
 } from '../../universal.discovery.module';
 
-const configLanguages = window.eZ.adminUiConfig.languages;
-const languages = configLanguages.priority.map((languageCode) => {
-    return configLanguages.mappings[languageCode];
-});
-const contentTypes = Object.entries(window.eZ.adminUiConfig.contentTypes);
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
+const MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR = 10;
 
 const ContentCreateWidget = () => {
+    const Translator = getTranslator();
+    const adminUiConfig = getAdminUiConfig();
     const refContentTree = useRef(null);
-    const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
-    const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
+    const dropdownListRef = useContext(DropdownPortalRefContext);
+    const [markedLocationId] = useContext(MarkedLocationIdContext);
+    const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
+    const [suggestionsStorage] = useContext(SuggestionsStorageContext);
+    const { languages, contentTypes } = adminUiConfig;
     const selectedLocation = loadedLocationsMap.find((loadedLocation) => loadedLocation.parentLocationId === markedLocationId);
-    const filteredLanguages = languages.filter((language) => {
+    const mappedLanguages = languages.priority.map((languageCode) => {
+        return languages.mappings[languageCode];
+    });
+    const filteredLanguages = mappedLanguages.filter((language) => {
         const userHasPermission =
             !selectedLocation ||
             !selectedLocation.permissions ||
@@ -40,9 +50,10 @@ const ContentCreateWidget = () => {
     const firstLanguageCode = filteredLanguages.length ? filteredLanguages[0].languageCode : '';
     const [selectedLanguage, setSelectedLanguage] = useState(preselectedLanguage || firstLanguageCode);
     const [selectedContentType, setSelectedContentType] = useState(preselectedContentType);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
+    const [isSelectedSuggestion, setIsSelectedSuggestion] = useState(false);
+    const [, setActiveTab] = useContext(ActiveTabContext);
     const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
-    const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
+    const [, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const close = () => {
         setCreateContentVisible(false);
     };
@@ -51,7 +62,7 @@ const ContentCreateWidget = () => {
 
         setFilterQuery(query);
     };
-    const updateSelectedLanguage = (event) => setSelectedLanguage(event.target.value);
+    const updateSelectedLanguage = (value) => setSelectedLanguage(value);
     const isConfirmDisabled = !selectedContentType || !selectedLanguage || markedLocationId === 1;
     const createContent = () => {
         setContentOnTheFlyData({
@@ -61,118 +72,183 @@ const ContentCreateWidget = () => {
         });
         setActiveTab('content-create');
     };
-    const createContentLabel = Translator.trans(/*@Desc("Create new content")*/ 'create_content.label', {}, 'universal_discovery_widget');
+    const createContentLabel = Translator.trans(/*@Desc("Create content")*/ 'create_content.label', {}, 'ibexa_universal_discovery_widget');
     const selectLanguageLabel = Translator.trans(
         /*@Desc("Select a language")*/ 'create_content.select_language',
         {},
-        'universal_discovery_widget'
+        'ibexa_universal_discovery_widget',
     );
-    const selectContentType = Translator.trans(
-        /*@Desc("Select a Content Type")*/ 'create_content.select_content_type',
+    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
+    const cancelLabel = Translator.trans(/*@Desc("Discard")*/ 'content_create.cancel.label', {}, 'ibexa_universal_discovery_widget');
+    const placeholder = Translator.trans(
+        /*@Desc("Search by content type")*/ 'content_create.placeholder',
         {},
-        'universal_discovery_widget'
+        'ibexa_universal_discovery_widget',
     );
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'universal_discovery_widget');
-    const closeLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'universal_discovery_widget');
-    const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
+    const filtersDescLabel = Translator.trans(
+        /*@Desc("Select a content type from list")*/ 'content.create.filters.desc',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
+    const createUnderLabel = Translator.trans(
+        /*@Desc("Location: %location%")*/ 'content.create.editing_details',
+        { location: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
+        'ibexa_universal_discovery_widget',
+    );
     const widgetClassName = createCssClassNames({
+        'ibexa-extra-actions': true,
+        'ibexa-extra-actions--create': true,
+        'ibexa-extra-actions--hidden': !createContentVisible,
         'c-content-create': true,
-        'c-content-create--hidden': !createContentVisible,
+    });
+    const languageOptions = mappedLanguages
+        .filter((language) => language.enabled)
+        .map((language) => ({
+            value: language.languageCode,
+            label: language.name,
+        }));
+    const contentTypesWithSuggestions = Object.entries(contentTypes);
+    const suggestions = suggestionsStorage[selectedLocation?.parentLocationId] ?? [];
+
+    if (suggestions) {
+        contentTypesWithSuggestions.unshift(['Suggestions', suggestions.map(({ data }) => data)]);
+    }
+
+    const { contentTypesToShow, allGroupsItemsCount } = useMemo(
+        () =>
+            contentTypesWithSuggestions.reduce(
+                (
+                    { contentTypesToShow: contentTypesToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious },
+                    [groupName, groupItems],
+                ) => {
+                    const restrictedContentTypeIds = selectedLocation?.permissions?.create.restrictedContentTypeIds ?? [];
+                    const groupFilteredItems = [...groupItems].filter((groupItem) => {
+                        const hasNotPermission =
+                            restrictedContentTypeIds.length && !restrictedContentTypeIds.includes(groupItem.id.toString());
+                        const isNotAllowedContentType = allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier);
+                        const isHiddenByConfig = groupItem.isHidden;
+
+                        return !hasNotPermission && !isNotAllowedContentType && !isHiddenByConfig;
+                    });
+
+                    const hasAnyItems = !!groupFilteredItems.length;
+
+                    if (!hasAnyItems) {
+                        return { contentTypesToShow: contentTypesToShowPrevious, allGroupsItemsCount: allGroupsItemsCountPrevious };
+                    }
+
+                    return {
+                        contentTypesToShow: [...contentTypesToShowPrevious, [groupName, groupFilteredItems]],
+                        allGroupsItemsCount: allGroupsItemsCountPrevious + groupFilteredItems.length,
+                    };
+                },
+                { contentTypesToShow: [], allGroupsItemsCount: 0 },
+            ),
+        [contentTypesWithSuggestions, selectedLocation, allowedContentTypes],
+    );
+    const instantFilterInputWrapperClassName = createCssClassNames({
+        'ibexa-instant-filter__input-wrapper': true,
+        'ibexa-instant-filter__input-wrapper--hidden': allGroupsItemsCount <= MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR,
     });
 
     useEffect(() => {
-        setSelectedLanguage(preselectedLanguage || firstLanguageCode)
+        setSelectedLanguage(preselectedLanguage || firstLanguageCode);
     }, [preselectedLanguage, firstLanguageCode]);
-    
+
     useEffect(() => {
-        window.eZ.helpers.tooltips.parse(refContentTree.current);
+        parseTooltip(refContentTree.current);
     }, []);
 
     return (
-        <div className={widgetClassName} ref={refContentTree}>
-            <div className="c-content-create__header">
-                <div className="c-content-create__header-title">{createContentLabel}</div>
-                <button
-                    type="button"
-                    className="c-content-create__close-button"
-                    onClick={close}
-                    title={closeLabel}
-                    data-tooltip-container-selector=".c-udw-tab">
-                    <Icon name="discard" extraClasses="ez-icon--small" />
-                </button>
-            </div>
-            <div className="c-content-create__language-selector-wrapper">
-                <div className="c-content-create__language-selector-label">{selectLanguageLabel}</div>
-                <select className="form-control" onChange={updateSelectedLanguage} value={selectedLanguage}>
-                    {filteredLanguages.map((language) => {
-                        if (!language.enabled) {
-                            return null;
-                        }
-
-                        return (
-                            <option key={language.id} value={language.languageCode} onChange={updateSelectedLanguage}>
-                                {language.name}
-                            </option>
-                        );
-                    })}
-                </select>
-            </div>
-            <div className="c-content-create__select-content-type-wrapper">
-                <div className="c-content-create__select-content-type-label">{selectContentType}</div>
-                <input autoFocus className="form-control" type="text" placeholder="Type to refine" onChange={updateFilterQuery} />
-                <div className="c-content-create__content-type-list">
-                    {contentTypes.map(([groupName, groupItems]) => {
-                        const isHidden = groupItems.every((groupItem) => {
-                            return (
-                                (filterQuery && !groupItem.name.toLowerCase().includes(filterQuery)) ||
-                                (selectedLocation &&
-                                    selectedLocation.permissions &&
-                                    selectedLocation.permissions.create.restrictedContentTypeIds.length &&
-                                    !selectedLocation.permissions.create.restrictedContentTypeIds.includes(groupItem.id.toString())) ||
-                                (allowedContentTypes && !allowedContentTypes.includes(groupItem.identifier))
-                            );
-                        });
-
-                        return (
-                            <div className="c-content-create__group" key={groupName}>
-                                <div className="c-content-create__group-name" hidden={isHidden}>
-                                    {groupName}
-                                </div>
-                                {groupItems.map(({ name, thumbnail, identifier, id }) => {
-                                    const isHidden =
-                                        (filterQuery && !name.toLowerCase().includes(filterQuery)) ||
-                                        (selectedLocation &&
-                                            selectedLocation.permissions &&
-                                            selectedLocation.permissions.create.restrictedContentTypeIds.length &&
-                                            !selectedLocation.permissions.create.restrictedContentTypeIds.includes(id.toString())) ||
-                                        (allowedContentTypes && !allowedContentTypes.includes(identifier));
-                                    const className = createCssClassNames({
-                                        'c-content-create__group-item': true,
-                                        'c-content-create__group-item--selected': identifier === selectedContentType,
-                                    });
-                                    const updateSelectedContentType = () => setSelectedContentType(identifier);
-
-                                    return (
-                                        <div hidden={isHidden} key={identifier} className={className} onClick={updateSelectedContentType}>
-                                            <div className="c-content-create__group-item-icon">
-                                                <Icon customPath={thumbnail} extraClasses="ez-icon--small" />
-                                            </div>
-                                            <div className="c-content-create__group-item-name">{name}</div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        );
-                    })}
+        <div className="ibexa-extra-actions-container">
+            <div className="ibexa-extra-actions-container__backdrop" hidden={!createContentVisible} onClick={close} />
+            <div className={widgetClassName} ref={refContentTree}>
+                <div className="ibexa-extra-actions__header">
+                    <h3>{createContentLabel}</h3>
+                    <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
-            </div>
-            <div className="c-content-create__confirm-wrapper">
-                <button className="c-content-create__confirm-button btn btn-primary" onClick={createContent} disabled={isConfirmDisabled}>
-                    {createLabel}
-                </button>
-                <button className="ez-btn ez-btn--no-border" onClick={close}>
-                    {cancelLabel}
-                </button>
+                <div className="ibexa-extra-actions__content ibexa-extra-actions__content--create">
+                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
+                    <div className="ibexa-extra-actions__section-content">
+                        <Dropdown
+                            dropdownListRef={dropdownListRef}
+                            onChange={updateSelectedLanguage}
+                            single={true}
+                            value={selectedLanguage}
+                            options={languageOptions}
+                            extraClasses="c-udw-dropdown"
+                        />
+                    </div>
+                    <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
+                        <div className="ibexa-instant-filter">
+                            <div className={instantFilterInputWrapperClassName}>
+                                <input
+                                    autoFocus={true}
+                                    className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
+                                    type="text"
+                                    placeholder={placeholder}
+                                    onChange={updateFilterQuery}
+                                />
+                            </div>
+                        </div>
+                        <div className="ibexa-instant-filter__desc">{filtersDescLabel}</div>
+                        <div className="ibexa-instant-filter__items">
+                            {contentTypesToShow.map(([groupName, groupItems], index) => {
+                                const isSuggestionGroup = !!suggestions.length && index === 0;
+                                const visibleGroupItems = groupItems.filter((groupItem) => {
+                                    const isSearchedName = !filterQuery || groupItem.name.toLowerCase().includes(filterQuery);
+
+                                    return isSearchedName;
+                                });
+
+                                if (visibleGroupItems.length === 0) {
+                                    return null;
+                                }
+
+                                return (
+                                    <div className="ibexa-instant-filter__group" key={groupName}>
+                                        <div className="ibexa-instant-filter__group-name">{groupName}</div>
+                                        {visibleGroupItems.map(({ name, thumbnail, identifier }) => {
+                                            const className = createCssClassNames({
+                                                'ibexa-instant-filter__group-item': true,
+                                                'ibexa-instant-filter__group-item--selected':
+                                                    identifier === selectedContentType && isSuggestionGroup === isSelectedSuggestion,
+                                            });
+                                            const updateSelectedContentType = () => {
+                                                setSelectedContentType(identifier);
+                                                setIsSelectedSuggestion(isSuggestionGroup);
+                                            };
+
+                                            return (
+                                                <div key={identifier} className={className} onClick={updateSelectedContentType}>
+                                                    <Icon customPath={thumbnail} extraClasses="ibexa-icon--small" />
+                                                    <div className="form-check">
+                                                        <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
+                                                            {name}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className="c-content-create__confirm-wrapper">
+                    <button
+                        className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
+                        onClick={createContent}
+                        disabled={isConfirmDisabled}
+                        type="button"
+                    >
+                        {createLabel}
+                    </button>
+                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close} type="button">
+                        {cancelLabel}
+                    </button>
+                </div>
             </div>
         </div>
     );

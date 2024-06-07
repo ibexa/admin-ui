@@ -6,13 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ObjectState;
+namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectState;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentInfoType;
+use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
+use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -23,15 +24,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentObjectStateUpdateType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $objectStateService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
     /**
-     * @param \eZ\Publish\API\Repository\ObjectStateService $objectStateService
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(ObjectStateService $objectStateService, PermissionResolver $permissionResolver)
     {
@@ -40,7 +41,7 @@ class ContentObjectStateUpdateType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -56,7 +57,7 @@ class ContentObjectStateUpdateType extends AbstractType
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $contentObjectStateUpdateData */
+            /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $contentObjectStateUpdateData */
             $contentObjectStateUpdateData = $event->getData();
             $objectStateGroup = $contentObjectStateUpdateData->getObjectStateGroup();
             $contentInfo = $contentObjectStateUpdateData->getContentInfo();
@@ -79,13 +80,15 @@ class ContentObjectStateUpdateType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ContentObjectStateUpdateData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }
+
+class_alias(ContentObjectStateUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType');

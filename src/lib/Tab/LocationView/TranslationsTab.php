@@ -6,22 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\LocationView;
+namespace Ibexa\AdminUi\Tab\LocationView;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\SPI\Limitation\Target;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\MainTranslationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationAddType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationDeleteType;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData;
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData;
+use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
+use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
+use Ibexa\AdminUi\Form\Type\Content\Translation\TranslationAddType;
+use Ibexa\AdminUi\Form\Type\Content\Translation\TranslationDeleteType;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -31,9 +32,9 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-location-view-translations';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
     /** @var \Symfony\Component\Form\FormFactoryInterface */
@@ -42,20 +43,20 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
+     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(
         Environment $twig,
@@ -84,30 +85,30 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     public function getName(): string
     {
         /** @Desc("Translations") */
-        return $this->translator->trans('tab.name.translations', [], 'locationview');
+        return $this->translator->trans('tab.name.translations', [], 'ibexa_locationview');
     }
 
     public function getOrder(): int
     {
-        return 600;
+        return 300;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/translations/tab.html.twig';
+        return '@ibexadesign/content/tab/translations/tab.html.twig';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $contextParameters['location'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contextParameters['content'];
         $versionInfo = $content->getVersionInfo();
         $translationsDataset = $this->datasetFactory->translations();
@@ -147,7 +148,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
      * @return \Symfony\Component\Form\FormInterface
      *
@@ -161,7 +162,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param array $languageCodes
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -179,7 +180,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      * @param string $languageCode
      *
      * @return \Symfony\Component\Form\FormInterface
@@ -191,3 +192,5 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return $this->formFactory->create(MainTranslationUpdateType::class, $data);
     }
 }
+
+class_alias(TranslationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\TranslationsTab');

@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Feature: Content Item preview
   As an administrator
   To make sure my Content looks good on mobile, desktop and tablet
@@ -14,7 +14,7 @@ Feature: Content Item preview
     And I set content fields
       | label | value     |
       | Name  | Test Name |
-    And I click on the edit action bar button "Preview"
+    And I perform the "Preview" action
     And I go to "tablet" preview
     And I go to "mobile" preview
     And I go to "desktop" preview

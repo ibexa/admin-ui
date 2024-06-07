@@ -1,13 +1,24 @@
-(function(global, doc, eZ) {
-    const escapeHTML = (string) => {
-        const stringTempNode = doc.createElement('div');
+const { document: doc } = window;
 
-        stringTempNode.appendChild(doc.createTextNode(string));
+const escapeHTML = (string) => {
+    const stringTempNode = doc.createElement('div');
 
-        return stringTempNode.innerHTML;
-    };
+    stringTempNode.appendChild(doc.createTextNode(string));
 
-    eZ.addConfig('helpers.text', {
-        escapeHTML,
-    });
-})(window, window.document, window.eZ);
+    return stringTempNode.innerHTML;
+};
+
+const escapeHTMLAttribute = (string) => {
+    if (string === null) {
+        return '';
+    }
+
+    return String(string)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+};
+
+export { escapeHTML, escapeHTMLAttribute };

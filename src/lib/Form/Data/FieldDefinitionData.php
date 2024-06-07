@@ -6,20 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\API\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Base class for FieldDefinition forms, with corresponding FieldDefinition object.
  *
- * @property \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition $fieldDefinition
- * @property \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $contentTypeData
+ * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
+ * @property \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData
  */
-class FieldDefinitionData extends FieldDefinitionUpdateStruct
+class FieldDefinitionData extends FieldDefinitionUpdateStruct implements TranslationContainerInterface
 {
+    public bool $enabled;
+
     /**
-     * @var \eZ\Publish\API\Repository\Values\ContentType\FieldDefinition
+     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
      */
     protected $fieldDefinition;
 
@@ -27,7 +31,7 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct
      * ContentTypeData holding current FieldDefinitionData.
      * Mainly used for validation.
      *
-     * @var \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData
+     * @var \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
     protected $contentTypeData;
 
@@ -35,9 +39,21 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct
     {
         return $this->fieldDefinition->fieldTypeIdentifier;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('ez.field_definition.descriptions', 'validators')
+                ->setDesc('Field definition description cannot be longer than 255 characters.'),
+            Message::create('ez.field_definition.names', 'validators')
+                ->setDesc('Field definition name cannot be blank cannot be longer than 255 characters.'),
+        ];
+    }
 }
 
 class_alias(
     FieldDefinitionData::class,
     \EzSystems\RepositoryForms\Data\FieldDefinitionData::class
 );
+
+class_alias(FieldDefinitionData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData');

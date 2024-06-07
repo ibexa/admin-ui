@@ -3,50 +3,17 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 import TableViewItemComponent from './table.view.item.component';
-import TableViewColumnsTogglerComponent from './table.view.columns.toggler';
 import ThreeStateCheckboxComponent from '../three-state-checkbox/three.state.checkbox.component';
 import LanguageSelector from '../sub-items-list/language.selector.compoment';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { columnsLabels as headerLabels } from '../../sub.items.module';
 
-const COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY = 'sub-items_columns-visibility';
-const DEFAULT_COLUMNS_VISIBILITY = {
-    modified: true,
-    'content-type': true,
-    priority: true,
-    translations: true,
-    visibility: true,
-    creator: true,
-    contributor: true,
-    published: true,
-    section: true,
-    'location-id': true,
-    'location-remote-id': true,
-    'object-id': true,
-    'object-remote-id': true,
-};
 const SORTKEY_MAP = {
     name: 'ContentName',
     modified: 'DateModified',
     priority: 'LocationPriority',
 };
-const TABLE_CELL_CLASS = 'c-table-view__cell';
-const TABLE_HEAD_CLASS = `${TABLE_CELL_CLASS} ${TABLE_CELL_CLASS}--head`;
-export const headerLabels = {
-    name: Translator.trans(/*@Desc("Name")*/ 'items_table.header.name', {}, 'sub_items'),
-    modified: Translator.trans(/*@Desc("Modified")*/ 'items_table.header.modified', {}, 'sub_items'),
-    'content-type': Translator.trans(/*@Desc("Content type")*/ 'items_table.header.content_type', {}, 'sub_items'),
-    priority: Translator.trans(/*@Desc("Priority")*/ 'items_table.header.priority', {}, 'sub_items'),
-    translations: Translator.trans(/*@Desc("Translations")*/ 'items_table.header.translations', {}, 'sub_items'),
-    visibility: Translator.trans(/*@Desc("Visibility")*/ 'items_table.header.visibility', {}, 'sub_items'),
-    creator: Translator.trans(/*@Desc("Creator")*/ 'items_table.header.creator', {}, 'sub_items'),
-    contributor: Translator.trans(/*@Desc("Contributor")*/ 'items_table.header.contributor', {}, 'sub_items'),
-    published: Translator.trans(/*@Desc("Published")*/ 'items_table.header.pubished', {}, 'sub_items'),
-    section: Translator.trans(/*@Desc("Section")*/ 'items_table.header.section', {}, 'sub_items'),
-    'location-id': Translator.trans(/*@Desc("Location ID")*/ 'items_table.header.location_id', {}, 'sub_items'),
-    'location-remote-id': Translator.trans(/*@Desc("Location remote ID")*/ 'items_table.header.location_remote_id', {}, 'sub_items'),
-    'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.header.object_id', {}, 'sub_items'),
-    'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.header.object_remote_id', {}, 'sub_items'),
-};
+const TABLE_HEAD_CLASS = 'ibexa-table__header-cell c-table-view__cell c-table-view__cell--head';
 
 export default class TableViewComponent extends Component {
     constructor(props) {
@@ -54,40 +21,53 @@ export default class TableViewComponent extends Component {
 
         this.renderItem = this.renderItem.bind(this);
         this.selectAll = this.selectAll.bind(this);
-        this.setColumnsVisibilityInLocalStorage = this.setColumnsVisibilityInLocalStorage.bind(this);
-        this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
         this.setLanguageSelectorData = this.setLanguageSelectorData.bind(this);
         this.openLanguageSelector = this.openLanguageSelector.bind(this);
         this.closeLanguageSelector = this.closeLanguageSelector.bind(this);
+        this.handleScrollerScroll = this.handleScrollerScroll.bind(this);
 
         this._refColumnsTogglerButton = createRef();
+        this._refScroller = createRef();
 
         this.state = {
-            columnsVisibility: this.getColumnsVisibilityFromLocalStorage(),
             languageSelectorData: {},
             languageSelectorOpen: false,
+            scrollShadowLeft: false,
+            scrollShadowRight: false,
         };
     }
 
-    getColumnsVisibilityFromLocalStorage() {
-        const columnsVisibilityData = localStorage.getItem(COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY);
-        const columnsVisibility = { ...DEFAULT_COLUMNS_VISIBILITY };
-
-        if (columnsVisibilityData) {
-            Object.entries(JSON.parse(columnsVisibilityData)).forEach(([id, isVisible]) => {
-                if (id in columnsVisibility) {
-                    columnsVisibility[id] = isVisible;
-                }
-            });
-        }
-
-        return columnsVisibility;
+    componentDidMount() {
+        this._refScroller.current.addEventListener('scroll', this.handleScrollerScroll, false);
+        window.addEventListener('resize', this.handleScrollerScroll, false);
+        this.handleScrollerScroll();
     }
 
-    setColumnsVisibilityInLocalStorage() {
-        const columnsVisibilityData = JSON.stringify(this.state.columnsVisibility);
+    componentDidUpdate(prevProps) {
+        if (this.props.columnsVisibility !== prevProps.columnsVisibility) {
+            this.handleScrollerScroll();
+        }
+    }
 
-        localStorage.setItem(COLUMNS_VISIBILITY_LOCAL_STORAGE_DATA_KEY, columnsVisibilityData);
+    componentWillUnmount() {
+        this._refScroller.current.removeEventListener('scroll', this.handleScrollerScroll, false);
+        window.removeEventListener('resize', this.handleScrollerScroll, false);
+    }
+
+    handleScrollerScroll() {
+        this.setState(() => {
+            if (!this._refScroller.current) {
+                return {};
+            }
+
+            const scroller = this._refScroller.current;
+            const offsetRoudingCompensator = 0.5;
+
+            return {
+                scrollShadowLeft: scroller.scrollLeft > 0,
+                scrollShadowRight: scroller.scrollLeft < scroller.scrollWidth - scroller.offsetWidth - 2 * offsetRoudingCompensator,
+            };
+        });
     }
 
     /**
@@ -99,18 +79,6 @@ export default class TableViewComponent extends Component {
         const isSelectAction = !anyLocationSelected;
 
         toggleAllItemsSelect(isSelectAction);
-    }
-
-    toggleColumnVisibility(column) {
-        this.setState(
-            (state) => ({
-                columnsVisibility: {
-                    ...state.columnsVisibility,
-                    [column]: !state.columnsVisibility[column],
-                },
-            }),
-            this.setColumnsVisibilityInLocalStorage
-        );
     }
 
     /**
@@ -147,7 +115,8 @@ export default class TableViewComponent extends Component {
      * @memberof TableViewComponent
      */
     renderItem(item) {
-        const { columnsVisibility } = this.state;
+        const { scrollShadowLeft, scrollShadowRight } = this.state;
+        const { columnsVisibility } = this.props;
         const { handleItemPriorityUpdate, handleEditItem, generateLink, languages, onItemSelect, selectedLocationsIds } = this.props;
         const isSelected = selectedLocationsIds.has(item.id);
 
@@ -164,13 +133,15 @@ export default class TableViewComponent extends Component {
                 columnsVisibility={columnsVisibility}
                 setLanguageSelectorData={this.setLanguageSelectorData}
                 openLanguageSelector={this.openLanguageSelector}
+                showScrollShadowLeft={scrollShadowLeft}
+                showScrollShadowRight={scrollShadowRight}
             />
         );
     }
 
     renderBasicColumnsHeader() {
-        const { sortClause, sortOrder, onSortChange } = this.props;
-        const { columnsVisibility } = this.state;
+        const { sortClause, sortOrder, onSortChange, columnsVisibility } = this.props;
+        const { scrollShadowLeft } = this.state;
         const columnsToRender = {
             name: true,
             ...columnsVisibility,
@@ -182,12 +153,19 @@ export default class TableViewComponent extends Component {
             }
 
             let onClick = null;
+            const isNameColumn = columnKey === 'name';
             const className = createCssClassNames({
                 [TABLE_HEAD_CLASS]: true,
-                [`${TABLE_CELL_CLASS}--sortable`]: columnKey in SORTKEY_MAP,
-                [`${TABLE_CELL_CLASS}--sorted-asc`]: SORTKEY_MAP[columnKey] === sortClause && sortOrder === 'ascending',
-                [`${TABLE_CELL_CLASS}--sorted-desc`]: SORTKEY_MAP[columnKey] === sortClause && sortOrder === 'descending',
-                [`${TABLE_CELL_CLASS}--name`]: columnKey === 'name',
+                'c-table-view__cell--name': isNameColumn,
+                'ibexa-table__header-cell--close-left': isNameColumn,
+                'c-table-view__cell--shadow-right': scrollShadowLeft && isNameColumn,
+            });
+            const wrapperClassName = createCssClassNames({
+                'c-table-view__label': true,
+                'ibexa-table__sort-column': columnKey in SORTKEY_MAP,
+                'ibexa-table__header-cell-text-wrapper': true,
+                'ibexa-table__sort-column--asc': SORTKEY_MAP[columnKey] === sortClause && sortOrder === 'ascending',
+                'ibexa-table__sort-column--desc': SORTKEY_MAP[columnKey] === sortClause && sortOrder === 'descending',
             });
 
             if (columnKey in SORTKEY_MAP) {
@@ -198,7 +176,7 @@ export default class TableViewComponent extends Component {
 
             return (
                 <th key={columnKey} className={className} onClick={onClick} tabIndex={-1}>
-                    <span className="c-table-view__label">{headerLabels[columnKey]}</span>
+                    <span className={wrapperClassName}>{headerLabels[columnKey]}</span>
                 </th>
             );
         });
@@ -216,7 +194,6 @@ export default class TableViewComponent extends Component {
             return null;
         }
 
-        const { columnsVisibility } = this.state;
         const { selectedLocationsIds, items } = this.props;
         const anyLocationSelected = !!selectedLocationsIds.size;
         const allLocationsSelected = selectedLocationsIds.size === items.length;
@@ -224,24 +201,18 @@ export default class TableViewComponent extends Component {
 
         return (
             <thead className="c-table-view__head">
-                <tr className="c-table-view__row">
-                    <th className={`${TABLE_HEAD_CLASS} ${TABLE_CELL_CLASS}--checkbox`}>
+                <tr className="ibexa-table__head-row c-table-view__row">
+                    <th className={`${TABLE_HEAD_CLASS} c-table-view__cell--checkbox`}>
                         <ThreeStateCheckboxComponent
                             indeterminate={isCheckboxIndeterminate}
                             checked={anyLocationSelected}
                             onClick={this.selectAll} // We need onClick, because MS Edge does not trigger onChange when checkbox has indeterminate state. (ref: https://stackoverflow.com/a/33529024/5766602)
                             onChange={() => {}} // Dummy callback to not trigger React warning as we cannot use onChange on MS Edge
-                            class="ez-input ez-input--checkbox ez-input--no-select-border"
+                            className="ibexa-input ibexa-input--checkbox ibexa-table__header-cell-checkbox ibexa-table__header-cell-checkbox--custom-init"
                         />
                     </th>
-                    <th className={`${TABLE_HEAD_CLASS} ${TABLE_CELL_CLASS}--icon`} />
                     {this.renderBasicColumnsHeader()}
-                    <th className={`${TABLE_HEAD_CLASS} ${TABLE_CELL_CLASS}--actions`}>
-                        <TableViewColumnsTogglerComponent
-                            columnsVisibility={columnsVisibility}
-                            toggleColumnVisibility={this.toggleColumnVisibility}
-                        />
-                    </th>
+                    <th />
                 </tr>
             </thead>
         );
@@ -253,10 +224,10 @@ export default class TableViewComponent extends Component {
 
         return (
             <div className="c-table-view__wrapper">
-                <div className="c-table-view__scroller">
-                    <table className="c-table-view c-table-view--hoverable">
+                <div className="c-table-view__scroller" ref={this._refScroller}>
+                    <table className="table ibexa-table c-table-view">
                         {this.renderHead()}
-                        <tbody className="c-table-view__body">{renderedItems}</tbody>
+                        <tbody className="ibexa-table__body c-table-view__body">{renderedItems}</tbody>
                     </table>
                 </div>
                 {createPortal(
@@ -265,7 +236,7 @@ export default class TableViewComponent extends Component {
                         close={this.closeLanguageSelector}
                         {...this.state.languageSelectorData}
                     />,
-                    window.document.querySelector(this.props.languageContainerSelector)
+                    window.document.querySelector(this.props.languageContainerSelector),
                 )}
             </div>
         );
@@ -285,4 +256,9 @@ TableViewComponent.propTypes = {
     sortClause: PropTypes.string.isRequired,
     sortOrder: PropTypes.string.isRequired,
     languageContainerSelector: PropTypes.string.isRequired,
+    columnsVisibility: PropTypes.object.isRequired,
+};
+
+TableViewComponent.defaultProps = {
+    selectedLocationsIds: new Set(),
 };

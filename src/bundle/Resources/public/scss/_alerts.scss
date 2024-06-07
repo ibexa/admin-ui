@@ -1,58 +1,275 @@
-.ez-alert {
-    &--info {
-        background: $ibexa-color-base-medium;
-        color: $ibexa-color-font;
-        padding: calculateRem(12px) calculateRem(20px);
-        border: 0;
-        fill: currentColor;
-        vertical-align: middle;
-        border-radius: $ibexa-border-radius;
+.ibexa-alert {
+    $self: &;
 
-        .ez-icon {
-            margin-right: calculateRem(12px);
-            fill: $ibexa-color-primary;
+    min-height: calculateRem(48px);
+    display: grid;
+    grid-template: 'icon content actions close-btn';
+    grid-template-columns: auto 1fr auto auto;
+    padding: calculateRem(8px) calculateRem(8px);
+    border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
+    border-width: 0 0 0 calculateRem(4px);
+    border-left-style: solid;
+    align-items: center;
+
+    &--small {
+        min-height: calculateRem(32px);
+        padding: 0 calculateRem(8px);
+
+        #{$self} {
+            &__content {
+                padding: calculateRem(4px);
+            }
+
+            &__title {
+                font-size: calculateRem(12px);
+            }
+
+            &__icon-wrapper {
+                margin-top: calculateRem(9px); // Fixing position for rows
+            }
         }
     }
 
-    &--icon {
-        background-color: $ibexa-white;
-        border-color: $ibexa-white;
-        color: $ibexa-color-font;
+    &--no-close-btn {
+        grid-template: 'icon content actions';
+        grid-template-columns: auto 1fr auto;
+    }
 
-        .ez-icon {
-            display: block;
-            float: left;
-            border-radius: 50%;
-            padding: calculateRem(3px);
-            margin-top: calculateRem(5px);
-        }
+    &__icon-wrapper {
+        grid-area: icon;
+        display: flex;
+        align-self: start;
+        margin-top: calculateRem(8px); // Fixing position for rows
+    }
 
-        &.alert-info {
-            .ez-icon {
-                background-color: $ibexa-color-info;
-            }
-        }
+    &__close-btn {
+        grid-area: close-btn;
+        fill: inherit;
+        padding: calculateRem(4px);
+        border-radius: 50%;
+        margin-left: calculateRem(5px);
 
-        &.alert-success {
-            .ez-icon {
-                background-color: $ibexa-color-positive;
-            }
+        &:active,
+        &:focus-visible {
+            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
         }
+    }
 
-        &.alert-warning {
-            .ez-icon {
-                background-color: $ibexa-color-warning;
-            }
-        }
-
-        &.alert-danger {
-            .ez-icon {
-                background-color: $ibexa-color-danger;
-            }
-        }
+    &__actions {
+        grid-area: actions;
     }
 
     &__content {
-        margin-left: calculateRem(30px);
+        grid-area: content;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        padding: calculateRem(4px) calculateRem(8px);
+
+        &--subtitle-below {
+            flex-direction: column;
+            flex-wrap: nowrap;
+        }
+    }
+
+    &__title {
+        grid-area: title;
+        font-size: calculateRem(14px);
+        font-weight: 400;
+        margin-right: calculateRem(8px);
+        white-space: pre-line;
+    }
+
+    &__subtitle {
+        font-size: calculateRem(12px);
+    }
+
+    &__title,
+    &__subtitle {
+        word-break: break-word;
+    }
+
+    &__extra_content {
+        width: 100%;
+    }
+
+    &--info {
+        color: $ibexa-color-complementary-700;
+        background-color: $ibexa-color-complementary-100;
+        border-color: $ibexa-color-complementary-300 $ibexa-color-complementary-300 $ibexa-color-complementary-300
+            $ibexa-color-complementary;
+
+        .ibexa-icon {
+            fill: $ibexa-color-complementary-700;
+        }
+
+        #{$self} {
+            &__close-btn {
+                background-color: $ibexa-color-complementary-200;
+
+                &:hover {
+                    background-color: $ibexa-color-complementary-300;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-complementary-800;
+                    }
+                }
+
+                &:active,
+                &:focus-visible {
+                    background-color: $ibexa-color-complementary-200;
+                    border: calculateRem(1px) solid $ibexa-color-complementary-700;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-complementary-700;
+                    }
+                }
+            }
+        }
+    }
+
+    &--error {
+        color: $ibexa-color-danger-600;
+        background-color: $ibexa-color-danger-100;
+        border-color: $ibexa-color-danger-300 $ibexa-color-danger-300 $ibexa-color-danger-300 $ibexa-color-danger;
+
+        .ibexa-icon {
+            fill: $ibexa-color-danger-600;
+        }
+
+        #{$self} {
+            &__close-btn {
+                background-color: $ibexa-color-danger-200;
+
+                &:hover {
+                    background-color: $ibexa-color-danger-300;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-danger-700;
+                    }
+                }
+
+                &:active,
+                &:focus-visible {
+                    background-color: $ibexa-color-danger-200;
+                    border: calculateRem(1px) solid $ibexa-color-danger-600;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-danger-600;
+                    }
+                }
+            }
+        }
+    }
+
+    &--warning {
+        color: $ibexa-color-accent-700;
+        background-color: $ibexa-color-accent-100;
+        border-color: $ibexa-color-accent-300 $ibexa-color-accent-300 $ibexa-color-accent-300 $ibexa-color-accent;
+
+        .ibexa-icon {
+            fill: $ibexa-color-accent-700;
+        }
+
+        #{$self} {
+            &__close-btn {
+                background-color: $ibexa-color-accent-200;
+
+                &:hover {
+                    background-color: $ibexa-color-accent-300;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-accent-800;
+                    }
+                }
+
+                &:active,
+                &:focus-visible {
+                    background-color: $ibexa-color-accent-200;
+                    border: calculateRem(1px) solid $ibexa-color-accent-700;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-accent-700;
+                    }
+                }
+            }
+        }
+    }
+
+    &--success {
+        color: $ibexa-color-success-600;
+        background-color: $ibexa-color-success-100;
+        border-color: $ibexa-color-success-300 $ibexa-color-success-300 $ibexa-color-success-300 $ibexa-color-success;
+
+        .ibexa-icon {
+            fill: $ibexa-color-success-600;
+        }
+
+        #{$self} {
+            &__close-btn {
+                background-color: $ibexa-color-success-200;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-success-700;
+                }
+
+                &:hover {
+                    background-color: $ibexa-color-success-300;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-success-800;
+                    }
+                }
+
+                &:active,
+                &:focus-visible {
+                    background-color: $ibexa-color-success-200;
+                    border: calculateRem(1px) solid $ibexa-color-success-600;
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-success-700;
+                    }
+                }
+            }
+        }
+    }
+
+    &--toast {
+        padding: calculateRem(12px);
+
+        &.ibexa-alert {
+            border-radius: $ibexa-border-radius;
+
+            .ibexa-alert__icon-wrapper {
+                margin-top: calculateRem(7px);
+            }
+
+            &--info {
+                border: calculateRem(1px) solid $ibexa-color-info;
+            }
+
+            &--error {
+                border: calculateRem(1px) solid $ibexa-color-danger;
+            }
+
+            &--warning {
+                border: calculateRem(1px) solid $ibexa-color-accent;
+            }
+
+            &--success {
+                border: calculateRem(1px) solid $ibexa-color-success;
+            }
+        }
+    }
+
+    //Alert Complementary depracated. Will be removed in 5.0.
+    &--complementary {
+        color: $ibexa-color-complementary-700;
+        background-color: $ibexa-color-complementary-100;
+        border-color: $ibexa-color-complementary;
+
+        .ibexa-icon {
+            fill: $ibexa-color-complementary-700;
+        }
     }
 }
