@@ -16,11 +16,13 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\Query\QueryFactoryInterface;
 use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
 use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
 use Ibexa\Rest\Server\Values\ContentTypeInfoList;
@@ -63,18 +65,10 @@ class ContentViewParameterSupplier
     /** @var \Ibexa\User\UserSetting\UserSettingService */
     private $userSettingService;
 
-    /**
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $outputVisitor
-     * @param \Ibexa\Rest\Output\Generator\Json $outputGenerator
-     * @param \Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList $contentTypeInfoListValueObjectVisitor
-     * @param \Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList $subitemsListValueObjectVisitor
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings $contentTypeMappings
-     * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService
-     */
+    private QueryFactoryInterface $queryFactory;
+
+    private SearchService $searchService;
+
     public function __construct(
         Visitor $outputVisitor,
         JsonOutputGenerator $outputGenerator,
@@ -85,7 +79,9 @@ class ContentViewParameterSupplier
         ContentTypeService $contentTypeService,
         PermissionResolver $permissionResolver,
         ContentTypeMappings $contentTypeMappings,
-        UserSettingService $userSettingService
+        UserSettingService $userSettingService,
+        QueryFactoryInterface $queryFactory,
+        SearchService $searchService
     ) {
         $this->outputVisitor = $outputVisitor;
         $this->outputGenerator = $outputGenerator;
@@ -97,6 +93,8 @@ class ContentViewParameterSupplier
         $this->permissionResolver = $permissionResolver;
         $this->contentTypeMappings = $contentTypeMappings;
         $this->userSettingService = $userSettingService;
+        $this->queryFactory = $queryFactory;
+        $this->searchService = $searchService;
     }
 
     /**
@@ -121,12 +119,17 @@ class ContentViewParameterSupplier
         $contentTypes = [];
         $subitemsRows = [];
         $location = $view->getLocation();
-        $childrenCount = $this->locationService->getLocationChildCount($location);
-
         $subitemsLimit = (int)$this->userSettingService->getUserSetting('subitems_limit')->value;
 
-        $locationChildren = $this->locationService->loadLocationChildren($location, 0, $subitemsLimit);
-        foreach ($locationChildren->locations as $locationChild) {
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $locationChildrenQuery */
+        $locationChildrenQuery = $this->queryFactory->create('Children', ['location' => $location]);
+        $locationChildrenQuery->offset = 0;
+        $locationChildrenQuery->limit = $subitemsLimit;
+
+        $searchResult = $this->searchService->findLocations($locationChildrenQuery);
+        foreach ($searchResult->searchHits as $searchHit) {
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $locationChild */
+            $locationChild = $searchHit->valueObject;
             $contentType = $locationChild->getContent()->getContentType();
 
             if (!isset($contentTypes[$contentType->identifier])) {
@@ -136,7 +139,7 @@ class ContentViewParameterSupplier
             $subitemsRows[] = $this->createSubitemsRow($locationChild, $contentType);
         }
 
-        $subitemsList = new SubitemsList($subitemsRows, $childrenCount);
+        $subitemsList = new SubitemsList($subitemsRows, $searchResult->totalCount ?? 0);
         $contentTypeInfoList = new ContentTypeInfoList($contentTypes, '');
 
         $subitemsListJson = $this->visitSubitemsList($subitemsList);

@@ -9596,16 +9596,6 @@ parameters:
 			path: src/lib/UI/Module/Subitems/ContentViewParameterSupplier.php
 
 		-
-			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:getLocationChildCount\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
-			count: 1
-			path: src/lib/UI/Module/Subitems/ContentViewParameterSupplier.php
-
-		-
-			message: "#^Parameter \\#1 \\$location of method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\LocationService\\:\\:loadLocationChildren\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null given\\.$#"
-			count: 1
-			path: src/lib/UI/Module/Subitems/ContentViewParameterSupplier.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Module\\\\Subitems\\\\ValueObjectVisitor\\\\SubitemsList\\:\\:visit\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/UI/Module/Subitems/ValueObjectVisitor/SubitemsList.php
