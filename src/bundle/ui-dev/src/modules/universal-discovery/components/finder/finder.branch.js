@@ -169,6 +169,7 @@ FinderBranch.propTypes = {
         parentLocationId: PropTypes.number.isRequired,
         subitems: PropTypes.array.isRequired,
         location: PropTypes.object.isRequired,
+        totalCount: PropTypes.number.isRequired,
         collapsed: PropTypes.bool,
     }).isRequired,
     itemsPerPage: PropTypes.number,
