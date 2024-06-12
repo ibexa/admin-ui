@@ -6,7 +6,7 @@ import Tag from '../tag/tag';
 
 const ENTER_CODE = 'Enter';
 
-const Taggify = ({ initialTags, hotKeys, allowDuplicates, onTagsChange, bottomHint }) => {
+const Taggify = ({ tagsValue, hotKeys, allowDuplicates, onTagsChange, bottomHint }) => {
     const [tags, setTags] = useState([]);
     const [newTagContent, setNewTagContent] = useState('');
     const newTagContentInputRef = useRef(null);
@@ -45,7 +45,7 @@ const Taggify = ({ initialTags, hotKeys, allowDuplicates, onTagsChange, bottomHi
     };
 
     useEffect(() => {
-        initialTags.map(addTag);
+        tagsValue.map(addTag);
     }, []);
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const Taggify = ({ initialTags, hotKeys, allowDuplicates, onTagsChange, bottomHi
 
         onTagsChange(mappedTags);
     }, [tags]);
-console.log(tags)
+
     return (
         <div className="c-taggify" onClick={() => newTagContentInputRef.current.focus()}>
             <div className="c-taggify__adding-area">
@@ -85,7 +85,7 @@ console.log(tags)
 };
 
 Taggify.propTypes = {
-    initialTags: PropTypes.array,
+    tagsValue: PropTypes.array,
     hotKeys: PropTypes.array,
     allowDuplicates: PropTypes.bool,
     onTagsChange: PropTypes.func,
@@ -93,7 +93,7 @@ Taggify.propTypes = {
 };
 
 Taggify.defaultProps = {
-    initialTags: [],
+    tagsValue: [],
     hotKeys: ['Enter', 'Comma'],
     allowDuplicates: false,
     onTagsChange: () => {},
@@ -101,118 +101,3 @@ Taggify.defaultProps = {
 };
 
 export default Taggify;
-
-// import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
-
-// import Tag from '../tag/tag';
-// import { createCssClassNames } from '../helpers/css.class.names';
-// const ENTER_KEY = 'Enter';
-
-// const Taggify = ({
-//     initialTags,
-//     initialSourceInputValue,
-//     hotKeys,
-//     allowDuplicates,
-//     sourceInputName,
-//     sourceInputClass,
-//     newTagInputClass,
-//     changeValueCallback
-// }) => {
-//     const [tags, setTags] = useState([]);
-//     const [stringTagsValue, setStringTagsValue] = useEffect(initialSourceInputValue);
-//     const [newTagValue, setNewTagValue] = useState('');
-//     const sourceInputClassName = createCssClassNames({
-//         'c-taggify__input c-taggify__input--source': true,
-//         [sourceInputClass]: true,
-//     });
-//     const newTagInputClassName = createCssClassNames({
-//         'c-taggify__input c-taggify__input--new-tag': true,
-//         [newTagInputClass]: true,
-//     });
-//     // const triggerAddTagAction = (event) => {
-//     //     const { code } = event;
-
-//     //     if (hotKeys.includes(code)) {
-//     //         const tagValueToSet = code === ENTER_KEY ? newTagValue : newTagValue.substring(0, newTagValue.length - 1);
-
-//     //         if (!allowDuplicates && isDuplicated(tagValueToSet)) {
-//     //             return;
-//     //         }
-
-//     //         if (tagValueToSet) {
-//     //             addTag(tagValueToSet);
-//     //             setNewTagValue('');
-//     //         }
-//     //     }
-//     // };
-//     // const addTag = (label) => {
-//     //     setTags((prevTags) => {
-//     //         const lastTag = prevTags[prevTags.length - 1];
-//     //         const nextId = lastTag ? lastTag.id + 1 : 0;
-
-//     //         return [...prevTags, { label, id: nextId }];
-//     //     });
-//     // };
-//     // const removeTag = (id) => {
-//     //     const filteredTags = tags.filter((tag) => tag.id !== id);
-
-//     //     setTags(filteredTags);
-//     // };
-//     // const isDuplicated = (label) => {
-//     //     const searchedTag = tags.filter((tag) => tag.label === label);
-
-//     //     return !!searchedTag.length;
-//     // }
-
-//     useEffect(() => {
-//         const intitialValue = stringTagsValue ? stringTagsValue.split(',') : initialTags;
-
-//         initialTags.map(addTag);
-//     }, []);
-
-//     return (
-//         <div className="c-taggify">
-//             {/* <div className="c-taggify__tags">
-//                 {tags.map((tag) => <Tag key={`${tag.id}-key`} content={tag.label} onRemove={() => removeTag(tag.id)}/>)}
-//             </div>
-//             <input
-//                 className={newTagInputClassName}
-//                 type="text"
-//                 value={newTagValue}
-//                 onChange={({ currentTarget }) => setNewTagValue(currentTarget.value)}
-//                 onKeyUp={triggerAddTagAction}
-//             /> */}
-//             <input
-//                 className={sourceInputClassName}
-//                 name={sourceInputName}
-//                 type="text"
-//                 value={tags.map((tag) => tag.label).join(', ')}
-//                 onChange={() => {}}
-//             />
-//         </div>
-//     );
-// };
-
-// Taggify.propTypes = {
-//     initialTags: PropTypes.array,
-//     initialSourceInputValue: PropTypes.string,
-//     hotKeys: PropTypes.array,
-//     allowDuplicates: PropTypes.bool,
-//     sourceInputName: PropTypes.string,
-//     sourceInputClass: PropTypes.string,
-//     changeValueCallback: PropTypes.func,
-// };
-
-// Taggify.defaultProps = {
-//     initialTags: [],
-//     initialSourceInputValue: '',
-//     hotKeys: ['Enter', 'Comma'],
-//     allowDuplicates: false,
-//     sourceInputName: 'ibexa-taggify-source-input',
-//     sourceInputClass: '',
-//     newTagInputClass: '',
-//     changeValueCallback: () => {},
-// };
-
-// export default Taggify;
