@@ -181,6 +181,8 @@ export const findLocationsBySearchQuery = (
         query,
         aggregations,
         filters,
+        sortClause = 'DatePublished',
+        sortOrder = 'ascending',
         limit = QUERY_LIMIT,
         offset = 0,
         languageCode = null,
@@ -197,7 +199,12 @@ export const findLocationsBySearchQuery = (
             useAlwaysAvailable,
             LocationQuery: {
                 FacetBuilders: {},
-                SortClauses: {},
+                SortClauses:
+                    sortClause && sortOrder
+                        ? {
+                              [sortClause]: sortOrder,
+                          }
+                        : {},
                 Query: query,
                 Aggregations: aggregations,
                 Filters: filters,
@@ -508,7 +515,6 @@ export const findSuggestions = (
             },
         },
     });
-
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
         headers: getRequestHeaders({
