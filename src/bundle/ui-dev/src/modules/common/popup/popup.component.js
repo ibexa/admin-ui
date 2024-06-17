@@ -71,6 +71,11 @@ const Popup = ({
             keyboard: !noKeyboard,
             focus: hasFocus,
         });
+        const initializedBackdropRootElement = bootstrapModal._backdrop._config.rootElement;
+
+        if (initializedBackdropRootElement !== rootDOMElement) {
+            bootstrapModal._backdrop._config.rootElement = rootDOMElement;
+        }
 
         bootstrapModal.show();
     };
