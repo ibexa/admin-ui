@@ -16,6 +16,11 @@
 
         & > .container {
             padding: 0 calculateRem(32px);
+            margin-left: 0;
+
+            @media (min-width: 1921px) {
+                max-width: 2000px;
+            }
         }
     }
 
