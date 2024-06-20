@@ -14,20 +14,13 @@ use Twig\TwigFunction;
 
 class ContentTypeIconExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
-    private $contentTypeIconResolver;
+    private ContentTypeIconResolver $contentTypeIconResolver;
 
-    /**
-     * @param \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
-     */
     public function __construct(ContentTypeIconResolver $contentTypeIconResolver)
     {
         $this->contentTypeIconResolver = $contentTypeIconResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions(): array
     {
         return [

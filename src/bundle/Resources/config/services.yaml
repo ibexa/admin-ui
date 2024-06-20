@@ -138,7 +138,14 @@ services:
     Ibexa\Bundle\AdminUi\Templating\Twig\UserPreferencesGlobalExtension:
         lazy: true
 
-    Ibexa\AdminUi\UI\Service\ContentTypeIconResolver: ~
+    Ibexa\AdminUi\UI\Service\IconResolver:
+        abstract: true
+
+    Ibexa\AdminUi\UI\Service\ContentTypeIconResolver:
+        parent: Ibexa\AdminUi\UI\Service\IconResolver
+
+    Ibexa\AdminUi\UI\Service\ContentTypeGroupIconResolver:
+        parent: Ibexa\AdminUi\UI\Service\IconResolver
 
     Ibexa\ContentForms\ConfigResolver\MaxUploadSize: ~
 

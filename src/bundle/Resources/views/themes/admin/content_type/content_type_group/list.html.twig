@@ -71,6 +71,16 @@
                 content: col_raw,
                 raw: true,
             }]) %}
+            {% set col_raw %}
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_content_type_group_icon(content_type_group.identifier) }}"></use>
+                </svg>
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                has_icon: true,
+                content: col_raw,
+                raw: true,
+            }]) %}
 
             {% set col_raw %}
                 {% set view_url = path('ibexa.content_type_group.view', {
@@ -118,6 +128,7 @@
             headline: custom_results_headline ?? results_headline(pager.getNbResults()),
             head_cols: [
                 { has_checkbox: true },
+                { has_icon: true },
                 { content: 'content_type_group.view.list.column.identifier'|trans|desc('Name') },
                 { content: 'content_type_group.view.list.column.id'|trans|desc('ID') },
                 { content: 'content_type_group.view.list.column.content_types_count'|trans|desc('Number of content types') },
