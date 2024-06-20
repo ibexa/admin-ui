@@ -8,20 +8,26 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Service;
 
-final class ContentTypeIconResolver extends IconResolver
+use Symfony\Component\String\Slugger\AsciiSlugger;
+
+/**
+ * @internal
+ */
+final class ContentTypeGroupIconResolver extends IconResolver
 {
-    private const PARAM_NAME_FORMAT = 'content_type.%s';
+    private const PARAM_NAME_FORMAT = 'content_type_group.%s';
 
     /**
-     * Returns path to content type icon.
+     * Returns path to content type group icon.
      *
      * Path is resolved based on configuration (ibexa.system.<SCOPE>.content_type.<IDENTIFIER>). If there isn't
      * corresponding entry for given content type, then path to default icon will be returned.
      */
-    public function getContentTypeIcon(string $identifier): string
+    public function getContentTypeGroupIcon(string $identifier): string
     {
+        $slugger = new AsciiSlugger();
+        $identifier = (string)$slugger->slug($identifier, '_')->lower();
+
         return $this->getIcon(self::PARAM_NAME_FORMAT, $identifier);
     }
 }
-
-class_alias(ContentTypeIconResolver::class, 'EzSystems\EzPlatformAdminUi\UI\Service\ContentTypeIconResolver');

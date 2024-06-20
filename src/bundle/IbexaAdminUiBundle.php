@@ -70,6 +70,7 @@ class IbexaAdminUiBundle extends Bundle
             new Parser\ContentTranslateView(),
             new Parser\AdminUiForms(),
             new Parser\ContentType(),
+            new Parser\ContentTypeGroup(),
             new Parser\SubtreePath(),
             new Parser\LimitationValueTemplates(),
             new Parser\Assets(),
