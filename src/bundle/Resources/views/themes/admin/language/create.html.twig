@@ -23,9 +23,9 @@
         <section>
             <div class="card ibexa-card ibexa-card--light">
                 <div class="card-body ibexa-card__body ibexa-form-block">
-                    {{ form_row(form.name, {'attr': {'autofocus': 'autofocus'}}) }}
-                    {{ form_row(form.languageCode) }}
-                    {{ form_row(form.enabled, {'label_attr': {'class': 'checkbox-inline'}}) }}
+                    {{ form_row(form.name, { row_attr: { class: 'ibexa-form-field' }, attr: {'autofocus': 'autofocus'} }) }}
+                    {{ form_row(form.languageCode, { row_attr: { class: 'ibexa-form-field ibexa-form-field--no-bottom-margin' } }) }}
+                    {{ form_row(form.enabled, { row_attr: { class: 'ibexa-form-field' }, label_attr: { class: 'checkbox-inline' } }) }}
                 </div>
             </div>
         </section>

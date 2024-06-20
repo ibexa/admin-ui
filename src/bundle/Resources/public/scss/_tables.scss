@@ -272,8 +272,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: calculateRem(30px);
-    padding-bottom: calculateRem(15px);
+    padding-bottom: calculateRem(24px);
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-200;
 
     &__headline {

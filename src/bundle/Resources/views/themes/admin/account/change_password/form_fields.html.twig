@@ -4,7 +4,7 @@
 
 {% block form_row -%}
     {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({'class': (widget_wrapper_attr.class|default('') ~ ' ibexa-field__data')|trim}) %}
-    {% set wrapper_class = 'ibexa-field form-group' %}
+    {% set wrapper_class = 'ibexa-field ibexa-form-field form-group' %}
     {% if required %}{% set wrapper_class = (wrapper_class|default('') ~ ' ibexa-field--required')|trim %}{% endif %}
     {% if errors|length > 0 %}{% set wrapper_class = (wrapper_class|default('') ~ ' is-invalid')|trim %}{% endif %}
 

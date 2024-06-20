@@ -309,7 +309,7 @@ $pagination-disabled-bg: transparent;
 $pagination-disabled-border-color: transparent;
 
 // Modals
-$modal-header-padding-y: calculateRem(16px);
+$modal-header-padding-y: calculateRem(26px);
 $modal-header-padding-x: 0;
 $modal-header-border-width: calculateRem(1px);
 $modal-header-border-color: $ibexa-color-light-500;
@@ -317,7 +317,7 @@ $modal-title-font-size: calculateRem(28px);
 $modal-content-border-width: 0;
 $modal-content-border-radius: $ibexa-border-radius;
 $modal-inner-padding: calculateRem(24px);
-$modal-footer-padding: calculateRem(24px) 0;
+$modal-footer-padding: calculateRem(40px) 0 calculateRem(32px);
 $modal-footer-border-width: 0;
 //Components
 $border-radius: $ibexa-border-radius;

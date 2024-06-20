@@ -19,7 +19,7 @@
 .ibexa-page-header-wrapper {
     display: flex;
     flex-wrap: wrap;
-    padding: calculateRem(20px) 0;
+    padding: calculateRem(24px) 0 calculateRem(28px);
 
     .ibexa-breadcrums-wrapper,
     .ibexa-content-menu-wrapper {

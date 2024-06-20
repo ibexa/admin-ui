@@ -1,52 +1,40 @@
 .ibexa-anchor-navigation {
     $self: &;
 
-    &__section-group {
-        display: none;
-
-        &--active {
-            display: block;
-        }
-
-        .ibexa-edit-content__container:first-of-type {
-            .ibexa-content-type-edit__section-column-header {
-                margin-top: 0;
-            }
-        }
-    }
-
-    &__section-group-header {
-        padding: calculateRem(16px) 0;
-    }
-
-    &__section-header {
-        padding-top: calculateRem(64px);
-        margin-top: calculateRem(64px);
-        border-top: calculateRem(1px) solid $ibexa-color-light;
-    }
-
-    &__section-help {
-        color: $ibexa-color-dark-400;
-    }
-
     &__sections {
         .card {
             position: unset;
         }
     }
 
-    &__section:first-of-type {
-        .ibexa-field-edit:first-of-type {
-            .ibexa-label {
-                margin-top: 0;
-            }
+    &__section {
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        margin-bottom: calculateRem(36px);
+
+        .ibexa-form-field:last-child {
+            margin-bottom: calculateRem(24px);
         }
 
-        #{$self}__section-header {
-            padding-top: calculateRem(16px);
-            margin-top: 0;
-            border-top: 0;
+        &:last-child {
+            border-bottom: none;
         }
+    }
+
+    &__section-group {
+        display: none;
+
+        &--active {
+            display: block;
+        }
+    }
+
+    &__section-header {
+        margin-bottom: calculateRem(24px);
+    }
+
+    &__section-help {
+        color: $ibexa-color-dark-400;
+        padding-bottom: calculateRem(24px);
     }
 }
 

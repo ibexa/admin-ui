@@ -37,8 +37,8 @@
 
 {% block form_fields %}
     <section class="container">
-        <div class="card ibexa-card ibexa-card--light">
-            <div class="card-body">
+        <div class="card ibexa-card ibexa-card--light ibexa-card--no-padding">
+            <div class="card-body ibexa-card__body">
                 {{ parent() }}
                 {{ form_widget(form.publish, {'attr': {'hidden': 'hidden'}}) }}
                 {{ form_widget(form.publishAndEdit, { attr: { hidden: 'hidden' }}) }}
