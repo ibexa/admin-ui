@@ -478,13 +478,12 @@
 {%- endblock %}
 
 {% block content_type_field_definition_widget -%}
-    {{- form_row(form.enabled, { label: 'meta.enabled'|trans({
-        '%type%': form.name.vars.value,
-    }, 'ibexa_content_type')|desc('Enable %type% for this content type') }) -}}
-
+    {{- form_row(form.enabled, {
+        label: 'meta.enabled'|trans({ '%type%': form.name.vars.value }, 'ibexa_content_type')|desc('Enable %type% for this content type')
+    }) -}}
     {% for form_field in form.children %}
         {% if form_field.isRendered() == false %}
-            {{ form_row(form_field) }}
+            {{ form_row(form_field, { row_attr: { class: 'ibexa-content-type-edit__form-field ibexa-form-field' ~ (form_field.vars.name == 'isThumbnail' ? ' ibexa-form-field--no-bottom-margin') }} ) }}
         {% endif %}
     {% endfor %}
 {%- endblock %}
@@ -492,14 +491,14 @@
 {% block content_type_meta_field_definition_enabled_row -%}
     {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
 
-    <div class="form-group">
+    <div class="ibexa-content-type-edit__form-field ibexa-form-field form-group">
         {{ block('form_label') }}
         {{ block('toggle_widget') }}
     </div>
 {%- endblock %}
 
 {% block seo_field_row -%}
-    <h2 class="ibexa-content-type-edit__section-column-header">{{- label -}}</h2>
+    <h2 class="ibexa-content-type-edit__section-column-header ibexa-content-type-edit__section-column-header--seo">{{- label -}}</h2>
     {{- form_widget(form) -}}
     {{- form_help(form) -}}
     <div class="ibexa-form-error">

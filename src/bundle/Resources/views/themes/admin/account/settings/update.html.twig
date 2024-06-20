@@ -22,9 +22,10 @@
         {{ form_start(form) }}
             {{ form_widget(form.identifier, {'attr': {'hidden': 'hidden'}}) }}
             {% for user_setting in user_setting_group.settings %}
-                <div>
-                    {{ form_widget(attribute(form, user_setting.identifier)) }}
-                </div>
+                {{ form_widget(
+                    attribute(form, user_setting.identifier),
+                    { attr: { class: 'ibexa-edit-content__field ibexa-form-field' ~ (loop.last ? ' ibexa-form-field--no-bottom-margin') }}
+                ) }}
             {% endfor %}
             {{ form_widget(form.update, {'attr': {'hidden': 'hidden'}}) }}
             {{ form_widget(form.update_and_edit, { attr: { hidden: 'hidden' }}) }}

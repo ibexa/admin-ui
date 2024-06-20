@@ -191,15 +191,15 @@ select {
 }
 
 .ibexa-container {
-    padding: calculateRem(32px);
+    padding: calculateRem(24px);
     background: $ibexa-color-white;
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: $ibexa-border-radius;
     box-shadow: $ibexa-edit-header-box-shadow;
     margin-bottom: calculateRem(32px);
 
-    .ibexa-table-header {
-        margin-top: 0;
+    @media (min-width: 1921px) {
+        max-width: 2000px;
     }
 }
 

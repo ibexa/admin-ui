@@ -49,15 +49,17 @@
                             {% endblock %}
 
                             {% block left_column %}
-                                {{ form_row(form.name) }}
-                                {{ form_row(form.identifier) }}
-                                {{ form_row(form.description) }}
-                                {{ form_row(form.nameSchema) }}
-                                {{ form_row(form.urlAliasSchema) }}
-                                {{ form_row(form.isContainer) }}
-                                {{ form_row(form.defaultSortField) }}
-                                {{ form_row(form.defaultSortOrder) }}
-                                {{ form_row(form.defaultAlwaysAvailable) }}
+                                {% set form_field_options = { row_attr: { class: 'ibexa-form-field' } } %}
+
+                                {{ form_row(form.name, form_field_options) }}
+                                {{ form_row(form.identifier, form_field_options) }}
+                                {{ form_row(form.description, form_field_options) }}
+                                {{ form_row(form.nameSchema, form_field_options) }}
+                                {{ form_row(form.urlAliasSchema, form_field_options) }}
+                                {{ form_row(form.isContainer, form_field_options) }}
+                                {{ form_row(form.defaultSortField, form_field_options) }}
+                                {{ form_row(form.defaultSortOrder, form_field_options) }}
+                                {{ form_row(form.defaultAlwaysAvailable, form_field_options) }}
                             {% endblock %}
                         {% endembed %}
                     </div>
