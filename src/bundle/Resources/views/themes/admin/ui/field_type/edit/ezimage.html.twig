@@ -55,8 +55,8 @@
                         'image-edit-actions-after',
                         {
                             'fieldDefinitionIdentifier' : form.parent.vars.value.fieldDefinition.identifier,
-                            'contentId' : content_id|default(app.request.get('contentId')),
-                            'versionNo' : version_no|default(app.request.get('versionNo')),
+                            'contentId' : content_id ?? app.request.get('contentId'),
+                            'versionNo' : version_no ?? app.request.get('versionNo'),
                             'disabled': readonly ? true : false,
                         }
                     ) }}
