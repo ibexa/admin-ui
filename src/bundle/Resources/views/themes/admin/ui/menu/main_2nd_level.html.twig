@@ -25,7 +25,11 @@
         {% endif %}
     {% endif %}
 
-    <div class="ibexa-main-menu__navbar ibexa-main-menu__navbar--second-level {{ extra_class }}" style="{{ second_menu_width_style }}">
+    <div
+        class="ibexa-main-menu__navbar ibexa-main-menu__navbar--second-level {{ extra_class }}"
+        style="{{ second_menu_width_style }}"
+        data-resizer-width="{{ resizer_width }}"
+    >
         <div class="tab-content ibexa-main-menu__tab-content">
             {% for child in current_item.children %}
                 <div 
