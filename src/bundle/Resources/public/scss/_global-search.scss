@@ -8,7 +8,7 @@
             width: auto;
 
             .ibexa-icon {
-                fill: $ibexa-color-light;
+                fill: $ibexa-color-white;
             }
         }
 
@@ -20,13 +20,23 @@
             }
 
             &--search {
-                background: $ibexa-color-info-600;
                 width: calculateRem(40px);
                 height: calculateRem(40px);
                 transform: translateX(calculateRem(8px));
 
                 &:hover {
+                    background: $ibexa-color-info-600;
                     box-shadow: 0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-info, 0.2);
+
+                    .ibexa-icon {
+                        fill: $ibexa-color-white;
+                    }
+                }
+
+                &:focus {
+                    color: $ibexa-color-white;
+                    background: $ibexa-color-info-600;
+                    border-color: $ibexa-color-info-600;
 
                     .ibexa-icon {
                         fill: $ibexa-color-white;
@@ -34,16 +44,10 @@
                 }
             }
         }
-    }
-
-    .ibexa-input--text:not(:focus):placeholder-shown + .ibexa-input-text-wrapper__actions .ibexa-input-text-wrapper__action-btn--search {
-        background-color: transparent;
 
         &:hover {
-            box-shadow: none;
-
-            .ibexa-icon {
-                fill: $ibexa-color-info;
+            .ibexa-input {
+                border-color: $ibexa-color-info-600;
             }
         }
     }
@@ -52,18 +56,31 @@
         height: calculateRem(40px);
         padding: calculateRem(4px) calculateRem(56px) calculateRem(4px) calculateRem(16px);
         color: $ibexa-color-white;
-        border-color: $ibexa-color-info;
         background: rgba($ibexa-color-white, 0.1);
-
-        &.ibexa-input--text:not(:focus):placeholder-shown {
-            border-color: transparent;
-        }
+        border-color: transparent;
 
         &.ibexa-input--text {
             &:not(:disabled) {
-                &:focus,
-                &:hover {
+                &:focus {
                     border-color: $ibexa-color-info-600;
+                    background: rgba($ibexa-color-white, 0.1);
+                    box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-white, 0.2);
+
+                    & + .ibexa-input-text-wrapper__actions {
+                        .ibexa-input-text-wrapper__action-btn--search {
+                            background: $ibexa-color-info-600;
+                        }
+                    }
+                }
+
+                &:active {
+                    box-shadow: none;
+
+                    & + .ibexa-input-text-wrapper__actions {
+                        .ibexa-input-text-wrapper__action-btn--search {
+                            background: transparent;
+                        }
+                    }
                 }
             }
         }
