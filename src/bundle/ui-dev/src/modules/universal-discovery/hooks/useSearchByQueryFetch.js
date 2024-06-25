@@ -24,6 +24,7 @@ export const useSearchByQueryFetch = () => {
     const restInfo = useContext(RestInfoContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
+
     const searchByQuery = useCallback(
         (
             searchText,
@@ -33,6 +34,8 @@ export const useSearchByQueryFetch = () => {
             limit,
             offset,
             languageCode,
+            sortClause = null,
+            sortOrder = null,
             imageCriterionData = null,
             aggregations = {},
             filters = {},
@@ -81,7 +84,10 @@ export const useSearchByQueryFetch = () => {
             }
 
             dispatch({ type: SEARCH_START });
-            return findLocationsBySearchQuery({ ...restInfo, query, aggregations, filters, limit, offset, languageCode }, handleFetch);
+            return findLocationsBySearchQuery(
+                { ...restInfo, query, aggregations, filters, sortClause, sortOrder, limit, offset, languageCode },
+                handleFetch,
+            );
         },
         [restInfo, dispatch],
     );

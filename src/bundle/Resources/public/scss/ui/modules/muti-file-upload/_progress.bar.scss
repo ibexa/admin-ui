@@ -1,7 +1,7 @@
 .c-progress-bar {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     align-items: center;
 
     &__value {
@@ -9,8 +9,9 @@
         border-radius: calculateRem(4px);
         transition: width 0.2s linear;
         height: calculateRem(8px);
-        width: calculateRem(176px);
+        width: calculateRem(100px);
         position: relative;
+        margin-right: calculateRem(8px);
 
         &::after {
             content: '';

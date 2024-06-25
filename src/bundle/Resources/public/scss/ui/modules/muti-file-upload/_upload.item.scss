@@ -46,7 +46,7 @@
 
     &__meta {
         padding: 0 calculateRem(8px);
-        max-width: 25vw;
+        max-width: calculateRem(450px);
         height: calculateRem(48px);
         display: flex;
         justify-content: center;
@@ -55,13 +55,14 @@
 
     &__name {
         margin-right: calculateRem(8px);
-        max-width: calculateRem(172px);
+        max-width: calculateRem(350px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
     &__size {
+        min-width: calculateRem(80px);
         color: $ibexa-color-dark-400;
         font-size: $ibexa-text-font-size-small;
     }

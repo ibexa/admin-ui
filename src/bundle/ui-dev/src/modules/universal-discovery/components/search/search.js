@@ -49,7 +49,6 @@ const Search = ({ itemsPerPage }) => {
     const [selectedLanguage, setSelectedLanguage] = useState(firstLanguageCode);
     const prevSearchText = useRef(null);
     const [isLoading, data, searchByQuery] = useSearchByQueryFetch();
-
     const search = () => {
         const shouldResetOffset = prevSearchText.current !== searchText && offset !== 0;
 
