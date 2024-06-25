@@ -178,6 +178,7 @@ $ibexa-font-family-headings: 'Work Sans', sans-serif;
 //Ibexa z-index
 $ibexa-backdrop-zindex: 2175;
 $ibexa-modal-zindex: 2180;
+$ibexa-popover-zindex: 2185;
 
 // boostrap variables
 $white: $ibexa-color-white;
@@ -325,6 +326,10 @@ $modal-footer-padding: calculateRem(24px) 0;
 $modal-footer-border-width: 0;
 $zindex-modal-backdrop: $ibexa-backdrop-zindex;
 $zindex-modal: $ibexa-modal-zindex;
+
+//Popover
+$zindex-popover: $ibexa-popover-zindex;
+
 //Components
 $border-radius: $ibexa-border-radius;
 
