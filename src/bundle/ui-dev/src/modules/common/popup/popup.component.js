@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 
 import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
-import { getTranslator, getBootstrap } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import {
+    getTranslator,
+    getBootstrap,
+    getRootDOMElement,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
@@ -32,13 +36,14 @@ const Popup = ({
     extraClasses,
     showTooltip,
 }) => {
+    const rootDOMElement = getRootDOMElement();
     const modalRef = useRef(null);
     const Translator = getTranslator();
     const bootstrap = getBootstrap();
 
     useEffect(() => {
-        document.body.classList.toggle(CLASS_MODAL_OPEN, isVisible);
-        document.body.classList.toggle(CLASS_NON_SCROLLABLE, isVisible);
+        rootDOMElement.classList.toggle(CLASS_MODAL_OPEN, isVisible);
+        rootDOMElement.classList.toggle(CLASS_NON_SCROLLABLE, isVisible);
 
         if (isVisible) {
             showPopup();
@@ -58,7 +63,7 @@ const Popup = ({
     const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
     const hidePopup = () => {
         bootstrap.Modal.getOrCreateInstance(modalRef.current).hide();
-        document.body.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
+        rootDOMElement.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
     };
     const showPopup = () => {
         const bootstrapModal = bootstrap.Modal.getOrCreateInstance(modalRef.current, {
@@ -66,6 +71,11 @@ const Popup = ({
             keyboard: !noKeyboard,
             focus: hasFocus,
         });
+        const initializedBackdropRootElement = bootstrapModal._backdrop._config.rootElement;
+
+        if (initializedBackdropRootElement !== rootDOMElement) {
+            bootstrapModal._backdrop._config.rootElement = rootDOMElement;
+        }
 
         bootstrapModal.show();
     };
@@ -97,14 +107,14 @@ const Popup = ({
             <div className={`modal-dialog c-popup__dialog ${MODAL_SIZE_CLASS[size]}`} role="dialog">
                 <div className="modal-content c-popup__content">
                     {noHeader
-                        ? renderCloseBtn
+                        ? renderCloseBtn()
                         : title && (
                               <div className="modal-header c-popup__header">
                                   <h3 className="modal-title c-popup__headline" title={showTooltip ? title : null}>
                                       <span className="c-popup__title">{title}</span>
                                       {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
                                   </h3>
-                                  {renderCloseBtn}
+                                  {renderCloseBtn()}
                               </div>
                           )}
                     <div className="modal-body c-popup__body">{children}</div>

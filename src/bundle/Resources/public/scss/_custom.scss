@@ -175,6 +175,11 @@ $ibexa-font-family:
     sans-serif !default;
 $ibexa-font-family-headings: 'Work Sans', sans-serif;
 
+//Ibexa z-index
+$ibexa-backdrop-zindex: 2175;
+$ibexa-modal-zindex: 2180;
+$ibexa-popover-zindex: 2185;
+
 // boostrap variables
 $white: $ibexa-color-white;
 $gray-100: $ibexa-color-light-300;
@@ -319,6 +324,12 @@ $modal-content-border-radius: $ibexa-border-radius;
 $modal-inner-padding: calculateRem(24px);
 $modal-footer-padding: calculateRem(40px) 0 calculateRem(32px);
 $modal-footer-border-width: 0;
+$zindex-modal-backdrop: $ibexa-backdrop-zindex;
+$zindex-modal: $ibexa-modal-zindex;
+
+//Popover
+$zindex-popover: $ibexa-popover-zindex;
+
 //Components
 $border-radius: $ibexa-border-radius;
 
