@@ -16,11 +16,11 @@ export default class UploadPopupModule extends Component {
         super(props);
 
         this.refTooltip = React.createRef();
-        this.rootNode = getRootDOMElement();
+        this.rootDOMElement = getRootDOMElement();
     }
 
     componentDidMount() {
-        this.rootNode.classList.add(CLASS_SCROLL_DISABLED);
+        this.rootDOMElement.classList.add(CLASS_SCROLL_DISABLED);
         parseTooltips(this.refTooltip.current);
     }
 

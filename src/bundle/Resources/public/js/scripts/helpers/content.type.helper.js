@@ -67,6 +67,14 @@ const getContentTypeName = (contentTypeIdentifier) => {
     return contentTypesDataMap[contentTypeIdentifier].name;
 };
 
+const getContentTypeData = (contentTypeIdentifier) => {
+    if (!contentTypesDataMap) {
+        contentTypesDataMap = createContentTypeDataMap();
+    }
+
+    return contentTypesDataMap[contentTypeIdentifier] ?? null;
+};
+
 const getContentTypeIconUrlByHref = (contentTypeHref) => {
     if (!contentTypesDataMapByHref) {
         contentTypesDataMapByHref = createContentTypeDataMapByHref();
@@ -85,6 +93,10 @@ const getContentTypeNameByHref = (contentTypeHref) => {
     return getContentTypeDataByHref(contentTypeHref)?.name ?? null;
 };
 
+const getContentTypeIdentifierByHref = (contentTypeHref) => {
+    return getContentTypeDataByHref(contentTypeHref)?.identifier ?? null;
+};
+
 const getContentTypeDataByHref = (contentTypeHref) => {
     if (!contentTypesDataMapByHref) {
         contentTypesDataMapByHref = createContentTypeDataMapByHref();
@@ -97,4 +109,13 @@ const getContentTypeDataByHref = (contentTypeHref) => {
     return contentTypesDataMapByHref[contentTypeHref];
 };
 
-export { getContentTypeIconUrl, getContentTypeName, getContentTypeIconUrlByHref, getContentTypeDataByHref, getContentTypeNameByHref };
+export {
+    createContentTypeDataMapByHref,
+    getContentTypeIconUrl,
+    getContentTypeName,
+    getContentTypeData,
+    getContentTypeIconUrlByHref,
+    getContentTypeDataByHref,
+    getContentTypeNameByHref,
+    getContentTypeIdentifierByHref
+};

@@ -63,7 +63,7 @@ system:
                     root_location_id: 43
                     starting_location_id: 43
                 image_asset:
-                    multiple: false
+                    multiple: true
                 single_user:
                     multiple: false
                 multiple_user:

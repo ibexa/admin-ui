@@ -2,7 +2,7 @@ import React, { useContext, useState, useMemo, useEffect, useCallback, useRef } 
 
 import Icon from '../../../common/icon/icon';
 
-import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getTranslator, SYSTEM_ROOT_LOCATION_ID } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getLoadedLocationsLimitedMap } from './breadcrumbs.helpers';
 import { LoadedLocationsMapContext, MarkedLocationIdContext, GridActiveLocationIdContext } from '../../universal.discovery.module';
@@ -69,7 +69,7 @@ const Breadcrumbs = () => {
                     {hiddenItems.map((item) => {
                         const locationId = item.parentLocationId;
                         const locationName =
-                            locationId === 1
+                            locationId === SYSTEM_ROOT_LOCATION_ID
                                 ? Translator.trans(
                                       /*@Desc("Root Location")*/ 'breadcrumbs.root_location',
                                       {},
@@ -124,7 +124,7 @@ const Breadcrumbs = () => {
                     {visibleItems.map((item, index) => {
                         const locationId = item.parentLocationId;
                         const locationName =
-                            locationId === 1
+                            locationId === SYSTEM_ROOT_LOCATION_ID
                                 ? Translator.trans(
                                       /*@Desc("Root Location")*/ 'breadcrumbs.root_location',
                                       {},

@@ -9,6 +9,7 @@
     max-width: 100%;
 
     &__content {
+        padding-right: calculateRem(4px);
         font-size: $ibexa-text-font-size-small;
         font-weight: normal;
         max-width: 100%;
@@ -32,6 +33,7 @@
         border: 0;
         outline: none;
         line-height: 0;
+        background: transparent;
 
         &:disabled,
         &[disabled] {

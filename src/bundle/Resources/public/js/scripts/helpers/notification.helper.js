@@ -1,4 +1,4 @@
-const { document: doc } = window;
+import { getRootDOMElement } from './context.helper';
 
 const NOTIFICATION_INFO_LABEL = 'info';
 const NOTIFICATION_SUCCESS_LABEL = 'success';
@@ -16,9 +16,10 @@ const NOTIFICATION_ERROR_LABEL = 'error';
  * @param {Object} detail.rawPlaceholdersMap
  */
 const showNotification = (detail) => {
+    const rootDOMElement = getRootDOMElement();
     const event = new CustomEvent('ibexa-notify', { detail });
 
-    doc.body.dispatchEvent(event);
+    rootDOMElement.dispatchEvent(event);
 };
 
 /**

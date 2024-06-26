@@ -61,7 +61,7 @@ const GridViewItem = ({ location, version }) => {
         if (isSelectionButtonClicked(nativeEvent) || (containersOnly && !isContainer)) {
             return;
         }
-
+        
         dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { parentLocationId: location.id, subitems: [] } });
         setGridActiveLocationId(location.id);
     };
