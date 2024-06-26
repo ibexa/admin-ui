@@ -17,7 +17,11 @@ import {
 } from '../../universal.discovery.module';
 
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
-import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import {
+    getAdminUiConfig,
+    getTranslator,
+    SYSTEM_ROOT_LOCATION_ID,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const MINIMUM_ITEMS_COUNT_FOR_SEARCH_TO_APPEAR = 10;
 
@@ -63,7 +67,7 @@ const ContentCreateWidget = () => {
         setFilterQuery(query);
     };
     const updateSelectedLanguage = (value) => setSelectedLanguage(value);
-    const isConfirmDisabled = !selectedContentType || !selectedLanguage || markedLocationId === 1;
+    const isConfirmDisabled = !selectedContentType || !selectedLanguage || markedLocationId === SYSTEM_ROOT_LOCATION_ID;
     const createContent = () => {
         setContentOnTheFlyData({
             locationId: markedLocationId,

@@ -16,7 +16,12 @@ import {
 
 import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/timezone.helper';
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
-import { getTranslator, getRouting, getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import {
+    getTranslator,
+    getRouting,
+    getAdminUiConfig,
+    SYSTEM_ROOT_LOCATION_ID,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ContentMetaPreview = () => {
     const Translator = getTranslator();
@@ -42,7 +47,7 @@ const ContentMetaPreview = () => {
         parseTooltip(refContentMetaPreview.current);
     });
 
-    if (!markedLocationId || markedLocationId === 1 || !locationData) {
+    if (!markedLocationId || markedLocationId === SYSTEM_ROOT_LOCATION_ID || !locationData) {
         return null;
     }
 
