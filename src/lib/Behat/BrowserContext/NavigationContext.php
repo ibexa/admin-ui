@@ -95,15 +95,18 @@ class NavigationContext implements Context
 
     /**
      * @Then I go to :tab tab
-     * @Then I go to :subTab in :tab tab
      */
-    public function iGoToTab(string $tabName, string $subTab = null): void
+    public function iGoToTab(string $tabName): void
     {
         $this->leftMenu->goToTab($tabName);
+    }
 
-        if (null !== $subTab) {
-            $this->leftMenu->goToSubTab($subTab);
-        }
+    /**
+     * @Then I go to :subTab in :tab tab
+     */
+    public function iGoToSubTab(string $tab, string $subTab): void
+    {
+        $this->leftMenu->goToSubTab($tab, $subTab);
     }
 
     /**
