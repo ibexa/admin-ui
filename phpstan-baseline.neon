@@ -12482,16 +12482,6 @@ parameters:
 			path: tests/lib/Resolver/IconPathResolverTest.php
 
 		-
-			message: "#^Call to an undefined method Ibexa\\\\Bundle\\\\Core\\\\ApiLoader\\\\RepositoryConfigurationProvider\\:\\:expects\\(\\)\\.$#"
-			count: 6
-			path: tests/lib/Siteaccess/AdminSiteaccessPreviewVoterTest.php
-
-		-
-			message: "#^Call to an undefined method Ibexa\\\\Contracts\\\\Core\\\\SiteAccess\\\\ConfigResolverInterface\\:\\:expects\\(\\)\\.$#"
-			count: 8
-			path: tests/lib/Siteaccess/AdminSiteaccessPreviewVoterTest.php
-
-		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Siteaccess\\\\AdminSiteaccessPreviewVoterTest\\:\\:dataProviderForSiteaccessPreviewVoterContext\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/lib/Siteaccess/AdminSiteaccessPreviewVoterTest.php
