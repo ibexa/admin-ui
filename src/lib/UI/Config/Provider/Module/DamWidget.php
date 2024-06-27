@@ -8,9 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider\Module;
 
-use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
-use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
@@ -56,7 +55,7 @@ final class DamWidget implements ProviderInterface
 
     private ContentTypeService $contentTypeService;
 
-    private RepositoryConfigurationProvider $repositoryConfigurationProvider;
+    private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
 
     private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor;
 
@@ -66,7 +65,7 @@ final class DamWidget implements ProviderInterface
     public function __construct(
         array $config,
         ContentTypeService $contentTypeService,
-        RepositoryConfigurationProvider $repositoryConfigurationProvider,
+        RepositoryConfigurationProviderInterface $repositoryConfigurationProvider,
         SchemaIdentifierExtractorInterface $schemaIdentifierExtractor
     ) {
         $this->config = $config;
@@ -164,16 +163,6 @@ final class DamWidget implements ProviderInterface
     {
         $config = $this->repositoryConfigurationProvider->getRepositoryConfig();
 
-        $searchEngineAlias = $config['search']['engine'] ?? null;
-        if (null === $searchEngineAlias) {
-            throw new InvalidSearchEngine(
-                sprintf(
-                    'Ibexa "%s" Repository has no Search Engine configured',
-                    $this->repositoryConfigurationProvider->getCurrentRepositoryAlias()
-                )
-            );
-        }
-
-        return $searchEngineAlias !== 'legacy';
+        return $config['search']['engine'] !== 'legacy';
     }
 }
