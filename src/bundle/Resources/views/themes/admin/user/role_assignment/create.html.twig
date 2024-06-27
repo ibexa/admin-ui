@@ -107,11 +107,6 @@
                             }) }}
                         </div>
                         <div class="ibexa-assign__limitations-item">
-                            {% if not form.limitation_type.section.vars.checked %}
-                                {% set sections_attr = {'attr': {'disabled': 'disabled'}} %}
-                            {% else %}
-                                {% set sections_attr = {} %}
-                            {% endif %}
                             {{ form_widget(form.limitation_type.section, {
                                 'label': 'limitation_type.section'|trans|desc('Sections'),
                                 'attr': {
@@ -121,7 +116,7 @@
                                 },
                                 'label_attr': {'class': 'ibexa-limitations__label radio-inline'}
                             }) }}
-                            {{ form_widget(form.sections, sections_attr) }}
+                            {{ form_widget(form.sections) }}
                         </div>
                         <div class="ibexa-assign__limitations-item">
                             {{ form_widget(form.limitation_type.location, {
