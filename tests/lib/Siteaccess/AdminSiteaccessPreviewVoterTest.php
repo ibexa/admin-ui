@@ -10,7 +10,7 @@ namespace Ibexa\Tests\AdminUi\Siteaccess;
 
 use Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter;
 use Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext;
-use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\Content\Location;
@@ -21,19 +21,18 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
 {
     private const LANGUAGE_CODE = 'eng-GB';
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
-    private $repositoryConfigurationProvider;
+    /** @var \Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface&\PHPUnit\Framework\MockObject\MockObject */
+    private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter */
-    private $adminSiteaccessPreviewVoter;
+    private AdminSiteaccessPreviewVoter $adminSiteaccessPreviewVoter;
 
     public function setUp(): void
     {
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
-        $this->repositoryConfigurationProvider = $this->createMock(RepositoryConfigurationProvider::class);
+        $this->repositoryConfigurationProvider = $this->createMock(RepositoryConfigurationProviderInterface::class);
 
         $this->adminSiteaccessPreviewVoter = new AdminSiteaccessPreviewVoter(
             $this->configResolver,

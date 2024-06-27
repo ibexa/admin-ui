@@ -8,20 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
-use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
+    protected ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
-    protected $repositoryConfigurationProvider;
+    protected RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
 
     public function __construct(
         ConfigResolverInterface $configResolver,
-        RepositoryConfigurationProvider $repositoryConfigurationProvider
+        RepositoryConfigurationProviderInterface $repositoryConfigurationProvider
     ) {
         $this->configResolver = $configResolver;
         $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
