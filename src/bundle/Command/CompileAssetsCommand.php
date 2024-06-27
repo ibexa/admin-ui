@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Command;
 
-use Ibexa\Bundle\Core\Command\BackwardCompatibleCommand;
 use InvalidArgumentException;
 use RuntimeException;
 use Symfony\Component\Console\Command\Command;
@@ -17,10 +16,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
-class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
+class CompileAssetsCommand extends Command
 {
     public const COMMAND_NAME = 'ibexa:encore:compile';
-
     public const COMMAND_DEFAULT_TIMEOUT = 300;
 
     protected static $defaultName = self::COMMAND_NAME;
@@ -121,13 +119,5 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
         );
 
         return $process->getExitCode();
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getDeprecatedAliases(): array
-    {
-        return ['ezplatform:encore:compile'];
     }
 }
