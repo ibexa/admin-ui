@@ -1,6 +1,6 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
-{% set user_image = user_content.thumbnail %}
+{% set user_image = user_content.thumbnail|default() %}
 
 {% if user_image.mimeType is defined and user_image.mimeType == 'image/svg+xml' %}
     {% set attr_svg = attr_svg|default({})|merge({
