@@ -1,5 +1,7 @@
 import { useContext, useCallback, useReducer } from 'react';
 
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 import { findLocationsBySearchQuery } from '../services/universal.discovery.service';
 import { RestInfoContext, LoadedLocationsMapContext } from '../universal.discovery.module';
 
@@ -21,6 +23,7 @@ const searchByQueryReducer = (state, action) => {
 };
 
 export const useSearchByQueryFetch = () => {
+    const { damWidget: damWidgetConfig } = getAdminUiConfig();
     const restInfo = useContext(RestInfoContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
@@ -75,12 +78,20 @@ export const useSearchByQueryFetch = () => {
             const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
 
             if (!isImageCriterionDataEmpty) {
-                const imageCriterion = {
-                    fieldDefIdentifier: 'image',
-                    ...imageCriterionData,
-                };
+                const imagesCriterion = damWidgetConfig.image.fieldDefinitionIdentifiers.reduce(
+                    (criterions, fieldDefinitionIdentifier) => [
+                        ...criterions,
+                        {
+                            fieldDefIdentifier: fieldDefinitionIdentifier,
+                            ...imageCriterionData,
+                        },
+                    ],
+                    [],
+                );
 
-                query.ImageCriterion = imageCriterion;
+                query.OR = {
+                    ImageCriterion: imagesCriterion,
+                };
             }
 
             dispatch({ type: SEARCH_START });
