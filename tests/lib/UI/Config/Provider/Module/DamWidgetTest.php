@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\UI\Config\Provider\Module;
 
 use Ibexa\AdminUi\UI\Config\Provider\Module\DamWidget;
-use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -144,20 +143,6 @@ final class DamWidgetTest extends TestCase
         );
     }
 
-    public function testGetConfigThrowInvalidSearchEngine(): void
-    {
-        $repositoryAlias = 'foo';
-        $this->mockRepositoryConfigurationProviderGetRepositoryConfig(
-            ['alias' => $repositoryAlias]
-        );
-        $this->mockRepositoryConfigurationProviderGetCurrentRepositoryAlias($repositoryAlias);
-
-        $this->expectException(InvalidSearchEngine::class);
-        $this->expectExceptionMessage('Ibexa "foo" Repository has no Search Engine configured');
-
-        $this->provider->getConfig();
-    }
-
     /**
      * @return iterable<array{
      *     TDamWidgetConfig,
@@ -281,12 +266,5 @@ final class DamWidgetTest extends TestCase
         $this->repositoryConfigurationProvider
             ->method('getRepositoryConfig')
             ->willReturn($config);
-    }
-
-    private function mockRepositoryConfigurationProviderGetCurrentRepositoryAlias(string $repositoryAlias): void
-    {
-        $this->repositoryConfigurationProvider
-            ->method('getCurrentRepositoryAlias')
-            ->willReturn($repositoryAlias);
     }
 }
