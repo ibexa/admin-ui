@@ -27,6 +27,7 @@
             isActive,
         };
     });
+    const { resizerWidth } = secondLevelMenuNode.dataset;
     let resizeStartPositionX = 0;
     let secondMenuLevelCurrentWidth = secondLevelMenuNode.getBoundingClientRect().width;
     const collapseSecondLevelMenu = (event) => {
@@ -64,7 +65,7 @@
             return;
         }
 
-        const secondLevelMenuListWidth = secondLevelMenuWidth;
+        const secondLevelMenuListWidth = secondLevelMenuWidth - resizerWidth;
 
         secondLevelMenuNode.style.width = `${secondLevelMenuWidth}px`;
         secondLevelMenuNode.querySelectorAll('.ibexa-main-menu__tab-pane .ibexa-main-menu__items-list').forEach((itemList) => {
