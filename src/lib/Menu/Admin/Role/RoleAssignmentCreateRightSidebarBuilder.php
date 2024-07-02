@@ -66,7 +66,7 @@ class RoleAssignmentCreateRightSidebarBuilder extends AbstractBuilder implements
                     'route' => 'ibexa.role.view',
                     'routeParameters' => [
                         'roleId' => $role->id,
-                        '_fragment' => 'users-and-groups',
+                        '_fragment' => 'ibexa-tab-users-and-groups',
                     ],
                 ]
             ),
