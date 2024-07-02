@@ -82,7 +82,7 @@
 
             .ibexa-main-menu {
                 &__items-list {
-                    width: calculateRem(216px);
+                    width: calculateRem(210px);
                     transition: width $ibexa-admin-transition-duration;
                     padding-top: calculateRem(8px);
                 }
