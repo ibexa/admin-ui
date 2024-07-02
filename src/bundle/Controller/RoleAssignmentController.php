@@ -128,6 +128,7 @@ class RoleAssignmentController extends Controller
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
+                    '_fragment' => 'users-and-groups',
                 ]));
             });
 
@@ -216,6 +217,7 @@ class RoleAssignmentController extends Controller
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
+                    '_fragment' => 'users-and-groups',
                 ]));
             });
 
