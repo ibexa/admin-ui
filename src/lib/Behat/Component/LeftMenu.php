@@ -37,7 +37,6 @@ class LeftMenu extends Component
     public function toggleMenu(): void
     {
         $this->getHTMLPage()->find($this->getLocator('menuToggler'))->click();
-
     }
 
     public function verifyIsLoaded(): void
