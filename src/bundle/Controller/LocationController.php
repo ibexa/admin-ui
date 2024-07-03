@@ -488,8 +488,10 @@ class LocationController extends Controller
 
         $contentInfo = $form->getData()->getContentInfo();
 
+        $referer = $request->headers->get('referer');
+
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentLocationAddData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentLocationAddData $data) use ($referer) {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getNewLocations() as $newLocation) {
@@ -504,11 +506,16 @@ class LocationController extends Controller
                     );
                 }
 
-                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
-                    '_fragment' => LocationsTab::URI_FRAGMENT,
-                ]));
+                $redirectUrl = $referer ?: $this->generateUrl(
+                    'ibexa.content.view',
+                    [
+                        'contentId' => $contentInfo->id,
+                        'locationId' => $contentInfo->mainLocationId,
+                        '_fragment' => LocationsTab::URI_FRAGMENT,
+                    ],
+                );
+
+                return new RedirectResponse($redirectUrl);
             });
 
             if ($result instanceof Response) {
