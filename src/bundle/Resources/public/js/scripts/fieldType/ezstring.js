@@ -16,7 +16,7 @@
             const isEmpty = !event.target.value;
             const isTooShort = event.target.value.length < parseInt(event.target.dataset.min, 10);
             const isTooLong = event.target.value.length > parseInt(event.target.dataset.max, 10);
-            const isError = (isEmpty && isRequired) || isTooShort || isTooLong;
+            const isError = (isEmpty && isRequired) || (!isEmpty && (isTooShort || isTooLong));
             const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
             const result = { isError };
 
