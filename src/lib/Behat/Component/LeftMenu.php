@@ -34,6 +34,11 @@ class LeftMenu extends Component
             ->click();
     }
 
+    public function toggleMenu(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('menuToggler'))->click();
+    }
+
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->find($this->getLocator('menuSelector'))->assert()->isVisible();
@@ -47,6 +52,7 @@ class LeftMenu extends Component
             new VisibleCSSLocator('menuSelector', '.ibexa-main-menu'),
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
             new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
+            new VisibleCSSLocator('menuToggler', '.ibexa-main-menu__toggler'),
         ];
     }
 }
