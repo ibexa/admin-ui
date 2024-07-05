@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../icon/icon';
@@ -7,22 +7,29 @@ import Tag from '../tag/tag';
 const ENTER_CODE = 'Enter';
 const COMMA_CODE = 'Comma';
 
-const Taggify = ({ tagsValue, hotKeys, allowDuplicates, onTagsChange, bottomHint }) => {
+const Taggify = forwardRef(({ hotKeys, allowDuplicates, onTagsChange, bottomHint }, ref) => {
     const [tags, setTags] = useState([]);
     const [newTagContent, setNewTagContent] = useState('');
     const newTagContentInputRef = useRef(null);
-    const addTag = (content) => {
-        if ((!allowDuplicates && isDuplicated(content)) || !content) {
-            return;
-        }
-
+    const addTags = (inputTags = []) => {
         setTags((prevTags) => {
-            const lastTag = prevTags[prevTags.length - 1];
-            const nextId = lastTag ? lastTag.id + 1 : 0;
+            const newTags = [...prevTags];
+            let nextId = newTags.at(-1)?.id ?? 0;
 
-            return [...prevTags, { content, id: nextId }];
+            inputTags.forEach((inputTagContent) => {
+                if ((!allowDuplicates && isDuplicated(newTags, inputTagContent)) || !inputTagContent) {
+                    return;
+                }
+
+                nextId++;
+                newTags.push({
+                    id: nextId,
+                    content: inputTagContent,
+                });
+            });
+
+            return newTags;
         });
-        setNewTagContent('');
     };
     const removeTag = (event, id) => {
         event.preventDefault();
@@ -32,8 +39,8 @@ const Taggify = ({ tagsValue, hotKeys, allowDuplicates, onTagsChange, bottomHint
 
         setTags(filteredTags);
     };
-    const isDuplicated = (content) => {
-        const searchedTag = tags.filter((tag) => tag.content === content);
+    const isDuplicated = (tagsArr, content) => {
+        const searchedTag = tagsArr.filter((tag) => tag.content === content);
 
         return !!searchedTag.length;
     };
@@ -41,18 +48,20 @@ const Taggify = ({ tagsValue, hotKeys, allowDuplicates, onTagsChange, bottomHint
         if (hotKeys.includes(code)) {
             const parsedContent = code !== ENTER_CODE ? newTagContent.slice(0, -1) : newTagContent;
 
-            addTag(parsedContent);
+            addTags([parsedContent]);
         }
     };
 
-    useEffect(() => {
-        tagsValue.map(addTag);
-    }, []);
+    useImperativeHandle(
+        ref,
+        () => ({
+            addTags,
+        }),
+        [addTags],
+    );
 
     useEffect(() => {
-        const mappedTags = tags.map((tag) => tag.content);
-
-        onTagsChange(mappedTags);
+        onTagsChange(tags);
     }, [tags]);
 
     return (
@@ -70,12 +79,12 @@ const Taggify = ({ tagsValue, hotKeys, allowDuplicates, onTagsChange, bottomHint
                         value={newTagContent}
                         onChange={({ currentTarget }) => setNewTagContent(currentTarget.value)}
                         onKeyUp={handleInputKeyUp}
-                        onBlur={() => addTag(newTagContent)}
+                        onBlur={() => addTags([newTagContent])}
                     />
                 </div>
                 <div className="c-taggify__tags">
-                    {tags.map((tag) => (
-                        <Tag key={`${tag.id}-key`} content={tag.content} onRemove={(event) => removeTag(event, tag.id)} />
+                    {tags.map(({ id, content }) => (
+                        <Tag key={id} content={content} onRemove={(event) => removeTag(event, id)} />
                     ))}
                 </div>
             </div>
@@ -87,10 +96,9 @@ const Taggify = ({ tagsValue, hotKeys, allowDuplicates, onTagsChange, bottomHint
             )}
         </div>
     );
-};
+});
 
 Taggify.propTypes = {
-    tagsValue: PropTypes.array,
     hotKeys: PropTypes.array,
     allowDuplicates: PropTypes.bool,
     onTagsChange: PropTypes.func,
@@ -98,11 +106,12 @@ Taggify.propTypes = {
 };
 
 Taggify.defaultProps = {
-    tagsValue: [],
     hotKeys: [ENTER_CODE, COMMA_CODE],
     allowDuplicates: false,
     onTagsChange: () => {},
     bottomHint: '',
 };
+
+Taggify.displayName = 'Taggify';
 
 export default Taggify;

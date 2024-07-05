@@ -7,7 +7,7 @@
         min-height: calculateRem(100px);
         padding: calculateRem(8px);
         font-size: $ibexa-text-font-size-medium;
-        color: var(--ibexa-input-text-color, var(--ibexa-text-color, #{$ibexa-color-dark}));
+        color: var(--ibexa-input-text-color, var(--ibexa-text-color, $ibexa-color-dark));
         line-height: calculateRem(21px);
         border: calculateRem(1px) solid var(--ibexa-input-border-color, #{$ibexa-color-dark-200});
         border-radius: calculateRem(8px);
