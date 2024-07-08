@@ -28,6 +28,7 @@ const Taggify = forwardRef(({ hotKeys, allowDuplicates, onTagsChange, bottomHint
                 });
             });
 
+            setNewTagContent('');
             return newTags;
         });
     };
@@ -35,9 +36,7 @@ const Taggify = forwardRef(({ hotKeys, allowDuplicates, onTagsChange, bottomHint
         event.preventDefault();
         event.stopPropagation();
 
-        const filteredTags = tags.filter((tag) => tag.id !== id);
-
-        setTags(filteredTags);
+        setTags((prevState) => prevState.filter((tag) => tag.id !== id));
     };
     const isDuplicated = (tagsArr, content) => {
         const searchedTag = tagsArr.filter((tag) => tag.content === content);
