@@ -7,7 +7,7 @@
 
 {% block header %}
     {% set route = app.request.query.get('route') %}
-    {% set route_parameters = app.request.query.get('routeParameters')|default([]) %}
+    {% set route_parameters = app.request.query.get('routeParameters') ?? [] %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {
         'route': route,
         'route_parameters': route_parameters,
