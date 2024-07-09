@@ -6,7 +6,7 @@
 {% block body_class %}ibexa-user-settings-update-view{% endblock %}
 
 {% block header %}
-    {% set route = app.request.query.get('route')|default(null) %}
+    {% set route = app.request.query.get('route') %}
     {% set route_parameters = app.request.query.get('routeParameters')|default([]) %}
     {% set user_setting_update_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.user_setting_update.sidebar_right', [], {
         'route': route,
