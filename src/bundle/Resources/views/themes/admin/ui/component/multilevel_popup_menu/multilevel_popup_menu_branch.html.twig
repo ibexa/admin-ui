@@ -16,6 +16,9 @@
     {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
 
     <div {{ html.attributes(branch_attr, is_template) }}>
+        <div class="ibexa-multilevel-popup-menu__header {{ header is not defined ? 'ibexa-multilevel-popup-menu__header--hidden' }}">
+            {{ header|default() }}
+        </div>
         <div class="ibexa-multilevel-popup-menu__search {{ not hasSearch|default(false) ? 'ibexa-multilevel-popup-menu__search--hidden' }}">
             <input
                 type="text"

@@ -47,6 +47,7 @@
 {%- endblock %}
 
 {% block form_row_subfield -%}
+    {% set is_small = attr.is_small ?? true %}
     {% set wrapper_class = 'ibexa-data-source__field ibexa-data-source__field--' ~ name ~ ' ibexa-data-form-field' %}
     {% if required %}{% set wrapper_class = (wrapper_class ~ ' ibexa-data-source__field--required')|trim %}{% endif %}
     {% if errors|length > 0 %}{% set wrapper_class = (wrapper_class|default('') ~ ' is-invalid')|trim %}{% endif %}
@@ -54,8 +55,8 @@
     {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' ibexa-label ibexa-data-source__label')|trim}) %}
     {% set label_wrapper_attr = label_wrapper_attr|default({})|merge({'class': (label_wrapper_attr.class|default('') ~ ' ibexa-data-source__label-wrapper')|trim}) %}
     {% set attr = attr|merge({
-        class: (attr.class|default('') ~ ' ibexa-data-source__input ibexa-input--small')|trim,
-        is_small: true,
+        class: (attr.class|default('') ~ ' ibexa-data-source__input' ~ (is_small ? ' ibexa-input--small'))|trim,
+        is_small,
     }) %}
     {% set wrapper_attr = wrapper_attr|default({})|merge({class: (wrapper_attr.class|default('') ~ ' ' ~ wrapper_class)|trim}) %}
     {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({class: (widget_wrapper_attr.class|default('') ~ ' ibexa-data-source__input-wrapper')|trim}) %}

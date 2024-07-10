@@ -83,11 +83,42 @@
                 </div>
             </div>
             <div class="ibexa-field-edit-preview__image-alt">
-                {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
+            {% if true %}
+
+                {% embed '@ibexadesign/connector_ai/ui/ai_module/variants.html.twig' %}
+                    {% block suggestions_input_field %}
+                        {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
+                        {{ form_row(form.alternativeText, {
+                            attr: ai_base_attr|merge({ 
+                                'data-is-required': form.vars.is_alternative_text_required, 
+                                readonly,
+                            }),
+                            label_attr: { 'class': alternative_text_label_class }
+                        }) }}
+                    {% endblock %}
+                {% endembed %}
+
+                {% else %}
+
+                {% embed '@ibexadesign/connector_ai/ui/ai_module/basic.html.twig' %}
+                    {% block input_field %}
+                        {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
+                        {{ form_row(form.alternativeText, {
+                            attr: ai_base_attr|merge({ 
+                                'data-is-required': form.vars.is_alternative_text_required, 
+                                readonly,
+                            }),
+                            label_attr: { 'class': alternative_text_label_class }
+                        }) }}
+                    {% endblock %}
+                {% endembed %}
+
+                {% endif %}
+                {# {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
                 {{ form_row(form.alternativeText, {
                     attr: { 'data-is-required': form.vars.is_alternative_text_required, readonly: readonly },
                     label_attr: { 'class': alternative_text_label_class }
-                }) }}
+                }) }} #}
                 {{ form_errors(form.alternativeText) }}
             </div>
             {{ form_widget(form.additionalData, {attr: {class: 'ibexa-field-edit-preview__additional-data', readonly: readonly }}) }}
