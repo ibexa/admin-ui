@@ -1,4 +1,6 @@
 .ibexa-split-btn {
+    $self: &;
+
     display: flex;
 
     &__main-btn,
@@ -48,6 +50,20 @@
                 display: block;
                 background: $ibexa-color-white;
             }
+        }
+    }
+
+    &--disabled {
+        border-radius: $ibexa-border-radius;
+        cursor: not-allowed;
+
+        #{$self}__main-btn,
+        #{$self}__toggle-btn {
+            color: $ibexa-color-dark-400;
+            fill: $ibexa-color-dark-400;
+            border-color: $ibexa-color-dark-200;
+            background-color: rgba($ibexa-color-light, 0.4);
+            pointer-events: none;
         }
     }
 }

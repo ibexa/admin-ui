@@ -59,6 +59,7 @@
         {%- block branch -%}
             {%- if groups is defined and groups is not null -%}
                 {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig' with {
+                    header: header|default(),
                     groups,
                 } -%}
             {%- endif -%}
