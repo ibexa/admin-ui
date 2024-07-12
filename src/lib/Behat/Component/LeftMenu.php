@@ -12,6 +12,7 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
+use Ibexa\Behat\Browser\Locator\CSSLocator;
 
 class LeftMenu extends Component
 {
@@ -30,25 +31,32 @@ class LeftMenu extends Component
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
 
-        if ($this->getHTMLPage()
-            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->isVisible()) {
-            $this->getHTMLPage()
-                ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
-            $this->getHTMLPage()->setTimeout(5)
-                ->findAll($this->getLocator('expandedMenuItem'))
-                ->getByCriterion(new ElementTextCriterion($subTabName))
-                ->click();
-        } else {
-            $menuButton->mouseOver();
-            $menuButton->click();
-            $this->getHTMLPage()
-                ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+//        try {
+//            $retractedLeftMenu = $this->getHTMLPage()
+//                ->setTimeout(5)->find($this->getLocator('retractedMenu'));
 
-            $this->getHTMLPage()->setTimeout(5)
-                ->findAll($this->getLocator('expandedMenuItem'))
-                ->getByCriterion(new ElementTextCriterion($subTabName))
-                ->click();
-        }
+//            if ( $retractedLeftMenu->isVisible()) {
+//                $menuButton->mouseOver();
+//                $menuButton->click();
+//                $this->getHTMLPage()
+//                    ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+//                $this->getHTMLPage()->setTimeout(5)
+//                    ->findAll($this->getLocator('expandedMenuItem'))
+//                    ->getByCriterion(new ElementTextCriterion($subTabName))
+//                    ->click();
+//            } else {
+                $menuButton->mouseOver();
+                $menuButton->click();
+                $this->getHTMLPage()
+                    ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+
+                $this->getHTMLPage()->setTimeout(5)
+                    ->findAll($this->getLocator('expandedMenuItem'))
+                    ->getByCriterion(new ElementTextCriterion($subTabName))
+                    ->click();
+//            }
+//        } catch (Exception $e) {
+//        }
     }
 
     public function toggleMenu(): void
@@ -68,7 +76,9 @@ class LeftMenu extends Component
             new VisibleCSSLocator('expandedMenuItem', '.ibexa-main-menu__navbar--second-level .ibexa-main-menu__tab-pane.active.show .ibexa-main-menu__item-text-column'),
             new VisibleCSSLocator('menuSelector', '.ibexa-main-menu'),
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
-            new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
+            //new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
+            new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level:not(.ibexa-main-menu__navbar--hidden)'),
+            new CSSLocator('retractedMenu','.ibexa-main-menu__navbar--second-level.ibexa-main-menu__navbar--hidden'),
             new VisibleCSSLocator('menuToggler', '.ibexa-main-menu__toggler'),
             new VisibleCSSLocator('dashboardIcon', '.ibexa-main-header__brand'),
         ];
