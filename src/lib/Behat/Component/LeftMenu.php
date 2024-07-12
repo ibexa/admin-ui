@@ -11,8 +11,8 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
-use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
+use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class LeftMenu extends Component
 {
@@ -45,15 +45,15 @@ class LeftMenu extends Component
 //                    ->getByCriterion(new ElementTextCriterion($subTabName))
 //                    ->click();
 //            } else {
-                $menuButton->mouseOver();
-                $menuButton->click();
-                $this->getHTMLPage()
-                    ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $menuButton->mouseOver();
+        $menuButton->click();
+        $this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
 
-                $this->getHTMLPage()->setTimeout(5)
-                    ->findAll($this->getLocator('expandedMenuItem'))
-                    ->getByCriterion(new ElementTextCriterion($subTabName))
-                    ->click();
+        $this->getHTMLPage()->setTimeout(5)
+            ->findAll($this->getLocator('expandedMenuItem'))
+            ->getByCriterion(new ElementTextCriterion($subTabName))
+            ->click();
 //            }
 //        } catch (Exception $e) {
 //        }
@@ -78,7 +78,7 @@ class LeftMenu extends Component
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
             //new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
             new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level:not(.ibexa-main-menu__navbar--hidden)'),
-            new CSSLocator('retractedMenu','.ibexa-main-menu__navbar--second-level.ibexa-main-menu__navbar--hidden'),
+            new CSSLocator('retractedMenu', '.ibexa-main-menu__navbar--second-level.ibexa-main-menu__navbar--hidden'),
             new VisibleCSSLocator('menuToggler', '.ibexa-main-menu__toggler'),
             new VisibleCSSLocator('dashboardIcon', '.ibexa-main-header__brand'),
         ];
