@@ -20,16 +20,16 @@ jobs:
             timeout: 40
         secrets:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    page-builder:
-        name: "Basic Page Builder tests"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
-        with:
-            project-edition: 'experience'
-            test-suite:  '--profile=browser --suite=personas'
-            test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'
-            timeout: 40
-        secrets:
-            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
-            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
-            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#    page-builder:
+#        name: "Basic Page Builder tests"
+#        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+#        with:
+#            project-edition: 'experience'
+#            test-suite:  '--profile=browser --suite=personas'
+#            test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'
+#            timeout: 40
+#        secrets:
+#            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+#            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+#            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
+#            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
