@@ -1,9 +1,10 @@
-@javascript @subtreeEditor @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+@javascript @subtreeEditor @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @test2
 Feature: Verify that an Editor with Subtree limitations can perform all his tasks
 
   Background:
     Given I open Login page in admin SiteAccess
     And I log in as "SubtreeEditor" with password "Passw0rd-42"
+    And I am using the DXP with Focus mode disabled
     And I should be on "Dashboard" page
     And I go to "Content structure" in "Content" tab
 
