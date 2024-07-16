@@ -1,7 +1,7 @@
 @javascript @addLocation
 Feature: Verify that an Editor with content type limitation on content/create policy can add location
 
-  @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @IbexaExperience @IbexaCommerce
   Scenario: I can add location
     Given I open Login page in admin siteaccess
     And I log in as "Add" with password "Passw0rd-42"
