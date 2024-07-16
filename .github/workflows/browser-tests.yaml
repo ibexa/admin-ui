@@ -35,6 +35,36 @@ jobs:
             SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
             TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    admin-ui-experience:
+        name: "AdminUI-Experience"
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        with:
+            project-edition: 'experience'
+            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience'
+            test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
+            test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
+            job-count: 2
+            timeout: 40
+        secrets:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    admin-ui-commerce:
+        name: "AdminUI-Commerce"
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        with:
+            project-edition: 'commerce'
+            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaCommerce'
+            test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
+            test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
+            job-count: 2
+            timeout: 40
+        secrets:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 #    page-builder:
 #        name: "Basic Page Builder tests"
 #        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
