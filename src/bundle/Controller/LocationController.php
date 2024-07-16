@@ -488,28 +488,38 @@ class LocationController extends Controller
 
         $contentInfo = $form->getData()->getContentInfo();
 
+        $referer = $request->headers->get('Referer');
+
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentLocationAddData $data) {
-                $contentInfo = $data->getContentInfo();
+            $result = $this->submitHandler->handle(
+                $form,
+                function (ContentLocationAddData $data) use ($referer): RedirectResponse {
+                    $contentInfo = $data->getContentInfo();
 
-                foreach ($data->getNewLocations() as $newLocation) {
-                    $locationCreateStruct = $this->locationService->newLocationCreateStruct($newLocation->id);
-                    $this->locationService->createLocation($contentInfo, $locationCreateStruct);
+                    foreach ($data->getNewLocations() as $newLocation) {
+                        $locationCreateStruct = $this->locationService->newLocationCreateStruct($newLocation->id);
+                        $this->locationService->createLocation($contentInfo, $locationCreateStruct);
 
-                    $this->notificationHandler->success(
-                        /** @Desc("Location '%name%' created.") */
-                        'location.create.success',
-                        ['%name%' => $newLocation->getContentInfo()->name],
-                        'ibexa_location'
+                        $this->notificationHandler->success(
+                            /** @Desc("Location '%name%' created.") */
+                            'location.create.success',
+                            ['%name%' => $newLocation->getContentInfo()->name],
+                            'ibexa_location',
+                        );
+                    }
+
+                    $redirectUrl = $referer ?: $this->generateUrl(
+                        'ibexa.content.view',
+                        [
+                            'contentId' => $contentInfo->id,
+                            'locationId' => $contentInfo->mainLocationId,
+                            '_fragment' => LocationsTab::URI_FRAGMENT,
+                        ],
                     );
-                }
 
-                return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
-                    '_fragment' => LocationsTab::URI_FRAGMENT,
-                ]));
-            });
+                    return new RedirectResponse($redirectUrl);
+                }
+            );
 
             if ($result instanceof Response) {
                 return $result;
