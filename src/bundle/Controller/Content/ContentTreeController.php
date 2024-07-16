@@ -72,10 +72,11 @@ class ContentTreeController extends RestController
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function loadChildrenAction(
-        Request $request,
         int $parentLocationId,
         int $limit,
-        int $offset
+        int $offset,
+        Query\Criterion $filter,
+        Request $request
     ): Node {
         $location = $this->locationService->loadLocation($parentLocationId);
         $loadSubtreeRequestNode = new LoadSubtreeRequestNode($parentLocationId, $limit, $offset);
@@ -89,7 +90,8 @@ class ContentTreeController extends RestController
             true,
             0,
             $sortClause,
-            $sortOrder
+            $sortOrder,
+            $filter
         );
     }
 
