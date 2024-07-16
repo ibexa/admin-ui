@@ -7,3 +7,7 @@ services:
     Ibexa\Bundle\AdminUi\ControllerArgumentResolver\UniversalDiscoveryRequestQueryArgumentResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
+
+    Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgumentResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }

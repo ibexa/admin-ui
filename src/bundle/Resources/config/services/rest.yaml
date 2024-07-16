@@ -92,3 +92,10 @@ services:
             $applicationConfigRestGeneratorRegistry: '@Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface'
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ApplicationConfig }
+
+    Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor:
+        arguments:
+            $parsingDispatcher: '@Ibexa\Contracts\Rest\Input\ParsingDispatcher'
+
+    Ibexa\AdminUi\REST\Input\Parser\CriterionProcessorInterface:
+        alias: Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor
