@@ -94,8 +94,5 @@ services:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ApplicationConfig }
 
     Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor:
-        arguments:
-            $parsingDispatcher: '@Ibexa\Contracts\Rest\Input\ParsingDispatcher'
+        parent: Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\BaseCriterionProcessor
 
-    Ibexa\AdminUi\REST\Input\Parser\CriterionProcessorInterface:
-        alias: Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor

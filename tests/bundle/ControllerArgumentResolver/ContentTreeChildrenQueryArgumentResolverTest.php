@@ -9,11 +9,11 @@ namespace Ibexa\Tests\Bundle\AdminUi\ControllerArgumentResolver;
 
 use ArrayIterator;
 use Generator;
-use Ibexa\AdminUi\REST\Input\Parser\CriterionProcessorInterface;
 use Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgumentResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -21,13 +21,17 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Traversable;
 
 /**
+ * @phpstan-type TCriterionProcessor \Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface<
+ *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion
+ * >
+ *
  * @covers \Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgumentResolver
  */
 final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 {
     private ArgumentValueResolverInterface $resolver;
 
-    /** @var \Ibexa\AdminUi\REST\Input\Parser\CriterionProcessorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @phpstan-var TCriterionProcessor&\PHPUnit\Framework\MockObject\MockObject */
     private CriterionProcessorInterface $criterionProcessor;
 
     protected function setUp(): void

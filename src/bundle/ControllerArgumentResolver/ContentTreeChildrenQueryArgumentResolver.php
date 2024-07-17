@@ -7,17 +7,24 @@
 
 namespace Ibexa\Bundle\AdminUi\ControllerArgumentResolver;
 
-use Ibexa\AdminUi\REST\Input\Parser\CriterionProcessorInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
+/**
+ * @phpstan-import-type TCriterionProcessor from \Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor
+ */
 final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueResolverInterface
 {
+    /** @phpstan-var TCriterionProcessor */
     private CriterionProcessorInterface $criterionProcessor;
 
+    /**
+     * @phpstan-param TCriterionProcessor $criterionProcessor
+     */
     public function __construct(
         CriterionProcessorInterface $criterionProcessor
     ) {
