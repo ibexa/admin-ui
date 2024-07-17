@@ -74,16 +74,16 @@ jobs:
             AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
             AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
             AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-#    page-builder:
-#        name: "Basic Page Builder tests"
-#        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
-#        with:
-#            project-edition: 'experience'
-#            test-suite:  '--profile=browser --suite=personas'
-#            test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'
-#            timeout: 40
-#        secrets:
-#            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
-#            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
-#            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
-#            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    page-builder:
+        name: "Basic Page Builder tests"
+        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        with:
+            project-edition: 'experience'
+            test-suite:  '--profile=browser --suite=personas'
+            test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'
+            timeout: 40
+        secrets:
+            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
