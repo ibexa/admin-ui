@@ -31,32 +31,24 @@ class LeftMenu extends Component
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
 
-//        try {
-//            $retractedLeftMenu = $this->getHTMLPage()
-//                ->setTimeout(5)->find($this->getLocator('retractedMenu'));
-
-//            if ( $retractedLeftMenu->isVisible()) {
-//                $menuButton->mouseOver();
-//                $menuButton->click();
-//                $this->getHTMLPage()
-//                    ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
-//                $this->getHTMLPage()->setTimeout(5)
-//                    ->findAll($this->getLocator('expandedMenuItem'))
-//                    ->getByCriterion(new ElementTextCriterion($subTabName))
-//                    ->click();
-//            } else {
         $menuButton->mouseOver();
         $menuButton->click();
         $this->getHTMLPage()
             ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
-
         $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
             ->getByCriterion(new ElementTextCriterion($subTabName))
             ->click();
-//            }
-//        } catch (Exception $e) {
-//        }
+    }
+
+    public function changeSubTab(string $subTabName): void
+    {
+        $this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $this->getHTMLPage()->setTimeout(5)
+            ->findAll($this->getLocator('expandedMenuItem'))
+            ->getByCriterion(new ElementTextCriterion($subTabName))
+            ->click();
     }
 
     public function toggleMenu(): void

@@ -110,6 +110,14 @@ class NavigationContext implements Context
     }
 
     /**
+     * @Then I change subtab to :subTab
+     */
+    public function iChangeSubTab(string $subTab): void
+    {
+        $this->leftMenu->changeSubTab($subTab);
+    }
+
+    /**
      * @When I click on :element on breadcrumb
      */
     public function iClickOnBreadcrumbLink(string $element): void
