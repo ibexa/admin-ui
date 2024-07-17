@@ -8,24 +8,24 @@ on:
     pull_request: ~
 
 jobs:
-    admin-ui-oss:
-        name: "AdminUI-OSS"
+#    admin-ui-oss:
+#        name: "AdminUI-OSS"
+#        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+#        with:
+#            project-edition: 'oss'
+#            test-suite:  '--profile=browser --suite=admin-ui-full --tags=@IbexaOSS'
+#            test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
+#            test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
+#            job-count: 2
+#            timeout: 40
+#        secrets:
+#            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    admin-ui-oss-headless:
+        name: "AdminUI-OSS/Headless"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'oss'
-            test-suite:  '--profile=browser --suite=admin-ui-full --tags=@IbexaOSS'
-            test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
-            test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
-            job-count: 2
-            timeout: 40
-        secrets:
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-    admin-ui-headless:
-        name: "AdminUI-Headless"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
-        with:
-            project-edition: 'headless'
-            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaHeadless'
+            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaOSS@IbexaHeadless'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
             job-count: 2
@@ -39,11 +39,11 @@ jobs:
             AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
             AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
     admin-ui-experience:
-        name: "AdminUI-Experience"
+        name: "AdminUI-Experience/Commerce"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'experience'
-            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience'
+            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience,@IbexaCommerce'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
             job-count: 2
@@ -56,24 +56,24 @@ jobs:
             AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
             AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
             AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-    admin-ui-commerce:
-        name: "AdminUI-Commerce"
-        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
-        with:
-            project-edition: 'commerce'
-            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaCommerce'
-            test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
-            test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
-            job-count: 2
-            timeout: 40
-        secrets:
-            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
-            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
-            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-            AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
-            AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
-            AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+#    admin-ui-commerce:
+#        name: "AdminUI-Commerce"
+#        uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+#        with:
+#            project-edition: 'commerce'
+#            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaCommerce'
+#            test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
+#            test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
+#            job-count: 2
+#            timeout: 40
+#        secrets:
+#            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+#            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+#            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
+#            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#            AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
+#            AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
+#            AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
     page-builder:
         name: "Basic Page Builder tests"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
