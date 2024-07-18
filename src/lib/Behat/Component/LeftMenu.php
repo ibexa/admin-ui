@@ -68,7 +68,6 @@ class LeftMenu extends Component
             new VisibleCSSLocator('expandedMenuItem', '.ibexa-main-menu__navbar--second-level .ibexa-main-menu__tab-pane.active.show .ibexa-main-menu__item-text-column'),
             new VisibleCSSLocator('menuSelector', '.ibexa-main-menu'),
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
-            //new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
             new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level:not(.ibexa-main-menu__navbar--hidden)'),
             new CSSLocator('retractedMenu', '.ibexa-main-menu__navbar--second-level.ibexa-main-menu__navbar--hidden'),
             new VisibleCSSLocator('menuToggler', '.ibexa-main-menu__toggler'),
