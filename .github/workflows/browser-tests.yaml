@@ -26,7 +26,7 @@ jobs:
             AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
             AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
             AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-    admin-ui-experience:
+    admin-ui-experience-commerce:
         name: "AdminUI-Experience/Commerce"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
