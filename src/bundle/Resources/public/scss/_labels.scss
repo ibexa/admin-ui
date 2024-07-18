@@ -1,12 +1,14 @@
 .ibexa-label {
     @include label-required();
 
-    font-size: $ibexa-text-font-size-small;
-    color: $ibexa-color-dark-400;
-    line-height: calculateRem(18px);
-    margin-bottom: calculateRem(8px);
-    padding-top: 0;
-    padding-bottom: 0;
+    & {
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-dark-400;
+        line-height: calculateRem(18px);
+        margin-bottom: calculateRem(8px);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 
     .ibexa-icon {
         fill: $ibexa-color-dark-400;
