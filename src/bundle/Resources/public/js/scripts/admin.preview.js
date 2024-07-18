@@ -2,6 +2,7 @@
     const CLASS_BTN_SELECTED = 'ibexa-btn--selected';
     const SELECTOR_BTN_ACTION = '.ibexa-preview-header__action';
     const SELECTOR_PREVIEW_SITEACCESS_SELECT = '.ibexa-preview-header__item--siteaccess select';
+    const iframe = doc.querySelector('.ibexa-preview__iframe iframe');
     const removeSelectedState = () => doc.querySelectorAll(SELECTOR_BTN_ACTION).forEach((btn) => btn.classList.remove(CLASS_BTN_SELECTED));
     const changePreviewMode = (event) => {
         const btn = event.target.closest(SELECTOR_BTN_ACTION);
@@ -24,4 +25,8 @@
     doc.querySelectorAll(SELECTOR_PREVIEW_SITEACCESS_SELECT).forEach((select) =>
         select.addEventListener('change', changePreviewSiteaccess, false),
     );
+
+    iframe.onload = () => {
+        iframe.contentWindow.document.body.style.pointerEvents = 'none';
+    };
 })(window, window.document);
