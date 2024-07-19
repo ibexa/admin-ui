@@ -35,7 +35,7 @@ class FieldTypeChoiceType extends AbstractType
         $this->translator = $translator;
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezplatform_content_forms_contenttype_field_type_choice';
     }
@@ -52,7 +52,7 @@ class FieldTypeChoiceType extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return ChoiceType::class;
     }

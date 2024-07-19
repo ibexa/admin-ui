@@ -86,15 +86,15 @@ final class URLWildcardController extends Controller
                     ]);
                 }
 
-                return $this->redirect($this->generateUrl('ibexa.url_management', [
+                return $this->redirectToRoute('ibexa.url_management', [
                     '_fragment' => URLWildcardsTab::URI_FRAGMENT,
-                ]));
+                ]);
             });
         }
 
-        return $this->redirect($this->generateUrl('ibexa.url_management', [
+        return $this->redirectToRoute('ibexa.url_management', [
             '_fragment' => URLWildcardsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
     /**
@@ -141,9 +141,9 @@ final class URLWildcardController extends Controller
                         ]);
                     }
 
-                    return $this->redirect($this->generateUrl('ibexa.url_management', [
+                    return $this->redirectToRoute('ibexa.url_management', [
                         '_fragment' => URLWildcardsTab::URI_FRAGMENT,
-                    ]));
+                    ]);
                 }
             );
 
@@ -190,8 +190,8 @@ final class URLWildcardController extends Controller
             );
         }
 
-        return $this->redirect($this->generateUrl('ibexa.url_management', [
+        return $this->redirectToRoute('ibexa.url_management', [
             '_fragment' => URLWildcardsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 }

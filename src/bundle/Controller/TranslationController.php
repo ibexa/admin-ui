@@ -146,10 +146,10 @@ class TranslationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => TranslationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 }

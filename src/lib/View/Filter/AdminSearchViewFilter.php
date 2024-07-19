@@ -64,7 +64,7 @@ class AdminSearchViewFilter implements EventSubscriberInterface
         $this->urlGenerator = $urlGenerator;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [ViewEvents::FILTER_BUILDER_PARAMETERS => 'handleSearchForm'];
     }

@@ -32,7 +32,7 @@ class ContentTypeSubmitType extends AbstractType
         $builder->addViewTransformer(new ContentTypeTransformer($this->contentTypeService));
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return SubmitType::class;
     }

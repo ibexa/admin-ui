@@ -16,16 +16,14 @@ class LocationAssignSubtreeData
 {
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     protected $section;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     protected $location;
 
     public function __construct(?Section $section = null, ?Location $location = null)

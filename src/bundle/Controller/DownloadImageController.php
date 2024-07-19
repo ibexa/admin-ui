@@ -281,7 +281,7 @@ final class DownloadImageController extends Controller
 
         return new Response(
             $content,
-            200,
+            Response::HTTP_OK,
             [
                 'Content-Disposition' => $disposition,
                 'Content-Length' => strlen($content),

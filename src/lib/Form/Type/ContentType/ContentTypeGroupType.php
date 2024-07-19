@@ -28,7 +28,7 @@ class ContentTypeGroupType extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'content_type_group_edit';
     }

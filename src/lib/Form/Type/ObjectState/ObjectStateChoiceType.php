@@ -27,7 +27,7 @@ class ObjectStateChoiceType extends AbstractType
         $this->objectStateService = $objectStateService;
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return ChoiceType::class;
     }
