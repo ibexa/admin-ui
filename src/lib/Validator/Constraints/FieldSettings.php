@@ -16,12 +16,12 @@ class FieldSettings extends Constraint
 {
     public $message = 'ez.field_definition.field_settings';
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ezplatform.content_forms.validator.field_settings';
     }

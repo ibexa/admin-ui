@@ -151,7 +151,7 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.language.list'));
+        return $this->redirectToRoute('ibexa.language.list');
     }
 
     /**
@@ -195,7 +195,7 @@ class LanguageController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.language.list'));
+        return $this->redirectToRoute('ibexa.language.list');
     }
 
     public function createAction(Request $request): Response

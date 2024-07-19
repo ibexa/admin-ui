@@ -18,19 +18,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContentMainLocationUpdateData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
+    #[Assert\NotBlank]
     public $contentInfo;
 
     /**
      * @todo add more validation constraints
      *
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
+    #[Assert\NotBlank]
     public $location;
 
     /**

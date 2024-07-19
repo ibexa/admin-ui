@@ -14,17 +14,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 class MainTranslationUpdateData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
      */
+    #[Assert\NotBlank]
     public $content;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var string|null
      */
+    #[Assert\NotBlank]
     public $languageCode;
 
     /**

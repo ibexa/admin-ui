@@ -676,7 +676,7 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content_type_group.view', ['contentTypeGroupId' => $group->id]));
+        return $this->redirectToRoute('ibexa.content_type_group.view', ['contentTypeGroupId' => $group->id]);
     }
 
     /**

@@ -32,7 +32,7 @@ class ContentTypeGroupType extends AbstractType
         $builder->addModelTransformer(new ContentTypeGroupTransformer($this->contentTypeService));
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return HiddenType::class;
     }

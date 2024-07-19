@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Role;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -29,35 +27,21 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
-     *
-     * @Assert\Expression(
-     *     "this.getLimitationType() != 'section' or (this.getLimitationType() == 'section' and value != [])",
-     *     message="validator.define_subtree_or_section_limitation"
-     * )
      */
+    #[Assert\Expression("this.getLimitationType() != 'section' or (this.getLimitationType() == 'section' and value != [])", message: 'validator.define_subtree_or_section_limitation')]
     private $sections;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
-     *
-     * @Assert\Expression(
-     *     "this.getLimitationType() != 'location' or (this.getLimitationType() == 'location' and value != [])",
-     *     message="validator.define_subtree_or_section_limitation"
-     * )
      */
+    #[Assert\Expression("this.getLimitationType() != 'location' or (this.getLimitationType() == 'location' and value != [])", message: 'validator.define_subtree_or_section_limitation')]
     private $locations;
 
     /**
      * @var string
-     *
-     * @Assert\NotNull()
-     *
-     * @Assert\Choice({
-     *     RoleAssignmentCreateData::LIMITATION_TYPE_NONE,
-     *     RoleAssignmentCreateData::LIMITATION_TYPE_SECTION,
-     *     RoleAssignmentCreateData::LIMITATION_TYPE_LOCATION
-     * })
      */
+    #[Assert\NotNull]
+    #[Assert\Choice([RoleAssignmentCreateData::LIMITATION_TYPE_NONE, RoleAssignmentCreateData::LIMITATION_TYPE_SECTION, RoleAssignmentCreateData::LIMITATION_TYPE_LOCATION])]
     private $limitationType;
 
     /**
@@ -184,9 +168,8 @@ class RoleAssignmentCreateData implements TranslationContainerInterface
     /**
      * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
      * @param $payload
-     *
-     * @Assert\Callback
      */
+    #[Assert\Callback]
     public function validate(ExecutionContextInterface $context, $payload)
     {
         if (empty($this->getUsers()) && empty($this->getGroups())) {

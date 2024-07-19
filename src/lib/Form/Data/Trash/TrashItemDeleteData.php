@@ -16,10 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TrashItemDeleteData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
+    #[Assert\NotBlank]
     public $trashItems;
 
     /**

@@ -14,19 +14,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContentLocationRemoveData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
      */
+    #[Assert\NotBlank]
     public $contentInfo;
 
     /**
      * @todo add more validation constraints
      *
-     * @Assert\NotBlank()
-     *
      * @var array
      */
+    #[Assert\NotBlank]
     public $locations;
 
     /**

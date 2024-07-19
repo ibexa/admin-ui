@@ -16,10 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TrashEmptyData
 {
     /**
-     * @Assert\IsTrue()
-     *
      * @var bool
      */
+    #[Assert\IsTrue]
     public $emptyTrash;
 
     /**
@@ -31,10 +30,9 @@ class TrashEmptyData
     }
 
     /**
-     * @Assert\IsTrue()
-     *
      * @return bool
      */
+    #[Assert\IsTrue]
     public function getEmptyTrash(): bool
     {
         return $this->emptyTrash;

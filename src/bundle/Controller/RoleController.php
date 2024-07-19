@@ -302,9 +302,9 @@ class RoleController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.role.view', [
+        return $this->redirectToRoute('ibexa.role.view', [
             'roleId' => $role->id,
-        ]));
+        ]);
     }
 
     /**

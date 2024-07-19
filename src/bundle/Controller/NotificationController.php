@@ -17,7 +17,6 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -54,7 +53,7 @@ class NotificationController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
+    public function getNotificationsAction(int $offset, int $limit): JsonResponse
     {
         $response = new JsonResponse();
 
@@ -145,7 +144,7 @@ class NotificationController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function markNotificationAsReadAction(Request $request, $notificationId): JsonResponse
+    public function markNotificationAsReadAction($notificationId): JsonResponse
     {
         $response = new JsonResponse();
 
@@ -171,7 +170,7 @@ class NotificationController extends Controller
                 'error' => $exception->getMessage(),
             ]);
 
-            $response->setStatusCode(404);
+            $response->setStatusCode(Response::HTTP_NOT_FOUND);
         }
 
         return $response;

@@ -45,7 +45,7 @@ class SectionType extends AbstractType
         $resolver->setAllowedTypes('multiple', 'boolean');
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return HiddenType::class;
     }

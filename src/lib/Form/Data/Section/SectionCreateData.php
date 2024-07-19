@@ -19,21 +19,15 @@ class SectionCreateData implements TranslationContainerInterface
 {
     /**
      * @var string|null
-     *
-     * @Assert\NotBlank()
-     *
-     * @Assert\Regex(
-     *     pattern="/^[[:alnum:]_]+$/",
-     *     message="ez.section.identifier.format"
-     * )
      */
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[[:alnum:]_]+$/', message: 'ez.section.identifier.format')]
     protected $identifier;
 
     /**
      * @var string|null
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     protected $name;
 
     /**

@@ -15,24 +15,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TranslationRemoveData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
      */
+    #[Assert\NotBlank]
     private $contentType;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
      */
+    #[Assert\NotBlank]
     private $contentTypeGroup;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
+    #[Assert\NotBlank]
     private $languageCodes;
 
     /**

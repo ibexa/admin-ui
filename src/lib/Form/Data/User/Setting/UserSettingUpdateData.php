@@ -13,10 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class UserSettingUpdateData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var string
      */
+    #[Assert\NotBlank]
     private $identifier;
 
     /**

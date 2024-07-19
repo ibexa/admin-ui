@@ -13,10 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BookmarkRemoveData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var array
      */
+    #[Assert\NotBlank]
     public $bookmarks;
 
     /**
