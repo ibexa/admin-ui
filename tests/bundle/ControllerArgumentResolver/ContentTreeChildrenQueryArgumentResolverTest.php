@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\ControllerArgumentResolver;
 
@@ -71,7 +72,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
             $this->createMock(ArgumentMetadata::class),
         ];
 
-        yield 'Not supported - Invalid argument type' => [
+        yield 'Not supported - invalid argument type' => [
             false,
             $this->createArgumentMetadata(
                 'filter',
@@ -79,7 +80,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
             ),
         ];
 
-        yield 'Not supported - Invalid argument name' => [
+        yield 'Not supported - invalid argument name' => [
             false,
             $this->createArgumentMetadata(
                 'foo',
