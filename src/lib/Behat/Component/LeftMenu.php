@@ -11,26 +11,43 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class LeftMenu extends Component
 {
     public function goToTab(string $tabName): void
     {
-        $menuButton = $this->getHTMLPage()
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
         $menuButton->click();
         $menuButton->find(new VisibleCSSLocator('activeMarker', '.ibexa-main-menu__item-action.active'))->assert()->isVisible();
     }
 
-    public function goToSubTab(string $tabName): void
+    public function goToSubTab(string $tabName, string $subTabName): void
     {
-        $this->getHTMLPage()->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $menuButton = $this->getHTMLPage()->setTimeout(5)
+            ->findAll($this->getLocator('menuItem'))
+            ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
 
+        $menuButton->mouseOver();
+        $menuButton->click();
         $this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('expandedMenuItem'))
-            ->getByCriterion(new ElementTextCriterion($tabName))
+            ->getByCriterion(new ElementTextCriterion($subTabName))
+            ->click();
+    }
+
+    public function changeSubTab(string $subTabName): void
+    {
+        $this->getHTMLPage()
+            ->setTimeout(5)->find($this->getLocator('menuSecondLevel'))->mouseOver();
+        $this->getHTMLPage()->setTimeout(5)
+            ->findAll($this->getLocator('expandedMenuItem'))
+            ->getByCriterion(new ElementTextCriterion($subTabName))
             ->click();
     }
 
@@ -51,8 +68,10 @@ class LeftMenu extends Component
             new VisibleCSSLocator('expandedMenuItem', '.ibexa-main-menu__navbar--second-level .ibexa-main-menu__tab-pane.active.show .ibexa-main-menu__item-text-column'),
             new VisibleCSSLocator('menuSelector', '.ibexa-main-menu'),
             new VisibleCSSLocator('menuFirstLevel', '.ibexa-main-menu__navbar--first-level'),
-            new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level'),
+            new VisibleCSSLocator('menuSecondLevel', '.ibexa-main-menu__navbar--second-level:not(.ibexa-main-menu__navbar--hidden)'),
+            new CSSLocator('retractedMenu', '.ibexa-main-menu__navbar--second-level.ibexa-main-menu__navbar--hidden'),
             new VisibleCSSLocator('menuToggler', '.ibexa-main-menu__toggler'),
+            new VisibleCSSLocator('dashboardIcon', '.ibexa-main-header__brand'),
         ];
     }
 }
