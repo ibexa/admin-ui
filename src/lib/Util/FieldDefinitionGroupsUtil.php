@@ -54,7 +54,9 @@ class FieldDefinitionGroupsUtil
             }
 
             $fieldDefinitionsByGroup[$groupId]['fieldDefinitions'][] = $fieldDefinition;
-            $fieldDefinitionsByGroup[$groupId]['name'] = $fieldDefinitionsByGroup[$groupId]['name'] ?? $groupId;
+            $fieldDefinitionsByGroup[$groupId]['name'] = $fieldDefinitionsByGroup[$groupId]['name']
+                ?? $fieldsGroups[$groupId]
+                ?? $groupId;
         }
 
         return $fieldDefinitionsByGroup;
