@@ -412,10 +412,12 @@
 @mixin drag-item {
     $self: &;
 
-    display: flex;
-    background: $ibexa-color-light-300;
-    margin-top: calculateRem(8px);
-    border-radius: $ibexa-border-radius;
+    & {
+        display: flex;
+        background: $ibexa-color-light-300;
+        margin-top: calculateRem(8px);
+        border-radius: $ibexa-border-radius;
+    }
 
     &:hover:not(&--is-non-interactive) {
         #{$self}__content {
