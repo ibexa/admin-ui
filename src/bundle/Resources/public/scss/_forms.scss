@@ -2,11 +2,13 @@ form:not(.form-inline) {
     .col-form-legend {
         @include label-required();
 
-        font-weight: 700;
-        font-size: calculateRem(16px);
-        color: $ibexa-color-black;
-        margin-bottom: 0;
-        margin-top: calculateRem(20px);
+        & {
+            font-weight: 700;
+            font-size: calculateRem(16px);
+            color: $ibexa-color-black;
+            margin-bottom: 0;
+            margin-top: calculateRem(20px);
+        }
     }
 
     .form-control {
