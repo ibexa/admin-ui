@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\Content;
 
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
@@ -47,6 +48,7 @@ class ContentTreeController extends RestController
     private ConfigResolverInterface $configResolver;
 
     private SiteaccessResolverInterface $siteaccessResolver;
+    private LimitationResolverInterface $limitationResolver;
 
     public function __construct(
         LocationService $locationService,
@@ -55,7 +57,8 @@ class ContentTreeController extends RestController
         NodeFactory $contentTreeNodeFactory,
         PermissionResolver $permissionResolver,
         ConfigResolverInterface $configResolver,
-        SiteaccessResolverInterface $siteaccessResolver
+        SiteaccessResolverInterface $siteaccessResolver,
+        LimitationResolverInterface $limitationResolver
     ) {
         $this->locationService = $locationService;
         $this->permissionChecker = $permissionChecker;
@@ -64,6 +67,7 @@ class ContentTreeController extends RestController
         $this->permissionResolver = $permissionResolver;
         $this->configResolver = $configResolver;
         $this->siteaccessResolver = $siteaccessResolver;
+        $this->limitationResolver = $limitationResolver;
     }
 
     /**
@@ -171,8 +175,8 @@ class ContentTreeController extends RestController
      */
     private function getLocationPermissionRestrictions(Location $location): array
     {
-        $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
-        $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
+        $lookupCreateLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
+        $lookupUpdateLimitationsResult = $this->limitationResolver->getContentUpdateLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,

@@ -157,28 +157,6 @@ class PermissionChecker implements PermissionCheckerInterface
         return true;
     }
 
-    public function getContentCreateLimitations(Location $parentLocation): LookupLimitationResult
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return $this->limitationResolver->getContentCreateLimitations($parentLocation);
-    }
-
-    public function getContentUpdateLimitations(Location $location): LookupLimitationResult
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return $this->limitationResolver->getContentUpdateLimitations($location);
-    }
-
     /**
      * This method should only be used for very specific use cases. It should be used in a content cases
      * where assignment limitations are not relevant.
