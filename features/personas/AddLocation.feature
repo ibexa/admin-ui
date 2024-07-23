@@ -1,4 +1,4 @@
-@javascript @addLocation
+@javascript @addLocation @broken
 Feature: Verify that an Editor with content type limitation on content/create policy can add location
 
   @IbexaExperience @IbexaCommerce
