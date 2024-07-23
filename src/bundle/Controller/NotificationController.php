@@ -46,13 +46,6 @@ class NotificationController extends Controller
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     public function getNotificationsAction(int $offset, int $limit): JsonResponse
     {
         $response = new JsonResponse();
@@ -136,15 +129,10 @@ class NotificationController extends Controller
 
     /**
      * We're not able to establish two-way stream (it requires additional
-     * server service for websocket connection), so * we need a way to mark notification
+     * server service for websocket connection), so we need a way to mark notification
      * as read. AJAX call is fine.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed $notificationId
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function markNotificationAsReadAction($notificationId): JsonResponse
+    public function markNotificationAsReadAction(string $notificationId): JsonResponse
     {
         $response = new JsonResponse();
 
