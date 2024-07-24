@@ -34,6 +34,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ContentTreeController extends RestController
 {
+    private const ROOT_LOCATION_ID = 1;
+
     private LocationService $locationService;
 
     private PermissionCheckerInterface $permissionChecker;
@@ -116,7 +118,21 @@ class ContentTreeController extends RestController
         $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
 
         $locationIdList = array_column($loadSubtreeRequest->nodes, 'locationId');
-        $locations = $this->locationService->loadLocationList($locationIdList);
+        $locations = [];
+
+        // Always load root location using `sudo`
+        if (in_array(self::ROOT_LOCATION_ID, $locationIdList, true)) {
+            $locations = $this->repository->sudo(function (): iterable {
+                return (array)$this->locationService->loadLocationList([self::ROOT_LOCATION_ID]);
+            });
+
+            $locationIdList = array_diff($locationIdList, [self::ROOT_LOCATION_ID]);
+        }
+
+        // Load rest of locations with proper permission checks
+        if ($locationIdList !== []) {
+            $locations = array_merge($locations, (array)$this->locationService->loadLocationList($locationIdList));
+        }
 
         $elements = [];
         foreach ($loadSubtreeRequest->nodes as $childLoadSubtreeRequestNode) {
