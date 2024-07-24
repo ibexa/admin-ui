@@ -16,7 +16,7 @@ class ValidatorConfiguration extends Constraint
 {
     public $message = 'ez.field_definition.validator_configuration';
 
-    public function getTargets(): string|array
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

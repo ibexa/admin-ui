@@ -34,7 +34,7 @@ class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationC
         ];
     }
 
-    public function getTargets(): string|array
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
