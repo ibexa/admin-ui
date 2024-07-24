@@ -696,26 +696,6 @@ parameters:
 			path: src/bundle/Controller/PolicyController.php
 
 		-
-			message: "#^Argument of an invalid type array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
-			message: "#^Argument of an invalid type array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Section\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
-			message: "#^Argument of an invalid type array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\User\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
-			message: "#^Argument of an invalid type array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\User\\\\UserGroup\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
 			message: "#^Argument of an invalid type array\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/bundle/Controller/RoleAssignmentController.php
@@ -4914,16 +4894,6 @@ parameters:
 			message: "#^Property Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\PolicyData\\:\\:\\$module \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Role\\\\RoleAssignmentCreateData\\:\\:validate\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentCreateData.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Role\\\\RoleAssignmentCreateData\\:\\:validate\\(\\) has parameter \\$payload with no type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentCreateData.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Role\\\\RoleAssignmentDeleteData\\:\\:setRoleAssignment\\(\\) has no return type specified\\.$#"
