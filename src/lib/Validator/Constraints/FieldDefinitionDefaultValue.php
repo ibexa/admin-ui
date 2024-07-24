@@ -16,7 +16,7 @@ class FieldDefinitionDefaultValue extends Constraint
 {
     public $message = 'ez.field_definition.default_field_value';
 
-    public function getTargets(): string|array
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

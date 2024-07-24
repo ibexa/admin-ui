@@ -16,7 +16,7 @@ class FieldSettings extends Constraint
 {
     public $message = 'ez.field_definition.field_settings';
 
-    public function getTargets(): string|array
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
