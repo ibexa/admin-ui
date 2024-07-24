@@ -23,7 +23,6 @@ use Ibexa\Contracts\Test\Core\IbexaTestKernel;
 use Ibexa\Rest\Server\Controller\JWT;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
-use Swift_Mailer;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -102,8 +101,6 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         $container->loadFromExtension('webpack_encore', [
             'output_path' => dirname(__DIR__, 2) . '/var/encore/output',
         ]);
-
-        self::addSyntheticService($container, Swift_Mailer::class);
 
         // bazinga's locale_fallback
         $container->setParameter('locale_fallback', 'en');
