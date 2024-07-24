@@ -80,6 +80,7 @@ export default class UploadListComponent extends Component {
             isUploaded: true,
             deleteFile: this.props.deleteFile,
             onAfterDelete: this.handleAfterDelete.bind(this),
+            enableUploadedItemEdit: this.props.enableUploadedItemEdit,
         });
     }
 
@@ -148,10 +149,12 @@ UploadListComponent.propTypes = {
     currentLanguage: PropTypes.string,
     removeItemsToUpload: PropTypes.func.isRequired,
     onAfterDelete: PropTypes.func,
+    enableUploadedItemEdit: PropTypes.bool,
 };
 
 UploadListComponent.defaultProps = {
     itemsToUpload: [],
     currentLanguage: '',
     onAfterDelete: () => {},
+    enableUploadedItemEdit: true,
 };

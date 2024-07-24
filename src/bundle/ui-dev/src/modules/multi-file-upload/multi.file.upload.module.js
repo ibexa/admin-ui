@@ -225,6 +225,7 @@ export default class MultiFileUploadModule extends Component {
             addItemsToUpload: this.addItemsToUpload,
             removeItemsToUpload: this.removeItemsToUpload,
             contentCreatePermissionsConfig: this.props.contentCreatePermissionsConfig,
+            enableUploadedItemEdit: this.props.triggerId === SUBITEMS_TRIGGER_ID,
         };
 
         return createPortal(<UploadPopupComponent {...attrs} />, this.configRootNode);

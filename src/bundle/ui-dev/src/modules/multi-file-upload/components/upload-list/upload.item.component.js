@@ -377,7 +377,7 @@ export default class UploadItemComponent extends Component {
         const { uploaded, failed, struct } = this.state;
         const canEdit = uploaded && !failed;
 
-        if (!canEdit || this.isExternalInstance) {
+        if (!canEdit || this.isExternalInstance || !this.props.enableUploadedItemEdit) {
             return null;
         }
 
@@ -496,6 +496,7 @@ UploadItemComponent.propTypes = {
     removeItemsToUpload: PropTypes.func,
     onCreateError: PropTypes.func,
     errorMsgs: PropTypes.array,
+    enableUploadedItemEdit: PropTypes.bool,
 };
 
 UploadItemComponent.defaultProps = {
@@ -513,4 +514,5 @@ UploadItemComponent.defaultProps = {
     removeItemsToUpload: () => {},
     onCreateError: () => {},
     errorMsgs: [],
+    enableUploadedItemEdit: true,
 };
