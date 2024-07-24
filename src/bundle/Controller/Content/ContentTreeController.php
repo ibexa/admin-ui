@@ -131,7 +131,7 @@ class ContentTreeController extends RestController
 
         // Load rest of locations with proper permission checks
         if ($locationIdList !== []) {
-            $locations = array_merge($locations, (array)$this->locationService->loadLocationList($locationIdList));
+            $locations += (array)$this->locationService->loadLocationList($locationIdList);
         }
 
         $elements = [];
