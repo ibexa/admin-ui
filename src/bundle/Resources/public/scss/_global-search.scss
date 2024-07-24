@@ -85,6 +85,17 @@
                     }
                 }
 
+                &:hover {
+                    box-shadow: none;
+                    border-color: $ibexa-color-info-600;
+
+                    & + .ibexa-input-text-wrapper__actions {
+                        .ibexa-input-text-wrapper__action-btn--search {
+                            background: transparent;
+                        }
+                    }
+                }
+
                 &:active,
                 &:not(:placeholder-shown) {
                     box-shadow: none;
@@ -93,17 +104,6 @@
                     & + .ibexa-input-text-wrapper__actions {
                         .ibexa-input-text-wrapper__action-btn--search {
                             background: $ibexa-color-info-600;
-                        }
-                    }
-                }
-
-                &:hover {
-                    box-shadow: none;
-                    border-color: $ibexa-color-info-600;
-
-                    & + .ibexa-input-text-wrapper__actions {
-                        .ibexa-input-text-wrapper__action-btn--search {
-                            background: transparent;
                         }
                     }
                 }
