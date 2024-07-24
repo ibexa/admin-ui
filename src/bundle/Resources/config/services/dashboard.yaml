@@ -39,12 +39,6 @@ services:
         tags:
             - { name: ibexa.admin_ui.tab, group: dashboard-everyone }
 
-    Ibexa\AdminUi\Tab\Dashboard\PagerContentToDataMapper:
-        deprecated: 'Service "%service_id%" is deprecated. Use "Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper" instead'
-        parent: Ibexa\AdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper
-        autowire: true
-        public: false
-
     Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper:
         autowire: true
         public: false
