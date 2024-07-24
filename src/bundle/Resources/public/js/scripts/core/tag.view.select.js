@@ -23,6 +23,7 @@
             this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
             this.attachDeleteEvents = this.attachDeleteEvents.bind(this);
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
+            this.toggleEmptyListState = this.toggleEmptyListState.bind(this);
 
             ibexa.helpers.ellipsis.middle.parseAll();
             this.attachDeleteEvents();
@@ -37,6 +38,12 @@
                 attributeFilter: ['disabled'],
                 attributeOldValue: true,
             });
+        }
+
+        toggleEmptyListState() {
+            const addedTags = this.listContainer.querySelectorAll('.ibexa-tag-view-select__selected-item-tag');
+
+            this.listContainer.classList.toggle('ibexa-tag-view-select__selected-list--empty', !addedTags.length);
         }
 
         toggleDisabledState(isDisabled) {
@@ -81,6 +88,7 @@
             ibexa.helpers.ellipsis.middle.parseAll();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
+            this.toggleEmptyListState();
         }
 
         addItem(id, name, forceRecreate) {
@@ -99,6 +107,7 @@
             this.inputField.dispatchEvent(new Event('change'));
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
+            this.toggleEmptyListState();
         }
 
         removeItem(id) {
