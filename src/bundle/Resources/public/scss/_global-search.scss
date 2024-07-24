@@ -73,6 +73,16 @@
 
         &.ibexa-input--text {
             &:not(:disabled) {
+                &:hover {
+                    box-shadow: none;
+                    border-color: $ibexa-color-info-600;
+
+                    & + .ibexa-input-text-wrapper__actions {
+                        .ibexa-input-text-wrapper__action-btn--search {
+                            background: transparent;
+                        }
+                    }
+                }
                 &:focus {
                     border-color: $ibexa-color-info-600;
                     background: rgba($ibexa-color-white, 0.1);
@@ -81,17 +91,6 @@
                     & + .ibexa-input-text-wrapper__actions {
                         .ibexa-input-text-wrapper__action-btn--search {
                             background: $ibexa-color-info-600;
-                        }
-                    }
-                }
-
-                &:hover {
-                    box-shadow: none;
-                    border-color: $ibexa-color-info-600;
-
-                    & + .ibexa-input-text-wrapper__actions {
-                        .ibexa-input-text-wrapper__action-btn--search {
-                            background: transparent;
                         }
                     }
                 }
