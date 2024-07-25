@@ -345,7 +345,16 @@
                     afterChangeGroup();
                 });
             })
-            .catch(ibexa.helpers.notification.showErrorNotification);
+            .catch(({ message }) => {
+                const defaultErrorMsg = Translator.trans(
+                    /*@Desc("You can't delete field definition.")*/ 'content_type.delete_field.error.default_error_msg',
+                    {},
+                    'ibexa_content_type',
+                );
+
+                collapseNode.classList.remove('ibexa-collapse--field-definition-removing');
+                ibexa.helpers.notification.showErrorNotification(message ? message : defaultErrorMsg);
+            });
     };
     const toggleDraggableForFirefox = (input, isMouseEnterEvent) => {
         const fieldDefinitionNode = input.closest('.ibexa-collapse--field-definition');

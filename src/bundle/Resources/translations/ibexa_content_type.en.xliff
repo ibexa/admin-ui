@@ -101,6 +101,11 @@
         <target state="new">Content type '%name%' deleted.</target>
         <note>key: content_type.delete.success</note>
       </trans-unit>
+      <trans-unit id="0e40d8adc4f0f17868a6b037848d8cae9b82c566" resname="content_type.delete_field.error.default_error_msg">
+        <source>You can't delete field definition.</source>
+        <target state="new">You can't delete field definition.</target>
+        <note>key: content_type.delete_field.error.default_error_msg</note>
+      </trans-unit>
       <trans-unit id="f2a3cc77cdadcff8883b0022e006e24918307687" resname="content_type.description">
         <source>Description</source>
         <target state="new">Description</target>
