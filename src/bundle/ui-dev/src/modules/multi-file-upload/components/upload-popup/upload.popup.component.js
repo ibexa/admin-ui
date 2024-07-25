@@ -97,6 +97,7 @@ export default class UploadPopupModule extends Component {
             closeBtnAttrs: {
                 disabled: !itemsToUpload.length,
             },
+            ...((hasAnyUploadedItems || hasAnyItemsToUpload) && { extraClasses: 'c-tooltip-popup--with-uploaded-items' }),
         };
         const listAttrs = {
             onAfterUpload,
