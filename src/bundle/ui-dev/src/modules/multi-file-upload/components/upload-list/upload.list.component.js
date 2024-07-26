@@ -101,6 +101,7 @@ export default class UploadListComponent extends Component {
             contentCreatePermissionsConfig,
             contentTypesMap,
             currentLanguage,
+            enableUploadedItemEdit: this.props.enableUploadedItemEdit,
             ...customAttrs,
         };
 
@@ -148,10 +149,12 @@ UploadListComponent.propTypes = {
     currentLanguage: PropTypes.string,
     removeItemsToUpload: PropTypes.func.isRequired,
     onAfterDelete: PropTypes.func,
+    enableUploadedItemEdit: PropTypes.bool,
 };
 
 UploadListComponent.defaultProps = {
     itemsToUpload: [],
     currentLanguage: '',
     onAfterDelete: () => {},
+    enableUploadedItemEdit: true,
 };
