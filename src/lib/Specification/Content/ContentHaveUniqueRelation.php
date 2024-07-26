@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\Content;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Core\Repository\Values\Content\Relation;

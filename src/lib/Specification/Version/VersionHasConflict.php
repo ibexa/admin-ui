@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Version;
 
-use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\ContentService;
 
 class VersionHasConflict extends AbstractSpecification
