@@ -53,10 +53,10 @@ class FieldDefinitionGroupsUtil
                 $groupId = $this->fieldsGroupsListHelper->getDefaultGroup();
             }
 
-            $fieldDefinitionsByGroup[$groupId]['fieldDefinitions'][] = $fieldDefinition;
             $fieldDefinitionsByGroup[$groupId]['name'] = $fieldDefinitionsByGroup[$groupId]['name']
                 ?? $fieldsGroups[$groupId]
                 ?? $groupId;
+            $fieldDefinitionsByGroup[$groupId]['fieldDefinitions'][] = $fieldDefinition;
         }
 
         return $fieldDefinitionsByGroup;
