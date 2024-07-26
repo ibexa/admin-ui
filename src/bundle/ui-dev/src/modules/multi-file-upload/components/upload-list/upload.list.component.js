@@ -80,7 +80,6 @@ export default class UploadListComponent extends Component {
             isUploaded: true,
             deleteFile: this.props.deleteFile,
             onAfterDelete: this.handleAfterDelete.bind(this),
-            enableUploadedItemEdit: this.props.enableUploadedItemEdit,
         });
     }
 
@@ -102,6 +101,7 @@ export default class UploadListComponent extends Component {
             contentCreatePermissionsConfig,
             contentTypesMap,
             currentLanguage,
+            enableUploadedItemEdit: this.props.enableUploadedItemEdit,
             ...customAttrs,
         };
 
