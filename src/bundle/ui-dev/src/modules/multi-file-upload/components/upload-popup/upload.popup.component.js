@@ -81,6 +81,7 @@ export default class UploadPopupModule extends Component {
             removeItemsToUpload,
             preventDefaultAction,
             processUploadedFiles,
+            enableUploadedItemEdit,
         } = this.props;
         const tooltipAttrs = {
             subtitle,
@@ -111,6 +112,7 @@ export default class UploadPopupModule extends Component {
             onAfterDelete,
             itemsToUpload,
             removeItemsToUpload,
+            enableUploadedItemEdit,
         };
 
         return (
@@ -163,6 +165,7 @@ UploadPopupModule.propTypes = {
     onConfirm: PropTypes.func,
     onClose: PropTypes.func,
     onAfterDelete: PropTypes.func,
+    enableUploadedItemEdit: PropTypes.bool,
 };
 
 UploadPopupModule.defaultProps = {
@@ -175,4 +178,5 @@ UploadPopupModule.defaultProps = {
     onConfirm: () => {},
     onClose: () => {},
     onAfterDelete: () => {},
+    enableUploadedItemEdit: true,
 };
