@@ -25,6 +25,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
             this.toggleDeleteButtons = this.toggleDeleteButtons.bind(this);
             this.attachDeleteEvents = this.attachDeleteEvents.bind(this);
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
+            this.toggleEmptyListState = this.toggleEmptyListState.bind(this);
 
             middleEllipsisHelper.parse();
             this.attachDeleteEvents();
@@ -39,6 +40,12 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
                 attributeFilter: ['disabled'],
                 attributeOldValue: true,
             });
+        }
+
+        toggleEmptyListState() {
+            const addedTags = this.listContainer.querySelectorAll('.ibexa-tag-view-select__selected-item-tag');
+
+            this.listContainer.classList.toggle('ibexa-tag-view-select__selected-list--empty', !addedTags.length);
         }
 
         toggleDisabledState(isDisabled) {
@@ -83,6 +90,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
             middleEllipsisHelper.parse();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
+            this.toggleEmptyListState();
         }
 
         addItem(id, name, forceRecreate) {
@@ -101,6 +109,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
             this.inputField.dispatchEvent(new Event('change'));
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
+            this.toggleEmptyListState();
         }
 
         removeItem(id) {

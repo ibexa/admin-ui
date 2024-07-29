@@ -27,23 +27,25 @@
             {{ title|default(default_title) }}
         </div>
     {% endif %}
-    <div
-        class="ibexa-tag-view-select__selected-list"
-        data-template="{{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select_selected_item_tag.html.twig', {
-            id: '{{ id }}',
-            name: '{{ name }}',
-            is_deletable: is_delete_visible,
-        })|e('html_attr') }}"
-    >
-        {% for item in items %}
-            {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select_selected_item_tag.html.twig', {
-                id: item.id,
-                name: item.name,
+    {% apply spaceless %}
+        <div
+            class="ibexa-tag-view-select__selected-list {{items|length == 0 ? 'ibexa-tag-view-select__selected-list--empty'}}"
+            data-template="{{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select_selected_item_tag.html.twig', {
+                id: '{{ id }}',
+                name: '{{ name }}',
                 is_deletable: is_delete_visible,
-                is_disabled
-            }) }}
-        {% endfor %}
-    </div>
+            })|e('html_attr') }}"
+        >
+            {% for item in items %}
+                {{ include('@ibexadesign/ui/component/tag_view_select/tag_view_select_selected_item_tag.html.twig', {
+                    id: item.id,
+                    name: item.name,
+                    is_deletable: is_delete_visible,
+                    is_disabled
+                }) }}
+            {% endfor %}
+        </div>
+    {% endapply %}
     {{ form_widget(form, {
         attr: { hidden: true }
     }) }}
