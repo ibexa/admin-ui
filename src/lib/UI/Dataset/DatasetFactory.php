@@ -205,20 +205,6 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::contentDraftList instead.
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftsDataset
-     */
-    public function contentDrafts(): ContentDraftsDataset
-    {
-        return new ContentDraftsDataset(
-            $this->contentService,
-            $this->contentTypeService,
-            $this->locationService
-        );
-    }
-
-    /**
      * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftListDataset
      */
     public function contentDraftList(): ContentDraftListDataset
