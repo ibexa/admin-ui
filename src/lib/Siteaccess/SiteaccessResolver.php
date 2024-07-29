@@ -45,33 +45,6 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param int|null $versionNo
-     * @param string|null $languageCode
-     *
-     * @return array
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
-    public function getSiteaccessesForLocation(
-        Location $location,
-        int $versionNo = null,
-        string $languageCode = null
-    ): array {
-        @trigger_error(
-            sprintf(
-                'The "%s" method is deprecated since Ibexa DXP 4.5.0. Use "%s" instead.',
-                '\Ibexa\AdminUi\Siteaccess\SiteaccessResolver::getSiteaccessesForLocation',
-                '\Ibexa\AdminUi\Siteaccess\SiteaccessResolver::getSiteAccessesList'
-            ),
-            E_USER_DEPRECATED
-        );
-
-        return array_column($this->getSiteAccessesListForLocation($location, $versionNo, $languageCode), 'name');
-    }
-
-    /**
      * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
@@ -123,14 +96,6 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         }
 
         return array_unique($siteAccesses);
-    }
-
-    public function getSiteaccesses(): array
-    {
-        return array_column(
-            $this->getSiteAccessesList(),
-            'name'
-        );
     }
 
     public function getSiteAccessesList(): array
