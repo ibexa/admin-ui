@@ -98,6 +98,8 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
             );
         })
         .then((response) => {
+            const splitedFileNameNoExtension = data.file.name.split('.').slice(0, -1);
+            const nameFieldValue = splitedFileNameNoExtension.join(' ');
             const fileValue = {
                 fileName: data.file.name,
                 data: data.fileReader.result.replace(/^.*;base64,/, ''),
@@ -125,7 +127,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
                     }
 
                     const fields = [
-                        { fieldDefinitionIdentifier: mapping.nameFieldIdentifier, fieldValue: data.file.name },
+                        { fieldDefinitionIdentifier: mapping.nameFieldIdentifier, fieldValue: nameFieldValue },
                         { fieldDefinitionIdentifier: contentFieldIdentifier, fieldValue: fileValue },
                     ];
 

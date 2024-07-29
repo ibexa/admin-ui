@@ -8,6 +8,8 @@ const selectedLocationsReducer = (state, action) => {
             return [...state, { location: action.location, permissions: action.permissions }];
         case 'REMOVE_SELECTED_LOCATION':
             return state.filter((selectedItem) => selectedItem.location.id !== action.id);
+        case 'ADD_SELECTED_LOCATIONS':
+            return action.locations.reduce((selectedLocations, location) => [...selectedLocations, { location }], state);
         case 'CLEAR_SELECTED_LOCATIONS':
             return [];
         case 'REPLACE_SELECTED_LOCATIONS':
