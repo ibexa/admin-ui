@@ -8,7 +8,7 @@
         <div class="ibexa-content-preview">
             {% for group in field_definitions_by_group %}
                 {% if group.fieldDefinitions|length > 0 %}
-                    {% set group_name = group.name|lower|replace({' ': ''}) %}
+                    {% set group_name = group.name|lower|replace({' ': ''})|slug %}
                     {% set collapse_state_key = 'collapse-' ~ group_name ~ location.id %}
                     {% set collapse_class_name = 'ibexa-content-preview-collapse--' ~ group_name %}
 
