@@ -21,8 +21,9 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *   system:
  *      admin_group: # configuration per SiteAccess or SiteAccess group
  *          admin_ui_forms:
- *              content_edit_form_templates:
- *                  - { template: 'template.html.twig', priority: 0 }
+ *              content_edit:
+ *                  form_templates:
+ *                      - { template: 'template.html.twig', priority: 0 }
  * ```
  */
 class AdminUiForms extends AbstractParser
@@ -46,28 +47,12 @@ class AdminUiForms extends AbstractParser
         $nodeBuilder
             ->arrayNode('admin_ui_forms')
                 ->info('Admin UI forms configuration settings')
-                ->beforeNormalization()
-                    ->always(static function (array $array): array {
-                        // handle deprecated config
-                        if (isset($array['content_edit_form_templates'])) {
-                            $array['content_edit']['form_templates'] = $array['content_edit_form_templates'];
-                            unset($array['content_edit_form_templates']);
-                        }
-
-                        return $array;
-                    })
-                ->end()
                 ->children()
                     ->arrayNode('content_edit')
                         ->info('Content Edit form configuration')
                         ->children()
                             ->arrayNode('form_templates')
                                 ->info('A list of Content Edit (and create) default Twig form templates')
-                                ->setDeprecated(
-                                    'ibexa/admin-ui',
-                                    '4.2.0',
-                                    'Setting "admin_ui.content_edit_form_templates" is deprecated. Use "admin_ui.content_edit.form_templates" instead.'
-                                )
                                 ->arrayPrototype()
                                     ->children()
                                         ->scalarNode('template')->end()
