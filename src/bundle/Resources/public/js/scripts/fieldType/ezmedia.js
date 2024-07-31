@@ -52,9 +52,11 @@
             const sizeContainer = preview.querySelector('.ibexa-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
             const fileSize = this.formatFileSize(files[0].size);
+            const { escapeHTML } = ibexa.helpers.text;
+            const fileName = escapeHTML(files[0].name);
 
-            nameContainer.innerHTML = files[0].name;
-            nameContainer.title = files[0].name;
+            nameContainer.innerHTML = fileName;
+            nameContainer.title = fileName;
             sizeContainer.innerHTML = fileSize;
             sizeContainer.title = fileSize;
 
