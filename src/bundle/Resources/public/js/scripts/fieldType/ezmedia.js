@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, eZ) {
     const SELECTOR_FIELD = '.ez-field-edit--ezmedia';
     const SELECTOR_PREVIEW = '.ez-field-edit__preview';
     const SELECTOR_MEDIA = '.ez-field-edit-preview__media';
@@ -62,9 +62,11 @@
             const sizeContainer = preview.querySelector('.ez-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
             const fileSize = this.formatFileSize(files[0].size);
+            const { escapeHTML } = eZ.helpers.text;
+            const fileName = escapeHTML(files[0].name);
 
-            nameContainer.innerHTML = files[0].name;
-            nameContainer.title = files[0].name;
+            nameContainer.innerHTML = fileName;
+            nameContainer.title = fileName;
             sizeContainer.innerHTML = fileSize;
             sizeContainer.title = fileSize;
 

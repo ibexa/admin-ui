@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, eZ) {
     const SELECTOR_FIELD = '.ez-field-edit--ezbinaryfile';
     const SELECTOR_LABEL_WRAPPER = '.ez-field-edit__label-wrapper';
     const SELECTOR_FILESIZE_NOTICE = '.ez-data-source__message--filesize';
@@ -15,9 +15,11 @@
             const sizeContainer = preview.querySelector('.ez-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
             const fileSize = this.formatFileSize(files[0].size);
+            const { escapeHTML } = eZ.helpers.text;
+            const fileName = escapeHTML(files[0].name);
 
-            nameContainer.innerHTML = files[0].name;
-            nameContainer.title = files[0].name;
+            nameContainer.innerHTML = fileName;
+            nameContainer.title = fileName;
             sizeContainer.innerHTML = fileSize;
             sizeContainer.title = fileSize;
 
@@ -63,5 +65,5 @@
         previewField.init();
 
         eZ.addConfig('fieldTypeValidators', [validator], true);
-    })
+    });
 })(window, window.document, window.eZ);

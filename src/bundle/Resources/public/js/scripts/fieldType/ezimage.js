@@ -1,4 +1,4 @@
-(function(global, doc, eZ) {
+(function (global, doc, eZ) {
     const SELECTOR_FIELD = '.ez-field-edit--ezimage';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_LABEL_WRAPPER = '.ez-field-edit__label-wrapper';
@@ -36,11 +36,13 @@
             const sizeContainer = preview.querySelector('.ez-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
             const fileSize = this.formatFileSize(files[0].size);
+            const { escapeHTML } = eZ.helpers.text;
+            const fileName = escapeHTML(files[0].name);
 
             this.getImageUrl(files[0], (url) => image.setAttribute('src', url));
 
-            nameContainer.innerHTML = files[0].name;
-            nameContainer.title = files[0].name;
+            nameContainer.innerHTML = fileName;
+            nameContainer.title = fileName;
             sizeContainer.innerHTML = fileSize;
             sizeContainer.title = fileSize;
 
