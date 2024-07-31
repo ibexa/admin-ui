@@ -35,7 +35,7 @@ class FieldDefinitionGroupsUtil
         $fieldDefinitionsByGroup = [];
         foreach ($fieldDefinitions as $fieldDefinition) {
             $groupId = $fieldDefinition->fieldGroup;
-            if ($groupId === null) {
+            if (!$groupId) {
                 $groupId = $this->fieldsGroupsListHelper->getDefaultGroup();
             }
 
