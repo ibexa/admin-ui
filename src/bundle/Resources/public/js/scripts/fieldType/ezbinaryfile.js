@@ -13,7 +13,7 @@
             const sizeContainer = preview.querySelector('.ibexa-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
             const fileSize = this.formatFileSize(files[0].size);
-            const { escapeHTML } = eZ.helpers.text;
+            const { escapeHTML } = ibexa.helpers.text;
             const fileName = escapeHTML(files[0].name);
 
             nameContainer.innerHTML = fileName;
