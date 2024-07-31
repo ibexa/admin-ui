@@ -66,7 +66,11 @@ const Filters = ({ search }) => {
         setSelectedSubtreeBreadcrumbs('');
     };
     const updateSection = (value) => setSelectedSection(value);
-    const makeSearch = useCallback(() => search(0), [search]);
+    const makeSearch = useCallback(() => {
+        prevSelectedLanguage.current = selectedLanguage;
+
+        search(0);
+    }, [search, selectedLanguage]);
     const isApplyButtonEnabled =
         !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree || prevSelectedLanguage.current !== selectedLanguage;
     const renderSubtreeBreadcrumbs = () => {
