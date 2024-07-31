@@ -1,0 +1,42 @@
+<div class="ibexa-embedded-item-actions">
+    {% block loader %}
+        <ul class="ibexa-embedded-item-actions__loader-container ibexa-popup-menu ibexa-popup-menu--hidden">
+            <li class="ibexa-popup-menu____item ibexa-embedded-item-actions__loader"></li>
+        </ul>
+    {% endblock %}
+
+    {% block embedded_item_menu_trigger %}
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--small ibexa-btn--ghost ibexa-btn--no-text ibexa-embedded-item-actions__menu-trigger-btn"
+            data-is-menu-attached="{{ is_menu_attached|default(0) }}"
+        >
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+            </svg>
+        </button>
+    {% endblock %}
+
+    {% block embedded_item_menu %}
+        {% include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig' with {
+            is_custom_init: is_custom_init|default(true),
+            attr: {
+                'data-content-id': content_id|default(''),
+                'data-location-id': location_id|default(''),
+                'data-version-no': version_no|default(''),
+                'data-product-code': product_code|default(''),
+                'data-language-codes': language_codes|default([])|json_encode,
+                class: attr.class|default('ibexa-embedded-item-actions__menu')
+            },
+            items_container_attr: {
+                'data-item-template-link': include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig', {
+                    is_button: false,
+                    label: '{{ label }}',
+                    action_attr: {
+                        target: '_blank'
+                    }
+                })
+            }
+         } only %}
+    {% endblock %}
+</div>

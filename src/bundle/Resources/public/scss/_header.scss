@@ -1,16 +1,44 @@
-.ez-header {
-    .container {
-    	position: relative;
+.ibexa-header {
+    &,
+    & + .container {
+        padding: 0;
     }
 
     &--light {
-        background: $ibexa-white;
+        background: $ibexa-color-white;
     }
 
     &--content-edit {
         padding-top: calculateRem(24px);
         padding-bottom: calculateRem(24px);
-        background: $ibexa-white;
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
+        background: $ibexa-color-white;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+    }
+}
+
+.ibexa-page-header-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    padding: calculateRem(24px) 0 calculateRem(28px);
+
+    .ibexa-breadcrums-wrapper,
+    .ibexa-content-menu-wrapper {
+        flex-basis: 50%;
+        max-width: 50%;
+    }
+
+    .breadcrumb,
+    .ibexa-context-menu {
+        min-height: calculateRem(64px);
+    }
+
+    .ibexa-context-menu {
+        &--before-adaptive-items-init {
+            min-height: 0;
+        }
+    }
+
+    .ibexa-header-wrapper {
+        width: 100%;
     }
 }

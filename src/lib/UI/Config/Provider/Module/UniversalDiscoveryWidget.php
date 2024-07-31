@@ -4,21 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver;
+namespace Ibexa\AdminUi\UI\Config\Provider\Module;
+
+use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 /**
  * Provides information about the id of starting Location for the Universal Discovery Widget.
  */
 class UniversalDiscoveryWidget implements ProviderInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
     private $configResolver;
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver $configResolver
+     * @param \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver $configResolver
      */
     public function __construct(
         ConfigResolver $configResolver
@@ -39,3 +40,5 @@ class UniversalDiscoveryWidget implements ProviderInterface
         return $this->configResolver->getConfig(ConfigResolver::DEFAULT_CONFIGURATION_KEY)['starting_location_id'];
     }
 }
+
+class_alias(UniversalDiscoveryWidget::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Module\UniversalDiscoveryWidget');

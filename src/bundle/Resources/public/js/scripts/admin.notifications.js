@@ -1,23 +1,29 @@
-(function(global, doc, eZ, $) {
-    const notificationsContainer = doc.querySelector('.ez-notifications-container');
+(function (global, doc, ibexa) {
+    const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
-    const template = notificationsContainer.dataset.template;
+    const { template } = notificationsContainer.dataset;
+    const iconsMap = {
+        info: 'about',
+        error: 'notice',
+        warning: 'warning',
+        success: 'approved',
+    };
     const addNotification = ({ detail }) => {
-        const { onShow, label, message, rawPlaceholdersMap = {} } = detail;
-        const templateLabel = label === 'error' ? 'danger' : label;
-        const config = eZ.adminUiConfig.notifications[label];
+        const { onShow, label, message, customIconPath, rawPlaceholdersMap = {} } = detail;
+        const config = ibexa.adminUiConfig.notifications[label];
         const timeout = config ? config.timeout : 0;
         const container = doc.createElement('div');
-        let finalMessage = eZ.helpers.text.escapeHTML(message);
+        const iconPath = customIconPath ?? ibexa.helpers.icon.getIconPath(iconsMap[label]);
+        let finalMessage = ibexa.helpers.text.escapeHTML(message);
 
         Object.entries(rawPlaceholdersMap).forEach(([placeholder, rawText]) => {
             finalMessage = finalMessage.replace(`{{ ${placeholder} }}`, rawText);
         });
 
         const notification = template
-            .replace('{{ label }}', templateLabel)
+            .replace('{{ label }}', label)
             .replace('{{ message }}', finalMessage)
-            .replace('{{ badge }}', label);
+            .replace('{{ icon_path }}', iconPath);
 
         container.insertAdjacentHTML('beforeend', notification);
 
@@ -26,7 +32,7 @@
         notificationsContainer.append(notificationNode);
 
         if (timeout) {
-            global.setTimeout(() => $(notificationNode).alert('close'), timeout);
+            global.setTimeout(() => notificationNode.querySelector('.ibexa-alert__close-btn').click(), timeout);
         }
 
         if (typeof onShow === 'function') {
@@ -38,5 +44,5 @@
         messages.forEach((message) => addNotification({ detail: { label, message } }));
     });
 
-    doc.body.addEventListener('ez-notify', addNotification, false);
-})(window, window.document, window.eZ, window.jQuery);
+    doc.body.addEventListener('ibexa-notify', addNotification, false);
+})(window, window.document, window.ibexa);

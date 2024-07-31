@@ -6,23 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
-use eZ\Publish\API\Repository\RoleService;
-use eZ\Publish\API\Repository\Values\User\Limitation\SectionLimitation;
-use eZ\Publish\API\Repository\Values\User\Limitation\SubtreeLimitation;
-use eZ\Publish\API\Repository\Values\User\Role;
-use eZ\Publish\API\Repository\Values\User\RoleAssignment;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData;
+use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\RoleAssignmentsSearchAdapter;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,19 +32,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleAssignmentController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -59,21 +61,15 @@ class RoleAssignmentController extends Controller
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     */
     public function listAction(
         Role $role,
         string $routeName,
-        int $assignmentsCount,
         int $assignmentPage = 1
     ): Response {
         $pagerfanta = new Pagerfanta(
             new RoleAssignmentsSearchAdapter(
                 $this->roleService,
                 $role,
-                $assignmentsCount
             )
         );
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.role_assignment_limit'));
@@ -91,7 +87,7 @@ class RoleAssignmentController extends Controller
             new RoleAssignmentsDeleteData($role, $this->getRoleAssignmentsNumbers($assignments))
         );
 
-        return $this->render('@ezdesign/user/role_assignment/list.html.twig', [
+        return $this->render('@ibexadesign/user/role_assignment/list.html.twig', [
             'role' => $role,
             'form_role_assignments_delete' => $deleteRoleAssignmentsForm->createView(),
             'pager' => $pagerfanta,
@@ -102,7 +98,7 @@ class RoleAssignmentController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -127,12 +123,12 @@ class RoleAssignmentController extends Controller
                     /** @Desc("Assigned Users/Groups to Role '%role%'.") */
                     'role.assignment_create.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
-                    '_fragment' => 'users-and-groups',
+                    '_fragment' => 'ibexa-tab-users-and-groups',
                 ]));
             });
 
@@ -141,7 +137,7 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->render('@ezdesign/user/role_assignment/create.html.twig', [
+        return $this->render('@ibexadesign/user/role_assignment/create.html.twig', [
             'role' => $role,
             'form' => $form->createView(),
         ]);
@@ -149,8 +145,8 @@ class RoleAssignmentController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -171,10 +167,10 @@ class RoleAssignmentController extends Controller
                     /** @Desc("Unassigned Users/Groups from Role '%role%'.") */
                     'role.assignment_delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));
             });
@@ -184,7 +180,7 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
@@ -193,7 +189,7 @@ class RoleAssignmentController extends Controller
      * Handles removing role assignments based on submitted form.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\User\Role $role
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -216,12 +212,12 @@ class RoleAssignmentController extends Controller
                     /** @Desc("Unassigned Users/Groups from Role '%role%'.") */
                     'role.assignment_delete.success',
                     ['%role%' => $role->identifier],
-                    'role'
+                    'ibexa_role'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.role.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
-                    '_fragment' => 'users-and-groups',
+                    '_fragment' => 'ibexa-tab-users-and-groups',
                 ]));
             });
 
@@ -230,13 +226,13 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.role.view', [
+        return $this->redirect($this->generateUrl('ibexa.role.view', [
             'roleId' => $role->id,
         ]));
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\RoleAssignment[] $roleAssignments
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
      *
      * @return array
      */
@@ -248,9 +244,9 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleAssignmentCreateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\User\Limitation\RoleLimitation[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation[]
      */
     private function createLimitations(RoleAssignmentCreateData $data): array
     {
@@ -282,3 +278,5 @@ class RoleAssignmentController extends Controller
         return $limitations;
     }
 }
+
+class_alias(RoleAssignmentController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\RoleAssignmentController');

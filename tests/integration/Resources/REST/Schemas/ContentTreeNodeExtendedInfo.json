@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "ContentTreeNodeExtendedInfo": {
+            "type": "object",
+            "properties": {
+                "_media-type": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "_name": {
+                                "type": "string"
+                            },
+                            "hasAccess": {
+                                "type": "boolean"
+                            },
+                            "restrictedContentTypeIdsList": {
+                                "type": "object",
+                                "properties": {
+                                    "restrictedContentTypeIds": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "restrictedContentTypeIds"
+                                ]
+                            },
+                            "restrictedLanguageCodesList": {
+                                "type": "object",
+                                "properties": {
+                                    "restrictedLanguageCodes": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "restrictedLanguageCodes"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "_name",
+                            "hasAccess"
+                        ]
+                    }
+                },
+                "previewableTranslations": {
+                    "type": "object",
+                    "properties": {
+                      "values": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "string"
+                            }
+                        ]
+                      }
+                    }
+                  }
+            },
+            "required": [
+                "_media-type",
+                "permissions",
+                "previewableTranslations"
+            ]
+        }
+    },
+    "required": [
+        "ContentTreeNodeExtendedInfo"
+    ]
+}

@@ -4,15 +4,19 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion\Ancestor;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause\Location\Path;
-use eZ\Publish\API\Repository\Values\User\Limitation;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-class SubtreeLimitationMapper extends UDWBasedMapper
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+
+class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationContainerInterface
 {
     public function filterLimitationValues(Limitation $limitation)
     {
@@ -28,6 +32,10 @@ class SubtreeLimitationMapper extends UDWBasedMapper
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function mapLimitationValue(Limitation $limitation)
     {
         $values = [];
@@ -58,4 +66,16 @@ class SubtreeLimitationMapper extends UDWBasedMapper
 
         return $values;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('subtree'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Subtree'),
+        ];
+    }
 }
+
+class_alias(SubtreeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SubtreeLimitationMapper');

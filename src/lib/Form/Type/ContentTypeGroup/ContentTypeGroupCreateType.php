@@ -6,9 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup;
+namespace Ibexa\AdminUi\Form\Type\ContentTypeGroup;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
+use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,8 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeGroupCreateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,18 +30,23 @@ class ContentTypeGroupCreateType extends AbstractType
                 'label' => /** @Desc("Name") */ 'content_type_group.create.name',
             ])
             ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Create") */ 'content_type_group.create.submit',
+                'label' => /** @Desc("Save and close") */ 'content_type_group.create.submit',
+            ])
+            ->add(self::BTN_SAVE, SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'content_type_group.create.save',
             ]);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ContentTypeGroupCreateData::class,
-            'translation_domain' => 'content_type',
+            'translation_domain' => 'ibexa_content_type',
         ]);
     }
 }
+
+class_alias(ContentTypeGroupCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupCreateType');

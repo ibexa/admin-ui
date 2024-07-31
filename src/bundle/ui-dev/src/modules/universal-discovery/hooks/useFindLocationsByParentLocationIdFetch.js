@@ -1,7 +1,8 @@
 import { useEffect, useContext, useReducer } from 'react';
 
-import { findLocationsByParentLocationId } from '../services/universal.discovery.service';
-import { RestInfoContext, BlockFetchLocationHookContext } from '../universal.discovery.module';
+import { getContentTypeDataByHref } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/content.type.helper';
+import { findLocationsByParentLocationId, findSuggestions } from '../services/universal.discovery.service';
+import { RestInfoContext, BlockFetchLocationHookContext, SuggestionsStorageContext } from '../universal.discovery.module';
 
 const fetchInitialState = {
     dataFetched: false,
@@ -22,7 +23,41 @@ const fetchReducer = (state, action) => {
 export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClause, sortOrder }, limit, offset, gridView = false) => {
     const restInfo = useContext(RestInfoContext);
     const [isFetchLocationHookBlocked] = useContext(BlockFetchLocationHookContext);
+    const [suggestionsStorage, setSuggestionsStorage] = useContext(SuggestionsStorageContext);
     const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
+    const getFindLocationsPromise = () =>
+        new Promise((resolve) => {
+            findLocationsByParentLocationId(
+                {
+                    ...restInfo,
+                    parentLocationId: locationData.parentLocationId,
+                    sortClause,
+                    sortOrder,
+                    limit,
+                    offset,
+                    gridView,
+                },
+                resolve,
+            );
+        });
+    const getFindSuggestionsPromise = () =>
+        new Promise((resolve) => {
+            if (suggestionsStorage[locationData.parentLocationId]) {
+                resolve(suggestionsStorage[locationData.parentLocationId]);
+
+                return;
+            }
+
+            findSuggestions(
+                {
+                    ...restInfo,
+                    parentLocationId: locationData.parentLocationId,
+                    limit,
+                    offset,
+                },
+                resolve,
+            );
+        });
 
     useEffect(() => {
         if (isFetchLocationHookBlocked) {
@@ -37,30 +72,30 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
             locationData.subitems.length >= locationData.totalCount ||
             locationData.subitems.length >= limit + offset
         ) {
-            dispatch({ type: 'FETCH_END', data: {} });
+            dispatch({ type: 'FETCH_END', data: state.data });
 
             return;
         }
 
         dispatch({ type: 'FETCH_START' });
-        findLocationsByParentLocationId(
-            {
-                ...restInfo,
-                parentLocationId: locationData.parentLocationId,
-                sortClause,
-                sortOrder,
-                limit,
-                offset,
-                gridView,
-            },
-            (response) => {
-                if (effectCleaned) {
-                    return;
-                }
-
-                dispatch({ type: 'FETCH_END', data: response });
+        Promise.all([getFindLocationsPromise(), getFindSuggestionsPromise()]).then(([locations, suggestions]) => {
+            if (effectCleaned) {
+                return;
             }
-        );
+
+            const suggestionsResults = suggestions.View?.Result.aggregations[0]?.entries.map(({ key }) => ({
+                data: getContentTypeDataByHref(key.ContentType._href),
+            }));
+
+            if (suggestionsResults) {
+                setSuggestionsStorage((prevState) => ({
+                    ...prevState,
+                    [locationData.parentLocationId]: suggestionsResults,
+                }));
+            }
+
+            dispatch({ type: 'FETCH_END', data: locations });
+        });
 
         return () => {
             effectCleaned = true;

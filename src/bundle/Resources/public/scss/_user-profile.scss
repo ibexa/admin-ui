@@ -1,0 +1,95 @@
+.ibexa-user-profile-view {
+    .ibexa-user-profile {
+        .ibexa-container {
+            padding: calculateRem(24px);
+            margin-bottom: calculateRem(24px);
+        }
+
+        &__header {
+            background: $ibexa-color-light-100 url('/bundles/ibexaadminui/img/user-profile-bg.svg') top right no-repeat;
+            height: calculateRem(276px);
+            position: relative;
+
+            &.ibexa-container {
+                padding: 0;
+                margin-bottom: calculateRem(36px);
+            }
+
+            .ibexa-user-thumbnail-wrapper {
+                margin: calculateRem(20px);
+                position: absolute;
+                bottom: 0;
+
+                .ibexa-user-thumbnail {
+                    background: $ibexa-color-white;
+                    border: calculateRem(1px) solid $ibexa-color-light;
+                    border-radius: 50%;
+
+                    &--img {
+                        width: calculateRem(220px);
+                        height: calculateRem(220px);
+                    }
+                }
+            }
+
+            .ibexa-user-profile-name {
+                background: $ibexa-color-white;
+                bottom: 0;
+                padding: calculateRem(40px) calculateRem(40px) calculateRem(40px) calculateRem(260px);
+                position: absolute;
+                width: 100%;
+                border-bottom-left-radius: calculateRem(10px);
+                border-bottom-right-radius: calculateRem(10px);
+
+                h2 {
+                    font-size: calculateRem(40px);
+                }
+            }
+        }
+
+        &__body {
+            display: flex;
+        }
+
+        &__aside {
+            width: calculateRem(590px);
+            margin-right: calculateRem(20px);
+
+            .ibexa-user-profile-summary {
+                &__header {
+                    border-bottom: calculateRem(1px) solid $ibexa-color-light;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: calculateRem(16px);
+                    padding: 0 0 calculateRem(8px);
+                }
+
+                &__heading {
+                    font-size: calculateRem(22px);
+                    margin: 0;
+                }
+
+                .ibexa-details {
+                    margin-top: 0;
+
+                    .ibexa-details__item-label {
+                        color: $ibexa-color-dark;
+                        margin-top: 0;
+                        line-height: normal;
+                        font-size: calculateRem(16px);
+                        min-width: calculateRem(140px);
+                        margin-right: calculateRem(16px);
+                    }
+                }
+            }
+        }
+
+        &__blocks {
+            width: 70%;
+
+            &.ibexa-container {
+                padding-bottom: calculateRem(8px);
+            }
+        }
+    }
+}

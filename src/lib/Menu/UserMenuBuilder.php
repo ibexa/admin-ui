@@ -6,10 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Menu;
+namespace Ibexa\AdminUi\Menu;
 
-use eZ\Publish\API\Repository\PermissionResolver;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Specification\UserProfile\IsProfileAvailable;
+use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,28 +25,27 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    const ITEM_LOGOUT = 'user__content';
-    const ITEM_USER_SETTINGS = 'user__settings';
-    const ITEM_BOOKMARK = 'user__bookmark';
-    const ITEM_DRAFTS = 'user__drafts';
-    const ITEM_NOTIFICATION = 'menu.notification';
+    public const ITEM_LOGOUT = 'user__content';
+    public const ITEM_VIEW_PROFILE = 'user___view_profile';
+    public const ITEM_USER_SETTINGS = 'user__settings';
+    public const ITEM_BOOKMARK = 'user__bookmark';
+    public const ITEM_NOTIFICATION = 'menu.notification';
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
-    private $permissionResolver;
+    private UserProfileConfigurationInterface $userProfileConfiguration;
 
     public function __construct(
         MenuItemFactory $factory,
         EventDispatcherInterface $eventDispatcher,
         TokenStorageInterface $tokenStorage,
-        PermissionResolver $permissionResolver
+        UserProfileConfigurationInterface $userProfileConfiguration
     ) {
         parent::__construct($factory, $eventDispatcher);
 
         $this->tokenStorage = $tokenStorage;
-        $this->permissionResolver = $permissionResolver;
+        $this->userProfileConfiguration = $userProfileConfiguration;
     }
 
     /**
@@ -68,67 +69,60 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
 
         $token = $this->tokenStorage->getToken();
         if (null !== $token && is_object($token->getUser())) {
-            $menu->addChild(self::ITEM_NOTIFICATION, [
-                'attributes' => [
-                    'class' => 'ez-user-menu__item--notifications',
-                    'data-toggle' => 'modal',
-                    'data-target' => '#view-notifications',
-                ],
-                'extras' => [
-                    'translation_domain' => 'notifications',
-                    'template' => '@ezdesign/account/notifications/modal.html.twig',
-                    'orderNumber' => 10,
-                ],
-            ]);
+            /** @var \Ibexa\Core\MVC\Symfony\Security\User $user */
+            $user = $token->getUser();
 
-            $menu->addChild(
-                $this->createMenuItem(self::ITEM_BOOKMARK, [
-                    'route' => 'ezplatform.bookmark.list',
-                    'extras' => [
-                        'orderNumber' => 20,
-                    ], ])
-            );
-
-            if ($this->permissionResolver->hasAccess('content', 'versionread') !== false) {
+            if ((new IsProfileAvailable($this->userProfileConfiguration))->isSatisfiedBy($user->getAPIUser())) {
                 $menu->addChild(
-                    $this->createMenuItem(self::ITEM_DRAFTS, [
-                        'route' => 'ezplatform.content_draft.list',
-                        'extras' => [
-                            'orderNumber' => 30,
-                        ],
-                    ])
+                    $this->createMenuItem(
+                        self::ITEM_VIEW_PROFILE,
+                        [
+                            'route' => 'ibexa.user.profile.view',
+                            'routeParameters' => [
+                                'userId' => $user->getAPIUser()->getUserId(),
+                            ],
+                            'extras' => [
+                                'orderNumber' => 40,
+                            ],
+                        ]
+                    )
                 );
             }
 
             $menu->addChild(
                 $this->createMenuItem(self::ITEM_USER_SETTINGS, [
-                    'route' => 'ezplatform.user_settings.list',
+                    'route' => 'ibexa.user_settings.list',
                     'extras' => [
                         'orderNumber' => 50,
-                    ], ])
+                    ],
+                ])
             );
 
             $menu->addChild(
-                $this->createMenuItem(self::ITEM_LOGOUT, ['route' => 'logout', 'extras' => [
-                    'orderNumber' => 60,
-                ]])
+                $this->createMenuItem(self::ITEM_LOGOUT, [
+                    'route' => 'logout',
+                    'attributes' => [
+                        'class' => 'ibexa-popup-menu__item--with-border',
+                    ],
+                    'extras' => [
+                        'orderNumber' => 60,
+                    ],
+                ])
             );
         }
 
         return $menu;
     }
 
-    /**
-     * @return array
-     */
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM_LOGOUT, 'menu'))->setDesc('Logout'),
-            (new Message(self::ITEM_USER_SETTINGS, 'menu'))->setDesc('User Settings'),
-            (new Message(self::ITEM_BOOKMARK, 'menu'))->setDesc('Bookmarks'),
-            (new Message(self::ITEM_DRAFTS, 'menu'))->setDesc('Drafts'),
-            (new Message(self::ITEM_NOTIFICATION, 'notifications'))->setDesc('View Notifications'),
+            (new Message(self::ITEM_LOGOUT, 'ibexa_menu'))->setDesc('Logout'),
+            (new Message(self::ITEM_VIEW_PROFILE, 'ibexa_menu'))->setDesc('View Profile'),
+            (new Message(self::ITEM_USER_SETTINGS, 'ibexa_menu'))->setDesc('User settings'),
+            (new Message(self::ITEM_NOTIFICATION, 'ibexa_notifications'))->setDesc('View Notifications'),
         ];
     }
 }
+
+class_alias(UserMenuBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserMenuBuilder');

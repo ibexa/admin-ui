@@ -2,15 +2,32 @@ html {
     min-height: 100vh;
     width: 100%;
     font-size: $base-font-size;
+    line-height: 1.5;
+    letter-spacing: calculateRem(0.12px);
 }
 
 body {
     position: relative;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 a {
-    transition: color 0.3s $ibexa-admin-transition;
+    transition: color $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+    &[disabled] {
+        color: $ibexa-color-dark-300;
+    }
+
+    &:active,
+    &:focus,
+    &:hover {
+        color: $ibexa-color-primary;
+    }
+
+    &:focus {
+        outline: none;
+    }
 }
 
 button {
@@ -24,38 +41,24 @@ img {
     height: auto;
 }
 
-.ez-scroll-disabled {
+.ibexa-scroll-disabled {
     overflow: hidden;
 }
 
-.ez-main-row {
+.ibexa-main-row {
     min-height: calc(100vh - #{calculateRem(58px)});
 
     &--edit {
-        background: $ibexa-white;
-
-        .ez-context-menu {
-            .ez-sticky-container {
-                top: calculateRem(50px);
-            }
-        }
+        background: $ibexa-color-white;
     }
-}
-
-.ez-standalone-page {
-    .ez-main-row {
-        min-height: 100vh;
-    }
-}
-
-.ez-dashboard .ez-main-row {
-    background-color: $ibexa-color-base-pale;
 }
 
 .btn {
     white-space: normal;
     cursor: pointer;
-    transition: opacity 0.3s $ibexa-admin-transition, background 0.3s $ibexa-admin-transition;
+    transition:
+        opacity 0.3s $ibexa-admin-transition,
+        background 0.3s $ibexa-admin-transition;
 }
 
 .ezrichtext-field {
@@ -77,27 +80,30 @@ img {
     blockquote {
         margin: calculateRem(16px) calculateRem(40px);
     }
-}
 
-.ez-login-view {
-    .ez-main-container {
-        height: 100vh;
+    table {
+        td {
+            border-width: calculateRem(1px);
+        }
     }
 }
 
-.ez-checkbox-icon {
-    @include checkbox-icon($ibexa-color-base-dark);
+.ibexa-login-view {
+    .ibexa-main-container {
+        height: 100vh;
+        display: block;
+    }
 }
 
-.ez-visually-hidden,
-.ez-visually-hidden[readonly] {
+.ibexa-visually-hidden,
+.ibexa-visually-hidden[readonly] {
     height: calculateRem(1px);
     opacity: 0;
     position: relative;
     z-index: 0;
 }
 
-.ez-spin {
+.ibexa-spin {
     animation: spin 1.75s linear infinite;
 }
 
@@ -110,11 +116,9 @@ img {
     }
 }
 
-.ez-content-preview {
-    margin: 0 calculateRem(16px);
-
-    .ez-main-container {
-        padding: 0;
+.ibexa-content-preview {
+    .ibexa-main-container__content-column {
+        @include drag-module-backdrop-background;
     }
 }
 
@@ -129,63 +133,85 @@ select {
     }
 }
 
-.ez-info-view,
-.ez-content-view,
-.ez-content-type-view,
-.ez-content-type-group-list-view,
-.ez-language-view,
-.ez-language-list-view,
-.ez-link-manager-view,
-.ez-role-view,
-.ez-role-list-view,
-.ez-search-view,
-.ez-section-view,
-.ez-section-list-view,
-.ez-trash-list-view,
-.ez-bookmark-list-view {
-    background-color: $ibexa-color-base-pale;
+.ibexa-info-view,
+.ibexa-content-view,
+.ibexa-content-type-view,
+.ibexa-content-type-group-list-view,
+.ibexa-language-view,
+.ibexa-language-list-view,
+.ibexa-link-manager-view,
+.ibexa-role-view,
+.ibexa-role-list-view,
+.ibexa-search-view,
+.ibexa-section-view,
+.ibexa-section-list-view,
+.ibexa-trash-list-view,
+.ibexa-bookmark-list-view,
+.ibexa-object-state-group-list-view,
+.ibexa-workflow-list-view,
+.ibexa-segment-group-list-view {
+    background-color: $ibexa-color-white;
+
+    .ibexa-main-container {
+        background-color: $ibexa-color-white;
+    }
 }
 
-.ez-sticky-container {
+.ibexa-sticky-container {
     position: -webkit-sticky;
     position: sticky;
     top: calculateRem(16px);
 
     > .btn {
-        .ez-icon {
+        .ibexa-icon {
             margin-bottom: calculateRem(3px);
         }
     }
 }
 
-.ez-dashboard-row {
+.ibexa-dashboard-row {
     flex-direction: column;
 }
 
-.ez-scrollable-wrapper {
-    max-height: 60vh;
+.ibexa-scrollable-wrapper {
     overflow: auto;
+    margin-bottom: calculateRem(12px);
 }
 
-.ez-prevent-click,
-.ez-prevent-click * {
+.ibexa-prevent-click,
+.ibexa-prevent-click * {
     pointer-events: none !important;
 }
 
-.ez-is-tree-resizing {
+.ibexa-is-tree-resizing {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
-.ez-container {
-    padding: calculateRem(16px);
-    background: $ibexa-white;
+.ibexa-container {
+    padding: calculateRem(24px);
+    background: $ibexa-color-white;
+    border: calculateRem(1px) solid $ibexa-color-light;
+    border-radius: $ibexa-border-radius;
+    box-shadow: $ibexa-edit-header-box-shadow;
+    margin-bottom: calculateRem(32px);
+
+    @media (min-width: 1921px) {
+        max-width: 2000px;
+    }
 }
 
-.ez-error-site {
-    .ez-main-container {
+.ibexa-error-site {
+    .ibexa-main-container {
         padding: 0;
+    }
+}
+
+.ibexa-safari-tooltip {
+    &::before {
+        content: '';
+        display: block;
     }
 }

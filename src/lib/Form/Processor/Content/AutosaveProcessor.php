@@ -6,23 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Processor\Content;
+namespace Ibexa\AdminUi\Form\Processor\Content;
 
-use eZ\Publish\API\Repository\Exceptions\Exception as APIException;
-use EzSystems\EzPlatformAdminUi\Event\AutosaveEvents;
-use EzSystems\EzPlatformContentForms\Event\FormActionEvent;
-use EzSystems\EzPlatformContentForms\Form\Processor\ContentFormProcessor;
+use Ibexa\ContentForms\Event\FormActionEvent;
+use Ibexa\ContentForms\Form\Processor\ContentFormProcessor;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
+use Ibexa\Contracts\AdminUi\Event\AutosaveEvents;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception as APIException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 class AutosaveProcessor implements EventSubscriberInterface
 {
-    /** @var \EzSystems\EzPlatformContentForms\Form\Processor\ContentFormProcessor */
-    private $innerContentFormProcessor;
+    private AutosaveServiceInterface $autosaveService;
+
+    private ContentFormProcessor $innerContentFormProcessor;
 
     public function __construct(
+        AutosaveServiceInterface $autosaveService,
         ContentFormProcessor $innerContentFormProcessor
     ) {
+        $this->autosaveService = $autosaveService;
         $this->innerContentFormProcessor = $innerContentFormProcessor;
     }
 
@@ -36,10 +40,13 @@ class AutosaveProcessor implements EventSubscriberInterface
     public function processAutosave(FormActionEvent $event): void
     {
         try {
+            $this->autosaveService->setInProgress(true);
             $this->innerContentFormProcessor->processSaveDraft($event);
             $statusCode = Response::HTTP_OK;
         } catch (APIException $exception) {
             $statusCode = Response::HTTP_BAD_REQUEST;
+        } finally {
+            $this->autosaveService->setInProgress(false);
         }
 
         $event->setResponse(
@@ -48,3 +55,5 @@ class AutosaveProcessor implements EventSubscriberInterface
         );
     }
 }
+
+class_alias(AutosaveProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\AutosaveProcessor');

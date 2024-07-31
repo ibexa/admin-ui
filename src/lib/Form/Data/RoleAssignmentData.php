@@ -4,24 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+
+namespace Ibexa\AdminUi\Form\Data;
 
 class RoleAssignmentData
 {
-    /** @var \eZ\Publish\API\Repository\Values\User\UserGroup[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] */
     private $groups;
 
-    /** @var \eZ\Publish\API\Repository\Values\User\User[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User[] */
     private $users;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Section[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[] */
     private $sections;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Location[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
     private $locations;
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\UserGroup[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]
      */
     public function getGroups(): array
     {
@@ -29,7 +30,7 @@ class RoleAssignmentData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\UserGroup[] $groups
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $groups
      */
     public function setGroups(array $groups)
     {
@@ -37,7 +38,7 @@ class RoleAssignmentData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\User\User[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
      */
     public function getUsers(): array
     {
@@ -45,7 +46,7 @@ class RoleAssignmentData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\User\User[] $users
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[] $users
      */
     public function setUsers(array $users)
     {
@@ -53,7 +54,7 @@ class RoleAssignmentData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Section[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
      */
     public function getSections(): array
     {
@@ -61,7 +62,7 @@ class RoleAssignmentData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section[] $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
      */
     public function setSections(array $sections)
     {
@@ -69,7 +70,7 @@ class RoleAssignmentData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Location[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getLocations(): array
     {
@@ -77,10 +78,12 @@ class RoleAssignmentData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location[] $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
     public function setLocations(array $locations)
     {
         $this->locations = $locations;
     }
 }
+
+class_alias(RoleAssignmentData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\RoleAssignmentData');

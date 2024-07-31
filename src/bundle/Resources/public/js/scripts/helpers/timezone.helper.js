@@ -1,28 +1,27 @@
-(function(global, doc, eZ, moment) {
-    const userPreferredTimezone = eZ.adminUiConfig.timezone;
-    const userPreferredFullDateTimeFormat = eZ.adminUiConfig.dateFormat.fullDateTime;
-    const userPreferredShortDateTimeFormat = eZ.adminUiConfig.dateFormat.shortDateTime;
+import { getAdminUiConfig, getMoment } from './context.helper';
 
-    const convertDateToTimezone = (date, timezone = userPreferredTimezone, forceSameTime = false) => {
-        return moment(date).tz(timezone, forceSameTime);
-    };
-    const formatDate = (date, timezone = null, format) => {
-        if (timezone) {
-            date = convertDateToTimezone(date, timezone);
-        }
+const convertDateToTimezone = (date, timezone = getAdminUiConfig().timezone, forceSameTime = false) => {
+    const moment = getMoment();
 
-        return moment(date).formatICU(format);
-    };
-    const formatFullDateTime = (date, timezone = userPreferredTimezone, format = userPreferredFullDateTimeFormat) => {
-        return formatDate(date, timezone, format);
-    };
-    const formatShortDateTime = (date, timezone = userPreferredTimezone, format = userPreferredShortDateTimeFormat) => {
-        return formatDate(date, timezone, format);
-    };
+    return moment(date).tz(timezone, forceSameTime);
+};
+const formatDate = (date, timezone = null, format) => {
+    if (timezone) {
+        date = convertDateToTimezone(date, timezone);
+    }
 
-    eZ.addConfig('helpers.timezone', {
-        convertDateToTimezone,
-        formatFullDateTime,
-        formatShortDateTime,
-    });
-})(window, window.document, window.eZ, window.moment);
+    const moment = getMoment();
+
+    return moment(date).formatICU(format);
+};
+const formatFullDateTime = (date, timezone = getAdminUiConfig().timezone, format = getAdminUiConfig().dateFormat.fullDateTime) => {
+    return formatDate(date, timezone, format);
+};
+const formatShortDateTime = (date, timezone = getAdminUiConfig().timezone, format = getAdminUiConfig().dateFormat.shortDateTime) => {
+    return formatDate(date, timezone, format);
+};
+const getBrowserTimezone = () => {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+};
+
+export { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone };

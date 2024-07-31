@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Knp\Menu\ItemInterface;
 
-abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
 {
     public function createStructure(array $options): ItemInterface
     {
@@ -23,27 +22,40 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder im
         $menu = $this->factory->createItem('root');
 
         $itemSaveIdentifier = $this->getItemSaveIdentifier();
+        $itemPublishAndEditIdentifier = $this->getItemPublishAndEditIdentifier();
         $itemCancelIdentifier = $this->getItemCancelIdentifier();
 
+        $publishItem = $this->createMenuItem(
+            $itemSaveIdentifier,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $contentTypeFormView['publishContentType']->vars['id']),
+                ],
+            ]
+        );
+
+        $publishAndEditItem = $this->createMenuItem(
+            $itemPublishAndEditIdentifier,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => sprintf('#%s', $contentTypeFormView['publishAndEditContentType']->vars['id']),
+                ],
+            ]
+        );
+
+        $publishItem->addChild($publishAndEditItem);
+
         $menu->setChildren([
-            $itemSaveIdentifier => $this->createMenuItem(
-                $itemSaveIdentifier,
-                [
-                    'attributes' => [
-                        'class' => 'btn--trigger',
-                        'data-click' => sprintf('#%s', $contentTypeFormView['publishContentType']->vars['id']),
-                    ],
-                    'extras' => ['icon' => 'save'],
-                ]
-            ),
+            $itemSaveIdentifier => $publishItem,
             $itemCancelIdentifier => $this->createMenuItem(
                 $itemCancelIdentifier,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => sprintf('#%s', $contentTypeFormView['removeDraft']->vars['id']),
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -52,6 +64,8 @@ abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder im
     }
 
     abstract public function getItemSaveIdentifier(): string;
+
+    abstract public function getItemPublishAndEditIdentifier(): string;
 
     abstract public function getItemCancelIdentifier(): string;
 }

@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Search;
 
-use EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType;
-use EzSystems\EzPlatformAdminUi\Form\Type\User\UserType;
+namespace Ibexa\AdminUi\Form\Type\Search;
+
+use Ibexa\AdminUi\Form\Type\Date\DateIntervalType;
+use Ibexa\AdminUi\Form\Type\User\UserType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,7 +34,7 @@ final class SearchType extends AbstractType
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -61,7 +63,7 @@ final class SearchType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
@@ -74,6 +76,7 @@ final class SearchType extends AbstractType
                 'created' => 'created_select',
                 'last_modified' => 'last_modified_select',
             ],
+            'translation_domain' => 'ibexa_search',
         ]);
     }
 
@@ -100,10 +103,28 @@ final class SearchType extends AbstractType
     private function getTimePeriodField(): array
     {
         return [
-            $this->translator->trans(/** @Desc("Last week") */ 'search.last_week', [], 'search') => 'P0Y0M7D',
-            $this->translator->trans(/** @Desc("Last month") */ 'search.last_month', [], 'search') => 'P0Y1M0D',
-            $this->translator->trans(/** @Desc("Last year") */ 'search.last_year', [], 'search') => 'P1Y0M0D',
-            $this->translator->trans(/** @Desc("Custom range") */ 'search.custom_range', [], 'search') => 'custom_range',
+            $this->translator->trans(/** @Desc("Last week") */
+                'search.last_week',
+                [],
+                'ibexa_search'
+            ) => 'P0Y0M7D',
+            $this->translator->trans(/** @Desc("Last month") */
+                'search.last_month',
+                [],
+                'ibexa_search'
+            ) => 'P0Y1M0D',
+            $this->translator->trans(/** @Desc("Last year") */
+                'search.last_year',
+                [],
+                'ibexa_search'
+            ) => 'P1Y0M0D',
+            $this->translator->trans(/** @Desc("Custom range") */
+                'search.custom_range',
+                [],
+                'ibexa_search'
+            ) => 'custom_range',
         ];
     }
 }
+
+class_alias(SearchType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Search\SearchType');

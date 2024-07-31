@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="0c103b4bcaaca67202176e8f5be544eb4c307e8e" resname="content.autosave.turn_off.message">
+        <source>You can turn autosave off in your user settings</source>
+        <target state="new">You can turn autosave off in your user settings</target>
+        <note>key: content.autosave.turn_off.message</note>
+      </trans-unit>
+      <trans-unit id="8343cec7024fb459d738278aca82b39710b89c50" resname="content.create_draft.success">
+        <source>Created a new draft for '%name%'.</source>
+        <target state="new">Created a new draft for '%name%'.</target>
+        <note>key: content.create_draft.success</note>
+      </trans-unit>
+      <trans-unit id="1ea2690f8ebd8fc99115a6f94ac56b8b93e46afe" resname="content.draft.conflict.error">
+        <source>Cannot check if the draft has conflicts with other drafts. %error%.</source>
+        <target state="new">Cannot check if the draft has conflicts with other drafts. %error%.</target>
+        <note>key: content.draft.conflict.error</note>
+      </trans-unit>
+      <trans-unit id="7b7f768e446eae09c01c831807e246e293f65349" resname="content.edit.permission.error">
+        <source>You don't have permission to edit this Content item</source>
+        <target state="new">You don't have permission to edit this Content item</target>
+        <note>key: content.edit.permission.error</note>
+      </trans-unit>
+      <trans-unit id="fbc24757e92f52997d730762e004765425845995" resname="content.hide.already_hidden">
+        <source>Content item '%name%' is already hidden.</source>
+        <target state="new">Content item '%name%' is already hidden.</target>
+        <note>key: content.hide.already_hidden</note>
+      </trans-unit>
+      <trans-unit id="7a80db58ea3f3bef5b9f07c4565d715efdacda99" resname="content.hide.success">
+        <source>Content item '%name%' hidden.</source>
+        <target state="new">Content item '%name%' hidden.</target>
+        <note>key: content.hide.success</note>
+      </trans-unit>
+      <trans-unit id="d773dd487e4e5467fd20fc4fc4987eba33eaf1b7" resname="content.main_language_update.success">
+        <source>Main language for '%name%' updated.</source>
+        <target state="new">Main language for '%name%' updated.</target>
+        <note>key: content.main_language_update.success</note>
+      </trans-unit>
+      <trans-unit id="5f36fd5bb4e6938a731079f403467900e0396ed2" resname="content.main_location_update.success">
+        <source>Main Location for '%name%' updated.</source>
+        <target state="new">Main Location for '%name%' updated.</target>
+        <note>key: content.main_location_update.success</note>
+      </trans-unit>
+      <trans-unit id="d906dd66ce60bd64f6ba3ccc4ecf3fa443ff9e83" resname="content.reveal.already_visible">
+        <source>Content item '%name%' is already visible.</source>
+        <target state="new">Content item '%name%' is already visible.</target>
+        <note>key: content.reveal.already_visible</note>
+      </trans-unit>
+      <trans-unit id="56c081f0ee65c4b44e231b9e616e9613e93e4f97" resname="content.reveal.success">
+        <source>Content item '%name%' revealed.</source>
+        <target state="new">Content item '%name%' revealed.</target>
+        <note>key: content.reveal.success</note>
+      </trans-unit>
+      <trans-unit id="6048a32d88dbcdd5a62e232ed092a8efd11ed375" resname="content_edit.autosave.status_error.message">
+        <source>Saving error</source>
+        <target state="new">Saving error</target>
+        <note>key: content_edit.autosave.status_error.message</note>
+      </trans-unit>
+      <trans-unit id="d364f97b275523fe571da0da612fdbc4a1064550" resname="content_edit.autosave.status_off.message">
+        <source>Autosave is off, draft not created</source>
+        <target state="new">Autosave is off, draft not created</target>
+        <note>key: content_edit.autosave.status_off.message</note>
+      </trans-unit>
+      <trans-unit id="93f0a5980aa14af989f4106ffda244ba02db1c32" resname="content_edit.autosave.status_on.message">
+        <source>Autosave is on, draft created</source>
+        <target state="new">Autosave is on, draft created</target>
+        <note>key: content_edit.autosave.status_on.message</note>
+      </trans-unit>
+      <trans-unit id="123a6cff0d98d08927f6666246d451da50941a7b" resname="content_edit.autosave.status_saved.message.full">
+        <source>Autosave is on, draft saved %time%</source>
+        <target state="new">Autosave is on, draft saved %time%</target>
+        <note>key: content_edit.autosave.status_saved.message.full</note>
+      </trans-unit>
+      <trans-unit id="da43c85269df161b340e92296642e18ec6af033e" resname="content_edit.autosave.status_saving.message">
+        <source>Saving</source>
+        <target state="new">Saving</target>
+        <note>key: content_edit.autosave.status_saving.message</note>
+      </trans-unit>
+      <trans-unit id="750bead6705b295c7b7d66c27b2768c1b9329ed5" resname="editing_details">
+        <source>Location: %location%</source>
+        <target state="new">Location: %location%</target>
+        <note>key: editing_details</note>
+      </trans-unit>
+      <trans-unit id="f7854a70e37ed1a89ba0b4aa7937c586661ef300" resname="embedded_items.action.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: embedded_items.action.edit</note>
+      </trans-unit>
+      <trans-unit id="e5d738fc801ca98510d61b14a959bb08268953a0" resname="embedded_items.action.go_to_label">
+        <source>Go to content</source>
+        <target state="new">Go to content</target>
+        <note>key: embedded_items.action.go_to_label</note>
+      </trans-unit>
+      <trans-unit id="f6ae7078e77f584ad00c8003405ca11dc57c4d56" resname="preview_header.back">
+        <source>Back</source>
+        <target state="new">Back</target>
+        <note>key: preview_header.back</note>
+      </trans-unit>
+      <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
+        <source>Are you sure you want to send this Content item to Trash?</source>
+        <target state="new">Are you sure you want to send this Content item to Trash?</target>
+        <note>key: trash.modal.message</note>
+      </trans-unit>
+      <trans-unit id="1e6a1d97cca01a288e47d2d14479274b90e6c6c1" resname="trash_container.modal.message_main">
+        <source>Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</source>
+        <target state="new">Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</target>
+        <note>key: trash_container.modal.message_main</note>
+      </trans-unit>
+      <trans-unit id="4492a79e25635e7612f98971e02b4d0e6a408394" resname="user.delete.success">
+        <source>User with login '%login%' deleted.</source>
+        <target state="new">User with login '%login%' deleted.</target>
+        <note>key: user.delete.success</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

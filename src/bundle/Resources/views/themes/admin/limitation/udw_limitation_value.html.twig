@@ -1,44 +1,46 @@
-<div class="ez-limitation-picker">
+<div class="ibexa-limitation-picker">
     {{ form_label(form.limitationValues) }}
     {{ form_errors(form.limitationValues) }}
     {{ form_widget(form.limitationValues) }}
 
     <button type="button" data-universaldiscovery-title="{{ "role.policy.limitation.location.udw_title"
-        |trans({}, "ezplatform_content_forms_role")
+        |trans({}, 'ibexa_content_forms_role')
         |desc("Select Location(s) to use as Limitation") }}"
-        class="btn btn-secondary d-block ez-pick-location-limitation-button"
+        class="btn ibexa-btn ibexa-btn--secondary d-block ibexa-pick-location-limitation-button"
         data-location-input-selector="#{{ form.limitationValues.vars.id }}"
         data-selected-location-list-selector="#{{ form.limitationValues.vars.id }}-selected-location"
-        data-udw-config="{{ ez_udw_config('multiple', {}) }}"
-        data-value-template="{{ include('@ezdesign/limitation/udw_limitation_value_list_item.html.twig', {
+        data-udw-config="{{ ibexa_udw_config('multiple', {}) }}"
+        data-value-template="{{ include('@ibexadesign/limitation/udw_limitation_value_list_item.html.twig', {
             'content_breadcrumbs': '',
             'location_id': '{{ location_id }}',
             'is_loading_state': true
         })|e('html_attr') }}">
-        {{ "role.policy.limitation.location.udw_button"|trans({}, "ezplatform_content_forms_role")|desc("Select Locations") }}
+        {{ "role.policy.limitation.location.udw_button"|trans({}, 'ibexa_content_forms_role')|desc("Select Locations") }}
     </button>
 
     <ul class="list-unstyled" id="{{ form.limitationValues.vars.id }}-selected-location">
         {% for limitationValue in form.limitationValues.vars.data %}
             {% if limitationValue is not empty %}
-                {% set path_locations = ez_path_to_locations(limitationValue.pathString) %}
+                {% set path_locations = ibexa_path_to_locations(limitationValue.pathString) %}
                 {% set content_breadcrumbs = '' %}
                 {% for location in path_locations %}
-                    {% set content_breadcrumbs = content_breadcrumbs ~ ez_content_name(location.contentInfo) %}
+                    {% set content_breadcrumbs = content_breadcrumbs ~ ibexa_content_name(location.contentInfo) %}
                     {% if not loop.last %}
                         {% set content_breadcrumbs = content_breadcrumbs ~ ' / ' %}
                     {% endif %}
                 {% endfor %}
 
-                {{ include('@ezdesign/limitation/udw_limitation_value_list_item.html.twig', {
+                {{ include('@ibexadesign/limitation/udw_limitation_value_list_item.html.twig', {
                     'content_breadcrumbs': content_breadcrumbs,
                     'location_id': limitationValue.id,
                     'is_loading_state': false
                 }) }}
             {% else %}
                 <li class="mt-2">
-                    <div class="ez-tag">
-                        {{ "role.policy.limitation.location_deleted"|trans({}, "ezplatform_content_forms_role")|desc("Location deleted") }}
+                    <div class="ibexa-tag">
+                        <div class="ibexa-tag__content">
+                            {{ "role.policy.limitation.location_deleted"|trans({}, 'ibexa_content_forms_role')|desc("Location deleted") }}
+                        </div>
                     </div>
                 </li>
             {% endif %}

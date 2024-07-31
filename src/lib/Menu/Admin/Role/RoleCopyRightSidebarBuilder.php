@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu\Admin\Role;
 
-use EzSystems\EzPlatformAdminUi\Menu\AbstractBuilder;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
-use EzSystems\EzPlatformAdminUi\Menu\MenuItemFactory;
+namespace Ibexa\AdminUi\Menu\Admin\Role;
+
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Menu\MenuItemFactory;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use JMS\TranslationBundle\Annotation\Ignore;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -23,8 +25,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RoleCopyRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__SAVE = 'role_copy__sidebar_right__save';
-    const ITEM__CANCEL = 'role_copy__sidebar_right__cancel';
+    public const ITEM__SAVE = 'role_copy__sidebar_right__save';
+    public const ITEM__CANCEL = 'role_copy__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -57,33 +59,33 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
                 self::ITEM__SAVE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#role_copy_copy',
-                        'data-extra-classes' => 'ez-tooltip--medium',
+                        'data-extra-classes' => 'ibexa-tooltip--medium',
                         'data-placement' => 'left',
                         'title' => $this->translator->trans(
-/** @Ignore */ self::ITEM__SAVE,
+                            /** @Ignore */
+                            self::ITEM__SAVE,
                             [],
-                            'menu'
+                            'ibexa_menu'
                         ),
                     ],
-                    'extras' => ['icon' => 'save'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
                     'attributes' => [
-                        'data-extra-classes' => 'ez-tooltip--medium',
+                        'data-extra-classes' => 'ibexa-tooltip--medium',
                         'data-placement' => 'left',
                         'title' => $this->translator->trans(
-/** @Ignore */ self::ITEM__CANCEL,
+                            /** @Ignore */
+                            self::ITEM__CANCEL,
                             [],
-                            'menu'
+                            'ibexa_menu'
                         ),
                     ],
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.role.list',
+                    'route' => 'ibexa.role.list',
                 ]
             ),
         ]);
@@ -97,8 +99,10 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'menu'))->setDesc('Copy'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Copy'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
 }
+
+class_alias(RoleCopyRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\RoleCopyRightSidebarBuilder');

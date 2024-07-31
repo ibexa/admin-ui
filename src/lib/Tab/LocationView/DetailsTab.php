@@ -6,122 +6,103 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\LocationView;
+namespace Ibexa\AdminUi\Tab\LocationView;
 
 use ArrayObject;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\UserService;
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\VersionInfo;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationAssignSubtreeData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationAssignSectionType;
-use EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateType;
-use EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
-use EzSystems\EzPlatformAdminUi\Specification\UserExists;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Form\Data\Location\LocationAssignSubtreeData;
+use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData;
+use Ibexa\AdminUi\Form\Type\Location\LocationAssignSectionType;
+use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
+use Ibexa\AdminUi\Form\Type\ObjectState\ContentObjectStateUpdateType;
+use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UserSetting\FocusMode;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\User\UserSetting\UserSettingService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
+class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-location-view-details';
+    public const URI_FRAGMENT = 'ibexa-tab-location-view-details';
 
-    /** @var \eZ\Publish\Core\Helper\FieldsGroups\FieldsGroupsList */
-    protected $fieldsGroupsListHelper;
+    private SectionService $sectionService;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
-    protected $userService;
+    private DatasetFactory $datasetFactory;
 
-    /** @var \eZ\Publish\API\Repository\SectionService */
-    protected $sectionService;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private UserSettingService $userSettingService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \eZ\Publish\API\Repository\SectionService $sectionService
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \eZ\Publish\API\Repository\PermissionResolver $permissionResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
         SectionService $sectionService,
-        UserService $userService,
         DatasetFactory $datasetFactory,
         FormFactoryInterface $formFactory,
         PermissionResolver $permissionResolver,
+        UserSettingService $userSettingService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
 
         $this->sectionService = $sectionService;
-        $this->userService = $userService;
         $this->datasetFactory = $datasetFactory;
         $this->formFactory = $formFactory;
         $this->permissionResolver = $permissionResolver;
+        $this->userSettingService = $userSettingService;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'details';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
-        /** @Desc("Details") */
-        return $this->translator->trans('tab.name.details', [], 'locationview');
+        /** @Desc("Technical details") */
+        return $this->translator->trans('tab.name.details', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
-        return 200;
+        return 750;
+    }
+
+    public function evaluate(array $parameters): bool
+    {
+        return IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/details.html.twig';
+        return '@ibexadesign/content/tab/details.html.twig';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contextParameters['content'];
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
         $location = $contextParameters['location'];
 
         $versionInfo = $content->getVersionInfo();
@@ -136,16 +117,11 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $this->supplyObjectStateParameters($viewParameters, $contentInfo);
         $this->supplyTranslations($viewParameters, $versionInfo);
         $this->supplyFormLocationUpdate($viewParameters, $location);
-        $this->supplyCreator($viewParameters, $contentInfo);
-        $this->supplyLastContributor($viewParameters, $versionInfo);
         $this->supplySortFieldClauseMap($viewParameters);
 
         return array_replace($contextParameters, $viewParameters->getArrayCopy());
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     */
     private function supplySortFieldClauseMap(ArrayObject $parameters): void
     {
         $parameters['sort_field_clause_map'] = [
@@ -161,35 +137,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         ];
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     */
-    private function supplyCreator(ArrayObject $parameters, ContentInfo $contentInfo): void
-    {
-        $parameters['creator'] = null;
-        if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {
-            $parameters['creator'] = $this->userService->loadUser($contentInfo->ownerId);
-        }
-    }
-
-    /**
-     * @param \ArrayObject $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
-     */
-    private function supplyLastContributor(ArrayObject $parameters, VersionInfo $versionInfo): void
-    {
-        $parameters['last_contributor'] = null;
-        if ((new UserExists($this->userService))->isSatisfiedBy($versionInfo->creatorId)) {
-            $parameters['last_contributor'] = $this->userService->loadUser($versionInfo->creatorId);
-        }
-    }
-
-    /**
-     * @param \ArrayObject $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     */
-    private function supplyObjectStateParameters(ArrayObject &$parameters, ContentInfo $contentInfo): void
+    private function supplyObjectStateParameters(ArrayObject $parameters, ContentInfo $contentInfo): void
     {
         $objectStatesDataset = $this->datasetFactory->objectStates();
         $objectStatesDataset->load($contentInfo);
@@ -206,7 +154,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
                 $objectStateUpdateForm = $this->formFactory->create(
                     ContentObjectStateUpdateType::class,
                     new ContentObjectStateUpdateData(
-                        $contentInfo, $objectStateGroup, $objectState
+                        $contentInfo,
+                        $objectStateGroup,
+                        $objectState
                     )
                 )->createView();
 
@@ -220,18 +170,13 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function canUserAssignObjectState(): bool
     {
         return $this->permissionResolver->hasAccess('state', 'assign') !== false;
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     */
     private function supplySectionParameters(ArrayObject $parameters, ContentInfo $contentInfo, Location $location): void
     {
         $canSeeSection = $this->permissionResolver->canUser('section', 'view', $contentInfo);
@@ -249,7 +194,8 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
                 $assignSectionToSubtreeForm = $this->formFactory->create(
                     LocationAssignSectionType::class,
                     new LocationAssignSubtreeData(
-                        $section, $location
+                        $section,
+                        $location
                     )
                 )->createView();
 
@@ -258,10 +204,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         }
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     */
     private function supplyFormLocationUpdate(ArrayObject $parameters, Location $location): void
     {
         $parameters['form_location_update'] = $this->formFactory->create(
@@ -270,10 +212,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         )->createView();
     }
 
-    /**
-     * @param \ArrayObject $parameters
-     * @param \eZ\Publish\API\Repository\Values\Content\VersionInfo $versionInfo
-     */
     private function supplyTranslations(ArrayObject $parameters, VersionInfo $versionInfo): void
     {
         $translationsDataset = $this->datasetFactory->translations();
@@ -282,3 +220,5 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $parameters['translations'] = $translationsDataset->getTranslations();
     }
 }
+
+class_alias(DetailsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\DetailsTab');

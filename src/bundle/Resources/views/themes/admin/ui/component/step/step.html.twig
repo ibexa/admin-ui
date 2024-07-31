@@ -1,0 +1,14 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% set step_attr = step_attr|default({})|merge({
+    class: ('ibexa-step__item '
+        ~ (step_name == step.name ? 'ibexa-step__item--active ' : '')
+        ~ (is_previous_step ? 'ibexa-step__item--prev ' : '')
+        ~ step_attr.class|default(''))|trim,
+    'data-step-id': step.id
+}) %}
+
+<li {{ html.attributes(step_attr) }}>
+    <span class="ibexa-step__label">{{ step.title }}</span>
+    <div class="ibexa-step__indicator"></div>
+</li>

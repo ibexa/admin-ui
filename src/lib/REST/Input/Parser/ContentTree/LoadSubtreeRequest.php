@@ -6,17 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Input\Parser\ContentTree;
+namespace Ibexa\AdminUi\REST\Input\Parser\ContentTree;
 
-use EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequest as LoadSubtreeRequestValue;
-use EzSystems\EzPlatformRest\Exceptions;
-use EzSystems\EzPlatformRest\Input\BaseParser;
-use EzSystems\EzPlatformRest\Input\ParsingDispatcher;
+use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequest as LoadSubtreeRequestValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Rest\Exceptions;
+use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
+use Ibexa\Rest\Server\Input\Parser\Criterion as CriterionParser;
 
-class LoadSubtreeRequest extends BaseParser
+class LoadSubtreeRequest extends CriterionParser
 {
     /**
-     * @inheritdoc
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
     public function parse(array $data, ParsingDispatcher $parsingDispatcher): LoadSubtreeRequestValue
     {
@@ -31,6 +32,32 @@ class LoadSubtreeRequest extends BaseParser
             $nodes[] = $parsingDispatcher->parse($node, $node['_media-type']);
         }
 
-        return new LoadSubtreeRequestValue($nodes);
+        $filter = null;
+        if (array_key_exists('Filter', $data) && is_array($data['Filter'])) {
+            $filter = $this->processCriteriaArray($data['Filter'], $parsingDispatcher);
+        }
+
+        return new LoadSubtreeRequestValue($nodes, $filter);
+    }
+
+    /**
+     * @param array<string, mixed> $criteriaArray
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     */
+    private function processCriteriaArray(array $criteriaArray, ParsingDispatcher $parsingDispatcher): ?Criterion
+    {
+        if (count($criteriaArray) === 0) {
+            return null;
+        }
+
+        $criteria = [];
+        foreach ($criteriaArray as $criterionName => $criterionData) {
+            $criteria[] = $this->dispatchCriterion($criterionName, $criterionData, $parsingDispatcher);
+        }
+
+        return (count($criteria) === 1) ? $criteria[0] : new Criterion\LogicalAnd($criteria);
     }
 }
+
+class_alias(LoadSubtreeRequest::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequest');

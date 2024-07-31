@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\API\Repository\FieldType;
-use eZ\Publish\SPI\FieldType\Value;
+namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
+
+use Ibexa\Contracts\Core\FieldType\Value;
+use Ibexa\Contracts\Core\Repository\FieldType;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -17,7 +18,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 class FieldValueTransformer implements DataTransformerInterface
 {
     /**
-     * @var \eZ\Publish\API\Repository\FieldType
+     * @var \Ibexa\Contracts\Core\Repository\FieldType
      */
     private $fieldType;
 
@@ -49,7 +50,7 @@ class FieldValueTransformer implements DataTransformerInterface
      *
      * @param mixed $value
      *
-     * @return \eZ\Publish\SPI\FieldType\Value
+     * @return \Ibexa\Contracts\Core\FieldType\Value
      */
     public function reverseTransform($value)
     {
@@ -60,3 +61,5 @@ class FieldValueTransformer implements DataTransformerInterface
         return $this->fieldType->fromHash($value);
     }
 }
+
+class_alias(FieldValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\FieldValueTransformer');

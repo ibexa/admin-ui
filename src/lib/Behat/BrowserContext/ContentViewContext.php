@@ -10,25 +10,17 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use EzSystems\Behat\Core\Behat\ArgumentParser;
 use Ibexa\AdminUi\Behat\Component\DraftConflictDialog;
-use Ibexa\AdminUi\Behat\Component\LeftMenu;
-use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
+use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
-class ContentViewContext implements Context
+final class ContentViewContext implements Context
 {
     private $argumentParser;
 
     /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
     private $contentViewPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\LeftMenu */
-    private $leftMenu;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
 
     /** @var \Ibexa\AdminUi\Behat\Component\DraftConflictDialog */
     private $draftConflictDialog;
@@ -36,14 +28,10 @@ class ContentViewContext implements Context
     public function __construct(
         ArgumentParser $argumentParser,
         ContentViewPage $contentViewPage,
-        LeftMenu $leftMenu,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
         DraftConflictDialog $draftConflictDialog
     ) {
         $this->argumentParser = $argumentParser;
         $this->contentViewPage = $contentViewPage;
-        $this->leftMenu = $leftMenu;
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->draftConflictDialog = $draftConflictDialog;
     }
 
@@ -57,6 +45,22 @@ class ContentViewContext implements Context
     }
 
     /**
+     * @Given I am using the DXP with Focus mode disabled
+     */
+    public function disableFocusMode(): void
+    {
+        $this->contentViewPage->setFocusMode(false);
+    }
+
+    /**
+     * @Given I am using the DXP in Focus mode
+     */
+    public function enableFocusMode(): void
+    {
+        $this->contentViewPage->setFocusMode(true);
+    }
+
+    /**
      * @Given I switch to :tab tab in Content structure
      */
     public function switchTab(string $tabName)
@@ -67,7 +71,7 @@ class ContentViewContext implements Context
     /**
      * @Given I add a new Location under :newLocationPath
      */
-    public function iAddNewLocation($newLocationPath): void
+    public function iAddNewLocation(string $newLocationPath): void
     {
         $newLocationPath = $this->argumentParser->replaceRootKeyword($newLocationPath);
         $this->contentViewPage->addLocation($newLocationPath);
@@ -92,10 +96,11 @@ class ContentViewContext implements Context
 
     /**
      * @Given I start creating a new User
+     * @Given I start creating a new User using :contentTypeName content type
      */
-    public function startCreatingUser(): void
+    public function startCreatingUser(string $contentTypeName = 'User'): void
     {
-        $this->contentViewPage->startCreatingUser();
+        $this->contentViewPage->startCreatingUser($contentTypeName);
     }
 
     /**
@@ -105,19 +110,6 @@ class ContentViewContext implements Context
     public function startEditingContent(string $language = null): void
     {
         $this->contentViewPage->editContent($language);
-    }
-
-    /**
-     * @Given I open UDW and go to :itemPath
-     */
-    public function iOpenUDWAndGoTo(string $itemPath): void
-    {
-        $this->leftMenu->verifyIsLoaded();
-        $this->leftMenu->browse();
-
-        $this->universalDiscoveryWidget->verifyIsLoaded();
-        $this->universalDiscoveryWidget->selectContent($this->argumentParser->replaceRootKeyword($itemPath));
-        $this->universalDiscoveryWidget->openPreview();
     }
 
     /**

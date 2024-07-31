@@ -1,68 +1,106 @@
-.ez-badge {
-    padding: calculateRem(4px);
-    font-size: calculateRem(16px);
-    text-decoration: none;
+.ibexa-badge {
+    height: calculateRem(24px);
+    padding: calculateRem(4px) calculateRem(8px) calculateRem(5px);
+    font-size: $ibexa-text-font-size-small;
+    line-height: calculateRem(16px);
+    font-weight: normal;
+    border-radius: calculateRem(16px);
+    color: $ibexa-color-black;
+    background-color: $ibexa-color-light-400;
+    border: calculateRem(1px) solid $ibexa-color-light-800;
+    white-space: nowrap;
+    display: inline-block;
 
-    &--small {
-        font-size: calculateRem(14px);
-        font-weight: 400;
-    }
+    &--status {
+        position: relative;
+        padding-left: calculateRem(20px);
+        padding-top: calculateRem(3px);
+        padding-bottom: calculateRem(3px);
+        border-width: calculateRem(1px);
+        border-style: solid;
+        background-color: transparent;
+        border-color: transparent;
 
-    &--round {
-        padding: calculateRem(8px) calculateRem(16px);
-        border-radius: calculateRem(40px);
-    }
-
-    &--icon {
-        font-weight: normal;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        background-color: $ibexa-white;
-        border: calculateRem(1px) solid $ibexa-color-base;
-        color: $ibexa-color-font;
-
-        &:hover {
-            background-color: $ibexa-color-base-medium;
-        }
-
-        .ez-icon {
+        &::before {
+            content: '';
+            position: absolute;
+            left: calculateRem(8px);
+            width: calculateRem(6px);
+            height: calculateRem(6px);
             border-radius: 50%;
-            padding: calculateRem(3px);
-            margin-left: calculateRem(8px);
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: $ibexa-color-light-700;
         }
 
-        &.badge {
-            &:hover,
-            &:focus {
-                background-color: $ibexa-color-base-medium;
-                box-shadow: none;
-                color: $ibexa-color-font;
+        &.ibexa-badge--success,
+        &.ibexa-badge--danger {
+            color: $ibexa-color-black;
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        &.ibexa-badge--success {
+            &::before {
+                background-color: $ibexa-color-success-600;
             }
         }
 
-        &.badge-info {
-            .ez-icon {
-                background-color: $ibexa-color-info;
+        &.ibexa-badge--danger {
+            &::before {
+                background-color: $ibexa-color-danger-600;
             }
         }
+    }
 
-        &.badge-success {
-            .ez-icon {
-                background-color: $ibexa-color-positive;
-            }
+    @mixin version-properties($color, $background-color, $text-color: false) {
+        @if $text-color {
+            color: $text-color;
+        } @else {
+            color: $color;
         }
+        background-color: $background-color;
+        border-color: $color;
+    }
 
-        &.badge-warning {
-            .ez-icon {
-                background-color: $ibexa-color-warning;
-            }
-        }
+    &--primary {
+        @include version-properties($ibexa-color-primary-700, $ibexa-color-primary-100);
+    }
 
-        &.badge-danger {
-            .ez-icon {
-                background-color: $ibexa-color-danger;
-            }
-        }
+    &--secondary {
+        @include version-properties($ibexa-color-light-800, $ibexa-color-light-400, $ibexa-color-black);
+    }
+
+    &--info {
+        @include version-properties($ibexa-color-info-700, $ibexa-color-info-100);
+    }
+
+    &--warning {
+        @include version-properties($ibexa-color-accent-700, $ibexa-color-accent-100);
+    }
+
+    &--danger {
+        @include version-properties($ibexa-color-danger-600, $ibexa-color-danger-100);
+    }
+
+    &--success {
+        @include version-properties($ibexa-color-success-700, $ibexa-color-success-100);
+    }
+
+    &--complementary {
+        @include version-properties($ibexa-color-complementary-700, $ibexa-color-complementary-100);
+    }
+
+    &--complementary-strong {
+        @include version-properties($ibexa-color-complementary-strong-600, $ibexa-color-complementary-strong-100);
+    }
+
+    &--custom-colors {
+        @include version-properties(var(--primary-color), var(--secondary-color));
+    }
+
+    &--ghost {
+        background-color: transparent;
+        border-color: transparent;
     }
 }

@@ -4,12 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\User\RoleUpdateStruct;
-use eZ\Publish\API\Repository\Values\ValueObject;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData;
+namespace Ibexa\AdminUi\Form\DataMapper;
+
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Form\Data\Role\RoleUpdateData;
+use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Maps between RoleUpdateStruct and RoleUpdateData objects.
@@ -19,11 +21,11 @@ class RoleUpdateMapper implements DataMapperInterface
     /**
      * Maps given RoleUpdateStruct object to a RoleUpdateData object.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\RoleUpdateStruct|\eZ\Publish\API\Repository\Values\ValueObject $value
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
      *
-     * @return \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData
+     * @return \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): RoleUpdateData
     {
@@ -41,11 +43,11 @@ class RoleUpdateMapper implements DataMapperInterface
     /**
      * Maps given RoleUpdateData object to a RoleUpdateStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData $data
      *
-     * @return \eZ\Publish\API\Repository\Values\User\RoleUpdateStruct
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): RoleUpdateStruct
     {
@@ -58,3 +60,5 @@ class RoleUpdateMapper implements DataMapperInterface
         ]);
     }
 }
+
+class_alias(RoleUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\RoleUpdateMapper');

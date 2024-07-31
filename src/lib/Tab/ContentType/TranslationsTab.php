@@ -6,34 +6,35 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\ContentType;
+namespace Ibexa\AdminUi\Tab\ContentType;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationAddData;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentType\Translation\TranslationRemoveData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData;
+use Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData;
+use Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory;
+use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    const URI_FRAGMENT = 'ez-tab-content-type-view-translations';
+    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory */
+    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
     protected $formFactory;
 
     /**
      * @param \Twig\Environment $twig
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \EzSystems\EzPlatformAdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory $formFactory
+     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory $formFactory
      */
     public function __construct(
         Environment $twig,
@@ -62,7 +63,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     public function getName(): string
     {
         /** @Desc("Translations") */
-        return $this->translator->trans('tab.name.translations', [], 'content_type');
+        return $this->translator->trans('tab.name.translations', [], 'ibexa_content_type');
     }
 
     /**
@@ -78,7 +79,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content_type/tab/translations.html.twig';
+        return '@ibexadesign/content_type/tab/translations.html.twig';
     }
 
     /**
@@ -86,11 +87,11 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
      *
      * @return mixed[]
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $contextParameters['content_type'];
         $contentTypeGroup = $contextParameters['content_type_group'];
 
@@ -123,3 +124,5 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return array_replace($contextParameters, $viewParameters);
     }
 }
+
+class_alias(TranslationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\ContentType\TranslationsTab');

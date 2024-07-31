@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
 
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Form\Type\FieldType\FloatFieldType;
+namespace Ibexa\AdminUi\FieldType\Mapper;
+
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Form\Type\FieldType\FloatFieldType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,7 +37,9 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
 
         $fieldDefinitionForm
             ->add(
-                'minValue', NumberType::class, [
+                'minValue',
+                NumberType::class,
+                [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[FloatValueValidator][minFloatValue]',
                     'label' => /** @Desc("Minimum value") */ 'field_definition.ezfloat.min_value',
@@ -43,7 +47,9 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                 ]
             )
             ->add(
-                'maxValue', NumberType::class, [
+                'maxValue',
+                NumberType::class,
+                [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[FloatValueValidator][maxFloatValue]',
                     'label' => /** @Desc("Maximum value") */ 'field_definition.ezfloat.max_value',
@@ -57,7 +63,9 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }
+
+class_alias(FloatFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\FloatFormMapper');

@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\UniversalDiscoveryWidget;
 
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\LocationType;
+namespace Ibexa\AdminUi\Form\Type\UniversalDiscoveryWidget;
+
+use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -18,8 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UniversalDiscoveryWidgetType extends AbstractType
 {
-    const TAB_BROWSE = 'browse';
-    const TAB_SEARCH = 'search';
+    public const TAB_BROWSE = 'browse';
+    public const TAB_SEARCH = 'search';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -60,7 +61,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
             $selectContentButtonView->vars['attr']['class'] = '';
         }
 
-        $selectContentButtonView->vars['attr']['class'] = trim($selectContentButtonView->vars['attr']['class'] . ' btn--open-udw');
+        $selectContentButtonView->vars['attr']['class'] = trim($selectContentButtonView->vars['attr']['class'] . ' ibexa-btn--open-udw');
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -112,3 +113,5 @@ class UniversalDiscoveryWidgetType extends AbstractType
         );
     }
 }
+
+class_alias(UniversalDiscoveryWidgetType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UniversalDiscoveryWidget\UniversalDiscoveryWidgetType');

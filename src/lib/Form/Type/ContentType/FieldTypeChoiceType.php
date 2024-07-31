@@ -4,9 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ContentType;
 
-use eZ\Publish\Core\FieldType\FieldTypeRegistry;
+namespace Ibexa\AdminUi\Form\Type\ContentType;
+
+use Ibexa\Core\FieldType\FieldTypeRegistry;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class FieldTypeChoiceType extends AbstractType
 {
     /**
-     * @var \eZ\Publish\Core\FieldType\FieldTypeRegistry
+     * @var \Ibexa\Core\FieldType\FieldTypeRegistry
      */
     private $fieldTypeRegistry;
 
@@ -81,6 +83,12 @@ class FieldTypeChoiceType extends AbstractType
      */
     private function getFieldTypeLabel($fieldTypeIdentifier)
     {
-        return $this->translator->trans(/** @Ignore */$fieldTypeIdentifier . '.name', [], 'fieldtypes');
+        return $this->translator->trans(/** @Ignore */
+            $fieldTypeIdentifier . '.name',
+            [],
+            'ibexa_fieldtypes'
+        );
     }
 }
+
+class_alias(FieldTypeChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\FieldTypeChoiceType');

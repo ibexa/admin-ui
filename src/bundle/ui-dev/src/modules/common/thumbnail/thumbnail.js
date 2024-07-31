@@ -11,7 +11,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => 
 
         return (
             <div className="c-thumbnail__icon-wrapper">
-                <Icon extraClasses="ez-icon--small" customPath={contentTypeIconPath} />
+                <Icon extraClasses="ibexa-icon--small" customPath={contentTypeIconPath} />
             </div>
         );
     };
@@ -27,7 +27,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => 
     return (
         <div className="c-thumbnail">
             {renderContentTypeIcon()}
-            <img src={thumbnailData.resource} />
+            <img className="c-thumbnail__image" src={thumbnailData.resource} />
         </div>
     );
 };

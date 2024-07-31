@@ -7,8 +7,11 @@ import TreeView from './components/tree-view/tree.view';
 
 import { CurrentViewContext, TabsConfigContext } from './universal.discovery.module';
 
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+
 const BrowseTabModule = () => {
-    const [currentView, setCurrentView] = useContext(CurrentViewContext);
+    const [currentView] = useContext(CurrentViewContext);
     const tabsConfig = useContext(TabsConfigContext);
     const views = {
         grid: <GridView itemsPerPage={tabsConfig.browse.itemsPerPage} />,
@@ -23,17 +26,15 @@ const BrowseTabModule = () => {
     );
 };
 
-eZ.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'browse',
-            component: BrowseTabModule,
-            label: Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('browse'),
-        },
-    ],
-    true
-);
+export const BrowseTab = {
+    id: 'browse',
+    component: BrowseTabModule,
+    getLabel: () => {
+        const Translator = getTranslator();
+
+        return Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget');
+    },
+    getIcon: () => getIconPath('browse'),
+};
 
 export default BrowseTabModule;

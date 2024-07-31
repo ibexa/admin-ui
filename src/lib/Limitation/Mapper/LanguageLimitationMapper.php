@@ -4,21 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+namespace Ibexa\AdminUi\Limitation\Mapper;
+
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @var \eZ\Publish\API\Repository\LanguageService
+     * @var \Ibexa\Contracts\Core\Repository\LanguageService
      */
     private $languageService;
 
@@ -52,4 +56,16 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
 
         return $values;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('language'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Language'),
+        ];
+    }
 }
+
+class_alias(LanguageLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\LanguageLimitationMapper');

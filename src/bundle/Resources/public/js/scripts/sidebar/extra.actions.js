@@ -1,88 +1,104 @@
-(function(global, doc) {
-    const CLASS_HIDDEN = 'ez-extra-actions--hidden';
-    const CLASS_EXPANDED = 'ez-context-menu--expanded';
-    const CLASS_ACTIVE_BUTTON = 'ez-btn--active-button';
-    const CLASS_PREVENT_SHOW = 'ez-extra-actions--prevent-show';
-    const ACTIONS_CONTAINER_MARGIN = 8;
-    const RESIZE_AND_SCROLL_TIMEOUT = 50;
-    const btns = [...doc.querySelectorAll('.ez-btn--extra-actions')];
-    const menu = doc.querySelector('.ez-context-menu');
-    const footer = doc.querySelector('.ez-footer');
-    let containerHeightTimeout;
+(function (global, doc, ibexa) {
+    const CLASS_HIDDEN = 'ibexa-extra-actions--hidden';
+    const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
+    const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
+    const closeBtns = doc.querySelectorAll(
+        '.ibexa-extra-actions .ibexa-btn--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel',
+    );
+    const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
+    const menu = doc.querySelector('.ibexa-context-menu');
+    const backdrop = new ibexa.core.Backdrop();
     const haveHiddenPart = (element) => element.classList.contains(CLASS_HIDDEN) && !element.classList.contains(CLASS_PREVENT_SHOW);
-    const setContainerHeight = () => {
-        const container = doc.querySelector('.ez-extra-actions:not(.ez-extra-actions--hidden)');
-        const bottomPosition = footer ? Math.min(footer.getBoundingClientRect().top, global.innerHeight) : global.innerHeight;
-        const containerHeight = bottomPosition - container.getBoundingClientRect().top - ACTIONS_CONTAINER_MARGIN;
+    const removeBackdrop = () => {
+        backdrop.hide();
+        doc.body.classList.remove('ibexa-scroll-disabled');
+    };
+    const closeExtraActions = (actions) => {
+        actions.classList.add(CLASS_HIDDEN);
 
-        container.style.height = `${containerHeight}px`;
-    };
-    const setContainerHeightTimeout = () => {
-        clearTimeout(containerHeightTimeout);
+        if (menu) {
+            menu.classList.remove(CLASS_EXPANDED);
+        }
 
-        containerHeightTimeout = setTimeout(setContainerHeight, RESIZE_AND_SCROLL_TIMEOUT);
+        doc.body.dispatchEvent(new CustomEvent('ibexa-extra-actions:after-close'));
+
+        removeBackdrop();
     };
-    const addContainerHeightListeners = () => {
-        global.addEventListener('scroll', setContainerHeightTimeout, false);
-        global.addEventListener('resize', setContainerHeightTimeout, false);
+    const toggleExtraActionsWidget = (widgetData) => {
+        const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${widgetData.actions}"]`);
+
+        if (widgetData.validate && !parseInt(widgetData.isFormValid, 10)) {
+            return;
+        }
+
+        const isHidden = haveHiddenPart(actions);
+        const focusElement = actions.querySelector(widgetData.focusElement);
+        const detectClickOutside = (event) => {
+            if (event.target.classList.contains('ibexa-backdrop')) {
+                closeExtraActions(actions);
+                doc.body.removeEventListener('click', detectClickOutside, false);
+            }
+        };
+
+        actions.classList.toggle(CLASS_HIDDEN, !isHidden);
+
+        if (menu) {
+            menu.classList.toggle(CLASS_EXPANDED, isHidden);
+        }
+
+        if (!actions.classList.contains(CLASS_HIDDEN)) {
+            backdrop.show();
+            doc.body.addEventListener('click', detectClickOutside, false);
+            doc.body.classList.add('ibexa-scroll-disabled');
+        } else {
+            doc.body.removeEventListener('click', detectClickOutside);
+            removeBackdrop();
+        }
+
+        if (focusElement) {
+            focusElement.focus();
+        }
     };
-    const removeContainerHeightListeners = () => {
-        global.removeEventListener('scroll', setContainerHeightTimeout, false);
-        global.removeEventListener('resize', setContainerHeightTimeout, false);
+    const initExtraActionsWidget = (dataset) => {
+        const hashes = window.location.hash.split('#');
+
+        if (hashes.includes(dataset.actions)) {
+            toggleExtraActionsWidget(dataset);
+        }
+    };
+    const hideMenu = (btn) => {
+        const menuBranch = btn.closest('.ibexa-multilevel-popup-menu__branch');
+
+        if (!menuBranch?.menuInstanceElement) {
+            return;
+        }
+
+        const menuInstance = ibexa.helpers.objectInstances.getInstance(menuBranch.menuInstanceElement);
+
+        menuInstance.closeMenu();
     };
 
     btns.forEach((btn) => {
+        const { dataset } = btn;
+
         btn.addEventListener(
             'click',
             () => {
-                const actions = doc.querySelector(`.ez-extra-actions[data-actions="${btn.dataset.actions}"]`);
-
-                if (btn.dataset.validate && !parseInt(btn.dataset.isFormValid, 10)) {
-                    return;
-                }
-
-                const isHidden = haveHiddenPart(actions);
-                const methodNameButton = isHidden ? 'add' : 'remove';
-                const methodNameContainer = isHidden ? 'remove' : 'add';
-                const methodNameMenu = isHidden ? 'add' : 'remove';
-                const focusElement = actions.querySelector(btn.dataset.focusElement);
-                const detectClickOutside = (event) => {
-                    const isNotButton = !btn.contains(event.target);
-                    const shouldCollapseMenu = !btns.includes(event.target);
-                    const isNotExtraActions = !event.target.closest('.ez-extra-actions');
-                    const isNotCalendar = !event.target.closest('.flatpickr-calendar');
-
-                    if (isNotButton && isNotExtraActions && isNotCalendar) {
-                        btn.classList.remove(CLASS_ACTIVE_BUTTON);
-                        actions.classList.add(CLASS_HIDDEN);
-
-                        if (shouldCollapseMenu) {
-                            menu.classList.remove(CLASS_EXPANDED);
-                        }
-
-                        doc.body.removeEventListener('click', detectClickOutside, false);
-                        removeContainerHeightListeners();
-                    }
-                };
-
-                btn.classList[methodNameButton](CLASS_ACTIVE_BUTTON);
-                actions.classList[methodNameContainer](CLASS_HIDDEN);
-                menu.classList[methodNameMenu](CLASS_EXPANDED);
-
-                if (!actions.classList.contains(CLASS_HIDDEN)) {
-                    doc.body.addEventListener('click', detectClickOutside, false);
-                    setContainerHeight();
-                    addContainerHeightListeners();
-                } else {
-                    doc.body.removeEventListener('click', detectClickOutside);
-                    removeContainerHeightListeners();
-                }
-
-                if (focusElement) {
-                    focusElement.focus();
-                }
+                toggleExtraActionsWidget(dataset);
+                hideMenu(btn);
             },
-            false
+            false,
         );
+        initExtraActionsWidget(dataset);
     });
-})(window, window.document);
+    doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
+    closeBtns.forEach((closeBtn) =>
+        closeBtn.addEventListener(
+            'click',
+            (event) => {
+                closeExtraActions(event.currentTarget.closest('.ibexa-extra-actions'));
+            },
+            false,
+        ),
+    );
+})(window, window.document, window.ibexa);

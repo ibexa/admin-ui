@@ -1,6 +1,7 @@
-import React, { useEffect, useState, createContext } from 'react';
+import React, { useEffect, useCallback, useState, createContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import Icon from '../common/icon/icon';
 import deepClone from '../common/helpers/deep.clone.helper';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import { useLoadedLocationsReducer } from './hooks/useLoadedLocationsReducer';
@@ -13,49 +14,154 @@ import {
     loadLocationsWithPermissions,
 } from './services/universal.discovery.service';
 
-const CLASS_SCROLL_DISABLED = 'ez-scroll-disabled';
+import {
+    parse as parseTooltips,
+    hideAll as hideAllTooltips,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import {
+    getAdminUiConfig,
+    getTranslator,
+    SYSTEM_ROOT_LOCATION_ID,
+} from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
+const { document } = window;
+const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
+const defaultRestInfo = {
+    accsessToken: null,
+    instanceUrl: window.location.origin,
+    token: document.querySelector('meta[name="CSRF-Token"]')?.content,
+    siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
+};
 
 export const SORTING_OPTIONS = [
     {
-        label: Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'universal_discovery_widget'),
-        tooltipLabel: Translator.trans(/*@Desc("Sort by Date")*/ 'sorting.date.tooltip', {}, 'universal_discovery_widget'),
+        value: 'date:asc',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
+        selectedLabel: () => {
+            const Translator = getTranslator();
+
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
         sortClause: 'DatePublished',
+        sortOrder: 'ascending',
     },
     {
-        label: Translator.trans(/*@Desc("Name")*/ 'sorting.name.label', {}, 'universal_discovery_widget'),
-        tooltipLabel: Translator.trans(/*@Desc("Sort by Name")*/ 'sorting.name.tooltip', {}, 'universal_discovery_widget'),
+        value: 'date:desc',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
+        selectedLabel: () => {
+            const Translator = getTranslator();
+
+            return (
+                <div className="c-simple-dropdown__option-label">
+                    {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
+                </div>
+            );
+        },
+        sortClause: 'DatePublished',
+        sortOrder: 'descending',
+    },
+    {
+        value: 'name:asc',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget');
+        },
+        selectedLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(
+                /*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
+        },
         sortClause: 'ContentName',
+        sortOrder: 'ascending',
+    },
+    {
+        value: 'name:desc',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget');
+        },
+        selectedLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(
+                /*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
+        },
+        sortClause: 'ContentName',
+        sortOrder: 'descending',
     },
 ];
+
 export const VIEWS = [
     {
-        id: 'grid',
-        icon: 'view-grid',
-        tooltipLabel: Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'universal_discovery_widget'),
+        value: 'finder',
+        iconName: 'panels',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget');
+        },
     },
     {
-        id: 'finder',
-        icon: 'panels',
-        tooltipLabel: Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'universal_discovery_widget'),
+        value: 'grid',
+        iconName: 'view-grid',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget');
+        },
     },
     {
-        id: 'tree',
-        icon: 'content-tree',
-        tooltipLabel: Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'universal_discovery_widget'),
+        value: 'tree',
+        iconName: 'content-tree',
+        getLabel: () => {
+            const Translator = getTranslator();
+
+            return Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget');
+        },
     },
 ];
 
-const restInfo = {
-    token: document.querySelector('meta[name="CSRF-Token"]').content,
-    siteaccess: document.querySelector('meta[name="SiteAccess"]').content,
+export const SNACKBAR_ACTIONS = {
+    INSERT: 'insert',
+    DUPLICATE: 'duplicate',
+    EDIT: 'edit',
+    DOWNLOAD: 'download',
+    DELETE: 'delete',
+    TOGGLE_SELECTION: 'toggleSelection',
 };
-const contentTypesMap = Object.values(eZ.adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
-    contentTypesGroup.forEach((contentType) => {
-        contentTypesMap[contentType.href] = contentType;
-    });
-
-    return contentTypesMap;
-}, {});
 
 export const UDWContext = createContext();
 export const RestInfoContext = createContext();
@@ -84,11 +190,28 @@ export const ContentOnTheFlyDataContext = createContext();
 export const ContentOnTheFlyConfigContext = createContext();
 export const EditOnTheFlyDataContext = createContext();
 export const BlockFetchLocationHookContext = createContext();
+export const SearchTextContext = createContext();
+export const DropdownPortalRefContext = createContext();
+export const SuggestionsStorageContext = createContext();
+export const GridActiveLocationIdContext = createContext();
+export const SnackbarActionsContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
-    const tabs = window.eZ.adminUiConfig.universalDiscoveryWidget.tabs;
+    const { restInfo } = props;
+    const adminUiConfig = getAdminUiConfig();
+    const { tabs } = adminUiConfig.universalDiscoveryWidget;
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
-    const [activeTab, setActiveTab] = useState(props.activeTab);
+    const abortControllerRef = useRef();
+    const dropdownPortalRef = useRef();
+    const [{ activeTab, previousActiveTab }, setActiveTabsData] = useState({
+        activeTab: props.activeTab,
+        previousActiveTab: null,
+    });
+    const setActiveTab = (activeTabNew) =>
+        setActiveTabsData(({ activeTab: activeTabOld }) => ({
+            activeTab: activeTabNew,
+            previousActiveTab: activeTabOld,
+        }));
     const [sorting, setSorting] = useState(props.activeSortClause);
     const [sortOrder, setSortOrder] = useState(props.activeSortOrder);
     const [currentView, setCurrentView] = useState(props.activeView);
@@ -98,8 +221,11 @@ const UniversalDiscoveryModule = (props) => {
     const [editOnTheFlyData, setEditOnTheFlyData] = useState({});
     const [contentTypesInfoMap, setContentTypesInfoMap] = useState({});
     const [isFetchLocationHookBlocked, setIsFetchLocationHookBlocked] = useState(
-        props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId
+        props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId,
     );
+    const [searchText, setSearchText] = useState('');
+    const [suggestionsStorage, setSuggestionsStorage] = useState({});
+    const [gridActiveLocationId, setGridActiveLocationId] = useState(markedLocationId);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useLoadedLocationsReducer([
         { parentLocationId: props.rootLocationId, subitems: [] },
     ]);
@@ -110,38 +236,80 @@ const UniversalDiscoveryModule = (props) => {
         'm-ud': true,
         'm-ud--locations-selected': !!selectedLocations.length && props.allowConfirmation,
     });
-    const onConfirm = (selectedItems = selectedLocations) => {
-        const updatedLocations = selectedItems.map((selectedItem) => {
-            const clonedLocation = deepClone(selectedItem.location);
-            const contentType = clonedLocation.ContentInfo.Content.ContentType;
+    const loadPermissions = () => {
+        const locationIds = selectedLocations
+            .filter((item) => !item.permissions)
+            .map((item) => item.location.id)
+            .join(',');
 
-            clonedLocation.ContentInfo.Content.ContentTypeInfo = contentTypesInfoMap[contentType._href];
+        if (!locationIds) {
+            return Promise.resolve([]);
+        }
 
-            return clonedLocation;
-        });
-
-        props.onConfirm(updatedLocations);
-    };
-    const addPermissionsToSelectedLocations = (response) => {
-        const clonedSelectedLocation = deepClone(selectedLocations);
-
-        response.forEach((item) => {
-            const locationWithoutPermissions = clonedSelectedLocation.find(
-                (selectedItem) => selectedItem.location.id === item.location.Location.id
+        return new Promise((resolve) => {
+            loadLocationsWithPermissions({ ...restInfo, locationIds, signal: abortControllerRef.current.signal }, (response) =>
+                resolve(response),
             );
-
-            if (locationWithoutPermissions) {
-                locationWithoutPermissions.permissions = item.permissions;
-            }
-        });
-
-        dispatchSelectedLocationsAction({
-            type: 'REPLACE_SELECTED_LOCATIONS',
-            locations: clonedSelectedLocation,
         });
     };
+    const loadVersions = (signal = null) => {
+        const locationsWithoutVersion = selectedLocations.filter(
+            (selectedItem) => !selectedItem.location.ContentInfo.Content.CurrentVersion.Version,
+        );
+
+        if (!locationsWithoutVersion.length) {
+            return Promise.resolve([]);
+        }
+
+        const contentId = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
+
+        return new Promise((resolve) => {
+            loadContentInfo({ ...restInfo, contentId, signal }, (response) => resolve(response));
+        });
+    };
+    const contentTypesMapGlobal = Object.values(adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
+        contentTypesGroup.forEach((contentType) => {
+            contentTypesMap[contentType.href] = contentType;
+        });
+
+        return contentTypesMap;
+    }, {});
+    const onConfirm = useCallback(
+        (selectedItems = selectedLocations) => {
+            loadVersions().then((locationsWithVersions) => {
+                const clonedSelectedLocation = deepClone(selectedItems);
+
+                if (Array.isArray(locationsWithVersions)) {
+                    locationsWithVersions.forEach((content) => {
+                        const clonedLocation = clonedSelectedLocation.find(
+                            (clonedItem) => clonedItem.location.ContentInfo.Content._id === content._id,
+                        );
+
+                        if (clonedLocation) {
+                            clonedLocation.location.ContentInfo.Content.CurrentVersion.Version = content.CurrentVersion.Version;
+                        }
+                    });
+                }
+
+                const updatedLocations = clonedSelectedLocation.map((selectedItem) => {
+                    const clonedLocation = deepClone(selectedItem.location);
+                    const contentType = clonedLocation.ContentInfo.Content.ContentType;
+
+                    clonedLocation.ContentInfo.Content.ContentTypeInfo = contentTypesInfoMap[contentType._href];
+
+                    return clonedLocation;
+                });
+
+                props.onConfirm(updatedLocations);
+            });
+        },
+        [selectedLocations, contentTypesInfoMap],
+    );
 
     useEffect(() => {
+        const addContentTypesInfo = (contentTypes) => {
+            setContentTypesInfoMap((prevState) => ({ ...prevState, ...contentTypes }));
+        };
         const handleLoadContentTypes = (response) => {
             const contentTypesMap = response.ContentTypeInfoList.ContentType.reduce((contentTypesList, item) => {
                 contentTypesList[item._href] = item;
@@ -149,15 +317,20 @@ const UniversalDiscoveryModule = (props) => {
                 return contentTypesList;
             }, {});
 
-            setContentTypesInfoMap(contentTypesMap);
+            addContentTypesInfo(contentTypesMap);
         };
 
+        adminUiConfig.universalDiscoveryWidget.contentTypesLoaders?.forEach((contentTypesLoader) =>
+            contentTypesLoader(addContentTypesInfo),
+        );
+
         loadContentTypes(restInfo, handleLoadContentTypes);
-        window.document.body.dispatchEvent(new CustomEvent('ez-udw-opened'));
-        window.eZ.helpers.tooltips.parse(window.document.querySelector('.c-udw-tab'));
+        document.body.dispatchEvent(new CustomEvent('ibexa-udw-opened'));
+        parseTooltips(document.querySelector('.c-udw-tab'));
 
         return () => {
-            window.document.body.dispatchEvent(new CustomEvent('ez-udw-closed'));
+            document.body.dispatchEvent(new CustomEvent('ibexa-udw-closed'));
+            hideAllTooltips();
         };
     }, []);
 
@@ -168,7 +341,7 @@ const UniversalDiscoveryModule = (props) => {
 
         findLocationsById({ ...restInfo, id: props.selectedLocations.join(','), limit: props.selectedLocations.length }, (locations) => {
             const mappedLocation = props.selectedLocations.map((locationId) => {
-                const location = locations.find((location) => location.id === parseInt(locationId, 10));
+                const location = locations.find(({ id }) => id === parseInt(locationId, 10));
 
                 return { location };
             });
@@ -178,63 +351,62 @@ const UniversalDiscoveryModule = (props) => {
     }, [props.selectedLocations]);
 
     useEffect(() => {
-        const locationIds = selectedLocations
-            .filter((item) => !item.permissions)
-            .map((item) => item.location.id)
-            .join(',');
+        abortControllerRef.current?.abort();
+        abortControllerRef.current = new AbortController();
 
-        if (!locationIds) {
-            return;
-        }
+        Promise.all([loadPermissions(), loadVersions(abortControllerRef.current.signal)]).then((response) => {
+            const [locationsWithPermissions, locationsWithVersions] = response;
 
-        loadLocationsWithPermissions({ locationIds }, addPermissionsToSelectedLocations);
-    }, [selectedLocations]);
-
-    useEffect(() => {
-        const locationsWithoutVersion = selectedLocations.filter(
-            (selectedItem) => !selectedItem.location.ContentInfo.Content.CurrentVersion.Version
-        );
-
-        if (!locationsWithoutVersion.length) {
-            return;
-        }
-
-        const contentId = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
-
-        loadContentInfo(
-            {
-                ...restInfo,
-                contentId,
-            },
-            (response) => {
-                const clonedLocations = selectedLocations;
-
-                response.forEach((content) => {
-                    const clonedLocation = clonedLocations.find(
-                        (clonedItem) => clonedItem.location.ContentInfo.Content._id === content._id
-                    );
-
-                    if (clonedLocation) {
-                        clonedLocation.location.ContentInfo.Content.CurrentVersion.Version = content.CurrentVersion.Version;
-                    }
-                });
-
-                dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: clonedLocations });
+            if (!locationsWithPermissions.length && !locationsWithVersions.length) {
+                return;
             }
-        );
-    }, [selectedLocations]);
 
-    useEffect(() => {
-        window.document.body.classList.add(CLASS_SCROLL_DISABLED);
+            const clonedSelectedLocation = deepClone(selectedLocations);
+
+            locationsWithPermissions.LocationList.locations.forEach((item) => {
+                const locationWithoutPermissions = clonedSelectedLocation.find(
+                    (selectedItem) => selectedItem.location.id === item.location.Location.id,
+                );
+
+                if (locationWithoutPermissions) {
+                    locationWithoutPermissions.permissions = item.permissions;
+                }
+            });
+
+            locationsWithVersions.forEach((content) => {
+                const clonedLocation = clonedSelectedLocation.find(
+                    (clonedItem) => clonedItem.location.ContentInfo.Content._id === content._id,
+                );
+
+                if (clonedLocation) {
+                    clonedLocation.location.ContentInfo.Content.CurrentVersion.Version = content.CurrentVersion.Version;
+                }
+            });
+
+            dispatchSelectedLocationsAction({
+                type: 'REPLACE_SELECTED_LOCATIONS',
+                locations: clonedSelectedLocation,
+            });
+        });
 
         return () => {
-            window.document.body.classList.remove(CLASS_SCROLL_DISABLED);
+            abortControllerRef.current?.abort();
+        };
+    }, [selectedLocations]);
+
+    useEffect(() => {
+        document.body.classList.add(CLASS_SCROLL_DISABLED);
+
+        return () => {
+            document.body.classList.remove(CLASS_SCROLL_DISABLED);
         };
     });
 
     useEffect(() => {
         if (currentView === 'grid') {
-            loadedLocationsMap[loadedLocationsMap.length - 1].subitems = [];
+            if (loadedLocationsMap[loadedLocationsMap.length - 1]) {
+                loadedLocationsMap[loadedLocationsMap.length - 1].subitems = [];
+            }
 
             dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: loadedLocationsMap });
         } else if (
@@ -248,7 +420,11 @@ const UniversalDiscoveryModule = (props) => {
     }, [currentView]);
 
     useEffect(() => {
-        if (!props.startingLocationId || props.startingLocationId === 1) {
+        if (
+            !props.startingLocationId ||
+            props.startingLocationId === SYSTEM_ROOT_LOCATION_ID ||
+            props.startingLocationId === props.rootLocationId
+        ) {
             return;
         }
 
@@ -265,7 +441,7 @@ const UniversalDiscoveryModule = (props) => {
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
                 setMarkedLocationId(props.startingLocationId);
                 setIsFetchLocationHookBlocked(false);
-            }
+            },
         );
     }, [props.startingLocationId]);
 
@@ -279,6 +455,12 @@ const UniversalDiscoveryModule = (props) => {
         dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
     }, [sorting, sortOrder]);
 
+    useEffect(() => {
+        if (currentView === 'grid') {
+            setGridActiveLocationId(markedLocationId);
+        }
+    }, [currentView]);
+
     return (
         <div className={className}>
             <UDWContext.Provider value={true}>
@@ -287,72 +469,116 @@ const UniversalDiscoveryModule = (props) => {
                         <AllowRedirectsContext.Provider value={props.allowRedirects}>
                             <AllowConfirmationContext.Provider value={props.allowConfirmation}>
                                 <ContentTypesInfoMapContext.Provider value={contentTypesInfoMap}>
-                                    <ContentTypesMapContext.Provider value={contentTypesMap}>
+                                    <ContentTypesMapContext.Provider value={contentTypesMapGlobal}>
                                         <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
                                             <ContainersOnlyContext.Provider value={props.containersOnly}>
                                                 <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
-                                                    <ActiveTabContext.Provider value={[activeTab, setActiveTab]}>
-                                                        <TabsContext.Provider value={tabs}>
-                                                            <TabsConfigContext.Provider value={props.tabsConfig}>
-                                                                <TitleContext.Provider value={props.title}>
-                                                                    <CancelContext.Provider value={props.onCancel}>
-                                                                        <ConfirmContext.Provider value={onConfirm}>
-                                                                            <SortingContext.Provider value={[sorting, setSorting]}>
-                                                                                <SortOrderContext.Provider
-                                                                                    value={[sortOrder, setSortOrder]}>
-                                                                                    <CurrentViewContext.Provider
-                                                                                        value={[currentView, setCurrentView]}>
-                                                                                        <MarkedLocationIdContext.Provider
-                                                                                            value={[markedLocationId, setMarkedLocationId]}>
-                                                                                            <LoadedLocationsMapContext.Provider
+                                                    <SnackbarActionsContext.Provider value={props.snackbarEnabledActions}>
+                                                        <ActiveTabContext.Provider
+                                                            value={[activeTab, setActiveTab, previousActiveTab, props.activeTab]}
+                                                        >
+                                                            <TabsContext.Provider value={tabs}>
+                                                                <TabsConfigContext.Provider value={props.tabsConfig}>
+                                                                    <TitleContext.Provider value={props.title}>
+                                                                        <CancelContext.Provider value={props.onCancel}>
+                                                                            <ConfirmContext.Provider value={onConfirm}>
+                                                                                <SortingContext.Provider value={[sorting, setSorting]}>
+                                                                                    <SortOrderContext.Provider
+                                                                                        value={[sortOrder, setSortOrder]}
+                                                                                    >
+                                                                                        <CurrentViewContext.Provider
+                                                                                            value={[currentView, setCurrentView]}
+                                                                                        >
+                                                                                            <MarkedLocationIdContext.Provider
                                                                                                 value={[
-                                                                                                    loadedLocationsMap,
-                                                                                                    dispatchLoadedLocationsAction,
-                                                                                                ]}>
-                                                                                                <RootLocationIdContext.Provider
-                                                                                                    value={props.rootLocationId}>
-                                                                                                    <SelectedLocationsContext.Provider
+                                                                                                    markedLocationId,
+                                                                                                    setMarkedLocationId,
+                                                                                                ]}
+                                                                                            >
+                                                                                                <GridActiveLocationIdContext.Provider
+                                                                                                    value={[
+                                                                                                        gridActiveLocationId,
+                                                                                                        setGridActiveLocationId,
+                                                                                                    ]}
+                                                                                                >
+                                                                                                    <LoadedLocationsMapContext.Provider
                                                                                                         value={[
-                                                                                                            selectedLocations,
-                                                                                                            dispatchSelectedLocationsAction,
-                                                                                                        ]}>
-                                                                                                        <CreateContentWidgetContext.Provider
-                                                                                                            value={[
-                                                                                                                createContentVisible,
-                                                                                                                setCreateContentVisible,
-                                                                                                            ]}>
-                                                                                                            <ContentOnTheFlyDataContext.Provider
+                                                                                                            loadedLocationsMap,
+                                                                                                            dispatchLoadedLocationsAction,
+                                                                                                        ]}
+                                                                                                    >
+                                                                                                        <RootLocationIdContext.Provider
+                                                                                                            value={props.rootLocationId}
+                                                                                                        >
+                                                                                                            <SelectedLocationsContext.Provider
                                                                                                                 value={[
-                                                                                                                    contentOnTheFlyData,
-                                                                                                                    setContentOnTheFlyData,
-                                                                                                                ]}>
-                                                                                                                <ContentOnTheFlyConfigContext.Provider
-                                                                                                                    value={
-                                                                                                                        props.contentOnTheFly
-                                                                                                                    }>
-                                                                                                                    <EditOnTheFlyDataContext.Provider
+                                                                                                                    selectedLocations,
+                                                                                                                    dispatchSelectedLocationsAction,
+                                                                                                                ]}
+                                                                                                            >
+                                                                                                                <CreateContentWidgetContext.Provider
+                                                                                                                    value={[
+                                                                                                                        createContentVisible,
+                                                                                                                        setCreateContentVisible,
+                                                                                                                    ]}
+                                                                                                                >
+                                                                                                                    <SuggestionsStorageContext.Provider
                                                                                                                         value={[
-                                                                                                                            editOnTheFlyData,
-                                                                                                                            setEditOnTheFlyData,
-                                                                                                                        ]}>
-                                                                                                                        <Tab />
-                                                                                                                    </EditOnTheFlyDataContext.Provider>
-                                                                                                                </ContentOnTheFlyConfigContext.Provider>
-                                                                                                            </ContentOnTheFlyDataContext.Provider>
-                                                                                                        </CreateContentWidgetContext.Provider>
-                                                                                                    </SelectedLocationsContext.Provider>
-                                                                                                </RootLocationIdContext.Provider>
-                                                                                            </LoadedLocationsMapContext.Provider>
-                                                                                        </MarkedLocationIdContext.Provider>
-                                                                                    </CurrentViewContext.Provider>
-                                                                                </SortOrderContext.Provider>
-                                                                            </SortingContext.Provider>
-                                                                        </ConfirmContext.Provider>
-                                                                    </CancelContext.Provider>
-                                                                </TitleContext.Provider>
-                                                            </TabsConfigContext.Provider>
-                                                        </TabsContext.Provider>
-                                                    </ActiveTabContext.Provider>
+                                                                                                                            suggestionsStorage,
+                                                                                                                            setSuggestionsStorage,
+                                                                                                                        ]}
+                                                                                                                    >
+                                                                                                                        <ContentOnTheFlyDataContext.Provider
+                                                                                                                            value={[
+                                                                                                                                contentOnTheFlyData,
+                                                                                                                                setContentOnTheFlyData,
+                                                                                                                            ]}
+                                                                                                                        >
+                                                                                                                            <ContentOnTheFlyConfigContext.Provider
+                                                                                                                                value={
+                                                                                                                                    props.contentOnTheFly
+                                                                                                                                }
+                                                                                                                            >
+                                                                                                                                <EditOnTheFlyDataContext.Provider
+                                                                                                                                    value={[
+                                                                                                                                        editOnTheFlyData,
+                                                                                                                                        setEditOnTheFlyData,
+                                                                                                                                    ]}
+                                                                                                                                >
+                                                                                                                                    <SearchTextContext.Provider
+                                                                                                                                        value={[
+                                                                                                                                            searchText,
+                                                                                                                                            setSearchText,
+                                                                                                                                        ]}
+                                                                                                                                    >
+                                                                                                                                        <DropdownPortalRefContext.Provider
+                                                                                                                                            value={
+                                                                                                                                                dropdownPortalRef
+                                                                                                                                            }
+                                                                                                                                        >
+                                                                                                                                            <Tab />
+                                                                                                                                        </DropdownPortalRefContext.Provider>
+                                                                                                                                    </SearchTextContext.Provider>
+                                                                                                                                </EditOnTheFlyDataContext.Provider>
+                                                                                                                            </ContentOnTheFlyConfigContext.Provider>
+                                                                                                                        </ContentOnTheFlyDataContext.Provider>
+                                                                                                                    </SuggestionsStorageContext.Provider>
+                                                                                                                </CreateContentWidgetContext.Provider>
+                                                                                                            </SelectedLocationsContext.Provider>
+                                                                                                        </RootLocationIdContext.Provider>
+                                                                                                    </LoadedLocationsMapContext.Provider>
+                                                                                                </GridActiveLocationIdContext.Provider>
+                                                                                            </MarkedLocationIdContext.Provider>
+                                                                                        </CurrentViewContext.Provider>
+                                                                                    </SortOrderContext.Provider>
+                                                                                </SortingContext.Provider>
+                                                                            </ConfirmContext.Provider>
+                                                                        </CancelContext.Provider>
+                                                                    </TitleContext.Provider>
+                                                                </TabsConfigContext.Provider>
+                                                            </TabsContext.Provider>
+                                                        </ActiveTabContext.Provider>
+                                                    </SnackbarActionsContext.Provider>
                                                 </AllowedContentTypesContext.Provider>
                                             </ContainersOnlyContext.Provider>
                                         </MultipleConfigContext.Provider>
@@ -365,11 +591,12 @@ const UniversalDiscoveryModule = (props) => {
             </UDWContext.Provider>
         </div>
     );
+    /* eslint-enable max-len */
 };
 
 UniversalDiscoveryModule.propTypes = {
     onConfirm: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
     title: PropTypes.string.isRequired,
     activeTab: PropTypes.string,
     rootLocationId: PropTypes.number,
@@ -394,14 +621,22 @@ UniversalDiscoveryModule.propTypes = {
             itemsPerPage: PropTypes.number.isRequired,
             priority: PropTypes.number.isRequired,
             hidden: PropTypes.bool.isRequired,
-        })
+        }),
     ).isRequired,
     selectedLocations: PropTypes.array,
     allowRedirects: PropTypes.bool.isRequired,
     allowConfirmation: PropTypes.bool.isRequired,
+    restInfo: PropTypes.shape({
+        token: PropTypes.string,
+        siteaccess: PropTypes.string,
+        accsessToken: PropTypes.string,
+        instanceUrl: PropTypes.string,
+    }),
+    snackbarEnabledActions: PropTypes.array,
 };
 
 UniversalDiscoveryModule.defaultProps = {
+    onCancel: null,
     activeTab: 'browse',
     rootLocationId: 1,
     startingLocationId: null,
@@ -411,10 +646,9 @@ UniversalDiscoveryModule.defaultProps = {
     activeSortClause: 'date',
     activeSortOrder: 'ascending',
     activeView: 'finder',
-    tabs: window.eZ.adminUiConfig.universalDiscoveryWidget.tabs,
     selectedLocations: [],
+    restInfo: defaultRestInfo,
+    snackbarEnabledActions: Object.values(SNACKBAR_ACTIONS),
 };
-
-eZ.addConfig('modules.UniversalDiscovery', UniversalDiscoveryModule);
 
 export default UniversalDiscoveryModule;

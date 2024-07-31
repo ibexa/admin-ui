@@ -4,14 +4,15 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\EventListener;
 
-use eZ\Publish\API\Repository\Repository;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
-use EzSystems\EzPlatformAdminUiBundle\EzPlatformAdminUiBundle;
+namespace Ibexa\AdminUi\EventListener;
+
+use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +22,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RequestAttributesListener implements EventSubscriberInterface
 {
-    private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = '_ez_content_translation_view';
+    private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
-    /** @var \eZ\Publish\API\Repository\Repository */
+    /** @var \Ibexa\Contracts\Core\Repository\Repository */
     private $repository;
 
     /** @var array */
@@ -31,7 +32,7 @@ class RequestAttributesListener implements EventSubscriberInterface
 
     /**
      * @param array $siteAccessGroups
-     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
      */
     public function __construct(array $siteAccessGroups, Repository $repository)
     {
@@ -47,10 +48,10 @@ class RequestAttributesListener implements EventSubscriberInterface
     /**
      * Adds all the request attributes to the parameters.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
+     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function addRequestAttributes(FilterViewBuilderParametersEvent $event)
     {
@@ -68,7 +69,7 @@ class RequestAttributesListener implements EventSubscriberInterface
         }
 
         if ($this->hasContentLanguage($request, $parameterBag)) {
-            /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
             $location = $parameterBag->get('location');
 
             $languageCode = $parameterBag->get('languageCode');
@@ -94,7 +95,7 @@ class RequestAttributesListener implements EventSubscriberInterface
     /**
      * @param int $locationId
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Location
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
     private function loadLocation(int $locationId): Location
     {
@@ -111,10 +112,10 @@ class RequestAttributesListener implements EventSubscriberInterface
      * @param int $contentId
      * @param string $language
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function loadContent(int $contentId, ?string $language): Content
     {
@@ -125,6 +126,8 @@ class RequestAttributesListener implements EventSubscriberInterface
     {
         $siteAccess = $request->attributes->get('siteaccess');
 
-        return \in_array($siteAccess->name, $this->siteAccessGroups[EzPlatformAdminUiBundle::ADMIN_GROUP_NAME], true);
+        return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
     }
 }
+
+class_alias(RequestAttributesListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestAttributesListener');

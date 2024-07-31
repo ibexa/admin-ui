@@ -4,15 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\EventListener;
 
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
-use eZ\Publish\Core\MVC\Symfony\View\ViewEvents;
-use EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentEditType;
-use EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin;
-use Ibexa\Platform\Search\View\SearchView;
+namespace Ibexa\AdminUi\EventListener;
+
+use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
+use Ibexa\AdminUi\Form\Type\Content\Draft\ContentEditType;
+use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
+use Ibexa\Core\MVC\Symfony\View\ViewEvents;
+use Ibexa\Search\View\SearchView;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
     /** @var \Symfony\Component\Form\FormFactoryInterface */
     private $formFactory;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
@@ -79,3 +80,5 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
     }
 }
+
+class_alias(SearchViewFilterParametersListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\SearchViewFilterParametersListener');

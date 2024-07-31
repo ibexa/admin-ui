@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+namespace Ibexa\AdminUi\Menu;
+
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -22,8 +24,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SectionCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'section_create__sidebar_right__create';
-    const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'section_create__sidebar_right__create';
+    public const ITEM__CREATE_AND_EDIT = 'section_create__sidebar_right__create_and_edit';
+    public const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
@@ -60,22 +63,32 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
+        $createItem = $this->createMenuItem(
+            self::ITEM__CREATE,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#section_create_create',
+                ],
+            ]
+        );
+
+        $createItem->addChild(
+            self::ITEM__CREATE_AND_EDIT,
+            [
+                'attributes' => [
+                    'class' => 'ibexa-btn--trigger',
+                    'data-click' => '#section_create_create_and_edit',
+                ],
+            ]
+        );
+
         $menu->setChildren([
-            self::ITEM__CREATE => $this->createMenuItem(
-                self::ITEM__CREATE,
-                [
-                    'attributes' => [
-                        'class' => 'btn--trigger',
-                        'data-click' => '#section_create_create',
-                    ],
-                    'extras' => ['icon' => 'publish'],
-                ]
-            ),
+            self::ITEM__CREATE => $createItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
-                    'extras' => ['icon' => 'circle-close'],
-                    'route' => 'ezplatform.section.list',
+                    'route' => 'ibexa.section.list',
                 ]
             ),
         ]);
@@ -89,8 +102,11 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Discard changes'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CREATE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 }
+
+class_alias(SectionCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\SectionCreateRightSidebarBuilder');

@@ -1,13 +1,12 @@
 @mixin modal-main() {
-    background: $ibexa-white;
-    box-shadow: 0 0 calculateRem(30px) 0 rgba($ibexa-black, 0.35);
+    background: $ibexa-color-white;
+    box-shadow: 0 0 calculateRem(30px) 0 rgba($ibexa-color-black, 0.35);
     position: relative;
     border-radius: $ibexa-border-radius;
-    overflow: hidden;
 }
 
 @mixin modal-content() {
-    padding: 0 calculateRem(24px);
+    padding: 0 calculateRem(32px);
 }
 
 @mixin modal-header() {
@@ -18,12 +17,12 @@
 @mixin modal-title {
     margin-right: calculateRem(30px);
     font-size: $modal-title-font-size;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 @mixin modal-subtitle {
     display: inline-block;
-    color: $ibexa-color-font-pale;
+    color: $ibexa-color-dark-300;
     font-size: calculateRem(14px);
     font-weight: 400;
     position: relative;
@@ -35,22 +34,22 @@
     position: absolute;
     display: block;
     align-items: center;
-    top: calculateRem(24px);
+    top: calculateRem(34px);
     right: 0;
     cursor: pointer;
     opacity: 1;
+    border: none;
+    background: transparent;
 
-    .ez-icon {
-        width: calculateRem(20px);
-        height: calculateRem(20px);
+    .ibexa-icon {
         margin: 0;
-        fill: $ibexa-black;
         opacity: 1;
     }
 }
 
 @mixin modal-body() {
-    background: $ibexa-white;
+    padding: calculateRem(24px) 0;
+    background: $ibexa-color-white;
     white-space: normal;
 }
 
@@ -59,6 +58,6 @@
     padding: $modal-footer-padding;
 
     .btn {
-        margin: 0 calculateRem(4px) 0 0;
+        margin: 0 calculateRem(16px) 0 0;
     }
 }

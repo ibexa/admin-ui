@@ -1,0 +1,4 @@
+ibexa:
+    system:
+        default:
+            languages: [ eng-GB, ger-DE ]

@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData;
+namespace Ibexa\AdminUi\Validator\Constraints;
+
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 class UniqueContentTypeIdentifierValidator extends ConstraintValidator
 {
     /**
-     * @var \eZ\Publish\API\Repository\ContentTypeService
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     private $contentTypeService;
 
@@ -30,7 +31,7 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData $value The value that should be validated
+     * @param \Ibexa\AdminUi\Form\Data\ContentTypeData $value The value that should be validated
      * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint The constraint for the validation
      *
      * @api
@@ -57,3 +58,5 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
         }
     }
 }
+
+class_alias(UniqueContentTypeIdentifierValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator');

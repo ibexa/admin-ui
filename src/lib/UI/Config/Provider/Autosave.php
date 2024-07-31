@@ -6,31 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
+namespace Ibexa\AdminUi\UI\Config\Provider;
 
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
-use EzSystems\EzPlatformAdminUi\UserSetting\Autosave as AutosaveSetting;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 class Autosave implements ProviderInterface
 {
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingService */
-    private $userSettingService;
+    private AutosaveServiceInterface $autosaveService;
 
-    public function __construct(
-        UserSettingService $userSettingService
-    ) {
-        $this->userSettingService = $userSettingService;
+    public function __construct(AutosaveServiceInterface $autosaveService)
+    {
+        $this->autosaveService = $autosaveService;
     }
 
     public function getConfig(): array
     {
-        $isEnabled = $this->userSettingService->getUserSetting('autosave')->value === AutosaveSetting::ENABLED_OPTION;
-        $interval = (int)$this->userSettingService->getUserSetting('autosave_interval')->value * 1000;
-
         return [
-            'enabled' => $isEnabled,
-            'interval' => $interval,
+            'enabled' => $this->autosaveService->isEnabled(),
+            'interval' => $this->autosaveService->getInterval(),
         ];
     }
 }
+
+class_alias(Autosave::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Autosave');

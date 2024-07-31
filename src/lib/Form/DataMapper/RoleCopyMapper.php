@@ -4,12 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataMapper;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
-use eZ\Publish\Core\Repository\Values\User\RoleCopyStruct;
-use EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException;
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCopyData;
+namespace Ibexa\AdminUi\Form\DataMapper;
+
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Form\Data\Role\RoleCopyData;
+use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Ibexa\Core\Repository\Values\User\RoleCopyStruct;
 
 /**
  * Maps between RoleCopyStruct and RoleCopyData objects.
@@ -19,7 +21,7 @@ class RoleCopyMapper implements DataMapperInterface
     /**
      * Maps given RoleCopyStruct object to a RoleCopyData object.
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function map(ValueObject $value): RoleCopyData
     {
@@ -33,9 +35,9 @@ class RoleCopyMapper implements DataMapperInterface
     /**
      * Maps given RoleCopyData object to a RoleCopyStruct object.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCopyData $data
+     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCopyData $data
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException
+     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function reverseMap($data): RoleCopyStruct
     {
@@ -48,3 +50,5 @@ class RoleCopyMapper implements DataMapperInterface
         ]);
     }
 }
+
+class_alias(RoleCopyMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\RoleCopyMapper');

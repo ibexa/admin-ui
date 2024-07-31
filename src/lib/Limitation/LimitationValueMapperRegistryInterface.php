@@ -4,7 +4,8 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation;
+
+namespace Ibexa\AdminUi\Limitation;
 
 /**
  * Interface for Limitation value mappers registry.
@@ -21,7 +22,7 @@ interface LimitationValueMapperRegistryInterface
     /**
      * Returns mapper corresponding to given Limitation Type.
      *
-     * @throws \EzSystems\EzPlatformAdminUi\Exception\ValueMapperNotFoundException if no mapper exists for $limitationType
+     * @throws \Ibexa\AdminUi\Exception\ValueMapperNotFoundException if no mapper exists for $limitationType
      *
      * @param string $limitationType
      *
@@ -51,3 +52,5 @@ class_alias(
     LimitationValueMapperRegistryInterface::class,
     \EzSystems\RepositoryForms\Limitation\LimitationValueMapperRegistryInterface::class
 );
+
+class_alias(LimitationValueMapperRegistryInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperRegistryInterface');

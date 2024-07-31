@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Feature: Object States management
   As an administrator
   In order to customize my project
@@ -15,7 +15,7 @@ Feature: Object States management
         | label                | value                          |
         | Name                 | Test Object State Group        |
         | Identifier           | TestObjectStateGroupIdentifier |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard" action
     Then I should be on "Object state groups" page
       And there's no "Test Object State Group" Object State group on Object State groups list
 
@@ -27,7 +27,7 @@ Feature: Object States management
         | label                | value                          |
         | Name                 | Test Object State Group        |
         | Identifier           | TestObjectStateGroupIdentifier |
-      And I click on the edit action bar button "Create"
+      And I perform the "Save and close" action
     Then I should be on "Test Object State Group" Object State group page
       And "Test Object State Group" Object State group has no Object States
       And Object State group has proper attributes
@@ -44,7 +44,7 @@ Feature: Object States management
       And I set fields
         | label | value                          |
         | Name  | Test Object State Group edited |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Object state groups" page
       And there's a "Test Object State Group" Object State group on Object State groups list
       And there's no "Test Object State Group edited" Object State group on Object State groups list
@@ -57,7 +57,7 @@ Feature: Object States management
       And I set fields
         | label | value                          |
         | Name  | Test Object State Group edited |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then notification that "Object state group" "Test Object State Group edited" is updated appears
       And I should be on "Test Object State Group edited" Object State group page
 
@@ -68,7 +68,7 @@ Feature: Object States management
       And I set fields
         | label | value                           |
         | Name  | Test Object State Group edited2 |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Object state groups" page
       And there's a "Test Object State Group edited" Object State group on Object State groups list
       And there's no "Test Object State Group edited2" Object State group on Object State groups list
@@ -80,7 +80,7 @@ Feature: Object States management
       And I set fields
         | label | value                           |
         | Name  | Test Object State Group edited2 |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then notification that "Object state group" "Test Object State Group edited2" is updated appears
       And I should be on "Test Object State Group edited2" Object State group page
 
@@ -92,7 +92,7 @@ Feature: Object States management
         | label      | value                     |
         | Name       | Test Object State         |
         | Identifier | TestObjectStateIdentifier |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Test Object State Group edited2" Object State group page
       And there's no "Test Object State" Object State on Object States list for "Test Object State Group edited2"
 
@@ -104,7 +104,7 @@ Feature: Object States management
         | label      | value                     |
         | Name       | Test Object State         |
         | Identifier | TestObjectStateIdentifier |
-      And I click on the edit action bar button "Create"
+      And I perform the "Save and close" action
     Then I should be on "Test Object State" Object State page
       And Object State has proper attributes
         | label             | value                     |
@@ -119,7 +119,7 @@ Feature: Object States management
       And I set fields
         | label | value                    |
         | Name  | Test Object State edited |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Test Object State Group edited2" Object State group page
     And there's a "Test Object State" Object State on Object States list for "Test Object State Group edited2"
     And there's no "Test Object State edited" Object State on Object States list for "Test Object State Group edited2"
@@ -131,7 +131,7 @@ Feature: Object States management
       And I set fields
         | label | value                    |
         | Name  | Test Object State edited |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then notification that "Object state" "Test Object State edited" is updated appears
       And I should be on "Test Object State edited" Object State page
       And Object State has proper attributes
@@ -146,7 +146,7 @@ Feature: Object States management
     And I set fields
       | label | value                     |
       | Name  | Test Object State edited2 |
-      And I click on the edit action bar button "Discard changes"
+      And I perform the "Discard changes" action
     Then I should be on "Test Object State Group edited2" Object State group page
       And there's a "Test Object State edited" Object State on Object States list for "Test Object State Group edited2"
       And there's no "Test Object State edited2" Object State on Object States list for "Test Object State Group edited2"
@@ -158,10 +158,10 @@ Feature: Object States management
       And I set fields
         | label | value                     |
         | Name  | Test Object State edited2 |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save and close" action
     Then notification that "Object state" "Test Object State edited2" is updated appears
       And I should be on "Test Object State edited2" Object State page
-      And Object state has proper attributes
+      And Object State has proper attributes
         | label             | value                     |
         | Object state name | Test Object State edited2 |
         | Identifier        | TestObjectStateIdentifier |
@@ -174,9 +174,9 @@ Feature: Object States management
         | label      | value                      |
         | Name       | Test Object State 2        |
         | Identifier | TestObjectStateIdentifier2 |
-      And I click on the edit action bar button "Create"
+      And I perform the "Save and close" action
     Then I should be on "Test Object State 2" Object State page
-      And Object state has proper attributes
+      And Object State has proper attributes
         | label             | value                      |
         | Object state name | Test Object State 2        |
         | Identifier        | TestObjectStateIdentifier2 |

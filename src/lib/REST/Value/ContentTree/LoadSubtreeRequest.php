@@ -6,20 +6,26 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Value\ContentTree;
+namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Rest\Value as RestValue;
 
 class LoadSubtreeRequest extends RestValue
 {
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] */
-    public $nodes;
+    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] */
+    public array $nodes;
+
+    public ?Criterion $filter;
 
     /**
      * @param array $nodes
      */
-    public function __construct(array $nodes = [])
+    public function __construct(array $nodes = [], ?Criterion $filter = null)
     {
         $this->nodes = $nodes;
+        $this->filter = $filter;
     }
 }
+
+class_alias(LoadSubtreeRequest::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\LoadSubtreeRequest');

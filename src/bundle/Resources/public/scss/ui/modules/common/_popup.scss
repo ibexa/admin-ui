@@ -1,4 +1,8 @@
 .c-popup {
+    &__dialog {
+        @include modal-main();
+    }
+
     &__content {
         @include modal-content();
     }
@@ -36,8 +40,10 @@
             &__btn--close {
                 @include close-button();
 
-                top: calculateRem(22px);
-                right: calculateRem(18px);
+                & {
+                    top: calculateRem(22px);
+                    right: calculateRem(18px);
+                }
             }
 
             &__body {
@@ -45,5 +51,9 @@
                 margin-right: calculateRem(36px);
             }
         }
+    }
+
+    .ibexa-label--checkbox-radio {
+        padding-left: calculateRem(4px);
     }
 }

@@ -1,43 +1,61 @@
 .c-upload-popup {
-    background: rgba($ibexa-black, 0.35);
+    background: rgba($ibexa-color-black, 0.35);
     position: fixed;
     z-index: 99999;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
-    color: $ibexa-color-font;
+    color: $ibexa-color-dark;
+
+    &__label {
+        margin-bottom: calculateRem(8px);
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
+        line-height: calculateRem(18px);
+    }
 
     .c-tooltip-popup {
         width: 100%;
-        max-width: calculateRem(774px);
+        max-height: 100vh;
+        max-width: calculateRem(800px);
         position: absolute;
         z-index: 2;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        padding: 0 calculateRem(24px);
+        overflow: hidden;
 
         &__header {
             @include modal-header();
 
-            padding: $modal-header-padding-y $modal-header-padding-x;
-            border-bottom: $modal-header-border-width solid $modal-header-border-color;
+            height: calculateRem(92px);
+            padding: calculateRem(32px) calculateRem(32px) 0;
+            margin-bottom: calculateRem(36px);
         }
 
         &__title {
-            @include modal-title();
+            line-height: calculateRem(42px);
+        }
+
+        &__close {
+            top: 0;
+        }
+
+        &__subtitle {
+            margin-top: calculateRem(8px);
         }
 
         &__content {
             @include modal-body();
 
-            padding: $modal-inner-padding;
+            padding: 0 calculateRem(32px);
+            max-height: calc(100vh - calculateRem(208px));
+            overflow: auto;
         }
-    }
 
-    .c-upload-list {
-        overflow-y: auto;
-        max-height: 30vw;
+        &__footer {
+            padding: calculateRem(16px) calculateRem(32px) calculateRem(32px) calculateRem(32px);
+        }
     }
 }

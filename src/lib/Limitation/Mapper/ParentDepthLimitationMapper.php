@@ -4,12 +4,16 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+namespace Ibexa\AdminUi\Limitation\Mapper;
 
-class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+
+class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
      * @var int The maximum possible depth to use in a limitation
@@ -35,4 +39,16 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
     {
         return $limitation->limitationValues;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('parentdepth'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Parent Depth'),
+        ];
+    }
 }
+
+class_alias(ParentDepthLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ParentDepthLimitationMapper');

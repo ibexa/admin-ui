@@ -1,0 +1,192 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+
+{% trans_default_domain 'ibexa_anchor_menu' %}
+
+{% block anchor_menu_list %}
+    {% if item.hasChildren and options.depth is not same as(0) and item.displayChildren %}
+        {% import _self as knp_menu %}
+        <{{ tagElement }}{{ knp_menu.attributes(listAttributes) }}>
+        {{ block('anchor_menu_children') }}
+        {{ extraElements|default('') }}
+        </{{ tagElement }}>
+    {% endif %}
+{% endblock %}
+
+{% block anchor_menu_children %}
+    {# save current variables #}
+    {% set currentOptions = options %}
+    {% set currentItem = item %}
+    {# update the depth for children #}
+    {% if options.depth is not none %}
+        {% set options = options|merge({'depth': currentOptions.depth - 1}) %}
+    {% endif %}
+    {# update the matchingDepth for children #}
+    {% if options.matchingDepth is not none and options.matchingDepth > 0 %}
+        {% set options = options|merge({'matchingDepth': currentOptions.matchingDepth - 1}) %}
+    {% endif %}
+
+    {{ block(innerChildrenBlock|default('children')) }}
+
+    {# restore current variables #}
+    {% set item = currentItem %}
+    {% set options = currentOptions %}
+{% endblock %}
+
+{% block children_1st_level %}
+    {% for item in currentItem.children %}
+        {%- set itemClass = 'nav-item ibexa-tabs__tab ibexa-adaptive-items__item' %}
+        {%- if loop.first %}
+            {%- set itemClass = itemClass ~ ' ibexa-tabs__tab--active' %}
+        {%- endif %}
+        {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
+        {{ block('anchor_menu_item') }}
+    {% endfor %}
+{% endblock %}
+
+{% block children_2nd_level %}
+    {% for item in currentItem.children %}
+        {%- set itemClass = 'ibexa-anchor-navigation-menu__sections-item-btn' %}
+        {%- if loop.first %}
+            {%- set itemClass = itemClass ~ ' ibexa-anchor-navigation-menu__sections-item-btn--active' %}
+        {%- endif %}
+        {%- do item.setAttribute('data-target-id', "#" ~ item.getAttribute('data-target-id')) -%}
+        {%- do item.setAttribute('class', (item.getAttribute('class') ~ ' ' ~ itemClass)|trim) -%}
+        {%- do item.setAttribute('type', 'button') -%}
+        {%- do item.setLabelAttribute('class', 'ibexa-anchor-navigation-menu__sections-item-btn-label') -%}
+        {{ block('anchor_menu_item') }}
+    {% endfor %}
+{% endblock %}
+
+{% block anchor_menu_item %}
+    {% if item.displayed %}
+        {# building the class of the item #}
+        {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+        {%- if matcher.isCurrent(item) %}
+            {%- set classes = classes|merge([options.currentClass]) %}
+        {%- elseif matcher.isAncestor(item, options.matchingDepth) %}
+            {%- set classes = classes|merge([options.ancestorClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeFirst %}
+            {%- set classes = classes|merge([options.firstClass]) %}
+        {%- endif %}
+        {%- if item.actsLikeLast %}
+            {%- set classes = classes|merge([options.lastClass]) %}
+        {%- endif %}
+
+        {# Mark item as "leaf" (no children) or as "branch" (has children that are displayed) #}
+        {% if item.hasChildren and options.depth is not same as(0) %}
+            {% if options.branch_class is not empty and item.displayChildren %}
+                {%- set classes = classes|merge([options.branch_class]) %}
+            {% endif %}
+        {% elseif options.leaf_class is not empty %}
+            {%- set classes = classes|merge([options.leaf_class]) %}
+        {%- endif %}
+
+        {%- set attributes = item.attributes %}
+        {%- if classes is not empty %}
+            {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+        {%- endif %}
+
+        {{ block(innerItemBlock|default('item')) }}
+    {% endif %}
+{% endblock %}
+
+{% block item_1st_level %}
+    {% import _self as knp_menu %}
+
+    {%- set itemTagElement = itemTagElement|default('li') -%}
+    {%- set id = item.getAttribute('data-target-id') -%}
+    {%- set attributes = attributes|filter((value, key) => key != 'data-target-id') -%}
+
+    <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
+        <a
+            id="{{ id }}-label"
+            href="#{{ id }}"
+            data-bs-toggle="tab"
+            class="nav-link ibexa-tabs__link {{ loop.first ? 'active' }}"
+        >
+            {{ block('label') }}
+        </a>
+        <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-error-icon">
+            <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
+        </svg>
+    </{{ itemTagElement }}>
+{% endblock %}
+
+{% block item_2nd_level %}
+    {% import _self as knp_menu %}
+
+    {%- set itemTagElement = itemTagElement|default('button') %}
+
+    <li class="ibexa-anchor-navigation-menu__sections-item">
+        <{{ itemTagElement }}{{ knp_menu.attributes(attributes) }}>
+            <span{{ knp_menu.attributes(item.labelAttributes) }}>{{ block('label') }}</span>
+        </{{ itemTagElement }}>
+    </li>
+{% endblock %}
+
+{% block root %}
+    <div class="ibexa-anchor-navigation">
+        {% if item.count() > 1 %}
+            <div
+                class="ibexa-tabs ibexa-tabs--switcher"
+                data-form-selector=".ibexa-edit-content .ibexa-form"
+                data-form-tab-group-selector=".ibexa-anchor-navigation__section-group"
+            >
+                {% set tagElement = 'ul' %}
+                {% set listAttributes = item.childrenAttributes|merge({
+                    'class': (listAttributes.class|default('') ~ ' nav nav-tabs ibexa-tabs__list ibexa-adaptive-items')|trim,
+                    'role': 'tablist',
+                }) %}
+                {% set innerChildrenBlock = 'children_1st_level' %}
+                {% set innerItemBlock = 'item_1st_level' %}
+                {% set itemTagElement = 'li' %}
+                {% set extraElements %}
+                    <li
+                        class="nav-item ibexa-tabs__tab ibexa-tabs__tab--more ibexa-adaptive-items__item ibexa-adaptive-items__item--selector"
+                        tabindex="0"
+                    >
+                        <a class="nav-link ibexa-tabs__link" role="button">
+                            {{ 'anchor_menu.more'|trans|desc('More') }}
+                            <svg class="ibexa-icon ibexa-icon--tiny-small">
+                                <use xlink:href="{{ ibexa_icon_path('caret-double-next') }}"></use>
+                            </svg>
+                            <svg class="ibexa-icon ibexa-icon--small ibexa-tabs__tab-error-icon">
+                                <use xlink:href="{{ ibexa_icon_path('warning-triangle') }}"></use>
+                            </svg>
+                        </a>
+                    </li>
+                {% endset %}
+
+                {{ block('anchor_menu_list') -}}
+                {{ include('@ibexadesign/ui/component/tab_switcher/popup_menu.html.twig', {
+                    'class': 'ibexa-tabs__popup-menu',
+                    'items': [],
+                }) }}
+            </div>
+        {% endif %}
+
+        <div class="tab-content">
+            {% for secondMenuItem in item.children %}
+                {% if secondMenuItem.children|length > 1 %}
+                    {% set listAttributes = {
+                        'class': 'tab-pane ibexa-anchor-navigation-menu__sections'
+                            ~ (loop.first ? ' ibexa-anchor-navigation-menu__sections--active active' : '')
+                            ~ (item.count() == 1 ? ' ibexa-anchor-navigation-menu__sections--no-border' : ''),
+                        'id': secondMenuItem.getAttribute('data-target-id'),
+                        'role': 'tabpanel'
+                    } %}
+                    {% set innerChildrenBlock = 'children_2nd_level' %}
+                    {% set innerItemBlock = 'item_2nd_level' %}
+                    {% set itemTagElement = 'button' %}
+                    {% set tagElement = 'div' %}
+                    {% set extraElements %}{% endset %}
+
+                    {% with { item: secondMenuItem } %}
+                        {{ block('anchor_menu_list') -}}
+                    {% endwith %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

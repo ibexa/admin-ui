@@ -6,28 +6,29 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\LocationView;
+namespace Ibexa\AdminUi\Tab\LocationView;
 
-use eZ\Publish\API\Repository\LanguageService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Language;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
-use EzSystems\EzPlatformAdminUi\Util\FieldDefinitionGroupsUtil;
+use Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil;
+use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Util\FieldDefinitionGroupsUtil */
+    /** @var \Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil */
     private $fieldDefinitionGroupsUtil;
 
-    /** @var \eZ\Publish\API\Repository\LanguageService */
+    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     private $languageService;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -52,8 +53,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function getName(): string
     {
-        /** @Desc("View") */
-        return $this->translator->trans('tab.name.view', [], 'locationview');
+        return $this->translator->trans(/** @Desc("Fields") */ 'tab.name.data', [], 'ibexa_locationview');
     }
 
     public function getOrder(): int
@@ -62,21 +62,21 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplate(): string
     {
-        return '@ezdesign/content/tab/content.html.twig';
+        return '@ibexadesign/content/tab/content.html.twig';
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contextParameters['content'];
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $contextParameters['contentType'];
         $fieldDefinitions = $contentType->getFieldDefinitions();
         $fieldDefinitionsByGroup = $this->fieldDefinitionGroupsUtil->groupFieldDefinitions($fieldDefinitions);
@@ -94,7 +94,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     /**
      * Loads system languages with filtering applied.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
      * @return array
      */
@@ -126,3 +126,5 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return array_merge($saLanguages, array_values($languagesByCode));
     }
 }
+
+class_alias(ContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\ContentTab');

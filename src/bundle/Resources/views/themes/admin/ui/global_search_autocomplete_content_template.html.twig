@@ -1,0 +1,11 @@
+<div 
+    class="ibexa-global-search__autocomplete-content-template" 
+    data-template-item="{{ include('@ibexadesign/ui/global_search_autocomplete_content_item.html.twig', {
+        content_name: "{{ contentName }}",
+        icon_href: "{{ iconHref }}",
+        content_type_name: "{{ contentTypeName }}",
+        content_breadcrumbs: "{{ contentBreadcrumbs }}",
+        content_href: "{{ contentHref }}",
+        breadcrumbs_class: "{{ breadcrumbsClass }}"
+    })|e('html_attr')  }}">
+</div>

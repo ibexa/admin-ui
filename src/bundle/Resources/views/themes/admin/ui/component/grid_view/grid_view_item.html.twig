@@ -1,0 +1,55 @@
+{%- import '@ibexadesign/ui/component/macros.html.twig' as html -%}
+
+{%- set is_template = is_template|default(false) -%}
+
+{%- set item_attr = item_attr|default({})|merge({
+    class: ('ibexa-grid-view-item '
+        ~ (is_marked|default(false) ? 'ibexa-grid-view-item--marked ')
+        ~ (is_not_selectable|default(false) ? 'ibexa-grid-view-item--not-selectable ')
+        ~ (is_selected|default(false) ? 'ibexa-grid-view-item--selected ')
+    ~ item_attr.class|default(''))|trim,
+}) -%}
+
+{%- set item_element = item_element|default('div') -%}
+
+{%- block item -%}
+    <{{ item_element }} {{ html.attributes(item_attr, is_template) }}>
+        {%- block item_content -%}
+            {%- block item_image -%}
+                <div class="ibexa-grid-view-item__image-wrapper">
+                    {% if image_url is defined and image_url is not null %}
+                        <img class="ibexa-grid-view-item__image" src="{{ image_url }}" alt="" />
+                    {% else %}
+                        <svg class="ibexa-icon ibexa-icon--dark ibexa-icon--extra-large">
+                            <use xlink:href="{{ icon_path }}"></use>
+                        </svg>
+                    {% endif %}
+                </div>
+            {%- endblock -%}
+
+            {%- block item_footer -%}
+                <div class="ibexa-grid-view-item__footer">
+                    {%- block item_footer_contet -%}
+                        {%- block item_title -%}
+                            <div class="ibexa-grid-view-item__title">
+                                {{ title|default('') }}
+                            </div>
+                        {%- endblock -%}
+
+                        {%- block item_detail_a -%}
+                            <div class="ibexa-grid-view-item__detail-a">
+                                {{ detail_a|default('') }}
+                            </div>
+                        {%- endblock -%}
+
+                        {%- block item_detail_b -%}
+                            <div class="ibexa-grid-view-item__detail-b">
+                                {{ detail_b|default('') }}
+                            </div>
+                        {%- endblock -%}
+                    {%- endblock -%}
+                </div>
+            {%- endblock -%}
+        {%- endblock -%}
+    </{{ item_element }}>
+{%- endblock -%}

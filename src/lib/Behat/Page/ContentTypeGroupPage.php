@@ -9,12 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
-use eZ\Publish\API\Repository\ContentTypeService;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 class ContentTypeGroupPage extends Page
 {
@@ -24,7 +25,7 @@ class ContentTypeGroupPage extends Page
     /** @var string */
     protected $expectedName;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /** @var mixed */
@@ -46,11 +47,12 @@ class ContentTypeGroupPage extends Page
 
     public function hasContentTypes(): bool
     {
-        return $this->getHTMLPage()->findAll($this->getLocator('tableItem'))->any();
+        return $this->table->isEmpty() === false;
     }
 
     public function edit(string $contentTypeName): void
     {
+        $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
         $this->table->getTableRow(['Name' => $contentTypeName])->edit();
     }
 
@@ -71,6 +73,12 @@ class ContentTypeGroupPage extends Page
 
     public function delete(string $contentTypeName)
     {
+        $contentTypeLabelLocator = $this->getLocator('contentTypeLabel');
+        $listElement = $this->getHTMLPage()
+            ->findAll($contentTypeLabelLocator)
+            ->getByCriterion(new ElementTextCriterion($contentTypeName));
+        usleep(1000000); //TODO : refactor after redesign
+        $listElement->mouseOver();
         $this->table->getTableRow(['Name' => $contentTypeName])->select();
         $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
         $this->dialog->verifyIsLoaded();
@@ -79,7 +87,7 @@ class ContentTypeGroupPage extends Page
 
     public function hasAssignedContentItems(string $contentTypeGroupName): bool
     {
-        return $this->table->getTableRow(['Name' => $contentTypeGroupName])->getCellValue('Number of Content Types') > 0;
+        return $this->table->getTableRow(['Name' => $contentTypeGroupName])->getCellValue('Number of content types') > 0;
     }
 
     protected function getRoute(): string
@@ -94,7 +102,7 @@ class ContentTypeGroupPage extends Page
             ->assert()->textEquals($this->expectedName);
         $this->getHTMLPage()
             ->find($this->getLocator('listHeader'))
-            ->assert()->textEquals(sprintf("Content Types in '%s'", $this->expectedName));
+            ->assert()->textContains('List');
     }
 
     public function setExpectedContentTypeGroupName(string $expectedName)
@@ -113,18 +121,20 @@ class ContentTypeGroupPage extends Page
 
     public function getName(): string
     {
-        return 'Content Type group';
+        return 'Content type group';
     }
 
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ez-header h1'),
-            new VisibleCSSLocator('createButton', '.ez-icon-create'),
-            new VisibleCSSLocator('listHeader', '.ez-table-header .ez-table-header__headline, header .ez-table__headline, header h5'),
-            new VisibleCSSLocator('tableContainer', '.ez-container'),
-            new VisibleCSSLocator('deleteButton', '.ez-icon-trash,button[data-original-title^="Delete"]'),
-            new VisibleCSSLocator('tableItem', '.ez-main-container tbody tr'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
+            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
+            new VisibleCSSLocator('listHeader', '.ibexa-table-header .ibexa-table-header__headline, header .ibexa-table__headline, header h5'),
+            new VisibleCSSLocator('tableContainer', '.ibexa-container'),
+            new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash,button[data-original-title^="Delete"]'),
+            new VisibleCSSLocator('tableItem', '.ibexa-main-container tbody tr'),
+            new VisibleCSSLocator('contentTypeLabel', '.ibexa-table__cell > a'),
+            new VisibleCSSLocator('scrollableContainer', '.ibexa-back-to-top-scroll-container'),
         ];
     }
 }

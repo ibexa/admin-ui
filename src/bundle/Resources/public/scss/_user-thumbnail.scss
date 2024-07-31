@@ -1,0 +1,8 @@
+.ibexa-user-thumbnail {
+    &--img {
+        width: calculateRem(20px);
+        height: calculateRem(20px);
+        border-radius: 50%;
+        max-width: inherit;
+    }
+}

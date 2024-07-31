@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Section;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData;
+namespace Ibexa\AdminUi\Form\Type\Section;
+
+use Ibexa\AdminUi\Form\Data\Section\SectionUpdateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionUpdateType extends AbstractType
 {
+    public const BTN_UPDATE = 'update';
+
     /** @var SectionType */
     protected $sectionType;
 
@@ -30,9 +33,13 @@ class SectionUpdateType extends AbstractType
         $this->sectionType->buildForm($builder, $options);
 
         $builder
-            ->add('update', SubmitType::class, [
-                'label' => /** @Desc("Update") */
+            ->add(self::BTN_UPDATE, SubmitType::class, [
+                'label' => /** @Desc("Save") */
                     'section_update_form.update',
+            ])
+            ->add('update_and_edit', SubmitType::class, [
+                'label' => /** @Desc("Save and edit") */
+                    'section_create_form.update_and_edit',
             ]);
     }
 
@@ -46,3 +53,5 @@ class SectionUpdateType extends AbstractType
         ]);
     }
 }
+
+class_alias(SectionUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionUpdateType');

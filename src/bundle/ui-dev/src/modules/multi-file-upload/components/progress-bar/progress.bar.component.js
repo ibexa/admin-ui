@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 const ProgressBarComponent = (props) => {
+    const Translator = getTranslator();
+    const message = Translator.trans(/*@Desc("Uploading...")*/ 'upload.progress_bar.uploading', {}, 'ibexa_multi_file_upload');
+
     return (
         <div className="c-progress-bar">
-            <div className="c-progress-bar__value" style={{ width: `${props.progress}%` }} />
-            <div className="c-progress-bar__label">{`${props.progress}%`}</div>
-            <div className="c-progress-bar__uploaded">
-                {props.uploaded} of {props.total}
+            <div className="c-progress-bar__value" style={{ '--progress': `${props.progress}%` }} />
+            <div className="c-progress-bar__label">
+                {props.progress}% {message}
             </div>
         </div>
     );
@@ -15,8 +19,6 @@ const ProgressBarComponent = (props) => {
 
 ProgressBarComponent.propTypes = {
     progress: PropTypes.number.isRequired,
-    uploaded: PropTypes.string.isRequired,
-    total: PropTypes.string.isRequired,
 };
 
 export default ProgressBarComponent;

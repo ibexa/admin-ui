@@ -1,12 +1,17 @@
-(function(global, doc, eZ) {
-    const ENDPOINT_BOOKMARK = '/api/ezp/v2/bookmark';
-    const SELECTOR_BOOKMARK_WRAPPER = '.ez-add-to-bookmarks';
-    const CLASS_BOOKMARK_CHECKED = 'ez-add-to-bookmarks--checked';
+(function (global, doc, ibexa) {
+    const ENDPOINT_BOOKMARK = '/api/ibexa/v2/bookmark';
+    const SELECTOR_BOOKMARK_WRAPPER = '.ibexa-add-to-bookmarks';
+    const CLASS_BOOKMARK_CHECKED = 'ibexa-add-to-bookmarks--checked';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const bookmarkWrapper = doc.querySelector(SELECTOR_BOOKMARK_WRAPPER);
+
+    if (!bookmarkWrapper) {
+        return;
+    }
+
     const currentLocationId = parseInt(bookmarkWrapper.getAttribute('data-location-id'), 10);
-    const handleUpdateError = eZ.helpers.notification.showErrorNotification;
+    const handleUpdateError = ibexa.helpers.notification.showErrorNotification;
     let isUpdatingBookmark = false;
     const getResponseStatus = (response) => {
         if (!response.ok) {
@@ -15,9 +20,18 @@
 
         return response.status;
     };
-    const onBookmarkUpdated = (isBookmarked) => {
-        toggleBookmarkIconState(isBookmarked);
+    const handleBookmarkUpdated = (isBookmarked) => {
+        ibexa.helpers.tooltips.hideAll();
         isUpdatingBookmark = false;
+
+        doc.body.dispatchEvent(
+            new CustomEvent('ibexa-bookmark-change', {
+                detail: {
+                    bookmarked: isBookmarked,
+                    locationId: currentLocationId,
+                },
+            }),
+        );
     };
     const updateBookmark = (addBookmark) => {
         if (isUpdatingBookmark) {
@@ -37,10 +51,7 @@
             credentials: 'same-origin',
         });
 
-        fetch(request)
-            .then(getResponseStatus)
-            .then(onBookmarkUpdated.bind(null, addBookmark))
-            .catch(handleUpdateError);
+        fetch(request).then(getResponseStatus).then(handleBookmarkUpdated.bind(null, addBookmark)).catch(handleUpdateError);
     };
     const isCurrentLocation = (locationId) => {
         return parseInt(locationId, 10) === currentLocationId;
@@ -55,18 +66,15 @@
             toggleBookmarkIconState(bookmarked);
         }
     };
-    const checkIsBookmarked = () => {
-        return bookmarkWrapper.classList.contains(CLASS_BOOKMARK_CHECKED);
-    };
-    const onBookmarkChange = () => {
-        const addBookmark = !checkIsBookmarked();
+    const handleBookmarkClick = () => {
+        const isBookmarked = bookmarkWrapper.classList.contains(CLASS_BOOKMARK_CHECKED);
 
-        updateBookmark(addBookmark);
+        updateBookmark(!isBookmarked);
     };
 
-    doc.body.addEventListener('ez-bookmark-change', updateBookmarkIconState, false);
+    doc.body.addEventListener('ibexa-bookmark-change', updateBookmarkIconState, false);
 
     if (bookmarkWrapper) {
-        bookmarkWrapper.addEventListener('click', onBookmarkChange, false);
+        bookmarkWrapper.addEventListener('click', handleBookmarkClick, false);
     }
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

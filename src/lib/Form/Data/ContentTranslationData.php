@@ -6,24 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Data;
+namespace Ibexa\AdminUi\Form\Data;
 
-use eZ\Publish\Core\Repository\Values\Content\ContentUpdateStruct;
-use EzSystems\EzPlatformContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentTranslationData extends ContentUpdateStruct implements NewnessCheckable
 {
     /**
-     * @var \EzSystems\EzPlatformContentForms\Data\Content\FieldData[]
+     * @var \Ibexa\Contracts\ContentForms\Data\Content\FieldData[]
+     *
      * @Assert\Valid()
      */
     protected $fieldsData;
 
-    /** @var \eZ\Publish\API\Repository\Values\Content\Content */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
     protected $content;
 
-    /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
     protected $contentType;
 
     public function addFieldData(FieldData $fieldData): void
@@ -36,3 +37,5 @@ class ContentTranslationData extends ContentUpdateStruct implements NewnessCheck
         return false;
     }
 }
+
+class_alias(ContentTranslationData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTranslationData');

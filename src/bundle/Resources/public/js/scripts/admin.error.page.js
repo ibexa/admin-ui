@@ -1,8 +1,13 @@
-(function(doc) {
-    const notificationsContainer = doc.querySelector('.ez-notifications-container');
+(function (global, doc, iconPaths) {
+    const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
-    const template = notificationsContainer.dataset.template;
-
+    const { template } = notificationsContainer.dataset;
+    const iconsMap = {
+        info: 'system-information',
+        error: 'circle-close',
+        warning: 'warning-triangle',
+        success: 'checkmark',
+    };
     const escapeHTML = (string) => {
         const stringTempNode = doc.createElement('div');
 
@@ -10,17 +15,17 @@
 
         return stringTempNode.innerHTML;
     };
-
     const addNotification = ({ detail }) => {
         const { label, message } = detail;
-        const templateLabel = label === 'error' ? 'danger' : label;
         const container = doc.createElement('div');
-        let finalMessage = escapeHTML(message);
+        const iconSetPath = iconPaths.iconSets[iconPaths.defaultIconSet];
+        const iconPath = `${iconSetPath}#${iconsMap[label]}`;
+        const finalMessage = escapeHTML(message);
 
         const notification = template
-            .replace('{{ label }}', templateLabel)
+            .replace('{{ label }}', label)
             .replace('{{ message }}', finalMessage)
-            .replace('{{ badge }}', label);
+            .replace('{{ icon_path }}', iconPath);
 
         container.insertAdjacentHTML('beforeend', notification);
 
@@ -32,4 +37,6 @@
     Object.entries(notifications).forEach(([label, messages]) => {
         messages.forEach((message) => addNotification({ detail: { label, message } }));
     });
-})(window.document);
+
+    doc.body.addEventListener('ibexa-notify', addNotification, false);
+})(window, window.document, window.ibexa.iconPaths);

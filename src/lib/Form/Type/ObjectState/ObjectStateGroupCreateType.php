@@ -6,9 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\ObjectState;
+namespace Ibexa\AdminUi\Form\Type\ObjectState;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
+use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,8 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ObjectStateGroupCreateType extends AbstractType
 {
+    public const BTN_CREATE_AND_EDIT = 'create_and_edit';
+
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,18 +33,23 @@ class ObjectStateGroupCreateType extends AbstractType
                 'label' => /** @Desc("Name") */ 'object_state_group.create.name',
             ])
             ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Create") */ 'object_state_group.create.submit',
+                'label' => /** @Desc("Save and close") */ 'object_state_group.create.create',
+            ])
+            ->add(self::BTN_CREATE_AND_EDIT, SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'object_state_group.create.create_and_edit',
             ]);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateGroupCreateData::class,
-            'translation_domain' => 'object_state',
+            'translation_domain' => 'ibexa_object_state',
         ]);
     }
 }
+
+class_alias(ObjectStateGroupCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType');

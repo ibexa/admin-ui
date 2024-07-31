@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Translation\Extractor\LimitationTranslationExtractor;
+namespace Ibexa\AdminUi\Limitation\Mapper;
+
+use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 
@@ -28,7 +29,7 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     {
         $options = $this->getChoiceFieldOptions() + [
             'multiple' => true,
-            'label' => LimitationTranslationExtractor::identifierToLabel($data->getIdentifier()),
+            'label' => LimitationIdentifierToLabelConverter::convert($data->getIdentifier()),
             'required' => false,
         ];
         $choices = $this->getSelectionChoices();
@@ -68,3 +69,5 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     {
     }
 }
+
+class_alias(MultipleSelectionBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\MultipleSelectionBasedMapper');

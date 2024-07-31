@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
+namespace Ibexa\AdminUi\FieldType;
+
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -24,7 +25,7 @@ interface FieldDefinitionFormMapperInterface
      * - default value.
      *
      * @param \Symfony\Component\Form\FormInterface $fieldDefinitionForm form for current FieldDefinition
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $data underlying data for current FieldDefinition form
+     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data underlying data for current FieldDefinition form
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void;
 }
@@ -33,3 +34,5 @@ class_alias(
     FieldDefinitionFormMapperInterface::class,
     \EzSystems\RepositoryForms\FieldType\FieldDefinitionFormMapperInterface::class
 );
+
+class_alias(FieldDefinitionFormMapperInterface::class, 'EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface');

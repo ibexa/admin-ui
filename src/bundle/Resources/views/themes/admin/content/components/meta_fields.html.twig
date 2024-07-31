@@ -1,0 +1,25 @@
+{% extends '@ibexadesign/ui/component/anchor_navigation/section_group.html.twig' %}
+
+{% trans_default_domain 'ibexa_fields_groups' %}
+
+{% set data_id = 'ibexa-edit-content-sections-meta' %}
+{% set is_section_visible = show_meta_fields|default(false) %}
+
+{% block header %}
+    {% if show_meta_fields_header|default(false) %}
+        <h2 class="ibexa-anchor-navigation__section-group-header">{{ 'metadata'|trans()|desc('Metadata') }}</h2>
+    {% endif %}
+{% endblock %}
+
+{% block sections %}
+    {% for identifier in meta_fields %}
+        {% embed '@ibexadesign/ui/component/anchor_navigation/section.html.twig' with {'form': form, 'identifier': identifier} %}
+            {% set data_id = '#ibexa-edit-content-sections-meta-' ~ identifier %}
+            {% block content %}
+                {% from '@ibexadesign/content/edit_macros.html.twig' import render_form_field %}
+
+                {{ render_form_field(form.fieldsData[identifier]) }}
+            {% endblock %}
+        {% endembed %}
+    {% endfor %}
+{% endblock %}

@@ -1,89 +1,41 @@
-(function(global, doc, eZ, React, ReactDOM) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezrichtext';
-    const SELECTOR_INPUT = '.ez-data-source__richtext';
-    const SELECTOR_ERROR_NODE = '.ez-field-edit__label-wrapper';
+import initValidator from './validator/richtext-validator';
+
+(function (global, doc, ibexa, React, ReactDOM) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezrichtext';
+    const SELECTOR_INPUT = '.ibexa-data-source__richtext';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
+    const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const selectContent = (config) => {
         const udwContainer = document.querySelector('#react-udw');
+        const udwRoot = ReactDOM.createRoot(udwContainer);
         const confirmHandler = (items) => {
             if (typeof config.onConfirm === 'function') {
                 config.onConfirm(items);
             }
 
-            ReactDOM.unmountComponentAtNode(udwContainer);
+            udwRoot.unmount();
         };
         const cancelHandler = () => {
             if (typeof config.onCancel === 'function') {
                 config.onCancel();
             }
 
-            ReactDOM.unmountComponentAtNode(udwContainer);
+            udwRoot.unmount();
         };
-        const mergedConfig = Object.assign({}, config, {
-            onConfirm: confirmHandler,
-            onCancel: cancelHandler,
-        });
+        const mergedConfig = { ...config, onConfirm: confirmHandler, onCancel: cancelHandler };
 
-        ReactDOM.render(React.createElement(eZ.modules.UniversalDiscovery, mergedConfig), udwContainer);
+        udwRoot.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig));
     };
 
-    eZ.addConfig('richText.alloyEditor.callbacks.selectContent', selectContent);
-
-    class EzRichTextValidator extends eZ.BaseFieldValidator {
-        constructor(config) {
-            super(config);
-
-            this.alloyEditor = config.alloyEditor;
-        }
-        /**
-         * Validates the input
-         *
-         * @method validateInput
-         * @param {Event} event
-         * @returns {Object}
-         * @memberof EzRichTextValidator
-         */
-        validateInput(event) {
-            const fieldContainer = event.currentTarget.closest(SELECTOR_FIELD);
-            const isRequired = fieldContainer.classList.contains('ez-field-edit--required');
-            const label = fieldContainer.querySelector('.ez-field-edit__label').innerHTML;
-            const isEmpty = !this.alloyEditor.get('nativeEditor').getData().length;
-            const isError = isRequired && isEmpty;
-            const result = { isError };
-
-            if (isError) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
-            }
-
-            return result;
-        }
-    }
+    ibexa.addConfig('richText.alloyEditor.callbacks.selectContent', selectContent);
 
     doc.querySelectorAll(`${SELECTOR_FIELD} ${SELECTOR_INPUT}`).forEach((container) => {
-        const richtext = new eZ.BaseRichText();
-        const alloyEditor = richtext.init(container);
+        const richtextEditor = new ibexa.BaseRichText();
 
-        const validator = new EzRichTextValidator({
-            classInvalid: 'is-invalid',
-            fieldContainer: container.closest(SELECTOR_FIELD),
-            alloyEditor,
-            eventsMap: [
-                {
-                    selector: SELECTOR_INPUT,
-                    eventName: 'input',
-                    callback: 'validateInput',
-                    errorNodeSelectors: [SELECTOR_ERROR_NODE],
-                },
-                {
-                    selector: SELECTOR_INPUT,
-                    eventName: 'blur',
-                    callback: 'validateInput',
-                    errorNodeSelectors: [SELECTOR_ERROR_NODE],
-                },
-            ],
-        });
+        richtextEditor.init(container);
 
-        validator.init();
+        const validator = initValidator(container, SELECTOR_FIELD, SELECTOR_ERROR_NODE, SELECTOR_INPUT, SELECTOR_LABEL, richtextEditor);
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOM);

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser;
+namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\AbstractParser;
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
+use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 /**
@@ -17,45 +17,52 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      admin_group: # configuration per siteaccess or siteaccess group
  *          notifications:
  *              warning: # type of notification
  *                  timeout: 5000 # in milliseconds
+ *          notification_count:
+ *              interval: 60000 # in milliseconds
  * ```
  */
 class Notifications extends AbstractParser
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
     {
-        if (empty($scopeSettings['notifications'])) {
-            return;
-        }
+        if (!empty($scopeSettings['notifications'])) {
+            $settings = $scopeSettings['notifications'];
+            $nodes = ['timeout'];
 
-        $settings = $scopeSettings['notifications'];
-        $nodes = ['timeout'];
+            foreach ($settings as $type => $config) {
+                foreach ($nodes as $key) {
+                    if (!isset($config[$key]) || empty($config[$key])) {
+                        continue;
+                    }
 
-        foreach ($settings as $type => $config) {
-            foreach ($nodes as $key) {
-                if (!isset($config[$key]) || empty($config[$key])) {
-                    continue;
+                    $contextualizer->setContextualParameter(
+                        sprintf('notifications.%s.%s', $type, $key),
+                        $currentScope,
+                        $config[$key]
+                    );
                 }
-
-                $contextualizer->setContextualParameter(
-                    sprintf('notifications.%s.%s', $type, $key),
-                    $currentScope,
-                    $config[$key]
-                );
             }
+        }
+        if (!empty($scopeSettings['notification_count']) && !empty($scopeSettings['notification_count']['interval'])) {
+            $contextualizer->setContextualParameter(
+                'notification_count.interval',
+                $currentScope,
+                $scopeSettings['notification_count']['interval']
+            );
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {
@@ -70,6 +77,15 @@ class Notifications extends AbstractParser
                         ->end()
                     ->end()
                 ->end()
+            ->end()
+            ->arrayNode('notification_count')
+                ->children()
+                    ->scalarNode('interval')
+                        ->info('Time in milliseconds between notification count refreshment.')
+                    ->end()
+                ->end()
             ->end();
     }
 }
+
+class_alias(Notifications::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Notifications');

@@ -6,11 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Policy;
+namespace Ibexa\AdminUi\Form\Type\Policy;
 
-use eZ\Publish\API\Repository\RoleService;
-use EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Type\Role\LimitationType;
+use Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData;
+use Ibexa\AdminUi\Form\Type\Role\LimitationType;
+use Ibexa\Contracts\Core\Repository\RoleService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,11 +22,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PolicyCreateWithLimitationType extends AbstractType
 {
-    /** @var \eZ\Publish\API\Repository\RoleService */
+    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
     /**
-     * @param \eZ\Publish\API\Repository\RoleService $roleService
+     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -33,14 +34,15 @@ class PolicyCreateWithLimitationType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'policy',
-                PolicyChoiceType::class, [
+                PolicyChoiceType::class,
+                [
                     'label' => /** @Desc("Type") */ 'role.policy.type',
                     'placeholder' => /** @Desc("Choose a type") */ 'role.policy.type.choose',
                     'disabled' => true,
@@ -64,7 +66,7 @@ class PolicyCreateWithLimitationType extends AbstractType
 
                 $form->add('limitations', CollectionType::class, [
                     'label' => false,
-                    'translation_domain' => 'ezplatform_content_forms_role',
+                    'translation_domain' => 'ibexa_content_forms_role',
                     'entry_type' => LimitationType::class,
                     'data' => $this->generateLimitationList(
                         $data->getLimitations(),
@@ -76,12 +78,12 @@ class PolicyCreateWithLimitationType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'translation_domain' => 'ezplatform_content_forms_role',
+            'translation_domain' => 'ibexa_content_forms_role',
             'data_class' => PolicyCreateData::class,
         ]);
     }
@@ -90,10 +92,10 @@ class PolicyCreateWithLimitationType extends AbstractType
      * Generates the limitation list from existing limitations (already configured for current policy) and
      * available limitation types available for current policy (i.e. current module/function combination).
      *
-     * @param \eZ\Publish\API\Repository\Values\User\Limitation[] $existingLimitations
-     * @param \eZ\Publish\SPI\Limitation\Type[] $availableLimitationTypes
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $existingLimitations
+     * @param \Ibexa\Contracts\Core\Limitation\Type[] $availableLimitationTypes
      *
-     * @return array|\eZ\Publish\API\Repository\Values\User\Limitation[]
+     * @return array|\Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
     private function generateLimitationList(array $existingLimitations, array $availableLimitationTypes): array
     {
@@ -115,3 +117,5 @@ class PolicyCreateWithLimitationType extends AbstractType
         return $limitations;
     }
 }
+
+class_alias(PolicyCreateWithLimitationType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyCreateWithLimitationType');

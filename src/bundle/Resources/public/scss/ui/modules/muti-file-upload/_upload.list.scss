@@ -1,13 +1,5 @@
 .c-upload-list {
-    &__title {
-        padding: calculateRem(12px) calculateRem(32px);
-        color: $ibexa-color-base-dark;
-        background: $ibexa-white;
-        border-top: calculateRem(1px) solid $ibexa-color-base;
-        border-bottom: calculateRem(1px) solid $ibexa-color-base;
-    }
-
-    .c-upload-list-item + .c-upload-list-item {
-        border-top: calculateRem(1px) solid $ibexa-white;
-    }
+    height: 100%;
+    overflow: auto;
+    margin-top: calculateRem(16px);
 }

@@ -11,32 +11,31 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
 
-/** Element that describes upper menu (Content, Admin, Page and theirs children) */
 class UpperMenu extends Component
 {
-    public function goToTab(string $tabName): void
-    {
-        $this->getHTMLPage()->findAll($this->getLocator('menuButton'))->getByCriterion(new ElementTextCriterion($tabName))->click();
-    }
-
     public function goToDashboard(): void
     {
         $this->getHTMLPage()->find($this->getLocator('dashboardLink'))->click();
     }
 
-    public function goToSubTab(string $tabName): void
+    public function hasUnreadNotification(): bool
     {
-        $this->getHTMLPage()->setTimeout(7)->findAll($this->getLocator('submenuButton'))->getByCriterion(new ElementTextCriterion($tabName))->click();
+        return $this->getHTMLPage()
+            ->setTimeout(5)
+            ->findAll($this->getLocator('pendingNotification'))
+            ->any();
     }
 
-    public function getNotificationsCount(): int
+    public function search(string $searchInput): void
     {
-        return (int) $this->getHTMLPage()
-            ->setTimeout(5)
-            ->find($this->getLocator('pendingNotificationsCount'))
-            ->getAttribute('data-count');
+        $this->getHTMLPage()->find($this->getLocator('searchInput'))->setValue($searchInput);
+        $this->getHTMLPage()->find($this->getLocator('searchButton'))->click();
+    }
+
+    public function openNotifications(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('userNotifications'))->click();
     }
 
     public function chooseFromUserDropdown(string $option): void
@@ -45,20 +44,44 @@ class UpperMenu extends Component
         $this->getHTMLPage()->findAll($this->getLocator('userSettingsItem'))->getByCriterion(new ElementTextCriterion($option))->click();
     }
 
+    public function setFocusMode(bool $expectedModeStatus): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+
+        $isEnabled = $this->getHTMLPage()->setTimeout(3)->findAll($this->getLocator('userFocusEnabled'))->any();
+
+        if ($expectedModeStatus != $isEnabled) {
+            $this->getHTMLPage()->find($this->getLocator('userFocusMode'))->click();
+        } else {
+            $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+        }
+
+        if ($expectedModeStatus) {
+            $this->getHTMLPage()->find($this->getLocator('focusModeBadge'))->assert()->textEquals('Focus mode');
+        } else {
+            $this->getHTMLPage()->findAll($this->getLocator('focusModeBadge'))->assert()->isEmpty();
+        }
+    }
+
     public function verifyIsLoaded(): void
     {
-        Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('menuButton'))->isVisible());
+        $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->assert()->isVisible();
     }
 
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('menuButton', '.ez-main-nav .nav-link'),
-            new VisibleCSSLocator('submenuButton', '.ez-main-sub-nav .nav-link'),
-            new VisibleCSSLocator('dashboardLink', '.navbar-brand'),
-            new VisibleCSSLocator('pendingNotificationsCount', '.ez-user-menu__name-wrapper .n-pending-notifications'),
-            new VisibleCSSLocator('userSettingsToggle', '.ez-user-menu__name-wrapper'),
-            new VisibleCSSLocator('userSettingsItem', '.ez-user-menu__item'),
+            new VisibleCSSLocator('dashboardLink', '.ibexa-main-header__brand'),
+            new VisibleCSSLocator('pendingNotification', '.ibexa-header-user-menu__notice-dot'),
+            new VisibleCSSLocator('userSettingsToggle', '.ibexa-header-user-menu__toggler'),
+            new VisibleCSSLocator('userNotifications', '.ibexa-header-user-menu__notifications-toggler'),
+            new VisibleCSSLocator('userSettingsItem', '.ibexa-popup-menu__item'),
+            new VisibleCSSLocator('userSettingsPopup', '.ibexa-header-user-menu .ibexa-header-user-menu__popup-menu'),
+            new VisibleCSSLocator('searchInput', '.ibexa-main-header #search_query'),
+            new VisibleCSSLocator('searchButton', '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search'),
+            new VisibleCSSLocator('userFocusEnabled', '[name="focus_mode_change"] .ibexa-toggle__label--on'),
+            new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ibexa-toggle__switcher'),
+            new VisibleCSSLocator('focusModeBadge', '.ibexa-user-mode-badge'),
         ];
     }
 }

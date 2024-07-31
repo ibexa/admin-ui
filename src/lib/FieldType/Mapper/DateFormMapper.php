@@ -4,11 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\FieldType\Mapper;
 
-use eZ\Publish\Core\FieldType\Date\Type;
-use EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
+namespace Ibexa\AdminUi\FieldType\Mapper;
+
+use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\FieldType\Date\Type;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,7 +38,7 @@ class DateFormMapper implements FieldDefinitionFormMapperInterface
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultType]',
                     'label' => /** @Desc("Default value") */ 'field_definition.ezdate.default_type',
-                    'translation_domain' => 'content_type',
+                    'translation_domain' => 'ibexa_content_type',
                     'disabled' => $isTranslation,
                 ]
             );
@@ -46,7 +48,9 @@ class DateFormMapper implements FieldDefinitionFormMapperInterface
     {
         $resolver
             ->setDefaults([
-                'translation_domain' => 'content_type',
+                'translation_domain' => 'ibexa_content_type',
             ]);
     }
 }
+
+class_alias(DateFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\DateFormMapper');

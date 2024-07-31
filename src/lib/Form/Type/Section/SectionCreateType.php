@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Section;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData;
+namespace Ibexa\AdminUi\Form\Type\Section;
+
+use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionCreateType extends AbstractType
 {
+    public const BTN_CREATE_AND_EDIT = 'create_and_edit';
+
     /** @var SectionType */
     protected $sectionType;
 
@@ -33,6 +36,10 @@ class SectionCreateType extends AbstractType
             ->add('create', SubmitType::class, [
                 'label' => /** @Desc("Create") */
                     'section_create_form.create',
+            ])
+            ->add(self::BTN_CREATE_AND_EDIT, SubmitType::class, [
+                'label' => /** @Desc("Save and edit") */
+                    'section_create_form.create_and_edit',
             ]);
     }
 
@@ -46,3 +53,5 @@ class SectionCreateType extends AbstractType
         ]);
     }
 }
+
+class_alias(SectionCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionCreateType');

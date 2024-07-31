@@ -4,11 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Role;
 
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperRegistryInterface;
+namespace Ibexa\AdminUi\Form\Type\Role;
+
+use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
+use Ibexa\AdminUi\Limitation\LimitationFormMapperRegistryInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -20,12 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LimitationType extends AbstractType
 {
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperRegistryInterface
+     * @var \Ibexa\AdminUi\Limitation\LimitationFormMapperRegistryInterface
      */
     private $limitationFormMapperRegistry;
 
     /**
-     * @var \EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface
+     * @var \Ibexa\AdminUi\Limitation\LimitationFormMapperInterface
      */
     private $nullMapper;
 
@@ -38,7 +39,7 @@ class LimitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Limitation $data */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
             $data = $event->getData();
             $form = $event->getForm();
 
@@ -48,7 +49,7 @@ class LimitationType extends AbstractType
         });
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            /** @var \eZ\Publish\API\Repository\Values\User\Limitation $data */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
             $data = $event->getData();
             if ($this->limitationFormMapperRegistry->hasMapper($data->getIdentifier())) {
                 $this->limitationFormMapperRegistry->getMapper($data->getIdentifier())->filterLimitationValues($data);
@@ -75,8 +76,8 @@ class LimitationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => '\eZ\Publish\API\Repository\Values\User\Limitation',
-            'translation_domain' => 'ezplatform_content_forms_policies',
+            'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation',
+            'translation_domain' => 'ibexa_content_forms_policies',
         ]);
     }
 
@@ -90,3 +91,5 @@ class LimitationType extends AbstractType
         return 'ezplatform_content_forms_policy_limitation_edit';
     }
 }
+
+class_alias(LimitationType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\LimitationType');

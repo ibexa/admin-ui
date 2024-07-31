@@ -1,0 +1,22 @@
+.ibexa-additional-actions {
+    display: flex;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        background-color: $ibexa-color-light-100;
+
+        &:first-child {
+            border-left: calculateRem(2px) solid $ibexa-color-light;
+        }
+
+        &:last-child {
+            border-top-right-radius: calculateRem(12px);
+            border-bottom-right-radius: calculateRem(12px);
+        }
+
+        .ibexa-btn {
+            color: $ibexa-color-dark;
+        }
+    }
+}

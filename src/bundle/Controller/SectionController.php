@@ -6,36 +6,41 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Exception;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\SortClause;
-use eZ\Publish\API\Repository\Values\Content\Section;
-use eZ\Publish\API\Repository\Values\User\Limitation\NewSectionLimitation;
-use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Security\Authorization\Attribute;
-use eZ\Publish\Core\Pagination\Pagerfanta\ContentSearchAdapter;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionContentAssignData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionsDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionCreateMapper;
-use EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionUpdateMapper;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
-use EzSystems\EzPlatformAdminUi\UI\Service\PathService;
-use EzSystems\EzPlatformAdminUiBundle\View\EzPagerfantaView;
-use EzSystems\EzPlatformAdminUiBundle\View\Template\EzPagerfantaTemplate;
+use Ibexa\AdminUi\Form\Data\Section\SectionContentAssignData;
+use Ibexa\AdminUi\Form\Data\Section\SectionCreateData;
+use Ibexa\AdminUi\Form\Data\Section\SectionDeleteData;
+use Ibexa\AdminUi\Form\Data\Section\SectionsDeleteData;
+use Ibexa\AdminUi\Form\Data\Section\SectionUpdateData;
+use Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper;
+use Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
+use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
+use Ibexa\AdminUi\UI\Service\PathService;
+use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
+use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\NewSectionLimitation;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
+use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,43 +48,43 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SectionController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
 
-    /** @var \eZ\Publish\API\Repository\SectionService */
+    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionCreateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
     private $sectionCreateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionUpdateMapper */
+    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper */
     private $sectionUpdateMapper;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Service\PathService */
+    /** @var \Ibexa\AdminUi\UI\Service\PathService */
     private $pathService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -123,8 +128,8 @@ class SectionController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function listAction(Request $request): Response
     {
@@ -137,7 +142,7 @@ class SectionController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.section_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\Section[] $sectionList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sectionList */
         $sectionList = $pagerfanta->getCurrentPageResults();
         $contentCountBySectionId = [];
         $deletableSections = [];
@@ -165,7 +170,7 @@ class SectionController extends Controller
         $canAdd = $this->permissionResolver->hasAccess('section', 'view') === true
             && $this->permissionResolver->hasAccess('section', 'edit') === true;
 
-        return $this->render('@ezdesign/section/list.html.twig', [
+        return $this->render('@ibexadesign/section/list.html.twig', [
             'can_add' => $canAdd,
             'can_edit' => $canEdit,
             'can_assign' => $canAssign,
@@ -179,7 +184,7 @@ class SectionController extends Controller
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -189,7 +194,7 @@ class SectionController extends Controller
             new SectionDeleteData($section)
         )->createView();
 
-        return $this->render('@ezdesign/section/view.html.twig', [
+        return $this->render('@ibexadesign/section/view.html.twig', [
             'section' => $section,
             'form_section_delete' => $sectionDeleteForm,
             'deletable' => !$this->sectionService->isSectionUsed($section),
@@ -200,15 +205,15 @@ class SectionController extends Controller
     /**
      * Fragment action which renders list of contents assigned to section.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      * @param int $page Current page
      * @param int $limit Number of items per page
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function viewSectionContentAction(Section $section, int $page = 1, int $limit = 10): Response
     {
@@ -239,7 +244,7 @@ class SectionController extends Controller
         }
 
         $routeGenerator = function ($page) use ($section) {
-            return $this->generateUrl('ezplatform.section.view', [
+            return $this->generateUrl('ibexa.section.view', [
                 'sectionId' => $section->id,
                 'page' => $page,
             ]);
@@ -247,7 +252,7 @@ class SectionController extends Controller
 
         $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
 
-        return $this->render('@ezdesign/section/assigned_content.html.twig', [
+        return $this->render('@ibexadesign/section/assigned_content.html.twig', [
             'section' => $section,
             'form_section_content_assign' => $sectionContentAssignForm,
             'assigned_content' => $assignedContent,
@@ -259,7 +264,7 @@ class SectionController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -281,10 +286,10 @@ class SectionController extends Controller
                     /** @Desc("Section '%name%' removed.") */
                     'section.delete.success',
                     ['%name%' => $section->name],
-                    'section'
+                    'ibexa_section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.list'));
+                return new RedirectResponse($this->generateUrl('ibexa.section.list'));
             });
 
             if ($result instanceof Response) {
@@ -292,7 +297,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.section.list'));
+        return $this->redirect($this->generateUrl('ibexa.section.list'));
     }
 
     /**
@@ -320,7 +325,7 @@ class SectionController extends Controller
                         /** @Desc("Section '%name%' removed.") */
                         'section.delete.success',
                         ['%name%' => $section->name],
-                        'section'
+                        'ibexa_section'
                     );
                 }
             });
@@ -330,12 +335,12 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.section.list'));
+        return $this->redirect($this->generateUrl('ibexa.section.list'));
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -368,10 +373,10 @@ class SectionController extends Controller
                     /** @Desc("%contentItemsCount% Content items assigned to '%name%'") */
                     'section.assign_content.success',
                     ['%name%' => $section->name, '%contentItemsCount%' => \count($contentInfos)],
-                    'section'
+                    'ibexa_section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.view', [
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
             });
@@ -381,7 +386,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.section.view', [
+        return $this->redirect($this->generateUrl('ibexa.section.view', [
             'sectionId' => $section->id,
         ]));
     }
@@ -394,6 +399,7 @@ class SectionController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createSection(
             new SectionCreateData()
         );
@@ -409,31 +415,42 @@ class SectionController extends Controller
                     /** @Desc("Section '%name%' created.") */
                     'section.create.success',
                     ['%name%' => $section->name],
-                    'section'
+                    'ibexa_section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.view', [
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === SectionCreateType::BTN_CREATE_AND_EDIT
+                ) {
+                    return $this->redirectToRoute('ibexa.section.update', [
+                        'sectionId' => $section->id,
+                    ]);
+                }
+
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
             } catch (Exception $e) {
-                $this->notificationHandler->error(/** @Ignore */ $e->getMessage());
+                $this->notificationHandler->error(/** @Ignore */
+                    $e->getMessage()
+                );
             }
         }
 
-        return $this->render('@ezdesign/section/create.html.twig', [
+        return $this->render('@ibexadesign/section/create.html.twig', [
             'form_section_create' => $form->createView(),
         ]);
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(Request $request, Section $section): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateSection(
             new SectionUpdateData($section)
         );
@@ -449,25 +466,31 @@ class SectionController extends Controller
                     /** @Desc("Section '%name%' updated.") */
                     'section.update.success',
                     ['%name%' => $section->name],
-                    'section'
+                    'ibexa_section'
                 );
 
-                return new RedirectResponse($this->generateUrl('ezplatform.section.view', [
-                    'sectionId' => $section->id,
-                ]));
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === SectionUpdateType::BTN_UPDATE
+                ) {
+                    return new RedirectResponse($this->generateUrl('ibexa.section.view', [
+                        'sectionId' => $section->id,
+                    ]));
+                }
             } catch (Exception $e) {
-                $this->notificationHandler->error(/** @Ignore */ $e->getMessage());
+                $this->notificationHandler->error(/** @Ignore */
+                    $e->getMessage()
+                );
             }
         }
 
-        return $this->render('@ezdesign/section/update.html.twig', [
+        return $this->render('@ibexadesign/section/update.html.twig', [
             'section' => $section,
             'form_section_update' => $form->createView(),
         ]);
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Section[] $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
      *
      * @return array
      */
@@ -481,11 +504,11 @@ class SectionController extends Controller
     /**
      * Specifies if the User has access to assigning a given Section to Content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Section $section
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function canUserAssignSectionToSomeContent(Section $section): bool
     {
@@ -504,3 +527,5 @@ class SectionController extends Controller
         return true;
     }
 }
+
+class_alias(SectionController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\SectionController');

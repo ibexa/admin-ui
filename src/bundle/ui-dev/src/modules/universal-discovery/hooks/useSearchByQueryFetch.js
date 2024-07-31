@@ -1,7 +1,9 @@
 import { useContext, useCallback, useReducer } from 'react';
 
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 import { findLocationsBySearchQuery } from '../services/universal.discovery.service';
-import { RestInfoContext } from '../universal.discovery.module';
+import { RestInfoContext, LoadedLocationsMapContext } from '../universal.discovery.module';
 
 const SEARCH_START = 'SEARCH_START';
 const SEARCH_END = 'SEARCH_END';
@@ -21,14 +23,45 @@ const searchByQueryReducer = (state, action) => {
 };
 
 export const useSearchByQueryFetch = () => {
+    const { damWidget: damWidgetConfig } = getAdminUiConfig();
     const restInfo = useContext(RestInfoContext);
+    const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [{ isLoading, data }, dispatch] = useReducer(searchByQueryReducer, { isLoading: false, data: {} });
+
     const searchByQuery = useCallback(
-        (searchText, contentTypesIdentifiers, sectionIdentifier, subtreePathString, limit, offset, languageCode) => {
+        (
+            searchText,
+            contentTypesIdentifiers,
+            sectionIdentifier,
+            subtreePathString,
+            limit,
+            offset,
+            languageCode,
+            sortClause = null,
+            sortOrder = null,
+            imageCriterionData = null,
+            aggregations = {},
+            filters = {},
+            fullTextCriterion = null,
+            contentNameCriterion = null,
+        ) => {
             const handleFetch = (response) => {
+                dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
                 dispatch({ type: SEARCH_END, response });
             };
-            const query = { FullTextCriterion: `${searchText}*` };
+            const query = {};
+
+            if (searchText) {
+                query.FullTextCriterion = `${searchText}*`;
+            }
+
+            if (fullTextCriterion) {
+                query.FullTextCriterion = fullTextCriterion;
+            }
+
+            if (contentNameCriterion) {
+                query.ContentNameCriterion = contentNameCriterion;
+            }
 
             if (contentTypesIdentifiers && contentTypesIdentifiers.length) {
                 query.ContentTypeIdentifierCriterion = contentTypesIdentifiers;
@@ -42,10 +75,32 @@ export const useSearchByQueryFetch = () => {
                 query.SubtreeCriterion = subtreePathString;
             }
 
+            const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
+
+            if (!isImageCriterionDataEmpty) {
+                const imagesCriterion = damWidgetConfig.image.fieldDefinitionIdentifiers.reduce(
+                    (criterions, fieldDefinitionIdentifier) => [
+                        ...criterions,
+                        {
+                            fieldDefIdentifier: fieldDefinitionIdentifier,
+                            ...imageCriterionData,
+                        },
+                    ],
+                    [],
+                );
+
+                query.OR = {
+                    ImageCriterion: imagesCriterion,
+                };
+            }
+
             dispatch({ type: SEARCH_START });
-            findLocationsBySearchQuery({ ...restInfo, query, limit, offset, languageCode }, handleFetch);
+            return findLocationsBySearchQuery(
+                { ...restInfo, query, aggregations, filters, sortClause, sortOrder, limit, offset, languageCode },
+                handleFetch,
+            );
         },
-        [restInfo, dispatch]
+        [restInfo, dispatch],
     );
 
     return [isLoading, data, searchByQuery];

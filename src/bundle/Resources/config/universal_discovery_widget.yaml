@@ -60,6 +60,8 @@ system:
                 richtext_embed_image:
                     multiple: false
                     allowed_content_types: ['image']
+                    root_location_id: 43
+                    starting_location_id: 43
                 image_asset:
                     multiple: false
                 single_user:
@@ -76,3 +78,5 @@ system:
                     multiple: false
                 subtree_search:
                     multiple: false
+                image_picker:
+                    active_tab: 'browse'

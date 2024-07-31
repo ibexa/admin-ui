@@ -1,9 +1,8 @@
-(function(global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezstring';
-    const SELECTOR_ERROR_NODE = '.ez-data-source';
-    const SELECTOR_SOURCE_INPUT = '.ez-data-source__input';
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezstring';
+    const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
 
-    class EzStringValidator extends eZ.BaseFieldValidator {
+    class EzStringValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
@@ -18,15 +17,15 @@
             const isTooShort = event.target.value.length < parseInt(event.target.dataset.min, 10);
             const isTooLong = event.target.value.length > parseInt(event.target.dataset.max, 10);
             const isError = (isEmpty && isRequired) || (!isEmpty && (isTooShort || isTooLong));
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ez-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (isTooShort) {
-                result.errorMessage = eZ.errors.tooShort.replace('{fieldName}', label).replace('{minLength}', event.target.dataset.min);
+                result.errorMessage = ibexa.errors.tooShort.replace('{fieldName}', label).replace('{minLength}', event.target.dataset.min);
             } else if (isTooLong) {
-                result.errorMessage = eZ.errors.tooLong.replace('{fieldName}', label).replace('{maxLength}', event.target.dataset.max);
+                result.errorMessage = ibexa.errors.tooLong.replace('{fieldName}', label).replace('{maxLength}', event.target.dataset.max);
             }
 
             return result;
@@ -38,10 +37,10 @@
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [
             {
-                selector: '.ez-field-edit--ezstring input',
+                selector: '.ibexa-field-edit--ezstring input',
                 eventName: 'blur',
                 callback: 'validateInput',
-                errorNodeSelectors: [SELECTOR_ERROR_NODE],
+                errorNodeSelectors: ['.ibexa-form-error'],
                 invalidStateSelectors: [SELECTOR_SOURCE_INPUT],
             },
         ],
@@ -49,5 +48,5 @@
 
     validator.init();
 
-    eZ.addConfig('fieldTypeValidators', [validator], true);
-})(window, window.document, window.eZ);
+    ibexa.addConfig('fieldTypeValidators', [validator], true);
+})(window, window.document, window.ibexa);

@@ -6,70 +6,68 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UI\Module\Subitems;
+namespace Ibexa\AdminUi\UI\Module\Subitems;
 
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\PermissionResolver;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Content;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use eZ\Publish\Core\MVC\Symfony\View\ContentView;
-use eZ\Publish\Core\Query\QueryFactoryInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\Provider\ContentTypeMappings;
-use EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList as SubitemsListValueObjectVisitor;
-use EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsList;
-use EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsRow;
-use EzSystems\EzPlatformRest\Output\Generator\Json as JsonOutputGenerator;
-use EzSystems\EzPlatformRest\Output\Visitor;
-use EzSystems\EzPlatformRest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
-use EzSystems\EzPlatformRest\Server\Values\ContentTypeInfoList;
-use EzSystems\EzPlatformRest\Server\Values\RestContent;
-use EzSystems\EzPlatformRest\Server\Values\RestLocation;
-use EzSystems\EzPlatformUser\UserSetting\UserSettingService;
+use Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings;
+use Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList as SubitemsListValueObjectVisitor;
+use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList;
+use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Rest\Output\Visitor;
+use Ibexa\Core\MVC\Symfony\View\ContentView;
+use Ibexa\Core\Query\QueryFactoryInterface;
+use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
+use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
+use Ibexa\Rest\Server\Values\ContentTypeInfoList;
+use Ibexa\Rest\Server\Values\RestContent;
+use Ibexa\Rest\Server\Values\RestLocation;
+use Ibexa\User\UserSetting\UserSettingService;
 
 /**
  * @internal
  */
 class ContentViewParameterSupplier
 {
-    /** @var \EzSystems\EzPlatformRest\Output\Visitor */
+    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
     private $outputVisitor;
 
-    /** @var \EzSystems\EzPlatformRest\Output\Generator\Json */
+    /** @var \Ibexa\Rest\Output\Generator\Json */
     private $outputGenerator;
 
-    /** @var \EzSystems\EzPlatformRest\Server\Output\ValueObjectVisitor\ContentTypeInfoList */
+    /** @var \Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList */
     private $contentTypeInfoListValueObjectVisitor;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList */
+    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList */
     private $subitemsListValueObjectVisitor;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\PermissionResolver */
+    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /** @var \EzSystems\EzPlatformAdminUi\UI\Config\Provider\ContentTypeMappings */
+    /** @var \Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings */
     private $contentTypeMappings;
 
-    /** @var \EzSystems\EzPlatformUser\UserSetting\UserSettingService */
+    /** @var \Ibexa\User\UserSetting\UserSettingService */
     private $userSettingService;
 
-    /** @var \eZ\Publish\Core\Query\QueryFactoryInterface */
-    private $queryFactory;
+    private QueryFactoryInterface $queryFactory;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
     public function __construct(
         Visitor $outputVisitor,
@@ -108,29 +106,29 @@ class ContentViewParameterSupplier
      * we are using the same data structure it would use while
      * fetching data from the REST.
      *
-     * @param \eZ\Publish\Core\MVC\Symfony\View\ContentView $view
+     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function supply(ContentView $view)
     {
-        /** @var \eZ\Publish\API\Repository\Values\ContentType\ContentType[] $contentTypes */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes */
         $contentTypes = [];
         $subitemsRows = [];
         $location = $view->getLocation();
         $subitemsLimit = (int)$this->userSettingService->getUserSetting('subitems_limit')->value;
 
-        /** @var \eZ\Publish\API\Repository\Values\Content\LocationQuery $locationChildrenQuery */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $locationChildrenQuery */
         $locationChildrenQuery = $this->queryFactory->create('Children', ['location' => $location]);
         $locationChildrenQuery->offset = 0;
         $locationChildrenQuery->limit = $subitemsLimit;
 
         $searchResult = $this->searchService->findLocations($locationChildrenQuery);
         foreach ($searchResult->searchHits as $searchHit) {
-            /** @var \eZ\Publish\API\Repository\Values\Content\Location $locationChild */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $locationChild */
             $locationChild = $searchHit->valueObject;
             $contentType = $locationChild->getContent()->getContentType();
 
@@ -141,7 +139,7 @@ class ContentViewParameterSupplier
             $subitemsRows[] = $this->createSubitemsRow($locationChild, $contentType);
         }
 
-        $subitemsList = new SubitemsList($subitemsRows, $searchResult->totalCount);
+        $subitemsList = new SubitemsList($subitemsRows, $searchResult->totalCount ?? 0);
         $contentTypeInfoList = new ContentTypeInfoList($contentTypes, '');
 
         $subitemsListJson = $this->visitSubitemsList($subitemsList);
@@ -157,13 +155,13 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \EzSystems\EzPlatformRest\Server\Values\RestContent
+     * @return \Ibexa\Rest\Server\Values\RestContent
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createRestContent(
         Location $location,
@@ -179,9 +177,9 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      *
-     * @return \EzSystems\EzPlatformRest\Server\Values\RestLocation
+     * @return \Ibexa\Rest\Server\Values\RestLocation
      */
     private function createRestLocation(Location $location): RestLocation
     {
@@ -192,13 +190,13 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return \EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsRow
+     * @return \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function createSubitemsRow(
         Location $location,
@@ -211,7 +209,7 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsList $subitemsList
+     * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $subitemsList
      *
      * @return string
      */
@@ -225,7 +223,7 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \EzSystems\EzPlatformRest\Server\Values\ContentTypeInfoList $contentTypeInfoList
+     * @param \Ibexa\Rest\Server\Values\ContentTypeInfoList $contentTypeInfoList
      *
      * @return string
      */
@@ -239,14 +237,14 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *
      * @return array
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getContentCreatePermissionsForMFU(Location $location, Content $content): array
     {
@@ -275,3 +273,5 @@ class ContentViewParameterSupplier
         return $createPermissionsInMfu;
     }
 }
+
+class_alias(ContentViewParameterSupplier::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\ContentViewParameterSupplier');

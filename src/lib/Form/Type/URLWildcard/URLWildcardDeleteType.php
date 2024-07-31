@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard;
+namespace Ibexa\AdminUi\Form\Type\URLWildcard;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class URLWildcardDeleteType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -29,6 +29,7 @@ final class URLWildcardDeleteType extends AbstractType
                 'required' => false,
                 'allow_add' => true,
                 'label' => false,
+                'entry_options' => ['label' => false],
             ])
             ->add('delete', SubmitType::class, [
                 'attr' => ['hidden' => true],
@@ -36,13 +37,15 @@ final class URLWildcardDeleteType extends AbstractType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => URLWildcardDeleteData::class,
-            'translation_domain' => 'url_wildcard',
+            'translation_domain' => 'ibexa_url_wildcard',
         ]);
     }
 }
+
+class_alias(URLWildcardDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardDeleteType');

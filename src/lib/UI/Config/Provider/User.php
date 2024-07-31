@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\UI\Config\Provider;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\API\Repository\Values\User\User as ApiUser;
-use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface;
+namespace Ibexa\AdminUi\UI\Config\Provider;
+
+use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\User\User as ApiUser;
+use Ibexa\Core\MVC\Symfony\Security\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -22,12 +23,12 @@ class User implements ProviderInterface
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
     /**
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
      */
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -64,9 +65,9 @@ class User implements ProviderInterface
     /**
      * Returns first occurrence of an `ezimage` fieldtype.
      *
-     * @param \eZ\Publish\API\Repository\Values\User\User $user
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
      *
-     * @return \eZ\Publish\API\Repository\Values\Content\Field|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|null
      */
     private function resolveProfilePictureField(ApiUser $user): ?Field
     {
@@ -82,3 +83,5 @@ class User implements ProviderInterface
         return null;
     }
 }
+
+class_alias(User::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\User');

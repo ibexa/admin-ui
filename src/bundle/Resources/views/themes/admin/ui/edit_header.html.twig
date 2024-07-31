@@ -1,0 +1,67 @@
+{% set show_extra_bottom_content = show_extra_bottom_content|default(false) %}
+
+<div class="ibexa-edit-header {{ show_extra_bottom_content ? 'ibexa-edit-header--has-extra-content' }}">
+    <div class="ibexa-edit-header__container">
+        <div class="ibexa-edit-header__row ibexa-edit-header__row--top">
+            <div class="ibexa-edit-header__column ibexa-edit-header__column--main">
+                <div class="ibexa-edit-header__action-name-container">
+                    {% if icon_name is defined %}
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path(icon_name|lower) }}"></use>
+                        </svg>
+                    {% endif %}
+
+                    <label class="ibexa-label ibexa-label--small ibexa-edit-header__action-name">
+                        {{ action_name|default('') }}
+                        {{ action_object|default('') }}
+                        {{ content_type_name|default('') }}
+                    </label>
+                    {% if show_autosave_status|default(false) %}
+                        {% include '@ibexadesign/ui/autosave.html.twig' %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="ibexa-edit-header__column ibexa-context-menu-wrapper">
+                <div class="ibexa-edit-header__context-actions">
+                    {{ context_actions|default('')|raw }}
+                </div>
+            </div>
+        </div>
+        <div class="ibexa-edit-header__row ibexa-edit-header__row--bottom">
+            <div class="ibexa-edit-header__column ibexa-edit-header__column--left">
+                <h1 class="ibexa-edit-header__title">
+                    <span class="ibexa-edit-header__name ibexa-edit-header__name--ellipsized">
+                        {{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
+                            name: title,
+                        }) }}
+                    </span>
+                    <span class="ibexa-edit-header__name ibexa-edit-header__name--full">
+                        {{ title }}
+                    </span>
+                    {% block after_title %}{% endblock %}
+                    {% if (description is defined and description|length) or content is defined and content is not null %}
+                        <div
+                            class="ibexa-edit-header__tooltip"
+                            title="{% include '@ibexadesign/ui/edit_header_tooltip.html.twig' %}"
+                            data-tooltip-use-html
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small">
+                                <use xlink:href="{{ ibexa_icon_path('about') }}"></use>
+                            </svg>
+                        </div>
+                    {% endif %}
+                </h1>
+
+                {% if subtitle is defined %}
+                    <div class="ibexa-edit-header__subtitle">{{ subtitle }}</div>
+                {% endif %}
+            </div>
+            {% if show_extra_bottom_content %}
+                <div class="ibexa-edit-header__extra-bottom-content">
+                    {{ block('extra_bottom_content') }}
+                </div>
+            {% endif %}
+            <div class="ibexa-edit-header__bottom-row-line"></div>
+        </div>
+    </div>
+</div>

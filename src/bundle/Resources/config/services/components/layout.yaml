@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: false
+        public: false
+
+    Ibexa\AdminUi\Component\Search\GlobalSearchTwigComponent:
+        autowire: true
+        public: false
+        tags:
+            - { name: ibexa.admin_ui.component, group: global-search }
+
+    ibexa.admin_ui.component.user_menu:
+        class: Ibexa\AdminUi\Component\TwigComponent
+        arguments:
+            $template: '@@ibexadesign/ui/user_menu.html.twig'
+        tags:
+            - { name: ibexa.admin_ui.component, group: user-menu }
+
+    ibexa.search.autocomplete.content_template:
+        parent: Ibexa\AdminUi\Component\TabsComponent
+        arguments:
+            $template: '@@ibexadesign/ui/global_search_autocomplete_content_template.html.twig'
+            $groupIdentifier: 'global-search-autocomplete-content'
+        tags:
+            - { name: ibexa.admin_ui.component, group: global-search-autocomplete-templates }

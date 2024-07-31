@@ -1,0 +1,55 @@
+{% trans_default_domain 'ibexa_locationview' %}
+
+{% set creator_name %}
+    {% if creator is not empty %}
+        {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: creator } only %}
+    {% else %}
+        {{ 'tab.author.creator.not_found'|trans|desc('Can\'t fetch creator') }}
+    {% endif %}
+{% endset %}
+
+{% set last_contributor_name %}
+    {% if last_contributor is not empty %}
+        {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: last_contributor } only %}
+    {% else %}
+        {{ 'tab.author.last_contributor.not_found'|trans|desc('Can\'t fetch last contributor') }}
+    {% endif %}
+{% endset %}
+
+{% set content_details_items = [
+    {
+        label: 'tab.author.creator'|trans()|desc('Creator'),
+        content: creator_name,
+    },
+    {
+        label: 'tab.author.published'|trans|desc('Published'),
+        content: content_info.publishedDate | ibexa_full_datetime
+    },
+    {
+        is_break: true
+    },
+    {
+        label: 'tab.author.last_contributor'|trans()|desc('Last contributor'),
+        content: last_contributor_name,
+    },
+    {
+        label: 'tab.author.modified'|trans|desc('Modified'),
+        content: content_info.modificationDate | ibexa_full_datetime
+    },
+] %}
+
+{% include '@ibexadesign/ui/component/details/details.html.twig' with {
+    headline: 'tab.author.authors'|trans()|desc('Authors'),
+    items: content_details_items,
+} only %}
+
+{% set technical_details_items = [
+    {
+        label: 'tab.author.content_id'|trans()|desc('Content ID'),
+        content: content_info.id,
+    },
+    {
+        label: 'tab.author.location_id'|trans()|desc('Location ID'),
+        content: location.id,
+    }
+] %}

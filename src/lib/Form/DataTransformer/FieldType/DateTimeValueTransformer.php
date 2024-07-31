@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType;
 
-use eZ\Publish\Core\FieldType\DateAndTime\Value;
+namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
+
+use Ibexa\Core\FieldType\DateAndTime\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -44,7 +45,7 @@ class DateTimeValueTransformer implements DataTransformerInterface
     /**
      * @param mixed $value
      *
-     * @return \eZ\Publish\Core\FieldType\DateAndTime\Value|null
+     * @return \Ibexa\Core\FieldType\DateAndTime\Value|null
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
@@ -63,3 +64,5 @@ class DateTimeValueTransformer implements DataTransformerInterface
         return Value::fromTimestamp($value);
     }
 }
+
+class_alias(DateTimeValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\DateTimeValueTransformer');

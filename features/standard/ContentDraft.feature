@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce @richtext
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @richtext
 Feature: Content items creation
   As an administrator
   In order to manage content to my site
@@ -15,7 +15,7 @@ Feature: Content items creation
         | label       | value              |
         | Title       | Test Article draft |
         | Short title | Test Article draft |
-      And I click on the edit action bar button "Save"
+      And I perform the "Save" action from the "Save and close" group
     Then success notification that "Content draft saved." appears
       And I should be on Content update page for "Test Article draft"
       And I open the "Dashboard" page in admin SiteAccess
@@ -29,7 +29,7 @@ Feature: Content items creation
       And I open the "Dashboard" page in admin SiteAccess
       And there's draft "TestDraft" on Dashboard list
     When I start editing content draft "TestDraft"
-      And I click on the edit action bar button "Delete draft"
+      And I perform the "Delete draft" action
     Then I should be on Content view Page for root
       And I open the "Dashboard" page in admin SiteAccess
       And there's no draft "TestDraft" on Dashboard list
@@ -43,9 +43,9 @@ Feature: Content items creation
         | Title       | TestArticleSavePublish |
         | Short title | TestArticleSavePublish |
         | Intro       | TestArticleIntro       |
-      When I click on the edit action bar button "Save"
+      When I perform the "Save" action from the "Save and close" group
       And I should be on Content update page for "TestArticleSavePublish"
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
     And I should be on Content view Page for "TestArticleSavePublish"
 
@@ -58,8 +58,8 @@ Feature: Content items creation
     And there's draft "TestDraftDashboardEdit" on Dashboard list
     And I start editing content draft "TestDraftDashboardEdit"
     And I should be on Content update page for "TestDraftDashboardEdit"
-    When I click on the close button
-    And I should be on Content view Page for root
+    When I perform the "Delete draft" action
+    Then I should be on Content view Page for root
 
   @javascript @APIUser:admin
   Scenario: Content draft can be created and published through draft list modal
@@ -70,13 +70,13 @@ Feature: Content items creation
       | title                         | short_title                 |
       | ContentDraftConflictVersion1 | ContentDraftConflictVersion2 |
     And I'm on Content view Page for "ContentDraftConflict"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
       And I start creating new draft from draft conflict modal
       And I set content fields
         | label       | value                        |
         | Title       | ContentDraftConflictVersion2 |
         | Short title | ContentDraftConflictVersion2 |
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
       And I should be on Content view Page for ContentDraftConflictVersion2
       And content attributes equal
@@ -93,12 +93,12 @@ Feature: Content items creation
       | title                                   | short_title                             |
       | ContentDraftConflictFromTheListVersion2 | ContentDraftConflictFromTheListVersion2 |
     And I'm on Content view Page for "ContentDraftConflictFromTheList"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
       And I start editing draft with version number "2" from draft conflict modal
       And I set content fields
         | label  | value                                         |
         | Intro  | ContentDraftConflictFromTheListVersion2Edited |
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
       And I should be on Content view Page for ContentDraftConflictFromTheListVersion2
       And content attributes equal

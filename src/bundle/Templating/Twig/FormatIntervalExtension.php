@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Templating\Twig;
+namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
 use DateInterval;
 use JMS\TranslationBundle\Model\Message;
@@ -52,7 +52,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
                     /** @ignore */
                     sprintf('interval.format.%s', $name),
                     ['%count%' => $interval->$part],
-                    'time_diff'
+                    'ibexa_time_diff'
                 );
             }
         }
@@ -63,12 +63,14 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message('interval.format.seconds', 'time_diff'))->setDesc('1 second|%count% seconds'),
-            (new Message('interval.format.minutes', 'time_diff'))->setDesc('1 minute|%count% minutes'),
-            (new Message('interval.format.hours', 'time_diff'))->setDesc('1 hour|%count% hours'),
-            (new Message('interval.format.days', 'time_diff'))->setDesc('1 day|%count% days'),
-            (new Message('interval.format.months', 'time_diff'))->setDesc('1 month|%count% months'),
-            (new Message('interval.format.years', 'time_diff'))->setDesc('1 year|%count% years'),
+            (new Message('interval.format.seconds', 'ibexa_time_diff'))->setDesc('1 second|%count% seconds'),
+            (new Message('interval.format.minutes', 'ibexa_time_diff'))->setDesc('1 minute|%count% minutes'),
+            (new Message('interval.format.hours', 'ibexa_time_diff'))->setDesc('1 hour|%count% hours'),
+            (new Message('interval.format.days', 'ibexa_time_diff'))->setDesc('1 day|%count% days'),
+            (new Message('interval.format.months', 'ibexa_time_diff'))->setDesc('1 month|%count% months'),
+            (new Message('interval.format.years', 'ibexa_time_diff'))->setDesc('1 year|%count% years'),
         ];
     }
 }
+
+class_alias(FormatIntervalExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\FormatIntervalExtension');

@@ -4,10 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Validator\Constraints;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData;
-use EzSystems\EzPlatformContentForms\Validator\Constraints\FieldTypeValidator;
+namespace Ibexa\AdminUi\Validator\Constraints;
+
+use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\ContentForms\Validator\Constraints\FieldTypeValidator;
 use Symfony\Component\Validator\Constraint;
 
 /**
@@ -18,7 +19,7 @@ class ValidatorConfigurationValidator extends FieldTypeValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
+     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      *
      * @api
@@ -38,3 +39,5 @@ class ValidatorConfigurationValidator extends FieldTypeValidator
         return 'defaultValue';
     }
 }
+
+class_alias(ValidatorConfigurationValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\ValidatorConfigurationValidator');

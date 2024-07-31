@@ -1,23 +1,13 @@
-(function (global, doc, eZ) {
-    const SELECTOR_FIELD = '.ez-field-edit--ezmedia';
-    const SELECTOR_PREVIEW = '.ez-field-edit__preview';
-    const SELECTOR_MEDIA = '.ez-field-edit-preview__media';
-    const SELECTOR_LABEL_WRAPPER = '.ez-field-edit__label-wrapper';
-    const SELECTOR_INFO_WRAPPER = '.ez-field-edit-preview__info';
-    const SELECTOR_MEDIA_WRAPPER = '.ez-field-edit-preview__media-wrapper';
+(function (global, doc, ibexa) {
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezmedia';
+    const SELECTOR_PREVIEW = '.ibexa-field-edit__preview';
+    const SELECTOR_MEDIA = '.ibexa-field-edit-preview__media';
+    const SELECTOR_INFO_WRAPPER = '.ibexa-field-edit-preview__info';
+    const SELECTOR_MEDIA_WRAPPER = '.ibexa-field-edit-preview__media-wrapper';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
-    const CLASS_MEDIA_WRAPPER_LOADING = 'ez-field-edit-preview__media-wrapper--loading';
-    const SELECTOR_FILESIZE_NOTICE = '.ez-data-source__message--filesize';
+    const CLASS_MEDIA_WRAPPER_LOADING = 'ibexa-field-edit-preview__media-wrapper--loading';
 
-    class EzMediaValidator extends eZ.BaseFileFieldValidator {
-        validateFileSize(event) {
-            event.currentTarget.dispatchEvent(new CustomEvent('ez-invalid-file-size'));
-
-            return {
-                isError: false,
-            };
-        }
-
+    class EzMediaValidator extends ibexa.BaseFileFieldValidator {
         /**
          * Validates the dimensions inputs
          *
@@ -33,16 +23,16 @@
             const isEmpty = isNaN(value);
             const isInteger = Number.isInteger(value);
             const isError = (isEmpty && isRequired) || (!isEmpty && !isInteger);
-            const label = input.closest(SELECTOR_INFO_WRAPPER).querySelector('.ez-field-edit-preview__label').innerHTML;
+            const label = input.closest(SELECTOR_INFO_WRAPPER).querySelector('.ibexa-field-edit-preview__label').innerHTML;
             const result = { isError };
 
             if (isEmpty) {
-                result.errorMessage = eZ.errors.emptyField.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else if (!isInteger) {
-                result.errorMessage = eZ.errors.isNotInteger.replace('{fieldName}', label);
+                result.errorMessage = ibexa.errors.isNotInteger.replace('{fieldName}', label);
             }
 
-            if (!input.closest('.ez-field-edit__preview').hasAttribute('hidden')) {
+            if (!input.closest('.ibexa-field-edit__preview').hasAttribute('hidden')) {
                 return result;
             }
 
@@ -50,16 +40,16 @@
         }
     }
 
-    class EzMediaPreviewField extends eZ.BasePreviewField {
+    class EzMediaPreviewField extends ibexa.BasePreviewField {
         /**
          * Loads dropped file preview
          *
          * @param {Event} event
          */
         loadDroppedFilePreview(event) {
-            const preview = this.fieldContainer.querySelector('.ez-field-edit__preview');
-            const nameContainer = preview.querySelector('.ez-field-edit-preview__file-name');
-            const sizeContainer = preview.querySelector('.ez-field-edit-preview__file-size');
+            const preview = this.fieldContainer.querySelector('.ibexa-field-edit__preview');
+            const nameContainer = preview.querySelector('.ibexa-field-edit-preview__file-name');
+            const sizeContainer = preview.querySelector('.ibexa-field-edit-preview__file-size');
             const files = [].slice.call(event.target.files);
             const fileSize = this.formatFileSize(files[0].size);
             const { escapeHTML } = eZ.helpers.text;
@@ -86,7 +76,7 @@
             const preview = this.fieldContainer.querySelector(SELECTOR_PREVIEW);
             const videoUrl = URL.createObjectURL(file);
 
-            preview.querySelector('.ez-field-edit-preview__action--preview').href = videoUrl;
+            preview.querySelector('.ibexa-field-edit-preview__action--preview').href = videoUrl;
             preview.querySelector(SELECTOR_MEDIA).setAttribute('src', videoUrl);
         }
 
@@ -145,23 +135,30 @@
             fieldContainer,
             eventsMap: [
                 {
+                    isValueValidator: false,
                     selector: SELECTOR_INPUT_FILE,
-                    eventName: 'change',
-                    callback: 'validateInput',
-                    errorNodeSelectors: [SELECTOR_LABEL_WRAPPER],
+                    eventName: 'ibexa-invalid-file-size',
+                    callback: 'showFileSizeError',
+                    errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
                 },
                 {
                     isValueValidator: false,
                     selector: SELECTOR_INPUT_FILE,
-                    eventName: 'ez-invalid-file-size',
-                    callback: 'showFileSizeError',
-                    errorNodeSelectors: [SELECTOR_FILESIZE_NOTICE],
+                    eventName: 'ibexa-invalid-file-type',
+                    callback: 'showFileTypeError',
+                    errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
                 },
                 {
-                    selector: '.ez-field-edit-preview__dimensions .form-control',
+                    selector: '.ibexa-field-edit-preview__dimensions .form-control',
                     eventName: 'blur',
                     callback: 'validateDimensions',
-                    errorNodeSelectors: [`${SELECTOR_INFO_WRAPPER} .ez-field-edit-preview__label-wrapper`],
+                    errorNodeSelectors: [`${SELECTOR_INFO_WRAPPER} .ibexa-form-error`],
+                },
+                {
+                    selector: SELECTOR_INPUT_FILE,
+                    eventName: 'change',
+                    callback: 'validateInput',
+                    errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
                 },
             ],
         });
@@ -173,6 +170,6 @@
 
         previewField.init();
 
-        eZ.addConfig('fieldTypeValidators', [validator], true);
+        ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.eZ);
+})(window, window.document, window.ibexa);

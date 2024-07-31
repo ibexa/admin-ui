@@ -1,13 +1,15 @@
-.ez-field-edit--ezkeyword {
-    .ez-data-source__taggify {
+.ibexa-field-edit--ezkeyword {
+    .ibexa-data-source__taggify {
         display: flex;
         flex-wrap: wrap;
         height: auto;
-        min-height: calculateRem(38px);
+        min-height: calculateRem(48px);
         padding: 0 calculateRem(8px) calculateRem(4px) calculateRem(4px);
+        border: calculateRem(1px) solid $ibexa-color-dark-200;
 
-        &.ez-data-source__taggify--focused {
+        &.ibexa-data-source__taggify--focused {
             border-color: $ibexa-color-primary;
+            box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
         }
 
         &.is-invalid {
@@ -43,8 +45,24 @@
     .taggify__btn--remove {
         position: absolute;
         right: 0;
-        color: $ibexa-color-font;
+        color: $ibexa-color-dark;
         background: none;
         border: 0 none;
+    }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-data-source__taggify {
+            background-color: $ibexa-color-light-300;
+            pointer-events: none;
+
+            .taggify__tag {
+                background-color: $ibexa-color-light-500;
+                color: $ibexa-color-dark-400;
+
+                .taggify__btn--remove {
+                    color: $ibexa-color-dark-400;
+                }
+            }
+        }
     }
 }

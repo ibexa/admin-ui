@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\ParamConverter;
+namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
-use eZ\Publish\API\Repository\ObjectStateService;
-use eZ\Publish\API\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\ObjectStateService;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +17,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ObjectStateGroupParamConverter implements ParamConverterInterface
 {
-    const PARAMETER_OBJECT_STATE_GROUP_ID = 'objectStateGroupId';
+    public const PARAMETER_OBJECT_STATE_GROUP_ID = 'objectStateGroupId';
 
-    /** @var \eZ\Publish\API\Repository\ObjectStateService */
+    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     private $objectStateService;
 
     /**
-     * @param \eZ\Publish\API\Repository\ObjectStateService $objectStateService
+     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
      */
     public function __construct(ObjectStateService $objectStateService)
     {
@@ -36,7 +36,7 @@ class ObjectStateGroupParamConverter implements ParamConverterInterface
      *
      * @return bool
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
@@ -62,3 +62,5 @@ class ObjectStateGroupParamConverter implements ParamConverterInterface
         return ObjectStateGroup::class === $configuration->getClass();
     }
 }
+
+class_alias(ObjectStateGroupParamConverter::class, 'EzSystems\EzPlatformAdminUiBundle\ParamConverter\ObjectStateGroupParamConverter');

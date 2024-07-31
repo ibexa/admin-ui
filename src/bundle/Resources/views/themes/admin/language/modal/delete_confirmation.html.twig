@@ -1,20 +1,17 @@
-{% trans_default_domain 'language' %}
+{% embed '@ibexadesign/ui/component/modal/modal.html.twig' with {
+    class: 'ibexa-modal--send-to-trash',
+    no_header: true,
+    id: 'delete-language-modal',
+} %}
+    {% trans_default_domain 'ibexa_language' %}
 
-<div class="modal fade ez-modal ez-modal--no-header ez-modal--send-to-trash" id="delete-language-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <svg class="ez-icon ez-icon--medium" aria-hidden="true">
-                    <use xlink:href="{{ ez_icon_path('discard') }}"></use>
-                </svg>
-            </button>
-            <div class="modal-body">
-                <p>{{ 'language.modal.message'|trans|desc('Do you want to delete the language(s)?') }}</p>
-            </div>
-            <div class="modal-footer">
-                {{ form_widget(deleteForm.delete, { 'attr': {'class': 'btn btn-primary'} }) }}
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'language.form.cancel'|trans|desc('Cancel') }}</button>
-            </div>
-        </div>
-    </div>
-</div>
+    {% block body_content %}
+        <p>{{ 'language.modal.message'|trans|desc('Delete the languages?') }}</p>
+    {% endblock %}
+    {% block footer_content %}
+        {{ form_widget(deleteForm.delete, { 'attr': {'class': 'btn ibexa-btn ibexa-btn--primary'} }) }}
+        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            {{ 'language.form.cancel'|trans|desc('Cancel') }}
+        </button>
+    {% endblock %}
+{% endembed %}

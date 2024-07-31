@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Date;
 
-use EzSystems\EzPlatformAdminUi\Form\DataTransformer\DateIntervalTransformer;
+namespace Ibexa\AdminUi\Form\Type\Date;
+
+use Ibexa\AdminUi\Form\DataTransformer\DateIntervalTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType as BaseDateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -30,3 +31,5 @@ class DateIntervalType extends AbstractType
             ->addModelTransformer(new DateIntervalTransformer());
     }
 }
+
+class_alias(DateIntervalType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType');

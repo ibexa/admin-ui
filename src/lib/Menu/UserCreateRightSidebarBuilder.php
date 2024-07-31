@@ -4,10 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Menu;
 
-use eZ\Publish\API\Repository\Exceptions as ApiExceptions;
-use EzSystems\EzPlatformAdminUi\Menu\Event\ConfigureMenuEvent;
+namespace Ibexa\AdminUi\Menu;
+
+use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -20,8 +22,8 @@ use Knp\Menu\ItemInterface;
 class UserCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
-    const ITEM__CREATE = 'user_create__sidebar_right__create';
-    const ITEM__CANCEL = 'user_create__sidebar_right__cancel';
+    public const ITEM__CREATE = 'user_create__sidebar_right__create';
+    public const ITEM__CANCEL = 'user_create__sidebar_right__cancel';
 
     /**
      * @return string
@@ -50,20 +52,18 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
                 self::ITEM__CREATE,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_create_create',
                     ],
-                    'extras' => ['icon' => 'publish'],
                 ]
             ),
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
                     'attributes' => [
-                        'class' => 'btn--trigger',
+                        'class' => 'ibexa-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_create_cancel',
                     ],
-                    'extras' => ['icon' => 'circle-close'],
                 ]
             ),
         ]);
@@ -77,8 +77,10 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'menu'))->setDesc('Create'),
-            (new Message(self::ITEM__CANCEL, 'menu'))->setDesc('Cancel'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create'),
+            (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Cancel'),
         ];
     }
 }
+
+class_alias(UserCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserCreateRightSidebarBuilder');

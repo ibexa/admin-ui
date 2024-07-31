@@ -1,7 +1,7 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Feature: Roles management
   As an administrator
-  In order to customize my eZ installation
+  In order to customize my Ibexa installation
   I want to manage users Roles.
 
   @javascript
@@ -12,7 +12,7 @@ Feature: Roles management
     And I set fields
       | label | value     |
       | Name  | Test Role |
-    And I click on the edit action bar button "Discard changes"
+    And I perform the "Discard" action
     Then I should be on "Roles" page
     And there's no "Test Role" Role on Roles list
 
@@ -24,7 +24,7 @@ Feature: Roles management
     And I set fields
       | label | value     |
       | Name  | Test Role |
-    And I click on the edit action bar button "Create"
+    And I perform the "Save and close" action
     Then I should be on "Test Role" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -38,7 +38,7 @@ Feature: Roles management
     And I set fields
       | label | value            |
       | Name  | Test Role edited |
-    And I click on the edit action bar button "Discard changes"
+    And I perform the "Discard changes" action
     Then I should be on "Roles" page
     And there's a "Test Role" Role on Roles list
     And there's no "Test Role edited" Role on Roles list
@@ -52,7 +52,7 @@ Feature: Roles management
     And I set fields
       | label | value            |
       | Name  | Test Role edited |
-    And I click on the edit action bar button "Save"
+    And I perform the "Save and close" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -71,7 +71,7 @@ Feature: Roles management
       | Users/Editors |
       | Users         |
     And I select "Media" from Sections as role assignment limitation
-    And I click on the edit action bar button "Discard changes"
+    And I perform the "Discard" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -84,13 +84,13 @@ Feature: Roles management
     When I start assigning to "Test Role edited" from Roles page
     And I assign users to role
       | path                                         |
-      | Users/Anonymous Users/Anonymous User         |
+      | Users/Anonymous users/Anonymous User         |
       | Users/Administrator users/Administrator User |
     And I assign groups to role
       | path          |
       | Users/Editors |
     And I select limitation "Media/Images" for assignment through UDW
-    And I click on the edit action bar button "Save"
+    And I perform the "Save and close" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And there are assignments on the "Test Role edited" assignments list
@@ -107,7 +107,7 @@ Feature: Roles management
     And I assign groups to role
       | path  |
       | Users |
-    And I click on the edit action bar button "Save"
+    And I perform the "Save and close" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And there are assignments on the "Test Role edited" assignments list
@@ -137,8 +137,8 @@ Feature: Roles management
     Given I am logged as admin
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
-    And I select policy "Content Type / All functions"
-    And I click on the edit action bar button "Discard changes"
+    And I select policy "Content type / All functions"
+    And I perform the "Discard" action
     Then I should be on "Test Role edited" Role page
     And Policies list is empty
     And there are assignments on the "Test Role edited" assignments list
@@ -151,14 +151,14 @@ Feature: Roles management
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content / Read"
-    And I click on the edit action bar button "Create"
+    And I perform the "Save and close" action
     And success notification that "Now you can set Limitations for the Policy." appears
-    And I select limitation for "Content Type"
+    And I select limitation for "Content type"
       | option  |
       | File    |
-    And I click on the edit action bar button "Update"
+    And I perform the "Save and close" action
     Then I should be on "Test Role edited" Role page
-    And there is a policy "Content/Read" with "Content Type: File" limitation on the "Test Role edited" policies list
+    And there is a policy "Content/Read" with "Content type: File" limitation on the "Test Role edited" policies list
     And there are assignments on the "Test Role edited" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
@@ -169,7 +169,7 @@ Feature: Roles management
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "User / Password"
-    And I click on the edit action bar button "Create"
+    And I perform the "Save and close" action
     Then I should be on "Test Role edited" Role page
     And there is a policy "User/Password" with "None" limitation on the "Test Role edited" policies list
     And there are assignments on the "Test Role edited" assignments list
@@ -181,20 +181,20 @@ Feature: Roles management
     Given I am logged as admin
     And I open "Test Role edited" Role page in admin SiteAccess
     When I start editing the policy "Content" "Read"
-    And I select limitation for "Content Type"
+    And I select limitation for "Content type"
       | option  |
       | Article |
       | Folder  |
-    And I select subtree limitation "Users/Anonymous Users" for policy through UDW
+    And I select subtree limitation "Users/Anonymous users" for policy through UDW
     And I select limitation for "State"
       | option      |
       | Lock:Locked |
-    And I click on the edit action bar button "Update"
+    And I perform the "Save and close" action
     Then I should be on "Test Role edited" Role page
     And there are policies on the "Test Role edited" policies list
       | policy       | limitation                                  |
-      | Content/Read | Content Type: Article, Folder               |
-      | Content/Read | Subtree: /Users/Anonymous Users |
+      | Content/Read | Content type: Article, Folder               |
+      | Content/Read | Subtree: /Users/Anonymous users |
       | Content/Read | State: Lock:Locked                          |
     And there are assignments on the "Test Role edited" assignments list
       | User/Group          | Limitation             |
@@ -208,7 +208,7 @@ Feature: Roles management
       | item     |
       | Content  |
     Then success notification that "Removed Policies from Role 'Test Role edited'." appears
-    And there is no policy "Content/Read" with "Content Type: File" limitation on the "Test Role edited" policies list
+    And there is no policy "Content/Read" with "Content type: File" limitation on the "Test Role edited" policies list
     And there are assignments on the "Test Role edited" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |

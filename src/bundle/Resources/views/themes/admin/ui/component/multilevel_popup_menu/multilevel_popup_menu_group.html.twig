@@ -1,0 +1,28 @@
+{%- import '@ibexadesign/ui/component/macros.html.twig' as html -%}
+
+{%- set is_template = is_template|default(false) -%}
+
+{%- set group_attr = group_attr|default({})|merge({
+    class: ('ibexa-popup-menu__group ibexa-multilevel-popup-menu__group '
+        ~ group_attr.class|default(''))|trim,
+    'data-group-id': group_attr['data-group-id']|default(id),
+}) -%}
+
+{%- block group -%}
+    <div {{ html.attributes(group_attr, is_template) }}>
+        {%- block group_items -%}
+            {%- for item in items -%}
+                {%- set item_params = item|merge({
+                    label: item.label|default(''),
+                    sublabel: item.sublabel|default(null),
+                    branch: item.branch|default(null),
+                    item_attr: item.item_attr|default({}),
+                    action_attr: item.action_attr|default({}),
+                }) -%}
+
+                {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig'
+                    with item_params -%}
+            {%- endfor -%}
+        {%- endblock %}
+    </div>
+{%- endblock -%}

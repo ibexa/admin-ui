@@ -1,5 +1,6 @@
 .c-thumbnail {
     position: relative;
+    line-height: 1;
 
     &__icon-wrapper {
         position: absolute;
@@ -7,7 +8,7 @@
         left: 0;
         width: calculateRem(30px);
         height: calculateRem(30px);
-        background: $ibexa-white;
+        background: $ibexa-color-white;
         display: flex;
         align-items: center;
         justify-content: center;

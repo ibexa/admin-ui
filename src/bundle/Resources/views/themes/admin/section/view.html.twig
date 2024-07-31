@@ -1,82 +1,91 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
-{% trans_default_domain 'section' %}
+{% trans_default_domain 'ibexa_section' %}
 
-{% block body_class %}ez-section-view ez-has-full-width-footer{% endblock %}
+{% block body_class %}ibexa-section-view{% endblock %}
 
 {% block breadcrumbs %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { url: path('ezplatform.section.list'), value: 'section.list'|trans|desc('Sections') },
+        { url: path('ibexa.section.list'), value: 'section.breadcrumb.list'|trans|desc('Sections') },
         { value: 'section.view.title.identifier'|trans({ '%identifier%': section.name })|desc('Section: %identifier%') }
     ]} %}
 {% endblock %}
 
-{% block page_title %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
-        title: 'section.view.title.identifier'|trans({ '%identifier%': section.name })|desc('Section: %identifier%'),
-        icon_name: 'sections'
+{% block header %}
+    {% embed '@ibexadesign/ui/page_title.html.twig' with {
+        title: section.name,
     } %}
+        {% block bottom %}
+            <span class="ibexa-icon-tag">
+                {{ 'section.list'|trans|desc('Sections') }}
+            </span>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
-        <header class="ez-table-header">
-            <div class="ez-table-header__headline">{{ 'section.information.header'|trans|desc('Section information') }}</div>
-            <div class="ez-table-header__tools">
-                {% if can_edit %}
-                    {% set modalDataAttributes = deletable ? 'data-toggle=modal data-target=#delete-section-modal' : '' %}
-                    <button
-                        type="button"
-                        class="btn btn-icon {% if not deletable %}disabled{% endif %}"
-                        {{ modalDataAttributes }}
-                        title="{{ 'section.action.delete'|trans|desc('Delete Section') }}">
-                        <svg class="ez-icon">
-                            <use xlink:href="{{ ez_icon_path('trash') }}"></use>
-                        </svg>
-                    </button>
-                    {% if deletable %}
-                        {% include '@ezdesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}
-                    {% endif %}
-                {% endif %}
-            </div>
-        </header>
+    {% set information_items = [
+        {
+            label: 'section.name'|trans|desc('Name'),
+            content: section.name,
+        },
+        {
+            label: 'section.identifier'|trans|desc('Identifier'),
+            content: section.identifier,
+        },
+        {
+            label: 'section.id'|trans|desc('ID'),
+            content: section.id,
+        },
+    ] %}
+    {% set information_headline_items %}
+        {% if can_edit %}
+            {% set modalDataAttributes = deletable ? 'data-bs-toggle=modal data-bs-target=#delete-section-modal' : '' %}
+            <a
+                href="{{ path('ibexa.section.update', {'sectionId': section.id}) }}"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+            >
+                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                </svg>
+                <span class="ibexa-btn__label">
+                    {{ 'section.edit'|trans|desc('Edit') }}
+                </span>
+            </a>
+            <button
+                type="button"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small {% if not deletable %}disabled{% endif %}"
+                {% if not deletable %}disabled{% endif %}
+                {{ modalDataAttributes }}
+            >
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                </svg>
+                <span class="ibexa-btn__label">
+                    {{ 'section.action.delete'|trans|desc('Delete') }}
+                </span>
+            </button>
+            {% if deletable %}
+                {% include '@ibexadesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}
+            {% endif %}
+        {% endif %}
+    {% endset %}
 
-        <table class="ez-table table table-hover">
-            <thead>
-            <tr>
-                <th>{{ 'section.name'|trans|desc('Name') }}</th>
-                <th>{{ 'section.identifier'|trans|desc('Identifier') }}</th>
-                <th>{{ 'section.id'|trans|desc('ID') }}</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <td class="ez-table__cell">{{ section.name }}</td>
-            <td class="ez-table__cell">{{ section.identifier }}</td>
-            <td class="ez-table__cell">{{ section.id }}</td>
-            <td class="ez-table__cell ez-table__cell--has-action-btns">
-                {% if can_edit %}
-                    <a
-                        href="{{ path('ezplatform.section.update', {'sectionId': section.id}) }}"
-                        title="{{ 'section.edit'|trans|desc('Edit') }}"
-                        class="btn btn-icon mx-2">
-                        <svg class="ez-icon ez-icon--secondary ez-icon-edit">
-                            <use xlink:href="{{ ez_icon_path('edit') }}"></use>
-                        </svg>
-                    </a>
-                {% endif %}
-            </td>
-            </tbody>
-        </table>
-    </section>
+    <div class="ibexa-container">
+        {% include '@ibexadesign/ui/component/details/details.html.twig' with {
+            headline: 'tab.details.technical_details'|trans()|desc('Technical details'),
+            headline_items: information_headline_items,
+            items: information_items,
+        } only %}
 
-    {{ render(controller('EzSystems\\EzPlatformAdminUiBundle\\Controller\\SectionController::viewSectionContentAction', {
-        'section': section,
-        'page': app.request.query.getInt('page', 1)
-    })) }}
+        {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\SectionController::viewSectionContentAction', {
+            'section': section,
+            'page': app.request.query.getInt('page', 1)
+        })) }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-section-view-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-section-view-js', null, 'ibexa') }}
 {% endblock %}

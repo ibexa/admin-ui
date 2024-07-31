@@ -6,17 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData;
+use Ibexa\AdminUi\REST\Value\UniversalDiscovery\LocationData;
+use Ibexa\AdminUi\REST\Value\UniversalDiscovery\LocationListData;
+use Ibexa\AdminUi\REST\Value\UniversalDiscovery\RequestQuery;
+use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
+use Ibexa\Rest\Server\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class UniversalDiscoveryController extends Controller
 {
-    /** @var \EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider */
+    /** @var \Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider */
     private $provider;
 
     public function __construct(
@@ -25,9 +27,9 @@ class UniversalDiscoveryController extends Controller
         $this->provider = $provider;
     }
 
-    public function locationsAction(Request $request)
+    public function locationsAction(Request $request): LocationListData
     {
-        return new JsonResponse(
+        return new LocationListData(
             $this->provider->getLocations(
                 explode(
                     ',',
@@ -37,84 +39,83 @@ class UniversalDiscoveryController extends Controller
         );
     }
 
-    public function locationAction(
-        Request $request,
-        int $locationId
-    ): JsonResponse {
-        $offset = $request->query->getInt('offset', 0);
-        $limit = $request->query->getInt('limit', 25);
-        $sortClauseName = $request->query->getAlpha('sortClause', Provider::SORT_CLAUSE_DATE_PUBLISHED);
-        $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
+    public function locationAction(RequestQuery $requestQuery): LocationData
+    {
+        $data = $this->provider->getLocationData(
+            $requestQuery->getLocationId(),
+            $requestQuery->getOffset(),
+            $requestQuery->getLimit(),
+            $requestQuery->getSortClause()
+        );
 
-        $sortClause = $this->provider->getSortClause($sortClauseName, $sortOrder);
-
-        return new JsonResponse(
-            $this->provider->getLocationData($locationId, $offset, $limit, $sortClause)
+        return new LocationData(
+            $data['subitems'],
+            $data['location'] ?? null,
+            $data['bookmarked'] ?? null,
+            $data['permissions'] ?? null,
+            $data['version'] ?? null,
         );
     }
 
-    public function locationGridViewAction(
-        Request $request,
-        int $locationId
-    ): JsonResponse {
-        $offset = $request->query->getInt('offset', 0);
-        $limit = $request->query->getInt('limit', 25);
-        $sortClauseName = $request->query->getAlpha('sortClause', Provider::SORT_CLAUSE_DATE_PUBLISHED);
-        $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
+    public function locationGridViewAction(RequestQuery $requestQuery): LocationData
+    {
+        $data = $this->provider->getLocationGridViewData(
+            $requestQuery->getLocationId(),
+            $requestQuery->getOffset(),
+            $requestQuery->getLimit(),
+            $requestQuery->getSortClause()
+        );
 
-        $sortClause = $this->provider->getSortClause($sortClauseName, $sortOrder);
-
-        return new JsonResponse(
-            $this->provider->getLocationGridViewData($locationId, $offset, $limit, $sortClause)
+        return new LocationData(
+            $data['subitems'],
+            $data['location'] ?? null,
+            $data['bookmarked'] ?? null,
+            $data['permissions'] ?? null,
+            $data['version'] ?? null,
         );
     }
 
-    public function accordionAction(
-        Request $request,
-        int $locationId
-    ): JsonResponse {
-        $limit = $request->query->getInt('limit', 25);
-        $sortClauseName = $request->query->getAlpha('sortClause', Provider::SORT_CLAUSE_DATE_PUBLISHED);
-        $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
-        $rootLocationId = $request->query->getInt('rootLocationId', Provider::ROOT_LOCATION_ID);
+    public function accordionAction(RequestQuery $requestQuery): AccordionData
+    {
+        $locationId = $requestQuery->getLocationId();
+        $rootLocationId = $requestQuery->getRootLocationId();
 
-        $sortClause = $this->provider->getSortClause($sortClauseName, $sortOrder);
-        $breadcrumbLocations = $this->provider->getBreadcrumbLocations($locationId);
+        $breadcrumbLocations = $locationId !== $rootLocationId
+            ? $this->provider->getBreadcrumbLocations($locationId, $rootLocationId)
+            : [];
 
-        $columns = $this->provider->getColumns($locationId, $limit, $sortClause, false, $rootLocationId);
+        $columns = $this->provider->getColumns(
+            $requestQuery->getLocationId(),
+            $requestQuery->getLimit(),
+            $requestQuery->getSortClause(),
+            false,
+            $rootLocationId
+        );
 
-        return new JsonResponse([
-            'breadcrumb' => array_map(
-                function (Location $location) {
-                    return $this->provider->getRestFormat($location);
-                },
-                $breadcrumbLocations
-            ),
-            'columns' => $columns,
-        ]);
+        return new AccordionData(
+            $breadcrumbLocations,
+            $columns
+        );
     }
 
-    public function accordionGridViewAction(
-        Request $request,
-        int $locationId
-    ): JsonResponse {
-        $limit = $request->query->getInt('limit', 25);
-        $sortClauseName = $request->query->getAlpha('sortClause', Provider::SORT_CLAUSE_DATE_PUBLISHED);
-        $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
-        $rootLocationId = $request->query->getInt('rootLocationId', Provider::ROOT_LOCATION_ID);
+    public function accordionGridViewAction(RequestQuery $requestQuery): AccordionData
+    {
+        $locationId = $requestQuery->getLocationId();
+        $rootLocationId = $requestQuery->getRootLocationId();
 
-        $sortClause = $this->provider->getSortClause($sortClauseName, $sortOrder);
+        $columns = $this->provider->getColumns(
+            $locationId,
+            $requestQuery->getLimit(),
+            $requestQuery->getSortClause(),
+            true,
+            $rootLocationId
+        );
 
-        $columns = $this->provider->getColumns($locationId, $limit, $sortClause, true, $rootLocationId);
-
-        return new JsonResponse([
-            'breadcrumb' => array_map(
-                function (Location $location) {
-                    return $this->provider->getRestFormat($location);
-                },
-                $this->provider->getBreadcrumbLocations($locationId)
-            ),
-            'columns' => $columns,
-        ]);
+        return new AccordionData(
+            $this->provider->getBreadcrumbLocations($locationId),
+            $columns
+        );
     }
 }
+
+class_alias(UniversalDiscoveryController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UniversalDiscoveryController');

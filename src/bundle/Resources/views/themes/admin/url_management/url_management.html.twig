@@ -1,33 +1,26 @@
-{% extends "@ezdesign/ui/layout.html.twig" %}
+{% extends "@ibexadesign/ui/layout.html.twig" %}
 
-{% trans_default_domain 'ezplatform_url_management' %}
+{% trans_default_domain 'ibexa_url_management' %}
 
-{% block body_class %}ez-url-management ez-has-full-width-footer{% endblock %}
+{% block body_class %}ibexa-url-management{% endblock %}
 
 {% block breadcrumbs %}
-    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
         { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-        { value: 'url_management.breadcrumb.list'|trans|desc('URL Management') },
+        { value: 'url_management.breadcrumb.list'|trans|desc('URL management') },
     ]} %}
 {% endblock %}
 
-{% block title %}
-    {{ 'url_management.view.list.title'|trans|desc('URL Management') }}
-{% endblock %}
-
-{% block page_title %}
-    {% include '@ezdesign/ui/page_title.html.twig' with {
-        title: 'url_management.view.list.title'|trans|desc('URL Management'),
-        icon_name: 'link'
+{% block header %}
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
+        title: 'url_management.view.list.title'|trans|desc('URL management'),
     } %}
 {% endblock %}
 
 {% block content %}
-    <section class="container ez-container">
-        {{ ez_render_component_group('link-manager-block') }}
-    </section>
+    {{ ibexa_render_component_group('link-manager-block') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-url-management-js', null, 'ezplatform') }}
+    {{ encore_entry_script_tags('ibexa-admin-ui-url-management-js', null, 'ibexa') }}
 {% endblock %}

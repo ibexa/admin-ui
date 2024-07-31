@@ -1,0 +1,23 @@
+<li class="ibexa-global-search__autocomplete-item">
+    <a class="ibexa-global-search__autocomplete-item-link ibexa-link" href="{{ content_href }}">
+        <div class="ibexa-global-search__autocomplete-item-name">
+            {{ content_name }}
+        </div>
+        <div class="ibexa-global-search__autocomplete-item-info">
+            <div class="ibexa-global-search__autocomplete-item-content-type-wrapper">
+                <svg class="ibexa-icon ibexa-icon--tiny-small">
+                    <use xlink:href="{{ icon_href }}"></use>
+                </svg>
+                <span  class="ibexa-global-search__autocomplete-item-content-type">
+                    {{ content_type_name }}
+                </span>
+            </div>
+            <div class="ibexa-global-search__autocomplete-item-breadcrumbs {{ breadcrumbs_class }}">
+                {{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
+                    name: content_breadcrumbs,
+                }) }}
+            </div>
+        </div>
+
+    </a>
+</li>

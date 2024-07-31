@@ -1,18 +1,49 @@
-.ez-label {
+.ibexa-label {
     @include label-required();
-    margin-bottom: calculateRem(8px);
-    color: $ibexa-color-font-pale;
 
-    &.checkbox-inline,
-    &.form-check-label {
-        margin-bottom: .0625rem;
+    & {
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-dark-400;
+        line-height: calculateRem(18px);
+        margin-bottom: calculateRem(8px);
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 
-        &:after {
-            content: '';
+    .ibexa-icon {
+        fill: $ibexa-color-dark-400;
+    }
+
+    &--checkbox-radio {
+        font-size: calculateRem(14px);
+        line-height: calculateRem(21px);
+        color: $ibexa-color-dark;
+        margin: 0 0 calculateRem(9px);
+
+        &.required {
+            &:after {
+                content: '';
+            }
         }
     }
 
-    &.form-check-label:not(.checkbox-inline) {
-        font-weight: 400;
+    &.form-label.is-invalid {
+        color: $ibexa-color-danger;
+    }
+}
+
+.form-check-inline {
+    .ibexa-label {
+        &--checkbox-radio {
+            margin: 0;
+        }
+    }
+}
+
+.ibexa-form-block {
+    .form-group:first-of-type {
+        .ibexa-label {
+            margin-top: 0;
+        }
     }
 }

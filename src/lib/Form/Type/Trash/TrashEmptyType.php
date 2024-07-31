@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Trash;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashEmptyData;
+namespace Ibexa\AdminUi\Form\Type\Trash;
+
+use Ibexa\AdminUi\Form\Data\Trash\TrashEmptyData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -16,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TrashEmptyType extends AbstractType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -33,14 +34,14 @@ class TrashEmptyType extends AbstractType
                 'empty',
                 SubmitType::class,
                 [
-                    'label' => /** @Desc("Delete permanently") */
+                    'label' => /** @Desc("Delete") */
                         'trash_empty_form.empty',
                 ]
             );
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -50,3 +51,5 @@ class TrashEmptyType extends AbstractType
         ]);
     }
 }
+
+class_alias(TrashEmptyType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashEmptyType');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\Type\Role;
+namespace Ibexa\AdminUi\Form\Type\Role;
 
-use EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData;
+use Ibexa\AdminUi\Form\Data\Role\RoleUpdateData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,6 +17,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleUpdateType extends AbstractType
 {
+    public const BTN_SAVE = 'save';
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,11 +27,12 @@ class RoleUpdateType extends AbstractType
                 TextType::class,
                 ['label' => /** @Desc("Name") */ 'role_update.name']
             )
-            ->add(
-                'save',
-                SubmitType::class,
-                ['label' => /** @Desc("Update") */ 'role_update.save']
-            );
+            ->add(self::BTN_SAVE, SubmitType::class, [
+                'label' => /** @Desc("Save") */ 'role_update.save',
+            ])
+            ->add('save_and_close', SubmitType::class, [
+                'label' => /** @Desc("Save and close") */ 'role_update.save_and_close',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -40,3 +43,5 @@ class RoleUpdateType extends AbstractType
         ]);
     }
 }
+
+class_alias(RoleUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleUpdateType');

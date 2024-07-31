@@ -4,21 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\SectionService;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+namespace Ibexa\AdminUi\Limitation\Mapper;
+
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class SectionLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class SectionLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @var \eZ\Publish\API\Repository\SectionService
+     * @var \Ibexa\Contracts\Core\Repository\SectionService
      */
     private $sectionService;
 
@@ -51,4 +55,20 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
 
         return $values;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('newsection'),
+                'ibexa_content_forms_policies'
+            )->setDesc('New Section'),
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('section'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Section'),
+        ];
+    }
 }
+
+class_alias(SectionLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SectionLimitationMapper');

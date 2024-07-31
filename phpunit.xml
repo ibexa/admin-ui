@@ -1,26 +1,19 @@
 <phpunit
-        backupGlobals="false"
-        backupStaticAttributes="false"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
         bootstrap="bootstrap.php"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
         colors="true">
     <testsuites>
-        <testsuite name="EzSystems\EzPlatformAdminUiBundle">
-            <directory>src/bundle/Tests/</directory>
+        <testsuite name="Ibexa\Bundle\AdminUi">
+            <directory>tests/bundle</directory>
         </testsuite>
-        <testsuite name="EzSystems\EzPlatformAdminUi">
-            <directory>src/lib/Tests/</directory>
+        <testsuite name="Ibexa\AdminUi">
+            <directory>tests/lib</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory>src</directory>
-            <exclude>
-                <directory>src/bundle/Tests/</directory>
-                <directory>src/lib/Tests/</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
 </phpunit>

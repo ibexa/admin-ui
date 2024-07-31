@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, createRef } from 'react';
+import React, { useContext, createRef } from 'react';
 
 import {
     ContentOnTheFlyDataContext,
@@ -12,32 +12,35 @@ import {
     LoadedLocationsMapContext,
     MultipleConfigContext,
 } from './universal.discovery.module';
+
 import { findLocationsById } from './services/universal.discovery.service';
 import deepClone from '../common/helpers/deep.clone.helper';
-import { createCssClassNames } from '../common/helpers/css.class.names';
 
-const generateIframeUrl = ({ locationId, languageCode, contentTypeIdentifier }) => {
-    return window.Routing.generate('ezplatform.content_on_the_fly.create', {
-        locationId,
-        languageCode,
-        contentTypeIdentifier,
-    });
-};
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+import { getTranslator, getRouting } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ContentCreateTabModule = () => {
-    const [footerVisible, setFooterVisible] = useState(true);
+    const Routing = getRouting();
     const [contentOnTheFlyData, setContentOnTheFlyData] = useContext(ContentOnTheFlyDataContext);
     const tabs = useContext(TabsContext);
     const contentOnTheFlyConfig = useContext(ContentOnTheFlyConfigContext);
     const onConfirm = useContext(ConfirmContext);
     const restInfo = useContext(RestInfoContext);
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
-    const [createContentVisible, setCreateContentVisible] = useContext(CreateContentWidgetContext);
+    const [, setActiveTab] = useContext(ActiveTabContext);
+    const [, setCreateContentVisible] = useContext(CreateContentWidgetContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
-    const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
-    const iframeUrl = generateIframeUrl(contentOnTheFlyData);
+    const [multiple] = useContext(MultipleConfigContext);
     const iframeRef = createRef();
+    const getIframeUrl = () => {
+        const { locationId, languageCode, contentTypeIdentifier } = contentOnTheFlyData;
+
+        return Routing.generate('ibexa.content.on_the_fly.create', {
+            locationId,
+            languageCode,
+            contentTypeIdentifier,
+        });
+    };
     const cancelContentCreate = () => {
         setCreateContentVisible(false);
         setContentOnTheFlyData({});
@@ -50,8 +53,16 @@ const ContentCreateTabModule = () => {
             submitButton.click();
         }
     };
+    const handleCancelInIframe = (event) => {
+        event.preventDefault();
+        cancelContentCreate();
+    };
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
+        const iframeBody = iframeRef.current.contentWindow.document.body;
+        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
+        const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--cancel');
+        const iframeCloseBtn = iframeBody.querySelector('.ibexa-anchor-navigation-menu__close');
 
         if (locationId) {
             findLocationsById({ ...restInfo, id: parseInt(locationId.content, 10) }, (createdItems) => {
@@ -78,55 +89,28 @@ const ContentCreateTabModule = () => {
             });
         }
 
-        iframeRef.current.contentWindow.document.body.addEventListener('ez-udw-opened', hideFooter, false);
-        iframeRef.current.contentWindow.document.body.addEventListener('ez-udw-closed', showFooter, false);
+        iframeConfirmBtn?.addEventListener('click', publishContent, false);
+        iframeCancelBtn?.addEventListener('click', handleCancelInIframe, false);
+        iframeCloseBtn?.addEventListener('click', handleCancelInIframe, false);
     };
-    const hideFooter = () => setFooterVisible(false);
-    const showFooter = () => setFooterVisible(true);
-    const cancelLabel = Translator.trans(/*@Desc("Cancel")*/ 'content_create.cancel.label', {}, 'universal_discovery_widget');
-    const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'content_create.confirm.label', {}, 'universal_discovery_widget');
-    const className = createCssClassNames({
-        'm-content-create': true,
-        'm-content-create--footer-visible': footerVisible,
-    });
-
-    useEffect(() => {
-        window.document.body.addEventListener('ez-udw-hide-footer', hideFooter, false);
-        window.document.body.addEventListener('ez-udw-show-footer', showFooter, false);
-
-        return () => {
-            window.document.body.removeEventListener('ez-udw-hide-footer', hideFooter, false);
-            window.document.body.removeEventListener('ez-udw-show-footer', showFooter, false);
-        };
-    });
 
     return (
-        <div className={className}>
-            <iframe src={iframeUrl} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
-            <div className="m-content-create__actions">
-                <button className="m-content-create__cancel-button btn btn-gray" onClick={cancelContentCreate}>
-                    {cancelLabel}
-                </button>
-                <button className="m-content-create__confirm-button btn btn-primary" onClick={publishContent}>
-                    {confirmLabel}
-                </button>
-            </div>
+        <div className="m-content-create">
+            <iframe src={getIframeUrl()} className="m-content-create__iframe" ref={iframeRef} onLoad={handleIframeLoad} />
         </div>
     );
 };
 
-eZ.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.tabs',
-    [
-        {
-            id: 'content-create',
-            component: ContentCreateTabModule,
-            label: Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'universal_discovery_widget'),
-            icon: window.eZ.helpers.icon.getIconPath('search'),
-            isHiddenOnList: true,
-        },
-    ],
-    true
-);
+const ContentCreateTab = {
+    id: 'content-create',
+    component: ContentCreateTabModule,
+    getLabel: () => {
+        const Translator = getTranslator();
 
-export default ContentCreateTabModule;
+        return Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget');
+    },
+    getIcon: () => getIconPath('search'),
+    isHiddenOnList: true,
+};
+
+export { ContentCreateTabModule as default, ContentCreateTab };

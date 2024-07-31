@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider;
+namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use EzSystems\EzPlatformAdminUi\Specification\Location\HasChildren as HasChildrenSpec;
+use Ibexa\AdminUi\Specification\Location\HasChildren as HasChildrenSpec;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasChildren implements TrashLocationOptionProvider
 {
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
@@ -40,7 +40,7 @@ final class HasChildren implements TrashLocationOptionProvider
 
         $translatorParameters = [
             '%children_count%' => $childCount,
-            '%content_name%' => $location->getContent()->getName(),
+            '%content%' => $location->getContent()->getName(),
         ];
 
         $form
@@ -49,9 +49,11 @@ final class HasChildren implements TrashLocationOptionProvider
                     /** @Desc("Sub-items") */
                     $this->translator->trans('form.has_children.label', [], 'forms'),
                 'help_multiline' => [
-                    /** @Desc("Sending '%content_name%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.") */
+                    /** @Desc("Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.") */
                     $this->translator->trans('trash_container.modal.message_main', $translatorParameters, 'messages'),
                 ],
             ]);
     }
 }
+
+class_alias(HasChildren::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasChildren');

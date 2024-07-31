@@ -1,0 +1,119 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+{% import 'knp_menu.html.twig' as knp_menu %}
+
+{% block popupItem %}
+    {% if item.displayed %}
+        {% set classes = [
+            'ibexa-popup-menu__item',
+            (renderItemAsGroup|default(false) ? 'ibexa-main-menu-popup__group-item')
+        ] %}
+
+        {% set node_attributes = {
+            'class': classes|join(' ')
+        } %}
+
+        <li {{ knp_menu.attributes(node_attributes) }}>
+            {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+                {{ block('popupLinkElement') }}
+            {%- else %}
+                {{ block('popupSpanElement') }}
+
+                {% if item.children %}
+                    <ul class="ibexa-popup-menu__items-list">
+                        {% for item in item.children %}
+                            {% set renderItemAsGroup = item.children|length > 0 %}
+                            {{ block('popupItem') }}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {%- endif %}
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block popupLinkElement %}
+    {% set classes = [
+        'ibexa-popup-menu__item-content',
+        ((matcher.isCurrent(item) ? 'ibexa-popup-menu__item-content--current')),
+    ] %}
+
+    {% set link_attributes = {
+        'href': item.uri,
+        'class': classes|join(' '),
+    } %}
+
+    <a {{ knp_menu.attributes(link_attributes) }}>{{ block('label') }}</a>
+{% endblock %}
+
+{% block popupSpanElement %}
+    <div class="ibexa-popup-menu__item-content ibexa-main-menu-popup__group-name">{{ block('label') }}</div>
+{% endblock %}
+
+{% block item %}
+    {% if item.displayed %}
+        {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+        {%- set classes = classes|merge(['ibexa-main-menu__item', 'ibexa-adaptive-items__item']) %}
+
+        {% if renderItemAsGroup|default(false) %}
+            {%- set classes = classes|merge(['ibexa-main-menu__item--group-name']) -%}
+        {% endif %}
+
+        {%- if item.extras.separate is defined and item.extras.separate -%}
+            {%- set classes = classes|merge(['ibexa-main-menu__item--separator']) -%}
+        {%- endif -%}
+
+        {% if item.hasChildren and options.depth is not same as(0) %}
+            {% if options.branch_class is not empty and item.displayChildren %}
+                {%- set classes = classes|merge([options.branch_class]) %}
+            {% endif %}
+        {% elseif options.leaf_class is not empty %}
+            {%- set classes = classes|merge([options.leaf_class]) %}
+        {%- endif %}
+
+        {%- set attributes = item.attributes|merge({ 'data-item-name': item.name }) %}
+
+        {%- if classes is not empty %}
+            {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
+        {%- endif %}
+
+        {% import 'knp_menu.html.twig' as knp_menu %}
+
+        {%- if item.extras.separate is defined and item.extras.separate -%}
+            <li class="ibexa-main-menu__item ibexa-adaptive-items__item ibexa-adaptive-items__item--selector ibexa-main-menu__item--more ibexa-context-menu__item--hidden">
+                <button class="ibexa-main-menu__item-action">
+                    <div class="ibexa-main-menu__item-icon-column">
+                        <svg class="ibexa-main-menu__item-icon ibexa-icon ibexa-icon--medium">
+                            <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+                        </svg>
+                    </div>
+                </button>
+            </li>
+            <li class="ibexa-main-menu__separator ibexa-main-menu__separator--top"></li>
+        {%- endif -%}
+
+        <li {{ knp_menu.attributes(attributes) }}>
+            {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
+                {{ block('linkElement') }}
+            {%- else %}
+                {{ block('spanElement') }}
+
+                {% if item.children and options.depth == 2 %}
+                    <ul class="ibexa-main-menu__items-list">
+                        {% for item in item.children %}
+                            {% set renderItemAsGroup = item.children|length > 0 %}
+                            {{ block('item') }}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {%- endif %}
+        </li>
+
+        {%- if item.extras.separate is defined and item.extras.separate -%}
+            <li class="ibexa-main-menu__separator ibexa-main-menu__separator--bottom"></li>
+        {%- endif -%}
+
+        {%- if item.extras.template is defined -%}
+            {% include(item.extras.template) %}
+        {%- endif -%}
+    {% endif %}
+{% endblock %}

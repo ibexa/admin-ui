@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\ElementInterface;
+use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
@@ -22,13 +22,14 @@ class TableNavigationTab extends Component
 
     public function goToTab(string $tabName): void
     {
-        $this->getHTMLPage()
+        if ($this->getActiveTabName() == $tabName) {
+            return;
+        } else {
+            $tab = $this->getHTMLPage()->setTimeout(3)
             ->findAll($this->getLocator('navLink'))
-            ->filter(static function (ElementInterface $element) use ($tabName) {
-                return strpos($element->getText(), $tabName) !== false;
-            })
-            ->first()
-            ->click();
+            ->getByCriterion(new ElementTextFragmentCriterion($tabName));
+            $tab->click();
+        }
     }
 
     public function verifyIsLoaded(): void
@@ -39,8 +40,8 @@ class TableNavigationTab extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('activeNavLink', '.ez-tabs .active'),
-            new VisibleCSSLocator('navLink', '.ez-tabs .nav-link'),
+            new VisibleCSSLocator('activeNavLink', '.ibexa-tabs__tab--active'),
+            new VisibleCSSLocator('navLink', '.ibexa-tabs__tab'),
         ];
     }
 }

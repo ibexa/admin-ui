@@ -4,9 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUiBundle\View;
 
-use EzSystems\EzPlatformAdminUiBundle\View\Template\EzPagerfantaTemplate;
+namespace Ibexa\Bundle\AdminUi\View;
+
+use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
 use Pagerfanta\View\DefaultView;
 
 /**
@@ -28,10 +29,12 @@ class EzPagerfantaView extends DefaultView
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return 'ez';
+        return 'ibexa';
     }
 }
+
+class_alias(EzPagerfantaView::class, 'EzSystems\EzPlatformAdminUiBundle\View\EzPagerfantaView');

@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\REST\Value\ContentTree;
+namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
-use EzSystems\EzPlatformRest\Value as RestValue;
+use Ibexa\Rest\Value as RestValue;
 
 class Node extends RestValue
 {
@@ -20,6 +20,11 @@ class Node extends RestValue
 
     /** @var int */
     public $contentId;
+
+    public int $versionNo;
+
+    /** @var string[] */
+    public array $translations;
 
     /** @var string */
     public $name;
@@ -39,42 +44,65 @@ class Node extends RestValue
     /** @var int */
     public $totalChildrenCount;
 
-    /** @var \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node[] */
+    public int $reverseRelationsCount;
+
+    public bool $isBookmarked;
+
+    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
     public $children;
+
+    public string $pathString;
+
+    public string $mainLanguageCode;
 
     /**
      * @param int $depth
      * @param int $locationId
      * @param int $contentId
+     * @param string[] $translations
      * @param string $name
      * @param string $contentTypeIdentifier
      * @param bool $isContainer
      * @param bool $isInvisible
      * @param int $displayLimit
      * @param int $totalChildrenCount
-     * @param \EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node[] $children
+     * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node[] $children
      */
     public function __construct(
         int $depth,
         int $locationId,
         int $contentId,
+        int $versionNo,
+        array $translations,
         string $name,
         string $contentTypeIdentifier,
         bool $isContainer,
         bool $isInvisible,
         int $displayLimit,
         int $totalChildrenCount,
-        array $children = []
+        int $reverseRelationsCount,
+        bool $isBookmarked,
+        string $mainLanguageCode,
+        array $children = [],
+        string $pathString = ''
     ) {
         $this->depth = $depth;
         $this->locationId = $locationId;
         $this->contentId = $contentId;
+        $this->versionNo = $versionNo;
+        $this->translations = $translations;
         $this->name = $name;
         $this->isInvisible = $isInvisible;
         $this->contentTypeIdentifier = $contentTypeIdentifier;
         $this->isContainer = $isContainer;
         $this->totalChildrenCount = $totalChildrenCount;
         $this->displayLimit = $displayLimit;
+        $this->reverseRelationsCount = $reverseRelationsCount;
+        $this->isBookmarked = $isBookmarked;
         $this->children = $children;
+        $this->pathString = $pathString;
+        $this->mainLanguageCode = $mainLanguageCode;
     }
 }
+
+class_alias(Node::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Node');

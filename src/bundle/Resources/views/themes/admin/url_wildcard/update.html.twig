@@ -1,69 +1,58 @@
-{% extends '@ezdesign/ui/layout.html.twig' %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
-{% trans_default_domain 'ezplatform_url_wildcard' %}
-{% form_theme form '@ezdesign/content/form_fields.html.twig' '@ezdesign/content/tab/url/checkbox.html.twig' %}
+{% trans_default_domain 'ibexa_url_wildcard' %}
+{% form_theme form '@ibexadesign/content/form_fields.html.twig' '@ibexadesign/content/tab/url/checkbox.html.twig' %}
+
+{% block breadcrumbs %}
+    {% include '@ibexadesign/ui/breadcrumbs.html.twig' with { items: [
+        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
+        { value: 'url_wildcard.breadcrumb.list'|trans|desc('URL management'), url: path('ibexa.url_management', {
+            '_fragment': 'ibexa-tab-link-manager-url-wildcards',
+        }) },
+        { value: 'url_wildcard.breadcrumb.edit'|trans|desc('Edit') }
+    ]} %}
+{% endblock %}
+
+{% block context_menu %}
+    {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu_configure.url_wildcard_edit_sidebar_right', [], {
+        submit_selector: '#' ~ form.save_and_close.vars.id,
+        save_selector: '#' ~ form.save.vars.id,
+    }) %}
+
+    {{ knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
+{% endblock %}
+
+{% block header %}
+    {% include '@ibexadesign/ui/page_title.html.twig' with {
+        title: 'url_wildcard.editing'|trans({'%url%': urlWildcard.sourceUrl|u.truncate(50) })|desc('Editing URL wildcard: %url%'),
+    } %}
+{% endblock %}
 
 {%- block content -%}
-    <div class="row align-items-stretch ez-main-row">
-        <div class="px-0 pb-4 ez-content-container">
-            <div class="ez-header">
-                <div class="container">
-                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
-                        { value: 'breadcrumb.admin'|trans(domain='messages')|desc('Admin') },
-                        { value: 'url_wildcard.breadcrumb.list'|trans|desc('URL Management'), url: path('ezplatform.url_management', {
-                            '_fragment': 'ez-tab-link-manager-url-wildcards',
-                        }) },
-                        { value: 'url_wildcard.breadcrumb.edit'|trans|desc('Edit') }
-                    ]} %}
-
-                    {% include '@ezdesign/ui/page_title.html.twig' with {
-                        title: 'url_wildcard.editing'|trans({'%url%': urlWildcard.sourceUrl|u.truncate(50) })|desc('Editing URL wildcard: %url%'),
-                        icon_name: 'link'
-                    } %}
-                </div>
-            </div>
-
-            <div class="container ez-container">
-                {{ form_start(form, {'action': actionUrl}) }}
-                    {{ form_errors(form) }}
-
-                    <section class="container mt-4">
-                        <div class="card ez-card ez-card--light">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <span class="ez-label required">{{ 'url_wildcard.modal.create.url.wildcard'|trans|desc('URL wildcard') }}</span>
-                                    {{ form_widget(form.source_url) }}
-                                </div>
-                                <div class="form-group">
-                                    <span class="ez-label required">{{ 'url_wildcard.modal.create.url.destintion'|trans|desc('Destination') }}</span>
-                                    {{ form_widget(form.destination_url) }}
-                                </div>
-                                <div class="form-group">
-                                    <span class="ez-label">{{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}</span>
-                                    {{ form_widget(form.forward) }}
-                                    <div>{{ 'url_wildcard.modal.create.redirect.helper'|trans|desc('When checked, the URL displayed will be the URL of the destination. When unchecked, the wildcard will not redirect to the destination and the URL will stay the same.') }}</div>
-                                </div>
-                            </div>
+    <div class="align-items-stretch ibexa-main-row">
+        <div class="container ibexa-container">
+            {{ form_start(form, {'action': actionUrl}) }}
+                {{ form_errors(form) }}
+                <div class="card ibexa-card ibexa-card--light">
+                    <div class="card-body ibexa-form-block">
+                        <div class="form-group">
+                            <label class="ibexa-label required">{{ 'url_wildcard.modal.create.url.wildcard'|trans|desc('URL wildcard') }}</label>
+                            {{ form_widget(form.source_url) }}
                         </div>
-                    </section>
-                    <button id="url-update" type="submit" hidden></button>
-                {{ form_end(form) }}
-            </div>
-        </div>
-        <div class="ez-context-menu">
-	        <div class="ez-sticky-container">
-	            {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu_configure.url_wildcard_edit_sidebar_right', [], {
-	                'submit_selector': '#url-update',
-	            }) %}
-	
-	            {{ knp_menu_render(url_create_sidebar_right, {
-	                'template': '@ezdesign/ui/menu/sidebar_right.html.twig'
-	            }) }}
-	        </div>
+                        <div class="form-group">
+                            <label class="ibexa-label required">{{ 'url_wildcard.modal.create.url.destintion'|trans|desc('Destination') }}</label>
+                            {{ form_widget(form.destination_url) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="ibexa-label">{{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}</label>
+                            {{ form_widget(form.forward) }}
+                            <div>{{ 'url_wildcard.modal.create.redirect.helper'|trans|desc('When checked, the URL displayed will be the URL of the destination. When unchecked, the wildcard will not redirect to the destination and the URL will stay the same.') }}</div>
+                        </div>
+                    </div>
+                </div>
+                {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
+                {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
+            {{ form_end(form) }}
         </div>
     </div>
 {%- endblock -%}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('ezplatform-admin-ui-url-management-update-js', null, 'ezplatform') }}
-{% endblock %}

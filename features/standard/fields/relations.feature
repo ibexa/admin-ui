@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaContent @IbexaExperience @IbexaCommerce @contentTypeFields
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @contentTypeFields
 Feature: Content fields setting and editing
   As an administrator
   In order to manage content on my site
@@ -6,7 +6,7 @@ Feature: Content fields setting and editing
 
   @javascript @APIUser:admin
   Scenario Outline: Create content item with given field
-    Given I create a "<fieldName> CT" Content Type in "Content" with "<fieldInternalName>" identifier
+    Given I create a "<fieldName> CT" content type in "Content" with "<fieldInternalName>" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | <fieldName> | Field       | <fieldInternalName> | no      | no	      | yes          | <fieldSettings>  |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
@@ -20,7 +20,7 @@ Feature: Content fields setting and editing
         | label    | <label1>    | <label2> | <label3> |
         | Field    | <value1>    | <value2> | <value3> |
         | Name     | <fieldName> |          |          |
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
       And I should be on Content view Page for "RelationFieldsContainer/<contentItemName>"
       And content attributes equal
@@ -36,11 +36,11 @@ Feature: Content fields setting and editing
   Scenario Outline: Edit content item with given field
     Given I am logged as admin
       And I'm on Content view Page for "RelationFieldsContainer/<oldContentItemName>"
-    When I click on the edit action bar button "Edit"
+    When I perform the "Edit" action
       And I set content fields
         | label    | <label1> | <label2> | <label3> |
         | Field    | <value1> | <value2> | <value3> |
-      And I click on the edit action bar button "Publish"
+      And I perform the "Publish" action
     Then success notification that "Content published." appears
       And I should be on Content view Page for "RelationFieldsContainer/<newContentItemName>"
       And content attributes equal

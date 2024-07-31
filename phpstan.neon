@@ -1,0 +1,11 @@
+includes:
+    - phpstan-baseline.neon
+    - phpstan-baseline.neon.php
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests

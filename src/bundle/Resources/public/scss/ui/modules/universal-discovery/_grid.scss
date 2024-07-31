@@ -2,12 +2,32 @@
     height: 100%;
 
     &__items-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        padding: calculateRem(16px);
-        align-items: flex-start;
+        padding: 0 calculateRem(16px) calculateRem(16px);
         overflow: auto;
         max-height: calc(100% - #{calculateRem(30px)});
-        align-items: stretch;
+    }
+
+    .ibexa-grid-view-item {
+        &--marked {
+            .c-thumbnail {
+                .ibexa-icon {
+                    fill: $ibexa-color-dark;
+                }
+            }
+        }
+
+        &--selected {
+            .ibexa-grid-view-item {
+                &__title {
+                    color: $ibexa-color-primary;
+                }
+            }
+
+            .c-thumbnail {
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+        }
     }
 }

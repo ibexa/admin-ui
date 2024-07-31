@@ -6,33 +6,37 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUiBundle\Controller;
+namespace Ibexa\Bundle\AdminUi\Controller;
 
-use eZ\Publish\API\Repository\URLWildcardService;
-use eZ\Publish\API\Repository\Values\Content\URLWildcard;
-use eZ\Publish\API\Repository\Values\Content\URLWildcardUpdateStruct;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
-use EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
-use EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory;
-use EzSystems\EzPlatformAdminUi\Form\SubmitHandler;
-use EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface;
-use EzSystems\EzPlatformAdminUi\Tab\URLManagement\URLWildcardsTab;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
+use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
+use Ibexa\AdminUi\Form\Factory\FormFactory;
+use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardUpdateType;
+use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
+use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
+use JMS\TranslationBundle\Annotation\Desc;
+use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class URLWildcardController extends Controller
 {
-    /** @var \eZ\Publish\API\Repository\URLWildcardService */
+    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory */
+    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
     private $formFactory;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Form\SubmitHandler */
+    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
     private $submitHandler;
 
     public function __construct(
@@ -54,13 +58,14 @@ final class URLWildcardController extends Controller
      */
     public function addAction(Request $request): Response
     {
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createURLWildcard();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $this->submitHandler->handle($form, function (URLWildcardData $data) {
-                $this->urlWildcardService->create(
+            $this->submitHandler->handle($form, function (URLWildcardData $data) use ($form): Response {
+                $urlWildcard = $this->urlWildcardService->create(
                     $data->getSourceURL(),
                     $data->getDestinationUrl(),
                     (bool) $data->getForward()
@@ -70,24 +75,37 @@ final class URLWildcardController extends Controller
                     /** @Desc("URL Wildcard created.") */
                     'url_wildcard.create.success',
                     [],
-                    'url_wildcard'
+                    'ibexa_url_wildcard'
                 );
+
+                if ($form->getClickedButton() instanceof Button
+                    && $form->getClickedButton()->getName() === URLWildcardUpdateType::BTN_SAVE
+                ) {
+                    return $this->redirectToRoute('ibexa.url_wildcard.update', [
+                        'urlWildcardId' => $urlWildcard->id,
+                    ]);
+                }
+
+                return $this->redirect($this->generateUrl('ibexa.url_management', [
+                    '_fragment' => URLWildcardsTab::URI_FRAGMENT,
+                ]));
             });
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.url_management', [
+        return $this->redirect($this->generateUrl('ibexa.url_management', [
             '_fragment' => URLWildcardsTab::URI_FRAGMENT,
         ]));
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\URLWildcard $urlWildcard
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard $urlWildcard
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function updateAction(URLWildcard $urlWildcard, Request $request): Response
     {
+        /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createURLWildcardUpdate(
             new URLWildcardUpdateData($urlWildcard)
         );
@@ -95,8 +113,9 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form,
-                function (URLWildcardUpdateData $data) use ($urlWildcard) {
+            $result = $this->submitHandler->handle(
+                $form,
+                function (URLWildcardUpdateData $data) use ($urlWildcard, $form): Response {
                     $urlWildcardUpdateStruct = new URLWildcardUpdateStruct();
                     $urlWildcardUpdateStruct->destinationUrl = $data->getDestinationUrl();
                     $urlWildcardUpdateStruct->sourceUrl = $data->getSourceURL();
@@ -111,10 +130,18 @@ final class URLWildcardController extends Controller
                         /** @Desc("URL Wildcard updated.") */
                         'url_wildcard.update.success',
                         [],
-                        'url_wildcard'
+                        'ibexa_url_wildcard'
                     );
 
-                    return $this->redirect($this->generateUrl('ezplatform.url_management', [
+                    if ($form->getClickedButton() instanceof Button
+                        && $form->getClickedButton()->getName() === URLWildcardUpdateType::BTN_SAVE
+                    ) {
+                        return $this->redirectToRoute('ibexa.url_wildcard.update', [
+                            'urlWildcardId' => $urlWildcard->id,
+                        ]);
+                    }
+
+                    return $this->redirect($this->generateUrl('ibexa.url_management', [
                         '_fragment' => URLWildcardsTab::URI_FRAGMENT,
                     ]));
                 }
@@ -126,11 +153,11 @@ final class URLWildcardController extends Controller
         }
 
         $actionUrl = $this->generateUrl(
-            'ezplatform.url_wildcard.update',
+            'ibexa.url_wildcard.update',
             ['urlWildcardId' => $urlWildcard->id]
         );
 
-        return $this->render('@ezdesign/url_wildcard/update.html.twig', [
+        return $this->render('@ibexadesign/url_wildcard/update.html.twig', [
             'form' => $form->createView(),
             'actionUrl' => $actionUrl,
             'urlWildcard' => $urlWildcard,
@@ -159,12 +186,14 @@ final class URLWildcardController extends Controller
                 /** @Desc("URL Wildcard(s) deleted.") */
                 'url_wildcard.delete.success',
                 [],
-                'url_wildcard'
+                'ibexa_url_wildcard'
             );
         }
 
-        return $this->redirect($this->generateUrl('ezplatform.url_management', [
+        return $this->redirect($this->generateUrl('ibexa.url_management', [
             '_fragment' => URLWildcardsTab::URI_FRAGMENT,
         ]));
     }
 }
+
+class_alias(URLWildcardController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\URLWildcardController');

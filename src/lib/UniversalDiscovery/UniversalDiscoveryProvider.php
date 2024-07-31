@@ -6,54 +6,55 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\UniversalDiscovery;
+namespace Ibexa\AdminUi\UniversalDiscovery;
 
-use eZ\Publish\API\Repository\BookmarkService;
-use eZ\Publish\API\Repository\ContentService;
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\LocationService;
-use eZ\Publish\API\Repository\SearchService;
-use eZ\Publish\API\Repository\Values\Content\Location;
-use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer;
-use EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface;
-use EzSystems\EzPlatformAdminUi\QueryType\LocationPathQueryType;
-use EzSystems\EzPlatformRest\Output\Visitor;
-use EzSystems\EzPlatformRest\Server\Values\RestLocation;
-use EzSystems\EzPlatformRest\Server\Values\Version;
+use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\AdminUi\QueryType\LocationPathQueryType;
+use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
+use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Rest\Output\Visitor;
+use Ibexa\Rest\Server\Values\RestLocation;
+use Ibexa\Rest\Server\Values\Version;
 
 class UniversalDiscoveryProvider implements Provider
 {
     private const COLUMNS_NUMBER = 4;
 
-    /** @var \eZ\Publish\API\Repository\LocationService */
+    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
+    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \EzSystems\EzPlatformRest\Output\Visitor */
+    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
     private $visitor;
 
-    /** @var \eZ\Publish\API\Repository\BookmarkService */
+    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\PermissionCheckerInterface */
+    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \EzSystems\EzPlatformAdminUi\Permission\LookupLimitationsTransformer */
+    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \EzSystems\EzPlatformAdminUi\QueryType\LocationPathQueryType */
+    /** @var \Ibexa\AdminUi\QueryType\LocationPathQueryType */
     private $locationPathQueryType;
 
     private $sortClauseClassMap = [
@@ -112,14 +113,14 @@ class UniversalDiscoveryProvider implements Provider
             $columnLocations = $locationPath;
         }
 
-        $locationPathIndex = $locationPathCount > 0 ? $locationPathLast - 1 : 0;
+        $locationPathIndex = max(0, $locationPathLast - 1);
         $lastColumnLocationId = (int) $locationPath[$locationPathIndex];
 
         $columns = [];
         foreach ($columnLocations as $columnLocationId) {
             $columnLocationId = (int)$columnLocationId;
             $columnLocation = ($columnLocationId !== self::ROOT_LOCATION_ID)
-                ? $this->getRestFormat($this->locationService->loadLocation($columnLocationId))
+                ? $this->locationService->loadLocation($columnLocationId)
                 : null;
 
             $subItems = $this->getSubitemLocations($columnLocationId, 0, $limit, $sortClause);
@@ -155,7 +156,8 @@ class UniversalDiscoveryProvider implements Provider
         return array_map(
             static function (SearchHit $searchHit) {
                 return $searchHit->valueObject;
-            }, $searchResult->searchHits
+            },
+            $searchResult->searchHits
         );
     }
 
@@ -169,11 +171,11 @@ class UniversalDiscoveryProvider implements Provider
 
         return array_map(
             function (SearchHit $searchHit) {
-                /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $searchHit->valueObject;
 
                 return [
-                    'location' => $this->getRestFormat($location),
+                    'location' => $location,
                     'permissions' => $this->getLocationPermissionRestrictions($location),
                 ];
             },
@@ -192,7 +194,7 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         $updateLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
-            $lookupCreateLimitationsResult,
+            $lookupUpdateLimitationsResult,
             [Limitation::CONTENTTYPE, Limitation::LANGUAGE]
         );
 
@@ -226,13 +228,11 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            function (SearchHit $searchHit) {
-                /** @var \eZ\Publish\API\Repository\Values\Content\Content $content */
+            static function (SearchHit $searchHit): Version {
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
                 $content = $searchHit->valueObject;
 
-                return $this->getRestFormat(
-                    new Version($content, $content->getContentType(), [])
-                );
+                return new Version($content, $content->getContentType(), []);
             },
             $searchResult->searchHits
         );
@@ -255,15 +255,14 @@ class UniversalDiscoveryProvider implements Provider
 
         return [
             'locations' => array_map(
-                function (SearchHit $searchHit) {
-                    /** @var \eZ\Publish\API\Repository\Values\Content\Location $location */
+                static function (SearchHit $searchHit): RestLocation {
+                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                     $location = $searchHit->valueObject;
-                    $restLocation = new RestLocation(
+
+                    return new RestLocation(
                         $location,
                         0 // Putting '0' here should suffice as this is not important from UDW standpoint
                     );
-
-                    return $this->getRestFormat($restLocation);
                 },
                 $searchResult->searchHits
             ),
@@ -288,10 +287,10 @@ class UniversalDiscoveryProvider implements Provider
         $contentType = $this->contentTypeService->loadContentType($location->getContentInfo()->contentTypeId);
 
         return [
-            'location' => $this->getRestFormat($location),
+            'location' => $location,
             'bookmarked' => $this->bookmarkService->isBookmarked($location),
             'permissions' => $this->getLocationPermissionRestrictions($location),
-            'version' => $this->getRestFormat(new Version($content, $contentType, [])),
+            'version' => new Version($content, $contentType, []),
             'subitems' => $this->getSubitemLocations($locationId, $offset, $limit, $sortClause),
         ];
     }
@@ -323,10 +322,10 @@ class UniversalDiscoveryProvider implements Provider
         $versions = $this->getSubitemContents($locationId, $offset, $limit, $sortClause);
 
         return [
-            'location' => $this->getRestFormat($location),
+            'location' => $location,
             'bookmarked' => $this->bookmarkService->isBookmarked($location),
             'permissions' => $this->getLocationPermissionRestrictions($location),
-            'version' => $this->getRestFormat(new Version($content, $contentType, [])),
+            'version' => new Version($content, $contentType, []),
             'subitems' => [
                 'locations' => $locations['locations'],
                 'totalCount' => $locations['totalCount'],
@@ -337,6 +336,12 @@ class UniversalDiscoveryProvider implements Provider
 
     public function getRestFormat($valueObject): array
     {
+        trigger_deprecation(
+            'ibexa/admin-ui',
+            '4.6',
+            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
+        );
+
         return json_decode(
             $this->visitor->visit($valueObject)->getContent(),
             true
@@ -367,11 +372,17 @@ class UniversalDiscoveryProvider implements Provider
         return array_slice($locationIds, $index);
     }
 
-    private function moveSelectedLocationOnTop(Location $location, array $locations, bool $isLastColumnLocationId): array
-    {
-        $index = array_search($location->id, array_map(static function (array $location) {
-            return $location['Location']['id'];
-        }, $locations));
+    private function moveSelectedLocationOnTop(
+        Location $location,
+        array $locations,
+        bool $isLastColumnLocationId
+    ): array {
+        $index = array_search($location->id, array_map(
+            static function (RestLocation $location): int {
+                return $location->location->id;
+            },
+            $locations
+        ), true);
 
         // Location is on the list, remove because we add location on top
         if ($index !== false) {
@@ -380,9 +391,11 @@ class UniversalDiscoveryProvider implements Provider
         }
 
         if ($isLastColumnLocationId) {
-            array_unshift($locations, $this->getRestFormat($location));
+            array_unshift($locations, $location);
         }
 
         return $locations;
     }
 }
+
+class_alias(UniversalDiscoveryProvider::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\UniversalDiscoveryProvider');

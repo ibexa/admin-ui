@@ -13,21 +13,15 @@ const SelectedItemEditButton = ({ location, permissions }) => {
     );
 };
 
-eZ.addConfig(
-    'adminUiConfig.universalDiscoveryWidget.selectedItemActions',
-    [
-        {
-            id: 'content-edit-button',
-            priority: 30,
-            component: SelectedItemEditButton,
-        },
-    ],
-    true
-);
-
 SelectedItemEditButton.propTypes = {
     location: PropTypes.object.isRequired,
     permissions: PropTypes.object.isRequired,
+};
+
+export const SelectedItemEditMenuButton = {
+    id: 'content-edit-button',
+    priority: 30,
+    component: SelectedItemEditButton,
 };
 
 export default SelectedItemEditButton;

@@ -4,21 +4,25 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Limitation\Mapper;
 
-use eZ\Publish\API\Repository\ContentTypeService;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
-use eZ\Publish\API\Repository\Values\User\Limitation;
-use EzSystems\EzPlatformAdminUi\Limitation\LimitationValueMapperInterface;
+namespace Ibexa\AdminUi\Limitation\Mapper;
+
+use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
+use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface
+class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @var \eZ\Publish\API\Repository\ContentTypeService
+     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
      */
     private $contentTypeService;
 
@@ -47,10 +51,30 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
             try {
                 $values[] = $this->contentTypeService->loadContentType($contentTypeId);
             } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find a Content Type with ID %s', $contentTypeId));
+                $this->logger->error(sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId));
             }
         }
 
         return $values;
     }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('class'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Content type'),
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('parentclass'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Content type of Parent'),
+            Message::create(
+                LimitationIdentifierToLabelConverter::convert('parentgroup'),
+                'ibexa_content_forms_policies'
+            )->setDesc('Content type group of Parent'),
+        ];
+    }
 }
+
+class_alias(ContentTypeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ContentTypeLimitationMapper');

@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
-namespace EzSystems\EzPlatformAdminUi\Form\Data\Language;
 
-use eZ\Publish\API\Repository\Values\Content\Language;
+namespace Ibexa\AdminUi\Form\Data\Language;
+
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class LanguageUpdateData
 {
-    /** @var \eZ\Publish\API\Repository\Values\Content\Language */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
     /** @var string */
@@ -20,7 +21,7 @@ class LanguageUpdateData
     private $enabled;
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language|null $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
      */
     public function __construct(Language $language = null)
     {
@@ -30,7 +31,7 @@ class LanguageUpdateData
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Language
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      */
     public function getLanguage(): Language
     {
@@ -38,7 +39,7 @@ class LanguageUpdateData
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Language $language
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      */
     public function setLanguage(Language $language)
     {
@@ -77,3 +78,5 @@ class LanguageUpdateData
         $this->enabled = $enabled;
     }
 }
+
+class_alias(LanguageUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData');

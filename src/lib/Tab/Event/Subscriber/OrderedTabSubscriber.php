@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber;
+namespace Ibexa\AdminUi\Tab\Event\Subscriber;
 
-use EzSystems\EzPlatformAdminUi\Tab\Event\TabEvents;
-use EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent;
-use EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface;
+use Ibexa\AdminUi\Tab\Event\TabEvents;
+use Ibexa\AdminUi\Tab\Event\TabGroupEvent;
+use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Reorders tabs according to their Order value (Tabs implementing OrderedTabInterface).
  * Tabs without order specified are pushed to the end of the group.
  *
- * @see OrderedTabInterface
+ * @see \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface
  */
 class OrderedTabSubscriber implements EventSubscriberInterface
 {
@@ -32,7 +32,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
+     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
      */
     public function onTabGroupPreRender(TabGroupEvent $tabGroupEvent)
     {
@@ -46,7 +46,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\TabInterface[] $tabs
+     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
      *
      * @return array
      */
@@ -66,8 +66,8 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface $tab1
-     * @param \EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface $tab2
+     * @param \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface $tab1
+     * @param \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface $tab2
      *
      * @return int
      */
@@ -76,3 +76,5 @@ class OrderedTabSubscriber implements EventSubscriberInterface
         return $tab1->getOrder() <=> $tab2->getOrder();
     }
 }
+
+class_alias(OrderedTabSubscriber::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber\OrderedTabSubscriber');
