@@ -94,7 +94,7 @@ class DateTimePicker {
                 flatpickrDate.setHours(value);
             }
 
-            if (this.flatpickrConfig.minDate.getTime() > flatpickrDate.getTime()) {
+            if (this.flatpickrInstance.config.minDate?.getTime() > flatpickrDate.getTime()) {
                 return;
             }
 
