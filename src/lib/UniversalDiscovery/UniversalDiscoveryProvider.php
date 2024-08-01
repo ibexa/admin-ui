@@ -338,20 +338,6 @@ class UniversalDiscoveryProvider implements Provider
         ];
     }
 
-    public function getRestFormat($valueObject): array
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return json_decode(
-            $this->visitor->visit($valueObject)->getContent(),
-            true
-        );
-    }
-
     public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause
     {
         $sortClauseClass = $this->sortClauseClassMap[$sortClauseName] ?? $this->sortClauseClassMap[self::SORT_CLAUSE_DATE_PUBLISHED];
