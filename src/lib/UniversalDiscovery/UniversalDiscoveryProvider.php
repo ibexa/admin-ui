@@ -67,6 +67,7 @@ class UniversalDiscoveryProvider implements Provider
         Query::SORT_ASC,
         Query::SORT_DESC,
     ];
+
     private LimitationResolverInterface $limitationResolver;
 
     public function __construct(

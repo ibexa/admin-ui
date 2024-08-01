@@ -19,7 +19,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentOwnerLimitation
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
-use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class PermissionChecker implements PermissionCheckerInterface

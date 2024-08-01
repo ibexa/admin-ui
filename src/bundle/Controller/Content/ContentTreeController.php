@@ -48,6 +48,7 @@ class ContentTreeController extends RestController
     private ConfigResolverInterface $configResolver;
 
     private SiteaccessResolverInterface $siteaccessResolver;
+
     private LimitationResolverInterface $limitationResolver;
 
     public function __construct(

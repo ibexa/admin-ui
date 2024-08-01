@@ -16,7 +16,6 @@ use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;

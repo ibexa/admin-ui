@@ -8,7 +8,6 @@
 namespace Ibexa\Contracts\AdminUi\Permission;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 
 interface PermissionCheckerInterface
 {

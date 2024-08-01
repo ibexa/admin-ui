@@ -68,6 +68,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private $udwExtension;
 
     private SiteaccessResolverInterface $siteaccessResolver;
+
     private LimitationResolverInterface $limitationResolver;
 
     public function __construct(
