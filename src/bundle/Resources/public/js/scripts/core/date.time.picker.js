@@ -17,7 +17,6 @@ class DateTimePicker {
         this.inputField = this.fieldWrapper.querySelector('.ibexa-date-time-picker__input');
         this.actionsWrapper = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__actions');
         this.calendarBtn = this.actionsWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--calendar');
-        this.clearBtn = this.fieldWrapper.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
         this.customOnChange = config.onChange;
 
         this.init = this.init.bind(this);
@@ -84,6 +83,10 @@ class DateTimePicker {
 
         if (typeof value === 'number' && value >= 0) {
             const flatpickrDate = this.flatpickrInstance.selectedDates[0];
+
+            if (flatpickrDate === undefined) {
+                return;
+            }
 
             if (isMinute) {
                 flatpickrDate.setMinutes(value);
