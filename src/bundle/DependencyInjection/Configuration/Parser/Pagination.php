@@ -21,7 +21,6 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          pagination:
- *              search_limit: 10
  *              trash_limit: 10
  *              section_limit: 10
  *              language_limit: 10
@@ -40,10 +39,6 @@ class Pagination extends AbstractParser
             ->arrayNode('pagination')
                 ->info('System pagination configuration')
                 ->children()
-                    ->scalarNode('search_limit')
-                        ->isRequired()
-                        ->setDeprecated('ezsystems/ezplatform-admin-ui', '2.1', 'The child node "%node%" at path "%path%" is deprecated. Use "search.pagination.limit" instead.')
-                    ->end()
                     ->scalarNode('trash_limit')->isRequired()->end()
                     ->scalarNode('section_limit')->isRequired()->end()
                     ->scalarNode('language_limit')->isRequired()->end()
@@ -76,7 +71,6 @@ class Pagination extends AbstractParser
 
         $settings = $scopeSettings['pagination'];
         $keys = [
-            'search_limit',
             'trash_limit',
             'section_limit',
             'language_limit',

@@ -5,7 +5,7 @@ parameters:
     ibexa.site_access.config.default.location_ids.users: 5
 
     # Pagination limits
-    ibexa.site_access.config.admin_group.pagination.search_limit: 10
+    ibexa.site_access.config.admin_group.search.pagination.limit: 10
     ibexa.site_access.config.admin_group.pagination.trash_limit: 10
     ibexa.site_access.config.admin_group.pagination.section_limit: 10
     ibexa.site_access.config.admin_group.pagination.language_limit: 10
