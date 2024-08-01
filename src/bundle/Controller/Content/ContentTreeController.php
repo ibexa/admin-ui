@@ -122,16 +122,20 @@ class ContentTreeController extends RestController
 
         // Always load root location using `sudo`
         if (in_array(self::ROOT_LOCATION_ID, $locationIdList, true)) {
-            $locations = $this->repository->sudo(function (): iterable {
-                return (array)$this->locationService->loadLocationList([self::ROOT_LOCATION_ID]);
-            });
+            $rootLocation = $this->repository->sudo(
+                fn (): Location => $this->locationService->loadLocation(self::ROOT_LOCATION_ID)
+            );
+            $locations[$rootLocation->getId()] = $rootLocation;
 
             $locationIdList = array_diff($locationIdList, [self::ROOT_LOCATION_ID]);
         }
 
         // Load rest of locations with proper permission checks
         if ($locationIdList !== []) {
-            $locations += (array)$this->locationService->loadLocationList($locationIdList);
+            $loadedLocations = $this->locationService->loadLocationList($locationIdList);
+            foreach ($loadedLocations as $location) {
+                $locations[$location->getId()] = $location;
+            }
         }
 
         $elements = [];
