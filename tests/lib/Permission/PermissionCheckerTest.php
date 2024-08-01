@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
-use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\PermissionChecker;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -30,9 +29,6 @@ class PermissionCheckerTest extends TestCase
     /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
     private $userService;
 
-    /** @var \Ibexa\AdminUi\Permission\LimitationResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
-    private LimitationResolverInterface $permissionLimitationResolver;
-
     /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
     private $permissionChecker;
 
@@ -43,12 +39,10 @@ class PermissionCheckerTest extends TestCase
             ->method('getCurrentUserReference')
             ->willReturn($this->generateUser(self::USER_ID));
 
-        $this->permissionLimitationResolver = $this->createMock(LimitationResolverInterface::class);
         $this->userService = $this->createMock(UserService::class);
 
         $this->permissionChecker = new PermissionChecker(
             $this->permissionResolver,
-            $this->permissionLimitationResolver,
             $this->userService,
         );
     }

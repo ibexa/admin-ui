@@ -1576,16 +1576,6 @@ parameters:
 			path: src/contracts/UniversalDiscovery/Provider.php
 
 		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\UniversalDiscovery\\\\Provider\\:\\:getRestFormat\\(\\) has parameter \\$valueObject with no type specified\\.$#"
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\UniversalDiscovery\\\\Provider\\:\\:getRestFormat\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
 			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\UniversalDiscovery\\\\Provider\\:\\:getSubitemContents\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/contracts/UniversalDiscovery/Provider.php
@@ -8576,11 +8566,6 @@ parameters:
 			path: src/lib/Siteaccess/SiteaccessResolver.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessResolver\\:\\:getSiteaccessesForLocation\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Siteaccess/SiteaccessResolver.php
-
-		-
 			message: "#^PHPDoc tag @param references unknown parameter\\: \\$siteAccesses$#"
 			count: 1
 			path: src/lib/Siteaccess/SiteaccessResolver.php
@@ -8684,16 +8669,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$query of class Ibexa\\\\Core\\\\Pagination\\\\Pagerfanta\\\\LocationSearchAdapter constructor expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\LocationQuery, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query given\\.$#"
 			count: 1
 			path: src/lib/Tab/Dashboard/MyMediaTab.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\PagerContentToDataMapper\\:\\:map\\(\\) has parameter \\$pager with generic class Pagerfanta\\\\Pagerfanta but does not specify its types\\: T$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/PagerContentToDataMapper.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Dashboard\\\\PagerContentToDataMapper\\:\\:map\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Tab/Dashboard/PagerContentToDataMapper.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Tab\\\\Event\\\\Subscriber\\\\ConditionalTabSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -9026,26 +9001,6 @@ parameters:
 			path: src/lib/Translation/Extractor/JavaScriptFileVisitor.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\LimitationTranslationExtractor\\:\\:__construct\\(\\) has parameter \\$policyMap with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/LimitationTranslationExtractor.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\LimitationTranslationExtractor\\:\\:extract\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/LimitationTranslationExtractor.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\LimitationTranslationExtractor\\:\\:getLimitationTypes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/LimitationTranslationExtractor.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\LimitationTranslationExtractor\\:\\:\\$policyMap type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/LimitationTranslationExtractor.php
-
-		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\:\\:\\$args\\.$#"
 			count: 5
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
@@ -9124,26 +9079,6 @@ parameters:
 			message: "#^Property Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\NotificationTranslationExtractor\\:\\:\\$methodsToExtractFrom type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\PolicyTranslationExtractor\\:\\:__construct\\(\\) has parameter \\$policyMap with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\PolicyTranslationExtractor\\:\\:createMessage\\(\\) never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of method JMS\\\\TranslationBundle\\\\Model\\\\MessageCatalogue\\:\\:add\\(\\) expects JMS\\\\TranslationBundle\\\\Model\\\\Message, JMS\\\\TranslationBundle\\\\Model\\\\Message\\\\XliffMessage\\|null given\\.$#"
-			count: 5
-			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\PolicyTranslationExtractor\\:\\:\\$policyMap type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Translation\\\\Extractor\\\\SortingTranslationExtractor\\:\\:extract\\(\\) has no return type specified\\.$#"
@@ -9359,31 +9294,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$contentDraftListItem of method Ibexa\\\\AdminUi\\\\UI\\\\Value\\\\ValueFactory\\:\\:createUnauthorizedContentDraft\\(\\) expects Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\DraftList\\\\Item\\\\UnauthorizedContentDraftListItem, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\DraftList\\\\ContentDraftListItemInterface given\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/ContentDraftListDataset.php
-
-		-
-			message: "#^Cannot access offset int on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/ContentDraftsDataset.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\ContentDraftsDataset\\:\\:getContentDrafts\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/ContentDraftsDataset.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\ContentDraftsDataset\\:\\:mapContentDraft\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/ContentDraftsDataset.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\ContentDraftsDataset\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/ContentDraftsDataset.php
-
-		-
-			message: "#^Property Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\ContentDraftsDataset\\:\\:\\$locationService is never read, only written\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/ContentDraftsDataset.php
 
 		-
 			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\URLAlias\\> given\\.$#"
@@ -9722,7 +9632,7 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @return with type Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation is not subtype of native type Ibexa\\\\AdminUi\\\\UI\\\\Value\\\\Content\\\\Relation\\.$#"
-			count: 2
+			count: 1
 			path: src/lib/UI/Value/ValueFactory.php
 
 		-
@@ -9926,16 +9836,6 @@ parameters:
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UniversalDiscovery\\\\UniversalDiscoveryProvider\\:\\:getRestFormat\\(\\) has parameter \\$valueObject with no type specified\\.$#"
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\UniversalDiscovery\\\\UniversalDiscoveryProvider\\:\\:getRestFormat\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UniversalDiscovery\\\\UniversalDiscoveryProvider\\:\\:getSortClause\\(\\) should return Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\\\SortClause but returns object\\.$#"
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
@@ -9957,11 +9857,6 @@ parameters:
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UniversalDiscovery\\\\UniversalDiscoveryProvider\\:\\:moveSelectedLocationOnTop\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
@@ -10014,11 +9909,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$validationErrors of method Ibexa\\\\ContentForms\\\\Validator\\\\Constraints\\\\FieldTypeValidator\\:\\:processValidationErrors\\(\\) expects array\\<Ibexa\\\\Contracts\\\\Core\\\\FieldType\\\\ValidationError\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\FieldType\\\\ValidationError\\> given\\.$#"
 			count: 1
 			path: src/lib/Validator/Constraints/FieldSettingsValidator.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Validator\\\\Constraints\\\\FieldTypeValidator\\:\\:processValidationErrors\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Validator/Constraints/FieldTypeValidator.php
 
 		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Validator\\\\Constraints\\\\LocationHasChildren\\:\\:\\$message has no type specified\\.$#"
@@ -12620,11 +12510,6 @@ parameters:
 			message: "#^Property Ibexa\\\\Tests\\\\AdminUi\\\\Tab\\\\TabRegistryTest\\:\\:\\$groupName has no type specified\\.$#"
 			count: 1
 			path: tests/lib/Tab/TabRegistryTest.php
-
-		-
-			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\Translation\\\\Extractor\\\\LimitationTranslationExtractorTest\\:\\:testExtract\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Translation/Extractor/LimitationTranslationExtractorTest.php
 
 		-
 			message: "#^Method Ibexa\\\\Tests\\\\AdminUi\\\\UI\\\\Config\\\\Service\\\\ContentTypeIconResolverTest\\:\\:dataProviderForGetContentTypeIcon\\(\\) return type has no value type specified in iterable type array\\.$#"
