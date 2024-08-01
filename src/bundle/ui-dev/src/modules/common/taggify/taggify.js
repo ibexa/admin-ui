@@ -17,14 +17,16 @@ const Taggify = forwardRef(({ hotKeys, allowDuplicates, onTagsChange, bottomHint
             let nextId = newTags.at(-1)?.id ?? 0;
 
             inputTags.forEach((inputTagContent) => {
-                if ((!allowDuplicates && isDuplicated(newTags, inputTagContent)) || !inputTagContent) {
+                const trimmedInputTagContent = inputTagContent.trim();
+
+                if ((!allowDuplicates && isDuplicated(newTags, trimmedInputTagContent)) || !trimmedInputTagContent) {
                     return;
                 }
 
                 nextId++;
                 newTags.push({
                     id: nextId,
-                    content: inputTagContent,
+                    content: trimmedInputTagContent,
                 });
             });
 
