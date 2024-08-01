@@ -17,7 +17,6 @@ use Ibexa\AdminUi\REST\Value\ContentTree\Root;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -37,8 +36,6 @@ class ContentTreeController extends RestController
 {
     private LocationService $locationService;
 
-    private PermissionCheckerInterface $permissionChecker;
-
     private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
     private NodeFactory $contentTreeNodeFactory;
@@ -53,7 +50,6 @@ class ContentTreeController extends RestController
 
     public function __construct(
         LocationService $locationService,
-        PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
         NodeFactory $contentTreeNodeFactory,
         PermissionResolver $permissionResolver,
@@ -62,7 +58,6 @@ class ContentTreeController extends RestController
         LimitationResolverInterface $limitationResolver
     ) {
         $this->locationService = $locationService;
-        $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
         $this->contentTreeNodeFactory = $contentTreeNodeFactory;
         $this->permissionResolver = $permissionResolver;

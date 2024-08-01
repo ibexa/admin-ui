@@ -11,7 +11,6 @@ namespace Ibexa\AdminUi\UniversalDiscovery;
 use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\QueryType\LocationPathQueryType;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
@@ -23,7 +22,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\Rest\Server\Values\Version;
 
@@ -40,17 +38,11 @@ class UniversalDiscoveryProvider implements Provider
     /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
-    private $visitor;
-
     /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
-
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
 
     /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
@@ -76,8 +68,6 @@ class UniversalDiscoveryProvider implements Provider
         SearchService $searchService,
         BookmarkService $bookmarkService,
         ContentService $contentService,
-        Visitor $visitor,
-        PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
         LocationPathQueryType $locationPathQueryType,
         LimitationResolverInterface $limitationResolver
@@ -87,8 +77,6 @@ class UniversalDiscoveryProvider implements Provider
         $this->searchService = $searchService;
         $this->bookmarkService = $bookmarkService;
         $this->contentService = $contentService;
-        $this->visitor = $visitor;
-        $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
         $this->locationPathQueryType = $locationPathQueryType;
         $this->limitationResolver = $limitationResolver;

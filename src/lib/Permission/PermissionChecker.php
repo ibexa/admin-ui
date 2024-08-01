@@ -31,15 +31,11 @@ class PermissionChecker implements PermissionCheckerInterface
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    private LimitationResolverInterface $limitationResolver;
-
     public function __construct(
         PermissionResolver $permissionResolver,
-        LimitationResolverInterface $limitationResolver,
         UserService $userService
     ) {
         $this->permissionResolver = $permissionResolver;
-        $this->limitationResolver = $limitationResolver;
         $this->userService = $userService;
     }
 
