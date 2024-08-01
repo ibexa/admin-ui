@@ -118,25 +118,7 @@ class ContentTreeController extends RestController
         $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
 
         $locationIdList = array_column($loadSubtreeRequest->nodes, 'locationId');
-        $locations = [];
-
-        // Always load root location using `sudo`
-        if (in_array(self::ROOT_LOCATION_ID, $locationIdList, true)) {
-            $rootLocation = $this->repository->sudo(
-                fn (): Location => $this->locationService->loadLocation(self::ROOT_LOCATION_ID)
-            );
-            $locations[$rootLocation->getId()] = $rootLocation;
-
-            $locationIdList = array_diff($locationIdList, [self::ROOT_LOCATION_ID]);
-        }
-
-        // Load rest of locations with proper permission checks
-        if ($locationIdList !== []) {
-            $loadedLocations = $this->locationService->loadLocationList($locationIdList);
-            foreach ($loadedLocations as $location) {
-                $locations[$location->getId()] = $location;
-            }
-        }
+        $locations = $this->prepareLocationsArray($locationIdList);
 
         $elements = [];
         foreach ($loadSubtreeRequest->nodes as $childLoadSubtreeRequestNode) {
@@ -158,6 +140,36 @@ class ContentTreeController extends RestController
         }
 
         return new Root($elements);
+    }
+
+    /**
+     * @param array<int> $locationIdList
+     *
+     * @return array<int, Location>
+     */
+    private function prepareLocationsArray(array $locationIdList): array
+    {
+        $locations = [];
+
+        // Always load root location using `sudo`
+        if (in_array(self::ROOT_LOCATION_ID, $locationIdList, true)) {
+            $rootLocation = $this->repository->sudo(
+                fn (): Location => $this->locationService->loadLocation(self::ROOT_LOCATION_ID)
+            );
+            $locations[$rootLocation->getId()] = $rootLocation;
+
+            $locationIdList = array_diff($locationIdList, [self::ROOT_LOCATION_ID]);
+        }
+
+        // Load rest of locations with proper permission checks
+        if ($locationIdList !== []) {
+            $loadedLocations = $this->locationService->loadLocationList($locationIdList);
+            foreach ($loadedLocations as $location) {
+                $locations[$location->getId()] = $location;
+            }
+        }
+
+        return $locations;
     }
 
     /**
