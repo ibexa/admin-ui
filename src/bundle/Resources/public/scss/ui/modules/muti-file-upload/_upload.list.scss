@@ -1,5 +1,5 @@
 .c-upload-list {
+    flex-grow: 1;
     overflow: auto;
     margin: calculateRem(16px) 0;
-    max-height: calc(90vh - calculateRem(473px));
 }

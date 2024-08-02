@@ -45,8 +45,10 @@
         &__content {
             @include modal-body();
 
+            display: flex;
+            flex-direction: column;
             padding: 0 calculateRem(32px);
-            height: 100%;
+            max-height: calc(90vh - calculateRem(212px));
         }
 
         &__footer {
