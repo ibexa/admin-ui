@@ -88,7 +88,7 @@ class NavigationContext implements Context
     /**
      * @Given I go to user profile
      */
-    public function iGoToUserProfile()
+    public function iGoToUserProfile(): void
     {
         $this->upperMenu->chooseFromUserDropdown('Profile');
     }

@@ -65,7 +65,7 @@ class UserProfilePage extends Page
     {
         return sprintf(
             '/user/profile/%d/view',
-            $this->contentFacade->getContentByLocationURL($this->locationPath)->contentInfo->getMainLocation()->id
+            $this->contentFacade->getLocationByLocationURL($this->locationPath)->getId()
         );
     }
 

@@ -24,7 +24,7 @@ class UserProfileContext implements Context
     /**
      * @Given I edit user profile summary
      */
-    public function editUserProfileSummary()
+    public function editUserProfileSummary(): void
     {
         $this->userProfilePage->editSummary();
     }

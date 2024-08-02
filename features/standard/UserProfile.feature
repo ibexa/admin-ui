@@ -1,7 +1,7 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+@IbexaHeadless @IbexaExperience @IbexaCommerce
 Feature: User profile management
 
-  @javascript @test
+  @javascript
   Scenario: Create a new editor
     Given I am logged as admin
     And I'm on Content view Page for "Users/Editors"
@@ -25,7 +25,7 @@ Feature: User profile management
       | label         | Username   | Email          | Enabled  |
       | User account  | testeditor | test@test.com  | Yes      |
 
-  @javascript @test
+  @javascript
   Scenario: User profile is accessible can be edited
     Given I open Login page in admin SiteAccess
     And I log in as "testeditor" with password "Test1234pw"
