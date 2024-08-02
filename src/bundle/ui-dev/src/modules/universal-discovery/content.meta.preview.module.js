@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useMemo, useRef } from 'react';
 import Icon from '../common/icon/icon';
 import Thumbnail from '../common/thumbnail/thumbnail';
 import { createCssClassNames } from '../common/helpers/css.class.names';
+import Spinner from '../common/spinner/spinner';
 import { findMarkedLocation } from './helpers/locations.helper';
 import { addBookmark, removeBookmark } from './services/universal.discovery.service';
 import ContentEditButton from './components/content-edit-button/content.edit.button';
@@ -116,14 +117,14 @@ const ContentMetaPreview = () => {
         );
     };
     const renderMetaPreviewLoadingSpinner = () => {
-        const spinnerClassName = createCssClassNames({
-            'c-content-meta-preview__loading-spinner': true,
-            'c-content-meta-preview__loading-spinner--hidden': isLocationDataLoaded,
+        const spinnerWrapperClassName = createCssClassNames({
+            'c-content-meta-preview__loading-spinner-wrapper': true,
+            'c-content-meta-preview__loading-spinner-wrapper--hidden': isLocationDataLoaded,
         });
 
         return (
-            <div className={spinnerClassName}>
-                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+            <div className={spinnerWrapperClassName}>
+                <Spinner />
             </div>
         );
     };
