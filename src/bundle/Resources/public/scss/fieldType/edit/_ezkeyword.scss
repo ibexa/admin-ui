@@ -36,10 +36,19 @@
         order: 1;
         display: flex;
         flex-wrap: wrap;
+        width: 100%;
     }
 
     .taggify__tag {
         @include tag;
+
+        max-width: 100%;
+    }
+
+    .taggify__tag-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .taggify__btn--remove {
