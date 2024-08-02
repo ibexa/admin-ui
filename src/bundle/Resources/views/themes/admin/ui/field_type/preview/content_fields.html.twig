@@ -154,7 +154,11 @@
         {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezkeyword')|trim}) %}
         <ul {{ block( 'field_attributes' ) }}>
         {% for keyword in field.value.values %}
-            <li class="ibexa-keyword__item">{{ keyword }}</li>
+            <li class="ibexa-keyword__item">
+                <span class="ibexa-keyword__item-content">
+                    {{ keyword }}
+                </span>
+            </li>
         {% endfor %}
         </ul>
     {% endif %}
