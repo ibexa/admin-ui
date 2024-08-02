@@ -86,6 +86,14 @@ class NavigationContext implements Context
     }
 
     /**
+     * @Given I go to user profile
+     */
+    public function iGoToUserProfile()
+    {
+        $this->upperMenu->chooseFromUserDropdown('Profile');
+    }
+
+    /**
      * @Then /^I should be on "?([^\"]*)"? page$/
      */
     public function iAmOnPage(string $pageName): void
