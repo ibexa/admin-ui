@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { createCssClassNames } from '../helpers/css.class.names';
+
 const TooltipPopupComponent = ({
     title,
     subtitle,
@@ -12,10 +14,15 @@ const TooltipPopupComponent = ({
     closeBtnAttrs,
     closeLabel,
     visible,
+    extraClasses,
 }) => {
     const contentRef = useRef();
+    const className = createCssClassNames({
+        'c-tooltip-popup': true,
+        [extraClasses]: true,
+    });
     const attrs = {
-        className: 'c-tooltip-popup',
+        className,
         hidden: !visible,
     };
 
@@ -55,6 +62,7 @@ TooltipPopupComponent.propTypes = {
     closeLabel: PropTypes.string,
     confirmBtnAttrs: PropTypes.object,
     closeBtnAttrs: PropTypes.object,
+    extraClasses: PropTypes.string,
 };
 
 TooltipPopupComponent.defaultProps = {
@@ -65,6 +73,7 @@ TooltipPopupComponent.defaultProps = {
     closeLabel: '',
     confirmBtnAttrs: {},
     closeBtnAttrs: {},
+    extraClasses: '',
 };
 
 export default TooltipPopupComponent;

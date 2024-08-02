@@ -17,7 +17,7 @@
 
     .c-tooltip-popup {
         width: 100%;
-        max-height: 100vh;
+        max-height: 90vh;
         max-width: calculateRem(800px);
         position: absolute;
         z-index: 2;
@@ -30,8 +30,8 @@
             @include modal-header();
 
             height: calculateRem(92px);
-            padding: calculateRem(32px) calculateRem(32px) 0;
-            margin-bottom: calculateRem(36px);
+            padding: calculateRem(24px) calculateRem(32px) 0;
+            margin-bottom: calculateRem(24px);
         }
 
         &__title {
@@ -42,20 +42,29 @@
             top: 0;
         }
 
-        &__subtitle {
-            margin-top: calculateRem(8px);
-        }
-
         &__content {
             @include modal-body();
 
+            display: flex;
+            flex-direction: column;
             padding: 0 calculateRem(32px);
-            max-height: calc(100vh - calculateRem(208px));
-            overflow: auto;
+            max-height: calc(90vh - calculateRem(212px));
         }
 
         &__footer {
-            padding: calculateRem(16px) calculateRem(32px) calculateRem(32px) calculateRem(32px);
+            padding: calculateRem(24px);
+        }
+
+        .c-drop-area {
+            padding: calculateRem(24px);
+        }
+
+        &--with-uploaded-items {
+            .c-tooltip-popup {
+                &__footer {
+                    box-shadow: 0 0 calculateRem(16px) 0 rgba($ibexa-color-dark, 0.16);
+                }
+            }
         }
     }
 }

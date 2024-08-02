@@ -115,6 +115,10 @@ export default class UploadPopupModule extends Component {
             enableUploadedItemEdit,
         };
 
+        if (hasAnyUploadedItems || hasAnyItemsToUpload) {
+            tooltipAttrs.extraClasses = 'c-tooltip-popup--with-uploaded-items';
+        }
+
         return (
             <div className="c-upload-popup" ref={this.refTooltip}>
                 <TooltipPopup {...tooltipAttrs}>
