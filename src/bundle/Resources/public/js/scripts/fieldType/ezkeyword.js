@@ -1,3 +1,5 @@
+import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezkeyword';
     const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
@@ -5,6 +7,23 @@
     const CLASS_TAGGIFY_FOCUS = 'ibexa-data-source__taggify--focused';
     const ENTER_KEY_CODE = 13;
     const COMMA_KEY_CODE = 188;
+    const tagsObserverConfig = {
+        childList: true,
+        subtree: true,
+    };
+    const addTooltipToTag = (mutationList) => {
+        mutationList.forEach((mutation) => {
+            if (mutation.target.classList.contains('taggify__tags')) {
+                mutation.addedNodes.forEach((addedNode) => {
+                    const labelElement = addedNode.querySelector('.taggify__tag-label');
+
+                    labelElement.title = labelElement.innerText;
+                });
+
+                parseTooltips(mutation.target);
+            }
+        });
+    };
 
     class EzKeywordValidator extends ibexa.BaseFieldValidator {
         /**
@@ -47,6 +66,10 @@
 
     doc.querySelectorAll(SELECTOR_FIELD).forEach((field) => {
         const taggifyContainer = field.querySelector(SELECTOR_TAGGIFY);
+        const tagsObserver = new MutationObserver(addTooltipToTag);
+
+        tagsObserver.observe(taggifyContainer, tagsObserverConfig);
+
         const validator = new EzKeywordValidator({
             classInvalid: 'is-invalid',
             fieldSelector: SELECTOR_FIELD,
