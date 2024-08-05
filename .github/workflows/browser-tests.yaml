@@ -19,13 +19,7 @@ jobs:
             job-count: 2
             timeout: 40
         secrets:
-            SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
-            SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
-            TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-            AUTOMATION_CLIENT_ID: ${{ secrets.AUTOMATION_CLIENT_ID }}
-            AUTOMATION_CLIENT_INSTALLATION: ${{ secrets.AUTOMATION_CLIENT_INSTALLATION }}
-            AUTOMATION_CLIENT_SECRET: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
     admin-ui-headless:
         name: "AdminUI-Headless"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
