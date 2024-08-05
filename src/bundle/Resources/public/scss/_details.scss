@@ -43,6 +43,8 @@
     }
 
     &__item-content {
+        word-wrap: break-word;
+
         .ibexa-dropdown {
             margin-left: 0;
         }
