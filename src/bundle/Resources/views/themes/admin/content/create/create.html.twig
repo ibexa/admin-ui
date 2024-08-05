@@ -14,7 +14,7 @@
         'content_create_struct': content_create_struct
     }) %}
 
-    {% include '@ibexadesign/ui/edit_header.html.twig' with {
+    {% embed '@ibexadesign/ui/edit_header.html.twig' with {
         action_name: 'creating'|trans|desc('Creating'),
         title: 'new_content_item'|trans({'%contentType%': content_type.name})|desc('New %contentType%'),
         icon_name: content_type.name,
@@ -25,6 +25,14 @@
         })|desc('Location: %location% Translation: %language%' ),
         context_actions: knp_menu_render(content_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'})
     } %}
+        {% block after_title %}
+            {{ ibexa_render_component_group('content-form-create-header-actions', {
+                'parent_location': parent_location,
+                'content_type': content_type,
+                'language': language
+            }) }}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
 
 {% block form_before %}
