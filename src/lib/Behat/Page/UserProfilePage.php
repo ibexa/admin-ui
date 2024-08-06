@@ -14,7 +14,7 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
 
-class UserProfilePage extends Page
+final class UserProfilePage extends Page
 {
     private string $locationPath;
 

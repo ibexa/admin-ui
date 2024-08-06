@@ -26,7 +26,7 @@ Feature: User profile management
       | User account  | testeditor | test@test.com  | Yes      |
 
   @javascript
-  Scenario: User profile is accessible can be edited
+  Scenario: User profile is accessible and can be edited
     Given I open Login page in admin SiteAccess
     And I log in as "testeditor" with password "Test1234pw"
     And I should be on "Dashboard" page

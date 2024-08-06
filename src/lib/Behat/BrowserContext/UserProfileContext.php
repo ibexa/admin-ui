@@ -12,7 +12,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\UserProfilePage;
 
-class UserProfileContext implements Context
+final class UserProfileContext implements Context
 {
     private UserProfilePage $userProfilePage;
 
