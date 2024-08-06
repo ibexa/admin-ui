@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\> given\\.$#"
-			count: 1
-			path: src/bundle/Controller/Content/ContentTreeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of function array_shift expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\> given\\.$#"
 			count: 1
 			path: src/bundle/Controller/Content/VersionDraftConflictController.php
