@@ -20,8 +20,10 @@ import Drag from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/drag.svg
 import Download from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/download.svg';
 import Duplicate from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/duplicate.svg';
 import Edit from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/edit.svg';
+import ExpandLeft from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/expand-left.svg';
 import Fields from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/fields.svg';
 import File from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/file.svg';
+import Filters from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/filters.svg';
 import Folder from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/folder.svg';
 import Form from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/form.svg';
 import Gallery from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/gallery.svg';
@@ -65,8 +67,10 @@ const iconsMap = {
     drag: Drag,
     download: Download,
     duplicate: Duplicate,
+    'expand-left': ExpandLeft,
     edit: Edit,
     file: File,
+    filters: Filters,
     fields: Fields,
     folder: Folder,
     form: Form,
