@@ -12,6 +12,7 @@ use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
 
 class RelationsDataset
 {
@@ -51,11 +52,17 @@ class RelationsDataset
         $versionInfo = $content->getVersionInfo();
 
         foreach ($this->contentService->loadRelations($versionInfo) as $relation) {
-            $this->relations[] = $this->valueFactory->createRelation($relation, $content);
+            $this->relations[] = $this->valueFactory->createRelationItem(
+                new RelationListItem($relation),
+                $content
+            );
         }
 
         foreach ($this->contentService->loadReverseRelations($versionInfo->getContentInfo()) as $reverseRelation) {
-            $this->reverseRelations[] = $this->valueFactory->createRelation($reverseRelation, $content);
+            $this->reverseRelations[] = $this->valueFactory->createRelationItem(
+                new RelationListItem($reverseRelation),
+                $content
+            );
         }
 
         return $this;

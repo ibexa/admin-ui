@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\ContentType;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 class ContentTypeIsUser extends AbstractSpecification
 {

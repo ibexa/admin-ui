@@ -14,8 +14,8 @@ use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -38,27 +38,20 @@ class ContentCreateType extends AbstractType
     /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private LimitationResolverInterface $limitationResolver;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader
-     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
-     */
     public function __construct(
         LanguageService $languageService,
         ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
         ChoiceLoaderInterface $languageChoiceLoader,
-        PermissionCheckerInterface $permissionChecker,
-        LookupLimitationsTransformer $lookupLimitationsTransformer
+        LookupLimitationsTransformer $lookupLimitationsTransformer,
+        LimitationResolverInterface $limitationResolver
     ) {
         $this->languageService = $languageService;
         $this->contentCreateContentTypeChoiceLoader = $contentCreateContentTypeChoiceLoader;
         $this->languageChoiceLoader = $languageChoiceLoader;
-        $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
+        $this->limitationResolver = $limitationResolver;
     }
 
     /**
@@ -142,7 +135,7 @@ class ContentCreateType extends AbstractType
      */
     private function getLimitationValuesForLocation(Location $location): array
     {
-        $lookupLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
+        $lookupLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
 
         return $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupLimitationsResult,

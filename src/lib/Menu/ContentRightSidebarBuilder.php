@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
@@ -17,7 +18,6 @@ use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -67,10 +67,9 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
     private $udwExtension;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
-
     private SiteaccessResolverInterface $siteaccessResolver;
+
+    private LimitationResolverInterface $limitationResolver;
 
     public function __construct(
         MenuItemFactory $factory,
@@ -80,8 +79,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         ConfigResolverInterface $configResolver,
         LocationService $locationService,
         UniversalDiscoveryExtension $udwExtension,
-        PermissionCheckerInterface $permissionChecker,
-        SiteaccessResolverInterface $siteaccessResolver
+        SiteaccessResolverInterface $siteaccessResolver,
+        LimitationResolverInterface $limitationResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
 
@@ -90,8 +89,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->udwConfigResolver = $udwConfigResolver;
         $this->locationService = $locationService;
         $this->udwExtension = $udwExtension;
-        $this->permissionChecker = $permissionChecker;
         $this->siteaccessResolver = $siteaccessResolver;
+        $this->limitationResolver = $limitationResolver;
     }
 
     /**
@@ -124,7 +123,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $menu = $this->factory->createItem('root');
         $startingLocationId = $this->udwConfigResolver->getConfig('default')['starting_location_id'];
 
-        $lookupLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
+        $lookupLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
         $canCreate = $lookupLimitationsResult->hasAccess && $contentType->isContainer;
         $uwdConfig = $this->udwExtension->renderUniversalDiscoveryWidgetConfig('single_container');
         $canEdit = $this->permissionResolver->canUser(

@@ -19,7 +19,6 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentOwnerLimitation
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
-use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class PermissionChecker implements PermissionCheckerInterface
@@ -32,15 +31,11 @@ class PermissionChecker implements PermissionCheckerInterface
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     private $userService;
 
-    private LimitationResolverInterface $limitationResolver;
-
     public function __construct(
         PermissionResolver $permissionResolver,
-        LimitationResolverInterface $limitationResolver,
         UserService $userService
     ) {
         $this->permissionResolver = $permissionResolver;
-        $this->limitationResolver = $limitationResolver;
         $this->userService = $userService;
     }
 
@@ -155,28 +150,6 @@ class PermissionChecker implements PermissionCheckerInterface
         }
 
         return true;
-    }
-
-    public function getContentCreateLimitations(Location $parentLocation): LookupLimitationResult
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return $this->limitationResolver->getContentCreateLimitations($parentLocation);
-    }
-
-    public function getContentUpdateLimitations(Location $location): LookupLimitationResult
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return $this->limitationResolver->getContentUpdateLimitations($location);
     }
 
     /**

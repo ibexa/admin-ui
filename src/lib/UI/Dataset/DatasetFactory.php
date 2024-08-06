@@ -106,16 +106,6 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::relationList and DatasetFactory::reverseRelationList instead.
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\RelationsDataset
-     */
-    public function relations(): RelationsDataset
-    {
-        return new RelationsDataset($this->contentService, $this->valueFactory);
-    }
-
-    /**
      * @return \Ibexa\AdminUi\UI\Dataset\RelationListDataset
      */
     public function relationList(): RelationListDataset
@@ -201,20 +191,6 @@ class DatasetFactory implements LoggerAwareInterface
         return new BookmarksDataset(
             $this->bookmarkService,
             $this->valueFactory
-        );
-    }
-
-    /**
-     * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::contentDraftList instead.
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftsDataset
-     */
-    public function contentDrafts(): ContentDraftsDataset
-    {
-        return new ContentDraftsDataset(
-            $this->contentService,
-            $this->contentTypeService,
-            $this->locationService
         );
     }
 

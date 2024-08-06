@@ -21,24 +21,12 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     private const WEBPACK_CONFIG_NAMES = [
         'ibexa.config.js' => [
             'ibexa.config.js' => [],
-            'ez.config.js' => [
-                'deprecated' => true,
-                'alternative' => 'ibexa.config.js',
-            ],
         ],
         'ibexa.config.manager.js' => [
             'ibexa.config.manager.js' => [],
-            'ez.config.manager.js' => [
-                'deprecated' => true,
-                'alternative' => 'ibexa.config.manager.js',
-            ],
         ],
         'ibexa.webpack.custom.config.js' => [
             'ibexa.webpack.custom.config.js' => [],
-            'ez.webpack.custom.config.js' => [
-                'deprecated' => true,
-                'alternative' => 'ibexa.webpack.custom.config.js',
-            ],
         ],
         'ibexa.config.setup.js' => [
             'ibexa.config.setup.js' => [],

@@ -162,33 +162,6 @@ class ValueFactory
     }
 
     /**
-     * @deprecated since version 2.5, to be removed in 3.0. Please use ValueFactory::createRelationItem instead.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Relation
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     */
-    public function createRelation(Relation $relation, Content $content): UIValue\Content\Relation
-    {
-        $contentType = $content->getContentType();
-
-        return new UIValue\Content\Relation($relation, [
-            'relationFieldDefinitionName' => $this->getRelationFieldDefinitionName($relation, $contentType),
-            'relationContentTypeName' => $contentType->getName(),
-            'relationLocation' => $this->locationResolver->resolveLocation($content->contentInfo),
-            'relationName' => $content->getName(),
-            'resolvedSourceLocation' => $this->locationResolver->resolveLocation($relation->sourceContentInfo),
-            'resolvedDestinationLocation' => $this->locationResolver->resolveLocation($relation->destinationContentInfo),
-        ]);
-    }
-
-    /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      *

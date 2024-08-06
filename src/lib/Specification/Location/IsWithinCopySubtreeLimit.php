@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
-use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 /**
  * @internal

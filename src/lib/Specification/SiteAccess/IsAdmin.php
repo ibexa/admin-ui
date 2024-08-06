@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\SiteAccess;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 class IsAdmin extends AbstractSpecification

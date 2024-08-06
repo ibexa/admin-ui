@@ -246,11 +246,6 @@ parameters:
 			path: src/lib/Tab/LocationView/VersionsTab.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
-
-		-
 			message: "#^Parameter \\#1 \\$array_arg of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
 			count: 1
 			path: src/lib/UI/Config/Provider/ContentTypes.php
@@ -264,11 +259,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$s2 of function strnatcasecmp expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/UI/Config/Provider/ContentTypes.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/ContentDraftsDataset.php
 
 		-
 			message: "#^Parameter \\#2 \\$size of function array_chunk expects int\\<1, max\\>, int given\\.$#"

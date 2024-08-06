@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\QueryType\LocationPathQueryType;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
@@ -22,7 +22,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\Rest\Server\Values\Version;
 
@@ -39,17 +38,11 @@ class UniversalDiscoveryProvider implements Provider
     /** @var \Ibexa\Contracts\Core\Repository\SearchService */
     private $searchService;
 
-    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
-    private $visitor;
-
     /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
     private $bookmarkService;
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     private $contentService;
-
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
 
     /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
@@ -67,26 +60,26 @@ class UniversalDiscoveryProvider implements Provider
         Query::SORT_DESC,
     ];
 
+    private LimitationResolverInterface $limitationResolver;
+
     public function __construct(
         LocationService $locationService,
         ContentTypeService $contentTypeService,
         SearchService $searchService,
         BookmarkService $bookmarkService,
         ContentService $contentService,
-        Visitor $visitor,
-        PermissionCheckerInterface $permissionChecker,
         LookupLimitationsTransformer $lookupLimitationsTransformer,
-        LocationPathQueryType $locationPathQueryType
+        LocationPathQueryType $locationPathQueryType,
+        LimitationResolverInterface $limitationResolver
     ) {
         $this->locationService = $locationService;
         $this->contentTypeService = $contentTypeService;
         $this->searchService = $searchService;
         $this->bookmarkService = $bookmarkService;
         $this->contentService = $contentService;
-        $this->visitor = $visitor;
-        $this->permissionChecker = $permissionChecker;
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
         $this->locationPathQueryType = $locationPathQueryType;
+        $this->limitationResolver = $limitationResolver;
     }
 
     public function getColumns(
@@ -185,8 +178,8 @@ class UniversalDiscoveryProvider implements Provider
 
     public function getLocationPermissionRestrictions(Location $location): array
     {
-        $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
-        $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
+        $lookupCreateLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
+        $lookupUpdateLimitationsResult = $this->limitationResolver->getContentUpdateLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,
@@ -332,20 +325,6 @@ class UniversalDiscoveryProvider implements Provider
                 'versions' => $versions,
             ],
         ];
-    }
-
-    public function getRestFormat($valueObject): array
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return json_decode(
-            $this->visitor->visit($valueObject)->getContent(),
-            true
-        );
     }
 
     public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause
