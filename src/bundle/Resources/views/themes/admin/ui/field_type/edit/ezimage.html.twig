@@ -83,7 +83,7 @@
                 </div>
             </div>
             <div class="ibexa-field-edit-preview__image-alt">
-                {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : 'dupa' %}
+                {% set alternative_text_label_class = form.vars.is_alternative_text_required ? 'required' : '' %}
                 {{ form_row(form.alternativeText, {
                     attr: { 'data-is-required': form.vars.is_alternative_text_required, readonly: readonly },
                     label_attr: { 'class': alternative_text_label_class }

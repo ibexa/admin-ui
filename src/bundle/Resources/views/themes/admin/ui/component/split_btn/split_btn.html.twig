@@ -3,7 +3,6 @@
 {% set attr = attr|default({})|merge({
     class: ('ibexa-split-btn '
         ~ ('ibexa-split-btn--' ~ type ~ ' ')
-        ~ (disabled|default(false) ? 'ibexa-split-btn--disabled ')
         ~ attr.class|default(''))|trim,
 }) %}
 
@@ -32,7 +31,6 @@
             items: subitems,
         },
     ],
-    header: header|default(),
 }) %}
 
 {% set main_btn_element = main_btn_element|default('button') %}
