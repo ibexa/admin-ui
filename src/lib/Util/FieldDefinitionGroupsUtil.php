@@ -30,22 +30,17 @@ class FieldDefinitionGroupsUtil
      */
     public function groupFieldDefinitions(iterable $fieldDefinitions): array
     {
+        $fieldsGroups = $this->fieldsGroupsListHelper->getGroups();
+        $defaultGroup = $this->fieldsGroupsListHelper->getDefaultGroup();
+
         $fieldDefinitionsByGroup = [];
-        foreach ($this->fieldsGroupsListHelper->getGroups() as $groupId => $groupName) {
-            $fieldDefinitionsByGroup[$groupId] = [
-                'name' => $groupName,
-                'fieldDefinitions' => [],
-            ];
-        }
-
         foreach ($fieldDefinitions as $fieldDefinition) {
-            $groupId = $fieldDefinition->fieldGroup;
-            if (!$groupId) {
-                $groupId = $this->fieldsGroupsListHelper->getDefaultGroup();
-            }
+            $groupId = $fieldDefinition->fieldGroup ?: $defaultGroup;
 
+            $fieldDefinitionsByGroup[$groupId]['name'] = $fieldDefinitionsByGroup[$groupId]['name']
+                ?? $fieldsGroups[$groupId]
+                ?? $defaultGroup;
             $fieldDefinitionsByGroup[$groupId]['fieldDefinitions'][] = $fieldDefinition;
-            $fieldDefinitionsByGroup[$groupId]['name'] = $fieldDefinitionsByGroup[$groupId]['name'] ?? $groupId;
         }
 
         return $fieldDefinitionsByGroup;
