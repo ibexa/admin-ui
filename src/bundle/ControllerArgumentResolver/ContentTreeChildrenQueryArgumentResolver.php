@@ -14,6 +14,7 @@ use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterfac
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Traversable;
 
 /**
  * @phpstan-import-type TCriterionProcessor from \Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor
@@ -63,6 +64,10 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
             return [];
         }
 
-        return iterator_to_array($this->criterionProcessor->processCriteria($criteriaData));
+        $criteria = $this->criterionProcessor->processCriteria($criteriaData);
+
+        return $criteria instanceof Traversable
+            ? iterator_to_array($criteria)
+            : $criteria;
     }
 }
