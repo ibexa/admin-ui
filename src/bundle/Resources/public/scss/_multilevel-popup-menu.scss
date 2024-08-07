@@ -1,14 +1,4 @@
 .ibexa-multilevel-popup-menu {
-    &__header {
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
-        margin: 0 calculateRem(8px);
-        padding: calculateRem(8px) 0 calculateRem(16px);
-
-        &--hidden {
-            display: none;
-        }
-    }
-
     &__search {
         margin-bottom: calculateRem(4px);
         padding: 0 calculateRem(8px);
