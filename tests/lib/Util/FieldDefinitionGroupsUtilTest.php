@@ -17,20 +17,26 @@ class FieldDefinitionGroupsUtilTest extends TestCase
     public function testGroupFieldDefinitions()
     {
         $randomGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'random']);
+        $testGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'test']);
         $defaultGroupFieldDefinition = new FieldDefinition();
 
         $fieldDefinitions = [
             $randomGroupFieldDefinition,
+            $testGroupFieldDefinition,
             $defaultGroupFieldDefinition,
         ];
         $groupedFieldDefinitions = [
-            'content' => [
-                'name' => 'Content',
-                'fieldDefinitions' => [$defaultGroupFieldDefinition],
-            ],
             'random' => [
                 'name' => 'Random',
                 'fieldDefinitions' => [$randomGroupFieldDefinition],
+            ],
+            'test' => [
+                'name' => 'Test',
+                'fieldDefinitions' => [$testGroupFieldDefinition],
+            ],
+            'content' => [
+                'name' => 'Content',
+                'fieldDefinitions' => [$defaultGroupFieldDefinition],
             ],
         ];
 
@@ -40,10 +46,11 @@ class FieldDefinitionGroupsUtilTest extends TestCase
             ->willReturn('content');
         $fieldsGroupsListHelper
             ->method('getGroups')
-            ->willReturn(['random' => 'Random', 'content' => 'Content']);
+            ->willReturn(['another' => 'Another', 'test' => 'Test', 'random' => 'Random', 'content' => 'Content']);
 
         $util = new FieldDefinitionGroupsUtil($fieldsGroupsListHelper);
 
+        self::assertSame($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
         self::assertEquals($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
     }
 }
