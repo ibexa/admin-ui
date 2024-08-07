@@ -43,6 +43,7 @@ browser:
                 - Ibexa\Behat\Browser\Context\AuthenticationContext
                 - Ibexa\Behat\Browser\Context\DebuggingContext
                 - Ibexa\User\Behat\Context\UserSettingsContext
+                - Ibexa\AdminUi\Behat\BrowserContext\UserProfileContext
 
         personas:
             paths:
@@ -93,3 +94,4 @@ browser:
                 - Ibexa\Behat\Browser\Context\AuthenticationContext
                 - Ibexa\Behat\Browser\Context\DebuggingContext
                 - Ibexa\User\Behat\Context\UserSettingsContext
+                - Ibexa\AdminUi\Behat\BrowserContext\UserProfileContext
