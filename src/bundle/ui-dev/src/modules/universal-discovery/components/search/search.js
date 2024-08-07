@@ -8,6 +8,7 @@ export const SelectedSubtreeContext = createContext();
 export const SelectedSubtreeBreadcrumbsContext = createContext();
 
 import Icon from '../../../common/icon/icon';
+import Spinner from '../../../common/spinner/spinner';
 import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
 import SearchTags from './search.tags';
@@ -197,7 +198,7 @@ const Search = ({ itemsPerPage }) => {
                                     </div>
                                     <div className="c-search__content">
                                         <div className={spinnerWrapperClassName}>
-                                            <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+                                            <Spinner />
                                         </div>
                                         {renderSearchResults()}
                                     </div>

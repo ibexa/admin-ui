@@ -1,0 +1,11 @@
+.c-spinner {
+    @include spinner(calculateRem(26px), calculateRem(3px), $ibexa-color-primary);
+
+    &--small {
+        @include spinner(calculateRem(16px), calculateRem(2px), $ibexa-color-primary);
+    }
+
+    &--large {
+        @include spinner(calculateRem(86px), calculateRem(6px), $ibexa-color-primary);
+    }
+}
