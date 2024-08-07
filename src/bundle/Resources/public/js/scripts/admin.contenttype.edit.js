@@ -345,7 +345,10 @@
                     afterChangeGroup();
                 });
             })
-            .catch(ibexa.helpers.notification.showErrorNotification);
+            .catch((error) => {
+                collapseNode.classList.remove('ibexa-collapse--field-definition-removing');
+                ibexa.helpers.notification.showErrorNotification(error);
+            });
     };
     const toggleDraggableForFirefox = (input, isMouseEnterEvent) => {
         const fieldDefinitionNode = input.closest('.ibexa-collapse--field-definition');

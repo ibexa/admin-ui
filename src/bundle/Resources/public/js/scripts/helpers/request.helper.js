@@ -1,6 +1,13 @@
+import { getTranslator } from './context.helper';
+
 const handleRequest = (response) => {
     if (!response.ok) {
-        throw Error(response.statusText);
+        const Translator = getTranslator();
+        const defaultErrorMsg = Translator.trans(
+            /*@Desc("Something went wrong. Try to refresh the page or contact you administrator.")*/ 'error.request.default_msg',
+        );
+
+        throw Error(response.statusText || defaultErrorMsg);
     }
 
     return response;
