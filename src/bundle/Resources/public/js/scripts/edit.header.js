@@ -1,4 +1,4 @@
-(function (global, doc) {
+(function (global, doc, ibexa) {
     const SCROLL_POSITION_TO_FIT = 50;
     const HEADER_RIGHT_MARGIN = 50;
     const MIN_HEIGHT_DIFF_FOR_FITTING_HEADER = 150;
@@ -11,6 +11,7 @@
 
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
+    const { controlZIndex } = ibexa.helpers.modal;
     const fitEllipsizedTitle = () => {
         const headerBottomRowNode = headerNode.querySelector('.ibexa-edit-header__row--bottom');
         const titleNode = headerBottomRowNode.querySelector('.ibexa-edit-header__name--ellipsized');
@@ -46,4 +47,5 @@
     };
 
     contentNode.addEventListener('scroll', fitHeader, false);
-})(window, window.document);
+    controlZIndex(headerNode);
+})(window, window.document, window.ibexa);
