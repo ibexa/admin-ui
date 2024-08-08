@@ -1,4 +1,4 @@
-@IbexaHeadless @IbexaExperience @IbexaCommerce @notIbexaOSS
+@IbexaHeadless @IbexaExperience @IbexaCommerce @IbexaDXP
 Feature: User profile management
 
   @javascript
