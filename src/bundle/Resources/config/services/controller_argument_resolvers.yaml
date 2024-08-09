@@ -7,3 +7,9 @@ services:
     Ibexa\Bundle\AdminUi\ControllerArgumentResolver\UniversalDiscoveryRequestQueryArgumentResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
+
+    Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgumentResolver:
+        arguments:
+            $criterionProcessor: '@Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor'
+        tags:
+            - { name: controller.argument_value_resolver, priority: 50 }

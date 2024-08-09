@@ -49,10 +49,10 @@ class Node extends ValueObjectVisitor
         $generator->startValueElement('contentTypeIdentifier', $data->contentTypeIdentifier);
         $generator->endValueElement('contentTypeIdentifier');
 
-        $generator->startValueElement('isContainer', $data->isContainer);
+        $generator->startValueElement('isContainer', $generator->serializeBool($data->isContainer));
         $generator->endValueElement('isContainer');
 
-        $generator->startValueElement('isInvisible', $data->isInvisible);
+        $generator->startValueElement('isInvisible', $generator->serializeBool($data->isInvisible));
         $generator->endValueElement('isInvisible');
 
         $generator->startValueElement('displayLimit', $data->displayLimit);
@@ -63,7 +63,7 @@ class Node extends ValueObjectVisitor
 
         $generator->valueElement('reverseRelationsCount', $data->reverseRelationsCount);
 
-        $generator->valueElement('isBookmarked', $data->isBookmarked);
+        $generator->valueElement('isBookmarked', $generator->serializeBool($data->isBookmarked));
 
         $generator->startList('children');
 

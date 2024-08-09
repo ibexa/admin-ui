@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ContentTreeNode">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:integer" name="locationId"/>
+                <xs:element type="xs:string" name="pathString"/>
+                <xs:element type="xs:integer" name="contentId"/>
+                <xs:element type="xs:integer" name="versionNo"/>
+                <xs:element type="xs:string" name="translations"/>
+                <xs:element type="xs:string" name="mainLanguageCode"/>
+                <xs:element type="xs:string" name="name"/>
+                <xs:element type="xs:string" name="contentTypeIdentifier"/>
+                <xs:element type="xs:boolean" name="isContainer"/>
+                <xs:element type="xs:string" name="isInvisible"/>
+                <xs:element type="xs:integer" name="displayLimit"/>
+                <xs:element type="xs:integer" name="totalChildrenCount"/>
+                <xs:element type="xs:integer" name="reverseRelationsCount"/>
+                <xs:element type="xs:boolean" name="isBookmarked"/>
+                <xs:element name="ContentTreeNode" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:integer" name="locationId"/>
+                            <xs:element type="xs:string" name="pathString"/>
+                            <xs:element type="xs:integer" name="contentId"/>
+                            <xs:element type="xs:integer" name="versionNo"/>
+                            <xs:element type="xs:string" name="translations"/>
+                            <xs:element type="xs:string" name="mainLanguageCode"/>
+                            <xs:element type="xs:string" name="name"/>
+                            <xs:element type="xs:string" name="contentTypeIdentifier"/>
+                            <xs:element type="xs:boolean" name="isContainer"/>
+                            <xs:element type="xs:string" name="isInvisible"/>
+                            <xs:element type="xs:integer" name="displayLimit"/>
+                            <xs:element type="xs:integer" name="totalChildrenCount"/>
+                            <xs:element type="xs:integer" name="reverseRelationsCount"/>
+                            <xs:element type="xs:boolean" name="isBookmarked"/>
+                        </xs:sequence>
+                        <xs:attribute name="media-type" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="media-type" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

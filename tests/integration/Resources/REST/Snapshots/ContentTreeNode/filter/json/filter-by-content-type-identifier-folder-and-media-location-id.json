@@ -1,0 +1,39 @@
+{
+    "ContentTreeNode": {
+        "_media-type": "application/vnd.ibexa.api.ContentTreeNode+json",
+        "children": [
+            {
+                "_media-type": "application/vnd.ibexa.api.ContentTreeNode+json",
+                "children": [],
+                "contentId": 41,
+                "contentTypeIdentifier": "folder",
+                "displayLimit": 30,
+                "isBookmarked": false,
+                "isContainer": true,
+                "isInvisible": false,
+                "locationId": 43,
+                "mainLanguageCode": "eng-US",
+                "name": "Media",
+                "pathString": "/1/43/",
+                "reverseRelationsCount": 0,
+                "totalChildrenCount": 0,
+                "translations": "eng-US",
+                "versionNo": 1
+            }
+        ],
+        "contentId": 0,
+        "contentTypeIdentifier": "",
+        "displayLimit": 10,
+        "isBookmarked": false,
+        "isContainer": true,
+        "isInvisible": false,
+        "locationId": 1,
+        "mainLanguageCode": "eng-GB",
+        "name": "",
+        "pathString": "/1/",
+        "reverseRelationsCount": 0,
+        "totalChildrenCount": 1,
+        "translations": "",
+        "versionNo": 1
+    }
+}
