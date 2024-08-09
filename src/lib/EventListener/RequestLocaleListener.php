@@ -75,7 +75,7 @@ class RequestLocaleListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType() || !$this->isAdminSiteAccess($request)) {
+        if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType() || !$this->isAdminSiteAccess($request)) {
             return;
         }
 

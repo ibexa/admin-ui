@@ -173,7 +173,7 @@ class ContentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.dashboard'));
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 
     public function proxyCreateAction(

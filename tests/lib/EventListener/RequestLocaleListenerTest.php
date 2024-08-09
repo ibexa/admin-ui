@@ -79,7 +79,7 @@ class RequestLocaleListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $requestLocaleListener = new RequestLocaleListener(
@@ -133,7 +133,7 @@ class RequestLocaleListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->userLanguagePreferenceProvider
@@ -166,7 +166,7 @@ class RequestLocaleListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->userLanguagePreferenceProvider
@@ -207,7 +207,7 @@ class RequestLocaleListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $requestLocaleListener = new RequestLocaleListener(

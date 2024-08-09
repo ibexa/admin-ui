@@ -297,7 +297,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.section.list'));
+        return $this->redirectToRoute('ibexa.section.list');
     }
 
     /**
@@ -335,7 +335,7 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.section.list'));
+        return $this->redirectToRoute('ibexa.section.list');
     }
 
     /**
@@ -386,9 +386,9 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.section.view', [
+        return $this->redirectToRoute('ibexa.section.view', [
             'sectionId' => $section->id,
-        ]));
+        ]);
     }
 
     /**

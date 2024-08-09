@@ -46,7 +46,7 @@ class RequestListenerTest extends TestCase
         $this->event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
     }
 

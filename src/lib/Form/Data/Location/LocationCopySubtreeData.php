@@ -18,9 +18,8 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
      * @AdminUiAssert\LocationIsWithinCopySubtreeLimit()
      *
      * @AdminUiAssert\LocationIsNotRoot()
-     *
-     * @Assert\NotNull()
      */
+    #[Assert\NotNull]
     protected $location;
 
     /**
@@ -28,11 +27,10 @@ class LocationCopySubtreeData extends AbstractLocationCopyData
      *
      * @AdminUiAssert\LocationIsContainer()
      *
-     * @Assert\NotNull()
-     *
      * @AdminUiAssert\LocationIsNotSubLocation(
      *     propertyPath="location"
      * )
      */
+    #[Assert\NotNull]
     protected $newParentLocation;
 }

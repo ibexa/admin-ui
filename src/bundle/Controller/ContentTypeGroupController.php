@@ -240,7 +240,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
+        return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
     /**
@@ -278,7 +278,7 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
+        return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
     /**
