@@ -10606,11 +10606,6 @@ parameters:
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$prefix of function uniqid expects string, int\\<0, max\\> given\\.$#"
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$valueMapperRegistry of class Ibexa\\\\AdminUi\\\\Limitation\\\\Templating\\\\LimitationBlockRenderer constructor expects Ibexa\\\\AdminUi\\\\Limitation\\\\LimitationValueMapperRegistryInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
 			count: 1
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
