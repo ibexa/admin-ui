@@ -16,10 +16,8 @@
     {% block body_content %}
         {{ 'trash.modal.send_to_trash.message'|trans|desc('Are you sure you want to send this Content item to Trash?') }}
         <div class="ibexa-modal__trash-option">
-            <p class="ibexa-modal__option-label">
-                <label class="ibexa-label form-label required">
-                    {{ 'trash.modal.send_to_trash_draft_warning.message'|trans|desc('Sending this content item to Trash will also delete all drafts of content items that haven’t been published yet, and belong to the trashed subtree.') }}
-                </label>
+            <p class="ibexa-modal__option-label ibexa-label form-label required">
+                {{ 'trash.modal.send_to_trash_draft_warning.message'|trans|desc('Sending this content item to Trash will also delete all drafts of content items that haven’t been published yet, and belong to the trashed subtree.') }}
             </p>
         </div>
 
