@@ -301,6 +301,11 @@
         <target state="new">Something went wrong</target>
         <note>key: error.page.default.title</note>
       </trans-unit>
+      <trans-unit id="82a14ddaa0744c4e5942d373df7194a92ba4e0f5" resname="error.request.default_msg">
+        <source>Something went wrong. Try to refresh the page or contact your administrator.</source>
+        <target state="new">Something went wrong. Try to refresh the page or contact your administrator.</target>
+        <note>key: error.request.default_msg</note>
+      </trans-unit>
       <trans-unit id="2c7f89a37db43b829ff76f40565020c5bd4c2dae" resname="ezauthor.Email">
         <source>Email</source>
         <target state="new">Email</target>
