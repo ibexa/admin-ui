@@ -4,7 +4,7 @@ const handleRequest = (response) => {
     if (!response.ok) {
         const Translator = getTranslator();
         const defaultErrorMsg = Translator.trans(
-            /*@Desc("Something went wrong. Try to refresh the page or contact you administrator.")*/ 'error.request.default_msg',
+            /*@Desc("Something went wrong. Try to refresh the page or contact your administrator.")*/ 'error.request.default_msg',
         );
 
         throw Error(response.statusText || defaultErrorMsg);
