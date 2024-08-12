@@ -35,6 +35,15 @@ system:
                         browse:
                             items_per_page: 50
                             priority: 30
+                    image_picker_tabs_config:
+                        image_picker:
+                            id: 'image_picker'
+                            priority: 40
+                            hidden: false
+                        image_picker_bookmarks:
+                            id: 'image_picker_bookmarks'
+                            priority: 50
+                            hidden: false
 
                 # These inherit _default configuration
                 create:
