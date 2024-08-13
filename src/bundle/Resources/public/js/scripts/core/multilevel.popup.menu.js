@@ -101,6 +101,9 @@
             if (isTopBranch) {
                 triggerElement.addEventListener('click', this.handleItemWithSubitemsClick, false);
 
+                processBranchAfter(branchElement);
+                branchItems.forEach((itemElement) => processBranchItemAfter(itemElement));
+
                 return;
             }
 

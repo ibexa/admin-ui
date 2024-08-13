@@ -1,5 +1,7 @@
 {%- import '@ibexadesign/ui/component/macros.html.twig' as html -%}
 
+{%- set item_template_path = item_template_path|default('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig') -%}
+
 {%- set is_template = is_template|default(false) -%}
 
 {%- set group_attr = group_attr|default({})|merge({
@@ -20,8 +22,7 @@
                     action_attr: item.action_attr|default({}),
                 }) -%}
 
-                {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_item.html.twig'
-                    with item_params -%}
+                {%- include item_template_path with item_params -%}
             {%- endfor -%}
         {%- endblock %}
     </div>
