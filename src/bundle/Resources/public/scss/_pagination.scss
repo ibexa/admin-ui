@@ -20,10 +20,10 @@
 
         .page-item {
             @include pagination-item();
-        }
 
-        .page-link {
-            @include pagination-link();
+            .page-link {
+                @include pagination-link();
+            }
         }
     }
 }
