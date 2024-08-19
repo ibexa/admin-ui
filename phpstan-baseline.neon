@@ -191,7 +191,7 @@ parameters:
 			path: src/bundle/Controller/ContentEditController.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormInterface\\:\\:getClickedButton\\(\\)\\.$#"
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormInterface\\<mixed\\>\\:\\:getClickedButton\\(\\)\\.$#"
 			count: 4
 			path: src/bundle/Controller/ContentOnTheFlyController.php
 
@@ -976,7 +976,7 @@ parameters:
 			path: src/bundle/Controller/User/UserDeleteController.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormInterface\\:\\:getClickedButton\\(\\)\\.$#"
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormInterface\\<mixed\\>\\:\\:getClickedButton\\(\\)\\.$#"
 			count: 4
 			path: src/bundle/Controller/UserOnTheFlyController.php
 
