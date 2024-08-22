@@ -406,6 +406,10 @@
                 margin-top: 0;
             }
         }
+
+        .ibexa-table-header {
+            margin-top: calculateRem(30px);
+        }
     }
 
     &--rolled-up {
