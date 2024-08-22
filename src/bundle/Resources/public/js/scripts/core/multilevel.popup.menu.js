@@ -203,6 +203,13 @@
         }
 
         closeBranch(branchElement) {
+            const searchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
+
+            if (searchInput?.value !== '') {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+            }
+
             this.toggleBranch(branchElement, false);
         }
 
@@ -416,18 +423,6 @@
             if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideMenu) {
                 return;
             }
-
-            const branchesSearchInput = doc.querySelectorAll('.ibexa-multilevel-popup-menu__search-input');
-
-            branchesSearchInput.forEach((searchInput) => {
-                if (searchInput.value !== '') {
-                    const searchInputBranch = searchInput.closest('.ibexa-multilevel-popup-menu__branch');
-
-                    searchInput.value = '';
-                    searchInputBranch.dispatchEvent(new CustomEvent('ibexa-multilevel-popup-menu:close-branch'));
-                    searchInput.dispatchEvent(new Event('input'));
-                }
-            });
 
             this.closeWithSubbranches(topBranch);
         }
