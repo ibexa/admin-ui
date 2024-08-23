@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import FinderLeaf from './finder.leaf';
 import Icon from '../../../common/icon/icon';
+import Spinner from '../../../common/spinner/spinner';
 import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper.js';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -128,8 +129,8 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         }
 
         return (
-            <div className="c-finder-branch__loading-spinner">
-                <Icon name="spinner" extraClasses="ibexa-icon--medium ibexa-spin" />
+            <div className="c-finder-branch__loading-spinner-wrapper">
+                <Spinner />
             </div>
         );
     };
