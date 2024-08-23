@@ -60,6 +60,7 @@
     &__results-other-translation-url {
         font-size: $ibexa-text-font-size-small;
         margin-left: calculateRem(8px);
+        white-space: nowrap;
     }
 
     &__input-wrapper {
