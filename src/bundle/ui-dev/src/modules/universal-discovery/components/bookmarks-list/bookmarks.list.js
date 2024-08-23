@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
 import Icon from '../../../common/icon/icon';
+import Spinner from '../../../common/spinner/spinner';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { findMarkedLocation } from '../../helpers/locations.helper';
@@ -53,7 +54,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 
         return (
             <div className="c-bookmarks-list__spinner-wrapper">
-                <Icon name="spinner" extraClasses="m-sub-items__spinner ibexa-icon--medium ibexa-spin" />
+                <Spinner />
             </div>
         );
     };
