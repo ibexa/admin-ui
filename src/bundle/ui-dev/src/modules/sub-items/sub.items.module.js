@@ -108,6 +108,7 @@ export default class SubItemsModule extends Component {
         this.bulkActionModalContainer = null;
         this.udwContainer = null;
         this.adminUiConfig = getAdminUiConfig();
+        this.requestInProgress = false;
 
         const sortClauseData = this.getDefaultSortClause(props.sortClauses);
 
@@ -184,7 +185,7 @@ export default class SubItemsModule extends Component {
 
         const shouldLoadPage = !activePageItems;
 
-        if (shouldLoadPage) {
+        if (shouldLoadPage && !this.requestInProgress) {
             this.loadPage(activePageIndex);
         }
 
@@ -244,7 +245,9 @@ export default class SubItemsModule extends Component {
         const cursor = page ? page.cursor : null;
         const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
 
+        this.requestInProgress = true;
         loadLocation(restInfo, queryConfig, (response) => {
+            this.requestInProgress = false;
             const { totalCount, pages, edges } = response.data._repository.location.children;
             const activePageItems = edges.map((edge) => edge.node);
 
