@@ -187,10 +187,10 @@ export const findLocationsBySearchQuery = (
         offset = 0,
         languageCode = null,
         instanceUrl = DEFAULT_INSTANCE_URL,
+        useAlwaysAvailable = true,
     },
     callback,
 ) => {
-    const useAlwaysAvailable = true;
     const body = JSON.stringify({
         ViewInput: {
             identifier: `udw-locations-by-search-query-${query.FullTextCriterion}`,
