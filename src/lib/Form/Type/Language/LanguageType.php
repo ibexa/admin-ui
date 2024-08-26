@@ -32,7 +32,7 @@ class LanguageType extends AbstractType
         $builder->addModelTransformer(new LanguageTransformer($this->languageService));
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return HiddenType::class;
     }

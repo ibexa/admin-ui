@@ -21,12 +21,12 @@ class UniqueSectionIdentifier extends Constraint
      */
     public $message = 'ez.section.identifier.unique';
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ezplatform.content_forms.validator.unique_section_identifier';
     }
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

@@ -16,9 +16,8 @@ class ContentTranslationData extends ContentUpdateStruct implements NewnessCheck
 {
     /**
      * @var \Ibexa\Contracts\ContentForms\Data\Content\FieldData[]
-     *
-     * @Assert\Valid()
      */
+    #[Assert\Valid]
     protected $fieldsData;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */

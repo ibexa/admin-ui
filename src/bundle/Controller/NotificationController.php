@@ -17,7 +17,6 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -47,14 +46,7 @@ class NotificationController extends Controller
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
+    public function getNotificationsAction(int $offset, int $limit): JsonResponse
     {
         $response = new JsonResponse();
 
@@ -137,15 +129,10 @@ class NotificationController extends Controller
 
     /**
      * We're not able to establish two-way stream (it requires additional
-     * server service for websocket connection), so * we need a way to mark notification
+     * server service for websocket connection), so we need a way to mark notification
      * as read. AJAX call is fine.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed $notificationId
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function markNotificationAsReadAction(Request $request, $notificationId): JsonResponse
+    public function markNotificationAsReadAction(string $notificationId): JsonResponse
     {
         $response = new JsonResponse();
 
@@ -171,7 +158,7 @@ class NotificationController extends Controller
                 'error' => $exception->getMessage(),
             ]);
 
-            $response->setStatusCode(404);
+            $response->setStatusCode(Response::HTTP_NOT_FOUND);
         }
 
         return $response;

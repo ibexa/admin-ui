@@ -102,6 +102,6 @@ class UserDeleteController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.dashboard'));
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 }

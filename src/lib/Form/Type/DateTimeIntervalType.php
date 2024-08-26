@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class DateTimeIntervalType extends AbstractType
 {
-    public function getParent()
+    public function getParent(): ?string
     {
         return FormType::class;
     }
@@ -28,7 +28,7 @@ class DateTimeIntervalType extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'datetimeinterval';
     }

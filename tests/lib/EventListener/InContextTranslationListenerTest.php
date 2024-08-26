@@ -68,7 +68,7 @@ final class InContextTranslationListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $listener = new InContextTranslationListener(

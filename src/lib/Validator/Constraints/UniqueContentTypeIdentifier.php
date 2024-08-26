@@ -34,12 +34,12 @@ class UniqueContentTypeIdentifier extends Constraint implements TranslationConta
         ];
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ezplatform.content_forms.validator.unique_content_type_identifier';
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

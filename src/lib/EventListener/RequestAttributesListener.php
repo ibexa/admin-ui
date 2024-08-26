@@ -40,7 +40,7 @@ class RequestAttributesListener implements EventSubscriberInterface
         $this->siteAccessGroups = $siteAccessGroups;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [ViewEvents::FILTER_BUILDER_PARAMETERS => 'addRequestAttributes'];
     }

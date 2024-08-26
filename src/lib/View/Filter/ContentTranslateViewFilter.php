@@ -65,7 +65,7 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
         $this->languagePreferenceProvider = $languagePreferenceProvider;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [ViewEvents::FILTER_BUILDER_PARAMETERS => 'handleContentTranslateForm'];
     }

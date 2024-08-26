@@ -61,7 +61,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $this->options = $options + ['redirectRouteAfterPublish' => null];
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FormEvents::CONTENT_TYPE_UPDATE => 'processDefaultAction',

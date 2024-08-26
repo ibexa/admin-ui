@@ -171,10 +171,10 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
-        ]));
+        ]);
     }
 
     /**
@@ -230,10 +230,10 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
-        ]));
+        ]);
     }
 
     /**
@@ -331,11 +331,11 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $location->contentId,
             'locationId' => $location->id,
             '_fragment' => LocationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
     /**
@@ -369,7 +369,7 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.trash.list'));
+        return $this->redirectToRoute('ibexa.trash.list');
     }
 
     private function trashRelatedAsset(ContentInfo $contentInfo): void
@@ -465,11 +465,11 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => LocationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
     /**
@@ -526,11 +526,11 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => LocationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
     /**
@@ -629,11 +629,11 @@ class LocationController extends Controller
 
         $contentInfo = $location->getContentInfo();
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
+        return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $contentInfo->id,
             'locationId' => $contentInfo->mainLocationId,
             '_fragment' => DetailsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
     /**

@@ -32,7 +32,7 @@ class ObjectStateType extends AbstractType
         $builder->addModelTransformer(new ObjectStateTransformer($this->objectStateService));
     }
 
-    public function getParent()
+    public function getParent(): ?string
     {
         return HiddenType::class;
     }

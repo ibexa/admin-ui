@@ -17,10 +17,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TrashItemRestoreData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
      */
+    #[Assert\NotBlank]
     public $trashItems;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */

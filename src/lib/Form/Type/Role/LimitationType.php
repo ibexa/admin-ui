@@ -86,7 +86,7 @@ class LimitationType extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezplatform_content_forms_policy_limitation_edit';
     }

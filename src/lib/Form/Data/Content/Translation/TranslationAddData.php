@@ -15,17 +15,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 class TranslationAddData
 {
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      */
+    #[Assert\NotBlank]
     protected $location;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      */
+    #[Assert\NotBlank]
     protected $language;
 
     /**

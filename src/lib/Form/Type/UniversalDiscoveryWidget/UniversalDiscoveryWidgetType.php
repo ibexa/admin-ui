@@ -83,7 +83,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
         $resolver->setAllowedTypes('initial_location_id', ['int', 'null']);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezsystems_ezplatform_type_udw';
     }

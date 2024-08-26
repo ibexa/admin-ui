@@ -24,7 +24,7 @@ class UniqueURL extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ezplatform.content_forms.validator.unique_url';
     }
@@ -32,7 +32,7 @@ class UniqueURL extends Constraint
     /**
      * {@inheritdoc}
      */
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
