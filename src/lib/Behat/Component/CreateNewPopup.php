@@ -10,8 +10,8 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class CreateNewPopup extends Component
