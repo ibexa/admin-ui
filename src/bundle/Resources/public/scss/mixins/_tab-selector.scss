@@ -23,7 +23,7 @@
         }
 
         &:not(:first-of-type) {
-            &:before {
+            &::before {
                 content: '';
                 position: absolute;
                 top: calculateRem(-12px);

@@ -83,7 +83,7 @@ export const useSearchByQueryFetch = () => {
             }
 
             if (isBookmarked) {
-                query.IsBookmarkedCriterion = isBookmarked;
+                query.IsBookmarkedCriterion = true;
             }
 
             const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
