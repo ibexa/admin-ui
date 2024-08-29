@@ -21,6 +21,7 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use InvalidArgumentException;
 use PHPUnit\Framework\Assert;
+use RuntimeException;
 
 class ContentUpdateItemPage extends Page
 {
@@ -219,9 +220,21 @@ class ContentUpdateItemPage extends Page
         }
 
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
-        preg_match('/ibexa-field-edit--[ez|ibexa][a-z_]*/', $fieldClass, $matches);
+        $pattern = '/ibexa-field-edit--[ez|ibexa][a-z_]*/';
 
-        return explode('--', $matches[0])[1];
+        preg_match($pattern, $fieldClass, $matches);
+
+        if (empty($matches)) {
+            throw new RuntimeException(sprintf(
+                'Cannot match results for pattern: "%s" and subject: "%s".',
+                $pattern,
+                $fieldClass
+            ));
+        }
+
+        $matchedResults = explode('--', $matches[0]);
+
+        return $matchedResults[1];
     }
 
     public function switchToFieldGroup(string $tabName): void

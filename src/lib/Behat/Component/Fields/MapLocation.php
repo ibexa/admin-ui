@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
+use RuntimeException;
 
 class MapLocation extends FieldTypeComponent
 {
@@ -81,7 +82,16 @@ class MapLocation extends FieldTypeComponent
         $mapText = $this->getHTMLPage()->find($this->parentLocator)->getText();
 
         $matches = [];
-        preg_match('/Address: (.*) Latitude: (.*) Longitude: (.*)/', $mapText, $matches);
+        $pattern = '/Address: (.*) Latitude: (.*) Longitude: (.*)/';
+        preg_match($pattern, $mapText, $matches);
+
+        if (empty($matches)) {
+            throw new RuntimeException(sprintf(
+                'Cannot match results for pattern: "%s" and subject: "%s".',
+                $pattern,
+                $mapText
+            ));
+        }
 
         $actualAddress = $matches[1];
         $actualLatitude = $this->formatToOneDecimalPlace($matches[2]);

@@ -13,6 +13,7 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
+use RuntimeException;
 
 class ContentItemAdminPreview extends Component
 {
@@ -94,6 +95,16 @@ class ContentItemAdminPreview extends Component
         $fieldTypeIdentifierRegex = '/ez|ibexa[a-z_]*-field/';
         preg_match($fieldTypeIdentifierRegex, $fieldClass, $matches);
 
-        return explode('-', $matches[0])[0];
+        if (empty($matches)) {
+            throw new RuntimeException(sprintf(
+                'Cannot match results for pattern: "%s" and subject: "%s".',
+                $fieldTypeIdentifierRegex,
+                $fieldClass
+            ));
+        }
+
+        $matchedResults = explode('-', $matches[0]);
+
+        return $matchedResults[0];
     }
 }
