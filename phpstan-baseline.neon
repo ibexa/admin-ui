@@ -8620,10 +8620,10 @@ parameters:
 			count: 1
 			path: src/lib/Siteaccess/SiteaccessResolver.php
 
-        -
+		-
 			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<Ibexa\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\> given\\.$#"
-			count: 1
-			path: src/lib/Siteaccess/SiteaccessResolver.php
+            count: 1
+            path: src/lib/Siteaccess/SiteaccessResolver.php
 
 		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessResolver\\:\\:\\$siteAccessPreviewVoters \\(array\\<Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessPreviewVoterInterface\\>\\) does not accept iterable\\.$#"
