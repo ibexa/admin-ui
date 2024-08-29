@@ -83,9 +83,10 @@ class MapLocation extends FieldTypeComponent
         $matches = [];
         preg_match('/Address: (.*) Latitude: (.*) Longitude: (.*)/', $mapText, $matches);
 
-        $actualAddress = $matches[1];
-        $actualLatitude = $this->formatToOneDecimalPlace($matches[2]);
-        $actualLongitude = $this->formatToOneDecimalPlace($matches[3]);
+
+        $actualAddress = $matches[1] ?? '';
+        $actualLatitude = $this->formatToOneDecimalPlace($matches[2] ?? '');
+        $actualLongitude = $this->formatToOneDecimalPlace($matches[3] ?? '');
 
         Assert::assertEquals($expectedValues['address'], $actualAddress);
         Assert::assertEquals($expectedValues['latitude'], $actualLatitude);

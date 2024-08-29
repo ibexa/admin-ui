@@ -221,7 +221,8 @@ class ContentUpdateItemPage extends Page
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
         preg_match('/ibexa-field-edit--[ez|ibexa][a-z_]*/', $fieldClass, $matches);
 
-        return explode('--', $matches[0])[1];
+        $fieldValue = explode('-', $matches[0] ?? '');
+        return $fieldValue[0];
     }
 
     public function switchToFieldGroup(string $tabName): void
