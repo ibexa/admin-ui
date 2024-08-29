@@ -83,7 +83,6 @@ class MapLocation extends FieldTypeComponent
         $matches = [];
         preg_match('/Address: (.*) Latitude: (.*) Longitude: (.*)/', $mapText, $matches);
 
-
         $actualAddress = $matches[1] ?? '';
         $actualLatitude = $this->formatToOneDecimalPlace($matches[2] ?? '');
         $actualLongitude = $this->formatToOneDecimalPlace($matches[3] ?? '');

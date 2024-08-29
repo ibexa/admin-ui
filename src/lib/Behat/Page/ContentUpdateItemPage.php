@@ -222,6 +222,7 @@ class ContentUpdateItemPage extends Page
         preg_match('/ibexa-field-edit--[ez|ibexa][a-z_]*/', $fieldClass, $matches);
 
         $fieldValue = explode('-', $matches[0] ?? '');
+
         return $fieldValue[0];
     }
 

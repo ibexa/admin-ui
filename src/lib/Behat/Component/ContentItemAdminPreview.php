@@ -95,6 +95,7 @@ class ContentItemAdminPreview extends Component
         preg_match($fieldTypeIdentifierRegex, $fieldClass, $matches);
 
         $fieldTypeId = explode('-', $matches[0] ?? '');
+
         return $fieldTypeId[0];
     }
 }
