@@ -26,9 +26,9 @@ class CreateNewPopup extends Component
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()
-            ->setTimeout(5)
-            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('popup')));
+//        $this->getHTMLPage()
+//            ->setTimeout(5)
+//            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('popup')));
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('popup'))->assert()->isVisible();
     }
 
