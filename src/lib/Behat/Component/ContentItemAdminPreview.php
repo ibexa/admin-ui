@@ -94,8 +94,6 @@ class ContentItemAdminPreview extends Component
         $fieldTypeIdentifierRegex = '/ez|ibexa[a-z_]*-field/';
         preg_match($fieldTypeIdentifierRegex, $fieldClass, $matches);
 
-        $fieldTypeId = explode('-', $matches[0] ?? '');
-
-        return $fieldTypeId[0];
+        return explode('-', $matches[0])[0];
     }
 }
