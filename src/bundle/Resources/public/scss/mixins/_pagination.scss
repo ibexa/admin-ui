@@ -25,6 +25,12 @@
 
     &.active {
         font-weight: 600;
+
+        .page-link {
+            color: $ibexa-color-dark;
+            border-color: transparent;
+            background-color: $ibexa-color-light-300;
+        }
     }
 
     &.prev {
@@ -54,10 +60,14 @@
     }
 
     &.disabled {
-        .page-link:before,
-        .page-link:after {
-            border-right-color: $ibexa-color-dark-200;
-            border-bottom-color: $ibexa-color-dark-200;
+        .page-link {
+            border-color: transparent;
+
+            &:before,
+            &:after {
+                border-right-color: $ibexa-color-dark-200;
+                border-bottom-color: $ibexa-color-dark-200;
+            }
         }
     }
 
