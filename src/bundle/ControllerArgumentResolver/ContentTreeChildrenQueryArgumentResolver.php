@@ -40,13 +40,20 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
     }
 
     /**
-     * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion>
+     * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        yield new LogicalAnd($this->processFilterQueryCriteria($request));
+        $criteria = $this->processFilterQueryCriteria($request);
+        if ($argument->isNullable() && empty($criteria)) {
+            yield null;
+
+            return;
+        }
+
+        yield new LogicalAnd($criteria);
     }
 
     /**
