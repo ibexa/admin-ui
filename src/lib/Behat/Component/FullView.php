@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
-use Ibexa\Behat\Browser\Locator\CSSLocator;
+use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class FullView extends Component
 {
@@ -24,7 +24,7 @@ final class FullView extends Component
     protected function specifyLocators(): array
     {
         return [
-            new CSSLocator('locationFullPreview', '.ibexa-sc-location-full-preview--loaded'),
+            new VisibleCSSLocator('locationFullPreview', '.ibexa-sc-location-full-preview--loaded'),
         ];
     }
 }
