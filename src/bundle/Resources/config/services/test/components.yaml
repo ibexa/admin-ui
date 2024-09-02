@@ -55,3 +55,5 @@ services:
   Ibexa\AdminUi\Behat\Component\CreateNewPopup: ~
 
   Ibexa\AdminUi\Behat\Component\PropertiesList: ~
+
+  Ibexa\AdminUi\Behat\Component\FullView: ~

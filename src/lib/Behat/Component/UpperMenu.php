@@ -8,12 +8,21 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component;
 
+use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class UpperMenu extends Component
 {
+    private IbexaDropdown $ibexaDropdown;
+
+    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
+    {
+        parent::__construct($session);
+        $this->ibexaDropdown = $ibexaDropdown;
+    }
+
     public function goToDashboard(): void
     {
         $this->getHTMLPage()->find($this->getLocator('dashboardLink'))->click();
@@ -68,6 +77,13 @@ class UpperMenu extends Component
         $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->assert()->isVisible();
     }
 
+    public function selectSiteContext(string $siteName): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('siteDropdown'))->click();
+        $this->ibexaDropdown->selectOptionByValueFragment($siteName);
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdownSelectedItem'))->assert()->textEquals(sprintf('Site: %s', $siteName));
+    }
+
     protected function specifyLocators(): array
     {
         return [
@@ -82,6 +98,8 @@ class UpperMenu extends Component
             new VisibleCSSLocator('userFocusEnabled', '[name="focus_mode_change"] .ibexa-toggle__label--on'),
             new VisibleCSSLocator('userFocusMode', '[name="focus_mode_change"] .ibexa-toggle__switcher'),
             new VisibleCSSLocator('focusModeBadge', '.ibexa-user-mode-badge'),
+            new VisibleCSSLocator('siteDropdown', '.ibexa-preview-context-switch-form .ibexa-dropdown'),
+            new VisibleCSSLocator('siteDropdownSelectedItem', '.ibexa-preview-context-switch-form .ibexa-dropdown li.ibexa-dropdown__selected-item:nth-of-type(1)'),
         ];
     }
 }
