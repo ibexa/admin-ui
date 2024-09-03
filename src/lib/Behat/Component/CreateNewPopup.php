@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
-//use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
@@ -26,9 +26,9 @@ class CreateNewPopup extends Component
 
     public function verifyIsLoaded(): void
     {
-//        $this->getHTMLPage()
-//            ->setTimeout(5)
-//            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('popup')));
+        $this->getHTMLPage()
+            ->setTimeout(5)
+            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('popup')));
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('popup'))->assert()->isVisible();
     }
 
