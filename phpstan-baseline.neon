@@ -5721,11 +5721,6 @@ parameters:
 			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\EventListener\\\\BuildPathFromRootListener\\:\\:onPreSubmitData\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/EventListener/BuildPathFromRootListener.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\EventListener\\\\DisableSiteRootCheckboxIfRootLocationListener\\:\\:onPreSetData\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/EventListener/DisableSiteRootCheckboxIfRootLocationListener.php
