@@ -40,21 +40,23 @@ class BuildPathFromRootListener
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function onPreSubmitData(FormEvent $event)
+    public function onPreSubmitData(FormEvent $event): void
     {
         $data = $event->getData();
-        if (!array_key_exists('site_root', $data) || false === (bool)$data['site_root']) {
+
+        if (empty($data['site_root'])) {
             $location = $this->locationService->loadLocation((int)$data['location']);
             if (1 >= $location->depth) {
                 return;
             }
             $data['path'] = $this->createPathBasedOnParentLocation($location->parentLocationId, $data['path']);
             $event->setData($data);
-        } elseif (isset($data['site_root']) && true === (bool)$data['site_root'] && !empty($data['site_access'])) {
+        } elseif (!empty($data['site_access'])) {
             $parameterName = 'content.tree_root.location_id';
             $defaultTreeRootLocationId = $this->configResolver->getParameter($parameterName);
-            $treeRootLocationId = $this->configResolver->hasParameter($parameterName, null, $data['site_access'])
-                ? $this->configResolver->getParameter($parameterName, null, $data['site_access'])
+            $siteAccess = $data['site_access'];
+            $treeRootLocationId = $this->configResolver->hasParameter($parameterName, null, $siteAccess)
+                ? $this->configResolver->getParameter($parameterName, null, $siteAccess)
                 : $defaultTreeRootLocationId;
 
             $data['path'] = $this->createPathBasedOnParentLocation((int)$treeRootLocationId, $data['path']);
