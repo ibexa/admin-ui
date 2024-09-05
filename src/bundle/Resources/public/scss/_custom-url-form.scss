@@ -1,5 +1,7 @@
 .ibexa-custom-url-from {
     &__item {
+        margin-bottom: calculateRem(24px);
+
         &:first-child {
             .ibexa-label {
                 margin-top: 0;
