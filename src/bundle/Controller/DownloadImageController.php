@@ -92,7 +92,6 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @throws \Random\RandomException
      * @throws \Exception
      */
     private function processDownloading(SearchResult $result): Response
@@ -122,7 +121,7 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @throws \Random\RandomException
+     * @throws \Exception
      */
     private function downloadSingleImage(Content $content): Response
     {
@@ -152,7 +151,7 @@ final class DownloadImageController extends Controller
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
      *
-     * @throws \Random\RandomException
+     * @throws \Exception
      */
     private function downloadArchiveWithImages(array $contentList): Response
     {
@@ -230,7 +229,7 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @throws \Random\RandomException
+     * @throws \Exception
      */
     private function getImageFileName(Value $value): string
     {
@@ -292,7 +291,7 @@ final class DownloadImageController extends Controller
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
      *
-     * @throws \Random\RandomException
+     * @throws \Exception
      */
     private function createArchive(string $name, array $contentList): void
     {
@@ -311,7 +310,7 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @throws \Random\RandomException
+     * @throws \Exception
      */
     private function generateRandomFileName(): string
     {
