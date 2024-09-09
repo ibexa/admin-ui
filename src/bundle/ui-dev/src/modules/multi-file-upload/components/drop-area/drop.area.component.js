@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
@@ -10,6 +10,7 @@ export default class DropAreaComponent extends Component {
         super(props);
 
         this._refFileInput = null;
+        this._refForm = createRef();
         this.hasMultiMsgForFileSizes = this.props.maxFileSizes.length > 1;
 
         this.state = {
@@ -104,11 +105,19 @@ export default class DropAreaComponent extends Component {
     componentDidMount() {
         window.addEventListener('drop', this.props.preventDefaultAction, false);
         window.addEventListener('dragover', this.props.preventDefaultAction, false);
+
+        if (this._refForm.current) {
+            this._refForm.current.addEventListener('drop', this.handleUpload, false);
+        }
     }
 
     componentWillUnmount() {
         window.removeEventListener('drop', this.props.preventDefaultAction, false);
         window.removeEventListener('dragover', this.props.preventDefaultAction, false);
+
+        if (this._refForm.current) {
+            this._refForm.current.removeEventListener('drop', this.handleUpload, false);
+        }
     }
 
     render() {
@@ -122,7 +131,7 @@ export default class DropAreaComponent extends Component {
         });
 
         return (
-            <form className="c-drop-area" multiple={true} onDrop={this.handleUpload}>
+            <form className="c-drop-area" onDrop={this.handleUpload} ref={this._refForm}>
                 <div className="c-drop-area__message c-drop-area__message--main">{dropActionMessage}</div>
                 <div className="c-drop-area__message c-drop-area__message--separator">{separatorMessage}</div>
                 <button
