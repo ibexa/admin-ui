@@ -44,6 +44,8 @@ export const useSearchByQueryFetch = () => {
             filters = {},
             fullTextCriterion = null,
             contentNameCriterion = null,
+            dateCriterion = null,
+            useAlwaysAvailable = true,
         ) => {
             const handleFetch = (response) => {
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
@@ -75,6 +77,10 @@ export const useSearchByQueryFetch = () => {
                 query.SubtreeCriterion = subtreePathString;
             }
 
+            if (dateCriterion) {
+                query.DateMetadataCriterion = dateCriterion;
+            }
+
             const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;
 
             if (!isImageCriterionDataEmpty) {
@@ -96,7 +102,7 @@ export const useSearchByQueryFetch = () => {
 
             dispatch({ type: SEARCH_START });
             return findLocationsBySearchQuery(
-                { ...restInfo, query, aggregations, filters, sortClause, sortOrder, limit, offset, languageCode },
+                { ...restInfo, query, aggregations, filters, sortClause, sortOrder, limit, offset, languageCode, useAlwaysAvailable },
                 handleFetch,
             );
         },
