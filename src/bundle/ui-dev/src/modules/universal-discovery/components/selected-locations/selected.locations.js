@@ -19,7 +19,7 @@ const SelectedLocations = () => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
     const [isExpanded, setIsExpanded] = useState(false);
-    const areMultilocationsSelected = selectedLocations.length > 1;
+    const areMultipleLocationsSelected = selectedLocations.length > 1;
     const className = createCssClassNames({
         'c-selected-locations': true,
         'c-selected-locations--expanded': isExpanded,
@@ -43,7 +43,7 @@ const SelectedLocations = () => {
         setIsExpanded(!isExpanded);
     };
     const renderSelectionCounter = () => {
-        const selectedLabel = areMultilocationsSelected
+        const selectedLabel = areMultipleLocationsSelected
             ? Translator.trans(
                   /*@Desc("%count% selected items")*/ 'selected_locations.selected_items',
                   { count: selectedLocations.length },
@@ -74,7 +74,7 @@ const SelectedLocations = () => {
         );
     };
     const renderActionButtons = () => {
-        const removeLabel = areMultilocationsSelected
+        const removeLabel = areMultipleLocationsSelected
             ? Translator.trans(/*@Desc("Deselect all")*/ 'selected_locations.deselect_all', {}, 'ibexa_universal_discovery_widget')
             : Translator.trans(/*@Desc("Deselect")*/ 'selected_locations.deselect', {}, 'ibexa_universal_discovery_widget');
 
