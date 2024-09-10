@@ -72,8 +72,8 @@
         <note>key: location.bookmark.add</note>
       </trans-unit>
       <trans-unit id="0b2f22acb619fcc5672a7dd0ccf2a39316a07274" resname="location.bookmark.remove">
-        <source>Remove from Bookmarks</source>
-        <target state="new">Remove from Bookmarks</target>
+        <source>Remove from bookmarks</source>
+        <target state="new">Remove from bookmarks</target>
         <note>key: location.bookmark.remove</note>
       </trans-unit>
       <trans-unit id="0ac5837ba570c72c15eae58ab98735697a790528" resname="modal.email_address">
