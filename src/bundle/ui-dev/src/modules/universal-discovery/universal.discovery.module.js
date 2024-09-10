@@ -458,7 +458,7 @@ const UniversalDiscoveryModule = (props) => {
 
     useEffect(() => {
         if (currentView === 'grid') {
-            setGridActiveLocationId(markedLocationId);
+            setGridActiveLocationId(markedLocationId ?? defaultMarkedLocationId);
         }
     }, [currentView]);
 
