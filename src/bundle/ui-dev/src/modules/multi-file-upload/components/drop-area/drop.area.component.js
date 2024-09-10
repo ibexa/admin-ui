@@ -106,18 +106,12 @@ export default class DropAreaComponent extends Component {
         window.addEventListener('drop', this.props.preventDefaultAction, false);
         window.addEventListener('dragover', this.props.preventDefaultAction, false);
 
-        if (this._refForm.current) {
-            this._refForm.current.addEventListener('drop', this.handleUpload, false);
-        }
+        this._refForm.current.addEventListener('drop', this.handleUpload, false);
     }
 
     componentWillUnmount() {
         window.removeEventListener('drop', this.props.preventDefaultAction, false);
         window.removeEventListener('dragover', this.props.preventDefaultAction, false);
-
-        if (this._refForm.current) {
-            this._refForm.current.removeEventListener('drop', this.handleUpload, false);
-        }
     }
 
     render() {
