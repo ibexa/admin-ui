@@ -196,6 +196,26 @@
         <target state="new">Save and close</target>
         <note>key: content_type_group_edit__sidebar_right__save_and_close</note>
       </trans-unit>
+      <trans-unit id="02575ef0a9b0b7830fdaedc7ef55f20ed9a58a77" resname="copy_form__sidebar_right__cancel">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: copy_form__sidebar_right__cancel</note>
+      </trans-unit>
+      <trans-unit id="e09060b71f77de9de7ea7f7758637b6138843433" resname="copy_form__sidebar_right__copy">
+        <source>Copy</source>
+        <target state="new">Copy</target>
+        <note>key: copy_form__sidebar_right__copy</note>
+      </trans-unit>
+      <trans-unit id="e6d711b654cc77e353dd44ec2ac0403cc6363379" resname="create_form__sidebar_right__cancel">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: create_form__sidebar_right__cancel</note>
+      </trans-unit>
+      <trans-unit id="a4bbf87eeab7a1d31fdf3f517b5240ba1d8dd573" resname="create_form__sidebar_right__create">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: create_form__sidebar_right__create</note>
+      </trans-unit>
       <trans-unit id="65804c068820b5fa679357bc65c5862d0fc90701" resname="language_create__sidebar_right__cancel">
         <source>Discard</source>
         <target state="new">Discard</target>
@@ -480,6 +500,16 @@
         <source>Empty Trash</source>
         <target state="new">Empty Trash</target>
         <note>key: trash__sidebar_right__empty_trash</note>
+      </trans-unit>
+      <trans-unit id="b450183446de8118e16cebbd17b065bf55767c35" resname="update_form__sidebar_right__cancel">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: update_form__sidebar_right__cancel</note>
+      </trans-unit>
+      <trans-unit id="e64b83da92e68d70aa32dd8bf1dedaf154d39a7d" resname="update_form__sidebar_right__update">
+        <source>Save and close</source>
+        <target state="new">Save and close</target>
+        <note>key: update_form__sidebar_right__update</note>
       </trans-unit>
       <trans-unit id="5ded8d45683caa8bb19649d5cc39bd76ebabfa63" resname="url_edit__sidebar_right__cancel">
         <source>Discard changes</source>

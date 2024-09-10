@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -53,7 +54,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     private $contentTypeService;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         PermissionResolver $permissionResolver,
         ContentService $contentService,

@@ -8,6 +8,9 @@ services:
     # Menu Item Factory
     #
 
+    Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface:
+        alias: Ibexa\AdminUi\Menu\MenuItemFactory
+
     Ibexa\AdminUi\Menu\MenuItemFactory: ~
 
     #

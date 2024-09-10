@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\MainMenuBuilder;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\AdminUi\UserSetting\FocusMode;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MainMenuBuilerTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Menu\MenuItemFactory */
+    /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
     private $factory;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
@@ -146,7 +146,7 @@ class MainMenuBuilerTest extends TestCase
             ];
         }
 
-        $this->factory = $this->createMock(MenuItemFactory::class);
+        $this->factory = $this->createMock(MenuItemFactoryInterface::class);
         $this->factory->method('createItem')->willReturnMap($itemMap);
 
         $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);

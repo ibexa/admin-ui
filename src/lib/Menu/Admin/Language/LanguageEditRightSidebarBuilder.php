@@ -8,8 +8,8 @@
 namespace Ibexa\AdminUi\Menu\Admin\Language;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -33,7 +33,7 @@ class LanguageEditRightSidebarBuilder extends AbstractBuilder implements Transla
     private $translator;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
     ) {

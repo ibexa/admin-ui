@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu\UserSetting;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -33,7 +33,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     private $translator;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
     ) {

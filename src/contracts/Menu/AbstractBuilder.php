@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -19,17 +18,17 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractBuilder
 {
-    /** @var \Ibexa\AdminUi\Menu\MenuItemFactory */
+    /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
     protected $factory;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     protected $eventDispatcher;
 
     /**
-     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $factory
+     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(MenuItemFactory $factory, EventDispatcherInterface $eventDispatcher)
+    public function __construct(MenuItemFactoryInterface $factory, EventDispatcherInterface $eventDispatcher)
     {
         $this->factory = $factory;
         $this->eventDispatcher = $eventDispatcher;

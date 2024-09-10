@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -34,7 +34,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     private $translator;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
     ) {
