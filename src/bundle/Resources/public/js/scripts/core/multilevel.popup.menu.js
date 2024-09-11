@@ -203,18 +203,17 @@
         }
 
         closeBranch(branchElement) {
+            this.toggleBranch(branchElement, false);
+        }
+
+        toggleBranch(branchElement, shouldBeExpanded = true) {
+            const topBranch = this.triggerElement.branchElement;
             const searchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
 
             if (searchInput?.value !== '') {
                 searchInput.value = '';
                 searchInput.dispatchEvent(new Event('input'));
             }
-
-            this.toggleBranch(branchElement, false);
-        }
-
-        toggleBranch(branchElement, shouldBeExpanded = true) {
-            const topBranch = this.triggerElement.branchElement;
 
             branchElement.classList.toggle('ibexa-popup-menu--hidden', !shouldBeExpanded);
 
