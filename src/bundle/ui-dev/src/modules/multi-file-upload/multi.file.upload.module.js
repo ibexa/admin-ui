@@ -110,6 +110,7 @@ export default class MultiFileUploadModule extends Component {
 
     handleDropOnWindow(event) {
         this.preventDefaultAction(event);
+        event.stopImmediatePropagation();
 
         const itemsToUpload = this.processUploadedFiles(event);
 
