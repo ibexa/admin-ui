@@ -28,10 +28,10 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     use LoggerAwareTrait;
 
     public const TRANSLATOR_OBJECT = 'Translator';
-    public const TRANSLATOR_METHOD = 'trans';
+    public const TRANSLATOR_TRANS_METHOD = 'trans';
+    public const TRANSLATOR_TRANS_CHOICE_METHOD = 'transChoice';
 
     public const ID_ARG = 0;
-    public const DOMAIN_ARG = 2;
 
     /** @var \Doctrine\Common\Annotations\DocParser */
     private $docParser;
@@ -85,7 +85,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         }
 
         $ast->traverse(function ($node) use ($catalogue, $file) {
-            if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_METHOD)) {
+            if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_METHOD) || $this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_CHOICE_METHOD)) {
                 $arguments = $node->getArguments();
 
                 $id = $this->extractId($file, $arguments);
@@ -176,8 +176,10 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
      */
     private function extractDomain(SplFileInfo $file, array $arguments): ?string
     {
-        if (isset($arguments[self::DOMAIN_ARG])) {
-            $domainNode = $arguments[self::DOMAIN_ARG];
+        $domainArgIndex = count($arguments) - 1;
+
+        if (isset($arguments[$domainArgIndex])) {
+            $domainNode = $arguments[$domainArgIndex];
 
             if (!($domainNode instanceof Node\StringLiteral)) {
                 $position = $domainNode->getLocation()->getStart();

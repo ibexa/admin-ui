@@ -19,7 +19,6 @@ const SelectedLocations = () => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
     const [isExpanded, setIsExpanded] = useState(false);
-    const areMultipleLocationsSelected = selectedLocations.length > 1;
     const className = createCssClassNames({
         'c-selected-locations': true,
         'c-selected-locations--expanded': isExpanded,
@@ -43,17 +42,12 @@ const SelectedLocations = () => {
         setIsExpanded(!isExpanded);
     };
     const renderSelectionCounter = () => {
-        const selectedLabel = areMultipleLocationsSelected
-            ? Translator.trans(
-                  /*@Desc("%count% selected items")*/ 'selected_locations.selected_items',
-                  { count: selectedLocations.length },
-                  'ibexa_universal_discovery_widget',
-              )
-            : Translator.trans(
-                  /*@Desc("%count% selected item")*/ 'selected_locations.selected_item',
-                  { count: selectedLocations.length },
-                  'ibexa_universal_discovery_widget',
-              );
+        const selectedLabel = Translator.transChoice(
+            /*@Desc("{1}%count% selected item|[2,Inf]%count% selected items")*/ 'selected_locations.selected_items',
+            selectedLocations.length,
+            { count: selectedLocations.length },
+            'ibexa_universal_discovery_widget',
+        );
 
         return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
@@ -74,9 +68,12 @@ const SelectedLocations = () => {
         );
     };
     const renderActionButtons = () => {
-        const removeLabel = areMultipleLocationsSelected
-            ? Translator.trans(/*@Desc("Deselect all")*/ 'selected_locations.deselect_all', {}, 'ibexa_universal_discovery_widget')
-            : Translator.trans(/*@Desc("Deselect")*/ 'selected_locations.deselect', {}, 'ibexa_universal_discovery_widget');
+        const removeLabel = Translator.transChoice(
+            /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_locations.deselect',
+            selectedLocations.length,
+            {},
+            'ibexa_universal_discovery_widget',
+        );
 
         return (
             <div className="c-selected-locations__actions">
