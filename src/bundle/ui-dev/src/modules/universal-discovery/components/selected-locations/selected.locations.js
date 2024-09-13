@@ -69,7 +69,7 @@ const SelectedLocations = () => {
     };
     const renderActionButtons = () => {
         const removeLabel = Translator.transChoice(
-            /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_locations.deselect',
+            /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_locations.deselect_all',
             selectedLocations.length,
             {},
             'ibexa_universal_discovery_widget',
