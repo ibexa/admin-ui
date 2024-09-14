@@ -6,6 +6,7 @@
     } %}
     <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
     <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ibexa_udw_config('richtext_embed_image', udw_context) }}"></div>
+    {%- block richtext_extra_config -%}{%- endblock -%}
     <div class="ibexa-data-source__richtext" id="{{ form.vars.id }}__editable"></div>
     <div class="ibexa-richtext-tools">
         <ul class="ibexa-elements-path"></ul>
