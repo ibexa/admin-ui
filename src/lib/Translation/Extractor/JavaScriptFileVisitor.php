@@ -87,14 +87,19 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         }
 
         $ast->traverse(function ($node) use ($catalogue, $file) {
-            if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_METHOD) || $this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_CHOICE_METHOD)) {
+            if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_METHOD)
+                || $this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_CHOICE_METHOD)
+            ) {
                 $arguments = $node->getArguments();
                 $id = $this->extractId($file, $arguments);
                 if ($id !== null) {
                     $callee = $node->getCallee();
                     $property = $callee->getProperty();
 
-                    $message = new Message($id, $this->extractDomain($file, $arguments, $property->getName()) ?? $this->defaultDomain);
+                    $message = new Message(
+                        $id,
+                        $this->extractDomain($file, $arguments, $property->getName()) ?? $this->defaultDomain
+                    );
                     $message->setDesc($this->extractDesc($arguments));
                     $message->addSource(new FileSource((string)$file));
 
