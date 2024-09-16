@@ -132,6 +132,7 @@ export default class SubItemsModule extends Component {
             columnsVisibility: this.getColumnsVisibilityFromLocalStorage(),
             morePanelVisible: false,
             morePanelVisibleItemsIndexes: [],
+            isLoading: false,
         };
     }
 
@@ -154,7 +155,7 @@ export default class SubItemsModule extends Component {
 
         containerResizeObserver.observe(this._refMainContainerWrapper.current);
 
-        if (!this.state.activePageItems) {
+        if (!this.state.activePageItems && !this.state.isLoading) {
             this.loadPage(0);
         }
 
@@ -169,7 +170,7 @@ export default class SubItemsModule extends Component {
     }
 
     componentDidUpdate() {
-        const { activePageIndex, activePageItems, totalCount } = this.state;
+        const { activePageIndex, activePageItems, totalCount, isLoading } = this.state;
         const { limit: itemsPerPage } = this.props;
         const pagesCount = Math.ceil(totalCount / itemsPerPage);
         const pageDoesNotExist = activePageIndex > pagesCount - 1 && activePageIndex !== 0;
@@ -184,7 +185,7 @@ export default class SubItemsModule extends Component {
 
         const shouldLoadPage = !activePageItems;
 
-        if (shouldLoadPage) {
+        if (shouldLoadPage && !isLoading) {
             this.loadPage(activePageIndex);
         }
 
@@ -240,6 +241,11 @@ export default class SubItemsModule extends Component {
     loadPage(pageIndex) {
         const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
         const { sortClause, sortOrder } = this.state;
+
+        this.setState(() => ({
+            isLoading: true,
+        }));
+
         const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
         const cursor = page ? page.cursor : null;
         const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
@@ -252,6 +258,7 @@ export default class SubItemsModule extends Component {
                 activePageItems,
                 totalCount,
                 pages,
+                isLoading: false,
             }));
         });
     }
