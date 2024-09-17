@@ -1,5 +1,7 @@
 {%- import '@ibexadesign/ui/component/macros.html.twig' as html -%}
 
+{%- set branch_template_path = branch_template_path|default('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig') -%}
+
 {%- set is_template = is_template|default(false) -%}
 
 {%- set item_attr = item_attr|default({})|merge({
@@ -62,8 +64,7 @@
                         branch_attr: subitems.branch_attr|default({}),
                     }) -%}
 
-                    {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_branch.html.twig'
-                        with branch_params -%}
+                    {%- include branch_template_path with branch_params -%}
                 {%- endif -%}
             {%- endblock -%}
         {%- endblock -%}
