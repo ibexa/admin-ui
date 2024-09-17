@@ -573,6 +573,11 @@
         <target state="new">Delete</target>
         <note>key: role.view.list.action.delete</note>
       </trans-unit>
+      <trans-unit id="2b096dbbbcadb6a316903dce656706b528229e21" resname="search.placeholder">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: search.placeholder</note>
+      </trans-unit>
       <trans-unit id="9567771350aff93580f743089937b0c8fe31058e" resname="section.assign,content">
         <source>Assign Content</source>
         <target state="new">Assign Content</target>
