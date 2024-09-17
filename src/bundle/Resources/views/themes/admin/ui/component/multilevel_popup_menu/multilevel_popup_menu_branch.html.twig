@@ -1,5 +1,7 @@
 {%- import '@ibexadesign/ui/component/macros.html.twig' as html -%}
 
+{%- set group_template_path = group_template_path|default('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_group.html.twig') -%}
+
 {%- set is_template = is_template|default(false) -%}
 
 {%- set branch_attr = branch_attr|default({})|merge({
@@ -17,11 +19,19 @@
 
     <div {{ html.attributes(branch_attr, is_template) }}>
         <div class="ibexa-multilevel-popup-menu__search {{ not hasSearch|default(false) ? 'ibexa-multilevel-popup-menu__search--hidden' }}">
-            <input
-                type="text"
-                placeholder="{{ 'search.placeholder'|trans|desc('Search...') }}"
-                class="ibexa-input ibexa-input--small ibexa-input--text form-control ibexa-multilevel-popup-menu__search-input"
-            />
+            {% block search %}
+                {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
+                    {% block content %}
+                        {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
+
+                        <input
+                            type="text"
+                            placeholder="{{ 'search.placeholder'|trans|desc('Search...') }}"
+                            class="ibexa-input ibexa-input--small ibexa-input--text form-control ibexa-multilevel-popup-menu__search-input"
+                        />
+                    {% endblock %}
+                {%- endembed -%}
+            {% endblock %}
         </div>
 
         {%- block branch_groups -%}
@@ -32,10 +42,12 @@
                         group_attr: group.group_attr|default({}),
                     }) -%}
 
-                    {%- include '@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu_group.html.twig'
-                        with group_params -%}
+                    {%- include group_template_path with group_params -%}
                 {%- endfor -%}
             </div>
         {%- endblock -%}
+
+        {% block footer %}
+        {% endblock %}
     </div>
 {%- endblock -%}

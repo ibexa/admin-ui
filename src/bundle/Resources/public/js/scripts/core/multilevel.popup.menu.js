@@ -101,6 +101,9 @@
             if (isTopBranch) {
                 triggerElement.addEventListener('click', this.handleItemWithSubitemsClick, false);
 
+                processBranchAfter(branchElement);
+                branchItems.forEach((itemElement) => processBranchItemAfter(itemElement));
+
                 return;
             }
 
@@ -205,6 +208,12 @@
 
         toggleBranch(branchElement, shouldBeExpanded = true) {
             const topBranch = this.triggerElement.branchElement;
+            const searchInput = branchElement.querySelector('.ibexa-multilevel-popup-menu__search-input');
+
+            if (searchInput?.value !== '') {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+            }
 
             branchElement.classList.toggle('ibexa-popup-menu--hidden', !shouldBeExpanded);
 
@@ -413,18 +422,6 @@
             if (!isPopupMenuExpanded || isClickInsideTrigger || isClickInsideMenu) {
                 return;
             }
-
-            const branchesSearchInput = doc.querySelectorAll('.ibexa-multilevel-popup-menu__search-input');
-
-            branchesSearchInput.forEach((searchInput) => {
-                if (searchInput.value !== '') {
-                    const searchInputBranch = searchInput.closest('.ibexa-multilevel-popup-menu__branch');
-
-                    searchInput.value = '';
-                    searchInputBranch.dispatchEvent(new CustomEvent('ibexa-multilevel-popup-menu:close-branch'));
-                    searchInput.dispatchEvent(new Event('input'));
-                }
-            });
 
             this.closeWithSubbranches(topBranch);
         }
