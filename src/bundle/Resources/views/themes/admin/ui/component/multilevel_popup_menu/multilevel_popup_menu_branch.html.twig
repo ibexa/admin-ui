@@ -22,6 +22,8 @@
             {% block search %}
                 {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
                     {% block content %}
+                        {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
+
                         <input
                             type="text"
                             placeholder="{{ 'search.placeholder'|trans|desc('Search...') }}"
