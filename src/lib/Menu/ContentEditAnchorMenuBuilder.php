@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
@@ -27,7 +28,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
     private ConfigResolverInterface $configResolver;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         ConfigResolverInterface $configResolver
     ) {

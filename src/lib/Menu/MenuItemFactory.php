@@ -7,12 +7,13 @@
 
 namespace Ibexa\AdminUi\Menu;
 
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 
-class MenuItemFactory implements FactoryInterface
+class MenuItemFactory implements MenuItemFactoryInterface
 {
     /** @var \Knp\Menu\FactoryInterface */
     protected $factory;

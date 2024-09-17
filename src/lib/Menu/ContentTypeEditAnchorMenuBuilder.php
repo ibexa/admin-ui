@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use JMS\TranslationBundle\Model\Message;
@@ -27,7 +28,7 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver
     ) {

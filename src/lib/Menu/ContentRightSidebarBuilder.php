@@ -17,6 +17,7 @@ use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
@@ -73,7 +74,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private SiteaccessResolverInterface  $siteaccessResolver;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         PermissionResolver $permissionResolver,
         ConfigResolver $udwConfigResolver,
