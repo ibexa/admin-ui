@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -27,12 +28,12 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
     private $translator;
 
     /**
-     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $menuItemFactory
+     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $menuItemFactory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     public function __construct(
-        MenuItemFactory $menuItemFactory,
+        MenuItemFactoryInterface $menuItemFactory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
     ) {

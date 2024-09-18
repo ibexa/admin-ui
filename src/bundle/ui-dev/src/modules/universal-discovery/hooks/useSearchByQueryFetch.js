@@ -46,6 +46,7 @@ export const useSearchByQueryFetch = () => {
             contentNameCriterion = null,
             dateCriterion = null,
             useAlwaysAvailable = true,
+            isBookmarked = null,
         ) => {
             const handleFetch = (response) => {
                 dispatchLoadedLocationsAction({ type: 'CLEAR_LOCATIONS' });
@@ -79,6 +80,10 @@ export const useSearchByQueryFetch = () => {
 
             if (dateCriterion) {
                 query.DateMetadataCriterion = dateCriterion;
+            }
+
+            if (isBookmarked) {
+                query.IsBookmarkedCriterion = true;
             }
 
             const isImageCriterionDataEmpty = !imageCriterionData || Object.keys(imageCriterionData).length === 0;

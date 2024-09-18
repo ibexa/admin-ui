@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Specification\UserMode\IsFocusModeEnabled;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\User\UserSetting\UserSettingService;
@@ -147,13 +148,13 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     private UserSettingService $userSettingService;
 
     /**
-     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $factory
+     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         ConfigResolverInterface $configResolver,
         PermissionResolver $permissionResolver,

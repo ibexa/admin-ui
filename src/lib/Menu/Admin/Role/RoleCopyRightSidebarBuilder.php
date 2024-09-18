@@ -8,8 +8,8 @@
 namespace Ibexa\AdminUi\Menu\Admin\Role;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
-use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use JMS\TranslationBundle\Annotation\Ignore;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -32,7 +32,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
     private $translator;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         TranslatorInterface $translator
     ) {

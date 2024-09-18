@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Specification\UserProfile\IsProfileAvailable;
 use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -37,7 +38,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     private UserProfileConfigurationInterface $userProfileConfiguration;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         TokenStorageInterface $tokenStorage,
         UserProfileConfigurationInterface $userProfileConfiguration

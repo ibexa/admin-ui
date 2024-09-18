@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -34,12 +35,12 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
     private $translator;
 
     /**
-     * @param \Ibexa\AdminUi\Menu\MenuItemFactory $factory
+     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
      */
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         PermissionResolver $permissionResolver,
         TranslatorInterface $translator

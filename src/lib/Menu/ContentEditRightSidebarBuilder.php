@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -53,7 +54,7 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     private $translator;
 
     public function __construct(
-        MenuItemFactory $factory,
+        MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
         SiteaccessResolverInterface $siteaccessResolver,
         PermissionResolver $permissionResolver,
