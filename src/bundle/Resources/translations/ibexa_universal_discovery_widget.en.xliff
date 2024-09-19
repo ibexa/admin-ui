@@ -307,8 +307,8 @@
         <note>key: selected_locations.collapse.sidebar</note>
       </trans-unit>
       <trans-unit id="d4462bb9386e96a0984586618fbfbcd0852fd4ea" resname="selected_locations.deselect_all">
-        <source>Deselect all</source>
-        <target state="new">Deselect all</target>
+        <source>{1}Deselect|[2,Inf]Deselect all</source>
+        <target state="new">{1}Deselect|[2,Inf]Deselect all</target>
         <note>key: selected_locations.deselect_all</note>
       </trans-unit>
       <trans-unit id="19700661da70137e52d0009660c9a87f5bcb99bd" resname="selected_locations.expand.sidebar">
@@ -317,8 +317,8 @@
         <note>key: selected_locations.expand.sidebar</note>
       </trans-unit>
       <trans-unit id="fe05e738022445778cb775ca099ba54291ae88e9" resname="selected_locations.selected_items">
-        <source>%count% selected item(s)</source>
-        <target state="new">%count% selected item(s)</target>
+        <source>{1}%count% selected item|[2,Inf]%count% selected items</source>
+        <target state="new">{1}%count% selected item|[2,Inf]%count% selected items</target>
         <note>key: selected_locations.selected_items</note>
       </trans-unit>
       <trans-unit id="6b02292efbef3c6800f618acb3c41f968d9ea305" resname="sorting.date.label">
