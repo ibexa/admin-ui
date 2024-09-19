@@ -42,8 +42,9 @@ const SelectedLocations = () => {
         setIsExpanded(!isExpanded);
     };
     const renderSelectionCounter = () => {
-        const selectedLabel = Translator.trans(
-            /*@Desc("%count% selected item(s)")*/ 'selected_locations.selected_items',
+        const selectedLabel = Translator.transChoice(
+            /*@Desc("{1}%count% selected item|[2,Inf]%count% selected items")*/ 'selected_locations.selected_items',
+            selectedLocations.length,
             { count: selectedLocations.length },
             'ibexa_universal_discovery_widget',
         );
@@ -67,8 +68,9 @@ const SelectedLocations = () => {
         );
     };
     const renderActionButtons = () => {
-        const removeAllLabel = Translator.trans(
-            /*@Desc("Deselect all")*/ 'selected_locations.deselect_all',
+        const removeLabel = Translator.transChoice(
+            /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_locations.deselect_all',
+            selectedLocations.length,
             {},
             'ibexa_universal_discovery_widget',
         );
@@ -80,7 +82,7 @@ const SelectedLocations = () => {
                     className="c-selected-locations__clear-selection-button btn ibexa-btn ibexa-btn--small ibexa-btn--secondary"
                     onClick={clearSelection}
                 >
-                    {removeAllLabel}
+                    {removeLabel}
                 </button>
             </div>
         );
@@ -107,6 +109,10 @@ const SelectedLocations = () => {
     };
 
     useEffect(() => {
+        if (!allowConfirmation) {
+            return;
+        }
+
         parseTooltip(refSelectedLocations.current);
         hideAllTooltips();
 

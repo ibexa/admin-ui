@@ -28,10 +28,12 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     use LoggerAwareTrait;
 
     public const TRANSLATOR_OBJECT = 'Translator';
-    public const TRANSLATOR_METHOD = 'trans';
+    public const TRANSLATOR_TRANS_METHOD = 'trans';
+    public const TRANSLATOR_TRANS_CHOICE_METHOD = 'transChoice';
 
     public const ID_ARG = 0;
-    public const DOMAIN_ARG = 2;
+    public const TRANS_DOMAIN_ARG = 2;
+    public const TRANS_CHOICE_DOMAIN_ARG = 3;
 
     /** @var \Doctrine\Common\Annotations\DocParser */
     private $docParser;
@@ -85,12 +87,19 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         }
 
         $ast->traverse(function ($node) use ($catalogue, $file) {
-            if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_METHOD)) {
+            if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_METHOD)
+                || $this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_CHOICE_METHOD)
+            ) {
                 $arguments = $node->getArguments();
-
                 $id = $this->extractId($file, $arguments);
                 if ($id !== null) {
-                    $message = new Message($id, $this->extractDomain($file, $arguments) ?? $this->defaultDomain);
+                    $callee = $node->getCallee();
+                    $property = $callee->getProperty();
+
+                    $message = new Message(
+                        $id,
+                        $this->extractDomain($file, $arguments, $property->getName()) ?? $this->defaultDomain
+                    );
                     $message->setDesc($this->extractDesc($arguments));
                     $message->addSource(new FileSource((string)$file));
 
@@ -171,13 +180,18 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
      *
      * @param \SplFileInfo $file
      * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param string $methodName
      *
      * @return string|null
      */
-    private function extractDomain(SplFileInfo $file, array $arguments): ?string
+    private function extractDomain(SplFileInfo $file, array $arguments, string $methodName): ?string
     {
-        if (isset($arguments[self::DOMAIN_ARG])) {
-            $domainNode = $arguments[self::DOMAIN_ARG];
+        $domainArgIndex = $methodName === self::TRANSLATOR_TRANS_METHOD
+            ? self::TRANS_DOMAIN_ARG
+            : self::TRANS_CHOICE_DOMAIN_ARG;
+
+        if (isset($arguments[$domainArgIndex])) {
+            $domainNode = $arguments[$domainArgIndex];
 
             if (!($domainNode instanceof Node\StringLiteral)) {
                 $position = $domainNode->getLocation()->getStart();
