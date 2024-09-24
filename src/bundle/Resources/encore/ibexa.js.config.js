@@ -22,6 +22,8 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/core/toggle.button.js'),
     path.resolve(__dirname, '../public/js/scripts/core/slug.value.input.autogenerator.js'),
     path.resolve(__dirname, '../public/js/scripts/core/date.time.picker.js'),
+    path.resolve(__dirname, '../public/js/scripts/core/taggify.js'),
+    path.resolve(__dirname, '../public/js/scripts/core/suggestion.taggify.js'),
     path.resolve(__dirname, '../public/js/scripts/adaptive.filters.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.notifications.js'),
     path.resolve(__dirname, '../public/js/scripts/button.trigger.js'),

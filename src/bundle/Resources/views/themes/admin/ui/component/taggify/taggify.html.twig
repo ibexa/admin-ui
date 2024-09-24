@@ -1,0 +1,13 @@
+<div class="ibexa-taggify {% block main_class %}{% endblock %}">
+    {% block list_wrapper %}
+        <div 
+            class="ibexa-taggify__list form-control"
+            data-template="{{ include("@ibexadesign/ui/component/taggify/taggify_tag.html.twig", {
+                name: '{{ name }}',
+            })|e('html_attr') }}"
+        >
+            <input type="text" class="ibexa-taggify__input" placeholder="{{ placeholder|default('') }}">
+        </div>
+    {% endblock %}
+    {% block additional_tools_wrapper %}{% endblock %}
+</div>
