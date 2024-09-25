@@ -517,6 +517,7 @@
     {%- set title -%}
         {{ 'distraction_free_mode.disable_hint'|trans({ '%icon%': title_icon|raw })|desc('To exit distraction free mode, click the %icon% or press Esc.')|raw }}
     {%- endset -%}
+    {% set fieldtype_is_not_translatable = fieldtype_is_not_translatable|default(false) %}
 
     <div class="ibexa-field-edit__distraction-free-mode">
         <div class="ibexa-field-edit__distraction-free-mode-notice-container">
