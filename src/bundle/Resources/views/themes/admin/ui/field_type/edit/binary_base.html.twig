@@ -57,7 +57,7 @@
         <div class="ibexa-data-source__message--filesize">{{ 'fieldtype.binary_base.max_file_size'|trans({'%size%': max_file_size|default(0)|ibexa_file_size(2)})|desc('Max file size: %size%') }}</div>
     {% endif %}
 
-    {% if image_extensions is defined %}
+    {% if image_extensions is defined and image_extensions is not empty %}
         {% set extensions = [] %}
 
         {% for mime_type in mime_types %}
