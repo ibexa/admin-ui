@@ -1,28 +1,44 @@
 import { getTranslator } from './context.helper';
 
-const handleRequest = (response) => {
+const getErrorMessage = async (response) => {
+    const responseErrorMessage = await response.json().then((respo) => {
+        return respo.ErrorMessage?.errorMessage;
+    });
+
+    return responseErrorMessage;
+};
+
+const handleRequest = async (response) => {
     if (!response.ok) {
         const Translator = getTranslator();
+        const responseErrorMessage = await getErrorMessage(response);
+        const errorMessage = responseErrorMessage || response.statusText;
         const defaultErrorMsg = Translator.trans(
             /*@Desc("Something went wrong. Try to refresh the page or contact your administrator.")*/ 'error.request.default_msg',
         );
 
-        throw Error(response.statusText || defaultErrorMsg);
+        throw Error(errorMessage || defaultErrorMsg);
     }
 
     return response;
 };
 
-const getJsonFromResponse = (response) => {
-    return handleRequest(response).json();
+const getJsonFromResponse = async (response) => {
+    const parsedRequest = await handleRequest(response);
+
+    return parsedRequest.json();
 };
 
-const getTextFromResponse = (response) => {
-    return handleRequest(response).text();
+const getTextFromResponse = async (response) => {
+    const parsedRequest = await handleRequest(response);
+
+    return parsedRequest.text();
 };
 
-const getStatusFromResponse = (response) => {
-    return handleRequest(response).status;
+const getStatusFromResponse = async (response) => {
+    const parsedRequest = await handleRequest(response);
+
+    return parsedRequest.status;
 };
 
 const getRequestMode = ({ instanceUrl }) => {
