@@ -1,7 +1,7 @@
 import { getTranslator } from './context.helper';
 
-const getErrorMessage = async (response) => {
-    const responseErrorMessage = await response.json().then((jsonResponse) => {
+const getErrorMessage = (response) => {
+    const responseErrorMessage = response.json().then((jsonResponse) => {
         return jsonResponse.ErrorMessage?.errorMessage;
     });
 
