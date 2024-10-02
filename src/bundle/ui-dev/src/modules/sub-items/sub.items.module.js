@@ -99,6 +99,7 @@ export default class SubItemsModule extends Component {
         this.hideMorePanel = this.hideMorePanel.bind(this);
         this.renderExtraActions = this.renderExtraActions.bind(this);
         this.renderActionBtnWrapper = this.renderActionBtnWrapper.bind(this);
+        this.requestParamsHaveChanged = this.requestParamsHaveChanged.bind(this);
 
         this._refListViewWrapper = React.createRef();
         this._refMainContainerWrapper = React.createRef();
@@ -132,6 +133,7 @@ export default class SubItemsModule extends Component {
             columnsVisibility: this.getColumnsVisibilityFromLocalStorage(),
             morePanelVisible: false,
             morePanelVisibleItemsIndexes: [],
+            queryParams: {},
         };
     }
 
@@ -184,11 +186,21 @@ export default class SubItemsModule extends Component {
 
         const shouldLoadPage = !activePageItems;
 
-        if (shouldLoadPage) {
+        if (shouldLoadPage && this.requestParamsHaveChanged(activePageIndex)) {
             this.loadPage(activePageIndex);
         }
 
         ibexa.helpers.tooltips.parse();
+    }
+
+    requestParamsHaveChanged(activePageIndex) {
+        const { queryParams } = this.state;
+
+        return (
+            queryParams.cursor !== this.calculateCursor(activePageIndex) ||
+            queryParams.sortClause !== this.state.sortClause ||
+            queryParams.sortOrder !== this.state.sortOrder
+        );
     }
 
     componentWillUnmount() {
@@ -240,9 +252,16 @@ export default class SubItemsModule extends Component {
     loadPage(pageIndex) {
         const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
         const { sortClause, sortOrder } = this.state;
-        const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
-        const cursor = page ? page.cursor : null;
+        const cursor = this.calculateCursor(pageIndex);
         const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
+
+        this.setState(() => ({
+            queryParams: {
+                sortClause,
+                sortOrder,
+                cursor,
+            },
+        }));
 
         loadLocation(restInfo, queryConfig, (response) => {
             const { totalCount, pages, edges } = response.data._repository.location.children;
@@ -254,6 +273,12 @@ export default class SubItemsModule extends Component {
                 pages,
             }));
         });
+    }
+
+    calculateCursor(pageIndex) {
+        const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
+
+        return page ? page.cursor : null;
     }
 
     updateTotalCountState(totalCount) {
