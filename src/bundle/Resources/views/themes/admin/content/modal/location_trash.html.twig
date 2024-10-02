@@ -14,6 +14,7 @@
         {{ form_start(form, {'action': path('ibexa.location.trash')}) }}
     {% endblock %}
     {% block body_content %}
+        {{ 'trash.modal.send_to_trash.message'|trans|desc('Are you sure you want to send this Content item to Trash?') }}
 
         {% for option in form.trash_options %}
             <div class="ibexa-modal__trash-option">
