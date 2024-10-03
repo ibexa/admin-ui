@@ -255,13 +255,13 @@ export default class SubItemsModule extends Component {
         const cursor = this.calculateCursor(pageIndex);
         const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
 
-        this.setState(() => ({
+        this.setState({
             queryParams: {
                 sortClause,
                 sortOrder,
                 cursor,
             },
-        }));
+        });
 
         loadLocation(restInfo, queryConfig, (response) => {
             const { totalCount, pages, edges } = response.data._repository.location.children;
