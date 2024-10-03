@@ -36,7 +36,7 @@ final class CanHaveDrafts implements TrashLocationOptionProvider
                     $this->translator->trans('drafts.list', [], 'ibexa_drafts'),
                 'help_multiline' => [
                     /** @Desc("Sending this content item to Trash will also delete all drafts of content items that haven’t been published yet, and belong to the trashed subtree.") */
-                    $this->translator->trans('trash.modal.send_to_trash_draft_warning.message', [], 'messages'),
+                    $this->translator->trans('trash.modal.send_to_trash_draft_warning.message', [], 'ibexa_drafts'),
                 ],
             ]);
     }
