@@ -77,8 +77,8 @@
         <note>key: ezplatform.trash.location_has_no_children</note>
       </trans-unit>
       <trans-unit id="ea852842b560d609441b8470b79735f2dc91698f" resname="ibexa.language.language_code.format">
-        <source>The Language code {{ value }} contains illegal characters. Language code should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").").</source>
-        <target state="new">The Language code {{ value }} contains illegal characters. Language code should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores ("_"), hyphens ("-") and colons (":").").</target>
+        <source>The Language code {{ value }} contains illegal characters. Language code should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores, hyphens and colons.</source>
+        <target state="new">The Language code {{ value }} contains illegal characters. Language code should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores, hyphens and colons.</target>
         <note>key: ibexa.language.language_code.format</note>
       </trans-unit>
       <trans-unit id="cf558f546b83d94f1272929f81c64bd33d2997bc" resname="js.error.address_not_found">

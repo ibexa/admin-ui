@@ -7,9 +7,11 @@
 
 namespace Ibexa\AdminUi\Form\Data\Language;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LanguageCreateData
+class LanguageCreateData implements TranslationContainerInterface
 {
     /**
      * @var string
@@ -91,6 +93,16 @@ class LanguageCreateData
         $this->enabled = $enabled;
 
         return $this;
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('ibexa.language.language_code.format', 'validators')
+                ->setDesc(
+                    'The Language code {{ value }} contains illegal characters. Language code should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores, hyphens and colons.'
+                ),
+        ];
     }
 }
 
