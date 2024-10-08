@@ -70,6 +70,12 @@
             preview.querySelector('.ibexa-field-edit-preview__action--preview').href = URL.createObjectURL(files[0]);
             this.fieldContainer.querySelector(SELECTOR_INPUT_ALT).dispatchEvent(new CustomEvent(EVENT_CANCEL_ERROR));
         }
+
+        resetInputField() {
+            super.resetInputField();
+
+            this.fieldContainer.querySelector('.ibexa-field-edit-preview__image-alt .ibexa-data-source__input').value = '';
+        }
     }
 
     class EzImageFieldValidator extends ibexa.BaseFileFieldValidator {

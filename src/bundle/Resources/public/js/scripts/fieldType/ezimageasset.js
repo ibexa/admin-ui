@@ -227,6 +227,7 @@
             super.resetInputField();
 
             this.inputDestinationContentId.value = '';
+            this.fieldContainer.querySelector('.ibexa-field-edit-preview__image-alt .ibexa-data-source__input').value = '';
         }
 
         /**
