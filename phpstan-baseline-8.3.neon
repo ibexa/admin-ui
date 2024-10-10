@@ -161,6 +161,11 @@ parameters:
 			path: src/lib/Tab/LocationView/ContentTab.php
 
 		-
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
 			count: 1
 			path: src/lib/UI/Config/Provider/ContentTypes.php
@@ -176,6 +181,11 @@ parameters:
 			path: src/lib/UI/Config/Provider/ContentTypes.php
 
 		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
+			count: 1
+			path: src/lib/UI/Dataset/ContentDraftsDataset.php
+
+		-
 			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
@@ -189,13 +199,3 @@ parameters:
 			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$twig follows optional parameter \\$name\\.$#"
 			count: 1
 			path: tests/lib/Tab/TabRegistryTest.php
-
-		-
-		    message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<Ibexa\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\> given\\.$#"
-		    count: 1
-		    path: src/lib/Siteaccess/SiteaccessResolver.php
-
-		-
-		    message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<string, Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData\\> given\\.$#"
-		    count: 1
-		    path: tests/lib/Form/Data/ContentTypeDataTest.php

@@ -259,3 +259,13 @@ parameters:
 			message: "#^Parameter \\#2 \\$size of function array_chunk expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<Ibexa\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess\\> given\\.$#"
+			count: 1
+			path: src/lib/Siteaccess/SiteaccessResolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<string, Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData\\> given\\.$#"
+			count: 1
+			path: tests/lib/Form/Data/ContentTypeDataTest.php
