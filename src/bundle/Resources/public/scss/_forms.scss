@@ -100,6 +100,7 @@ form:not(.form-inline) {
     &__icon {
         fill: $ibexa-color-danger;
         margin-right: calculateRem(4px);
+        flex-shrink: 0;
     }
 }
 
