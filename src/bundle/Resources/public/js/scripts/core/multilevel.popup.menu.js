@@ -439,6 +439,8 @@
 
                 item.classList.toggle('ibexa-popup-menu__item--hidden', hideItem);
             });
+
+            branch.popperInstance.update();
         }
     }
 
