@@ -84,6 +84,10 @@
             &:active {
                 color: $ibexa-color-primary;
                 border-color: $ibexa-color-primary;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
             }
         }
 
