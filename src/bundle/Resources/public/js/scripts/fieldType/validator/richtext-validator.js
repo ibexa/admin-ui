@@ -1,4 +1,4 @@
-import { getTranslator } from './context.helper';
+import { getTranslator } from '../../helpers/context.helper';
 
 const { ibexa } = window;
 
