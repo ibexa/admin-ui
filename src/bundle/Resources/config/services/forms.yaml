@@ -379,6 +379,10 @@ services:
         tags:
             - { name: ibexa.admin_ui.form.trash_location_option, priority: 60 }
 
+    Ibexa\AdminUi\Form\TrashLocationOptionProvider\CanHaveDrafts:
+        tags:
+            - { name: ibexa.admin_ui.form.trash_location_option, priority: 20 }
+
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory:
         arguments: [!tagged ibexa.admin_ui.form.trash_location_option]
 
