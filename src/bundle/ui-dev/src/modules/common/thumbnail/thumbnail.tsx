@@ -1,9 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
 import Icon from '../icon/icon';
 
-const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => {
+interface ThumbnailProps {
+    thumbnailData: {
+        mimeType: string,
+        resource: string,
+    }
+    iconExtraClasses?: string,
+    contentTypeIconPath?: string | null,
+}
+
+const Thumbnail = ({ thumbnailData, iconExtraClasses = '', contentTypeIconPath = null }: ThumbnailProps) => {
     const renderContentTypeIcon = () => {
         if (!contentTypeIconPath) {
             return null;
@@ -30,20 +36,6 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }) => 
             <img className="c-thumbnail__image" src={thumbnailData.resource} />
         </div>
     );
-};
-
-Thumbnail.propTypes = {
-    thumbnailData: PropTypes.shape({
-        mimeType: PropTypes.string.isRequired,
-        resource: PropTypes.string.isRequired,
-    }).isRequired,
-    iconExtraClasses: PropTypes.string,
-    contentTypeIconPath: PropTypes.string,
-};
-
-Thumbnail.defaultProps = {
-    iconExtraClasses: null,
-    contentTypeIconPath: null,
 };
 
 export default Thumbnail;
