@@ -193,7 +193,7 @@ const Dropdown = ({
 
         return () => {
             document.body.removeEventListener('click', onInteractionOutside);
-            document.body.removeEventListener('click', calculateAndSetItemsListStyles);
+            scrollContainer?.removeEventListener('scroll', calculateAndSetItemsListStyles);
 
             setItemsListStyles({});
         };
