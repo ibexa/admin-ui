@@ -1,3 +1,6 @@
+ibexa.admin_ui:
+    resource: '@IbexaAdminUiBundle/Resources/config/routing.yaml'
+
 ibexa.admin_ui.rest:
     resource: '@IbexaAdminUiBundle/Resources/config/routing_rest.yaml'
     prefix: '%ibexa.rest.path_prefix%'
