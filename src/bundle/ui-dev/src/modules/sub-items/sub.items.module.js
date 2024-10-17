@@ -10,7 +10,7 @@ import Popup from '../common/popup/popup.component';
 import ActionButton from './components/action-btn/action.btn.js';
 import Pagination from '../common/pagination/pagination.js';
 import NoItemsComponent from './components/no-items/no.items.component.js';
-import Icon from '../common/icon/icon.js';
+import Icon from '../common/icon/icon';
 import PaginationInfo from '../common/pagination/pagination.info.js';
 
 import deepClone from '../common/helpers/deep.clone.helper.js';
