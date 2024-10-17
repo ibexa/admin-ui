@@ -971,3 +971,14 @@ ibexa.focus_mode.change:
     path: /user/focus-mode
     controller: 'Ibexa\Bundle\AdminUi\Controller\User\FocusModeController::changeAction'
     methods: [GET, POST]
+
+#
+# Users
+#
+ibexa.permission.users_with_permission_info:
+    path: /permission/users-with-permission-info/{contentInfoId}/{module}/{function}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\UsersWithPermissionInfoToContentItemController::listAction'
+    methods: [GET]
+    requirements:
+        module: \w+
+        function: \w+
