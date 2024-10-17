@@ -15,3 +15,5 @@ services:
     Ibexa\AdminUi\QueryType\MediaLocationSubtreeQueryType: ~
 
     Ibexa\AdminUi\QueryType\TrashSearchQueryType: ~
+
+    Ibexa\AdminUi\QueryType\UserQueryType: ~
