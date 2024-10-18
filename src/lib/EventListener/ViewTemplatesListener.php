@@ -35,18 +35,17 @@ class ViewTemplatesListener implements EventSubscriberInterface
 
     /**
      * If the event's view has a defined template, sets the view's template identifier,
-     * and the 'pagelayout' parameter.
+     * and the 'page_layout' parameter.
      */
     public function setViewTemplates(PreContentViewEvent $event): void
     {
         $view = $event->getContentView();
-        $pagelayout = $this->configResolver->getParameter('pagelayout');
+        $pageLayout = $this->configResolver->getParameter('page_layout');
 
         foreach ($this->getTemplatesMap() as $viewClass => $template) {
             if ($view instanceof $viewClass) {
                 $view->setTemplateIdentifier($template);
-                $view->addParameters(['pagelayout' => $pagelayout]);
-                $view->addParameters(['page_layout' => $pagelayout]);
+                $view->addParameters(['page_layout' => $pageLayout]);
             }
         }
     }
