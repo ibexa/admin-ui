@@ -1,6 +1,7 @@
 import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const DEFAULT_INSTANCE_URL = window.location.origin;
 const HEADERS_CREATE_VIEW = {
@@ -413,7 +414,8 @@ export const loadContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const adminUiConfig = getAdminUiConfig();
+    const body = {
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
             public: false,
@@ -425,7 +427,12 @@ export const loadContentInfo = (
                 offset,
             },
         },
-    });
+    };
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
+
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -434,7 +441,7 @@ export const loadContentInfo = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
@@ -495,7 +502,8 @@ export const findSuggestions = (
     { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const adminUiConfig = getAdminUiConfig();
+    const body = {
         ViewInput: {
             identifier: 'view_with_aggregation',
             LocationQuery: {
@@ -514,7 +522,12 @@ export const findSuggestions = (
                 ],
             },
         },
-    });
+    };
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
+
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -525,7 +538,7 @@ export const findSuggestions = (
                 ...HEADERS_CREATE_VIEW,
             },
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
