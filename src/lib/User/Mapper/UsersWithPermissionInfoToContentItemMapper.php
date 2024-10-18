@@ -16,14 +16,14 @@ use Ibexa\Core\Repository\Values\User\UserReference;
 
 /**
  * @phpstan-type TUserData array{
- *      access: array{
+ *      access: array<array{
  *          name: string,
  *          email: string,
- *      }|array{},
- *      no_access: array{
- *         name: string,
- *         email: string,
- *      }|array{},
+ *      }>,
+ *      no_access: array<array{
+ *          name: string,
+ *          email: string,
+ *      }>,
  *  }
  */
 final class UsersWithPermissionInfoToContentItemMapper
