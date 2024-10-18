@@ -93,7 +93,7 @@ final class UsersWithPermissionInfoToContentItemController extends Controller
                 'phrase' => $phrase,
                 'section_identifiers' => ['users'],
                 'exclude_users_ids' => [$this->getAnonymousUserId()],
-                'exclude_paths' => [$this->getUserRegistrationGroupId()],
+                'exclude_paths' => [$this->getUserRegistrationGroupPath()],
             ]
         );
     }
@@ -103,7 +103,7 @@ final class UsersWithPermissionInfoToContentItemController extends Controller
         return $this->configResolver->getParameter('anonymous_user_id');
     }
 
-    private function getUserRegistrationGroupId(): string
+    private function getUserRegistrationGroupPath(): string
     {
         $groupId = $this->configResolver->getParameter('user_registration.group_id');
 
