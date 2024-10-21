@@ -5,7 +5,7 @@
     "prettier": "eslint-config-ibexa/prettier",
     "dependencies": {},
     "devDependencies": {
-        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#~v1.1.1"
+        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#IBX-9109-enabling-typescript"
     },
     "scripts": {
         "test": "yarn prettier-test && yarn eslint-test",
@@ -14,3 +14,4 @@
         "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check"
     }
 }
+
