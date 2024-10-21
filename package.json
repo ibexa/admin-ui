@@ -14,4 +14,3 @@
         "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check"
     }
 }
-
