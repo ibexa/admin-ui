@@ -1,13 +1,11 @@
-(function (document) {
-    const searchForm = document.querySelector('.ibexa-search-form') as HTMLFormElement | null;
-    const searchInput = document.querySelector('.ibexa-search-form__search-input') as HTMLInputElement | null;
-    const headerSearchInput = document.querySelector('.ibexa-global-search__input') as HTMLInputElement | null;
-    const languageSelector = document.querySelector(
-        '.ibexa-filters__item--language-selector .ibexa-filters__select',
-    ) as HTMLSelectElement | null;
-    const headerSearchSubmitBtn = document.querySelector(
+(function (document: Document) {
+    const searchForm = document.querySelector<HTMLFormElement>('.ibexa-search-form');
+    const searchInput = document.querySelector<HTMLInputElement>('.ibexa-search-form__search-input');
+    const headerSearchInput = document.querySelector<HTMLInputElement>('.ibexa-global-search__input');
+    const languageSelector = document.querySelector<HTMLSelectElement>('.ibexa-filters__item--language-selector .ibexa-filters__select');
+    const headerSearchSubmitBtn = document.querySelector<HTMLButtonElement>(
         '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search',
-    ) as HTMLButtonElement | null;
+    );
 
     if (!headerSearchInput || !searchInput || !searchForm) {
         return;

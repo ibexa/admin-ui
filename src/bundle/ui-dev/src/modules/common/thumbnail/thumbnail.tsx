@@ -6,11 +6,11 @@ interface ThumbnailProps {
         resource: string;
     };
     iconExtraClasses?: string;
-    contentTypeIconPath?: string | null;
+    contentTypeIconPath?: string;
 }
 
-const Thumbnail = ({ thumbnailData, iconExtraClasses = '', contentTypeIconPath = null }: ThumbnailProps) => {
-    const renderContentTypeIcon = () => {
+const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }: ThumbnailProps) => {
+    const renderContentTypeIcon = (): JSX.Element | null => {
         if (!contentTypeIconPath) {
             return null;
         }
