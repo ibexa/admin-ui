@@ -9,10 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\Content;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
+use Ibexa\AdminUi\Pagination\Adapter\RelationListIteratorAdapter;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIterator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
-use Ibexa\Core\Repository\Values\Content\Relation;
 
 class ContentHaveUniqueRelation extends AbstractSpecification
 {
@@ -41,12 +43,21 @@ class ContentHaveUniqueRelation extends AbstractSpecification
             throw new InvalidArgumentException($item, sprintf('Must be an instance of %s', Content::class));
         }
 
-        $relations = $this->contentService->loadRelations($item->versionInfo);
+        $relationListIterator = new BatchIterator(
+            new RelationListIteratorAdapter(
+                $this->contentService,
+                $item->getVersionInfo(),
+                RelationType::ASSET
+            )
+        );
 
-        foreach ($relations as $relation) {
-            if (Relation::ASSET === $relation->type) {
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationItem */
+        foreach ($relationListIterator as $relationItem) {
+            if ($relationItem->hasRelation()) {
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
+                $relation = $relationItem->getRelation();
                 $relationsFromAssetSide = $this->contentService->countReverseRelations(
-                    $relation->destinationContentInfo
+                    $relation->getDestinationContentInfo()
                 );
 
                 if ($relationsFromAssetSide > 1) {
