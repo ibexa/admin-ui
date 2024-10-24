@@ -1,0 +1,10 @@
+{
+  "extends": "ts-config-ibexa/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ibexa-admin-ui/*": ["./*"],
+      "@ibexa-admin-ui-helpers/*": ["src/bundle/Resources/public/js/scripts/helpers/*"]
+    }
+  },
+}
