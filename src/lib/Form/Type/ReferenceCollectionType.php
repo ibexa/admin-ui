@@ -14,7 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ReferenceCollectionType extends AbstractType
 {
-    /** @return class-string<\Symfony\Component\Form\AbstractType> */
     public function getParent(): string
     {
         return CollectionType::class;
