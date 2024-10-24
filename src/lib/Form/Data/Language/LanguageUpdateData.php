@@ -8,13 +8,18 @@
 namespace Ibexa\AdminUi\Form\Data\Language;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class LanguageUpdateData
 {
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
     private $language;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @Assert\NotBlank()
+     */
     private $name;
 
     /** @var bool */
