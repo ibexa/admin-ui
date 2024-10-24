@@ -17,6 +17,14 @@ const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locatio
 export const QUERY_LIMIT = 50;
 export const AGGREGATIONS_LIMIT = 4;
 
+const addLanguageCodeToCreateViewEndpoint = (body) => {
+    const adminUiConfig = getAdminUiConfig();
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
+};
+
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
         return;
@@ -192,7 +200,6 @@ export const findLocationsBySearchQuery = (
     },
     callback,
 ) => {
-    const adminUiConfig = getAdminUiConfig();
     const body = {
         ViewInput: {
             identifier: `udw-locations-by-search-query-${query.FullTextCriterion}`,
@@ -216,9 +223,7 @@ export const findLocationsBySearchQuery = (
         },
     };
 
-    if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
-    }
+    addLanguageCodeToCreateViewEndpoint(body);
 
     const abortController = new AbortController();
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
@@ -258,7 +263,6 @@ export const findLocationsById = (
     { token, siteaccess, accessToken, id, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const adminUiConfig = getAdminUiConfig();
     const body = {
         ViewInput: {
             identifier: `udw-locations-by-id-${id}`,
@@ -273,9 +277,7 @@ export const findLocationsById = (
         },
     };
 
-    if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
-    }
+    addLanguageCodeToCreateViewEndpoint(body);
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -304,7 +306,6 @@ export const findContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const adminUiConfig = getAdminUiConfig();
     const body = {
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -319,9 +320,7 @@ export const findContentInfo = (
         },
     };
 
-    if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
-    }
+    addLanguageCodeToCreateViewEndpoint(body);
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -431,7 +430,6 @@ export const loadContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const adminUiConfig = getAdminUiConfig();
     const body = {
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
@@ -446,9 +444,7 @@ export const loadContentInfo = (
         },
     };
 
-    if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
-    }
+    addLanguageCodeToCreateViewEndpoint(body);
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -519,7 +515,6 @@ export const findSuggestions = (
     { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
     callback,
 ) => {
-    const adminUiConfig = getAdminUiConfig();
     const body = {
         ViewInput: {
             identifier: 'view_with_aggregation',
@@ -541,9 +536,7 @@ export const findSuggestions = (
         },
     };
 
-    if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
-    }
+    addLanguageCodeToCreateViewEndpoint(body);
 
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
