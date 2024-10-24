@@ -1,7 +1,7 @@
-import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
+import { getRequestHeaders, getRequestMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/request.helper.js';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
-import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const DEFAULT_INSTANCE_URL = window.location.origin;
 const HEADERS_CREATE_VIEW = {
