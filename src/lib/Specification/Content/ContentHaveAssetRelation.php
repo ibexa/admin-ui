@@ -11,8 +11,8 @@ namespace Ibexa\AdminUi\Specification\Content;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
-use Ibexa\Core\Repository\Values\Content\Relation;
 
 class ContentHaveAssetRelation extends AbstractSpecification
 {
@@ -41,14 +41,6 @@ class ContentHaveAssetRelation extends AbstractSpecification
             throw new InvalidArgumentException($item, sprintf('Must be an instance of %s', Content::class));
         }
 
-        $relations = $this->contentService->loadRelations($item->versionInfo);
-
-        foreach ($relations as $relation) {
-            if (Relation::ASSET === $relation->type) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->contentService->countRelations($item->versionInfo, RelationType::ASSET) > 0;
     }
 }
