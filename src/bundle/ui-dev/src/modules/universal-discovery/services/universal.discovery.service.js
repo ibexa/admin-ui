@@ -192,7 +192,8 @@ export const findLocationsBySearchQuery = (
     },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const adminUiConfig = getAdminUiConfig();
+    const body = {
         ViewInput: {
             identifier: `udw-locations-by-search-query-${query.FullTextCriterion}`,
             public: false,
@@ -213,7 +214,12 @@ export const findLocationsBySearchQuery = (
                 offset,
             },
         },
-    });
+    };
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
+
     const abortController = new AbortController();
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -223,7 +229,7 @@ export const findLocationsBySearchQuery = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
         signal: abortController.signal,
@@ -252,7 +258,8 @@ export const findLocationsById = (
     { token, siteaccess, accessToken, id, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const adminUiConfig = getAdminUiConfig();
+    const body = {
         ViewInput: {
             identifier: `udw-locations-by-id-${id}`,
             public: false,
@@ -264,7 +271,11 @@ export const findLocationsById = (
                 offset,
             },
         },
-    });
+    };
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -274,7 +285,7 @@ export const findLocationsById = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
@@ -293,7 +304,8 @@ export const findContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const adminUiConfig = getAdminUiConfig();
+    const body = {
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
             public: false,
@@ -305,7 +317,12 @@ export const findContentInfo = (
                 offset,
             },
         },
-    });
+    };
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
+
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -314,7 +331,7 @@ export const findContentInfo = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
