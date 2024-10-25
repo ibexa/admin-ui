@@ -79,8 +79,7 @@
         "ibexa/test-core": "^0.1.x-dev",
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.3",
-        "phpstan/phpstan-symfony": "^1.3",
-        "symfony/webpack-encore-bundle": "^1.17.2"
+        "phpstan/phpstan-symfony": "^1.3"
     },
     "config": {
         "allow-plugins": {

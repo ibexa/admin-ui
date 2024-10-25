@@ -11,7 +11,7 @@ namespace Ibexa\Contracts\AdminUi\Menu;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
- * Builds menu with "Update" nad "Cancel" items.
+ * Builds menu with "Update" and "Cancel" items.
  */
 final class UpdateFormContextMenuBuilder extends AbstractFormContextMenuBuilder implements TranslationContainerInterface
 {

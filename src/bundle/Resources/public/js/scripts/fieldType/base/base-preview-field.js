@@ -212,7 +212,6 @@
             this.inputField = clonedInput;
             this.inputField.addEventListener('change', this.handleInputChange, false);
             this.fieldContainer.querySelector('.ibexa-field-edit__option--remove-media').checked = true;
-            this.fieldContainer.querySelector('.ibexa-field-edit-preview__image-alt .ibexa-data-source__input').value = '';
 
             this.validator.reinit();
         }

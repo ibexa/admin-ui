@@ -13,7 +13,7 @@ use Knp\Menu\ItemInterface;
 interface MenuItemFactoryInterface extends FactoryInterface
 {
     /**
-     * Creates Location menu item only when user has content:read permission.
+     * Creates Location menu item only when user has content/read permission.
      *
      * @param array<mixed> $options
      *
