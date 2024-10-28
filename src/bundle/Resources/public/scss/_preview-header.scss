@@ -1,14 +1,14 @@
 .ibexa-preview-header {
     display: grid;
-    grid-template-areas: 'back siteaccess actions';
+    grid-template-areas: 'siteaccess actions back';
     grid-template-columns: auto 1fr 1fr;
-    border-bottom: calculateRem(1px) solid $ibexa-color-light;
-
+    border-bottom: calculateRem(1px) solid $ibexa-color-dark-400;
+    background-color: $ibexa-color-dark;
     &__item {
         &--back {
             grid-area: back;
             padding: calculateRem(10px);
-            border-right: calculateRem(1px) solid $ibexa-color-light;
+            justify-items: flex-end;
         }
 
         &--siteaccess {
@@ -17,6 +17,11 @@
             display: flex;
             align-items: center;
             margin-left: calculateRem(16px);
+
+            .ibexa-dropdown {
+                --ibexa-dropdown-primary-color: white;
+                --ibexa-text-color: white;
+            }
 
             .ibexa-dropdown__selection-info {
                 margin-bottom: 0;

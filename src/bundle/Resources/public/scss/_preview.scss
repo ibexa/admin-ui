@@ -1,8 +1,9 @@
 .ibexa-preview {
+    width: 100%;
     &__iframe {
         iframe {
             width: 100%;
-            height: calc(100vh - 45px);
+            height: calc(100vh - 72px);
             display: block;
             margin: 0 auto;
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
@@ -19,16 +20,14 @@
 
             iframe {
                 width: calculateRem(769px);
-                height: calculateRem(1157px);
             }
         }
 
         &--mobile {
-            height: calculateRem(900px);
+            height: calculateRem(920px);
 
             iframe {
                 width: calculateRem(375px);
-                height: calculateRem(792px);
             }
         }
     }
