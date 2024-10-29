@@ -1,9 +1,10 @@
 .ibexa-preview {
     width: 100%;
+
     &__iframe {
         iframe {
             width: 100%;
-            height: calc(100vh - 72px);
+            height: calc(100vh - calculateRem(72px));
             display: block;
             margin: 0 auto;
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;

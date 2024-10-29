@@ -400,13 +400,15 @@
                 fill: $ibexa-color-light-600;
             }
         }
+
         &:not(.ibexa-btn--selected) {
             &:focus {
                 box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-white, 0.2);
             }
         }
+
         &:focus {
-            box-shadow: 0px 0px 0px 4px $ibexa-color-dark-500;
+            box-shadow: 0 0 0 calculateRem(4px) $ibexa-color-dark-500;
         }
 
         &.disabled,

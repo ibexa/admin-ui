@@ -19,8 +19,8 @@
             margin-left: calculateRem(16px);
 
             .ibexa-dropdown {
-                --ibexa-dropdown-primary-color: white;
-                --ibexa-text-color: white;
+                --ibexa-dropdown-primary-color: $ibexa-color-white;
+                --ibexa-text-color: $ibexa-color-white;
             }
 
             .ibexa-dropdown__selection-info {

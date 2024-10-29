@@ -120,6 +120,7 @@ img {
     .ibexa-main-container__content-column {
         @include drag-module-backdrop-background;
     }
+
     .ibexa-main-container {
         height: 100vh;
         background-color: $ibexa-color-dark-500;
