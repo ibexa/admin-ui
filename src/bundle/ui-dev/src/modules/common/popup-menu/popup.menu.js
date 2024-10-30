@@ -16,7 +16,7 @@ const ITEMS_LIST_WIDGET_MARGIN = 8;
 const ITEMS_LIST_SITE_MARGIN = ITEMS_LIST_WIDGET_MARGIN + 4;
 const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
 
-const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, onItemClick }) => {
+const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, onItemClick, footer, extraClasses }) => {
     const rootDOMElement = getRootDOMElement();
     const Translator = getTranslator();
     const containerRef = useRef();
@@ -29,6 +29,7 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
     const popupMenuClassName = createCssClassNames({
         'c-popup-menu': true,
         'c-popup-menu--visible': isVisible,
+        [extraClasses]: true,
     });
     const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'popup_menu.placeholder', {}, 'popup_menu');
     const updateFilterValue = (event) => setFilterText(event.target.value);
@@ -152,6 +153,11 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
                 </div>
             </div>
             <div className="c-popup-menu__groups">{items.map(renderGroup)}</div>
+            { footer && (
+                <div class="c-popup-menu__footer">
+                    { footer }
+                </div>
+            ) }
         </div>
     );
 };
@@ -161,12 +167,16 @@ PopupMenu.propTypes = {
     positionOffset: PropTypes.func,
     scrollContainer: PropTypes.node,
     onItemClick: PropTypes.func,
+    footer: PropTypes.node,
+    extraClasses: PropTypes.string,
 };
 
 PopupMenu.defaultProps = {
     positionOffset: () => ({ x: 0, y: 0 }),
     scrollContainer: window.document.body,
     onItemClick: () => {},
+    footer: null,
+    extraClasses: '',
 };
 
 export default PopupMenu;
