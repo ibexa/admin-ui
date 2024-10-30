@@ -4,6 +4,7 @@
     grid-template-columns: auto 1fr 1fr;
     border-bottom: calculateRem(1px) solid $ibexa-color-dark-400;
     background-color: $ibexa-color-dark;
+
     &__item {
         &--back {
             grid-area: back;
