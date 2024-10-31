@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Permission\ContextProvider;
 
-use Ibexa\AdminUi\Values\PermissionCheckContext;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckContextProviderInterface;
+use Ibexa\Contracts\AdminUi\Values\PermissionCheckContext;
 use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;

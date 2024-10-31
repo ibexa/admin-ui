@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Permission;
 
-use Ibexa\AdminUi\Values\PermissionCheckContext;
+use Ibexa\Contracts\AdminUi\Values\PermissionCheckContext;
 use Symfony\Component\HttpFoundation\Request;
 
 interface PermissionCheckContextProviderInterface
