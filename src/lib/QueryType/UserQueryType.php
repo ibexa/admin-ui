@@ -11,31 +11,28 @@ namespace Ibexa\AdminUi\QueryType;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\QueryType\BuiltIn\AbstractQueryType;
+use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserQueryType extends AbstractQueryType
 {
+    private const USER_ADMIN_ID = 14;
+
     protected function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         $resolver->setDefined('phrase');
-        $resolver->setDefined('exclude_users_ids');
-        $resolver->setDefined('exclude_paths');
-        $resolver->setDefined('section_identifiers');
-
         $resolver->setAllowedTypes('phrase', ['string', 'null']);
-        $resolver->setAllowedTypes('exclude_users_ids', ['array']);
-        $resolver->setAllowedTypes('exclude_paths', ['array']);
-        $resolver->setAllowedTypes('section_identifiers', ['array']);
+
+        $resolver->setDefined('extra_criteria');
+        $resolver->setAllowedTypes('extra_criteria', [Criterion::class, 'null']);
 
         $resolver->setDefaults(
             [
                 'phrase' => null,
-                'exclude_users_ids' => [],
-                'exclude_paths' => [],
-                'section_identifiers' => [],
-            ],
+                'extra_criteria' => null,
+            ]
         );
     }
 
@@ -56,30 +53,22 @@ final class UserQueryType extends AbstractQueryType
      */
     protected function getQueryFilter(array $parameters): Criterion
     {
-        $userContentTypeIdentifiers = $this->getUserContentTypeIdentifiers();
-        $criteria = [new Criterion\ContentTypeIdentifier($userContentTypeIdentifiers)];
+        $criteria = [
+            new Criterion\IsUserEnabled(),
+            $this->excludeSystemUsers(),
+        ];
 
-        if (!empty($parameters['exclude_users_ids'])) {
-            $excludedUsersIds = new Criterion\ContentId($parameters['exclude_users_ids']);
-            $criteria[] = new Criterion\LogicalNot($excludedUsersIds);
-        }
-
-        if (!empty($parameters['exclude_paths'])) {
-            $excludedParentLocationIds = new Criterion\Subtree($parameters['exclude_paths']);
-            $criteria[] = new Criterion\LogicalNot($excludedParentLocationIds);
-        }
-
-        if (!empty($parameters['section_identifiers'])) {
-            $criteria[] = new Criterion\SectionIdentifier($parameters['section_identifiers']);
+        if (!empty($parameters['extra_criteria'])) {
+            $criteria[] = $parameters['extra_criteria'];
         }
 
         if (!empty($parameters['phrase'])) {
-            $phrase = '*' . $parameters['phrase'] . '*';
+            $phrase = $this->cleanSearchPhrase($parameters['phrase']);
             $criteria[] = new Criterion\LogicalOr(
                 [
-                    new Criterion\Field('first_name', Criterion\Operator::LIKE, $phrase),
-                    new Criterion\Field('last_name', Criterion\Operator::LIKE, $phrase),
-                    new Criterion\UserEmail($phrase, Criterion\Operator::LIKE),
+                    new Criterion\ContentName('*' . $phrase . '*'),
+                    // Used with EQ operator and without wildcards due to hashing email in solr and elasticsearch
+                    new Criterion\UserEmail($phrase, Criterion\Operator::EQ),
                 ]
             );
         }
@@ -92,11 +81,30 @@ final class UserQueryType extends AbstractQueryType
         return 'IbexaAdminUi:User';
     }
 
-    /**
-     * @return array<string>
-     */
-    private function getUserContentTypeIdentifiers(): array
+    private function cleanSearchPhrase(string $phrase): string
     {
-        return $this->configResolver->getParameter('user_content_type_identifier');
+        $sanitizedPhrase = preg_replace('/[^a-zA-Z0-9@._-]/', '', $phrase);
+        if (null === $sanitizedPhrase) {
+            throw new RuntimeException('Could not to sanitize search phrase.');
+        }
+
+        return $sanitizedPhrase;
+    }
+
+    private function excludeSystemUsers(): Criterion
+    {
+        return new Criterion\LogicalNot(
+            new Criterion\ContentId(
+                [
+                    self::USER_ADMIN_ID,
+                    $this->getAnonymousUserId(),
+                ]
+            ),
+        );
+    }
+
+    private function getAnonymousUserId(): int
+    {
+        return $this->configResolver->getParameter('anonymous_user_id');
     }
 }
