@@ -976,8 +976,8 @@ ibexa.focus_mode.change:
 # Users
 #
 ibexa.permission.users_with_permission_info:
-    path: /permission/users-with-permission-info/{contentInfoId}/{module}/{function}
-    controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\UsersWithPermissionInfoToContentItemController::listAction'
+    path: /permission/users-with-permission-info/{module}/{function}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\Permission\UsersWithPermissionInfoController::listAction'
     methods: [GET]
     requirements:
         module: \w+

@@ -253,7 +253,7 @@ services:
         tags:
             - controller.service_arguments
 
-    Ibexa\Bundle\AdminUi\Controller\Permission\UsersWithPermissionInfoToContentItemController:
+    Ibexa\Bundle\AdminUi\Controller\Permission\UsersWithPermissionInfoController:
         parent: Ibexa\Rest\Server\Controller
         arguments:
             $userQueryType: '@Ibexa\AdminUi\QueryType\UserQueryType'
