@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Permission;
 
-use Ibexa\AdminUi\Values\PermissionCheckContext;
+use Ibexa\Contracts\AdminUi\Values\PermissionCheckContext;
 use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 

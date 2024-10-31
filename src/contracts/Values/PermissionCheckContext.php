@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\AdminUi\Values;
+namespace Ibexa\Contracts\AdminUi\Values;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;

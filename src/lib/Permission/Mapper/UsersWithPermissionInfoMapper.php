@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Permission\Mapper;
 
-use Ibexa\AdminUi\Values\PermissionCheckContext;
+use Ibexa\Contracts\AdminUi\Values\PermissionCheckContext;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
