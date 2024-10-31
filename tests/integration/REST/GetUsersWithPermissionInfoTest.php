@@ -12,10 +12,11 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\UserCreateStruct;
 use Ibexa\Contracts\Test\Rest\WebTestCase;
+use LogicException;
 
-final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
+final class GetUsersWithPermissionInfoTest extends WebTestCase
 {
-    private const ENDPOINT_URL = 'permission/users-with-permission-info/%d/%s/%s?%s';
+    private const ENDPOINT_URL = 'permission/users-with-permission-info/%s/%s?%s';
     private const HEADERS = [
         'HTTP_ACCEPT' => 'application/json',
         'X-Siteaccess' => 'admin',
@@ -55,13 +56,20 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
         array $queryParameters,
         string $expectedResponse
     ): void {
-        $uri = $this->getUri($contentId, $module, $function, $queryParameters);
+        $uri = $this->getUri($module, $function, $queryParameters);
         $this->client->request('GET', $uri, [], [], self::HEADERS);
 
         $response = $this->client->getResponse();
 
         self::assertSame(200, $response->getStatusCode());
-        self::assertSame($expectedResponse, $response->getContent());
+
+        $content = $response->getContent();
+        if (false === $content) {
+            throw new LogicException('Missing response content');
+        }
+
+        $fixedResponse = $this->doReplaceResponse($content);
+        self::assertSame($expectedResponse, $fixedResponse);
     }
 
     /**
@@ -79,31 +87,40 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
             self::MEDIA_CONTENT_ITEM_ID,
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
-            [],
-            '{"access":[{"name":"Administrator User","email":"admin@link.invalid"},{"name":"John Doe","email":"john@link.invalid"},{"name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            ['contentId' => 41],
+            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
         yield 'Check content-read for content item 41 and location 51' => [
             self::MEDIA_CONTENT_ITEM_ID,
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
-            ['locationId' => 51],
-            '{"access":[{"name":"Administrator User","email":"admin@link.invalid"},{"name":"John Doe","email":"john@link.invalid"},{"name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            [
+                'contentId' => 41,
+                'locationId' => 51,
+            ],
+            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
         yield 'Check content-read for content item 41 and phrase=adm' => [
             self::MEDIA_CONTENT_ITEM_ID,
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
-            ['phrase' => 'Adm*'],
-            '{"access":[{"name":"Administrator User","email":"admin@link.invalid"}],"no_access":[]}',
+            [
+                'contentId' => 41,
+                'phrase' => 'Adm*',
+            ],
+            '{"access":[],"no_access":[]}',
         ];
 
         yield 'Check content-read for phrase=undef*' => [
             self::MEDIA_CONTENT_ITEM_ID,
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
-            ['phrase' => 'undef*'],
+            [
+                'contentId' => 41,
+                'phrase' => 'undef*',
+            ],
             '{"access":[],"no_access":[]}',
         ];
 
@@ -112,9 +129,10 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
             self::MODULE_CONTENT,
             self::FUNCTION_EDIT,
             [
+                'contentId' => 41,
                 'phrase' => 'jo*',
             ],
-            '{"access":[{"name":"John Doe","email":"john@link.invalid"},{"name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
         ];
 
         yield 'Check content-edit for content item 41 and phrase=bar*' => [
@@ -122,9 +140,10 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
             self::MODULE_CONTENT,
             self::FUNCTION_EDIT,
             [
+                'contentId' => 41,
                 'phrase' => 'bar*',
             ],
-            '{"access":[{"name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
         ];
 
         yield 'Check content-edit for content item 41 and location 43 and phrase=joshua@link.invalid' => [
@@ -132,10 +151,11 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
             self::MODULE_CONTENT,
             self::FUNCTION_EDIT,
             [
-                'phrase' => 'joshua*',
+                'phrase' => 'joshua@link.invalid',
+                'contentId' => 41,
                 'locationId' => self::MEDIA_LOCATION_ID,
             ],
-            '{"access":[{"name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
         ];
     }
 
@@ -147,7 +167,6 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
         $editorGroup = $this->userService->loadUserGroupByRemoteId(self::EDITOR_USER_GROUP_REMOTE_ID);
 
         $user1CreateStruct = $this->createUserCreateStruct('john', 'John', 'Doe', 'john@link.invalid');
-
         $user1 = $this->userService->createUser($user1CreateStruct, [$editorGroup]);
         $this->roleService->assignRoleToUser($role, $user1);
 
@@ -187,17 +206,25 @@ final class GetUsersWithPermissionInfoToContentItemTest extends WebTestCase
      * @param array<string, string> $queryParameters
      */
     private static function getUri(
-        int $contentId,
         string $module,
         string $function,
         array $queryParameters = []
     ): string {
         return sprintf(
             self::ENDPOINT_URL,
-            $contentId,
             $module,
             $function,
             http_build_query($queryParameters),
         );
+    }
+
+    private function doReplaceResponse(string $jsonResponse): string
+    {
+        $fixedResponse = preg_replace('~"id":\d+~', '"id":"__FIXED_ID__"', $jsonResponse);
+        if (null === $fixedResponse) {
+            throw new LogicException('Failed to replace JSON response.');
+        }
+
+        return $fixedResponse;
     }
 }
