@@ -1,3 +1,6 @@
+parameters:
+    ibexa.admin_ui.permission_check_context.content.user_content_type_identifiers: [user]
+
 ibexa:
     system:
         default:
