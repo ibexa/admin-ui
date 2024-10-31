@@ -90,6 +90,10 @@
             {%- set split_btn_type = item.extras.primary|default(false) ? 'primary' : 'secondary' -%}
         {% endif %}
 
+        {% if options.primary_split_btn_type is defined and item.extras.primary|default(false) %}
+            {%- set split_btn_type = options.primary_split_btn_type -%}
+        {% endif %}
+
         {{ include('@ibexadesign/ui/component/split_btn/split_btn.html.twig', {
             type: split_btn_type,
             attr: {
