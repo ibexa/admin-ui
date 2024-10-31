@@ -1,23 +1,14 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { getRootDOMElement, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
 import Icon from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/icon/icon';
 
-import { createCssClassNames } from '../helpers/css.class.names';
-// import Icon from '../icon/icon';
-// import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-
-const { document } = window;
 const MIN_SEARCH_ITEMS_DEFAULT = 5;
 const MIN_ITEMS_LIST_HEIGHT = 150;
-const ITEMS_LIST_WIDGET_MARGIN = 8;
-const ITEMS_LIST_SITE_MARGIN = ITEMS_LIST_WIDGET_MARGIN + 4;
-const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
 
-const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, onItemClick, footer, extraClasses }) => {
-    const rootDOMElement = getRootDOMElement();
+const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, referenceElement, scrollContainer }) => {
     const Translator = getTranslator();
     const containerRef = useRef();
     const [isVisible, setIsVisible] = useState(true);
@@ -26,6 +17,7 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
         top: 0,
     });
     const [filterText, setFilterText] = useState('');
+    const numberOfItems = useMemo(() => items.reduce((sum, group) => sum + group.items.length, 0), [items]);
     const popupMenuClassName = createCssClassNames({
         'c-popup-menu': true,
         'c-popup-menu--visible': isVisible,
@@ -45,6 +37,12 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
         return itemLabelLowerCase.indexOf(filterTextLowerCase) === 0;
     };
     const renderGroup = (group) => {
+        const isAnyItemVisible = group.items.some(showItem);
+
+        if (!isAnyItemVisible) {
+            return null;
+        }
+
         const groupClassName = createCssClassNames({
             'c-popup-menu__group': true,
         });
@@ -85,8 +83,6 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
         } else {
             const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'top');
 
-            console.log(offsetY);
-
             itemsStyles.top = referenceTop + offsetY;
             itemsStyles.left = referenceLeft + offsetX;
             itemsStyles.maxHeight = referenceTop;
@@ -94,6 +90,49 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
         }
 
         setItemsListStyles(itemsStyles);
+    };
+    const renderSearch = () => {
+        if (numberOfItems < MIN_SEARCH_ITEMS_DEFAULT) {
+            return null;
+        }
+
+        return (
+            <div className="c-popup-menu__search">
+                <div className="ibexa-input-text-wrapper">
+                    <input
+                        type="text"
+                        placeholder={searchPlaceholder}
+                        className="c-popup-menu__search-input ibexa-input ibexa-input--small ibexa-input--text form-control"
+                        onChange={updateFilterValue}
+                        value={filterText}
+                    />
+                    <div className="ibexa-input-text-wrapper__actions">
+                        <button
+                            type="button"
+                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                            tabIndex="-1"
+                            onClick={resetInputValue}
+                        >
+                            <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
+                        </button>
+                        <button
+                            type="button"
+                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
+                            tabIndex="-1"
+                        >
+                            <Icon name="search" extraClasses="ibexa-icon--small" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+    const renderFooter = () => {
+        if (!footer) {
+            return null;
+        }
+
+        return <div className="c-popup-menu__footer">{footer}</div>;
     };
 
     useEffect(() => {
@@ -124,59 +163,35 @@ const PopupMenu = ({ positionOffset, items, scrollContainer, referenceElement, o
 
     return (
         <div className={popupMenuClassName} style={itemsListStyles} ref={containerRef}>
-            <div className="c-popup-menu__search">
-                <div className="ibexa-input-text-wrapper">
-                    <input
-                        type="text"
-                        placeholder={searchPlaceholder}
-                        className="c-popup-menu__search-input ibexa-input ibexa-input--small ibexa-input--text form-control"
-                        onChange={updateFilterValue}
-                        value={filterText}
-                    />
-                    <div className="ibexa-input-text-wrapper__actions">
-                        <button
-                            type="button"
-                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
-                            tabIndex="-1"
-                            onClick={resetInputValue}
-                        >
-                            <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
-                        </button>
-                        <button
-                            type="button"
-                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
-                            tabIndex="-1"
-                        >
-                            <Icon name="search" extraClasses="ibexa-icon--small" />
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {renderSearch()}
             <div className="c-popup-menu__groups">{items.map(renderGroup)}</div>
-            { footer && (
-                <div class="c-popup-menu__footer">
-                    { footer }
-                </div>
-            ) }
+            {renderFooter()}
         </div>
     );
 };
 
 PopupMenu.propTypes = {
     referenceElement: PropTypes.isRequired,
+    extraClasses: PropTypes.string,
+    footer: PropTypes.node,
+    items: PropTypes.arrayOf({
+        items: PropTypes.shape({
+            value: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+            label: PropTypes.string,
+        }),
+    }),
+    onItemClick: PropTypes.func,
     positionOffset: PropTypes.func,
     scrollContainer: PropTypes.node,
-    onItemClick: PropTypes.func,
-    footer: PropTypes.node,
-    extraClasses: PropTypes.string,
 };
 
 PopupMenu.defaultProps = {
+    extraClasses: '',
+    footer: null,
+    items: [],
+    onItemClick: () => {},
     positionOffset: () => ({ x: 0, y: 0 }),
     scrollContainer: window.document.body,
-    onItemClick: () => {},
-    footer: null,
-    extraClasses: '',
 };
 
 export default PopupMenu;
