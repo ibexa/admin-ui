@@ -72,8 +72,6 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
         const { height: containerHeight } = containerRef.current.getBoundingClientRect();
         const bottom = referenceTop + containerHeight;
 
-        itemsStyles.top = referenceTop;
-
         if (window.innerHeight - bottom > MIN_ITEMS_LIST_HEIGHT) {
             const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'bottom');
 
@@ -171,7 +169,7 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
 };
 
 PopupMenu.propTypes = {
-    referenceElement: PropTypes.isRequired,
+    referenceElement: PropTypes.node.isRequired,
     extraClasses: PropTypes.string,
     footer: PropTypes.node,
     items: PropTypes.arrayOf({
