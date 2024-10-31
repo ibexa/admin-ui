@@ -83,15 +83,14 @@ final class UsersWithPermissionInfoMapper
         foreach ($searchResult as $result) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $userContentInfo */
             $userContentInfo = $result->valueObject;
-
             $user = $this->userService->loadUser($userContentInfo->getId());
-            $userReference = new UserReference($user->getUserId());
-            $userData = $this->getUserData($user);
 
+            $userReference = new UserReference($user->getUserId());
             $this->permissionResolver->setCurrentUserReference($userReference);
 
             $object = $context->getSubject();
             $targets = $context->getTargets();
+            $userData = $this->getUserData($user);
 
             if ($this->permissionResolver->canUser($module, $function, $object, $targets)) {
                 $results['access'][] = $userData;
