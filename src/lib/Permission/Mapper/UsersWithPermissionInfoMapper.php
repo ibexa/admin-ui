@@ -5,32 +5,31 @@
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 
-namespace Ibexa\AdminUi\User\Mapper;
+namespace Ibexa\AdminUi\Permission\Mapper;
 
+use Ibexa\AdminUi\Values\PermissionCheckContext;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
-use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\User\UserReference;
 
 /**
  * @phpstan-type TUserData array{
- *      access: array<array{
- *          name: string,
- *          email: string,
- *      }>,
- *      no_access: array<array{
- *          name: string,
- *          email: string,
- *      }>,
- *  }
+ *     id: int,
+ *     name: string,
+ *     email: string,
+ * }
+ * @phpstan-type TPermissionInfoData array{
+ *     access: array<TUserData>,
+ *     no_access: array<TUserData>,
+ * }
  */
-final class UsersWithPermissionInfoToContentItemMapper
+final class UsersWithPermissionInfoMapper
 {
     private PermissionResolver $permissionResolver;
 
-    private UserService  $userService;
+    private UserService $userService;
 
     public function __construct(
         UserService $userService,
@@ -41,9 +40,7 @@ final class UsersWithPermissionInfoToContentItemMapper
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\ValueObject> $targets
-     *
-     * @phpstan-return TUserData
+     * @phpstan-return TPermissionInfoData
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -51,14 +48,13 @@ final class UsersWithPermissionInfoToContentItemMapper
      */
     public function mapSearchResults(
         SearchResult $searchResult,
-        ContentInfo $contentInfo,
+        PermissionCheckContext $permissionContext,
         string $module,
-        string $function,
-        array $targets = []
+        string $function
     ): array {
         $currentUserReference = $this->permissionResolver->getCurrentUserReference();
 
-        $results = $this->groupByPermissions($searchResult, $contentInfo, $module, $function, $targets);
+        $results = $this->groupByPermissions($searchResult, $permissionContext, $module, $function);
 
         $this->permissionResolver->setCurrentUserReference($currentUserReference);
 
@@ -66,9 +62,7 @@ final class UsersWithPermissionInfoToContentItemMapper
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\ValueObject> $targets
-     *
-     * @phpstan-return TUserData
+     * @phpstan-return TPermissionInfoData
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -76,10 +70,9 @@ final class UsersWithPermissionInfoToContentItemMapper
      */
     private function groupByPermissions(
         SearchResult $searchResult,
-        ContentInfo $contentInfo,
+        PermissionCheckContext $context,
         string $module,
-        string $function,
-        array $targets = []
+        string $function
     ): array {
         $results = [
             'access' => [],
@@ -96,7 +89,10 @@ final class UsersWithPermissionInfoToContentItemMapper
 
             $this->permissionResolver->setCurrentUserReference($userReference);
 
-            if ($this->permissionResolver->canUser($module, $function, $contentInfo, $targets)) {
+            $object = $context->getSubject();
+            $targets = $context->getTargets();
+
+            if ($this->permissionResolver->canUser($module, $function, $object, $targets)) {
                 $results['access'][] = $userData;
             } else {
                 $results['no_access'][] = $userData;
@@ -107,14 +103,12 @@ final class UsersWithPermissionInfoToContentItemMapper
     }
 
     /**
-     * @return array{
-     *     name: string,
-     *     email: string,
-     * }
+     * @phpstan-return TUserData
      */
     private function getUserData(User $user): array
     {
         return [
+            'id' => $user->getUserId(),
             'name' => $user->getName() ?? $user->getLogin(),
             'email' => $user->email,
         ];
