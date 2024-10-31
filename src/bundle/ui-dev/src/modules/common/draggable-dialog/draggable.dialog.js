@@ -6,13 +6,13 @@ import { createCssClassNames } from '../helpers/css.class.names';
 
 export const DraggableContext = createContext();
 
-const DraggableDialog = ({ children, initialCoords }) => {
+const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
     const rootDOMElement = getRootDOMElement();
     const containerRef = useRef();
     const dragOffsetPosition = useRef({ x: 0, y: 0 });
     const containerSize = useRef({ width: 0, height: 0 });
     const [isDragging, setIsDragging] = useState(false);
-    const [coords, setCoords] = useState(initialCoords);
+    const [coords, setCoords] = useState({ x: 0, y: 0 });
     const containerAttrs = {
         ref: containerRef,
         className: 'c-draggable-dialog',
@@ -95,6 +95,16 @@ const DraggableDialog = ({ children, initialCoords }) => {
         };
     }, [isDragging]);
 
+    useEffect(() => {
+        const { top: referenceTop, left: referenceLeft } = referenceElement.getBoundingClientRect();
+        const { x: offsetX, y: offsetY } = positionOffset(referenceElement);
+
+        setCoords({
+            top: referenceTop + offsetY,
+            left: referenceLeft + offsetX,
+        });
+    }, [referenceElement]);
+
     return (
         <DraggableContext.Provider
             value={{
@@ -107,15 +117,14 @@ const DraggableDialog = ({ children, initialCoords }) => {
 };
 
 DraggableDialog.propTypes = {
-    initialCoords: PropTypes.shape({
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-    }).isRequired,
+    referenceElement: PropTypes.node.isRequired,
     children: PropTypes.node,
+    positionOffset: PropTypes.func,
 };
 
 DraggableDialog.defaultProps = {
     children: null,
+    positionOffset: () => ({ x: 0, y: 0 }),
 };
 
 export default DraggableDialog;

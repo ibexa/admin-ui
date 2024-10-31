@@ -11,11 +11,14 @@ const createDynamicRoot = (contextDOMElement = window.document.body, id) => {
 
     const reactRoot = window.ReactDOM.createRoot(rootDOMElement);
 
-    return { reactRoot, rootDOMElement };
+    return reactRoot;
 };
 
-const removeDynamicRoot = (rootDOMElement) => {
-    rootDOMElement.remove();
+const removeDynamicRoot = (reactRoot) => {
+    const rootDOMElement = reactRoot._internalRoot?.containerInfo;
+
+    reactRoot.unmount();
+    rootDOMElement?.remove();
 };
 
 export { createDynamicRoot, removeDynamicRoot };
