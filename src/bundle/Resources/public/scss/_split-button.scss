@@ -50,4 +50,13 @@
             }
         }
     }
+
+    &--filled-info {
+        .ibexa-split-btn {
+            &__split {
+                display: block;
+                background: $ibexa-color-white;
+            }
+        }
+    }
 }
