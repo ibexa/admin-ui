@@ -70,6 +70,20 @@
             field.classList.toggle('ibexa-available-field-type--hidden', isFieldHidden);
         });
     };
+    const reinitIdentifierAutogenerator = (fieldNode) => {
+        const sourceInputs = fieldNode.querySelectorAll('[data-autogenerate-identifier-target-selector]');
+            sourceInputs.forEach((sourceInput) => {
+                const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
+                const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
+                const identifierAutogenerator = new ibexa.core.SlugValueInputAutogenerator({
+                    sourceInput,
+                    targetInput,
+                    whitespaceTextReplacer: '_',
+                    shouldAutogenerateValue: true,
+                });
+                identifierAutogenerator.init();
+            });
+    }
     const removeDragPlaceholders = () => {
         const placeholderNodes = doc.querySelectorAll('.ibexa-field-definitions-placeholder');
 
@@ -139,6 +153,7 @@
         draggableGroups.forEach((group) => {
             group.reinit();
         });
+        reinitIdentifierAutogenerator(fieldNode);
     };
     const dispatchInsertFieldDefinitionNode = (fieldNode) => {
         doc.body.dispatchEvent(new CustomEvent('ibexa-inputs:added'));
@@ -651,5 +666,6 @@
         false,
     );
 
+    reinitIdentifierAutogenerator(global.document);
     toggleAddGroupTriggerBtnState();
 })(window, window.document, window.ibexa, window.Routing, window.Translator, window.bootstrap);
