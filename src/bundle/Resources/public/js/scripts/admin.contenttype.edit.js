@@ -72,17 +72,17 @@
     };
     const reinitIdentifierAutogenerator = (fieldNode) => {
         const sourceInputs = fieldNode.querySelectorAll('[data-autogenerate-identifier-target-selector]');
-            sourceInputs.forEach((sourceInput) => {
-                const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
-                const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
-                const identifierAutogenerator = new ibexa.core.SlugValueInputAutogenerator({
-                    sourceInput,
-                    targetInput,
-                    whitespaceTextReplacer: '_',
-                    shouldAutogenerateValue: true,
-                });
-                identifierAutogenerator.init();
+        sourceInputs.forEach((sourceInput) => {
+            const { autogenerateIdentifierTargetSelector } = sourceInput.dataset;
+            const targetInput = doc.querySelector(autogenerateIdentifierTargetSelector);
+            const identifierAutogenerator = new ibexa.core.SlugValueInputAutogenerator({
+                sourceInput,
+                targetInput,
+                whitespaceTextReplacer: '_',
+                shouldAutogenerateValue: true,
             });
+            identifierAutogenerator.init();
+        });
     }
     const removeDragPlaceholders = () => {
         const placeholderNodes = doc.querySelectorAll('.ibexa-field-definitions-placeholder');
