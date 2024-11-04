@@ -83,7 +83,7 @@
             });
             identifierAutogenerator.init();
         });
-    }
+    };
     const removeDragPlaceholders = () => {
         const placeholderNodes = doc.querySelectorAll('.ibexa-field-definitions-placeholder');
 
