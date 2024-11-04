@@ -29,11 +29,11 @@
             {{ form_row(field_definition.enabled) }}
         {% endif %}
 		{{ form_row(field_definition.name, {
-			attr: { 'data-autogenerate-identifier-target-selector': '.ibexa-ct-identifier-' ~ field_definition.vars.value.identifier }
-		}) }}
+            attr: { 'data-autogenerate-identifier-target-selector': '.ibexa-ct-identifier-' ~ field_definition.vars.value.identifier }
+        }) }}
 		{{ form_row(field_definition.identifier, {
-			attr: { class: 'ibexa-ct-identifier-' ~ field_definition.vars.value.identifier  }
-		}) }}
+            attr: { class: 'ibexa-ct-identifier-' ~ field_definition.vars.value.identifier  }
+        }) }}
         {{ form_row(field_definition.description) }}
         {{ form_row(field_definition.isRequired) }}
         {{ form_row(field_definition.isSearchable) }}
