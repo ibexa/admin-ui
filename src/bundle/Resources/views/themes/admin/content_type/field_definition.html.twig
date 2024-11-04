@@ -28,10 +28,10 @@
         {% if field_definition.enabled is defined %}
             {{ form_row(field_definition.enabled) }}
         {% endif %}
-		{{ form_row(field_definition.name, {
+        {{ form_row(field_definition.name, {
             attr: { 'data-autogenerate-identifier-target-selector': '.ibexa-ct-identifier-' ~ field_definition.vars.value.identifier }
         }) }}
-		{{ form_row(field_definition.identifier, {
+        {{ form_row(field_definition.identifier, {
             attr: { class: 'ibexa-ct-identifier-' ~ field_definition.vars.value.identifier  }
         }) }}
         {{ form_row(field_definition.description) }}
