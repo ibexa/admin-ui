@@ -101,6 +101,11 @@
         <target state="new">Any time</target>
         <note>key: trash.search.any_time</note>
       </trans-unit>
+      <trans-unit id="c7905f2b692c3d584517c5e6b921771afcc73cf1" resname="trash.search.search_by_content_name">
+        <source>Search by content name</source>
+        <target state="new">Search by content name</target>
+        <note>key: trash.search.search_by_content_name</note>
+      </trans-unit>
       <trans-unit id="c2b2679781ad4a22bb232e2ab34669ffe49c760b" resname="trash.search.section.any">
         <source>All</source>
         <target state="new">All</target>

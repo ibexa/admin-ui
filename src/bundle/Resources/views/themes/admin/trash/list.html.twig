@@ -24,10 +24,13 @@
 {% endblock %}
 
 {% block content %}
-    {%  set trash_search_params = app.request.get('trash_search') %}
+    {% set trash_search_params = app.request.get('trash_search') %}
 
-     <div class="ibexa-container">
+    <div class="ibexa-container">
         {% set collapsible_items = [
+            form_row(form_search.content_name, {
+                'attr': {'class': 'ibexa-trash-search-form__item'}
+            }),
             form_row(form_search.content_type, {
                 'attr': {'class': 'ibexa-trash-search-form__item ibexa-trash-search-form__item--auto-send'}
             }),
@@ -61,12 +64,12 @@
 
                     <div class="ibexa-trash-search-form__input-wrapper">
                         <input
-                            type="text"
-                            class="form-control ibexa-input ibexa-input--text ibexa-trash-search-form__input"
-                            data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                            value="{{ creator_exists ? ibexa_content_name(creator) }}"
-                            placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Search by creator') }}"
-                            {{ creator_exists ? 'disabled'  }}
+                                type="text"
+                                class="form-control ibexa-input ibexa-input--text ibexa-trash-search-form__input"
+                                data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
+                                value="{{ creator_exists ? ibexa_content_name(creator) }}"
+                                placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Search by creator') }}"
+                                {{ creator_exists ? 'disabled' }}
                         >
                         <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
                             <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--reset">
@@ -85,250 +88,249 @@
         {% endembed %}
 
         {{ form_start(form_trash_item_restore, {
-                'action': path('ibexa.trash.restore', { 'trash_search': trash_search_params })
-            }) }}
+            'action': path('ibexa.trash.restore', { 'trash_search': trash_search_params })
+        }) }}
 
-            {% if form_search.vars.data.sort is defined %}
-                {% set current_field = form_search.vars.data.sort['field'] %}
-                {% set current_direction = form_search.vars.data.sort['direction'] %}
-            {% else %}
-                {% set current_field = '' %}
-                {% set current_direction = '' %}
-            {% endif %}
+        {% if form_search.vars.data.sort is defined %}
+            {% set current_field = form_search.vars.data.sort['field'] %}
+            {% set current_direction = form_search.vars.data.sort['direction'] %}
+        {% else %}
+            {% set current_field = '' %}
+            {% set current_direction = '' %}
+        {% endif %}
 
-            {% set sort_directions = {
-                'name' : current_field == 'name' and current_direction == 0 ? 'DESC' : 'ASC',
-                'content_type' : current_field == 'content_type' and current_direction == 0 ? 'DESC' : 'ASC',
-                'creator' : current_field == 'creator' and current_direction == 0 ? 'DESC' : 'ASC',
-                'section' : current_field == 'section' and current_direction == 0 ? 'DESC' : 'ASC',
-                'trashed' : current_field == 'trashed' and current_direction == 0 ? 'DESC' : 'ASC',
-            } %}
+        {% set sort_directions = {
+            'name' : current_field == 'name' and current_direction == 0 ? 'DESC' : 'ASC',
+            'content_type' : current_field == 'content_type' and current_direction == 0 ? 'DESC' : 'ASC',
+            'creator' : current_field == 'creator' and current_direction == 0 ? 'DESC' : 'ASC',
+            'section' : current_field == 'section' and current_direction == 0 ? 'DESC' : 'ASC',
+            'trashed' : current_field == 'trashed' and current_direction == 0 ? 'DESC' : 'ASC',
+        } %}
 
-            {% set body_rows = [] %}
-            {% for key, form in form_trash_item_restore.trash_items %}
-                {% set body_row_cols = [] %}
-                {% set trash_item = trash_items[key] %}
-                {% set is_parent_in_trash = trash_item.parentInTrash %}
-                {% set trash_item_name = ibexa_content_name(trash_item.location.contentInfo) %}
+        {% set body_rows = [] %}
+        {% for key, form in form_trash_item_restore.trash_items %}
+            {% set body_row_cols = [] %}
+            {% set trash_item = trash_items[key] %}
+            {% set is_parent_in_trash = trash_item.parentInTrash %}
+            {% set trash_item_name = ibexa_content_name(trash_item.location.contentInfo) %}
 
-                {% set col_raw %}
-                    <div class="form-check">
-                        {{ form_widget(form, { attr: {
-                            'data-is-parent-in-trash': is_parent_in_trash ? '1': '0',
-                            class: 'ibexa-input ibexa-input--checkbox  form-check-input'
-                        }}) }}
-                    </div>
-                {% endset %}
-                {% set body_row_cols = body_row_cols|merge([{
-                    has_checkbox: true,
-                    content: col_raw,
-                    raw: true,
-                }]) %}
+            {% set col_raw %}
+                <div class="form-check">
+                    {{ form_widget(form, { attr: {
+                        'data-is-parent-in-trash': is_parent_in_trash ? '1': '0',
+                        class: 'ibexa-input ibexa-input--checkbox  form-check-input'
+                    }}) }}
+                </div>
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                has_checkbox: true,
+                content: col_raw,
+                raw: true,
+            }]) %}
 
-                {% set col_raw %}
-                    <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_content_type_icon(trash_item.contentType.identifier) }}"></use>
-                    </svg>
-                {% endset %}
-                {% set body_row_cols = body_row_cols|merge([{
-                    has_icon: true,
-                    content: col_raw,
-                    raw: true,
-                }]) %}
+            {% set col_raw %}
+                <svg class="ibexa-icon ibexa-icon--small">
+                    <use xlink:href="{{ ibexa_content_type_icon(trash_item.contentType.identifier) }}"></use>
+                </svg>
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                has_icon: true,
+                content: col_raw,
+                raw: true,
+            }]) %}
 
-                {% set col_raw %}
-                    <span title="{{ trash_item_name }}">
+            {% set col_raw %}
+                <span title="{{ trash_item_name }}">
                         {{ trash_item_name }}
                     </span>
-                {% endset %}
-                {% set body_row_cols = body_row_cols|merge([{
-                    content: col_raw,
-                    raw: true,
-                }]) %}
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                content: col_raw,
+                raw: true,
+            }]) %}
 
-                {% set creator_name %}
-                    {% if trash_item.creator is not empty %}
-                        {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: trash_item.creator } only %}
-                    {% else %}
-                        {{ 'trash.item.deleted_user'|trans|desc('Deleted user') }}
-                    {% endif %}
-                {% endset %}
-
-                {% set body_row_cols = body_row_cols|merge([
-                    { content: trash_item.contentType.name },
-                    { content: creator_name },
-                ]) %}
-
-                {% if can_view_section %}
-                    {% set body_row_cols = body_row_cols|merge([
-                        { content: trash_item.location.contentInfo.section.name }
-                    ]) %}
+            {% set creator_name %}
+                {% if trash_item.creator is not empty %}
+                    {% include '@ibexadesign/ui/component/user/user.html.twig' with { user: trash_item.creator } only %}
+                {% else %}
+                    {{ 'trash.item.deleted_user'|trans|desc('Deleted user') }}
                 {% endif %}
+            {% endset %}
 
-                {% set col_raw %}
-                    {% if not is_parent_in_trash %}
-                        {% include '@ibexadesign/ui/location_path.html.twig' with {'locations': trash_item.ancestors, 'link_last_element': true} %}
-                    {% else %}
-                        <em>{{ 'trash.item.ancesor_in_trash'|trans|desc('Ancestor is unknown') }}</em>
-                    {% endif %}
-                {% endset %}
-                {% set body_row_cols = body_row_cols|merge([{
-                    content: col_raw,
-                    raw: true,
-                }]) %}
-
-                {% set body_row_cols = body_row_cols|merge([
-                    { content: trash_item.location.trashed|ibexa_full_datetime },
-                ]) %}
-
-                {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
-            {% endfor %}
-
-            {% set head_cols = [
-                { has_checkbox: true },
-                { has_icon: true },
-                {
-                    content: 'trash.name'|trans|desc('Name'),
-                    sort_column: 'name',
-                    wrapper_attr: {
-                        'data-field': 'name',
-                        'data-direction': sort_directions.name,
-                    },
-                },
-                {
-                    content: 'trash.content_type'|trans|desc('Content type'),
-                    sort_column: 'content_type',
-                    wrapper_attr: {
-                        'data-field': 'content_type',
-                        'data-direction': sort_directions.content_type,
-                    },
-                },
-                {
-                    content: 'trash.creator'|trans|desc('Creator'),
-                    sort_column: 'creator',
-                    wrapper_attr: {
-                        'data-field': 'creator',
-                        'data-direction': sort_directions.creator,
-                    },
-                }
-            ] %}
+            {% set body_row_cols = body_row_cols|merge([
+                { content: trash_item.contentType.name },
+                { content: creator_name },
+            ]) %}
 
             {% if can_view_section %}
-                {% set head_cols = head_cols|merge([
-                    {
-                        content: 'trash.section'|trans|desc('Section'),
-                        sort_column: 'section',
-                        wrapper_attr: {
-                            'data-field': 'section',
-                            'data-direction': sort_directions.section,
-                        },
-                    },
+                {% set body_row_cols = body_row_cols|merge([
+                    { content: trash_item.location.contentInfo.section.name }
                 ]) %}
             {% endif %}
 
-            {% set head_cols = head_cols|merge([
-                { content: 'trash.original_location'|trans|desc('Location') },
-                {
-                    content: 'trash.date'|trans|desc('Trashed'),
-                    sort_column: 'trashed',
-                    wrapper_attr: {
-                        'data-field': 'trashed',
-                        'data-direction': sort_directions.trashed,
-                    }
-                },
+            {% set col_raw %}
+                {% if not is_parent_in_trash %}
+                    {% include '@ibexadesign/ui/location_path.html.twig' with {'locations': trash_item.ancestors, 'link_last_element': true} %}
+                {% else %}
+                    <em>{{ 'trash.item.ancesor_in_trash'|trans|desc('Ancestor is unknown') }}</em>
+                {% endif %}
+            {% endset %}
+            {% set body_row_cols = body_row_cols|merge([{
+                content: col_raw,
+                raw: true,
+            }]) %}
+
+            {% set body_row_cols = body_row_cols|merge([
+                { content: trash_item.location.trashed|ibexa_full_datetime },
             ]) %}
 
-            {% set has_search_params = trash_search_params|length > 0
-                ? trash_search_params.creator is defined
-                   or trash_search_params.content_type is defined
-                   or trash_search_params.trashed is defined
-                   or trash_search_params.section is defined
-                : false
-            %}
+            {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+        {% endfor %}
 
-            {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: custom_results_headline ?? results_headline(pager.getNbResults(), has_search_params),
-                head_cols,
-                body_rows,
-                empty_table_info_text: 'trash.empty'|trans|desc('Trash is empty. Content you send to Trash will show up here.'),
-            } %}
-                {% set modal_create_data_target = 'create-wildcards-modal' %}
-                {% set modal_delete_data_target = 'delete-wildcards-modal' %}
+        {% set head_cols = [
+            { has_checkbox: true },
+            { has_icon: true },
+            {
+                content: 'trash.name'|trans|desc('Name'),
+                sort_column: 'name',
+                wrapper_attr: {
+                'data-field': 'name',
+                'data-direction': sort_directions.name,
+            },
+            },
+            {
+                content: 'trash.content_type'|trans|desc('Content type'),
+                sort_column: 'content_type',
+                wrapper_attr: {
+                'data-field': 'content_type',
+                'data-direction': sort_directions.content_type,
+            },
+            },
+            {
+                content: 'trash.creator'|trans|desc('Creator'),
+                sort_column: 'creator',
+                wrapper_attr: {
+                'data-field': 'creator',
+                'data-direction': sort_directions.creator,
+            },
+            }
+        ] %}
 
-                {% block header %}
-                    {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
-                        {% block actions %}
-                            {% if can_restore and form_trash_item_restore.trash_items is not empty %}
-                                {% set restore_under_new_parent_button_attr = form_trash_item_restore.location.select_content.vars.attr|merge({
-                                    'attr': {
-                                        'data-udw-config': ibexa_udw_config('single_container', {}),
-                                        'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--small')|trim,
-                                        'disabled': true
-                                    }, 'label': 'trash.button.restore_new_location'|trans({},'ibexa_trash')|desc("Restore in a new location")
-                                }) %}
-                                {{ form_widget(form_trash_item_restore.location.select_content, restore_under_new_parent_button_attr) }}
-                                {{ form_widget(form_trash_item_restore.location.location) }}
-                                {% do form_trash_item_restore.location.setRendered %}
-                                {{ form_widget(form_trash_item_restore.restore, {
-                                    'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true},
-                                    'label': 'trash.button.restore'|trans({},'ibexa_trash')|desc('Restore')
-                                }) }}
-                            {% else %}
-                                {% do form_trash_item_restore.location.setRendered %}
-                                {% do form_trash_item_restore.restore.setRendered %}
-                            {% endif %}
-                            {% if can_delete %}
-                                {% set modal_data_target = 'delete-trash-items-modal' %}
-                                <button
+        {% if can_view_section %}
+            {% set head_cols = head_cols|merge([
+                {
+                    content: 'trash.section'|trans|desc('Section'),
+                    sort_column: 'section',
+                    wrapper_attr: {
+                    'data-field': 'section',
+                    'data-direction': sort_directions.section,
+                },
+                },
+            ]) %}
+        {% endif %}
+
+        {% set head_cols = head_cols|merge([
+            { content: 'trash.original_location'|trans|desc('Location') },
+            {
+                content: 'trash.date'|trans|desc('Trashed'),
+                sort_column: 'trashed',
+                wrapper_attr: {
+                'data-field': 'trashed',
+                'data-direction': sort_directions.trashed,
+            }
+            },
+        ]) %}
+
+        {% set has_search_params = trash_search_params|length > 0
+            ? trash_search_params.creator is defined
+            or trash_search_params.content_type is defined
+            or trash_search_params.trashed is defined
+            or trash_search_params.section is defined
+            : false %}
+
+        {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+            headline: custom_results_headline ?? results_headline(pager.getNbResults(), has_search_params),
+            head_cols,
+            body_rows,
+            empty_table_info_text: 'trash.empty'|trans|desc('Trash is empty. Content you send to Trash will show up here.'),
+        } %}
+            {% set modal_create_data_target = 'create-wildcards-modal' %}
+            {% set modal_delete_data_target = 'delete-wildcards-modal' %}
+
+            {% block header %}
+                {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
+                    {% block actions %}
+                        {% if can_restore and form_trash_item_restore.trash_items is not empty %}
+                            {% set restore_under_new_parent_button_attr = form_trash_item_restore.location.select_content.vars.attr|merge({
+                                'attr': {
+                                    'data-udw-config': ibexa_udw_config('single_container', {}),
+                                    'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--small')|trim,
+                                    'disabled': true
+                                }, 'label': 'trash.button.restore_new_location'|trans({},'ibexa_trash')|desc("Restore in a new location")
+                            }) %}
+                            {{ form_widget(form_trash_item_restore.location.select_content, restore_under_new_parent_button_attr) }}
+                            {{ form_widget(form_trash_item_restore.location.location) }}
+                            {% do form_trash_item_restore.location.setRendered %}
+                            {{ form_widget(form_trash_item_restore.restore, {
+                                'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true},
+                                'label': 'trash.button.restore'|trans({},'ibexa_trash')|desc('Restore')
+                            }) }}
+                        {% else %}
+                            {% do form_trash_item_restore.location.setRendered %}
+                            {% do form_trash_item_restore.restore.setRendered %}
+                        {% endif %}
+                        {% if can_delete %}
+                            {% set modal_data_target = 'delete-trash-items-modal' %}
+                            <button
                                     id="delete-trash-items"
                                     type="button"
                                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
                                     disabled
                                     data-bs-toggle="modal"
                                     data-bs-target="#{{ modal_data_target }}"
-                                >
-                                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
-                                        <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                    </svg>
-                                    <span class="ibexa-btn__label">
+                            >
+                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                                </svg>
+                                <span class="ibexa-btn__label">
                                         {{ 'trash.delete'|trans|desc('Delete') }}
                                     </span>
-                                </button>
-                                {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
-                                    'id': modal_data_target,
-                                    'message': 'trash.modal.message'|trans|desc('Delete the selected items permanently?'),
-                                    'data_click': '#trash_item_delete_delete',
-                                }%}
-                            {% endif %}
-                        {% endblock %}
-                    {% endembed %}
-                {% endblock %}
-            {% endembed %}
+                            </button>
+                            {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                                'id': modal_data_target,
+                                'message': 'trash.modal.message'|trans|desc('Delete the selected items permanently?'),
+                                'data_click': '#trash_item_delete_delete',
+                            } %}
+                        {% endif %}
+                    {% endblock %}
+                {% endembed %}
+            {% endblock %}
+        {% endembed %}
 
-            {{ form_widget(form_trash_item_restore._token) }}
-            {{ form_end(form_trash_item_restore, { 'render_rest': false }) }}
+        {{ form_widget(form_trash_item_restore._token) }}
+        {{ form_end(form_trash_item_restore, { 'render_rest': false }) }}
 
-            {{ form_start(form_trash_item_delete, {
-                'action': path('ibexa.trash.delete', { 'trash_search': trash_search_params })
-            }) }}
-            {% for key, form in form_trash_item_delete.trash_items %}
-                {% set trash_item = trash_items[key] %}
-                {{ form_widget(form) }}
-            {% endfor %}
-            {{ form_widget(form_trash_item_delete._token) }}
-            {{ form_widget(form_trash_item_delete.delete) }}
-            {{ form_end(form_trash_item_delete, { 'render_rest': false }) }}
+        {{ form_start(form_trash_item_delete, {
+            'action': path('ibexa.trash.delete', { 'trash_search': trash_search_params })
+        }) }}
+        {% for key, form in form_trash_item_delete.trash_items %}
+            {% set trash_item = trash_items[key] %}
+            {{ form_widget(form) }}
+        {% endfor %}
+        {{ form_widget(form_trash_item_delete._token) }}
+        {{ form_widget(form_trash_item_delete.delete) }}
+        {{ form_end(form_trash_item_delete, { 'render_rest': false }) }}
 
-            {% if pager.haveToPaginate %}
-                {% include '@ibexadesign/ui/pagination.html.twig' with {
-                    'pager': pager,
-                    'paginaton_params' : {
-                        'pageParameter': '[trash_search][page]'
-                    }
-                } %}
-            {% endif %}
-            {% include '@ibexadesign/trash/modal/empty_trash_confirmation.html.twig' with {'form': form_trash_empty, 'trash_items_count': pager.nbResults} %}
-     </div> 
+        {% if pager.haveToPaginate %}
+            {% include '@ibexadesign/ui/pagination.html.twig' with {
+                'pager': pager,
+                'paginaton_params' : {
+                    'pageParameter': '[trash_search][page]'
+                }
+            } %}
+        {% endif %}
+        {% include '@ibexadesign/trash/modal/empty_trash_confirmation.html.twig' with {'form': form_trash_empty, 'trash_items_count': pager.nbResults} %}
+    </div>
 {% endblock %}
 
 {% block react_modules %}
