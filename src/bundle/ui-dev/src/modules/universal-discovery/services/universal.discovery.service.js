@@ -1,4 +1,5 @@
-import { getRequestHeaders, getRequestMode } from '../../../../../Resources/public/js/scripts/helpers/request.helper.js';
+import { getRequestHeaders, getRequestMode } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/request.helper.js';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { showErrorNotification } from '../../common/services/notification.service';
 import { handleRequestResponse, handleRequestResponseStatus } from '../../common/helpers/request.helper.js';
 
@@ -15,6 +16,14 @@ const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locatio
 
 export const QUERY_LIMIT = 50;
 export const AGGREGATIONS_LIMIT = 4;
+
+const addLanguageCodeToCreateViewEndpoint = (body) => {
+    const adminUiConfig = getAdminUiConfig();
+
+    if (adminUiConfig.languages.priority[0]) {
+        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+    }
+};
 
 const showErrorNotificationAbortWrapper = (error) => {
     if (error?.name === 'AbortError') {
@@ -191,7 +200,7 @@ export const findLocationsBySearchQuery = (
     },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const body = {
         ViewInput: {
             identifier: `udw-locations-by-search-query-${query.FullTextCriterion}`,
             public: false,
@@ -212,7 +221,10 @@ export const findLocationsBySearchQuery = (
                 offset,
             },
         },
-    });
+    };
+
+    addLanguageCodeToCreateViewEndpoint(body);
+
     const abortController = new AbortController();
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -222,7 +234,7 @@ export const findLocationsBySearchQuery = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
         signal: abortController.signal,
@@ -251,7 +263,7 @@ export const findLocationsById = (
     { token, siteaccess, accessToken, id, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const body = {
         ViewInput: {
             identifier: `udw-locations-by-id-${id}`,
             public: false,
@@ -263,7 +275,9 @@ export const findLocationsById = (
                 offset,
             },
         },
-    });
+    };
+
+    addLanguageCodeToCreateViewEndpoint(body);
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -273,7 +287,7 @@ export const findLocationsById = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
@@ -292,7 +306,7 @@ export const findContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const body = {
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
             public: false,
@@ -304,7 +318,10 @@ export const findContentInfo = (
                 offset,
             },
         },
-    });
+    };
+
+    addLanguageCodeToCreateViewEndpoint(body);
+
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -313,7 +330,7 @@ export const findContentInfo = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
@@ -413,7 +430,7 @@ export const loadContentInfo = (
     { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const body = {
         ViewInput: {
             identifier: `udw-load-content-info-${contentId}`,
             public: false,
@@ -425,7 +442,10 @@ export const loadContentInfo = (
                 offset,
             },
         },
-    });
+    };
+
+    addLanguageCodeToCreateViewEndpoint(body);
+
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -434,7 +454,7 @@ export const loadContentInfo = (
             accessToken,
             extraHeaders: HEADERS_CREATE_VIEW,
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
@@ -495,7 +515,7 @@ export const findSuggestions = (
     { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
     callback,
 ) => {
-    const body = JSON.stringify({
+    const body = {
         ViewInput: {
             identifier: 'view_with_aggregation',
             LocationQuery: {
@@ -514,7 +534,10 @@ export const findSuggestions = (
                 ],
             },
         },
-    });
+    };
+
+    addLanguageCodeToCreateViewEndpoint(body);
+
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
         headers: getRequestHeaders({
@@ -525,7 +548,7 @@ export const findSuggestions = (
                 ...HEADERS_CREATE_VIEW,
             },
         }),
-        body,
+        body: JSON.stringify(body),
         mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
