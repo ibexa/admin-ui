@@ -9,9 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\Content;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\AdminUi\Pagination\Adapter\RelationListIteratorAdapter;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Iterator\BatchIterator;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\RelationListIteratorAdapter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
