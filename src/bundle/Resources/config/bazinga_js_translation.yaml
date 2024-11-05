@@ -12,4 +12,5 @@ active_domains:
     - 'ibexa_user_invitation'
     - 'ibexa_content_type'
     - 'ibexa_dropdown'
+    - 'ibexa_popup_menu'
     - 'messages'
