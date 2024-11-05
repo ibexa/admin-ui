@@ -30,10 +30,10 @@
     {%- block body_content -%}
         <div class="ibexa-content-type-edit__field-definition-content">
             {{ form_row(form.name, {
-                attr: { 'data-autogenerate-identifier-target-selector': '.ibexa-ct-identifier-' ~ form.identifier.vars.value }
+                attr: { 'data-autogenerate-identifier-target-selector': '#ibexa-ct-identifier-' ~ form.identifier.vars.value }
             }) }}
             {{ form_row(form.identifier,  {
-                attr: { class: 'ibexa-ct-identifier-' ~ form.identifier.vars.value },
+                id: 'ibexa-ct-identifier-' ~ form.identifier.vars.value
             }) }}
             {{ form_row(form.description) }}
             {{ form_row(form.isRequired) }}
