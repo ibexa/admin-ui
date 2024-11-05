@@ -2,7 +2,6 @@ import React, { useRef, createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-import { createCssClassNames } from '../helpers/css.class.names';
 
 export const DraggableContext = createContext();
 
