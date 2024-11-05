@@ -23,7 +23,7 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
         'c-popup-menu--visible': isVisible,
         [extraClasses]: true,
     });
-    const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'popup_menu.placeholder', {}, 'popup_menu');
+    const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'ibexa_popup_menu.search.placeholder', {}, 'ibexa_popup_menu');
     const updateFilterValue = (event) => setFilterText(event.target.value);
     const resetInputValue = () => setFilterText('');
     const showItem = (item) => {
