@@ -456,7 +456,7 @@ parameters:
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
-			message: "#^Cannot access offset 0 on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
+			message: "#^Cannot access offset 0 on iterable\\<int, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 
@@ -9546,7 +9546,7 @@ parameters:
 			path: src/lib/UI/Dataset/VersionsDataset.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<int, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/VersionsDataset.php
 
