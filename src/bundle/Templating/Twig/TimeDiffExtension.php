@@ -28,15 +28,6 @@ class TimeDiffExtension extends AbstractExtension
     {
         return [
             new TwigFilter(
-                'ez_datetime_diff',
-                [$this, 'diff'],
-                [
-                    'is_safe' => ['html'],
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_datetime_diff',
-                ]
-            ),
-            new TwigFilter(
                 'ibexa_datetime_diff',
                 [$this, 'diff'],
                 ['is_safe' => ['html']]

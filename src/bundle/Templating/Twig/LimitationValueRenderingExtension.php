@@ -35,16 +35,6 @@ class LimitationValueRenderingExtension extends AbstractExtension
 
         return [
             new TwigFunction(
-                'ez_render_limitation_value',
-                $limitationValueCallable,
-                [
-                    'is_safe' => ['html'],
-                    'needs_environment' => true,
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_render_limitation_value',
-                ]
-            ),
-            new TwigFunction(
                 'ibexa_render_limitation_value',
                 $limitationValueCallable,
                 ['is_safe' => ['html'], 'needs_environment' => true]
