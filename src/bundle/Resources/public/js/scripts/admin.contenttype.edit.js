@@ -148,7 +148,7 @@
             }),
         );
         doc.body.dispatchEvent(
-            new CustomEvent('ibexa-recall-autogenerate-identifier', {
+            new CustomEvent('ibexa-autogenerate-identifier:init', {
                 detail: { fieldNode, shouldAutogenerateValue: true },
             }),
         );
@@ -656,10 +656,5 @@
         false,
     );
 
-    doc.body.dispatchEvent(
-        new CustomEvent('ibexa-recall-autogenerate-identifier', {
-            detail: { fieldNode: global.document, shouldAutogenerateValue: true },
-        }),
-    );
     toggleAddGroupTriggerBtnState();
 })(window, window.document, window.ibexa, window.Routing, window.Translator, window.bootstrap);
