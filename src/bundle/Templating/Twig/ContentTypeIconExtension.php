@@ -25,15 +25,6 @@ class ContentTypeIconExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ez_content_type_icon',
-                [$this->contentTypeIconResolver, 'getContentTypeIcon'],
-                [
-                    'is_safe' => ['html'],
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_content_type_icon',
-                ]
-            ),
-            new TwigFunction(
                 'ibexa_content_type_icon',
                 [$this->contentTypeIconResolver, 'getContentTypeIcon'],
                 [

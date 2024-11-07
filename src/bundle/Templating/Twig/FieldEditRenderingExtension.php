@@ -38,16 +38,6 @@ class FieldEditRenderingExtension extends AbstractExtension
 
         return [
             new TwigFunction(
-                'ez_render_field_definition_edit',
-                $fieldDefinitionEditCallable,
-                [
-                    'is_safe' => ['html'],
-                    'needs_environment' => true,
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_render_field_definition_edit',
-                ]
-            ),
-            new TwigFunction(
                 'ibexa_render_field_definition_edit',
                 $fieldDefinitionEditCallable,
                 [
