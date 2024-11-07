@@ -1,5 +1,5 @@
 .c-popup-menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: calculateRem(1px);
     padding: calculateRem(8px) 0;
@@ -10,8 +10,8 @@
     position: fixed;
     z-index: 1060;
 
-    &--visible {
-        display: flex;
+    &--hidden {
+        visibility: hidden;
     }
 
     &__search {

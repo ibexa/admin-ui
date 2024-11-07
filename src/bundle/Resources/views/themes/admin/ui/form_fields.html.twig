@@ -399,6 +399,11 @@
             {% block content %}
                 {{ input_html }}
             {% endblock %}
+
+            {% block actions %}
+                {{ parent() }}
+                {{ extra_actions_after|default()}}
+            {% endblock %}
         {%- endembed -%}
     {%- else -%}
         {{ parent() }}
