@@ -2,6 +2,7 @@ import React, { useRef, createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
 
 export const DraggableContext = createContext();
 
@@ -11,10 +12,14 @@ const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
     const dragOffsetPosition = useRef({ x: 0, y: 0 });
     const containerSize = useRef({ width: 0, height: 0 });
     const [isDragging, setIsDragging] = useState(false);
-    const [coords, setCoords] = useState({ x: 0, y: 0 });
+    const [coords, setCoords] = useState({ x: null, y: null });
+    const dialogClasses = createCssClassNames({
+        'c-draggable-dialog': true,
+        'c-draggable-dialog--hidden': coords.x === null || coords.y === null,
+    });
     const containerAttrs = {
         ref: containerRef,
-        className: 'c-draggable-dialog',
+        className: dialogClasses,
         style: {
             top: coords.y,
             left: coords.x,
@@ -96,11 +101,26 @@ const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
 
     useEffect(() => {
         const { top: referenceTop, left: referenceLeft } = referenceElement.getBoundingClientRect();
+        const { width: containerWidth, height: containerHeight } = containerRef.current.getBoundingClientRect();
         const { x: offsetX, y: offsetY } = positionOffset(referenceElement);
+        let x = referenceLeft + offsetX;
+        let y = referenceTop + offsetY;
+
+        if (x < 0) {
+            x = 0;
+        } else if (x + containerWidth > window.innerWidth) {
+            x = window.innerWidth - containerWidth;
+        }
+
+        if (y < 0) {
+            y = 0;
+        } else if (y + containerHeight > window.innerHeight) {
+            y = window.innerHeight - containerHeight;
+        }
 
         setCoords({
-            top: referenceTop + offsetY,
-            left: referenceLeft + offsetX,
+            x,
+            y,
         });
     }, [referenceElement]);
 

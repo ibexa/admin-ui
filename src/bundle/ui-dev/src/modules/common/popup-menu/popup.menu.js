@@ -8,10 +8,10 @@ import Icon from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/icon/icon
 const MIN_SEARCH_ITEMS_DEFAULT = 5;
 const MIN_ITEMS_LIST_HEIGHT = 150;
 
-const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, referenceElement, scrollContainer }) => {
+const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, referenceElement, scrollContainer, onClose }) => {
     const Translator = getTranslator();
     const containerRef = useRef();
-    const [isVisible, setIsVisible] = useState(true);
+    const [isRendered, setIsRendered] = useState(false);
     const [itemsListStyles, setItemsListStyles] = useState({
         left: 0,
         top: 0,
@@ -20,7 +20,7 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
     const numberOfItems = useMemo(() => items.reduce((sum, group) => sum + group.items.length, 0), [items]);
     const popupMenuClassName = createCssClassNames({
         'c-popup-menu': true,
-        'c-popup-menu--visible': isVisible,
+        'c-popup-menu--hidden': !isRendered,
         [extraClasses]: true,
     });
     const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'ibexa_popup_menu.search.placeholder', {}, 'ibexa_popup_menu');
@@ -77,13 +77,13 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
 
             itemsStyles.top = referenceTop + offsetY;
             itemsStyles.left = referenceLeft + offsetX;
-            itemsStyles.maxHeight = window.innerHeight - bottom;
+            itemsStyles.maxHeight = window.innerHeight - itemsStyles.top;
         } else {
             const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'top');
 
             itemsStyles.top = referenceTop + offsetY;
             itemsStyles.left = referenceLeft + offsetX;
-            itemsStyles.maxHeight = referenceTop;
+            itemsStyles.maxHeight = itemsStyles.top;
             itemsStyles.transform = 'translateY(-100%)';
         }
 
@@ -135,17 +135,14 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
 
     useEffect(() => {
         calculateAndSetItemsListStyles();
-
-        if (!isVisible) {
-            return;
-        }
+        setIsRendered(true);
 
         const onInteractionOutside = (event) => {
             if (containerRef.current.contains(event.target) || referenceElement.contains(event.target)) {
                 return;
             }
 
-            setIsVisible(false);
+            onClose();
         };
 
         window.document.body.addEventListener('click', onInteractionOutside, false);
@@ -157,7 +154,7 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
 
             setItemsListStyles({});
         };
-    }, [isVisible]);
+    }, [onClose, scrollContainer]);
 
     return (
         <div className={popupMenuClassName} style={itemsListStyles} ref={containerRef}>
@@ -178,6 +175,7 @@ PopupMenu.propTypes = {
             label: PropTypes.string,
         }),
     }),
+    onClose: PropTypes.func,
     onItemClick: PropTypes.func,
     positionOffset: PropTypes.func,
     scrollContainer: PropTypes.node,
@@ -187,6 +185,7 @@ PopupMenu.defaultProps = {
     extraClasses: '',
     footer: null,
     items: [],
+    onClose: () => {},
     onItemClick: () => {},
     positionOffset: () => ({ x: 0, y: 0 }),
     scrollContainer: window.document.body,
