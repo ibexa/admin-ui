@@ -14,8 +14,10 @@
 
 {% block header_row %}
     <div class="ibexa-preview-header">
-        <div class="ibexa-preview-header__item ibexa-preview-header__item--siteaccess">
-            {{ form(site_access_form) }}
+        <div class="ibexa-preview-header__item">
+            <div class="ibexa-preview-header__item--siteaccess ibexa-preview-header__item--separation-line">
+                {{ form(site_access_form) }}
+            </div>
         </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--actions">
             <button data-preview-mode="desktop" class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--dark-selector ibexa-btn--selected ibexa-preview-header__action">
