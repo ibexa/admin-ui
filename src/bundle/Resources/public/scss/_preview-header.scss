@@ -22,6 +22,7 @@
             .ibexa-dropdown {
                 --ibexa-dropdown-primary-color: #{$ibexa-color-white};
                 --ibexa-text-color: #{$ibexa-color-white};
+                border-right: calculateRem(1px) solid $ibexa-color-dark-400;
             }
 
             .ibexa-dropdown__selection-info {
@@ -34,10 +35,6 @@
             grid-area: actions;
             display: flex;
             align-items: center;
-        }
-
-        &--separation-line {
-            border-right: calculateRem(1px) solid $ibexa-color-dark-400;
         }
     }
 
