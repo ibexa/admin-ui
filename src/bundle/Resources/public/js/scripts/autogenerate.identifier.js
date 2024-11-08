@@ -14,7 +14,6 @@
             identifierAutogenerator.init();
         });
     };
-
     const attachListeners = () => {
         doc.body.addEventListener(
             'ibexa-autogenerate-identifier:init',
