@@ -17,12 +17,10 @@ const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locatio
 export const QUERY_LIMIT = 50;
 export const AGGREGATIONS_LIMIT = 4;
 
-const addLanguageCodeToCreateViewEndpoint = (body) => {
+const addLanguageCodeToCreateViewEndpoint = (body, languageCode) => {
     const adminUiConfig = getAdminUiConfig();
 
-    if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
-    }
+    body.ViewInput.languageCode = languageCode ?? adminUiConfig.languages.priority[0];
 };
 
 const showErrorNotificationAbortWrapper = (error) => {
@@ -204,7 +202,6 @@ export const findLocationsBySearchQuery = (
         ViewInput: {
             identifier: `udw-locations-by-search-query-${query.FullTextCriterion}`,
             public: false,
-            languageCode,
             useAlwaysAvailable,
             LocationQuery: {
                 FacetBuilders: {},
@@ -223,7 +220,7 @@ export const findLocationsBySearchQuery = (
         },
     };
 
-    addLanguageCodeToCreateViewEndpoint(body);
+    addLanguageCodeToCreateViewEndpoint(body, languageCode);
 
     const abortController = new AbortController();
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
