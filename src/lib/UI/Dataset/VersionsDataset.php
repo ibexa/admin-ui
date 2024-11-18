@@ -12,6 +12,7 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use function Ibexa\PolyfillPhp82\iterator_to_array;
 
 class VersionsDataset
 {
@@ -43,13 +44,9 @@ class VersionsDataset
     {
         $versions = $this->contentService->loadVersions($contentInfo);
 
-        if ($versions instanceof \Traversable) {
-            $versions = iterator_to_array($versions);
-        }
-
         $this->data = array_map(
             [$this->valueFactory, 'createVersionInfo'],
-            $versions
+            iterator_to_array($versions)
         );
 
         return $this;
