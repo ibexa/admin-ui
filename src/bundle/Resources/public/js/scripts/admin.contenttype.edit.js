@@ -147,6 +147,11 @@
                 detail: { nodes: [fieldNode] },
             }),
         );
+        doc.body.dispatchEvent(
+            new CustomEvent('ibexa-autogenerate-identifier:init', {
+                detail: { fieldNode, shouldAutogenerateValue: true },
+            }),
+        );
     };
     const insertFieldDefinitionNode = (fieldNode, { targetContainer, draggedItemPosition }) => {
         const fieldDefinitionNode = createFieldDefinitionNode(fieldNode, { targetContainer, draggedItemPosition });
