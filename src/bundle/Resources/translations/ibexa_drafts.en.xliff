@@ -66,6 +66,11 @@
         <target state="new">Version</target>
         <note>key: drafts.list.version</note>
       </trans-unit>
+      <trans-unit id="b107e8277d2dda6c41872a6478d99abbe9b46dc0" resname="trash.modal.send_to_trash_draft_warning.message">
+        <source>Sending this content item to Trash will also delete all drafts of content items that haven’t been published yet, and belong to the trashed subtree.</source>
+        <target state="new">Sending this content item to Trash will also delete all drafts of content items that haven’t been published yet, and belong to the trashed subtree.</target>
+        <note>key: trash.modal.send_to_trash_draft_warning.message</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

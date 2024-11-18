@@ -21,6 +21,21 @@
 
     .modal-body {
         @include modal-body();
+
+        .ibexa-modal__trash-option {
+            .ibexa-modal__option-label {
+                margin-bottom: 0;
+                margin-top: calculateRem(18px);
+            }
+
+            .ibexa-label {
+                font-size: calculateRem(16px);
+            }
+
+            .ibexa-modal__option-description {
+                font-size: calculateRem(14px);
+            }
+        }
     }
 
     .modal-footer {
