@@ -261,7 +261,11 @@
             %}
 
             {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: custom_results_headline ?? results_headline(pager.getNbResults(), has_search_params),
+                headline: custom_results_headline ?? results_headline(
+                    pager.getNbResults(),
+                    has_search_params,
+                    trash_search_params.content_name,
+                ),
                 head_cols,
                 body_rows,
                 empty_table_info_text: has_search_params
