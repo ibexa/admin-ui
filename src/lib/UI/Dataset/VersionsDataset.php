@@ -12,6 +12,7 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use function Ibexa\PolyfillPhp82\iterator_to_array;
 
 class VersionsDataset
 {
@@ -41,9 +42,11 @@ class VersionsDataset
      */
     public function load(ContentInfo $contentInfo): self
     {
+        $versions = $this->contentService->loadVersions($contentInfo);
+
         $this->data = array_map(
             [$this->valueFactory, 'createVersionInfo'],
-            $this->contentService->loadVersions($contentInfo)
+            iterator_to_array($versions)
         );
 
         return $this;

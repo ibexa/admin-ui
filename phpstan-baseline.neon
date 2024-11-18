@@ -456,11 +456,6 @@ parameters:
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
-			message: "#^Cannot access offset 0 on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
 			message: "#^Cannot access property \\$contentId on Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Location\\|null\\.$#"
 			count: 3
 			path: src/bundle/Controller/LocationController.php
@@ -9331,11 +9326,6 @@ parameters:
 			path: src/lib/UI/Dataset/PoliciesDataset.php
 
 		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$versionInfo$#"
-			count: 1
-			path: src/lib/UI/Dataset/RelationsDataset.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\RolesDataset\\:\\:__construct\\(\\) has parameter \\$userContentTypeIdentifier with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/RolesDataset.php
@@ -9387,11 +9377,6 @@ parameters:
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\UI\\\\Dataset\\\\VersionsDataset\\:\\:getConflictedDraftVersions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/UI/Dataset/VersionsDataset.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/VersionsDataset.php
 
