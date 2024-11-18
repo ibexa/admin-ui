@@ -1,9 +1,9 @@
-(function (global, doc) {
+(function (global, doc, bootstrap) {
     let toggleAllTimeout;
     const toggleAllBtn = doc.querySelector('.multi-collapse-btn');
     const expandAll = toggleAllBtn?.querySelector('.ibexa-attribute-group__toggler-expand');
     const collapseAll = toggleAllBtn?.querySelector('.ibexa-attribute-group__toggler-collapse');
-    MULTI_COLLAPSE_BODY_CLASS = '.multi-collapse';
+    const MULTI_COLLAPSE_BODY_CLASS = '.multi-collapse';
     let singleElementClicked = [];
     const checkIfChangeText = () => {
         const allGroups = doc.querySelectorAll(MULTI_COLLAPSE_BODY_CLASS);
@@ -67,12 +67,11 @@
     });
 
     if (toggleAllBtn) {
-        const collapseAll = toggleAllBtn.querySelector('.ibexa-attribute-group__toggler-collapse');
         toggleAllBtn.addEventListener('click', (event) => {
             event.stopPropagation();
             window.clearTimeout(toggleAllTimeout);
             toggleAllTimeout = window.setTimeout(() => {
-                isExpanding = collapseAll.classList.contains('d-none');
+                const isExpanding = collapseAll.classList.contains('d-none');
                 handleCollapseAction(isExpanding);
                 toggleCollapseAllButton();
             }, 200);
