@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
+use Ibexa\AdminUi\Behat\Component\DeleteContentDialog;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\LanguagePicker;
@@ -82,6 +83,8 @@ class ContentViewPage extends Page
 
     private UpperMenu $upperMenu;
 
+    private DeleteContentDialog $deleteContentDialog;
+
     public function __construct(
         Session $session,
         Router $router,
@@ -97,7 +100,8 @@ class ContentViewPage extends Page
         ArgumentParser $argumentParser,
         UniversalDiscoveryWidget $universalDiscoveryWidget,
         IbexaDropdown $ibexaDropdown,
-        UpperMenu $upperMenu
+        UpperMenu $upperMenu,
+        DeleteContentDialog $deleteContentDialog
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
@@ -113,6 +117,7 @@ class ContentViewPage extends Page
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->ibexaDropdown = $ibexaDropdown;
         $this->upperMenu = $upperMenu;
+        $this->deleteContentDialog = $deleteContentDialog;
     }
 
     public function startCreatingContent(string $contentTypeName, string $language = null)
@@ -267,6 +272,7 @@ class ContentViewPage extends Page
     {
         $this->contentActionsMenu->clickButton('Send to trash');
         $this->dialog->verifyIsLoaded();
+        $this->deleteContentDialog->confirmTrashing();
         $this->dialog->confirm();
     }
 
