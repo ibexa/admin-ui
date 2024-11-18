@@ -94,6 +94,7 @@
                 {{ form_widget(form_search.sort, {'attr': {'hidden': 'hidden'}}) }}
                 {{ form_widget(form_search.trashed_interval, {'attr': {'hidden': 'hidden'}}) }}
             {% endblock %}
+            {% block actions %}{% endblock %}
         {% endembed %}
 
         {{ form_start(form_trash_item_restore, {
