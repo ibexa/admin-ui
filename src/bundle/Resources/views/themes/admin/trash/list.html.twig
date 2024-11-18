@@ -264,7 +264,7 @@
                 headline: custom_results_headline ?? results_headline(
                     pager.getNbResults(),
                     has_search_params,
-                    trash_search_params.content_name,
+                    trash_search_params.content_name ?? null,
                 ),
                 head_cols,
                 body_rows,
