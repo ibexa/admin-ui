@@ -41,9 +41,15 @@ class VersionsDataset
      */
     public function load(ContentInfo $contentInfo): self
     {
+        $versions = $this->contentService->loadVersions($contentInfo);
+
+        if ($versions instanceof \Traversable) {
+            $versions = iterator_to_array($versions);
+        }
+
         $this->data = array_map(
             [$this->valueFactory, 'createVersionInfo'],
-            $this->contentService->loadVersions($contentInfo)
+            $versions
         );
 
         return $this;

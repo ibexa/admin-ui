@@ -11,6 +11,8 @@ namespace Ibexa\AdminUi\UI\Dataset;
 use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIterator;
+use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\RelationListIteratorAdapter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
 
@@ -41,21 +43,28 @@ class RelationsDataset
     }
 
     /**
-     * @param VersionInfo $versionInfo
-     *
-     * @return RelationsDataset
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function load(Content $content): self
     {
         $versionInfo = $content->getVersionInfo();
 
-        foreach ($this->contentService->loadRelations($versionInfo) as $relation) {
-            $this->relations[] = $this->valueFactory->createRelationItem(
-                new RelationListItem($relation),
-                $content
-            );
+        $relationListIterator = new BatchIterator(
+            new RelationListIteratorAdapter(
+                $this->contentService,
+                $versionInfo
+            )
+        );
+
+        foreach ($relationListIterator as $relationItem) {
+            if ($relationItem->hasRelation()) {
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
+                $relation = $relationItem->getRelation();
+                $this->relations[] = $this->valueFactory->createRelationItem(
+                    new RelationListItem($relation),
+                    $content
+                );
+            }
         }
 
         foreach ($this->contentService->loadReverseRelations($versionInfo->getContentInfo()) as $reverseRelation) {

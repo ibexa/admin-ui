@@ -375,8 +375,22 @@ class LocationController extends Controller
     private function trashRelatedAsset(ContentInfo $contentInfo): void
     {
         $content = $this->contentService->loadContentByContentInfo($contentInfo);
-        $relations = $this->contentService->loadRelations($content->versionInfo);
-        $imageLocation = $this->locationService->loadLocation($relations[0]->destinationContentInfo->mainLocationId);
+        $relations = $this->contentService->loadRelationList(
+            $content->versionInfo,
+            0,
+            1
+        );
+
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relation */
+        $relation = $relations->items[0];
+        if (!$relation->hasRelation()) {
+            return;
+        }
+        $mainLocationId = $relation->getRelation()->getDestinationContentInfo()->getMainLocationId();
+        if ($mainLocationId === null) {
+            return;
+        }
+        $imageLocation = $this->locationService->loadLocation($mainLocationId);
         $this->trashService->trash($imageLocation);
     }
 
