@@ -6,7 +6,7 @@ import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modul
 export const SIZES = {
     SMALL: 'small',
     MEDIUM: 'medium',
-    SIZES: 'large',
+    LARGE: 'large',
 };
 
 const Spinner = ({ size }) => {
