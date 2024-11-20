@@ -7,7 +7,7 @@
             this.eventName = config.eventName;
         }
 
-        stringfyData(data) {
+        stringifyData(data) {
             try {
                 return JSON.stringify(data);
             } catch (error) {
@@ -19,12 +19,14 @@
             try {
                 return JSON.parse(data);
             } catch (error) {
+                console.warn('Error parsing data', error);
+
                 return null;
             }
         }
 
         setItem(data) {
-            const stringifiedData = this.stringfyData(data);
+            const stringifiedData = this.stringifyData(data);
 
             window.localStorage.setItem(this.key, stringifiedData);
 
