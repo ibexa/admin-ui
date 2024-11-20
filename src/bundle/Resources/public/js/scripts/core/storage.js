@@ -50,7 +50,11 @@
 
         init() {
             if (this.eventName) {
-                global.addEventListener('storage', (event) => this.fireStorageChangeEvent(event.newValue));
+                global.addEventListener('storage', (event) => {
+                    if (event.key === this.key) {
+                        this.fireStorageChangeEvent(event.newValue);
+                    }
+                });
             }
         }
     }
