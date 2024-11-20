@@ -28,13 +28,13 @@
         setItem(data) {
             const stringifiedData = this.stringifyData(data);
 
-            window.localStorage.setItem(this.key, stringifiedData);
+            global.localStorage.setItem(this.key, stringifiedData);
 
             this.fireStorageChangeEvent(stringifiedData);
         }
 
         getItem() {
-            return this.parseData(window.localStorage.getItem(this.key));
+            return this.parseData(global.localStorage.getItem(this.key));
         }
 
         fireStorageChangeEvent(data) {
@@ -44,13 +44,13 @@
                     detail: { content: this.parseData(data) },
                 });
 
-                document.body.dispatchEvent(storageChangeEvent);
+                doc.body.dispatchEvent(storageChangeEvent);
             }
         }
 
         init() {
             if (this.eventName) {
-                window.addEventListener('storage', (event) => this.fireStorageChangeEvent(event.newValue));
+                global.addEventListener('storage', (event) => this.fireStorageChangeEvent(event.newValue));
             }
         }
     }
