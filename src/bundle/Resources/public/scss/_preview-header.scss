@@ -23,6 +23,10 @@
                 --ibexa-dropdown-primary-color: #{$ibexa-color-white};
                 --ibexa-text-color: #{$ibexa-color-white};
                 border-right: calculateRem(1px) solid $ibexa-color-dark-400;
+
+                &:hover {
+                    --ibexa-dropdown-primary-color: #{$ibexa-color-light-600};
+                }
             }
 
             .ibexa-dropdown__selection-info {
