@@ -1,31 +1,42 @@
 .ibexa-preview-header {
     display: grid;
-    grid-template-areas: 'back siteaccess actions';
-    grid-template-columns: auto 1fr 1fr;
-    border-bottom: calculateRem(1px) solid $ibexa-color-light;
+    grid-template-areas: 'siteaccess actions back';
+    grid-template-columns: auto 1fr auto;
+    border-bottom: calculateRem(1px) solid $ibexa-color-dark-400;
+    background-color: $ibexa-color-dark;
 
     &__item {
+        padding: calculateRem(10px);
+
         &--back {
             grid-area: back;
-            padding: calculateRem(10px);
-            border-right: calculateRem(1px) solid $ibexa-color-light;
+            justify-items: flex-end;
         }
 
         &--siteaccess {
             grid-area: siteaccess;
-            padding: calculateRem(10px);
             display: flex;
             align-items: center;
             margin-left: calculateRem(16px);
 
+            .ibexa-dropdown {
+                --ibexa-dropdown-primary-color: #{$ibexa-color-white};
+                --ibexa-text-color: #{$ibexa-color-white};
+                border-right: calculateRem(1px) solid $ibexa-color-dark-400;
+
+                &:hover {
+                    --ibexa-dropdown-primary-color: #{$ibexa-color-light-600};
+                }
+            }
+
             .ibexa-dropdown__selection-info {
                 margin-bottom: 0;
+                border: none;
             }
         }
 
         &--actions {
             grid-area: actions;
-            padding: calculateRem(10px);
             display: flex;
             align-items: center;
         }

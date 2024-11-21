@@ -92,8 +92,8 @@
         <note>key: embedded_items.action.go_to_label</note>
       </trans-unit>
       <trans-unit id="f6ae7078e77f584ad00c8003405ca11dc57c4d56" resname="preview_header.back">
-        <source>Back</source>
-        <target state="new">Back</target>
+        <source>Close</source>
+        <target state="new">Close</target>
         <note>key: preview_header.back</note>
       </trans-unit>
       <trans-unit id="2720e3018fc8b1158cb728b1d5dc377ef7293b57" resname="trash.modal.message">
