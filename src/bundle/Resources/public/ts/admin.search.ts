@@ -1,4 +1,4 @@
-(function (document: Document) {
+(function () {
     const searchForm = document.querySelector<HTMLFormElement>('.ibexa-search-form');
     const searchInput = document.querySelector<HTMLInputElement>('.ibexa-search-form__search-input');
     const headerSearchInput = document.querySelector<HTMLInputElement>('.ibexa-global-search__input');
@@ -25,4 +25,4 @@
 
     headerSearchSubmitBtn?.addEventListener('click', handleHeaderSearchBtnClick, false);
     languageSelector?.addEventListener('change', submitForm, false);
-})(document);
+})();
