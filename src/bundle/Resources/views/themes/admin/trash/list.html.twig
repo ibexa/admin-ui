@@ -252,11 +252,11 @@
             ]) %}
 
             {% set has_search_params = trash_search_params|length > 0
-                ? trash_search_params.creator is not empty
-                   or trash_search_params.content_type is not empty
-                   or trash_search_params.trashed is not empty
-                   or trash_search_params.section is not empty
-                   or trash_search_params.content_name is not empty
+                ? (trash_search_params.creator is defined and trash_search_params.creator is not empty)
+                   or (trash_search_params.content_type is defined and trash_search_params.content_type is not empty)
+                   or (trash_search_params.trashed is defined and trash_search_params.trashed is not empty)
+                   or (trash_search_params.section is defined and trash_search_params.section is not empty)
+                   or (trash_search_params.content_name is defined and trash_search_params.content_name is not empty)
                 : false
             %}
 
@@ -271,6 +271,9 @@
                 empty_table_info_text: has_search_params
                     ? 'trash.content_not_found'|trans|desc('Sorry, there are no contents for your search.')
                     : 'trash.empty'|trans|desc('Trash is empty. Content you send to Trash will show up here.'),
+                empty_table_action_text: has_search_params
+                    ? 'trash.content_not_found.action_text'|trans|desc('Try again with new search criteria.')
+                    : "",
             } %}
                 {% set modal_create_data_target = 'create-wildcards-modal' %}
                 {% set modal_delete_data_target = 'delete-wildcards-modal' %}

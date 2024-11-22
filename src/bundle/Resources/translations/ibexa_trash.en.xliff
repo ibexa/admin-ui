@@ -36,6 +36,11 @@
         <target state="new">Sorry, there are no contents for your search.</target>
         <note>key: trash.content_not_found</note>
       </trans-unit>
+      <trans-unit id="261490a73abcf9287393e8f8b08ed6e2a95dc9dc" resname="trash.content_not_found.action_text">
+        <source>Try again with new search criteria.</source>
+        <target state="new">Try again with new search criteria.</target>
+        <note>key: trash.content_not_found.action_text</note>
+      </trans-unit>
       <trans-unit id="a644965219fc4d129dd4a5ef1cdb6eb073003702" resname="trash.content_type">
         <source>Content type</source>
         <target state="new">Content type</target>
