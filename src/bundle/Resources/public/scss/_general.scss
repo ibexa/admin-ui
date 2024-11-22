@@ -204,7 +204,7 @@ select {
     margin-bottom: calculateRem(32px);
 
     @media (min-width: 1921px) {
-        max-width: 2000px;
+        max-width: calculateRem(2000px);
     }
 }
 
