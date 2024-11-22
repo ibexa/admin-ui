@@ -7,26 +7,8 @@
             this.eventName = config.eventName;
         }
 
-        stringifyData(data) {
-            try {
-                return JSON.stringify(data);
-            } catch (error) {
-                console.warn('Error stringifying data', error);
-            }
-        }
-
-        parseData(data) {
-            try {
-                return JSON.parse(data);
-            } catch (error) {
-                console.warn('Error parsing data', error);
-
-                return null;
-            }
-        }
-
         setItem(data) {
-            const stringifiedData = this.stringifyData(data);
+            const stringifiedData = JSON.stringify(data);
 
             global.localStorage.setItem(this.key, stringifiedData);
 
@@ -34,14 +16,14 @@
         }
 
         getItem() {
-            return this.parseData(global.localStorage.getItem(this.key));
+            return JSON.parse(global.localStorage.getItem(this.key));
         }
 
         fireStorageChangeEvent(data) {
             if (this.eventName) {
                 const storageChangeEvent = new CustomEvent(this.eventName, {
                     cancelable: true,
-                    detail: { content: this.parseData(data) },
+                    detail: { content: JSON.parse(data) },
                 });
 
                 doc.body.dispatchEvent(storageChangeEvent);
