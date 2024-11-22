@@ -1,4 +1,4 @@
-.c-selected-locations {
+.c-selected-items-panel {
     background-color: $ibexa-color-white;
     position: fixed;
     top: calc(100vh - calculateRem(98px));
@@ -35,7 +35,7 @@
         border-bottom-right-radius: 0;
         border-bottom-left-radius: $ibexa-border-radius;
 
-        .c-selected-locations {
+        .c-selected-items-panel  {
             &__items-wrapper {
                 display: block;
             }

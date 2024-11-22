@@ -2,6 +2,9 @@ import React, { useContext, useState, useEffect, useCallback, useRef } from 'rea
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import FiltersPanel from './filters.panel';
+import FiltersRow from './filters.row';
+
 import {
     SelectedContentTypesContext,
     SelectedSectionContext,
@@ -69,7 +72,7 @@ const Filters = ({ search }) => {
     const makeSearch = useCallback(() => {
         prevSelectedLanguage.current = selectedLanguage;
 
-        search(0);
+        search();
     }, [search, selectedLanguage]);
     const isApplyButtonEnabled =
         !!selectedContentTypes.length || !!selectedSection || !!selectedSubtree || prevSelectedLanguage.current !== selectedLanguage;
@@ -115,12 +118,9 @@ const Filters = ({ search }) => {
             </button>
         );
     };
-    const filtersLabel = Translator.trans(/*@Desc("Filters")*/ 'filters.title', {}, 'ibexa_universal_discovery_widget');
     const languageLabel = Translator.trans(/*@Desc("Language")*/ 'filters.language', {}, 'ibexa_universal_discovery_widget');
     const sectionLabel = Translator.trans(/*@Desc("Section")*/ 'filters.section', {}, 'ibexa_universal_discovery_widget');
     const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
-    const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
-    const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
     const languageOptions = Object.values(adminUiConfig.languages.mappings)
         .filter((language) => language.enabled)
         .map((language) => ({
@@ -150,25 +150,8 @@ const Filters = ({ search }) => {
     return (
         <>
             {isNestedUdwOpened && ReactDOM.createPortal(<UniversalDiscoveryModule {...nestedUdwConfig} />, nestedUdwContainer.current)}
-            <div className="c-filters">
-                <div className="c-filters__header">
-                    <div className="c-filters__header-content">{filtersLabel}</div>
-                    <div className="c-filters__header-actions">
-                        <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" type="button" onClick={clearFilters}>
-                            {clearLabel}
-                        </button>
-                        <button
-                            type="submit"
-                            className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
-                            onClick={makeSearch}
-                            disabled={!isApplyButtonEnabled}
-                        >
-                            {applyLabel}
-                        </button>
-                    </div>
-                </div>
-                <div className="c-filters__row c-filters__row--language">
-                    <div className="c-filters__row-title">{languageLabel}</div>
+            <FiltersPanel isApplyButtonEnabled={isApplyButtonEnabled} makeSearch={makeSearch} clearFilters={clearFilters}>
+                <FiltersRow title={languageLabel} extraClasses="c-filters__row--language">
                     <Dropdown
                         dropdownListRef={dropdownListRef}
                         single={true}
@@ -177,10 +160,9 @@ const Filters = ({ search }) => {
                         options={languageOptions}
                         extraClasses="c-udw-dropdown"
                     />
-                </div>
+                </FiltersRow>
                 <ContentTypeSelector />
-                <div className="c-filters__row">
-                    <div className="c-filters__row-title">{sectionLabel}</div>
+                <FiltersRow title={sectionLabel}>
                     <Dropdown
                         dropdownListRef={dropdownListRef}
                         single={true}
@@ -189,15 +171,14 @@ const Filters = ({ search }) => {
                         options={sectionOptions}
                         extraClasses="c-udw-dropdown"
                     />
-                </div>
-                <div className="c-filters__row">
-                    <div className="c-filters__row-title">{subtreeLabel}</div>
+                </FiltersRow>
+                <FiltersRow title={subtreeLabel}>
                     <div className="ibexa-tag-view-select">
                         {renderSubtreeBreadcrumbs()}
                         {renderSelectContentButton()}
                     </div>
-                </div>
-            </div>
+                </FiltersRow>
+            </FiltersPanel>
         </>
     );
 };
