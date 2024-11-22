@@ -42,7 +42,7 @@ const SearchTabModule = () => {
 
     return (
         <div className="m-search-tab">
-            <Tab actionsDisabledMap={actionsDisabledMap}>
+            <Tab actionsDisabledMap={actionsDisabledMap} isRightSidebarHidden={true}>
                 <Search itemsPerPage={tabsConfig.search.itemsPerPage} />
             </Tab>
         </div>
@@ -61,4 +61,4 @@ const SearchTab = {
     isHiddenOnList: true,
 };
 
-export { SearchTabModule as ValueTypeDefault, SearchTab };
+export { SearchTabModule as default, SearchTab };
