@@ -4,14 +4,13 @@
     const toggleAllBtn = doc.querySelector('.ibexa-multi-collapse-btn');
     const expandAll = toggleAllBtn?.querySelector('.ibexa-attribute-group__toggler-expand');
     const collapseAll = toggleAllBtn?.querySelector('.ibexa-attribute-group__toggler-collapse');
-    const MULTI_COLLAPSE_BODY_CLASS = '.ibexa-multi-collapse';
-
+    const MULTI_COLLAPSE_BODY_SELECTOR = '.ibexa-multi-collapse';
     const toggleMultiCollapseButton = () => {
         collapseAll.classList.toggle('d-none');
         expandAll.classList.toggle('d-none');
     };
     const toggleMultiCollapseIfNeeded = () => {
-        const allGroups = doc.querySelectorAll(MULTI_COLLAPSE_BODY_CLASS);
+        const allGroups = doc.querySelectorAll(MULTI_COLLAPSE_BODY_SELECTOR);
 
         if (singleElementClicked.length === allGroups.length || singleElementClicked.length === 0) {
             toggleMultiCollapseButton();
@@ -23,7 +22,7 @@
             const isElementCollapsed = collapseNode.classList.contains('ibexa-collapse--collapsed');
 
             if (expandAction === isElementCollapsed) {
-                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector(MULTI_COLLAPSE_BODY_CLASS)).toggle();
+                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector(MULTI_COLLAPSE_BODY_SELECTOR)).toggle();
             }
         });
     };
@@ -36,20 +35,24 @@
         collapseNode.dataset.collapsed = isCollapsed;
 
         if (toggleAllBtn) {
-            const uniqeName = toggleButton.getAttribute('data-bs-target');
+            const uniqueName = toggleButton.getAttribute('data-bs-target');
 
             collapseNode.addEventListener('click', (event) => {
                 event.stopPropagation();
-                const toggleIndex = singleElementClicked.findIndex((elementIndex) => elementIndex === uniqeName);
+
+                const toggleIndex = singleElementClicked.findIndex((elementIndex) => elementIndex === uniqueName);
 
                 window.clearTimeout(toggleAllTimeout);
+
                 toggleAllTimeout = window.setTimeout(() => {
                     if (toggleIndex !== -1) {
                         singleElementClicked.splice(toggleIndex, 1);
                         toggleMultiCollapseIfNeeded();
+
                         return;
                     }
-                    singleElementClicked.push(uniqeName);
+
+                    singleElementClicked.push(uniqueName);
                     toggleMultiCollapseIfNeeded();
                 }, 200);
             });
@@ -71,7 +74,9 @@
     if (toggleAllBtn) {
         toggleAllBtn.addEventListener('click', (event) => {
             event.stopPropagation();
+
             window.clearTimeout(toggleAllTimeout);
+
             toggleAllTimeout = window.setTimeout(() => {
                 const isExpanding = collapseAll.classList.contains('d-none');
 
