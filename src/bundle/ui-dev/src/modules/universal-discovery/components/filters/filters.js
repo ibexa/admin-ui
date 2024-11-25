@@ -151,7 +151,7 @@ const Filters = ({ search }) => {
         <>
             {isNestedUdwOpened && ReactDOM.createPortal(<UniversalDiscoveryModule {...nestedUdwConfig} />, nestedUdwContainer.current)}
             <FiltersPanel isApplyButtonEnabled={isApplyButtonEnabled} makeSearch={makeSearch} clearFilters={clearFilters}>
-                <FiltersRow title={languageLabel} extraClasses="c-filters__row--language">
+                <FiltersRow title={languageLabel} extraClasses="c-filters-row--language">
                     <Dropdown
                         dropdownListRef={dropdownListRef}
                         single={true}

@@ -4,12 +4,12 @@ import {
     parse as parseTooltip,
     hideAll as hideAllTooltips,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedItemsContext } from '../../universal.discovery.module';
-import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { REMOVE_SELECTED_ITEMS } from '../../hooks/useSelectedItemsReducer';
 
 const SelectedItemsPanelItem = ({ item, thumbnailData, name, description }) => {

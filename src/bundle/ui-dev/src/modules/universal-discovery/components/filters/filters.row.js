@@ -5,13 +5,13 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 const FiltersRow = ({ children, title, extraClasses }) => {
     const className = createCssClassNames({
-        'c-filters__row': true,
+        'c-filters-row': true,
         [extraClasses]: true,
     });
 
     return (
         <div className={className}>
-            <div className="c-filters__row-title">{title}</div>
+            <div className="c-filters-row__title">{title}</div>
             {children}
         </div>
     );
