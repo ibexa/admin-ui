@@ -16,7 +16,7 @@ const Tab = ({ children, actionsDisabledMap, isRightSidebarHidden }) => {
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
     const [selectedLocations] = useContext(SelectedLocationsContext);
-    const { selectedItems, } = useContext(SelectedItemsContext);
+    const { selectedItems } = useContext(SelectedItemsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
     const contentStyles = {
         height: contentHeight,
