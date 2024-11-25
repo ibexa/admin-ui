@@ -14,6 +14,7 @@ import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
 import { AllowConfirmationContext, SelectedItemsContext } from '../../universal.discovery.module';
+
 import { CLEAR_SELECTED_ITEMS } from '../../hooks/useSelectedItemsReducer';
 
 const SelectedItemsPanel = () => {
