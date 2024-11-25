@@ -68,4 +68,14 @@ const SelectedItemsPanelItem = ({ item, thumbnailData, name, description }) => {
     );
 };
 
+SelectedItemsPanelItem.propTypes = {
+    item: PropTypes.object.isRequired,
+    thumbnailData: PropTypes.shape({
+        mimeType: PropTypes.string.isRequired,
+        resource: PropTypes.string.isRequired,
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+};
+
 export default SelectedItemsPanelItem;
