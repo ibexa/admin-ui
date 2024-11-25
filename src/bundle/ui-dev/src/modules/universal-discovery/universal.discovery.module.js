@@ -236,7 +236,7 @@ const UniversalDiscoveryModule = (props) => {
     ]);
     const [selectedLocations, dispatchSelectedLocationsAction] = useSelectedLocationsReducer();
     const { selectedItems, dispatchSelectedItemsAction } = useSelectedItemsReducer({
-        isMultiple: true,//props.multiple,
+        isMultiple: props.multiple,
         multipleItemsLimit: props.multipleItemsLimit,
     });
     const activeTabConfig = tabs.find((tab) => tab.id === activeTab);
@@ -288,9 +288,9 @@ const UniversalDiscoveryModule = (props) => {
         [adminUiConfig.contentTypes],
     );
     const onConfirm = useCallback(
-        (selectedItems = selectedLocations) => {
+        (selection = selectedLocations) => {
             loadVersions().then((locationsWithVersions) => {
-                const clonedSelectedLocation = deepClone(selectedItems);
+                const clonedSelectedLocation = deepClone(selection);
 
                 if (Array.isArray(locationsWithVersions)) {
                     locationsWithVersions.forEach((content) => {

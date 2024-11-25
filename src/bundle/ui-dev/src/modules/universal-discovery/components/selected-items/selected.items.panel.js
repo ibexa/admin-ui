@@ -19,7 +19,6 @@ import { CLEAR_SELECTED_ITEMS } from '../../hooks/useSelectedItemsReducer';
 const SelectedItemsPanel = () => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
-    // TODO: fill dependency array
     const itemsComponentsMap = useMemo(() => {
         const { universalSelectItemsComponentsConfigs } = adminUiConfig.universalDiscoveryWidget;
         const configsArray = universalSelectItemsComponentsConfigs ? [...universalSelectItemsComponentsConfigs] : [];
@@ -30,9 +29,7 @@ const SelectedItemsPanel = () => {
             return configsMap;
         }, {});
     }, [adminUiConfig]);
-
     const refSelectedLocations = useRef(null);
-
     const { selectedItems, dispatchSelectedItemsAction } = useContext(SelectedItemsContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -68,7 +65,7 @@ const SelectedItemsPanel = () => {
 
         return <div className="c-selected-items-panel__selection-counter">{selectedLabel}</div>;
     };
-    const renderToggleButton = () => {
+    const renderToggleBtn = () => {
         return (
             <button
                 type="button"
@@ -81,7 +78,7 @@ const SelectedItemsPanel = () => {
             </button>
         );
     };
-    const renderActionButtons = () => {
+    const renderActionBtns = () => {
         const removeLabel = Translator.transChoice(
             /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_locations.deselect_all',
             selectedItems.length,
@@ -108,7 +105,7 @@ const SelectedItemsPanel = () => {
 
         return (
             <div className="c-selected-items-panel__items-wrapper">
-                {renderActionButtons()}
+                {renderActionBtns()}
                 <div className="c-selected-items-panel__items-list">
                     {selectedItems.map((selectedItem) => {
                         const ItemComponent = itemsComponentsMap[selectedItem.type].component;
@@ -129,9 +126,9 @@ const SelectedItemsPanel = () => {
         hideAllTooltips();
 
         const bootstrap = getBootstrap();
-        const toggleButtonTooltip = bootstrap.Tooltip.getOrCreateInstance('.c-selected-items-panel__toggle-button');
+        const toggleBtnTooltip = bootstrap.Tooltip.getOrCreateInstance('.c-selected-items-panel__toggle-button');
 
-        toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });
+        toggleBtnTooltip.setContent({ '.tooltip-inner': togglerLabel });
     }, [isExpanded]);
 
     if (!allowConfirmation) {
@@ -141,7 +138,7 @@ const SelectedItemsPanel = () => {
     return (
         <div className={className} ref={refSelectedLocations}>
             <div className="c-selected-items-panel__header">
-                {renderToggleButton()}
+                {renderToggleBtn()}
                 {renderSelectionCounter()}
             </div>
             {renderLocationsList()}

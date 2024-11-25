@@ -10,10 +10,10 @@ const FiltersPanel = ({ children, isApplyButtonEnabled, makeSearch, clearFilters
     const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
 
     return (
-        <div className="c-filters">
-            <div className="c-filters__header">
-                <div className="c-filters__header-content">{filtersLabel}</div>
-                <div className="c-filters__header-actions">
+        <div className="c-filters-panel">
+            <div className="c-filters-panel__header">
+                <div className="c-filters-panel__header-content">{filtersLabel}</div>
+                <div className="c-filters-panel__header-actions">
                     <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" type="button" onClick={clearFilters}>
                         {clearLabel}
                     </button>

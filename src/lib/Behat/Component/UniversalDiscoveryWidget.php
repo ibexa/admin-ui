@@ -218,7 +218,7 @@ class UniversalDiscoveryWidget extends Component
             new CSSLocator('confirmButton', '.c-actions-menu__confirm-btn'),
             new CSSLocator('cancelButton', '.c-top-menu__cancel-btn'),
             new CSSLocator('mainWindow', '.m-ud'),
-            new CSSLocator('selectedLocationsTab', '.c-selected-items-panel'),
+            new CSSLocator('selectedLocationsTab', '.c-selected-locations-panel'),
             new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
             new VisibleCSSLocator('contentIframe', '.c-content-edit__iframe, .m-content-create__iframe'),

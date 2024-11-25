@@ -6,7 +6,7 @@ import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/publ
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { SortingContext, SortOrderContext, SORTING_OPTIONS } from '../../universal.discovery.module';
 
-const SortSwitcher = ({ isDisabled = false, disabledConfig = null }) => {
+const SortSwitcher = ({ isDisabled, disabledConfig }) => {
     const [sorting, setSorting] = useContext(SortingContext);
     const [sortOrder, setSortOrder] = useContext(SortOrderContext);
     const selectedOption = SORTING_OPTIONS.find((option) => option.sortClause === sorting && option.sortOrder === sortOrder);
@@ -42,6 +42,11 @@ const SortSwitcher = ({ isDisabled = false, disabledConfig = null }) => {
 SortSwitcher.propTypes = {
     isDisabled: PropTypes.bool,
     disabledConfig: PropTypes.object,
+};
+
+SortSwitcher.defaultProps = {
+    isDisabled: false,
+    disabledConfig: null,
 };
 
 export const SortSwitcherMenuButton = {
