@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, createContext, useRef } from 'react';
+import React, { useEffect, useCallback, useState, createContext, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from '../common/icon/icon';
@@ -268,13 +268,17 @@ const UniversalDiscoveryModule = (props) => {
             loadContentInfo({ ...restInfo, contentId, signal }, (response) => resolve(response));
         });
     };
-    const contentTypesMapGlobal = Object.values(adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
-        contentTypesGroup.forEach((contentType) => {
-            contentTypesMap[contentType.href] = contentType;
-        });
+    const contentTypesMapGlobal = useMemo(
+        () =>
+            Object.values(adminUiConfig.contentTypes).reduce((contentTypesMap, contentTypesGroup) => {
+                contentTypesGroup.forEach((contentType) => {
+                    contentTypesMap[contentType.href] = contentType;
+                });
 
-        return contentTypesMap;
-    }, {});
+                return contentTypesMap;
+            }, {}),
+        [adminUiConfig.contentTypes],
+    );
     const onConfirm = useCallback(
         (selectedItems = selectedLocations) => {
             loadVersions().then((locationsWithVersions) => {
