@@ -10,6 +10,7 @@ import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedItemsContext } from '../../universal.discovery.module';
+
 import { REMOVE_SELECTED_ITEMS } from '../../hooks/useSelectedItemsReducer';
 
 const SelectedItemsPanelItem = ({ item, thumbnailData, name, description }) => {
