@@ -5,6 +5,43 @@
     const DISTRACTION_FREE_DISABLE_EVENT_NAME = 'ibexa-distraction-free:disable';
     const distractionFreeModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-mode-control-btn--enable');
     const distractionFreeModeDisableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-mode-control-btn--disable');
+    const resetAncestorsPositions = (field) => {
+        let parentElement = field.parentNode;
+
+        while (parentElement && parentElement !== doc.body) {
+            const { overflow, position } = getComputedStyle(parentElement);
+
+            if (overflow !== 'visible' || position === 'absolute') {
+                clearedPositionNodesData.push({
+                    node: parentElement,
+                    originalInlineOverflow: parentElement.style.overflow,
+                    originalInlinePosition: parentElement.style.position,
+                });
+
+                parentElement.style.overflow = 'visible';
+                parentElement.style.position = 'static';
+            }
+
+            parentElement = parentElement.parentNode;
+        }
+    }
+    const restoreAncestorsPositions = () => {
+        clearedPositionNodesData.forEach(({ node, originalInlineOverflow, originalInlinePosition }) => {
+            if (originalInlineOverflow) {
+                node.style.overflow = originalInlineOverflow;
+            } else {
+                node.style.removeProperty('overflow');
+            }
+
+            if (originalInlinePosition) {
+                node.style.position = originalInlinePosition;
+            } else {
+                node.style.removeProperty('position');
+            }
+        });
+
+        clearedPositionNodesData = [];
+    }
     const changeDistractionFreeModeState = (active) => {
         if (!activeFieldEdit) {
             return;
@@ -18,40 +55,9 @@
         editorInstance.set('distractionFreeModeActive', active);
 
         if (active) {
-            let parentElement = activeFieldEdit.parentNode;
-
-            while (parentElement && parentElement !== doc.body) {
-                const { overflow, position } = getComputedStyle(parentElement);
-
-                if (overflow !== 'visible' || position === 'absolute') {
-                    clearedPositionNodesData.push({
-                        node: parentElement,
-                        originalInlineOverflow: parentElement.style.overflow,
-                        originalInlinePosition: parentElement.style.position,
-                    });
-
-                    parentElement.style.overflow = 'visible';
-                    parentElement.style.position = 'static';
-                }
-
-                parentElement = parentElement.parentNode;
-            }
+            resetAncestorsPositions(activeFieldEdit);
         } else {
-            clearedPositionNodesData.forEach(({ node, originalInlineOverflow, originalInlinePosition }) => {
-                if (originalInlineOverflow) {
-                    node.style.overflow = originalInlineOverflow;
-                } else {
-                    node.style.removeProperty('overflow');
-                }
-
-                if (originalInlinePosition) {
-                    node.style.position = originalInlinePosition;
-                } else {
-                    node.style.removeProperty('position');
-                }
-            });
-
-            clearedPositionNodesData = [];
+            restoreAncestorsPositions();
         }
 
         doc.body.dispatchEvent(
