@@ -11,15 +11,18 @@ const checkIsItemSelected = (selectedItems, item) =>
 
 const filterOutSelectedItems = (selectedItems, items) => items.filter((item) => !checkIsItemSelected(selectedItems, item));
 
+const checkIsValidSelection = (items, isMultiple, multipleItemsLimit) =>
+    (!isMultiple && items.length > 1) || (isMultiple && items.length > multipleItemsLimit);
+
 const selectedItemsReducer = (state, action) => {
-    const { isMultiple, items } = state;
+    const { items, isMultiple, multipleItemsLimit } = state;
 
     switch (action.type) {
         case ADD_SELECTED_ITEMS: {
             const oldItemsWithoutNewItems = filterOutSelectedItems(action.items, items);
             const newItems = [...oldItemsWithoutNewItems, ...action.items];
 
-            if (!isMultiple && newItems.length > 1) {
+            if (checkIsValidSelection(newItems, isMultiple, multipleItemsLimit)) {
                 throw new Error('useSelectedItemsReducer ADD_SELECTED_ITEMS: cannot select more than one item with single select.');
             }
 
@@ -35,7 +38,7 @@ const selectedItemsReducer = (state, action) => {
             const newItemsWithoutDeselectedItems = filterOutSelectedItems(items, action.items);
             const newItems = [...oldItemsWithoutDeselectedItems, ...newItemsWithoutDeselectedItems];
 
-            if (!isMultiple && newItems.length > 1) {
+            if (checkIsValidSelection(newItems, isMultiple, multipleItemsLimit)) {
                 throw new Error('useSelectedItemsReducer ADD_SELECTED_ITEMS: cannot select more than one item with single select.');
             }
 

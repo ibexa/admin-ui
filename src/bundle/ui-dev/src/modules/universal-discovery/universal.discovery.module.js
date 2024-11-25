@@ -490,7 +490,7 @@ const UniversalDiscoveryModule = (props) => {
                             <AllowConfirmationContext.Provider value={props.allowConfirmation}>
                                 <ContentTypesInfoMapContext.Provider value={contentTypesInfoMap}>
                                     <ContentTypesMapContext.Provider value={contentTypesMapGlobal}>
-                                        <MultipleConfigContext.Provider value={[true, 10]}>
+                                        <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
                                             <ContainersOnlyContext.Provider value={props.containersOnly}>
                                                 <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
                                                     <SnackbarActionsContext.Provider value={props.snackbarEnabledActions}>
