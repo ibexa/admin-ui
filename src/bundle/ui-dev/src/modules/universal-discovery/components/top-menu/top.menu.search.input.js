@@ -9,7 +9,7 @@ import { SearchTextContext } from '../../universal.discovery.module';
 const ENTER_CHAR_CODE = 13;
 
 const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
-    const [searchText, setSearchText, makeSearch] = useContext(SearchTextContext);
+    const [searchText, , makeSearch] = useContext(SearchTextContext);
     const [inputValue, setInputValue] = useState(searchText);
     const inputRef = useRef();
     const className = createCssClassNames({
