@@ -64,7 +64,7 @@ interface Provider
     public function getLocations(array $locationIds): array;
 
     /**
-     * @deprecated 4.6.0 The "\Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider::getRestFormat()" method is deprecated, will be removed in 5.0.
+     * @deprecated 4.6.0 Will be removed in 5.0.
      */
     public function getRestFormat($valueObject): array;
 
