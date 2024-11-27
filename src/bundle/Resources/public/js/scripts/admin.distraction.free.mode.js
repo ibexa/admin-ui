@@ -1,6 +1,7 @@
 (function (global, doc) {
     let activeFieldEdit = null;
-    let clearedPositionNodesData = [];
+    let previousDistractionFreeModeActive = null;
+    const clearedPositionNodesData = [];
     const DISTRACTION_FREE_MODE_ENABLE_EVENT_NAME = 'ibexa-distraction-free:enable';
     const DISTRACTION_FREE_DISABLE_EVENT_NAME = 'ibexa-distraction-free:disable';
     const distractionFreeModeEnableBtns = doc.querySelectorAll('.ibexa-field-edit__distraction-free-mode-control-btn--enable');
@@ -40,12 +41,14 @@
             }
         });
 
-        clearedPositionNodesData = [];
+        clearedPositionNodesData.length = 0;
     }
     const changeDistractionFreeModeState = (active) => {
-        if (!activeFieldEdit) {
+        if (!activeFieldEdit || previousDistractionFreeModeActive === active) {
             return;
         }
+
+        previousDistractionFreeModeActive = active;
 
         const dispatchEventName = active ? DISTRACTION_FREE_MODE_ENABLE_EVENT_NAME : DISTRACTION_FREE_DISABLE_EVENT_NAME;
         const editorSourceElement = activeFieldEdit.querySelector('.ibexa-data-source__richtext');
