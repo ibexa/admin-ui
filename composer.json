@@ -62,7 +62,6 @@
         "ext-zip": "*",
         "dama/doctrine-test-bundle": "^v6.7",
         "ibexa/behat": "~5.0.x-dev",
-        "ibexa/ci-scripts": "^0.2@dev",
         "ibexa/code-style": "~2.0.0",
         "ibexa/doctrine-schema": "~5.0.x-dev",
         "ibexa/http-cache": "~5.0.x-dev",
