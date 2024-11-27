@@ -38,6 +38,8 @@ class TrashSearchData
     /** @var array|null */
     private $sort;
 
+    private ?string $contentName;
+
     public function __construct(
         ?int $limit = 10,
         ?int $page = 1,
@@ -46,6 +48,7 @@ class TrashSearchData
         ?string $trashed = null,
         ?array $trashedInterval = [],
         ?User $creator = null,
+        ?string $contentName = null,
         ?array $sort = ['field' => 'trashed', 'direction' => 0]
     ) {
         $this->limit = $limit;
@@ -55,6 +58,7 @@ class TrashSearchData
         $this->trashed = $trashed;
         $this->trashedInterval = $trashedInterval;
         $this->creator = $creator;
+        $this->contentName = $contentName;
         $this->sort = $sort;
     }
 
@@ -128,6 +132,16 @@ class TrashSearchData
         $this->creator = $creator;
     }
 
+    public function getContentName(): ?string
+    {
+        return $this->contentName;
+    }
+
+    public function setContentName(?string $contentName): void
+    {
+        $this->contentName = $contentName;
+    }
+
     public function getSort(): ?array
     {
         return $this->sort;
@@ -138,20 +152,19 @@ class TrashSearchData
         $this->sort = $sort;
     }
 
-    /**
-     * @return bool
-     */
     public function isFiltered(): bool
     {
         $contentType = $this->getContentType();
         $section = $this->getSection();
         $trashed = $this->getTrashedInterval();
         $creator = $this->getCreator();
+        $contentName = $this->getContentName();
 
         return
             null !== $contentType ||
             null !== $section ||
             null !== $creator ||
+            null !== $contentName ||
             !empty($trashed);
     }
 }

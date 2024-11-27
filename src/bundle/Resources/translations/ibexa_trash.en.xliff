@@ -6,9 +6,14 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="b789ae7144d8f3797cb4947abe0f9c9b133f9127" resname="search.creator_input.label">
+        <source>Creator</source>
+        <target state="new">Creator</target>
+        <note>key: search.creator_input.label</note>
+      </trans-unit>
       <trans-unit id="3d9f547776de4846ff54fcd1cd173ac5937e5a46" resname="search.creator_input.placeholder">
-        <source>Search by creator</source>
-        <target state="new">Search by creator</target>
+        <source>Type creator's name</source>
+        <target state="new">Type creator's name</target>
         <note>key: search.creator_input.placeholder</note>
       </trans-unit>
       <trans-unit id="6aa460340bed42d0d1baf9d1ea542c83a3f00821" resname="trash">
@@ -25,6 +30,16 @@
         <source>Restore in a new location</source>
         <target state="new">Restore in a new location</target>
         <note>key: trash.button.restore_new_location</note>
+      </trans-unit>
+      <trans-unit id="e6c422268f3d22d619c37604653c3761711e9cab" resname="trash.content_not_found">
+        <source>Sorry, there are no contents for your search.</source>
+        <target state="new">Sorry, there are no contents for your search.</target>
+        <note>key: trash.content_not_found</note>
+      </trans-unit>
+      <trans-unit id="261490a73abcf9287393e8f8b08ed6e2a95dc9dc" resname="trash.content_not_found.action_text">
+        <source>Try again with new search criteria.</source>
+        <target state="new">Try again with new search criteria.</target>
+        <note>key: trash.content_not_found.action_text</note>
       </trans-unit>
       <trans-unit id="a644965219fc4d129dd4a5ef1cdb6eb073003702" resname="trash.content_type">
         <source>Content type</source>
@@ -100,6 +115,11 @@
         <source>Any time</source>
         <target state="new">Any time</target>
         <note>key: trash.search.any_time</note>
+      </trans-unit>
+      <trans-unit id="c7905f2b692c3d584517c5e6b921771afcc73cf1" resname="trash.search.search_by_content_name">
+        <source>Search by content name</source>
+        <target state="new">Search by content name</target>
+        <note>key: trash.search.search_by_content_name</note>
       </trans-unit>
       <trans-unit id="c2b2679781ad4a22bb232e2ab34669ffe49c760b" resname="trash.search.section.any">
         <source>All</source>

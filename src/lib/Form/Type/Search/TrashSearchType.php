@@ -20,6 +20,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -58,6 +59,12 @@ class TrashSearchType extends AbstractType
     {
         $builder
             ->add('page', HiddenType::class)
+            ->add('content_name', TextType::class, [
+                'required' => false,
+                'attr' => [
+                    'placeholder' => /** @Desc("Search by content name") */ 'trash.search.search_by_content_name',
+                ],
+            ])
             ->add('content_type', ChoiceType::class, [
                 'choice_loader' => $this->searchContentTypeChoiceLoader,
                 'choice_label' => 'name',
