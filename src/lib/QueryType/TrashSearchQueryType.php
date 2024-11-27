@@ -91,6 +91,10 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
             );
         }
 
+        if ($searchData->getContentName() !== null) {
+            $criteria[] = new Criterion\ContentName($searchData->getContentName());
+        }
+
         if (!empty($criteria)) {
             $query->filter = new Criterion\LogicalAnd($criteria);
         }
