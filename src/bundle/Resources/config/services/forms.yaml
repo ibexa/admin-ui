@@ -386,11 +386,6 @@ services:
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory:
         arguments: [!tagged ibexa.admin_ui.form.trash_location_option]
 
-    Ibexa\AdminUi\Form\Extension\RichTextTypeExtension:
-        public: true
-        tags:
-              - { name: form.type_extension }
-
     Ibexa\AdminUi\Form\Extension\HelpMultilineMessageExtension:
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
