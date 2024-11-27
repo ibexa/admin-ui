@@ -12,7 +12,7 @@ const checkIsItemSelected = (selectedItems, item) =>
 const filterOutSelectedItems = (selectedItems, items) => items.filter((item) => !checkIsItemSelected(selectedItems, item));
 
 const checkIsValidSelection = (items, isMultiple, multipleItemsLimit) =>
-    (!isMultiple && items.length > 1) || (isMultiple && items.length > multipleItemsLimit);
+    (!isMultiple && items.length > 1) || (isMultiple && multipleItemsLimit !== 0 && items.length > multipleItemsLimit);
 
 const selectedItemsReducer = (state, action) => {
     const { items, isMultiple, multipleItemsLimit } = state;
