@@ -16,8 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserQueryType extends AbstractQueryType
 {
-    private const USER_ADMIN_ID = 14;
-
     protected function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -55,7 +53,6 @@ final class UserQueryType extends AbstractQueryType
     {
         $criteria = [
             new Criterion\IsUserEnabled(),
-            $this->excludeSystemUsers(),
         ];
 
         if (!empty($parameters['extra_criteria'])) {
@@ -89,22 +86,5 @@ final class UserQueryType extends AbstractQueryType
         }
 
         return $sanitizedPhrase;
-    }
-
-    private function excludeSystemUsers(): Criterion
-    {
-        return new Criterion\LogicalNot(
-            new Criterion\ContentId(
-                [
-                    self::USER_ADMIN_ID,
-                    $this->getAnonymousUserId(),
-                ]
-            ),
-        );
-    }
-
-    private function getAnonymousUserId(): int
-    {
-        return $this->configResolver->getParameter('anonymous_user_id');
     }
 }
