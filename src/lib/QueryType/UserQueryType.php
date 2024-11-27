@@ -85,7 +85,7 @@ final class UserQueryType extends AbstractQueryType
     {
         $sanitizedPhrase = preg_replace('/[^a-zA-Z0-9@._-]/', '', $phrase);
         if (null === $sanitizedPhrase) {
-            throw new RuntimeException('Could not to sanitize search phrase.');
+            throw new RuntimeException('Could not sanitize search phrase.');
         }
 
         return $sanitizedPhrase;
