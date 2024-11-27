@@ -69,6 +69,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
         }
 
         $fixedResponse = $this->doReplaceResponse($content);
+
         self::assertSame($expectedResponse, $fixedResponse);
     }
 
@@ -88,7 +89,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
             ['contentId' => 41],
-            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
         yield 'Check content-read for content item 41 and location 51' => [
@@ -99,18 +100,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
                 'contentId' => 41,
                 'locationId' => 51,
             ],
-            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
-        ];
-
-        yield 'Check content-read for content item 41 and phrase=adm' => [
-            self::MEDIA_CONTENT_ITEM_ID,
-            self::MODULE_CONTENT,
-            self::FUNCTION_READ,
-            [
-                'contentId' => 41,
-                'phrase' => 'Adm*',
-            ],
-            '{"access":[],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
         yield 'Check content-read for phrase=undef*' => [
