@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getTranslator, getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/helpers/css.class.names';
 import Icon from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/icon/icon';
 
@@ -188,7 +188,7 @@ PopupMenu.defaultProps = {
     onClose: () => {},
     onItemClick: () => {},
     positionOffset: () => ({ x: 0, y: 0 }),
-    scrollContainer: window.document.body,
+    scrollContainer: getRootDOMElement(),
 };
 
 export default PopupMenu;

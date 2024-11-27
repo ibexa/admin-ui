@@ -89,8 +89,8 @@ const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
 
     useEffect(() => {
         if (isDragging) {
-            rootDOMElement.addEventListener('mousemove', handleDragging);
-            rootDOMElement.addEventListener('mouseup', stopDragging);
+            rootDOMElement.addEventListener('mousemove', handleDragging, false);
+            rootDOMElement.addEventListener('mouseup', stopDragging, false);
         }
 
         return () => {
