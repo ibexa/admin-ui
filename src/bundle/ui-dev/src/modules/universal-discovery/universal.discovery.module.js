@@ -643,6 +643,7 @@ const UniversalDiscoveryModule = (props) => {
 
 UniversalDiscoveryModule.propTypes = {
     onConfirm: PropTypes.func.isRequired,
+    onItemsConfirm: PropTypes.func,
     onCancel: PropTypes.func,
     title: PropTypes.string.isRequired,
     activeTab: PropTypes.string,
@@ -683,6 +684,7 @@ UniversalDiscoveryModule.propTypes = {
 };
 
 UniversalDiscoveryModule.defaultProps = {
+    onItemsConfirm: () => {},
     onCancel: null,
     activeTab: 'browse',
     rootLocationId: 1,
