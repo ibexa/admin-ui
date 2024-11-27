@@ -27,7 +27,6 @@
         "ibexa/content-forms": "~5.0.x-dev",
         "ibexa/core": "~5.0.x-dev",
         "ibexa/design-engine": "~5.0.x-dev",
-        "ibexa/fieldtype-richtext": "~5.0.x-dev",
         "ibexa/polyfill-php82": "^1.0",
         "ibexa/rest": "~5.0.x-dev",
         "ibexa/search": "~5.0.x-dev",
