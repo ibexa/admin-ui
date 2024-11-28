@@ -82,7 +82,7 @@ const modifyPopperConfig = (iframe, defaultBsPopperConfig) => {
 const getTextHeight = (text, styles) => {
     const tag = doc.createElement('div');
 
-    tag.innerHTML = text;
+    tag.innerText = text;
 
     for (const key in styles) {
         tag.style[key] = styles[key];
