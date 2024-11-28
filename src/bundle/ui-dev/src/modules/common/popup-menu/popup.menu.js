@@ -43,23 +43,15 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
             return null;
         }
 
-        const groupClassName = createCssClassNames({
-            'c-popup-menu__group': true,
-        });
-
-        return <div className={groupClassName}>{group.items.map(renderItem)}</div>;
+        return <div className="c-popup-menu__group">{group.items.map(renderItem)}</div>;
     };
     const renderItem = (item) => {
         if (!showItem(item)) {
             return null;
         }
 
-        const itemClassName = createCssClassNames({
-            'c-popup-menu__item': true,
-        });
-
         return (
-            <div className={itemClassName} key={item.value}>
+            <div className="c-popup-menu__item" key={item.value}>
                 <button type="button" className="c-popup-menu__item-content" onClick={() => onItemClick(item)}>
                     <span className="c-popup-menu__item-label">{item.label}</span>
                 </button>
@@ -137,6 +129,7 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
         calculateAndSetItemsListStyles();
         setIsRendered(true);
 
+        const rootDOMElement = getRootDOMElement();
         const onInteractionOutside = (event) => {
             if (containerRef.current.contains(event.target) || referenceElement.contains(event.target)) {
                 return;
@@ -145,11 +138,11 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
             onClose();
         };
 
-        window.document.body.addEventListener('click', onInteractionOutside, false);
+        rootDOMElement.addEventListener('click', onInteractionOutside, false);
         scrollContainer.addEventListener('scroll', calculateAndSetItemsListStyles, false);
 
         return () => {
-            window.document.body.removeEventListener('click', onInteractionOutside);
+            rootDOMElement.removeEventListener('click', onInteractionOutside);
             scrollContainer.removeEventListener('scroll', calculateAndSetItemsListStyles);
 
             setItemsListStyles({});
