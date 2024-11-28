@@ -25,7 +25,7 @@
 
             parentElement = parentElement.parentNode;
         }
-    }
+    };
     const restoreAncestorsPositions = () => {
         clearedPositionNodesData.forEach(({ node, originalInlineOverflow, originalInlinePosition }) => {
             if (originalInlineOverflow) {
@@ -42,7 +42,7 @@
         });
 
         clearedPositionNodesData.length = 0;
-    }
+    };
     const changeDistractionFreeModeState = (active) => {
         if (!activeFieldEdit || previousDistractionFreeModeActive === active) {
             return;
