@@ -2,8 +2,8 @@ import React from 'react';
 import Icon from '../icon/icon';
 import ThumbnailProps from './thumbnail.types';
 
-const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }: ThumbnailProps) => {
-    const renderContentTypeIcon = (): JSX.Element | null => {
+const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }: ThumbnailProps): React.JSX.Element => {
+    const renderContentTypeIcon = (): React.JSX.Element | null => {
         if (!contentTypeIconPath) {
             return null;
         }
