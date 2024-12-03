@@ -14,6 +14,7 @@ use Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgu
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,7 +107,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testResolve(
-        Criterion $expected,
+        CriterionInterface $expected,
         Request $request,
         Traversable $expectedCriteria,
         array $criteriaToProcess = []
@@ -133,9 +134,9 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @return iterable<array{
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion,
+     *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface,
      *     \Symfony\Component\HttpFoundation\Request,
-     *     \Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion>,
+     *     \Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface>,
      *     3?: array<string, string>,
      * }>
      *
