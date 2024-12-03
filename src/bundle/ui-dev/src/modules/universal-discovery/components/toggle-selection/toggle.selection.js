@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { SelectedLocationsContext } from '../../universal.discovery.module';
 
-const ToggleSelection = ({ multiple, location, isHidden }) => {
+const ToggleSelection = ({ multiple, location, isDisabled, isHidden }) => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const isSelected = selectedLocations.some((selectedItem) => selectedItem.location.id === location.id);
     const className = createCssClassNames({
@@ -22,17 +22,21 @@ const ToggleSelection = ({ multiple, location, isHidden }) => {
         return null;
     }
 
-    return <input type="checkbox" className={className} checked={isSelected} disabled={isHidden} onChange={toggleSelection} />;
+    return (
+        <input type="checkbox" className={className} checked={isSelected} disabled={isDisabled || isHidden} onChange={toggleSelection} />
+    );
 };
 
 ToggleSelection.propTypes = {
     location: PropTypes.object.isRequired,
     multiple: PropTypes.bool.isRequired,
     isHidden: PropTypes.bool,
+    isDisabled: PropTypes.bool,
 };
 
 ToggleSelection.defaultProps = {
     isHidden: false,
+    isDisabled: false,
 };
 
 export default ToggleSelection;

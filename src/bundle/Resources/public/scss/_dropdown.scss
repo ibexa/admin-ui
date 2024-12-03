@@ -140,7 +140,7 @@
     }
 
     &--single:not(&--disabled) &__selected-item:not(&__selected-placeholder) {
-        color: $ibexa-color-dark;
+        color: var(--ibexa-text-color, #{$ibexa-color-dark});
     }
 
     &__selected-overflow-number {

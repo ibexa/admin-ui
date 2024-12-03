@@ -120,6 +120,11 @@ img {
     .ibexa-main-container__content-column {
         @include drag-module-backdrop-background;
     }
+
+    .ibexa-main-container {
+        height: 100vh;
+        background-color: $ibexa-color-dark-500;
+    }
 }
 
 [disabled] {
@@ -199,7 +204,7 @@ select {
     margin-bottom: calculateRem(32px);
 
     @media (min-width: 1921px) {
-        max-width: 2000px;
+        max-width: calculateRem(2000px);
     }
 }
 

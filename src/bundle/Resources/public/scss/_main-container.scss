@@ -19,7 +19,7 @@
             margin-left: 0;
 
             @media (min-width: 1921px) {
-                max-width: 2000px;
+                max-width: calculateRem(2000px);
             }
         }
     }
