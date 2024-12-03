@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ControllerArgumentResolver;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -34,7 +34,11 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return Criterion::class === $argument->getType()
+        if ($argument->getType() === null) {
+            return false;
+        }
+
+        return is_a($argument->getType(), CriterionInterface::class, true)
             && 'filter' === $argument->getName();
     }
 
