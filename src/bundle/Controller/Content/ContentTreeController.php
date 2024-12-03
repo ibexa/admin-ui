@@ -79,7 +79,7 @@ class ContentTreeController extends RestController
         int $parentLocationId,
         int $limit,
         int $offset,
-        ?Criterion $filter
+        ?Query\CriterionInterface $filter
     ): Node {
         $location = $this->locationService->loadLocation($parentLocationId);
         $loadSubtreeRequestNode = new LoadSubtreeRequestNode($parentLocationId, $limit, $offset);

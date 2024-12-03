@@ -39,7 +39,7 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
     }
 
     /**
-     * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null>
+     * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface|null>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -56,7 +56,7 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion>
+     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface>
      */
     private function processFilterQueryCriteria(Request $request): array
     {

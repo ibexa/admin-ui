@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
@@ -96,7 +97,7 @@ final class NodeFactory
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        ?Criterion $requestFilter = null
+        ?Query\CriterionInterface $requestFilter = null
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
@@ -150,7 +151,7 @@ final class NodeFactory
         int $offset = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        ?Criterion $requestFilter = null
+        ?CriterionInterface $requestFilter = null
     ): SearchResult {
         $searchQuery = $this->getSearchQuery($parentLocation->getId(), $requestFilter);
 
@@ -164,7 +165,7 @@ final class NodeFactory
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
      */
-    private function getSearchQuery(int $parentLocationId, ?Criterion $requestFilter = null): LocationQuery
+    private function getSearchQuery(int $parentLocationId, ?CriterionInterface $requestFilter = null): LocationQuery
     {
         $searchQuery = new LocationQuery();
         $searchQuery->filter = new Criterion\ParentLocationId($parentLocationId);
@@ -206,7 +207,7 @@ final class NodeFactory
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function countSubitems(int $parentLocationId, ?Criterion $requestFilter = null): int
+    private function countSubitems(int $parentLocationId, ?CriterionInterface $requestFilter = null): int
     {
         $searchQuery = $this->getSearchQuery($parentLocationId, $requestFilter);
 
@@ -223,7 +224,7 @@ final class NodeFactory
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
-    private function countAggregatedSubitems(array $containerLocations, ?Criterion $requestFilter): array
+    private function countAggregatedSubitems(array $containerLocations, ?CriterionInterface $requestFilter): array
     {
         if (empty($containerLocations)) {
             return [];
@@ -338,7 +339,7 @@ final class NodeFactory
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
         array $bookmarkLocations = [],
-        ?Criterion $requestFilter = null
+        ?CriterionInterface $requestFilter = null
     ): Node {
         $contentInfo = $location->getContentInfo();
         $contentId = $location->getContentId();
@@ -443,7 +444,7 @@ final class NodeFactory
     private function supplyChildrenCount(
         Node $node,
         ?array $aggregationResult = null,
-        ?Criterion $requestFilter = null
+        ?CriterionInterface $requestFilter = null
     ): void {
         if ($node->isContainer) {
             if ($aggregationResult !== null) {

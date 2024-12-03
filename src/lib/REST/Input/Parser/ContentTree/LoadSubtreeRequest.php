@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\REST\Input\Parser\ContentTree;
 
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequest as LoadSubtreeRequestValue;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Exceptions;
 use Ibexa\Contracts\Rest\Input\ParsingDispatcher;
 use Ibexa\Rest\Server\Input\Parser\Criterion as CriterionParser;
@@ -45,7 +46,7 @@ class LoadSubtreeRequest extends CriterionParser
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
-    private function processCriteriaArray(array $criteriaArray, ParsingDispatcher $parsingDispatcher): ?Criterion
+    private function processCriteriaArray(array $criteriaArray, ParsingDispatcher $parsingDispatcher): ?CriterionInterface
     {
         if (count($criteriaArray) === 0) {
             return null;
