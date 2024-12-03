@@ -83,7 +83,7 @@ class AssetController extends Controller
                     $content = $this->imageAssetMapper->createAsset(
                         $file->getClientOriginalName(),
                         new ImageValue([
-                            'path' => $file->getRealPath(),
+                            'inputUri' => $file->getRealPath(),
                             'fileSize' => $file->getSize(),
                             'fileName' => $file->getClientOriginalName(),
                             'alternativeText' => $file->getClientOriginalName(),
