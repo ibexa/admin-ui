@@ -9,10 +9,16 @@ export const SIZES = {
     LARGE: 'large',
 };
 
-const Spinner = ({ size }) => {
+export const COLOR_VARIATNS = {
+    PRIMARY: 'primary',
+    LIGHT: 'light',
+};
+
+const Spinner = ({ size, colorVariant }) => {
     const className = createCssClassNames({
         'c-spinner': true,
         [`c-spinner--${size}`]: true,
+        [`c-spinner--${colorVariant}`]: true,
     });
 
     return <div className={className} />;
@@ -20,10 +26,12 @@ const Spinner = ({ size }) => {
 
 Spinner.propTypes = {
     size: PropTypes.oneOf(Object.values(SIZES)),
+    colorVariant: PropTypes.oneOf(Object.values(COLOR_VARIATNS)),
 };
 
 Spinner.defaultProps = {
     size: SIZES.MEDIUM,
+    colorVariant: COLOR_VARIATNS.PRIMARY,
 };
 
 export default Spinner;
