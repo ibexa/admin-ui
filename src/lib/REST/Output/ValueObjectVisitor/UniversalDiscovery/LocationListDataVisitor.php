@@ -19,20 +19,18 @@ final class LocationListDataVisitor extends AbstractLocationDataVisitor
     public function visit(Visitor $visitor, Generator $generator, $data): void
     {
         $generator->startObjectElement('LocationList');
+        $generator->startList('locations');
 
         foreach ($data->getLocationList() as $locationList) {
-            $generator->startList('locations');
-
             $generator->startHashElement('locationWithPermissions');
 
             $this->buildLocationNode($locationList['location'], $generator, $visitor);
             $this->buildPermissionNode($locationList['permissions'], $generator);
 
             $generator->endHashElement('locationWithPermissions');
-
-            $generator->endList('locations');
         }
 
+        $generator->endList('locations');
         $generator->endObjectElement('LocationList');
     }
 }
