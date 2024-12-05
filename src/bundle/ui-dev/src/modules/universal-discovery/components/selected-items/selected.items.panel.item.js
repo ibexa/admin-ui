@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 
 import {
     parse as parseTooltip,
@@ -36,12 +36,14 @@ const SelectedItemsPanelItem = ({ item, thumbnailData, name, description }) => {
         });
     }, []);
 
-    useEffect(() => {
-        parseTooltip(refSelectedLocationsItem.current);
-    }, []);
-
     return (
-        <div className="c-selected-items-panel-item" ref={refSelectedLocationsItem}>
+        <div
+            className="c-selected-items-panel-item"
+            ref={(node) => {
+                refSelectedLocationsItem.current = node;
+                parseTooltip(node);
+            }}
+        >
             <div className="c-selected-items-panel-item__image-wrapper">
                 <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
             </div>

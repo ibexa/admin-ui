@@ -39,13 +39,7 @@
                     box-shadow: none;
                     border-bottom-color: transparent;
 
-                    &:before {
-                        transform: rotate(135deg);
-                    }
-
-                    &:after {
-                        transform: rotate(-135deg);
-                    }
+                    @include collapsible-arrow-collapsed-state;
                 }
 
                 &__collapsible-content {
@@ -71,26 +65,7 @@
         border-width: calculateRem(1px) 0;
         box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
 
-        &::before,
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: 1;
-            top: 50%;
-            width: calculateRem(6px);
-            height: calculateRem(1px);
-            background: $ibexa-color-dark;
-        }
-
-        &::before {
-            transform: rotate(225deg);
-            right: calculateRem(12px);
-        }
-
-        &::after {
-            transform: rotate(-225deg);
-            right: calculateRem(16px);
-        }
+        @include collapsible-arrow;
     }
 
     &__collapsible-content {

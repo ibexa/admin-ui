@@ -47,6 +47,7 @@ export const usePaginableFetch = ({ itemsPerPage, extraFetchParams }, fetchFunct
 
     useEffect(() => {
         dispatch({ type: FETCH_START });
+
         const offset = state.pageIndex * itemsPerPage;
         const { abortController } = fetchFunction({ ...restInfo, limit: itemsPerPage, offset, ...extraFetchParams }, (data) =>
             dispatch({ type: FETCH_END, data }),
