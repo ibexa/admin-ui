@@ -391,15 +391,17 @@ final class NodeFactory
             }
         }
 
-        $translations = $versionInfo->getLanguageCodes();
-        $mainLanguageCode = $versionInfo->getContentInfo()->getMainLanguageCode();
+        //TODO tylko tego nie mamy
+        //$translations = $versionInfo->getLanguageCodes();
+
+        //TODO to mozemy z lokacji
+        $mainLanguageCode = $location->getContentInfo()->getMainLanguageCode();
 
         return new Node(
             $depth,
             $location->getId(),
             $location->getContentId(),
             $versionInfo->getVersionNo(),
-            $translations,
             '', // node name will be provided later by `supplyTranslatedContentName` method
             null !== $contentType ? $contentType->getIdentifier() : '',
             null === $contentType || $contentType->isContainer(),
