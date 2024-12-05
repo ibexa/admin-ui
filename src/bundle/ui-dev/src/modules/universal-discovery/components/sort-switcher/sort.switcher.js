@@ -14,7 +14,6 @@ const SortSwitcher = ({ isDisabled, disabledConfig }) => {
         setSorting(option.sortClause);
         setSortOrder(option.sortOrder);
     };
-
     const disabledParams = {};
 
     if (isDisabled && disabledConfig) {
