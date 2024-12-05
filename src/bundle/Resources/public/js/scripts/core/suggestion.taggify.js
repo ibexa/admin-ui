@@ -1,11 +1,17 @@
+import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 (function (global, doc, ibexa) {
+    const MIN_QUERY_LENGTH = 3;
+
     class SuggestionTaggify extends ibexa.core.Taggify {
         constructor(config) {
             super(config);
 
+            const { siteaccess, token } = getRestInfo();
+
             this.suggestionsListNode = config.suggestionsListNode ?? this.container.querySelector('.ibexa-taggify__suggestions');
-            this.token = config.token ?? doc.querySelector('meta[name="CSRF-Token"]').content;
-            this.siteaccess = config.siteaccess ?? doc.querySelector('meta[name="SiteAccess"]').content;
+            this.token = config.token ?? token;
+            this.siteaccess = config.siteaccess ?? siteaccess;
 
             this.renderSuggestionsList = this.renderSuggestionsList.bind(this);
             this.getItemsFromResponse = this.getItemsFromResponse.bind(this);
@@ -114,7 +120,7 @@
                 return;
             }
 
-            if (this.inputNode.value.length > 3) {
+            if (this.inputNode.value.length > MIN_QUERY_LENGTH) {
                 this.getSuggestions(this.inputNode.value);
             }
         }

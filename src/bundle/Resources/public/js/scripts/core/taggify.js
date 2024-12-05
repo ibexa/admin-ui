@@ -28,11 +28,8 @@
             const tag = div.querySelector('.ibexa-taggify__list-tag');
 
             this.attachEventsToTag(tag, value);
-
             this.listNode.insertBefore(tag, this.inputNode);
-
             this.tags.add(value);
-
             this.afterTagsUpdate();
         }
 
