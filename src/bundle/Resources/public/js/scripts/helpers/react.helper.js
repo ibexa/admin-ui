@@ -1,7 +1,7 @@
 import { getRootDOMElement } from './context.helper';
 
 const createDynamicRoot = ({ contextDOMElement = getRootDOMElement(), id } = {}) => {
-    if (id && contextDOMElement.querySelector(`#${id}`) !== null) {
+    if (id && window.document.getElementById(id) !== null) {
         console.warn(`You're creating second root element with ID "${id}". IDs should be unique inside a document.`);
     }
 
