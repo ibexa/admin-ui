@@ -356,9 +356,6 @@ final class NodeFactory
             $containerLocations[] = $location;
         }
 
-        $content = $location->getContent();
-        $versionInfo = $content->getVersionInfo();
-
         $limit = $this->resolveLoadLimit($loadSubtreeRequestNode);
         $offset = null !== $loadSubtreeRequestNode
             ? $loadSubtreeRequestNode->offset
@@ -391,17 +388,11 @@ final class NodeFactory
             }
         }
 
-        //TODO tylko tego nie mamy
-        //$translations = $versionInfo->getLanguageCodes();
-
-        //TODO to mozemy z lokacji
-        $mainLanguageCode = $location->getContentInfo()->getMainLanguageCode();
-
         return new Node(
             $depth,
             $location->getId(),
             $location->getContentId(),
-            $versionInfo->getVersionNo(),
+            $contentInfo->currentVersionNo,
             '', // node name will be provided later by `supplyTranslatedContentName` method
             null !== $contentType ? $contentType->getIdentifier() : '',
             null === $contentType || $contentType->isContainer(),
@@ -410,7 +401,7 @@ final class NodeFactory
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
             isset($bookmarkLocations[$location->getId()]),
-            $mainLanguageCode,
+            $contentInfo->getMainLanguageCode(),
             $children,
             $location->getPathString()
         );
