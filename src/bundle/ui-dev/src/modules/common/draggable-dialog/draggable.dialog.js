@@ -1,4 +1,4 @@
-import React, { useRef, createContext, useState, useEffect } from 'react';
+import React, { useRef, createContext, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { getRootDOMElement } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
@@ -25,43 +25,46 @@ const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
             left: coords.x,
         },
     };
-    const getMousePosition = (event) => ({ x: event.x, y: event.y });
-    const setContainerCoords = (event) => {
-        const mouseCoords = getMousePosition(event);
-        let x = mouseCoords.x - dragOffsetPosition.current.x;
-        let y = mouseCoords.y - dragOffsetPosition.current.y;
-        let newDragOffsetX;
-        let newDragOffsetY;
+    const getMousePosition = useCallback((event) => ({ x: event.x, y: event.y }), []);
+    const setContainerCoords = useCallback(
+        (event) => {
+            const mouseCoords = getMousePosition(event);
+            let x = mouseCoords.x - dragOffsetPosition.current.x;
+            let y = mouseCoords.y - dragOffsetPosition.current.y;
+            let newDragOffsetX;
+            let newDragOffsetY;
 
-        if (x < 0) {
-            x = 0;
-            newDragOffsetX = mouseCoords.x;
-        } else if (x + containerSize.current.width > window.innerWidth) {
-            x = window.innerWidth - containerSize.current.width;
-            newDragOffsetX = mouseCoords.x - x;
-        }
+            if (x < 0) {
+                x = 0;
+                newDragOffsetX = mouseCoords.x;
+            } else if (x + containerSize.current.width > window.innerWidth) {
+                x = window.innerWidth - containerSize.current.width;
+                newDragOffsetX = mouseCoords.x - x;
+            }
 
-        if (y < 0) {
-            y = 0;
-            newDragOffsetY = mouseCoords.y;
-        } else if (y + containerSize.current.height > window.innerHeight) {
-            y = window.innerHeight - containerSize.current.height;
-            newDragOffsetY = mouseCoords.y - y;
-        }
+            if (y < 0) {
+                y = 0;
+                newDragOffsetY = mouseCoords.y;
+            } else if (y + containerSize.current.height > window.innerHeight) {
+                y = window.innerHeight - containerSize.current.height;
+                newDragOffsetY = mouseCoords.y - y;
+            }
 
-        if (newDragOffsetX) {
-            dragOffsetPosition.current.x = newDragOffsetX;
-        }
+            if (newDragOffsetX) {
+                dragOffsetPosition.current.x = newDragOffsetX;
+            }
 
-        if (newDragOffsetY) {
-            dragOffsetPosition.current.y = newDragOffsetY;
-        }
+            if (newDragOffsetY) {
+                dragOffsetPosition.current.y = newDragOffsetY;
+            }
 
-        setCoords({
-            x,
-            y,
-        });
-    };
+            setCoords({
+                x,
+                y,
+            });
+        },
+        [getMousePosition],
+    );
     const startDragging = (event) => {
         const { x: containerX, y: containerY, width, height } = containerRef.current.getBoundingClientRect();
         const mouseCoords = getMousePosition(event.nativeEvent);
@@ -80,24 +83,29 @@ const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
 
         setIsDragging(true);
     };
-    const stopDragging = () => {
+    const stopDragging = useCallback(() => {
         setIsDragging(false);
-    };
-    const handleDragging = (event) => {
-        setContainerCoords(event);
-    };
+    }, []);
+    const handleDragging = useCallback(
+        (event) => {
+            setContainerCoords(event);
+        },
+        [setContainerCoords],
+    );
 
     useEffect(() => {
-        if (isDragging) {
-            rootDOMElement.addEventListener('mousemove', handleDragging, false);
-            rootDOMElement.addEventListener('mouseup', stopDragging, false);
+        if (!isDragging) {
+            return;
         }
+
+        rootDOMElement.addEventListener('mousemove', handleDragging, false);
+        rootDOMElement.addEventListener('mouseup', stopDragging, false);
 
         return () => {
             rootDOMElement.removeEventListener('mousemove', handleDragging);
             rootDOMElement.removeEventListener('mouseup', stopDragging);
         };
-    }, [isDragging]);
+    }, [isDragging, rootDOMElement, handleDragging, stopDragging]);
 
     useEffect(() => {
         const { top: referenceTop, left: referenceLeft } = referenceElement.getBoundingClientRect();
@@ -122,7 +130,7 @@ const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
             x,
             y,
         });
-    }, [referenceElement]);
+    }, [referenceElement, positionOffset]);
 
     return (
         <DraggableContext.Provider
