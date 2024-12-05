@@ -17,7 +17,6 @@
                 "pathString": "/1/2/",
                 "reverseRelationsCount": 0,
                 "totalChildrenCount": 0,
-                "translations": "eng-GB",
                 "versionNo": 1
             },
             {
@@ -35,7 +34,6 @@
                 "pathString": "/1/43/",
                 "reverseRelationsCount": 0,
                 "totalChildrenCount": 3,
-                "translations": "eng-US",
                 "versionNo": 1
             },
             {
@@ -53,7 +51,6 @@
                 "pathString": "/1/48/",
                 "reverseRelationsCount": 0,
                 "totalChildrenCount": 0,
-                "translations": "eng-US",
                 "versionNo": 1
             },
             {
@@ -71,7 +68,6 @@
                 "pathString": "/1/58/",
                 "reverseRelationsCount": 0,
                 "totalChildrenCount": 0,
-                "translations": "eng-US",
                 "versionNo": 1
             }
         ],
@@ -87,7 +83,6 @@
         "pathString": "/1/",
         "reverseRelationsCount": 0,
         "totalChildrenCount": 4,
-        "translations": "",
         "versionNo": 1
     }
 }
