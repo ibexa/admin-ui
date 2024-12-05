@@ -33,10 +33,14 @@ const FiltersPanel = ({ children, isApplyButtonEnabled, makeSearch, clearFilters
 };
 
 FiltersPanel.propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     isApplyButtonEnabled: PropTypes.bool.isRequired,
     makeSearch: PropTypes.func.isRequired,
     clearFilters: PropTypes.func.isRequired,
+};
+
+FiltersPanel.defaultProps = {
+    children: null,
 };
 
 export default FiltersPanel;

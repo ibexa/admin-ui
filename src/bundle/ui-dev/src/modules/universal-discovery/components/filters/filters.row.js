@@ -19,8 +19,12 @@ const FiltersRow = ({ children, title, extraClasses }) => {
 
 FiltersRow.propTypes = {
     children: PropTypes.node.isRequired,
-    extraClasses: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    extraClasses: PropTypes.string,
+};
+
+FiltersRow.defaultProps = {
+    extraClasses: '',
 };
 
 export default FiltersRow;

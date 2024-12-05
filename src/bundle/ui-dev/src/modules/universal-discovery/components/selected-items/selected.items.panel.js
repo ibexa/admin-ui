@@ -111,7 +111,11 @@ const SelectedItemsPanel = () => {
                     {selectedItems.map((selectedItem) => {
                         const ItemComponent = itemsComponentsMap[selectedItem.type].component;
 
-                        return ItemComponent && <ItemComponent key={`${selectedItem.type}-${selectedItem.id}`} item={selectedItem} />;
+                        if (!ItemComponent) {
+                            throw new Error(`SelectedItemsPanel: component for ${selectedItem.type} not provided in configuration.`);
+                        }
+
+                        return <ItemComponent key={`${selectedItem.type}-${selectedItem.id}`} item={selectedItem} />;
                     })}
                 </div>
             </div>
