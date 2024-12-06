@@ -15,3 +15,20 @@ services:
 
     Ibexa\AdminUi\Permission\LimitationResolverInterface:
         alias: Ibexa\AdminUi\Permission\LimitationResolver
+
+    Ibexa\AdminUi\Permission\PermissionCheckContextResolver:
+        arguments:
+            $permissionContextProviders: !tagged_iterator ibexa.admin_ui.permission_check_context.provider
+
+    Ibexa\AdminUi\Permission\PermissionCheckContextResolverInterface:
+        alias: Ibexa\AdminUi\Permission\PermissionCheckContextResolver
+
+    Ibexa\Contracts\AdminUi\Permission\PermissionCheckContextProviderInterface: ~
+
+    Ibexa\AdminUi\Permission\ContextProvider\ContentItemContextProvider:
+        arguments:
+            $userContentTypeIdentifiers: '%ibexa.admin_ui.permission_check_context.content.user_content_type_identifiers%'
+        tags:
+            -
+                name: ibexa.admin_ui.permission_check_context.provider
+                priority: -100
