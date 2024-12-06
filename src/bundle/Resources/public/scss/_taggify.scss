@@ -1,0 +1,61 @@
+.ibexa-taggify {
+    position: relative;
+
+    &__list {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        min-height: calculateRem(48px);
+        border: calculateRem(1px) solid $ibexa-color-light;
+    }
+
+    &__list-tag {
+        padding-left: calculateRem(8px);
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
+        margin-right: calculateRem(8px);
+        display: flex;
+        align-items: center;
+
+        .ibexa-btn {
+            height: auto;
+            margin-left: calculateRem(8px);
+        }
+
+        & + .ibexa-taggify__input {
+            &::placeholder {
+                opacity: 0;
+            }
+        }
+    }
+
+    &__input {
+        border: none;
+        flex-grow: 1;
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    &__suggestions {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        transform: translate(0, calc(100% + calculateRem(4px)));
+        border: calculateRem(1px) solid $ibexa-color-light;
+        border-radius: $ibexa-border-radius;
+        background-color: $ibexa-color-white;
+        padding: calculateRem(4px);
+        box-shadow: $ibexa-edit-content-box-shadow;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__suggestion-item {
+        padding: calculateRem(8px) calculateRem(12px);
+        cursor: pointer;
+    }
+}

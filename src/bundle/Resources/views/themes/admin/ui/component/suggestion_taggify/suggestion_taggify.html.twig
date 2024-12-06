@@ -1,0 +1,12 @@
+{% extends '@ibexadesign/ui/component/taggify/taggify.html.twig' %}
+
+{% block main_class %}ibexa-taggify--suggestion{% endblock %}
+
+{% block additional_tools_wrapper %}
+    <div 
+        class="ibexa-taggify__suggestions ibexa-taggify__suggestions--hidden"
+        data-template="{{ include("@ibexadesign/ui/component/suggestion_taggify/suggestion_taggify_item.html.twig", {
+            name: '{{ name }}',
+        })|e('html_attr') }}"
+    ></div>
+{% endblock %}
