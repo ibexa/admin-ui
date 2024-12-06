@@ -23,9 +23,6 @@ class Node extends RestValue
 
     public int $versionNo;
 
-    /** @var string[] */
-    public array $translations;
-
     /** @var string */
     public $name;
 
@@ -56,24 +53,13 @@ class Node extends RestValue
     public string $mainLanguageCode;
 
     /**
-     * @param int $depth
-     * @param int $locationId
-     * @param int $contentId
-     * @param string[] $translations
-     * @param string $name
-     * @param string $contentTypeIdentifier
-     * @param bool $isContainer
-     * @param bool $isInvisible
-     * @param int $displayLimit
-     * @param int $totalChildrenCount
-     * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node[] $children
+     * @param array<\Ibexa\AdminUi\REST\Value\ContentTree\Node> $children
      */
     public function __construct(
         int $depth,
         int $locationId,
         int $contentId,
         int $versionNo,
-        array $translations,
         string $name,
         string $contentTypeIdentifier,
         bool $isContainer,
@@ -90,7 +76,6 @@ class Node extends RestValue
         $this->locationId = $locationId;
         $this->contentId = $contentId;
         $this->versionNo = $versionNo;
-        $this->translations = $translations;
         $this->name = $name;
         $this->isInvisible = $isInvisible;
         $this->contentTypeIdentifier = $contentTypeIdentifier;
