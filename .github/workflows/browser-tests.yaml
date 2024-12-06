@@ -11,6 +11,8 @@ jobs:
     admin-ui-oss:
         name: "AdminUI-OSS"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        env:
+            COMPOSER_ROOT_VERSION=dev-ibx-8534-core-v5-p2
         with:
             project-edition: 'oss'
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaOSS'
@@ -23,6 +25,8 @@ jobs:
     admin-ui-headless:
         name: "AdminUI-Headless"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        env:
+            COMPOSER_ROOT_VERSION=dev-ibx-8534-core-v5-p2
         with:
             project-edition: 'headless'
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaHeadless'
@@ -41,6 +45,8 @@ jobs:
     admin-ui-experience-commerce:
         name: "AdminUI-Experience/Commerce"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        env:
+            COMPOSER_ROOT_VERSION=dev-ibx-8534-core-v5-p2
         with:
             project-edition: 'experience'
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience,@IbexaCommerce'
@@ -59,6 +65,8 @@ jobs:
     page-builder:
         name: "Basic Page Builder tests"
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
+        env:
+            COMPOSER_ROOT_VERSION=dev-ibx-8534-core-v5-p2
         with:
             project-edition: 'experience'
             test-suite:  '--profile=browser --suite=personas'
