@@ -10,6 +10,10 @@
     {% endblock %}
 {% endset %}
 
+{% set extra_filters %}
+    {% block extra_filters %}{% endblock %}
+{% endset %}
+
 {% set entries %}
     {% block entries %}{% endblock %}
 {% endset %}
@@ -86,6 +90,7 @@
                         {{ top_input_content }}
                     {% endblock %}
                 {% endembed %}
+                {{ extra_filters }}
                 <div class="ibexa-user-invitation-modal__labels">
                     {{ entries_labels }}
                 </div>
