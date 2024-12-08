@@ -36,8 +36,12 @@ const TopMenu = ({ actionsDisabledMap }) => {
             <div className="c-top-menu__actions-wrapper">
                 {sortedActions.map((action) => {
                     const Component = action.component;
+                    const disabledData = actionsDisabledMap[action.id];
+                    const hasDisabledConfig = disabledData instanceof Object;
 
-                    return <Component key={action.id} isDisabled={actionsDisabledMap[action.id]} />;
+                    return (
+                        <Component key={action.id} isDisabled={!!disabledData} disabledConfig={hasDisabledConfig ? disabledData : null} />
+                    );
                 })}
             </div>
             <TopMenuSearchInput isSearchOpened={isSearchOpened} setIsSearchOpened={setIsSearchOpened} />
