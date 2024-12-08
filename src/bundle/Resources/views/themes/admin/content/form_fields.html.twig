@@ -68,7 +68,7 @@
             {{- block('form_label') }}
         </div>
         <div{% with { attr: widget_wrapper_attr } %}{{ block('attributes') }}{% endwith %}>
-            {{- form_widget(form, {'attr': attr}) -}}
+            {{- form_widget(form, { attr }) -}}
         </div>
         <div class="ibexa-form-error">
             {{- block('form_errors') -}}
