@@ -24,7 +24,7 @@ use Ibexa\Core\Repository\Values\User\UserReference;
  * }
  * @phpstan-type TPermissionInfoData array{
  *     access: array<TUserData>,
- *     no_access: array<TUserData>,
+ *     noAccess: array<TUserData>,
  * }
  */
 final class UsersWithPermissionInfoMapper
@@ -82,7 +82,7 @@ final class UsersWithPermissionInfoMapper
     ): array {
         $results = [
             'access' => [],
-            'no_access' => [],
+            'noAccess' => [],
         ];
 
         foreach ($searchResult as $result) {
@@ -99,7 +99,7 @@ final class UsersWithPermissionInfoMapper
             if ($this->permissionResolver->canUser($module, $function, $object, $targets)) {
                 $results['access'][] = $userData;
             } else {
-                $results['no_access'][] = $userData;
+                $results['noAccess'][] = $userData;
             }
         }
 
