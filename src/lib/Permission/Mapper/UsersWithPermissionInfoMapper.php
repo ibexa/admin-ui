@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Permission\Mapper;
 
 use Ibexa\Contracts\AdminUi\Values\PermissionCheckContext;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
@@ -30,14 +31,18 @@ final class UsersWithPermissionInfoMapper
 {
     private PermissionResolver $permissionResolver;
 
+    private Repository $repository;
+
     private UserService $userService;
 
     public function __construct(
-        UserService $userService,
-        PermissionResolver $permissionResolver
+        PermissionResolver $permissionResolver,
+        Repository $repository,
+        UserService $userService
     ) {
-        $this->userService = $userService;
         $this->permissionResolver = $permissionResolver;
+        $this->repository = $repository;
+        $this->userService = $userService;
     }
 
     /**
@@ -55,11 +60,11 @@ final class UsersWithPermissionInfoMapper
     ): array {
         $currentUserReference = $this->permissionResolver->getCurrentUserReference();
 
-        $results = $this->groupByPermissions($searchResult, $permissionContext, $module, $function);
-
-        $this->permissionResolver->setCurrentUserReference($currentUserReference);
-
-        return $results;
+        try {
+            return $this->groupByPermissions($searchResult, $permissionContext, $module, $function);
+        } finally {
+            $this->permissionResolver->setCurrentUserReference($currentUserReference);
+        }
     }
 
     /**
@@ -83,8 +88,7 @@ final class UsersWithPermissionInfoMapper
         foreach ($searchResult as $result) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $userContentInfo */
             $userContentInfo = $result->valueObject;
-            $user = $this->userService->loadUser($userContentInfo->getId());
-
+            $user = $this->loadUser($userContentInfo->getId());
             $userReference = new UserReference($user->getUserId());
             $this->permissionResolver->setCurrentUserReference($userReference);
 
@@ -100,6 +104,16 @@ final class UsersWithPermissionInfoMapper
         }
 
         return $results;
+    }
+
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
+    private function loadUser(int $userId): User
+    {
+        return $this->repository->sudo(
+            fn (): User => $this->userService->loadUser($userId)
+        );
     }
 
     /**
