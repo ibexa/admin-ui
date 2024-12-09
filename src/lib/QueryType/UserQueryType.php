@@ -16,6 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserQueryType extends AbstractQueryType
 {
+    private const USER_SEARCH_PHRASE_PATTERN = '/[^a-zA-Z0-9@._-]/';
+
     protected function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -80,7 +82,7 @@ final class UserQueryType extends AbstractQueryType
 
     private function cleanSearchPhrase(string $phrase): string
     {
-        $sanitizedPhrase = preg_replace('/[^a-zA-Z0-9@._-]/', '', $phrase);
+        $sanitizedPhrase = preg_replace(self::USER_SEARCH_PHRASE_PATTERN, '', $phrase);
         if (null === $sanitizedPhrase) {
             throw new RuntimeException('Could not sanitize search phrase.');
         }
