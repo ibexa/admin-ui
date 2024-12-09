@@ -129,7 +129,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/button.content.edit.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.search.filters.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.search.sorting.js'),
-            path.resolve(__dirname, '../public/js/scripts/admin.search.js'),
+            path.resolve(__dirname, '../public/ts/admin.search.ts'),
             path.resolve(__dirname, '../public/js/scripts/udw/select.location.js'),
             path.resolve(__dirname, '../public/js/scripts/button.translation.edit.js'),
         ])
