@@ -38,6 +38,9 @@
         ],
         "previewableTranslations": {
             "values": ["eng-GB"]
+        },
+        "translations": {
+            "values": ["eng-GB"]
         }
     }
 }

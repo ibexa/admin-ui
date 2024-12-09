@@ -4,7 +4,6 @@
     <pathString>/1/</pathString>
     <contentId>0</contentId>
     <versionNo>1</versionNo>
-    <translations/>
     <mainLanguageCode>eng-GB</mainLanguageCode>
     <name/>
     <contentTypeIdentifier/>
@@ -19,7 +18,6 @@
         <pathString>/1/2/</pathString>
         <contentId>57</contentId>
         <versionNo>1</versionNo>
-        <translations>eng-GB</translations>
         <mainLanguageCode>eng-GB</mainLanguageCode>
         <name>Home</name>
         <contentTypeIdentifier>landing_page</contentTypeIdentifier>
@@ -35,7 +33,6 @@
         <pathString>/1/43/</pathString>
         <contentId>41</contentId>
         <versionNo>1</versionNo>
-        <translations>eng-US</translations>
         <mainLanguageCode>eng-US</mainLanguageCode>
         <name>Media</name>
         <contentTypeIdentifier>folder</contentTypeIdentifier>
@@ -51,7 +48,6 @@
         <pathString>/1/48/</pathString>
         <contentId>45</contentId>
         <versionNo>1</versionNo>
-        <translations>eng-US</translations>
         <mainLanguageCode>eng-US</mainLanguageCode>
         <name>Setup</name>
         <contentTypeIdentifier>folder</contentTypeIdentifier>
@@ -67,7 +63,6 @@
         <pathString>/1/5/</pathString>
         <contentId>4</contentId>
         <versionNo>1</versionNo>
-        <translations>eng-US</translations>
         <mainLanguageCode>eng-US</mainLanguageCode>
         <name>Users</name>
         <contentTypeIdentifier>user_group</contentTypeIdentifier>
@@ -83,7 +78,6 @@
         <pathString>/1/58/</pathString>
         <contentId>56</contentId>
         <versionNo>1</versionNo>
-        <translations>eng-US</translations>
         <mainLanguageCode>eng-US</mainLanguageCode>
         <name>Design</name>
         <contentTypeIdentifier>folder</contentTypeIdentifier>
