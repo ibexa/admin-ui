@@ -1,4 +1,4 @@
-export interface thumbnailData {
+export interface ThumbnailData {
     thumbnailData: {
         mimeType: string;
         resource: string;

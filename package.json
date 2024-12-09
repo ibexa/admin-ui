@@ -5,8 +5,8 @@
     "prettier": "eslint-config-ibexa/prettier",
     "dependencies": {},
     "devDependencies": {
-        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#IBX-9109-enabling-typescript",
-        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#IBX-9109-enabling-typescript",
+        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#~v1.2.0",
+        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#~v1.0.0",
         "@types/react": "^18.3.11",
         "@types/react-dom": "^18.3.1"
     },
