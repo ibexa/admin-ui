@@ -111,7 +111,7 @@
             {% endfor %}
 
             {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: group|capitalize,
+                headline: group|trans({}, 'ibexa_fields_groups'),
                 head_cols: [
                     { content: 'Name', class: 'ibexa-table__head-cell--field-definitions-head' },
                     { content: 'Identifier', class: 'ibexa-table__head-cell--field-definitions-head' },
