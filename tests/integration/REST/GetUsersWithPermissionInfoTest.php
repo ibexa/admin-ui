@@ -89,7 +89,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
             ['contentId' => 41],
-            '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
         yield 'Check content-read for content item 41 and location 51' => [
@@ -100,7 +100,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
                 'contentId' => 41,
                 'locationId' => 51,
             ],
-            '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
         yield 'Check content-read for phrase=undef*' => [
@@ -111,7 +111,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
                 'contentId' => 41,
                 'phrase' => 'undef*',
             ],
-            '{"access":[],"no_access":[]}',
+            '{"access":[],"noAccess":[]}',
         ];
 
         yield 'Check content-edit for content item 2 and phrase=jo' => [
@@ -122,7 +122,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
                 'contentId' => 41,
                 'phrase' => 'jo*',
             ],
-            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[]}',
         ];
 
         yield 'Check content-edit for content item 41 and phrase=bar*' => [
@@ -133,7 +133,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
                 'contentId' => 41,
                 'phrase' => 'bar*',
             ],
-            '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[]}',
         ];
 
         yield 'Check content-edit for content item 41 and location 43 and phrase=joshua@link.invalid' => [
@@ -145,7 +145,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
                 'contentId' => 41,
                 'locationId' => self::MEDIA_LOCATION_ID,
             ],
-            '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"no_access":[]}',
+            '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[]}',
         ];
     }
 
