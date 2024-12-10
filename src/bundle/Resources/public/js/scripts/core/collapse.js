@@ -1,28 +1,67 @@
 (function (global, doc, bootstrap) {
     let toggleAllTimeout;
-    let singleElementClicked = [];
-    const toggleAllBtn = doc.querySelector('.ibexa-multi-collapse-btn');
-    const expandAll = toggleAllBtn?.querySelector('.ibexa-attribute-group__toggler-expand');
-    const collapseAll = toggleAllBtn?.querySelector('.ibexa-attribute-group__toggler-collapse');
-    const MULTI_COLLAPSE_BODY_SELECTOR = '.ibexa-multi-collapse';
-    const toggleMultiCollapseButton = () => {
-        collapseAll.classList.toggle('d-none');
-        expandAll.classList.toggle('d-none');
-    };
-    const toggleMultiCollapseIfNeeded = () => {
-        const allGroups = doc.querySelectorAll(MULTI_COLLAPSE_BODY_SELECTOR);
+    const MULTI_COLLAPSE_BTN_TAG = 'data-multi-collapse-btn-id';
+    const COLLAPSE_SECTION_BODY_TAG = 'data-multi-collapse-body';
+    const MULTI_COLLAPSE_ELEMENT_SELECTOR = '.ibexa-multicollapse--item';
+    const toggleAllBtns = doc.querySelectorAll(`[${MULTI_COLLAPSE_BTN_TAG}]`);
+    const multiCollapsBodies = doc.querySelectorAll(`[${COLLAPSE_SECTION_BODY_TAG}]`);
 
-        if (singleElementClicked.length === allGroups.length || singleElementClicked.length === 0) {
-            toggleMultiCollapseButton();
+    const initializeClickedStateArray = () => {
+        const initToggleState = [];
+
+        if (toggleAllBtns.length === 0) return [];
+
+        Array.from(toggleAllBtns).forEach((collapseBtn) => {
+            const tagValue = collapseBtn.getAttribute(MULTI_COLLAPSE_BTN_TAG);
+            let existingEntry = initToggleState.find((obj) => obj.btnName === tagValue);
+
+            if (!existingEntry) {
+                existingEntry = { btnName: tagValue, collapsedElements: [] };
+                initToggleState.push(existingEntry);
+            }
+        });
+
+        return initToggleState;
+    };
+    let clickedElementsState = initializeClickedStateArray();
+    const toggleMultiCollapseButton = (btn, changeToCollapseAll) => {
+        const expandAll = btn.querySelector('.ibexa-multi-collapse__toggler-expand');
+        const collapseAll = btn.querySelector('.ibexa-multi-collapse__toggler-collapse');
+
+        if (changeToCollapseAll && collapseAll.classList.contains('d-none')) {
+            collapseAll.classList.toggle('d-none');
+            expandAll.classList.toggle('d-none');
+        } else if (!changeToCollapseAll && expandAll.classList.contains('d-none')) {
+            collapseAll.classList.toggle('d-none');
+            expandAll.classList.toggle('d-none');
         }
     };
-    const handleCollapseAction = (expandAction) => {
-        singleElementClicked = [];
-        doc.querySelectorAll('.ibexa-collapse').forEach((collapseNode) => {
+    const toggleMultiCollapseIfNeeded = (multiCollapseNode, toggleBtn, tabllLength) => {
+        const allElements = multiCollapseNode.querySelectorAll(MULTI_COLLAPSE_ELEMENT_SELECTOR);
+
+        if (tabllLength === allElements.length || tabllLength === 0) {
+            toggleMultiCollapseButton(toggleBtn, tabllLength === 0);
+        }
+    };
+    const handleCollapseAction = (multiCollapseNode, expandAction) => {
+        const index = clickedElementsState.findIndex(
+            (element) => element.btnName === multiCollapseNode.getAttribute(COLLAPSE_SECTION_BODY_TAG),
+        );
+
+        if (expandAction) {
+            clickedElementsState[index].collapsedElements = [];
+        }
+
+        multiCollapseNode.querySelectorAll('.ibexa-collapse').forEach((collapseNode) => {
             const isElementCollapsed = collapseNode.classList.contains('ibexa-collapse--collapsed');
 
             if (expandAction === isElementCollapsed) {
-                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector(MULTI_COLLAPSE_BODY_SELECTOR)).toggle();
+                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector(MULTI_COLLAPSE_ELEMENT_SELECTOR)).toggle();
+
+                if (!expandAction) {
+                    const uniqueName = collapseNode.querySelector('.ibexa-collapse__toggle-btn').getAttribute('data-bs-target');
+                    clickedElementsState[index].collapsedElements.push(uniqueName);
+                }
             }
         });
     };
@@ -34,28 +73,49 @@
         collapseNode.classList.toggle('ibexa-collapse--collapsed', isCollapsed);
         collapseNode.dataset.collapsed = isCollapsed;
 
-        if (toggleAllBtn) {
-            const uniqueName = toggleButton.getAttribute('data-bs-target');
+        if (toggleAllBtns && toggleAllBtns.length > 0) {
+            const multicollapseNode = collapseNode.closest(`[${COLLAPSE_SECTION_BODY_TAG}]`);
 
-            collapseNode.addEventListener('click', (event) => {
-                event.stopPropagation();
+            if (!!multicollapseNode) {
+                const uniqueName = toggleButton.getAttribute('data-bs-target');
+                const currentToggleAllButton = Array.from(toggleAllBtns).find(
+                    (button) => button.getAttribute(MULTI_COLLAPSE_BTN_TAG) === multicollapseNode.getAttribute(COLLAPSE_SECTION_BODY_TAG),
+                );
 
-                const toggleIndex = singleElementClicked.findIndex((elementIndex) => elementIndex === uniqueName);
+                collapseNode.querySelector('.ibexa-collapse__toggle-btn--status').addEventListener('click', (event) => {
+                    event.stopPropagation();
 
-                window.clearTimeout(toggleAllTimeout);
+                    const collapseSectionIndex = clickedElementsState.findIndex(
+                        (collapseSection) => collapseSection.btnName === currentToggleAllButton.getAttribute(MULTI_COLLAPSE_BTN_TAG),
+                    );
+                    const toggleIndex = clickedElementsState[collapseSectionIndex].collapsedElements.findIndex(
+                        (element) => element === uniqueName,
+                    );
 
-                toggleAllTimeout = window.setTimeout(() => {
-                    if (toggleIndex !== -1) {
-                        singleElementClicked.splice(toggleIndex, 1);
-                        toggleMultiCollapseIfNeeded();
+                    window.clearTimeout(toggleAllTimeout);
 
-                        return;
-                    }
+                    toggleAllTimeout = window.setTimeout(() => {
+                        if (toggleIndex !== -1) {
+                            clickedElementsState[collapseSectionIndex].collapsedElements.splice(toggleIndex, 1);
 
-                    singleElementClicked.push(uniqueName);
-                    toggleMultiCollapseIfNeeded();
-                }, 200);
-            });
+                            toggleMultiCollapseIfNeeded(
+                                multicollapseNode,
+                                currentToggleAllButton,
+                                clickedElementsState[collapseSectionIndex].collapsedElements.length,
+                            );
+
+                            return;
+                        }
+                        clickedElementsState[collapseSectionIndex].collapsedElements.push(uniqueName);
+
+                        toggleMultiCollapseIfNeeded(
+                            multicollapseNode,
+                            currentToggleAllButton,
+                            clickedElementsState[collapseSectionIndex].collapsedElements.length,
+                        );
+                    }, 200);
+                });
+            }
         }
 
         collapseNode.addEventListener('hide.bs.collapse', (event) => {
@@ -71,18 +131,28 @@
         });
     });
 
-    if (toggleAllBtn) {
-        toggleAllBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
+    if (toggleAllBtns) {
+        toggleAllBtns.forEach((btn) => {
+            btn.addEventListener('click', (event) => {
+                event.stopPropagation();
 
-            window.clearTimeout(toggleAllTimeout);
+                const collapseAll = btn?.querySelector('.ibexa-multi-collapse__toggler-collapse');
+                const collapseSelector = btn.getAttribute(MULTI_COLLAPSE_BTN_TAG);
+                if (!!collapseSelector) {
+                    const multiCollapseNode = Array.from(multiCollapsBodies).find(
+                        (node) => node.getAttribute(COLLAPSE_SECTION_BODY_TAG) === collapseSelector,
+                    );
 
-            toggleAllTimeout = window.setTimeout(() => {
-                const isExpanding = collapseAll.classList.contains('d-none');
+                    window.clearTimeout(toggleAllTimeout);
 
-                handleCollapseAction(isExpanding);
-                toggleMultiCollapseButton();
-            }, 200);
+                    toggleAllTimeout = window.setTimeout(() => {
+                        const isExpandingAction = collapseAll.classList.contains('d-none');
+
+                        handleCollapseAction(multiCollapseNode, isExpandingAction);
+                        toggleMultiCollapseButton(btn, isExpandingAction);
+                    }, 200);
+                }
+            });
         });
     }
 })(window, window.document, window.bootstrap);
