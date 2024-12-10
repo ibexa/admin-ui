@@ -516,8 +516,8 @@ export const findSuggestions = (
         ViewInput: {
             identifier: 'view_with_aggregation',
             LocationQuery: {
-                limit,
-                offset,
+                limit: 0,
+                offset: 0,
                 Filter: {
                     ParentLocationIdCriterion: parentLocationId,
                 },
