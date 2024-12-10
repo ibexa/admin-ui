@@ -508,10 +508,7 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     return adminUiConfig.ApplicationConfig;
 };
 
-export const findSuggestions = (
-    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL },
-    callback,
-) => {
+export const findSuggestions = ({ siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
     const body = {
         ViewInput: {
             identifier: 'view_with_aggregation',
