@@ -23,7 +23,7 @@
 
         return initToggleState;
     };
-    let clickedElementsState = initializeClickedStateArray();
+    const clickedElementsState = initializeClickedStateArray();
     const toggleMultiCollapseButton = (btn, changeToCollapseAll) => {
         const expandAll = btn.querySelector('.ibexa-multi-collapse__toggler-expand');
         const collapseAll = btn.querySelector('.ibexa-multi-collapse__toggler-collapse');
