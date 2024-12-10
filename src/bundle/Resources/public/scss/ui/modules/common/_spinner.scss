@@ -1,11 +1,22 @@
+@use 'sass:list';
+
 .c-spinner {
-    @include spinner(calculateRem(26px), calculateRem(3px), $ibexa-color-primary);
+    $color-variants: (
+        '--primary': $ibexa-color-primary,
+        '--light': $ibexa-color-white,
+    );
 
-    &--small {
-        @include spinner(calculateRem(16px), calculateRem(2px), $ibexa-color-primary);
-    }
+    $size-variants: (
+        '--small': calculateRem(16px) calculateRem(2px),
+        '--medium': calculateRem(26px) calculateRem(3px),
+        '--large': calculateRem(86px) calculateRem(6px),
+    );
 
-    &--large {
-        @include spinner(calculateRem(86px), calculateRem(6px), $ibexa-color-primary);
+    @each $size-modifier, $sizes in $size-variants {
+        @each $color-modifier, $color in $color-variants {
+            &#{$size-modifier}.c-spinner#{$color-modifier} {
+                @include spinner(list.nth($sizes, 1), list.nth($sizes, 2), $color);
+            }
+        }
     }
 }
