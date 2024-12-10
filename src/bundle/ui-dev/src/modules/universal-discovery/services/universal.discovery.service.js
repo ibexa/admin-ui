@@ -509,7 +509,7 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
 };
 
 export const findSuggestions = (
-    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
+    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL },
     callback,
 ) => {
     const body = {
