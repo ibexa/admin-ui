@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef } from 'react';
+import React, { useContext, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -38,12 +38,14 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const version = location.ContentInfo.Content.CurrentVersion.Version;
     const thumbnailData = version ? version.Thumbnail : {};
 
-    useEffect(() => {
-        parseTooltip(refSelectedLocationsItem.current);
-    }, []);
-
     return (
-        <div className="c-selected-locations-item" ref={refSelectedLocationsItem}>
+        <div
+            className="c-selected-locations-item"
+            ref={(node) => {
+                refSelectedLocationsItem.current = node;
+                parseTooltip(node);
+            }}
+        >
             <div className="c-selected-locations-item__image-wrapper">
                 <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
             </div>
