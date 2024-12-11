@@ -513,6 +513,8 @@ export const findSuggestions = ({ siteaccess, token, parentLocationId, accessTok
         ViewInput: {
             identifier: 'view_with_aggregation',
             LocationQuery: {
+                // '0' is a proper choice here because aggregation will still provide proper results.
+                // We care only about the aggregation itself, not about fetching records.
                 limit: 0,
                 offset: 0,
                 Filter: {
