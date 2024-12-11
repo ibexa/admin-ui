@@ -2,7 +2,6 @@
     let toggleAllTimeout;
     const MULTI_COLLAPSE_BTN_TAG = 'data-multi-collapse-btn-id';
     const COLLAPSE_SECTION_BODY_TAG = 'data-multi-collapse-body';
-    const MULTI_COLLAPSE_ELEMENT_SELECTOR = '.ibexa-multicollapse--item';
     const toggleAllBtns = doc.querySelectorAll(`[${MULTI_COLLAPSE_BTN_TAG}]`);
     const multiCollapsBodies = doc.querySelectorAll(`[${COLLAPSE_SECTION_BODY_TAG}]`);
 
@@ -37,7 +36,7 @@
         }
     };
     const toggleMultiCollapseIfNeeded = (multiCollapseNode, toggleBtn, tabllLength) => {
-        const allElements = multiCollapseNode.querySelectorAll(MULTI_COLLAPSE_ELEMENT_SELECTOR);
+        const allElements = multiCollapseNode.querySelectorAll('.ibexa-multicollapse--item');
 
         if (tabllLength === allElements.length || tabllLength === 0) {
             toggleMultiCollapseButton(toggleBtn, tabllLength === 0);
@@ -56,7 +55,7 @@
             const isElementCollapsed = collapseNode.classList.contains('ibexa-collapse--collapsed');
 
             if (expandAction === isElementCollapsed) {
-                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector(MULTI_COLLAPSE_ELEMENT_SELECTOR)).toggle();
+                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector('.ibexa-multicollapse--item')).toggle();
 
                 if (!expandAction) {
                     const uniqueName = collapseNode.querySelector('.ibexa-collapse__toggle-btn').getAttribute('data-bs-target');
@@ -73,7 +72,7 @@
         collapseNode.classList.toggle('ibexa-collapse--collapsed', isCollapsed);
         collapseNode.dataset.collapsed = isCollapsed;
 
-        if (toggleAllBtns && toggleAllBtns.length > 0) {
+        if (toggleAllBtns.length > 0) {
             const multicollapseNode = collapseNode.closest(`[${COLLAPSE_SECTION_BODY_TAG}]`);
 
             if (!!multicollapseNode) {
@@ -131,12 +130,12 @@
         });
     });
 
-    if (toggleAllBtns) {
+    if (toggleAllBtns.length > 0) {
         toggleAllBtns.forEach((btn) => {
             btn.addEventListener('click', (event) => {
                 event.stopPropagation();
 
-                const collapseAll = btn?.querySelector('.ibexa-multi-collapse__toggler-collapse');
+                const collapseAll = btn.querySelector('.ibexa-multi-collapse__toggler-collapse');
                 const collapseSelector = btn.getAttribute(MULTI_COLLAPSE_BTN_TAG);
                 if (!!collapseSelector) {
                     const multiCollapseNode = Array.from(multiCollapsBodies).find(
