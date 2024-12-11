@@ -12227,11 +12227,6 @@ parameters:
 			path: tests/lib/Pagination/Pagerfanta/TrashItemAdapterTest.php
 
 		-
-			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\:\\:\\$query \\(Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\\\Criterion\\) does not accept Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\\\CriterionInterface&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
-			count: 2
-			path: tests/lib/Pagination/Pagerfanta/TrashItemAdapterTest.php
-
-		-
 			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\:\\:\\$sortClauses \\(array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\\\SortClause\\>\\) does not accept Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Query\\\\SortClause&PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
 			count: 2
 			path: tests/lib/Pagination/Pagerfanta/TrashItemAdapterTest.php

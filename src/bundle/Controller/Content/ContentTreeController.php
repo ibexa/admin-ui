@@ -23,7 +23,6 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Rest\Message;
@@ -79,7 +78,7 @@ class ContentTreeController extends RestController
         int $parentLocationId,
         int $limit,
         int $offset,
-        ?Criterion $filter
+        ?Query\CriterionInterface $filter
     ): Node {
         $location = $this->locationService->loadLocation($parentLocationId);
         $loadSubtreeRequestNode = new LoadSubtreeRequestNode($parentLocationId, $limit, $offset);
