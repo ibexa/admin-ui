@@ -66,12 +66,26 @@
                         ]
                       }
                     }
-                  }
+                  },
+                "translations": {
+                    "type": "object",
+                    "properties": {
+                        "values": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                }
             },
             "required": [
                 "_media-type",
                 "permissions",
-                "previewableTranslations"
+                "previewableTranslations",
+                "translations"
             ]
         }
     },
