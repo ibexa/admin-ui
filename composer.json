@@ -31,7 +31,7 @@
         "ibexa/rest": "~5.0.x-dev",
         "ibexa/search": "~5.0.x-dev",
         "ibexa/user": "~5.0.x-dev",
-        "jms/translation-bundle": "^1.5",
+        "jms/translation-bundle": "^2.4",
         "knplabs/knp-menu-bundle": "^3.0",
         "mck89/peast": "^1.9",
         "symfony/asset": "^6.4",
@@ -55,7 +55,7 @@
         "twig/intl-extra": "^3.0",
         "twig/string-extra": "^3.0",
         "twig/twig": "^3.0",
-        "willdurand/js-translation-bundle": "^4.0"
+        "willdurand/js-translation-bundle": "^6.1"
     },
     "require-dev": {
         "ext-zip": "*",
