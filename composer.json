@@ -23,7 +23,7 @@
     "require": {
         "php": " >=8.3",
         "ext-json": "*",
-        "babdev/pagerfanta-bundle": "^2.1",
+        "babdev/pagerfanta-bundle": "^3.8",
         "ibexa/content-forms": "~5.0.x-dev",
         "ibexa/core": "~5.0.x-dev",
         "ibexa/design-engine": "~5.0.x-dev",
