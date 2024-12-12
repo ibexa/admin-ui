@@ -7,7 +7,6 @@
                 <xs:element type="xs:string" name="pathString"/>
                 <xs:element type="xs:integer" name="contentId"/>
                 <xs:element type="xs:integer" name="versionNo"/>
-                <xs:element type="xs:string" name="translations"/>
                 <xs:element type="xs:string" name="mainLanguageCode"/>
                 <xs:element type="xs:string" name="name"/>
                 <xs:element type="xs:string" name="contentTypeIdentifier"/>
@@ -24,7 +23,6 @@
                             <xs:element type="xs:string" name="pathString"/>
                             <xs:element type="xs:integer" name="contentId"/>
                             <xs:element type="xs:integer" name="versionNo"/>
-                            <xs:element type="xs:string" name="translations"/>
                             <xs:element type="xs:string" name="mainLanguageCode"/>
                             <xs:element type="xs:string" name="name"/>
                             <xs:element type="xs:string" name="contentTypeIdentifier"/>
