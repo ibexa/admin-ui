@@ -29,7 +29,7 @@ const checkIsEmpty = (field) => {
     }
 
     return {
-        isValid: input?.value ?? true,
+        isValid: (input.value || input.value === 0) ?? false,
         errorMessage,
     };
 };
@@ -57,4 +57,4 @@ const validateIsEmptyField = (field) => {
     return validatorOutput;
 };
 
-export { formatErrorLine, validateIsEmptyField };
+export { formatErrorLine, validateIsEmptyField, checkIsEmpty };
