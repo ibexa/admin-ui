@@ -1,16 +1,14 @@
-(function (global, doc, bootstrap) {
+(function (global, doc, bootstrap, Translator) {
     let toggleAllTimeout;
     const MULTI_COLLAPSE_BTN_TAG = 'data-multi-collapse-btn-id';
     const COLLAPSE_SECTION_BODY_TAG = 'data-multi-collapse-body';
-    const toggleAllBtns = doc.querySelectorAll(`[${MULTI_COLLAPSE_BTN_TAG}]`);
-    const multiCollapsBodies = doc.querySelectorAll(`[${COLLAPSE_SECTION_BODY_TAG}]`);
+    const toggleAllBtns = [...doc.querySelectorAll(`[${MULTI_COLLAPSE_BTN_TAG}]`)];
+    const multiCollapsBodies = [...doc.querySelectorAll(`[${COLLAPSE_SECTION_BODY_TAG}]`)];
 
     const initializeClickedStateArray = () => {
         const initToggleState = [];
 
-        if (toggleAllBtns.length === 0) return [];
-
-        Array.from(toggleAllBtns).forEach((collapseBtn) => {
+        toggleAllBtns.forEach((collapseBtn) => {
             const tagValue = collapseBtn.getAttribute(MULTI_COLLAPSE_BTN_TAG);
             let existingEntry = initToggleState.find((obj) => obj.btnName === tagValue);
 
@@ -24,22 +22,30 @@
     };
     const clickedElementsState = initializeClickedStateArray();
     const toggleMultiCollapseButton = (btn, changeToCollapseAll) => {
-        const expandAll = btn.querySelector('.ibexa-multi-collapse__toggler-expand');
-        const collapseAll = btn.querySelector('.ibexa-multi-collapse__toggler-collapse');
+        if (changeToCollapseAll && btn.classList.contains('label-expand-all')) {
+            btn.innerHTML = Translator.trans(
+                /*@Desc("Change collapseAll button label*/ 'product_type.edit.section.attribute_collapse_all',
+                {},
+                'ibexa_product_catalog',
+            );
+            btn.classList.remove('label-expand-all');
 
-        if (changeToCollapseAll && collapseAll.classList.contains('d-none')) {
-            collapseAll.classList.toggle('d-none');
-            expandAll.classList.toggle('d-none');
-        } else if (!changeToCollapseAll && expandAll.classList.contains('d-none')) {
-            collapseAll.classList.toggle('d-none');
-            expandAll.classList.toggle('d-none');
+            return;
+        }
+        if (!changeToCollapseAll) {
+            btn.innerHTML = Translator.trans(
+                /*@Desc("Change collapseAll button label*/ 'product_type.edit.section.attribute_expand_all',
+                {},
+                'ibexa_product_catalog',
+            );
+            btn.classList.add('label-expand-all');
         }
     };
-    const toggleMultiCollapseIfNeeded = (multiCollapseNode, toggleBtn, tabllLength) => {
-        const allElements = multiCollapseNode.querySelectorAll('.ibexa-multicollapse--item');
+    const toggleMultiCollapseIfNeeded = (multiCollapseNode, toggleBtn, tableLength) => {
+        const allElements = multiCollapseNode.querySelectorAll('.ibexa-multi-collapse--item');
 
-        if (tabllLength === allElements.length || tabllLength === 0) {
-            toggleMultiCollapseButton(toggleBtn, tabllLength === 0);
+        if (tableLength === allElements.length || tableLength === 0) {
+            toggleMultiCollapseButton(toggleBtn, tableLength === 0);
         }
     };
     const handleCollapseAction = (multiCollapseNode, expandAction) => {
@@ -53,9 +59,11 @@
 
         multiCollapseNode.querySelectorAll('.ibexa-collapse').forEach((collapseNode) => {
             const isElementCollapsed = collapseNode.classList.contains('ibexa-collapse--collapsed');
+            const needToBeToggled = expandAction === isElementCollapsed;
 
-            if (expandAction === isElementCollapsed) {
-                bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector('.ibexa-multicollapse--item')).toggle();
+            if (needToBeToggled) {
+                const element = bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector('.ibexa-multi-collapse--item'));
+                expandAction ? element.show() : element.hide();
 
                 if (!expandAction) {
                     const uniqueName = collapseNode.querySelector('.ibexa-collapse__toggle-btn').getAttribute('data-bs-target');
@@ -73,12 +81,12 @@
         collapseNode.dataset.collapsed = isCollapsed;
 
         if (toggleAllBtns.length > 0) {
-            const multicollapseNode = collapseNode.closest(`[${COLLAPSE_SECTION_BODY_TAG}]`);
+            const multiCollapseNode = collapseNode.closest(`[${COLLAPSE_SECTION_BODY_TAG}]`);
 
-            if (!!multicollapseNode) {
+            if (!!multiCollapseNode) {
                 const uniqueName = toggleButton.getAttribute('data-bs-target');
-                const currentToggleAllButton = Array.from(toggleAllBtns).find(
-                    (button) => button.getAttribute(MULTI_COLLAPSE_BTN_TAG) === multicollapseNode.getAttribute(COLLAPSE_SECTION_BODY_TAG),
+                const currentToggleAllButton = toggleAllBtns.find(
+                    (button) => button.getAttribute(MULTI_COLLAPSE_BTN_TAG) === multiCollapseNode.getAttribute(COLLAPSE_SECTION_BODY_TAG),
                 );
 
                 collapseNode.querySelector('.ibexa-collapse__toggle-btn--status').addEventListener('click', (event) => {
@@ -98,7 +106,7 @@
                             clickedElementsState[collapseSectionIndex].collapsedElements.splice(toggleIndex, 1);
 
                             toggleMultiCollapseIfNeeded(
-                                multicollapseNode,
+                                multiCollapseNode,
                                 currentToggleAllButton,
                                 clickedElementsState[collapseSectionIndex].collapsedElements.length,
                             );
@@ -108,7 +116,7 @@
                         clickedElementsState[collapseSectionIndex].collapsedElements.push(uniqueName);
 
                         toggleMultiCollapseIfNeeded(
-                            multicollapseNode,
+                            multiCollapseNode,
                             currentToggleAllButton,
                             clickedElementsState[collapseSectionIndex].collapsedElements.length,
                         );
@@ -130,28 +138,24 @@
         });
     });
 
-    if (toggleAllBtns.length > 0) {
-        toggleAllBtns.forEach((btn) => {
-            btn.addEventListener('click', (event) => {
-                event.stopPropagation();
+    const attachAllElementsToggler = (btn) =>
+        btn.addEventListener('click', () => {
+            const collapseSelector = btn.getAttribute(MULTI_COLLAPSE_BTN_TAG);
+            if (!!collapseSelector) {
+                const multiCollapseNode = multiCollapsBodies.find(
+                    (node) => node.getAttribute(COLLAPSE_SECTION_BODY_TAG) === collapseSelector,
+                );
 
-                const collapseAll = btn.querySelector('.ibexa-multi-collapse__toggler-collapse');
-                const collapseSelector = btn.getAttribute(MULTI_COLLAPSE_BTN_TAG);
-                if (!!collapseSelector) {
-                    const multiCollapseNode = Array.from(multiCollapsBodies).find(
-                        (node) => node.getAttribute(COLLAPSE_SECTION_BODY_TAG) === collapseSelector,
-                    );
+                window.clearTimeout(toggleAllTimeout);
 
-                    window.clearTimeout(toggleAllTimeout);
+                toggleAllTimeout = window.setTimeout(() => {
+                    const isExpandingAction = btn.classList.contains('label-expand-all');
 
-                    toggleAllTimeout = window.setTimeout(() => {
-                        const isExpandingAction = collapseAll.classList.contains('d-none');
-
-                        handleCollapseAction(multiCollapseNode, isExpandingAction);
-                        toggleMultiCollapseButton(btn, isExpandingAction);
-                    }, 200);
-                }
-            });
+                    handleCollapseAction(multiCollapseNode, isExpandingAction);
+                    toggleMultiCollapseButton(btn, isExpandingAction);
+                }, 200);
+            }
         });
-    }
-})(window, window.document, window.bootstrap);
+
+    toggleAllBtns.forEach((btn) => attachAllElementsToggler(btn));
+})(window, window.document, window.bootstrap, window.Translator);

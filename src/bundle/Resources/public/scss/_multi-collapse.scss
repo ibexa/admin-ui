@@ -1,9 +1,4 @@
 .ibexa-multi-collapse {
-    &__toggler-expand,
-    &__toggler-collapse {
-        pointer-events: none;
-    }
-
     &__header {
         display: flex;
         align-items: center;
@@ -33,5 +28,8 @@
                 padding-left: 0;
             }
         }
+    }
+    &--item {
+        pointer-events: none;
     }
 }
