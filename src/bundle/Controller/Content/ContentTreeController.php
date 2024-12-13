@@ -193,7 +193,7 @@ class ContentTreeController extends RestController
             fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
         );
 
-        return new NodeExtendedInfo($locationPermissionRestrictions, $previewableTranslations);
+        return new NodeExtendedInfo($locationPermissionRestrictions, $previewableTranslations, $translations);
     }
 
     /**

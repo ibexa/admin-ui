@@ -17,7 +17,6 @@
                 "pathString": "/1/43/",
                 "reverseRelationsCount": 0,
                 "totalChildrenCount": 0,
-                "translations": "eng-US",
                 "versionNo": 1
             }
         ],
@@ -33,7 +32,6 @@
         "pathString": "/1/",
         "reverseRelationsCount": 0,
         "totalChildrenCount": 1,
-        "translations": "",
         "versionNo": 1
     }
 }

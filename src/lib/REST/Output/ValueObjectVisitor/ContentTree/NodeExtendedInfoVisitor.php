@@ -31,6 +31,7 @@ final class NodeExtendedInfoVisitor extends ValueObjectVisitor
 
         $this->buildPermissionNode($data->getPermissionRestrictions(), $generator);
         $this->buildPreviewableTranslationsNode($data->getPreviewableTranslations(), $generator);
+        $this->buildTranslationsNode($data->getTranslations(), $generator);
 
         $generator->endObjectElement(self::MAIN_ELEMENT);
     }
@@ -49,6 +50,22 @@ final class NodeExtendedInfoVisitor extends ValueObjectVisitor
         }
         $generator->endList('values');
         $generator->endHashElement('previewableTranslations');
+    }
+
+    /**
+     * @param array<int, string> $translations
+     */
+    protected function buildTranslationsNode(
+        array $translations,
+        Generator $generator
+    ): void {
+        $generator->startHashElement('translations');
+        $generator->startList('values');
+        foreach ($translations as $value) {
+            $generator->valueElement('value', $value);
+        }
+        $generator->endList('values');
+        $generator->endHashElement('translations');
     }
 
     /**
