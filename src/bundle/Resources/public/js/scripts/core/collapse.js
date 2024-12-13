@@ -6,24 +6,12 @@
     const multiCollapsBodies = [...doc.querySelectorAll(`[${COLLAPSE_SECTION_BODY_TAG}]`)];
 
     const toggleMultiCollapseButton = (btn, changeToCollapseAll) => {
-        if (changeToCollapseAll && btn.classList.contains('label-expand-all')) {
-            btn.innerHTML = Translator.trans(
-                /*@Desc("Change collapseAll button label*/ 'product_type.edit.section.attribute_collapse_all',
-                {},
-                'ibexa_product_catalog',
-            );
-            btn.classList.remove('label-expand-all');
+        const displayedText = changeToCollapseAll
+            ? /*@Desc("Collapse all)*/ 'product_type.edit.section.attribute_collapse_all'
+            : /*@Desc("Expand all)*/ 'product_type.edit.section.attribute_expand_all';
 
-            return;
-        }
-        if (!changeToCollapseAll) {
-            btn.innerHTML = Translator.trans(
-                /*@Desc("Change collapseAll button label*/ 'product_type.edit.section.attribute_expand_all',
-                {},
-                'ibexa_product_catalog',
-            );
-            btn.classList.add('label-expand-all');
-        }
+        btn.innerHTML = Translator.trans(displayedText, {}, 'ibexa_product_catalog');
+        btn.classList.toggle('ibexa-label-expand-all');
     };
 
     doc.querySelectorAll('.ibexa-collapse').forEach((collapseNode) => {
@@ -95,7 +83,7 @@
                 window.clearTimeout(toggleAllTimeout);
 
                 toggleAllTimeout = window.setTimeout(() => {
-                    const isExpandingAction = btn.classList.contains('label-expand-all');
+                    const isExpandingAction = btn.classList.contains('ibexa-label-expand-all');
 
                     handleCollapseAction(multiCollapseNode, isExpandingAction);
                     toggleMultiCollapseButton(btn, isExpandingAction);
