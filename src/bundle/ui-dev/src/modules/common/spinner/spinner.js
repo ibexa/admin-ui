@@ -9,7 +9,7 @@ export const SIZES = {
     LARGE: 'large',
 };
 
-export const COLOR_VARIATNS = {
+export const COLOR_VARIANTS = {
     PRIMARY: 'primary',
     LIGHT: 'light',
 };
@@ -26,12 +26,12 @@ const Spinner = ({ size, colorVariant }) => {
 
 Spinner.propTypes = {
     size: PropTypes.oneOf(Object.values(SIZES)),
-    colorVariant: PropTypes.oneOf(Object.values(COLOR_VARIATNS)),
+    colorVariant: PropTypes.oneOf(Object.values(COLOR_VARIANTS)),
 };
 
 Spinner.defaultProps = {
     size: SIZES.MEDIUM,
-    colorVariant: COLOR_VARIATNS.PRIMARY,
+    colorVariant: COLOR_VARIANTS.PRIMARY,
 };
 
 export default Spinner;
