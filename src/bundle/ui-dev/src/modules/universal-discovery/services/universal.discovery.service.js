@@ -508,16 +508,15 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
     return adminUiConfig.ApplicationConfig;
 };
 
-export const findSuggestions = (
-    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
-    callback,
-) => {
+export const findSuggestions = ({ siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL }, callback) => {
     const body = {
         ViewInput: {
             identifier: 'view_with_aggregation',
             LocationQuery: {
-                limit,
-                offset,
+                // '0' is a proper choice here because aggregation will still provide proper results.
+                // We care only about the aggregation itself, not about fetching records.
+                limit: 0,
+                offset: 0,
                 Filter: {
                     ParentLocationIdCriterion: parentLocationId,
                 },
