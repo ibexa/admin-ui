@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use DateTime;
+use DateTimeInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -29,9 +30,9 @@ class DateTimePickerTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!$value instanceof DateTime) {
+        if (!$value instanceof DateTimeInterface) {
             throw new TransformationFailedException(
-                sprintf('Found %s instead of %s', gettype($value), DateTime::class)
+                sprintf('Found %s instead of %s', gettype($value), DateTimeInterface::class)
             );
         }
 
