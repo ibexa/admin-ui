@@ -17,7 +17,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 final class DateTimePickerTransformerTest extends TestCase
 {
     /**
-     * @dataProvider dataProviderForTransform
+     * @dataProvider dataProviderForTestTransform
      */
     public function testTransform(): void
     {
@@ -29,7 +29,7 @@ final class DateTimePickerTransformerTest extends TestCase
     /**
      * @return iterable<string, array{mixed, ?int}>
      */
-    public function dataProviderForTransform(): iterable
+    public function dataProviderForTestTransform(): iterable
     {
         yield 'null' => [null, null];
         yield 'DateTime' => [new DateTime('2021-01-01 00:00:00'), 1609459200];
@@ -46,7 +46,7 @@ final class DateTimePickerTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForReverseTransform
+     * @dataProvider dataProviderForTestReverseTransform
      */
     public function testReverseTransform(): void
     {
@@ -58,7 +58,7 @@ final class DateTimePickerTransformerTest extends TestCase
     /**
      * @return iterable<string, array{?int, ?DateTime}>
      */
-    public function dataProviderForReverseTransform(): iterable
+    public function dataProviderForTestReverseTransform(): iterable
     {
         yield 'null' => [null, null];
         yield 'DateTime' => [1609459200, new DateTime('2021-01-01 00:00:00')];
