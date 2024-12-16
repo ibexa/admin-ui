@@ -80,7 +80,7 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
     protected function getExtensions(): array
     {
         $validator = Validation::createValidatorBuilder()
-                               ->enableAnnotationMapping(true)
+                               ->enableAttributeMapping()
                                ->getValidator()
         ;
 
