@@ -32,7 +32,7 @@ class DateTimePickerTransformer implements DataTransformerInterface
 
         if (!$value instanceof DateTimeInterface) {
             throw new TransformationFailedException(
-                sprintf('Found %s instead of %s', gettype($value), DateTimeInterface::class)
+                sprintf('Found %s instead of %s', get_debug_type($value), DateTimeInterface::class)
             );
         }
 
