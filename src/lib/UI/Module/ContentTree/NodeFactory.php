@@ -215,7 +215,7 @@ final class NodeFactory
         $searchQuery->offset = 0;
         $searchQuery->performCount = true;
 
-        return $this->searchService->findLocations($searchQuery)->totalCount;
+        return $this->searchService->findLocations($searchQuery)->totalCount ?? 0;
     }
 
     /**

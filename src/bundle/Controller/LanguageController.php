@@ -75,10 +75,10 @@ class LanguageController extends Controller
      */
     public function listAction(Request $request): Response
     {
-        $page = $request->query->get('page') ?? 1;
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->languageService->loadLanguages())
+            new ArrayAdapter(iterator_to_array($this->languageService->loadLanguages()))
         );
 
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.language_limit'));

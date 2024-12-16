@@ -141,7 +141,9 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         ));
 
         $systemUrlPagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->urlAliasService->listLocationAliases($location, false, null, true))
+            new ArrayAdapter(
+                iterator_to_array($this->urlAliasService->listLocationAliases($location, false, null, true))
+            )
         );
 
         $systemUrlPagerfanta->setMaxPerPage($systemUrlsPaginationParams['limit']);
@@ -153,7 +155,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
         $customUrlAddForm = $this->createCustomUrlAddForm($location);
         $customUrlRemoveForm = $this->createCustomUrlRemoveForm(
             $location,
-            $customUrlPagerfanta->getCurrentPageResults()
+            iterator_to_array($customUrlPagerfanta->getCurrentPageResults())
         );
 
         $canEditCustomUrl = $this->permissionResolver->hasAccess('content', 'urltranslator');

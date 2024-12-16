@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\View\Template;
 
 use Pagerfanta\View\Template\TwitterBootstrap4Template;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Template to customize Pagerfanta pagination.
@@ -16,11 +16,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class EzPagerfantaTemplate extends TwitterBootstrap4Template
 {
     /**
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
-    public function __construct(TranslatorInterface $translator)
+    public function __construct()
     {
         parent::__construct();
 
