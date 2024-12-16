@@ -107,9 +107,7 @@ class TrashController extends Controller
      * @throws \LogicException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */

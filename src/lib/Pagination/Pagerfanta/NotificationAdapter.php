@@ -32,11 +32,6 @@ class NotificationAdapter implements AdapterInterface
         $this->notificationService = $notificationService;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
     public function getNbResults(): int
     {
         if ($this->nbResults !== null) {
@@ -46,15 +41,7 @@ class NotificationAdapter implements AdapterInterface
         return $this->nbResults = $this->notificationService->getNotificationCount();
     }
 
-    /**
-     * Returns a slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList
-     */
-    public function getSlice($offset, $length): NotificationList
+    public function getSlice(int $offset, int $length): NotificationList
     {
         $notifications = $this->notificationService->loadNotifications($offset, $length);
 

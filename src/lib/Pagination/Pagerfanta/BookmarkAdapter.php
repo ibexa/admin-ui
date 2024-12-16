@@ -31,28 +31,17 @@ class BookmarkAdapter implements AdapterInterface
     }
 
     /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         return $this->bookmarkService->loadBookmarks()->totalCount;
     }
 
     /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->bookmarks()

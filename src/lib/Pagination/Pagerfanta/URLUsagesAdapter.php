@@ -33,17 +33,12 @@ class URLUsagesAdapter implements AdapterInterface
         $this->url = $url;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults(): int
     {
         return $this->urlService->findUsages($this->url, 0, 0)->totalCount;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]
      */
     public function getSlice($offset, $length): array

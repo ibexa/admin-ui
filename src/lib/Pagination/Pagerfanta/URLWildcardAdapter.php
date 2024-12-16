@@ -16,9 +16,6 @@ final class URLWildcardAdapter implements AdapterInterface
     /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
     private $urlWildcardService;
 
-    /** @var int */
-    private $nbResults;
-
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery */
     private $query;
 
@@ -29,9 +26,8 @@ final class URLWildcardAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getNbResults(): int
     {
@@ -43,10 +39,9 @@ final class URLWildcardAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
      *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getSlice($offset, $length): array

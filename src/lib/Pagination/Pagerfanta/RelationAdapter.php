@@ -31,6 +31,10 @@ final class RelationAdapter implements AdapterInterface
         $this->content = $content;
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     public function getNbResults(): int
     {
         return $this->contentService->countRelations($this->content->getVersionInfo());

@@ -38,12 +38,7 @@ class TrashItemAdapter implements AdapterInterface
         $this->trashService = $trashService;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         if (isset($this->nbResults)) {
             return $this->nbResults;

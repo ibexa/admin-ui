@@ -20,7 +20,7 @@ class LocationIsNotSubLocationValidator extends AbstractComparisonValidator
      *
      * @return bool true if the relationship is valid, false otherwise
      */
-    protected function compareValues($targetLocation, $sourceLocation)
+    protected function compareValues(mixed $targetLocation, mixed $sourceLocation): bool
     {
         return stripos($targetLocation->pathString, $sourceLocation->pathString) === false;
     }

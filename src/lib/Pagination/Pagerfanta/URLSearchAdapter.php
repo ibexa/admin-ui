@@ -36,7 +36,7 @@ class URLSearchAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getNbResults(): int
     {
@@ -48,9 +48,9 @@ class URLSearchAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\URL\URL[]
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getSlice($offset, $length): array
     {
