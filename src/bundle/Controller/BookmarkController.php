@@ -65,7 +65,8 @@ class BookmarkController extends Controller
      */
     public function listAction(Request $request): Response
     {
-        $page = $request->query->get('page', 1);
+        /** @phpstan-var int<0, max> $page */
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
             new BookmarkAdapter($this->bookmarkService, $this->datasetFactory)
@@ -84,7 +85,7 @@ class BookmarkController extends Controller
 
         return $this->render(
             '@ibexadesign/account/bookmarks/list.html.twig',
-            $viewParameters = [
+            [
                 'pager' => $pagerfanta,
                 'form_edit' => $editForm->createView(),
                 'form_remove' => $removeBookmarkForm->createView(),

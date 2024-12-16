@@ -12,13 +12,14 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Location\Bookmark>
+ */
 class BookmarkAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
+    private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
+    private DatasetFactory $datasetFactory;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
@@ -31,28 +32,18 @@ class BookmarkAdapter implements AdapterInterface
     }
 
     /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
+        /** @var int<0, max> */
         return $this->bookmarkService->loadBookmarks()->totalCount;
     }
 
     /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->bookmarks()

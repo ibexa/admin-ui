@@ -12,13 +12,14 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface>
+ */
 final class ContentDraftAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
+    private DatasetFactory $datasetFactory;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
@@ -31,28 +32,15 @@ final class ContentDraftAdapter implements AdapterInterface
     }
 
     /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
+        /** @var int<0, max> */
         return $this->contentService->countContentDrafts();
     }
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->contentDraftList()

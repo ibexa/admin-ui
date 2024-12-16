@@ -11,39 +11,34 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo>
+ */
 class URLUsagesAdapter implements AdapterInterface
 {
     /**
      * @var \Ibexa\Contracts\Core\Repository\URLService
      */
-    private $urlService;
+    private URLService $urlService;
 
     /**
      * @var \Ibexa\Contracts\Core\Repository\Values\URL\URL
      */
-    private $url;
+    private URL $url;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URL $url
-     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
-     */
     public function __construct(URL $url, URLService $urlService)
     {
         $this->urlService = $urlService;
         $this->url = $url;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults(): int
     {
+        /** @phpstan-var int<0, max> */
         return $this->urlService->findUsages($this->url, 0, 0)->totalCount;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]
      */
     public function getSlice($offset, $length): array

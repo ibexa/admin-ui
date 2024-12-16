@@ -11,16 +11,14 @@ use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard>
+ */
 final class URLWildcardAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
-    private $urlWildcardService;
+    private URLWildcardService $urlWildcardService;
 
-    /** @var int */
-    private $nbResults;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery */
-    private $query;
+    private URLWildcardQuery $query;
 
     public function __construct(URLWildcardQuery $query, URLWildcardService $urlWildcardService)
     {
@@ -29,9 +27,8 @@ final class URLWildcardAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function getNbResults(): int
     {
@@ -39,17 +36,17 @@ final class URLWildcardAdapter implements AdapterInterface
         $query->offset = 0;
         $query->limit = 0;
 
+        /** @phpstan-var int<0, max> */
         return $this->urlWildcardService->findUrlWildcards($query)->totalCount;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
      *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function getSlice($offset, $length): array
+    public function getSlice(int $offset, int $length): array
     {
         $query = clone $this->query;
         $query->offset = $offset;
