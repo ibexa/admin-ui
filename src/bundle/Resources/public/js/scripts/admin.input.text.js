@@ -1,4 +1,5 @@
 (function (global, doc) {
+    const INPUT_PADDING = 12;
     const togglePasswordVisibility = (event) => {
         const passwordTogglerBtn = event.currentTarget;
         const passwordShowIcon = passwordTogglerBtn.querySelector('.ibexa-input-text-wrapper__password-show');
@@ -40,35 +41,27 @@
         passwordTogglerBtns.forEach((passwordTogglerBtn) => passwordTogglerBtn.addEventListener('click', togglePasswordVisibility, false));
         recalculateStyling();
     };
-    const handleInputChange = ({ target: { value } }, btn) => {
-        btn.disabled = value.trim() === '';
+    const recalculateInputStyling = (inputActionsContainer) => {
+        const input = inputActionsContainer.closest('.ibexa-input-text-wrapper').querySelector('input');
+
+        if (!input) {
+            return;
+        }
+
+        const { width: actionsWidth } = inputActionsContainer.getBoundingClientRect();
+
+        input.style.paddingRight = `${actionsWidth + INPUT_PADDING}px`;
     };
     const recalculateStyling = () => {
-        const extraBtns = doc.querySelectorAll('.ibexa-input-text-wrapper__action-btn--extra-btn');
+        const inputActionsContainers = doc.querySelectorAll('.ibexa-input-text-wrapper__actions');
 
-        extraBtns.forEach((btn) => {
-            const input = btn.closest('.ibexa-input-text-wrapper').querySelector('input');
-            const clearButton = btn.previousElementSibling?.classList.contains('ibexa-input-text-wrapper__action-btn--clear')
-                ? btn.previousElementSibling
-                : null;
+        inputActionsContainers.forEach((inputActionsContainer) => {
+            const inputActionsContainerObserver = new ResizeObserver(() => {
+                recalculateInputStyling(inputActionsContainer);
+            });
 
-            if (!input) {
-                return;
-            }
-
-            btn.disabled = !input.value;
-            input.addEventListener('input', (inputEvent) => handleInputChange(inputEvent, btn), false);
-
-            if (!clearButton) {
-                return;
-            }
-
-            const clearButtonStyles = global.getComputedStyle(clearButton);
-            const clearButtonMarginRight = parseInt(clearButtonStyles.getPropertyValue('margin-right'), 10);
-            const clearButtonWidth = parseInt(clearButtonStyles.getPropertyValue('width'), 10);
-            const paddingRight = `${btn.offsetWidth + clearButtonMarginRight + clearButtonWidth}px`;
-
-            input.style.paddingRight = paddingRight;
+            inputActionsContainerObserver.observe(inputActionsContainer);
+            recalculateInputStyling(inputActionsContainer);
         });
     };
 
