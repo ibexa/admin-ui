@@ -40,7 +40,7 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 resolve,
             );
         });
-    const getFindSuggestionsPromise = () =>
+    const getFindSuggestionsPromise = (languageCodes) =>
         new Promise((resolve) => {
             if (suggestionsStorage[locationData.parentLocationId]) {
                 resolve(suggestionsStorage[locationData.parentLocationId]);
@@ -52,6 +52,7 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
                 {
                     ...restInfo,
                     parentLocationId: locationData.parentLocationId,
+                    languageCodes,
                     limit,
                     offset,
                 },
@@ -78,23 +79,39 @@ export const useFindLocationsByParentLocationIdFetch = (locationData, { sortClau
         }
 
         dispatch({ type: 'FETCH_START' });
-        Promise.all([getFindLocationsPromise(), getFindSuggestionsPromise()]).then(([locations, suggestions]) => {
-            if (effectCleaned) {
-                return;
-            }
+        getFindLocationsPromise().then((locations) => {
+            const languageCodes = locations.subitems.map((subitem) => subitem.location.ContentInfo.Content.mainLanguageCode);
 
-            const suggestionsResults = suggestions.View?.Result.aggregations[0]?.entries.map(({ key }) => ({
-                data: getContentTypeDataByHref(key.ContentType._href),
-            }));
+            getFindSuggestionsPromise(languageCodes).then((suggestions) => {
+                if (effectCleaned) {
+                    return;
+                }
 
-            if (suggestionsResults) {
-                setSuggestionsStorage((prevState) => ({
-                    ...prevState,
-                    [locationData.parentLocationId]: suggestionsResults,
+                const suggestionsCurrentVersionMap = suggestions.View?.Result.searchHits.searchHit.reduce((contentInfoMap, suggestion) => {
+                    const suggestionLocation = suggestion.value.Location;
+
+                    contentInfoMap[suggestionLocation.id] = suggestionLocation.ContentInfo.Content.CurrentVersion;
+
+                    return contentInfoMap;
+                }, {});
+
+                locations.subitems.forEach((subitem) => {
+                    subitem.location.ContentInfo.Content.CurrentVersion = suggestionsCurrentVersionMap[subitem.location.id];
+                });
+
+                const suggestionsResults = suggestions.View?.Result.aggregations[0]?.entries.map(({ key }) => ({
+                    data: getContentTypeDataByHref(key.ContentType._href),
                 }));
-            }
 
-            dispatch({ type: 'FETCH_END', data: locations });
+                if (suggestionsResults) {
+                    setSuggestionsStorage((prevState) => ({
+                        ...prevState,
+                        [locationData.parentLocationId]: suggestionsResults,
+                    }));
+                }
+
+                dispatch({ type: 'FETCH_END', data: locations });
+            });
         });
 
         return () => {

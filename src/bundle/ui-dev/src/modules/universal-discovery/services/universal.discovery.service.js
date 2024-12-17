@@ -17,12 +17,17 @@ const ENDPOINT_LOCATION_LIST = '/api/ibexa/v2/module/universal-discovery/locatio
 export const QUERY_LIMIT = 50;
 export const AGGREGATIONS_LIMIT = 4;
 
-const addLanguageCodeToCreateViewEndpoint = (body) => {
+const addLanguageCodeToCreateViewEndpoint = (body, languageCodes = []) => {
     const adminUiConfig = getAdminUiConfig();
+    const viewInputLanguageCodes = languageCodes;
 
     if (adminUiConfig.languages.priority[0]) {
-        body.ViewInput.languageCode = adminUiConfig.languages.priority[0];
+        viewInputLanguageCodes.push(adminUiConfig.languages.priority[0]);
     }
+
+    const uniqueLanguageCodes = [...new Set(viewInputLanguageCodes)];
+
+    body.ViewInput.languageCodes = uniqueLanguageCodes;
 };
 
 const showErrorNotificationAbortWrapper = (error) => {
@@ -512,7 +517,16 @@ export const fetchAdminConfig = async ({ token, siteaccess, accessToken, instanc
 };
 
 export const findSuggestions = (
-    { siteaccess, token, parentLocationId, accessToken, instanceUrl = DEFAULT_INSTANCE_URL, limit = QUERY_LIMIT, offset = 0 },
+    {
+        siteaccess,
+        token,
+        parentLocationId,
+        languageCodes,
+        accessToken,
+        instanceUrl = DEFAULT_INSTANCE_URL,
+        limit = QUERY_LIMIT,
+        offset = 0,
+    },
     callback,
 ) => {
     const body = {
@@ -536,7 +550,7 @@ export const findSuggestions = (
         },
     };
 
-    addLanguageCodeToCreateViewEndpoint(body);
+    addLanguageCodeToCreateViewEndpoint(body, languageCodes);
 
     const request = new Request(ENDPOINT_CREATE_VIEW, {
         method: 'POST',
