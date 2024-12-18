@@ -21,6 +21,7 @@
         const formInput = field.querySelector(SELECTOR_FORM_INPUT);
         const pickerInput = field.querySelector(SELECTOR_PICKER_INPUT);
         const customConfig = JSON.parse(pickerInput.dataset.flatpickrConfig || '{}');
+        const enableSeconds = formInput.dataset.seconds === '1';
         let defaultDate;
 
         if (formInput.value) {
@@ -38,6 +39,7 @@
             flatpickrConfig: {
                 ...pickerConfig,
                 defaultDate,
+                enableSeconds,
                 ...customConfig,
             },
         });
