@@ -23,7 +23,7 @@ final class DateTimePickerTransformerTest extends TestCase
     {
         $transformer = new DateTimePickerTransformer();
         $dateTime = new DateTime('2021-01-01 00:00:00');
-        $this->assertSame($dateTime->getTimestamp(), $transformer->transform($dateTime));
+        self::assertSame($dateTime->getTimestamp(), $transformer->transform($dateTime));
     }
 
     /**
@@ -52,7 +52,7 @@ final class DateTimePickerTransformerTest extends TestCase
     {
         $transformer = new DateTimePickerTransformer();
         $dateTime = new DateTime('2021-01-01 00:00:00');
-        $this->assertEquals($dateTime, $transformer->reverseTransform($dateTime->getTimestamp()));
+        self::assertEquals($dateTime, $transformer->reverseTransform($dateTime->getTimestamp()));
     }
 
     /**

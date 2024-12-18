@@ -656,7 +656,7 @@ parameters:
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
-			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<int\\|string, string\\|null\\>\\.$#"
+			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<string\\|null\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
 
@@ -691,7 +691,7 @@ parameters:
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
-			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateGroupCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<int\\|string, string\\|null\\>\\.$#"
+			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateGroupCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<string\\|null\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
