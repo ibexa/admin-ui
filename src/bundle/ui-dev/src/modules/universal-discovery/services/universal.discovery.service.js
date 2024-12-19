@@ -257,7 +257,17 @@ export const findLocationsBySearchQuery = (
 };
 
 export const findLocationsById = (
-    { token, siteaccess, accessToken, id, limit = QUERY_LIMIT, offset = 0, instanceUrl = DEFAULT_INSTANCE_URL },
+    {
+        token,
+        siteaccess,
+        accessToken,
+        id,
+        noLanguageCode = false,
+        useAlwaysAvailable = undefined,
+        limit = QUERY_LIMIT,
+        offset = 0,
+        instanceUrl = DEFAULT_INSTANCE_URL,
+    },
     callback,
 ) => {
     const body = {
@@ -271,10 +281,17 @@ export const findLocationsById = (
                 limit,
                 offset,
             },
+            useAlwaysAvailable,
         },
     };
 
-    addLanguageCodeToCreateViewEndpoint(body);
+    if (useAlwaysAvailable !== undefined) {
+        body.ViewInput.useAlwaysAvailable = useAlwaysAvailable;
+    }
+
+    if (!noLanguageCode) {
+        addLanguageCodeToCreateViewEndpoint(body);
+    }
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
@@ -430,7 +447,7 @@ export const loadContentInfo = (
         accessToken,
         contentId,
         noLanguageCode = false,
-        useAlwaysAvailable = false,
+        useAlwaysAvailable = undefined,
         limit = QUERY_LIMIT,
         offset = 0,
         signal,
@@ -452,6 +469,10 @@ export const loadContentInfo = (
             useAlwaysAvailable,
         },
     };
+
+    if (useAlwaysAvailable !== undefined) {
+        body.ViewInput.useAlwaysAvailable = useAlwaysAvailable;
+    }
 
     if (!noLanguageCode) {
         addLanguageCodeToCreateViewEndpoint(body);
