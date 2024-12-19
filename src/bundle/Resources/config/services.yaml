@@ -40,6 +40,10 @@ imports:
     - { resource: services/role_form_mappers.yaml }
     - { resource: services/security.yaml }
 
+parameters:
+    ibexa.admin_ui.load_users_with_permission_info.limit: 10
+    ibexa.admin_ui.permission_check_context.content.user_content_type_identifiers: [editor]
+
 services:
     _defaults:
         autowire: true
@@ -162,3 +166,5 @@ services:
             $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
+
+    Ibexa\AdminUi\Permission\Mapper\UsersWithPermissionInfoMapper: ~
