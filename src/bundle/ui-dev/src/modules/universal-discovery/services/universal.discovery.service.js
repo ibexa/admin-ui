@@ -424,7 +424,18 @@ export const createDraft = ({ token, siteaccess, accessToken, contentId, instanc
 };
 
 export const loadContentInfo = (
-    { token, siteaccess, accessToken, contentId, limit = QUERY_LIMIT, offset = 0, signal, instanceUrl = DEFAULT_INSTANCE_URL },
+    {
+        token,
+        siteaccess,
+        accessToken,
+        contentId,
+        noLanguageCode = false,
+        useAlwaysAvailable = false,
+        limit = QUERY_LIMIT,
+        offset = 0,
+        signal,
+        instanceUrl = DEFAULT_INSTANCE_URL,
+    },
     callback,
 ) => {
     const body = {
@@ -438,10 +449,13 @@ export const loadContentInfo = (
                 limit,
                 offset,
             },
+            useAlwaysAvailable,
         },
     };
 
-    addLanguageCodeToCreateViewEndpoint(body);
+    if (!noLanguageCode) {
+        addLanguageCodeToCreateViewEndpoint(body);
+    }
 
     const request = new Request(`${instanceUrl}${ENDPOINT_CREATE_VIEW}`, {
         method: 'POST',
