@@ -244,7 +244,7 @@ const UniversalDiscoveryModule = (props) => {
             .join(',');
 
         if (!locationIds) {
-            return Promise.resolve([]);
+            return Promise.resolve(null);
         }
 
         return new Promise((resolve) => {
@@ -265,7 +265,16 @@ const UniversalDiscoveryModule = (props) => {
         const contentId = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
 
         return new Promise((resolve) => {
-            loadContentInfo({ ...restInfo, contentId, signal }, (response) => resolve(response));
+            loadContentInfo(
+                {
+                    ...restInfo,
+                    noLanguageCode: true,
+                    useAlwaysAvailable: true,
+                    contentId,
+                    signal,
+                },
+                (response) => resolve(response),
+            );
         });
     };
     const contentTypesMapGlobal = useMemo(
@@ -362,7 +371,7 @@ const UniversalDiscoveryModule = (props) => {
         Promise.all([loadPermissions(), loadVersions(abortControllerRef.current.signal)]).then((response) => {
             const [locationsWithPermissions, locationsWithVersions] = response;
 
-            if (!locationsWithPermissions.length && !locationsWithVersions.length) {
+            if (!locationsWithPermissions?.LocationList.locations.length && !locationsWithVersions.length) {
                 return;
             }
 
