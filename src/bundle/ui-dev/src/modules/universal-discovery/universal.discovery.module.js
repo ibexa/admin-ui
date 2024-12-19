@@ -244,7 +244,7 @@ const UniversalDiscoveryModule = (props) => {
             .join(',');
 
         if (!locationIds) {
-            return Promise.resolve([]);
+            return Promise.resolve(null);
         }
 
         return new Promise((resolve) => {
@@ -262,10 +262,19 @@ const UniversalDiscoveryModule = (props) => {
             return Promise.resolve([]);
         }
 
-        const contentId = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
+        const contentIds = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
 
         return new Promise((resolve) => {
-            loadContentInfo({ ...restInfo, contentId, signal }, (response) => resolve(response));
+            loadContentInfo(
+                {
+                    ...restInfo,
+                    noLanguageCode: true,
+                    useAlwaysAvailable: true,
+                    contentId: contentIds,
+                    signal,
+                },
+                (response) => resolve(response),
+            );
         });
     };
     const contentTypesMapGlobal = useMemo(
@@ -344,15 +353,24 @@ const UniversalDiscoveryModule = (props) => {
             return;
         }
 
-        findLocationsById({ ...restInfo, id: props.selectedLocations.join(','), limit: props.selectedLocations.length }, (locations) => {
-            const mappedLocation = props.selectedLocations.map((locationId) => {
-                const location = locations.find(({ id }) => id === parseInt(locationId, 10));
+        findLocationsById(
+            {
+                ...restInfo,
+                noLanguageCode: true,
+                useAlwaysAvailable: true,
+                id: props.selectedLocations.join(','),
+                limit: props.selectedLocations.length,
+            },
+            (locations) => {
+                const mappedLocation = props.selectedLocations.map((locationId) => {
+                    const location = locations.find(({ id }) => id === parseInt(locationId, 10));
 
-                return { location };
-            });
+                    return { location };
+                });
 
-            dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: mappedLocation });
-        });
+                dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: mappedLocation });
+            },
+        );
     }, [props.selectedLocations]);
 
     useEffect(() => {
@@ -362,7 +380,7 @@ const UniversalDiscoveryModule = (props) => {
         Promise.all([loadPermissions(), loadVersions(abortControllerRef.current.signal)]).then((response) => {
             const [locationsWithPermissions, locationsWithVersions] = response;
 
-            if (!locationsWithPermissions.length && !locationsWithVersions.length) {
+            if (!locationsWithPermissions?.LocationList.locations.length && !locationsWithVersions.length) {
                 return;
             }
 
