@@ -262,7 +262,7 @@ const UniversalDiscoveryModule = (props) => {
             return Promise.resolve([]);
         }
 
-        const contentId = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
+        const contentIds = locationsWithoutVersion.map((item) => item.location.ContentInfo.Content._id).join(',');
 
         return new Promise((resolve) => {
             loadContentInfo(
@@ -270,7 +270,7 @@ const UniversalDiscoveryModule = (props) => {
                     ...restInfo,
                     noLanguageCode: true,
                     useAlwaysAvailable: true,
-                    contentId,
+                    contentId: contentIds,
                     signal,
                 },
                 (response) => resolve(response),
