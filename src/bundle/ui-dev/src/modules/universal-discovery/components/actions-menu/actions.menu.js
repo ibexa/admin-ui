@@ -1,17 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 
-import { AllowConfirmationContext, ConfirmContext, CancelContext, SelectedLocationsContext } from '../../universal.discovery.module';
+import {
+    AllowConfirmationContext,
+    ConfirmContext,
+    CancelContext,
+    SelectedLocationsContext,
+    SelectedItemsContext,
+    ConfirmItemsContext,
+} from '../../universal.discovery.module';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const ActionsMenu = () => {
     const Translator = getTranslator();
     const onConfirm = useContext(ConfirmContext);
+    const onItemsConfirm = useContext(ConfirmItemsContext);
     const cancelUDW = useContext(CancelContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
     const [selectedLocations] = useContext(SelectedLocationsContext);
+    const { selectedItems } = useContext(SelectedItemsContext);
     const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'actions_menu.confirm', {}, 'ibexa_universal_discovery_widget');
     const cancelLabel = Translator.trans(/*@Desc("Discard")*/ 'actions_menu.cancel', {}, 'ibexa_universal_discovery_widget');
-    const isConfirmDisabled = selectedLocations.length === 0;
+    const isConfirmDisabled = selectedLocations.length === 0 && selectedItems.length === 0;
+    const handleConfirmBtnClick = useCallback(() => {
+        if (selectedLocations.length > 0) {
+            onConfirm();
+
+            return;
+        }
+
+        onItemsConfirm();
+    }, [onConfirm, selectedLocations, onItemsConfirm, selectedItems]);
     const renderActionsContent = () => {
         if (!allowConfirmation) {
             return null;
@@ -23,7 +41,7 @@ const ActionsMenu = () => {
                     <button
                         className="c-actions-menu__confirm-btn btn ibexa-btn ibexa-btn--primary"
                         type="button"
-                        onClick={() => onConfirm()}
+                        onClick={handleConfirmBtnClick}
                         disabled={isConfirmDisabled}
                     >
                         {confirmLabel}

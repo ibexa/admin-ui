@@ -11,6 +11,7 @@ import Icon from '../../../common/icon/icon';
 import Spinner from '../../../common/spinner/spinner';
 import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
+import ContentMetaPreview from '../../content.meta.preview.module';
 import SearchTags from './search.tags';
 import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { ActiveTabContext, AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
@@ -193,14 +194,17 @@ const Search = ({ itemsPerPage }) => {
                         <SelectedSubtreeBreadcrumbsContext.Provider value={[selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs]}>
                             <SelectedLanguageContext.Provider value={[selectedLanguage, setSelectedLanguage]}>
                                 <div className="c-search__main">
-                                    <div className="c-search__sidebar">
-                                        <Filters isCollapsed={false} search={search} />
-                                    </div>
                                     <div className="c-search__content">
                                         <div className={spinnerWrapperClassName}>
                                             <Spinner />
                                         </div>
                                         {renderSearchResults()}
+                                    </div>
+                                    <div className="c-search__content-meta-preview">
+                                        <ContentMetaPreview />
+                                    </div>
+                                    <div className="c-search__filters">
+                                        <Filters isCollapsed={false} search={search} />
                                     </div>
                                 </div>
                             </SelectedLanguageContext.Provider>
