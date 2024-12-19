@@ -353,15 +353,24 @@ const UniversalDiscoveryModule = (props) => {
             return;
         }
 
-        findLocationsById({ ...restInfo, id: props.selectedLocations.join(','), limit: props.selectedLocations.length }, (locations) => {
-            const mappedLocation = props.selectedLocations.map((locationId) => {
-                const location = locations.find(({ id }) => id === parseInt(locationId, 10));
+        findLocationsById(
+            {
+                ...restInfo,
+                noLanguageCode: true,
+                useAlwaysAvailable: true,
+                id: props.selectedLocations.join(','),
+                limit: props.selectedLocations.length,
+            },
+            (locations) => {
+                const mappedLocation = props.selectedLocations.map((locationId) => {
+                    const location = locations.find(({ id }) => id === parseInt(locationId, 10));
 
-                return { location };
-            });
+                    return { location };
+                });
 
-            dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: mappedLocation });
-        });
+                dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: mappedLocation });
+            },
+        );
     }, [props.selectedLocations]);
 
     useEffect(() => {
