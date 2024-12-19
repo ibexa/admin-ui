@@ -113,12 +113,12 @@
             sourceInput.dispatchEvent(new CustomEvent(EVENT_CUSTOM));
         };
         const onConfirm = (items) => {
-            items = excludeDuplicatedItems(items);
+            const itemsWithoutDuplicate = excludeDuplicatedItems(items);
 
-            renderRows(items);
+            renderRows(itemsWithoutDuplicate);
             attachRowsEventHandlers();
 
-            selectedItems = [...selectedItems, ...items.map((item) => item.ContentInfo.Content._id)];
+            selectedItems = [...selectedItems, ...itemsWithoutDuplicate.map((item) => item.ContentInfo.Content._id)];
 
             updateInputValue(selectedItems);
             closeUDW();
@@ -157,11 +157,7 @@
                 }),
             );
         };
-        const excludeDuplicatedItems = (items) => {
-            selectedItemsMap = items.reduce((total, item) => ({ ...total, [item.ContentInfo.Content._id]: item }), selectedItemsMap);
-
-            return items.filter((item) => selectedItemsMap[item.ContentInfo.Content._id]);
-        };
+        const excludeDuplicatedItems = (items) => items.filter((item) => !selectedItems.includes(item.ContentInfo.Content._id));
         const renderRow = (item, index) => {
             const { escapeHTML } = ibexa.helpers.text;
             const { formatShortDateTime } = ibexa.helpers.timezone;
@@ -304,7 +300,6 @@
             updateInputValue(selectedItems);
         };
         let selectedItems = [...fieldContainer.querySelectorAll(SELECTOR_ROW)].map((row) => parseInt(row.dataset.contentId, 10));
-        let selectedItemsMap = selectedItems.reduce((total, item) => ({ ...total, [item]: item }), {});
 
         updateAddBtnState();
         attachRowsEventHandlers();
