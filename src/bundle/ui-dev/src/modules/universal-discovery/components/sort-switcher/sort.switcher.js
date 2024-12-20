@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { SortingContext, SortOrderContext, SORTING_OPTIONS } from '../../universal.discovery.module';
 
-const SortSwitcher = ({ isDisabled }) => {
+const SortSwitcher = ({ isDisabled, disabledConfig }) => {
     const [sorting, setSorting] = useContext(SortingContext);
     const [sortOrder, setSortOrder] = useContext(SortOrderContext);
     const selectedOption = SORTING_OPTIONS.find((option) => option.sortClause === sorting && option.sortOrder === sortOrder);
@@ -12,9 +14,19 @@ const SortSwitcher = ({ isDisabled }) => {
         setSorting(option.sortClause);
         setSortOrder(option.sortOrder);
     };
+    const disabledParams = {};
+
+    if (isDisabled && disabledConfig) {
+        disabledParams.title = disabledConfig.disabledInfoTooltipLabel;
+    }
 
     return (
-        <div className="c-sort-switcher">
+        <div
+            ref={(node) => parseTooltip(node)}
+            className="c-sort-switcher"
+            data-tooltip-container-selector=".c-udw-tab"
+            {...disabledParams}
+        >
             <SimpleDropdown
                 options={SORTING_OPTIONS}
                 selectedOption={selectedOption}
@@ -28,10 +40,12 @@ const SortSwitcher = ({ isDisabled }) => {
 
 SortSwitcher.propTypes = {
     isDisabled: PropTypes.bool,
+    disabledConfig: PropTypes.object,
 };
 
 SortSwitcher.defaultProps = {
     isDisabled: false,
+    disabledConfig: null,
 };
 
 export const SortSwitcherMenuButton = {

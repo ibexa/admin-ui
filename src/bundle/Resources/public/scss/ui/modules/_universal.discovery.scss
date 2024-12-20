@@ -1,13 +1,21 @@
+@import 'universal-discovery/mixins/collapsible-arrow';
+@import 'universal-discovery/mixins/filters-panel';
+@import 'universal-discovery/mixins/filters-row';
+@import 'universal-discovery/mixins/selected.items.panel.item';
+@import 'universal-discovery/mixins/selected.items.panel';
+
 @import 'universal-discovery/main';
 @import 'universal-discovery/tab';
 @import 'universal-discovery/top.menu';
 @import 'universal-discovery/top.menu.search.input';
 @import 'universal-discovery/actions.menu';
+@import 'universal-discovery/collapsible';
 @import 'universal-discovery/content.create';
 @import 'universal-discovery/content.create.widget';
 @import 'universal-discovery/content.create.button';
 @import 'universal-discovery/content.edit';
 @import 'universal-discovery/content.edit.button';
+@import 'universal-discovery/content.type.selector.list';
 @import 'universal-discovery/sort.switcher';
 @import 'universal-discovery/view.switcher';
 @import 'universal-discovery/tab.selector';
@@ -15,6 +23,8 @@
 @import 'universal-discovery/finder.branch';
 @import 'universal-discovery/finder.leaf';
 @import 'universal-discovery/content.meta.preview';
+@import 'universal-discovery/selected.items.panel.item';
+@import 'universal-discovery/selected.items.panel';
 @import 'universal-discovery/selected.locations';
 @import 'universal-discovery/selected.locations.item';
 @import 'universal-discovery/grid';
@@ -23,6 +33,8 @@
 @import 'universal-discovery/search.tags';
 @import 'universal-discovery/content.table.item';
 @import 'universal-discovery/content.table';
+@import 'universal-discovery/filters-panel';
+@import 'universal-discovery/filters-row';
 @import 'universal-discovery/filters';
 @import 'universal-discovery/bookmarks.list';
 @import 'universal-discovery/translation.selector';
