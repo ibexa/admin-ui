@@ -15,7 +15,6 @@ import { SelectionConfigContext, SelectedLocationsContext, AllowConfirmationCont
 const SelectedLocations = () => {
     const Translator = getTranslator();
     const refSelectedLocations = useRef(null);
-    const refTogglerButton = useRef(null);
     const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds } = useContext(SelectionConfigContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
@@ -64,18 +63,15 @@ const SelectedLocations = () => {
         return <div className="c-selected-locations__selection-counter">{selectedLabel}</div>;
     };
     const renderToggleButton = () => {
-        const iconName = isExpanded ? 'caret-double-next' : 'caret-double-back';
-
         return (
             <button
-                ref={refTogglerButton}
                 type="button"
-                className="c-selected-locations__toggle-button btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                className="c-selected-locations__toggle-button btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--no-text"
                 onClick={toggleExpanded}
                 title={togglerLabel}
                 data-tooltip-container-selector=".c-udw-tab"
             >
-                <Icon name={iconName} extraClasses="ibexa-icon--small" />
+                <Icon name="expand-left" extraClasses="c-selected-locations__toggle-button-icon ibexa-icon--tiny-small" />
             </button>
         );
     };
@@ -165,8 +161,8 @@ const SelectedLocations = () => {
     return (
         <div className={className} ref={refSelectedLocations}>
             <div className="c-selected-locations__header">
-                {renderSelectionCounter()}
                 {renderToggleButton()}
+                {renderSelectionCounter()}
             </div>
             {renderLocationsList()}
         </div>
