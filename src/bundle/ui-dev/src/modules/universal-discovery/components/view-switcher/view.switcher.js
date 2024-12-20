@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
-import { CurrentViewContext, VIEWS } from '../../universal.discovery.module';
+import { CurrentViewContext, ViewContext } from '../../universal.discovery.module';
 
 const ViewSwitcher = ({ isDisabled }) => {
     const Translator = getTranslator();
     const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_universal_discovery_widget');
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
-    const selectedOption = VIEWS.find((option) => option.value === currentView);
+    const { views } = useContext(ViewContext);
+    const selectedOption = views.find((option) => option.value === currentView);
     const onOptionClick = ({ value }) => {
         setCurrentView(value);
     };
@@ -17,7 +18,7 @@ const ViewSwitcher = ({ isDisabled }) => {
     return (
         <div className="c-udw-view-switcher">
             <SimpleDropdown
-                options={VIEWS}
+                options={views}
                 selectedOption={selectedOption}
                 onOptionClick={onOptionClick}
                 isDisabled={isDisabled}
