@@ -1,0 +1,32 @@
+@mixin collapsible-arrow {
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        width: calculateRem(6px);
+        height: calculateRem(1px);
+        background: $ibexa-color-dark;
+    }
+
+    &::before {
+        transform: rotate(225deg);
+        right: calculateRem(12px);
+    }
+
+    &::after {
+        transform: rotate(-225deg);
+        right: calculateRem(16px);
+    }
+}
+
+@mixin collapsible-arrow-collapsed-state {
+    &::before {
+        transform: rotate(135deg);
+    }
+
+    &::after {
+        transform: rotate(-135deg);
+    }
+}

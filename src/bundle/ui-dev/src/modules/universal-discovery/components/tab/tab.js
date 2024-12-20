@@ -8,15 +8,16 @@ import SelectedLocations from '../selected-locations/selected.locations';
 import ContentCreateWidget from '../content-create-widget/content.create.widget';
 import ContentMetaPreview from '../../content.meta.preview.module';
 
-import { SelectedLocationsContext, DropdownPortalRefContext } from '../../universal.discovery.module';
+import { SelectedLocationsContext, DropdownPortalRefContext, SelectedItemsContext } from '../../universal.discovery.module';
+import SelectedItemsPanel from '../selected-items/selected.items.panel';
 
-const Tab = ({ children, actionsDisabledMap }) => {
+const Tab = ({ children, actionsDisabledMap, isRightSidebarHidden }) => {
     const topBarRef = useRef();
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
     const [selectedLocations] = useContext(SelectedLocationsContext);
+    const { selectedItems } = useContext(SelectedItemsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
-    const selectedLocationsComponent = !!selectedLocations.length ? <SelectedLocations /> : null;
     const contentStyles = {
         height: contentHeight,
     };
@@ -40,12 +41,15 @@ const Tab = ({ children, actionsDisabledMap }) => {
                     <TabSelector />
                 </div>
                 <div className="c-udw-tab__main">{children}</div>
-                <div className="c-udw-tab__right-sidebar">
-                    {ContentMetaPreview && <ContentMetaPreview />}
-                    {selectedLocationsComponent}
-                </div>
+                {!isRightSidebarHidden && (
+                    <div className="c-udw-tab__right-sidebar">
+                        <ContentMetaPreview />
+                    </div>
+                )}
             </div>
             <div className="c-udw-tab__bottom-bar" ref={bottomBarRef}>
+                {!!selectedLocations.length && <SelectedLocations />}
+                {!!selectedItems.length && <SelectedItemsPanel />}
                 <ActionsMenu />
             </div>
             <div className="c-udw-tab__dropdown-portal" ref={dropdownPortalRef} />
@@ -56,6 +60,7 @@ const Tab = ({ children, actionsDisabledMap }) => {
 Tab.propTypes = {
     children: PropTypes.any.isRequired,
     actionsDisabledMap: PropTypes.object,
+    isRightSidebarHidden: PropTypes.bool,
 };
 
 Tab.defaultProps = {
@@ -64,6 +69,7 @@ Tab.defaultProps = {
         'sort-switcher': false,
         'view-switcher': false,
     },
+    isRightSidebarHidden: false,
 };
 
 export default Tab;
