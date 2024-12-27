@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof FieldDefinitionData) {
             return;
@@ -35,7 +35,7 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
 
         $validationErrors = $fieldType->validateValue($fieldDefinition, $fieldValue);
 
-        $this->processValidationErrors($validationErrors);
+        $this->processValidationErrors(iterator_to_array($validationErrors));
     }
 
     protected function getFieldValue(FieldDefinitionData $value): ?Value
