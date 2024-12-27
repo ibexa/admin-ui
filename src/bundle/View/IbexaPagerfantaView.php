@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\View;
 
-use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
 use Pagerfanta\View\DefaultView;
 use Pagerfanta\View\Template\TemplateInterface;
 
 /**
  * View to render Pagerfanta pagination.
  */
-class EzPagerfantaView extends DefaultView
+class IbexaPagerfantaView extends DefaultView
 {
     protected function createDefaultTemplate(): TemplateInterface
     {
-        return new EzPagerfantaTemplate();
+        return new IbexaPagerfantaTemplate();
     }
 
     protected function getDefaultProximity(): int

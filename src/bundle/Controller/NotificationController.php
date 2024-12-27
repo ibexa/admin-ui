@@ -9,8 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
-use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
-use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
+use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -94,7 +94,7 @@ class NotificationController extends Controller
             ]);
         };
 
-        $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
+        $pagination = (new IbexaPagerfantaView(new IbexaPagerfantaTemplate()))->render($pagerfanta, $routeGenerator);
 
         return new Response($this->render('@ibexadesign/account/notifications/list.html.twig', [
             'page' => $page,
