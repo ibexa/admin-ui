@@ -130,18 +130,18 @@ class ContentTypeController extends Controller
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
      */
     public function listAction(ContentTypeGroup $group, string $routeName, int $page): Response
     {
         $deletableTypes = [];
-        $contentTypes = $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'));
+        $contentTypes = iterator_to_array(
+            $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'))
+        );
 
         usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
-            return strnatcasecmp($contentType1->getName(), $contentType2->getName());
+            return strnatcasecmp($contentType1->getName() ?? '', $contentType2->getName() ?? '');
         });
 
         $pagerfanta = new Pagerfanta(
@@ -152,7 +152,7 @@ class ContentTypeController extends Controller
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
-        $types = $pagerfanta->getCurrentPageResults();
+        $types = iterator_to_array($pagerfanta->getCurrentPageResults());
 
         $deleteContentTypesForm = $this->formFactory->deleteContentTypes(
             new ContentTypesDeleteData($this->getContentTypesNumbers($types))
@@ -795,7 +795,7 @@ class ContentTypeController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes
      *
-     * @return array
+     * @return array<int, false>
      */
     private function getContentTypesNumbers(array $contentTypes): array
     {
