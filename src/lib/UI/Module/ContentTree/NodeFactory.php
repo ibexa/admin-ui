@@ -145,6 +145,11 @@ final class NodeFactory
         return $limit;
     }
 
+    /**
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Location>
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     private function findSubitems(
         Location $parentLocation,
         int $limit = 10,
