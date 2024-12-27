@@ -16,17 +16,20 @@ use Symfony\Component\Validator\Constraint;
  */
 class FieldSettingsValidator extends FieldTypeValidator
 {
-    public function validate($value, Constraint $constraint)
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }
 
         $fieldType = $this->fieldTypeService->getFieldType($value->getFieldTypeIdentifier());
-        $this->processValidationErrors($fieldType->validateFieldSettings($value->fieldSettings));
+        $this->processValidationErrors(iterator_to_array($fieldType->validateFieldSettings($value->fieldSettings)));
     }
 
-    protected function generatePropertyPath($errorIndex, $errorTarget)
+    protected function generatePropertyPath($errorIndex, $errorTarget): string
     {
         return 'fieldSettings' . $errorTarget;
     }
