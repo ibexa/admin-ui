@@ -89,7 +89,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
             || !in_array(strtolower($methodCallNodeName), array_map('strtolower', array_keys($this->methodsToExtractFrom)))) {
             $this->previousNode = $node;
 
-            return;
+            return null;
         }
 
         $ignore = false;
@@ -110,12 +110,12 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
                 }
             }
         } else {
-            return;
+            return null;
         }
 
         if (!$node->args[0]->value instanceof String_) {
             if ($ignore) {
-                return;
+                return null;
             }
 
             $message = sprintf('Can only extract the translation id from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($node->args[0]->value), $this->file, $node->args[0]->value->getLine());
@@ -129,7 +129,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         if (isset($node->args[$index])) {
             if (!$node->args[$index]->value instanceof String_) {
                 if ($ignore) {
-                    return;
+                    return null;
                 }
 
                 $message = sprintf('Can only extract the translation domain from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($node->args[$index]->value), $this->file, $node->args[$index]->value->getLine());
@@ -147,6 +147,8 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $message->setMeaning($meaning);
         $message->addSource($this->fileSourceFactory->create($this->file, $node->getLine()));
         $this->catalogue->add($message);
+
+        return null;
     }
 
     public function visitPhpFile(\SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
