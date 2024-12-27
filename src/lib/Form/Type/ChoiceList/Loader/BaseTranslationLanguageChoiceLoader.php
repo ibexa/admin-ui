@@ -13,29 +13,27 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class BaseTranslationLanguageChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
     /** @var string[] */
-    protected $languageCodes;
+    protected array $languageCodes;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      * @param string[] $languageCodes
      */
-    public function __construct(LanguageService $languageService, $languageCodes)
+    public function __construct(LanguageService $languageService, array $languageCodes)
     {
         $this->languageService = $languageService;
         $this->languageCodes = $languageCodes;
     }
 
     /**
-     * {@inheritdoc}
+     * \Ibexa\Contracts\Core\Repository\Values\Content\Language[].
      */
     public function getChoiceList(): array
     {
         return array_filter(
-            $this->languageService->loadLanguages(),
+            iterator_to_array($this->languageService->loadLanguages()),
             function (Language $language) {
                 return $language->enabled && in_array($language->languageCode, $this->languageCodes, true);
             }
