@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
@@ -22,6 +23,9 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper
+ */
 class UDWBasedMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
@@ -86,6 +90,11 @@ class UDWBasedMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $expected
+     *
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Core\Repository\Values\Content\Location>
+     */
     private function createSearchResultsMock(array $expected): SearchResult
     {
         $hits = [];
@@ -99,6 +108,7 @@ class UDWBasedMapperTest extends TestCase
             $hits[] = new SearchHit(['valueObject' => $locationMock]);
         }
 
+        /** @phpstan-var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Core\Repository\Values\Content\Location> */
         return new SearchResult(['searchHits' => $hits]);
     }
 }
