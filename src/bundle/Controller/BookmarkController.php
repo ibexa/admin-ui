@@ -80,7 +80,7 @@ class BookmarkController extends Controller
         );
 
         $removeBookmarkForm = $this->formFactory->removeBookmark(
-            new BookmarkRemoveData($this->getChoices($pagerfanta->getCurrentPageResults()))
+            new BookmarkRemoveData($this->getChoices(iterator_to_array($pagerfanta->getCurrentPageResults())))
         );
 
         return $this->render(
@@ -125,9 +125,9 @@ class BookmarkController extends Controller
     }
 
     /**
-     * @param array $bookmarks
+     * @param array<\Ibexa\AdminUi\UI\Value\Location\Bookmark> $bookmarks
      *
-     * @return array
+     * @return array<int, false>
      */
     private function getChoices(array $bookmarks): array
     {
