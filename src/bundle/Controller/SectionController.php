@@ -21,8 +21,8 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
 use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
 use Ibexa\AdminUi\UI\Service\PathService;
-use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
-use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
+use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
@@ -245,7 +245,7 @@ class SectionController extends Controller
             ]);
         };
 
-        $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
+        $pagination = (new IbexaPagerfantaView(new IbexaPagerfantaTemplate()))->render($pagerfanta, $routeGenerator);
 
         return $this->render('@ibexadesign/section/assigned_content.html.twig', [
             'section' => $section,

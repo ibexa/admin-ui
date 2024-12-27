@@ -13,7 +13,7 @@ use Pagerfanta\View\Template\TwitterBootstrap4Template;
 /**
  * Template to customize Pagerfanta pagination.
  */
-class EzPagerfantaTemplate extends TwitterBootstrap4Template
+class IbexaPagerfantaTemplate extends TwitterBootstrap4Template
 {
     /**
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
