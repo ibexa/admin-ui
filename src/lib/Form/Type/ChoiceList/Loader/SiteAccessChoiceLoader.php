@@ -12,24 +12,23 @@ use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private SiteaccessResolverInterface $nonAdminSiteaccessResolver;
+    private SiteaccessResolverInterface $nonAdminSiteAccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
     private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
 
     public function __construct(
-        SiteaccessResolverInterface $nonAdminSiteaccessResolver,
+        SiteaccessResolverInterface $nonAdminSiteAccessResolver,
         SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         ?Location $location = null
     ) {
-        $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
+        $this->nonAdminSiteAccessResolver = $nonAdminSiteAccessResolver;
         $this->location = $location;
         $this->siteAccessNameGenerator = $siteAccessNameGenerator;
     }
@@ -40,8 +39,8 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
     public function getChoiceList(): array
     {
         $siteAccesses = $this->location === null
-            ? $this->nonAdminSiteaccessResolver->getSiteAccessesList()
-            : $this->nonAdminSiteaccessResolver->getSiteAccessesListForLocation(($this->location));
+            ? $this->nonAdminSiteAccessResolver->getSiteAccessesList()
+            : $this->nonAdminSiteAccessResolver->getSiteAccessesListForLocation(($this->location));
 
         $data = [];
         foreach ($siteAccesses as $siteAccess) {
@@ -52,14 +51,17 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return $data;
     }
 
-    public function loadChoiceList($value = null)
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $choices = $this->getChoiceList();
 
         return new ArrayChoiceList($choices, $value);
     }
 
-    public function loadChoicesForValues(array $values, $value = null)
+    /**
+     * @return string[]
+     */
+    public function loadChoicesForValues(array $values, ?callable $value = null): array
     {
         // Optimize
         $values = array_filter($values);
@@ -70,7 +72,10 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
-    public function loadValuesForChoices(array $choices, $value = null)
+    /**
+     * @return string[]
+     */
+    public function loadValuesForChoices(array $choices, ?callable $value = null): array
     {
         // Optimize
         $choices = array_filter($choices);
