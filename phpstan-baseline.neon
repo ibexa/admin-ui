@@ -7422,7 +7422,7 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\:\\:getFlashBag\\(\\)\\.$#"
-			count: 4
+			count: 1
 			path: src/lib/Notification/FlashBagNotificationHandler.php
 
 		-
