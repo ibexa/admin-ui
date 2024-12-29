@@ -32,7 +32,7 @@
                     {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'policies', active: true } %}
                         {% block content %}
                             {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController::listAction', {
-                                roleId: role.id,
+                                role: role,
                                 policyPage: policy_page,
                                 routeName: route_name
                             })) }}
@@ -41,7 +41,7 @@
                     {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with { id: 'users-and-groups', active: false } %}
                         {% block content %}
                             {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\RoleAssignmentController::listAction', {
-                                roleId: role.id,
+                                role: role,
                                 assignmentPage: assignment_page,
                                 routeName: route_name
                             })) }}
