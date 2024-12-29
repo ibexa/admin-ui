@@ -51,10 +51,8 @@ services:
         public: false
 
     Ibexa\Contracts\AdminUi\Controller\Controller:
-        tags: ['controller.service_arguments']
-        calls:
-            - [setContainer, ["@service_container"]]
-            - [performAccessCheck, []]
+        tags:
+            -   name: controller.service_arguments
 
     Ibexa\Bundle\AdminUi\ParamConverter\:
         resource: "../../ParamConverter/*"

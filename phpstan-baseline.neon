@@ -1281,11 +1281,6 @@ parameters:
 			path: src/contracts/Component/Renderer/RendererInterface.php
 
 		-
-			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Controller\\\\Controller\\:\\:performAccessCheck\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/contracts/Controller/Controller.php
-
-		-
 			message: "#^Method Ibexa\\\\Contracts\\\\AdminUi\\\\Form\\\\ActionDispatcher\\\\ActionDispatcherInterface\\:\\:dispatchFormAction\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/contracts/Form/ActionDispatcher/ActionDispatcherInterface.php
