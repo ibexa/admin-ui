@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
-use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
- * @template-extends \Ibexa\Bundle\AdminUi\ValueResolver\AbstractValueResolver<\Ibexa\Contracts\Core\Persistence\Content\Language>
+ * @template-extends \Ibexa\Bundle\AdminUi\ValueResolver\AbstractValueResolver<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
  */
 final class SourceLanguageValueResolver extends AbstractValueResolver
 {
@@ -44,6 +44,9 @@ final class SourceLanguageValueResolver extends AbstractValueResolver
         return Language::class;
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
     protected function load(array $key): object
     {
         return $this->languageService->loadLanguage(
