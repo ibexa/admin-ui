@@ -54,16 +54,11 @@ services:
         tags:
             -   name: controller.service_arguments
 
-    Ibexa\Bundle\AdminUi\ParamConverter\:
-        resource: "../../ParamConverter/*"
-        public: true
+    Ibexa\Bundle\AdminUi\ValueResolver\:
+        resource: "../../ValueResolver/*"
         tags:
-            - { name: 'request.param_converter' }
-
-    Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeParamConverter:
-        public: true
-        tags:
-            - { name: 'request.param_converter' }
+            -   name: controller.argument_value_resolver
+                priority: 150
 
     Ibexa\AdminUi\UI\Dataset\DatasetFactory:
         lazy: true
