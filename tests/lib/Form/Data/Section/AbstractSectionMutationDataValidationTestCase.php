@@ -26,7 +26,10 @@ abstract class AbstractSectionMutationDataValidationTestCase extends AbstractFor
             [
                 new FormErrorDataTestWrapper(
                     'ez.section.identifier.format',
-                    ['{{ value }}' => '"Foo With Space"'],
+                    [
+                        '{{ value }}' => '"Foo With Space"',
+                        '{{ pattern }}' => '/^[[:alnum:]_]+$/',
+                    ],
                     'data.identifier'
                 ),
             ],
