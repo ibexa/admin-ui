@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
-use Ibexa\Contracts\Core\Persistence\Content\Language;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
- * @template-extends \Ibexa\Bundle\AdminUi\ValueResolver\AbstractValueResolver<\Ibexa\Contracts\Core\Persistence\Content\Language>
+ * @template-extends \Ibexa\Bundle\AdminUi\ValueResolver\AbstractValueResolver<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
  */
 final class TargetLanguageValueResolver extends AbstractValueResolver
 {
