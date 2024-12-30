@@ -10,7 +10,6 @@ namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
-use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
