@@ -33,6 +33,11 @@ final class ContentInfoValueResolver extends AbstractValueResolver
         return ContentInfo::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         return $this->contentService->loadContentInfo(

@@ -74,8 +74,17 @@ abstract class AbstractValueResolver implements ValueResolverInterface
             if (!is_string($key[$name])) {
                 return false;
             }
+
+            if (!$this->validateValue($key[$name])) {
+                return false;
+            }
         }
 
+        return true;
+    }
+
+    protected function validateValue(string $value): bool
+    {
         return true;
     }
 

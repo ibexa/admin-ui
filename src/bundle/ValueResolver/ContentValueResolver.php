@@ -41,7 +41,15 @@ final class ContentValueResolver extends AbstractValueResolver
 
     protected function validateKey(array $key): bool
     {
-        if ($key[self::ATTRIBUTE_CONTENT_ID] === null) {
+        if (!array_key_exists(self::ATTRIBUTE_CONTENT_ID, $key)) {
+            return false;
+        }
+        $contentId = $key[self::ATTRIBUTE_CONTENT_ID];
+        if (!is_numeric($contentId)) {
+            return false;
+        }
+
+        if (array_key_exists(self::ATTRIBUTE_VERSION_NO, $key) && !is_numeric($key[self::ATTRIBUTE_VERSION_NO])) {
             return false;
         }
 
@@ -56,7 +64,7 @@ final class ContentValueResolver extends AbstractValueResolver
     {
         $contentId = (int)$key[self::ATTRIBUTE_CONTENT_ID];
         $languages = $key[self::ATTRIBUTE_LANGUAGE_CODE];
-        $versionNo = $key[self::ATTRIBUTE_VERSION_NO];
+        $versionNo = $key[self::ATTRIBUTE_VERSION_NO] ?? null;
         if ($versionNo !== null) {
             $versionNo = (int)$versionNo;
         }

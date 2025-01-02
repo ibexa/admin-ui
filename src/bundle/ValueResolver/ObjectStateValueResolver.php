@@ -33,6 +33,11 @@ final class ObjectStateValueResolver extends AbstractValueResolver
         return ObjectState::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         return $this->objectStateService->loadObjectState(

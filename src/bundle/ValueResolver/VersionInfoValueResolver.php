@@ -34,14 +34,18 @@ final class VersionInfoValueResolver extends AbstractValueResolver
         return VersionInfo::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         $contentId = (int)$key[self::ATTRIBUTE_CONTENT_ID];
         $versionNo = (int)$key[self::ATTRIBUTE_VERSION_NO];
 
         $contentInfo = $this->contentService->loadContentInfo($contentId);
-        $versionInfo = $this->contentService->loadVersionInfo($contentInfo, $versionNo);
 
-        return $versionInfo;
+        return $this->contentService->loadVersionInfo($contentInfo, $versionNo);
     }
 }

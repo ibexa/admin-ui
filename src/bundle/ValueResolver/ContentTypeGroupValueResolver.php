@@ -33,6 +33,11 @@ final class ContentTypeGroupValueResolver extends AbstractValueResolver
         return ContentTypeGroup::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         return $this->contentTypeService->loadContentTypeGroup(

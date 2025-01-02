@@ -33,6 +33,11 @@ final class LanguageFromCodeValueResolver extends AbstractValueResolver
         return Language::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return $value !== '';
+    }
+
     protected function load(array $key): object
     {
         return $this->languageService->loadLanguage(

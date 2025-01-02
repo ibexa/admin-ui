@@ -33,6 +33,11 @@ final class URLWildcardValueResolver extends AbstractValueResolver
         return URLWildcard::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         return $this->urlWildcardService->load(

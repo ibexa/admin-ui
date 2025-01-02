@@ -33,6 +33,11 @@ final class ContentTypeFromIdentifierValueResolver extends AbstractValueResolver
         return ContentType::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return $value !== '';
+    }
+
     protected function load(array $key): object
     {
         return $this->contentTypeService->loadContentTypeByIdentifier(
