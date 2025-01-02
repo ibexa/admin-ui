@@ -33,6 +33,11 @@ final class LanguageFromIdValueResolver extends AbstractValueResolver
         return Language::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         return $this->languageService->loadLanguageById(

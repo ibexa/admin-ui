@@ -38,6 +38,11 @@ final class PolicyValueResolver extends AbstractValueResolver
         return Policy::class;
     }
 
+    protected function validateValue(string $value): bool
+    {
+        return is_numeric($value);
+    }
+
     protected function load(array $key): object
     {
         $roleId = (int)$key[self::ATTRIBUTE_ROLE_ID];
