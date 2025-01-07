@@ -170,7 +170,10 @@
                 {% set body_rows = body_rows|merge([{
                     cols: body_row_cols,
                     class: 'ibexa-relations__item',
-                    attr: { 'data-content-id': relation.contentInfo.id },
+                    attr: {
+                        'data-content-id': relation.contentInfo.id,
+                        'data-location-id': relation.contentInfo.mainLocationId,
+                    },
                 }]) %}
             {% elseif relation.unauthorized %}
                 {% set col_raw_unauthorised %}
@@ -194,7 +197,10 @@
                         { content: col_raw_order_input, raw: true, attr: { class: 'ibexa-relations__order-wrapper' } }
                     ],
                     class: 'ibexa-relations__item',
-                    attr: { 'data-content-id': relation.contentId },
+                    attr: {
+                        'data-content-id': relation.contentId,
+                        'data-location-id': relation.contentInfo.mainLocationId,
+                    },
                 }]) %}
             {% endif %}
         {% endfor %}
