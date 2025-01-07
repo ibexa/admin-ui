@@ -87,6 +87,7 @@
                 const itemNodeNameCell = itemNode.querySelector('.ibexa-relations__item-name');
 
                 itemNode.dataset.contentId = contentId;
+                itemNode.dataset.locationId = locationId;
                 itemNode.querySelector('.ibexa-relations__table-action--remove-item').addEventListener('click', removeItem, false);
 
                 itemNodeNameCell.dataset.ibexaUpdateContentId = contentId;
@@ -128,9 +129,15 @@
         };
         const openUDW = (event) => {
             event.preventDefault();
-
+            const selectedItemsRow = fieldContainer.querySelectorAll(SELECTOR_ROW);
             const config = JSON.parse(event.currentTarget.dataset.udwConfig);
             const limit = parseInt(event.currentTarget.dataset.limit, 10);
+            const selectedLocations = [...selectedItemsRow].reduce((locationsIds, selectedItemRow) => {
+                const { locationId } = selectedItemRow.dataset;
+                const parsedLocationId = parseInt(locationId, 10);
+
+                return isNaN(parsedLocationId) ? locationsIds : [...locationsIds, parsedLocationId];
+            }, []);
             const title =
                 limit === 1
                     ? Translator.trans(
@@ -151,6 +158,7 @@
                     onCancel: closeUDW,
                     title,
                     startingLocationId,
+                    selectedLocations,
                     ...config,
                     multiple: isSingle ? false : selectedItemsLimit !== 1,
                     multipleItemsLimit: selectedItemsLimit > 1 ? selectedItemsLimit - selectedItems.length : selectedItemsLimit,
