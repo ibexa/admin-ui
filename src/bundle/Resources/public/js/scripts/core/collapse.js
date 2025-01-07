@@ -1,12 +1,13 @@
 (function (global, doc, bootstrap, Translator) {
     let toggleAllTimeout;
+    const TOGGLE_TIMEOUT = 200;
     const toggleAllBtns = [...doc.querySelectorAll(`[data-multi-collapse-btn-id]`)];
     const toggleMultiCollapseBtn = (btn, changeToCollapseAll) => {
         const displayedText = changeToCollapseAll
-            ? /*@Desc("Collapse all)*/ 'product_type.edit.section.attribute_collapse_all'
-            : /*@Desc("Expand all)*/ 'product_type.edit.section.attribute_expand_all';
+            ? /*@Desc("Collapse all sections)*/ 'collapse.collapse_all'
+            : /*@Desc("Expand all sections)*/ 'collapse.expand_all';
 
-        btn.innerText = Translator.trans(displayedText, {}, 'ibexa_product_catalog');
+        btn.innerText = Translator.trans(displayedText, {}, 'ibexa_collapse');
         btn.classList.toggle('ibexa-multi-collapse__btn--expand-all-label', !changeToCollapseAll);
     };
 
@@ -42,16 +43,16 @@
             section.addEventListener('click', () => {
                 const currentCollapsibleBtns = [...multiCollapseNode.querySelectorAll('[data-bs-toggle]')];
 
-                window.clearTimeout(toggleAllTimeout);
+                global.clearTimeout(toggleAllTimeout);
 
-                toggleAllTimeout = window.setTimeout(() => {
+                toggleAllTimeout = global.setTimeout(() => {
                     const collapsedCount = currentCollapsibleBtns.filter((btn) => btn.classList.contains('collapsed')).length;
                     const shouldBeToggled = collapsedCount === currentCollapsibleBtns.length || collapsedCount === 0;
 
                     if (shouldBeToggled) {
                         toggleMultiCollapseBtn(currentToggleAllBtn, collapsedCount === 0);
                     }
-                }, 200);
+                }, TOGGLE_TIMEOUT);
             });
         };
 
@@ -83,14 +84,14 @@
 
             const multiCollapseBodyNode = doc.querySelector(`[data-multi-collapse-body="${collapseId}"]`);
 
-            window.clearTimeout(toggleAllTimeout);
+            global.clearTimeout(toggleAllTimeout);
 
-            toggleAllTimeout = window.setTimeout(() => {
+            toggleAllTimeout = global.setTimeout(() => {
                 const isExpandingAction = btn.classList.contains('ibexa-multi-collapse__btn--expand-all-label');
 
                 handleCollapseAction(multiCollapseBodyNode, isExpandingAction);
                 toggleMultiCollapseBtn(btn, isExpandingAction);
-            }, 200);
+            }, TOGGLE_TIMEOUT);
         });
     };
     toggleAllBtns.forEach(attachAllElementsToggler);
