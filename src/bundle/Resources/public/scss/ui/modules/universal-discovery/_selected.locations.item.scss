@@ -52,5 +52,11 @@
         .ibexa-icon {
             fill: $ibexa-color-dark;
         }
+
+        &:disabled {
+            .ibexa-icon {
+                fill: $ibexa-color-dark-300;
+            }
+        }
     }
 }

@@ -5,6 +5,7 @@ import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/publ
 
 import {
     UDWContext,
+    SelectionConfigContext,
     SelectedLocationsContext,
     RestInfoContext,
     MultipleConfigContext,
@@ -23,19 +24,23 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
         parseTooltip(document.querySelector('.c-list'));
     }, []);
 
-    if (!isUDW) {
-        return null;
-    }
-
+    const { isInitLocationsDeselectionBlocked, initSelectedLocations } = useContext(SelectionConfigContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const restInfo = useContext(RestInfoContext);
+
+    if (!isUDW) {
+        return null;
+    }
+
     const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === locationId);
     const isNotSelectable =
         (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeIdentifier));
     const isSelectionBlocked = multipleItemsLimit !== 0 && !isSelected && selectedLocations.length >= multipleItemsLimit;
+    const isInitSelectedLocation = initSelectedLocations.includes(locationId);
+    const isDeselectionBlocked = isSelected && isInitSelectedLocation && isInitLocationsDeselectionBlocked;
     const location = {
         id: locationId,
     };
@@ -51,7 +56,12 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
 
     return (
         <SelectedLocationsContext.Provider value={[selectedLocations, dispatchSelectedLocationsActionWrapper]}>
-            <ToggleSelection location={location} multiple={multiple} isDisabled={isSelectionBlocked} isHidden={isNotSelectable} />
+            <ToggleSelection
+                location={location}
+                multiple={multiple}
+                isDisabled={isSelectionBlocked || isDeselectionBlocked}
+                isHidden={isNotSelectable}
+            />
             {isNotSelectable && <div className="c-list-item__prefix-actions-item-empty" />}
         </SelectedLocationsContext.Provider>
     );
