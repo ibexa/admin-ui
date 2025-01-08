@@ -159,6 +159,7 @@
                     title,
                     startingLocationId,
                     selectedLocations,
+                    isInitLocationsDeselectionBlocked: true,
                     ...config,
                     multiple: isSingle ? false : selectedItemsLimit !== 1,
                     multipleItemsLimit: selectedItemsLimit > 1 ? selectedItemsLimit - selectedItems.length : selectedItemsLimit,
