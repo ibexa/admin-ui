@@ -7,6 +7,7 @@ import Icon from '../../../common/icon/icon';
 import { formatShortDateTime } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/timezone.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { loadAccordionData } from '../../services/universal.discovery.service';
+import { useSelectedLocationsHelpers } from '../../hooks/useSelectedLocationsHelpers';
 import {
     RestInfoContext,
     CurrentViewContext,
@@ -17,8 +18,6 @@ import {
     ContentTypesMapContext,
     SelectedLocationsContext,
     MultipleConfigContext,
-    ContainersOnlyContext,
-    AllowedContentTypesContext,
     RootLocationIdContext,
 } from '../../universal.discovery.module';
 
@@ -33,12 +32,10 @@ const ContentTableItem = ({ location }) => {
     const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
-    const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const containersOnly = useContext(ContainersOnlyContext);
-    const { isContainer } = contentTypeInfo;
-    const isNotSelectable =
-        (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
+    const { checkIsSelectable, checkIsSelectionBlocked } = useSelectedLocationsHelpers();
+    const isNotSelectable = !checkIsSelectable(location);
+    const isSelectionBlocked = checkIsSelectionBlocked(location);
     const className = createCssClassNames({
         'ibexa-table__row c-content-table-item': true,
         'c-content-table-item--marked': markedLocationId === location.id,
@@ -85,7 +82,7 @@ const ContentTableItem = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />;
+        return <ToggleSelection location={location} multiple={multiple} isDisabled={isSelectionBlocked} isHidden={isNotSelectable} />;
     };
 
     return (

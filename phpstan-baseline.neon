@@ -456,7 +456,7 @@ parameters:
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
-			message: "#^Cannot access offset 0 on iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
+			message: "#^Cannot access offset 0 on iterable\\<int, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 
@@ -621,7 +621,7 @@ parameters:
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
-			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<int\\|string, string\\|null\\>\\.$#"
+			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<string\\|null\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
 
@@ -656,7 +656,7 @@ parameters:
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
-			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateGroupCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<int\\|string, string\\|null\\>\\.$#"
+			message: "#^Property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ObjectState\\\\ObjectStateGroupCreateStruct\\:\\:\\$names \\(array\\<string\\>\\) does not accept array\\<string\\|null\\>\\.$#"
 			count: 1
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
@@ -9546,7 +9546,7 @@ parameters:
 			path: src/lib/UI/Dataset/VersionsDataset.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$array of function array_map expects array, iterable\\<int, Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\VersionInfo\\> given\\.$#"
 			count: 1
 			path: src/lib/UI/Dataset/VersionsDataset.php
 

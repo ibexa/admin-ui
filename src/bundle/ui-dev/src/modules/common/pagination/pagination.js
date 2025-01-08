@@ -36,7 +36,7 @@ const Pagination = ({ totalCount, itemsPerPage, proximity, activePageIndex, onPa
                 label={label}
                 additionalClasses={additionalClasses}
                 onPageChange={onPageChange}
-                disabled={paginationDisabled}
+                disabled={isCurrentPage || paginationDisabled}
             />
         );
     });

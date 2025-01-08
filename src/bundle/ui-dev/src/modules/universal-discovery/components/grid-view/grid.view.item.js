@@ -5,6 +5,7 @@ import ToggleSelection from '../toggle-selection/toggle.selection';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { useSelectedLocationsHelpers } from '../../hooks/useSelectedLocationsHelpers';
 import {
     LoadedLocationsMapContext,
     MarkedLocationIdContext,
@@ -12,7 +13,6 @@ import {
     SelectedLocationsContext,
     MultipleConfigContext,
     ContainersOnlyContext,
-    AllowedContentTypesContext,
     GridActiveLocationIdContext,
 } from '../../universal.discovery.module';
 
@@ -25,15 +25,15 @@ const GridViewItem = ({ location, version }) => {
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
-    const allowedContentTypes = useContext(AllowedContentTypesContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const { isContainer } = contentTypeInfo;
-    const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === location.id);
-    const isNotSelectable =
-        (containersOnly && !isContainer) || (allowedContentTypes && !allowedContentTypes.includes(contentTypeInfo.identifier));
+    const { checkIsSelectable, checkIsSelected, checkIsSelectionBlocked } = useSelectedLocationsHelpers();
+    const isSelected = checkIsSelected(location);
+    const isNotSelectable = !checkIsSelectable(location);
+    const isSelectionBlocked = checkIsSelectionBlocked(location);
     const className = createCssClassNames({
         'ibexa-grid-view-item': true,
         'ibexa-grid-view-item--marked': markedLocationId === location.id,
@@ -68,7 +68,7 @@ const GridViewItem = ({ location, version }) => {
     const renderToggleSelection = () => {
         return (
             <div className="ibexa-grid-view-item__checkbox">
-                <ToggleSelection location={location} multiple={multiple} isHidden={isNotSelectable} />
+                <ToggleSelection location={location} multiple={multiple} isDisabled={isSelectionBlocked} isHidden={isNotSelectable} />
             </div>
         );
     };

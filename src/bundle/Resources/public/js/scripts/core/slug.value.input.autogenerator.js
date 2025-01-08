@@ -4,7 +4,7 @@
             this.sourceInput = config.sourceInput;
             this.targetInput = config.targetInput;
             this.whitespaceTextReplacer = config.whitespaceTextReplacer || '_';
-            this.shouldAutogenerateValue = !this.targetInput.value;
+            this.shouldAutogenerateValue = config.shouldAutogenerateValue || !this.targetInput.value;
         }
 
         slugify(text) {

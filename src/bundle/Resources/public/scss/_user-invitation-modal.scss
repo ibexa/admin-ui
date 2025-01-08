@@ -15,6 +15,7 @@
         bottom: 0;
         background: $ibexa-color-white;
         border-top-width: calculateRem(1px);
+        z-index: 1;
     }
 
     .ibexa-alert {
@@ -26,10 +27,6 @@
 
     &__body {
         position: relative;
-    }
-
-    &__main {
-        margin-right: calculateRem(-8px);
     }
 
     &__issues-alert {

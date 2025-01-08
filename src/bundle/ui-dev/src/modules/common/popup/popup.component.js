@@ -62,6 +62,7 @@ const Popup = ({
     });
     const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
     const hidePopup = () => {
+        modalRef.current.removeEventListener('hidden.bs.modal', onClose);
         bootstrap.Modal.getOrCreateInstance(modalRef.current).hide();
         rootDOMElement.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
     };
@@ -79,10 +80,13 @@ const Popup = ({
 
         bootstrapModal.show();
     };
-    const handleOnClick = (event, onClick) => {
+    const handleOnClick = (event, onClick, preventClose) => {
         modalRef.current.removeEventListener('hidden.bs.modal', onClose);
-        hidePopup();
-        onClick(event);
+        if (!preventClose) {
+            hidePopup();
+        }
+
+        onClick(event, hidePopup);
     };
     const renderCloseBtn = () => {
         if (noCloseBtn) {
@@ -119,12 +123,12 @@ const Popup = ({
                           )}
                     <div className="modal-body c-popup__body">{children}</div>
                     <div className="modal-footer c-popup__footer">
-                        {actionBtnsConfig.map(({ className, onClick, disabled = false, label, ...extraProps }) => (
+                        {actionBtnsConfig.map(({ className, onClick, disabled = false, preventClose = false, label, ...extraProps }) => (
                             <button
                                 key={label}
                                 type="button"
                                 className={`btn ibexa-btn ${className}`}
-                                onClick={onClick ? (event) => handleOnClick(event, onClick) : hidePopup}
+                                onClick={onClick ? (event) => handleOnClick(event, onClick, preventClose) : hidePopup}
                                 disabled={disabled}
                                 {...extraProps}
                             >
@@ -145,6 +149,7 @@ Popup.propTypes = {
             onClick: PropTypes.func,
             disabled: PropTypes.bool,
             className: PropTypes.string,
+            preventClose: PropTypes.bool,
         }),
     ).isRequired,
     children: PropTypes.node.isRequired,

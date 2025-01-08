@@ -163,4 +163,10 @@
             }
         }
     }
+
+    &.container {
+        @media (min-width: 1921px) {
+            max-width: calculateRem(2000px);
+        }
+    }
 }

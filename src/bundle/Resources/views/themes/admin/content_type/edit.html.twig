@@ -57,8 +57,11 @@
                                 {% block left_column %}
                                     {% set form_field_options = { row_attr: { class: 'ibexa-form-field' } } %}
 
-                                    {{ form_row(form.name, form_field_options) }}
-                                    {{ form_row(form.identifier, form_field_options) }}
+                                    {{ form_row(form.name, form_field_options|merge({
+                                        attr: { 'data-autogenerate-identifier-target-selector': '#ibexa-edit-content-type-identifier' } }
+                                    )) }}
+                                    {{ form_row(form.identifier, form_field_options|merge({
+                                         id: 'ibexa-edit-content-type-identifier' } ) ) }}
                                     {{ form_row(form.description, form_field_options) }}
                                     {{ form_row(form.nameSchema, form_field_options) }}
                                     {{ form_row(form.urlAliasSchema, form_field_options) }}

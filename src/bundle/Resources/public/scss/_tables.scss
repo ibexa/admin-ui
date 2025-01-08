@@ -43,6 +43,10 @@
                 }
             }
         }
+
+        &--not-selectable {
+            cursor: not-allowed;
+        }
     }
 
     &__cell:first-child {

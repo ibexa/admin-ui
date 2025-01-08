@@ -57,3 +57,5 @@ services:
   Ibexa\AdminUi\Behat\Component\PropertiesList: ~
 
   Ibexa\AdminUi\Behat\Component\FullView: ~
+
+  Ibexa\AdminUi\Behat\Component\DeleteContentDialog: ~
