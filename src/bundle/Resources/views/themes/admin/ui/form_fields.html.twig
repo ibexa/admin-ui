@@ -268,7 +268,18 @@
 
 {% block textarea_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--textarea')|trim}) %}
-    {{- parent() -}}
+    {%- set input_html -%}
+        {{- parent() -}}
+    {%- endset -%}
+    {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { is_multiline: true } -%}
+        {% block content %}
+            {{ input_html }}
+        {% endblock %}
+
+        {% block actions %}
+            {{ extra_actions_after|default(null)}}
+        {% endblock %}
+    {%- endembed -%}
 {%- endblock textarea_widget %}
 
 {%- block richtext_widget -%}
