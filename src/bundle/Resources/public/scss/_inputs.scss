@@ -452,6 +452,16 @@
         }
     }
 
+    &--multiline {
+        .ibexa-input-text-wrapper {
+            &__actions {
+                right: calculateRem(24px);
+                top: calculateRem(16px);
+                transform: none;
+            }
+        }
+    }
+
     &:hover {
         .ibexa-input {
             border-color: var(--ibexa-input-hover-border-color, #{$ibexa-color-primary});
