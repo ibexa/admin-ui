@@ -10,6 +10,7 @@ namespace Ibexa\Bundle\AdminUi\Controller\Permission;
 
 use Ibexa\AdminUi\Permission\Mapper\UsersWithPermissionInfoMapper;
 use Ibexa\AdminUi\Permission\PermissionCheckContextResolverInterface;
+use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Core\QueryType\QueryType;
@@ -20,6 +21,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class UsersWithPermissionInfoController extends Controller
 {
+    private const PARAM_LIMIT = 'limit';
+    private const PARAM_OFFSET = 'offset';
+
     private QueryType $userQueryType;
 
     private PermissionCheckContextResolverInterface $permissionCheckContextResolver;
@@ -71,16 +75,44 @@ final class UsersWithPermissionInfoController extends Controller
         return new JsonResponse($response);
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     private function getQuery(
         ParameterBag $query,
         ?Query\Criterion $criteria
     ): Query {
         $parameters = [
-            'limit' => $query->getInt('limit', $this->limit),
-            'offset' => $query->getInt('offset'),
             'phrase' => $query->get('phrase'),
             'extra_criteria' => $criteria,
+            'limit' => $this->limit,
         ];
+
+        if ($query->has(self::PARAM_LIMIT)) {
+            $limit = $query->getInt(self::PARAM_LIMIT);
+
+            if ($limit <= 0) {
+                throw new InvalidArgumentException(
+                    self::PARAM_LIMIT,
+                    'Value should be greater than zero'
+                );
+            }
+
+            $parameters[self::PARAM_LIMIT] = $limit;
+        }
+
+        if ($query->has(self::PARAM_OFFSET)) {
+            $offset = $query->getInt(self::PARAM_OFFSET);
+
+            if ($offset < 0) {
+                throw new InvalidArgumentException(
+                    self::PARAM_OFFSET,
+                    'Value should be greater or equal zero'
+                );
+            }
+
+            $parameters[self::PARAM_OFFSET] = $offset;
+        }
 
         return $this->userQueryType->getQuery($parameters);
     }
