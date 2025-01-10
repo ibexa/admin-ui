@@ -66,6 +66,7 @@
 
             if (shouldBeToggled) {
                 const element = bootstrap.Collapse.getOrCreateInstance(collapseNode.querySelector('.ibexa-multi-collapse__single-item'));
+
                 if (isExpandAction) {
                     element.show();
                 } else {
