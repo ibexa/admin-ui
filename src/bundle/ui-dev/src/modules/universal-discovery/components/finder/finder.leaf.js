@@ -24,10 +24,11 @@ const FinderLeaf = ({ location }) => {
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple] = useContext(MultipleConfigContext);
-    const { checkIsSelectable, checkIsSelected, checkIsSelectionBlocked } = useSelectedLocationsHelpers();
+    const { checkIsSelectable, checkIsSelected, checkIsSelectionBlocked, checkIsDeselectionBlocked } = useSelectedLocationsHelpers();
     const isSelected = checkIsSelected(location);
     const isNotSelectable = !checkIsSelectable(location);
     const isSelectionBlocked = checkIsSelectionBlocked(location);
+    const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const markLocation = ({ nativeEvent }) => {
         const isSelectionButtonClicked = nativeEvent.target.closest('.c-udw-toggle-selection');
         const isMarkedLocationClicked = location.id === markedLocationId;
@@ -49,7 +50,14 @@ const FinderLeaf = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return <ToggleSelection location={location} multiple={multiple} isDisabled={isSelectionBlocked} isHidden={isNotSelectable} />;
+        return (
+            <ToggleSelection
+                location={location}
+                multiple={multiple}
+                isDisabled={isSelectionBlocked || isDeselectionBlocked}
+                isHidden={isNotSelectable}
+            />
+        );
     };
     const className = createCssClassNames({
         'c-finder-leaf': true,
