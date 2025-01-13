@@ -252,3 +252,11 @@ services:
             $imageMappings: '%ibexa.dam_widget.image.mappings%'
         tags:
             - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\Permission\UsersWithPermissionInfoController:
+        parent: Ibexa\Rest\Server\Controller
+        arguments:
+            $userQueryType: '@Ibexa\AdminUi\QueryType\UserQueryType'
+            $limit: '%ibexa.admin_ui.load_users_with_permission_info.limit%'
+        tags:
+            - controller.service_arguments
