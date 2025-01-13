@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserQueryType extends AbstractQueryType
 {
-    private const USER_SEARCH_PHRASE_PATTERN = '/[^a-zA-Z0-9@._-]/';
+    private const USER_SEARCH_PHRASE_PATTERN = '/[^\p{L}0-9@._-]/u';
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
@@ -53,9 +53,7 @@ final class UserQueryType extends AbstractQueryType
      */
     protected function getQueryFilter(array $parameters): Criterion
     {
-        $criteria = [
-            new Criterion\IsUserEnabled(),
-        ];
+        $criteria = [new Criterion\IsUserEnabled()];
 
         if (!empty($parameters['extra_criteria'])) {
             $criteria[] = $parameters['extra_criteria'];

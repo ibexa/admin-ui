@@ -103,13 +103,13 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
             '{"access":[{"id":"__FIXED_ID__","name":"Administrator User","email":"admin@link.invalid"},{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[{"id":"__FIXED_ID__","name":"Anonymous User","email":"anonymous@link.invalid"},{"id":"__FIXED_ID__","name":"Guest Guest","email":"guest@link.invalid"}]}',
         ];
 
-        yield 'Check content-read for phrase=undef*' => [
+        yield 'Check content-read for phrase=ł' => [
             self::MEDIA_CONTENT_ITEM_ID,
             self::MODULE_CONTENT,
             self::FUNCTION_READ,
             [
                 'contentId' => 41,
-                'phrase' => 'undef*',
+                'phrase' => 'ł',
             ],
             '{"access":[],"noAccess":[]}',
         ];
@@ -120,7 +120,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
             self::FUNCTION_EDIT,
             [
                 'contentId' => 41,
-                'phrase' => 'jo*',
+                'phrase' => 'jo',
             ],
             '{"access":[{"id":"__FIXED_ID__","name":"John Doe","email":"john@link.invalid"},{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[]}',
         ];
@@ -131,7 +131,7 @@ final class GetUsersWithPermissionInfoTest extends WebTestCase
             self::FUNCTION_EDIT,
             [
                 'contentId' => 41,
-                'phrase' => 'bar*',
+                'phrase' => 'bar',
             ],
             '{"access":[{"id":"__FIXED_ID__","name":"Josh Bar","email":"joshua@link.invalid"}],"noAccess":[]}',
         ];
