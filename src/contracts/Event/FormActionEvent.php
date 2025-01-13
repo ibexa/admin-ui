@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Event;
 
@@ -15,35 +16,35 @@ class FormActionEvent extends FormEvent
 {
     /**
      * Name of the button used to submit the form.
-     *
-     * @var string|null
      */
-    private $clickedButton;
+    private ?string $clickedButton;
 
     /**
      * Hash of options.
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    private $options;
+    private array $options;
 
     /**
-     * Response to return after form post-processing. Typically a RedirectResponse.
-     *
-     * @var \Symfony\Component\HttpFoundation\Response|null
+     * Response to return after form post-processing. Typically, a RedirectResponse.
      */
-    private $response;
+    private ?Response $response;
 
     /**
      * Additional payload populated for event listeners next in priority.
      *
-     * @var array
+     * @var array<mixed>
      */
-    private $payloads;
+    private array $payloads;
 
+    /**
+     * @param array<string, mixed> $options
+     * @param array<mixed> $payloads
+     */
     public function __construct(
         FormInterface $form,
-        $data,
+        mixed $data,
         ?string $clickedButton,
         array $options = [],
         array $payloads = []
@@ -59,6 +60,9 @@ class FormActionEvent extends FormEvent
         return $this->clickedButton;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getOptions(): array
     {
         return $this->options;
@@ -67,16 +71,10 @@ class FormActionEvent extends FormEvent
     /**
      * @param string $optionName The option name
      * @param mixed $defaultValue default value to return if option is not set
-     *
-     * @return mixed
      */
-    public function getOption($optionName, $defaultValue = null)
+    public function getOption(string $optionName, mixed $defaultValue = null): mixed
     {
-        if (!isset($this->options[$optionName])) {
-            return $defaultValue;
-        }
-
-        return $this->options[$optionName];
+        return $this->options[$optionName] ?? $defaultValue;
     }
 
     public function hasOption(string $optionName): bool
@@ -99,11 +97,17 @@ class FormActionEvent extends FormEvent
         return $this->response !== null;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getPayloads(): array
     {
         return $this->payloads;
     }
 
+    /**
+     * @param array<mixed> $payloads
+     */
     public function setPayloads(array $payloads): void
     {
         $this->payloads = $payloads;
@@ -114,12 +118,12 @@ class FormActionEvent extends FormEvent
         return isset($this->payloads[$name]);
     }
 
-    public function getPayload(string $name)
+    public function getPayload(string $name): mixed
     {
         return $this->payloads[$name];
     }
 
-    public function setPayload(string $name, $payload): void
+    public function setPayload(string $name, mixed $payload): void
     {
         $this->payloads[$name] = $payload;
     }

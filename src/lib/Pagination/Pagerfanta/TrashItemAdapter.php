@@ -12,25 +12,16 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Pagerfanta adapter for Ibexa content search.
- * Will return results as SearchHit objects.
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\TrashItem>
  */
 class TrashItemAdapter implements AdapterInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query
-     */
-    private $query;
+    private Query $query;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService
-     */
-    private $trashService;
+    private TrashService $trashService;
 
-    /**
-     * @var int
-     */
-    private $nbResults;
+    /** @phpstan-var int<0, max> */
+    private int $nbResults;
 
     public function __construct(Query $query, TrashService $trashService)
     {
@@ -38,12 +29,7 @@ class TrashItemAdapter implements AdapterInterface
         $this->trashService = $trashService;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         if (isset($this->nbResults)) {
             return $this->nbResults;
@@ -52,18 +38,13 @@ class TrashItemAdapter implements AdapterInterface
         $countQuery = clone $this->query;
         $countQuery->limit = 0;
 
-        return $this->nbResults = $this->trashService->findTrashItems($countQuery)->count;
+        return $this->nbResults = $this->trashService->findTrashItems($countQuery)->totalCount;
     }
 
     /**
-     * Returns a slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject[]
      */
-    public function getSlice($offset, $length): array
+    public function getSlice(int $offset, int $length): array
     {
         $query = clone $this->query;
         $query->offset = $offset;
@@ -72,8 +53,8 @@ class TrashItemAdapter implements AdapterInterface
 
         $trashItems = $this->trashService->findTrashItems($query);
 
-        if (null === $this->nbResults && null !== $trashItems->count) {
-            $this->nbResults = $trashItems->count;
+        if (!isset($this->nbResults)) {
+            $this->nbResults = $trashItems->totalCount;
         }
 
         return $trashItems->items;

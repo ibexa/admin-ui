@@ -13,11 +13,15 @@ namespace Ibexa\AdminUi\Form\Data\ContentType;
  */
 class ContentTypesDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]|null */
-    protected $contentTypes;
+    /**
+     * A map of content type id to false value.
+     *
+     * @var array<int, false>
+     */
+    protected array $contentTypes;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]|null $contentTypes
+     * @param array<int, false> $contentTypes
      */
     public function __construct(array $contentTypes = [])
     {
@@ -25,17 +29,17 @@ class ContentTypesDeleteData
     }
 
     /**
-     * @return array|null
+     * @return array<int, false>
      */
-    public function getContentTypes(): ?array
+    public function getContentTypes(): array
     {
         return $this->contentTypes;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]|null $contentTypes
+     * @param array<int, false> $contentTypes
      */
-    public function setContentTypes(?array $contentTypes)
+    public function setContentTypes(array $contentTypes): void
     {
         $this->contentTypes = $contentTypes;
     }

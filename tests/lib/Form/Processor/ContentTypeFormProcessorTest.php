@@ -19,7 +19,10 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\DataMapperInterface;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -245,9 +248,9 @@ final class ContentTypeFormProcessorTest extends TestCase
 
     public function testRemoveFieldDefinition(): void
     {
-        $fieldDefinition1 = new FieldDefinition();
-        $fieldDefinition2 = new FieldDefinition();
-        $fieldDefinition3 = new FieldDefinition();
+        $fieldDefinition1 = new FieldDefinition(['identifier' => 'field_1']);
+        $fieldDefinition2 = new FieldDefinition(['identifier' => 'field_2']);
+        $fieldDefinition3 = new FieldDefinition(['identifier' => 'field_3']);
         $existingFieldDefinitions = [$fieldDefinition1, $fieldDefinition2, $fieldDefinition3];
         $contentTypeDraft = new ContentTypeDraft([
             'innerContentType' => new ContentType([
@@ -256,59 +259,40 @@ final class ContentTypeFormProcessorTest extends TestCase
             ]),
         ]);
 
-        $fieldDefForm1 = $this->createMock(FormInterface::class);
-        $fieldDefSelected1 = $this->createMock(FormInterface::class);
-        $fieldDefForm1
-            ->expects(self::once())
-            ->method('get')
-            ->with('selected')
-            ->willReturn($fieldDefSelected1);
-        $fieldDefSelected1
-            ->expects(self::once())
-            ->method('getData')
-            ->willReturn(false);
-        $fieldDefForm1
-            ->expects(self::never())
-            ->method('getData');
-
-        $fieldDefForm2 = $this->createMock(FormInterface::class);
-        $fieldDefSelected2 = $this->createMock(FormInterface::class);
-        $fieldDefForm2
-            ->expects(self::once())
-            ->method('get')
-            ->with('selected')
-            ->willReturn($fieldDefSelected2);
-        $fieldDefSelected2
-            ->expects(self::once())
-            ->method('getData')
-            ->willReturn(true);
-        $fieldDefForm2
-            ->expects(self::once())
-            ->method('getData')
-            ->willReturn(new FieldDefinitionData(['fieldDefinition' => $fieldDefinition1]));
-
-        $fieldDefForm3 = $this->createMock(FormInterface::class);
-        $fieldDefSelected3 = $this->createMock(FormInterface::class);
-        $fieldDefForm3
-            ->expects(self::once())
-            ->method('get')
-            ->with('selected')
-            ->willReturn($fieldDefSelected3);
-        $fieldDefSelected3
-            ->expects(self::once())
-            ->method('getData')
-            ->willReturn(true);
-        $fieldDefForm3
-            ->expects(self::once())
-            ->method('getData')
-            ->willReturn(new FieldDefinitionData(['fieldDefinition' => $fieldDefinition1]));
+        $compoundFormConfig = $this->createMock(FormConfigInterface::class);
+        $compoundFormConfig->method('getCompound')->willReturn(true);
+        $compoundFormConfig->method('getDataMapper')->willReturn($this->createMock(DataMapperInterface::class));
+        $fieldDefinitionsDataForm = new Form($compoundFormConfig);
+        $fieldDefinitionsDataForm->add($this->mockFieldDefinitionForm($fieldDefinition1, false));
+        $fieldDefinitionsDataForm->add($this->mockFieldDefinitionForm($fieldDefinition2, true));
+        $fieldDefinitionsDataForm->add($this->mockFieldDefinitionForm($fieldDefinition3, true));
 
         $mainForm = $this->createMock(FormInterface::class);
         $mainForm
             ->expects(self::once())
             ->method('get')
             ->with('fieldDefinitionsData')
-            ->willReturn([$fieldDefForm1, $fieldDefForm2, $fieldDefForm3]);
+            ->willReturn($fieldDefinitionsDataForm);
+
+        // only 2 fields are selected for removal: field 2 and 3
+        $matcher = self::exactly(2);
+        $this->contentTypeService->expects($matcher)
+                                 ->method('removeFieldDefinition')
+            // replacement for deprecated withConsecutive method
+                                 ->willReturnCallback(
+                                     static function (
+                                         ContentTypeDraft $actualContentTypeDraft,
+                                         FieldDefinition $actualFieldDefinition
+                                     ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3) {
+                                        self::assertSame($contentTypeDraft, $actualContentTypeDraft);
+                                        match ($matcher->getInvocationCount()) {
+                                            1 => self::assertSame($fieldDefinition2, $actualFieldDefinition),
+                                            2 => self::assertSame($fieldDefinition3, $actualFieldDefinition),
+                                            default => self::fail('Unexpected invocation count matched'),
+                                        };
+                                    }
+                                 )
+        ;
 
         $event = new FormActionEvent(
             $mainForm,
@@ -316,6 +300,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             'removeFieldDefinition',
             ['languageCode' => 'eng-GB']
         );
+
         $this->formProcessor->processRemoveFieldDefinition($event);
     }
 
@@ -375,5 +360,30 @@ final class ContentTypeFormProcessorTest extends TestCase
                 'identifier' => 'foo',
             ]),
         ]);
+    }
+
+    private function mockFieldDefinitionForm(FieldDefinition $fieldDefinition, bool $isSelected): FormInterface & MockObject
+    {
+        $fieldDefinitionForm = $this->createMock(FormInterface::class);
+        $fieldDefinitionForm->method('getName')->willReturn(uniqid('child', true));
+        $fieldDefinitionSelectedForm = $this->createMock(FormInterface::class);
+        $fieldDefinitionForm
+            ->expects(self::once())
+            ->method('get')
+            ->with('selected')
+            ->willReturn($fieldDefinitionSelectedForm)
+        ;
+        $fieldDefinitionSelectedForm
+            ->expects(self::once())
+            ->method('getData')
+            ->willReturn($isSelected)
+        ;
+        $fieldDefinitionForm
+            ->expects($isSelected ? self::once() : self::never())
+            ->method('getData')
+            ->willReturn(new FieldDefinitionData(['fieldDefinition' => $fieldDefinition]))
+        ;
+
+        return $fieldDefinitionForm;
     }
 }

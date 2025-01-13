@@ -12,16 +12,16 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment>
+ */
 final class RoleAssignmentsSearchAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
-    private $role;
+    private Role $role;
 
-    /** @var int|null */
-    private $assignmentsCount;
+    private ?int $assignmentsCount;
 
     public function __construct(RoleService $roleService, Role $role, ?int $assignmentsCount = null)
     {
@@ -37,6 +37,7 @@ final class RoleAssignmentsSearchAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
+        /** @phpstan-var int<0, max> */
         return $this->assignmentsCount ?: $this->roleService->countRoleAssignments($this->role);
     }
 

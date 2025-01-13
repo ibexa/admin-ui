@@ -65,7 +65,8 @@ class BookmarkController extends Controller
      */
     public function listAction(Request $request): Response
     {
-        $page = $request->query->get('page', 1);
+        /** @phpstan-var int<0, max> $page */
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
             new BookmarkAdapter($this->bookmarkService, $this->datasetFactory)
@@ -79,12 +80,12 @@ class BookmarkController extends Controller
         );
 
         $removeBookmarkForm = $this->formFactory->removeBookmark(
-            new BookmarkRemoveData($this->getChoices($pagerfanta->getCurrentPageResults()))
+            new BookmarkRemoveData($this->getChoices(iterator_to_array($pagerfanta->getCurrentPageResults())))
         );
 
         return $this->render(
             '@ibexadesign/account/bookmarks/list.html.twig',
-            $viewParameters = [
+            [
                 'pager' => $pagerfanta,
                 'form_edit' => $editForm->createView(),
                 'form_remove' => $removeBookmarkForm->createView(),
@@ -124,9 +125,9 @@ class BookmarkController extends Controller
     }
 
     /**
-     * @param array $bookmarks
+     * @param array<\Ibexa\AdminUi\UI\Value\Location\Bookmark> $bookmarks
      *
-     * @return array
+     * @return array<int, false>
      */
     private function getChoices(array $bookmarks): array
     {

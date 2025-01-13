@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\Type\Event\ContentCreateContentTypeChoiceLoaderEvent;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -34,6 +35,9 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
         $this->eventDispatcher = $eventDispatcher;
     }
 
+    /**
+     * @param array<int> $restrictedContentTypeIds
+     */
     public function setRestrictedContentTypeIds(array $restrictedContentTypeIds): self
     {
         $this->restrictedContentTypesIds = $restrictedContentTypeIds;
@@ -53,10 +57,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoiceList($value = null)
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $contentTypesGroups = $this->contentTypeChoiceLoader->getChoiceList();
 
@@ -73,7 +74,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter($contentTypes, function (ContentType $contentType) {
-                return \in_array($contentType->id, $this->restrictedContentTypesIds);
+                return \in_array($contentType->id, $this->restrictedContentTypesIds, true);
             });
         }
 
@@ -81,9 +82,9 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[][]
      */
-    public function loadChoicesForValues(array $values, $value = null)
+    public function loadChoicesForValues(array $values, ?callable $value = null): array
     {
         // Optimize
         $values = array_filter($values);
@@ -95,9 +96,9 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<string>
      */
-    public function loadValuesForChoices(array $choices, $value = null)
+    public function loadValuesForChoices(array $choices, ?callable $value = null): array
     {
         // Optimize
         $choices = array_filter($choices);

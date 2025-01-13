@@ -19,8 +19,7 @@ use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 
 class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         ContentTypeService $contentTypeService,
@@ -32,10 +31,7 @@ class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoiceList($value = null): ChoiceListInterface
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $contentTypesGroups = $this->getChoiceList();
         $userContentTypeIdentifier = $this->configResolver->getParameter('user_content_type_identifier');

@@ -21,8 +21,8 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
 use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
 use Ibexa\AdminUi\UI\Service\PathService;
-use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
-use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
+use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
@@ -44,15 +44,11 @@ use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SectionController extends Controller
 {
     /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
     private $notificationHandler;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
 
     /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
@@ -89,7 +85,6 @@ class SectionController extends Controller
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator,
         SectionService $sectionService,
         SearchService $searchService,
         FormFactory $formFactory,
@@ -103,7 +98,6 @@ class SectionController extends Controller
         ConfigResolverInterface $configResolver
     ) {
         $this->notificationHandler = $notificationHandler;
-        $this->translator = $translator;
         $this->sectionService = $sectionService;
         $this->searchService = $searchService;
         $this->formFactory = $formFactory;
@@ -129,14 +123,13 @@ class SectionController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function listAction(Request $request): Response
     {
-        $page = $request->query->get('page') ?? 1;
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->sectionService->loadSections())
+            new ArrayAdapter(iterator_to_array($this->sectionService->loadSections()))
         );
 
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.section_limit'));
@@ -233,13 +226,15 @@ class SectionController extends Controller
 
         $assignedContent = [];
         foreach ($pagerfanta as $content) {
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+            $mainLocationId = $content->getContentInfo()->getMainLocationId();
             $assignedContent[] = [
-                'id' => $content->id,
+                'id' => $content->getId(),
                 'name' => $content->getName(),
                 'type' => $content->getContentType()->getName(),
-                'path' => $this->pathService->loadPathLocations(
-                    $this->locationService->loadLocation($content->contentInfo->mainLocationId)
-                ),
+                'path' => $mainLocationId !== null ? $this->pathService->loadPathLocations(
+                    $this->locationService->loadLocation($mainLocationId)
+                ) : [],
             ];
         }
 
@@ -250,7 +245,7 @@ class SectionController extends Controller
             ]);
         };
 
-        $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
+        $pagination = (new IbexaPagerfantaView(new IbexaPagerfantaTemplate()))->render($pagerfanta, $routeGenerator);
 
         return $this->render('@ibexadesign/section/assigned_content.html.twig', [
             'section' => $section,

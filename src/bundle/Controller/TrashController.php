@@ -107,9 +107,7 @@ class TrashController extends Controller
      * @throws \LogicException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
@@ -149,11 +147,11 @@ class TrashController extends Controller
         }
 
         $trashItemRestoreForm = $this->formFactory->restoreTrashItem(
-            new TrashItemRestoreData($pagerfanta->getCurrentPageResults(), null)
+            new TrashItemRestoreData(iterator_to_array($pagerfanta->getCurrentPageResults()), null)
         );
 
         $trashItemDeleteForm = $this->formFactory->deleteTrashItem(
-            new TrashItemDeleteData($pagerfanta->getCurrentPageResults())
+            new TrashItemDeleteData(iterator_to_array($pagerfanta->getCurrentPageResults()))
         );
 
         $trashEmptyForm = $this->formFactory->emptyTrash(

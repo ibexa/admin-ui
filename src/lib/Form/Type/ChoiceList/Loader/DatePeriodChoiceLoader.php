@@ -13,8 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DatePeriodChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -22,18 +21,16 @@ class DatePeriodChoiceLoader extends BaseChoiceLoader
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<string, string>
      */
     public function getChoiceList(): array
     {
-        $choices = [];
-        foreach ($this->getDatePeriods() as $label => $value) {
-            $choices[$label] = $value;
-        }
-
-        return $choices;
+        return array_map(static fn ($value): string => $value, $this->getDatePeriods());
     }
 
+    /**
+     * @return array<string, string>
+     */
     private function getDatePeriods(): array
     {
         return [

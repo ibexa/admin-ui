@@ -92,6 +92,8 @@ final class DownloadImageController extends Controller
     }
 
     /**
+     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $result
+     *
      * @throws \Exception
      */
     private function processDownloading(SearchResult $result): Response
@@ -110,9 +112,7 @@ final class DownloadImageController extends Controller
 
         $contentList = [];
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit $image */
         foreach ($result as $image) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
             $content = $image->valueObject;
             $contentList[] = $content;
         }
@@ -238,6 +238,8 @@ final class DownloadImageController extends Controller
 
     /**
      * @param array<int> $contentIdList
+     *
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Content>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;

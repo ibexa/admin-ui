@@ -1,13 +1,10 @@
 services:
-    Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate:
-        class: Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate
-        arguments:
-            - '@translator'
+    Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate: ~
 
-    Ibexa\Bundle\AdminUi\View\EzPagerfantaView:
+    Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView:
         public: false
         arguments:
-            - '@Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate'
+            $template: '@Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate'
         tags:
             - { name: 'pagerfanta.view', alias: 'ibexa' }
 

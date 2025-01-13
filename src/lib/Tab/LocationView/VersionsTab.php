@@ -163,7 +163,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         $draftPagerfanta->setCurrentPage(min($draftPaginationParams['page'], $draftPagerfanta->getNbPages()));
 
         /** @var \Ibexa\AdminUi\UI\Value\Content\VersionInfo[] $policies */
-        $draftVersions = $draftPagerfanta->getCurrentPageResults();
+        $draftVersions = iterator_to_array($draftPagerfanta->getCurrentPageResults());
 
         $archivedVersions = $versionsDataset->getArchivedVersions();
 

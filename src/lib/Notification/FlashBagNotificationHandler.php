@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Notification;
 
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 final class FlashBagNotificationHandler implements NotificationHandlerInterface
 {
@@ -18,48 +19,32 @@ final class FlashBagNotificationHandler implements NotificationHandlerInterface
     private const TYPE_WARNING = 'warning';
     private const TYPE_ERROR = 'error';
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
-     */
-    private $session;
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
-     */
-    public function __construct(SessionInterface $session)
+    public function __construct(private readonly RequestStack $requestStack)
     {
-        $this->session = $session;
     }
 
-    /**
-     * @param string $message
-     */
     public function info(string $message): void
     {
-        $this->session->getFlashBag()->add(self::TYPE_INFO, $message);
+        $this->getFlashBag()->add(self::TYPE_INFO, $message);
     }
 
-    /**
-     * @param string $message
-     */
     public function success(string $message): void
     {
-        $this->session->getFlashBag()->add(self::TYPE_SUCCESS, $message);
+        $this->getFlashBag()->add(self::TYPE_SUCCESS, $message);
     }
 
-    /**
-     * @param string $message
-     */
     public function warning(string $message): void
     {
-        $this->session->getFlashBag()->add(self::TYPE_WARNING, $message);
+        $this->getFlashBag()->add(self::TYPE_WARNING, $message);
     }
 
-    /**
-     * @param string $message
-     */
     public function error(string $message): void
     {
-        $this->session->getFlashBag()->add(self::TYPE_ERROR, $message);
+        $this->getFlashBag()->add(self::TYPE_ERROR, $message);
+    }
+
+    private function getFlashBag(): FlashBagInterface
+    {
+        return $this->requestStack->getSession()->getFlashBag();
     }
 }

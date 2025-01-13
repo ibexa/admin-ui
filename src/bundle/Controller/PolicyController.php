@@ -84,15 +84,13 @@ class PolicyController extends Controller
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
      */
     public function listAction(Role $role, string $routeName, int $policyPage = 1): Response
     {
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($role->getPolicies())
+            new ArrayAdapter(iterator_to_array($role->getPolicies()))
         );
 
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.policy_limit'));

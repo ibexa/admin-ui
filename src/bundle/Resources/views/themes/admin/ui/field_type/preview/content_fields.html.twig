@@ -474,7 +474,7 @@
 {% if not ibexa_field_is_empty( content, field ) and parameters.available %}
     {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ezimageasset')|trim}) %}
     <div {{ block( 'field_attributes' ) }}>
-        {{ render(controller('ibexa_content:viewAction', {
+        {{ render(controller('ibexa_content::viewAction', {
             contentId: field.value.destinationContentId,
             viewType: 'preview_ezimageasset',
             no_layout: true,
