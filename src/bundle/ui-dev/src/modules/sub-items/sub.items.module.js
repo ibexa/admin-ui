@@ -134,6 +134,7 @@ export default class SubItemsModule extends Component {
             morePanelVisible: false,
             morePanelVisibleItemsIndexes: [],
             queryParams: {},
+            isUpdate: false,
         };
     }
 
@@ -171,7 +172,7 @@ export default class SubItemsModule extends Component {
     }
 
     componentDidUpdate() {
-        const { activePageIndex, activePageItems, totalCount } = this.state;
+        const { activePageIndex, activePageItems, totalCount, isUpdate } = this.state;
         const { limit: itemsPerPage } = this.props;
         const pagesCount = Math.ceil(totalCount / itemsPerPage);
         const pageDoesNotExist = activePageIndex > pagesCount - 1 && activePageIndex !== 0;
@@ -186,7 +187,7 @@ export default class SubItemsModule extends Component {
 
         const shouldLoadPage = !activePageItems;
 
-        if (shouldLoadPage && this.requestParamsHaveChanged(activePageIndex)) {
+        if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isUpdate)) {
             this.loadPage(activePageIndex);
         }
 
@@ -261,6 +262,7 @@ export default class SubItemsModule extends Component {
                 sortOrder,
                 cursor,
             },
+            isUpdate: false,
         });
 
         loadLocation(restInfo, queryConfig, (response) => {
@@ -330,6 +332,10 @@ export default class SubItemsModule extends Component {
      * @memberof SubItemsModule
      */
     afterPriorityUpdated(response) {
+        this.setState({
+            isUpdate: true,
+        });
+
         if (this.state.sortClause === 'LocationPriority') {
             this.discardActivePageItems();
             this.refreshContentTree();
@@ -475,6 +481,9 @@ export default class SubItemsModule extends Component {
     afterBulkMove(location, movedItems, notMovedItems) {
         const { totalCount } = this.state;
 
+        this.setState({
+            isUpdate: true,
+        });
         this.refreshContentTree();
         this.updateTotalCountState(totalCount - movedItems.length);
         this.deselectAllItems();
@@ -534,6 +543,9 @@ export default class SubItemsModule extends Component {
     }
 
     afterBulkHide(successItems, failedItems) {
+        this.setState({
+            isUpdate: true,
+        });
         this.deselectAllItems();
         this.discardActivePageItems();
         this.toggleBulkOperationStatusState(false);
@@ -579,6 +591,9 @@ export default class SubItemsModule extends Component {
     }
 
     afterBulkUnhide(successItems, failedItems) {
+        this.setState({
+            isUpdate: true,
+        });
         this.deselectAllItems();
         this.discardActivePageItems();
         this.toggleBulkOperationStatusState(false);
@@ -624,6 +639,9 @@ export default class SubItemsModule extends Component {
     }
 
     afterBulkAddLocation(location, successItems, failedItems) {
+        this.setState({
+            isUpdate: true,
+        });
         this.deselectAllItems();
         this.discardActivePageItems();
         this.toggleBulkOperationStatusState(false);
@@ -774,6 +792,9 @@ export default class SubItemsModule extends Component {
         const { totalCount } = this.state;
         const isUser = ({ content }) => window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
 
+        this.setState({
+            isUpdate: true,
+        });
         this.refreshContentTree();
         this.updateTotalCountState(totalCount - deletedItems.length);
         this.deselectAllItems();
