@@ -50,7 +50,7 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
         ]);
         $siteaccess = 'site';
 
-        $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteaccess, $languageCode);
+        $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteaccess, [$languageCode]);
 
         $this->mockConfigMethods($context);
 
@@ -177,7 +177,7 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
         ]);
         $siteaccess = 'site';
 
-        $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteaccess, $languageCode);
+        $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteaccess, [$languageCode]);
 
         return [
             [

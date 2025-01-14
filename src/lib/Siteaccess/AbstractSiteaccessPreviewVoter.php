@@ -34,7 +34,7 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
     {
         $siteAccess = $context->getSiteaccess();
         $location = $context->getLocation();
-        $languageCode = $context->getLanguageCode();
+        $languageCodes = $context->getLanguageCodes();
 
         if (empty(array_intersect($this->getRootLocationIds($siteAccess), $location->getPath()))) {
             return false;
@@ -50,7 +50,7 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
             $siteAccess
         );
 
-        return in_array($languageCode, $siteAccessLanguages, true);
+        return !empty(array_intersect($languageCodes, $siteAccessLanguages));
     }
 
     protected function validateRepositoryMatch(string $siteaccess): bool

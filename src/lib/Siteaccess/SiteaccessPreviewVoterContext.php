@@ -22,19 +22,22 @@ final class SiteaccessPreviewVoterContext
     /** @var string */
     private $siteaccess;
 
-    /** @var string */
-    private $languageCode;
+    /** @var array<string> */
+    private $languageCodes;
 
+    /**
+     * @param array<int, string> $languageCodes
+     */
     public function __construct(
         Location $location,
         VersionInfo $versionInfo,
         string $siteaccess,
-        string $languageCode
+        array $languageCodes
     ) {
         $this->location = $location;
         $this->versionInfo = $versionInfo;
         $this->siteaccess = $siteaccess;
-        $this->languageCode = $languageCode;
+        $this->languageCodes = $languageCodes;
     }
 
     /**
@@ -54,11 +57,11 @@ final class SiteaccessPreviewVoterContext
     }
 
     /**
-     * @return string
+     * @return array<int, string>
      */
-    public function getLanguageCode(): string
+    public function getLanguageCodes(): array
     {
-        return $this->languageCode;
+        return $this->languageCodes;
     }
 
     /**

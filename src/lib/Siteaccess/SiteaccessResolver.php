@@ -81,12 +81,12 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     ): array {
         $contentInfo = $location->getContentInfo();
         $versionInfo = $this->contentService->loadVersionInfo($contentInfo, $versionNo);
-        $languageCode = $languageCode ?? $contentInfo->getMainLanguageCode();
+        $languageCodes = $languageCode !== null ? [$languageCode] : $versionInfo->getLanguageCodes();
 
         $eligibleSiteAccesses = [];
         /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
         foreach ($this->siteAccessService->getAll() as $siteAccess) {
-            $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteAccess->name, $languageCode);
+            $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteAccess->name, $languageCodes);
             foreach ($this->siteAccessPreviewVoters as $siteAccessPreviewVoter) {
                 if ($siteAccessPreviewVoter->vote($context)) {
                     $eligibleSiteAccesses[] = $siteAccess;
