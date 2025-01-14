@@ -7,15 +7,28 @@
 
     class EzUrlValidator extends ibexa.BaseFieldValidator {
         validateUrl(event) {
+            const result = {
+                isError: false,
+                errorMessage: null,
+            };
             const input = event.currentTarget;
+            const urlValue = input.value.trim();
             const isRequired = input.required;
-            const isEmpty = !input.value.trim();
-            const isError = isEmpty && isRequired;
+            const isEmpty = !urlValue;
             const label = input.closest(SELECTOR_FIELD_LINK).querySelector(SELECTOR_LABEL).innerHTML;
-            const result = { isError };
 
             if (isRequired && isEmpty) {
+                result.isError = true;
                 result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
+            }
+
+            if (!isEmpty) {
+                try {
+                    new URL(urlValue);
+                } catch (error) {
+                    result.isError = true;
+                    result.errorMessage = ibexa.errors.invalidUrl;
+                }
             }
 
             return result;
