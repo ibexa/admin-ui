@@ -42,7 +42,9 @@
         recalculateStyling();
     };
     const recalculateInputStyling = (inputActionsContainer) => {
-        const input = inputActionsContainer.closest('.ibexa-input-text-wrapper').querySelector('input');
+        const textWrapper = inputActionsContainer.closest('.ibexa-input-text-wrapper');
+        const inputType = textWrapper.classList.contains('ibexa-input-text-wrapper--multiline') ? 'textarea' : 'input';
+        const input = textWrapper.querySelector(inputType);
 
         if (!input) {
             return;
