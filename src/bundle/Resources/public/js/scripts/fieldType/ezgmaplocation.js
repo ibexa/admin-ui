@@ -599,7 +599,7 @@
 
             navigator.geolocation.getCurrentPosition(
                 (position) => updateMapState(position.coords.latitude, position.coords.longitude),
-                (error) => ibexa.helpers.notification.showErrorNotification(error),
+                (error) => ibexa.helpers.notification.showErrorNotification(error.message),
             );
         };
         let locationMarker;
