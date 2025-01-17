@@ -27,6 +27,16 @@
                 opacity: 0;
             }
         }
+
+        &--danger {
+            background: $ibexa-color-danger-100;
+            border-color: $ibexa-color-danger-100;
+            color: $ibexa-color-danger-600;
+
+            .ibexa-icon {
+                fill: $ibexa-color-danger-600;
+            }
+        }
     }
 
     &__input {
