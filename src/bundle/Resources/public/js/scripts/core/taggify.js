@@ -18,7 +18,7 @@
             return this.acceptKeys.includes(key);
         }
 
-        addTag(name, value) {
+        addTag(name, value, dataset = {}) {
             const tagTemplate = this.listNode.dataset.template;
             const renderedTemplate = tagTemplate.replace('{{ name }}', name).replace('{{ value }}', value);
             const div = doc.createElement('div');
@@ -26,6 +26,10 @@
             div.insertAdjacentHTML('beforeend', renderedTemplate);
 
             const tag = div.querySelector('.ibexa-taggify__list-tag');
+
+            Object.keys(dataset).forEach((datasetKey) => {
+                tag.dataset[datasetKey] = dataset[datasetKey];
+            });
 
             this.attachEventsToTag(tag, value);
             this.listNode.insertBefore(tag, this.inputNode);
