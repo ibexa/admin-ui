@@ -186,7 +186,7 @@ class ListItem extends Component {
     }
 
     renderItemLabel() {
-        const { href, name, locationId, indent, onClick } = this.props;
+        const { href, name, locationId, indent, onClick, isInvisible } = this.props;
 
         if (locationId === SYSTEM_ROOT_LOCATION_ID) {
             return null;
@@ -217,6 +217,7 @@ class ListItem extends Component {
                     {this.renderIcon()}
                     <span className="c-list-item__label-content" title={name}>
                         {name}
+                        {isInvisible && <Icon name="view-hide" extraClasses="ibexa-icon--small c-list-item__hidden-icon" />}
                     </span>
                 </a>
                 <div className="c-list-item__actions">

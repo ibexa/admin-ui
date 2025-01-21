@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ToggleSelection from '../toggle-selection/toggle.selection';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
+import Icon from '../../../common/icon/icon';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { useSelectedLocationsHelpers } from '../../hooks/useSelectedLocationsHelpers';
@@ -39,6 +40,7 @@ const GridViewItem = ({ location, version }) => {
         'ibexa-grid-view-item--marked': markedLocationId === location.id,
         'ibexa-grid-view-item--not-selectable': isNotSelectable,
         'ibexa-grid-view-item--selected': isSelected && !multiple,
+        'ibexa-grid-view-item--hidden': location.hidden,
     });
     const markLocation = ({ nativeEvent }) => {
         if (isSelectionButtonClicked(nativeEvent)) {
@@ -85,6 +87,7 @@ const GridViewItem = ({ location, version }) => {
             <div className="ibexa-grid-view-item__footer">
                 <div className="ibexa-grid-view-item__title" title={location.ContentInfo.Content.TranslatedName}>
                     {location.ContentInfo.Content.TranslatedName}
+                    {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small ibexa-grid-view-item__hidden-icon" />}
                 </div>
             </div>
             {renderToggleSelection()}

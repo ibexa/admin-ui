@@ -252,6 +252,21 @@
                 );
             }
         }
+
+        .c-list-item {
+            &__hidden-icon {
+                margin-left: 0.5rem;
+                fill: $ibexa-color-light-700;
+            }
+            &__label {
+                color: $ibexa-color-light-700;
+            }
+            &__icon {
+                .ibexa-icon {
+                    fill: $ibexa-color-light-700;
+                }
+            }
+        }
     }
 
     &--is-selected {
