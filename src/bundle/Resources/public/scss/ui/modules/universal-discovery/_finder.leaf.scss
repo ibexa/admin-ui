@@ -98,4 +98,23 @@
     .c-udw-toggle-selection {
         margin-right: calculateRem(15px);
     }
+
+    &--hidden {
+        .c-finder-leaf {
+            &__hidden-icon {
+                margin-left: calculateRem(8px);
+                fill: $ibexa-color-light-700;
+            }
+
+            &__name {
+                color: $ibexa-color-light-700;
+            }
+
+            &__icon-wrapper {
+                .ibexa-icon {
+                    fill: $ibexa-color-light-700;
+                }
+            }
+        }
+    }
 }
