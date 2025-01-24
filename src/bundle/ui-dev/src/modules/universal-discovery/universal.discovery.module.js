@@ -199,6 +199,7 @@ export const GridActiveLocationIdContext = createContext();
 export const SnackbarActionsContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
+    const Translator = getTranslator();
     const { restInfo } = props;
     const adminUiConfig = getAdminUiConfig();
     const { tabs } = adminUiConfig.universalDiscoveryWidget;
@@ -238,13 +239,21 @@ const UniversalDiscoveryModule = (props) => {
         'm-ud': true,
         'm-ud--locations-selected': !!selectedLocations.length && props.allowConfirmation,
     });
-    const selectionConfigValue = useMemo(
-        () => ({
+    const selectionConfigValue = useMemo(() => {
+        const deselectAlertTitle =
+            props.deselectAlertTitle ??
+            Translator.trans(
+                /*@Desc("Items already added to the list are marked as selected and unable to deselect.")*/ 'init_selected_locations.alert.title',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
+
+        return {
             isInitLocationsDeselectionBlocked: props.isInitLocationsDeselectionBlocked,
-            initSelectedLocations: props.selectedLocations,
-        }),
-        [],
-    );
+            initSelectedLocationsIds: props.selectedLocations,
+            deselectAlertTitle: deselectAlertTitle,
+        };
+    }, []);
     const loadPermissions = () => {
         const locationIds = selectedLocations
             .filter((item) => !item.permissions)
@@ -666,6 +675,7 @@ UniversalDiscoveryModule.propTypes = {
     ).isRequired,
     selectedLocations: PropTypes.array,
     isInitLocationsDeselectionBlocked: PropTypes.bool,
+    deselectAlertTitle: PropTypes.string,
     allowRedirects: PropTypes.bool.isRequired,
     allowConfirmation: PropTypes.bool.isRequired,
     restInfo: PropTypes.shape({
@@ -690,6 +700,7 @@ UniversalDiscoveryModule.defaultProps = {
     activeView: 'finder',
     selectedLocations: [],
     isInitLocationsDeselectionBlocked: false,
+    deselectAlertTitle: null,
     restInfo: defaultRestInfo,
     snackbarEnabledActions: Object.values(SNACKBAR_ACTIONS),
 };

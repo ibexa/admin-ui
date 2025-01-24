@@ -14,7 +14,7 @@ export const useSelectedLocationsHelpers = () => {
     const [, multipleItemsLimit] = useContext(MultipleConfigContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const [selectedLocations] = useContext(SelectedLocationsContext);
-    const { isInitLocationsDeselectionBlocked, initSelectedLocations } = useContext(SelectionConfigContext);
+    const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds } = useContext(SelectionConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const checkIsSelectableWrapped = useCallback(
@@ -28,7 +28,7 @@ export const useSelectedLocationsHelpers = () => {
     );
     const checkIsDeselectionBlockedWrapped = (location) => {
         const isLocationSelected = checkIsSelected({ location, selectedLocations });
-        const isInitSelectedLocation = initSelectedLocations.includes(location.id);
+        const isInitSelectedLocation = initSelectedLocationsIds.includes(location.id);
 
         return isLocationSelected && isInitSelectedLocation && isInitLocationsDeselectionBlocked;
     };

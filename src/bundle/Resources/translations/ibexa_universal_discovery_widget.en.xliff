@@ -176,6 +176,11 @@
         <target state="new">Filters</target>
         <note>key: filters.title</note>
       </trans-unit>
+      <trans-unit id="94d848778c1cab60409c69dcff7e1cb8ea415ffc" resname="init_selected_locations.alert.title">
+        <source>Items already added to the list are marked as selected and unable to deselect.</source>
+        <target state="new">Items already added to the list are marked as selected and unable to deselect.</target>
+        <note>key: init_selected_locations.alert.title</note>
+      </trans-unit>
       <trans-unit id="2d4febe56a341671c069ff47b6e6adfd2bba005c" resname="limitation.pick.error">
         <source>Could not fetch content names</source>
         <target state="new">Could not fetch content names</target>
