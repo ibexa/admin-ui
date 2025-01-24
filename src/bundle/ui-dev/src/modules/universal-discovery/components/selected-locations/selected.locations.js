@@ -19,7 +19,7 @@ const SelectedLocations = () => {
     const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds } = useContext(SelectionConfigContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
-    const [onlyInitSelectedLocationsAreSelected, setOnlyInitSelectedLocationsAreSelected] = useState(true);
+    const [isComponentHidden, setIsComponentHidden] = useState(true);
     const [initSelectedLocations, setInitSelectedLocations] = useState([]);
     const [selectedLocationsWithoutInit, setSelectedLocationsWithoutInit] = useState([]);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -123,7 +123,7 @@ const SelectedLocations = () => {
     };
 
     useEffect(() => {
-        if (!allowConfirmation || (onlyInitSelectedLocationsAreSelected && isInitLocationsDeselectionBlocked)) {
+        if (isComponentHidden) {
             return;
         }
 
@@ -151,11 +151,14 @@ const SelectedLocations = () => {
 
             setInitSelectedLocations(initSelectedLocationsTemp);
             setSelectedLocationsWithoutInit(selectedLocationsWithoutInitTemp);
-            setOnlyInitSelectedLocationsAreSelected(initSelectedLocationsIds.length === selectedLocations.length);
         }
-    }, [selectedLocations, isInitLocationsDeselectionBlocked]);
 
-    if (!allowConfirmation || (onlyInitSelectedLocationsAreSelected && isInitLocationsDeselectionBlocked)) {
+        const onlyInitSelectedLocationsAreSelected = initSelectedLocationsIds.length === selectedLocations.length;
+
+        setIsComponentHidden(!allowConfirmation || (onlyInitSelectedLocationsAreSelected && isInitLocationsDeselectionBlocked));
+    }, [selectedLocations, isInitLocationsDeselectionBlocked, allowConfirmation]);
+
+    if (isComponentHidden) {
         return null;
     }
 
