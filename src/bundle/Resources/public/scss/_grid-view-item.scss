@@ -188,4 +188,17 @@
             }
         }
     }
+
+    &--hidden {
+        .ibexa-grid-view-item {
+            &__title {
+                color: $ibexa-color-light-700;
+            }
+
+            &__hidden-icon {
+                margin-left: calculateRem(8px);
+                fill: $ibexa-color-light-700;
+            }
+        }
+    }
 }

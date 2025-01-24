@@ -57,6 +57,7 @@ const FinderLeaf = ({ location }) => {
         'c-finder-leaf--has-children': !!location.childCount,
         'c-finder-leaf--not-selectable': isNotSelectable,
         'c-finder-leaf--selected': isSelected && !multiple,
+        'c-finder-leaf--hidden': location.hidden,
     });
 
     useEffect(() => {
@@ -76,6 +77,7 @@ const FinderLeaf = ({ location }) => {
                 <span title={location.ContentInfo.Content.TranslatedName} data-tooltip-container-selector=".c-udw-tab">
                     {location.ContentInfo.Content.TranslatedName}
                 </span>
+                {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small c-finder-leaf__hidden-icon" />}
             </span>
         </div>
     );
