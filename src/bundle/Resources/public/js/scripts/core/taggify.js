@@ -27,9 +27,7 @@
 
             const tag = div.querySelector('.ibexa-taggify__list-tag');
 
-            Object.keys(dataset).forEach((datasetKey) => {
-                tag.dataset[datasetKey] = dataset[datasetKey];
-            });
+            Object.entries(dataset).forEach(([datasetKey, datasetValue]) => (tag.dataset[datasetKey] = datasetValue));
 
             this.attachEventsToTag(tag, value);
             this.listNode.insertBefore(tag, this.inputNode);
