@@ -8,6 +8,7 @@
     &__content {
         width: 100%;
         margin: calculateRem(16px) 0;
+        padding-left: calculateRem(4px);
     }
 
     &__input {
