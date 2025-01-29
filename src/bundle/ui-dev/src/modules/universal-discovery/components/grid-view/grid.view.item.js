@@ -31,10 +31,11 @@ const GridViewItem = ({ location, version }) => {
     const containersOnly = useContext(ContainersOnlyContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
     const { isContainer } = contentTypeInfo;
-    const { checkIsSelectable, checkIsSelected, checkIsSelectionBlocked } = useSelectedLocationsHelpers();
+    const { checkIsSelectable, checkIsSelected, checkIsSelectionBlocked, checkIsDeselectionBlocked } = useSelectedLocationsHelpers();
     const isSelected = checkIsSelected(location);
     const isNotSelectable = !checkIsSelectable(location);
     const isSelectionBlocked = checkIsSelectionBlocked(location);
+    const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const className = createCssClassNames({
         'ibexa-grid-view-item': true,
         'ibexa-grid-view-item--marked': markedLocationId === location.id,
@@ -70,7 +71,12 @@ const GridViewItem = ({ location, version }) => {
     const renderToggleSelection = () => {
         return (
             <div className="ibexa-grid-view-item__checkbox">
-                <ToggleSelection location={location} multiple={multiple} isDisabled={isSelectionBlocked} isHidden={isNotSelectable} />
+                <ToggleSelection
+                    location={location}
+                    multiple={multiple}
+                    isDisabled={isSelectionBlocked || isDeselectionBlocked}
+                    isHidden={isNotSelectable}
+                />
             </div>
         );
     };

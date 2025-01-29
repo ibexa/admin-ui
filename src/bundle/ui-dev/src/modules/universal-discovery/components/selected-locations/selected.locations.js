@@ -10,14 +10,18 @@ import Icon from '../../../common/icon/icon';
 import SelectedLocationsItem from './selected.locations.item';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-import { SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
+import { SelectionConfigContext, SelectedLocationsContext, AllowConfirmationContext } from '../../universal.discovery.module';
 
 const SelectedLocations = () => {
     const Translator = getTranslator();
     const refSelectedLocations = useRef(null);
     const refTogglerButton = useRef(null);
+    const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds } = useContext(SelectionConfigContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const allowConfirmation = useContext(AllowConfirmationContext);
+    const [isComponentHidden, setIsComponentHidden] = useState(true);
+    const [initSelectedLocations, setInitSelectedLocations] = useState([]);
+    const [selectedLocationsWithoutInit, setSelectedLocationsWithoutInit] = useState([]);
     const [isExpanded, setIsExpanded] = useState(false);
     const className = createCssClassNames({
         'c-selected-locations': true,
@@ -36,16 +40,24 @@ const SelectedLocations = () => {
     const togglerLabel = isExpanded ? collapseLabel : expandLabel;
     const clearSelection = () => {
         hideAllTooltips(refSelectedLocations.current);
+
+        if (isInitLocationsDeselectionBlocked) {
+            dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: initSelectedLocations });
+
+            return;
+        }
+
         dispatchSelectedLocationsAction({ type: 'CLEAR_SELECTED_LOCATIONS' });
     };
     const toggleExpanded = () => {
         setIsExpanded(!isExpanded);
     };
     const renderSelectionCounter = () => {
+        const selectedLocationsCount = isInitLocationsDeselectionBlocked ? selectedLocationsWithoutInit.length : selectedLocations.length;
         const selectedLabel = Translator.transChoice(
             /*@Desc("{1}%count% selected item|[2,Inf]%count% selected items")*/ 'selected_locations.selected_items',
             selectedLocations.length,
-            { count: selectedLocations.length },
+            { count: selectedLocationsCount },
             'ibexa_universal_discovery_widget',
         );
 
@@ -92,11 +104,13 @@ const SelectedLocations = () => {
             return null;
         }
 
+        const selectedLocationsToIterate = isInitLocationsDeselectionBlocked ? selectedLocationsWithoutInit : selectedLocations;
+
         return (
             <div className="c-selected-locations__items-wrapper">
                 {renderActionButtons()}
                 <div className="c-selected-locations__items-list">
-                    {selectedLocations.map((selectedLocation) => (
+                    {selectedLocationsToIterate.map((selectedLocation) => (
                         <SelectedLocationsItem
                             key={selectedLocation.location.id}
                             location={selectedLocation.location}
@@ -109,7 +123,7 @@ const SelectedLocations = () => {
     };
 
     useEffect(() => {
-        if (!allowConfirmation) {
+        if (isComponentHidden) {
             return;
         }
 
@@ -122,7 +136,29 @@ const SelectedLocations = () => {
         toggleButtonTooltip.setContent({ '.tooltip-inner': togglerLabel });
     }, [isExpanded]);
 
-    if (!allowConfirmation) {
+    useEffect(() => {
+        if (isInitLocationsDeselectionBlocked) {
+            const initSelectedLocationsTemp = [];
+            const selectedLocationsWithoutInitTemp = [];
+
+            selectedLocations.forEach((selectedLocation) => {
+                if (initSelectedLocationsIds.includes(selectedLocation.location.id)) {
+                    initSelectedLocationsTemp.push(selectedLocation);
+                } else {
+                    selectedLocationsWithoutInitTemp.push(selectedLocation);
+                }
+            });
+
+            setInitSelectedLocations(initSelectedLocationsTemp);
+            setSelectedLocationsWithoutInit(selectedLocationsWithoutInitTemp);
+        }
+
+        const onlyInitSelectedLocationsAreSelected = initSelectedLocationsIds.length === selectedLocations.length;
+
+        setIsComponentHidden(!allowConfirmation || (onlyInitSelectedLocationsAreSelected && isInitLocationsDeselectionBlocked));
+    }, [selectedLocations, isInitLocationsDeselectionBlocked, allowConfirmation]);
+
+    if (isComponentHidden) {
         return null;
     }
 

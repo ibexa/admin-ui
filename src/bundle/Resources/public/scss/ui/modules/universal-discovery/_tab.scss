@@ -34,6 +34,26 @@
         flex: 3;
         background-color: $ibexa-color-white;
         overflow: auto;
+
+        &--init-locations-alert-visible {
+            flex-wrap: wrap;
+
+            .ibexa-alert {
+                margin: 0;
+            }
+
+            .c-udw-tab__main-children {
+                height: calc(100% - calculateRem(48px));
+            }
+        }
+    }
+
+    &__main-children {
+        display: flex;
+    }
+
+    &__init-locations-alert-container {
+        width: 100%;
     }
 
     &__right-sidebar {
