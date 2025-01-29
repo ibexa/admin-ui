@@ -62,6 +62,54 @@
         box-shadow: 0 calculateRem(4px) calculateRem(6px) rgba(135, 135, 135, 0.35);
     }
 
+    &--dark {
+        .ibexa-tooltip {
+            &__inner {
+                color: $ibexa-color-white;
+                background-color: $ibexa-color-dark;
+                border-color: transparent;
+            }
+        }
+
+        &.ibexa-tooltip {
+            &.bs-tooltip-top,
+            &[data-popper-placement='top'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-top-color: $ibexa-color-dark;
+                    }
+                }
+            }
+
+            &.bs-tooltip-end,
+            &[data-popper-placement='right'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-right-color: $ibexa-color-dark;
+                    }
+                }
+            }
+
+            &.bs-tooltip-bottom,
+            &[data-popper-placement='bottom'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-bottom-color: $ibexa-color-dark;
+                    }
+                }
+            }
+
+            &.bs-tooltip-start,
+            &[data-popper-placement='left'] {
+                .ibexa-tooltip__arrow {
+                    &::before {
+                        border-left-color: $ibexa-color-dark;
+                    }
+                }
+            }
+        }
+    }
+
     &--ground-dark {
         .ibexa-tooltip {
             &__inner {
