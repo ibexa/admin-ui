@@ -7,18 +7,37 @@ import TabSelector from '../tab-selector/tab.selector';
 import SelectedLocations from '../selected-locations/selected.locations';
 import ContentCreateWidget from '../content-create-widget/content.create.widget';
 import ContentMetaPreview from '../../content.meta.preview.module';
+import Alert from '../../../common/alert/alert';
+import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-import { SelectedLocationsContext, DropdownPortalRefContext } from '../../universal.discovery.module';
+import { SelectionConfigContext, SelectedLocationsContext, DropdownPortalRefContext } from '../../universal.discovery.module';
 
 const Tab = ({ children, actionsDisabledMap }) => {
     const topBarRef = useRef();
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
+    const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds, deselectAlertTitle } = useContext(SelectionConfigContext);
     const [selectedLocations] = useContext(SelectedLocationsContext);
     const dropdownPortalRef = useContext(DropdownPortalRefContext);
     const selectedLocationsComponent = !!selectedLocations.length ? <SelectedLocations /> : null;
     const contentStyles = {
         height: contentHeight,
+    };
+    const showInitLocationsDeselectAlert = isInitLocationsDeselectionBlocked && initSelectedLocationsIds.length;
+    const udwTabMainClassName = createCssClassNames({
+        'c-udw-tab__main': true,
+        'c-udw-tab__main--init-locations-alert-visible': showInitLocationsDeselectAlert,
+    });
+    const renderInitLocationsAlert = () => {
+        if (!showInitLocationsDeselectAlert) {
+            return null;
+        }
+
+        return (
+            <div className="c-udw-tab__init-locations-alert-container">
+                <Alert type="warning" title={deselectAlertTitle} />
+            </div>
+        );
     };
 
     useLayoutEffect(() => {
@@ -39,7 +58,10 @@ const Tab = ({ children, actionsDisabledMap }) => {
                     <ContentCreateWidget />
                     <TabSelector />
                 </div>
-                <div className="c-udw-tab__main">{children}</div>
+                <div className={udwTabMainClassName}>
+                    {renderInitLocationsAlert()}
+                    <div className="c-udw-tab__main-children">{children}</div>
+                </div>
                 <div className="c-udw-tab__right-sidebar">
                     {ContentMetaPreview && <ContentMetaPreview />}
                     {selectedLocationsComponent}

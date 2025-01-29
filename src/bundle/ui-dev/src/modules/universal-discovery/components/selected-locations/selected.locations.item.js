@@ -11,12 +11,15 @@ import Thumbnail from '../../../common/thumbnail/thumbnail';
 
 import { SelectedLocationsContext, ContentTypesMapContext } from '../../universal.discovery.module';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { useSelectedLocationsHelpers } from '../../hooks/useSelectedLocationsHelpers';
 
 const SelectedLocationsItem = ({ location, permissions }) => {
     const adminUiConfig = getAdminUiConfig();
     const Translator = getTranslator();
     const refSelectedLocationsItem = useRef(null);
     const [, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
+    const { checkIsDeselectionBlocked } = useSelectedLocationsHelpers();
+    const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const clearLabel = Translator.trans(
         /*@Desc("Clear selection")*/ 'selected_locations.clear_selection',
@@ -65,6 +68,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
                     onClick={removeFromSelection}
                     title={clearLabel}
                     data-tooltip-container-selector=".c-udw-tab"
+                    disabled={isDeselectionBlocked}
                 >
                     <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
                 </button>

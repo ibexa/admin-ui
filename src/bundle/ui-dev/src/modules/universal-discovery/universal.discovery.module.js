@@ -186,6 +186,7 @@ export const StartingLocationIdContext = createContext();
 export const LoadedLocationsMapContext = createContext();
 export const RootLocationIdContext = createContext();
 export const SelectedLocationsContext = createContext();
+export const SelectionConfigContext = createContext();
 export const CreateContentWidgetContext = createContext();
 export const ContentOnTheFlyDataContext = createContext();
 export const ContentOnTheFlyConfigContext = createContext();
@@ -198,6 +199,7 @@ export const GridActiveLocationIdContext = createContext();
 export const SnackbarActionsContext = createContext();
 
 const UniversalDiscoveryModule = (props) => {
+    const Translator = getTranslator();
     const { restInfo } = props;
     const adminUiConfig = getAdminUiConfig();
     const { tabs } = adminUiConfig.universalDiscoveryWidget;
@@ -237,6 +239,21 @@ const UniversalDiscoveryModule = (props) => {
         'm-ud': true,
         'm-ud--locations-selected': !!selectedLocations.length && props.allowConfirmation,
     });
+    const selectionConfigValue = useMemo(() => {
+        const deselectAlertTitle =
+            props.deselectAlertTitle ??
+            Translator.trans(
+                /*@Desc("Items already added to the list are marked as selected and unable to deselect.")*/ 'init_selected_locations.alert.title',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
+
+        return {
+            isInitLocationsDeselectionBlocked: props.isInitLocationsDeselectionBlocked,
+            initSelectedLocationsIds: props.selectedLocations,
+            deselectAlertTitle: deselectAlertTitle,
+        };
+    }, []);
     const loadPermissions = () => {
         const locationIds = selectedLocations
             .filter((item) => !item.permissions)
@@ -536,61 +553,67 @@ const UniversalDiscoveryModule = (props) => {
                                                                                                             <RootLocationIdContext.Provider
                                                                                                                 value={props.rootLocationId}
                                                                                                             >
-                                                                                                                <SelectedLocationsContext.Provider
-                                                                                                                    value={[
-                                                                                                                        selectedLocations,
-                                                                                                                        dispatchSelectedLocationsAction,
-                                                                                                                    ]}
+                                                                                                                <SelectionConfigContext.Provider
+                                                                                                                    value={
+                                                                                                                        selectionConfigValue
+                                                                                                                    }
                                                                                                                 >
-                                                                                                                    <CreateContentWidgetContext.Provider
+                                                                                                                    <SelectedLocationsContext.Provider
                                                                                                                         value={[
-                                                                                                                            createContentVisible,
-                                                                                                                            setCreateContentVisible,
+                                                                                                                            selectedLocations,
+                                                                                                                            dispatchSelectedLocationsAction,
                                                                                                                         ]}
                                                                                                                     >
-                                                                                                                        <SuggestionsStorageContext.Provider
+                                                                                                                        <CreateContentWidgetContext.Provider
                                                                                                                             value={[
-                                                                                                                                suggestionsStorage,
-                                                                                                                                setSuggestionsStorage,
+                                                                                                                                createContentVisible,
+                                                                                                                                setCreateContentVisible,
                                                                                                                             ]}
                                                                                                                         >
-                                                                                                                            <ContentOnTheFlyDataContext.Provider
+                                                                                                                            <SuggestionsStorageContext.Provider
                                                                                                                                 value={[
-                                                                                                                                    contentOnTheFlyData,
-                                                                                                                                    setContentOnTheFlyData,
+                                                                                                                                    suggestionsStorage,
+                                                                                                                                    setSuggestionsStorage,
                                                                                                                                 ]}
                                                                                                                             >
-                                                                                                                                <ContentOnTheFlyConfigContext.Provider
-                                                                                                                                    value={
-                                                                                                                                        props.contentOnTheFly
-                                                                                                                                    }
+                                                                                                                                <ContentOnTheFlyDataContext.Provider
+                                                                                                                                    value={[
+                                                                                                                                        contentOnTheFlyData,
+                                                                                                                                        setContentOnTheFlyData,
+                                                                                                                                    ]}
                                                                                                                                 >
-                                                                                                                                    <EditOnTheFlyDataContext.Provider
-                                                                                                                                        value={[
-                                                                                                                                            editOnTheFlyData,
-                                                                                                                                            setEditOnTheFlyData,
-                                                                                                                                        ]}
+                                                                                                                                    <ContentOnTheFlyConfigContext.Provider
+                                                                                                                                        value={
+                                                                                                                                            props.contentOnTheFly
+                                                                                                                                        }
                                                                                                                                     >
-                                                                                                                                        <SearchTextContext.Provider
+                                                                                                                                        <EditOnTheFlyDataContext.Provider
                                                                                                                                             value={[
-                                                                                                                                                searchText,
-                                                                                                                                                setSearchText,
+                                                                                                                                                editOnTheFlyData,
+                                                                                                                                                setEditOnTheFlyData,
                                                                                                                                             ]}
                                                                                                                                         >
-                                                                                                                                            <DropdownPortalRefContext.Provider
-                                                                                                                                                value={
-                                                                                                                                                    dropdownPortalRef
-                                                                                                                                                }
+                                                                                                                                            <SearchTextContext.Provider
+                                                                                                                                                value={[
+                                                                                                                                                    searchText,
+                                                                                                                                                    setSearchText,
+                                                                                                                                                ]}
                                                                                                                                             >
-                                                                                                                                                <Tab />
-                                                                                                                                            </DropdownPortalRefContext.Provider>
-                                                                                                                                        </SearchTextContext.Provider>
-                                                                                                                                    </EditOnTheFlyDataContext.Provider>
-                                                                                                                                </ContentOnTheFlyConfigContext.Provider>
-                                                                                                                            </ContentOnTheFlyDataContext.Provider>
-                                                                                                                        </SuggestionsStorageContext.Provider>
-                                                                                                                    </CreateContentWidgetContext.Provider>
-                                                                                                                </SelectedLocationsContext.Provider>
+                                                                                                                                                <DropdownPortalRefContext.Provider
+                                                                                                                                                    value={
+                                                                                                                                                        dropdownPortalRef
+                                                                                                                                                    }
+                                                                                                                                                >
+                                                                                                                                                    <Tab />
+                                                                                                                                                </DropdownPortalRefContext.Provider>
+                                                                                                                                            </SearchTextContext.Provider>
+                                                                                                                                        </EditOnTheFlyDataContext.Provider>
+                                                                                                                                    </ContentOnTheFlyConfigContext.Provider>
+                                                                                                                                </ContentOnTheFlyDataContext.Provider>
+                                                                                                                            </SuggestionsStorageContext.Provider>
+                                                                                                                        </CreateContentWidgetContext.Provider>
+                                                                                                                    </SelectedLocationsContext.Provider>
+                                                                                                                </SelectionConfigContext.Provider>
                                                                                                             </RootLocationIdContext.Provider>
                                                                                                         </LoadedLocationsMapContext.Provider>
                                                                                                     </GridActiveLocationIdContext.Provider>
@@ -651,6 +674,8 @@ UniversalDiscoveryModule.propTypes = {
         }),
     ).isRequired,
     selectedLocations: PropTypes.array,
+    isInitLocationsDeselectionBlocked: PropTypes.bool,
+    deselectAlertTitle: PropTypes.string,
     allowRedirects: PropTypes.bool.isRequired,
     allowConfirmation: PropTypes.bool.isRequired,
     restInfo: PropTypes.shape({
@@ -674,6 +699,8 @@ UniversalDiscoveryModule.defaultProps = {
     activeSortOrder: 'ascending',
     activeView: 'finder',
     selectedLocations: [],
+    isInitLocationsDeselectionBlocked: false,
+    deselectAlertTitle: null,
     restInfo: defaultRestInfo,
     snackbarEnabledActions: Object.values(SNACKBAR_ACTIONS),
 };

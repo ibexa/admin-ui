@@ -33,9 +33,10 @@ const ContentTableItem = ({ location }) => {
     const [multiple] = useContext(MultipleConfigContext);
     const rootLocationId = useContext(RootLocationIdContext);
     const contentTypeInfo = contentTypesMap[location.ContentInfo.Content.ContentType._href];
-    const { checkIsSelectable, checkIsSelectionBlocked } = useSelectedLocationsHelpers();
+    const { checkIsSelectable, checkIsSelectionBlocked, checkIsDeselectionBlocked } = useSelectedLocationsHelpers();
     const isNotSelectable = !checkIsSelectable(location);
     const isSelectionBlocked = checkIsSelectionBlocked(location);
+    const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const className = createCssClassNames({
         'ibexa-table__row c-content-table-item': true,
         'c-content-table-item--marked': markedLocationId === location.id,
@@ -82,7 +83,14 @@ const ContentTableItem = ({ location }) => {
         }
     };
     const renderToggleSelection = () => {
-        return <ToggleSelection location={location} multiple={multiple} isDisabled={isSelectionBlocked} isHidden={isNotSelectable} />;
+        return (
+            <ToggleSelection
+                location={location}
+                multiple={multiple}
+                isDisabled={isSelectionBlocked || isDeselectionBlocked}
+                isHidden={isNotSelectable}
+            />
+        );
     };
 
     return (
