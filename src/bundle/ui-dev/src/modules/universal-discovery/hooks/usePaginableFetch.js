@@ -40,8 +40,8 @@ const fetchReducer = (state, action) => {
     }
 };
 
-export const usePaginableFetch = ({ itemsPerPage, extraFetchParams }, fetchFunction) => {
-    const restInfo = useContext(RestInfoContext);
+export const usePaginableFetch = ({ restInfo, itemsPerPage, extraFetchParams }, fetchFunction) => {
+    const restInfoData = restInfo ?? useContext(RestInfoContext);
     const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
     const changePage = (pageIndex) => dispatch({ type: CHANGE_PAGE, pageIndex });
 
@@ -49,7 +49,7 @@ export const usePaginableFetch = ({ itemsPerPage, extraFetchParams }, fetchFunct
         dispatch({ type: FETCH_START });
 
         const offset = state.pageIndex * itemsPerPage;
-        const { abortController } = fetchFunction({ ...restInfo, limit: itemsPerPage, offset, ...extraFetchParams }, (data) =>
+        const { abortController } = fetchFunction({ ...restInfoData, limit: itemsPerPage, offset, ...extraFetchParams }, (data) =>
             dispatch({ type: FETCH_END, data }),
         );
 
@@ -58,7 +58,7 @@ export const usePaginableFetch = ({ itemsPerPage, extraFetchParams }, fetchFunct
                 abortController.abort();
             }
         };
-    }, [state.pageIndex, restInfo, itemsPerPage, extraFetchParams]);
+    }, [state.pageIndex, restInfoData, itemsPerPage, extraFetchParams]);
 
     return [state.data, state.isLoading, state.pageIndex, changePage];
 };
