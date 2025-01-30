@@ -23,9 +23,9 @@
             }
 
             if (!isEmpty) {
-                try {
-                    new URL(urlValue);
-                } catch (error) {
+                const isUrlValid = URL.canParse(urlValue);
+
+                if (!isUrlValid) {
                     result.isError = true;
                     result.errorMessage = ibexa.errors.invalidUrl;
                 }
