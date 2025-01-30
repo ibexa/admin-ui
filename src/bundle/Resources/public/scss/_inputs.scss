@@ -396,7 +396,12 @@
 }
 
 .ibexa-input-text-wrapper {
-    position: relative;
+    display: flex;
+
+    &__input-wrapper {
+        position: relative;
+        flex-grow: 1;
+    }
 
     &__actions {
         display: flex;
@@ -419,6 +424,23 @@
         width: calculateRem(24px);
         height: calculateRem(24px);
         padding: 0;
+    }
+
+    &__right-side-label-wrapper {
+        display: flex;
+    }
+
+    &__right-side-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $ibexa-color-light-200;
+        border: calculateRem(1px) solid $ibexa-color-dark-200;
+        border-left: 0;
+        border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
+        padding-left: calculateRem(16px);
+        padding-right: calculateRem(16px);
+        font-size: $h5-font-size;
     }
 
     &--type-number {
@@ -459,6 +481,13 @@
             &.is-invalid {
                 border-color: var(--ibexa-input-invalid-text-color, #{$ibexa-color-primary});
             }
+        }
+    }
+
+    &--has-right-side-label {
+        .ibexa-input {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
         }
     }
 }
