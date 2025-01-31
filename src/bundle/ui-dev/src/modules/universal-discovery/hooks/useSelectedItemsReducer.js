@@ -32,7 +32,10 @@ const selectedItemsReducer = (state, action) => {
             };
         }
         case REMOVE_SELECTED_ITEMS:
-            return filterOutSelectedItems(action.itemsIdsWithTypes, items);
+            return {
+                ...state,
+                items: filterOutSelectedItems(action.itemsIdsWithTypes, items),
+            };
         case TOGGLE_SELECTED_ITEMS: {
             const oldItemsWithoutDeselectedItems = filterOutSelectedItems(action.items, items);
             const newItemsWithoutDeselectedItems = filterOutSelectedItems(items, action.items);

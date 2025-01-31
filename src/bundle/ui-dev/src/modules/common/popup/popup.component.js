@@ -32,6 +32,7 @@ const Popup = ({
     actionBtnsConfig,
     size,
     noHeader,
+    noFooter,
     noCloseBtn,
     extraClasses,
     showTooltip,
@@ -122,20 +123,24 @@ const Popup = ({
                               </div>
                           )}
                     <div className="modal-body c-popup__body">{children}</div>
-                    <div className="modal-footer c-popup__footer">
-                        {actionBtnsConfig.map(({ className, onClick, disabled = false, preventClose = false, label, ...extraProps }) => (
-                            <button
-                                key={label}
-                                type="button"
-                                className={`btn ibexa-btn ${className}`}
-                                onClick={onClick ? (event) => handleOnClick(event, onClick, preventClose) : hidePopup}
-                                disabled={disabled}
-                                {...extraProps}
-                            >
-                                {label}
-                            </button>
-                        ))}
-                    </div>
+                    {!noFooter && (
+                        <div className="modal-footer c-popup__footer">
+                            {actionBtnsConfig.map(
+                                ({ className, onClick, disabled = false, preventClose = false, label, ...extraProps }) => (
+                                    <button
+                                        key={label}
+                                        type="button"
+                                        className={`btn ibexa-btn ${className}`}
+                                        onClick={onClick ? (event) => handleOnClick(event, onClick, preventClose) : hidePopup}
+                                        disabled={disabled}
+                                        {...extraProps}
+                                    >
+                                        {label}
+                                    </button>
+                                ),
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -160,6 +165,7 @@ Popup.propTypes = {
     hasFocus: PropTypes.bool,
     size: PropTypes.string,
     noHeader: PropTypes.bool,
+    noFooter: PropTypes.bool,
     noCloseBtn: PropTypes.bool,
     noKeyboard: PropTypes.bool,
     extraClasses: PropTypes.string,
@@ -172,6 +178,7 @@ Popup.defaultProps = {
     onClose: null,
     size: 'large',
     noHeader: false,
+    noFooter: false,
     noCloseBtn: false,
     extraClasses: '',
     title: null,
