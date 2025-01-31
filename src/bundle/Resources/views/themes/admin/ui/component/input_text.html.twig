@@ -20,48 +20,60 @@
         ~ (is_password_input ? ' ibexa-input-text-wrapper--password')
         ~ (type is defined ? " ibexa-input-text-wrapper--type-#{type}")
         ~ (extra_btn.label ? ' ibexa-input-text-wrapper--extra-btn')
+        ~ (right_side_label is defined ? ' ibexa-input-text-wrapper--has-right-side-label')
     )|trim
 }) %}
 
 <div {{ html.attributes(wrapper_attr) }}>
-    {% block content %}{% endblock %}
-    <div class="ibexa-input-text-wrapper__actions">
-        {% block actions %}
-            <button 
-                type="button" 
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
-                tabindex="-1"
-                {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
-            >
-                <svg class="ibexa-icon ibexa-icon--tiny-small">
-                    <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                </svg>
-            </button>
-            {% if is_password_input %}
-                <button
-                    type="button"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
-                    tabindex="5"
+    <div class="ibexa-input-text-wrapper__input-wrapper">
+        {% block content %}{% endblock %}
+        <div class="ibexa-input-text-wrapper__actions">
+            {% block actions %}
+                <button 
+                    type="button" 
+                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                    tabindex="-1"
+                    {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
                 >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-input-text-wrapper__password-show">
-                        <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
-                    </svg>
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-input-text-wrapper__password-hide d-none">
-                        <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
+                    <svg class="ibexa-icon ibexa-icon--tiny-small">
+                        <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                     </svg>
                 </button>
-            {% elseif has_search %}
-                <button type="{{ search_button_type|default('submit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
-                    <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
-                    </svg>
-                </button>
-            {% elseif extra_btn.label is not empty %}
-                <button {{html.attributes(extra_btn.attr)}}>
-                    {{- extra_btn.label -}}
-                </button>
-            {% endif %}
-        {% endblock %}
+                {% if is_password_input %}
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
+                        tabindex="5"
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-input-text-wrapper__password-show">
+                            <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
+                        </svg>
+                        <svg class="ibexa-icon ibexa-icon--small ibexa-input-text-wrapper__password-hide d-none">
+                            <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
+                        </svg>
+                    </button>
+                {% elseif has_search %}
+                    <button type="{{ search_button_type|default('submit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
+                        </svg>
+                    </button>
+                {% elseif extra_btn.label is not empty %}
+                    <button {{html.attributes(extra_btn.attr)}}>
+                        {{- extra_btn.label -}}
+                    </button>
+                {% endif %}
+            {% endblock %}
+        </div>
     </div>
+    {% block right_side_label %}
+        {% if right_side_label is defined %}
+            <div class="ibexa-input-text-wrapper__right-side-label-wrapper">
+                <div class="ibexa-input-text-wrapper__right-side-label">
+                    {{ right_side_label }}
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
     {% block extra_content %}{% endblock %}
 </div>
