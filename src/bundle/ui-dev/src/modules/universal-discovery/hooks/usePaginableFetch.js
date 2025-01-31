@@ -1,6 +1,4 @@
-import { useEffect, useContext, useReducer } from 'react';
-
-import { RestInfoContext } from '../universal.discovery.module';
+import { useEffect, useReducer } from 'react';
 
 const fetchInitialState = {
     isLoading: false,
