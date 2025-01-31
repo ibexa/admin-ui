@@ -440,7 +440,7 @@
         border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
         padding-left: calculateRem(16px);
         padding-right: calculateRem(16px);
-        font-size: $h5-font-size;
+        font-size: $ibexa-text-font-size-medium;
     }
 
     &--type-number {
