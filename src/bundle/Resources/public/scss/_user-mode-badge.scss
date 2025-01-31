@@ -2,7 +2,7 @@
     display: flex;
     height: calculateRem(24px);
     padding: calculateRem(4px) calculateRem(8px);
-    margin-left: calculateRem(24px);
+    margin: 0 calculateRem(24px);
     align-items: center;
     border-radius: calculateRem(16px);
     border: calculateRem(0.5px) solid $ibexa-color-light-600;
@@ -10,4 +10,5 @@
     color: $ibexa-color-light-600;
     font-size: calculateRem(12px);
     line-height: calculateRem(18px);
+    width: max-content;
 }
