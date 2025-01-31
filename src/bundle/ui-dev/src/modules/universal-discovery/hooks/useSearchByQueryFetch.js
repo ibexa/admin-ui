@@ -56,7 +56,7 @@ export const useSearchByQueryFetch = () => {
             const query = {};
 
             if (searchText) {
-                query.FullTextCriterion = `${searchText}*`;
+                query.FullTextCriterion = `${searchText}`;
             }
 
             if (fullTextCriterion) {
