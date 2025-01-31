@@ -260,6 +260,7 @@ const UniversalDiscoveryModule = (props) => {
         return {
             isInitLocationsDeselectionBlocked: props.isInitLocationsDeselectionBlocked,
             initSelectedLocationsIds: props.selectedLocations,
+            initSelectedItems: props.initSelectedItems,
             deselectAlertTitle: deselectAlertTitle,
         };
     }, []);
@@ -713,6 +714,7 @@ UniversalDiscoveryModule.propTypes = {
         }),
     ).isRequired,
     selectedLocations: PropTypes.array,
+    initSelectedItems: PropTypes.array,
     isInitLocationsDeselectionBlocked: PropTypes.bool,
     deselectAlertTitle: PropTypes.string,
     allowRedirects: PropTypes.bool.isRequired,
@@ -739,6 +741,7 @@ UniversalDiscoveryModule.defaultProps = {
     activeSortOrder: 'ascending',
     activeView: 'finder',
     selectedLocations: [],
+    initSelectedItems: [],
     isInitLocationsDeselectionBlocked: false,
     deselectAlertTitle: null,
     restInfo: defaultRestInfo,
