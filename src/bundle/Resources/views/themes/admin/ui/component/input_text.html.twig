@@ -3,6 +3,7 @@
 {% set is_password_type = type|default('') == 'password' %}
 {% set is_password_input = is_password_input|default(is_password_type) %}
 {% set has_search = has_search|default(false) %}
+{% set is_multiline = is_multiline|default(false) %}
 {% set extra_btn = extra_btn|default({})|merge({
     label: extra_btn.label|default(''),
     attr: extra_btn.attr|default({})|merge({
@@ -20,6 +21,7 @@
         ~ (is_password_input ? ' ibexa-input-text-wrapper--password')
         ~ (type is defined ? " ibexa-input-text-wrapper--type-#{type}")
         ~ (extra_btn.label ? ' ibexa-input-text-wrapper--extra-btn')
+        ~ (is_multiline ? ' ibexa-input-text-wrapper--multiline')
     )|trim
 }) %}
 
