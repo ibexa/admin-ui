@@ -44,7 +44,7 @@
     const recalculateInputStyling = (inputActionsContainer) => {
         const input = inputActionsContainer.closest('.ibexa-input-text-wrapper').querySelector('input');
 
-        if (!input) {
+        if (!input || input.type === 'number') {
             return;
         }
 
