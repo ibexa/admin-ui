@@ -18,6 +18,10 @@
         &:last-child {
             border-bottom: none;
         }
+
+        &--no-border {
+            border-bottom: none;
+        }
     }
 
     &__section-group {
