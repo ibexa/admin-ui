@@ -13,4 +13,5 @@ active_domains:
     - 'ibexa_content_type'
     - 'ibexa_dropdown'
     - 'ibexa_popup_menu'
+    - 'ibexa_collapse'
     - 'messages'
