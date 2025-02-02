@@ -111,6 +111,10 @@
             box-shadow 0s; // Chrome does not render box-shadow properly with transition
         height: calculateRem(120px);
         padding: calculateRem(10px) calculateRem(16px);
+
+        &.form-control {
+            min-height: calculateRem(48px);
+        }
     }
 
     &--checkbox,
@@ -406,7 +410,7 @@
         top: 50%;
         right: calculateRem(8px);
         transform: translate(0, -50%);
-        height: calculateRem(24px);
+        min-height: calculateRem(24px);
         padding: 0;
         fill: var(--ibexa-btn-icon-fill-color, #{$ibexa-color-dark});
         z-index: 1;
@@ -449,6 +453,23 @@
 
         .ibexa-input-text-wrapper__action-btn--clear {
             margin-right: calculateRem(5px);
+        }
+    }
+
+    &--multiline {
+        .ibexa-input-text-wrapper {
+            &__actions {
+                top: calculateRem(8px);
+                transform: none;
+            }
+        }
+
+        &.ibexa-input-text-wrapper--scrollbar-visible {
+            .ibexa-input-text-wrapper {
+                &__actions {
+                    right: var(--scrollbar-width, 0);
+                }
+            }
         }
     }
 
