@@ -78,7 +78,7 @@
 
         {% import 'knp_menu.html.twig' as knp_menu %}
 
-        {%- if item.extras.separate is defined and item.extras.separate -%}
+        {%- if ((item.extras.separate is defined and item.extras.separate) or first_bottom_item is defined and first_bottom_item.name == item.name)-%}
             <li class="ibexa-main-menu__item ibexa-adaptive-items__item ibexa-adaptive-items__item--selector ibexa-main-menu__item--more ibexa-context-menu__item--hidden">
                 <button class="ibexa-main-menu__item-action">
                     <div class="ibexa-main-menu__item-icon-column">
