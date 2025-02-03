@@ -3,6 +3,7 @@
 {% block root %}
     {% set extraClass = 'ibexa-main-menu__navbar--collapsed' %}
     {% set current_item = item %}
+    {% set first_bottom_item =  current_item.children|find(item => item.extras.bottom_item is defined and item.extras.bottom_item)%}
 
     <div class="ibexa-main-menu__navbar ibexa-main-menu__navbar--first-level {{ extraClass }}">
         <ul class="ibexa-adaptive-items ibexa-main-menu__items-list nav">
