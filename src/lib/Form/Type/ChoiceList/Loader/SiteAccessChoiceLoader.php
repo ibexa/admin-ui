@@ -24,14 +24,18 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 
     private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
 
+    private ?string $languageCode;
+
     public function __construct(
         SiteaccessResolverInterface $nonAdminSiteaccessResolver,
         SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        ?Location $location = null
+        ?Location $location = null,
+        ?string $languageCode = null
     ) {
         $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
         $this->location = $location;
         $this->siteAccessNameGenerator = $siteAccessNameGenerator;
+        $this->languageCode = $languageCode;
     }
 
     /**
@@ -41,7 +45,11 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
     {
         $siteAccesses = $this->location === null
             ? $this->nonAdminSiteaccessResolver->getSiteAccessesList()
-            : $this->nonAdminSiteaccessResolver->getSiteAccessesListForLocation(($this->location));
+            : $this->nonAdminSiteaccessResolver->getSiteAccessesListForLocation(
+                $this->location,
+                null,
+                $this->languageCode
+            );
 
         $data = [];
         foreach ($siteAccesses as $siteAccess) {
