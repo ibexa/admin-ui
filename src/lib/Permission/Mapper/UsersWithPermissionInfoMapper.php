@@ -48,6 +48,7 @@ final class UsersWithPermissionInfoMapper
     /**
      * @phpstan-return TPermissionInfoData
      *
+     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo> $searchResult
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -69,6 +70,8 @@ final class UsersWithPermissionInfoMapper
 
     /**
      * @phpstan-return TPermissionInfoData
+     *
+     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo> $searchResult
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
