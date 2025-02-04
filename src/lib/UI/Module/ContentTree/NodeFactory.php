@@ -145,6 +145,11 @@ final class NodeFactory
         return $limit;
     }
 
+    /**
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Location>
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     private function findSubitems(
         Location $parentLocation,
         int $limit = 10,
@@ -215,7 +220,7 @@ final class NodeFactory
         $searchQuery->offset = 0;
         $searchQuery->performCount = true;
 
-        return $this->searchService->findLocations($searchQuery)->totalCount;
+        return $this->searchService->findLocations($searchQuery)->totalCount ?? 0;
     }
 
     /**

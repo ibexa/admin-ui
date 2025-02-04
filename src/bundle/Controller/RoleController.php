@@ -83,16 +83,16 @@ class RoleController extends Controller
 
     public function listAction(Request $request): Response
     {
-        $page = $request->query->get('page') ?? 1;
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->roleService->loadRoles())
+            new ArrayAdapter(iterator_to_array($this->roleService->loadRoles()))
         );
 
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.role_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $sectionList */
+        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
         $roles = $pagerfanta->getCurrentPageResults();
 
         $rolesNumbers = array_column($roles, 'id');

@@ -13,6 +13,9 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\RelationInterface>
+ */
 final class RelationAdapter implements AdapterInterface
 {
     private ContentService $contentService;
@@ -31,8 +34,13 @@ final class RelationAdapter implements AdapterInterface
         $this->content = $content;
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     public function getNbResults(): int
     {
+        /** @phpstan-var int<0, max> */
         return $this->contentService->countRelations($this->content->getVersionInfo());
     }
 
@@ -41,7 +49,7 @@ final class RelationAdapter implements AdapterInterface
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function getSlice($offset, $length): array
+    public function getSlice(int $offset, int $length): array
     {
         return $this->datasetFactory
             ->relationList()

@@ -70,10 +70,10 @@ class ContentTypeGroupController extends Controller
         $deletableContentTypeGroup = [];
         $count = [];
 
-        $page = $request->query->get('page') ?? 1;
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->contentTypeService->loadContentTypeGroups())
+            new ArrayAdapter(iterator_to_array($this->contentTypeService->loadContentTypeGroups()))
         );
 
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_group_limit'));

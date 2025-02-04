@@ -13,13 +13,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BookmarkRemoveData
 {
     /**
-     * @var array
+     * @var array<int, false>
      */
     #[Assert\NotBlank]
-    public $bookmarks;
+    public array $bookmarks;
 
     /**
-     * @param array $bookmarks
+     * @param array<int, false> $bookmarks
      */
     public function __construct(array $bookmarks = [])
     {
@@ -27,7 +27,7 @@ class BookmarkRemoveData
     }
 
     /**
-     * @return array
+     * @return array<int, false>
      */
     public function getBookmarks(): array
     {
@@ -35,7 +35,7 @@ class BookmarkRemoveData
     }
 
     /**
-     * @param array $bookmarks
+     * @param array<int, false> $bookmarks
      */
     public function setBookmarks(array $bookmarks): void
     {

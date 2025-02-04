@@ -13,16 +13,16 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Pagerfanta\Adapter\AdapterInterface;
 
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\RelationInterface>
+ */
 final class ReverseRelationAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
+    private DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
-    private $content;
+    private Content $content;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
@@ -39,25 +39,13 @@ final class ReverseRelationAdapter implements AdapterInterface
         $this->content = $content;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
+        /** @phpstan-var int<0, max> */
         return $this->contentService->countReverseRelations($this->content->contentInfo);
     }
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->reverseRelationList()

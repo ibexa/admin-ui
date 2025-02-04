@@ -12,28 +12,25 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     */
-    public function __construct(ContentTypeService $contentTypeService, UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider)
-    {
+    public function __construct(
+        ContentTypeService $contentTypeService,
+        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+    ) {
         $this->contentTypeService = $contentTypeService;
         $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
     }
 
     /**
-     * {@inheritdoc}
+     * @return array<string, \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]>
      */
     public function getChoiceList(): array
     {
@@ -41,9 +38,11 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
         $preferredLanguages = $this->userLanguagePreferenceProvider->getPreferredLanguages();
         $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups($preferredLanguages);
         foreach ($contentTypeGroups as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup, $preferredLanguages);
+            $contentTypes = iterator_to_array(
+                $this->contentTypeService->loadContentTypes($contentTypeGroup, $preferredLanguages)
+            );
             usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
-                return strnatcasecmp($contentType1->getName(), $contentType2->getName());
+                return strnatcasecmp($contentType1->getName() ?? '', $contentType2->getName() ?? '');
             });
 
             $contentTypesList[$contentTypeGroup->identifier] = $contentTypes;
@@ -52,10 +51,7 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
         return $contentTypesList;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoiceList($value = null)
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $choices = $this->getChoiceList();
 
@@ -63,9 +59,9 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]
      */
-    public function loadChoicesForValues(array $values, $value = null)
+    public function loadChoicesForValues(array $values, ?callable $value = null): array
     {
         // Optimize
         $values = array_filter($values);
@@ -77,9 +73,9 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function loadValuesForChoices(array $choices, $value = null)
+    public function loadValuesForChoices(array $choices, ?callable $value = null): array
     {
         // Optimize
         $choices = array_filter($choices);

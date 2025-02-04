@@ -110,7 +110,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
             $location = $this->locationService->loadLocation($id);
 
             $query = new LocationQuery([
-                'filter' => new Ancestor($location->pathString),
+                'filter' => new Ancestor($location->getPathString()),
                 'sortClauses' => [new Path()],
             ]);
 

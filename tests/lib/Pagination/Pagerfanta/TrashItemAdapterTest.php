@@ -55,7 +55,7 @@ class TrashItemAdapterTest extends TestCase
         $countQuery = clone $query;
         $countQuery->limit = 0;
 
-        $searchResult = new SearchResult(['count' => $nbResults]);
+        $searchResult = new SearchResult(['totalCount' => $nbResults]);
         $this->trashService
             ->expects(self::once())
             ->method('findTrashItems')
@@ -94,7 +94,7 @@ class TrashItemAdapterTest extends TestCase
             $items[] = $content;
         }
 
-        $searchResult = new SearchResult(['items' => $items, 'count' => $nbResults]);
+        $searchResult = new SearchResult(['items' => $items, 'totalCount' => $nbResults]);
 
         $this->trashService
             ->expects(self::once())

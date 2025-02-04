@@ -28,10 +28,7 @@ class UniqueURLValidator extends ConstraintValidator
         $this->urlService = $urlService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof URLUpdateData || $value->url === null) {
             return;
@@ -40,7 +37,7 @@ class UniqueURLValidator extends ConstraintValidator
         try {
             $url = $this->urlService->loadByUrl($value->url);
 
-            if ($url->id === $value->id) {
+            if ($url->getId() === $value->id) {
                 return;
             }
 

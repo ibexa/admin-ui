@@ -44,7 +44,7 @@
 
 {% block content %}
     {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController::listAction', {
-        contentTypeGroupId: content_type_group.id,
+        group: content_type_group,
         page: page,
         routeName: route_name
     })) }}

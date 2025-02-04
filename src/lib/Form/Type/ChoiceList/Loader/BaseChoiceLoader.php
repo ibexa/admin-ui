@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 abstract class BaseChoiceLoader implements ChoiceLoaderInterface
@@ -18,22 +19,16 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
      *
      * Introduced for simplify decoration.
      *
-     * @return array
+     * @return array<mixed>
      */
     abstract public function getChoiceList(): array;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoiceList($value = null)
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         return new ArrayChoiceList($this->getChoiceList(), $value);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoicesForValues(array $values, $value = null)
+    public function loadChoicesForValues(array $values, ?callable $value = null): array
     {
         // Optimize
         $values = array_filter($values);
@@ -44,10 +39,7 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadValuesForChoices(array $choices, $value = null)
+    public function loadValuesForChoices(array $choices, ?callable $value = null): array
     {
         // Optimize
         $choices = array_filter($choices);
