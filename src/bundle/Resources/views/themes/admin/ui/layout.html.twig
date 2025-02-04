@@ -132,16 +132,20 @@
                         {{ include('@ibexadesign/ui/user_mode_badge.html.twig') }}
                     {% endblock %}
                 </div>
-                <div class="ibexa-main-header__search-column">
-                    {% block global_search %}
-                        {{ ibexa_render_component_group('global-search') }}
-                    {% endblock %}
-                </div>
-                <div class="ibexa-main-header__user-menu-column">
-                    {% block user_menu %}
-                        {{ ibexa_render_component_group('user-menu') }}
-                    {% endblock %}
-                </div>
+                {% block global_search_wrapper %}
+                    <div class="ibexa-main-header__search-column">
+                        {% block global_search %}
+                            {{ ibexa_render_component_group('global-search') }}
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+                {% block user_menu_wrapper %}
+                    <div class="ibexa-main-header__user-menu-column">
+                        {% block user_menu %}
+                            {{ ibexa_render_component_group('user-menu') }}
+                        {% endblock %}
+                    </div>
+                {% endblock %}
             </header>
         {% endblock %}
 
