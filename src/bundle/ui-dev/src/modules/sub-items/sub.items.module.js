@@ -134,6 +134,7 @@ export default class SubItemsModule extends Component {
             morePanelVisible: false,
             morePanelVisibleItemsIndexes: [],
             queryParams: {},
+            isPriorityUpdate: false,
         };
     }
 
@@ -171,7 +172,7 @@ export default class SubItemsModule extends Component {
     }
 
     componentDidUpdate() {
-        const { activePageIndex, activePageItems, totalCount } = this.state;
+        const { activePageIndex, activePageItems, totalCount, isPriorityUpdate } = this.state;
         const { limit: itemsPerPage } = this.props;
         const pagesCount = Math.ceil(totalCount / itemsPerPage);
         const pageDoesNotExist = activePageIndex > pagesCount - 1 && activePageIndex !== 0;
@@ -186,7 +187,7 @@ export default class SubItemsModule extends Component {
 
         const shouldLoadPage = !activePageItems;
 
-        if (shouldLoadPage && this.requestParamsHaveChanged(activePageIndex)) {
+        if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isPriorityUpdate)) {
             this.loadPage(activePageIndex);
         }
 
@@ -261,6 +262,7 @@ export default class SubItemsModule extends Component {
                 sortOrder,
                 cursor,
             },
+            isPriorityUpdate: false,
         });
 
         loadLocation(restInfo, queryConfig, (response) => {
@@ -330,6 +332,10 @@ export default class SubItemsModule extends Component {
      * @memberof SubItemsModule
      */
     afterPriorityUpdated(response) {
+        this.setState({
+            isPriorityUpdate: true,
+        });
+
         if (this.state.sortClause === 'LocationPriority') {
             this.discardActivePageItems();
             this.refreshContentTree();
