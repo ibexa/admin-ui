@@ -24,16 +24,16 @@ const TreeItemToggleSelection = ({ locationId, isContainer, contentTypeIdentifie
         parseTooltip(document.querySelector('.c-list'));
     }, []);
 
+    if (!isUDW) {
+        return null;
+    }
+
     const { isInitLocationsDeselectionBlocked, initSelectedLocationsIds } = useContext(SelectionConfigContext);
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const containersOnly = useContext(ContainersOnlyContext);
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const restInfo = useContext(RestInfoContext);
-
-    if (!isUDW) {
-        return null;
-    }
 
     const isSelected = selectedLocations.some((selectedLocation) => selectedLocation.location.id === locationId);
     const isNotSelectable =
