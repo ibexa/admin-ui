@@ -5,6 +5,11 @@
     const pickers = doc.querySelectorAll(SELECTOR_PICKER);
     const { formatShortDateTime, convertDateToTimezone, getBrowserTimezone } = ibexa.helpers.timezone;
     const userTimezone = ibexa.adminUiConfig.timezone;
+    const pickerConfig = {
+        enableTime: true,
+        time_24hr: true,
+        formatDate: (date) => formatShortDateTime(date, null),
+    };
     const updateInputValue = (formInput, timestamp) => {
         if (timestamp !== formInput.value) {
             formInput.value = timestamp ?? '';
@@ -16,13 +21,7 @@
         const formInput = field.querySelector(SELECTOR_FORM_INPUT);
         const pickerInput = field.querySelector(SELECTOR_PICKER_INPUT);
         const customConfig = JSON.parse(pickerInput.dataset.flatpickrConfig || '{}');
-        const enableTime = formInput.dataset.seconds !== undefined;
         const enableSeconds = formInput.dataset.seconds === '1';
-        const pickerConfig = {
-            enableTime,
-            time_24hr: true,
-            formatDate: (date) => formatShortDateTime(date, null),
-        };
         let defaultDate;
 
         if (formInput.value) {
@@ -40,7 +39,7 @@
             flatpickrConfig: {
                 ...pickerConfig,
                 defaultDate,
-                ...(enableTime && { enableSeconds }),
+                enableSeconds,
                 ...customConfig,
             },
         });
