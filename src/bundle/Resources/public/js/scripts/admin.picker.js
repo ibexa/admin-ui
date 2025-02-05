@@ -16,10 +16,10 @@
         const formInput = field.querySelector(SELECTOR_FORM_INPUT);
         const pickerInput = field.querySelector(SELECTOR_PICKER_INPUT);
         const customConfig = JSON.parse(pickerInput.dataset.flatpickrConfig || '{}');
-        const enableTime = formInput.dataset.seconds !== undefined;
+        const enableTime =  Object.hasOwn(customConfig, 'enableTime') ? customConfig.enableTime : true;
         const enableSeconds = formInput.dataset.seconds === '1';
         const pickerConfig = {
-            enableTime,
+            enableTime: enableTime,
             time_24hr: true,
             formatDate: (date) => formatShortDateTime(date, null),
         };
@@ -40,7 +40,7 @@
             flatpickrConfig: {
                 ...pickerConfig,
                 defaultDate,
-                ...(enableTime && { enableSeconds }),
+                enableSeconds,
                 ...customConfig,
             },
         });
