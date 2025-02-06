@@ -51,7 +51,8 @@ final class SiteAccessChoiceType extends AbstractType
                             new SiteAccessChoiceLoader(
                                 $this->siteAccessResolver,
                                 $this->siteAccessNameGenerator,
-                                $options['location']
+                                $options['location'],
+                                $options['languageCode'],
                             ),
                             $this->urlGenerator,
                             $options['content']->id,
