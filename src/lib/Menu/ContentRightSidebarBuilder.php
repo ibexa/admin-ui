@@ -476,7 +476,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         array $options
     ): ItemInterface {
         $versionNo = $content->getVersionInfo()->versionNo;
-        $languageCode = $content->contentInfo->mainLanguageCode;
+        $languageCode = $content->getDefaultLanguageCode();
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
             $location,
