@@ -10,7 +10,9 @@ namespace Ibexa\Tests\Bundle\AdminUi\ValueResolver;
 
 use Ibexa\Bundle\AdminUi\ValueResolver\PolicyValueResolver;
 use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleDraft;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -32,16 +34,16 @@ final class PolicyValueResolverTest extends TestCase
 
     public function testResolve(): void
     {
-        $policyDraft = $this->createMock(PolicyDraft::class);
-        $policyDraft
+        $policy = $this->createMock(Policy::class);
+        $policy
             ->method('__get')
-            ->with('originalId')
+            ->with('id')
             ->willReturn(123);
 
-        $roleDraft = $this->createMock(RoleDraft::class);
-        $roleDraft
+        $role = $this->createMock(Role::class);
+        $role
             ->method('getPolicies')
-            ->willReturn([$policyDraft]);
+            ->willReturn([$policy]);
 
         $attributes = [
             'roleId' => '456',
@@ -51,10 +53,10 @@ final class PolicyValueResolverTest extends TestCase
         $this->roleService->expects(self::once())
             ->method('loadRole')
             ->with(456)
-            ->willReturn($roleDraft);
+            ->willReturn($role);
 
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
-        $argumentMetadata->method('getType')->willReturn(PolicyDraft::class);
+        $argumentMetadata->method('getType')->willReturn(Policy::class);
         $argumentMetadata->method('getName')->willReturn('policy');
 
         $request = new Request([], [], $attributes);
@@ -62,7 +64,7 @@ final class PolicyValueResolverTest extends TestCase
         $result = iterator_to_array($this->resolver->resolve($request, $argumentMetadata));
 
         self::assertCount(1, $result);
-        self::assertSame($policyDraft, $result[0]);
+        self::assertSame($policy, $result[0]);
     }
 
     public function testResolvePolicyNotFound(): void
