@@ -257,7 +257,7 @@
 {%- endblock -%}
 
 {%- block date_time_picker_widget -%}
-    {%- set additional_input_attr = input_attr|default([])  -%}
+    {%- set additional_input_attr = input_attr|default([]) -%}
     <div class="ibexa-picker">
         {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
             input_attr: additional_input_attr|merge({ class: 'ibexa-picker__input' }),
