@@ -43,15 +43,18 @@ final class PolicyValueResolver extends AbstractValueResolver
         return is_numeric($value);
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     protected function load(array $key): object
     {
         $roleId = (int)$key[self::ATTRIBUTE_ROLE_ID];
         $policyId = (int)$key[self::ATTRIBUTE_POLICY_ID];
 
-        $roleDraft = $this->roleService->loadRole($roleId);
-        foreach ($roleDraft->getPolicies() as $policy) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
-            if ($policy->originalId === $policyId) {
+        $role = $this->roleService->loadRole($roleId);
+        foreach ($role->getPolicies() as $policy) {
+            if ($policy->id === $policyId) {
                 return $policy;
             }
         }
