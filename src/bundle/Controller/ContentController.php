@@ -421,7 +421,7 @@ class ContentController extends Controller
             'content' => $content,
             'language_code' => $languageCode,
             'siteaccesses' => $siteAccessesList,
-            'site_access_form' => $siteAccessSelector->createView(),
+            'site_access_form' => $siteAccessSelector,
             'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
             'preselected_site_access' => $preselectedSiteAccess,
             'referrer' => $referrer ?? 'content_draft_edit',

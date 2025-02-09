@@ -46,7 +46,7 @@ class DashboardController extends Controller
         );
 
         return $this->render('@ibexadesign/ui/dashboard/dashboard.html.twig', [
-            'form_edit' => $editForm->createView(),
+            'form_edit' => $editForm,
             'can_create_content' => $this->permissionResolver->hasAccess('content', 'create'),
         ]);
     }

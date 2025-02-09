@@ -89,7 +89,7 @@ class RoleAssignmentController extends Controller
 
         return $this->render('@ibexadesign/user/role_assignment/list.html.twig', [
             'role' => $role,
-            'form_role_assignments_delete' => $deleteRoleAssignmentsForm->createView(),
+            'form_role_assignments_delete' => $deleteRoleAssignmentsForm,
             'pager' => $pagerfanta,
             'route_name' => $routeName,
             'can_assign' => $this->isGranted(new Attribute('role', 'assign')),
@@ -139,7 +139,7 @@ class RoleAssignmentController extends Controller
 
         return $this->render('@ibexadesign/user/role_assignment/create.html.twig', [
             'role' => $role,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

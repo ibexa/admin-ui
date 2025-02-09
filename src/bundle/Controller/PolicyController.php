@@ -113,7 +113,7 @@ class PolicyController extends Controller
         );
 
         return $this->render('@ibexadesign/user/policy/list.html.twig', [
-            'form_policies_delete' => $deletePoliciesForm->createView(),
+            'form_policies_delete' => $deletePoliciesForm,
             'is_editable' => $isEditable,
             'role' => $role,
             'pager' => $pagerfanta,
@@ -192,7 +192,7 @@ class PolicyController extends Controller
 
         return $this->render('@ibexadesign/user/policy/add.html.twig', [
             'role' => $role,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -278,7 +278,7 @@ class PolicyController extends Controller
         return $this->render('@ibexadesign/user/policy/edit.html.twig', [
             'role' => $role,
             'policy' => $policy,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -327,7 +327,7 @@ class PolicyController extends Controller
 
         return $this->render('@ibexadesign/user/policy/create_with_limitation.html.twig', [
             'role' => $role,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

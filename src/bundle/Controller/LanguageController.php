@@ -93,7 +93,7 @@ class LanguageController extends Controller
 
         return $this->render('@ibexadesign/language/list.html.twig', [
             'pager' => $pagerfanta,
-            'form_languages_delete' => $deleteLanguagesForm->createView(),
+            'form_languages_delete' => $deleteLanguagesForm,
             'can_administrate' => $this->isGranted(new Attribute('content', 'translations')),
         ]);
     }
@@ -113,7 +113,7 @@ class LanguageController extends Controller
 
         return $this->render('@ibexadesign/language/index.html.twig', [
             'language' => $language,
-            'deleteForm' => $deleteForm->createView(),
+            'deleteForm' => $deleteForm,
             'can_administrate' => $this->isGranted(new Attribute('content', 'translations')),
         ]);
     }
@@ -235,7 +235,7 @@ class LanguageController extends Controller
         }
 
         return $this->render('@ibexadesign/language/create.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'actionUrl' => $this->generateUrl('ibexa.language.create'),
         ]);
     }
@@ -282,7 +282,7 @@ class LanguageController extends Controller
         }
 
         return $this->render('@ibexadesign/language/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'actionUrl' => $this->generateUrl('ibexa.language.edit', ['languageId' => $language->id]),
             'language' => $language,
         ]);

@@ -94,7 +94,7 @@ class ContentTypeGroupController extends Controller
 
         return $this->render('@ibexadesign/content_type/content_type_group/list.html.twig', [
             'pager' => $pagerfanta,
-            'form_content_type_groups_delete' => $deleteContentTypeGroupsForm->createView(),
+            'form_content_type_groups_delete' => $deleteContentTypeGroupsForm,
             'deletable' => $deletableContentTypeGroup,
             'content_types_count' => $count,
             'can_create' => $this->isGranted(new Attribute('class', 'create')),
@@ -150,7 +150,7 @@ class ContentTypeGroupController extends Controller
         }
 
         return $this->render('@ibexadesign/content_type/content_type_group/create.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -204,7 +204,7 @@ class ContentTypeGroupController extends Controller
 
         return $this->render('@ibexadesign/content_type/content_type_group/edit.html.twig', [
             'content_type_group' => $group,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

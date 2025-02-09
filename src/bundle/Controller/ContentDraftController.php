@@ -75,7 +75,7 @@ class ContentDraftController extends Controller
 
         return $this->render('@ibexadesign/content/draft/draft_list.html.twig', [
             'pager' => $pagination,
-            'form_remove' => $removeContentDraftForm->createView(),
+            'form_remove' => $removeContentDraftForm,
         ]);
     }
 

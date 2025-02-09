@@ -171,8 +171,8 @@ class SectionController extends Controller
             'content_count' => $contentCountBySectionId,
             'deletable' => $deletableSections,
             'assignable' => $assignableSections,
-            'form_sections_delete' => $deleteSectionsForm->createView(),
-            'form_section_content_assign' => $assignContentForms->createView(),
+            'form_sections_delete' => $deleteSectionsForm,
+            'form_section_content_assign' => $assignContentForms,
         ]);
     }
 
@@ -432,7 +432,7 @@ class SectionController extends Controller
         }
 
         return $this->render('@ibexadesign/section/create.html.twig', [
-            'form_section_create' => $form->createView(),
+            'form_section_create' => $form,
         ]);
     }
 
@@ -480,7 +480,7 @@ class SectionController extends Controller
 
         return $this->render('@ibexadesign/section/update.html.twig', [
             'section' => $section,
-            'form_section_update' => $form->createView(),
+            'form_section_update' => $form,
         ]);
     }
 

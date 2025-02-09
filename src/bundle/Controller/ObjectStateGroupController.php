@@ -79,7 +79,7 @@ class ObjectStateGroupController extends Controller
             'can_administrate' => $this->isGranted(new Attribute('state', 'administrate')),
             'object_state_groups' => $objectStateGroups,
             'empty_object_state_groups' => $emptyObjectStateGroups,
-            'form_state_groups_delete' => $deleteObjectStateGroupsForm->createView(),
+            'form_state_groups_delete' => $deleteObjectStateGroupsForm,
         ]);
     }
 
@@ -156,7 +156,7 @@ class ObjectStateGroupController extends Controller
         }
 
         return $this->render('@ibexadesign/object_state/object_state_group/add.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -284,7 +284,7 @@ class ObjectStateGroupController extends Controller
 
         return $this->render('@ibexadesign/object_state/object_state_group/edit.html.twig', [
             'object_state_group' => $group,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

@@ -96,7 +96,7 @@ class ObjectStateController extends Controller
             'object_state_group' => $objectStateGroup,
             'object_states' => $objectStates,
             'unused_object_states' => $unusedObjectStates,
-            'form_states_delete' => $deleteObjectStatesForm->createView(),
+            'form_states_delete' => $deleteObjectStatesForm,
         ]);
     }
 
@@ -177,7 +177,7 @@ class ObjectStateController extends Controller
 
         return $this->render('@ibexadesign/object_state/add.html.twig', [
             'object_state_group' => $objectStateGroup,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -314,7 +314,7 @@ class ObjectStateController extends Controller
         return $this->render('@ibexadesign/object_state/edit.html.twig', [
             'object_state_group' => $objectState->getObjectStateGroup(),
             'object_state' => $objectState,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
