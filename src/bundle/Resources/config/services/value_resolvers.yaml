@@ -4,11 +4,17 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\Bundle\AdminUi\ControllerArgumentResolver\UniversalDiscoveryRequestQueryArgumentResolver:
+    Ibexa\Bundle\AdminUi\ValueResolver\:
+        resource: "../../ValueResolver/*"
+        tags:
+            -   name: controller.argument_value_resolver
+                priority: 150
+
+    Ibexa\Bundle\AdminUi\ValueResolver\UniversalDiscoveryRequestQueryValueResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 50 }
 
-    Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgumentResolver:
+    Ibexa\Bundle\AdminUi\ValueResolver\ContentTreeChildrenQueryValueResolver:
         arguments:
             $criterionProcessor: '@Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor'
         tags:

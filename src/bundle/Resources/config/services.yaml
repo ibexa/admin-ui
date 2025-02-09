@@ -1,7 +1,6 @@
 imports:
     - { resource: services/service_aliases.yaml }
     - { resource: services/config.yaml }
-    - { resource: services/controller_argument_resolvers.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/tabs.yaml }
     - { resource: services/menu.yaml }
@@ -39,6 +38,7 @@ imports:
     - { resource: services/icons.yaml }
     - { resource: services/role_form_mappers.yaml }
     - { resource: services/security.yaml }
+    - { resource: services/value_resolvers.yaml }
 
 parameters:
     ibexa.admin_ui.load_users_with_permission_info.limit: 10
@@ -53,12 +53,6 @@ services:
     Ibexa\Contracts\AdminUi\Controller\Controller:
         tags:
             -   name: controller.service_arguments
-
-    Ibexa\Bundle\AdminUi\ValueResolver\:
-        resource: "../../ValueResolver/*"
-        tags:
-            -   name: controller.argument_value_resolver
-                priority: 150
 
     Ibexa\AdminUi\UI\Dataset\DatasetFactory:
         lazy: true

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Bundle\AdminUi\ControllerArgumentResolver;
+namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
 use Ibexa\AdminUi\Exception\ValidationFailedException;
 use Ibexa\AdminUi\REST\Value\UniversalDiscovery\RequestQuery;
@@ -15,11 +15,11 @@ use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class UniversalDiscoveryRequestQueryArgumentResolver implements ArgumentValueResolverInterface
+final class UniversalDiscoveryRequestQueryValueResolver implements ValueResolverInterface
 {
     private Provider $provider;
 
@@ -33,7 +33,7 @@ final class UniversalDiscoveryRequestQueryArgumentResolver implements ArgumentVa
         $this->validator = $validator;
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument): bool
+    private function supports(ArgumentMetadata $argument): bool
     {
         return RequestQuery::class === $argument->getType()
             && 'requestQuery' === $argument->getName();
@@ -44,6 +44,10 @@ final class UniversalDiscoveryRequestQueryArgumentResolver implements ArgumentVa
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
+        if (!$this->supports($argument)) {
+            return [];
+        }
+
         $this->validate($request);
 
         $query = $request->query;
