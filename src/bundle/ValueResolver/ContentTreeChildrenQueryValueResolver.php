@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Bundle\AdminUi\ControllerArgumentResolver;
+namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 /**
  * @phpstan-import-type TCriterionProcessor from \Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor
  */
-final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueResolverInterface
+final class ContentTreeChildrenQueryValueResolver implements ValueResolverInterface
 {
     /** @phpstan-var TCriterionProcessor */
     private CriterionProcessorInterface $criterionProcessor;
@@ -32,16 +32,6 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
         $this->criterionProcessor = $criterionProcessor;
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
-        if ($argument->getType() === null) {
-            return false;
-        }
-
-        return is_a($argument->getType(), CriterionInterface::class, true)
-            && 'filter' === $argument->getName();
-    }
-
     /**
      * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface|null>
      *
@@ -49,14 +39,26 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
      */
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
+        if (!$this->supports($argument)) {
+            return [];
+        }
+
         $criteria = $this->processFilterQueryCriteria($request);
         if ($argument->isNullable() && empty($criteria)) {
-            yield null;
-
-            return;
+            return [null];
         }
 
         yield new LogicalAnd($criteria);
+    }
+
+    private function supports(ArgumentMetadata $argument): bool
+    {
+        if ($argument->getType() === null) {
+            return false;
+        }
+
+        return is_a($argument->getType(), CriterionInterface::class, true)
+            && 'filter' === $argument->getName();
     }
 
     /**
