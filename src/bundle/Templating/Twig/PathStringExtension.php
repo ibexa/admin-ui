@@ -30,7 +30,7 @@ class PathStringExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ibexa_path_to_locations',
-                [$this, 'getLocationList']
+                $this->getLocationList(...)
             ),
         ];
     }

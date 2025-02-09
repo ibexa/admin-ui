@@ -26,7 +26,7 @@ class ContentTypeIconExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ibexa_content_type_icon',
-                [$this->contentTypeIconResolver, 'getContentTypeIcon'],
+                $this->contentTypeIconResolver->getContentTypeIcon(...),
                 [
                     'is_safe' => ['html'],
                 ]

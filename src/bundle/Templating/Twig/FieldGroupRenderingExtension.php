@@ -33,7 +33,7 @@ final class FieldGroupRenderingExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'ibexa_field_group_name',
-                [$this, 'getFieldGroupName']
+                $this->getFieldGroupName(...)
             ),
         ];
     }

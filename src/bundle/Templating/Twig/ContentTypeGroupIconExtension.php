@@ -29,7 +29,7 @@ final class ContentTypeGroupIconExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ibexa_content_type_group_icon',
-                [$this->contentTypeGroupIconResolver, 'getContentTypeGroupIcon'],
+                $this->contentTypeGroupIconResolver->getContentTypeGroupIcon(...),
                 [
                     'is_safe' => ['html'],
                 ]

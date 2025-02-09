@@ -34,7 +34,7 @@ final class EmbeddedItemEditFormExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ibexa_render_embedded_item_edit_form',
-                [$this, 'renderEmbeddedItemEditForm']
+                $this->renderEmbeddedItemEditForm(...)
             ),
         ];
     }

@@ -37,7 +37,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
     public function getFilters()
     {
         return [
-            new TwigFilter('format_interval', [$this, 'formatInterval']),
+            new TwigFilter('format_interval', $this->formatInterval(...)),
         ];
     }
 
