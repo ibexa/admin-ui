@@ -27,7 +27,7 @@ final class IconPathExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ez_icon_path',
-                [$this, 'getIconPath'],
+                $this->getIconPath(...),
                 [
                     'is_safe' => ['html'],
                     'deprecated' => true,
@@ -36,7 +36,7 @@ final class IconPathExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'ibexa_icon_path',
-                [$this, 'getIconPath'],
+                $this->getIconPath(...),
                 [
                     'is_safe' => ['html'],
                 ]
