@@ -19,7 +19,7 @@ use Symfony\Component\Process\Process;
 
 #[AsCommand(
     name: self::COMMAND_NAME,
-    description: 'Compiles all assets using WebPack Encore'
+    description: 'Compiles all assets using Webpack Encore'
 )]
 class CompileAssetsCommand extends Command
 {
