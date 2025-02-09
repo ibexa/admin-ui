@@ -10,20 +10,24 @@ namespace Ibexa\Bundle\AdminUi\Command;
 
 use InvalidArgumentException;
 use RuntimeException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
+#[AsCommand(
+    name: self::COMMAND_NAME,
+    description: 'Compiles all assets using WebPack Encore',
+    aliases: [
+        'ezplatform:encore:compile',
+    ]
+)]
 class CompileAssetsCommand extends Command
 {
     public const COMMAND_NAME = 'ibexa:encore:compile';
     public const COMMAND_DEFAULT_TIMEOUT = 300;
-
-    protected static $defaultName = self::COMMAND_NAME;
-
-    protected static $defaultDescription = 'Compiles all assets using WebPack Encore';
 
     private int $timeout;
 
@@ -36,9 +40,6 @@ class CompileAssetsCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setAliases([
-                'ezplatform:encore:compile',
-            ])
             ->addOption(
                 'timeout',
                 't',
