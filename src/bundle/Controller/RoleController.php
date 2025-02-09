@@ -104,7 +104,7 @@ class RoleController extends Controller
         $rolesDeleteForm = $this->formFactory->deleteRoles($rolesDeleteData);
 
         return $this->render('@ibexadesign/user/role/list.html.twig', [
-            'form_roles_delete' => $rolesDeleteForm->createView(),
+            'form_roles_delete' => $rolesDeleteForm,
             'pager' => $pagerfanta,
             'can_create' => $this->isGranted(new Attribute('role', 'create')),
             'can_delete' => $this->isGranted(new Attribute('role', 'delete')),
@@ -121,7 +121,7 @@ class RoleController extends Controller
 
         return $this->render('@ibexadesign/user/role/index.html.twig', [
             'role' => $role,
-            'delete_form' => $deleteForm->createView(),
+            'delete_form' => $deleteForm,
             'route_name' => $request->get('_route'),
             'policy_page' => $policyPage,
             'assignment_page' => $assignmentPage,
@@ -172,7 +172,7 @@ class RoleController extends Controller
         }
 
         return $this->render('@ibexadesign/user/role/add.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -207,7 +207,7 @@ class RoleController extends Controller
 
         return $this->render('@ibexadesign/user/role/copy.html.twig', [
             'role' => $role,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -264,7 +264,7 @@ class RoleController extends Controller
 
         return $this->render('@ibexadesign/user/role/edit.html.twig', [
             'role' => $role,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

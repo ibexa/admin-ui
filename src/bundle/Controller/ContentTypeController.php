@@ -169,7 +169,7 @@ class ContentTypeController extends Controller
             'content_type_group' => $group,
             'pager' => $pagerfanta,
             'deletable' => $deletableTypes,
-            'form_content_types_delete' => $deleteContentTypesForm->createView(),
+            'form_content_types_delete' => $deleteContentTypesForm,
             'group' => $group,
             'route_name' => $routeName,
             'can_create' => $this->isGranted(new Attribute('class', 'create')),
@@ -587,7 +587,7 @@ class ContentTypeController extends Controller
             }
 
             return $this->render('@ibexadesign/content_type/part/field_definition_form.html.twig', [
-                'form' => $fieldDefinitionsGroupForm[$fieldDefinitionIdentifier]->createView(),
+                'form' => $fieldDefinitionsGroupForm[$fieldDefinitionIdentifier],
                 'content_type_group' => $group,
                 'content_type' => $contentTypeDraft,
                 'language_code' => $baseLanguage ? $baseLanguage->languageCode : $language->languageCode,
@@ -733,7 +733,7 @@ class ContentTypeController extends Controller
             'field_definitions_by_group' => $fieldDefinitionsByGroup,
             'can_update' => $canUpdate,
             'languages' => $languages,
-            'form_content_type_edit' => $contentTypeEdit->createView(),
+            'form_content_type_edit' => $contentTypeEdit,
         ]);
     }
 

@@ -105,7 +105,7 @@ final class LinkManagerController extends Controller
         }
 
         return $this->render('@ibexadesign/link_manager/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'url' => $url,
         ]);
     }
@@ -135,7 +135,7 @@ final class LinkManagerController extends Controller
             'url' => $url,
             'can_edit' => $this->isGranted(new Attribute('url', 'update')),
             'usages' => $usages,
-            'form_edit' => $editForm->createView(),
+            'form_edit' => $editForm,
         ]);
     }
 }

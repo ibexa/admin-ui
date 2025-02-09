@@ -165,10 +165,10 @@ class TrashController extends Controller
             'can_view_section' => $this->isGranted(new Attribute('section', 'view')),
             'trash_items' => $trashItemsList,
             'pager' => $pagerfanta,
-            'form_trash_item_restore' => $trashItemRestoreForm->createView(),
-            'form_trash_item_delete' => $trashItemDeleteForm->createView(),
-            'form_trash_empty' => $trashEmptyForm->createView(),
-            'form_search' => $searchForm->createView(),
+            'form_trash_item_restore' => $trashItemRestoreForm,
+            'form_trash_item_delete' => $trashItemDeleteForm,
+            'form_trash_empty' => $trashEmptyForm,
+            'form_search' => $searchForm,
             'user_content_type_identifier' => $this->configResolver->getParameter('user_content_type_identifier'),
         ]);
     }

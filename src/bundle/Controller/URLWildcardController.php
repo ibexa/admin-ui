@@ -158,7 +158,7 @@ final class URLWildcardController extends Controller
         );
 
         return $this->render('@ibexadesign/url_wildcard/update.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'actionUrl' => $actionUrl,
             'urlWildcard' => $urlWildcard,
         ]);

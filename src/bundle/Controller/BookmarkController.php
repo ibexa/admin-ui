@@ -87,8 +87,8 @@ class BookmarkController extends Controller
             '@ibexadesign/account/bookmarks/list.html.twig',
             [
                 'pager' => $pagerfanta,
-                'form_edit' => $editForm->createView(),
-                'form_remove' => $removeBookmarkForm->createView(),
+                'form_edit' => $editForm,
+                'form_remove' => $removeBookmarkForm,
             ]
         );
     }

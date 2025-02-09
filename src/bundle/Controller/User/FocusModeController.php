@@ -84,7 +84,7 @@ final class FocusModeController extends Controller
         return $this->render(
             '@ibexadesign/ui/focus_mode_form.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
