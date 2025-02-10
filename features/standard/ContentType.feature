@@ -4,12 +4,10 @@ Feature: Content types management
   In order to customize my Ibexa installation
   I want to manage my content types.
 
-  Background:
-    Given I am logged as admin
-
   @javascript
   Scenario: Changes can be discarded while creating content type
-    Given I'm on content type Page for "Content" group
+    Given I am logged as admin
+    And I'm on content type Page for "Content" group
     When I create a new content type
       And I set fields
       | label      | value                     |
@@ -21,7 +19,8 @@ Feature: Content types management
 
   @javascript
   Scenario: New content type can be added to content type group
-    Given I'm on content type Page for "Content" group
+    Given I am logged as admin
+    And I'm on content type Page for "Content" group
     When I create a new content type
       And I set fields
         | label                | value                     |
@@ -48,7 +47,6 @@ Feature: Content types management
     Given I create a "TestDiscard CT" content type in "Content" with "testdiscard" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
-    And I log out of back office
     And I am logged as admin
     And I'm on content type Page for "Content" group
     And there's a "TestDiscard CT" on content types list
@@ -66,7 +64,6 @@ Feature: Content types management
     Given I create a "TestEdit CT" content type in "Content" with "testedit" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
-    And I log out of back office
     And I am logged as admin
     And I'm on content type Page for "Content" group
     When I start editing content type "TestEdit CT"
@@ -93,7 +90,6 @@ Feature: Content types management
     Given I create a "TestDelete CT" content type in "Content" with "testdelete" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
-    And I log out of back office
     And I am logged as admin
     And I'm on content type Page for "Content" group
     And there's a "TestDelete CT" on content types list
