@@ -16,7 +16,7 @@ jobs:
             test-suite: '--profile=browser --suite=admin-ui --tags=@IbexaOSS -vv'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
-            job-count: 2
+            job-count: 1
             timeout: 40
         secrets:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
