@@ -13,7 +13,7 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'oss'
-            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaOSS -vv'
+            test-suite: '--profile=browser --suite=admin-ui --tags=@IbexaOSS -vv'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
             job-count: 2
@@ -25,7 +25,7 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'headless'
-            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaHeadless'
+            test-suite: '--profile=browser --suite=admin-ui --tags=@IbexaHeadless'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
             job-count: 2
@@ -43,7 +43,7 @@ jobs:
         uses: ibexa/gh-workflows/.github/workflows/browser-tests.yml@main
         with:
             project-edition: 'experience'
-            test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience,@IbexaCommerce'
+            test-suite: '--profile=browser --suite=admin-ui --tags=@IbexaExperience,@IbexaCommerce'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
             job-count: 2
