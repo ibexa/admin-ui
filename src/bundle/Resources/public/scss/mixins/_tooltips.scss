@@ -1,0 +1,47 @@
+@mixin tooltip-variant($color, $background-color) {
+    .ibexa-tooltip {
+        &__inner {
+            color: $color;
+            background-color: $background-color;
+            border-color: $ibexa-color-dark;
+        }
+    }
+
+    &.ibexa-tooltip {
+        &.bs-tooltip-top,
+        &[data-popper-placement='top'] {
+            .ibexa-tooltip__arrow {
+                &::before {
+                    border-top-color: $background-color;
+                }
+            }
+        }
+
+        &.bs-tooltip-end,
+        &[data-popper-placement='right'] {
+            .ibexa-tooltip__arrow {
+                &::before {
+                    border-right-color: $background-color;
+                }
+            }
+        }
+
+        &.bs-tooltip-bottom,
+        &[data-popper-placement='bottom'] {
+            .ibexa-tooltip__arrow {
+                &::before {
+                    border-bottom-color: $background-color;
+                }
+            }
+        }
+
+        &.bs-tooltip-start,
+        &[data-popper-placement='left'] {
+            .ibexa-tooltip__arrow {
+                &::before {
+                    border-left-color: $background-color;
+                }
+            }
+        }
+    }
+}
