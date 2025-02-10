@@ -13,6 +13,7 @@
 @import 'mixins/drag-and-drop';
 @import 'mixins/spinner';
 @import 'mixins/tab-selector';
+@import 'mixins/tooltips';
 
 @mixin datetime-field() {
     &.is-invalid {
