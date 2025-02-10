@@ -43,11 +43,13 @@ Feature: Content types management
         | fieldName       | fieldType |
         | Country field   | ezcountry |
 
-  @javascript @APIUser:admin
+  @javascript @APIUser:admin @discard
   Scenario: Changes can be discarded while editing content type
     Given I create a "TestDiscard CT" content type in "Content" with "testdiscard" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
+    And I log out of back office
+    And I am logged as admin
     And I'm on content type Page for "Content" group
     And there's a "TestDiscard CT" on content types list
     When I start editing content type "TestDiscard CT"
@@ -64,6 +66,8 @@ Feature: Content types management
     Given I create a "TestEdit CT" content type in "Content" with "testedit" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
+    And I log out of back office
+    And I am logged as admin
     And I'm on content type Page for "Content" group
     When I start editing content type "TestEdit CT"
       And I set fields
@@ -89,6 +93,8 @@ Feature: Content types management
     Given I create a "TestDelete CT" content type in "Content" with "testdelete" identifier
       | Field Type  | Name        | Identifier          | Required | Searchable | Translatable | Settings       |
       | Text line   | Name        | name	            | no      | yes	      | yes          |                  |
+    And I log out of back office
+    And I am logged as admin
     And I'm on content type Page for "Content" group
     And there's a "TestDelete CT" on content types list
     When I delete "TestDelete CT" content type
