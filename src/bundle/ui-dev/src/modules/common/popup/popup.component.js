@@ -47,7 +47,7 @@ const Popup = ({
 
         if (isVisible) {
             showPopup();
-            modalRef.current.addEventListener('hidden.bs.modal', onClose);
+            modalRef.current.addEventListener('hidden.bs.modal', () => onClose());
         }
     }, [isVisible]);
 
