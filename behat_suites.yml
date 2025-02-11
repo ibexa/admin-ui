@@ -64,7 +64,7 @@ browser:
         admin-ui-full:
             paths:
                 - '%paths.base%/vendor/ibexa/admin-ui/features/'
-            contexts: 
+            contexts:
                 - Ibexa\Behat\API\Context\ContentContext
                 - Ibexa\Behat\API\Context\ContentTypeContext
                 - Ibexa\Behat\API\Context\RoleContext
