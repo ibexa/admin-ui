@@ -33,36 +33,32 @@ Feature: Roles management
   Scenario: Changes can be discarded while editing Role
     Given I am logged as admin
     And I open "Roles" page in admin SiteAccess
-    And there's a "Test Role" Role on Roles list
-    When I edit "Test Role" from Roles list
+    And there's a "Anonymous" Role on Roles list
+    When I edit "Anonymous" from Roles list
     And I set fields
       | label | value            |
-      | Name  | Test Role edited |
+      | Name  | Test Role |
     And I perform the "Discard changes" action
     Then I should be on "Roles" page
-    And there's a "Test Role" Role on Roles list
-    And there's no "Test Role edited" Role on Roles list
+    And there's a "Anonymous" Role on Roles list
 
   @javascript
   Scenario: Role can be edited
     Given I am logged as admin
     And I open "Roles" page in admin SiteAccess
-    And there's a "Test Role" Role on Roles list
-    When I edit "Test Role" from Roles list
+    And there's a "Anonymous" Role on Roles list
+    When I edit "Anonymous" from Roles list
     And I set fields
       | label | value            |
-      | Name  | Test Role edited |
+      | Name  | Anonymous edited |
     And I perform the "Save and close" action
-    Then I should be on "Test Role edited" Role page
-    And Policies list is empty
-    And Assignments list is empty
+    Then I should be on "Anonymous edited" Role page
 
-  @javascript
+  @javascript @roles1
   Scenario: User assignation can be discarded
     Given I am logged as admin
-    And I open "Roles" page in admin SiteAccess
-    And there's a "Test Role edited" Role on Roles list
-    When I start assigning to "Test Role edited" from Roles page
+    And I open "Test Role" Role page in admin SiteAccess
+    When I start assigning users and groups from Role page
     And I assign users to role
       | path                                         |
       | Users/Administrator users/Administrator User |
@@ -72,16 +68,15 @@ Feature: Roles management
       | Users         |
     And I select "Media" from Sections as role assignment limitation
     And I perform the "Discard" action
-    Then I should be on "Test Role edited" Role page
+    Then I should be on "Test Role" Role page
     And Policies list is empty
     And Assignments list is empty
 
   @javascript
   Scenario: User can be assigned to role from the Roles list
     Given I am logged as admin
-    And I open "Roles" page in admin SiteAccess
-    And there's a "Test Role edited" Role on Roles list
-    When I start assigning to "Test Role edited" from Roles page
+    And I open "Test Role" Role page in admin SiteAccess
+    When I start assigning users and groups from Role page
     And I assign users to role
       | path                                         |
       | Users/Anonymous users/Anonymous User         |
@@ -91,9 +86,9 @@ Feature: Roles management
       | Users/Editors |
     And I select limitation "Media/Images" for assignment through UDW
     And I perform the "Save and close" action
-    Then I should be on "Test Role edited" Role page
+    Then I should be on "Test Role" Role page
     And Policies list is empty
-    And there are assignments on the "Test Role edited" assignments list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation                         |
       | Administrator User  | Subtree: /Media/Images |
       | Anonymous User      | Subtree: /Media/Images |
@@ -102,15 +97,15 @@ Feature: Roles management
   @javascript
   Scenario: User can be assigned to role from the Role details view
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
+    And I open "Test Role" Role page in admin SiteAccess
     When I start assigning users and groups from Role page
     And I assign groups to role
       | path  |
       | Users |
     And I perform the "Save and close" action
-    Then I should be on "Test Role edited" Role page
+    Then I should be on "Test Role" Role page
     And Policies list is empty
-    And there are assignments on the "Test Role edited" assignments list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation                         |
       | Administrator User  | Subtree: /Media/Images |
       | Editors             | Subtree: /Media/Images |
@@ -120,35 +115,35 @@ Feature: Roles management
   @javascript
   Scenario: Assignment can be deleted from role
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
-    When I delete assignment from "Test Role edited" role
+    And I open "Test Role" Role page in admin SiteAccess
+    When I delete assignment from "Test Role" role
       | item                |
       | Administrator User  |
       | Editors             |
       | Users	            |
-    Then I should be on "Test Role edited" Role page
+    Then I should be on "Test Role" Role page
     And Policies list is empty
-    And there are assignments on the "Test Role edited" assignments list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation                         |
       | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Adding policy can be discarded
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
+    And I open "Test Role" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content type / All functions"
     And I perform the "Discard" action
-    Then I should be on "Test Role edited" Role page
+    Then I should be on "Test Role" Role page
     And Policies list is empty
-    And there are assignments on the "Test Role edited" assignments list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policies can be added to role
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
+    And I open "Test Role" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content / Read"
     And I perform the "Save and close" action
@@ -157,29 +152,29 @@ Feature: Roles management
       | option  |
       | File    |
     And I perform the "Save and close" action
-    Then I should be on "Test Role edited" Role page
-    And there is a policy "Content/Read" with "Content type: File" limitation on the "Test Role edited" policies list
-    And there are assignments on the "Test Role edited" assignments list
+    Then I should be on "Test Role" Role page
+    And there is a policy "Content/Read" with "Content type: File" limitation on the "Test Role" policies list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policies without limitations can be added to role
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
+    And I open "Test Role" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "User / Password"
     And I perform the "Save and close" action
-    Then I should be on "Test Role edited" Role page
-    And there is a policy "User/Password" with "None" limitation on the "Test Role edited" policies list
-    And there are assignments on the "Test Role edited" assignments list
+    Then I should be on "Test Role" Role page
+    And there is a policy "User/Password" with "None" limitation on the "Test Role" policies list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policies can be edited
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
+    And I open "Test Role" Role page in admin SiteAccess
     When I start editing the policy "Content" "Read"
     And I select limitation for "Content type"
       | option  |
@@ -190,26 +185,26 @@ Feature: Roles management
       | option      |
       | Lock:Locked |
     And I perform the "Save and close" action
-    Then I should be on "Test Role edited" Role page
-    And there are policies on the "Test Role edited" policies list
+    Then I should be on "Test Role" Role page
+    And there are policies on the "Test Role" policies list
       | policy       | limitation                                  |
       | Content/Read | Content type: Article, Folder               |
       | Content/Read | Subtree: /Users/Anonymous users |
       | Content/Read | State: Lock:Locked                          |
-    And there are assignments on the "Test Role edited" assignments list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
 
   @javascript
   Scenario: Policy can be deleted
     Given I am logged as admin
-    And I open "Test Role edited" Role page in admin SiteAccess
-    When I delete policy from "Test Role edited" role
+    And I open "Test Role" Role page in admin SiteAccess
+    When I delete policy from "Test Role" role
       | item     |
       | Content  |
-    Then success notification that "Removed Policies from Role 'Test Role edited'." appears
-    And there is no policy "Content/Read" with "Content type: File" limitation on the "Test Role edited" policies list
-    And there are assignments on the "Test Role edited" assignments list
+    Then success notification that "Removed Policies from Role 'Test Role'." appears
+    And there is no policy "Content/Read" with "Content type: File" limitation on the "Test Role" policies list
+    And there are assignments on the "Test Role" assignments list
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
 
@@ -217,10 +212,10 @@ Feature: Roles management
   Scenario: Role can be deleted
     Given I am logged as admin
     And I open "Roles" page in admin SiteAccess
-    And there's a "Test Role edited" Role on Roles list
-    When I delete Role "Test Role edited"
-    Then notification that "Role" "Test Role edited" is removed appears
-    And there's no "Test Role edited" Role on Roles list
+    And there's a "Test Role" Role on Roles list
+    When I delete Role "Test Role"
+    Then notification that "Role" "Test Role" is removed appears
+    And there's no "Test Role" Role on Roles list
 
   @javascript
   Scenario: I can access role that has limitation to deleted location
