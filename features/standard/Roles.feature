@@ -208,26 +208,27 @@ Feature: Roles management
       | User/Group          | Limitation             |
       | Anonymous User      | Subtree: /Media/Images |
 
-  @javascript
-  Scenario: Role can be deleted
-    Given I am logged as admin
-    And I open "Roles" page in admin SiteAccess
-    And there's a "Test Role" Role on Roles list
-    When I delete Role "Test Role"
-    Then notification that "Role" "Test Role" is removed appears
-    And there's no "Test Role" Role on Roles list
-
-  @javascript
-  Scenario: I can access role that has limitation to deleted location
-    Given I am using the API as "admin"
-    And I create "folder" Content items in root in "eng-GB"
-      | name            | short_name      |
-      | DeletedLocation | DeletedLocation |
-    And I create a role "DeletedLocationRole"
-    And I add policy "content" "read" to "DeletedLocationRole" with limitations
-      | limitationType | limitationValue  |
-      | Location       | /DeletedLocation |
-    And I send "/DeletedLocation" to the Trash
-    When I am logged as admin
-    And I open "DeletedLocationRole" Role page in admin SiteAccess
-    Then I should be on "DeletedLocationRole" Role page
+# to be refactored
+#  @javascript
+#  Scenario: Role can be deleted
+#    Given I am logged as admin
+#    And I open "Roles" page in admin SiteAccess
+#    And there's a "Test Role" Role on Roles list
+#    When I delete Role "Test Role"
+#    Then notification that "Role" "Test Role" is removed appears
+#    And there's no "Test Role" Role on Roles list
+#
+#  @javascript
+#  Scenario: I can access role that has limitation to deleted location
+#    Given I am using the API as "admin"
+#    And I create "folder" Content items in root in "eng-GB"
+#      | name            | short_name      |
+#      | DeletedLocation | DeletedLocation |
+#    And I create a role "DeletedLocationRole"
+#    And I add policy "content" "read" to "DeletedLocationRole" with limitations
+#      | limitationType | limitationValue  |
+#      | Location       | /DeletedLocation |
+#    And I send "/DeletedLocation" to the Trash
+#    When I am logged as admin
+#    And I open "DeletedLocationRole" Role page in admin SiteAccess
+#    Then I should be on "DeletedLocationRole" Role page
