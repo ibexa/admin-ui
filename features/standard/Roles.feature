@@ -54,7 +54,7 @@ Feature: Roles management
     And I perform the "Save and close" action
     Then I should be on "Anonymous edited" Role page
 
-  @javascript @roles1
+  @javascript
   Scenario: User assignation can be discarded
     Given I am logged as admin
     And I open "Test Role" Role page in admin SiteAccess
