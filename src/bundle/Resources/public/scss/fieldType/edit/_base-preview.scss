@@ -111,9 +111,7 @@
             overflow: hidden;
 
             .ibexa-field-edit-preview__file-name {
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
+                word-break: break-all;
             }
         }
     }
