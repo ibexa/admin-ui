@@ -119,13 +119,13 @@ Feature: Sections management
 
   @javascript
   Scenario: Content item can be reassigned to section from the Sections details
-    Given I open "Media" Section page in admin SiteAccess
-    When I start assigning to "Media" Section
-      And I select content "Media/TestSection" through UDW
-      And I confirm the selection in UDW
-    Then success notification that "1 Content items assigned to 'Media'" appears
-    Then I should be on "Media" Section page
-    And content items list in section "Media" contains items
+    Given I open "Form" Section page in admin SiteAccess
+    When I start assigning to "Form" Section
+    And I select content "Media/TestSection" through UDW
+    And I confirm the selection in UDW
+    Then success notification that "1 Content items assigned to 'Form'" appears
+    Then I should be on "Form" Section page
+    And content items list in section "Form" contains items
       | Name        | content type | Path  |
       | TestSection | Folder       | Media |
     And I open "Test Section edited2" Section page in admin SiteAccess
