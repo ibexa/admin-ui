@@ -19,7 +19,7 @@ class RoleCreateType extends AbstractType
 {
     public const BTN_SAVE = 'save';
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -39,7 +39,7 @@ class RoleCreateType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => RoleCreateData::class,

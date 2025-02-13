@@ -27,7 +27,7 @@ class VersionInfoType extends AbstractType
         $this->contentService = $contentService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(

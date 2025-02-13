@@ -29,7 +29,7 @@ class SectionType extends AbstractType
         $this->sectionService = $sectionService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(
             $options['multiple']
@@ -38,7 +38,7 @@ class SectionType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('multiple', false);
         $resolver->setRequired(['multiple']);

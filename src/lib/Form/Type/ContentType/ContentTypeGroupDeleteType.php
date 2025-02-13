@@ -26,14 +26,14 @@ class ContentTypeGroupDeleteType extends AbstractType
         return 'content_type_group_delete';
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('contentTypeGroupId', HiddenType::class)
             ->add('delete', SubmitType::class, ['label' => /** @Desc("Delete") */ 'content_type.group.delete']);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(['translation_domain' => 'ibexa_content_type']);
     }

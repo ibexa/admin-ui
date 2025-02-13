@@ -27,7 +27,7 @@ class ContentTypeSubmitType extends AbstractType
         $this->contentTypeService = $contentTypeService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new ContentTypeTransformer($this->contentTypeService));
     }

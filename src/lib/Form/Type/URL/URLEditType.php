@@ -24,7 +24,7 @@ class URLEditType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('url', TextType::class)
             ->add(self::BTN_SAVE, SubmitType::class, [
@@ -38,7 +38,7 @@ class URLEditType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => URLUpdateData::class,

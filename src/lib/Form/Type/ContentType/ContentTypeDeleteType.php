@@ -26,7 +26,7 @@ class ContentTypeDeleteType extends AbstractType
         return 'ezplatform_content_forms_contenttype_delete';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -34,7 +34,7 @@ class ContentTypeDeleteType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('contentTypeId', HiddenType::class)

@@ -27,7 +27,7 @@ class ObjectStateType extends AbstractType
         $this->objectStateService = $objectStateService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new ObjectStateTransformer($this->objectStateService));
     }

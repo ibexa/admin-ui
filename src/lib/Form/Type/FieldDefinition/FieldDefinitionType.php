@@ -63,7 +63,7 @@ class FieldDefinitionType extends AbstractType
         $this->groupsList = $groupsList;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -80,7 +80,7 @@ class FieldDefinitionType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);
         $isTranslation = $options['languageCode'] !== $options['mainLanguageCode'];

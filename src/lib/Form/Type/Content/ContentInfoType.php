@@ -27,7 +27,7 @@ class ContentInfoType extends AbstractType
         $this->contentService = $contentService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new ContentInfoTransformer($this->contentService));
     }

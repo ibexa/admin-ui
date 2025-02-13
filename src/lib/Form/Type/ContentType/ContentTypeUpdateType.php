@@ -32,7 +32,7 @@ class ContentTypeUpdateType extends AbstractType
         return 'ezplatform_content_forms_contenttype_update';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -45,7 +45,7 @@ class ContentTypeUpdateType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $hasFieldDefinition = count($options['data']->fieldDefinitionsData) > 0;
         $isTranslation = $options['mainLanguageCode'] !== $options['languageCode'];

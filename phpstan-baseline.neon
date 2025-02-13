@@ -5891,11 +5891,6 @@ parameters:
 			path: src/lib/Form/TrashLocationOptionProvider/OptionsFactory.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Bookmark\\\\BookmarkRemoveType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Bookmark/BookmarkRemoveType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Bookmark\\\\BookmarkRemoveType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Bookmark/BookmarkRemoveType.php
@@ -5926,36 +5921,6 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentEditTranslationChoiceLoader.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\ContentInfoType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/ContentInfoType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\ContentType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/ContentType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\ContentTypeSubmitType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/ContentTypeSubmitType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\ContentTypeType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/ContentTypeType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\ContentVisibilityUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/ContentVisibilityUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlAddType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlAddType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlAddType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlAddType.php
@@ -5966,19 +5931,9 @@ parameters:
 			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlAddType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlRemoveType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlRemoveType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlRemoveType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlRemoveType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentCreateType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
@@ -5996,11 +5951,6 @@ parameters:
 			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentEditType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Draft/ContentEditType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentEditType\\:\\:getLanguageOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/Draft/ContentEditType.php
@@ -6011,44 +5961,9 @@ parameters:
 			path: src/lib/Form/Type/Content/Draft/ContentEditType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Location\\\\ContentLocationAddType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Location/ContentLocationAddType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Location\\\\ContentLocationRemoveType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Location/ContentLocationRemoveType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Location\\\\ContentMainLocationUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Location/ContentMainLocationUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\LocationType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/LocationType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\SortType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/SortType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\MainTranslationUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/MainTranslationUpdateType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\MainTranslationUpdateType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/Translation/MainTranslationUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\TranslationAddType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/TranslationAddType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\TranslationAddType\\:\\:loadLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -6081,29 +5996,9 @@ parameters:
 			path: src/lib/Form/Type/Content/Translation/TranslationAddType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\TranslationDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/TranslationDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\VersionInfoType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/VersionInfoType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeCreateType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeCreateType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeDeleteType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeDeleteType\\:\\:getName\\(\\) has no return type specified\\.$#"
@@ -6111,19 +6006,9 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypeDeleteType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeGroupDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeGroupDeleteType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeGroupDeleteType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeGroupDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeGroupType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeGroupType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeGroupType\\:\\:getName\\(\\) has no return type specified\\.$#"
@@ -6131,19 +6016,9 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypeGroupType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeUpdateType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypeUpdateType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\ContentTypesDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypesDeleteType.php
 
 		-
 			message: "#^Parameter \\#1 \\$child of method Symfony\\\\Component\\\\Form\\\\FormBuilderInterface\\<mixed\\>\\:\\:add\\(\\) expects string\\|Symfony\\\\Component\\\\Form\\\\FormBuilderInterface, int\\|string given\\.$#"
@@ -6181,11 +6056,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/SortOrderChoiceType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationAddType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationAddType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
@@ -6211,49 +6081,9 @@ parameters:
 			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationRemoveType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/Translation/TranslationRemoveType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationRemoveType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/Translation/TranslationRemoveType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentTypeGroup\\\\ContentTypeGroupCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentTypeGroup\\\\ContentTypeGroupDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentTypeGroup\\\\ContentTypeGroupType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentTypeGroup\\\\ContentTypeGroupUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentTypeGroup\\\\ContentTypeGroupsDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupsDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Date\\\\DateIntervalType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Date/DateIntervalType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\DateTimeIntervalType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/DateTimeIntervalType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\DateTimeIntervalType\\:\\:getName\\(\\) has no return type specified\\.$#"
@@ -6261,19 +6091,9 @@ parameters:
 			path: src/lib/Form/Type/DateTimeIntervalType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\DateTimePickerType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/DateTimePickerType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\DateTimePickerType\\:\\:buildView\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/DateTimePickerType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Embedded\\\\SectionType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Embedded/SectionType.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Form\\\\FormInterface\\:\\:isClicked\\(\\)\\.$#"
@@ -6287,11 +6107,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Strategy\\\\ContentThumbnail\\\\Field\\\\ThumbnailStrategy\\:\\:hasStrategy\\(\\)\\.$#"
-			count: 1
-			path: src/lib/Form/Type/FieldDefinition/FieldDefinitionType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\FieldDefinition\\\\FieldDefinitionType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/FieldDefinition/FieldDefinitionType.php
 
@@ -6321,46 +6136,6 @@ parameters:
 			path: src/lib/Form/Type/FieldDefinition/User/PasswordConstraintCheckboxType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Language\\\\LanguageCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Language\\\\LanguageDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Language\\\\LanguageType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Language\\\\LanguageUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Language\\\\LanguagesDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Language/LanguagesDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\AbstractLocationCopyType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Location/AbstractLocationCopyType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\LocationMoveType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Location/LocationMoveType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\LocationSwapType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Location/LocationSwapType.php
-
-		-
 			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\Form\\\\FormInterface\\|null\\.$#"
 			count: 3
 			path: src/lib/Form/Type/Location/LocationTrashType.php
@@ -6371,32 +6146,12 @@ parameters:
 			path: src/lib/Form/Type/Location/LocationTrashType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\LocationTrashType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Location/LocationTrashType.php
-
-		-
 			message: "#^Parameter \\#1 \\$form of method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\LocationTrashType\\:\\:addConfirmCheckbox\\(\\) expects Symfony\\\\Component\\\\Form\\\\FormInterface, Symfony\\\\Component\\\\Form\\\\FormInterface\\|null given\\.$#"
 			count: 2
 			path: src/lib/Form/Type/Location/LocationTrashType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\LocationUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Location/LocationUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Location\\\\LocationUpdateVisibilityType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Location/LocationUpdateVisibilityType.php
-
-		-
 			message: "#^Anonymous function has an unused use \\$contentState\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ContentObjectStateUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ContentObjectStateUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ObjectState/ContentObjectStateUpdateType.php
 
@@ -6406,72 +6161,12 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ContentObjectStateUpdateType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateGroupCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateGroupDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateGroupType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateGroupUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateGroupsDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupsDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStateUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ObjectState\\\\ObjectStatesDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStatesDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PoliciesDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PoliciesDeleteType.php
-
-		-
 			message: "#^Constructor of class Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyChoiceType has an unused parameter \\$translator\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyChoiceType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyChoiceType\\:\\:__construct\\(\\) has parameter \\$policyMap with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyChoiceType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyChoiceType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyChoiceType.php
 
@@ -6491,17 +6186,7 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyChoiceType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyCreateType.php
-
-		-
 			message: "#^Anonymous function has an unused use \\$options\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyCreateWithLimitationType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
 
@@ -6526,22 +6211,7 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyType.php
-
-		-
 			message: "#^Anonymous function has an unused use \\$options\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Policy\\\\PolicyUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
 
@@ -6566,11 +6236,6 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\LimitationType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/LimitationType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\LimitationType\\:\\:buildView\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Role/LimitationType.php
@@ -6579,66 +6244,6 @@ parameters:
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\LimitationType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Role/LimitationType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleAssignmentCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleAssignmentDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleAssignmentType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleAssignmentsDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentsDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleCopyType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleCopyType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RoleUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RoleUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Role\\\\RolesDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Role/RolesDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\RoleAssignment\\\\RoleAssignmentType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/RoleAssignment/RoleAssignmentType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Search\\\\SearchType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Search/SearchType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Search\\\\SearchType\\:\\:getTimePeriodChoices\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -6651,59 +6256,14 @@ parameters:
 			path: src/lib/Form/Type/Search/SearchType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Search\\\\TrashSearchType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Search/TrashSearchType.php
-
-		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Search\\\\TrashSearchType\\:\\:\\$translator is never read, only written\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Search/TrashSearchType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Section\\\\SectionContentAssignType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Section/SectionContentAssignType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Section\\\\SectionCreateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Section/SectionCreateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Section\\\\SectionDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Section/SectionDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Section\\\\SectionType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Section/SectionType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Section\\\\SectionUpdateType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Section/SectionUpdateType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Section\\\\SectionsDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Section/SectionsDeleteType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\SwitcherType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/SwitcherType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Trash\\\\TrashEmptyType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashEmptyType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Trash\\\\TrashItemCheckboxType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashItemCheckboxType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Trash\\\\TrashItemCheckboxType\\:\\:buildView\\(\\) has no return type specified\\.$#"
@@ -6716,39 +6276,14 @@ parameters:
 			path: src/lib/Form/Type/Trash/TrashItemCheckboxType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Trash\\\\TrashItemDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashItemDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Trash\\\\TrashItemRestoreType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashItemRestoreType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\URL\\\\URLEditType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/URL/URLEditType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\URL\\\\URLEditType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/URL/URLEditType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\URL\\\\URLListType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/URL/URLListType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\URL\\\\URLListType\\:\\:getName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Form/Type/URL/URLListType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\UniversalDiscoveryWidget\\\\UniversalDiscoveryWidgetType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\UniversalDiscoveryWidget\\\\UniversalDiscoveryWidgetType\\:\\:finishView\\(\\) has no return type specified\\.$#"
@@ -6761,21 +6296,6 @@ parameters:
 			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserCollectionType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/User/UserCollectionType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserDeleteType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/User/UserDeleteType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserEditType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/User/UserEditType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserEditType\\:\\:getLanguageOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/User/UserEditType.php
@@ -6784,26 +6304,6 @@ parameters:
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserEditType\\:\\:getLanguageOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/User/UserEditType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserGroupCollectionType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/User/UserGroupCollectionType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserInvitationType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/User/UserInvitationType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\User\\\\UserType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/User/UserType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Version\\\\VersionRemoveType\\:\\:buildForm\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Version/VersionRemoveType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Limitation\\\\LimitationFormMapperInterface\\:\\:filterLimitationValues\\(\\) has no return type specified\\.$#"

@@ -27,7 +27,7 @@ class UserCollectionType extends AbstractType
         $this->userService = $userService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new UserCollectionTransformer($this->userService));
     }
