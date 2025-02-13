@@ -17,9 +17,8 @@ class LanguageUpdateData
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     private $name;
 
     /** @var bool */

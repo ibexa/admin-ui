@@ -15,21 +15,15 @@ class LanguageCreateData implements TranslationContainerInterface
 {
     /**
      * @var string
-     *
-     * @Assert\NotBlank()
      */
+    #[Assert\NotBlank]
     private $name;
 
     /**
      * @var string
-     *
-     * @Assert\NotBlank()
-     *
-     * @Assert\Regex(
-     *      pattern="/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/",
-     *      message="ibexa.language.language_code.format"
-     * )
      */
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/', message: 'ibexa.language.language_code.format')]
     private $languageCode;
 
     /** @var bool */
