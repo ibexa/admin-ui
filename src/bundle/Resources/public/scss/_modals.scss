@@ -42,6 +42,18 @@
         @include modal-footer();
     }
 
+    &__spinner-container {
+        display: none;
+        width: 100%;
+        min-height: calculateRem(300px);
+        align-items: center;
+        justify-content: center; 
+    }
+
+    &__spinner {
+        @include spinner(calculateRem(24px), calculateRem(3px), $ibexa-color-primary);
+    }
+
     &--no-header {
         .close {
             @include close-button();
@@ -89,6 +101,22 @@
 
             .modal-body {
                 padding-top: 0;
+            }
+        }
+    }
+
+    &--processing {
+        .modal-dialog {
+            .modal-body {
+                display: none;
+            }
+    
+            .modal-footer {
+                display: none;
+            }
+    
+            .ibexa-modal__spinner-container {
+                display: flex;
             }
         }
     }

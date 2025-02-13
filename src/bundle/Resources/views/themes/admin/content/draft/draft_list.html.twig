@@ -65,6 +65,14 @@
                     ]) %}
 
                     {% set col_raw %}
+                        {{ ibexa_render_component_group('content-drafts-list-actions', {
+                            'content_id': row.versionId.contentId,
+                            'version_no': row.versionId.versionNo,
+                            'language_id': 2, 
+                            'as_icon': true,
+                            'dynamic_users_list': true,
+                        }) }}
+
                         <button
                             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
                             title="{{ 'drafts.list.action.edit'|trans|desc('Edit') }}"
@@ -86,6 +94,7 @@
                             </svg>
                         </button>
                     {% endset %}
+
                     {% set body_row_cols = body_row_cols|merge([{
                         has_action_btns: true,
                         content: col_raw,
@@ -116,32 +125,33 @@
                     'data-toggle-button-id': '#confirm-' ~ form_remove.remove.vars.id
                 }
             }) }}
-            {% include '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: custom_results_headline ?? results_headline(pager.getNbResults()),
-                head_cols: [
-                    { has_checkbox: true },
-                    { has_icon: true },
-                    { content: 'drafts.list.name'|trans|desc('Name') },
-                    { content: 'drafts.list.content_type'|trans|desc('Content type') },
-                    { content: 'drafts.list.modified_language'|trans|desc('Modified language') },
-                    { content: 'drafts.list.version'|trans|desc('Version') },
-                    { content: 'drafts.list.last_saved'|trans|desc('Modified') },
-                    { },
-                ],
-                body_rows,
-                actions: macros.table_header_tools(form_remove),
-                empty_table_info_text: 'drafts.list.empty'|trans|desc('You have no drafts yet. Your drafts will show up here.'),
-            } %}
-            {% if pager.haveToPaginate %}
-                {% include '@ibexadesign/ui/pagination.html.twig' with {
-                    'pager': pager,
+                {{ ibexa_render_component_group('content-drafts-list-before', {}) }}
+                {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+                    headline: custom_results_headline ?? results_headline(pager.getNbResults()),
+                    head_cols: [
+                        { has_checkbox: true },
+                        { has_icon: true },
+                        { content: 'drafts.list.name'|trans|desc('Name') },
+                        { content: 'drafts.list.content_type'|trans|desc('Content type') },
+                        { content: 'drafts.list.modified_language'|trans|desc('Modified language') },
+                        { content: 'drafts.list.version'|trans|desc('Version') },
+                        { content: 'drafts.list.last_saved'|trans|desc('Modified') },
+                        { },
+                    ],
+                    body_rows,
+                    actions: macros.table_header_tools(form_remove),
+                    empty_table_info_text: 'drafts.list.empty'|trans|desc('You have no drafts yet. Your drafts will show up here.'),
                 } %}
-            {% endif %}
-            {{ form_widget(form_remove.remove, {
-                'attr': {
-                    'hidden': true
-                }
-            }) }}
+                {% if pager.haveToPaginate %}
+                    {% include '@ibexadesign/ui/pagination.html.twig' with {
+                        'pager': pager,
+                    } %}
+                {% endif %}
+                {{ form_widget(form_remove.remove, {
+                    'attr': {
+                        'hidden': true
+                    }
+                }) }}
             {{ form_end(form_remove) }}
         </section>
     </div>
