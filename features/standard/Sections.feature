@@ -119,13 +119,20 @@ Feature: Sections management
 
   @javascript
   Scenario: Content item can be reassigned to section from the Sections details
-    Given I open "Standard" Section page in admin SiteAccess
-    When I start assigning to "Standard" Section
+    Given I open "Sections" page in admin SiteAccess
+    When I create a new Section
+    And I set fields
+      | label      | value                       |
+      | Name       | TestSectionAssign           |
+      | Identifier | TestSectionAssignIdentifier |
+    And I perform the "Save and close" action
+    And I open "TestSectionAssign" Section page in admin SiteAccess
+    When I start assigning to "TestSectionAssign" Section
     And I select content "Media/TestSection" through UDW
     And I confirm the selection in UDW
-    Then success notification that "1 Content items assigned to 'Standard'" appears
-    Then I should be on "Standard" Section page
-    And content items list in section "Standard" contains items
+    Then success notification that "1 Content items assigned to 'TestSectionAssign'" appears
+    Then I should be on "TestSectionAssign" Section page
+    And content items list in section "TestSectionAssign" contains items
       | Name        | content type | Path  |
       | TestSection | Folder       | Media |
     And I open "Test Section edited2" Section page in admin SiteAccess
