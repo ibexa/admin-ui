@@ -27,19 +27,13 @@ class PolicyChoiceType extends AbstractType
     private $policyChoices;
 
     /**
-     * PolicyChoiceType constructor.
-     *
      * @param array $policyMap
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator, array $policyMap)
     {
         $this->policyChoices = $this->buildPolicyChoicesFromMap($policyMap);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new class() implements DataTransformerInterface {
@@ -69,9 +63,6 @@ class PolicyChoiceType extends AbstractType
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -80,9 +71,6 @@ class PolicyChoiceType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return ChoiceType::class;

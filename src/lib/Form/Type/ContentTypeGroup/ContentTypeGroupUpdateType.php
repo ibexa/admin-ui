@@ -20,9 +20,6 @@ class ContentTypeGroupUpdateType extends AbstractType
 {
     public const BTN_SAVE = 'save';
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -37,9 +34,6 @@ class ContentTypeGroupUpdateType extends AbstractType
             ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

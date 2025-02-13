@@ -88,9 +88,6 @@ class UniversalDiscoveryWidgetType extends AbstractType
         return 'ezsystems_ezplatform_type_udw';
     }
 
-    /**
-     * @return \Symfony\Component\Form\DataTransformerInterface
-     */
     private function getDataTransformer(): DataTransformerInterface
     {
         return new CallbackTransformer(

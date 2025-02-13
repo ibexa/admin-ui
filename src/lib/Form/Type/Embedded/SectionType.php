@@ -21,9 +21,6 @@ class SectionType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     protected $sectionService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     */
     public function __construct(SectionService $sectionService)
     {
         $this->sectionService = $sectionService;

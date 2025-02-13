@@ -97,8 +97,6 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
     public function configureOptions(OptionsResolver $resolver): void

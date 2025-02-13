@@ -18,19 +18,11 @@ class SectionChoiceType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     private $sectionService;
 
-    /**
-     * SectionChoiceType constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     */
     public function __construct(SectionService $sectionService)
     {
         $this->sectionService = $sectionService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -40,9 +32,6 @@ class SectionChoiceType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return ChoiceType::class;

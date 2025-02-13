@@ -5891,11 +5891,6 @@ parameters:
 			path: src/lib/Form/TrashLocationOptionProvider/OptionsFactory.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Bookmark\\\\BookmarkRemoveType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Bookmark/BookmarkRemoveType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ChoiceList\\\\Loader\\\\ContentEditTranslationChoiceLoader\\:\\:getChoiceList\\(\\) should return array but returns iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\>\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentEditTranslationChoiceLoader.php
@@ -5921,24 +5916,9 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentEditTranslationChoiceLoader.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlAddType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlAddType.php
-
-		-
 			message: "#^Property Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlAddType\\:\\:\\$nonAdminSiteaccessResolver \\(Ibexa\\\\AdminUi\\\\Siteaccess\\\\NonAdminSiteaccessResolver\\) does not accept Ibexa\\\\AdminUi\\\\Siteaccess\\\\SiteaccessResolverInterface\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlAddType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\CustomUrl\\\\CustomUrlRemoveType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/CustomUrl/CustomUrlRemoveType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentCreateType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentCreateType\\:\\:getLimitationValuesForLocation\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -5959,11 +5939,6 @@ parameters:
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Draft\\\\ContentEditType\\:\\:getLanguageOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/Content/Draft/ContentEditType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\MainTranslationUpdateType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/MainTranslationUpdateType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\Content\\\\Translation\\\\TranslationAddType\\:\\:loadLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -6056,11 +6031,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/SortOrderChoiceType.php
 
 		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationAddType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
-
-		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationAddType\\:\\:loadLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
@@ -6079,11 +6049,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$array of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
-
-		-
-			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\ContentType\\\\Translation\\\\TranslationRemoveType\\:\\:buildForm\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Form/Type/ContentType/Translation/TranslationRemoveType.php
 
 		-
 			message: "#^Method Ibexa\\\\AdminUi\\\\Form\\\\Type\\\\DateTimeIntervalType\\:\\:getName\\(\\) has no return type specified\\.$#"

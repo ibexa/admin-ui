@@ -19,9 +19,6 @@ class LanguageType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
     public function __construct(LanguageService $languageService)
     {
         $this->languageService = $languageService;

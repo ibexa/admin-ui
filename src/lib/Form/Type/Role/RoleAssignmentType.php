@@ -19,9 +19,6 @@ class RoleAssignmentType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     protected $roleService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
     public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;

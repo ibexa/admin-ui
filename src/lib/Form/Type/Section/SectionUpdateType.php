@@ -20,9 +20,6 @@ class SectionUpdateType extends AbstractType
     /** @var SectionType */
     protected $sectionType;
 
-    /**
-     * @param SectionType $sectionType
-     */
     public function __construct(SectionType $sectionType)
     {
         $this->sectionType = $sectionType;

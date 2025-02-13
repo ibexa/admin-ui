@@ -25,17 +25,11 @@ class PolicyCreateWithLimitationType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\RoleService */
     private $roleService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
     public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -77,9 +71,6 @@ class PolicyCreateWithLimitationType extends AbstractType
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

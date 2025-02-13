@@ -22,9 +22,6 @@ class ContentMainLocationUpdateType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(LocationService $locationService)
     {
         $this->locationService = $locationService;

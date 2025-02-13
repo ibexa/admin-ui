@@ -30,19 +30,12 @@ class ContentObjectStateUpdateType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     */
     public function __construct(ObjectStateService $objectStateService, PermissionResolver $permissionResolver)
     {
         $this->objectStateService = $objectStateService;
         $this->permissionResolver = $permissionResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -79,9 +72,6 @@ class ContentObjectStateUpdateType extends AbstractType
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

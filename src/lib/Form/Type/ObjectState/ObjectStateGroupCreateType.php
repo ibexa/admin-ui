@@ -20,9 +20,6 @@ class ObjectStateGroupCreateType extends AbstractType
 {
     public const BTN_CREATE_AND_EDIT = 'create_and_edit';
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -40,9 +37,6 @@ class ObjectStateGroupCreateType extends AbstractType
             ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
