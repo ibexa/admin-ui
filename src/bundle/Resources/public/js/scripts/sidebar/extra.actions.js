@@ -21,6 +21,10 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
         });
     };
     const restoreInitialFormData = (extraActionsContainer) => {
+        if (formsInitialData.size === 0) {
+            return;
+        }
+
         const extraActionsInputs = extraActionsContainer.querySelectorAll('input, select');
 
         extraActionsInputs.forEach((node) => {
