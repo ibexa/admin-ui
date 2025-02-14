@@ -26,6 +26,7 @@
         ]) %}
 
         {% set col_raw %}
+            {{ ibexa_render_component_group('content-drafts-list-actions', { version_info: row.versionInfo }) }}
             <button
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
                 title="{{ 'dashboard.table.draft.edit'|trans|desc('Edit') }}"
