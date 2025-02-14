@@ -36,7 +36,7 @@ class LimitationType extends AbstractType
         $this->nullMapper = $nullMapper;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
@@ -73,7 +73,7 @@ class LimitationType extends AbstractType
         $view->vars['template'] = $mapper->getFormTemplate();
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation',

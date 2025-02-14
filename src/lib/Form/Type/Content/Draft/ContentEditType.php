@@ -29,10 +29,6 @@ class ContentEditType extends AbstractType
     /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
     private $languageChoiceLoader;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
-     */
     public function __construct(
         LanguageService $languageService,
         LanguageChoiceLoader $languageChoiceLoader
@@ -41,7 +37,7 @@ class ContentEditType extends AbstractType
         $this->languageChoiceLoader = $languageChoiceLoader;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -75,7 +71,7 @@ class ContentEditType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -87,11 +83,6 @@ class ContentEditType extends AbstractType
             ->setAllowedTypes('language_codes', ['bool', 'array']);
     }
 
-    /**
-     * @param array $options
-     *
-     * @return array
-     */
     private function getLanguageOptions(array $options): array
     {
         $languageOptions = [

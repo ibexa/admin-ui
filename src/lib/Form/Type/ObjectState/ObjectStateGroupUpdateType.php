@@ -20,10 +20,7 @@ class ObjectStateGroupUpdateType extends AbstractType
 {
     public const BTN_SAVE = 'save';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('identifier', TextType::class, [
@@ -40,10 +37,7 @@ class ObjectStateGroupUpdateType extends AbstractType
             ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateGroupUpdateData::class,

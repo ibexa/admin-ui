@@ -55,7 +55,7 @@ class TrashSearchType extends AbstractType
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('page', HiddenType::class)
@@ -97,11 +97,9 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TrashSearchData::class,

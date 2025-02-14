@@ -20,15 +20,12 @@ class SectionUpdateType extends AbstractType
     /** @var SectionType */
     protected $sectionType;
 
-    /**
-     * @param SectionType $sectionType
-     */
     public function __construct(SectionType $sectionType)
     {
         $this->sectionType = $sectionType;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $this->sectionType->buildForm($builder, $options);
 
@@ -43,7 +40,7 @@ class SectionUpdateType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $this->sectionType->configureOptions($resolver);
 

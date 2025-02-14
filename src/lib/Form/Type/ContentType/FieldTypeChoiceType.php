@@ -40,7 +40,7 @@ class FieldTypeChoiceType extends AbstractType
         return 'ezplatform_content_forms_contenttype_field_type_choice';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => $this->getFieldTypeChoices(),

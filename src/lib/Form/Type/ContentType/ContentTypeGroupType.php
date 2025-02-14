@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeGroupType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('identifier', TextType::class, ['label' => /** @Desc("Name") */ 'content_type.group.identifier'])
@@ -33,7 +33,7 @@ class ContentTypeGroupType extends AbstractType
         return 'content_type_group_edit';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroupStruct',

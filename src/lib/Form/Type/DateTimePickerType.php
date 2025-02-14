@@ -23,7 +23,7 @@ class DateTimePickerType extends AbstractType
         return IntegerType::class;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->addModelTransformer(new DateTimePickerTransformer());
@@ -34,7 +34,7 @@ class DateTimePickerType extends AbstractType
         $view->vars['attr']['data-seconds'] = (int) $options['with_seconds'];
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefault('with_seconds', true)

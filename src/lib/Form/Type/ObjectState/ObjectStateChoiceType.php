@@ -19,9 +19,6 @@ class ObjectStateChoiceType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
     protected $objectStateService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     */
     public function __construct(ObjectStateService $objectStateService)
     {
         $this->objectStateService = $objectStateService;
@@ -32,7 +29,7 @@ class ObjectStateChoiceType extends AbstractType
         return ChoiceType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

@@ -40,7 +40,7 @@ class ContentTypeCreateType extends AbstractType
         return 'ezplatform_content_forms_contenttype_create';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -48,7 +48,7 @@ class ContentTypeCreateType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('contentTypeGroupId', HiddenType::class, [

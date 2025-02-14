@@ -21,15 +21,12 @@ class SectionType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\SectionService */
     protected $sectionService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     */
     public function __construct(SectionService $sectionService)
     {
         $this->sectionService = $sectionService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(
             $options['multiple']
@@ -38,7 +35,7 @@ class SectionType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('multiple', false);
         $resolver->setRequired(['multiple']);

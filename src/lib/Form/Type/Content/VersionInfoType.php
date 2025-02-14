@@ -19,15 +19,12 @@ class VersionInfoType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
     public function __construct(ContentService $contentService)
     {
         $this->contentService = $contentService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(

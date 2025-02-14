@@ -19,25 +19,16 @@ class ContentType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
     protected $contentService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
     public function __construct(ContentService $contentService)
     {
         $this->contentService = $contentService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new ContentTransformer($this->contentService));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParent(): ?string
     {
         return HiddenType::class;

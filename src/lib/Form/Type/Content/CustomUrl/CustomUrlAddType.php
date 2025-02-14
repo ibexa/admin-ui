@@ -62,11 +62,7 @@ class CustomUrlAddType extends AbstractType
         $this->siteAccessNameGenerator = $siteAccessNameGenerator;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $location = $options['data']->getLocation();
 

@@ -25,15 +25,12 @@ class UserEditType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
     protected $languageService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
     public function __construct(LanguageService $languageService)
     {
         $this->languageService = $languageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -63,7 +60,7 @@ class UserEditType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

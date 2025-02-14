@@ -22,15 +22,12 @@ class ContentMainLocationUpdateType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\LocationService */
     protected $locationService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(LocationService $locationService)
     {
         $this->locationService = $locationService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -56,7 +53,7 @@ class ContentMainLocationUpdateType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ContentMainLocationUpdateData::class,

@@ -48,13 +48,6 @@ class TranslationAddType extends AbstractType
     /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $langaugeService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
-     */
     public function __construct(
         LanguageService $langaugeService,
         ContentService $contentService,
@@ -69,7 +62,7 @@ class TranslationAddType extends AbstractType
         $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -88,7 +81,7 @@ class TranslationAddType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TranslationAddData::class,
@@ -98,8 +91,6 @@ class TranslationAddType extends AbstractType
 
     /**
      * Adds language fields and populates options list based on default form data.
-     *
-     * @param \Symfony\Component\Form\FormEvent $event
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -126,8 +117,6 @@ class TranslationAddType extends AbstractType
 
     /**
      * Adds language fields and populates options list based on submitted form data.
-     *
-     * @param \Symfony\Component\Form\FormEvent $event
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -178,10 +167,7 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields to the $form. Language options are composed based on content language.
      *
-     * @param \Symfony\Component\Form\FormInterface $form
      * @param string[] $contentLanguages
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException

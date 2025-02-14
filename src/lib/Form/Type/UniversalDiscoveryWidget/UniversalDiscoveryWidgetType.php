@@ -22,7 +22,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
     public const TAB_BROWSE = 'browse';
     public const TAB_SEARCH = 'search';
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('location', LocationType::class, [
@@ -64,7 +64,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
         $selectContentButtonView->vars['attr']['class'] = trim($selectContentButtonView->vars['attr']['class'] . ' ibexa-btn--open-udw');
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -88,9 +88,6 @@ class UniversalDiscoveryWidgetType extends AbstractType
         return 'ezsystems_ezplatform_type_udw';
     }
 
-    /**
-     * @return \Symfony\Component\Form\DataTransformerInterface
-     */
     private function getDataTransformer(): DataTransformerInterface
     {
         return new CallbackTransformer(

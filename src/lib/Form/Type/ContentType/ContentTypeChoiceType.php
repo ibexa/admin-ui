@@ -25,10 +25,6 @@ class ContentTypeChoiceType extends AbstractType
     /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
     private $contentTypeChoiceLoader;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
-     */
     public function __construct(
         ContentTypeService $contentTypeService,
         ContentTypeChoiceLoader $contentTypeChoiceLoader
@@ -42,7 +38,7 @@ class ContentTypeChoiceType extends AbstractType
         return ChoiceType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

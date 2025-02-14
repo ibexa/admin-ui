@@ -19,15 +19,12 @@ class UserCollectionType extends AbstractType
     /** @var \Ibexa\Contracts\Core\Repository\UserService */
     protected $userService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new UserCollectionTransformer($this->userService));
     }

@@ -13,9 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Form type for ContentType update.
- */
 class DateTimeIntervalType extends AbstractType
 {
     public function getParent(): ?string
@@ -33,10 +30,7 @@ class DateTimeIntervalType extends AbstractType
         return 'datetimeinterval';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->addViewTransformer(new DateIntervalToArrayTransformer())
