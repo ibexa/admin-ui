@@ -118,7 +118,7 @@ class TrashController extends Controller
 
         $searchForm->handleRequest($request);
 
-        $requestedPage = $request->query->get($searchFormName)['page'] ?? null;
+        $requestedPage = $request->query->all($searchFormName)['page'] ?? null;
         $page = empty($requestedPage) ? 1 : (int)$requestedPage;
         $trashItemsList = [];
 

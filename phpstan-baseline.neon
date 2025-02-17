@@ -761,21 +761,6 @@ parameters:
 			path: src/bundle/Controller/TranslationController.php
 
 		-
-			message: "#^Offset 'page' on string\\|null on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: src/bundle/Controller/TrashController.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\<string\\>\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/TrashController.php
-
-		-
-			message: "#^Variable \\$requestedPage in empty\\(\\) always exists and is always falsy\\.$#"
-			count: 1
-			path: src/bundle/Controller/TrashController.php
-
-		-
 			message: "#^Argument of an invalid type array\\<bool\\>\\|null supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/bundle/Controller/URLWildcardController.php
