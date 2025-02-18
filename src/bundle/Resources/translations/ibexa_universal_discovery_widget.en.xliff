@@ -411,6 +411,11 @@
         <target state="new">Select Location to swap with</target>
         <note>key: swap.title</note>
       </trans-unit>
+      <trans-unit id="03cbaa7ecd3e035072635bdac4fda304a14129ae" resname="table.empty_table_body_row.info_text.default">
+        <source>Table is empty</source>
+        <target state="new">Table is empty</target>
+        <note>key: table.empty_table_body_row.info_text.default</note>
+      </trans-unit>
       <trans-unit id="75247b44eb33fe5c35d9b5d8770bd76a15be7747" resname="view_switcher.view">
         <source>View</source>
         <target state="new">View</target>
