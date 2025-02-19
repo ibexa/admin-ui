@@ -7,7 +7,6 @@ export const SelectedSectionContext = createContext();
 export const SelectedSubtreeContext = createContext();
 export const SelectedSubtreeBreadcrumbsContext = createContext();
 
-import Icon from '../../../common/icon/icon';
 import Spinner from '../../../common/spinner/spinner';
 import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
