@@ -240,9 +240,9 @@ class ContentUpdateItemPage extends Page
 
     public function switchToFieldGroup(string $tabName): void
     {
-        for ($attempt = 0; $attempt < 2; ++$attempt) {
+        for ($attempt = 0; $attempt < 3; ++$attempt) {
             try {
-                $this->getHTMLPage()->setTimeout(3)
+                $this->getHTMLPage()->setTimeout(5)
                     ->findAll($this->getLocator('navigationTabs'))
                     ->getByCriterion(new ElementTextCriterion($tabName))
                     ->click();
