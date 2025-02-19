@@ -7,6 +7,8 @@ const controlZIndex = (container) => {
     container.addEventListener('hide.bs.modal', () => {
         container.style.zIndex = initialZIndex;
     });
+
+    document.body.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-attached'));
 };
 
 export { controlZIndex };
