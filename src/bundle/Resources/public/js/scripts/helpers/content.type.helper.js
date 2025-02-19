@@ -27,6 +27,14 @@ const createContentTypeDataMapByHref = () =>
         return contentTypeDataMapByHref;
     }, {});
 
+const getContentTypeDataMapByHref = () => {
+    if (!contentTypesDataMapByHref) {
+        contentTypesDataMapByHref = createContentTypeDataMapByHref();
+    }
+
+    return contentTypesDataMapByHref;
+};
+
 /**
  * Returns an URL to a content type icon
  *
@@ -111,6 +119,7 @@ const getContentTypeDataByHref = (contentTypeHref) => {
 
 export {
     createContentTypeDataMapByHref,
+    getContentTypeDataMapByHref,
     getContentTypeIconUrl,
     getContentTypeName,
     getContentTypeData,
