@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 
 export const ADD_SELECTED_ITEMS = 'ADD_SELECTED_ITEMS';
+export const UPDATE_SELECTED_ITEMS = 'UPDATE_SELECTED_ITEMS';
 export const REMOVE_SELECTED_ITEMS = 'REMOVE_SELECTED_ITEMS';
 export const TOGGLE_SELECTED_ITEMS = 'TOGGLE_SELECTED_ITEMS';
 export const CLEAR_SELECTED_ITEMS = 'CLEAR_SELECTED_ITEMS';
@@ -31,8 +32,29 @@ const selectedItemsReducer = (state, action) => {
                 items: newItems,
             };
         }
+        case UPDATE_SELECTED_ITEMS: {
+            const updatedSelectedItems = [...items];
+
+            for (const updatedItem of action.items) {
+                const updatedItemIndex = updatedSelectedItems.findIndex(
+                    (selectedItem) => selectedItem.type === updatedItem.type && selectedItem.id === updatedItem.id,
+                );
+
+                if (updatedItemIndex > -1) {
+                    updatedSelectedItems[updatedItemIndex] = updatedItem;
+                }
+            }
+
+            return {
+                ...state,
+                items: updatedSelectedItems,
+            };
+        }
         case REMOVE_SELECTED_ITEMS:
-            return filterOutSelectedItems(action.itemsIdsWithTypes, items);
+            return {
+                ...state,
+                items: filterOutSelectedItems(action.itemsIdsWithTypes, items),
+            };
         case TOGGLE_SELECTED_ITEMS: {
             const oldItemsWithoutDeselectedItems = filterOutSelectedItems(action.items, items);
             const newItemsWithoutDeselectedItems = filterOutSelectedItems(items, action.items);

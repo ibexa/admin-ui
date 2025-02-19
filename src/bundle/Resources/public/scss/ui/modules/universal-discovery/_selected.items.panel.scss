@@ -1,3 +1,5 @@
 .c-selected-items-panel {
     @include c-selected-items-panel;
+
+    width: calculateRem(400px);
 }
