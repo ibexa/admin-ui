@@ -255,7 +255,7 @@
         .ibexa-table__head-row {
             .ibexa-table__cell:last-of-type,
             .ibexa-table__header-cell:last-of-type {
-                position: sticky;
+                // position: sticky;
                 right: calculateRem(-1px);
             }
         }

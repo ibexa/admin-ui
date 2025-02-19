@@ -110,6 +110,11 @@
                             </div>
                         {% endif %}
                     {% endblock %}
+                    {% block loader %}
+                        <div class="ibexa-modal__spinner-container">
+                            <div class="ibexa-modal__spinner"></div>
+                        </div>
+                    {% endblock %}
                 </div>
             {% endblock %}
             {% block content_after %}{% endblock %}
