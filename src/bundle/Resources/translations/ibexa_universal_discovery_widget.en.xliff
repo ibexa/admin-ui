@@ -301,6 +301,31 @@
         <target state="new">Cannot find children Locations with ID %idList%</target>
         <note>key: select_location.error</note>
       </trans-unit>
+      <trans-unit id="9683e003c6df3c0b3e5e3d7a67f44cd0d1564b27" resname="selected_items.collapse.sidebar">
+        <source>Collapse sidebar</source>
+        <target state="new">Collapse sidebar</target>
+        <note>key: selected_items.collapse.sidebar</note>
+      </trans-unit>
+      <trans-unit id="31f604a099c6795044ad9fe5eeb9ae5ed53b317c" resname="selected_items.deselect_all">
+        <source>{1}Deselect|[2,Inf]Deselect all</source>
+        <target state="new">{1}Deselect|[2,Inf]Deselect all</target>
+        <note>key: selected_items.deselect_all</note>
+      </trans-unit>
+      <trans-unit id="968df1cecdd3962e13a6f1f8a4469a5de1fd63ce" resname="selected_items.expand.sidebar">
+        <source>Expand sidebar</source>
+        <target state="new">Expand sidebar</target>
+        <note>key: selected_items.expand.sidebar</note>
+      </trans-unit>
+      <trans-unit id="14f4788ed456f8eeabd0beccc78f1026671790c8" resname="selected_items.selection_info">
+        <source>{1}%count% selected item|[2,Inf]%count% selected items</source>
+        <target state="new">{1}%count% selected item|[2,Inf]%count% selected items</target>
+        <note>key: selected_items.selection_info</note>
+      </trans-unit>
+      <trans-unit id="78dacf26451435b61bf654b180ceed82022a2c3c" resname="selected_items_panel.item.remove_item">
+        <source>Clear selection</source>
+        <target state="new">Clear selection</target>
+        <note>key: selected_items_panel.item.remove_item</note>
+      </trans-unit>
       <trans-unit id="f57171aaa260d58b75c085d5606779e75a97751f" resname="selected_locations.clear_selection">
         <source>Clear selection</source>
         <target state="new">Clear selection</target>
