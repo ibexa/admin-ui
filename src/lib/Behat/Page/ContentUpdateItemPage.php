@@ -16,6 +16,7 @@ use Ibexa\Behat\API\Facade\ContentFacade;
 use Ibexa\Behat\Browser\Element\Condition\ElementHasTextCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
+use Ibexa\Behat\Browser\Exception\TimeoutException;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -239,13 +240,28 @@ class ContentUpdateItemPage extends Page
 
     public function switchToFieldGroup(string $tabName): void
     {
-        $this->getHTMLPage()->setTimeout(3)
-            ->findAll($this->getLocator('navigationTabs'))
-            ->getByCriterion(new ElementTextCriterion($tabName))
-            ->click();
-        $this->getHTMLPage()
-            ->setTimeout(10)
-            ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'), $tabName));
+        for ($attempt = 0; $attempt < 3; ++$attempt) {
+            try {
+                $this->getHTMLPage()->setTimeout(5)
+                    ->findAll($this->getLocator('navigationTabs'))
+                    ->getByCriterion(new ElementTextCriterion($tabName))
+                    ->mouseOver();
+                $this->getHTMLPage()->setTimeout(3)
+                    ->findAll($this->getLocator('navigationTabs'))
+                    ->getByCriterion(new ElementTextCriterion($tabName))
+                    ->click();
+                $this->getHTMLPage()
+                    ->setTimeout(10)
+                    ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'), $tabName));
+
+                return;
+            } catch (TimeoutException $e) {
+                // Retry on failure
+            }
+        }
+        throw new TimeoutException(
+            sprintf("The expected text %s matching CSS locator 'activeSection': '.ibexa-anchor-navigation-menu__sections-item-btn--active' was not found.", $tabName)
+        );
     }
 
     public function switchToFieldTab(string $tabName): void
