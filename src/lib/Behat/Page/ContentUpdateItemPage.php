@@ -245,6 +245,10 @@ class ContentUpdateItemPage extends Page
                 $this->getHTMLPage()->setTimeout(5)
                     ->findAll($this->getLocator('navigationTabs'))
                     ->getByCriterion(new ElementTextCriterion($tabName))
+                    ->mouseOver();
+                $this->getHTMLPage()->setTimeout(3)
+                    ->findAll($this->getLocator('navigationTabs'))
+                    ->getByCriterion(new ElementTextCriterion($tabName))
                     ->click();
                 $this->getHTMLPage()
                     ->setTimeout(10)
