@@ -322,8 +322,8 @@
         <note>key: content_type.view.edit.content_field_definitions</note>
       </trans-unit>
       <trans-unit id="74aead78c735bbbce032dc9b00f9ca7a3632f166" resname="content_type.view.edit.default_header">
-        <source>New field type</source>
-        <target state="new">New field type</target>
+        <source>New {{ name }} ({{ type }})</source>
+        <target state="new">New {{ name }} ({{ type }})</target>
         <note>key: content_type.view.edit.default_header</note>
       </trans-unit>
       <trans-unit id="a32a5e3d2d67da43b4c5f0f5574c90520868b36a" resname="content_type.view.edit.global_properties">
