@@ -7,7 +7,7 @@
     {% set max_file_size = min(form.parent.vars.value.fieldDefinition.validatorConfiguration.FileSizeValidator.maxFileSize * 1024 * 1024, max_upload_size|round) %}
 
     {% if mime_types is defined %}
-        {% set attr = attr|merge({'data-allowed-file-types': mime_types|join(',') }) %}
+        {% set attr = attr|merge({'data-allowed-file-types': mime_types|join(','), 'accept': mime_types|join(',') }) %}
     {% else %}
         {% set attr = attr|merge({'accept': 'image/*' }) %}
     {% endif %}
