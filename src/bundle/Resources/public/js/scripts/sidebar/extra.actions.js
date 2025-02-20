@@ -1,3 +1,5 @@
+import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/object.instances';
+
 (function (global, doc, ibexa) {
     const CLASS_HIDDEN = 'ibexa-extra-actions--hidden';
     const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
@@ -8,6 +10,50 @@
     const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
     const backdrop = new ibexa.core.Backdrop();
+    const formsInitialData = new Map();
+    const saveInitialFormData = (extraActionsContainer) => {
+        const extraActionsInputs = extraActionsContainer.querySelectorAll('input, select');
+
+        extraActionsInputs.forEach((node) => {
+            const value = node.type === 'radio' || node.type === 'checkbox' ? node.checked : node.value;
+
+            formsInitialData.set(node, value);
+        });
+    };
+    const restoreInitialFormData = (extraActionsContainer) => {
+        if (formsInitialData.size === 0) {
+            return;
+        }
+
+        const extraActionsInputs = extraActionsContainer.querySelectorAll('input, select');
+
+        extraActionsInputs.forEach((node) => {
+            const value = formsInitialData.get(node);
+            let prevValue = node.value;
+
+            if (node.type === 'radio' || node.type === 'checkbox') {
+                prevValue = node.checked;
+
+                node.checked = value;
+            } else if (node.tagName === 'SELECT') {
+                const dropdownContainer = node.closest('.ibexa-dropdown');
+
+                if (dropdownContainer) {
+                    const dropdownInstance = getInstance(dropdownContainer);
+
+                    dropdownInstance.selectOption(value);
+                } else {
+                    node.value = value;
+                }
+            } else {
+                node.value = value;
+            }
+
+            if (value !== prevValue) {
+                node.dispatchEvent(new CustomEvent('change'));
+            }
+        });
+    };
     const haveHiddenPart = (element) => element.classList.contains(CLASS_HIDDEN) && !element.classList.contains(CLASS_PREVENT_SHOW);
     const removeBackdrop = () => {
         backdrop.hide();
@@ -23,6 +69,7 @@
         doc.body.dispatchEvent(new CustomEvent('ibexa-extra-actions:after-close'));
 
         removeBackdrop();
+        restoreInitialFormData(actions);
     };
     const toggleExtraActionsWidget = (widgetData) => {
         const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${widgetData.actions}"]`);
@@ -50,9 +97,11 @@
             backdrop.show();
             doc.body.addEventListener('click', detectClickOutside, false);
             doc.body.classList.add('ibexa-scroll-disabled');
+            saveInitialFormData(actions);
         } else {
             doc.body.removeEventListener('click', detectClickOutside);
             removeBackdrop();
+            restoreInitialFormData(actions);
         }
 
         if (focusElement) {
