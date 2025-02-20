@@ -3,11 +3,12 @@ import { getBootstrap } from './context.helper';
 
 const { document: doc } = window;
 
-let lastInsertTooltipTarget = null;
 const TOOLTIPS_SELECTOR = '[title], [data-tooltip-title]';
 const observerConfig = {
     childList: true,
     subtree: true,
+    attributes: true,
+    attributeFilter: ['title', 'data-tooltip-title', 'data-tooltip-extra-class', 'data-tooltip-manual-reparsing'],
 };
 const resizeEllipsisObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
@@ -15,30 +16,31 @@ const resizeEllipsisObserver = new ResizeObserver((entries) => {
     });
 });
 const observer = new MutationObserver((mutationsList) => {
-    if (lastInsertTooltipTarget) {
-        mutationsList.forEach((mutation) => {
-            const { addedNodes, removedNodes } = mutation;
+    mutationsList.forEach((mutation) => {
+        const { type, target, addedNodes, removedNodes } = mutation;
 
-            if (addedNodes.length) {
-                addedNodes.forEach((addedNode) => {
-                    if (addedNode instanceof Element) {
-                        parse(addedNode);
-                    }
-                });
+        if (type === 'attributes') {
+            const tooltipManualReparsing = target.dataset.tooltipManualReparsing || false;
+
+            if (!tooltipManualReparsing) {
+                parse(target.parentElement);
             }
+        }
 
-            if (removedNodes.length) {
-                removedNodes.forEach((removedNode) => {
-                    if (removedNode.classList && !removedNode.classList.contains('ibexa-tooltip')) {
-                        lastInsertTooltipTarget = null;
-                        doc.querySelectorAll('.ibexa-tooltip.show').forEach((tooltipNode) => {
-                            tooltipNode.remove();
-                        });
-                    }
+        addedNodes.forEach((addedNode) => {
+            if (addedNode instanceof Element && !addedNode?.classList.contains('ibexa-tooltip')) {
+                parse(addedNode);
+            }
+        });
+
+        removedNodes.forEach((removedNode) => {
+            if (removedNode.classList && !removedNode.classList.contains('ibexa-tooltip')) {
+                removedNode.querySelectorAll('.ibexa-tooltip.show').forEach((tooltipNode) => {
+                    tooltipNode.remove();
                 });
             }
         });
-    }
+    });
 });
 const modifyPopperConfig = (iframe, defaultBsPopperConfig) => {
     if (!iframe) {
@@ -146,10 +148,6 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
                    </div>`,
     });
 
-    tooltipNode.addEventListener('inserted.bs.tooltip', (event) => {
-        lastInsertTooltipTarget = event.currentTarget;
-    });
-
     if (isSafari()) {
         if (tooltipNode.children) {
             const childWithTitle = [...tooltipNode.children].find((child) => title === child.textContent);
@@ -169,6 +167,7 @@ const parse = (baseElement = doc) => {
     if (!baseElement) {
         return;
     }
+
     const bootstrap = getBootstrap();
     const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
