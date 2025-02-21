@@ -259,7 +259,8 @@
 {%- block date_time_picker_widget -%}
     <div class="ibexa-picker">
         {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
-            input_attr: { class: 'ibexa-picker__input' }
+            input_attr: { class: 'ibexa-picker__input' },
+            is_disabled: attr.disabled|default(false),
         } %}
         {% set attr = attr|merge({ 'hidden': true, 'class': 'ibexa-picker__form-input' }) %}
         {{ block('form_widget') }}
