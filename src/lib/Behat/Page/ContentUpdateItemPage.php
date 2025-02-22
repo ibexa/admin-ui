@@ -240,18 +240,18 @@ class ContentUpdateItemPage extends Page
 
     public function switchToFieldGroup(string $tabName): void
     {
-        for ($attempt = 0; $attempt < 3; ++$attempt) {
+        for ($attempt = 0; $attempt < 5; ++$attempt) {
             try {
-                $this->getHTMLPage()->setTimeout(5)
+                $this->getHTMLPage()->setTimeout(10)
                     ->findAll($this->getLocator('navigationTabs'))
                     ->getByCriterion(new ElementTextCriterion($tabName))
                     ->mouseOver();
-                $this->getHTMLPage()->setTimeout(5)
+                $this->getHTMLPage()->setTimeout(10)
                     ->findAll($this->getLocator('navigationTabs'))
                     ->getByCriterion(new ElementTextCriterion($tabName))
                     ->click();
                 $this->getHTMLPage()
-                    ->setTimeout(10)
+                    ->setTimeout(20)
                     ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-anchor-navigation-menu__sections-item-btn--active'), $tabName));
 
                 return;
