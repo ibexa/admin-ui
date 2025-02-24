@@ -20,7 +20,7 @@ const observer = new MutationObserver((mutationsList) => {
         const { type, target, addedNodes, removedNodes } = mutation;
 
         if (type === 'attributes') {
-            const tooltipManualReparsing = target.dataset.tooltipManualReparsing || false;
+            const { tooltipManualReparsing } = target.dataset;
 
             if (!tooltipManualReparsing) {
                 parse(target.parentElement);
