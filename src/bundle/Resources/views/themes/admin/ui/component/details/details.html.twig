@@ -40,13 +40,46 @@
                         (is_field_empty ? ' ibexa-details__item--hidden') }}"
                     >
                         <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
-                        <div class="ibexa-details__item-content">
-                            {% if item.content_raw is defined %}
-                                {{ item.content_raw|raw }}
-                            {% elseif item.content == 'undefined' %}
-                                -
-                            {% else %}
-                                {{ item.content }}
+                        <div class="ibexa-details__item-content-wrapper">
+                            <div class="
+                                ibexa-details__item-content
+                                {{ item.is_ellipsized|default(false) ? 'ibexa-details__item-content--ellipsized' }}"
+                            >
+                                {% if item.content_raw is defined %}
+                                    {{ item.content_raw|raw }}
+                                {% elseif item.content == 'undefined' %}
+                                    -
+                                {% else %}
+                                    {{ item.content }}
+                                {% endif %}
+                            </div>
+                            {% if item.is_ellipsized|default(false) %}
+                                <div class="ibexa-details__item-content-actions">
+                                    <button
+                                        type="button"
+                                        class="
+                                            btn ibexa-btn ibexa-btn--small ibexa-btn--ghost
+                                            ibexa-details__show-more-btn ibexa-details__show-more-btn--hidden"
+                                    >
+                                        <span class="ibexa-btn__label ibexa-details__show-more-label">
+                                            {{ 'details.show_more.label'|trans()|desc('Show more') }}
+                                        </span>
+                                        <span
+                                            class="
+                                                ibexa-btn__label
+                                                ibexa-details__show-less-label ibexa-details__show-less-label--hidden"
+                                        >
+                                            {{ 'details.show_less.label'|trans()|desc('Show less') }}
+                                        </span>
+                                        <svg
+                                            class="
+                                                ibexa-icon ibexa-icon--tiny-small
+                                                ibexa-details__show-more-btn-icon"
+                                        >
+                                            <use xlink:href="{{ ibexa_icon_path('arrow-down') }}"></use>
+                                        </svg>
+                                    </button>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
