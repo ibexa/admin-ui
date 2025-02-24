@@ -75,7 +75,7 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
         /** @var bool $location */
         $canDelete = $this->permissionResolver->hasAccess('content', 'cleantrash');
         /** @var int $trashItemsCount */
-        $trashItemsCount = $this->trashService->findTrashItems(new Query())->count;
+        $trashItemsCount = $this->trashService->findTrashItems(new Query())->totalCount;
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
