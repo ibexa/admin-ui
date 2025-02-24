@@ -31,6 +31,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/button.prevent.default.js'),
     path.resolve(__dirname, '../public/js/scripts/toggle.button.state.toggle.js'),
     path.resolve(__dirname, '../public/js/scripts/split.btns.js'),
+    path.resolve(__dirname, '../public/js/scripts/details.js'),
     path.resolve(__dirname, '../public/js/scripts/udw/browse.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.multilevel.popup.menu.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.user.menu.js'),
