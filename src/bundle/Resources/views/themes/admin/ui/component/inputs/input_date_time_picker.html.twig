@@ -1,6 +1,7 @@
 
 {% set is_small = is_small|default(false) %}
 {% set is_datetime_popup_inline = is_datetime_popup_inline|default(false) %}
+{% set is_disabled = is_disabled|default(false) %}
 
 {% set wrapper_attr = wrapper_attr|default({})|merge({
     class: (wrapper_attr.class|default('')
@@ -17,6 +18,7 @@
     readonly: 'readonly',
     type: 'text',
     placeholder: input_attr.placeholder|default(' '),
+    disabled: is_disabled,
 }) %}
 
 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
@@ -30,6 +32,7 @@
         <button
             type="button"
             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--calendar"
+            {{ is_disabled ? 'disabled' }}
         >
             <svg class="ibexa-icon ibexa-icon--small">
                 <use xlink:href="{{ ibexa_icon_path('date') }}"></use>

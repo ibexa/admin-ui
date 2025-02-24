@@ -4,6 +4,7 @@
 {% set is_password_input = is_password_input|default(is_password_type) %}
 {% set has_search = has_search|default(false) %}
 {% set is_multiline = is_multiline|default(false) %}
+{% set is_disabled = is_disabled|default(false) %}
 {% set extra_btn = extra_btn|default({})|merge({
     label: extra_btn.label|default(''),
     attr: extra_btn.attr|default({})|merge({
@@ -33,6 +34,7 @@
                 type="button" 
                 class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
                 tabindex="-1"
+                {{ is_disabled ? 'disabled' }}
                 {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
             >
                 <svg class="ibexa-icon ibexa-icon--tiny-small">
@@ -44,6 +46,7 @@
                     type="button"
                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
                     tabindex="5"
+                    {{ is_disabled ? 'disabled' }}
                 >
                     <svg class="ibexa-icon ibexa-icon--small ibexa-input-text-wrapper__password-show">
                         <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
@@ -53,7 +56,12 @@
                     </svg>
                 </button>
             {% elseif has_search %}
-                <button type="{{ search_button_type|default('submit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" tabindex="-1">
+                <button 
+                    type="{{ search_button_type|default('submit') }}" 
+                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search" 
+                    tabindex="-1" 
+                    {{ is_disabled ? 'disabled' }}
+                >
                     <svg class="ibexa-icon ibexa-icon--small">
                         <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
                     </svg>
