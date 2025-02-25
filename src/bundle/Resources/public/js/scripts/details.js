@@ -9,9 +9,8 @@
 
         showMoreLabel.classList.toggle('ibexa-details__show-more-label--hidden');
         showLessLabel.classList.toggle('ibexa-details__show-less-label--hidden');
-        showMoreIcon.classList.toggle('ibexa-details__show-more-btn-icon--opened')
+        showMoreIcon.classList.toggle('ibexa-details__show-more-btn-icon--opened');
         showMoreBtn.classList.toggle('ibexa-details__show-more-btn--opened');
-
     };
 
     showMoreBtns.forEach((showMoreBtn) => {
