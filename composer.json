@@ -93,8 +93,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "5.0.x-dev",
-            "dev-bump-symfony/deprecation-contracts": "5.0.x-dev"
+            "dev-main": "5.0.x-dev"
         }
     }
 }
