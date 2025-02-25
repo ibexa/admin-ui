@@ -1,13 +1,11 @@
 {% extends '@ibexadesign/limitation/limitation_values.html.twig' %}
 
 {% block ez_limitation_subtree_value %}
-    {% apply spaceless %}
-        {% for path in values %}
-            {% for value in path %}
-                <a href="{{ path('ibexa.content.view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
-                {% if not loop.last %} / {% endif %}
-            {% endfor %}
-            {% if not loop.last %}, {% endif %}
+    {% for path in values %}
+        {% for value in path %}
+            <a href="{{ path('ibexa.content.view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
+            {% if not loop.last %} / {% endif %}
         {% endfor %}
-    {% endapply %}
+        {% if not loop.last %}, {% endif %}
+    {% endfor %}
 {% endblock %}
