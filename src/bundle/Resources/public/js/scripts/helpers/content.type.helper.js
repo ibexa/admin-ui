@@ -38,7 +38,7 @@ const getContentTypeDataMapByHref = () => {
 /**
  * Returns an URL to a content type icon
  *
- * @function getContentTypeIcon
+ * @function getContentTypeIconUrl
  * @param {String} contentTypeIdentifier
  * @returns {String|null} url to icon
  */
