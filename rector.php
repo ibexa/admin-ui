@@ -6,19 +6,11 @@
  */
 declare(strict_types=1);
 
-use Ibexa\Contracts\Rector\Sets\IbexaSetList;
-use Rector\Config\RectorConfig;
-use Rector\Symfony\Set\SymfonySetList;
+use Ibexa\Contracts\Rector\Factory\IbexaRectorConfigFactory;
 
-return RectorConfig::configure()
-    ->withPaths([
+return (new IbexaRectorConfigFactory(
+    [
         __DIR__ . '/src',
         __DIR__ . '/tests',
-    ])
-    ->withSets([
-        IbexaSetList::IBEXA_50->value,
-        SymfonySetList::SYMFONY_61,
-        SymfonySetList::SYMFONY_62,
-        SymfonySetList::SYMFONY_63,
-        SymfonySetList::SYMFONY_64,
-    ]);
+    ]
+))->createConfig();
