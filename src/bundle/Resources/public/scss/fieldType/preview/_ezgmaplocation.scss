@@ -7,6 +7,7 @@
             width: calculateRem(520px);
             height: calculateRem(320px);
             margin-right: calculateRem(32px);
+            z-index: 1;
         }
 
         &__map-meta-wrapper {
