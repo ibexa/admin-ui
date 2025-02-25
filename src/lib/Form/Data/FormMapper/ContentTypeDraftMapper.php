@@ -76,7 +76,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         $contentTypeData->remoteId = $contentTypeDraft->remoteId;
         $contentTypeData->urlAliasSchema = $contentTypeDraft->urlAliasSchema;
         $contentTypeData->nameSchema = $contentTypeDraft->nameSchema;
-        $contentTypeData->isContainer = $contentTypeDraft->isContainer;
+        $contentTypeData->isContainer = $contentTypeDraft->isContainer();
         $contentTypeData->mainLanguageCode = $contentTypeDraft->mainLanguageCode;
         $contentTypeData->defaultSortField = $contentTypeDraft->defaultSortField;
         $contentTypeData->defaultSortOrder = $contentTypeDraft->defaultSortOrder;

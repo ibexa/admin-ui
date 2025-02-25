@@ -125,7 +125,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $startingLocationId = $this->udwConfigResolver->getConfig('default')['starting_location_id'];
 
         $lookupLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
-        $canCreate = $lookupLimitationsResult->hasAccess && $contentType->isContainer;
+        $canCreate = $lookupLimitationsResult->hasAccess && $contentType->isContainer();
         $uwdConfig = $this->udwExtension->renderUniversalDiscoveryWidgetConfig('single_container');
         $canEdit = $this->permissionResolver->canUser(
             'content',

@@ -121,7 +121,7 @@ final class ContentTypeDraftMapperTest extends TestCase
 
     private function createContentTypeDraft(ContentType $contentType): ContentTypeDraft
     {
-        return new ContentTypeDraft(['innerContentType' => $contentType]);
+        return new ContentTypeDraft(['innerContentType' => $contentType, 'isContainer' => false]);
     }
 
     private function createFieldDefinitionCollectionForFieldDefinitionsData(): FieldDefinitionCollectionInterface
@@ -254,7 +254,7 @@ final class ContentTypeDraftMapperTest extends TestCase
             'remoteId' => $contentTypeDraft->remoteId,
             'urlAliasSchema' => $contentTypeDraft->urlAliasSchema,
             'nameSchema' => $contentTypeDraft->nameSchema,
-            'isContainer' => $contentTypeDraft->isContainer,
+            'isContainer' => $contentTypeDraft->isContainer(),
             'mainLanguageCode' => $contentTypeDraft->mainLanguageCode,
             'defaultSortField' => $contentTypeDraft->defaultSortField,
             'defaultSortOrder' => $contentTypeDraft->defaultSortOrder,
