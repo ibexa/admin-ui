@@ -1,29 +1,21 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
-{% macro icon(item) %}
-    <svg class="ibexa-icon ibexa-icon--small">
-        <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
-    </svg>
-{% endmacro %}
-
-{% set classes = "btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-0" %}
 {% for action in item.children %}
-    {% if action.uri != null %}
-        <a
-            class="{{ classes }}"
-            href="{{ action.uri }}"
-            title="{{ action.label }}"
-            {{ html.attributes(action.attributes) }}
-        >
-            {{ _self.icon(action) }}
-        </a>
+    {% set element = action.uri ? 'a' : 'button' %}
+    {% set attr = {
+        class: "btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text",
+        title: action.label,
+    }|merge(action.attributes) %}
+
+    {% if action.uri %}
+        {% set attr = attr|merge({ href: action.uri })%}
     {% else %}
-        <button
-            class="{{ classes }}"
-            title="{{ action.label }}"
-            {{ html.attributes(action.attributes) }}
-        >
-            {{ _self.icon(action) }}
-        </button>
+        {% set attr = attr|merge({ type: 'button' })%}
     {% endif %}
+
+    <{{ element }} {{ html.attributes(attr) }}>
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
+        </svg>
+    </{{ element }}>
 {% endfor %}
