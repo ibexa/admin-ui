@@ -16,11 +16,6 @@
         <target state="new">Drafts</target>
         <note>key: drafts.list</note>
       </trans-unit>
-      <trans-unit id="7a00fa1045089ab6b05a30314644f3f53477ecbf" resname="drafts.list.action.edit">
-        <source>Edit</source>
-        <target state="new">Edit</target>
-        <note>key: drafts.list.action.edit</note>
-      </trans-unit>
       <trans-unit id="887b9056de68ebd1c33c43af14093c2cafb38c5d" resname="drafts.list.action.remove">
         <source>Remove</source>
         <target state="new">Remove</target>
