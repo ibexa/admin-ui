@@ -78,6 +78,7 @@ const Popup = ({
     });
     const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
     const hidePopup = () => {
+        latestBootstrapModal.current.hide();
         rootDOMElement.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
     };
     const showPopup = () => {
