@@ -1,42 +1,51 @@
-const controlZIndex = (container, listenerContainer, resetedZIndex = 'initial') => {
+const controlZIndex = (container) => {
     const initialZIndex = container.style.zIndex;
-    const finalListenerContainer = listenerContainer ?? container;
-    const handleShowModal = () => {
-        container.style.zIndex = resetedZIndex;
-    };
-    const handleCloseModal = () => {
+
+    container.addEventListener('show.bs.modal', () => {
+        container.style.zIndex = 'initial';
+    });
+    container.addEventListener('hide.bs.modal', () => {
         container.style.zIndex = initialZIndex;
-    };
-    const removeControlZIndexListeners = () => {
-        finalListenerContainer.removeEventListener('show.bs.modal', handleShowModal, false);
-        finalListenerContainer.removeEventListener('hidden.bs.modal', handleCloseModal, false);
-
-        document.body.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-detached'));
-    };
-
-    finalListenerContainer.addEventListener('show.bs.modal', handleShowModal, false);
-    finalListenerContainer.addEventListener('hidden.bs.modal', handleCloseModal, false);
+    });
 
     document.body.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-attached'));
-
-    return {
-        removeControlZIndexListeners,
-    };
 };
 
-const controlZIndexBulk = (items) => {
-    const storedControlZIndex = items.map((item) => {
-        return controlZIndex(...item);
-    });
+const betterControlZIndex = (containers, listenerContainer, resetedZIndex = 'initial') => {
+    const listenersAbortController = new AbortController();
+    const containersInitialZIndexes = new Map();
     const removeControlZIndexListeners = () => {
-        storedControlZIndex.forEach((item) => {
-            item.removeControlZIndexListeners();
+        listenersAbortController.abort();
+        listenerContainer.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-detached'));
+    }
+
+    containers.forEach((container) => {
+        containersInitialZIndexes.set(container, container.style.zIndex);
+    });
+
+    containers.forEach((container) => {
+        listenerContainer.addEventListener('show.bs.modal', () => {
+            container.style.zIndex = resetedZIndex;
         });
-    };
+    });
+
+    // listenerContainer.addEventListener('show.bs.modal', () => {
+    //     containers.forEach((container) => {
+    //         container.style.zIndex = resetedZIndex;
+    //     });
+    // }, { signal: listenersAbortController.signal });
+
+    listenerContainer.addEventListener('hidden.bs.modal', () => {
+        containers.forEach((container) => {
+            container.style.zIndex = containersInitialZIndexes.get(container);
+        });
+    }, { signal: listenersAbortController.signal });
+
+    listenerContainer.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-attached'));
 
     return {
         removeControlZIndexListeners,
-    };
-};
+    }
+}
 
-export { controlZIndex, controlZIndexBulk };
+export { controlZIndex, betterControlZIndex };
