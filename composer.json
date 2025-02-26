@@ -73,7 +73,7 @@
         "ibexa/notifications": "~5.0.x-dev",
         "ibexa/test-core": "~5.0.x-dev",
         "ibexa/test-rest": "~5.0.x-dev",
-        "ibexa/rector": "~5.0.x-dev",
+        "ibexa/rector": "dev-bump_phpstan",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "phpstan/phpstan": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
