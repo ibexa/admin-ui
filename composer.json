@@ -55,7 +55,8 @@
         "twig/intl-extra": "^3.0",
         "twig/string-extra": "^3.0",
         "twig/twig": "^3.0",
-        "willdurand/js-translation-bundle": "^6.1"
+        "willdurand/js-translation-bundle": "^6.1",
+        "phpstan/phpstan phpstan/phpstan-phpunit phpstan/phpstan-strict-rules phpstan/phpstan-deprecation-rules phpstan/phpstan-symfony phpstan/phpstan-webmozart-assert": "^2.0"
     },
     "require-dev": {
         "ext-zip": "*",
