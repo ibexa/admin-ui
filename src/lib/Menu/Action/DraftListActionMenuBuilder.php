@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+
 namespace Ibexa\AdminUi\Menu\Action;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
@@ -52,6 +57,8 @@ final class DraftListActionMenuBuilder extends AbstractBuilder implements Transl
     }
 
     /**
+     * @param array<string, mixed> $options
+     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -102,7 +109,8 @@ final class DraftListActionMenuBuilder extends AbstractBuilder implements Transl
                 ],
                 'extras' => [
                     'icon' => 'edit',
-                ]
+                    'orderNumber' => 100
+                ],
             ]
         );
     }
@@ -138,6 +146,5 @@ final class DraftListActionMenuBuilder extends AbstractBuilder implements Transl
                 'language' => $versionInfo->getInitialLanguage()->getLanguageCode(),
             ]
         );
-
     }
 }
