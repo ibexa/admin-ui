@@ -53,8 +53,7 @@ class LocationIsContainerValidatorTest extends TestCase
     public function testValid()
     {
         $this->contentType
-            ->method('__get')
-            ->with('isContainer')
+            ->method('isContainer')
             ->willReturn(true);
 
         $this->executionContext
@@ -67,8 +66,7 @@ class LocationIsContainerValidatorTest extends TestCase
     public function testInvalid()
     {
         $this->contentType
-            ->method('__get')
-            ->with('isContainer')
+            ->method('isContainer')
             ->willReturn(false);
 
         $this->executionContext

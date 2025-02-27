@@ -19,6 +19,6 @@ class IsContainer extends AbstractSpecification
      */
     public function isSatisfiedBy($item): bool
     {
-        return $item->getContent()->getContentType()->isContainer;
+        return $item->getContent()->getContentType()->isContainer();
     }
 }
