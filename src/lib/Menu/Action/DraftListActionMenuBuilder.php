@@ -109,7 +109,7 @@ final class DraftListActionMenuBuilder extends AbstractBuilder implements Transl
                 ],
                 'extras' => [
                     'icon' => 'edit',
-                    'orderNumber' => 100
+                    'orderNumber' => 100,
                 ],
             ]
         );
