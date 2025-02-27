@@ -467,7 +467,9 @@
             const targetContainerGroup = targetContainer.closest('.ibexa-collapse--field-definitions-group');
             const targetContainerList = targetContainerGroup.closest('.ibexa-content-type-edit__field-definitions-group-list');
             const fieldTemplate = targetContainerList.dataset.template;
-            const fieldRendered = fieldTemplate.replace('{{ type }}', currentDraggedItem.dataset.itemIdentifier);
+            const fieldRendered = fieldTemplate
+                .replace('{{ name }}', currentDraggedItem.dataset.itemName.toLowerCase())
+                .replace('{{ type }}', currentDraggedItem.dataset.itemIdentifier);
             let draggedItemPosition = [...dragContainerItems].findIndex((item, index, array) => {
                 return item.classList.contains('ibexa-field-definitions-placeholder') && index < array.length - 1;
             });
