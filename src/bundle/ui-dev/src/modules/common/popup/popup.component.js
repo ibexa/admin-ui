@@ -36,6 +36,7 @@ const Popup = ({
     noCloseBtn,
     extraClasses,
     showTooltip,
+    subheader,
 }) => {
     const rootDOMElement = getRootDOMElement();
     const modalRef = useRef(null);
@@ -59,6 +60,7 @@ const Popup = ({
     const modalClasses = createCssClassNames({
         'c-popup modal fade': true,
         'c-popup--no-header': noHeader,
+        'c-popup--has-subheader': !noHeader && subheader,
         [extraClasses]: extraClasses,
     });
     const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
@@ -114,13 +116,16 @@ const Popup = ({
                     {noHeader
                         ? renderCloseBtn()
                         : title && (
-                              <div className="modal-header c-popup__header">
-                                  <h3 className="modal-title c-popup__headline" title={showTooltip ? title : null}>
-                                      <span className="c-popup__title">{title}</span>
-                                      {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
-                                  </h3>
-                                  {renderCloseBtn()}
-                              </div>
+                              <>
+                                  <div className="modal-header c-popup__header">
+                                      <h3 className="modal-title c-popup__headline" title={showTooltip ? title : null}>
+                                          <span className="c-popup__title">{title}</span>
+                                          {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
+                                      </h3>
+                                      {renderCloseBtn()}
+                                  </div>
+                                  {subheader && <div className="c-popup__subheader">{subheader}</div>}
+                              </>
                           )}
                     <div className="modal-body c-popup__body">{children}</div>
                     {!noFooter && (
@@ -170,6 +175,7 @@ Popup.propTypes = {
     noKeyboard: PropTypes.bool,
     extraClasses: PropTypes.string,
     showTooltip: PropTypes.bool,
+    subheader: PropTypes.node,
 };
 
 Popup.defaultProps = {
@@ -184,6 +190,7 @@ Popup.defaultProps = {
     title: null,
     subtitle: null,
     showTooltip: true,
+    subheader: null,
 };
 
 export default Popup;
