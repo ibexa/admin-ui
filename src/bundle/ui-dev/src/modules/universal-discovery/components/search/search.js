@@ -7,7 +7,6 @@ export const SelectedSectionContext = createContext();
 export const SelectedSubtreeContext = createContext();
 export const SelectedSubtreeBreadcrumbsContext = createContext();
 
-import Icon from '../../../common/icon/icon';
 import Spinner from '../../../common/spinner/spinner';
 import ContentTable from '../content-table/content.table';
 import Filters from '../filters/filters';
@@ -17,6 +16,7 @@ import { useSearchByQueryFetch } from '../../hooks/useSearchByQueryFetch';
 import { ActiveTabContext, AllowedContentTypesContext, MarkedLocationIdContext, SearchTextContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import SearchNoResults from './search.no.results';
 
 const selectedContentTypesReducer = (state, action) => {
     switch (action.type) {
@@ -127,54 +127,10 @@ const Search = ({ itemsPerPage }) => {
                 />
             );
         } else if (!!data.items) {
-            const noResultsLabel = Translator.trans(
-                /*@Desc("No results found for %query%")*/ 'search.no_results',
-                { query: searchText },
-                'ibexa_universal_discovery_widget',
-            );
-            const noResultsHints = [
-                Translator.trans(
-                    /*@Desc("Check the spelling of keywords.")*/ 'search.no_results.hint.check_spelling',
-                    {},
-                    'ibexa_universal_discovery_widget',
-                ),
-                Translator.trans(
-                    /*@Desc("Try more general keywords.")*/ 'search.no_results.hint.more_general',
-                    {},
-                    'ibexa_universal_discovery_widget',
-                ),
-                Translator.trans(
-                    /*@Desc("Try different keywords.")*/ 'search.no_results.hint.different_kewords',
-                    {},
-                    'ibexa_universal_discovery_widget',
-                ),
-                Translator.trans(
-                    /*@Desc("Try fewer keywords. Reducing keywords results in more matches.")*/ 'search.no_results.hint.fewer_keywords',
-                    {},
-                    'ibexa_universal_discovery_widget',
-                ),
-            ];
-
             return (
                 <>
                     {renderCustomTableHeader()}
-                    <div className="c-search__no-results">
-                        <img src="/bundles/ibexaadminui/img/no-results.svg" />
-                        <h2 className="c-search__no-results-title">{noResultsLabel}</h2>
-                        <div className="c-search__no-results-subtitle">
-                            {noResultsHints.map((hint, key) => (
-                                <div
-                                    key={key} // eslint-disable-line react/no-array-index-key
-                                    className="c-search__no-results-hint"
-                                >
-                                    <div className="c-search__no-results-hint-icon-wrapper">
-                                        <Icon name="approved" extraClasses="ibexa-icon--small-medium" />
-                                    </div>
-                                    <div className="c-search__no-results-hint-text">{hint}</div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <SearchNoResults searchText={searchText} />
                 </>
             );
         }
