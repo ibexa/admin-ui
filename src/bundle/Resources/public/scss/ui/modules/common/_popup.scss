@@ -1,4 +1,6 @@
 .c-popup {
+    $self: &;
+
     &__dialog {
         @include modal-main();
     }
@@ -49,6 +51,21 @@
             &__body {
                 padding-bottom: 0;
                 margin-right: calculateRem(36px);
+            }
+        }
+    }
+
+    &--has-subheader {
+        .modal-header {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        #{$self} {
+            &__subheader {
+                border-bottom: calculateRem(1px) solid $ibexa-color-light-500;
+                padding-bottom: calculateRem(16px);
+                color: $ibexa-color-dark-400;
             }
         }
     }
