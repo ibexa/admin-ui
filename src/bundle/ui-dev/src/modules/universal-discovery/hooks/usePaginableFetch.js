@@ -1,6 +1,4 @@
-import { useEffect, useContext, useReducer } from 'react';
-
-import { RestInfoContext } from '../universal.discovery.module';
+import { useEffect, useReducer } from 'react';
 
 const fetchInitialState = {
     isLoading: false,
@@ -40,8 +38,7 @@ const fetchReducer = (state, action) => {
     }
 };
 
-export const usePaginableFetch = ({ itemsPerPage, extraFetchParams }, fetchFunction) => {
-    const restInfo = useContext(RestInfoContext);
+export const usePaginableFetch = ({ restInfo, itemsPerPage, extraFetchParams }, fetchFunction) => {
     const [state, dispatch] = useReducer(fetchReducer, fetchInitialState);
     const changePage = (pageIndex) => dispatch({ type: CHANGE_PAGE, pageIndex });
 
