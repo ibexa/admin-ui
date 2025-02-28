@@ -117,6 +117,7 @@ const Popup = ({
         <div
             ref={(ref) => {
                 modalRef.current = ref;
+
                 if (ref) {
                     latestBootstrapModal.current = bootstrap.Modal.getOrCreateInstance(modalRef.current, {
                         ...MODAL_CONFIG,
