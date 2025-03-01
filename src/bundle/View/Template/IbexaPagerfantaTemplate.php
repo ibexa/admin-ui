@@ -23,6 +23,8 @@ class IbexaPagerfantaTemplate extends TwitterBootstrap4Template
         parent::__construct();
 
         $this->setOptions([
+            'css_prev_class' => 'prev',
+            'css_next_class' => 'next',
             'prev_message' => '',
             'next_message' => '',
             'active_suffix' => '',

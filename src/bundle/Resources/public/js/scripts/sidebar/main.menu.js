@@ -50,6 +50,7 @@
         const { itemName } = currentTarget.parentNode.dataset;
 
         if (activeItemName === itemName) {
+            const showedTabPanes = doc.querySelectorAll('.ibexa-main-menu__tab-pane.active.show');
             const animationController = new AbortController();
             const { signal } = animationController;
 
@@ -57,6 +58,7 @@
                 'transitionend',
                 () => {
                     secondLevelMenuNode.classList.add('ibexa-main-menu__navbar--hidden');
+                    showedTabPanes.forEach((tabPane) => tabPane.classList.remove('active', 'show'));
                     animationController.abort();
                 },
                 { signal },

@@ -348,6 +348,11 @@
 
                 &--more {
                     cursor: pointer;
+                    visibility: hidden;
+                }
+
+                &--more-visible {
+                    visibility: visible;
                 }
             }
 
