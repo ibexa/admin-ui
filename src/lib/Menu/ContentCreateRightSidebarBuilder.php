@@ -104,7 +104,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
 
         $canPublish = $this->permissionResolver->canUser('content', 'publish', $contentCreateStruct, [$locationCreateStruct]);
-        $canCreate = $this->permissionResolver->canUser('content', 'create', $contentCreateStruct, [$locationCreateStruct]) && $parentContentType->isContainer;
+        $canCreate = $this->permissionResolver->canUser('content', 'create', $contentCreateStruct, [$locationCreateStruct]) && $parentContentType->isContainer();
         $canPreview = $this->permissionResolver->canUser('content', 'versionread', $contentCreateStruct, [$locationCreateStruct]);
 
         $publishAttributes = [

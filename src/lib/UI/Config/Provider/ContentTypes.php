@@ -117,7 +117,7 @@ class ContentTypes implements ProviderInterface
             'id' => $contentType->id,
             'identifier' => $contentType->identifier,
             'name' => $contentType->getName(),
-            'isContainer' => $contentType->isContainer,
+            'isContainer' => $contentType->isContainer(),
             'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier),
             'href' => $this->urlGenerator->generate('ibexa.rest.load_content_type', [
                 'contentTypeId' => $contentType->id,

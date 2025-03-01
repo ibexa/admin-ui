@@ -4001,11 +4001,6 @@ parameters:
 			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
 
 		-
-			message: "#^Access to an undefined property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ValueObject\\:\\:\\$isContainer\\.$#"
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
-
-		-
 			message: "#^Access to an undefined property Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ValueObject\\:\\:\\$mainLanguageCode\\.$#"
 			count: 2
 			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
@@ -4042,6 +4037,11 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ValueObject\\:\\:getNames\\(\\)\\.$#"
+			count: 1
+			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
+
+		-
+			message: "#^Call to an undefined method Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ValueObject\\:\\:isContainer\\(\\)\\.$#"
 			count: 1
 			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
 

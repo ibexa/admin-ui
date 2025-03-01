@@ -144,7 +144,7 @@ class LocationController extends Controller
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
-                if (!$newParentLocation->getContent()->getContentType()->isContainer) {
+                if (!$newParentLocation->getContent()->getContentType()->isContainer()) {
                     throw new InvalidArgumentException(
                         '$newParentLocation',
                         'Cannot move the Location to a parent that is not a container'
@@ -197,7 +197,7 @@ class LocationController extends Controller
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
-                if (!$newParentLocation->getContent()->getContentType()->isContainer) {
+                if (!$newParentLocation->getContent()->getContentType()->isContainer()) {
                     throw new InvalidArgumentException(
                         '$newParentLocation',
                         'Cannot copy the Location to a parent that is not a container'
@@ -305,7 +305,7 @@ class LocationController extends Controller
                 $childCount = $this->locationService->getLocationChildCount($currentLocation);
                 $contentType = $newLocation->getContent()->getContentType();
 
-                if (!$contentType->isContainer && $childCount) {
+                if (!$contentType->isContainer() && $childCount) {
                     throw new \InvalidArgumentException(
                         'Cannot swap a Location that has sub-items with a Location that is not a container'
                     );
