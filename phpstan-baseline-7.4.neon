@@ -21,11 +21,6 @@ parameters:
 			path: src/bundle/Controller/ContentDraftController.php
 
 		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\ContentTypeController\\:\\:getContentTypesNumbers\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$array_arg of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
@@ -39,11 +34,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$s2 of function strnatcasecmp expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\ContentTypeGroupController\\:\\:getContentTypeGroupsNumbers\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
 			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
@@ -61,24 +51,9 @@ parameters:
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\LanguageController\\:\\:getLanguagesNumbers\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
 			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\ObjectStateController\\:\\:getObjectStatesIds\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
 			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\ObjectStateGroupController\\:\\:getObjectStateGroupsIds\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
-
-		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\PolicyController\\:\\:getPoliciesNumbers\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/PolicyController.php
 
 		-
 			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\RoleAssignmentController\\:\\:getRoleAssignmentsNumbers\\(\\) should return array but returns array\\<int, false\\>\\|false\\.$#"
@@ -89,16 +64,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$roles of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Role\\\\RolesDeleteData constructor expects array, array\\<false\\>\\|false given\\.$#"
 			count: 1
 			path: src/bundle/Controller/RoleController.php
-
-		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\SectionController\\:\\:getSectionsNumbers\\(\\) should return array but returns array\\<false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/SectionController.php
-
-		-
-			message: "#^Parameter \\#2 \\$pieces of function implode expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
 
 		-
 			message: "#^Parameter \\#1 \\$obj of function date_format expects DateTimeInterface, DateTime\\|false given\\.$#"
@@ -279,3 +244,46 @@ parameters:
 			message: "#^Parameter \\#1 \\$iterator of function iterator_to_array expects Traversable, iterable\\<string, Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\FieldDefinitionData\\> given\\.$#"
 			count: 1
 			path: tests/lib/Form/Data/ContentTypeDataTest.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:getContentTypesNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeGroupController\:\:getContentTypeGroupsNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/ContentTypeGroupController.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\LanguageController\:\:getLanguagesNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/LanguageController.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateGroupController\:\:getObjectStateGroupsIds\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/ObjectStateGroupController.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController\:\:getPoliciesNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/PolicyController.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\SectionController\:\:getSectionsNumbers\(\) should return array but returns array\<mixed, false\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/SectionController.php
+
+
+		-
+			message: '#^Parameter \#2 \$pieces of function implode expects array, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
