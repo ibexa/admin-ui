@@ -31,10 +31,10 @@ const Table = ({ extraClasses, children, isLastColumnSticky }) => {
     useEffect(() => {
         if (isLastColumnSticky) {
             updateLastColumnShadowState();
-            scrollableWrapperRef.current.addEventListener('scroll', updateLastColumnShadowState, false);
+            scrollableWrapperRef.current?.addEventListener('scroll', updateLastColumnShadowState, false);
 
             return () => {
-                scrollableWrapperRef.current.removeEventListener('scroll', updateLastColumnShadowState, false);
+                scrollableWrapperRef.current?.removeEventListener('scroll', updateLastColumnShadowState, false);
             };
         }
     }, [isLastColumnSticky, updateLastColumnShadowState]);
