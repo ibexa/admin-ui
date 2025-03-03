@@ -33,11 +33,18 @@
         }
 
         &__coordinates {
-            display: flex;
-            justify-content: space-between;
+            .ibexa-input-text-wrapper {
+                &--type-number {
+                    max-width: calculateRem(230px);
+                }
+            }
 
             .ibexa-data-source__field {
-                width: 45%;
+                margin-bottom: calculateRem(8px);
+
+                &:first-of-type {
+                    margin-top: calculateRem(16px);
+                }
             }
 
             .ibexa-data-source__input {
