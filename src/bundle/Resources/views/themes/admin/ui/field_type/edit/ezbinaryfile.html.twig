@@ -10,13 +10,17 @@
 
 {% block ezbinaryfile_preview %}
     {% set readonly = attr.readonly|default(false) %}
+    {% set inLanguageQueryParameter = 'inLanguage=' ~ form.parent.vars.languageCode %}
+    {% set uri = form.parent.vars.value.value.uri %}
+    {% set url = uri ~ ('?' in uri ? '&' : '?') ~ inLanguageQueryParameter %}
 
     <div class="ibexa-field-edit-preview">
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper">
                 <div class="ibexa-field-edit-preview__actions">
                     <a
-                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" href="{{ form.parent.vars.value.value.uri }}"
+                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        href="{{ url }}"
                         download
                         {{ readonly ? 'disabled' }}
                     >
