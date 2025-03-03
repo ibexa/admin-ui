@@ -10,6 +10,7 @@ const observerConfig = {
     attributes: true,
     attributeFilter: ['title', 'data-tooltip-title', 'data-tooltip-extra-class', 'data-tooltip-manual-reparsing'],
 };
+const bootstrap = getBootstrap();
 const resizeEllipsisObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
         parse(entry.target);
@@ -35,8 +36,12 @@ const observer = new MutationObserver((mutationsList) => {
 
         removedNodes.forEach((removedNode) => {
             if (removedNode.classList && !removedNode.classList.contains('ibexa-tooltip')) {
-                removedNode.querySelectorAll('.ibexa-tooltip.show').forEach((tooltipNode) => {
-                    tooltipNode.remove();
+                const triggeredNodes = removedNode.querySelectorAll(`[data-bs-original-title]`);
+
+                triggeredNodes.forEach((triggerBtn) => {
+                    const tooltipInstance = bootstrap.Tooltip.getOrCreateInstance(triggerBtn);
+
+                    tooltipInstance?.tip?.remove();
                 });
             }
         });
@@ -119,7 +124,6 @@ const isTitleEllipsized = (node) => {
     return textHeight > nodeHeight;
 };
 const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
-    const bootstrap = getBootstrap();
     const { delayShow, delayHide } = tooltipNode.dataset;
     const delay = {
         show: delayShow ? parseInt(delayShow, 10) : 150,
@@ -168,7 +172,6 @@ const parse = (baseElement = doc) => {
         return;
     }
 
-    const bootstrap = getBootstrap();
     const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
     if (baseElement instanceof Element) {
@@ -224,7 +227,6 @@ const hideAll = (baseElement = doc) => {
         return;
     }
 
-    const bootstrap = getBootstrap();
     const tooltipsNode = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
 
     for (const tooltipNode of tooltipsNode) {
