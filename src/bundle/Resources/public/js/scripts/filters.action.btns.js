@@ -78,13 +78,24 @@
         };
         const handleFormClear = () => {
             clearForm();
-            clearBtn.disabled = true;
-            applyBtn.disabled = !checkFieldsValuesChanged();
-            applyBtn.click();
+
+            if (clearBtn) {
+                clearBtn.disabled = true;
+            }
+
+            if (applyBtn) {
+                applyBtn.disabled = !checkFieldsValuesChanged();
+                applyBtn.click();
+            }
         };
         const handleInputChange = () => {
-            clearBtn.disabled = checkAreFiltersCleared();
-            applyBtn.disabled = !checkFieldsValuesChanged();
+            if (clearBtn) {
+                clearBtn.disabled = checkAreFiltersCleared();
+            }
+
+            if (applyBtn) {
+                applyBtn.disabled = !checkFieldsValuesChanged();
+            }
         };
 
         dropdownNodes.forEach((dropdownNode) => {
