@@ -27,6 +27,22 @@ const Table = ({ extraClasses, children, isLastColumnSticky }) => {
             }),
         [updateLastColumnShadowState],
     );
+    const handleScrollableWrapperRef = (ref) => {
+        if (!ref || (scrollableWrapperRef.current !== null && scrollableWrapperRef.current !== ref)) {
+            scrollableWrapperResizeObserver.unobserve(scrollableWrapperRef.current);
+        }
+
+        scrollableWrapperRef.current = ref;
+
+        if (ref) {
+            scrollableWrapperResizeObserver.observe(ref);
+
+            if (isLastColumnSticky) {
+                updateLastColumnShadowState();
+                ref.addEventListener('scroll', updateLastColumnShadowState, false);
+            }
+        }
+    };
 
     useEffect(() => {
         if (isLastColumnSticky) {
@@ -40,25 +56,7 @@ const Table = ({ extraClasses, children, isLastColumnSticky }) => {
     }, [isLastColumnSticky, updateLastColumnShadowState]);
 
     return (
-        <div
-            className="ibexa-scrollable-wrapper"
-            ref={(ref) => {
-                if (!ref || (scrollableWrapperRef.current !== null && scrollableWrapperRef.current !== ref)) {
-                    scrollableWrapperResizeObserver.unobserve(scrollableWrapperRef.current);
-                }
-
-                scrollableWrapperRef.current = ref;
-
-                if (ref) {
-                    scrollableWrapperResizeObserver.observe(ref);
-
-                    if (isLastColumnSticky) {
-                        updateLastColumnShadowState();
-                        ref.addEventListener('scroll', updateLastColumnShadowState, false);
-                    }
-                }
-            }}
-        >
+        <div className="ibexa-scrollable-wrapper" ref={handleScrollableWrapperRef}>
             <table className={className}>{children}</table>
         </div>
     );
