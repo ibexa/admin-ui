@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 
-import { ActiveTabContext, SearchTextContext } from '../../universal.discovery.module';
+import { SearchTextContext } from '../../universal.discovery.module';
 
 const ENTER_CHAR_CODE = 13;
-const SEARCH_TAB_ID = 'search';
 
 const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
-    const [activeTab, setActiveTab] = useContext(ActiveTabContext);
-    const [searchText, setSearchText] = useContext(SearchTextContext);
+    const [searchText, , makeSearch] = useContext(SearchTextContext);
     const [inputValue, setInputValue] = useState(searchText);
     const inputRef = useRef();
     const className = createCssClassNames({
@@ -24,16 +22,9 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
         'ibexa-btn--tertiary': !isSearchOpened,
     });
     const updateInputValue = ({ target: { value } }) => setInputValue(value);
-    const search = (value) => {
-        if (activeTab !== SEARCH_TAB_ID) {
-            setActiveTab('search');
-        }
-
-        setSearchText(value);
-    };
     const handleSearchBtnClick = () => {
         if (isSearchOpened) {
-            search(inputValue);
+            makeSearch(inputValue);
             setIsSearchOpened(false);
         } else {
             setIsSearchOpened(true);
@@ -41,7 +32,7 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
     };
     const handleKeyPressed = ({ charCode }) => {
         if (charCode === ENTER_CHAR_CODE) {
-            search(inputValue);
+            makeSearch(inputValue);
         }
     };
 
