@@ -15877,6 +15877,12 @@ parameters:
 			path: tests/lib/Form/DataTransformer/FieldValueTransformerTest.php
 
 		-
+			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer\:\:transform\(\) on a separate line has no effect\.$#'
+			identifier: method.resultUnused
+			count: 1
+			path: tests/lib/Form/DataTransformer/LanguageTransformerTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataTransformer\\LanguageTransformerTest\:\:testReverseTransformWithLanguageCode\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
