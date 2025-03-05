@@ -78,6 +78,25 @@ final class ContentViewContext implements Context
     }
 
     /**
+     * @Given I create a new direct Url Alias called :path in :languageName language
+     */
+    public function iCreateNewUrlAlias(string $path, string $languageName): void
+    {
+        $this->contentViewPage->addUrlAlias($path, $languageName, false);
+    }
+
+    /**
+     * @Given there should be a :path Url Alias in the list with :typeName type
+     */
+    public function verifyUrlAliasExists(string $path, string $typeName): void
+    {
+        Assert::assertTrue(
+            $this->contentViewPage->isUrlAliasOnTheList(['URL' => $path, 'Type' => $typeName]),
+            'Url alias not found in the list'
+        );
+    }
+
+    /**
      * @Given I add new translation :language without base translation
      * @Given I add new translation :language basing on :base translation
      */

@@ -1,6 +1,7 @@
 @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
 Feature: My Drafts
 
+  @test
   Scenario: It is possible to delete a draft
    Given I create "article" Content drafts
       | title       | short_title   | parentPath | language |
