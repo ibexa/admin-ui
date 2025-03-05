@@ -1,0 +1,12 @@
+@mixin c-filters-row($titleSubclass) {
+    padding: calculateRem(4px) calculateRem(24px);
+
+    &#{$titleSubclass} {
+        position: relative;
+        font-size: $ibexa-text-font-size-medium;
+        font-weight: 600;
+        min-height: calculateRem(40px);
+        display: flex;
+        align-items: center;
+    }
+}
