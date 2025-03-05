@@ -3709,6 +3709,12 @@ parameters:
 			path: src/lib/Behat/Page/ContentViewPage.php
 
 		-
+			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withParentLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Behat/Page/ContentViewPage.php
+
+		-
 			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ContentViewPage\:\:\$argumentParser has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
