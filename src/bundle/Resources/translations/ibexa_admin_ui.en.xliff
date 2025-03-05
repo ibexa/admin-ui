@@ -16,6 +16,16 @@
         <target state="new">Complete your profile.</target>
         <note>key: details.alert.complete_profile</note>
       </trans-unit>
+      <trans-unit id="bb6a66ce981e1f4c979da6d4eccc06282388f871" resname="details.show_less.label">
+        <source>Show less</source>
+        <target state="new">Show less</target>
+        <note>key: details.show_less.label</note>
+      </trans-unit>
+      <trans-unit id="8f1aba9dd9aa37972db51830a10ec4ddfb52031e" resname="details.show_more.label">
+        <source>Show more</source>
+        <target state="new">Show more</target>
+        <note>key: details.show_more.label</note>
+      </trans-unit>
       <trans-unit id="68a1a5ea4fa56098f5eae44460514a09ea8f8509" resname="distraction_free_mode.disable.label">
         <source>Exit distraction free mode</source>
         <target state="new">Exit distraction free mode</target>

@@ -48,6 +48,49 @@
         .ibexa-dropdown {
             margin-left: 0;
         }
+
+        &--ellipsized {
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &__item-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    &__show-more-btn {
+        display: flex;
+        align-items: center;
+        padding-left: 0;
+        padding-right: 0;
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__show-more-label,
+    &__show-less-label {
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__show-more-btn-icon {
+        &--opened {
+            transform: rotate(-180deg);
+        }
+
+        &.ibexa-icon {
+            margin-left: calculateRem(8px);
+            margin-right: 0;
+            transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        }
     }
 
     &__header {
