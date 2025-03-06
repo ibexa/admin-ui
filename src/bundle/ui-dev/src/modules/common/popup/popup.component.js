@@ -91,7 +91,6 @@ const Popup = ({
         latestBootstrapModal.current.show();
     };
     const handleOnClick = (event, onClick, preventClose) => {
-        modalRef.current.removeEventListener('hidden.bs.modal', onClose);
         if (!preventClose) {
             hidePopup();
         }
