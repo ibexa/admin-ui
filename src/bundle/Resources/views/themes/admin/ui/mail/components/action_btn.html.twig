@@ -1,0 +1,16 @@
+{% block mail_action_btn %}
+    {% set base_style = '
+        display: table-cell;
+        padding: 15px 16px;
+        font-family: \'Noto Sans\', sans-serif;
+        font-size: 14px;
+        color: #ffffff;
+        text-align: center;
+        text-decoration: none;
+        vertical-align: middle;
+        background: #AE1164;
+        border-radius: 10px;'
+    %}
+
+    <a style="{{ base_style ~ style|default('') }}" href="{{ url }}">{{ label }}</a>
+{% endblock mail_action_btn %}
