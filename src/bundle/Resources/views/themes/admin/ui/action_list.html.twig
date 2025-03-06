@@ -2,10 +2,13 @@
 
 {% for action in item.children %}
     {% set element = action.uri ? 'a' : 'button' %}
+    {% set classess = {
+        class: 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text' ~ ' ' ~ action.attributes.class|default('')
+    } %}
+
     {% set attr = {
-        class: "btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text",
-        title: action.label,
-    }|merge(action.attributes) %}
+        title: action.label
+    }|merge(action.attributes, classess) %}
 
     {% if action.uri %}
         {% set attr = attr|merge({ href: action.uri })%}
@@ -14,8 +17,8 @@
     {% endif %}
 
     <{{ element }} {{ html.attributes(attr) }}>
-        <svg class="ibexa-icon ibexa-icon--small">
-            <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
-        </svg>
+    <svg class="ibexa-icon ibexa-icon--small">
+        <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
+    </svg>
     </{{ element }}>
 {% endfor %}
