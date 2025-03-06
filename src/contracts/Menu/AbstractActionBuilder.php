@@ -24,7 +24,7 @@ abstract class AbstractActionBuilder extends AbstractBuilder
         MenuItemFactoryInterface $menuItemFactory,
         EventDispatcherInterface $eventDispatcher,
         ContentAwareActionItemFactoryInterface $contentAwareActionItemFactory,
-        TranslatorInterface $translator,
+        TranslatorInterface $translator
     ) {
         parent::__construct($menuItemFactory, $eventDispatcher);
 
