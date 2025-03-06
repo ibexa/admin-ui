@@ -51,9 +51,6 @@ class ConfigureMenuEvent extends Event
     public const USER_SETTING_UPDATE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.user_setting_update_sidebar_right';
     public const CONTENT_TYPE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_sidebar_right';
 
-    /** ACTIONS */
-    public const CONTENT_DRAFT_LIST_ACTION = 'ibexa.admin_ui.menu_configure.action.draft_list';
-
     /** @var \Knp\Menu\FactoryInterface */
     private $factory;
 
