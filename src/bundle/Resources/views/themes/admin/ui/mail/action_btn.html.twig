@@ -1,0 +1,38 @@
+{% set link_width = label|length * 10 %}
+{% set btn_width = link_width + 32 %}
+
+{% macro button_side_img(base64, width_px = 16, height_px = 48) %}
+    <td width="{{ width_px }}" height="{{ height_px }}">
+        <img style="display: block;" src="data:image/png;base64,{{ base64 }}" >
+    </td>
+{% endmacro %}
+
+<table
+    role="presentation"
+    cellspacing="0"
+    cellpadding="0"
+    border="0"
+    width="{{ btn_width }}"
+>
+    <tr>
+        {{ _self.button_side_img("iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAMAAAAvgQplAAAAVFBMVEUAAACAAICqAFWZAGaqAFWvEGOuEGSvEmWuEmOvEmWtEmSuEWSuEWWvEGSuEWSuEWSuEWOuEWSuEWSuEGSuEmOtEWSuEWSuEWSuEWStEWSuEWT///9GZI3tAAAAGnRSTlMAAgMFBlBSU1VWV4qLjKSmp9fY2drb3N3z9PxLL8wAAAABYktHRBsCYNSkAAAAXUlEQVQoz+3RNw6EQABD0U+OS46+/0Fp0EpjboBw51dZMgCkdT+dkiQBUOz6B4h/UgBBFxQKId0MahkMDovD4aAPXguPs2eH3qFySFYDcgdah6gxgGw1ICm78V54ARoVSXMDmUd2AAAAAElFTkSuQmCC") }}
+        <td width="{{ link_width }}" height="48">
+            <a
+                style="
+                    display: table-cell;
+                    width: {{ link_width }}px;
+                    height: 48px;
+                    color: #ffffff;
+                    text-align: center;
+                    text-decoration: none;
+                    vertical-align: middle;
+                    background: #AE1164;
+                " 
+                href="{{ url }}"
+            >
+                {{ label }}
+            </a>
+        </td>
+        {{ _self.button_side_img("iVBORw0KGgoAAAANSUhEUgAAABAAAAAwCAMAAAAvgQplAAAAUVBMVEUAAACAAICZAGaqAFWuEGSvEGOuEGStEmSuEmOvEmWuEWOtEWWuEWWuEWSuEWSuEWSuEWSuEWStEWSuEWSuEWStEWSuEWWuEWStEWSuEWT///9DylPAAAAAGXRSTlMAAgUGT1BSVFVWiImLo6Sm19jb3N3e8fP0bGRbwQAAAAFiS0dEGnVn5DIAAABZSURBVCjP7dK3EYBAAMTAw5vHu+f6b5SMAZXAoHBjybbtcx6bTJIk360lwO4SgAPBBWHPAK4JA2EmRIJ/+CwchInQEyrAxulybNli3PBee8kf88dpqFJJ0gWYFEaC3ipVGgAAAABJRU5ErkJggg==") }}
+    </tr>
+</table>
