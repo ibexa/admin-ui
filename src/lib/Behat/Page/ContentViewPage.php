@@ -312,7 +312,7 @@ class ContentViewPage extends Page
 
     public function isUrlAliasOnTheList(string $path, string $type): bool
     {
-        $customUrlAliasesTable = $this->tableBuilder->withParentLocator($this->getLocator('customUrlAliasesTable'))->build();
+        $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($this->getLocator('customUrlAliasesTable'))->build();
 
         return $customUrlAliasesTable->hasElement(['URL' => $path, 'Type' => $type]);
     }
