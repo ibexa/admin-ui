@@ -13,11 +13,13 @@ use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
+use Ibexa\AdminUi\Behat\Component\CreateUrlAliasForm;
 use Ibexa\AdminUi\Behat\Component\DeleteContentDialog;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\AdminUi\Behat\Component\LanguagePicker;
 use Ibexa\AdminUi\Behat\Component\SubItemsList;
+use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\TranslationDialog;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
@@ -85,6 +87,10 @@ class ContentViewPage extends Page
 
     private DeleteContentDialog $deleteContentDialog;
 
+    private CreateUrlAliasForm $createUrlAliasForm;
+
+    private TableBuilder $tableBuilder;
+
     public function __construct(
         Session $session,
         Router $router,
@@ -101,7 +107,9 @@ class ContentViewPage extends Page
         UniversalDiscoveryWidget $universalDiscoveryWidget,
         IbexaDropdown $ibexaDropdown,
         UpperMenu $upperMenu,
-        DeleteContentDialog $deleteContentDialog
+        DeleteContentDialog $deleteContentDialog,
+        CreateUrlAliasForm $createUrlAliasForm,
+        TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
@@ -118,6 +126,8 @@ class ContentViewPage extends Page
         $this->ibexaDropdown = $ibexaDropdown;
         $this->upperMenu = $upperMenu;
         $this->deleteContentDialog = $deleteContentDialog;
+        $this->createUrlAliasForm = $createUrlAliasForm;
+        $this->tableBuilder = $tableBuilder;
     }
 
     public function startCreatingContent(string $contentTypeName, string $language = null)
@@ -294,6 +304,19 @@ class ContentViewPage extends Page
         return $this->getHTMLPage()->find($this->getLocator('isBookmarked'))->isVisible();
     }
 
+    public function createNewDirectUrlAlias(string $path, string $languageName, bool $isRedirecting): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('addUrlAliasbutton'))->click();
+        $this->createUrlAliasForm->createNewUrlAlias($path, $languageName, $isRedirecting);
+    }
+
+    public function isUrlAliasOnTheList(string $path, string $type): bool
+    {
+        $customUrlAliasesTable = $this->tableBuilder->withParentLocator($this->getLocator('customUrlAliasesTable'))->build();
+
+        return $customUrlAliasesTable->hasElement(['URL' => $path, 'Type' => $type]);
+    }
+
     protected function specifyLocators(): array
     {
         return [
@@ -308,6 +331,8 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('ibexaDropdownPreview', '.ibexa-raw-content-title__language-form .ibexa-dropdown__selection-info'),
             new VisibleCSSLocator('moreTab', '.ibexa-tabs__tab--more'),
             new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
+            new VisibleCSSLocator('addUrlAliasbutton', '[data-bs-target="#ibexa-modal--custom-url-alias"]'),
+            new VisibleCSSLocator('customUrlAliasesTable', '#ibexa-tab-location-view-urls .ibexa-table'),
         ];
     }
 
