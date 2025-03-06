@@ -43,19 +43,6 @@
         </thead>
         <tbody class="ibexa-table__body">
             {% for version in versions %}
-                {% set edit_url = content_is_user is defined and content_is_user ?
-                        path('ibexa.user.update', {
-                        'contentId': version.contentInfo.id,
-                        'versionNo': version.versionNo,
-                        'language': version.initialLanguageCode,
-                    }) : path('ibexa.content.draft.edit', {
-                        'contentId': version.contentInfo.id,
-                        'versionNo': version.versionNo,
-                        'language': version.initialLanguageCode,
-                        'locationId': location.id ?? null
-                    })
-                %}
-
                 {% set custom_columns %}
                     {% block custom_columns %}{% endblock %}
                 {% endset %}
@@ -106,47 +93,18 @@
                             {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { has_action_btns: true } %}
                                 {% block action_btns_content %}
                                     {{ custom_actions_column }}
-                                    {% if is_draft_conflict %}
-                                        <a
-                                            href="{{ edit_url }}"
-                                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                                            title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit') }}"
-                                        >
-                                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                            </svg>
-                                        </a>
-                                    {% elseif is_draft %}
-                                        <button
-                                            data-content-draft-edit-url="{{ edit_url }}"
-                                            data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
-                                                'contentId': version.contentInfo.id,
-                                                'versionNo': version.versionNo,
-                                                'languageCode': version.initialLanguageCode
-                                            }) }}"
-                                            data-content-id="{{ version.contentInfo.id }}"
-                                            data-language-code="{{ version.initialLanguageCode }}"
-                                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
-                                            title="{{ 'tab.versions.table.action.draft.edit'|trans|desc('Edit') }}"
-                                        >
-                                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                            </svg>
-                                        </button>
-                                    {% endif %}
-                                    {% if is_archived %}
-                                        <button
-                                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-edit"
-                                            title="{{ 'tab.versions.table.action.archived.edit'|trans|desc('Restore archived version') }}"
-                                            data-content-id="{{ version.contentInfo.id }}"
-                                            data-version-no="{{ version.versionNo }}"
-                                            data-language-code="{{ version.initialLanguageCode }}"
-                                        >
-                                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                                <use xlink:href="{{ ibexa_icon_path('archive-restore') }}"></use>
-                                            </svg>
-                                        </button>
-                                    {% endif %}
+
+                                    {% set version_action_list = knp_menu_get(
+                                        'ibexa.admin_ui.action.version_list',
+                                        [],
+                                        {
+                                            versionInfo: version,
+                                            isDraftConflict: is_draft_conflict,
+                                            locationId: location.id ?? null
+                                        }) %}
+                                    {{ knp_menu_render(version_action_list, {
+                                        template: '@ibexadesign/ui/action_list.html.twig',
+                                    }) }}
                                 {% endblock %}
                             {% endembed %}
                         {% endif %}
