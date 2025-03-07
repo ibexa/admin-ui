@@ -40,6 +40,7 @@ const Popup = ({
 }) => {
     const rootDOMElement = getRootDOMElement();
     const modalRef = useRef(null);
+    const latestBootstrapModal = useRef(null);
     const Translator = getTranslator();
     const bootstrap = getBootstrap();
 
@@ -50,8 +51,20 @@ const Popup = ({
         if (isVisible) {
             showPopup();
             modalRef.current.addEventListener('hidden.bs.modal', onClose);
+        } else {
+            if (latestBootstrapModal.current) {
+                latestBootstrapModal.current.hide();
+            }
         }
     }, [isVisible]);
+
+    useEffect(() => {
+        return () => {
+            if (latestBootstrapModal.current) {
+                latestBootstrapModal.current.hide();
+            }
+        };
+    }, []);
 
     if (!isVisible) {
         return null;
@@ -65,26 +78,19 @@ const Popup = ({
     });
     const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
     const hidePopup = () => {
-        modalRef.current.removeEventListener('hidden.bs.modal', onClose);
-        bootstrap.Modal.getOrCreateInstance(modalRef.current).hide();
+        latestBootstrapModal.current.hide();
         rootDOMElement.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);
     };
     const showPopup = () => {
-        const bootstrapModal = bootstrap.Modal.getOrCreateInstance(modalRef.current, {
-            ...MODAL_CONFIG,
-            keyboard: !noKeyboard,
-            focus: hasFocus,
-        });
-        const initializedBackdropRootElement = bootstrapModal._backdrop._config.rootElement;
+        const initializedBackdropRootElement = latestBootstrapModal.current._backdrop._config.rootElement;
 
         if (initializedBackdropRootElement !== rootDOMElement) {
-            bootstrapModal._backdrop._config.rootElement = rootDOMElement;
+            latestBootstrapModal.current._backdrop._config.rootElement = rootDOMElement;
         }
 
-        bootstrapModal.show();
+        latestBootstrapModal.current.show();
     };
     const handleOnClick = (event, onClick, preventClose) => {
-        modalRef.current.removeEventListener('hidden.bs.modal', onClose);
         if (!preventClose) {
             hidePopup();
         }
@@ -110,7 +116,21 @@ const Popup = ({
     };
 
     return (
-        <div ref={modalRef} className={modalClasses} tabIndex={hasFocus ? -1 : undefined}>
+        <div
+            ref={(ref) => {
+                modalRef.current = ref;
+
+                if (ref) {
+                    latestBootstrapModal.current = bootstrap.Modal.getOrCreateInstance(modalRef.current, {
+                        ...MODAL_CONFIG,
+                        keyboard: !noKeyboard,
+                        focus: hasFocus,
+                    });
+                }
+            }}
+            className={modalClasses}
+            tabIndex={hasFocus ? -1 : undefined}
+        >
             <div className={`modal-dialog c-popup__dialog ${MODAL_SIZE_CLASS[size]}`} role="dialog">
                 <div className="modal-content c-popup__content">
                     {noHeader
