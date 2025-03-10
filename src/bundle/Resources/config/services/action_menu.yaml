@@ -4,11 +4,6 @@ services:
         autoconfigure: true
         public: true
 
-    Ibexa\AdminUi\Menu\Action\ContentAwareActionItemFactory: ~
-
-    Ibexa\Contracts\AdminUi\Menu\ContentAwareActionItemFactoryInterface:
-        alias: Ibexa\AdminUi\Menu\Action\ContentAwareActionItemFactory
-
     Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder:
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: ibexa.admin_ui.action.draft_list }
