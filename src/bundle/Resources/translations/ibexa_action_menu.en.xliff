@@ -11,6 +11,16 @@
         <target state="new">Edit</target>
         <note>key: draft_list__action__content_edit</note>
       </trans-unit>
+      <trans-unit id="3574634178fbd999f1dc70abc2bb1af1adb0a5fa" resname="version_list__action__content_edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: version_list__action__content_edit</note>
+      </trans-unit>
+      <trans-unit id="1a76a5a34ec8f37aa0af6fb321aa10b4b1a4f321" resname="version_list__action__restore_version">
+        <source>Restore archived version</source>
+        <target state="new">Restore archived version</target>
+        <note>key: version_list__action__restore_version</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
