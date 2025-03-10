@@ -27,7 +27,6 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
      * @param array<string, mixed> $options
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     protected function createStructure(array $options): ItemInterface
     {
@@ -41,9 +40,16 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
             );
         }
 
-        $contentEditDraftAction = $this->contentAwareActionItemFactory->createEditDraftAction(
+        $parameters['label'] = $this->translator->trans(
             self::ITEM_EDIT_DRAFT,
-            $versionInfo
+            [],
+            self::TRANSLATION_DOMAIN
+        );
+
+        $contentEditDraftAction = $this->createEditDraftAction(
+            $versionInfo,
+            self::ITEM_EDIT_DRAFT,
+            $parameters
         );
 
         $menu->addChild($contentEditDraftAction);

@@ -11,9 +11,10 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractActionBuilder;
 use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-final class VersionListActionMenuBuilder extends AbstractActionBuilder
+final class VersionListActionMenuBuilder extends AbstractActionBuilder implements TranslationContainerInterface
 {
     public const ITEM_EDIT_DRAFT = 'version_list__action__content_edit';
     public const ITEM_RESTORE_VERSION = 'version_list__action__restore_version';
@@ -33,6 +34,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder
     protected function createStructure(array $options): ItemInterface
     {
         $menu = $this->createActionItem('root_action_list');
+        $children = [];
 
         $versionInfo = $options['versionInfo'];
         if (!$versionInfo instanceof VersionInfo) {
@@ -46,20 +48,30 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder
             $isDraftConflict = $options['isDraftConflict'] ?? false;
             $locationId = $options['locationId'] ?? null;
 
-            $contentEditDraftAction = $this->contentAwareActionItemFactory->createEditDraftAction(
+            $parameters['label'] = $this->translator->trans(
                 self::ITEM_EDIT_DRAFT,
+                [],
+                self::TRANSLATION_DOMAIN
+            );
+
+            $children[] = $this->createEditDraftAction(
                 $versionInfo,
+                self::ITEM_EDIT_DRAFT,
+                $parameters,
                 $isDraftConflict,
                 $locationId
             );
-
-            $menu->addChild($contentEditDraftAction);
         }
 
         if ($versionInfo->isArchived()) {
-            $restore = $this->createActionItem(
+            $children[] = $this->createActionItem(
                 self::ITEM_RESTORE_VERSION,
                 [
+                    'label' => $this->translator->trans(
+                        self::ITEM_RESTORE_VERSION,
+                        [],
+                        self::TRANSLATION_DOMAIN
+                    ),
                     'attributes' => [
                         'class' => 'ibexa-btn--content-edit',
                         'data-content-id' => $versionInfo->getContentInfo()->getId(),
@@ -72,8 +84,10 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder
                     ],
                 ]
             );
+        }
 
-            $menu->addChild($restore);
+        foreach ($children as $child) {
+            $menu->addChild($child);
         }
 
         return $menu;
