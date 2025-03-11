@@ -254,6 +254,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        word-break: break-all;
 
         &--hidden {
             display: none;
