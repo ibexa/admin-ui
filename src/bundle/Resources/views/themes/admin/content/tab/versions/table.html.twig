@@ -89,19 +89,20 @@
                             content: version.modificationDate|ibexa_full_datetime,
                         } %}
 
-                        {% if have_actions %}
+                        {% set version_action_list = knp_menu_get(
+                            'ibexa.admin_ui.action.version_list',
+                            [],
+                            {
+                                versionInfo: version,
+                                isDraftConflict: is_draft_conflict,
+                                locationId: location.id ?? null
+                            })
+                        %}
+
+                        {% if have_actions or version_action_list != null %}
                             {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { has_action_btns: true } %}
                                 {% block action_btns_content %}
                                     {{ custom_actions_column }}
-
-                                    {% set version_action_list = knp_menu_get(
-                                        'ibexa.admin_ui.action.version_list',
-                                        [],
-                                        {
-                                            versionInfo: version,
-                                            isDraftConflict: is_draft_conflict,
-                                            locationId: location.id ?? null
-                                        }) %}
                                     {{ knp_menu_render(version_action_list, {
                                         template: '@ibexadesign/ui/action_list.html.twig',
                                     }) }}
