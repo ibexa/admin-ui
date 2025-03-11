@@ -20,6 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class AbstractActionBuilder extends AbstractBuilder
 {
     protected const TRANSLATION_DOMAIN = 'ibexa_action_menu';
+
     private const ICON_EDIT = 'edit';
     private const ORDER_NUMBER = 10;
 
@@ -66,7 +67,7 @@ abstract class AbstractActionBuilder extends AbstractBuilder
     /**
      * @param array<string, mixed> $parameters
      */
-    public function createEditDraftAction(
+    protected function createEditDraftAction(
         VersionInfo $versionInfo,
         string $name,
         array $parameters = [],
