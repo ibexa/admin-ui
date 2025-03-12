@@ -104,6 +104,12 @@ services:
         tags:
             - controller.service_arguments
 
+    Ibexa\Bundle\AdminUi\Controller\AllNotificationsController:
+        parent: Ibexa\Contracts\AdminUi\Controller\Controller
+        autowire: true
+        tags:
+            - controller.service_arguments
+
     Ibexa\Bundle\AdminUi\Controller\ObjectStateController:
         parent: Ibexa\Contracts\AdminUi\Controller\Controller
         autowire: true

@@ -47,13 +47,6 @@ class NotificationController extends Controller
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
     {
         $response = new JsonResponse();
@@ -75,12 +68,7 @@ class NotificationController extends Controller
         return $response;
     }
 
-    /**
-     * @param int $page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function renderNotificationsPageAction(int $page): Response
+    public function renderNotificationsPageAction(Request $request, int $page): Response
     {
         $pagerfanta = new Pagerfanta(
             new NotificationAdapter($this->notificationService)
@@ -95,6 +83,7 @@ class NotificationController extends Controller
                 $notifications .= $renderer->render($notification);
             }
         }
+        $notifications = $request->attributes->get('notifications', $notifications);
 
         $routeGenerator = function ($page) {
             return $this->generateUrl('ibexa.notifications.render.page', [
@@ -104,13 +93,15 @@ class NotificationController extends Controller
 
         $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
 
-        return new Response($this->render('@ibexadesign/account/notifications/list.html.twig', [
+        $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
+
+        return $this->render($template, [
             'page' => $page,
             'pagination' => $pagination,
             'notifications' => $notifications,
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
-        ])->getContent());
+        ]);
     }
 
     /**
@@ -139,13 +130,8 @@ class NotificationController extends Controller
      * We're not able to establish two-way stream (it requires additional
      * server service for websocket connection), so * we need a way to mark notification
      * as read. AJAX call is fine.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed $notificationId
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function markNotificationAsReadAction(Request $request, $notificationId): JsonResponse
+    public function markNotificationAsReadAction(Request $request, mixed $notificationId): JsonResponse
     {
         $response = new JsonResponse();
 
@@ -153,6 +139,38 @@ class NotificationController extends Controller
             $notification = $this->notificationService->getNotification((int)$notificationId);
 
             $this->notificationService->markNotificationAsRead($notification);
+
+            $data = ['status' => 'success'];
+
+            if ($this->registry->hasRenderer($notification->type)) {
+                $url = $this->registry->getRenderer($notification->type)->generateUrl($notification);
+
+                if ($url) {
+                    $data['redirect'] = $url;
+                }
+            }
+
+            $response->setData($data);
+        } catch (\Exception $exception) {
+            $response->setData([
+                'status' => 'failed',
+                'error' => $exception->getMessage(),
+            ]);
+
+            $response->setStatusCode(404);
+        }
+
+        return $response;
+    }
+
+    public function markNotificationAsUnreadAction(Request $request, mixed $notificationId): JsonResponse
+    {
+        $response = new JsonResponse();
+
+        try {
+            $notification = $this->notificationService->getNotification((int)$notificationId);
+
+            $this->notificationService->markNotificationAsUnread($notification);
 
             $data = ['status' => 'success'];
 
