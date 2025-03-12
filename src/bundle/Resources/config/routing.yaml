@@ -912,6 +912,15 @@ ibexa.notifications.render.page:
     requirements:
         page: '\d+'
 
+ibexa.notifications.render.all:
+    path: /notifications/render/all/{page}
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\AllNotificationsController::renderAllNotificationsPageAction'
+        page: 1
+    methods: [ GET ]
+    requirements:
+        page: '\d+'
+
 ibexa.notifications.count:
     path: /notifications/count
     defaults:
@@ -923,6 +932,14 @@ ibexa.notifications.mark_as_read:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsReadAction'
     methods: [GET]
+    requirements:
+        notificationId: '\d+'
+
+ibexa.notifications.mark_as_unread:
+    path: /notification/unread/{notificationId}
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsUnreadAction'
+    methods: [ GET ]
     requirements:
         notificationId: '\d+'
 
