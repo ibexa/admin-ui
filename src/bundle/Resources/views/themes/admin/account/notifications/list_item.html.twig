@@ -46,6 +46,7 @@
     attr: {
         'data-notification-id': notification.id,
         'data-notification-read': path('ibexa.notifications.mark_as_read', { 'notificationId': notification.id }),
+        'data-notification-unread': path('ibexa.notifications.mark_as_unread', { 'notificationId': notification.id }),
     }
 } %}
     {% block body_row_cells %}
