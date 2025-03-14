@@ -23,7 +23,7 @@
             }
 
             if (!isEmpty) {
-                const isUrlValid = URL.canParse(urlValue);
+                const isUrlValid = ibexa.errors.urlRegexp.test(urlValue);
 
                 if (!isUrlValid) {
                     result.isError = true;
