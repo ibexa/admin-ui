@@ -85,19 +85,9 @@ class NotificationController extends Controller
         }
         $notifications = $request->attributes->get('notifications', $notifications);
 
-        $routeGenerator = function ($page) {
-            return $this->generateUrl('ibexa.notifications.render.page', [
-                'page' => $page,
-            ]);
-        };
-
-        $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
-
         $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
 
         return $this->render($template, [
-            'page' => $page,
-            'pagination' => $pagination,
             'notifications' => $notifications,
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
