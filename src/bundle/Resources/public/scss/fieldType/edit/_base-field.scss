@@ -54,6 +54,11 @@
         }
     }
 
+    &__nontranslatable {
+        padding-top: calculateRem(8px);
+        font-size: $ibexa-text-font-size-small;
+    }
+
     .ibexa-input-text-wrapper {
         width: auto;
     }
