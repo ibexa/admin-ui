@@ -80,7 +80,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
                     ],
                     'extras' => [
                         'icon' => self::ICON_ARCHIVE_RESTORE,
-                        'orderNumber' => 100,
+                        'orderNumber' => 10,
                     ],
                 ]
             );

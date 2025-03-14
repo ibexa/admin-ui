@@ -2,7 +2,7 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
-        public: true
+        public: false
 
     Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder:
         tags:
@@ -11,3 +11,13 @@ services:
     Ibexa\AdminUi\Menu\Action\VersionListActionMenuBuilder:
         tags:
             - { name: knp_menu.menu_builder, method: build, alias: ibexa.admin_ui.action.version_list }
+
+    ibexa.adminui.listener.draft_list_action_menu.reorder_by_order_number:
+        class: Ibexa\AdminUi\Menu\Listener\ReorderByOrderNumberListener
+        tags:
+            - { name: kernel.event_listener, event: Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder, method: reorderMenuItems, priority: -50 }
+
+    ibexa.adminui.listener.version_list_action_menu.reorder_by_order_number:
+        class: Ibexa\AdminUi\Menu\Listener\ReorderByOrderNumberListener
+        tags:
+            - { name: kernel.event_listener, event: Ibexa\AdminUi\Menu\Action\VersionListActionMenuBuilder, method: reorderMenuItems, priority: -50 }
