@@ -30,13 +30,28 @@
 
 {% if pager.haveToPaginate %}
     <div class="ibexa-pagination">
-        <div class="ibexa-pagination__text">
-            {{ 'pagination.viewing'|trans({
-            '%viewing%': pager.currentPageResults|length,
-            '%total%': pager.nbResults}, 'ibexa_pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
-        </div>
-        <div class="ibexa-pagination__navigation">
-            {{ pagination|raw }}
-        </div>
+        <ul class="ibexa-pagination__navigation">
+            {% if pager.hasPreviousPage %}
+                <li>
+                    <a href="{{ path('ibexa.notifications.render.page', {'page': pager.previousPage}) }}">
+                        {{ 'pagination.previous'|trans({}, 'ibexa_pagination') }}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for i in 1..pager.nbPages %}
+                <li class="{{ pager.currentPage == i ? 'active' : '' }}">
+                    <a href="{{ path('ibexa.notifications.render.page', {'page': i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            {% if pager.hasNextPage %}
+                <li>
+                    <a href="{{ path('ibexa.notifications.render.page', {'page': pager.nextPage}) }}">
+                        {{ 'pagination.next'|trans({}, 'ibexa_pagination') }}
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
 {% endif %}
