@@ -8,7 +8,7 @@
     ],
     class: 'ibexa-table--notifications',
     attr: {
-        'data-notifications': path('ibexa.notifications.render.page'),
+        'data-notifications': path('ibexa.notifications.render.all'),
         'data-notifications-count': path('ibexa.notifications.count'),
         'data-notifications-count-interval': notifications_count_interval,
         'data-notifications-total': pager.nbResults,
@@ -31,11 +31,11 @@
 {% endembed %}
 
 {% if pager.haveToPaginate %}
-    <nav class="ibexa-pagination">
+    <div class="ibexa-pagination">
         <ul class="ibexa-pagination__navigation">
             {% if pager.hasPreviousPage %}
                 <li>
-                    <a href="{{ path('ibexa.notifications.render.page', {'page': pager.previousPage}) }}">
+                    <a href="{{ path('ibexa.notifications.render.all', {'page': pager.previousPage}) }}">
                         {{ 'pagination.previous'|trans({}, 'ibexa_pagination') }}
                     </a>
                 </li>
@@ -43,18 +43,18 @@
 
             {% for i in 1..pager.nbPages %}
                 <li class="{{ pager.currentPage == i ? 'active' : '' }}">
-                    <a href="{{ path('ibexa.notifications.render.page', {'page': i}) }}">{{ i }}</a>
+                    <a href="{{ path('ibexa.notifications.render.all', {'page': i}) }}">{{ i }}</a>
                 </li>
             {% endfor %}
 
             {% if pager.hasNextPage %}
                 <li>
-                    <a href="{{ path('ibexa.notifications.render.page', {'page': pager.nextPage}) }}">
+                    <a href="{{ path('ibexa.notifications.render.all', {'page': pager.nextPage}) }}">
                         {{ 'pagination.next'|trans({}, 'ibexa_pagination') }}
                     </a>
                 </li>
             {% endif %}
         </ul>
-    </nav>
+    </div>
 {% endif %}
 
