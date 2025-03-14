@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Integration\AdminUi;
 
 use DAMA\DoctrineTestBundle\DAMADoctrineTestBundle;
 use Hautelook\TemplatedUriBundle\HautelookTemplatedUriBundle;
+use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
 use Ibexa\Bundle\ContentForms\IbexaContentFormsBundle;
 use Ibexa\Bundle\DesignEngine\IbexaDesignEngineBundle;
@@ -19,6 +20,7 @@ use Ibexa\Bundle\Search\IbexaSearchBundle;
 use Ibexa\Bundle\Test\Rest\IbexaTestRestBundle;
 use Ibexa\Bundle\TwigComponents\IbexaTwigComponentsBundle;
 use Ibexa\Bundle\User\IbexaUserBundle;
+use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
 use Ibexa\Rest\Server\Controller\JWT;
@@ -63,6 +65,15 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield from parent::getExposedServicesByClass();
 
         yield BookmarkService::class;
+
+        yield ContentTypeFieldsExtractorInterface::class;
+
+        yield ContentTypeHandler::class;
+    }
+
+    protected static function getExposedServicesById(): iterable
+    {
+        yield from parent::getExposedServicesById();
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void

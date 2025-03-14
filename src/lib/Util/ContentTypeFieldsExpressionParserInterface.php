@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
+namespace Ibexa\AdminUi\Util;
+
+interface ContentTypeFieldsExpressionParserInterface
+{
+    /**
+     * @return array{non-empty-list<string>|null, non-empty-list<string>|null, non-empty-list<string>|null}
+     *
+     * @throws \RuntimeException
+     */
+    public function parseExpression(string $expression): array;
+}
