@@ -22,7 +22,7 @@ abstract class AbstractActionBuilder extends AbstractBuilder
     protected const TRANSLATION_DOMAIN = 'ibexa_action_menu';
 
     private const ICON_EDIT = 'edit';
-    private const ORDER_NUMBER = 10;
+    private const ORDER_NUMBER = 200;
 
     protected TranslatorInterface $translator;
 
