@@ -19,29 +19,31 @@ const PopupMenuSearch = ({ numberOfItems, filterText, setFilterText }) => {
     return (
         <div className="c-popup-menu__search">
             <div className="ibexa-input-text-wrapper">
-                <input
-                    type="text"
-                    placeholder={searchPlaceholder}
-                    className="c-popup-menu__search-input ibexa-input ibexa-input--small ibexa-input--text form-control"
-                    onChange={updateFilterValue}
-                    value={filterText}
-                />
-                <div className="ibexa-input-text-wrapper__actions">
-                    <button
-                        type="button"
-                        className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
-                        tabIndex="-1"
-                        onClick={resetInputValue}
-                    >
-                        <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
-                    </button>
-                    <button
-                        type="button"
-                        className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
-                        tabIndex="-1"
-                    >
-                        <Icon name="search" extraClasses="ibexa-icon--small" />
-                    </button>
+                <div className="ibexa-input-text-wrapper__input-wrapper">
+                    <input
+                        type="text"
+                        placeholder={searchPlaceholder}
+                        className="c-popup-menu__search-input ibexa-input ibexa-input--small ibexa-input--text form-control"
+                        onChange={updateFilterValue}
+                        value={filterText}
+                    />
+                    <div className="ibexa-input-text-wrapper__actions">
+                        <button
+                            type="button"
+                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                            tabIndex="-1"
+                            onClick={resetInputValue}
+                        >
+                            <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
+                        </button>
+                        <button
+                            type="button"
+                            className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
+                            tabIndex="-1"
+                        >
+                            <Icon name="search" extraClasses="ibexa-icon--small" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
