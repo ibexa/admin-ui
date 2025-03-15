@@ -53,20 +53,15 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     private const CREATE_USER_LABEL = 'sidebar_right.create_user';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
-    private $udwConfigResolver;
+    private ConfigResolver $udwConfigResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
-    private $udwExtension;
+    private UniversalDiscoveryExtension $udwExtension;
 
     private SiteaccessResolverInterface $siteaccessResolver;
 

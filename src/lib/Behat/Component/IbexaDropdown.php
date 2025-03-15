@@ -32,7 +32,7 @@ class IbexaDropdown extends Component
         ];
     }
 
-    public function selectOption(string $value)
+    public function selectOption(string $value): void
     {
         $dropdownOptionLocator = $this->getLocator('ibexaDropdownExtended');
         $listElement = $this->getHTMLPage()
@@ -44,7 +44,7 @@ class IbexaDropdown extends Component
         $listElement->find($this->getLocator('ibexaDropdownLabel'))->click();
     }
 
-    public function selectOptionByValueFragment(string $valueFragment)
+    public function selectOptionByValueFragment(string $valueFragment): void
     {
         $dropdownOptionLocator = $this->getLocator('ibexaDropdownExtended');
         $listElement = $this->getHTMLPage()

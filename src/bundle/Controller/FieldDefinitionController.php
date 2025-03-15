@@ -25,11 +25,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class FieldDefinitionController extends RestController
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(ContentTypeService $contentTypeService, UrlGeneratorInterface $urlGenerator)
     {

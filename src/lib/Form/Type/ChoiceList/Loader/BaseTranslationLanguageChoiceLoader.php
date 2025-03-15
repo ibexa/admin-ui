@@ -34,7 +34,7 @@ class BaseTranslationLanguageChoiceLoader extends BaseChoiceLoader
     {
         return array_filter(
             iterator_to_array($this->languageService->loadLanguages()),
-            function (Language $language) {
+            function (Language $language): bool {
                 return $language->enabled && in_array($language->languageCode, $this->languageCodes, true);
             }
         );

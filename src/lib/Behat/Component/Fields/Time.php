@@ -18,8 +18,7 @@ class Time extends FieldTypeComponent
 {
     private const VALUE_TIME_FORMAT = 'G:i';
 
-    /** @var \Ibexa\AdminUi\Behat\Component\DateAndTimePopup */
-    private $dateAndTimePopup;
+    private DateAndTimePopup $dateAndTimePopup;
 
     public function __construct(Session $session, DateAndTimePopup $dateAndTimePopup)
     {

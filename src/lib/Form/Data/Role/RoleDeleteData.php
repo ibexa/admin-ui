@@ -12,8 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
-    private $role;
+    private ?Role $role;
 
     public function __construct(?Role $role = null)
     {
@@ -31,7 +30,7 @@ class RoleDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
      */
-    public function setRole(Role $role)
+    public function setRole(Role $role): void
     {
         $this->role = $role;
     }

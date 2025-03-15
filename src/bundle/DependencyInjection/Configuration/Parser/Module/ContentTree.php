@@ -34,7 +34,7 @@ class ContentTree extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('content_tree_module')

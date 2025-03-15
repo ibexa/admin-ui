@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -21,20 +22,16 @@ use Ibexa\Contracts\Core\Repository\Repository;
 
 class SectionPage extends Page
 {
-    /** @var string */
-    private $expectedSectionName;
+    private ?string $expectedSectionName = null;
 
     /** @var int */
     private $expectedSectionId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $contentItemsTable;
+    private TableInterface $contentItemsTable;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     public function __construct(
         Session $session,
@@ -76,7 +73,7 @@ class SectionPage extends Page
         return $this->contentItemsTable->hasElement($elementData);
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -84,7 +81,7 @@ class SectionPage extends Page
             ->click();
     }
 
-    public function assignContentItems()
+    public function assignContentItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('assignButton'))->click();
     }
@@ -94,7 +91,7 @@ class SectionPage extends Page
         return !$this->contentItemsTable->isEmpty();
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -116,7 +113,7 @@ class SectionPage extends Page
     {
         $this->expectedSectionName = $sectionName;
 
-        $sections = $this->repository->sudo(static function (Repository $repository) {
+        $sections = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getSectionService()->loadSections();
         });
 

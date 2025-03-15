@@ -13,13 +13,14 @@ use JMS\TranslationBundle\Model\FileSource;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Model\MessageCatalogue;
 use JMS\TranslationBundle\Translation\ExtractorInterface;
+use ReflectionClass;
 
 /**
  * Generates translation strings for sort options (field and order).
  */
 class SortingTranslationExtractor implements ExtractorInterface
 {
-    private $defaultTranslations = [
+    private array $defaultTranslations = [
         1 => 'Location path',
         2 => 'Publication date',
         3 => 'Modification date',
@@ -31,16 +32,16 @@ class SortingTranslationExtractor implements ExtractorInterface
         9 => 'Content name',
     ];
 
-    private $domain = 'ibexa_content_type';
+    private string $domain = 'ibexa_content_type';
 
     public function extract()
     {
         $catalogue = new MessageCatalogue();
-        $locationClass = new \ReflectionClass(Location::class);
+        $locationClass = new ReflectionClass(Location::class);
 
         $sortConstants = array_filter(
             $locationClass->getConstants(),
-            static function ($value, $key) {
+            static function ($value, $key): bool {
                 return is_scalar($value) && strtolower(substr($key, 0, 11)) === 'sort_field_';
             },
             ARRAY_FILTER_USE_BOTH

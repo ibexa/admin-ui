@@ -16,14 +16,12 @@ use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 
 class SiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
     /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterInterface[] */
-    private $siteAccessPreviewVoters;
+    private iterable $siteAccessPreviewVoters;
 
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService */
-    private $siteAccessService;
+    private SiteAccessService $siteAccessService;
 
     private LocationService $locationService;
 

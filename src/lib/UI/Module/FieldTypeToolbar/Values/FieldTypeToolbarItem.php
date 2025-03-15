@@ -10,14 +10,11 @@ namespace Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values;
 
 final class FieldTypeToolbarItem
 {
-    /** @var string */
-    private $identifier;
+    private string $identifier;
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var bool */
-    private $isSingular;
+    private bool $isSingular;
 
     public function __construct(string $identifier, string $name, bool $isSingular = false)
     {

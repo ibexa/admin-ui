@@ -25,7 +25,7 @@ class ContentEditTypeExtension extends AbstractTypeExtension
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('preview', SubmitType::class, [
             'label' => /** @Desc("Preview") */ 'preview',

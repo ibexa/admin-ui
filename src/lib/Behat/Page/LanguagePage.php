@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -21,20 +22,17 @@ use PHPUnit\Framework\Assert;
 
 class LanguagePage extends Page
 {
-    /** @var string */
-    private $expectedLanguageName;
+    private ?string $expectedLanguageName = null;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
     /** @var int */
     private $expectedLanguageId;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
     {
@@ -44,7 +42,7 @@ class LanguagePage extends Page
         $this->repository = $repository;
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -84,7 +82,7 @@ class LanguagePage extends Page
         return true;
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -97,11 +95,11 @@ class LanguagePage extends Page
         return 'Language';
     }
 
-    public function setExpectedLanguageName(string $languageName)
+    public function setExpectedLanguageName(string $languageName): void
     {
         $this->expectedLanguageName = $languageName;
 
-        $languages = $this->repository->sudo(static function (Repository $repository) {
+        $languages = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getContentLanguageService()->loadLanguages();
         });
 

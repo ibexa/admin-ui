@@ -15,7 +15,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TimeValueTransformerTest extends TestCase
 {
-    public function testTransform()
+    public function testTransform(): void
     {
         $date = new DateTime();
         $value = Value::fromDateTime($date);
@@ -25,7 +25,7 @@ class TimeValueTransformerTest extends TestCase
         self::assertSame($time, $transformer->transform($value));
     }
 
-    public function testTransformZero()
+    public function testTransformZero(): void
     {
         $value = new Value(0);
         $transformer = new TimeValueTransformer();
@@ -33,7 +33,7 @@ class TimeValueTransformerTest extends TestCase
         self::assertSame(0, $transformer->transform($value));
     }
 
-    public function testTransformNull()
+    public function testTransformNull(): void
     {
         $value = new Value(null);
         $transformer = new TimeValueTransformer();
@@ -41,7 +41,7 @@ class TimeValueTransformerTest extends TestCase
         self::assertNull($transformer->transform($value));
     }
 
-    public function testTransformInvalidValue()
+    public function testTransformInvalidValue(): void
     {
         $transformer = new TimeValueTransformer();
 

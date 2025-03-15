@@ -30,7 +30,7 @@ final class ContentTranslationMapperTest extends TestCase
     public const LANGUAGE_CODE = 'cyb-CY';
 
     /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper */
-    private $mapper;
+    private ContentTranslationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -40,7 +40,7 @@ final class ContentTranslationMapperTest extends TestCase
     /**
      * @dataProvider paramsProvider
      */
-    public function testMapToFormData(Content $content, array $params, ContentTranslationData $expectedData)
+    public function testMapToFormData(Content $content, array $params, ContentTranslationData $expectedData): void
     {
         $actualData = $this->mapper->mapToFormData($content, $params);
 
@@ -147,7 +147,7 @@ final class ContentTranslationMapperTest extends TestCase
     /**
      * @dataProvider wrongParamsProvider
      */
-    public function testMapToFormDataWithoutRequiredParameter($content, array $params, array $exception)
+    public function testMapToFormDataWithoutRequiredParameter(Content $content, array $params, array $exception): void
     {
         $this->expectException($exception['class']);
         $this->expectExceptionMessage($exception['message']);
@@ -229,7 +229,7 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getField($fieldDefIdentifier = 'identifier', $languageCode = self::LANGUAGE_CODE, $value = 'string_value'): Field
+    private function getField(string $fieldDefIdentifier = 'identifier', $languageCode = self::LANGUAGE_CODE, $value = 'string_value'): Field
     {
         return new Field([
             'fieldDefIdentifier' => $fieldDefIdentifier,

@@ -20,10 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SortOrderChoiceType extends AbstractType
 {
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -48,7 +45,7 @@ class SortOrderChoiceType extends AbstractType
      *
      * @return array
      */
-    private function getSortOrderChoices()
+    private function getSortOrderChoices(): array
     {
         $choices = [];
         foreach ($this->getSortOrder() as $label => $value) {
@@ -63,7 +60,7 @@ class SortOrderChoiceType extends AbstractType
      *
      * @return array
      */
-    private function getSortOrder()
+    private function getSortOrder(): array
     {
         return [
             $this->translator->trans(/** @Desc("Ascending") */

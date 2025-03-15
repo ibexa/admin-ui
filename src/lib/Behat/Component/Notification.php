@@ -74,7 +74,7 @@ class Notification extends Component
             );
     }
 
-    public function verifyMessage(string $expectedMessage)
+    public function verifyMessage(string $expectedMessage): void
     {
         $this->getHTMLPage()->setTimeout(self::TIMEOUT)->find($this->getLocator('alertMessage'))->assert()->textEquals($expectedMessage);
     }

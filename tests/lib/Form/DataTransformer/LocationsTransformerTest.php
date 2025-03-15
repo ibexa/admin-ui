@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Form\DataTransformer\LocationsTransformer;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class LocationsTransformerTest extends TestCase
@@ -22,7 +23,7 @@ class LocationsTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(string|array|null $value, ?string $expected): void
     {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationsTransformer($service);
@@ -32,7 +33,7 @@ class LocationsTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    public function testReverseTransformWithIds()
+    public function testReverseTransformWithIds(): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::exactly(2))
@@ -53,7 +54,7 @@ class LocationsTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testReverseTransformWithEmpty($value)
+    public function testReverseTransformWithEmpty(string|int|float|bool|array|null $value): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::never())
@@ -70,7 +71,7 @@ class LocationsTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(int|bool|float|stdClass|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
@@ -108,7 +109,7 @@ class LocationsTransformerTest extends TestCase
             'bool' => [true],
             'float' => [12.34],
             'array' => [['element']],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
         ];
     }
 

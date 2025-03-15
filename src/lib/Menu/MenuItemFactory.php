@@ -7,6 +7,7 @@
 
 namespace Ibexa\AdminUi\Menu;
 
+use Exception;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -15,14 +16,11 @@ use Knp\Menu\ItemInterface;
 
 class MenuItemFactory implements MenuItemFactoryInterface
 {
-    /** @var \Knp\Menu\FactoryInterface */
-    protected $factory;
+    protected FactoryInterface $factory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Knp\Menu\FactoryInterface $factory
@@ -54,7 +52,7 @@ class MenuItemFactory implements MenuItemFactoryInterface
             $location = $this->locationService->loadLocation($locationId);
             $contentInfo = $location->getContentInfo();
             $canRead = $this->permissionResolver->canUser('content', 'read', $contentInfo);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
 

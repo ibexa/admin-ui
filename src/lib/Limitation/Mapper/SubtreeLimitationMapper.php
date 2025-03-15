@@ -18,7 +18,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationContainerInterface
 {
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
         if (!is_array($limitation->limitationValues)) {
             return;
@@ -35,8 +35,9 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @return \list<\list>
      */
-    public function mapLimitationValue(Limitation $limitation)
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 

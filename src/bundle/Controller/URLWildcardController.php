@@ -27,17 +27,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class URLWildcardController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
-    private $urlWildcardService;
+    private URLWildcardService $urlWildcardService;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
     public function __construct(
         URLWildcardService $urlWildcardService,
@@ -175,7 +171,7 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $this->submitHandler->handle($form, function (URLWildcardDeleteData $data) {
+            $this->submitHandler->handle($form, function (URLWildcardDeleteData $data): void {
                 foreach ($data->getURLWildcardsChoices() as $urlWildcardId => $value) {
                     $urlWildcard = $this->urlWildcardService->load($urlWildcardId);
                     $this->urlWildcardService->remove($urlWildcard);

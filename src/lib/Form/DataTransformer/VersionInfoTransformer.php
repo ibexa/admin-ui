@@ -21,8 +21,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class VersionInfoTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
     public function __construct(ContentService $contentService)
     {

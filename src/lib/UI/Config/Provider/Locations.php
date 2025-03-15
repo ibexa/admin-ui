@@ -17,8 +17,7 @@ final class Locations implements ProviderInterface
     private const CONTENT_STRUCTURE_IDENTIFIER = 'contentStructure';
     private const USERS_IDENTIFIER = 'users';
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         ConfigResolverInterface $configResolver

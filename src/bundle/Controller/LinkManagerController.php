@@ -27,17 +27,13 @@ final class LinkManagerController extends Controller
 {
     public const DEFAULT_MAX_PER_PAGE = 10;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLService */
-    private $urlService;
+    private URLService $urlService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\URLService $urlService

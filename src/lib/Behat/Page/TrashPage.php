@@ -12,6 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -23,14 +24,12 @@ class TrashPage extends Page
     /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
     public $dialog;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    private $contentActionsMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
     public function __construct(
         Session $session,
@@ -57,7 +56,7 @@ class TrashPage extends Page
         return $this->table->isEmpty();
     }
 
-    public function restoreSelectedNewLocation(string $pathToContent)
+    public function restoreSelectedNewLocation(string $pathToContent): void
     {
         $this->getHTMLPage()->find($this->getLocator('restoreUnderNewLocationButton'))->click();
         $this->universalDiscoveryWidget->verifyIsLoaded();
@@ -65,26 +64,26 @@ class TrashPage extends Page
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function emptyTrash()
+    public function emptyTrash(): void
     {
         $this->contentActionsMenu->clickButton('Empty Trash');
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
 
-    public function deleteSelectedItems()
+    public function deleteSelectedItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('trashButton'))->click();
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
 
-    public function select(array $parameters)
+    public function select(array $parameters): void
     {
         $this->table->getTableRow($parameters)->select();
     }
 
-    public function restoreSelectedItems()
+    public function restoreSelectedItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
     }

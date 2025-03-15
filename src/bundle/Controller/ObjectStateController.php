@@ -36,23 +36,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ObjectStateController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    private $objectStateService;
+    private ObjectStateService $objectStateService;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -197,7 +191,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data): void {
                 $objectState = $data->getObjectState();
                 $this->objectStateService->deleteObjectState($objectState);
 
@@ -237,7 +231,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStatesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStatesDeleteData $data): void {
                 foreach ($data->getObjectStates() as $objectStateId => $selected) {
                     $objectState = $this->objectStateService->loadObjectState($objectStateId);
                     $this->objectStateService->deleteObjectState($objectState);
@@ -347,7 +341,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentObjectStateUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentObjectStateUpdateData $data): void {
                 $contentInfo = $data->getContentInfo();
                 $objectStateGroup = $data->getObjectStateGroup();
                 $objectState = $data->getObjectState();

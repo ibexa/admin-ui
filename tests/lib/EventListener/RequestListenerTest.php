@@ -9,6 +9,7 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 
 use Ibexa\AdminUi\EventListener\RequestListener;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -19,16 +20,16 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class RequestListenerTest extends TestCase
 {
     /** @var \Ibexa\AdminUi\EventListener\RequestListener */
-    private $requestListener;
+    private RequestListener $requestListener;
 
     /** @var \Symfony\Component\HttpFoundation\Request */
-    private $request;
+    private MockObject $request;
 
     /** @var \Symfony\Component\HttpKernel\Event\RequestEvent */
-    private $event;
+    private RequestEvent $event;
 
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $httpKernel;
+    private MockObject $httpKernel;
 
     protected function setUp(): void
     {
@@ -50,7 +51,7 @@ class RequestListenerTest extends TestCase
         );
     }
 
-    public function testOnKernelRequestDeniedAccess()
+    public function testOnKernelRequestDeniedAccess(): void
     {
         $this->expectException(NotFoundHttpException::class);
         $this->expectExceptionMessage('The route is not allowed in the current SiteAccess');
@@ -61,7 +62,7 @@ class RequestListenerTest extends TestCase
         $this->requestListener->onKernelRequest($this->event);
     }
 
-    public function testOnKernelRequestAllowAccessWithSubRequest()
+    public function testOnKernelRequestAllowAccessWithSubRequest(): void
     {
         $this->event = new RequestEvent(
             $this->httpKernel,
@@ -72,21 +73,21 @@ class RequestListenerTest extends TestCase
         self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
-    public function testOnKernelRequestAllowAccessWithoutSiteAccess()
+    public function testOnKernelRequestAllowAccessWithoutSiteAccess(): void
     {
         $this->request->attributes->set('siteaccess', 'not_siteaccess_object');
 
         self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
-    public function testOnKernelRequestAllowAccessWithoutGroupWhitelist()
+    public function testOnKernelRequestAllowAccessWithoutGroupWhitelist(): void
     {
         $this->request->attributes->set('siteaccess_group_whitelist', null);
 
         self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
-    public function testOnKernelRequestAllowAccessWhenGroupMatch()
+    public function testOnKernelRequestAllowAccessWhenGroupMatch(): void
     {
         $this->request->attributes->set('siteaccess', new SiteAccess('some_name'));
         $this->request->attributes->set('siteaccess_group_whitelist', ['group_1', 'group_2']);
@@ -94,7 +95,7 @@ class RequestListenerTest extends TestCase
         self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
-    public function testSubscribedEvents()
+    public function testSubscribedEvents(): void
     {
         self::assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
     }

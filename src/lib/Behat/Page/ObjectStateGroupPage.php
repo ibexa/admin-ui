@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -24,14 +25,12 @@ class ObjectStateGroupPage extends Page
     /** @var string */
     protected $expectedObjectStateGroupName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $objectStates;
+    private TableInterface $objectStates;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     /** @var mixed */
     private $expectedObjectStateGroupId;
@@ -89,7 +88,7 @@ class ObjectStateGroupPage extends Page
         return $this->objectStates->hasElement(['Object state name' => $objectStateName]);
     }
 
-    public function deleteObjectState(string $objectStateName)
+    public function deleteObjectState(string $objectStateName): void
     {
         $this->objectStates->getTableRow(['Object state name' => $objectStateName])->select();
         $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
@@ -97,7 +96,7 @@ class ObjectStateGroupPage extends Page
         $this->dialog->confirm();
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))

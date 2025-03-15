@@ -13,14 +13,11 @@ use Twig\Environment;
 
 class TwigComponent implements Renderable
 {
-    /** @var string */
-    protected $template;
+    protected string $template;
 
-    /** @var \Twig\Environment */
-    protected $twig;
+    protected Environment $twig;
 
-    /** @var array */
-    protected $parameters;
+    protected array $parameters;
 
     /**
      * @param \Twig\Environment $twig

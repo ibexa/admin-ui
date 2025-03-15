@@ -28,7 +28,7 @@ class Pagination extends Component
             ->find(new VisibleCSSLocator('backToTopWithTitle', '.ibexa-back-to-top__title--visible'))
             ->assert()->textEquals('Go to top');
         $this->getHTMLPage()->find($this->getLocator('nextButton'))->click();
-        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage) {
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage): bool {
             $activePge = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
 
             return $activePge === $currentPage + 1;

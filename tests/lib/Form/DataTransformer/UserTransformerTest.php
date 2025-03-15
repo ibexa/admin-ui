@@ -16,12 +16,13 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content as Core;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserTransformerTest extends TestCase
 {
     /** @var \Ibexa\AdminUi\Form\DataTransformer\UserTransformer */
-    private $userTransformer;
+    private UserTransformer $userTransformer;
 
     protected function setUp(): void
     {
@@ -41,7 +42,7 @@ class UserTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?User $value, ?int $expected): void
     {
         $result = $this->userTransformer->transform($value);
 
@@ -53,7 +54,7 @@ class UserTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(string|int|bool|float|stdClass|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . User::class . ' object.');
@@ -67,7 +68,7 @@ class UserTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testReverseTransform($value, $expected)
+    public function testReverseTransform(?int $value, ?User $expected): void
     {
         $result = $this->userTransformer->reverseTransform($value);
 
@@ -79,7 +80,7 @@ class UserTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(string|bool|stdClass|User|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a numeric string.');
@@ -87,7 +88,7 @@ class UserTransformerTest extends TestCase
         $this->userTransformer->reverseTransform($value);
     }
 
-    public function testReverseTransformWithNotFoundException()
+    public function testReverseTransformWithNotFoundException(): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('User not found');
@@ -140,7 +141,7 @@ class UserTransformerTest extends TestCase
             'bool' => [true],
             'float' => [12.34],
             'array' => [[]],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
         ];
     }
 
@@ -153,7 +154,7 @@ class UserTransformerTest extends TestCase
             'string' => ['string'],
             'bool' => [true],
             'array' => [['element']],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'user' => [$this->generateUser()],
         ];
     }

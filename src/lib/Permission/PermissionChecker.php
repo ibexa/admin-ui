@@ -20,16 +20,17 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimita
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
+use function count;
+use function in_array;
+use function is_bool;
 
 class PermissionChecker implements PermissionCheckerInterface
 {
     private const USER_GROUPS_LIMIT = 25;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -81,13 +82,13 @@ class PermissionChecker implements PermissionCheckerInterface
      */
     public function canCreateInLocation(Location $location, $hasAccess): bool
     {
-        if (\is_bool($hasAccess)) {
+        if (is_bool($hasAccess)) {
             return $hasAccess;
         }
         $restrictedLocations = $this->getRestrictions($hasAccess, LocationLimitation::class);
         $canCreateInLocation = empty($restrictedLocations)
             ? true
-            : \in_array($location->id, array_map('intval', $restrictedLocations), true);
+            : in_array($location->id, array_map('intval', $restrictedLocations), true);
 
         if (false === $canCreateInLocation) {
             return false;
@@ -96,7 +97,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $restrictedParentContentTypes = $this->getRestrictions($hasAccess, ParentContentTypeLimitation::class);
         $canCreateInParentContentType = empty($restrictedParentContentTypes)
             ? true
-            : \in_array($location->contentInfo->contentTypeId, array_map('intval', $restrictedParentContentTypes), true);
+            : in_array($location->contentInfo->contentTypeId, array_map('intval', $restrictedParentContentTypes), true);
 
         if (false === $canCreateInParentContentType) {
             return false;
@@ -105,7 +106,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $restrictedParentDepths = $this->getRestrictions($hasAccess, ParentDepthLimitation::class);
         $canCreateInParentDepth = empty($restrictedParentDepths)
             ? true
-            : \in_array($location->depth, array_map('intval', $restrictedParentDepths), true);
+            : in_array($location->depth, array_map('intval', $restrictedParentDepths), true);
 
         if (false === $canCreateInParentDepth) {
             return false;
@@ -123,7 +124,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $restrictedSections = $this->getRestrictions($hasAccess, SectionLimitation::class);
         $canCreateInSection = empty($restrictedSections)
             ? true
-            : \in_array($location->contentInfo->sectionId, array_map('intval', $restrictedSections), true);
+            : in_array($location->contentInfo->sectionId, array_map('intval', $restrictedSections), true);
 
         if (false === $canCreateInSection) {
             return false;
@@ -141,7 +142,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $restrictedSubtrees = $this->getRestrictions($hasAccess, SubtreeLimitation::class);
         $canCreateInSubtree = empty($restrictedSubtrees)
             ? true
-            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location) {
+            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
                 return strpos($location->pathString, $restrictedSubtree) === 0;
             }));
 
@@ -222,7 +223,7 @@ class PermissionChecker implements PermissionCheckerInterface
                 $allUserGroups[] = $userGroup->contentInfo->id;
             }
             $offset += self::USER_GROUPS_LIMIT;
-        } while (\count($userGroups) === self::USER_GROUPS_LIMIT);
+        } while (count($userGroups) === self::USER_GROUPS_LIMIT);
 
         return $allUserGroups;
     }

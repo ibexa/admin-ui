@@ -21,10 +21,7 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\SectionService
-     */
-    private $sectionService;
+    private SectionService $sectionService;
 
     public function __construct(SectionService $sectionService)
     {
@@ -32,7 +29,10 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
         $this->logger = new NullLogger();
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $choices = [];
         foreach ($this->sectionService->loadSections() as $section) {
@@ -42,7 +42,10 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
         return $choices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
         foreach ($limitation->limitationValues as $sectionId) {
