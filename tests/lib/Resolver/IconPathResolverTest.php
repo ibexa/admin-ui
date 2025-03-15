@@ -16,10 +16,10 @@ use Symfony\Component\Asset\Packages;
 final class IconPathResolverTest extends TestCase
 {
     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */
-    private $packages;
+    private Packages $packages;
 
     public function setUp(): void
     {

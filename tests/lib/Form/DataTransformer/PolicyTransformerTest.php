@@ -10,6 +10,7 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use Ibexa\AdminUi\Form\DataTransformer\PolicyTransformer;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class PolicyTransformerTest extends TestCase
@@ -20,7 +21,7 @@ class PolicyTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?array $value, ?string $expected): void
     {
         $transformer = new PolicyTransformer();
 
@@ -34,7 +35,7 @@ class PolicyTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(int|bool|float|stdClass|string|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a valid array of data.');
@@ -50,7 +51,7 @@ class PolicyTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testReverseTransform($value, $expected)
+    public function testReverseTransform(?string $value, ?array $expected): void
     {
         $transformer = new PolicyTransformer();
         $result = $transformer->reverseTransform($value);
@@ -64,7 +65,7 @@ class PolicyTransformerTest extends TestCase
      * @param $value
      * @param $expectedMessage
      */
-    public function testReverseTransformWithInvalidInput($value, $expectedMessage)
+    public function testReverseTransformWithInvalidInput(int|bool|float|stdClass|string|array $value, string $expectedMessage): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedMessage);
@@ -106,7 +107,7 @@ class PolicyTransformerTest extends TestCase
             'bool' => [true],
             'float' => [12.34],
             'empty_array' => [[]],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'string' => ['some string'],
             'empty_string' => [''],
             'missing_id' => [['module' => 'module_name', 'function' => 'some_function']],
@@ -128,7 +129,7 @@ class PolicyTransformerTest extends TestCase
             'bool' => [true, $stringExpected],
             'float' => [12.34, $stringExpected],
             'array' => [[], $stringExpected],
-            'object' => [new \stdClass(), $stringExpected],
+            'object' => [new stdClass(), $stringExpected],
             '2_parts' => ['123456:module', $atLeast3Parts],
             '1_part' => ['123456', $atLeast3Parts],
             'empty_string' => ['', $atLeast3Parts],

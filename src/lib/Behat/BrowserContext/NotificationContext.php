@@ -16,11 +16,9 @@ use PHPUnit\Framework\Assert;
 /** Context for actions on notifications */
 class NotificationContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
-    private $notification;
+    private Notification $notification;
 
-    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser */
-    private $argumentParser;
+    private ArgumentParser $argumentParser;
 
     public function __construct(Notification $notification, ArgumentParser $argumentParser)
     {

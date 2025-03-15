@@ -18,14 +18,12 @@ use PHPUnit\Framework\Assert;
 
 class ContentRelationSingle extends FieldTypeComponent
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableBuilder */
-    private $tableBuilder;
+    private TableBuilder $tableBuilder;
 
     public function specifyLocators(): array
     {

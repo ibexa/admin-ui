@@ -14,11 +14,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class LocationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
     protected $data;

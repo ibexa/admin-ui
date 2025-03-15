@@ -18,18 +18,14 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
  */
 class ContentCreateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
-    protected $contentType;
+    protected ?ContentType $contentType;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     *
      * @AdminUiAssert\LocationIsContainer()
      */
-    protected $parentLocation;
+    protected ?Location $parentLocation;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
-    protected $language;
+    protected ?Language $language;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType

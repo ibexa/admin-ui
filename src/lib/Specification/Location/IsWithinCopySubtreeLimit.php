@@ -17,11 +17,9 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
  */
 class IsWithinCopySubtreeLimit extends AbstractSpecification
 {
-    /** @var int */
-    private $copyLimit;
+    private int $copyLimit;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     public function __construct(
         int $copyLimit,

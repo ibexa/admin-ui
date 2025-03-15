@@ -31,7 +31,7 @@ class UiConfigProviderPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new UiConfigProviderPass());
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $taggedServiceId = 'collected_service';
         $collectedService = new Definition();

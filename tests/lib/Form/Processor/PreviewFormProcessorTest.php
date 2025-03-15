@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
+use Exception;
 use Ibexa\AdminUi\Form\Event\ContentEditEvents;
 use Ibexa\AdminUi\Form\Processor\PreviewFormProcessor;
 use Ibexa\ContentForms\Data\Content\ContentCreateData;
@@ -33,16 +34,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class PreviewFormProcessorTest extends TestCase
 {
     /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private MockObject $contentService;
 
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private MockObject $urlGenerator;
 
     /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private MockObject $notificationHandler;
 
     /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private MockObject $locationService;
 
     protected function setUp(): void
     {
@@ -74,7 +75,7 @@ class PreviewFormProcessorTest extends TestCase
         );
     }
 
-    public function testProcessPreview()
+    public function testProcessPreview(): void
     {
         $languageCode = 'cyb-CY';
         $contentDraftId = 123;
@@ -105,7 +106,7 @@ class PreviewFormProcessorTest extends TestCase
         self::assertEquals(new RedirectResponse($url), $event->getResponse());
     }
 
-    public function testProcessPreviewHandleExceptionWithNew()
+    public function testProcessPreviewHandleExceptionWithNew(): void
     {
         $languageCode = 'cyb-CY';
         $contentDraftId = 123;
@@ -127,7 +128,7 @@ class PreviewFormProcessorTest extends TestCase
         $contentService
             ->expects(self::once())
             ->method('createContent')
-            ->will(self::throwException(new class('Location not found') extends \Exception {
+            ->will(self::throwException(new class('Location not found') extends Exception {
             }));
 
         $urlGenerator = $this->generateUrlGeneratorForContentEditUrlMock($contentDraft, $languageCode, $url);
@@ -139,7 +140,7 @@ class PreviewFormProcessorTest extends TestCase
         self::assertEquals(new RedirectResponse($url), $event->getResponse());
     }
 
-    public function testSubscribedEvents()
+    public function testSubscribedEvents(): void
     {
         $previewFormProcessor = $this->createPreviewFormProcessor();
 
@@ -191,7 +192,7 @@ class PreviewFormProcessorTest extends TestCase
     /**
      * @return \PHPUnit\Framework\MockObject\MockObject
      */
-    private function generateConfigMock($languageCode): MockObject
+    private function generateConfigMock(string $languageCode): MockObject
     {
         $config = $this->createMock(FormConfigInterface::class);
         $config
@@ -208,7 +209,7 @@ class PreviewFormProcessorTest extends TestCase
      *
      * @return \Symfony\Component\Form\FormInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    private function generateFormMock($config): MockObject
+    private function generateFormMock(MockObject $config): MockObject
     {
         $form = $this->createMock(FormInterface::class);
         $form
@@ -276,7 +277,7 @@ class PreviewFormProcessorTest extends TestCase
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
-    private function generateContentDraft($contentDraftId, $languageCode, $mainLocationId): APIContent
+    private function generateContentDraft(int $contentDraftId, string $languageCode, ?int $mainLocationId): APIContent
     {
         $contentDraft = new Content([
             'versionInfo' => new VersionInfo(

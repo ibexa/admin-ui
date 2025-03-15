@@ -13,11 +13,9 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 
 abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
     public function __construct(ContentTypeService $contentTypeService, LocationService $locationService)
     {

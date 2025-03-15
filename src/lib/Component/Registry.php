@@ -47,7 +47,7 @@ class Registry
      * @param string $group
      * @param array $components
      */
-    public function setComponents(string $group, array $components)
+    public function setComponents(string $group, array $components): void
     {
         $this->components[$group] = $components;
     }

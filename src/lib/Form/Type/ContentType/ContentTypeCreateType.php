@@ -20,17 +20,14 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ContentTypeCreateType extends AbstractType
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
-     */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeService)
     {
         $this->contentTypeService = $contentTypeService;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
@@ -53,7 +50,7 @@ class ContentTypeCreateType extends AbstractType
         $builder
             ->add('contentTypeGroupId', HiddenType::class, [
                 'constraints' => new Callback(
-                    function ($contentTypeGroupId, ExecutionContextInterface $context) {
+                    function ($contentTypeGroupId, ExecutionContextInterface $context): void {
                         try {
                             $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                         } catch (NotFoundException $e) {

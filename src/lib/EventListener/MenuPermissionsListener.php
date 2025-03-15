@@ -15,8 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MenuPermissionsListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver

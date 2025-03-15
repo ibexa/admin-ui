@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class DateIntervalToArrayTransformerTest extends TestCase
 {
-    public function transformProvider()
+    public function transformProvider(): array
     {
         return [
             [['P1Y2M3DT4H5M6S' => ['year' => '1', 'month' => '2', 'day' => '3', 'hour' => '4', 'minute' => '5', 'second' => '6']]],
@@ -27,7 +27,7 @@ class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @dataProvider transformProvider
      */
-    public function testTransform($valueAsArray)
+    public function testTransform(array $valueAsArray): void
     {
         $transformer = new DateIntervalToArrayTransformer();
         $value = new DateInterval(array_keys($valueAsArray)[0]);
@@ -37,14 +37,14 @@ class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @dataProvider transformProvider
      */
-    public function testReverseTransform($valueAsArray)
+    public function testReverseTransform(array $valueAsArray): void
     {
         $transformer = new DateIntervalToArrayTransformer();
         $expectedValue = new DateInterval(array_keys($valueAsArray)[0]);
         self::assertEquals($expectedValue, $transformer->reverseTransform($valueAsArray[array_keys($valueAsArray)[0]]));
     }
 
-    public function testTransformNull()
+    public function testTransformNull(): void
     {
         $transformer = new DateIntervalToArrayTransformer();
         self::assertSame(
@@ -53,7 +53,7 @@ class DateIntervalToArrayTransformerTest extends TestCase
         );
     }
 
-    public function reverseTransformNullProvider()
+    public function reverseTransformNullProvider(): array
     {
         return [
             [null],
@@ -66,7 +66,7 @@ class DateIntervalToArrayTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformNullProvider
      */
-    public function testReverseTransformNull($value)
+    public function testReverseTransformNull(?array $value): void
     {
         $transformer = new DateIntervalToArrayTransformer();
         self::assertNull($transformer->reverseTransform($value));

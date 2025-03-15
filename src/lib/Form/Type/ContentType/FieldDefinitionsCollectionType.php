@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class FieldDefinitionsCollectionType extends AbstractType
 {
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    private $fieldsGroupsList;
+    private FieldsGroupsList $fieldsGroupsList;
 
     /**
      * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper

@@ -28,8 +28,7 @@ class RoleCopyRightSidebarBuilder extends AbstractBuilder implements Translation
     public const ITEM__SAVE = 'role_copy__sidebar_right__save';
     public const ITEM__CANCEL = 'role_copy__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

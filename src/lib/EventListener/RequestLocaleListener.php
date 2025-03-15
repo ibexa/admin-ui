@@ -17,23 +17,19 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use function in_array;
 
 class RequestLocaleListener implements EventSubscriberInterface
 {
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
-    /** @var array */
-    private $availableTranslations;
+    private array $availableTranslations;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     /**
      * @param array $siteAccessGroups
@@ -84,8 +80,8 @@ class RequestLocaleListener implements EventSubscriberInterface
         $locale = null;
 
         foreach ($preferableLocales as $preferableLocale) {
-            if (\in_array($preferableLocale, $this->availableTranslations, true)
-                || \in_array($preferableLocale, $additionalTranslations, true)
+            if (in_array($preferableLocale, $this->availableTranslations, true)
+                || in_array($preferableLocale, $additionalTranslations, true)
             ) {
                 $locale = $preferableLocale;
                 break;

@@ -22,7 +22,7 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
      *
      * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[]
      */
-    private $mappers = [];
+    private array $mappers = [];
 
     /**
      * @param \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[] $mappers

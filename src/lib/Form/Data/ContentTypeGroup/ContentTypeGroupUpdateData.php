@@ -12,11 +12,10 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
-    private $contentTypeGroup;
+    private ?ContentTypeGroup $contentTypeGroup;
 
     /** @var string */
-    private $identifier;
+    private string $identifier;
 
     public function __construct(?ContentTypeGroup $contentTypeGroup = null)
     {
@@ -37,7 +36,7 @@ class ContentTypeGroupUpdateData
     /**
      * @param string $identifier
      */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -53,7 +52,7 @@ class ContentTypeGroupUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
      */
-    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup)
+    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup): void
     {
         $this->contentTypeGroup = $contentTypeGroup;
     }

@@ -15,14 +15,11 @@ use Ibexa\Contracts\Core\Repository\Repository;
 
 class NotificationTwigStrategy
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var string */
-    private $defaultTemplate;
+    private ?string $defaultTemplate = null;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Repository $repository
@@ -39,7 +36,7 @@ class NotificationTwigStrategy
     /**
      * @param string $defaultTemplate
      */
-    public function setDefault(string $defaultTemplate)
+    public function setDefault(string $defaultTemplate): void
     {
         $this->defaultTemplate = $defaultTemplate;
     }
@@ -68,7 +65,7 @@ class NotificationTwigStrategy
         throw new NoValidResultException();
     }
 
-    private function isContentPermanentlyDeleted($contentId): bool
+    private function isContentPermanentlyDeleted(int $contentId): bool
     {
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         try {
@@ -84,7 +81,7 @@ class NotificationTwigStrategy
         }
     }
 
-    private function isContentTrashed($contentId): bool
+    private function isContentTrashed(int $contentId): bool
     {
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         $contentInfo = $this->repository->sudo(

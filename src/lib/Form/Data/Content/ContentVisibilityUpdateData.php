@@ -13,16 +13,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class ContentVisibilityUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    private $contentInfo;
+    private ?ContentInfo $contentInfo;
 
-    /** @var bool|null */
-    private $visible;
+    private ?bool $visible;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
-    private $location;
+    private ?Location $location;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo

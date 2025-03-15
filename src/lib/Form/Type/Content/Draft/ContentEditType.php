@@ -23,11 +23,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
-    private $languageChoiceLoader;
+    private LanguageChoiceLoader $languageChoiceLoader;
 
     public function __construct(
         LanguageService $languageService,
@@ -93,7 +91,7 @@ class ContentEditType extends AbstractType
         ];
 
         if ($options['choice_loader'] instanceof LanguageChoiceLoader && is_array($options['language_codes'])) {
-            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options) {
+            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options): array {
                 return array_map([$this->languageService, 'loadLanguage'], $options['language_codes']);
             });
         }

@@ -13,8 +13,7 @@ use Ibexa\Behat\Browser\Locator\LocatorCollection;
 
 class TableRowFactory
 {
-    /** @var \Behat\Mink\Session */
-    private $session;
+    private Session $session;
 
     public function __construct(Session $session)
     {

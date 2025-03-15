@@ -14,20 +14,18 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use function is_array;
 
 final class ReadAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private PermissionCheckerInterface $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /** @var string[]|null */
-    private $allowedContentTypesIdentifiers = null;
+    private ?array $allowedContentTypesIdentifiers = null;
 
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -45,7 +43,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
     private function getAllowedContentTypesIdentifiers(array $contentTypesAllowedViaConfig): ?array
     {
         $access = $this->permissionResolver->hasAccess('content', 'read');
-        if (!\is_array($access)) {
+        if (!is_array($access)) {
             return $access ? ($contentTypesAllowedViaConfig ?: null) : [null];
         }
 

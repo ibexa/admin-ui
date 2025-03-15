@@ -30,8 +30,7 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
     public const ITEM__SAVE_AND_CLOSE = 'section_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'section_edit__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

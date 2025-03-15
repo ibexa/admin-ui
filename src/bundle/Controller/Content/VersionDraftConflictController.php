@@ -22,20 +22,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class VersionDraftConflictController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
+    private DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService

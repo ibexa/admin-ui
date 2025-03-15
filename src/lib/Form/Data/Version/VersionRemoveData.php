@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
  */
 class VersionRemoveData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    protected $contentInfo;
+    protected ?ContentInfo $contentInfo;
 
     /** @var array|null */
     protected $versions;
@@ -42,7 +41,7 @@ class VersionRemoveData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -58,7 +57,7 @@ class VersionRemoveData
     /**
      * @param array|null $versions
      */
-    public function setVersions(?array $versions)
+    public function setVersions(?array $versions): void
     {
         $this->versions = $versions;
     }

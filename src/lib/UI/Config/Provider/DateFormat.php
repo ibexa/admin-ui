@@ -14,11 +14,9 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 class DateFormat implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    protected $userSettingService;
+    protected UserSettingService $userSettingService;
 
-    /** @var \Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer */
-    protected $dateTimeFormatSerializer;
+    protected DateTimeFormatSerializer $dateTimeFormatSerializer;
 
     /**
      * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService

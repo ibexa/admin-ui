@@ -37,20 +37,15 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 
     public const URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
-    private $urlWildcardService;
+    private URLWildcardService $urlWildcardService;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     public function __construct(
         Environment $twig,

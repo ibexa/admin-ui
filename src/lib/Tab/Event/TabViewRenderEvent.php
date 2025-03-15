@@ -12,14 +12,11 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class TabViewRenderEvent extends Event
 {
-    /** @var string */
-    private $tabIdentifier;
+    private string $tabIdentifier;
 
-    /** @var string */
-    private $template;
+    private string $template;
 
-    /** @var array */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @param string $tabIdentifier

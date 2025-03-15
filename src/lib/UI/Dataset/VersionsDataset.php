@@ -16,11 +16,9 @@ use function Ibexa\PolyfillPhp82\iterator_to_array;
 
 class VersionsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] */
     protected $data;
@@ -67,7 +65,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) {
+            static function (VersionInfo $versionInfo): bool {
                 return $versionInfo->isDraft();
             }
         );
@@ -83,7 +81,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode) {
+            static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode): bool {
                 return $versionInfo->isDraft()
                     && $versionInfo->versionNo > $currentVersionNo
                     && $versionInfo->initialLanguageCode === $languageCode;
@@ -98,7 +96,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) {
+            static function (VersionInfo $versionInfo): bool {
                 return $versionInfo->isPublished();
             }
         );
@@ -111,7 +109,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) {
+            static function (VersionInfo $versionInfo): bool {
                 return $versionInfo->isArchived();
             }
         );

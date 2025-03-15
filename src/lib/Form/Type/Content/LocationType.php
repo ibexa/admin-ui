@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LocationType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
     public function __construct(LocationService $locationService)
     {

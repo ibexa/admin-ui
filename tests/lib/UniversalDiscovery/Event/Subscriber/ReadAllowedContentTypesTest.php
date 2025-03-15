@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ReadAllowedContentTypesTest extends TestCase
@@ -27,16 +28,16 @@ final class ReadAllowedContentTypesTest extends TestCase
     private const ALLOWED_CONTENT_TYPES = ['article', 'folder'];
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
-    private $permissionResolver;
+    private MockObject $permissionResolver;
 
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $permissionChecker;
+    private MockObject $permissionChecker;
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
-    private $contentTypeService;
+    private MockObject $contentTypeService;
 
     /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes */
-    private $subscriber;
+    private ReadAllowedContentTypes $subscriber;
 
     protected function setUp(): void
     {
@@ -136,7 +137,7 @@ final class ReadAllowedContentTypesTest extends TestCase
 
     private function createContentTypeListMock(array $identifiers): array
     {
-        return array_map(function (string $identifier) {
+        return array_map(function (string $identifier): MockObject {
             $contentType = $this->createMock(ContentType::class);
             $contentType->method('__get')->with('identifier')->willReturn($identifier);
 

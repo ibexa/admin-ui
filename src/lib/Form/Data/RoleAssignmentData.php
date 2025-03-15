@@ -10,16 +10,16 @@ namespace Ibexa\AdminUi\Form\Data;
 class RoleAssignmentData
 {
     /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] */
-    private $groups;
+    private ?array $groups = null;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\User\User[] */
-    private $users;
+    private ?array $users = null;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[] */
-    private $sections;
+    private ?array $sections = null;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    private $locations;
+    private ?array $locations = null;
 
     /**
      * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]
@@ -32,7 +32,7 @@ class RoleAssignmentData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $groups
      */
-    public function setGroups(array $groups)
+    public function setGroups(array $groups): void
     {
         $this->groups = $groups;
     }
@@ -48,7 +48,7 @@ class RoleAssignmentData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\User[] $users
      */
-    public function setUsers(array $users)
+    public function setUsers(array $users): void
     {
         $this->users = $users;
     }
@@ -64,7 +64,7 @@ class RoleAssignmentData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
      */
-    public function setSections(array $sections)
+    public function setSections(array $sections): void
     {
         $this->sections = $sections;
     }
@@ -80,7 +80,7 @@ class RoleAssignmentData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
-    public function setLocations(array $locations)
+    public function setLocations(array $locations): void
     {
         $this->locations = $locations;
     }

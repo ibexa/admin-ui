@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config;
 
+use ArrayAccess;
+use JsonSerializable;
+use ReturnTypeWillChange;
 use RuntimeException;
 
-class ConfigWrapper implements \ArrayAccess, \JsonSerializable
+class ConfigWrapper implements ArrayAccess, JsonSerializable
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     /**
      * @param array $config
@@ -23,31 +25,31 @@ class ConfigWrapper implements \ArrayAccess, \JsonSerializable
         $this->config = $config;
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->config[$offset]);
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->config[$offset];
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         throw new RuntimeException('Configuration is readonly');
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         throw new RuntimeException('Configuration is readonly');
     }
 
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->config;

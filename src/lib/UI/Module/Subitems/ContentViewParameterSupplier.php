@@ -29,41 +29,32 @@ use Ibexa\Rest\Server\Values\ContentTypeInfoList;
 use Ibexa\Rest\Server\Values\RestContent;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\User\UserSetting\UserSettingService;
+use function is_bool;
 
 /**
  * @internal
  */
 class ContentViewParameterSupplier
 {
-    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
-    private $outputVisitor;
+    private Visitor $outputVisitor;
 
-    /** @var \Ibexa\Rest\Output\Generator\Json */
-    private $outputGenerator;
+    private JsonOutputGenerator $outputGenerator;
 
-    /** @var \Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList */
-    private $contentTypeInfoListValueObjectVisitor;
+    private ContentTypeInfoListValueObjectVisitor $contentTypeInfoListValueObjectVisitor;
 
-    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList */
-    private $subitemsListValueObjectVisitor;
+    private SubitemsListValueObjectVisitor $subitemsListValueObjectVisitor;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings */
-    private $contentTypeMappings;
+    private ContentTypeMappings $contentTypeMappings;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
+    private UserSettingService $userSettingService;
 
     private QueryFactoryInterface $queryFactory;
 
@@ -113,7 +104,7 @@ class ContentViewParameterSupplier
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function supply(ContentView $view)
+    public function supply(ContentView $view): void
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes */
         $contentTypes = [];
@@ -255,7 +246,7 @@ class ContentViewParameterSupplier
         $defaultContentTypeIdentifiers[] = $this->contentTypeMappings->getConfig()['fallbackContentType']['contentTypeIdentifier'];
         $contentTypeIdentifiers = array_unique($defaultContentTypeIdentifiers);
 
-        if (\is_bool($hasAccess)) {
+        if (is_bool($hasAccess)) {
             foreach ($contentTypeIdentifiers as $contentTypeIdentifier) {
                 $createPermissionsInMfu[$contentTypeIdentifier] = $hasAccess;
             }

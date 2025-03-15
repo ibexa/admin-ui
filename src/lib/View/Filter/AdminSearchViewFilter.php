@@ -22,29 +22,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use function is_array;
 
 class AdminSearchViewFilter implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
+    private SectionService $sectionService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
-    /** @var \Ibexa\Search\View\SearchViewFilter */
-    private $innerFilter;
+    private SearchViewFilter $innerFilter;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         ConfigResolverInterface $configResolver,
@@ -117,7 +111,7 @@ class AdminSearchViewFilter implements EventSubscriberInterface
             }
         }
 
-        if (!empty($search['content_types']) && \is_array($search['content_types'])) {
+        if (!empty($search['content_types']) && is_array($search['content_types'])) {
             foreach ($search['content_types'] as $identifier) {
                 $contentTypes[] = $this->contentTypeService->loadContentTypeByIdentifier($identifier);
             }

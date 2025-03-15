@@ -14,8 +14,7 @@ use Ibexa\AdminUi\Behat\Page\SystemInfoPage;
 
 class SystemInfoContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\SystemInfoPage */
-    private $systemInfoPage;
+    private SystemInfoPage $systemInfoPage;
 
     public function __construct(SystemInfoPage $systemInfoPage)
     {

@@ -10,11 +10,12 @@ namespace Ibexa\Tests\AdminUi\Tab;
 
 use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class TabGroupTest extends TestCase
 {
-    public function testAddTab()
+    public function testAddTab(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -32,7 +33,7 @@ class TabGroupTest extends TestCase
         self::assertCount(1, $tabGroup->getTabs());
     }
 
-    public function testAddTabWithSameIdentifier()
+    public function testAddTabWithSameIdentifier(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -54,7 +55,7 @@ class TabGroupTest extends TestCase
         self::assertCount(1, $tabGroup->getTabs());
     }
 
-    public function testRemoveTab()
+    public function testRemoveTab(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -71,11 +72,11 @@ class TabGroupTest extends TestCase
         self::assertCount(0, $tabGroup->getTabs());
     }
 
-    public function testRemoveTabWhenNotExist()
+    public function testRemoveTabWhenNotExist(): void
     {
         $tabIdentifier = 'tab_identifier';
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Could not find a tab identified as "%s".', $tabIdentifier));
 
         $tab = $this->createMock(TabInterface::class);

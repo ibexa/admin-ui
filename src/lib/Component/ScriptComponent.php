@@ -13,26 +13,19 @@ use Twig\Environment;
 
 class ScriptComponent implements Renderable
 {
-    /** @var \Twig\Environment */
-    protected $twig;
+    protected Environment $twig;
 
-    /** @var string */
-    protected $src;
+    protected string $src;
 
-    /** @var string */
-    protected $type;
+    protected string $type;
 
-    /** @var string|null */
-    protected $async;
+    protected ?string $async;
 
-    /** @var string|null */
-    protected $defer;
+    protected ?string $defer;
 
-    /** @var string|null */
-    protected $crossorigin;
+    protected ?string $crossorigin;
 
-    /** @var string|null */
-    protected $integrity;
+    protected ?string $integrity;
 
     /**
      * @param \Twig\Environment $twig

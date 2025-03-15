@@ -11,8 +11,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class LanguageDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
-    private $language;
+    private ?Language $language;
 
     public function __construct(?Language $language = null)
     {
@@ -30,7 +29,7 @@ class LanguageDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      */
-    public function setLanguage(Language $language)
+    public function setLanguage(Language $language): void
     {
         $this->language = $language;
     }

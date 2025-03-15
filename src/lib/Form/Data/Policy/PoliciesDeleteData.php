@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
  */
 class PoliciesDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
-    protected $role;
+    protected ?Role $role;
 
     /** @var array|null */
     protected $policies;
@@ -42,7 +41,7 @@ class PoliciesDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
      */
-    public function setRole(?Role $role)
+    public function setRole(?Role $role): void
     {
         $this->role = $role;
     }
@@ -58,7 +57,7 @@ class PoliciesDeleteData
     /**
      * @param array|null $policies
      */
-    public function setPolicies(?array $policies)
+    public function setPolicies(?array $policies): void
     {
         $this->policies = $policies;
     }

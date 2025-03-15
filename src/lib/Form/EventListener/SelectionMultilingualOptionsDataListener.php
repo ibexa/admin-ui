@@ -12,8 +12,7 @@ use Symfony\Component\Form\FormEvent;
 
 class SelectionMultilingualOptionsDataListener
 {
-    /** @var string */
-    protected $languageCode;
+    protected string $languageCode;
 
     /**
      * @param string $languageCode

@@ -19,8 +19,7 @@ use Twig\Extension\GlobalsInterface;
  */
 class UserPreferencesGlobalExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingArrayAccessor */
-    protected $userSettingArrayAccessor;
+    protected UserSettingArrayAccessor $userSettingArrayAccessor;
 
     /**
      * @param \Ibexa\User\UserSetting\UserSettingArrayAccessor $userSettingArrayAccessor

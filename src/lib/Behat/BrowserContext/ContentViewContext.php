@@ -17,13 +17,11 @@ use PHPUnit\Framework\Assert;
 
 final class ContentViewContext implements Context
 {
-    private $argumentParser;
+    private ArgumentParser $argumentParser;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
-    private $contentViewPage;
+    private ContentViewPage $contentViewPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\DraftConflictDialog */
-    private $draftConflictDialog;
+    private DraftConflictDialog $draftConflictDialog;
 
     public function __construct(
         ArgumentParser $argumentParser,
@@ -63,7 +61,7 @@ final class ContentViewContext implements Context
     /**
      * @Given I switch to :tab tab in Content structure
      */
-    public function switchTab(string $tabName)
+    public function switchTab(string $tabName): void
     {
         $this->contentViewPage->switchToTab($tabName);
     }

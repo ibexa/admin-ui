@@ -19,8 +19,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     /**
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
@@ -41,7 +40,7 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
         ];
     }
 
-    public function processDiscardChanges(FormActionEvent $event)
+    public function processDiscardChanges(FormActionEvent $event): void
     {
         /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $data */
         $data = $event->getData();

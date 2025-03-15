@@ -24,8 +24,7 @@ final class URLWildcardEditRightSidebarBuilder extends AbstractBuilder implement
     public const ITEM__SAVE_AND_CLOSE = 'url_wildcard_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'url_wildcard_edit__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $menuItemFactory

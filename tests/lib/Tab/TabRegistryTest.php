@@ -11,13 +11,14 @@ use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\AdminUi\Tab\TabRegistry;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class TabRegistryTest extends TestCase
 {
-    private $groupName;
+    private string $groupName;
 
     protected function setUp(): void
     {
@@ -25,16 +26,16 @@ class TabRegistryTest extends TestCase
         $this->groupName = 'group_name';
     }
 
-    public function testGetTabsByGroupNameWhenGroupDoesNotExist()
+    public function testGetTabsByGroupNameWhenGroupDoesNotExist(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName));
 
         $tabRegistry = new TabRegistry();
         $tabRegistry->getTabsByGroupName($this->groupName);
     }
 
-    public function testGetTabsByGroupName()
+    public function testGetTabsByGroupName(): void
     {
         $tabs = ['tab1', 'tab2'];
         $tabGroup = $this->createTabGroup($this->groupName, $tabs);
@@ -44,7 +45,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tabs, $tabRegistry->getTabsByGroupName($this->groupName));
     }
 
-    public function testGetTabFromGroup()
+    public function testGetTabFromGroup(): void
     {
         $twig = $this->createMock(Environment::class);
         $translator = $this->createMock(TranslatorInterface::class);
@@ -58,20 +59,20 @@ class TabRegistryTest extends TestCase
         self::assertSame($tab1, $tabRegistry->getTabFromGroup('tab1', $this->groupName));
     }
 
-    public function testGetTabFromGroupWhenGroupDoesNotExist()
+    public function testGetTabFromGroupWhenGroupDoesNotExist(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName));
 
         $tabRegistry = new TabRegistry();
         $tabRegistry->getTabFromGroup('tab1', $this->groupName);
     }
 
-    public function testGetTabFromGroupWhenTabDoesNotExist()
+    public function testGetTabFromGroupWhenTabDoesNotExist(): void
     {
         $tabName = 'tab1';
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Could not find the requested tab "%s" from group "%s". Did you tag the service?', $tabName, $this->groupName));
 
         $tabs = [];
@@ -81,7 +82,7 @@ class TabRegistryTest extends TestCase
         $tabRegistry->getTabFromGroup($tabName, $this->groupName);
     }
 
-    public function testAddTabGroup()
+    public function testAddTabGroup(): void
     {
         $tabRegistry = new TabRegistry();
         $tabGroup = $this->createTabGroup();
@@ -90,7 +91,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tabGroup, $tabRegistry->getTabGroup('lorem'));
     }
 
-    public function testAddTabGroupWithSameIdentifier()
+    public function testAddTabGroupWithSameIdentifier(): void
     {
         $tabGroup = $this->createTabGroup($this->groupName);
         $tabGroupWithSameIdentifier = $this->createTabGroup($this->groupName);
@@ -103,7 +104,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tabGroupWithSameIdentifier, $tabRegistry->getTabGroup($this->groupName));
     }
 
-    public function testAddTabToExistingGroup()
+    public function testAddTabToExistingGroup(): void
     {
         $twig = $this->createMock(Environment::class);
         $translator = $this->createMock(TranslatorInterface::class);
@@ -119,7 +120,7 @@ class TabRegistryTest extends TestCase
         self::assertCount(2, $tabRegistry->getTabsByGroupName($this->groupName));
     }
 
-    public function testAddTabToNonExistentGroup()
+    public function testAddTabToNonExistentGroup(): void
     {
         $twig = $this->createMock(Environment::class);
         $translator = $this->createMock(TranslatorInterface::class);
@@ -156,14 +157,11 @@ class TabRegistryTest extends TestCase
     private function createTab(string $name, Environment $twig, TranslatorInterface $translator): TabInterface
     {
         return new class($name, $twig, $translator) extends AbstractTab {
-            /** @var string */
-            protected $name;
+            protected string $name;
 
-            /** @var \Twig\Environment */
-            protected $twig;
+            protected Environment $twig;
 
-            /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-            protected $translator;
+            protected TranslatorInterface $translator;
 
             /**
              * @param string $name

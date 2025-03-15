@@ -20,11 +20,9 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
 {
     public const IDENTIFIER = 'autosave_interval';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatorInterface $translator,

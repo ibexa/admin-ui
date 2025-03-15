@@ -30,17 +30,13 @@ class AssetController extends Controller
     public const LANGUAGE_CODE_KEY = 'languageCode';
     public const FILE_KEY = 'file';
 
-    /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
-    private $validator;
+    private ValidatorInterface $validator;
 
-    /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface */
-    private $csrfTokenManager;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
-    private $imageAssetMapper;
+    private ImageAssetMapper $imageAssetMapper;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator

@@ -13,17 +13,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 final class SiteaccessPreviewVoterContext
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
-    private $location;
+    private Location $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
-    private $versionInfo;
+    private VersionInfo $versionInfo;
 
-    /** @var string */
-    private $siteaccess;
+    private string $siteaccess;
 
-    /** @var string */
-    private $languageCode;
+    private string $languageCode;
 
     public function __construct(
         Location $location,

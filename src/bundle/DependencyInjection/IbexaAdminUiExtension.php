@@ -42,7 +42,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      * @throws \Exception
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader(
             $container,
@@ -68,7 +68,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     /**
      * Allow an extension to prepend the extension configurations.
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         $this->prependViews($container);
         $this->prependImageVariations($container);
@@ -87,7 +87,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $container->addResource(new FileResource($configFile));
     }
 
-    private function prependImageVariations(ContainerBuilder $container)
+    private function prependImageVariations(ContainerBuilder $container): void
     {
         $imageConfigFile = __DIR__ . '/../Resources/config/image_variations.yaml';
         $config = Yaml::parse(file_get_contents($imageConfigFile));
@@ -95,7 +95,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $container->addResource(new FileResource($imageConfigFile));
     }
 
-    private function prependUniversalDiscoveryWidget(ContainerBuilder $container)
+    private function prependUniversalDiscoveryWidget(ContainerBuilder $container): void
     {
         $udwConfigFile = __DIR__ . '/../Resources/config/universal_discovery_widget.yaml';
         $config = Yaml::parse(file_get_contents($udwConfigFile));
@@ -103,7 +103,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $container->addResource(new FileResource($udwConfigFile));
     }
 
-    private function prependEzDesignConfiguration(ContainerBuilder $container)
+    private function prependEzDesignConfiguration(ContainerBuilder $container): void
     {
         $eZDesignConfigFile = __DIR__ . '/../Resources/config/ezdesign.yaml';
         $config = Yaml::parseFile($eZDesignConfigFile);
@@ -112,7 +112,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $container->addResource(new FileResource($eZDesignConfigFile));
     }
 
-    private function prependAdminUiFormsConfiguration(ContainerBuilder $container)
+    private function prependAdminUiFormsConfiguration(ContainerBuilder $container): void
     {
         $adminUiFormsConfigFile = __DIR__ . '/../Resources/config/admin_ui_forms.yaml';
         $config = Yaml::parseFile($adminUiFormsConfigFile);
@@ -120,7 +120,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $container->addResource(new FileResource($adminUiFormsConfigFile));
     }
 
-    private function prependBazingaJsTranslationConfiguration(ContainerBuilder $container)
+    private function prependBazingaJsTranslationConfiguration(ContainerBuilder $container): void
     {
         $configFile = __DIR__ . '/../Resources/config/bazinga_js_translation.yaml';
         $config = Yaml::parseFile($configFile);

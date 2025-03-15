@@ -13,23 +13,17 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class CustomUrlAddData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
-    /** @var string|null */
-    private $path;
+    private ?string $path;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
-    private $language;
+    private ?Language $language;
 
-    /** @var bool */
-    private $redirect;
+    private bool $redirect;
 
-    /** @var bool */
-    private $siteRoot;
+    private bool $siteRoot;
 
-    /** @var string|null */
-    private $siteAccess;
+    private ?string $siteAccess;
 
     public function __construct(
         ?Location $location = null,

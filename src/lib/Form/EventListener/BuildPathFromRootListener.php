@@ -15,14 +15,11 @@ use Symfony\Component\Form\FormEvent;
 
 class BuildPathFromRootListener
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    private $urlAliasService;
+    private URLAliasService $urlAliasService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         LocationService $locationService,

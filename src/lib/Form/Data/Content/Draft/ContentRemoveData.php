@@ -10,8 +10,7 @@ namespace Ibexa\AdminUi\Form\Data\Content\Draft;
 
 class ContentRemoveData
 {
-    /** @var array|null */
-    private $versions;
+    private ?array $versions;
 
     /**
      * @param array|null $versions

@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TrashItemCheckboxType extends AbstractType
 {
     /* @var TrashService */
-    private $trashService;
+    private TrashService $trashService;
 
     public function __construct(TrashService $trashService)
     {
@@ -31,7 +31,7 @@ class TrashItemCheckboxType extends AbstractType
         $builder->addModelTransformer(new TrashItemTransformer($this->trashService));
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
             'value' => $form->getViewData(),

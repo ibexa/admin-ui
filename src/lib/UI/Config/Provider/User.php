@@ -20,11 +20,9 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 class User implements ProviderInterface
 {
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /**
      * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage

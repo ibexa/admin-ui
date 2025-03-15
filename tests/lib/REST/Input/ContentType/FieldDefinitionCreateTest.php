@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 final class FieldDefinitionCreateTest extends TestCase
 {
     /** @var \Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionCreate */
-    private $parser;
+    private FieldDefinitionCreate $parser;
 
     protected function setUp(): void
     {

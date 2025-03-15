@@ -17,17 +17,14 @@ use Psr\Log\LoggerInterface;
 
 class CustomUrlsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    private $urlAliasService;
+    private URLAliasService $urlAliasService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
+    private ValueFactory $valueFactory;
 
     /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
-    private $data;
+    private ?array $data = null;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
         URLAliasService $urlAliasService,

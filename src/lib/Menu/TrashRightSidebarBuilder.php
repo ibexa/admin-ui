@@ -30,14 +30,11 @@ class TrashRightSidebarBuilder extends AbstractBuilder implements TranslationCon
     /* Menu items */
     public const ITEM__EMPTY = 'trash__sidebar_right__empty_trash';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
-    private $trashService;
+    private TrashService $trashService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

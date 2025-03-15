@@ -18,8 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ContentTranslateViewFilterParametersListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
@@ -45,7 +44,7 @@ class ContentTranslateViewFilterParametersListener implements EventSubscriberInt
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function onFilterViewParameters(FilterViewParametersEvent $event)
+    public function onFilterViewParameters(FilterViewParametersEvent $event): void
     {
         $view = $event->getView();
 

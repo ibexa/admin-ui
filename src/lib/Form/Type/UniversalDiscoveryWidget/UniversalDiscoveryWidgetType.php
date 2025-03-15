@@ -37,7 +37,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
             ->addModelTransformer($this->getDataTransformer());
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         $selectContentButtonView = $view->offsetGet('select_content');
 
@@ -91,7 +91,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
     private function getDataTransformer(): DataTransformerInterface
     {
         return new CallbackTransformer(
-            static function ($value) {
+            static function ($value): ?array {
                 if (null === $value) {
                     return null;
                 }

@@ -15,14 +15,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItem
 
 final class RelationListDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
+    private ValueFactory $valueFactory;
 
     /** @var \Ibexa\AdminUi\UI\Value\Content\RelationInterface[] */
-    private $relations;
+    private array $relations;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService

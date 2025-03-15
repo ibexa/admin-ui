@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 final class URLWildcardDeleteData
 {
     /** @var bool[]|null */
-    private $urlWildcardsChoices;
+    private ?array $urlWildcardsChoices;
 
     public function __construct(?array $urlWildcardsChoices = [])
     {

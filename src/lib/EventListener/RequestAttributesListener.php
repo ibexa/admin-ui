@@ -16,6 +16,7 @@ use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use function in_array;
 
 /**
  * Collects parameters for the ViewBuilder from the Request.
@@ -24,11 +25,9 @@ class RequestAttributesListener implements EventSubscriberInterface
 {
     private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     /**
      * @param array $siteAccessGroups
@@ -53,7 +52,7 @@ class RequestAttributesListener implements EventSubscriberInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function addRequestAttributes(FilterViewBuilderParametersEvent $event)
+    public function addRequestAttributes(FilterViewBuilderParametersEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -100,7 +99,7 @@ class RequestAttributesListener implements EventSubscriberInterface
     private function loadLocation(int $locationId): Location
     {
         $location = $this->repository->sudo(
-            static function (Repository $repository) use ($locationId) {
+            static function (Repository $repository) use ($locationId): Location {
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );
@@ -126,6 +125,6 @@ class RequestAttributesListener implements EventSubscriberInterface
     {
         $siteAccess = $request->attributes->get('siteaccess');
 
-        return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
+        return in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
     }
 }

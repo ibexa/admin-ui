@@ -17,8 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DateTimeFormatter implements DateTimeFormatterInterface, TranslationContainerInterface
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

@@ -22,6 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -84,7 +85,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $content = $this->createMock(Content::class);
         $content
             ->method('__get')
-            ->will(self::returnCallback(static function ($argument) use ($contentInfo) {
+            ->will(self::returnCallback(static function ($argument) use ($contentInfo): ?MockObject {
                 if ($argument === 'contentInfo') {
                     return $contentInfo;
                 }

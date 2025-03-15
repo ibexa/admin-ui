@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class LimitationValueMapperRegistryTest extends TestCase
 {
-    public function testGetMappers()
+    public function testGetMappers(): void
     {
         $foo = $this->createMock(LimitationValueMapperInterface::class);
         $bar = $this->createMock(LimitationValueMapperInterface::class);
@@ -31,7 +31,7 @@ class LimitationValueMapperRegistryTest extends TestCase
         self::assertContains($bar, $result);
     }
 
-    public function testGetMapper()
+    public function testGetMapper(): void
     {
         $foo = $this->createMock(LimitationValueMapperInterface::class);
 
@@ -42,7 +42,7 @@ class LimitationValueMapperRegistryTest extends TestCase
         self::assertEquals($foo, $registry->getMapper('foo'));
     }
 
-    public function testGetNonExistingMapper()
+    public function testGetNonExistingMapper(): void
     {
         $this->expectException(ValueMapperNotFoundException::class);
 
@@ -53,7 +53,7 @@ class LimitationValueMapperRegistryTest extends TestCase
         $registry->getMapper('bar');
     }
 
-    public function testAddMapper()
+    public function testAddMapper(): void
     {
         $foo = $this->createMock(LimitationValueMapperInterface::class);
 
@@ -63,7 +63,7 @@ class LimitationValueMapperRegistryTest extends TestCase
         self::assertTrue($registry->hasMapper('foo'));
     }
 
-    public function testHasMapper()
+    public function testHasMapper(): void
     {
         $registry = new LimitationValueMapperRegistry([
             'foo' => $this->createMock(LimitationValueMapperInterface::class),

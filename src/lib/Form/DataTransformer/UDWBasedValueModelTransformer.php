@@ -23,14 +23,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UDWBasedValueModelTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     public function __construct(
         LocationService $locationService,

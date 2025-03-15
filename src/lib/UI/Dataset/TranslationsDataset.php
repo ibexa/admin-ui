@@ -16,11 +16,9 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class TranslationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
     protected $data;

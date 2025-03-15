@@ -15,8 +15,7 @@ use PHPUnit\Framework\Assert;
 
 class ContentActionsMenuContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    private $contentActionsMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
     public function __construct(ContentActionsMenu $contentActionsMenu)
     {

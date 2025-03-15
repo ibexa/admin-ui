@@ -19,7 +19,7 @@ class SubitemsRow extends ValueObjectVisitor
      * @param \Ibexa\Contracts\Rest\Output\Generator $generator
      * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data)
+    public function visit(Visitor $visitor, Generator $generator, $data): void
     {
         $generator->startObjectElement('SubitemsRow');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SubitemsList'));

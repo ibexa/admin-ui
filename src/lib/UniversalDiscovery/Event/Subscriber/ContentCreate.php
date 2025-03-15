@@ -16,20 +16,17 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use function is_array;
 
 class ContentCreate implements EventSubscriberInterface
 {
-    /** @var array */
-    private $restrictedContentTypesIdentifiers;
+    private array $restrictedContentTypesIdentifiers;
 
-    /** @var array */
-    private $restrictedLanguagesCodes;
+    private array $restrictedLanguagesCodes;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private PermissionCheckerInterface $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
@@ -90,7 +87,7 @@ class ContentCreate implements EventSubscriberInterface
      */
     private function getRestrictedContentTypesIdentifiers($hasAccess): array
     {
-        if (!\is_array($hasAccess)) {
+        if (!is_array($hasAccess)) {
             return [];
         }
 
@@ -122,7 +119,7 @@ class ContentCreate implements EventSubscriberInterface
      */
     private function getRestrictedLanguagesCodes($hasAccess): array
     {
-        if (!\is_array($hasAccess)) {
+        if (!is_array($hasAccess)) {
             return [];
         }
 

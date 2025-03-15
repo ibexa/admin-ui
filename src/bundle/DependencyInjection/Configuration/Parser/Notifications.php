@@ -32,7 +32,7 @@ class Notifications extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
+    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
         if (!empty($scopeSettings['notifications'])) {
             $settings = $scopeSettings['notifications'];
@@ -64,7 +64,7 @@ class Notifications extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('notifications')

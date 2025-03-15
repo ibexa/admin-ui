@@ -17,11 +17,9 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
-    private $siteAccessService;
+    private SiteAccessServiceInterface $siteAccessService;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface */
-    private $siteAccessKeyGenerator;
+    private SiteAccessKeyGeneratorInterface $siteAccessKeyGenerator;
 
     public function __construct(
         SiteAccessServiceInterface $siteAccessService,
@@ -31,7 +29,10 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         $this->siteAccessKeyGenerator = $siteAccessKeyGenerator;
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $siteAccesses = [];
         foreach ($this->siteAccessService->getAll() as $sa) {
@@ -41,7 +42,10 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         return $siteAccesses;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
         foreach ($this->siteAccessService->getAll() as $sa) {

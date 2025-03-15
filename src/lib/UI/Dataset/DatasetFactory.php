@@ -28,38 +28,27 @@ class DatasetFactory implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    private $urlAliasService;
+    private URLAliasService $urlAliasService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
+    private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         ContentService $contentService,

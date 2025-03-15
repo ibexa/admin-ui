@@ -24,6 +24,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use SplFileInfo;
 use Twig\Node\Node as TwigNode;
 
 /**
@@ -31,26 +32,19 @@ use Twig\Node\Node as TwigNode;
  */
 class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
-    /** @var \JMS\TranslationBundle\Translation\FileSourceFactory */
-    private $fileSourceFactory;
+    private FileSourceFactory $fileSourceFactory;
 
-    /** @var \PhpParser\NodeTraverser */
-    private $traverser;
+    private NodeTraverser $traverser;
 
-    /** @var \JMS\TranslationBundle\Model\MessageCatalogue */
-    private $catalogue;
+    private ?MessageCatalogue $catalogue = null;
 
-    /** @var \SplFileInfo */
-    private $file;
+    private ?SplFileInfo $file = null;
 
-    /** @var \Doctrine\Common\Annotations\DocParser */
-    private $docParser;
+    private DocParser $docParser;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
+    private NullLogger|LoggerInterface $logger;
 
-    /** @var \PhpParser\Node */
-    private $previousNode;
+    private ?Node $previousNode = null;
 
     /**
      * Methods and "domain" parameter offset to extract from PHP code.
@@ -73,7 +67,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->logger = new NullLogger();
     }
 
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
@@ -151,7 +145,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
-    public function visitPhpFile(\SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
+    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
     {
         $this->file = $file;
         $this->catalogue = $catalogue;
@@ -170,11 +164,11 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     {
     }
 
-    public function visitFile(\SplFileInfo $file, MessageCatalogue $catalogue)
+    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue)
     {
     }
 
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
+    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 
