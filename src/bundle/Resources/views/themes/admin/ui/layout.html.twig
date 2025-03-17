@@ -62,7 +62,7 @@
             window.ibexa.addConfig('richText', {{ ibexa_richtext_config|json_encode|raw }});
             window.ibexa.addConfig('errors', {
                 emailRegexp: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                urlRegexp: /^(https?:\/\/|ftp:\/\/|www\.|\/)[^\s]+$/,
+                urlRegexp: /^((https?:\/\/|ftps?:\/\/|sftp:\/\/|www\.|\/|ezlocation:\/\/)[^\s]+$)|(^([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})(\/[^\s]*)?$)/,
                 emptyField: '{{ 'js.error.empty.field'|trans({}, 'validators')|desc('{fieldName} Field cannot be empty') }}',
                 invalidEmail: '{{ 'js.error.invalid_email'|trans({}, 'validators')|desc('A valid email address is required') }}',
                 invalidUrl: '{{ 'js.error.invalid_url'|trans({}, 'validators')|desc('A valid URL is required') }}',
