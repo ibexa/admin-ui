@@ -1,6 +1,6 @@
 .c-upload-list-item {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     background: $ibexa-color-white;
     padding: 0;
     margin: calculateRem(4px) 0;
