@@ -17,17 +17,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    protected function getSelectionChoices()
+    protected function getSelectionChoices(): array
     {
         // 2: "Session" is not supported yet, see OwnerLimitationType
         return [
@@ -39,7 +36,7 @@ class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         ];
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    public function mapLimitationValue(Limitation $limitation): array
     {
         return [
             $this->translator->trans(/** @Desc("Self") */

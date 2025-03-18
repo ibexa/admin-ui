@@ -28,14 +28,11 @@ class PoliciesTab extends AbstractEventDispatchingTab implements OrderedTabInter
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-policies';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
+    protected ConfigResolverInterface $configResolver;
 
     public function __construct(
         Environment $twig,

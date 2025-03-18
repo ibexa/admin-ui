@@ -17,8 +17,7 @@ use Twig\TwigFunction;
 
 class FieldEditRenderingExtension extends AbstractExtension
 {
-    /** @var \Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
-    private $fieldBlockRenderer;
+    private FieldBlockRendererInterface $fieldBlockRenderer;
 
     public function __construct(FieldBlockRendererInterface $fieldBlockRenderer)
     {
@@ -30,7 +29,7 @@ class FieldEditRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []) {
+        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []): string {
             $this->fieldBlockRenderer->setTwig($twig);
 
             return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);

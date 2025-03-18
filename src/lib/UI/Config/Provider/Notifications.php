@@ -18,8 +18,7 @@ class Notifications implements ProviderInterface
 {
     public const NOTIFICATION_TYPES = ['error', 'warning', 'info', 'success'];
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     /**
      * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver

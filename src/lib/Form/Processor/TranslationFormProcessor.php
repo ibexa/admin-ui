@@ -20,8 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class TranslationFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
     public function __construct(
         ContentService $contentService
@@ -56,7 +55,7 @@ class TranslationFormProcessor implements EventSubscriberInterface
         }
 
         $contentDraft = $this->contentService->createContentDraft($data->content->contentInfo);
-        $fields = array_filter($data->fieldsData, static function (FieldData $fieldData) use ($contentDraft, $data) {
+        $fields = array_filter($data->fieldsData, static function (FieldData $fieldData) use ($contentDraft, $data): bool {
             $mainLanguageCode = $contentDraft->getVersionInfo()->getContentInfo()->mainLanguageCode;
 
             return $mainLanguageCode === $data->initialLanguageCode

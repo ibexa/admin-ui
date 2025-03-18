@@ -48,7 +48,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         $this->searchService = $searchService;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $sub = $form
             ->getConfig()
@@ -66,7 +66,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
 
         $sub->add('roles', ChoiceType::class, [
             'choice_loader' => new CallbackChoiceLoader(
-                function () {
+                function (): array {
                     $roles = $this->roleService->loadRoles();
                     $choices = [];
                     foreach ($roles as $role) {
@@ -82,7 +82,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
 
         $sub->add('user_groups', ChoiceType::class, [
             'choice_loader' => new CallbackChoiceLoader(
-                function () {
+                function (): array {
                     $userGroups = (new UserGroupsChoiceLoader(
                         $this->repository,
                         $this->searchService,
@@ -114,11 +114,11 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [
             'roles' => [],

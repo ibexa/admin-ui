@@ -20,11 +20,9 @@ abstract class LocationSubtreeQueryType extends OptionsResolverBasedQueryType
     protected const OWNED_OPTION_NAME = 'owned';
     protected const SUBTREE_OPTION_NAME = 'subtree';
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
+    protected ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     public function __construct(
         ConfigResolverInterface $configResolver,

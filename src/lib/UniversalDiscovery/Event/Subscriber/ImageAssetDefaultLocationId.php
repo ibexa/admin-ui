@@ -14,8 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ImageAssetDefaultLocationId implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
-    private $assetMapper;
+    private AssetMapper $assetMapper;
 
     /**
      * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $assetMapper

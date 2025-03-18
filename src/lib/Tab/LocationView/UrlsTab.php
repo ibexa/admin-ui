@@ -33,23 +33,17 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-urls';
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    protected $urlAliasService;
+    protected URLAliasService $urlAliasService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
+    protected FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
+    private TranslationHelper $translationHelper;
 
     /**
      * @param \Twig\Environment $twig

@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 class URLWildcardData
 {
     /** @var string|null */
-    private $destinationUrl;
+    private ?string $destinationUrl = null;
 
     /** @var string|null */
-    private $sourceURL;
+    private ?string $sourceURL = null;
 
     /** @var bool */
     private $forward = false;

@@ -11,10 +11,10 @@ namespace Ibexa\AdminUi\Form\Data\ObjectState;
 class ObjectStateGroupCreateData
 {
     /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
     /** @var string */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @return string
@@ -27,7 +27,7 @@ class ObjectStateGroupCreateData
     /**
      * @param string $identifier
      */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -43,7 +43,7 @@ class ObjectStateGroupCreateData
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }

@@ -18,17 +18,13 @@ use PHPUnit\Framework\Assert;
 
 class ContentTypeContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypePage */
-    private $contentTypePage;
+    private ContentTypePage $contentTypePage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypeUpdatePage */
-    private $contentTypeUpdatePage;
+    private ContentTypeUpdatePage $contentTypeUpdatePage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypeGroupPage */
-    private $contentTypeGroupPage;
+    private ContentTypeGroupPage $contentTypeGroupPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentTypeGroupsPage */
-    private $contentTypeGroupsPage;
+    private ContentTypeGroupsPage $contentTypeGroupsPage;
 
     public function __construct(
         ContentTypePage $contentTypePage,
@@ -83,7 +79,7 @@ class ContentTypeContext implements Context
     /**
      * @Given there's no :contentTypeName on content types list
      */
-    public function thereSNoOnContentTypesList($contentTypeName)
+    public function thereSNoOnContentTypesList($contentTypeName): void
     {
         Assert::assertFalse($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
@@ -91,7 +87,7 @@ class ContentTypeContext implements Context
     /**
      * @Given there's no :contentTypeGroupName content type group on content type groups list
      */
-    public function thereSNoOnContentTypesGroupList($contentTypeGroupName)
+    public function thereSNoOnContentTypesGroupList(string $contentTypeGroupName): void
     {
         Assert::assertFalse($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
     }
@@ -99,7 +95,7 @@ class ContentTypeContext implements Context
     /**
      * @Given there's a :contentTypeGroupName content type group on content type groups list
      */
-    public function thereSAOnContentTypesGroupList($contentTypeGroupName)
+    public function thereSAOnContentTypesGroupList(string $contentTypeGroupName): void
     {
         Assert::assertTrue($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
     }
@@ -107,7 +103,7 @@ class ContentTypeContext implements Context
     /**
      * @Given there's a :contentTypeName on content types list
      */
-    public function thereAContentTypeOnContentTypesList($contentTypeName)
+    public function thereAContentTypeOnContentTypesList($contentTypeName): void
     {
         Assert::assertTrue($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
@@ -157,7 +153,7 @@ class ContentTypeContext implements Context
     /**
      * @When I delete :contentTypeName content type
      */
-    public function iDeleteContentType(string $contentTypeName)
+    public function iDeleteContentType(string $contentTypeName): void
     {
         $this->contentTypeGroupPage->delete($contentTypeName);
     }
@@ -165,7 +161,7 @@ class ContentTypeContext implements Context
     /**
      * @When I delete :contentTypeGroupName from content type groups
      */
-    public function iDeleteContentTypeGroup(string $contentTypeGroupName)
+    public function iDeleteContentTypeGroup(string $contentTypeGroupName): void
     {
         $this->contentTypeGroupsPage->delete($contentTypeGroupName);
     }
@@ -173,7 +169,7 @@ class ContentTypeContext implements Context
     /**
      * @Given I'm on content type Page for :contentTypeGroup group
      */
-    public function iMOnContentTypePageFor(string $contentTypeGroup)
+    public function iMOnContentTypePageFor(string $contentTypeGroup): void
     {
         $this->contentTypeGroupPage->setExpectedContentTypeGroupName($contentTypeGroup);
         $this->contentTypeGroupPage->open('admin');
@@ -183,7 +179,7 @@ class ContentTypeContext implements Context
     /**
      * @Then I should be on content type group page for :contentTypeGroup group
      */
-    public function iShouldBeOnContentTypeGroupPage($contentTypeGroup)
+    public function iShouldBeOnContentTypeGroupPage(string $contentTypeGroup): void
     {
         $this->contentTypeGroupPage->setExpectedContentTypeGroupName($contentTypeGroup);
         $this->contentTypeGroupPage->verifyIsLoaded();
@@ -192,7 +188,7 @@ class ContentTypeContext implements Context
     /**
      * @Then I should be on content type page for :contentTypeName
      */
-    public function iShouldBeOnContentTypePage(string $contentTypeName)
+    public function iShouldBeOnContentTypePage(string $contentTypeName): void
     {
         $this->contentTypePage->setExpectedContentTypeName($contentTypeName);
         $this->contentTypePage->verifyIsLoaded();
@@ -201,7 +197,7 @@ class ContentTypeContext implements Context
     /**
      * @Then there're no content types for that group
      */
-    public function thereAreNoContentTypes()
+    public function thereAreNoContentTypes(): void
     {
         Assert::assertFalse($this->contentTypeGroupPage->hasContentTypes());
     }
@@ -209,7 +205,7 @@ class ContentTypeContext implements Context
     /**
      * @Then there's an empty :contentTypeGroupName content type group on content type groups list
      */
-    public function thereIsAnEmptyContentTypeGroup(string $contentTypeGroupName)
+    public function thereIsAnEmptyContentTypeGroup(string $contentTypeGroupName): void
     {
         Assert::assertFalse($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
     }
@@ -217,7 +213,7 @@ class ContentTypeContext implements Context
     /**
      * @Then there's non-empty :contentTypeGroupName content type group on content type groups list
      */
-    public function thereIsANonEmptyContentTypeGroup(string $contentTypeGroupName)
+    public function thereIsANonEmptyContentTypeGroup(string $contentTypeGroupName): void
     {
         Assert::assertTrue($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
     }
@@ -225,7 +221,7 @@ class ContentTypeContext implements Context
     /**
      * @Then content type group :contentTypeGroupName cannot be selected
      */
-    public function contentTypeGroupCannotBeSelected(string $contentTypeGroupName)
+    public function contentTypeGroupCannotBeSelected(string $contentTypeGroupName): void
     {
         Assert::assertFalse($this->contentTypeGroupsPage->canBeSelected($contentTypeGroupName));
     }
@@ -233,7 +229,7 @@ class ContentTypeContext implements Context
     /**
      * @Given I check :blockName block in ezlandingpage field blocks section
      */
-    public function iCheckBlockInField($blockName)
+    public function iCheckBlockInField(string $blockName): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
         $this->contentTypeUpdatePage->expandLastFieldDefinition('fieldDefinitionOpenContainerEdit');

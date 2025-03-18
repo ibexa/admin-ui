@@ -19,14 +19,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ContentEditNotificationFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
@@ -59,7 +56,7 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
      *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function addPublishMessage(FormActionEvent $event)
+    public function addPublishMessage(FormActionEvent $event): void
     {
         if (!$this->isAdminSiteAccess($this->requestStack->getCurrentRequest())) {
             return;
@@ -77,7 +74,7 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
      *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function addSaveDraftMessage(FormActionEvent $event)
+    public function addSaveDraftMessage(FormActionEvent $event): void
     {
         if (!$this->isAdminSiteAccess($this->requestStack->getCurrentRequest())) {
             return;

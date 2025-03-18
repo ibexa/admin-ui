@@ -14,19 +14,19 @@ use Symfony\Component\Validator\Constraint;
 
 class FieldDefinitionDefaultValueTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $constraint = new FieldDefinitionDefaultValue();
         self::assertSame('ez.field_definition.default_field_value', $constraint->message);
     }
 
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new FieldDefinitionDefaultValue();
         self::assertSame(FieldDefinitionDefaultValueValidator::class, $constraint->validatedBy());
     }
 
-    public function testGetTargets()
+    public function testGetTargets(): void
     {
         $constraint = new FieldDefinitionDefaultValue();
         self::assertSame(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());

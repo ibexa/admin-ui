@@ -16,8 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class LanguageType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
     public function __construct(LanguageService $languageService)
     {

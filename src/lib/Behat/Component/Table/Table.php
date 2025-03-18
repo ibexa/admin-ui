@@ -23,16 +23,13 @@ final class Table extends Component implements TableInterface
 {
     private const MAX_PAGE_COUNT = 10;
 
-    /** @var TableRowFactory */
-    protected $tableFactory;
+    protected TableRowFactory $tableFactory;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Pagination */
-    private $pagination;
+    private Pagination $pagination;
 
-    private $parentElement;
+    private ?ElementInterface $parentElement = null;
 
-    /** @var bool */
-    private $isParentElementSet;
+    private bool $isParentElementSet;
 
     public function __construct(
         Session $session,
@@ -96,7 +93,7 @@ final class Table extends Component implements TableInterface
         $allHeaders = $this->parentElement->findAll($this->getLocator('columnHeader'))
             ->mapBy(new ElementTextMapper());
 
-        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($columnNames) {
+        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($columnNames): bool {
             return in_array($header, $columnNames, true);
         });
 
@@ -161,7 +158,7 @@ final class Table extends Component implements TableInterface
             $cellLocators[] = $this->getTableCellLocator($headerPosition, $header);
         }
 
-        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator) {
+        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator): bool {
             return '' !== $locator->getIdentifier();
         });
 
@@ -200,7 +197,7 @@ final class Table extends Component implements TableInterface
             $cellLocators[] = $this->getTableCellLocator($headerPosition, $header);
         }
 
-        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator) {
+        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator): bool {
             return '' !== $locator->getIdentifier();
         });
 
@@ -211,7 +208,7 @@ final class Table extends Component implements TableInterface
     {
     }
 
-    private function setParentElement()
+    private function setParentElement(): void
     {
         if ($this->isParentElementSet) {
             return;
@@ -239,7 +236,7 @@ final class Table extends Component implements TableInterface
      */
     private function getHeaderPositions(array $searchedHeaders, array $allHeaders): array
     {
-        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($searchedHeaders) {
+        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($searchedHeaders): bool {
             return in_array($header, $searchedHeaders, true);
         });
 

@@ -10,8 +10,7 @@ namespace Ibexa\AdminUi\Form\Data\Role;
 
 class RoleCreateData
 {
-    /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
     /**
      * @return string

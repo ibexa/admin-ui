@@ -24,8 +24,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
     /** @var array<string> */
     private array $allowedMimeTypes;
 
-    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
-    private $maxUploadSize;
+    private MaxUploadSize $maxUploadSize;
 
     private MimeTypesInterface $mimeTypes;
 
@@ -88,7 +87,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

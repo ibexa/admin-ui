@@ -28,17 +28,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class PreviewFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
@@ -172,7 +168,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
      *
      * @return string
      */
-    private function resolveMainLanguageCode($data): string
+    private function resolveMainLanguageCode(ContentStruct $data): string
     {
         return $data->isNew()
             ? $data->mainLanguageCode

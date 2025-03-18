@@ -17,11 +17,9 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         LocationService $locationService,
@@ -37,7 +35,7 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
+    public function validate($location, Constraint $constraint): void
     {
         if (null === $location) {
             return;

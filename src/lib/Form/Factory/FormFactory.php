@@ -123,6 +123,7 @@ use Ibexa\AdminUi\Form\Type\User\UserDeleteType;
 use Ibexa\AdminUi\Form\Type\User\UserEditType;
 use Ibexa\AdminUi\Form\Type\Version\VersionRemoveType;
 use Ibexa\Bundle\Search\Form\Data\SearchData;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
@@ -131,14 +132,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
@@ -733,7 +731,7 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $role = $data->getRoleAssignment()->getRole()->id;
-        $limitation = !empty($data->getRoleAssignment()->getRoleLimitation())
+        $limitation = $data->getRoleAssignment()->getRoleLimitation() instanceof RoleLimitation
             ? $data->getRoleAssignment()->getRoleLimitation()->getIdentifier()
             : 'none';
 

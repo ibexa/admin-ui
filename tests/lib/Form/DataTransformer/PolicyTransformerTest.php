@@ -20,7 +20,7 @@ class PolicyTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?array $value, ?string $expected): void
     {
         $transformer = new PolicyTransformer();
 
@@ -34,7 +34,7 @@ class PolicyTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(int|bool|float|\stdClass|string|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a valid array of data.');
@@ -50,7 +50,7 @@ class PolicyTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testReverseTransform($value, $expected)
+    public function testReverseTransform(?string $value, ?array $expected): void
     {
         $transformer = new PolicyTransformer();
         $result = $transformer->reverseTransform($value);
@@ -64,7 +64,7 @@ class PolicyTransformerTest extends TestCase
      * @param $value
      * @param $expectedMessage
      */
-    public function testReverseTransformWithInvalidInput($value, $expectedMessage)
+    public function testReverseTransformWithInvalidInput(int|bool|float|\stdClass|string|array $value, string $expectedMessage): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedMessage);

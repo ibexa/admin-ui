@@ -18,11 +18,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationLis
 
 class RelationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
     /** @var UIValue\Content\Relation[] */
     protected $relations;

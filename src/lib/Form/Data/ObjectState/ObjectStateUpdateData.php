@@ -12,16 +12,13 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 
 class ObjectStateUpdateData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null
-     */
-    private $objectState;
+    private ?ObjectState $objectState;
 
     /** @var string */
-    private $identifier;
+    private string $identifier;
 
     /** @var string */
-    private $name;
+    private ?string $name = null;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null $objectState
@@ -46,7 +43,7 @@ class ObjectStateUpdateData
     /**
      * @param string $identifier
      */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -62,7 +59,7 @@ class ObjectStateUpdateData
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -78,7 +75,7 @@ class ObjectStateUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      */
-    public function setObjectState(ObjectState $objectState)
+    public function setObjectState(ObjectState $objectState): void
     {
         $this->objectState = $objectState;
     }

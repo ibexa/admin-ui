@@ -18,10 +18,7 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class UniqueContentTypeIdentifierValidator extends ConstraintValidator
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
-     */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeService)
     {
@@ -36,7 +33,7 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
      *
      * @api
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$value instanceof ContentTypeData || $value->identifier === null) {
             return;

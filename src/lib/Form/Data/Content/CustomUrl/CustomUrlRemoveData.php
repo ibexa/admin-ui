@@ -12,11 +12,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class CustomUrlRemoveData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
-    /** @var array */
-    private $urlAliases;
+    private array $urlAliases;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location

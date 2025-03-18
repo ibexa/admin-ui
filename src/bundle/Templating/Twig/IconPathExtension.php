@@ -14,8 +14,7 @@ use Twig\TwigFunction;
 
 final class IconPathExtension extends AbstractExtension
 {
-    /** @var \Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface */
-    private $iconPathResolver;
+    private IconPathResolverInterface $iconPathResolver;
 
     public function __construct(IconPathResolverInterface $iconPathResolver)
     {

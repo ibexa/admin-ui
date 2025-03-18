@@ -12,8 +12,7 @@ use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 
 class FieldDefinitionGroupsUtil
 {
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    private $fieldsGroupsListHelper;
+    private FieldsGroupsList $fieldsGroupsListHelper;
 
     /**
      * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper

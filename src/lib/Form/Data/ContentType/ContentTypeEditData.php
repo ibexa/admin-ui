@@ -14,14 +14,11 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
-    private $contentType;
+    private ?ContentType $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null */
-    private $contentTypeGroup;
+    private ?ContentTypeGroup $contentTypeGroup;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
-    private $language;
+    private ?Language $language;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType

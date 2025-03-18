@@ -20,7 +20,7 @@ final class ContentInfoTransformerTest extends TestCase
     private const EXAMPLE_CONTENT_ID = 123456;
 
     /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentInfoTransformer */
-    private $contentInfoTransformer;
+    private ContentInfoTransformer $contentInfoTransformer;
 
     protected function setUp(): void
     {
@@ -44,7 +44,7 @@ final class ContentInfoTransformerTest extends TestCase
      *
      * @dataProvider transformWithInvalidInputDataProvider
      */
-    public function testTransformWithInvalidInput($value): void
+    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . ContentInfo::class . ' object.');
@@ -65,7 +65,7 @@ final class ContentInfoTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformDataProvider
      */
-    public function testReverseTransform($value, ?ContentInfo $expected): void
+    public function testReverseTransform(int|string|null $value, ?ContentInfo $expected): void
     {
         $result = $this->contentInfoTransformer->reverseTransform($value);
 
@@ -77,7 +77,7 @@ final class ContentInfoTransformerTest extends TestCase
      *
      * @dataProvider reverseTransformWithInvalidInputDataProvider
      */
-    public function testReverseTransformWithInvalidInput($value): void
+    public function testReverseTransformWithInvalidInput(string|bool|\stdClass|ContentInfo|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a numeric string.');

@@ -20,11 +20,9 @@ use PHPUnit\Framework\Assert;
 
 class ObjectStatePage extends Page
 {
-    /** @var string */
-    private $expectedObjectStateName;
+    private ?string $expectedObjectStateName = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     /** @var mixed */
     private $expectedObjectStateId;
@@ -35,7 +33,7 @@ class ObjectStatePage extends Page
         $this->repository = $repository;
     }
 
-    public function hasAttribute($label, $value)
+    public function hasAttribute($label, $value): bool
     {
         return $this->getHTMLPage()
                 ->findAll($this->getLocator('objectStateAttribute'))
@@ -44,7 +42,7 @@ class ObjectStatePage extends Page
                 ->getText() === $value;
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -57,10 +55,10 @@ class ObjectStatePage extends Page
         return 'Object state';
     }
 
-    public function setExpectedObjectStateName(string $objectStateName)
+    public function setExpectedObjectStateName(string $objectStateName): void
     {
         $this->expectedObjectStateName = $objectStateName;
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($objectStateName) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($objectStateName): bool {
             return $this->getObjectState($objectStateName) !== null;
         }, sprintf('Object state %s was not found', $objectStateName));
 

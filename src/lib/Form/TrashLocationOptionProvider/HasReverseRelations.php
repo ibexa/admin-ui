@@ -16,11 +16,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasReverseRelations implements TrashLocationOptionProvider
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         ContentService $contentService,

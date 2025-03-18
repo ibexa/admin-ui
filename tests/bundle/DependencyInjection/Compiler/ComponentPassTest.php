@@ -32,7 +32,7 @@ class ComponentPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new ComponentPass());
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $taggedServiceId = 'collected_service';
         $collectedService = new Definition();
@@ -54,7 +54,7 @@ class ComponentPassTest extends AbstractCompilerPassTestCase
         );
     }
 
-    public function testProcessWithNoGroup()
+    public function testProcessWithNoGroup(): void
     {
         $taggedServiceId = 'collected_service';
 

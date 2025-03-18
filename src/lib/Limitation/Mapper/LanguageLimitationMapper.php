@@ -21,10 +21,7 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\LanguageService
-     */
-    private $languageService;
+    private LanguageService $languageService;
 
     public function __construct(LanguageService $languageService)
     {
@@ -32,7 +29,10 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
         $this->logger = new NullLogger();
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $choices = [];
         foreach ($this->languageService->loadLanguages() as $language) {
@@ -42,7 +42,10 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
         return $choices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 

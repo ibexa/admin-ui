@@ -22,10 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ConditionalTabSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var \Ibexa\AdminUi\UI\Service\TabService
-     */
-    private $tabService;
+    private TabService $tabService;
 
     public function __construct(TabService $tabService)
     {
@@ -45,7 +42,7 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
     /**
      * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
      */
-    public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent)
+    public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent): void
     {
         $tabGroup = $tabGroupEvent->getData();
         $tabGroupIdentifier = $tabGroupEvent->getData()->getIdentifier();

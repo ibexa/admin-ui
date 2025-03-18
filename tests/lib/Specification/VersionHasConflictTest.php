@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class VersionHasConflictTest extends TestCase
 {
-    public function testVersionWithStatusDraft()
+    public function testVersionWithStatusDraft(): void
     {
         /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
         $contentServiceMock = $this->createMock(ContentService::class);
@@ -34,7 +34,7 @@ class VersionHasConflictTest extends TestCase
         self::assertFalse($versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 5)));
     }
 
-    public function testVersionWithStatusDraftAndVersionConflict()
+    public function testVersionWithStatusDraftAndVersionConflict(): void
     {
         /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
         $contentServiceMock = $this->createMock(ContentService::class);
@@ -51,7 +51,7 @@ class VersionHasConflictTest extends TestCase
         self::assertTrue($versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 2)));
     }
 
-    public function testVersionWithStatusDraftAndVersionConflictWithAnotherLanguageCode()
+    public function testVersionWithStatusDraftAndVersionConflictWithAnotherLanguageCode(): void
     {
         $contentServiceMock = $this->createMock(ContentService::class);
         $contentServiceMock

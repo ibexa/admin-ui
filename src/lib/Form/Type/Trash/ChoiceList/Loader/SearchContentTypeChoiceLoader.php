@@ -39,7 +39,7 @@ class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter(
                 $contentTypes,
-                static function (ContentType $contentType) use ($userContentTypeIdentifier) {
+                static function (ContentType $contentType) use ($userContentTypeIdentifier): bool {
                     $contentTypeIsUser = new ContentTypeIsUser($userContentTypeIdentifier);
 
                     return false === $contentTypeIsUser->isSatisfiedBy($contentType);

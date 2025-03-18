@@ -16,17 +16,13 @@ class RenderSingleEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_single';
 
-    /** @var \Ibexa\AdminUi\Component\Registry */
-    private $registry;
+    private Registry $registry;
 
-    /** @var string */
-    private $groupName;
+    private string $groupName;
 
-    /** @var string */
-    private $serviceId;
+    private string $serviceId;
 
-    /** @var array */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @param \Ibexa\AdminUi\Component\Registry $registry
@@ -70,7 +66,7 @@ class RenderSingleEvent extends Event
     /**
      * @param \Ibexa\Contracts\AdminUi\Component\Renderable $component
      */
-    public function setComponent(Renderable $component)
+    public function setComponent(Renderable $component): void
     {
         $this->registry->addComponent($this->getGroupName(), $this->getName(), $component);
     }

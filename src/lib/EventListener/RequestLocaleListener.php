@@ -20,20 +20,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RequestLocaleListener implements EventSubscriberInterface
 {
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
-    /** @var array */
-    private $availableTranslations;
+    private array $availableTranslations;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     /**
      * @param array $siteAccessGroups

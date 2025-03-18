@@ -16,10 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VersionConflictController extends Controller
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentService
-     */
-    private $contentService;
+    private ContentService $contentService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService

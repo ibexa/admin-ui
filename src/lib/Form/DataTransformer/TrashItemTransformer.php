@@ -16,10 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class TrashItemTransformer implements DataTransformerInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService
-     */
-    private $trashService;
+    private TrashService $trashService;
 
     public function __construct(TrashService $trashService)
     {

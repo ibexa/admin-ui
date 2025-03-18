@@ -16,11 +16,9 @@ use PHPUnit\Framework\Assert;
 
 class LanguageContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\LanguagesPage */
-    private $languagesPage;
+    private LanguagesPage $languagesPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\LanguagePage */
-    private $languagePage;
+    private LanguagePage $languagePage;
 
     public function __construct(LanguagePage $languagePage, LanguagesPage $languagesPage)
     {
@@ -39,7 +37,7 @@ class LanguageContext implements Context
     /**
      * @Given there's no :languageName Language on Languages list
      */
-    public function thereSNoLanguageOnLanguageList(string $languageName)
+    public function thereSNoLanguageOnLanguageList(string $languageName): void
     {
         Assert::assertFalse($this->languagesPage->isLanguageOnTheList($languageName));
     }
@@ -47,7 +45,7 @@ class LanguageContext implements Context
     /**
      * @Given I delete Language :languageName
      */
-    public function deleteLanguageNamed(string $languageName)
+    public function deleteLanguageNamed(string $languageName): void
     {
         $this->languagesPage->deleteLanguage($languageName);
     }
@@ -55,7 +53,7 @@ class LanguageContext implements Context
     /**
      * @Given there's a :languageName Language on Languages list
      */
-    public function thereALanguageOnLanguageList(string $languageName)
+    public function thereALanguageOnLanguageList(string $languageName): void
     {
         Assert::assertTrue($this->languagesPage->isLanguageOnTheList($languageName));
     }
@@ -63,7 +61,7 @@ class LanguageContext implements Context
     /**
      * @Then I should be on :languageName Language page
      */
-    public function iShouldBeOnLanguagePage(string $languageName)
+    public function iShouldBeOnLanguagePage(string $languageName): void
     {
         $this->languagePage->setExpectedLanguageName($languageName);
         $this->languagePage->verifyIsLoaded();
@@ -72,7 +70,7 @@ class LanguageContext implements Context
     /**
      * @Then Language has proper attributes
      */
-    public function languageHasProperAttributes(TableNode $languageData)
+    public function languageHasProperAttributes(TableNode $languageData): void
     {
         $expectedName = $languageData->getHash()[0]['Name'];
         $expectedCode = $languageData->getHash()[0]['Language code'];
@@ -86,7 +84,7 @@ class LanguageContext implements Context
     /**
      * @Then I edit :languageName from Languages list
      */
-    public function editLanguageFromLanguagesList(string $languageName)
+    public function editLanguageFromLanguagesList(string $languageName): void
     {
         $this->languagesPage->editLanguage($languageName);
     }
@@ -94,7 +92,7 @@ class LanguageContext implements Context
     /**
      * @Then I open :languageName Language page in admin SiteAccess
      */
-    public function openLanguagePage(string $languageName)
+    public function openLanguagePage(string $languageName): void
     {
         $this->languagePage->setExpectedLanguageName($languageName);
         $this->languagePage->open('admin');
@@ -104,7 +102,7 @@ class LanguageContext implements Context
     /**
      * @Then I start editing the Language
      */
-    public function editLanguage()
+    public function editLanguage(): void
     {
         $this->languagePage->edit();
     }

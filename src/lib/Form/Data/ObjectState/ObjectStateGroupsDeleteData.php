@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\Data\ObjectState;
 class ObjectStateGroupsDeleteData
 {
     /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null */
-    protected $objectStateGroups;
+    protected array $objectStateGroups;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null $objectStateGroups
@@ -32,7 +32,7 @@ class ObjectStateGroupsDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[]|null $objectStateGroups
      */
-    public function setObjectStateGroups(?array $objectStateGroups)
+    public function setObjectStateGroups(?array $objectStateGroups): void
     {
         $this->objectStateGroups = $objectStateGroups;
     }

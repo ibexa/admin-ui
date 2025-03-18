@@ -29,8 +29,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
     public const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
     public const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

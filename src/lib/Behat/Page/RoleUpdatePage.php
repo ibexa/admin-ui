@@ -21,11 +21,9 @@ use Ibexa\Behat\Browser\Routing\Router;
 
 class RoleUpdatePage extends AdminUpdateItemPage
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
-    private $ibexaDropdown;
+    private IbexaDropdown $ibexaDropdown;
 
     public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, UniversalDiscoveryWidget $universalDiscoveryWidget, IbexaDropdown $ibexaDropdown)
     {
@@ -92,7 +90,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         );
     }
 
-    public function assign(array $itemPaths, string $itemType)
+    public function assign(array $itemPaths, string $itemType): void
     {
         $itemTypeToLabelMapping = [
             'users' => 'Select Users',
@@ -119,7 +117,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         $this->ibexaDropdown->selectOption($limitationName);
     }
 
-    public function selectLimitationForAssignment(string $itemPath)
+    public function selectLimitationForAssignment(string $itemPath): void
     {
         $this->verifyIsLoaded();
         $this->switchToTab('Limitations');
@@ -130,7 +128,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function selectSubtreeLimitationForPolicy(string $itemPath)
+    public function selectSubtreeLimitationForPolicy(string $itemPath): void
     {
         $buttons = $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -143,7 +141,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function selectPolicy(string $policyName)
+    public function selectPolicy(string $policyName): void
     {
         $this->getHTMLPage()->find($this->getLocator('ibexaDropdownSelectionInfo'))->click();
         $this->ibexaDropdown->verifyIsLoaded();

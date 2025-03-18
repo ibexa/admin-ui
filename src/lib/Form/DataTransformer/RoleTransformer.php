@@ -19,8 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class RoleTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    protected $roleService;
+    protected RoleService $roleService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService

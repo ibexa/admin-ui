@@ -26,7 +26,7 @@ class MapLocation extends FieldTypeComponent
         $expectedLatitude = $parameters['latitude'];
 
         $this->getHTMLPage()->setTimeout(self::OPEN_STREET_MAP_TIMEOUT)->waitUntil(
-            function () use ($expectedLatitude, $expectedLongitude) {
+            function () use ($expectedLatitude, $expectedLongitude): bool {
                 $currentValue = $this->getValue();
 
                 return $currentValue['latitude'] === $expectedLatitude && $currentValue['longitude'] === $expectedLongitude;

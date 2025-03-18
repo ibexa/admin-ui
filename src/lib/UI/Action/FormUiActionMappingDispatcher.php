@@ -17,8 +17,7 @@ class FormUiActionMappingDispatcher
     /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] */
     protected $mappers;
 
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface */
-    protected $defaultMapper;
+    protected FormUiActionMapperInterface $defaultMapper;
 
     /**
      * @param \Traversable $mappers

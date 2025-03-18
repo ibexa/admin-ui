@@ -16,8 +16,7 @@ class ContentTypeIsUser extends AbstractSpecification
 {
     private const EZUSER_FIELD_TYPE_IDENTIFIER = 'ezuser';
 
-    /** @var array */
-    private $userContentTypeIdentifier;
+    private array $userContentTypeIdentifier;
 
     /**
      * @param array $userContentTypeIdentifier

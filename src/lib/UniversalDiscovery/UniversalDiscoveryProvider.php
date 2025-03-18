@@ -29,33 +29,26 @@ class UniversalDiscoveryProvider implements Provider
 {
     private const COLUMNS_NUMBER = 4;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
+    private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
+    private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
-    /** @var \Ibexa\AdminUi\QueryType\LocationPathQueryType */
-    private $locationPathQueryType;
+    private LocationPathQueryType $locationPathQueryType;
 
-    private $sortClauseClassMap = [
+    private array $sortClauseClassMap = [
         self::SORT_CLAUSE_DATE_PUBLISHED => Query\SortClause\DatePublished::class,
         self::SORT_CLAUSE_CONTENT_NAME => Query\SortClause\ContentName::class,
     ];
 
-    private $availableSortOrder = [
+    private array $availableSortOrder = [
         Query::SORT_ASC,
         Query::SORT_DESC,
     ];
@@ -163,7 +156,7 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            function (SearchHit $searchHit) {
+            function (SearchHit $searchHit): array {
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $searchHit->valueObject;
 

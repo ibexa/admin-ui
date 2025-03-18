@@ -18,22 +18,17 @@ use Symfony\Contracts\EventDispatcher\Event;
 class ContentProxyTranslateEvent extends Event
 {
     /** @var \Symfony\Component\HttpFoundation\Response|null */
-    private $response;
+    private ?Response $response = null;
 
-    /** @var int */
-    private $contentId;
+    private int $contentId;
 
-    /** @var string|null */
-    private $fromLanguageCode;
+    private ?string $fromLanguageCode;
 
-    /** @var string */
-    private $toLanguageCode;
+    private string $toLanguageCode;
 
-    /** @var \Ibexa\AdminUi\Event\Options */
-    private $options;
+    private Options $options;
 
-    /** @var int|null */
-    private $locationId;
+    private ?int $locationId;
 
     public function __construct(
         int $contentId,

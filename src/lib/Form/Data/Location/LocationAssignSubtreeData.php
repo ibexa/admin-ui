@@ -14,17 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class LocationAssignSubtreeData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
-     */
     #[Assert\NotBlank]
-    protected $section;
+    protected ?Section $section;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     #[Assert\NotBlank]
-    protected $location;
+    protected ?Location $location;
 
     public function __construct(?Section $section = null, ?Location $location = null)
     {

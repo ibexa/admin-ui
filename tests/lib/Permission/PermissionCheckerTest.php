@@ -17,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content as CoreContent;
 use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class PermissionCheckerTest extends TestCase
@@ -24,13 +25,13 @@ class PermissionCheckerTest extends TestCase
     private const USER_ID = 14;
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
-    private $permissionResolver;
+    private MockObject $permissionResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
-    private $userService;
+    private MockObject $userService;
 
     /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
-    private $permissionChecker;
+    private PermissionChecker $permissionChecker;
 
     public function setUp(): void
     {

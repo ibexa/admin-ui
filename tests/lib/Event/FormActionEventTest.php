@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FormActionEventTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $form = $this->createMock(FormInterface::class);
         $data = new stdClass();
@@ -29,7 +29,7 @@ class FormActionEventTest extends TestCase
         self::assertSame($options, $event->getOptions());
     }
 
-    public function testEventDoesntHaveResponse()
+    public function testEventDoesntHaveResponse(): void
     {
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
@@ -40,7 +40,7 @@ class FormActionEventTest extends TestCase
         self::assertNull($event->getResponse());
     }
 
-    public function testEventSetResponse()
+    public function testEventSetResponse(): void
     {
         $event = new FormActionEvent(
             $this->createMock(FormInterface::class),
@@ -56,7 +56,7 @@ class FormActionEventTest extends TestCase
         self::assertSame($response, $event->getResponse());
     }
 
-    public function testGetOption()
+    public function testGetOption(): void
     {
         $objectOption = new stdClass();
         $options = ['languageCode' => 'eng-GB', 'foo' => 'bar', 'obj' => $objectOption];

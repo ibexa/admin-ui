@@ -27,16 +27,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentCreateType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
     private ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader;
 
-    /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
-    private $languageChoiceLoader;
+    private ChoiceLoaderInterface $languageChoiceLoader;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
+    private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
     private LimitationResolverInterface $limitationResolver;
 

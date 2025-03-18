@@ -21,25 +21,16 @@ use Symfony\Component\Routing\RouterInterface;
 
 class ContentTypeFormProcessor implements EventSubscriberInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
-     */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    private $router;
+    private RouterInterface $router;
 
     /**
      * @var array
      */
     private $options;
 
-    /**
-     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList
-     */
-    private $groupsList;
+    private ?FieldsGroupsList $groupsList = null;
 
     public function __construct(
         ContentTypeService $contentTypeService,
@@ -51,12 +42,12 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $this->setOptions($options);
     }
 
-    public function setGroupsList(FieldsGroupsList $groupsList)
+    public function setGroupsList(FieldsGroupsList $groupsList): void
     {
         $this->groupsList = $groupsList;
     }
 
-    public function setOptions(array $options = [])
+    public function setOptions(array $options = []): void
     {
         $this->options = $options + ['redirectRouteAfterPublish' => null];
     }
@@ -73,7 +64,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         ];
     }
 
-    public function processDefaultAction(FormActionEvent $event)
+    public function processDefaultAction(FormActionEvent $event): void
     {
         // Don't update anything if we just want to cancel the draft.
         if ($event->getClickedButton() === 'removeDraft') {
@@ -105,7 +96,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $this->contentTypeService->updateContentTypeDraft($contentTypeDraft, $contentTypeData);
     }
 
-    public function processAddFieldDefinition(FormActionEvent $event)
+    public function processAddFieldDefinition(FormActionEvent $event): void
     {
         // Reload the draft, to make sure we include any changes made in the current form submit
         $contentTypeDraft = $this->contentTypeService->loadContentTypeDraft($event->getData()->contentTypeDraft->id);
@@ -144,7 +135,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $this->contentTypeService->addFieldDefinition($contentTypeDraft, $fieldDefCreateStruct);
     }
 
-    public function processRemoveFieldDefinition(FormActionEvent $event)
+    public function processRemoveFieldDefinition(FormActionEvent $event): void
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
         $contentTypeDraft = $event->getData()->contentTypeDraft;
@@ -159,7 +150,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
     }
 
-    public function processPublishContentType(FormActionEvent $event)
+    public function processPublishContentType(FormActionEvent $event): void
     {
         $contentTypeDraft = $event->getData()->contentTypeDraft;
         $this->contentTypeService->publishContentTypeDraft($contentTypeDraft);
@@ -183,7 +174,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $this->contentTypeService->createContentTypeDraft($contentType);
     }
 
-    public function processRemoveContentTypeDraft(FormActionEvent $event)
+    public function processRemoveContentTypeDraft(FormActionEvent $event): void
     {
         $contentTypeDraft = $event->getData()->contentTypeDraft;
         $this->contentTypeService->deleteContentType($contentTypeDraft);

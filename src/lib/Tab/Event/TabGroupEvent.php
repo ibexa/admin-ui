@@ -14,10 +14,9 @@ use Symfony\Contracts\EventDispatcher\Event;
 class TabGroupEvent extends Event
 {
     /** @var \Ibexa\AdminUi\Tab\TabGroup */
-    private $data;
+    private TabGroup $data;
 
-    /** @var array */
-    private $parameters;
+    private ?array $parameters = null;
 
     /**
      * @return \Ibexa\AdminUi\Tab\TabGroup
@@ -30,7 +29,7 @@ class TabGroupEvent extends Event
     /**
      * @param \Ibexa\AdminUi\Tab\TabGroup $data
      */
-    public function setData(TabGroup $data)
+    public function setData(TabGroup $data): void
     {
         $this->data = $data;
     }

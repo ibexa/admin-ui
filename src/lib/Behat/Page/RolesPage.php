@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -20,10 +21,9 @@ use PHPUnit\Framework\Assert;
 class RolesPage extends Page
 {
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
     {
@@ -61,7 +61,7 @@ class RolesPage extends Page
         $this->table->getTableRow(['Name' => $roleName])->assign();
     }
 
-    public function deleteRole(string $roleName)
+    public function deleteRole(string $roleName): void
     {
         $roleLabelLocator = $this->getLocator('roleLabel');
         $listElement = $this->getHTMLPage()

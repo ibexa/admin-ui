@@ -29,8 +29,7 @@ class ContentTypeGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     public const ITEM__CREATE_AND_EDIT = 'content_type_group_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'content_type_group_create__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

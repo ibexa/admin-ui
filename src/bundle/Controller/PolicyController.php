@@ -35,26 +35,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PolicyController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper */
-    private $policyCreateMapper;
+    private PolicyCreateMapper $policyCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
-    private $policyUpdateMapper;
+    private PolicyUpdateMapper $policyUpdateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -140,7 +133,7 @@ class PolicyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (PolicyCreateData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (PolicyCreateData $data) use ($role): \Symfony\Component\HttpFoundation\RedirectResponse {
                 $policyCreateStruct = $this->policyCreateMapper->reverseMap($data);
 
                 $limitationTypes = $policyCreateStruct->module
@@ -302,7 +295,7 @@ class PolicyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (PolicyCreateData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (PolicyCreateData $data) use ($role): \Symfony\Component\HttpFoundation\RedirectResponse {
                 $policyCreateStruct = $this->policyCreateMapper->reverseMap($data);
                 $roleDraft = $this->roleService->createRoleDraft($role);
                 $roleDraft = $this->roleService->addPolicyByRoleDraft($roleDraft, $policyCreateStruct);
@@ -350,7 +343,7 @@ class PolicyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (PolicyDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (PolicyDeleteData $data) use ($role): \Symfony\Component\HttpFoundation\RedirectResponse {
                 $roleDraft = $this->roleService->createRoleDraft($role);
                 foreach ($roleDraft->getPolicies() as $policyDraft) {
                     if ($policyDraft->originalId == $data->getId()) {
@@ -403,7 +396,7 @@ class PolicyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (PoliciesDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (PoliciesDeleteData $data) use ($role): \Symfony\Component\HttpFoundation\RedirectResponse {
                 $roleDraft = $this->roleService->createRoleDraft($role);
 
                 foreach ($data->getPolicies() as $policyId => $selected) {

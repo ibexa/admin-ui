@@ -18,14 +18,12 @@ use Twig\Environment;
 
 class PreviewUnavailableTwigComponent implements Renderable
 {
-    /** @var \Twig\Environment */
-    private $twig;
+    private Environment $twig;
 
     /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Twig\Environment $twig

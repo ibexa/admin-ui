@@ -14,20 +14,11 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ContentObjectStateUpdateData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
-     */
-    private $contentInfo;
+    private ?ContentInfo $contentInfo;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
-     */
-    private $objectStateGroup;
+    private ?ObjectStateGroup $objectStateGroup;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState
-     */
-    private $objectState;
+    private ?ObjectState $objectState;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
@@ -55,7 +46,7 @@ class ContentObjectStateUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
      */
-    public function setContentInfo(ContentInfo $contentInfo)
+    public function setContentInfo(ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -71,7 +62,7 @@ class ContentObjectStateUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
      */
-    public function setObjectStateGroup(ObjectStateGroup $objectStateGroup)
+    public function setObjectStateGroup(ObjectStateGroup $objectStateGroup): void
     {
         $this->objectStateGroup = $objectStateGroup;
     }
@@ -87,7 +78,7 @@ class ContentObjectStateUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      */
-    public function setObjectState(ObjectState $objectState)
+    public function setObjectState(ObjectState $objectState): void
     {
         $this->objectState = $objectState;
     }

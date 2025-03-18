@@ -22,7 +22,7 @@ class SectionsTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(string|array|null $value, ?string $expected): void
     {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionsTransformer($service);
@@ -32,7 +32,7 @@ class SectionsTransformerTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    public function testReverseTransformWithIds()
+    public function testReverseTransformWithIds(): void
     {
         $service = $this->createMock(SectionService::class);
         $service->expects(self::exactly(2))
@@ -53,7 +53,7 @@ class SectionsTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testReverseTransformWithEmpty($value)
+    public function testReverseTransformWithEmpty(string|int|float|bool|array|null $value): void
     {
         $service = $this->createMock(SectionService::class);
         $service->expects(self::never())
@@ -70,7 +70,7 @@ class SectionsTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(int|bool|float|\stdClass|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');

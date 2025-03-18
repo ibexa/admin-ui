@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
 
 class SubtreeLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['/1/2/5/', '/1/2/7/', '/1/2/11/'];
         $expected = [
@@ -76,7 +76,7 @@ class SubtreeLimitationMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    private function createSearchResultsMock($expected)
+    private function createSearchResultsMock(array $expected): SearchResult
     {
         $hits = [];
         foreach ($expected as $contentInfo) {

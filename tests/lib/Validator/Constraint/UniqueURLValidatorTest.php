@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -21,13 +22,13 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 class UniqueURLValidatorTest extends TestCase
 {
     /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
-    private $urlService;
+    private MockObject $urlService;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private $executionContext;
+    private MockObject $executionContext;
 
     /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator */
-    private $validator;
+    private UniqueURLValidator $validator;
 
     protected function setUp(): void
     {
@@ -38,7 +39,7 @@ class UniqueURLValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testUnsupportedValueType()
+    public function testUnsupportedValueType(): void
     {
         $value = new stdClass();
 
@@ -53,7 +54,7 @@ class UniqueURLValidatorTest extends TestCase
         $this->validator->validate($value, new UniqueURL());
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $url = 'http://ibexa.co';
 
@@ -73,7 +74,7 @@ class UniqueURLValidatorTest extends TestCase
         ]), new UniqueURL());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $constraint = new UniqueURL();
         $url = 'http://ibexa.co';
@@ -117,7 +118,7 @@ class UniqueURLValidatorTest extends TestCase
         ]), $constraint);
     }
 
-    public function testEditingIsValid()
+    public function testEditingIsValid(): void
     {
         $id = 1;
         $url = 'http://ibexa.co';

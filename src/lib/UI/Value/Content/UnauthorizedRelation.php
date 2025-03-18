@@ -12,8 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\Unauthorize
 
 final class UnauthorizedRelation implements RelationInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem */
-    private $unauthorizedRelation;
+    private UnauthorizedRelationListItem $unauthorizedRelation;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $unauthorizedContentDraft

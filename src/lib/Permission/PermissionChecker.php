@@ -25,11 +25,9 @@ class PermissionChecker implements PermissionCheckerInterface
 {
     private const USER_GROUPS_LIMIT = 25;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -141,7 +139,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $restrictedSubtrees = $this->getRestrictions($hasAccess, SubtreeLimitation::class);
         $canCreateInSubtree = empty($restrictedSubtrees)
             ? true
-            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location) {
+            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
                 return strpos($location->pathString, $restrictedSubtree) === 0;
             }));
 

@@ -22,14 +22,11 @@ use Twig\Environment;
 
 class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    /** @var \Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil */
-    private $fieldDefinitionGroupsUtil;
+    private FieldDefinitionGroupsUtil $fieldDefinitionGroupsUtil;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         Environment $twig,
@@ -102,7 +99,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     {
         $contentLanguages = $content->versionInfo->languageCodes;
 
-        $filter = static function (Language $language) use ($contentLanguages) {
+        $filter = static function (Language $language) use ($contentLanguages): bool {
             return $language->enabled && in_array($language->languageCode, $contentLanguages, true);
         };
 
