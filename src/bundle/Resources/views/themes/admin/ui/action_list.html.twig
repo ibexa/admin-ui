@@ -17,8 +17,8 @@
     {% endif %}
 
     <{{ element }} {{ html.attributes(attr) }}>
-    <svg class="ibexa-icon ibexa-icon--small">
-        <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
-    </svg>
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
+        </svg>
     </{{ element }}>
 {% endfor %}

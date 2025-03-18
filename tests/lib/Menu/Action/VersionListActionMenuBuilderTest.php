@@ -49,7 +49,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Argument \'$versionInfo\' is invalid: Version info expected to be type of "%s" but got "string"',
+                'Argument \'$versionInfo\' is invalid: Version info expected to be of type "%s" but got "string"',
                 ApiVersionInfo::class
             )
         );
@@ -108,7 +108,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             ),
         ];
 
-        yield 'Edit draft actin item - with location' => [
+        yield 'Edit draft action item - with location' => [
             [
                 'versionInfo' => $versionInfo,
                 'locationId' => 5,
@@ -150,7 +150,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
         ];
     }
 
-    public function testBuildDraftListUserBasedActionMenu(): void
+    public function testAddUserUpdateItemAction(): void
     {
         $versionInfo = $this->createVersionInfo();
         $user = $this->createMock(Content::class);
