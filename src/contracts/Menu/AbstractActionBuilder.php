@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -29,25 +28,21 @@ abstract class AbstractActionBuilder extends AbstractBuilder
 
     private ContentService $contentService;
 
-    private FactoryInterface $menuItemFactory;
-
     private UrlGeneratorInterface $urlGenerator;
 
     private UserService $userService;
 
     public function __construct(
-        MenuItemFactoryInterface $factory,
+        MenuItemFactoryInterface $menuItemFactory,
         EventDispatcherInterface $eventDispatcher,
         ContentService $contentService,
-        FactoryInterface $menuFactory,
         TranslatorInterface $translator,
         UrlGeneratorInterface $urlGenerator,
         UserService $userService
     ) {
-        parent::__construct($factory, $eventDispatcher);
+        parent::__construct($menuItemFactory, $eventDispatcher);
 
         $this->contentService = $contentService;
-        $this->menuItemFactory = $menuFactory;
         $this->translator = $translator;
         $this->urlGenerator = $urlGenerator;
         $this->userService = $userService;
@@ -62,7 +57,7 @@ abstract class AbstractActionBuilder extends AbstractBuilder
             $options['extras']['translation_domain'] = self::TRANSLATION_DOMAIN;
         }
 
-        return $this->menuItemFactory->createItem($name, $options);
+        return $this->createMenuItem($name, $options);
     }
 
     /**
@@ -86,7 +81,7 @@ abstract class AbstractActionBuilder extends AbstractBuilder
         $parameters['attributes']['data-content-id'] = $versionInfo->getContentInfo()->getId();
         $parameters['attributes']['data-language-code'] = $versionInfo->getInitialLanguage()->getLanguageCode();
         $parameters['attributes']['data-version-has-conflict-url'] = $this->generateVersionHasConflictUrl($versionInfo);
-        $parameters['attributes']['data-content-draft-edit-url'] = $this->generateDraftEditUrl($versionInfo);
+        $parameters['attributes']['data-content-draft-edit-url'] = $this->generateDraftEditUrl($versionInfo, $locationId);
 
         $parameters['extras']['icon'] = $parameters['extras']['icon'] ?? self::ICON_EDIT;
         $parameters['extras']['orderNumber'] = $parameters['extras']['orderNumber'] ?? self::ORDER_NUMBER;
