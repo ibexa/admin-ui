@@ -19,6 +19,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
 {
+    private const DRAFT_LIST_ACTION_CONTENT_EDIT = 'draft_list__action__content_edit';
+
     private DraftListActionMenuBuilder $actionMenuBuilder;
 
     protected function setUp(): void
@@ -35,14 +37,12 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
         );
     }
 
-    private const DRAFT_LIST_ACTION_CONTENT_EDIT = 'draft_list__action__content_edit';
-
     public function testThrowsInvalidArgumentException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             sprintf(
-                'Argument \'$versionInfo\' is invalid: Version info expected to be type of "%s" but got "string"',
+                'Argument \'$versionInfo\' is invalid: Version info expected to be of type "%s" but got "string"',
                 ApiVersionInfo::class
             )
         );

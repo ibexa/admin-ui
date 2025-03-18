@@ -38,7 +38,7 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
             throw new InvalidArgumentException(
                 '$versionInfo',
                 sprintf(
-                    'Version info expected to be type of "%s" but got "%s"',
+                    'Version info expected to be of type "%s" but got "%s"',
                     VersionInfo::class,
                     get_debug_type($versionInfo)
                 )
