@@ -46,24 +46,19 @@ final class NodeFactory
 
     private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
+    private TranslationHelper $translationHelper;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     private PermissionResolver $permissionResolver;
 
     private Repository $repository;
 
-    /** @var int */
-    private $maxLocationIdsInSingleAggregation;
+    private int $maxLocationIdsInSingleAggregation;
 
     public function __construct(
         BookmarkService $bookmarkService,
@@ -97,7 +92,7 @@ final class NodeFactory
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        ?Query\CriterionInterface $requestFilter = null
+        ?CriterionInterface $requestFilter = null
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];

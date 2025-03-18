@@ -19,8 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UserTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    protected $userService;
+    protected UserService $userService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\UserService $userService

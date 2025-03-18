@@ -21,14 +21,11 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     public const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
     public const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
 
-    /** @var \Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface */
-    private $valueMapperRegistry;
+    private LimitationValueMapperRegistryInterface $valueMapperRegistry;
 
-    /** @var \Twig\Environment */
-    private $twig;
+    private Environment $twig;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         LimitationValueMapperRegistryInterface $valueMapperRegistry,
@@ -40,7 +37,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
         $this->configResolver = $configResolver;
     }
 
-    public function renderLimitationValue(Limitation $limitation, array $parameters = [])
+    public function renderLimitationValue(Limitation $limitation, array $parameters = []): string
     {
         try {
             $blockName = $this->getValueBlockName($limitation);
@@ -71,7 +68,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
      *
      * @return string
      */
-    protected function getValueBlockName(Limitation $limitation)
+    protected function getValueBlockName(Limitation $limitation): string
     {
         return sprintf(self::LIMITATION_VALUE_BLOCK_NAME, strtolower($limitation->getIdentifier()));
     }
@@ -118,7 +115,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
      *
      * @return array
      */
-    protected function getValueBlockParameters(Limitation $limitation, array $parameters)
+    protected function getValueBlockParameters(Limitation $limitation, array $parameters): array
     {
         $values = $this->valueMapperRegistry
             ->getMapper($limitation->getIdentifier())
@@ -140,7 +137,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
      *
      * @return array
      */
-    protected function getValueFallbackBlockParameters(Limitation $limitation, array $parameters)
+    protected function getValueFallbackBlockParameters(Limitation $limitation, array $parameters): array
     {
         $parameters += [
             'limitation' => $limitation,
@@ -154,7 +151,7 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     {
         $resources = $this->configResolver->getParameter('limitation_value_templates');
 
-        usort($resources, static function ($a, $b): int {
+        usort($resources, static function (array $a, array $b): int {
             return $b['priority'] <=> $a['priority'];
         });
 

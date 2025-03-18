@@ -34,7 +34,7 @@ class ContentTranslationMapper implements FormDataMapperInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function mapToFormData(ValueObject $content, array $params = [])
+    public function mapToFormData(ValueObject $content, array $params = []): ContentTranslationData
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -76,7 +76,7 @@ class ContentTranslationMapper implements FormDataMapperInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    private function configureOptions(OptionsResolver $optionsResolver)
+    private function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver
             ->setRequired([

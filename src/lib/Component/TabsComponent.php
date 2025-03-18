@@ -19,20 +19,15 @@ use Twig\Environment;
 
 class TabsComponent implements Renderable
 {
-    /** @var \Twig\Environment */
-    protected $twig;
+    protected Environment $twig;
 
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
-    protected $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
-    /** @var string */
-    protected $template;
+    protected string $template;
 
-    /** @var string */
-    protected $groupIdentifier;
+    protected string $groupIdentifier;
 
-    /** @var array */
-    protected $parameters;
+    protected array $parameters;
 
     public function __construct(
         Environment $twig,

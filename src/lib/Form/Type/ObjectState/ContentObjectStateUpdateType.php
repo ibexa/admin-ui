@@ -24,11 +24,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentObjectStateUpdateType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     public function __construct(ObjectStateService $objectStateService, PermissionResolver $permissionResolver)
     {
@@ -49,7 +47,7 @@ class ContentObjectStateUpdateType extends AbstractType
                 'label' => /** @Desc("Set") */ 'object_state.button.set',
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $contentObjectStateUpdateData */
             $contentObjectStateUpdateData = $event->getData();
             $objectStateGroup = $contentObjectStateUpdateData->getObjectStateGroup();
@@ -58,7 +56,7 @@ class ContentObjectStateUpdateType extends AbstractType
 
             $form->add('objectState', ObjectStateChoiceType::class, [
                 'label' => false,
-                'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo) {
+                'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo): array {
                     $contentState = $this->objectStateService->getContentState($contentInfo, $objectStateGroup);
 
                     return array_filter(

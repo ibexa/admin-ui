@@ -15,8 +15,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationHasChildrenValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
@@ -32,7 +31,7 @@ class LocationHasChildrenValidator extends ConstraintValidator
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
+    public function validate($location, Constraint $constraint): void
     {
         if (null === $location) {
             $this->context->addViolation($constraint->message);

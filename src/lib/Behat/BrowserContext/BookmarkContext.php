@@ -14,11 +14,9 @@ use PHPUnit\Framework\Assert;
 
 class BookmarkContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
-    private $contentViewPage;
+    private ContentViewPage $contentViewPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\BookmarksPage */
-    private $bookmarksPage;
+    private BookmarksPage $bookmarksPage;
 
     public function __construct(ContentViewPage $contentViewPage, BookmarksPage $bookmarksPage)
     {

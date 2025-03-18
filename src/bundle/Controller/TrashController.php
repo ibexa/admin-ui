@@ -19,6 +19,7 @@ use Ibexa\AdminUi\Form\Type\Search\TrashSearchType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\TrashItemAdapter;
 use Ibexa\AdminUi\QueryType\TrashSearchQueryType;
 use Ibexa\AdminUi\Specification\UserExists;
+use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\AdminUi\UI\Service\PathService as UiPathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -39,35 +40,25 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TrashController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
-    private $trashService;
+    private TrashService $trashService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\TrashFormFactory */
-    private $formFactory;
+    private TrashFormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $uiPathService;
+    private PathService $uiPathService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\AdminUi\QueryType\TrashSearchQueryType */
-    private $trashSearchQueryType;
+    private TrashSearchQueryType $trashSearchQueryType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -194,7 +185,7 @@ class TrashController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function () {
+            $result = $this->submitHandler->handle($form, function (): RedirectResponse {
                 $this->trashService->emptyTrash();
 
                 $this->notificationHandler->success(
@@ -236,7 +227,7 @@ class TrashController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (TrashItemRestoreData $data) use ($request) {
+                function (TrashItemRestoreData $data) use ($request): \Symfony\Component\HttpFoundation\RedirectResponse {
                     $newParentLocation = $data->getLocation();
 
                     foreach ($data->getTrashItems() as $trashItem) {
@@ -293,7 +284,7 @@ class TrashController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (TrashItemDeleteData $data) use ($request) {
+                function (TrashItemDeleteData $data) use ($request): \Symfony\Component\HttpFoundation\RedirectResponse {
                     foreach ($data->getTrashItems() as $trashItem) {
                         $this->trashService->deleteTrashItem($trashItem);
                     }

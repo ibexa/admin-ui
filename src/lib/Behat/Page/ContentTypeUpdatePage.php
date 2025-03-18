@@ -20,7 +20,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentTypeUpdatePage extends AdminUpdateItemPage
 {
-    public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value)
+    public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value): void
     {
         $this->expandLastFieldDefinition();
         $this->getHTMLPage()
@@ -71,7 +71,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         ]);
     }
 
-    public function addFieldDefinition(string $fieldName)
+    public function addFieldDefinition(string $fieldName): void
     {
         $currentFieldDefinitionCount = $this->getHTMLPage()->findAll($this->getLocator('fieldDefinition'))->count();
         $this->getHTMLPage()->find($this->getLocator('fieldDefinitionSearch'))->setValue($fieldName);

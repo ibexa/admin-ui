@@ -22,7 +22,7 @@ class Node extends ValueObjectVisitor
      * @param \Ibexa\Contracts\Rest\Output\Generator $generator
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data)
+    public function visit(Visitor $visitor, Generator $generator, $data): void
     {
         $generator->startObjectElement('ContentTreeNode');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ContentTreeNode'));

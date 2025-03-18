@@ -35,11 +35,9 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     public const TRANS_DOMAIN_ARG = 2;
     public const TRANS_CHOICE_DOMAIN_ARG = 3;
 
-    /** @var \Doctrine\Common\Annotations\DocParser */
-    private $docParser;
+    private DocParser $docParser;
 
-    /** @var string */
-    private $defaultDomain;
+    private string $defaultDomain;
 
     /**
      * JavaScriptFileVisitor constructor.
@@ -58,7 +56,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         ]);
     }
 
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue)
+    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
     {
         if (!$this->supports($file)) {
             return;
@@ -86,7 +84,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
             return;
         }
 
-        $ast->traverse(function ($node) use ($catalogue, $file) {
+        $ast->traverse(function ($node) use ($catalogue, $file): void {
             if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_METHOD)
                 || $this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_CHOICE_METHOD)
             ) {

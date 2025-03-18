@@ -17,17 +17,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReadAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private PermissionCheckerInterface $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /** @var string[]|null */
-    private $allowedContentTypesIdentifiers = null;
+    private ?array $allowedContentTypesIdentifiers = null;
 
     public function __construct(
         PermissionResolver $permissionResolver,

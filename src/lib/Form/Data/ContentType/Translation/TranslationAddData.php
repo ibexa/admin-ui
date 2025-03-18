@@ -15,28 +15,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationAddData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
-     */
     #[Assert\NotBlank]
-    private $contentType;
+    private ?ContentType $contentType;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
-     */
     #[Assert\NotBlank]
-    private $contentTypeGroup;
+    private ?ContentTypeGroup $contentTypeGroup;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
     #[Assert\NotBlank]
-    private $language;
+    private ?Language $language;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
-    private $baseLanguage;
+    private ?Language $baseLanguage;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType

@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationUpdateVisibilityData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
     /** @var bool|null */
     private $hidden;
@@ -45,7 +44,7 @@ class LocationUpdateVisibilityData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -61,7 +60,7 @@ class LocationUpdateVisibilityData
     /**
      * @param bool|null $hidden
      */
-    public function setHidden($hidden)
+    public function setHidden($hidden): void
     {
         $this->hidden = $hidden;
     }

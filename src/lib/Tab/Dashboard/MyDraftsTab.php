@@ -27,23 +27,17 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
 {
     private const PAGINATION_PARAM_NAME = 'mydrafts-page';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         Environment $twig,

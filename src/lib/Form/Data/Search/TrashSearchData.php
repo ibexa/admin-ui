@@ -14,29 +14,21 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class TrashSearchData
 {
-    /** @var int|null */
-    private $limit;
+    private ?int $limit;
 
-    /** @var int|null */
-    private $page;
+    private ?int $page;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
-    private $section;
+    private ?Section $section;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
-    private $contentType;
+    private ?ContentType $contentType;
 
-    /** @var array|null */
-    private $trashedInterval;
+    private ?array $trashedInterval;
 
-    /** @var string|null */
-    private $trashed;
+    private ?string $trashed;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null */
-    private $creator;
+    private ?User $creator;
 
-    /** @var array|null */
-    private $sort;
+    private ?array $sort;
 
     private ?string $contentName;
 

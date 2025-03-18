@@ -53,7 +53,7 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
     /**
      * Fake method to set the translation domain for the extractor.
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

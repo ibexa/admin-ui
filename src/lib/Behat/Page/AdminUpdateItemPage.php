@@ -21,8 +21,7 @@ use PHPUnit\Framework\Assert;
 
 class AdminUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    protected $contentActionsMenu;
+    protected ContentActionsMenu $contentActionsMenu;
 
     public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
     {
@@ -30,7 +29,7 @@ class AdminUpdateItemPage extends Page
         $this->contentActionsMenu = $contentActionsMenu;
     }
 
-    public function getFieldValue($label)
+    public function getFieldValue(string $label)
     {
         return $this->getField($label)->getValue();
     }
@@ -55,7 +54,7 @@ class AdminUpdateItemPage extends Page
         $field = $this->getField($fieldName);
         $fieldType = $field->getAttribute('type');
 
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($field, $fieldType, $value) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($field, $fieldType, $value): bool {
             $field->setValue($value);
 
             return $fieldType !== 'text' || $value === $field->getValue();

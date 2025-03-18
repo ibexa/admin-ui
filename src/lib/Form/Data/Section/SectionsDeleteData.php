@@ -35,7 +35,7 @@ class SectionsDeleteData
     /**
      * @param array|null $sections
      */
-    public function setSections(?array $sections)
+    public function setSections(?array $sections): void
     {
         $this->sections = $sections;
     }

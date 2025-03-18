@@ -17,18 +17,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SectionCreateData implements TranslationContainerInterface
 {
-    /**
-     * @var string|null
-     */
     #[Assert\NotBlank]
     #[Assert\Regex(pattern: '/^[[:alnum:]_]+$/', message: 'ez.section.identifier.format')]
-    protected $identifier;
+    protected ?string $identifier;
 
-    /**
-     * @var string|null
-     */
     #[Assert\NotBlank]
-    protected $name;
+    protected ?string $name;
 
     /**
      * @param string|null $identifier

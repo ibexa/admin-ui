@@ -14,7 +14,7 @@ use Twig\TwigFunction;
 
 class PathStringExtension extends AbstractExtension
 {
-    private $locationService;
+    private LocationService $locationService;
 
     public function __construct(
         LocationService $locationService

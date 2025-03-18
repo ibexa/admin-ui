@@ -46,7 +46,7 @@ class PolicyData
         ];
     }
 
-    public function setModuleFunction(array $moduleFunction)
+    public function setModuleFunction(array $moduleFunction): void
     {
         $this->module = $moduleFunction['module'];
         $this->function = $moduleFunction['function'];
@@ -57,7 +57,7 @@ class PolicyData
         return $this->limitations;
     }
 
-    public function setLimitations(array $limitations)
+    public function setLimitations(array $limitations): void
     {
         $this->limitations = $limitations;
     }

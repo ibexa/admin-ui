@@ -13,8 +13,7 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 
 final class Mapper
 {
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
+    private ValueFactory $valueFactory;
 
     public function __construct(
         ValueFactory $valueFactory

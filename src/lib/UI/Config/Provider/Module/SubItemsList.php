@@ -16,8 +16,7 @@ use Ibexa\User\UserSetting\UserSettingService;
  */
 class SubItemsList implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
+    private UserSettingService $userSettingService;
 
     /**
      * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService

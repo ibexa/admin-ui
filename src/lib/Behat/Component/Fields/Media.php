@@ -17,8 +17,7 @@ use PHPUnit\Framework\Assert;
 
 class Media extends FieldTypeComponent
 {
-    /** @var \Ibexa\Behat\Browser\FileUpload\FileUploadHelper */
-    private $fileUploadHelper;
+    private FileUploadHelper $fileUploadHelper;
 
     public function __construct(Session $session, FileUploadHelper $fileUploadHelper)
     {

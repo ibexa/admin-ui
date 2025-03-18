@@ -28,20 +28,15 @@ use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
  */
 class ContentTranslateViewBuilder implements ViewBuilder
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var \Ibexa\Core\MVC\Symfony\View\Configurator */
-    private $viewConfigurator;
+    private Configurator $viewConfigurator;
 
-    /** @var \Ibexa\Core\MVC\Symfony\View\ParametersInjector */
-    private $viewParametersInjector;
+    private ParametersInjector $viewParametersInjector;
 
-    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
-    private $contentActionDispatcher;
+    private ActionDispatcherInterface $contentActionDispatcher;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $languagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $languagePreferenceProvider;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Repository $repository

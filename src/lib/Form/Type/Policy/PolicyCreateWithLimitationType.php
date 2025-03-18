@@ -22,8 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PolicyCreateWithLimitationType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
     public function __construct(RoleService $roleService)
     {
@@ -48,7 +47,7 @@ class PolicyCreateWithLimitationType extends AbstractType
                 ['label' => /** @Desc("Create") */ 'policy_create.save']
             );
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {
             $data = $event->getData();
             $form = $event->getForm();
 

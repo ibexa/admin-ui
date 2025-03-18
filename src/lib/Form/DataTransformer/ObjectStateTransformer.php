@@ -19,8 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class ObjectStateTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService

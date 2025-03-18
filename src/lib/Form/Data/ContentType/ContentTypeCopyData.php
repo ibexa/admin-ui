@@ -13,11 +13,9 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeCopyData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
-    private $contentType;
+    private ?ContentType $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
-    private $contentTypeGroup;
+    private ?ContentTypeGroup $contentTypeGroup;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType

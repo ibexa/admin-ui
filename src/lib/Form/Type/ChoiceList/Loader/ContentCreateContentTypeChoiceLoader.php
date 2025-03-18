@@ -73,7 +73,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
         }
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
-            $contentTypesGroups[$group] = array_filter($contentTypes, function (ContentType $contentType) {
+            $contentTypesGroups[$group] = array_filter($contentTypes, function (ContentType $contentType): bool {
                 return \in_array($contentType->id, $this->restrictedContentTypesIds, true);
             });
         }

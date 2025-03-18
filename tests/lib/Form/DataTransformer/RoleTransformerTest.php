@@ -24,7 +24,7 @@ class RoleTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?Role $value, ?int $expected): void
     {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($service);
@@ -39,7 +39,7 @@ class RoleTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
     {
         $roleService = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($roleService);
@@ -50,7 +50,7 @@ class RoleTransformerTest extends TestCase
         $transformer->transform($value);
     }
 
-    public function testReverseTransformWithId()
+    public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(RoleService::class);
         $service->expects(self::once())
@@ -65,7 +65,7 @@ class RoleTransformerTest extends TestCase
         self::assertEquals(new Role(['id' => 123456]), $result);
     }
 
-    public function testReverseTransformWithNull()
+    public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(RoleService::class);
         $service->expects(self::never())
@@ -81,7 +81,7 @@ class RoleTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(string|bool|float|\stdClass|array $value): void
     {
         $roleService = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($roleService);
@@ -92,7 +92,7 @@ class RoleTransformerTest extends TestCase
         $transformer->reverseTransform($value);
     }
 
-    public function testReverseTransformWithNotFoundException()
+    public function testReverseTransformWithNotFoundException(): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Location not found');

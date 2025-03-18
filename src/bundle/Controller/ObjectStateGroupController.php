@@ -29,20 +29,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ObjectStateGroupController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    private $objectStateService;
+    private ObjectStateService $objectStateService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -175,7 +170,7 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateGroupDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateGroupDeleteData $data): void {
                 $group = $data->getObjectStateGroup();
                 $this->objectStateService->deleteObjectStateGroup($group);
 
@@ -211,7 +206,7 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateGroupsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateGroupsDeleteData $data): void {
                 foreach ($data->getObjectStateGroups() as $objectStateGroupId => $selected) {
                     $objectStateGroup = $this->objectStateService->loadObjectStateGroup($objectStateGroupId);
                     $this->objectStateService->deleteObjectStateGroup($objectStateGroup);

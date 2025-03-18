@@ -32,8 +32,7 @@ class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     public const ITEM_BOOKMARK = 'user__bookmark';
     public const ITEM_NOTIFICATION = 'menu.notification';
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
+    private TokenStorageInterface $tokenStorage;
 
     private UserProfileConfigurationInterface $userProfileConfiguration;
 

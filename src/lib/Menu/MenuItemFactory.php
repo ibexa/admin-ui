@@ -15,14 +15,11 @@ use Knp\Menu\ItemInterface;
 
 class MenuItemFactory implements MenuItemFactoryInterface
 {
-    /** @var \Knp\Menu\FactoryInterface */
-    protected $factory;
+    protected FactoryInterface $factory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Knp\Menu\FactoryInterface $factory
