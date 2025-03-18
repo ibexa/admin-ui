@@ -80,6 +80,7 @@
 
         .ibexa-icon {
             margin-right: calculateRem(4px);
+            flex-shrink: 0;
         }
 
         &--success {
