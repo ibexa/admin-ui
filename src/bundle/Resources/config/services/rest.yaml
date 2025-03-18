@@ -96,3 +96,31 @@ services:
     Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor:
         parent: Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\BaseCriterionProcessor
 
+
+    #
+    # Subitems
+    #
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SubItems\SubItemList:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\SubItemList }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SubItems\SubItem:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\SubItem }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SubItems\Owner:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\Owner }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SubItems\Thumbnail:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\Thumbnail }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SubItems\ContentType:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\ContentType }
