@@ -35,13 +35,16 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
     protected function createStructure(array $options): ItemInterface
     {
         $menu = $this->createActionItem('root_action_list');
-        $children = [];
 
         $versionInfo = $options['versionInfo'];
         if (!$versionInfo instanceof VersionInfo) {
             throw new InvalidArgumentException(
                 '$versionInfo',
-                'Version info expected to be type of ' . VersionInfo::class
+                sprintf(
+                    'Version info expected to be type of "%s" but got "%s"',
+                    VersionInfo::class,
+                    get_debug_type($versionInfo)
+                )
             );
         }
 
@@ -55,17 +58,19 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
                 self::TRANSLATION_DOMAIN
             );
 
-            $children[] = $this->createEditDraftAction(
+            $editDraftActionItem = $this->createEditDraftAction(
                 $versionInfo,
                 self::ITEM_EDIT_DRAFT,
                 $parameters,
                 $isDraftConflict,
                 $locationId
             );
+
+            $menu->addChild($editDraftActionItem);
         }
 
         if ($versionInfo->isArchived()) {
-            $children[] = $this->createActionItem(
+            $restoreVersionActionItem = $this->createActionItem(
                 self::ITEM_RESTORE_VERSION,
                 [
                     'label' => $this->translator->trans(
@@ -85,10 +90,8 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
                     ],
                 ]
             );
-        }
 
-        foreach ($children as $child) {
-            $menu->addChild($child);
+            $menu->addChild($restoreVersionActionItem);
         }
 
         return $menu;
