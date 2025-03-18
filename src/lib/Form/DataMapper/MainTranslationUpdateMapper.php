@@ -20,7 +20,7 @@ class MainTranslationUpdateMapper implements DataMapperInterface
      *
      * @return \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData
      */
-    public function map(ValueObject $value)
+    public function map(ValueObject $value): MainTranslationUpdateData
     {
         if (!$value instanceof ContentMetadataUpdateStruct) {
             throw new InvalidArgumentException('value', sprintf('must be an instance of %s', ContentMetadataUpdateStruct::class));
@@ -37,7 +37,7 @@ class MainTranslationUpdateMapper implements DataMapperInterface
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct
      */
-    public function reverseMap($data)
+    public function reverseMap($data): ContentMetadataUpdateStruct
     {
         if (!$data instanceof MainTranslationUpdateData) {
             throw new InvalidArgumentException('value', sprintf('must be an instance of %s', MainTranslationUpdateData::class));

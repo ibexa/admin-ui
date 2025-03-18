@@ -19,17 +19,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ContentCreate implements EventSubscriberInterface
 {
-    /** @var array */
-    private $restrictedContentTypesIdentifiers;
+    private array $restrictedContentTypesIdentifiers;
 
-    /** @var array */
-    private $restrictedLanguagesCodes;
+    private array $restrictedLanguagesCodes;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private PermissionCheckerInterface $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver

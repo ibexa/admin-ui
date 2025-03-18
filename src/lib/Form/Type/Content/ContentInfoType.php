@@ -16,8 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ContentInfoType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
     public function __construct(ContentService $contentService)
     {

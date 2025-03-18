@@ -90,7 +90,7 @@ class User extends FieldTypeComponent
         ];
     }
 
-    private function setEnabledField(bool $enabled)
+    private function setEnabledField(bool $enabled): void
     {
         $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabled'))->getText() === 'On';
         if ($isCurrentlyEnabled !== $enabled) {

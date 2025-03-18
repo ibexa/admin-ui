@@ -17,14 +17,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UrlRedirectProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
-    private $siteaccess;
+    private SiteAccess $siteaccess;
 
-    /** @var \Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor */
-    private $systemUrlRedirectProcessor;
+    private SystemUrlRedirectProcessor $systemUrlRedirectProcessor;
 
-    /** @var array */
-    private $siteaccessGroups;
+    private array $siteaccessGroups;
 
     /**
      * @param \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess

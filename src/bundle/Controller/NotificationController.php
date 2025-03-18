@@ -22,17 +22,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NotificationController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
-    protected $notificationService;
+    protected NotificationService $notificationService;
 
-    /** @var \Ibexa\Core\Notification\Renderer\Registry */
-    protected $registry;
+    protected Registry $registry;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    protected $translator;
+    protected TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         NotificationService $notificationService,
@@ -88,7 +84,7 @@ class NotificationController extends Controller
             }
         }
 
-        $routeGenerator = function ($page) {
+        $routeGenerator = function ($page): string {
             return $this->generateUrl('ibexa.notifications.render.page', [
                 'page' => $page,
             ]);

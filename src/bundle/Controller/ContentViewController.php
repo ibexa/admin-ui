@@ -24,6 +24,7 @@ use Ibexa\AdminUi\Form\Type\User\UserInvitationType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsContentViewParameterSupplier;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
@@ -49,50 +50,35 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ContentViewController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $pathService;
+    private PathService $pathService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier */
-    private $subitemsContentViewParameterSupplier;
+    private ContentViewParameterSupplier $subitemsContentViewParameterSupplier;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
+    private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $sfFormFactory;
+    private FormFactoryInterface $sfFormFactory;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
+    private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService

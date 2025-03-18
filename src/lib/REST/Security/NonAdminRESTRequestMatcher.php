@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 final class NonAdminRESTRequestMatcher implements RequestMatcherInterface
 {
     /** @var string[][] */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     public function __construct(array $siteAccessGroups)
     {

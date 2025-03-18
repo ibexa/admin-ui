@@ -17,8 +17,7 @@ class SectionCreateType extends AbstractType
 {
     public const BTN_CREATE_AND_EDIT = 'create_and_edit';
 
-    /** @var SectionType */
-    protected $sectionType;
+    protected SectionType $sectionType;
 
     public function __construct(SectionType $sectionType)
     {

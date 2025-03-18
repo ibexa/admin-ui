@@ -35,7 +35,7 @@ class LanguagesDeleteData
     /**
      * @param array|null $languages
      */
-    public function setLanguages(?array $languages)
+    public function setLanguages(?array $languages): void
     {
         $this->languages = $languages;
     }

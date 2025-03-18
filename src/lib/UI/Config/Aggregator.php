@@ -35,7 +35,7 @@ class Aggregator
      * @param string $key
      * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface $provider
      */
-    public function addProvider(string $key, ProviderInterface $provider)
+    public function addProvider(string $key, ProviderInterface $provider): void
     {
         $this->providers[$key] = $provider;
     }
@@ -67,7 +67,7 @@ class Aggregator
     /**
      * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] $providers
      */
-    public function setProviders(array $providers)
+    public function setProviders(array $providers): void
     {
         $this->providers = $providers;
     }

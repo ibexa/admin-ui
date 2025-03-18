@@ -12,19 +12,20 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class LanguageTypeLimitationMapperTest extends TestCase
 {
     /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
-    private $languageService;
+    private MockObject $languageService;
 
     /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $logger;
+    private MockObject $logger;
 
     /** @var \Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper */
-    private $mapper;
+    private LanguageLimitationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -35,7 +36,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
         $this->mapper->setLogger($this->logger);
     }
 
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['en_GB', 'en_US', 'pl_PL'];
 
@@ -60,7 +61,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    public function testMapLimitationValueWithNotExistingContentType()
+    public function testMapLimitationValueWithNotExistingContentType(): void
     {
         $values = ['foo'];
 

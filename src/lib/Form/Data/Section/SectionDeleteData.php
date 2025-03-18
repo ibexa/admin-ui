@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
  */
 class SectionDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
-    protected $section;
+    protected ?Section $section;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
@@ -37,7 +36,7 @@ class SectionDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
-    public function setSection(?Section $section)
+    public function setSection(?Section $section): void
     {
         $this->section = $section;
     }

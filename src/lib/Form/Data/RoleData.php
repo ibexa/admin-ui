@@ -30,7 +30,7 @@ class RoleData
         return $this->identifier;
     }
 
-    public function setIdentifier($identifier)
+    public function setIdentifier($identifier): void
     {
         $this->identifier = $identifier;
     }

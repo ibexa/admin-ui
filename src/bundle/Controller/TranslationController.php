@@ -23,20 +23,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TranslationController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
+    private TranslationHelper $translationHelper;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
@@ -74,7 +69,7 @@ class TranslationController extends Controller
         $location = $data->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationAddData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationAddData $data): RedirectResponse {
                 $location = $data->getLocation();
                 $contentInfo = $location->getContentInfo();
                 $language = $data->getLanguage();
@@ -117,7 +112,7 @@ class TranslationController extends Controller
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationDeleteData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getLanguageCodes() as $languageCode => $selected) {

@@ -20,8 +20,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class LocationTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService

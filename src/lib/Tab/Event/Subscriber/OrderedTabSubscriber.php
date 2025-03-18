@@ -34,7 +34,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     /**
      * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
      */
-    public function onTabGroupPreRender(TabGroupEvent $tabGroupEvent)
+    public function onTabGroupPreRender(TabGroupEvent $tabGroupEvent): void
     {
         $tabGroup = $tabGroupEvent->getData();
         $tabs = $tabGroup->getTabs();
@@ -50,7 +50,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
      *
      * @return array
      */
-    private function reorderTabs($tabs): array
+    private function reorderTabs(array $tabs): array
     {
         $orderedTabs = [];
         foreach ($tabs as $tab) {

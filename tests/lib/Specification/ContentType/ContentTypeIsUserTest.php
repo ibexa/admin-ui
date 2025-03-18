@@ -19,7 +19,7 @@ class ContentTypeIsUserTest extends TestCase
     /**
      * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
-    public function testIsSatisfiedByInvalidArgument()
+    public function testIsSatisfiedByInvalidArgument(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'$contentType\' is invalid: Must be an instance of Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType');
@@ -31,7 +31,7 @@ class ContentTypeIsUserTest extends TestCase
     /**
      * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
-    public function testIsSatisfiedByCustomUserContentType()
+    public function testIsSatisfiedByCustomUserContentType(): void
     {
         $customUserContentType = 'custom_user_content_type';
 
@@ -45,7 +45,7 @@ class ContentTypeIsUserTest extends TestCase
     /**
      * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
-    public function testIsSatisfiedByContentTypeWithEzUserField()
+    public function testIsSatisfiedByContentTypeWithEzUserField(): void
     {
         $specification = new ContentTypeIsUser([]);
 
@@ -60,7 +60,7 @@ class ContentTypeIsUserTest extends TestCase
     /**
      * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
-    public function testIsSatisfiedByReturnFalse()
+    public function testIsSatisfiedByReturnFalse(): void
     {
         $specification = new ContentTypeIsUser([
             'content_type_a', 'content_type_b', 'content_type_c',
@@ -90,7 +90,7 @@ class ContentTypeIsUserTest extends TestCase
 
         $contentType
             ->method('hasFieldDefinitionOfType')
-            ->willReturnCallback(static function (string $fieldTypeIdentifier) use ($fieldsType) {
+            ->willReturnCallback(static function (string $fieldTypeIdentifier) use ($fieldsType): bool {
                 return in_array($fieldTypeIdentifier, $fieldsType);
             });
 

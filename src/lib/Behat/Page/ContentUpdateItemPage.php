@@ -25,16 +25,14 @@ use RuntimeException;
 
 class ContentUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    private $contentActionsMenu;
+    private ContentActionsMenu $contentActionsMenu;
 
-    private $pageTitle;
+    private ?string $pageTitle = null;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] */
-    protected $fieldTypeComponents;
+    protected iterable $fieldTypeComponents;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
-    private $notification;
+    private Notification $notification;
 
     private string $languageCode;
 
@@ -259,7 +257,7 @@ class ContentUpdateItemPage extends Page
             ->waitUntilCondition(new ElementHasTextCondition($this->getHTMLPage(), new VisibleCSSLocator('activeSection', '.ibexa-tabs__tab--active'), $tabName));
     }
 
-    public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName)
+    public function verifyFieldCannotBeEditedDueToLimitation(string $fieldName): void
     {
         $activeSections = $this->getHTMLPage()->findAll(new VisibleCSSLocator('activeSection', '.ibexa-tabs__tab--active'));
         $fieldLocator = new VisibleCSSLocator('', sprintf($this

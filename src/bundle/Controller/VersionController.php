@@ -22,20 +22,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VersionController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
+    private TranslationHelper $translationHelper;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
@@ -89,7 +84,7 @@ class VersionController extends Controller
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (VersionRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (VersionRemoveData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getVersions() as $versionNo => $selected) {

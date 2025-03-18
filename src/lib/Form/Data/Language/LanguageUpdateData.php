@@ -12,17 +12,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class LanguageUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
-    private $language;
+    private ?Language $language;
 
     /**
      * @var string
      */
     #[Assert\NotBlank]
-    private $name;
+    private ?string $name = null;
 
     /** @var bool */
-    private $enabled;
+    private bool $enabled;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
@@ -45,7 +44,7 @@ class LanguageUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      */
-    public function setLanguage(Language $language)
+    public function setLanguage(Language $language): void
     {
         $this->language = $language;
     }
@@ -61,7 +60,7 @@ class LanguageUpdateData
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -77,7 +76,7 @@ class LanguageUpdateData
     /**
      * @param bool $enabled
      */
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled): void
     {
         $this->enabled = $enabled;
     }

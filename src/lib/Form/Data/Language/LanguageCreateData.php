@@ -13,21 +13,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class LanguageCreateData implements TranslationContainerInterface
 {
-    /**
-     * @var string
-     */
     #[Assert\NotBlank]
-    private $name;
+    private ?string $name = null;
 
-    /**
-     * @var string
-     */
     #[Assert\NotBlank]
     #[Assert\Regex(pattern: '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/', message: 'ibexa.language.language_code.format')]
-    private $languageCode;
+    private ?string $languageCode = null;
 
-    /** @var bool */
-    private $enabled = true;
+    private bool $enabled = true;
 
     /**
      * @return string

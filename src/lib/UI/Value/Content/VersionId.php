@@ -10,11 +10,9 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 class VersionId
 {
-    /** @var int */
-    private $contentId;
+    private int $contentId;
 
-    /** @var int */
-    private $versionNo;
+    private int $versionNo;
 
     /**
      * @param int $contentId

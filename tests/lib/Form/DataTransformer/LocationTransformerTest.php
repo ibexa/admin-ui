@@ -24,7 +24,7 @@ class LocationTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?Location $value, ?int $expected): void
     {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($service);
@@ -39,7 +39,7 @@ class LocationTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
     {
         $languageService = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($languageService);
@@ -50,7 +50,7 @@ class LocationTransformerTest extends TestCase
         $transformer->transform($value);
     }
 
-    public function testReverseTransformWithId()
+    public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::once())
@@ -65,7 +65,7 @@ class LocationTransformerTest extends TestCase
         self::assertEquals(new Location(['id' => 123456]), $result);
     }
 
-    public function testReverseTransformWithNull()
+    public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::never())
@@ -78,7 +78,7 @@ class LocationTransformerTest extends TestCase
         self::assertNull($result);
     }
 
-    public function testReverseTransformWithNotFoundException()
+    public function testReverseTransformWithNotFoundException(): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Location not found');

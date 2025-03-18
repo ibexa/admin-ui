@@ -51,14 +51,11 @@ class ConfigureMenuEvent extends Event
     public const USER_SETTING_UPDATE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.user_setting_update_sidebar_right';
     public const CONTENT_TYPE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_sidebar_right';
 
-    /** @var \Knp\Menu\FactoryInterface */
-    private $factory;
+    private FactoryInterface $factory;
 
-    /** @var \Knp\Menu\ItemInterface */
-    private $menu;
+    private ItemInterface $menu;
 
-    /** @var array|null */
-    private $options;
+    private array $options;
 
     /**
      * @param \Knp\Menu\FactoryInterface $factory

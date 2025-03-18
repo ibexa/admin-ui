@@ -24,11 +24,9 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
     public const ENABLED_OPTION = 'enabled';
     public const DISABLED_OPTION = 'disabled';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatorInterface $translator,

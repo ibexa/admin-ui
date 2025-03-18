@@ -16,8 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class RequestListener implements EventSubscriberInterface
 {
-    /** @var array */
-    private $groupsBySiteAccess;
+    private array $groupsBySiteAccess;
 
     /**
      * @param $groupsBySiteAccess
@@ -52,7 +51,7 @@ class RequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType()) {
             return;

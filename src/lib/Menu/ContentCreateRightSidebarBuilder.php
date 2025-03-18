@@ -41,17 +41,13 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

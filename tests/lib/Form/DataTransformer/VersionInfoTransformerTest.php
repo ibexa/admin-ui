@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -23,10 +24,10 @@ final class VersionInfoTransformerTest extends TestCase
     private const EXAMPLE_VERSION_NO = 7;
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
-    private $contentService;
+    private MockObject $contentService;
 
     /** @var \Ibexa\AdminUi\Form\DataTransformer\VersionInfoTransformer */
-    private $transformer;
+    private VersionInfoTransformer $transformer;
 
     protected function setUp(): void
     {
@@ -68,7 +69,7 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForTransformWithInvalidInput
      */
-    public function testTransformWithInvalidInput($value): void
+    public function testTransformWithInvalidInput(string|int|bool|float|\AnonymousClass1e7d721472497ff469538e8ee8278fc5|array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Value cannot be transformed because the passed value is not a VersionInfo object');
@@ -154,7 +155,7 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForReverseTransformWithInvalidInput
      */
-    public function testReverseTransformWithInvalidInput($value): void
+    public function testReverseTransformWithInvalidInput(array $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage("Invalid data. Value array is missing 'content_info' and/or 'version_no' keys");
