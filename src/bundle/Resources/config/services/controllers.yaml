@@ -261,3 +261,5 @@ services:
             $limit: '%ibexa.admin_ui.load_users_with_permission_info.limit%'
         tags:
             - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\Location\LoadSubItemsController: ~
