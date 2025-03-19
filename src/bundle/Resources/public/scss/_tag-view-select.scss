@@ -103,6 +103,10 @@
         display: flex;
     }
 
+    &__btn-select-path {
+        margin-top: calculateRem(24px);
+    }
+
     &:disabled,
     &[disabled] {
         @include colorful-tags($ibexa-color-dark-400, $ibexa-color-light-300);
