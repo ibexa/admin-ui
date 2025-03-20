@@ -20,8 +20,12 @@
             raw: true,
         }]) %}
 
+        {% set assignment_link_content = role_assignment.usergroup is defined ? role_assignment.usergroup : role_assignment.user %}
         {% set body_row_cols = body_row_cols|merge([
-            { content: role_assignment.usergroup is defined ? ibexa_content_name(role_assignment.usergroup) : ibexa_content_name(role_assignment.user) },
+            {
+                content: "<a href=\"#{ibexa_url(assignment_link_content)}\">#{ibexa_content_name(assignment_link_content)|escape}</a>",
+                raw: true,
+            },
         ]) %}
 
         {% set col_raw %}
