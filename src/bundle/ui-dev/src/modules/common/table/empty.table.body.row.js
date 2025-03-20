@@ -39,7 +39,7 @@ const EmptyTableBodyRow = ({
 EmptyTableBodyRow.propTypes = {
     extraClasses: PropTypes.string,
     infoText: PropTypes.string,
-    actionText: PropTypes.string,
+    actionText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     extraActions: PropTypes.element,
     emptyTableImageSrc: PropTypes.string,
     colspan: PropTypes.number,
