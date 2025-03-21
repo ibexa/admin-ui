@@ -1,0 +1,64 @@
+.ibexa-side-panel {
+    background-color: $ibexa-color-white;
+    padding: calculateRem(8px) 0;
+    width: calculateRem(516px);
+
+    &__header {
+        padding: 0 calculateRem(32px) calculateRem(8px);
+        font-weight: bold;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__content {
+        max-height: calc(100% - #{calculateRem(60px)});
+        overflow: auto;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 calculateRem(16px) 0 rgba($ibexa-color-dark, 0.16);
+        z-index: 1000;
+        width: 100%;
+
+        .ibexa-btn {
+            margin-right: calculateRem(16px);
+        }
+    }
+
+    &--hidden {
+        display: none;
+    }
+}
+
+.ibexa-extra-actions-container {
+    &__backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 150;
+        background-color: rgba($ibexa-color-dark, 0.4);
+    }
+
+    .ibexa-side-panel  {
+        height: calc(100vh - #{calculateRem(73px)});
+        position: fixed;
+        top: calculateRem(73px);
+        right: 0;
+        z-index: 200;
+        transform: translate(0, 0) scaleX(1);
+        transform-origin: right center;
+        transition: $ibexa-admin-widget-open-transition;
+
+        &--hidden {
+            transform: translate(calc(100%), 0) scaleX(0);
+            transition: $ibexa-admin-widget-close-transition;
+        }
+    }
+}
