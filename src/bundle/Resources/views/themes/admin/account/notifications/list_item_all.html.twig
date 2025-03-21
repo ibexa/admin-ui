@@ -1,0 +1,125 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% trans_default_domain 'ibexa_notifications' %}
+
+{% set is_read = notification.isPending == 0 %}
+
+{% if wrapper_class_list is not defined %}
+    {% set wrapper_class_list = 'ibexa-notifications-modal__item' ~ (is_read ? ' ibexa-notifications-modal__item--read') %}
+{% endif %}
+
+{% set icon %}
+    <span class="type__icon">
+        <svg class="ibexa-icon">
+            <use xlink:href="{{ ibexa_icon_path('warning') }}"></use>
+        </svg>
+    </span>
+{% endset %}
+
+{% set date %}
+    {% block date %}
+        <span class="ibexa-notification-viewAll__date description__text">{{ notification.created|ibexa_short_datetime }}</span>
+    {% endblock %}
+{% endset %}
+
+{% set notification_type %}
+    {% block notification_type %}
+        <span class="type__text"></span>
+    {% endblock %}
+{% endset %}
+
+{% set message %}
+    {% block message %}
+        <p class="description__text">{{ message }}</p>
+    {% endblock %}
+{% endset %}
+
+{% set status %}
+    <div class="ibexa-notification-viewAll ibexa-notification-viewAll__status">
+        <span class="ibexa-notification-viewAll__notice-dot ibexa-notification-viewAll__notice-dot--small"></span>
+        <span class="ibexa-notification-viewAll__read description__text wxyz">
+            {{is_read ? 'notification.read'|trans|desc('Read') : 'notification.unread'|trans|desc('Unread')}}
+        </span>
+    </div>
+{% endset %}
+
+{% set icon_show %}
+    <svg class="ibexa-icon ibexa-icon--small ibexa-notification-viewAll__show">
+        <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
+    </svg>
+{% endset %}
+
+{% set icon_mail_open %}
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('mail-open') }}"></use>
+        </svg>
+{% endset %}
+
+{% set icon_mail %}
+    <svg class="ibexa-icon ibexa-icon--small">
+        <use xlink:href="{{ ibexa_icon_path('mail') }}"></use>
+    </svg>
+{% endset %}
+
+{% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
+    class: wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes),
+    attr: {
+        'data-notification-id': notification.id,
+        'data-notification-read': path('ibexa.notifications.mark_as_read', { 'notificationId': notification.id }),
+        'data-notification-unread': path('ibexa.notifications.mark_as_unread', { 'notificationId': notification.id }),
+}
+} %}
+    {% block body_row_cells %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+            {# TODO: to handle #}
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        class="ibexa-input ibexa-input--checkbox ibexa-pc-data-grid__mark-row-checkbox form-check-input"
+                    />
+                </div>
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notification-viewAll__cell-wrapper' } %}
+            {% block content %}
+                <div class="ibexa-notification-viewAll">
+                    <div class="ibexa-notification-viewAll__status-icon">
+                        <span class="ibexa-notification-viewAll__notice-dot"></span>
+                        <div class="ibexa-notifications-modal__type">{{ icon }}</div>
+                    </div>
+                    <div class="ibexa-notification-viewAll__details">
+                        {{ notification_type }}
+                        {{ message }}
+                    </div>
+                </div>
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                {{ status }}
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                {{ date }}
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                {{ icon_show }}
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+            <div class="ibexa-notification-viewAll__mail ibexa-notification-viewAll__mail-open {{is_read ? 'ibexa-notification-viewAll__icon-hidden' }}">
+                {{ icon_mail_open }}
+            </div>
+            <div class="ibexa-notification-viewAll__mail ibexa-notification-viewAll__mail-closed {{ not is_read ? 'ibexa-notification-viewAll__icon-hidden' }}">
+                {{ icon_mail }}
+            </div>
+            {% endblock %}
+        {% endembed %}
+    {% endblock %}
+{% endembed %}
+

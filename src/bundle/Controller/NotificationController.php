@@ -83,7 +83,6 @@ class NotificationController extends Controller
                 $notifications .= $renderer->render($notification);
             }
         }
-        $notifications = $request->attributes->get('notifications', $notifications);
 
         $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
 

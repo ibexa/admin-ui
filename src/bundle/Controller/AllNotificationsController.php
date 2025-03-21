@@ -39,25 +39,10 @@ class AllNotificationsController extends Controller
     }
     public function renderAllNotificationsPageAction(Request $request, int $page): Response
     {
-        $pagerfanta = new Pagerfanta(
-            new NotificationAdapter($this->notificationService)
-        );
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
-        $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
-
-        $notifications = [];
-        foreach ($pagerfanta->getCurrentPageResults() as $notification) {
-            if ($this->registry->hasRenderer($notification->type)) {
-                $renderer = $this->registry->getRenderer($notification->type);
-                $notifications[] = $renderer->render($notification);
-            }
-        }
-
         return $this->forward(
             NotificationController::class . '::renderNotificationsPageAction',
             [
                 'page' => $page,
-                'notifications' => $notifications,
                 'template' => '@ibexadesign/account/notifications/list_all.html.twig',
                 'render_all' => true,
             ]

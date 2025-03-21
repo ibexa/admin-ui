@@ -5,3 +5,10 @@
     width: calculateRem(400px);
     z-index: 50000;
 }
+
+.ibexa-notification-list {
+    &__mark-all-read {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
