@@ -71,11 +71,6 @@
         <target state="new">Can't fetch contributor</target>
         <note>key: dashboard.table.contributor.not_found</note>
       </trans-unit>
-      <trans-unit id="93a5fc53032106ea0ae1658261fd187e5c9c6a94" resname="dashboard.table.draft.edit">
-        <source>Edit</source>
-        <target state="new">Edit</target>
-        <note>key: dashboard.table.draft.edit</note>
-      </trans-unit>
       <trans-unit id="5c6a58e397b164610db6371fe26b4e79aa3962f8" resname="dashboard.table.draft.unauthorized">
         <source>You do not have the '%function%' '%module%' permission for content ID: %contentId%</source>
         <target state="new">You do not have the '%function%' '%module%' permission for content ID: %contentId%</target>
