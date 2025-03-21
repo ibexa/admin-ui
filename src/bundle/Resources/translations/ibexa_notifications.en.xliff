@@ -11,35 +11,75 @@
         <target state="new">Notifications</target>
         <note>key: ibexa_notifications</note>
       </trans-unit>
+      <trans-unit id="3fb3513f9d1afa70eca71242490ec7b403bdd41c" resname="ibexa_notifications.btn.mark_all_as_read">
+        <source>Mark all as read</source>
+        <target state="new">Mark all as read</target>
+        <note>key: ibexa_notifications.btn.mark_all_as_read</note>
+      </trans-unit>
       <trans-unit id="2e6761d0506e8b330fe5e2350a82f7e2e74b13ee" resname="menu.notification">
         <source>View Notifications</source>
         <target state="new">View Notifications</target>
         <note>key: menu.notification</note>
       </trans-unit>
-      <trans-unit id="fc349b70133a7a68cae9be363e112ee397044b6a" resname="notification.date">
-        <source>Date</source>
-        <target state="new">Date</target>
-        <note>key: notification.date</note>
+      <trans-unit id="f091fff161417ece8282179d04b7098bae61b5ab" resname="notification.Title">
+        <source>Title</source>
+        <target state="new">Title</target>
+        <note>key: notification.Title</note>
       </trans-unit>
-      <trans-unit id="6b83526d14384d4144093369e83601556437fbb0" resname="notification.description">
-        <source>Description</source>
-        <target state="new">Description</target>
-        <note>key: notification.description</note>
+      <trans-unit id="dd85350967e778493887d4d0057828c2c175732c" resname="notification.datetime">
+        <source>Date and time</source>
+        <target state="new">Date and time</target>
+        <note>key: notification.datetime</note>
+      </trans-unit>
+      <trans-unit id="eb9a20facf557887d7786a1c72c128e41d4154e3" resname="notification.delete">
+        <source>Delete</source>
+        <target state="new">Delete</target>
+        <note>key: notification.delete</note>
+      </trans-unit>
+      <trans-unit id="9344cc9dfbf3b017fa5af86291df1dd28c0026e2" resname="notification.mark_as_read">
+        <source>Mark as read</source>
+        <target state="new">Mark as read</target>
+        <note>key: notification.mark_as_read</note>
+      </trans-unit>
+      <trans-unit id="74ede3f30af51ec6475504430f4587081b9305b1" resname="notification.mark_as_unread">
+        <source>Mark as unread</source>
+        <target state="new">Mark as unread</target>
+        <note>key: notification.mark_as_unread</note>
+      </trans-unit>
+      <trans-unit id="5b03625b8de51d296ad7f4bc980e631c964185d8" resname="notification.no_longer_available">
+        <source>The Content item is no longer available</source>
+        <target state="new">The Content item is no longer available</target>
+        <note>key: notification.no_longer_available</note>
       </trans-unit>
       <trans-unit id="d7fd0c0dc2a4267ebb5bca828e42812fded59ebb" resname="notification.permanently_deleted">
         <source>Deleted</source>
         <target state="new">Deleted</target>
         <note>key: notification.permanently_deleted</note>
       </trans-unit>
+      <trans-unit id="06b16001fedfe63ae1adbb6b40aa493d6e0af418" resname="notification.read">
+        <source>Read</source>
+        <target state="new">Read</target>
+        <note>key: notification.read</note>
+      </trans-unit>
+      <trans-unit id="86a1d43ab969eda77e82518207e150e54eb6cfe5" resname="notification.status">
+        <source>Status</source>
+        <target state="new">Status</target>
+        <note>key: notification.status</note>
+      </trans-unit>
+      <trans-unit id="1c91fe849525c315015b2e765f6600fd199e78a0" resname="notification.title">
+        <source>Title:</source>
+        <target state="new">Title:</target>
+        <note>key: notification.title</note>
+      </trans-unit>
       <trans-unit id="dda5c8f76779648fe17e298aaae2ea426df3f85e" resname="notification.trashed">
         <source>Sent to Trash</source>
         <target state="new">Sent to Trash</target>
         <note>key: notification.trashed</note>
       </trans-unit>
-      <trans-unit id="38a0272fc22c3faac611a3124a25589424ae2b11" resname="notification.type">
-        <source>Type</source>
-        <target state="new">Type</target>
-        <note>key: notification.type</note>
+      <trans-unit id="f5bf4310647081193250ff28773cf5f4880a0fe2" resname="notification.unread">
+        <source>Unread</source>
+        <target state="new">Unread</target>
+        <note>key: notification.unread</note>
       </trans-unit>
       <trans-unit id="79036b8a9fecbed5d0c14a94c5639d611c6ab6d1" resname="notifications.modal.message.error">
         <source>Cannot update notifications</source>

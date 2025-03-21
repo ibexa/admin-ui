@@ -1,12 +1,8 @@
 {% trans_default_domain 'ibexa_notifications' %}
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-    head_cols: [
-        { content: 'notification.type'|trans|desc('Type') },
-        { content: 'notification.description'|trans|desc('Description') },
-        { content: 'notification.date'|trans|desc('Date') },
-    ],
-    class: 'ibexa-table--notifications',
+    head_cols: [],
+    class: 'ibexa-list--notifications ibexa-notifications-modal__list',
     attr: {
         'data-notifications': path('ibexa.notifications.render.page'),
         'data-notifications-count': path('ibexa.notifications.count'),
@@ -16,42 +12,9 @@
 } %}
     {% block tbody %}
         {% if pager.count is same as(0) %}
-            {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
-                colspan: 3,
-                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no notifications.'),
-            } %}
+            {{ 'bookmark.list.empty'|trans|desc('You have no notifications.') }}
         {% else %}
-            {% block tbody_not_empty %}
-                {{ notifications|raw }}
-            {% endblock %}
+            {{ notifications|raw }}
         {% endif %}
     {% endblock %}
 {% endembed %}
-
-{% if pager.haveToPaginate %}
-    <div class="ibexa-pagination">
-        <ul class="ibexa-pagination__navigation">
-            {% if pager.hasPreviousPage %}
-                <li>
-                    <a href="{{ path('ibexa.notifications.render.page', {'page': pager.previousPage}) }}">
-                        {{ 'pagination.previous'|trans({}, 'ibexa_pagination') }}
-                    </a>
-                </li>
-            {% endif %}
-
-            {% for i in 1..pager.nbPages %}
-                <li class="{{ pager.currentPage == i ? 'active' : '' }}">
-                    <a href="{{ path('ibexa.notifications.render.page', {'page': i}) }}">{{ i }}</a>
-                </li>
-            {% endfor %}
-
-            {% if pager.hasNextPage %}
-                <li>
-                    <a href="{{ path('ibexa.notifications.render.page', {'page': pager.nextPage}) }}">
-                        {{ 'pagination.next'|trans({}, 'ibexa_pagination') }}
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-{% endif %}

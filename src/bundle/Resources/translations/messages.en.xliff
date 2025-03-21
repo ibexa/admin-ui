@@ -463,6 +463,16 @@
         <target state="new">We’ve sent to your email account a link to reset your password.</target>
         <note>key: ibexa.forgot_user_password.success.alert</note>
       </trans-unit>
+      <trans-unit id="a8c78354005b82690d25244c10c2914d1c7cc620" resname="ibexa_notifications">
+        <source>Notifications</source>
+        <target state="new">Notifications</target>
+        <note>key: ibexa_notifications</note>
+      </trans-unit>
+      <trans-unit id="3fb3513f9d1afa70eca71242490ec7b403bdd41c" resname="ibexa_notifications.btn.mark_all_as_read">
+        <source>Mark all as read</source>
+        <target state="new">Mark all as read</target>
+        <note>key: ibexa_notifications.btn.mark_all_as_read</note>
+      </trans-unit>
       <trans-unit id="8390c7c1adbff8a264583f6f060256c993023787" resname="language.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
@@ -507,16 +517,6 @@
         <source>Password</source>
         <target state="new">Password</target>
         <note>key: my_account_settings.password.title</note>
-      </trans-unit>
-      <trans-unit id="5b03625b8de51d296ad7f4bc980e631c964185d8" resname="notification.no_longer_available">
-        <source>The Content item is no longer available</source>
-        <target state="new">The Content item is no longer available</target>
-        <note>key: notification.no_longer_available</note>
-      </trans-unit>
-      <trans-unit id="1c91fe849525c315015b2e765f6600fd199e78a0" resname="notification.title">
-        <source>Title:</source>
-        <target state="new">Title:</target>
-        <note>key: notification.title</note>
       </trans-unit>
       <trans-unit id="0480844e257807b48dbf75fa7a374ceb7649ec5c" resname="object_state.delete.bulk_delete.submit">
         <source>Delete</source>
@@ -592,6 +592,11 @@
         <source>Do you want to delete the Section(s)?</source>
         <target state="new">Do you want to delete the Section(s)?</target>
         <note>key: section.modal.message</note>
+      </trans-unit>
+      <trans-unit id="f23116eb24bb41bef564f8e374666196eead5127" resname="side_panel.view_all">
+        <source>View all</source>
+        <target state="new">View all</target>
+        <note>key: side_panel.view_all</note>
       </trans-unit>
       <trans-unit id="1152c93462d8bed85642b961f01ed63a6f2525ab" resname="tab.locations.location_content_swap">
         <source>Swap Locations</source>

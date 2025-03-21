@@ -56,6 +56,11 @@
         <target state="new">Select language</target>
         <note>key: edit_translation.list.title</note>
       </trans-unit>
+      <trans-unit id="9250a1c60c972c8566484c20e6b235ec8f2907b9" resname="side_panel.btn.cancel_label">
+        <source>Cancel</source>
+        <target state="new">Cancel</target>
+        <note>key: side_panel.btn.cancel_label</note>
+      </trans-unit>
       <trans-unit id="e4b8188e898e654dae14fc6b18133958f8e56084" resname="translation.remove.success">
         <source>Removed '%languageCode%' translation from '%name%'.</source>
         <target state="new">Removed '%languageCode%' translation from '%name%'.</target>

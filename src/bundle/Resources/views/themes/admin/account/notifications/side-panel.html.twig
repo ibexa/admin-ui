@@ -1,0 +1,40 @@
+{% embed '@ibexadesign/ui/component/side-panel/side_panel.html.twig' with {
+    title: 'ibexa_notifications'|trans|desc('Notifications'),
+    attr: {
+        'data-actions': "create",
+        class: 'ibexa-notifications-modal ibexa-scroll-disabled',
+        id: 'view-notifications',
+    },
+}%}
+    {% block header %}
+        <div class="ibexa-side-panel__header">
+            <span>{{ 'ibexa_notifications'|trans|desc('Notifications')}}</span>
+            <button class="btn ibexa-btn ibexa-btn--tertiary">
+                {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
+            </button>
+        </div>
+    {% endblock %}
+    
+    {% block content %}
+    <div class="ibexa-side-panel__content">
+        <div class="ibexa-notifications-modal__spinner">
+            <svg class="ibexa-icon ibexa-spin">
+                <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
+            </svg>
+        </div>
+        <div class="ibexa-notifications-modal__results">
+            {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
+                'page': 1,
+            })) }}
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block footer %}
+    <div class="ibexa-notifications-modal__footer ibexa-side-panel__footer">
+        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications__view-all-btn">
+            {{ 'side_panel.view_all'|trans|desc('View all') }}
+        </button>
+    </div>
+    {% endblock %}
+{% endembed %}

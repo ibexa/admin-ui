@@ -6,8 +6,7 @@
 
     <div class="ibexa-header-user-menu">
         <div
-                class="ibexa-header-user-menu__notifications-toggler"
-                data-bs-toggle="modal"
+                class="ibexa-header-user-menu__notifications-toggler ibexa-btn--side-panel-actions"
                 data-bs-target="#view-notifications"
         >
             <svg class="ibexa-icon ibexa-icon--small ibexa-icon--light">
@@ -26,9 +25,9 @@
                 <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
             </svg>
         </button>
-
-        {{ include('@ibexadesign/account/notifications/modal.html.twig') }}
-
+        <div class="ibexa-extra-actions-container">
+            {{ include('@ibexadesign/account/notifications/side-panel.html.twig') }}
+        </div>
         <div class="ibexa-header-user-menu__popup-menu ibexa-popup-menu ibexa-popup-menu--hidden">
             <div class="ibexa-header-user-menu__popup-menu-title">
                 {% block current_user %}

@@ -38,6 +38,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.prevent.click.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.picker.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.notifications.modal.js'),
+    path.resolve(__dirname, '../public/js/scripts/sidebar/side.panel.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.location.add.translation.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.autosubmit.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.anchor.navigation'),
@@ -199,6 +200,7 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/fieldType/base/multi-input-field.js'),
             ...fieldTypes,
             path.resolve(__dirname, '../public/js/scripts/sidebar/extra.actions.js'),
+            path.resolve(__dirname, '../public/js/scripts/sidebar/side.panel.js'),
             path.resolve(__dirname, '../public/js/scripts/edit.header.js'),
         ])
         .addEntry('ibexa-admin-ui-settings-datetime-format-update-js', [

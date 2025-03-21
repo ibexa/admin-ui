@@ -1,63 +1,96 @@
 .ibexa-notifications-modal {
     cursor: auto;
+    &__footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: calculateRem(8px);
 
-    .modal-dialog {
-        max-width: 60vw;
-    }
-
-    .modal-header {
-        .modal-title {
-            &::after {
-                content: attr(data-notifications-total);
-            }
-        }
     }
 
     .table {
         table-layout: fixed;
         white-space: normal;
         margin-bottom: 0;
+        .ibexa-table__row .ibexa-table__cell{
+            height: 115px;
+            padding-right: 0;
+            border-radius: 0;
 
-        th {
-            border: none;
-            color: $ibexa-color-dark-300;
-            border-top: calculateRem(1px) solid $ibexa-color-light;
-            border-bottom: calculateRem(1px) solid $ibexa-color-light;
         }
 
-        tr {
-            background-color: $ibexa-color-white;
-            cursor: pointer;
-        }
     }
-
+    &__list {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
     &__type {
         .type__icon {
             @include type-icon;
+            margin-left: calculateRem(16px);
         }
 
         .type__text {
             margin-left: 1rem;
         }
     }
-
-    &__type-content {
-        display: flex;
-        align-items: center;
+    &__item--date {
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-light-700;
     }
+    &__type-content {
+        width: 100%;
+        font-size: 14px;
+        p {
+            margin-bottom: 0;
+        }
+    }
+    &__item {
+        position: relative;
+        border: 1px solid $ibexa-color-light;
+        border-bottom: none;
+        &--wrapper {
+            display: flex;
+            td {
+                background-color: $ibexa-color-light-300 !important;//TODO:!
+            }
+        }
+        &:first-of-type {
+            border-top: none;
+        } 
+        .description__text {
+            font-size: $ibexa-text-font-size-medium;
 
+            &--permanently-deleted {
+                color:$ibexa-color-danger-500;
+                font-size: $ibexa-text-font-size-medium;
+            }
+        }
+
+
+    }
+    &__notice-dot {
+        width: calculateRem(8px);
+        height: calculateRem(8px);
+        border-radius: 50%;
+        background: $ibexa-color-danger;
+        opacity: 1;
+        position: absolute;
+        left: calculateRem(10px);
+        top: calculateRem(16px);
+        font-size: 10px;
+        color: white;
+    }
     &__item--read {
         color: $ibexa-color-dark-300;
 
-        .type__icon {
-            @include type-icon-read;
+        .ibexa-notifications-modal__notice-dot,
+        .ibexa-notification-viewAll__notice-dot {
+        background: $ibexa-color-dark-300
         }
     }
-
-    &__item--permanently-deleted {
-        .type__text,
-        .description__text {
-            font-style: italic;
+    &__item--read-wrapper {
+        td {
+            background-color: white !important;
         }
     }
 
@@ -126,5 +159,79 @@
             width: 2rem;
             height: 2rem;
         }
+    }
+}
+//TODO: needs cleaning
+.ibexa-notification-viewAll {
+    display: flex;
+    align-items: center;
+    gap: calculateRem(4px);
+    flex-wrap: nowrap;
+    white-space: nowrap;
+
+    &__status-icon {
+        position: relative;
+        margin-right: calculateRem(12px);
+    }
+
+    &__status {
+        position: relative;
+    }
+
+    &__read {
+        margin-left: calculateRem(10px);
+    }
+
+    &__date {
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    &__show,
+    &__mail {
+        cursor: pointer;
+    }
+
+    &__notice-dot {
+        width: calculateRem(8px);
+        height: calculateRem(8px);
+        border-radius: 50%;
+        background: $ibexa-color-danger;
+        opacity: 1;
+        position: absolute;
+        top: calculateRem(8px);
+        font-size: 10px;
+        color: white;
+
+        &--small {
+            width: calculateRem(6px);
+            height: calculateRem(6px);
+        }
+    }
+
+    &__details {
+        display: flex;
+        gap: calculateRem(4px);
+
+        .ibexa-notifications-modal__description {
+            display: flex;
+        }
+    }
+
+    &__cell-wrapper {
+        font-size: 14px;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        .ibexa-table__cell.ibexa-table__cell {
+            padding: calculateRem(12px) 0 calculateRem(12px) 0;
+            
+        }
+    }
+
+    &__icon-hidden {
+        display: none;
     }
 }
