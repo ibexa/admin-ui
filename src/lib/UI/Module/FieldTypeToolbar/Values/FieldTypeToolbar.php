@@ -14,7 +14,7 @@ use IteratorAggregate;
 final class FieldTypeToolbar implements IteratorAggregate
 {
     /** @var \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem[] */
-    private $items;
+    private array $items;
 
     public function __construct(array $fieldTypes)
     {

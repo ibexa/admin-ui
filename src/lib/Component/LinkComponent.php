@@ -13,23 +13,17 @@ use Twig\Environment;
 
 class LinkComponent implements Renderable
 {
-    /** @var \Twig\Environment */
-    protected $twig;
+    protected Environment $twig;
 
-    /** @var string */
-    protected $href;
+    protected string $href;
 
-    /** @var string */
-    protected $type;
+    protected string $type;
 
-    /** @var string */
-    protected $rel;
+    protected string $rel;
 
-    /** @var string|null */
-    protected $crossorigin;
+    protected ?string $crossorigin;
 
-    /** @var string|null */
-    protected $integrity;
+    protected ?string $integrity;
 
     /**
      * @param \Twig\Environment $twig

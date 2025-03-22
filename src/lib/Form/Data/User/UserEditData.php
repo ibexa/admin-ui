@@ -15,17 +15,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 class UserEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    private $contentInfo;
+    private ?ContentInfo $contentInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
-    private $versionInfo;
+    private ?VersionInfo $versionInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
-    private $language;
+    private ?Language $language;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
     public function __construct(
         ?ContentInfo $contentInfo = null,

@@ -13,11 +13,9 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 class MultilingualSelectionTransformer implements DataTransformerInterface
 {
-    /** @var string */
-    protected $languageCode;
+    protected string $languageCode;
 
-    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
-    private $data;
+    private FieldDefinitionData $data;
 
     /**
      * @param string $languageCode

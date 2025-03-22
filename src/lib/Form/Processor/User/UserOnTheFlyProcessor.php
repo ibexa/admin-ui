@@ -19,14 +19,11 @@ use Twig\Environment;
 
 class UserOnTheFlyProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Twig\Environment */
-    private $twig;
+    private Environment $twig;
 
-    /** @var \Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor */
-    private $innerUserUpdateFormProcessor;
+    private UserUpdateFormProcessor $innerUserUpdateFormProcessor;
 
     public function __construct(
         UserService $userService,
@@ -51,7 +48,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         ];
     }
 
-    public function processCreate(FormActionEvent $event)
+    public function processCreate(FormActionEvent $event): void
     {
         $data = $event->getData();
 

@@ -29,8 +29,7 @@ class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Translati
     public const ITEM__CREATE_AND_EDIT = 'role_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'role_create__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

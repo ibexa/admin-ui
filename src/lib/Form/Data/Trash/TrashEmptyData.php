@@ -41,7 +41,7 @@ class TrashEmptyData
     /**
      * @param bool $emptyTrash
      */
-    public function setEmptyTrash(bool $emptyTrash)
+    public function setEmptyTrash(bool $emptyTrash): void
     {
         $this->emptyTrash = $emptyTrash;
     }

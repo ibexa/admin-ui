@@ -13,11 +13,9 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 class ContentDraftHasConflict extends AbstractSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var string */
-    private $languageCode;
+    private string $languageCode;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService

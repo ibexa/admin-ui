@@ -17,11 +17,9 @@ use Twig\Environment;
 
 class ContentOnTheFlyProcessor implements EventSubscriberInterface
 {
-    /** @var \Twig\Environment */
-    private $twig;
+    private Environment $twig;
 
-    /** @var \Ibexa\ContentForms\Form\Processor\ContentFormProcessor */
-    private $innerContentFormProcessor;
+    private ContentFormProcessor $innerContentFormProcessor;
 
     public function __construct(
         Environment $twig,
@@ -56,7 +54,7 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function processCreatePublish(FormActionEvent $event)
+    public function processCreatePublish(FormActionEvent $event): void
     {
         // Rely on Content Form Processor from ContentForms to avoid unncessary code duplication
         $this->innerContentFormProcessor->processPublish($event);

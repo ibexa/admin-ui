@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,12 +21,12 @@ class AdminUiFormsTest extends TestCase
     /**
      * @var \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms
      */
-    private $parser;
+    private AdminUiForms $parser;
 
     /**
      * @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
-    private $contextualizer;
+    private MockObject $contextualizer;
 
     protected function setUp(): void
     {
@@ -36,7 +37,7 @@ class AdminUiFormsTest extends TestCase
     /**
      * Test given Content edit form templates are sorted according to their priority when mapping.
      */
-    public function testContentEditFormTemplatesAreMapped()
+    public function testContentEditFormTemplatesAreMapped(): void
     {
         $scopeSettings = [
             'admin_ui_forms' => [

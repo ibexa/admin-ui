@@ -15,7 +15,7 @@ use PHPUnit\Framework\Assert;
 
 class Keywords extends FieldTypeComponent
 {
-    private $setKeywordsValueScript = <<<SCRIPT
+    private string $setKeywordsValueScript = <<<SCRIPT
 const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
 const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
 const taggify = new window.Taggify({
@@ -35,7 +35,7 @@ SCRIPT;
     public function setValue(array $parameters): void
     {
         $parsedValue = implode(',', array_map(
-            static function (string $element) {
+            static function (string $element): string {
                 return sprintf('"%s"', trim($element));
             },
             explode(',', $parameters['value'])
@@ -54,7 +54,7 @@ SCRIPT;
 
         $actualValues = $this->getHTMLPage()
             ->findAll($keywordItemLocator)
-            ->map(static function (ElementInterface $element) {
+            ->map(static function (ElementInterface $element): string {
                 return $element->getText();
             });
         sort($actualValues);

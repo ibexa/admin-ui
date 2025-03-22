@@ -28,6 +28,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\Repository\Repository;
+use function count;
 
 /**
  * @internal
@@ -46,24 +47,19 @@ final class NodeFactory
 
     private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
+    private TranslationHelper $translationHelper;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     private PermissionResolver $permissionResolver;
 
     private Repository $repository;
 
-    /** @var int */
-    private $maxLocationIdsInSingleAggregation;
+    private int $maxLocationIdsInSingleAggregation;
 
     public function __construct(
         BookmarkService $bookmarkService,
@@ -235,7 +231,7 @@ final class NodeFactory
             return [];
         }
 
-        if (\count($containerLocations) > $this->maxLocationIdsInSingleAggregation) {
+        if (count($containerLocations) > $this->maxLocationIdsInSingleAggregation) {
             $containerLocationsChunks = array_chunk($containerLocations, $this->maxLocationIdsInSingleAggregation);
 
             $result = [];
@@ -251,7 +247,7 @@ final class NodeFactory
         $searchQuery = new LocationQuery();
         $searchQuery->filter = new Criterion\ParentLocationId($parentLocationIds);
         $locationChildrenTermAggregation = new Query\Aggregation\Location\LocationChildrenTermAggregation('childrens');
-        $locationChildrenTermAggregation->setLimit(\count($parentLocationIds));
+        $locationChildrenTermAggregation->setLimit(count($parentLocationIds));
         $searchQuery->aggregations[] = $locationChildrenTermAggregation;
 
         if (null !== $requestFilter) {

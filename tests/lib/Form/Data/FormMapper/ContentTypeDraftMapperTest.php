@@ -100,7 +100,7 @@ final class ContentTypeDraftMapperTest extends TestCase
         );
     }
 
-    private function createContentType(FieldDefinitionCollectionInterface $fieldDefinitionCollection): ContentType
+    private function createContentType(FieldDefinitionCollection $fieldDefinitionCollection): ContentType
     {
         return new ContentType([
             'id' => 123,

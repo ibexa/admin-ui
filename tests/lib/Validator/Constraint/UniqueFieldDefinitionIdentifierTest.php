@@ -13,13 +13,13 @@ use Symfony\Component\Validator\Constraint;
 
 class UniqueFieldDefinitionIdentifierTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $constraint = new UniqueFieldDefinitionIdentifier();
         self::assertSame('ez.field_definition.identifier.unique', $constraint->message);
     }
 
-    public function testGetTartes()
+    public function testGetTartes(): void
     {
         $constraint = new UniqueFieldDefinitionIdentifier();
         self::assertSame(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());

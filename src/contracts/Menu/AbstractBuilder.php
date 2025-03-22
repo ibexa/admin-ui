@@ -18,11 +18,9 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractBuilder
 {
-    /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
-    protected $factory;
+    protected MenuItemFactoryInterface $factory;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    protected $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory

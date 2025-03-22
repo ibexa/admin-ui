@@ -24,6 +24,7 @@ use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\Repository\Values\Content as Core;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -37,25 +38,25 @@ final class SetViewParametersListenerTest extends TestCase
     private const EXAMPLE_OWNER_ID = 14;
 
     /** @var \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent */
-    private $event;
+    private PreContentViewEvent $event;
 
     /** @var \Ibexa\AdminUi\EventListener\SetViewParametersListener */
-    private $viewParametersListener;
+    private SetViewParametersListener $viewParametersListener;
 
     /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
-    private $locationService;
+    private MockObject $locationService;
 
     /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
-    private $userService;
+    private MockObject $userService;
 
     /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
-    private $repository;
+    private MockObject $repository;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject */
     private ConfigResolverInterface $configResolver;
 
     /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $groupedContentFormFieldsProvider;
+    private MockObject $groupedContentFormFieldsProvider;
 
     public function setUp(): void
     {
@@ -339,7 +340,7 @@ final class SetViewParametersListenerTest extends TestCase
      */
     private function generateVersionInfo(API\ContentInfo $contentInfo): API\VersionInfo
     {
-        return new Core\VersionInfo(['contentInfo' => $contentInfo]);
+        return new VersionInfo(['contentInfo' => $contentInfo]);
     }
 
     /**
@@ -347,7 +348,7 @@ final class SetViewParametersListenerTest extends TestCase
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      */
-    private function generateContent(API\VersionInfo $versionInfo): API\Content
+    private function generateContent(\Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|VersionInfo $versionInfo): API\Content
     {
         return new Core\Content(['versionInfo' => $versionInfo]);
     }
@@ -361,7 +362,7 @@ final class SetViewParametersListenerTest extends TestCase
     {
         $contentInfo = new API\ContentInfo(['ownerId' => $ownerId]);
 
-        $versionInfo = new Core\VersionInfo(['contentInfo' => $contentInfo]);
+        $versionInfo = new VersionInfo(['contentInfo' => $contentInfo]);
 
         $content = $this->generateContent($versionInfo);
 

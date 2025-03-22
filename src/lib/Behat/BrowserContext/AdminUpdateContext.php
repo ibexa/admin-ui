@@ -14,8 +14,7 @@ use Ibexa\AdminUi\Behat\Page\AdminUpdateItemPage;
 
 class AdminUpdateContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\AdminUpdateItemPage */
-    private $adminUpdateItemPage;
+    private AdminUpdateItemPage $adminUpdateItemPage;
 
     public function __construct(AdminUpdateItemPage $adminUpdateItemPage)
     {

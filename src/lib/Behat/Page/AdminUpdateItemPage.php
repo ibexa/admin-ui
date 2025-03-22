@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Exception;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -21,8 +22,7 @@ use PHPUnit\Framework\Assert;
 
 class AdminUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    protected $contentActionsMenu;
+    protected ContentActionsMenu $contentActionsMenu;
 
     public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
     {
@@ -30,14 +30,14 @@ class AdminUpdateItemPage extends Page
         $this->contentActionsMenu = $contentActionsMenu;
     }
 
-    public function getFieldValue($label)
+    public function getFieldValue(string $label)
     {
         return $this->getField($label)->getValue();
     }
 
     protected function getRoute(): string
     {
-        throw new \Exception('Update Page cannot be opened on its own!');
+        throw new Exception('Update Page cannot be opened on its own!');
     }
 
     public function switchToTab(string $tabName): void
@@ -55,7 +55,7 @@ class AdminUpdateItemPage extends Page
         $field = $this->getField($fieldName);
         $fieldType = $field->getAttribute('type');
 
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($field, $fieldType, $value) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($field, $fieldType, $value): bool {
             $field->setValue($value);
 
             return $fieldType !== 'text' || $value === $field->getValue();

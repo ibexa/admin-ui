@@ -14,22 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationAddData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     #[Assert\NotBlank]
-    protected $location;
+    protected ?Location $location;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
     #[Assert\NotBlank]
-    protected $language;
+    protected ?Language $language;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
-    protected $baseLanguage;
+    protected ?Language $baseLanguage;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location

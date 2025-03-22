@@ -11,11 +11,11 @@ namespace Ibexa\AdminUi\UI\Service;
 use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\AdminUi\Tab\TabRegistry;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use InvalidArgumentException;
 
 class TabService
 {
-    /** @var \Ibexa\AdminUi\Tab\TabRegistry */
-    protected $tabRegistry;
+    protected TabRegistry $tabRegistry;
 
     /**
      * @param \Ibexa\AdminUi\Tab\TabRegistry $tabRegistry
@@ -58,7 +58,7 @@ class TabService
         $tabs = $this->getTabsFromGroup($groupIdentifier);
 
         if (!isset($tabs[$tabIdentifier])) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'There is no "%s" tab assigned to "%s" group.',
                 $tabIdentifier,
                 $groupIdentifier

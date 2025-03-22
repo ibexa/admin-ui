@@ -44,44 +44,35 @@ use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function count;
+use function in_array;
+use function is_bool;
 
 class SectionController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
+    private SectionService $sectionService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
-    private $sectionCreateMapper;
+    private SectionCreateMapper $sectionCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper */
-    private $sectionUpdateMapper;
+    private SectionUpdateMapper $sectionUpdateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $pathService;
+    private PathService $pathService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private PermissionCheckerInterface $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -238,7 +229,7 @@ class SectionController extends Controller
             ];
         }
 
-        $routeGenerator = function ($page) use ($section) {
+        $routeGenerator = function ($page) use ($section): string {
             return $this->generateUrl('ibexa.section.view', [
                 'sectionId' => $section->id,
                 'page' => $page,
@@ -272,7 +263,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionDeleteData $data): RedirectResponse {
                 $section = $data->getSection();
 
                 $this->sectionService->deleteSection($section);
@@ -311,7 +302,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionsDeleteData $data): void {
                 foreach ($data->getSections() as $sectionId => $selected) {
                     $section = $this->sectionService->loadSection($sectionId);
                     $this->sectionService->deleteSection($section);
@@ -355,7 +346,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionContentAssignData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionContentAssignData $data): RedirectResponse {
                 $section = $data->getSection();
 
                 $contentInfos = array_column($data->getLocations(), 'contentInfo');
@@ -367,7 +358,7 @@ class SectionController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("%contentItemsCount% Content items assigned to '%name%'") */
                     'section.assign_content.success',
-                    ['%name%' => $section->name, '%contentItemsCount%' => \count($contentInfos)],
+                    ['%name%' => $section->name, '%contentItemsCount%' => count($contentInfos)],
                     'ibexa_section'
                 );
 
@@ -509,13 +500,13 @@ class SectionController extends Controller
     {
         $hasAccess = $this->permissionResolver->hasAccess('section', 'assign');
 
-        if (\is_bool($hasAccess)) {
+        if (is_bool($hasAccess)) {
             return $hasAccess;
         }
 
         $restrictedNewSections = $this->permissionChecker->getRestrictions($hasAccess, NewSectionLimitation::class);
         if (!empty($restrictedNewSections)) {
-            return \in_array($section->id, array_map('intval', $restrictedNewSections), true);
+            return in_array($section->id, array_map('intval', $restrictedNewSections), true);
         }
 
         // If a user has other limitation than NewSectionLimitation, then a decision will be taken later, based on selected Content.

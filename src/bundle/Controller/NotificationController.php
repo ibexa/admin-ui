@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Exception;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
 use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
 use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
@@ -22,17 +23,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NotificationController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
-    protected $notificationService;
+    protected NotificationService $notificationService;
 
-    /** @var \Ibexa\Core\Notification\Renderer\Registry */
-    protected $registry;
+    protected Registry $registry;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    protected $translator;
+    protected TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         NotificationService $notificationService,
@@ -57,7 +54,7 @@ class NotificationController extends Controller
                 'total' => $notificationList->totalCount,
                 'notifications' => $notificationList->items,
             ]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -88,7 +85,7 @@ class NotificationController extends Controller
             }
         }
 
-        $routeGenerator = function ($page) {
+        $routeGenerator = function ($page): string {
             return $this->generateUrl('ibexa.notifications.render.page', [
                 'page' => $page,
             ]);
@@ -117,7 +114,7 @@ class NotificationController extends Controller
                 'pending' => $this->notificationService->getPendingNotificationCount(),
                 'total' => $this->notificationService->getNotificationCount(),
             ]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -152,7 +149,7 @@ class NotificationController extends Controller
             }
 
             $response->setData($data);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),

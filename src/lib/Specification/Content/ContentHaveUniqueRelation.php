@@ -18,8 +18,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 class ContentHaveUniqueRelation extends AbstractSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
