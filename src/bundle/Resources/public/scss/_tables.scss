@@ -141,6 +141,10 @@
         }
     }
 
+    &__header-cell-checkbox-wrapper {
+        display: flex;
+    }
+
     &__header-cell-checkbox {
         &.ibexa-input--checkbox {
             margin-bottom: 0;
@@ -214,10 +218,6 @@
     .table &__cell--close-left,
     .table &__header-cell--close-left {
         padding-left: 0;
-    }
-
-    .table &__header-cell--checkbox {
-        display: flex;
     }
 
     &__cell-btns-wrapper {

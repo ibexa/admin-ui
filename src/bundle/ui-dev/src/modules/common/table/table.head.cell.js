@@ -28,7 +28,7 @@ const TableHeadCell = ({
     });
     const renderWrapper = (content) => {
         if (hasCheckbox) {
-            return content;
+            return <div className="ibexa-table__header-cell-checkbox-wrapper">{content}</div>;
         }
 
         return <span className={cellTextWrapperClassName}>{content}</span>;
