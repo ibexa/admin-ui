@@ -26,12 +26,12 @@ const TableHeadCell = ({
         [`ibexa-table__sort-column--${sortColumnName}`]: sortColumnName,
         [wrapperExtraClasses]: true,
     });
-    const renderWrapper = (children) => {
+    const renderWrapper = (content) => {
         if (hasCheckbox) {
-            return children;
+            return content;
         }
 
-        return <span className={cellTextWrapperClassName}>{children}</span>;
+        return <span className={cellTextWrapperClassName}>{content}</span>;
     };
 
     return <th className={className}>{renderWrapper(children)}</th>;
