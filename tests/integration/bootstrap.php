@@ -23,7 +23,8 @@ $kernel->boot();
 $application = new Application($kernel);
 $application->setAutoExit(false);
 
-if (getenv('DATABASE_URL') !== false && strpos(getenv('DATABASE_URL'), 'sqlite') !== 0) {
+$databaseUrl = getenv('DATABASE_URL');
+if ($databaseUrl !== false && 'sqlite' !== substr($databaseUrl, 0, 6)) {
     $application->run(new ArrayInput([
         'command' => 'doctrine:database:drop',
         '--if-exists' => '1',

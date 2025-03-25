@@ -15,7 +15,7 @@ const TableHeadCell = ({
 }) => {
     const className = createCssClassNames({
         'ibexa-table__header-cell': true,
-        'ibexa-table__header-cell--has-checkbox': hasCheckbox,
+        'ibexa-table__header-cell--checkbox': hasCheckbox,
         'ibexa-table__header-cell--has-icon': hasIcon,
         'ibexa-table__header-cell--close-left': isCloseLeft,
         'ibexa-table__header-cell--content-center': isCenterContent,
@@ -26,12 +26,15 @@ const TableHeadCell = ({
         [`ibexa-table__sort-column--${sortColumnName}`]: sortColumnName,
         [wrapperExtraClasses]: true,
     });
+    const renderWrapper = (content) => {
+        if (hasCheckbox) {
+            return <div className="ibexa-table__header-cell-checkbox-wrapper">{content}</div>;
+        }
 
-    return (
-        <th className={className}>
-            <span className={cellTextWrapperClassName}>{children}</span>
-        </th>
-    );
+        return <span className={cellTextWrapperClassName}>{content}</span>;
+    };
+
+    return <th className={className}>{renderWrapper(children)}</th>;
 };
 
 TableHeadCell.propTypes = {

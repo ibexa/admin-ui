@@ -12,17 +12,20 @@
 >
     {%- block content -%}
         {%- if has_checkbox|default(false) -%}
-            <input
-                class="ibexa-input ibexa-input--checkbox ibexa-table__header-cell-checkbox
-                    {%- if is_custom_bulk|default(false) %} ibexa-table__header-cell-checkbox--custom-init{%- endif -%}"
-                type="checkbox">
+            <div class="ibexa-table__header-cell-checkbox-wrapper">
+                <input
+                    class="ibexa-input ibexa-input--checkbox ibexa-table__header-cell-checkbox
+                        {%- if is_custom_bulk|default(false) %} ibexa-table__header-cell-checkbox--custom-init{%- endif -%}"
+                    type="checkbox">
+            </div>
+        {%- else -%}
+            <span
+                class="ibexa-table__header-cell-text-wrapper
+                {%- if sort_column is defined and sort_column is not null %} ibexa-table__sort-column ibexa-table__sort-column--{{ sort_column }}{%- endif -%}"
+                {{ html.attributes(wrapper_attr|default({})) }}
+            >
+                {{ table_macros.conditional_escape(content, raw|default(false)) }}
+            </span>
         {%- endif -%}
-        <span
-            class="ibexa-table__header-cell-text-wrapper
-            {%- if sort_column is defined and sort_column is not null %} ibexa-table__sort-column ibexa-table__sort-column--{{ sort_column }}{%- endif -%}"
-            {{ html.attributes(wrapper_attr|default({})) }}
-        >
-            {{ table_macros.conditional_escape(content, raw|default(false)) }}
-        </span>
     {%- endblock -%}
 </th>
