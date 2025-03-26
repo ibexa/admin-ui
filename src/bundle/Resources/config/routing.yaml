@@ -943,6 +943,14 @@ ibexa.notifications.mark_as_unread:
     requirements:
         notificationId: '\d+'
 
+ibexa.notifications.delete:
+    path: /notification/delete/{notificationId}
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationAction'
+    methods: [ GET ]
+    requirements:
+        notificationId: '\d+'
+
 ibexa.asset.upload_image:
     path: /asset/image
     options:
@@ -950,6 +958,12 @@ ibexa.asset.upload_image:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\AssetController::uploadImageAction'
     methods: [POST]
+
+ibexa.notifications.delete_multiple:
+    path: /notification/delete-multiple
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationsAction'
+    methods: [ POST ]
 
 #
 # Permissions
