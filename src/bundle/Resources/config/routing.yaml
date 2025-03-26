@@ -971,6 +971,14 @@ ibexa.notifications.delete:
     requirements:
         notificationId: '\d+'
 
+ibexa.notifications.delete:
+    path: /notification/delete/{notificationId}
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationAction'
+    methods: [ GET ]
+    requirements:
+        notificationId: '\d+'
+
 ibexa.asset.upload_image:
     path: /asset/image
     options:
