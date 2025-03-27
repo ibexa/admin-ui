@@ -7,7 +7,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
             this.container = config.container || config.fieldContainer.querySelector('.ibexa-tag-view-select');
 
             if (!this.container) {
-                throw new Error("Field Container doesn't exist!"); // eslint-disable-line quotes
+                throw new Error("Field Container doesn't exist!"); // eslint-disable-line @stylistic/quotes
             }
 
             this.listContainer = this.container.querySelector('.ibexa-tag-view-select__selected-list');
