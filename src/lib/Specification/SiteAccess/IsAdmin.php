@@ -15,8 +15,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 class IsAdmin extends AbstractSpecification
 {
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     /**
      * @param array $siteAccessGroups

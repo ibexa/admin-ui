@@ -35,17 +35,17 @@ class BookmarksPage extends Page
         return $this->table->hasElement(['Name' => $contentName]);
     }
 
-    public function goToItem(string $contentName)
+    public function goToItem(string $contentName): void
     {
         $this->table->getTableRow(['Name' => $contentName])->goToItem();
     }
 
-    public function edit(string $contentName)
+    public function edit(string $contentName): void
     {
         $this->table->getTableRow(['Name' => $contentName])->edit();
     }
 
-    public function delete(string $contentName)
+    public function delete(string $contentName): void
     {
         $this->table->getTableRow(['Name' => $contentName])->select();
 

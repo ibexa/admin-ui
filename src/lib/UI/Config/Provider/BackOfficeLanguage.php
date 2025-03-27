@@ -13,8 +13,7 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 final class BackOfficeLanguage implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
+    private UserSettingService $userSettingService;
 
     public function __construct(UserSettingService $userSettingService)
     {

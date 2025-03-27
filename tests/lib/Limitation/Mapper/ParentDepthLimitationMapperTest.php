@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ParentDepthLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $mapper = new ParentDepthLimitationMapper(1024);
         $result = $mapper->mapLimitationValue(new ParentDepthLimitation([

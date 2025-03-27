@@ -22,8 +22,7 @@ use Symfony\Component\Form\Util\StringUtil;
 
 class ContentTypeFormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     /**
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory

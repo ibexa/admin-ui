@@ -18,7 +18,7 @@ use RuntimeException;
 class ContentItemAdminPreview extends Component
 {
     /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
-    protected $fieldTypeComponents;
+    protected iterable $fieldTypeComponents;
 
     public function __construct(Session $session, iterable $fieldTypeComponents)
     {
@@ -26,7 +26,7 @@ class ContentItemAdminPreview extends Component
         $this->fieldTypeComponents = $fieldTypeComponents;
     }
 
-    public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier)
+    public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier): void
     {
         $fieldPosition = $this->getFieldPosition($fieldLabel);
         $nthFieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthFieldContainer')->getSelector(), $fieldPosition));
@@ -74,7 +74,7 @@ class ContentItemAdminPreview extends Component
         return $fieldPosition;
     }
 
-    protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
+    protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator): string
     {
         $fieldClass = $this->getHTMLPage()
             ->find(CSSLocatorBuilder::base($fieldValueLocator)->withDescendant($this->getLocator('fieldValueContainer'))->build())

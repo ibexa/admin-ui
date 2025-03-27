@@ -42,26 +42,19 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     public const URI_FRAGMENT = 'ibexa-tab-location-view-locations';
     private const PAGINATION_PARAM_NAME = 'locations-tab-page';
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
+    protected FormFactory $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\Location\Mapper */
-    private $locationToUILocationMapper;
+    private Mapper $locationToUILocationMapper;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     private UserSettingService $userSettingService;
 

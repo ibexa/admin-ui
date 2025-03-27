@@ -37,20 +37,15 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     public const FORM_REMOVE_ARCHIVED = 'version_remove_archived';
     public const URI_FRAGMENT = 'ibexa-tab-location-view-versions';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
+    protected FormFactory $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
     private UserSettingService $userSettingService;
 

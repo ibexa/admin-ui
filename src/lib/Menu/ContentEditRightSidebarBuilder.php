@@ -42,16 +42,13 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

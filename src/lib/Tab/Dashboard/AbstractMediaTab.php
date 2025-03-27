@@ -17,14 +17,12 @@ use Twig\Environment;
 
 abstract class AbstractMediaTab extends AbstractTab implements OrderedTabInterface
 {
-    /** @var \Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper */
-    protected $pagerLocationToDataMapper;
+    protected PagerLocationToDataMapper $pagerLocationToDataMapper;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    protected $searchService;
+    protected SearchService $searchService;
 
     /** @var \Ibexa\AdminUi\QueryType\MediaLocationSubtreeQueryType */
-    protected $mediaLocationSubtreeQueryType;
+    protected QueryType $mediaLocationSubtreeQueryType;
 
     public function __construct(
         Environment $twig,

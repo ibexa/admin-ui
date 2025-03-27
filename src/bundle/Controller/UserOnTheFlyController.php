@@ -39,32 +39,23 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserOnTheFlyController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\AdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher */
-    private $createUserActionDispatcher;
+    private CreateUserOnTheFlyDispatcher $createUserActionDispatcher;
 
-    /** @var \Ibexa\AdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher */
-    private $editUserActionDispatcher;
+    private EditUserOnTheFlyDispatcher $editUserActionDispatcher;
 
     public function __construct(
         ContentService $contentService,

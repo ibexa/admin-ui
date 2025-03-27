@@ -17,10 +17,7 @@ class LocationVoter implements VoterInterface
 {
     private const CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /**
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack

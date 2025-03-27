@@ -14,8 +14,7 @@ use Twig\TwigFunction;
 
 class UniversalDiscoveryExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
-    protected $udwConfigResolver;
+    protected ConfigResolver $udwConfigResolver;
 
     /**
      * @param \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver $udwConfigResolver

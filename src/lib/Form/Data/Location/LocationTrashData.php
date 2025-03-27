@@ -12,11 +12,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class LocationTrashData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
-    /** @var array|null */
-    private $trashOptions;
+    private ?array $trashOptions;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location

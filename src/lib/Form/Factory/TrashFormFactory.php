@@ -22,8 +22,7 @@ use Symfony\Component\Form\Util\StringUtil;
 
 class TrashFormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
     public function __construct(FormFactoryInterface $formFactory)
     {

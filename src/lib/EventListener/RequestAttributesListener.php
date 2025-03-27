@@ -24,11 +24,9 @@ class RequestAttributesListener implements EventSubscriberInterface
 {
     private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     /**
      * @param array $siteAccessGroups
@@ -53,7 +51,7 @@ class RequestAttributesListener implements EventSubscriberInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function addRequestAttributes(FilterViewBuilderParametersEvent $event)
+    public function addRequestAttributes(FilterViewBuilderParametersEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -100,7 +98,7 @@ class RequestAttributesListener implements EventSubscriberInterface
     private function loadLocation(int $locationId): Location
     {
         $location = $this->repository->sudo(
-            static function (Repository $repository) use ($locationId) {
+            static function (Repository $repository) use ($locationId): \Ibexa\Contracts\Core\Repository\Values\Content\Location {
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );

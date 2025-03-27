@@ -32,23 +32,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LanguageController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
-    private $languageCreateMapper;
+    private LanguageCreateMapper $languageCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -134,7 +128,7 @@ class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguageDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (LanguageDeleteData $data): void {
                 $language = $data->getLanguage();
                 $this->languageService->deleteLanguage($language);
 
@@ -176,7 +170,7 @@ class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguagesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (LanguagesDeleteData $data): void {
                 foreach ($data->getLanguages() as $languageId => $selected) {
                     $language = $this->languageService->loadLanguageById($languageId);
                     $this->languageService->deleteLanguage($language);

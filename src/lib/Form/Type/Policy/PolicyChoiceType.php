@@ -23,8 +23,7 @@ class PolicyChoiceType extends AbstractType
     public const ALL_FUNCTIONS = 'all_functions';
     public const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
 
-    /** @var array */
-    private $policyChoices;
+    private array $policyChoices;
 
     /**
      * @param array $policyMap

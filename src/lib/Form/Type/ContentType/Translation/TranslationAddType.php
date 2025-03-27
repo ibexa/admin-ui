@@ -27,11 +27,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TranslationAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     public function __construct(
         LanguageService $languageService,
@@ -86,7 +84,7 @@ class TranslationAddType extends AbstractType
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSetData(FormEvent $event)
+    public function onPreSetData(FormEvent $event): void
     {
         $contentLanguages = [];
         $form = $event->getForm();
@@ -111,7 +109,7 @@ class TranslationAddType extends AbstractType
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSubmit(FormEvent $event)
+    public function onPreSubmit(FormEvent $event): void
     {
         $contentLanguages = [];
         $form = $event->getForm();

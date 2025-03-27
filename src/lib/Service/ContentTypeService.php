@@ -17,14 +17,11 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 class ContentTypeService
 {
-    /** @var Repository\ContentTypeService */
-    private $contentTypeService;
+    private Repository\ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var array */
-    private $prioritizedLanguages;
+    private array $prioritizedLanguages;
 
     /**
      * ContentTypeGroupService constructor.
@@ -82,7 +79,7 @@ class ContentTypeService
         return $this->contentTypeService->createContentType($createStruct, [$group]);
     }
 
-    public function deleteContentType(ContentType $contentType)
+    public function deleteContentType(ContentType $contentType): void
     {
         $this->contentTypeService->deleteContentType($contentType);
     }

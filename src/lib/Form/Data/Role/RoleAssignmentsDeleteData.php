@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
  */
 class RoleAssignmentsDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
-    protected $role;
+    protected ?Role $role;
 
     /** @var array|null */
     protected $roleAssignments;
@@ -42,7 +41,7 @@ class RoleAssignmentsDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
      */
-    public function setRole(?Role $role)
+    public function setRole(?Role $role): void
     {
         $this->role = $role;
     }
@@ -58,7 +57,7 @@ class RoleAssignmentsDeleteData
     /**
      * @param array|null $roleAssignments
      */
-    public function setRoleAssignments(?array $roleAssignments)
+    public function setRoleAssignments(?array $roleAssignments): void
     {
         $this->roleAssignments = $roleAssignments;
     }
