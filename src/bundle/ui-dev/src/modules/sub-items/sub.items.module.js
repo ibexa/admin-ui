@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { showWarningNotification, showSuccessNotification } from '@ibexa-admin-ui-helpers/notification.helper';
 import ViewColumnsTogglerComponent from './components/view-columns-toggler/view.columns.toggler';
 import ViewSwitcherComponent from './components/view-switcher/view.switcher.component.js';
 import SubItemsListComponent from './components/sub-items-list/sub.items.list.component.js';
@@ -115,7 +116,6 @@ export default class SubItemsModule extends Component {
         this.state = {
             activeView: props.activeView,
             activePageItems: null,
-            pages: [],
             selectedItems: new Map(),
             totalCount: props.totalCount,
             offset: props.offset,
@@ -158,7 +158,7 @@ export default class SubItemsModule extends Component {
         containerResizeObserver.observe(this._refMainContainerWrapper.current);
 
         if (!this.state.activePageItems) {
-            this.loadPage(0);
+            this.loadPage();
         }
 
         this.adaptHeaderActions();
@@ -188,7 +188,7 @@ export default class SubItemsModule extends Component {
         const shouldLoadPage = !activePageItems;
 
         if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isUpdate)) {
-            this.loadPage(activePageIndex);
+            this.loadPage();
         }
 
         ibexa.helpers.tooltips.parse();
@@ -198,7 +198,7 @@ export default class SubItemsModule extends Component {
         const { queryParams } = this.state;
 
         return (
-            queryParams.cursor !== this.calculateCursor(activePageIndex) ||
+            queryParams.activePageIndex !== activePageIndex ||
             queryParams.sortClause !== this.state.sortClause ||
             queryParams.sortOrder !== this.state.sortOrder
         );
@@ -250,37 +250,27 @@ export default class SubItemsModule extends Component {
      * @method loadPage
      * @memberof SubItemsModule
      */
-    loadPage(pageIndex) {
-        const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
-        const { sortClause, sortOrder } = this.state;
-        const cursor = this.calculateCursor(pageIndex);
-        const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
+    loadPage() {
+        const { limit, loadLocation, parentLocationId: locationId } = this.props;
+        const { activePageIndex, offset, sortClause, sortOrder } = this.state;
 
         this.setState({
             queryParams: {
                 sortClause,
                 sortOrder,
-                cursor,
+                activePageIndex,
             },
             isUpdate: false,
         });
 
-        loadLocation(restInfo, queryConfig, (response) => {
-            const { totalCount, pages, edges } = response.data._repository.location.children;
-            const activePageItems = edges.map((edge) => edge.node);
+        loadLocation({ locationId, offset, limit, sortClause, sortOrder }, (response) => {
+            const { totalCount, SubItemList } = response.SubItems;
 
             this.setState(() => ({
-                activePageItems,
+                activePageItems: SubItemList,
                 totalCount,
-                pages,
             }));
         });
-    }
-
-    calculateCursor(pageIndex) {
-        const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
-
-        return page ? page.cursor : null;
     }
 
     updateTotalCountState(totalCount) {
@@ -321,7 +311,7 @@ export default class SubItemsModule extends Component {
      * @memberof SubItemsModule
      */
     handleItemPriorityUpdate(data) {
-        this.props.updateLocationPriority({ ...data, ...this.props.restInfo }, this.afterPriorityUpdated);
+        this.props.updateLocationPriority(data, this.afterPriorityUpdated);
     }
 
     /**
@@ -461,21 +451,19 @@ export default class SubItemsModule extends Component {
     bulkMove(location) {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const itemsToMove = [...selectedItems.values()];
 
-        bulkMoveLocations(restInfo, itemsToMove, location._href, this.afterBulkMove.bind(this, location));
+        bulkMoveLocations(itemsToMove, location._href, this.afterBulkMove.bind(this, location));
     }
 
     bulkAdd(location) {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const itemsToAddLocationFor = [...selectedItems.values()];
 
-        bulkAddLocations(restInfo, itemsToAddLocationFor, location._href, this.afterBulkAddLocation.bind(this, location));
+        bulkAddLocations(itemsToAddLocationFor, location._href, this.afterBulkAddLocation.bind(this, location));
     }
 
     afterBulkMove(location, movedItems, notMovedItems) {
@@ -538,7 +526,7 @@ export default class SubItemsModule extends Component {
                 ),
             };
 
-            window.ibexa.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
+            showSuccessNotification(message, () => {}, rawPlaceholdersMap);
         }
     }
 
@@ -586,7 +574,7 @@ export default class SubItemsModule extends Component {
                 'ibexa_sub_items',
             );
 
-            window.ibexa.helpers.notification.showSuccessNotification(message);
+            showSuccessNotification(message);
         }
     }
 
@@ -634,7 +622,7 @@ export default class SubItemsModule extends Component {
                 'ibexa_sub_items',
             );
 
-            window.ibexa.helpers.notification.showSuccessNotification(message);
+            showSuccessNotification(message);
         }
     }
 
@@ -761,36 +749,33 @@ export default class SubItemsModule extends Component {
     bulkDelete() {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const itemsToDelete = [...selectedItems.values()];
 
-        bulkDeleteItems(restInfo, itemsToDelete, this.afterBulkDelete);
+        bulkDeleteItems(itemsToDelete, this.afterBulkDelete);
     }
 
     bulkHide() {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const items = [...selectedItems.values()];
 
-        bulkHideLocations(restInfo, items, this.afterBulkHide);
+        bulkHideLocations(items, this.afterBulkHide);
     }
 
     bulkUnhide() {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const items = [...selectedItems.values()];
 
-        bulkUnhideLocations(restInfo, items, this.afterBulkUnhide);
+        bulkUnhideLocations(items, this.afterBulkUnhide);
     }
 
     afterBulkDelete(deletedItems, notDeletedItems) {
         const { totalCount } = this.state;
-        const isUser = ({ content }) => window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
+        const isUser = ({ contentType }) => this.adminUiConfig.userContentTypes.includes(contentType.ContentType.identifier);
 
         this.setState({
             isUpdate: true,
@@ -804,10 +789,10 @@ export default class SubItemsModule extends Component {
         this.toggleBulkOperationStatusState(false);
 
         if (notDeletedItems.length) {
-            const hadUserContentItemFailed = notDeletedItems.some(isUser);
-            const hadNonUserContentItemFailed = notDeletedItems.some((item) => !isUser(item));
             let modalTableTitle = null;
             let message = null;
+            const hadUserContentItemFailed = notDeletedItems.some(isUser);
+            const hadNonUserContentItemFailed = notDeletedItems.some((item) => !isUser(item));
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
                     /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
@@ -949,12 +934,12 @@ export default class SubItemsModule extends Component {
      * @param {Object} rawPlaceholdersMap
      */
     handleBulkOperationFailedNotification(failedItems, modalTableTitle, notificationMessage, rawPlaceholdersMap) {
-        const failedItemsData = failedItems.map(({ content }) => ({
-            contentTypeName: content._info.contentType.name,
-            contentName: content._name,
+        const failedItemsData = failedItems.map(({ contentInfo, contentType }) => ({
+            contentTypeName: contentType.ContentType.name,
+            contentName: contentInfo.ContentInfo.name,
         }));
 
-        window.ibexa.helpers.notification.showWarningNotification(
+        showWarningNotification(
             notificationMessage,
             (notificationNode) => {
                 const showModalBtn = notificationNode.querySelector('.ibexa-notification-btn--show-modal');
@@ -1035,12 +1020,12 @@ export default class SubItemsModule extends Component {
         let isUserContentItemSelected = false;
         let isNonUserContentItemSelected = false;
 
-        for (const [, { content }] of selectedItems) {
+        for (const [, { contentType }] of selectedItems) {
             if (isUserContentItemSelected && isNonUserContentItemSelected) {
                 break;
             }
 
-            const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
+            const isUserContentItem = this.adminUiConfig.userContentTypes.includes(contentType.ContentType.identifier);
 
             if (isUserContentItem) {
                 isUserContentItemSelected = true;
@@ -1160,9 +1145,12 @@ export default class SubItemsModule extends Component {
     }
 
     changePage(pageIndex) {
+        const { limit: itemsPerPage } = this.props;
+
         this.updateListViewHeight();
         this.setState(() => ({
             activePageIndex: pageIndex,
+            offset: pageIndex * itemsPerPage,
             activePageItems: null,
         }));
     }
