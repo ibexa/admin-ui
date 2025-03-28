@@ -1,6 +1,9 @@
+import { getRestInfo } from '@ibexa-admin-ui-helpers/context.helper.js';
+import { getRequestHeaders, getRequestMode, getJsonFromResponse } from '@ibexa-admin-ui-helpers/request.helper';
+import { showErrorNotification } from '@ibexa-admin-ui-helpers/notification.helper';
 import { handleRequestResponse } from '../../common/helpers/request.helper.js';
 import { ASCENDING_SORT_ORDER } from '../sub.items.module.js';
-import { LOCATION_ENDPOINT, ENDPOINT_GRAPHQL } from './endpoints.js';
+import { LOCATION_ENDPOINT, ENDPOINT_LOCATION_SUBITEMS } from './endpoints.js';
 
 const sortClauseGraphQLMap = {
     ContentId: '_contentId',
@@ -29,116 +32,145 @@ const sortClauseGraphQLMap = {
  * @param {Object} queryConfig.sortOrder
  * @param {Function} callback
  */
-export const loadLocation = ({ token, siteaccess }, { locationId = 2, limit = 10, cursor, sortClause, sortOrder }, callback) => {
-    const queryAfter = cursor ? `, after: "${cursor}"` : '';
-    const querySortClause = sortClauseGraphQLMap[sortClause];
-    const querySortOrder = sortOrder === ASCENDING_SORT_ORDER ? '' : '_desc';
-    const querySortBy = querySortClause ? `sortBy: [${querySortClause}, ${querySortOrder}], ` : '';
-    const query = `
-    {
-        _repository {
-            location(locationId: ${locationId}) {
-                pathString
-                children(${querySortBy} first:${limit} ${queryAfter}) {
-                    totalCount
-                    pages {
-                        number
-                        cursor
-                    }
-                    edges {
-                        node {
-                            id
-                            remoteId
-                            invisible
-                            hidden
-                            priority
-                            pathString
-    
-                            content {
-                                _thumbnail {
-                                    uri
-                                    alternativeText
-                                    mimeType
-                                }
-                                _name
-                                _info {
-                                    id
-                                    name
-                                    remoteId
-                                    mainLanguageCode
-                                    owner {
-                                        id
-                                        name
-                                        thumbnail {
-                                            uri
-                                            alternativeText
-                                            mimeType
-                                        }
-                                        content {
-                                            _type {
-                                                identifier
-                                            }                                                                                        
-                                        }
-                                    }
-                                    currentVersion {
-                                        versionNumber
-                                        creator {
-                                            id
-                                            name
-                                            thumbnail {
-                                                uri
-                                                alternativeText
-                                                mimeType
-                                            }
-                                            content {
-                                                _type {
-                                                    identifier
-                                                }                                                                                        
-                                            }
-                                        }
-                                        languageCodes
-                                    }
-                                    contentType {
-                                        name
-                                        identifier
-                                    }
-                                    section {
-                                        name
-                                    }
-                                    publishedDate {
-                                        timestamp
-                                    }
-                                    modificationDate {
-                                        timestamp
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }`;
-
-    const request = new Request(ENDPOINT_GRAPHQL, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        body: JSON.stringify({
-            query,
+export const loadLocation = ({ locationId = 2, limit = 10, offset = 0, sortClause, sortOrder }, callback) => {
+    const { token, siteaccess, accessToken, instanceUrl } = getRestInfo();
+    // const querySortOrder = sortOrder === ASCENDING_SORT_ORDER ? '' : 'desc';
+    // const querySortBy = sortClause ? `sortBy: [${querySortClause}, ${querySortOrder}], ` : '';
+    const loadSubItemsUrl = `${ENDPOINT_LOCATION_SUBITEMS}/${locationId}/${limit}/${offset}?sortClause=${sortClause}&sortOrder=${sortOrder}`
+    const request = new Request(loadSubItemsUrl, {
+        method: 'GET',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
         }),
-        mode: 'cors',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request)
-        .then(handleRequestResponse)
+        .then(getJsonFromResponse)
         .then(callback)
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load location'));
+        .catch(() => showErrorNotification('Cannot load location'));
+
+
+    // const queryAfter = cursor ? `, after: "${cursor}"` : '';
+    // const querySortClause = sortClauseGraphQLMap[sortClause];
+    // const querySortOrder = sortOrder === ASCENDING_SORT_ORDER ? '' : '_desc';
+    // const querySortBy = querySortClause ? `sortBy: [${querySortClause}, ${querySortOrder}], ` : '';
+   
+    // // curosor = page
+    // console.log(cursor, querySortClause, querySortOrder, querySortBy)
+   
+    // const query = `
+    // {
+    //     _repository {
+    //         location(locationId: ${locationId}) {
+    //             pathString
+    //             children(${querySortBy} first:${limit} ${queryAfter}) {
+    //                 totalCount
+    //                 pages {
+    //                     number
+    //                     cursor
+    //                 }
+    //                 edges {
+    //                     node {
+    //                         id
+    //                         remoteId
+    //                         invisible
+    //                         hidden
+    //                         priority
+    //                         pathString
+    
+    //                         content {
+    //                             _thumbnail {
+    //                                 uri
+    //                                 alternativeText
+    //                                 mimeType
+    //                             }
+    //                             _name
+    //                             _info {
+    //                                 id
+    //                                 name
+    //                                 remoteId
+    //                                 mainLanguageCode
+    //                                 owner {
+    //                                     id
+    //                                     name
+    //                                     thumbnail {
+    //                                         uri
+    //                                         alternativeText
+    //                                         mimeType
+    //                                     }
+    //                                     content {
+    //                                         _type {
+    //                                             identifier
+    //                                         }                                                                                        
+    //                                     }
+    //                                 }
+    //                                 currentVersion {
+    //                                     versionNumber
+    //                                     creator {
+    //                                         id
+    //                                         name
+    //                                         thumbnail {
+    //                                             uri
+    //                                             alternativeText
+    //                                             mimeType
+    //                                         }
+    //                                         content {
+    //                                             _type {
+    //                                                 identifier
+    //                                             }                                                                                        
+    //                                         }
+    //                                     }
+    //                                     languageCodes
+    //                                 }
+    //                                 contentType {
+    //                                     name
+    //                                     identifier
+    //                                 }
+    //                                 section {
+    //                                     name
+    //                                 }
+    //                                 publishedDate {
+    //                                     timestamp
+    //                                 }
+    //                                 modificationDate {
+    //                                     timestamp
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }`;
+
+    // const request = new Request(ENDPOINT_GRAPHQL, {
+    //     method: 'POST',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json',
+    //         'X-Siteaccess': siteaccess,
+    //         'X-CSRF-Token': token,
+    //     },
+    //     body: JSON.stringify({
+    //         query,
+    //     }),
+    //     mode: 'cors',
+    //     credentials: 'same-origin',
+    // });
+    // console.log('Fetch graphQL')
+    // fetch(request)
+    //     .then(handleRequestResponse)
+    //     .then(callback)
+    //     .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load location'));
 };
 
 /**
