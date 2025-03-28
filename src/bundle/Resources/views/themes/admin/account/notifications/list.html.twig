@@ -14,7 +14,9 @@
         {% if pager.count is same as(0) %}
             {{ 'bookmark.list.empty'|trans|desc('You have no notifications.') }}
         {% else %}
-            {{ notifications|raw }}
+            {% for notification in notifications %}
+                {{ notification|raw }}
+            {% endfor %}
         {% endif %}
     {% endblock %}
 {% endembed %}

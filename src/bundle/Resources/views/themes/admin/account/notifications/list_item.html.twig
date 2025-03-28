@@ -83,8 +83,8 @@
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
-                <div class="ibexa-notificatiomn__actions">
-                    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications-modal--more">
+                <div class="ibexa-notifications-modal__actions">
+                    <button class="btn ibexa-btn ibexa-btn--ghost" id={{ 'ibexa-notifications-modal-popup-trigger-' ~ notification.id }}>
                         <svg class="ibexa-icon ibexa-icon--small">
                             <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
                         </svg>
@@ -97,7 +97,7 @@
                             },
                         ],
                         attr: {
-                            'data-trigger-element-selector': '.ibexa-notifications-modal--more',
+                            'data-trigger-element-selector': '#ibexa-notifications-modal-popup-trigger-' ~ notification.id,
                             'data-initial-branch-placement': 'bottom-end',
                         },
                         branch_attr: {
