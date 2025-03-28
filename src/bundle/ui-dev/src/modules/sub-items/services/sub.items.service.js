@@ -1,176 +1,80 @@
-import { handleRequestResponse } from '../../common/helpers/request.helper.js';
-import { ASCENDING_SORT_ORDER } from '../sub.items.module.js';
-import { LOCATION_ENDPOINT, ENDPOINT_GRAPHQL } from './endpoints.js';
-
-const sortClauseGraphQLMap = {
-    ContentId: '_contentId',
-    ContentName: '_name',
-    DateModified: '_dateModified',
-    DatePublished: '_datePublished',
-    LocationDepth: '_depth',
-    LocationPath: '_path',
-    LocationPriority: '_priority',
-    SectionIdentifier: '_sectionIdentifier',
-    SectionName: '_sectionName',
-};
+import { getRestInfo, getTranslator } from '@ibexa-admin-ui-helpers/context.helper.js';
+import { getRequestHeaders, getRequestMode, getJsonFromResponse } from '@ibexa-admin-ui-helpers/request.helper';
+import { showErrorNotification } from '@ibexa-admin-ui-helpers/notification.helper';
+import { LOCATION_ENDPOINT, ENDPOINT_LOCATION_SUBITEMS } from './endpoints.js';
 
 /**
  * Loads location's children
  *
  * @function loadLocation
- * @param {Object} restInfo - contains:
- * @param {String} restInfo.token
- * @param {String} restInfo.siteaccess
  * @param {Object} queryConfig - contains:
  * @param {Number} queryConfig.locationId
+ * @param {Number} queryConfig.offset
  * @param {Number} queryConfig.limit
- * @param {Number} queryConfig.cursor
  * @param {Object} queryConfig.sortClause
  * @param {Object} queryConfig.sortOrder
  * @param {Function} callback
  */
-export const loadLocation = ({ token, siteaccess }, { locationId = 2, limit = 10, cursor, sortClause, sortOrder }, callback) => {
-    const queryAfter = cursor ? `, after: "${cursor}"` : '';
-    const querySortClause = sortClauseGraphQLMap[sortClause];
-    const querySortOrder = sortOrder === ASCENDING_SORT_ORDER ? '' : '_desc';
-    const querySortBy = querySortClause ? `sortBy: [${querySortClause}, ${querySortOrder}], ` : '';
-    const query = `
-    {
-        _repository {
-            location(locationId: ${locationId}) {
-                pathString
-                children(${querySortBy} first:${limit} ${queryAfter}) {
-                    totalCount
-                    pages {
-                        number
-                        cursor
-                    }
-                    edges {
-                        node {
-                            id
-                            remoteId
-                            invisible
-                            hidden
-                            priority
-                            pathString
-    
-                            content {
-                                _thumbnail {
-                                    uri
-                                    alternativeText
-                                    mimeType
-                                }
-                                _name
-                                _info {
-                                    id
-                                    name
-                                    remoteId
-                                    mainLanguageCode
-                                    owner {
-                                        id
-                                        name
-                                        thumbnail {
-                                            uri
-                                            alternativeText
-                                            mimeType
-                                        }
-                                        content {
-                                            _type {
-                                                identifier
-                                            }                                                                                        
-                                        }
-                                    }
-                                    currentVersion {
-                                        versionNumber
-                                        creator {
-                                            id
-                                            name
-                                            thumbnail {
-                                                uri
-                                                alternativeText
-                                                mimeType
-                                            }
-                                            content {
-                                                _type {
-                                                    identifier
-                                                }                                                                                        
-                                            }
-                                        }
-                                        languageCodes
-                                    }
-                                    contentType {
-                                        name
-                                        identifier
-                                    }
-                                    section {
-                                        name
-                                    }
-                                    publishedDate {
-                                        timestamp
-                                    }
-                                    modificationDate {
-                                        timestamp
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }`;
-
-    const request = new Request(ENDPOINT_GRAPHQL, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
-        body: JSON.stringify({
-            query,
+export const loadLocation = ({ locationId = 2, offset = 0, limit = 10, sortClause, sortOrder }, callback) => {
+    const Translator = getTranslator();
+    const { token, siteaccess, accessToken, instanceUrl } = getRestInfo();
+    const loadSubItemsUrl = `${ENDPOINT_LOCATION_SUBITEMS}/${locationId}/${limit}/${offset}?sortClause=${sortClause}&sortOrder=${sortOrder}`;
+    const request = new Request(loadSubItemsUrl, {
+        method: 'GET',
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
         }),
-        mode: 'cors',
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
     });
 
     fetch(request)
-        .then(handleRequestResponse)
+        .then(getJsonFromResponse)
         .then(callback)
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification('Cannot load location'));
+        .catch(() => showErrorNotification(Translator.trans(/*@Desc("Cannot load location")*/ 'load_location.error', {}, 'ibexa_sub_items')));
 };
 
 /**
  * Updates location priority
  *
  * @function updateLocationPriority
- * @param {Object} params params hash containing: priority, location, token, siteaccess properties
+ * @param {Object} params params hash containing: priority, location properties
  * @param {Function} callback
  */
-export const updateLocationPriority = ({ priority, pathString, token, siteaccess }, callback) => {
+export const updateLocationPriority = ({ priority, pathString }, callback) => {
+    const Translator = getTranslator();
+    const { token, siteaccess, accessToken, instanceUrl } = getRestInfo();
     const locationHref = `${LOCATION_ENDPOINT}${pathString.slice(0, -1)}`;
 
     const request = new Request(locationHref, {
         method: 'POST',
-        headers: {
-            Accept: 'application/vnd.ibexa.api.Location+json',
-            'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-            'X-HTTP-Method-Override': 'PATCH',
-        },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: {
+                Accept: 'application/vnd.ibexa.api.Location+json',
+                'Content-Type': 'application/vnd.ibexa.api.LocationUpdate+json',
+                'X-HTTP-Method-Override': 'PATCH',
+            },
+        }),
+        mode: getRequestMode({ instanceUrl }),
         credentials: 'same-origin',
-        mode: 'cors',
         body: JSON.stringify({
             LocationUpdate: {
                 priority: priority,
             },
         }),
     });
-
+    
     fetch(request)
-        .then(handleRequestResponse)
+        .then(getJsonFromResponse)
         .then(callback)
-        .catch(() => window.ibexa.helpers.notification.showErrorNotification('An error occurred while updating location priority'));
+        .catch(() => showErrorNotification(Translator.trans(/*@Desc("An error occurred while updating location priority")*/ 'update_location_priority.error', {}, 'ibexa_sub_items')));
 };

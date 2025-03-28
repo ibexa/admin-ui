@@ -61,17 +61,17 @@
 
     const formatEscapedString = function (icuStr) {
         // eslint-disable-next-line quotes
-        if (icuStr === "''") {
-            return "[']"; // eslint-disable-line quotes
+        if (icuStr === '\'\'') {
+            return '[\']'; // eslint-disable-line quotes
         }
 
-        return icuStr.replace(/'(.*)'/g, '[$1]').replace(/''/g, "'"); // eslint-disable-line quotes
+        return icuStr.replace(/'(.*)'/g, '[$1]').replace(/''/g, '\''); // eslint-disable-line quotes
     };
 
     moment.fn.formatICU = function (format) {
         const form = format.replace(formatICUEx, (icuStr) => {
             // eslint-disable-next-line quotes
-            if (icuStr[0] === "'") {
+            if (icuStr[0] === '\'') {
                 return formatEscapedString(icuStr);
             }
 

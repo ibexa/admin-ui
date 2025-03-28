@@ -115,7 +115,6 @@ export default class SubItemsModule extends Component {
         this.state = {
             activeView: props.activeView,
             activePageItems: null,
-            pages: [],
             selectedItems: new Map(),
             totalCount: props.totalCount,
             offset: props.offset,
@@ -158,7 +157,7 @@ export default class SubItemsModule extends Component {
         containerResizeObserver.observe(this._refMainContainerWrapper.current);
 
         if (!this.state.activePageItems) {
-            this.loadPage(0);
+            this.loadPage();
         }
 
         this.adaptHeaderActions();
@@ -188,7 +187,7 @@ export default class SubItemsModule extends Component {
         const shouldLoadPage = !activePageItems;
 
         if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isUpdate)) {
-            this.loadPage(activePageIndex);
+            this.loadPage();
         }
 
         ibexa.helpers.tooltips.parse();
@@ -198,7 +197,7 @@ export default class SubItemsModule extends Component {
         const { queryParams } = this.state;
 
         return (
-            queryParams.cursor !== this.calculateCursor(activePageIndex) ||
+            queryParams.activePageIndex !== activePageIndex ||
             queryParams.sortClause !== this.state.sortClause ||
             queryParams.sortOrder !== this.state.sortOrder
         );
@@ -250,37 +249,27 @@ export default class SubItemsModule extends Component {
      * @method loadPage
      * @memberof SubItemsModule
      */
-    loadPage(pageIndex) {
-        const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
-        const { sortClause, sortOrder } = this.state;
-        const cursor = this.calculateCursor(pageIndex);
-        const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
+    loadPage() {
+        const { limit, loadLocation, parentLocationId: locationId } = this.props;
+        const { activePageIndex, offset, sortClause, sortOrder } = this.state;
 
         this.setState({
             queryParams: {
                 sortClause,
                 sortOrder,
-                cursor,
+                activePageIndex,
             },
             isUpdate: false,
         });
 
-        loadLocation(restInfo, queryConfig, (response) => {
-            const { totalCount, pages, edges } = response.data._repository.location.children;
-            const activePageItems = edges.map((edge) => edge.node);
+        loadLocation({ locationId, offset, limit, sortClause, sortOrder }, (response) => {
+            const { totalCount, SubItemList } = response.SubItems;
 
             this.setState(() => ({
-                activePageItems,
+                activePageItems: SubItemList,
                 totalCount,
-                pages,
             }));
         });
-    }
-
-    calculateCursor(pageIndex) {
-        const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
-
-        return page ? page.cursor : null;
     }
 
     updateTotalCountState(totalCount) {
@@ -321,7 +310,7 @@ export default class SubItemsModule extends Component {
      * @memberof SubItemsModule
      */
     handleItemPriorityUpdate(data) {
-        this.props.updateLocationPriority({ ...data, ...this.props.restInfo }, this.afterPriorityUpdated);
+        this.props.updateLocationPriority(data, this.afterPriorityUpdated);
     }
 
     /**
@@ -1160,9 +1149,12 @@ export default class SubItemsModule extends Component {
     }
 
     changePage(pageIndex) {
+        const { limit: itemsPerPage } = this.props;
+
         this.updateListViewHeight();
         this.setState(() => ({
             activePageIndex: pageIndex,
+            offset: pageIndex * itemsPerPage,
             activePageItems: null,
         }));
     }
