@@ -60,17 +60,17 @@
     };
 
     const formatEscapedString = function (icuStr) {
-        // eslint-disable-next-line quotes
+        // eslint-disable-next-line @stylistic/quotes
         if (icuStr === "''") {
-            return "[']"; // eslint-disable-line quotes
+            return "[']"; // eslint-disable-line @stylistic/quotes
         }
 
-        return icuStr.replace(/'(.*)'/g, '[$1]').replace(/''/g, "'"); // eslint-disable-line quotes
+        return icuStr.replace(/'(.*)'/g, '[$1]').replace(/''/g, "'"); // eslint-disable-line @stylistic/quotes
     };
 
     moment.fn.formatICU = function (format) {
         const form = format.replace(formatICUEx, (icuStr) => {
-            // eslint-disable-next-line quotes
+            // eslint-disable-next-line @stylistic/quotes
             if (icuStr[0] === "'") {
                 return formatEscapedString(icuStr);
             }

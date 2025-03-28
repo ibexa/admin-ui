@@ -14,6 +14,7 @@
 
             this.showPreviewEventName = 'ibexa-image-asset:show-preview';
         }
+
         /**
          * Creates a new Image Asset
          *
