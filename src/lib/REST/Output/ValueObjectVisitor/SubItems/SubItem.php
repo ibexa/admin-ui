@@ -26,21 +26,22 @@ final class SubItem extends ValueObjectVisitor
         $generator->valueElement('hidden', $data->hidden);
         $generator->valueElement('priority', $data->priority);
         $generator->valueElement('pathString', $data->pathString);
+        $generator->valueElement('invisible', $data->invisible);
 
         $generator->startObjectElement('contentThumbnail');
         $visitor->visitValueObject($data->contentThumbnail);
         $generator->endObjectElement('contentThumbnail');
-
-        $generator->valueElement('name', $data->name);
-        $generator->valueElement('contentRemoteId', $data->contentRemoteId);
-        $generator->valueElement('mainLanguageCode', $data->mainLanguageCode);
 
         $generator->startObjectElement('owner');
         $visitor->visitValueObject($data->owner);
         $generator->endObjectElement('owner');
 
         $generator->valueElement('currentVersionNo', $data->currentVersionNo);
-
+        $generator->startList('languageCodes');
+        foreach ($data->languagesCodes as $languageCode) {
+            $generator->valueElement('languageCode', $languageCode);
+        }
+        $generator->endList('languageCodes');
         $generator->startObjectElement('currentVersionOwner');
         $visitor->visitValueObject($data->currentVersionOwner);
         $generator->endObjectElement('currentVersionOwner');
@@ -49,9 +50,9 @@ final class SubItem extends ValueObjectVisitor
         $visitor->visitValueObject($data->contentType);
         $generator->endObjectElement('contentType');
 
-        $generator->valueElement('sectionName', $data->sectionName);
-        $generator->valueElement('publishedDate', $data->publishedDate);
-        $generator->valueElement('modificationDate', $data->modificationDate);
+        $generator->startObjectElement('contentInfo');
+        $visitor->visitValueObject($data->contentInfo);
+        $generator->endObjectElement('contentInfo');
 
         $generator->endObjectElement('SubItem');
     }

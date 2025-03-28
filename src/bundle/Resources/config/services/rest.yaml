@@ -124,3 +124,8 @@ services:
         parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\ContentType }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SubItems\ContentInfo:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\ContentInfo }
