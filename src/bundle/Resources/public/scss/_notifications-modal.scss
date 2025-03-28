@@ -11,6 +11,7 @@
         table-layout: fixed;
         white-space: normal;
         margin-bottom: 0;
+
         .ibexa-table__row .ibexa-table__cell{
             height: 115px;
             padding-right: 0;
@@ -19,10 +20,12 @@
         }
 
     }
+
     &__list {
         max-height: 90vh;
         overflow-y: auto;
     }
+
     &__type {
         .type__icon {
             @include type-icon;
@@ -33,30 +36,37 @@
             margin-left: 1rem;
         }
     }
+
     &__item--date {
         font-size: $ibexa-text-font-size-small;
         color: $ibexa-color-light-700;
     }
+
     &__type-content {
         width: 100%;
         font-size: 14px;
+
         p {
             margin-bottom: 0;
         }
     }
+
     &__item {
         position: relative;
         border: 1px solid $ibexa-color-light;
         border-bottom: none;
+
         &--wrapper {
             display: flex;
             td {
                 background-color: $ibexa-color-light-300 !important;//TODO:!
             }
         }
+
         &:first-of-type {
             border-top: none;
         } 
+
         .description__text {
             font-size: $ibexa-text-font-size-medium;
 
@@ -68,6 +78,7 @@
 
 
     }
+
     &__notice-dot {
         width: calculateRem(8px);
         height: calculateRem(8px);
@@ -80,6 +91,7 @@
         font-size: 10px;
         color: white;
     }
+
     &__item--read {
         color: $ibexa-color-dark-300;
 
@@ -88,6 +100,7 @@
         background: $ibexa-color-dark-300
         }
     }
+
     &__item--read-wrapper {
         td {
             background-color: white !important;
@@ -158,6 +171,16 @@
         .ibexa-icon {
             width: 2rem;
             height: 2rem;
+        }
+    }
+
+    &__actions { 
+        .ibexa-icon {
+            margin-right: 0;
+        }
+
+        .ibexa-btn {
+            margin-right: calculateRem(8px);
         }
     }
 }

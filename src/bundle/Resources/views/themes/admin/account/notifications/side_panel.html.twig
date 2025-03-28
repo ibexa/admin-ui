@@ -1,4 +1,4 @@
-{% embed '@ibexadesign/ui/component/side-panel/side_panel.html.twig' with {
+{% embed '@ibexadesign/ui/component/side_panel/side_panel.html.twig' with {
     title: 'ibexa_notifications'|trans|desc('Notifications'),
     attr: {
         'data-actions': "create",
@@ -9,7 +9,7 @@
     {% block header %}
         <div class="ibexa-side-panel__header">
             <span>{{ 'ibexa_notifications'|trans|desc('Notifications')}}</span>
-            <button class="btn ibexa-btn ibexa-btn--tertiary">
+            <button class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small">
                 {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
             </button>
         </div>
@@ -31,10 +31,10 @@
     {% endblock %}
 
     {% block footer %}
-    <div class="ibexa-notifications-modal__footer ibexa-side-panel__footer">
-        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications__view-all-btn">
+    <div class="ibexa-notifications-modal__footer">
+        <a class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications__view-all-btn" href="{{ path('ibexa.notifications.render.all') }}">
             {{ 'side_panel.view_all'|trans|desc('View all') }}
-        </button>
+        </a>
     </div>
     {% endblock %}
 {% endembed %}
