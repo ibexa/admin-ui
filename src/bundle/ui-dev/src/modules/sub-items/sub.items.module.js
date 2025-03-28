@@ -187,9 +187,9 @@ export default class SubItemsModule extends Component {
 
         const shouldLoadPage = !activePageItems;
 
-        if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isUpdate)) {
-            this.loadPage(activePageIndex);
-        }
+        // if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isUpdate)) {
+        //     this.loadPage(activePageIndex);
+        // }
 
         ibexa.helpers.tooltips.parse();
     }
@@ -251,30 +251,48 @@ export default class SubItemsModule extends Component {
      * @memberof SubItemsModule
      */
     loadPage(pageIndex) {
-        const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
+        // console.log('Load page');
+        const { limit, loadLocation, parentLocationId: locationId } = this.props;
         const { sortClause, sortOrder } = this.state;
-        const cursor = this.calculateCursor(pageIndex);
-        const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
 
-        this.setState({
-            queryParams: {
-                sortClause,
-                sortOrder,
-                cursor,
-            },
-            isUpdate: false,
-        });
+        // !!! TO DO check if it's need to have state queryParams
+        this.setState({ isUpdate: false });
 
-        loadLocation(restInfo, queryConfig, (response) => {
-            const { totalCount, pages, edges } = response.data._repository.location.children;
-            const activePageItems = edges.map((edge) => edge.node);
+        loadLocation({ locationId, limit, pageIndex, sortClause, sortOrder }, (response) => {
+            const { totalCount, SubItemList } = response.SubItems;
 
             this.setState(() => ({
-                activePageItems,
+                activePageItems: SubItemList,
                 totalCount,
-                pages,
             }));
+            
+            console.log('response', totalCount, SubItemList)
         });
+
+        // const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
+        // const { sortClause, sortOrder } = this.state;
+        // const cursor = this.calculateCursor(pageIndex);
+        // const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
+
+        // this.setState({
+        //     queryParams: {
+        //         sortClause,
+        //         sortOrder,
+        //         cursor,
+        //     },
+        //     isUpdate: false,
+        // });
+
+        // loadLocation(restInfo, queryConfig, (response) => {
+        //     const { totalCount, pages, edges } = response.data._repository.location.children;
+        //     const activePageItems = edges.map((edge) => edge.node);
+
+        //     this.setState(() => ({
+        //         activePageItems,
+        //         totalCount,
+        //         pages,
+        //     }));
+        // });
     }
 
     calculateCursor(pageIndex) {
