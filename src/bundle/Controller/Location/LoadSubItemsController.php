@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\Location;
 
+use Ibexa\AdminUi\REST\Value\SubItems\ContentInfo;
 use Ibexa\AdminUi\REST\Value\SubItems\ContentType;
 use Ibexa\AdminUi\REST\Value\SubItems\Owner;
 use Ibexa\AdminUi\REST\Value\SubItems\SubItem;
@@ -104,20 +105,20 @@ final class LoadSubItemsController extends RestController
         $subItems = [];
         foreach ($childrenList as $child) {
             $content = $child->getContent();
+            $contentInfo = $child->getContentInfo();
             $versionInfo = $content->getVersionInfo();
             $owner = $child->getContentInfo()->getOwner();
             $subItems[] = new SubItem(
                 $child->getId(),
                 $child->remoteId,
                 $child->isHidden(),
+                $child->isInvisible(),
                 $child->priority,
                 $child->getPathString(),
                 new Thumbnail(
                     $content->getThumbnail()?->resource,
                     $content->getThumbnail()?->mimeType
                 ),
-                $content->getContentInfo()->remoteId,
-                $content->getContentInfo()->getMainLanguageCode(),
                 new Owner(
                     $owner->getId(),
                     new Thumbnail(
@@ -131,6 +132,7 @@ final class LoadSubItemsController extends RestController
                     $owner->getName(),
                 ),
                 $versionInfo->getVersionNo(),
+                $versionInfo->getLanguageCodes(),
                 new Owner(
                     $versionInfo->getCreator()->getId(),
                     new Thumbnail(
@@ -147,10 +149,15 @@ final class LoadSubItemsController extends RestController
                     $content->getContentType()->getIdentifier(),
                     $content->getContentType()->getName(),
                 ),
-                $child->getContentInfo()->getSection()->name,
-                $child->getContentInfo()->publishedDate->getTimestamp(),
-                $child->getContentInfo()->modificationDate->getTimestamp(),
-                $content->getName(),
+                new ContentInfo(
+                    $contentInfo->getId(),
+                    $contentInfo->remoteId,
+                    $contentInfo->getMainLanguageCode(),
+                    $contentInfo->getSection()->name,
+                    $contentInfo->publishedDate->getTimestamp(),
+                    $contentInfo->modificationDate->getTimestamp(),
+                    $content->getName()
+                ),
             );
         }
 
