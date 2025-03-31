@@ -18,7 +18,7 @@
 
 {% set date %}
     {% block date %}
-        <span class="ibexa-notification-viewAll__date description__text">{{ notification.created|ibexa_short_datetime }}</span>
+        <span class="ibexa-notification-view-all__date description__text">{{ notification.created|ibexa_short_datetime }}</span>
     {% endblock %}
 {% endset %}
 
@@ -35,16 +35,16 @@
 {% endset %}
 
 {% set status %}
-    <div class="ibexa-notification-viewAll ibexa-notification-viewAll__status">
-        <span class="ibexa-notification-viewAll__notice-dot ibexa-notification-viewAll__notice-dot--small"></span>
-        <span class="ibexa-notification-viewAll__read description__text wxyz">
+    <div class="ibexa-notification-view-all ibexa-notification-view-all__status">
+        <span class="ibexa-notification-view-all__notice-dot ibexa-notification-view-all__notice-dot--small"></span>
+        <span class="ibexa-notification-view-all__read description__text wxyz">
             {{is_read ? 'notification.read'|trans|desc('Read') : 'notification.unread'|trans|desc('Unread')}}
         </span>
     </div>
 {% endset %}
 
 {% set icon_show %}
-    <svg class="ibexa-icon ibexa-icon--small ibexa-notification-viewAll__show">
+    <svg class="ibexa-icon ibexa-icon--small ibexa-notification-view-all__show">
         <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
     </svg>
 {% endset %}
@@ -81,14 +81,14 @@
                 </div>
             {% endblock %}
         {% endembed %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notification-viewAll__cell-wrapper' } %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notification-view-all__cell-wrapper' } %}
             {% block content %}
-                <div class="ibexa-notification-viewAll">
-                    <div class="ibexa-notification-viewAll__status-icon">
-                        <span class="ibexa-notification-viewAll__notice-dot"></span>
+                <div class="ibexa-notification-view-all">
+                    <div class="ibexa-notification-view-all__status-icon">
+                        <span class="ibexa-notification-view-all__notice-dot"></span>
                         <div class="ibexa-notifications-modal__type">{{ icon }}</div>
                     </div>
-                    <div class="ibexa-notification-viewAll__details">
+                    <div class="ibexa-notification-view-all__details">
                         {{ notification_type }}
                         {{ message }}
                     </div>
@@ -112,10 +112,10 @@
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
-            <div class="ibexa-notification-viewAll__mail ibexa-notification-viewAll__mail-open {{is_read ? 'ibexa-notification-viewAll__icon-hidden' }}">
+            <div class="ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}">
                 {{ icon_mail_open }}
             </div>
-            <div class="ibexa-notification-viewAll__mail ibexa-notification-viewAll__mail-closed {{ not is_read ? 'ibexa-notification-viewAll__icon-hidden' }}">
+            <div class="ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}">
                 {{ icon_mail }}
             </div>
             {% endblock %}

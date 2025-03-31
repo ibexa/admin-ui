@@ -1,4 +1,5 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
+
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 {% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
@@ -45,7 +46,9 @@
                         } %}
                     {% else %}
                         {% block tbody_not_empty %}
-                            {{ notifications|raw }}
+                            {% for notification in notifications %}
+                                {{ notification|raw }}
+                            {% endfor %}
                         {% endblock %}
                     {% endif %}
                 {% endblock %}
@@ -63,5 +66,8 @@
             {% endif %}
         </section>
     </div>
+{% endblock %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('ibexa-admin-notifications-list-js', null, 'ibexa') }}
 {% endblock %}

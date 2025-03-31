@@ -3,9 +3,7 @@
     let getNotificationsStatusErrorShowed = false;
     let lastFailedCountFetchNotificationNode = null;
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
-    const SELECTOR_MODAL_RESULTS = '.ibexa-notifications-modal__type-content';
-    const SELECTOR_GO_TO_NOTIFICATION = '.ibexa-notification-viewAll__show';
-    const SELECTOR_TOGGLE_NOTIFICATION = '.ibexa-notification-viewAll__mail';
+    const SELECTOR_MODAL_RESULTS = '.ibexa-notifications-modal__results .ibexa-scrollable-wrapper';
     const SELECTOR_MODAL_TITLE = '.ibexa-side-panel__header';
     const SELECTOR_DESC_TEXT = '.description__text';
     const SELECTOR_LIST = '.ibexa-list--notifications';
@@ -16,43 +14,23 @@
     const panel = doc.querySelector('.ibexa-notifications-modal');
     const { showErrorNotification, showWarningNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse, getTextFromResponse } = ibexa.helpers.request;
-    const handleNotificationClick = (notification, isToggle = false) => {
-        const notificationRow = notification.closest('.ibexa-table__row');
-        const isRead = notification.classList.contains('ibexa-notifications-modal__item--read');
-        const notificationReadLink =
-            isToggle && isRead ? notificationRow.dataset.notificationUnread : notificationRow.dataset.notificationRead;
+    const markAsRead = (notification, response) => {
+        if (response.status === 'success') {
+            notification.classList.add('ibexa-notifications-modal__item--read');
+        }
+
+        if (response.redirect) {
+            global.location = response.redirect;
+        }
+    };
+    const handleNotificationClick = (notification) => {
+        const notificationReadLink = notification.dataset.notificationRead;
         const request = new Request(notificationReadLink, {
             mode: 'cors',
             credentials: 'same-origin',
         });
 
-        fetch(request)
-            .then(getJsonFromResponse)
-            .then((response) => {
-                if (response.status === 'success') {
-                    notification.classList.toggle('ibexa-notifications-modal__item--read', !isRead);
-
-                    if (isToggle) {
-                        notification
-                            .querySelector('.ibexa-table__cell .ibexa-notification-viewAll__mail-open')
-                            ?.classList.toggle('ibexa-notification-viewAll__icon-hidden');
-                        notification
-                            .querySelector('.ibexa-table__cell .ibexa-notification-viewAll__mail-closed')
-                            ?.classList.toggle('ibexa-notification-viewAll__icon-hidden');
-
-                        const statusText = isRead
-                            ? Translator.trans(/*@Desc("Unread")*/ 'notification.unread', {}, 'ibexa_notifications')
-                            : Translator.trans(/*@Desc("Read")*/ 'notification.read', {}, 'ibexa_notifications');
-                        notification.closest('.ibexa-table__row').querySelector('.ibexa-notification-viewAll__read').innerHTML = statusText;
-                        return;
-                    }
-
-                    if (response.redirect) {
-                        global.location = response.redirect;
-                    }
-                }
-            })
-            .catch(showErrorNotification);
+        fetch(request).then(getJsonFromResponse).then(markAsRead.bind(null, notification)).catch(showErrorNotification);
     };
     const handleTableClick = (event) => {
         if (event.target.classList.contains('description__read-more')) {
@@ -138,6 +116,12 @@
 
         modalResults.innerHTML = pageHtml;
         toggleLoading(false);
+
+        doc.body.dispatchEvent(
+            new CustomEvent('ibexa-multilevel-popup-menu:init', {
+                detail: { container: modalResults },
+            }),
+        );
     };
     const toggleLoading = (show) => {
         panel.classList.toggle(CLASS_MODAL_LOADING, show);
@@ -162,6 +146,11 @@
     };
     const handleModalResultsClick = (event) => {
         const isPaginationBtn = event.target.classList.contains(CLASS_PAGINATION_LINK);
+        const isActionBtn = event.target.closest('.ibexa-notifications-modal__actions');
+
+        if (isActionBtn) {
+            return;
+        }
 
         if (isPaginationBtn) {
             handleNotificationsPageChange(event);
@@ -182,43 +171,11 @@
         return;
     }
 
-    const handleNotificationActionClick = (event, isToggle = false) => {
-        const notification = event.target.closest(SELECTOR_MODAL_ITEM);
-
-        if (!notification) {
-            return;
-        }
-
-        handleNotificationClick(notification, isToggle);
-    };
-    const initStatusIcons = () => {
-        doc.querySelectorAll(SELECTOR_MODAL_ITEM).forEach((item) => {
-            const isRead = item.classList.contains('ibexa-notifications-modal__item--read');
-
-            item.querySelector(`.ibexa-table__cell .ibexa-notification-viewAll__mail-closed`)?.classList.toggle(
-                'ibexa-notification-viewAll__icon-hidden',
-                !isRead,
-            );
-            item.querySelector(`.ibexa-table__cell .ibexa-notification-viewAll__mail-open`)?.classList.toggle(
-                'ibexa-notification-viewAll__icon-hidden',
-                isRead,
-            );
-        }, false);
-    };
-
-    initStatusIcons();
-
     const notificationsTable = panel.querySelector(SELECTOR_LIST);
     currentPageLink = notificationsTable.dataset.notifications;
     const interval = Number.parseInt(notificationsTable.dataset.notificationsCountInterval, 10) || INTERVAL;
 
     panel.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
-    doc.querySelectorAll(SELECTOR_GO_TO_NOTIFICATION).forEach((link) =>
-        link.addEventListener('click', handleNotificationActionClick, false),
-    );
-    doc.querySelectorAll(SELECTOR_TOGGLE_NOTIFICATION).forEach((link) =>
-        link.addEventListener('click', (event) => handleNotificationActionClick(event, true), false),
-    );
 
     const getNotificationsStatusLoop = () => {
         getNotificationsStatus().finally(() => {
