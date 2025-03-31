@@ -15,14 +15,14 @@ use PHPUnit\Framework\TestCase;
 class ContentTranslationDataTest extends TestCase
 {
     /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData */
-    private $contentTranslationData;
+    private ContentTranslationData $contentTranslationData;
 
     protected function setUp(): void
     {
         $this->contentTranslationData = new ContentTranslationData();
     }
 
-    public function testAddFieldData()
+    public function testAddFieldData(): void
     {
         self::assertNull($this->contentTranslationData->fieldsData);
 

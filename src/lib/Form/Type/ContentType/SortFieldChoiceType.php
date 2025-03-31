@@ -20,8 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SortFieldChoiceType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {

@@ -30,8 +30,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     public const ITEM__CREATE_AND_EDIT = 'object_state_group_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'object_state_group_create__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

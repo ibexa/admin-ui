@@ -17,11 +17,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasChildren implements TrashLocationOptionProvider
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(LocationService $locationService, TranslatorInterface $translator)
     {

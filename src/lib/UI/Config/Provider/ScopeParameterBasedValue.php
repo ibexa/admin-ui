@@ -13,17 +13,13 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 class ScopeParameterBasedValue implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
+    protected ConfigResolverInterface $configResolver;
 
-    /** @var string */
-    protected $parameterName;
+    protected string $parameterName;
 
-    /** @var string|null */
-    protected $namespace;
+    protected ?string $namespace;
 
-    /** @var string|null */
-    protected $scope;
+    protected ?string $scope;
 
     public function __construct(
         ConfigResolverInterface $configResolver,

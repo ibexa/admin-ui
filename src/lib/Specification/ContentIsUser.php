@@ -13,8 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 class ContentIsUser implements ContentSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\UserService $userService

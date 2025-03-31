@@ -12,8 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 class RoleUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
-    private $role;
+    private ?Role $role;
 
     /** @var string */
     private $identifier;

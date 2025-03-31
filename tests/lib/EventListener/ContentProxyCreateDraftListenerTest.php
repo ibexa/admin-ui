@@ -84,7 +84,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $content = $this->createMock(Content::class);
         $content
             ->method('__get')
-            ->will(self::returnCallback(static function ($argument) use ($contentInfo) {
+            ->will(self::returnCallback(static function ($argument) use ($contentInfo): ?\PHPUnit\Framework\MockObject\MockObject {
                 if ($argument === 'contentInfo') {
                     return $contentInfo;
                 }

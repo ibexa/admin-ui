@@ -33,20 +33,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TranslationAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
+    private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
     public function __construct(
         LanguageService $langaugeService,
@@ -98,7 +93,7 @@ class TranslationAddType extends AbstractType
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSetData(FormEvent $event)
+    public function onPreSetData(FormEvent $event): void
     {
         $contentInfo = null;
         $contentLanguages = [];
@@ -124,7 +119,7 @@ class TranslationAddType extends AbstractType
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSubmit(FormEvent $event)
+    public function onPreSubmit(FormEvent $event): void
     {
         $contentInfo = null;
         $contentLanguages = [];
@@ -209,9 +204,9 @@ class TranslationAddType extends AbstractType
                     'placeholder' => false,
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages, $limitationLanguageCodes) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages, $limitationLanguageCodes): array {
                         return $this->loadLanguages(
-                            static function (Language $language) use ($contentLanguages, $limitationLanguageCodes) {
+                            static function (Language $language) use ($contentLanguages, $limitationLanguageCodes): bool {
                                 return $language->enabled
                                     && !in_array($language->languageCode, $contentLanguages, true)
                                     && (empty($limitationLanguageCodes) || in_array($language->languageCode, $limitationLanguageCodes, true));
@@ -231,9 +226,9 @@ class TranslationAddType extends AbstractType
                     'placeholder' => /** @Desc("No language") */ 'translation.base_language.no_language',
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages): array {
                         return $this->loadLanguages(
-                            static function (Language $language) use ($contentLanguages) {
+                            static function (Language $language) use ($contentLanguages): bool {
                                 return $language->enabled && in_array($language->languageCode, $contentLanguages, true);
                             }
                         );

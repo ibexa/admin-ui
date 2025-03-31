@@ -20,26 +20,20 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     /** @var string[] */
-    private $languageCodes;
+    private array $languageCodes;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
-    private $contentInfo;
+    private ?ContentInfo $contentInfo;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
+    private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
@@ -77,7 +71,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         if (!empty($this->languageCodes)) {
             $languages = array_filter(
                 $languages,
-                function (Language $language) {
+                function (Language $language): bool {
                     return \in_array($language->languageCode, $this->languageCodes, true);
                 }
             );
@@ -106,7 +100,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         if (!empty($limitationLanguageCodes)) {
             $languages = array_filter(
                 $languages,
-                static function (Language $language) use ($limitationLanguageCodes) {
+                static function (Language $language) use ($limitationLanguageCodes): bool {
                     return \in_array($language->languageCode, $limitationLanguageCodes, true);
                 }
             );

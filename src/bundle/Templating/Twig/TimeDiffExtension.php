@@ -16,8 +16,7 @@ use Twig\TwigFilter;
 
 class TimeDiffExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UI\Service\DateTimeFormatter */
-    private $dateTimeFormatter;
+    private DateTimeFormatter $dateTimeFormatter;
 
     public function __construct(DateTimeFormatter $dateTimeFormatter)
     {

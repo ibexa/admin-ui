@@ -18,8 +18,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class BulkOperationController extends RestController
 {
-    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface */
-    private $httpKernel;
+    private HttpKernelInterface $httpKernel;
 
     /**
      * @param \Symfony\Component\HttpKernel\HttpKernelInterface $httpKernel

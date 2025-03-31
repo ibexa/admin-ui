@@ -112,7 +112,7 @@ class UniversalDiscoveryWidget extends Component
 
         if ($willNextLevelBeReloaded) {
             // Wait until the items displayed previously disappear or change
-            $this->getHTMLPage()->setTimeout(self::LONG_TIMEOUT)->waitUntil(function () use ($currentItems, $level) {
+            $this->getHTMLPage()->setTimeout(self::LONG_TIMEOUT)->waitUntil(function () use ($currentItems, $level): bool {
                 return !$this->isNextLevelDisplayed($level) || $this->getItemsFromLevel($level + 1) !== $currentItems;
             }, 'Items in UDW did not refresh correctly');
         }
@@ -123,7 +123,7 @@ class UniversalDiscoveryWidget extends Component
         $levelItemsSelector = new CSSLocator('css', sprintf($this->getLocator('treeLevelElementsFormat')->getSelector(), $level));
 
         return $this->getHTMLPage()->setTimeout(self::LONG_TIMEOUT)->findAll($levelItemsSelector)->map(
-            static function (ElementInterface $element) {
+            static function (ElementInterface $element): string {
                 return $element->getText();
             }
         );
@@ -132,7 +132,7 @@ class UniversalDiscoveryWidget extends Component
     public function bookmarkContentItem(): void
     {
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('bookmarkButton'))->click();
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(function (): bool {
             return $this->isBookmarked();
         }, 'The icon did not change to bookmarked one');
     }

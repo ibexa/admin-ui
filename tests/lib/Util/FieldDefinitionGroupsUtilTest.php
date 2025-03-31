@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class FieldDefinitionGroupsUtilTest extends TestCase
 {
-    public function testGroupFieldDefinitions()
+    public function testGroupFieldDefinitions(): void
     {
         $randomGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'random']);
         $testGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'test']);

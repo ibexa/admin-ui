@@ -12,8 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 
 class URLWildcardUpdateData extends URLWildcardData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
-    private $urlWildcard;
+    private ?URLWildcard $urlWildcard;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard

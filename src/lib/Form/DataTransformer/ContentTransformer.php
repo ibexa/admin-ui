@@ -16,8 +16,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class ContentTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
+    protected ContentService $contentService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService

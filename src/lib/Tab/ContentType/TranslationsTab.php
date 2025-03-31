@@ -23,11 +23,9 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 {
     public const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
-    protected $formFactory;
+    protected ContentTypeFormFactory $formFactory;
 
     /**
      * @param \Twig\Environment $twig

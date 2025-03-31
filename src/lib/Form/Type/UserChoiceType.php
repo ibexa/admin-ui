@@ -19,8 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     /**
      * UserGroupChoiceType constructor.
@@ -38,7 +37,7 @@ class UserChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'choice_loader' => new CallbackChoiceLoader(function () {
+            'choice_loader' => new CallbackChoiceLoader(function (): array {
                 return $this->getUsers();
             }),
             'choice_label' => 'name',
@@ -73,7 +72,7 @@ class UserChoiceType extends AbstractType
             do {
                 $results = $repository->getSearchService()->findContent($query);
                 foreach ($results->searchHits as $hit) {
-                    $users[] = $repository->sudo(static function (Repository $repository) use ($hit) {
+                    $users[] = $repository->sudo(static function (Repository $repository) use ($hit): \Ibexa\Contracts\Core\Repository\Values\User\User {
                         return $repository->getUserService()->loadUser($hit->valueObject->id);
                     });
                 }

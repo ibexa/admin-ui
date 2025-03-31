@@ -29,19 +29,19 @@ class RequestLocaleListenerTest extends TestCase
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
     /** @var \Symfony\Component\HttpFoundation\Request */
-    private $request;
+    private MockObject $request;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\HttpKernelInterface */
-    private $httpKernel;
+    private MockObject $httpKernel;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private MockObject $translator;
 
     /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private MockObject $userLanguagePreferenceProvider;
 
     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $configResolver;
+    private MockObject $configResolver;
 
     protected function setUp(): void
     {

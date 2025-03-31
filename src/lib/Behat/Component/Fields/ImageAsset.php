@@ -19,11 +19,9 @@ use PHPUnit\Framework\Assert;
 
 class ImageAsset extends Image
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
-    private $notification;
+    private Notification $notification;
 
     public function __construct(
         Session $session,

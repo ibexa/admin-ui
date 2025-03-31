@@ -30,7 +30,7 @@ class SubtreePath extends AbstractParser
     public const CONTENT_SUBTREE_PATH = 'subtree_paths.content';
     public const MEDIA_SUBTREE_PATH = 'subtree_paths.media';
 
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('subtree_paths')

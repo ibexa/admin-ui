@@ -63,7 +63,7 @@ class TabRegistry
     /**
      * @param TabGroup $group
      */
-    public function addTabGroup(TabGroup $group)
+    public function addTabGroup(TabGroup $group): void
     {
         $this->tabGroups[$group->getIdentifier()] = $group;
     }
@@ -72,7 +72,7 @@ class TabRegistry
      * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $tab
      * @param string $group
      */
-    public function addTab(TabInterface $tab, string $group)
+    public function addTab(TabInterface $tab, string $group): void
     {
         if (!isset($this->tabGroups[$group])) {
             $this->tabGroups[$group] = new TabGroup($group, []);

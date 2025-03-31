@@ -21,7 +21,7 @@ class FieldTypeFormMapperDispatcherPass implements CompilerPassInterface
     public const FIELD_TYPE_FORM_MAPPER_DISPATCHER = FieldTypeDefinitionFormMapperDispatcher::class;
     public const FIELD_TYPE_FORM_MAPPER_DEFINITION_SERVICE_TAG = 'ibexa.admin_ui.field_type.form.mapper.definition';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(self::FIELD_TYPE_FORM_MAPPER_DISPATCHER)) {
             return;

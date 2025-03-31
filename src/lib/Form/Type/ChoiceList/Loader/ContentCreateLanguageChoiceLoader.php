@@ -40,7 +40,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
             return new ArrayChoiceList($languages, $value);
         }
 
-        $languages = array_filter($languages, function (Language $language) {
+        $languages = array_filter($languages, function (Language $language): bool {
             return in_array($language->languageCode, $this->restrictedLanguagesCodes, true);
         });
 

@@ -17,8 +17,7 @@ class SectionUpdateType extends AbstractType
 {
     public const BTN_UPDATE = 'update';
 
-    /** @var SectionType */
-    protected $sectionType;
+    protected SectionType $sectionType;
 
     public function __construct(SectionType $sectionType)
     {

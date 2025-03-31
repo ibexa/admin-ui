@@ -23,8 +23,7 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
 {
     public const CONTENT_DOWNLOAD_ROUTE_NAME = 'ibexa.content.download';
 
-    /** @var array */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     public function __construct(array $siteAccessGroups)
     {

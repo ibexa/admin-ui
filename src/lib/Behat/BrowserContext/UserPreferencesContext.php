@@ -26,7 +26,7 @@ class UserPreferencesContext implements Context
     /**
      * @Given I switch to :tabName tab in User settings
      */
-    public function iSwitchToTabInUserSettings($tabName): void
+    public function iSwitchToTabInUserSettings(string $tabName): void
     {
         $this->userSettingsPage->switchTab($tabName);
     }
@@ -42,7 +42,7 @@ class UserPreferencesContext implements Context
     /**
      * @When I change password from :oldPassword to :newPassword
      */
-    public function iChangePassword($oldPassword, $newPassword): void
+    public function iChangePassword(string $oldPassword, string $newPassword): void
     {
         $this->changePasswordPage->verifyIsLoaded();
         $this->changePasswordPage->setOldPassword($oldPassword);

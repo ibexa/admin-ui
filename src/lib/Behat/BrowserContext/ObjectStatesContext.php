@@ -17,14 +17,11 @@ use PHPUnit\Framework\Assert;
 
 class ObjectStatesContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ObjectStateGroupPage */
-    private $objectStateGroupPage;
+    private ObjectStateGroupPage $objectStateGroupPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ObjectStateGroupsPage */
-    private $objectStateGroupsPage;
+    private ObjectStateGroupsPage $objectStateGroupsPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ObjectStatePage */
-    private $objectStatePage;
+    private ObjectStatePage $objectStatePage;
 
     public function __construct(
         ObjectStateGroupPage $objectStateGroupPage,
@@ -47,7 +44,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I should be on :objectStateGroupName Object State group page
      */
-    public function iShouldBeOnRObjectStateGroupPage(string $objectStateGroupName)
+    public function iShouldBeOnRObjectStateGroupPage(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->verifyIsLoaded();
@@ -56,7 +53,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I should be on :objectState Object State page
      */
-    public function iShouldBeOnObjectStatePage(string $objectStateGroup)
+    public function iShouldBeOnObjectStatePage(string $objectStateGroup): void
     {
         $this->objectStatePage->setExpectedObjectStateName($objectStateGroup);
         $this->objectStatePage->verifyIsLoaded();
@@ -65,7 +62,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then :objectStateGroupName Object State group has no Object States
      */
-    public function objectStateGroupIsEmpty(string $objectStateGroupName)
+    public function objectStateGroupIsEmpty(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         Assert::assertFalse($this->objectStateGroupPage->hasObjectStates());
@@ -102,7 +99,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I edit :objectStateGroupName from Object State groups list
      */
-    public function editObjectStateGroupFromList(string $objectStateGroupName)
+    public function editObjectStateGroupFromList(string $objectStateGroupName): void
     {
         $this->objectStateGroupsPage->editObjectStateGroup($objectStateGroupName);
     }
@@ -110,7 +107,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I start editing Object State :objectStateName from Object State Group
      */
-    public function editObjectStateFromList(string $objectStateName)
+    public function editObjectStateFromList(string $objectStateName): void
     {
         $this->objectStateGroupPage->editObjectState($objectStateName);
     }
@@ -118,7 +115,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I edit the Object State
      */
-    public function editObjectState()
+    public function editObjectState(): void
     {
         $this->objectStatePage->edit();
     }
@@ -126,7 +123,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I edit the Object State group
      */
-    public function editObjectStateGroup()
+    public function editObjectStateGroup(): void
     {
         $this->objectStateGroupPage->edit();
     }
@@ -192,7 +189,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I open :objectStateGroupName Object State group page in admin SiteAccess
      */
-    public function openObjectStateGroupPage(string $objectStateGroupName)
+    public function openObjectStateGroupPage(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->open('admin');
@@ -202,7 +199,7 @@ class ObjectStatesContext implements Context
     /**
      * @Then I open :objectStateName Object State page in admin SiteAccess
      */
-    public function openObjectStatePage(string $objectStateName)
+    public function openObjectStatePage(string $objectStateName): void
     {
         $this->objectStatePage->setExpectedObjectStateName($objectStateName);
         $this->objectStatePage->open('admin');

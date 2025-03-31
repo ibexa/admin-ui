@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 class ContentTypeGroupCreateData
 {
     /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
     /**
      * @return string
@@ -24,7 +24,7 @@ class ContentTypeGroupCreateData
     /**
      * @param string $identifier
      */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }

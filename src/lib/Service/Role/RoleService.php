@@ -20,22 +20,21 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Core\Repository;
+use Ibexa\Core\Repository\SearchService;
 
 class RoleService
 {
-    /** @var Repository\RoleService */
-    private $roleService;
+    private Repository\RoleService $roleService;
 
-    /** @var Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
     /**
      * RoleService constructor.
      *
      * @param Repository\RoleService $roleService
-     * @param Repository\SearchService $searchService
+     * @param \Ibexa\Core\Repository\SearchService $searchService
      */
-    public function __construct(Repository\RoleService $roleService, Repository\SearchService $searchService)
+    public function __construct(Repository\RoleService $roleService, SearchService $searchService)
     {
         $this->roleService = $roleService;
         $this->searchService = $searchService;
@@ -46,7 +45,7 @@ class RoleService
         return $this->roleService->loadRole($id);
     }
 
-    public function getRoles()
+    public function getRoles(): iterable
     {
         return $this->roleService->loadRoles();
     }
@@ -75,7 +74,7 @@ class RoleService
         return $draft;
     }
 
-    public function deleteRole(Role $role)
+    public function deleteRole(Role $role): void
     {
         $this->roleService->deleteRole($role);
     }
@@ -105,7 +104,7 @@ class RoleService
         return $draft;
     }
 
-    public function deletePolicy(Role $role, Policy $policy)
+    public function deletePolicy(Role $role, Policy $policy): void
     {
         $draft = $this->roleService->createRoleDraft($role);
         foreach ($draft->getPolicies() as $policyDraft) {
@@ -142,7 +141,7 @@ class RoleService
         throw new \RuntimeException("Policy {$policy->id} not found.");
     }
 
-    public function getRoleAssignments(Role $role)
+    public function getRoleAssignments(Role $role): iterable
     {
         return $this->roleService->getRoleAssignments($role);
     }
@@ -152,12 +151,12 @@ class RoleService
         return $this->roleService->loadRoleAssignment($roleAssignmentId);
     }
 
-    public function removeRoleAssignment(RoleAssignment $roleAssignment)
+    public function removeRoleAssignment(RoleAssignment $roleAssignment): void
     {
         $this->roleService->removeRoleAssignment($roleAssignment);
     }
 
-    public function assignRole(Role $role, RoleAssignmentData $data)
+    public function assignRole(Role $role, RoleAssignmentData $data): void
     {
         $users = $data->getUsers();
         $groups = $data->getGroups();
@@ -201,7 +200,7 @@ class RoleService
         }
     }
 
-    private function doAssignLimitation(Role $role, array $users = null, array $groups = null, RoleLimitation $limitation = null)
+    private function doAssignLimitation(Role $role, array $users = null, array $groups = null, RoleLimitation $limitation = null): void
     {
         if (null !== $users) {
             foreach ($users as $user) {
