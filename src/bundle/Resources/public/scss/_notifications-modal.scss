@@ -4,7 +4,6 @@
         display: flex;
         justify-content: flex-end;
         padding: calculateRem(8px);
-
     }
 
     .table {
@@ -12,13 +11,11 @@
         white-space: normal;
         margin-bottom: 0;
 
-        .ibexa-table__row .ibexa-table__cell{
+        .ibexa-table__row .ibexa-table__cell {
             height: 115px;
             padding-right: 0;
             border-radius: 0;
-
         }
-
     }
 
     &__list {
@@ -59,24 +56,22 @@
         &--wrapper {
             display: flex;
             td {
-                background-color: $ibexa-color-light-300 !important;//TODO:!
+                background-color: $ibexa-color-light-300 !important; //TODO:!
             }
         }
 
         &:first-of-type {
             border-top: none;
-        } 
+        }
 
         .description__text {
             font-size: $ibexa-text-font-size-medium;
 
             &--permanently-deleted {
-                color:$ibexa-color-danger-500;
+                color: $ibexa-color-danger-500;
                 font-size: $ibexa-text-font-size-medium;
             }
         }
-
-
     }
 
     &__notice-dot {
@@ -96,8 +91,8 @@
         color: $ibexa-color-dark-300;
 
         .ibexa-notifications-modal__notice-dot,
-        .ibexa-notification-viewAll__notice-dot {
-        background: $ibexa-color-dark-300
+        .ibexa-notification-view-all__notice-dot {
+            background: $ibexa-color-dark-300;
         }
     }
 
@@ -174,7 +169,7 @@
         }
     }
 
-    &__actions { 
+    &__actions {
         .ibexa-icon {
             margin-right: 0;
         }
@@ -185,7 +180,7 @@
     }
 }
 //TODO: needs cleaning
-.ibexa-notification-viewAll {
+.ibexa-notification-view-all {
     display: flex;
     align-items: center;
     gap: calculateRem(4px);
@@ -250,7 +245,6 @@
 
         .ibexa-table__cell.ibexa-table__cell {
             padding: calculateRem(12px) 0 calculateRem(12px) 0;
-            
         }
     }
 
