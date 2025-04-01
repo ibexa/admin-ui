@@ -286,6 +286,11 @@
         <target state="new">Select language</target>
         <note>key: languages.modal.label</note>
       </trans-unit>
+      <trans-unit id="4e447e8b99d858df1e36c1ce084b18c826025df3" resname="load_location.request.error">
+        <source>Cannot load location</source>
+        <target state="new">Cannot load location</target>
+        <note>key: load_location.request.error</note>
+      </trans-unit>
       <trans-unit id="e3c395cec9466f06c8f2f3f4b2bfcd9021537714" resname="move_btn.label">
         <source>Move</source>
         <target state="new">Move</target>
@@ -315,6 +320,11 @@
         <source>Reveal</source>
         <target state="new">Reveal</target>
         <note>key: unhide_locations_btn.label</note>
+      </trans-unit>
+      <trans-unit id="344a369d6834433246802e2491b0962bc19aa16c" resname="update_location_priority.request.error">
+        <source>An error occurred while updating location priority</source>
+        <target state="new">An error occurred while updating location priority</target>
+        <note>key: update_location_priority.request.error</note>
       </trans-unit>
       <trans-unit id="712c8bc3c12cd6e3f3940ae76271148a9e4b0818" resname="view_columns_toggler.label">
         <source>Columns</source>
