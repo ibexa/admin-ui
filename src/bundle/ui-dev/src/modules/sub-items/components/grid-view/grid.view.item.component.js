@@ -24,8 +24,8 @@ const GridViewItemComponent = ({ item, generateLink }) => {
             );
         }
 
-        return <img className={contentThumbnail.Thumbnail.uri} src={uri} alt={contentInfo.ContentInfo.name} />;
-    }
+        return <img className={thumbnailClassName} src={contentThumbnail.Thumbnail.uri} alt={contentInfo.ContentInfo.name} />;
+    };
 
     return (
         <a className="ibexa-grid-view-item" href={generateLink(locationId, contentInfo.ContentInfo.id)}>

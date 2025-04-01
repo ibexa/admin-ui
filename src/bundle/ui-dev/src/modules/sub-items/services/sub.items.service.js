@@ -37,7 +37,9 @@ export const loadLocation = ({ locationId = 2, offset = 0, limit = 10, sortClaus
     fetch(request)
         .then(getJsonFromResponse)
         .then(callback)
-        .catch(() => showErrorNotification(Translator.trans(/*@Desc("Cannot load location")*/ 'load_location.request.error', {}, 'ibexa_sub_items')));
+        .catch(() =>
+            showErrorNotification(Translator.trans(/*@Desc("Cannot load location")*/ 'load_location.request.error', {}, 'ibexa_sub_items')),
+        );
 };
 
 /**
@@ -72,9 +74,17 @@ export const updateLocationPriority = ({ priority, pathString }, callback) => {
             },
         }),
     });
-    
+
     fetch(request)
         .then(getJsonFromResponse)
         .then(callback)
-        .catch(() => showErrorNotification(Translator.trans(/*@Desc("An error occurred while updating location priority")*/ 'update_location_priority.request.error', {}, 'ibexa_sub_items')));
+        .catch(() =>
+            showErrorNotification(
+                Translator.trans(
+                    /*@Desc("An error occurred while updating location priority")*/ 'update_location_priority.request.error',
+                    {},
+                    'ibexa_sub_items',
+                ),
+            ),
+        );
 };
