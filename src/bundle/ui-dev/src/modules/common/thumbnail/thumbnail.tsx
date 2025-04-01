@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Icon from '../icon/icon';
 import ThumbnailProps from './thumbnail.types';
 
@@ -10,7 +11,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }: Thu
 
         return (
             <div className="c-thumbnail__icon-wrapper">
-                <Icon extraClasses="ibexa-icon--small" customPath={contentTypeIconPath} />
+                <Icon customPath={contentTypeIconPath} extraClasses="ibexa-icon--small" />
             </div>
         );
     };
@@ -18,7 +19,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }: Thu
     if (thumbnailData.mimeType === 'image/svg+xml') {
         return (
             <div className="c-thumbnail">
-                <Icon extraClasses={iconExtraClasses} customPath={thumbnailData.resource} />
+                <Icon customPath={thumbnailData.resource} extraClasses={iconExtraClasses} />
             </div>
         );
     }
