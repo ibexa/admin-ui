@@ -15,6 +15,7 @@ use Ibexa\AdminUi\REST\Value\SubItems\SubItem;
 use Ibexa\AdminUi\REST\Value\SubItems\SubItemList;
 use Ibexa\AdminUi\REST\Value\SubItems\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
@@ -108,6 +109,11 @@ final class LoadSubItemsController extends RestController
             $contentInfo = $child->getContentInfo();
             $versionInfo = $content->getVersionInfo();
             $owner = $child->getContentInfo()->getOwner();
+            $sectionName = null;
+            try {
+                $sectionName = $contentInfo->getSection()->name;
+            } catch (UnauthorizedException $e) {
+            }
             $subItems[] = new SubItem(
                 $child->getId(),
                 $child->remoteId,
@@ -153,9 +159,9 @@ final class LoadSubItemsController extends RestController
                     $contentInfo->getId(),
                     $contentInfo->remoteId,
                     $contentInfo->getMainLanguageCode(),
-                    $contentInfo->getSection()->name,
                     $contentInfo->publishedDate->getTimestamp(),
                     $contentInfo->modificationDate->getTimestamp(),
+                    $sectionName,
                     $content->getName()
                 ),
             );

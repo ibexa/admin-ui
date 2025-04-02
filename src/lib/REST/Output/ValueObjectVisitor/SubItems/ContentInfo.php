@@ -25,7 +25,11 @@ final class ContentInfo extends ValueObjectVisitor
         $generator->valueElement('remoteId', $data->remoteId);
         $generator->valueElement('mainLanguageCode', $data->mainLanguageCode);
         $generator->valueElement('name', $data->name);
-        $generator->valueElement('sectionName', $data->sectionName);
+
+        if ($data->sectionName !== null) {
+            $generator->valueElement('sectionName', $data->sectionName);
+        }
+
         $generator->valueElement('publishedDate', $data->publishedDate);
         $generator->valueElement('modificationDate', $data->modificationDate);
 
