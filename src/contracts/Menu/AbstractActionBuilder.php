@@ -76,12 +76,13 @@ abstract class AbstractActionBuilder extends AbstractBuilder
             $btnClass .= ' ' . $parameters['attributes']['class'];
         }
 
-        $parameters['uri'] = $isDraftConflict ? $this->generateDraftEditUrl($versionInfo, $locationId) : null;
+        $draftEditUrl = $this->generateDraftEditUrl($versionInfo, $locationId);
+        $parameters['uri'] = $isDraftConflict ? $draftEditUrl : null;
         $parameters['attributes']['class'] = $btnClass;
         $parameters['attributes']['data-content-id'] = $versionInfo->getContentInfo()->getId();
         $parameters['attributes']['data-language-code'] = $versionInfo->getInitialLanguage()->getLanguageCode();
         $parameters['attributes']['data-version-has-conflict-url'] = $this->generateVersionHasConflictUrl($versionInfo);
-        $parameters['attributes']['data-content-draft-edit-url'] = $this->generateDraftEditUrl($versionInfo, $locationId);
+        $parameters['attributes']['data-content-draft-edit-url'] = $draftEditUrl;
 
         $parameters['extras']['icon'] = $parameters['extras']['icon'] ?? self::ICON_EDIT;
         $parameters['extras']['orderNumber'] = $parameters['extras']['orderNumber'] ?? self::ORDER_NUMBER;
