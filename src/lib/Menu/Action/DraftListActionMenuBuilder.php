@@ -51,7 +51,7 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
             self::TRANSLATION_DOMAIN
         );
 
-        $contentEditDraftAction = $this->createEditDraftAction(
+        $contentEditDraftAction = $this->createEditDraftButtonAction(
             $versionInfo,
             self::ITEM_EDIT_DRAFT,
             $parameters

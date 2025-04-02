@@ -31,13 +31,14 @@ abstract class BaseActionMenuBuilderTest extends TestCase
     protected const ROUTE_VERSION_HAS_NO_CONFLICT = 'ibexa.version.has_no_conflict';
     protected const ROUTE_CONTENT_EDIT_DRAFT = '/content/edit/draft/%d/%d/%s';
     protected const ROUTE_USER_UPDATE = '/user/update/%d/%d/%s';
+    protected const IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
     protected const EDIT_ACTION_ITEM_EXTRAS = [
         'icon' => 'edit',
         'orderNumber' => 200,
         'translation_domain' => 'ibexa_action_menu',
     ];
     protected const EDIT_ACTION_ITEM_ATTRIBUTES = [
-        'class' => 'ibexa-btn--content-draft-edit',
+        'class' => self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS,
         'data-content-id' => 1,
         'data-language-code' => 'eng-GB',
         'data-version-has-conflict-url' => '/version/has-no-conflict/1/1/eng-GB',

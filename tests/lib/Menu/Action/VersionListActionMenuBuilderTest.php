@@ -130,10 +130,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             self::ITEM_EDIT_DRAFT,
             '/content/edit/draft/1/1/eng-GB',
             self::EDIT_ACTION_ITEM_EXTRAS,
-            array_merge(
-                self::EDIT_ACTION_ITEM_ATTRIBUTES,
-                ['data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB']
-            ),
+            ['class' => self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS],
         ];
 
         yield 'Restore version action item' => [

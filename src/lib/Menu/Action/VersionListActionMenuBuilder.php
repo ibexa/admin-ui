@@ -60,10 +60,9 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
 
             $editDraftActionItem = $this->createEditDraftAction(
                 $versionInfo,
-                self::ITEM_EDIT_DRAFT,
+                $locationId,
                 $parameters,
-                $isDraftConflict,
-                $locationId
+                $isDraftConflict
             );
 
             $menu->addChild($editDraftActionItem);
@@ -106,5 +105,21 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
             Message::create(self::ITEM_EDIT_DRAFT, 'ibexa_action_menu')->setDesc('Edit'),
             Message::create(self::ITEM_RESTORE_VERSION, 'ibexa_action_menu')->setDesc('Restore archived version'),
         ];
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
+     */
+    private function createEditDraftAction(
+        VersionInfo $versionInfo,
+        ?int $locationId,
+        array $parameters,
+        bool $isDraftConflict = false
+    ): ItemInterface {
+        if ($isDraftConflict) {
+            return $this->createDraftEditLinkAction($versionInfo, self::ITEM_EDIT_DRAFT, $parameters, $locationId);
+        }
+
+        return $this->createEditDraftButtonAction($versionInfo, self::ITEM_EDIT_DRAFT, $parameters, $locationId);
     }
 }

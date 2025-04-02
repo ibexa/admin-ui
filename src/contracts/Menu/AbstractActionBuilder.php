@@ -20,6 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 abstract class AbstractActionBuilder extends AbstractBuilder
 {
     protected const TRANSLATION_DOMAIN = 'ibexa_action_menu';
+    protected const IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
 
     private const ICON_EDIT = 'edit';
     private const ORDER_NUMBER = 200;
@@ -63,31 +64,52 @@ abstract class AbstractActionBuilder extends AbstractBuilder
     /**
      * @param array<string, mixed> $parameters
      */
-    protected function createEditDraftAction(
+    protected function createEditDraftButtonAction(
         VersionInfo $versionInfo,
         string $name,
         array $parameters = [],
-        bool $isDraftConflict = false,
         ?int $locationId = null
     ): ItemInterface {
-        $btnClass = 'ibexa-btn--content-draft-edit';
+        $parameters['attributes']['class'] = $this->getButtonClass($parameters);
+        $parameters['attributes']['data-content-id'] = $versionInfo->getContentInfo()->getId();
+        $parameters['attributes']['data-language-code'] = $versionInfo->getInitialLanguage()->getLanguageCode();
+        $parameters['attributes']['data-version-has-conflict-url'] = $this->generateVersionHasConflictUrl($versionInfo);
+        $parameters['attributes']['data-content-draft-edit-url'] = $this->generateDraftEditUrl($versionInfo, $locationId);
+        $parameters['extras']['icon'] = $parameters['extras']['icon'] ?? self::ICON_EDIT;
+        $parameters['extras']['orderNumber'] = $parameters['extras']['orderNumber'] ?? self::ORDER_NUMBER;
+
+        return $this->createActionItem($name, $parameters);
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
+     */
+    protected function createDraftEditLinkAction(
+        VersionInfo $versionInfo,
+        string $name,
+        array $parameters = [],
+        ?int $locationId = null
+    ): ItemInterface {
+        $parameters['uri'] = $this->generateDraftEditUrl($versionInfo, $locationId);
+        $parameters['attributes']['class'] = $this->getButtonClass($parameters);
+        $parameters['extras']['icon'] = $parameters['extras']['icon'] ?? self::ICON_EDIT;
+        $parameters['extras']['orderNumber'] = $parameters['extras']['orderNumber'] ?? self::ORDER_NUMBER;
+
+        return $this->createActionItem($name, $parameters);
+    }
+
+    /**
+     * @param array<string, mixed> $parameters
+     */
+    private function getButtonClass(array $parameters): string
+    {
+        $btnClass = self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS;
 
         if (isset($parameters['attributes']['class'])) {
             $btnClass .= ' ' . $parameters['attributes']['class'];
         }
 
-        $draftEditUrl = $this->generateDraftEditUrl($versionInfo, $locationId);
-        $parameters['uri'] = $isDraftConflict ? $draftEditUrl : null;
-        $parameters['attributes']['class'] = $btnClass;
-        $parameters['attributes']['data-content-id'] = $versionInfo->getContentInfo()->getId();
-        $parameters['attributes']['data-language-code'] = $versionInfo->getInitialLanguage()->getLanguageCode();
-        $parameters['attributes']['data-version-has-conflict-url'] = $this->generateVersionHasConflictUrl($versionInfo);
-        $parameters['attributes']['data-content-draft-edit-url'] = $draftEditUrl;
-
-        $parameters['extras']['icon'] = $parameters['extras']['icon'] ?? self::ICON_EDIT;
-        $parameters['extras']['orderNumber'] = $parameters['extras']['orderNumber'] ?? self::ORDER_NUMBER;
-
-        return $this->createActionItem($name, $parameters);
+        return $btnClass;
     }
 
     private function generateVersionHasConflictUrl(VersionInfo $versionInfo): string
