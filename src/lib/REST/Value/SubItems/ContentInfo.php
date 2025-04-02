@@ -16,9 +16,9 @@ final class ContentInfo extends Value
         public int $id,
         public string $remoteId,
         public string $mainLanguageCode,
-        public string $sectionName,
         public int $publishedDate,
         public int $modificationDate,
+        public ?string $sectionName,
         public ?string $name = null,
     ) {
     }
