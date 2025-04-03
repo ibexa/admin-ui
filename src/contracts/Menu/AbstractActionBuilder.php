@@ -29,7 +29,7 @@ abstract class AbstractActionBuilder extends AbstractBuilder
 
     private ContentService $contentService;
 
-    private UrlGeneratorInterface $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
     private UserService $userService;
 
@@ -70,7 +70,6 @@ abstract class AbstractActionBuilder extends AbstractBuilder
         array $parameters = [],
         ?int $locationId = null
     ): ItemInterface {
-        $parameters['attributes']['class'] = $this->getButtonClass($parameters);
         $parameters['attributes']['data-content-id'] = $versionInfo->getContentInfo()->getId();
         $parameters['attributes']['data-language-code'] = $versionInfo->getInitialLanguage()->getLanguageCode();
         $parameters['attributes']['data-version-has-conflict-url'] = $this->generateVersionHasConflictUrl($versionInfo);
@@ -91,25 +90,10 @@ abstract class AbstractActionBuilder extends AbstractBuilder
         ?int $locationId = null
     ): ItemInterface {
         $parameters['uri'] = $this->generateDraftEditUrl($versionInfo, $locationId);
-        $parameters['attributes']['class'] = $this->getButtonClass($parameters);
         $parameters['extras']['icon'] = $parameters['extras']['icon'] ?? self::ICON_EDIT;
         $parameters['extras']['orderNumber'] = $parameters['extras']['orderNumber'] ?? self::ORDER_NUMBER;
 
         return $this->createActionItem($name, $parameters);
-    }
-
-    /**
-     * @param array<string, mixed> $parameters
-     */
-    private function getButtonClass(array $parameters): string
-    {
-        $btnClass = self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS;
-
-        if (isset($parameters['attributes']['class'])) {
-            $btnClass .= ' ' . $parameters['attributes']['class'];
-        }
-
-        return $btnClass;
     }
 
     private function generateVersionHasConflictUrl(VersionInfo $versionInfo): string

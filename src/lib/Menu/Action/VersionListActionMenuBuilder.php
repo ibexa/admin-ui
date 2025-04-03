@@ -34,8 +34,6 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
      */
     protected function createStructure(array $options): ItemInterface
     {
-        $menu = $this->createActionItem('root_action_list');
-
         $versionInfo = $options['versionInfo'];
         if (!$versionInfo instanceof VersionInfo) {
             throw new InvalidArgumentException(
@@ -47,6 +45,8 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
                 )
             );
         }
+
+        $menu = $this->createActionItem('root_action_list');
 
         if ($versionInfo->isDraft()) {
             $isDraftConflict = $options['isDraftConflict'] ?? false;
@@ -69,27 +69,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
         }
 
         if ($versionInfo->isArchived()) {
-            $restoreVersionActionItem = $this->createActionItem(
-                self::ITEM_RESTORE_VERSION,
-                [
-                    'label' => $this->translator->trans(
-                        self::ITEM_RESTORE_VERSION,
-                        [],
-                        self::TRANSLATION_DOMAIN
-                    ),
-                    'attributes' => [
-                        'class' => 'ibexa-btn--content-edit',
-                        'data-content-id' => $versionInfo->getContentInfo()->getId(),
-                        'data-language-code' => $versionInfo->getInitialLanguage()->getLanguageCode(),
-                        'data-version-no' => $versionInfo->getVersionNo(),
-                    ],
-                    'extras' => [
-                        'icon' => self::ICON_ARCHIVE_RESTORE,
-                        'orderNumber' => 10,
-                    ],
-                ]
-            );
-
+            $restoreVersionActionItem = $this->createArchiveRestoreAction($versionInfo);
             $menu->addChild($restoreVersionActionItem);
         }
 
@@ -116,10 +96,35 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
         array $parameters,
         bool $isDraftConflict = false
     ): ItemInterface {
+        $parameters['attributes']['class'] = self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS;
         if ($isDraftConflict) {
             return $this->createDraftEditLinkAction($versionInfo, self::ITEM_EDIT_DRAFT, $parameters, $locationId);
         }
 
         return $this->createEditDraftButtonAction($versionInfo, self::ITEM_EDIT_DRAFT, $parameters, $locationId);
+    }
+
+    private function createArchiveRestoreAction(VersionInfo $versionInfo): ItemInterface
+    {
+        return $this->createActionItem(
+            self::ITEM_RESTORE_VERSION,
+            [
+                'label' => $this->translator->trans(
+                    self::ITEM_RESTORE_VERSION,
+                    [],
+                    self::TRANSLATION_DOMAIN
+                ),
+                'attributes' => [
+                    'class' => 'ibexa-btn--content-edit',
+                    'data-content-id' => $versionInfo->getContentInfo()->getId(),
+                    'data-language-code' => $versionInfo->getInitialLanguage()->getLanguageCode(),
+                    'data-version-no' => $versionInfo->getVersionNo(),
+                ],
+                'extras' => [
+                    'icon' => self::ICON_ARCHIVE_RESTORE,
+                    'orderNumber' => 10,
+                ],
+            ]
+        );
     }
 }

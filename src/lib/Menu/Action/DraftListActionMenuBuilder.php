@@ -31,8 +31,6 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
      */
     protected function createStructure(array $options): ItemInterface
     {
-        $menu = $this->createActionItem('root_action_list');
-
         $versionInfo = $options['versionInfo'];
         if (!$versionInfo instanceof VersionInfo) {
             throw new InvalidArgumentException(
@@ -45,11 +43,14 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
             );
         }
 
+        $menu = $this->createActionItem('root_action_list');
+
         $parameters['label'] = $this->translator->trans(
             self::ITEM_EDIT_DRAFT,
             [],
             self::TRANSLATION_DOMAIN
         );
+        $parameters['attributes']['class'] = self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS;
 
         $contentEditDraftAction = $this->createEditDraftButtonAction(
             $versionInfo,
