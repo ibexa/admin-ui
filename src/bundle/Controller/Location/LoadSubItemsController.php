@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class LoadSubItemsController extends RestController
 {
-    private const SORT_CLAUSE_MAP = [
+    private const array SORT_CLAUSE_MAP = [
         'ContentId' => SortClause\ContentId::class,
         'DateModified' => SortClause\DateModified::class,
         'LocationDepth' => SortClause\Location\Depth::class,
