@@ -17,19 +17,18 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class NotificationAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
-    private $notificationService;
+    private NotificationService $notificationService;
 
-    /** @var int */
-    private $nbResults;
+    private ?string $query;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\NotificationService $notificationService
-     */
+    private int $nbResults;
+
     public function __construct(
-        NotificationService $notificationService
+        NotificationService $notificationService,
+        ?string $query = null
     ) {
         $this->notificationService = $notificationService;
+        $this->query = $query;
     }
 
     /**
@@ -39,11 +38,7 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
-        if ($this->nbResults !== null) {
-            return $this->nbResults;
-        }
-
-        return $this->nbResults = $this->notificationService->getNotificationCount();
+        return $this->nbResults ?? ($this->nbResults = $this->notificationService->getNotificationCount($this->query));
     }
 
     /**
@@ -56,7 +51,7 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length): NotificationList
     {
-        $notifications = $this->notificationService->loadNotifications($offset, $length);
+        $notifications = $this->notificationService->loadNotifications($offset, $length, $this->query);
 
         if (null === $this->nbResults) {
             $this->nbResults = $notifications->totalCount;
