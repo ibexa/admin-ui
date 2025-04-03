@@ -58,7 +58,9 @@ final class LoadSubItemsController extends RestController
         $filter->withLimit($limit);
         $filter->withOffset($offset);
 
-        $sortClauses = $request->query->get('sortClause') ? [$this->buildSortClause($request->query->get('sortClause'), $sortOrder)] : $this->getDefaultSortClause($location);
+        $sortClauses = $request->query->get('sortClause')
+            ? [$this->buildSortClause($request->query->get('sortClause'), $sortOrder)]
+            : $this->getDefaultSortClause($location);
 
         foreach ($sortClauses as $sortClause) {
             $filter->withSortClause($sortClause);
