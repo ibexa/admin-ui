@@ -1,0 +1,24 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% for action in item.children %}
+    {% set element = action.uri ? 'a' : 'button' %}
+    {% set classess = {
+        class: 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text' ~ ' ' ~ action.attributes.class|default('')
+    } %}
+
+    {% set attr = {
+        title: action.label
+    }|merge(action.attributes, classess) %}
+
+    {% if action.uri %}
+        {% set attr = attr|merge({ href: action.uri })%}
+    {% else %}
+        {% set attr = attr|merge({ type: 'button' })%}
+    {% endif %}
+
+    <{{ element }} {{ html.attributes(attr) }}>
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
+        </svg>
+    </{{ element }}>
+{% endfor %}
