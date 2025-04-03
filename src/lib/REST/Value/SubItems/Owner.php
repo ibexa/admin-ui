@@ -13,10 +13,10 @@ use Ibexa\Rest\Value;
 final class Owner extends Value
 {
     public function __construct(
-        public int $id,
-        public Thumbnail $thumbnail,
-        public ContentType $contentType,
-        public ?string $name = null,
+        readonly public int $id,
+        readonly public Thumbnail $thumbnail,
+        readonly public ContentType $contentType,
+        readonly public ?string $name = null,
     ) {
     }
 }

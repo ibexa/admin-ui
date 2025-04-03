@@ -16,14 +16,12 @@ use Ibexa\AdminUi\REST\Value\SubItems\SubItemList;
 use Ibexa\AdminUi\REST\Value\SubItems\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
-use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\Core\Repository\Values\Content\LocationList;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
-use Ibexa\Contracts\Core\Repository\Values\Filter\Filter;
-use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +40,7 @@ final class LoadSubItemsController extends RestController
         'ContentName' => SortClause\ContentName::class,
     ];
 
-    public function __construct(readonly private LocationService $locationService)
+    public function __construct(readonly private SearchService $searchService)
     {
     }
 
@@ -54,29 +52,26 @@ final class LoadSubItemsController extends RestController
     ): SubItemList {
         $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
 
-        $filter = new Filter(new ParentLocationId($location->getId()));
-        $filter->withLimit($limit);
-        $filter->withOffset($offset);
-
         $sortClauses = $request->query->get('sortClause')
             ? [$this->buildSortClause($request->query->get('sortClause'), $sortOrder)]
             : $this->getDefaultSortClause($location);
 
-        foreach ($sortClauses as $sortClause) {
-            $filter->withSortClause($sortClause);
-        }
+        $query = new LocationQuery();
+        $query->filter = new ParentLocationId($location->getId());
+        $query->limit = $limit;
+        $query->offset = $offset;
+        $query->sortClauses = $sortClauses;
 
-        $count = $this->locationService->count($filter);
-        $children = $this->locationService->find($filter);
+        $searchResult = $this->searchService->findLocations($query);
 
         return $this->buildSubItemsList(
-            $count,
-            $children
+            $searchResult->totalCount ?? 0,
+            $searchResult->searchHits
         );
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause[]
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
      */
     private function getDefaultSortClause(Location $location): array
     {
@@ -86,10 +81,10 @@ final class LoadSubItemsController extends RestController
             return [];
         }
 
-        return array_filter($sortClauses, static fn ($sortClause): bool => $sortClause instanceof FilteringSortClause);
+        return $sortClauses;
     }
 
-    private function buildSortClause(string $sortClause, string $sortOrder): FilteringSortClause
+    private function buildSortClause(string $sortClause, string $sortOrder): SortClause
     {
         if (!isset(static::SORT_CLAUSE_MAP[$sortClause])) {
             throw new InvalidArgumentException('$sortClause', 'Invalid sort clause');
@@ -103,26 +98,30 @@ final class LoadSubItemsController extends RestController
         return $sortClauseInstance;
     }
 
-    private function buildSubItemsList(int $totalCount, LocationList $childrenList): SubItemList
+    /**
+     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit<\Ibexa\Contracts\Core\Repository\Values\Content\Location>> $childrenList
+     */
+    private function buildSubItemsList(int $totalCount, array $childrenList): SubItemList
     {
         $subItems = [];
-        foreach ($childrenList as $child) {
-            $content = $child->getContent();
-            $contentInfo = $child->getContentInfo();
+        foreach ($childrenList as $hit) {
+            $location = $hit->valueObject;
+            $content = $location->getContent();
+            $contentInfo = $location->getContentInfo();
             $versionInfo = $content->getVersionInfo();
-            $owner = $child->getContentInfo()->getOwner();
+            $owner = $location->getContentInfo()->getOwner();
             try {
                 $sectionName = $contentInfo->getSection()->name;
             } catch (UnauthorizedException $e) {
                 $sectionName = null;
             }
             $subItems[] = new SubItem(
-                $child->getId(),
-                $child->remoteId,
-                $child->isHidden(),
-                $child->isInvisible(),
-                $child->priority,
-                $child->getPathString(),
+                $location->getId(),
+                $location->remoteId,
+                $location->isHidden(),
+                $location->isInvisible(),
+                $location->priority,
+                $location->getPathString(),
                 new Thumbnail(
                     $content->getThumbnail()?->resource,
                     $content->getThumbnail()?->mimeType

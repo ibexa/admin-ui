@@ -16,8 +16,8 @@ final class SubItemList extends Value
      * @param \Ibexa\AdminUi\REST\Value\SubItems\SubItem[] $elements
      */
     public function __construct(
-        public int $totalCount,
-        public array $elements = []
+        readonly public int $totalCount,
+        readonly public array $elements = []
     ) {
     }
 }

@@ -8,11 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\SubItems;
 
-final class Thumbnail
+use Ibexa\Rest\Value;
+
+final class Thumbnail extends Value
 {
     public function __construct(
-        public ?string $uri,
-        public ?string $mimeType
+        readonly public ?string $uri,
+        readonly public ?string $mimeType
     ) {
     }
 }
