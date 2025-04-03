@@ -12,11 +12,14 @@ use Ibexa\AdminUi\Form\Data\Notification\NotificationRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
+use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
+use Ibexa\Bundle\AdminUi\Form\Type\SearchType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -81,8 +84,16 @@ class NotificationController extends Controller
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
     {
+        $searchForm = $this->createSearchForm();
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $data = $searchForm->getData();
+            $query = $this->buildQuery($data);
+        }
+
         $pagerfanta = new Pagerfanta(
-            new NotificationAdapter($this->notificationService)
+            new NotificationAdapter($this->notificationService, $query ?? null)
         );
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
@@ -105,8 +116,19 @@ class NotificationController extends Controller
             'notifications' => $notifications,
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
+            'search_form' => $searchForm->createView(),
             'form_remove' => $deleteNotificationsForm->createView(),
         ]);
+    }
+
+    private function buildQuery(SearchQueryData $data): ?string
+    {
+        return $data->getQuery();
+    }
+
+    private function createSearchForm(): FormInterface
+    {
+        return $this->createForm(SearchType::class);
     }
 
     private function createNotificationRemoveData(Pagerfanta $pagerfanta): NotificationRemoveData
