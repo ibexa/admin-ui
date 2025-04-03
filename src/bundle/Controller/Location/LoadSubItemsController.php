@@ -111,10 +111,10 @@ final class LoadSubItemsController extends RestController
             $contentInfo = $child->getContentInfo();
             $versionInfo = $content->getVersionInfo();
             $owner = $child->getContentInfo()->getOwner();
-            $sectionName = null;
             try {
                 $sectionName = $contentInfo->getSection()->name;
             } catch (UnauthorizedException $e) {
+                $sectionName = null;
             }
             $subItems[] = new SubItem(
                 $child->getId(),
