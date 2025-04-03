@@ -86,7 +86,7 @@ final class LoadSubItemsController extends RestController
             return [];
         }
 
-        return array_filter($sortClauses, static fn ($sortClause) => $sortClause instanceof FilteringSortClause);
+        return array_filter($sortClauses, static fn ($sortClause): bool => $sortClause instanceof FilteringSortClause);
     }
 
     private function buildSortClause(string $sortClause, string $sortOrder): FilteringSortClause
