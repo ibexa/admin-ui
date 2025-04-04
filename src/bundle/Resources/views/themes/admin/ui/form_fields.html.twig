@@ -262,6 +262,7 @@
         {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
             input_attr: additional_input_attr|merge({ class: additional_input_attr.class|default('') ~ ' ibexa-picker__input' }),
             is_disabled: attr.disabled|default(false),
+            form,
         } %}
         {% set attr = attr|merge({ hidden: true, class: attr.class|default('') ~ ' ibexa-picker__form-input' }) %}
         {{ block('form_widget') }}
