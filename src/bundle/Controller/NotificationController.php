@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Exception;
 use Ibexa\AdminUi\Form\Data\Notification\NotificationRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
@@ -27,23 +28,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class NotificationController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
-    protected $notificationService;
+    protected NotificationService $notificationService;
 
-    /** @var \Ibexa\Core\Notification\Renderer\Registry */
-    protected $registry;
+    protected Registry $registry;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    protected $translator;
+    protected TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
     public function __construct(
         NotificationService $notificationService,
@@ -72,7 +67,7 @@ class NotificationController extends Controller
                 'total' => $notificationList->totalCount,
                 'notifications' => $notificationList->items,
             ]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -154,7 +149,7 @@ class NotificationController extends Controller
                 'pending' => $this->notificationService->getPendingNotificationCount(),
                 'total' => $this->notificationService->getNotificationCount(),
             ]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -189,7 +184,7 @@ class NotificationController extends Controller
             }
 
             $response->setData($data);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -199,6 +194,26 @@ class NotificationController extends Controller
         }
 
         return $response;
+    }
+
+    public function markAllNotificationsAsReadAction(Request $request): JsonResponse
+    {
+        $response = new JsonResponse();
+
+        try {
+            $notifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
+
+            foreach ($notifications as $notification) {
+                $this->notificationService->markNotificationAsRead($notification);
+            }
+
+            return $response->setData(['status' => 'success']);
+        } catch (Exception $exception) {
+            return $response->setData([
+                'status' => 'failed',
+                'error' => $exception->getMessage(),
+            ])->setStatusCode(404);
+        }
     }
 
     public function markNotificationAsUnreadAction(Request $request, mixed $notificationId): JsonResponse
@@ -213,7 +228,7 @@ class NotificationController extends Controller
             $data = ['status' => 'success'];
 
             $response->setData($data);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -235,7 +250,7 @@ class NotificationController extends Controller
             $this->notificationService->deleteNotification($notification);
 
             $response->setData(['status' => 'success']);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
