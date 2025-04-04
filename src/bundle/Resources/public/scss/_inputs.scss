@@ -521,8 +521,11 @@
     display: none;
 }
 
-.ibexa-input--text.is-invalid + .ibexa-input-text-wrapper__actions {
-    .ibexa-icon {
-        fill: $ibexa-color-danger;
+.ibexa-input--text,
+.ibexa-input--date {
+    &.is-invalid + .ibexa-input-text-wrapper__actions {
+        .ibexa-icon {
+            fill: $ibexa-color-danger;
+        }
     }
 }
