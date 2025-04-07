@@ -917,7 +917,7 @@ ibexa.notifications.render.all:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\AllNotificationsController::renderAllNotificationsPageAction'
         page: 1
-    methods: [ GET ]
+    methods: [GET]
     requirements:
         page: '\d+'
 
@@ -929,6 +929,8 @@ ibexa.notifications.count:
 
 ibexa.notifications.mark_as_read:
     path: /notification/read/{notificationId}
+    options:
+        expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsReadAction'
     methods: [GET]
@@ -939,21 +941,25 @@ ibexa.notifications.mark_all_as_read:
     path: /notifications/read-all
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markAllNotificationsAsReadAction'
-    methods: [ GET ]
+    methods: [GET]
 
 ibexa.notifications.mark_as_unread:
     path: /notification/unread/{notificationId}
+    options:
+        expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsUnreadAction'
-    methods: [ GET ]
+    methods: [GET]
     requirements:
         notificationId: '\d+'
 
 ibexa.notifications.delete:
     path: /notification/delete/{notificationId}
+    options:
+        expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationAction'
-    methods: [ GET ]
+    methods: [GET]
     requirements:
         notificationId: '\d+'
 
@@ -969,7 +975,7 @@ ibexa.notifications.delete_multiple:
     path: /notification/delete-multiple
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationsAction'
-    methods: [ POST ]
+    methods: [POST]
 
 #
 # Permissions
@@ -1000,7 +1006,6 @@ ibexa.permission.limitation.language.content_read:
     methods: [GET]
     requirements:
         contentInfoId: \d+
-
 
 ### Focus Mode
 
