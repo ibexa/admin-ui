@@ -1,7 +1,7 @@
 {% trans_default_domain 'ibexa_notifications' %}
 
 {% if wrapper_class_list is not defined %}
-    {% set wrapper_class_list = 'ibexa-notifications-modal__item ibexa-notifications-modal__item--wrapper' ~ (notification.isPending == 0 ? ' ibexa-notifications-modal__item--read ibexa-notifications-modal__item--read-wrapper') %}
+    {% set wrapper_class_list = 'ibexa-notifications-modal__item ibexa-notifications-modal__item--wrapper' ~ (notification.isPending == 0 ? ' ibexa-notifications-modal__item--read') %}
 {% endif %}
 
 {% set icon %}
@@ -38,23 +38,22 @@
 
 {% set popup_items = [] %}
 
-{% set action_btns = {
-    markAs: {
-        label: notification.isPending == 0 ? 'notification.mark_as_unread'|trans|desc('Mark as unread') : 'notification.mark_as_read'|trans|desc('Mark as read'),
-        action_attr: { class: 'ibexa-notifications-modal--markAs', id: notification.id },
-    },
-    delete: {
-        label: 'notification.delete'|trans|desc('Delete'),
-        action_attr: { class: 'ibexa-notifications-modal--delete', id: notification.id },
-    },
-} %}
+{% if notification.isPending == 0 %}
+    {% set popup_items = popup_items|merge([{
+        label: 'notification.mark_as_unread'|trans|desc('Mark as unread'),
+        action_attr: { class: 'ibexa-notifications-modal--mark-as-unread', 'data-notification-id': notification.id },
+    }]) %}
+{% else %}
+    {% set popup_items = popup_items|merge([{
+        label: 'notification.mark_as_read'|trans|desc('Mark as read'),
+        action_attr: { class: 'ibexa-notifications-modal--mark-as-read', 'data-notification-id': notification.id },
+    }]) %}
+{% endif %}
 
-{% for key in action_btns|keys %}
-    {% set item = action_btns[key] %}
-    {% if item is not null %}
-        {% set popup_items = popup_items|merge([item]) %}
-    {% endif %}
-{% endfor %}
+{% set popup_items = popup_items|merge([{
+    label: 'notification.delete'|trans|desc('Delete'),
+    action_attr: { class: 'ibexa-notifications-modal--delete', 'data-notification-id': notification.id },
+}]) %}
 
 {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
     class: wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes),
@@ -64,7 +63,7 @@
     }
 } %}
     {% block body_row_cells %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: '' } %}
             {% block content %}
                 <div>
                     <span class="ibexa-notifications-modal__notice-dot"></span>
@@ -81,7 +80,7 @@
                 </div>
             {% endblock %}
         {% endembed %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: '' } %}
             {% block content %}
                 <div class="ibexa-notifications-modal__actions">
                     <button class="btn ibexa-btn ibexa-btn--ghost" id={{ 'ibexa-notifications-modal-popup-trigger-' ~ notification.id }}>
@@ -92,7 +91,7 @@
                     {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
                         groups: [
                             {
-                                id: notification.id,
+                                id: "notification-popup-menu-" ~ notification.id,
                                 items: popup_items,
                             },
                         ],
