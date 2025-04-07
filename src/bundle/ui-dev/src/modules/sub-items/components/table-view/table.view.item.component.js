@@ -14,8 +14,6 @@ export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
         super(props);
 
-        this.item = props.item;
-
         this.storePriorityValue = this.storePriorityValue.bind(this);
         this.enablePriorityInput = this.enablePriorityInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -91,7 +89,7 @@ export default class TableViewItemComponent extends PureComponent {
         event.preventDefault();
 
         this.props.onItemPriorityUpdate({
-            pathString: this.item.pathString,
+            pathString: this.props.item.pathString,
             priority: this._refPriorityInput.value,
         });
 
@@ -122,8 +120,8 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     editItem(languageCode) {
-        const { currentVersionNo } = this.item;
-        const { id: contentId } = this.item.contentInfo.ContentInfo;
+        const { currentVersionNo } = this.props.item;
+        const { id: contentId } = this.props.item.contentInfo.ContentInfo;
 
         this.props.handleEditItem(
             {
@@ -148,8 +146,8 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     handleEdit() {
-        const { mainLanguageCode } = this.item.contentInfo.ContentInfo;
-        const { languageCodes } = this.item;
+        const { mainLanguageCode } = this.props.item.contentInfo.ContentInfo;
+        const { languageCodes } = this.props.item;
 
         if (languageCodes.length > 1) {
             this.props.setLanguageSelectorData(this.getLanguageSelectorData());
@@ -165,9 +163,9 @@ export default class TableViewItemComponent extends PureComponent {
 
     renderNameCell() {
         const { generateLink } = this.props;
-        const { name: contentName, id: contentId } = this.item.contentInfo.ContentInfo;
-        const locationId = this.item.id;
-        const contentTypeIdentifier = this.item.contentType.ContentType.identifier;
+        const { name: contentName, id: contentId } = this.props.item.contentInfo.ContentInfo;
+        const locationId = this.props.item.id;
+        const contentTypeIdentifier = this.props.item.contentType.ContentType.identifier;
         const contentTypeIconUrl = getContentTypeIconUrl(contentTypeIdentifier);
         const linkAttrs = {
             className: 'c-table-view-item__link c-table-view-item__text-wrapper',
@@ -235,21 +233,21 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderModifiedCell() {
-        const { modificationDate } = this.item.contentInfo.ContentInfo;
+        const { modificationDate } = this.props.item.contentInfo.ContentInfo;
         const formattedModificationDate = formatShortDateTime(new Date(modificationDate * 1000));
 
         return <div className="c-table-view-item__text-wrapper">{formattedModificationDate}</div>;
     }
 
     renderPublishedCell() {
-        const { publishedDate } = this.item.contentInfo.ContentInfo;
+        const { publishedDate } = this.props.item.contentInfo.ContentInfo;
         const formattedPublishedDate = formatShortDateTime(new Date(publishedDate * 1000));
 
         return <div className="c-table-view-item__text-wrapper">{formattedPublishedDate}</div>;
     }
 
     renderContentTypeCell() {
-        const contentTypeName = this.item.contentType.ContentType.name;
+        const contentTypeName = this.props.item.contentType.ContentType.name;
 
         return <div className="c-table-view-item__text-wrapper">{contentTypeName}</div>;
     }
@@ -259,7 +257,7 @@ export default class TableViewItemComponent extends PureComponent {
 
         return (
             <>
-                {this.item.languageCodes.map((languageCode) => (
+                {this.props.item.languageCodes.map((languageCode) => (
                     <span key={languageCode} className="c-table-view-item__translation">
                         {languages.mappings[languageCode].name}
                     </span>
@@ -270,7 +268,7 @@ export default class TableViewItemComponent extends PureComponent {
 
     renderVisibilityCell() {
         const Translator = getTranslator();
-        const { invisible, hidden } = this.item;
+        const { invisible, hidden } = this.props.item;
         const visibleLabel = Translator.trans(/*@Desc("Visible")*/ 'items_table.row.visible.label', {}, 'ibexa_sub_items');
         const notVisibleLabel = Translator.trans(/*@Desc("Not Visible")*/ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
         const isVisible = !invisible && !hidden;
@@ -289,7 +287,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderCreatorCell() {
-        const { Owner: creator } = this.item.owner;
+        const { Owner: creator } = this.props.item.owner;
 
         if (!creator) {
             return null;
@@ -308,7 +306,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderContributorCell() {
-        const { Owner: lastContributor } = this.item.currentVersionOwner;
+        const { Owner: lastContributor } = this.props.item.currentVersionOwner;
 
         if (!lastContributor) {
             return null;
@@ -327,23 +325,23 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderSectionCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.item.contentInfo.ContentInfo.sectionName}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.contentInfo.ContentInfo.sectionName}</div>;
     }
 
     renderLocationIdCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.item.id}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.id}</div>;
     }
 
     renderLocationRemoteIdCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.item.remoteId}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.remoteId}</div>;
     }
 
     renderObjectIdCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.item.contentInfo.ContentInfo.id}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.contentInfo.ContentInfo.id}</div>;
     }
 
     renderObjectRemoteIdCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.item.contentInfo.ContentInfo.remoteId}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.contentInfo.ContentInfo.remoteId}</div>;
     }
 
     renderBasicColumns() {
@@ -385,10 +383,10 @@ export default class TableViewItemComponent extends PureComponent {
      * @param {Event} event
      */
     onSelectCheckboxChange(event) {
-        const { onItemSelect } = this.props;
+        const { onItemSelect, item } = this.props;
         const isSelected = event.target.checked;
 
-        onItemSelect(this.item, isSelected);
+        onItemSelect(item, isSelected);
     }
 
     /**
@@ -401,7 +399,7 @@ export default class TableViewItemComponent extends PureComponent {
     getLanguageSelectorData() {
         const Translator = getTranslator();
         const languages = this.props.languages.mappings;
-        const { languageCodes } = this.item;
+        const { languageCodes } = this.props.item;
         const label = Translator.trans(/*@Desc("Select language")*/ 'languages.modal.label', {}, 'ibexa_sub_items');
         const languageItems = languageCodes.map((languageCode) => ({
             label: languages[languageCode].name,
