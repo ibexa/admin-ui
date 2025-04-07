@@ -11,10 +11,19 @@
         white-space: normal;
         margin-bottom: 0;
 
-        .ibexa-table__row .ibexa-table__cell {
-            height: 115px;
-            padding-right: 0;
-            border-radius: 0;
+        .ibexa-table__row {
+            .ibexa-table__cell {
+                height: 115px;
+                padding-right: 0;
+                border-radius: 0;
+                background-color: $ibexa-color-light-300;
+            }
+
+            &.ibexa-notifications-modal__item--read {
+                .ibexa-table__cell {
+                    background-color: $ibexa-color-white;
+                }
+            }
         }
     }
 
@@ -55,9 +64,6 @@
 
         &--wrapper {
             display: flex;
-            td {
-                background-color: $ibexa-color-light-300 !important; //TODO:!
-            }
         }
 
         &:first-of-type {
@@ -88,17 +94,9 @@
     }
 
     &__item--read {
-        color: $ibexa-color-dark-300;
-
         .ibexa-notifications-modal__notice-dot,
         .ibexa-notification-view-all__notice-dot {
             background: $ibexa-color-dark-300;
-        }
-    }
-
-    &__item--read-wrapper {
-        td {
-            background-color: white !important;
         }
     }
 

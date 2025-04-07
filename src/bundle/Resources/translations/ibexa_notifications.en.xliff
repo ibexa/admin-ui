@@ -86,6 +86,21 @@
         <target state="new">Cannot update notifications</target>
         <note>key: notifications.modal.message.error</note>
       </trans-unit>
+      <trans-unit id="f3c5b401ed95fcabad8194c991e37cd695ea8b48" resname="notifications.modal.message.error.delete">
+        <source>Cannot delete notification</source>
+        <target state="new">Cannot delete notification</target>
+        <note>key: notifications.modal.message.error.delete</note>
+      </trans-unit>
+      <trans-unit id="81ba570714fae01e82bc6ff3c343041ff3f57a90" resname="notifications.modal.message.error.mark_as_read">
+        <source>Cannot mark notification as read</source>
+        <target state="new">Cannot mark notification as read</target>
+        <note>key: notifications.modal.message.error.mark_as_read</note>
+      </trans-unit>
+      <trans-unit id="b0f890eab3ee342e7d0158396fa259f7cb6d4e19" resname="notifications.modal.message.error.mark_as_unread">
+        <source>Cannot mark notification as unread</source>
+        <target state="new">Cannot mark notification as unread</target>
+        <note>key: notifications.modal.message.error.mark_as_unread</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
