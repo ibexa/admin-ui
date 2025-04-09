@@ -12,6 +12,9 @@ use Ibexa\AdminUi\Component\Registry;
 use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Symfony\Contracts\EventDispatcher\Event;
 
+/**
+ * @deprecated use {@see \Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent}
+ */
 class RenderSingleEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_single';

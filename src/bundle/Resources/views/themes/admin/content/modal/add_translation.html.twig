@@ -29,7 +29,7 @@
             },
         }) }}
 
-        {{ ibexa_render_component_group('form-content-add-translation-body', { form }) }}
+        {{ ibexa_twig_component_group('admin-ui-form-content-add-translation-body', { form }) }}
     {% endblock %}
     {% block footer_content %}
         {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}

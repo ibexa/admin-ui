@@ -45,8 +45,8 @@
                         </svg>
                         <span class="ibexa-btn__label">{{ 'content.field_type.ezimage.preview'|trans|desc('Preview') }}</span>
                     </a>
-                    {{ ibexa_render_component_group(
-                        'image-edit-actions-after',
+                    {{ ibexa_twig_component_group(
+                        'admin-ui-image-edit-actions-after',
                         {
                             'fieldDefinitionIdentifier' : form.parent.vars.value.fieldDefinition.identifier,
                             'contentId' : app.request.get('contentId'),
