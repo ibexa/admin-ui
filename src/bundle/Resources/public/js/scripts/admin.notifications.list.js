@@ -1,9 +1,30 @@
-(function (global, doc, ibexa, Translator) {
+(function (global, doc, ibexa, Translator, Routing) {
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
     const SELECTOR_GO_TO_NOTIFICATION = '.ibexa-notification-view-all__show';
     const SELECTOR_TOGGLE_NOTIFICATION = '.ibexa-notification-view-all__mail';
     const { showErrorNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse } = ibexa.helpers.request;
+    const markAllAsReadBtn = doc.querySelector('.ibexa-notification-list__mark-all-read');
+    const markAllAsRead = () => {
+        const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
+
+        fetch(markAllAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
+            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then((response) => {
+                if (response.status === 'success') {
+                    global.location.reload();
+                }
+            })
+            .catch(() => {
+                const message = Translator.trans(
+                    /* @Desc("Cannot mark all notifications as read") */ 'notifications.modal.message.error.mark_all_as_read',
+                    {},
+                    'ibexa_notifications',
+                );
+
+                showErrorNotification(message);
+            });
+    };
     const handleNotificationClick = (notification, isToggle = false) => {
         const notificationRow = notification.closest('.ibexa-table__row');
         const isRead = notification.classList.contains('ibexa-notifications-modal__item--read');
@@ -77,4 +98,5 @@
     doc.querySelectorAll(SELECTOR_TOGGLE_NOTIFICATION).forEach((link) =>
         link.addEventListener('click', (event) => handleNotificationActionClick(event, true), false),
     );
-})(window, window.document, window.ibexa, window.Translator);
+    markAllAsReadBtn.addEventListener('click', markAllAsRead, false);
+})(window, window.document, window.ibexa, window.Translator, window.Routing);
