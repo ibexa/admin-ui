@@ -105,7 +105,7 @@
             </aside>
 
             {%- set user_profile_output -%}
-                {{- ibexa_render_component_group('user-profile-blocks', { user }) -}}
+                {{- ibexa_twig_component_group('admin-ui-user-profile-blocks', { user }) -}}
             {%- endset -%}
 
             {% if user_profile_output is not empty %}

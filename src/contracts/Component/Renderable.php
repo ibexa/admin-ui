@@ -8,7 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Component;
 
-interface Renderable
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
+
+/**
+ * @deprecated use {@see \Ibexa\Contracts\TwigComponents\ComponentInterface}
+ */
+interface Renderable extends ComponentInterface
 {
     public function render(array $parameters = []): string;
 }

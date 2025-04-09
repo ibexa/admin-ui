@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block content %}
-    {{ ibexa_render_component_group('dashboard-blocks') }}
+    {{ ibexa_twig_component_group('admin-ui-dashboard-blocks') }}
 
     {{ form_start(form_edit, {
         'action': path('ibexa.content.edit'),

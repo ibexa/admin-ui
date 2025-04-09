@@ -37,7 +37,7 @@
 {% endblock %}
 
 {% block form_before %}
-    {{ ibexa_render_component_group('content-create-form-before', {
+    {{ ibexa_twig_component_group('admin-ui-content-create-form-before', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language
@@ -45,7 +45,7 @@
 {% endblock %}
 
 {% block form_after %}
-    {{ ibexa_render_component_group('content-create-form-after', {
+    {{ ibexa_twig_component_group('admin-ui-content-create-form-after', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language

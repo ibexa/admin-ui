@@ -34,7 +34,7 @@ services:
             $template: '@@ibexadesign/ui/tab/location_view.html.twig'
             $groupIdentifier: 'location-view'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'location-view-tab-groups' }
+            - { name: ibexa.twig.component, group: 'admin-ui-location-view-tab-groups' }
 
     Ibexa\AdminUi\Tab\LocationView\UrlsTab:
         parent: Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab

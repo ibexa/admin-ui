@@ -9,14 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\Content;
 
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
-use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
-class PreviewUnavailableTwigComponent implements Renderable
+class PreviewUnavailableTwigComponent implements ComponentInterface
 {
     /** @var \Twig\Environment */
     private $twig;

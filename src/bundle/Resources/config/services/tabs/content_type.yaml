@@ -12,4 +12,4 @@ services:
             $template: '@@ibexadesign/ui/tab/content_type.html.twig'
             $groupIdentifier: 'content-type'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'content-type-tab-groups' }
+            - { name: ibexa.twig.component, group: 'admin-ui-content-type-tab-groups' }
