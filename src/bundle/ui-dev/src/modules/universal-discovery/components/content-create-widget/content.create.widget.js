@@ -164,7 +164,7 @@ const ContentCreateWidget = () => {
             return;
         }
 
-        setSelectedLanguage(preselectedLanguage || firstLanguageCode);
+        setSelectedLanguage(preselectedLanguage ?? firstLanguageCode);
         setFilterQuery('');
     }, [createContentVisible]);
 
