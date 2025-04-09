@@ -111,6 +111,29 @@
             fetchNotificationPage(currentPageLink);
         }
     };
+    const markAllAsRead = () => {
+        const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
+
+        fetch(markAllAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
+            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then((response) => {
+                if (response.status === 'success') {
+                    const allUnreadNotifications = doc.querySelectorAll('.ibexa-notifications-modal__item');
+
+                    allUnreadNotifications.forEach((notification) => notification.classList.add('ibexa-notifications-modal__item--read'));
+                    getNotificationsStatus();
+                }
+            })
+            .catch(() => {
+                const message = Translator.trans(
+                    /* @Desc("Cannot mark all notifications as read") */ 'notifications.modal.message.error.mark_all_as_read',
+                    {},
+                    'ibexa_notifications',
+                );
+
+                showErrorNotification(message);
+            });
+    };
     const markAsRead = ({ currentTarget }) => {
         const { notificationId } = currentTarget.dataset;
         const markAsReadLink = Routing.generate('ibexa.notifications.mark_as_read', { notificationId });
@@ -124,8 +147,8 @@
                     const menuInstance = ibexa.helpers.objectInstances.getInstance(menuBranch.menuInstanceElement);
 
                     menuInstance.closeMenu();
-
                     notification.classList.add('ibexa-notifications-modal__item--read');
+                    getNotificationsStatus();
                 }
             })
             .catch(() => {
@@ -152,6 +175,7 @@
 
                     menuInstance.closeMenu();
                     notification.classList.remove('ibexa-notifications-modal__item--read');
+                    getNotificationsStatus();
                 }
             })
             .catch(() => {
@@ -270,11 +294,13 @@
         return;
     }
 
+    const markAllAsReadBtn = panel.querySelector('.ibexa-notifications-modal__mark-all-read-btn');
     const notificationsTable = panel.querySelector(SELECTOR_LIST);
     currentPageLink = notificationsTable.dataset.notifications;
     const interval = Number.parseInt(notificationsTable.dataset.notificationsCountInterval, 10) || INTERVAL;
 
     panel.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
+    markAllAsReadBtn.addEventListener('click', markAllAsRead, false);
 
     const getNotificationsStatusLoop = () => {
         getNotificationsStatus().finally(() => {
