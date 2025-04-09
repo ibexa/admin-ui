@@ -29,7 +29,7 @@
         context_actions: knp_menu_render(content_edit_sidebar_right, { 'template': '@ibexadesign/ui/menu/context_menu.html.twig' })
     } %}
         {% block after_title %}
-            {{ ibexa_render_component_group('content-form-edit-header-actions', {
+            {{ ibexa_twig_component_group('admin-ui-content-form-edit-header-actions', {
                 'content': content,
                 'content_type': content_type,
                 'location': location,
@@ -41,7 +41,7 @@
 {% endblock %}
 
 {% block form_before %}
-    {{ ibexa_render_component_group('content-edit-form-before', {
+    {{ ibexa_twig_component_group('admin-ui-content-edit-form-before', {
         'content': content,
         'content_type': content_type,
         'location': location,
@@ -81,7 +81,7 @@
 {% endblock %}
 
 {% block content_sections %}
-    {{ ibexa_render_component_group('content-edit-sections', {
+    {{ ibexa_twig_component_group('admin-ui-content-edit-sections', {
         'form': form,
         'content': content,
         'content_type': content_type,
@@ -94,7 +94,7 @@
 {% endblock %}
 
 {% block form_after %}
-    {{ ibexa_render_component_group('content-edit-form-after', {
+    {{ ibexa_twig_component_group('admin-ui-content-edit-form-after', {
         'content': content,
         'content_type': content_type,
         'location': location,

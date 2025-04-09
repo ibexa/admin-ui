@@ -15,6 +15,9 @@ use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * @deprecated use {@see \Ibexa\TwigComponents\Component\Renderer\DefaultRenderer}
+ */
 class DefaultRenderer implements RendererInterface
 {
     protected $registry;

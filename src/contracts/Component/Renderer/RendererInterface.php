@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Component\Renderer;
 
+/**
+ * @deprecated use {@see \Ibexa\Contracts\TwigComponents\Renderer\RendererInterface}
+ */
 interface RendererInterface
 {
     public function renderGroup(string $groupName, array $parameters = []): array;

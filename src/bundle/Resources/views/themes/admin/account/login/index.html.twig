@@ -4,7 +4,7 @@
     <h2 class="ibexa-login__actions-headline">{{ 'base.get_started'|trans|desc('Get started') }}</h2>
 
     {% block login_form %}
-        {{ ibexa_render_component_group('login-form-before') }}
+        {{ ibexa_twig_component_group('admin-ui-login-form-before') }}
 
         <form action="{{ path( 'login_check' ) }}" method="post" role="form">
             <fieldset>
@@ -81,7 +81,7 @@
             </fieldset>
         </form>
 
-        {{ ibexa_render_component_group('login-form-after') }}
+        {{ ibexa_twig_component_group('admin-ui-login-form-after') }}
     {% endblock %}
 
     {{ encore_entry_script_tags('ibexa-admin-ui-login-js', null, 'ibexa') }}

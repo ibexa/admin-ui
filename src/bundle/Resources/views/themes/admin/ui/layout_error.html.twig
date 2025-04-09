@@ -19,7 +19,7 @@
 	<link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
 	<link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
 	<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ibexaadminui/img/favicon-32x32.png') }}" />
-	
+
 	<script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -53,7 +53,7 @@
 					</div>
 				</div>
 			{% endblock %}
-		
+
 		</main>
 	{% endblock %}
 	<div
@@ -63,7 +63,7 @@
 				label: '{{ label }}',
 				message: '{{ message }}',
 			})|e('html_attr')  }}"></div>
-	
+
 	{% if not is_back_to_top_disabled|default(false) %}
 		{% block back_to_top %}
 			<div class="ibexa-back-to-top">
@@ -78,8 +78,8 @@
 			</div>
 		{% endblock %}
 	{% endif %}
-	
+
 	{{ encore_entry_script_tags('ibexa-admin-ui-error-page-js', null, 'ibexa') }}
-	{{ ibexa_render_component_group('stylesheet-body') }}
+	{{ ibexa_twig_component_group('admin-ui-stylesheet-body') }}
 </body>
 </html>
