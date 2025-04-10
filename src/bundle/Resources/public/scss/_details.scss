@@ -55,6 +55,12 @@
             display: inline-block;
             text-overflow: ellipsis;
         }
+
+        &--multi-line-ellipsized {
+            display: -webkit-box;
+            -webkit-line-clamp: var(--ibexa-details__ellipsized-lines-no, 1);
+            -webkit-box-orient: vertical;
+        }
     }
 
     &__item-content-wrapper {
