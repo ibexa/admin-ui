@@ -41,9 +41,13 @@
                     >
                         <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ibexa-label' }}">{{ item.label }}</div>
                         <div class="ibexa-details__item-content-wrapper">
-                            <div class="
-                                ibexa-details__item-content
-                                {{ item.is_ellipsized|default(false) ? 'ibexa-details__item-content--ellipsized' }}"
+                            <div
+                                class="
+                                    ibexa-details__item-content
+                                    {{ item.is_ellipsized|default(false) ? 'ibexa-details__item-content--ellipsized' }}
+                                    {{ item.ellipsized_lines_no|default(false) ? 'ibexa-details__item-content--multi-line-ellipsized' }}"
+                                style="
+                                    {{ item.ellipsized_lines_no|default(false) ? "--ibexa-details__ellipsized-lines-no: #{item.ellipsized_lines_no};"  }}"
                             >
                                 {% if item.content_raw is defined %}
                                     {{ item.content_raw|raw }}

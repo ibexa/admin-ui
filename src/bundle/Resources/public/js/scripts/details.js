@@ -4,8 +4,13 @@
         const showMoreIcon = showMoreBtn.querySelector('.ibexa-details__show-more-btn-icon');
         const showMoreLabel = showMoreBtn.querySelector('.ibexa-details__show-more-label');
         const showLessLabel = showMoreBtn.querySelector('.ibexa-details__show-less-label');
+        const ellipsizedLinesNo = getComputedStyle(ellipsizedContent).getPropertyValue('--ibexa-details__ellipsized-lines-no');
 
         ellipsizedContent.classList.toggle('ibexa-details__item-content--ellipsized');
+
+        if (ellipsizedLinesNo) {
+            ellipsizedContent.classList.toggle('ibexa-details__item-content--multi-line-ellipsized');
+        }
 
         showMoreLabel.classList.toggle('ibexa-details__show-more-label--hidden');
         showLessLabel.classList.toggle('ibexa-details__show-less-label--hidden');
@@ -16,7 +21,9 @@
     showMoreBtns.forEach((showMoreBtn) => {
         const contentWrapper = showMoreBtn.closest('.ibexa-details__item-content-wrapper');
         const ellipsizedContent = contentWrapper.querySelector('.ibexa-details__item-content');
-        const isEllipsized = ellipsizedContent.offsetWidth < ellipsizedContent.scrollWidth;
+        const isEllipsized =
+            ellipsizedContent.offsetWidth < ellipsizedContent.scrollWidth ||
+            ellipsizedContent.offsetHeight < ellipsizedContent.scrollHeight;
 
         showMoreBtn.classList.toggle('ibexa-details__show-more-btn--hidden', !isEllipsized);
 
