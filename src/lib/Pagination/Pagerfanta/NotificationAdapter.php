@@ -19,13 +19,13 @@ class NotificationAdapter implements AdapterInterface
 {
     private NotificationService $notificationService;
 
-    private ?string $query;
+    private array $query;
 
     private int $nbResults;
 
     public function __construct(
         NotificationService $notificationService,
-        ?string $query = null
+        array $query = []
     ) {
         $this->notificationService = $notificationService;
         $this->query = $query;
@@ -53,9 +53,8 @@ class NotificationAdapter implements AdapterInterface
     {
         $notifications = $this->notificationService->loadNotifications($offset, $length, $this->query);
 
-        if (null === $this->nbResults) {
-            $this->nbResults = $notifications->totalCount;
-        }
+        $this->nbResults ??= $notifications->totalCount;
+
 
         return $notifications;
     }

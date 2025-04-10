@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use DateTimeInterface;
 use Exception;
 use Ibexa\AdminUi\Form\Data\Notification\NotificationRemoveData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
@@ -79,16 +80,27 @@ class NotificationController extends Controller
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
     {
-        $searchForm = $this->createSearchForm();
+        $notificationTypes = array_unique(
+            array_map(
+                fn($notification) => $notification->type,
+                $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items
+            )
+        );
+        sort($notificationTypes);
+
+        $searchForm = $this->createForm(SearchType::class, null, [
+            'notification_types' => $notificationTypes,
+        ]);
         $searchForm->handleRequest($request);
 
+        $query = [];
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $data = $searchForm->getData();
             $query = $this->buildQuery($data);
         }
 
         $pagerfanta = new Pagerfanta(
-            new NotificationAdapter($this->notificationService, $query ?? null)
+            new NotificationAdapter($this->notificationService, $query)
         );
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
@@ -116,15 +128,37 @@ class NotificationController extends Controller
         ]);
     }
 
-    private function buildQuery(SearchQueryData $data): ?string
+    private function buildQuery(SearchQueryData $data): array
     {
-        return $data->getQuery();
+        $query = [];
+
+        if ($data->getType()) {
+            $query['type'] = $data->getType();
+        }
+
+        if (!empty($data->getStatuses())) {
+            $query['status'] = [];
+            if (in_array('read', $data->getStatuses(), true)) {
+                $query['status'][] = 'read';
+            }
+            if (in_array('unread', $data->getStatuses(), true)) {
+                $query['status'][] = 'unread';
+            }
+        }
+
+        $range = $data->getCreatedRange();
+        if ($range !== null) {
+            if ($range->getMin() instanceof DateTimeInterface) {
+                $query['created_from'] = $range->getMin()->getTimestamp();
+            }
+            if ($range->getMax() instanceof DateTimeInterface) {
+                $query['created_to'] = $range->getMax()->getTimestamp();
+            }
+        }
+
+        return $query;
     }
 
-    private function createSearchForm(): FormInterface
-    {
-        return $this->createForm(SearchType::class);
-    }
 
     private function createNotificationRemoveData(Pagerfanta $pagerfanta): NotificationRemoveData
     {
