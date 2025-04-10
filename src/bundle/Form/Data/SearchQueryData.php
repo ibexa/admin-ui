@@ -8,17 +8,43 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Form\Data;
 
+use Ibexa\AdminUi\Form\Data\DateRangeData;
+
 final class SearchQueryData
 {
-    private ?string $query = null;
+    private array $statuses = [];
+    private ?string $type = null;
 
-    public function getQuery(): ?string
+    private ?DateRangeData $createdRange = null;
+
+
+    public function getStatuses(): array
     {
-        return $this->query;
+        return $this->statuses;
     }
 
-    public function setQuery(?string $query): void
+    public function setStatuses(array $statuses): void
     {
-        $this->query = $query;
+        $this->statuses = $statuses;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): void
+    {
+        $this->type = $type;
+    }
+
+    public function getCreatedRange(): ?DateRangeData
+    {
+        return $this->createdRange;
+    }
+
+    public function setCreatedRange(?DateRangeData $createdRange): void
+    {
+        $this->createdRange = $createdRange;
     }
 }
