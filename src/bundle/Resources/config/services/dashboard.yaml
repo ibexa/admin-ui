@@ -50,14 +50,14 @@ services:
         public: false
 
     ibexa.adminui.dashboard.me:
-        parent: Ibexa\AdminUi\Component\TwigComponent
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/dashboard/block/me.html.twig'
         tags:
             - { name: ibexa.twig.component, group: 'admin-ui-dashboard-blocks' }
 
     ibexa.adminui.dashboard.all:
-        parent: Ibexa\AdminUi\Component\TwigComponent
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/dashboard/block/all.html.twig'
         tags:

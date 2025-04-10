@@ -8,14 +8,14 @@ services:
         autowire: true
         public: false
         tags:
-            - { name: ibexa.admin_ui.component, group: global-search }
+            - { name: ibexa.twig.component, group: admin-ui-global-search }
 
     ibexa.admin_ui.component.user_menu:
-        class: Ibexa\AdminUi\Component\TwigComponent
+        class: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/user_menu.html.twig'
         tags:
-            - { name: ibexa.admin_ui.component, group: user-menu }
+            - { name: ibexa.twig.component, group: admin-ui-user-menu }
 
     ibexa.search.autocomplete.content_template:
         parent: Ibexa\AdminUi\Component\TabsComponent
@@ -23,4 +23,4 @@ services:
             $template: '@@ibexadesign/ui/global_search_autocomplete_content_template.html.twig'
             $groupIdentifier: 'global-search-autocomplete-content'
         tags:
-            - { name: ibexa.admin_ui.component, group: global-search-autocomplete-templates }
+            - { name: ibexa.twig.component, group: admin-ui-global-search-autocomplete-templates }
