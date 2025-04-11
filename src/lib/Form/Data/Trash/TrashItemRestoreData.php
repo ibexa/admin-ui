@@ -46,7 +46,7 @@ class TrashItemRestoreData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
      */
-    public function setTrashItems(array $trashItems)
+    public function setTrashItems(array $trashItems): void
     {
         $this->trashItems = $trashItems;
     }
@@ -62,7 +62,7 @@ class TrashItemRestoreData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }

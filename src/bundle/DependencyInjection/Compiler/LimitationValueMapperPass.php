@@ -21,7 +21,7 @@ class LimitationValueMapperPass implements CompilerPassInterface
     public const LIMITATION_VALUE_MAPPER_REGISTRY = LimitationValueMapperRegistry::class;
     public const LIMITATION_VALUE_MAPPER_TAG = 'ibexa.admin_ui.limitation.mapper.value';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(self::LIMITATION_VALUE_MAPPER_REGISTRY)) {
             return;

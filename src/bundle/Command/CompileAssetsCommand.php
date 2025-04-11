@@ -94,7 +94,7 @@ class CompileAssetsCommand extends Command
             sprintf('Evaluating command <comment>%s</comment>', $yarnEncoreCommand)
         ));
 
-        $process->run(static function ($type, $buffer) use ($output, $debugFormatter, $process) {
+        $process->run(static function ($type, $buffer) use ($output, $debugFormatter, $process): void {
             $output->write(
                 $debugFormatter->progress(
                     spl_object_hash($process),

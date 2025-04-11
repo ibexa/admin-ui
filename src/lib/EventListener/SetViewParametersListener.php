@@ -233,7 +233,7 @@ class SetViewParametersListener implements EventSubscriberInterface
     {
         if (!$isPublished) {
             $parentLocations = $this->repository->sudo(
-                static function (Repository $repository) use ($content) {
+                static function (Repository $repository) use ($content): iterable {
                     return $repository->getLocationService()->loadParentLocationsForDraftContent($content->getVersionInfo());
                 }
             );
@@ -246,7 +246,7 @@ class SetViewParametersListener implements EventSubscriberInterface
         }
 
         return $this->repository->sudo(
-            static function (Repository $repository) use ($location) {
+            static function (Repository $repository) use ($location): Location {
                 return $repository->getLocationService()->loadLocation($location->parentLocationId);
             }
         );

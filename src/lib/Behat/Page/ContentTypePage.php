@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -18,11 +19,9 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 class ContentTypePage extends Page
 {
-    /** @var string */
-    private $expectedContentTypeName;
+    private ?string $expectedContentTypeName = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /** @var mixed */
     private $expectedContenTypeGroupId;
@@ -31,7 +30,7 @@ class ContentTypePage extends Page
     private $expectedContenTypeId;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $fieldTable;
+    private TableInterface $fieldTable;
 
     public function __construct(
         Session $session,

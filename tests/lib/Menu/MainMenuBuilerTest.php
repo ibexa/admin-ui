@@ -18,6 +18,7 @@ use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,19 +27,19 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MainMenuBuilerTest extends TestCase
 {
     /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
-    private $factory;
+    private MockObject $factory;
 
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    private $eventDispatcher;
+    private MockObject $eventDispatcher;
 
     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private MockObject $configResolver;
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private MockObject $permissionResolver;
 
     /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
+    private MockObject $tokenStorage;
 
     /** @var \Ibexa\User\UserSetting\UserSettingService&\PHPUnit\Framework\MockObject\MockObject */
     private UserSettingService $userSettingService;
@@ -47,7 +48,7 @@ class MainMenuBuilerTest extends TestCase
     {
         $knpFactory = $this->createMock(FactoryInterface::class);
         $knpFactory->method('createItem')
-            ->willReturnCallback(static function (string $name) use ($knpFactory) {
+            ->willReturnCallback(static function (string $name) use ($knpFactory): MenuItem {
                 return new MenuItem($name, $knpFactory);
             })
         ;
@@ -170,7 +171,7 @@ class MainMenuBuilerTest extends TestCase
         unset($this->factory, $this->eventDispatcher, $this->configResolver, $this->permissionResolver, $this->tokenStorage, $this->userSettingService);
     }
 
-    public function testCreateMenuForUserWithAdministratePolicy()
+    public function testCreateMenuForUserWithAdministratePolicy(): void
     {
         $accessMap = [
             ['setup', 'administrate', null, true],
@@ -193,7 +194,7 @@ class MainMenuBuilerTest extends TestCase
         $this->assertMenuHasAllItems($children);
     }
 
-    public function testCreateMenuForUserWithoutAdministratePolicy()
+    public function testCreateMenuForUserWithoutAdministratePolicy(): void
     {
         $accessMap = [
             ['setup', 'administrate', null, false],

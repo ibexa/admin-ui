@@ -18,17 +18,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
  */
 class ContentEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
+    protected ?Location $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    protected $contentInfo;
+    protected ?ContentInfo $contentInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
-    protected $versionInfo;
+    protected ?VersionInfo $versionInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
-    protected $language;
+    protected ?Language $language;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo

@@ -35,7 +35,7 @@ class ContentTypeGroupsDeleteData
     /**
      * @param array|null $contentTypeGroups
      */
-    public function setContentTypeGroups(?array $contentTypeGroups)
+    public function setContentTypeGroups(?array $contentTypeGroups): void
     {
         $this->contentTypeGroups = $contentTypeGroups;
     }

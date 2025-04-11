@@ -27,6 +27,7 @@ use Symfony\Component\Form\FormConfigInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
+use function count;
 
 /**
  * @covers \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
@@ -38,22 +39,22 @@ final class ContentTypeFormProcessorTest extends TestCase
     /**
      * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
      */
-    private $contentTypeService;
+    private MockObject $contentTypeService;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Routing\RouterInterface
      */
-    private $router;
+    private MockObject $router;
 
     /**
      * @var \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
      */
-    private $formProcessor;
+    private ContentTypeFormProcessor $formProcessor;
 
     /**
      * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject
      */
-    private $groupsList;
+    private MockObject $groupsList;
 
     protected function setUp(): void
     {
@@ -140,7 +141,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $expectedNewFieldDefIdentifier = sprintf(
             'new_%s_%d',
             $fieldTypeIdentifier,
-            \count($existingFieldDefinitions) + 1
+            count($existingFieldDefinitions) + 1
         );
 
         $fieldTypeSelectionForm = $this->createMock(FormInterface::class);
@@ -283,7 +284,7 @@ final class ContentTypeFormProcessorTest extends TestCase
                                      static function (
                                          ContentTypeDraft $actualContentTypeDraft,
                                          FieldDefinition $actualFieldDefinition
-                                     ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3) {
+                                     ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3): void {
                                         self::assertSame($contentTypeDraft, $actualContentTypeDraft);
                                         match ($matcher->getInvocationCount()) {
                                             1 => self::assertSame($fieldDefinition2, $actualFieldDefinition),

@@ -23,30 +23,30 @@ use Symfony\Component\Form\FormView;
 class ContentTranslateView extends BaseView implements ContentTypeValueView
 {
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
-    private $content;
+    private Content $content;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
-    private $contentType;
+    private ContentType $contentType;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?Location $location = null;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
-    private $language;
+    private Language $language;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
     private $baseLanguage;
 
     /** @var \Symfony\Component\Form\FormInterface */
-    private $form;
+    private FormInterface $form;
 
     /** @var \Symfony\Component\Form\FormView */
-    private $formView;
+    private FormView $formView;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
      */
-    public function setContent(Content $content)
+    public function setContent(Content $content): void
     {
         $this->content = $content;
     }
@@ -62,7 +62,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -86,7 +86,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
      */
-    public function setLanguage(Language $language)
+    public function setLanguage(Language $language): void
     {
         $this->language = $language;
     }
@@ -102,7 +102,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
      */
-    public function setBaseLanguage($baseLanguage)
+    public function setBaseLanguage($baseLanguage): void
     {
         $this->baseLanguage = $baseLanguage;
     }
@@ -118,7 +118,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     /**
      * @param \Symfony\Component\Form\FormInterface $form
      */
-    public function setForm(FormInterface $form)
+    public function setForm(FormInterface $form): void
     {
         $this->form = $form;
     }
@@ -134,7 +134,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     /**
      * @param \Symfony\Component\Form\FormView $formView
      */
-    public function setFormView(FormView $formView)
+    public function setFormView(FormView $formView): void
     {
         $this->formView = $formView;
     }
@@ -150,7 +150,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      */
-    public function setContentType(ContentType $contentType)
+    public function setContentType(ContentType $contentType): void
     {
         $this->contentType = $contentType;
     }

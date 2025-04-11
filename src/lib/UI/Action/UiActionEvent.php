@@ -15,17 +15,13 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class UiActionEvent extends Event implements UiActionEventInterface
 {
-    /** @var string */
-    protected $name;
+    protected string $name;
 
-    /** @var string */
-    protected $type;
+    protected string $type;
 
-    /** @var \Symfony\Component\Form\FormInterface */
-    protected $form;
+    protected FormInterface $form;
 
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
-    protected $response;
+    protected ?Response $response;
 
     /**
      * @param string $name

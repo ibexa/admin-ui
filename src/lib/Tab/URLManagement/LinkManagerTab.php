@@ -34,25 +34,17 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     public const URI_FRAGMENT = 'ibexa-tab-link-manager-link-manager';
     private const DEFAULT_MAX_PER_PAGE = 10;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLService */
-    private $urlService;
+    private URLService $urlService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\PermissionResolver
-     */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     public function __construct(
         Environment $twig,

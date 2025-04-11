@@ -13,8 +13,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 class HasChildren extends AbstractSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService

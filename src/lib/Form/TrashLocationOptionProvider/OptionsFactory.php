@@ -14,14 +14,14 @@ use Symfony\Component\Form\FormInterface;
 final class OptionsFactory
 {
     /** @var \Ibexa\AdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider[] */
-    private $providers;
+    private iterable $providers;
 
     public function __construct(iterable $providers)
     {
         $this->providers = $providers;
     }
 
-    public function addOptions(FormInterface $form, ?Location $location = null)
+    public function addOptions(FormInterface $form, ?Location $location = null): void
     {
         if (!$location) {
             return;

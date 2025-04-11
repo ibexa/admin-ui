@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ContentCreateTest extends TestCase
@@ -25,13 +26,13 @@ class ContentCreateTest extends TestCase
     private const ALLOWED_CONTENT_TYPE_ID = 1;
 
     /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
-    private $permissionChecker;
+    private MockObject $permissionChecker;
 
     /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
-    private $contentTypeService;
+    private MockObject $contentTypeService;
 
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
-    private $permissionResolver;
+    private MockObject $permissionResolver;
 
     public function setUp(): void
     {
@@ -66,7 +67,7 @@ class ContentCreateTest extends TestCase
     /**
      * @dataProvider withoutCreateTab
      */
-    public function testUdwConfigResolveWithoutCreateTab($config): void
+    public function testUdwConfigResolveWithoutCreateTab(array $config): void
     {
         $event = new ConfigResolveEvent();
         $event->setConfigName('some_config');

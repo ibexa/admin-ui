@@ -21,8 +21,7 @@ use Symfony\Component\Validator\Constraints\Range;
 
 class MediaFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
-    private $maxUploadSize;
+    private MaxUploadSize $maxUploadSize;
 
     protected const ACCEPT_VIDEO = 'video/*';
     protected const ACCEPT_AUDIO = 'audio/*';
@@ -79,7 +78,7 @@ class MediaFormMapper implements FieldDefinitionFormMapperInterface
     /**
      * Fake method to set the translation domain for the extractor.
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

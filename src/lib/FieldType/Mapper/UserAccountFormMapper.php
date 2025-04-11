@@ -114,7 +114,7 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface,
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([

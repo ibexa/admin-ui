@@ -19,8 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class LanguageTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService

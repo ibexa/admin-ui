@@ -15,11 +15,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationMoveData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
+    protected ?Location $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $newParentLocation;
+    protected ?Location $newParentLocation;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
@@ -42,7 +40,7 @@ class LocationMoveData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -58,7 +56,7 @@ class LocationMoveData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $newParentLocation
      */
-    public function setNewParentLocation(?Location $newParentLocation)
+    public function setNewParentLocation(?Location $newParentLocation): void
     {
         $this->newParentLocation = $newParentLocation;
     }

@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,8 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     /**
      * UserGroupChoiceType constructor.
@@ -38,7 +38,7 @@ class UserChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'choice_loader' => new CallbackChoiceLoader(function () {
+            'choice_loader' => new CallbackChoiceLoader(function (): array {
                 return $this->getUsers();
             }),
             'choice_label' => 'name',
@@ -73,7 +73,7 @@ class UserChoiceType extends AbstractType
             do {
                 $results = $repository->getSearchService()->findContent($query);
                 foreach ($results->searchHits as $hit) {
-                    $users[] = $repository->sudo(static function (Repository $repository) use ($hit) {
+                    $users[] = $repository->sudo(static function (Repository $repository) use ($hit): User {
                         return $repository->getUserService()->loadUser($hit->valueObject->id);
                     });
                 }

@@ -15,8 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractLanguageChoiceType extends AbstractType
 {
-    /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
-    private $languageChoiceLoader;
+    private ChoiceLoaderInterface $languageChoiceLoader;
 
     /**
      * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader

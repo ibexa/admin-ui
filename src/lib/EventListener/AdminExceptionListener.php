@@ -23,34 +23,28 @@ use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 use Throwable;
 use Twig\Environment;
 use Twig\Error\RuntimeError;
+use function in_array;
 
 class AdminExceptionListener implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
-    protected $notificationHandler;
+    protected NotificationHandlerInterface $notificationHandler;
 
-    /** @var \Twig\Environment */
-    protected $twig;
+    protected Environment $twig;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer */
-    protected $encoreTagRenderer;
+    protected TagRenderer $encoreTagRenderer;
 
-    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface */
-    private $entrypointLookupCollection;
+    private EntrypointLookupCollectionInterface $entrypointLookupCollection;
 
-    /** @var array */
-    protected $siteAccessGroups;
+    protected array $siteAccessGroups;
 
-    /** @var string */
-    protected $rootDir;
+    protected string $rootDir;
 
-    /** @var string */
-    protected $kernelEnvironment;
+    protected string $kernelEnvironment;
 
     /** @var \Psr\Log\LogLevel::* */
-    private $logLevel;
+    private string $logLevel;
 
     /**
      * @param \Twig\Environment $twig
@@ -85,7 +79,7 @@ class AdminExceptionListener implements LoggerAwareInterface
     /**
      * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onKernelException(ExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event): void
     {
         if ($this->kernelEnvironment !== 'prod') {
             return;
@@ -151,7 +145,7 @@ class AdminExceptionListener implements LoggerAwareInterface
         /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
         $siteAccess = $request->get('siteaccess', new SiteAccess('default'));
 
-        return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME]);
+        return in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME]);
     }
 
     /**

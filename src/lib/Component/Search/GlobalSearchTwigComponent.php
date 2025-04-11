@@ -17,14 +17,11 @@ use Twig\Environment;
 
 final class GlobalSearchTwigComponent implements Renderable
 {
-    /** @var \Twig\Environment */
-    private $twig;
+    private Environment $twig;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         Environment $twig,

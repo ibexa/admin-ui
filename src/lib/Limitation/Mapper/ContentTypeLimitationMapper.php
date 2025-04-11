@@ -21,10 +21,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
-     */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeService)
     {
@@ -32,7 +29,10 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         $this->logger = new NullLogger();
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $contentTypeChoices = [];
         foreach ($this->contentTypeService->loadContentTypeGroups() as $group) {
@@ -44,7 +44,10 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         return $contentTypeChoices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
         foreach ($limitation->limitationValues as $contentTypeId) {

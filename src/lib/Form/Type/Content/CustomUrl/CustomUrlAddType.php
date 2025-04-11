@@ -29,20 +29,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CustomUrlAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\AdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener */
-    private $addLanguageFieldBasedOnContentListener;
+    private AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener;
 
-    /** @var \Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener */
-    private $buildPathFromRootListener;
+    private BuildPathFromRootListener $buildPathFromRootListener;
 
-    /** @var \Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener */
-    private $checkboxIfRootLocationListener;
+    private DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener;
 
     /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $nonAdminSiteaccessResolver;
+    private SiteaccessResolverInterface $nonAdminSiteaccessResolver;
 
     private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
 

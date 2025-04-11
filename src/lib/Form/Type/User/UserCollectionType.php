@@ -16,8 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class UserCollectionType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    protected $userService;
+    protected UserService $userService;
 
     public function __construct(UserService $userService)
     {

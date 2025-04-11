@@ -13,18 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ImageAssetUploadData
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-     */
     #[Assert\NotBlank]
     #[Assert\Image(detectCorrupted: true)]
-    private $file;
+    private ?UploadedFile $file;
 
-    /**
-     * @var string
-     */
     #[Assert\NotBlank]
-    private $languageCode;
+    private ?string $languageCode;
 
     /**
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile|null $file

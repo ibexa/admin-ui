@@ -29,20 +29,15 @@ use Symfony\Component\Form\FormInterface;
  */
 class ContentTranslateViewFilter implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $languagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $languagePreferenceProvider;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService

@@ -46,53 +46,40 @@ use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use function count;
+use function is_array;
 
 class ContentViewController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $pathService;
+    private PathService $pathService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier */
-    private $subitemsContentViewParameterSupplier;
+    private SubitemsContentViewParameterSupplier $subitemsContentViewParameterSupplier;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
+    private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $sfFormFactory;
+    private FormFactoryInterface $sfFormFactory;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
+    private LookupLimitationsTransformer $lookupLimitationsTransformer;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
@@ -490,7 +477,7 @@ class ContentViewController extends Controller
 
         $contextualContentTreeRootLocationIds = $this->configResolver->getParameter('content_tree_module.contextual_tree_root_location_ids');
         $possibleContentTreeRoots = array_intersect($location->path, $contextualContentTreeRootLocationIds);
-        if (\is_array($this->permissionResolver->hasAccess('content', 'read'))) {
+        if (is_array($this->permissionResolver->hasAccess('content', 'read'))) {
             $accessibleLocations = $this->locationService->loadLocationList($possibleContentTreeRoots);
             $possibleContentTreeRoots = array_column($accessibleLocations, 'id');
         }
@@ -512,7 +499,7 @@ class ContentViewController extends Controller
     private function getContentCreateData(?Location $location): ContentCreateData
     {
         $languages = $this->languageService->loadLanguages();
-        $language = 1 === \count($languages)
+        $language = 1 === count($languages)
             ? array_shift($languages)
             : null;
 

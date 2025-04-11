@@ -12,8 +12,7 @@ use Ibexa\Rest\Value as RestValue;
 
 class Node extends RestValue
 {
-    /** @var int */
-    private $depth;
+    private int $depth;
 
     /** @var int */
     public $locationId;

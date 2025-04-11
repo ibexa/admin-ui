@@ -18,8 +18,7 @@ use Symfony\Component\Validator\Constraints\Range;
 
 class BinaryFileFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
-    private $maxUploadSize;
+    private MaxUploadSize $maxUploadSize;
 
     public function __construct(FieldTypeService $fieldTypeService, MaxUploadSize $maxUploadSize)
     {

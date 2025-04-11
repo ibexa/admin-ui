@@ -16,11 +16,9 @@ use PHPUnit\Framework\Assert;
 
 class UserNotificationContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
-    private $upperMenu;
+    private UpperMenu $upperMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UserNotificationPopup */
-    private $userNotificationPopup;
+    private UserNotificationPopup $userNotificationPopup;
 
     public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup)
     {
@@ -31,7 +29,7 @@ class UserNotificationContext implements Context
     /**
      * @Given there is an unread notification for current user
      */
-    public function thereIsNotificationForCurrentUser()
+    public function thereIsNotificationForCurrentUser(): void
     {
         Assert::assertTrue($this->upperMenu->hasUnreadNotification());
     }
@@ -39,7 +37,7 @@ class UserNotificationContext implements Context
     /**
      * @Given I go to user notification with details:
      */
-    public function iGoToUserNotificationWithDetails(TableNode $notificationDetails)
+    public function iGoToUserNotificationWithDetails(TableNode $notificationDetails): void
     {
         $type = $notificationDetails->getHash()[0]['Type'];
         $description = $notificationDetails->getHash()[0]['Description'];

@@ -54,7 +54,7 @@ class ContentMainLocationUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -70,7 +70,7 @@ class ContentMainLocationUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      */
-    public function setLocation(Location $location)
+    public function setLocation(Location $location): void
     {
         $this->location = $location;
     }

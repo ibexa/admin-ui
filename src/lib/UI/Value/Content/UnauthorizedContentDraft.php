@@ -12,8 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedCo
 
 class UnauthorizedContentDraft implements ContentDraftInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem */
-    private $unauthorizedContentDraft;
+    private UnauthorizedContentDraftListItem $unauthorizedContentDraft;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem $unauthorizedContentDraft

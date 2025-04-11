@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Ibexa\Core\Repository\Values\User\Role;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class RoleTransformerTest extends TestCase
@@ -24,7 +25,7 @@ class RoleTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?Role $value, ?int $expected): void
     {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($service);
@@ -39,7 +40,7 @@ class RoleTransformerTest extends TestCase
      *
      * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(string|int|bool|float|stdClass|array $value): void
     {
         $roleService = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($roleService);
@@ -50,7 +51,7 @@ class RoleTransformerTest extends TestCase
         $transformer->transform($value);
     }
 
-    public function testReverseTransformWithId()
+    public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(RoleService::class);
         $service->expects(self::once())
@@ -65,7 +66,7 @@ class RoleTransformerTest extends TestCase
         self::assertEquals(new Role(['id' => 123456]), $result);
     }
 
-    public function testReverseTransformWithNull()
+    public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(RoleService::class);
         $service->expects(self::never())
@@ -81,7 +82,7 @@ class RoleTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(string|bool|float|stdClass|array $value): void
     {
         $roleService = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($roleService);
@@ -92,7 +93,7 @@ class RoleTransformerTest extends TestCase
         $transformer->reverseTransform($value);
     }
 
-    public function testReverseTransformWithNotFoundException()
+    public function testReverseTransformWithNotFoundException(): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Location not found');
@@ -131,7 +132,7 @@ class RoleTransformerTest extends TestCase
             'bool' => [true],
             'float' => [12.34],
             'array' => [[]],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
         ];
     }
 
@@ -142,7 +143,7 @@ class RoleTransformerTest extends TestCase
             'bool' => [true],
             'float' => [12.34],
             'array' => [[1]],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
             'scientific_notation' => ['1337e0'],
             'hexadecimal' => ['0x539'],
         ];
