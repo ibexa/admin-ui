@@ -255,7 +255,7 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
     if (!canCreateContent(file, parentInfo, config)) {
         errorMsgs.push(
             Translator.trans(
-                /*@Desc("You do not have permission to create this Content item")*/ 'disallowed_content_type.message',
+                /*@Desc("You don’t have permission to create this content item.")*/ 'disallowed_content_type.message',
                 {},
                 'ibexa_multi_file_upload',
             ),
