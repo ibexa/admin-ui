@@ -14,8 +14,7 @@ use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 
 class TabService
 {
-    /** @var \Ibexa\AdminUi\Tab\TabRegistry */
-    protected $tabRegistry;
+    protected TabRegistry $tabRegistry;
 
     /**
      * @param \Ibexa\AdminUi\Tab\TabRegistry $tabRegistry

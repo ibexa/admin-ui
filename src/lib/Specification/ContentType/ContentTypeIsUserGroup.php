@@ -14,8 +14,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 class ContentTypeIsUserGroup extends AbstractSpecification
 {
-    /** @var array */
-    private $userGroupContentTypeIdentifier;
+    private array $userGroupContentTypeIdentifier;
 
     /**
      * @param array $userGroupContentTypeIdentifier

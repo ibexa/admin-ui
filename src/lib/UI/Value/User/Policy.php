@@ -17,7 +17,7 @@ class Policy extends APIPolicy
      *
      * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
-    protected $limitations = [];
+    protected iterable $limitations;
 
     /**
      * RoleAssignment to which policy belongs.

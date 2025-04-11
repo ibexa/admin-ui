@@ -19,15 +19,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class FieldTypeChoiceType extends AbstractType
 {
-    /**
-     * @var \Ibexa\Core\FieldType\FieldTypeRegistry
-     */
-    private $fieldTypeRegistry;
+    private FieldTypeRegistry $fieldTypeRegistry;
 
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(FieldTypeRegistry $fieldTypeRegistry, TranslatorInterface $translator)
     {
@@ -47,7 +41,7 @@ class FieldTypeChoiceType extends AbstractType
         ]);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
@@ -62,7 +56,7 @@ class FieldTypeChoiceType extends AbstractType
      *
      * @return array
      */
-    private function getFieldTypeChoices()
+    private function getFieldTypeChoices(): array
     {
         $choices = [];
         foreach ($this->fieldTypeRegistry->getConcreteFieldTypesIdentifiers() as $fieldTypeIdentifier) {
@@ -81,7 +75,7 @@ class FieldTypeChoiceType extends AbstractType
      *
      * @return string
      */
-    private function getFieldTypeLabel($fieldTypeIdentifier)
+    private function getFieldTypeLabel(string $fieldTypeIdentifier): string
     {
         return $this->translator->trans(/** @Ignore */
             $fieldTypeIdentifier . '.name',

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 class PolicyUpdateMapperTest extends TestCase
 {
     /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
-    private $mapper;
+    private PolicyUpdateMapper $mapper;
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class PolicyUpdateMapperTest extends TestCase
      *
      * @param array $properties
      */
-    public function testMap(array $properties)
+    public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
@@ -49,14 +49,14 @@ class PolicyUpdateMapperTest extends TestCase
      *
      * @param array $properties
      */
-    public function testReverseMap(array $properties)
+    public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
         self::assertEquals($this->createStruct($properties), $struct);
     }
 
-    public function testMapWithWrongInstance()
+    public function testMapWithWrongInstance(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'value\' is invalid: must be an instance of ' . PolicyUpdateStruct::class);

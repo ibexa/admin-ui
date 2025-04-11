@@ -27,11 +27,9 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
 
     private ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    private $fieldsGroupsList;
+    private FieldsGroupsList $fieldsGroupsList;
 
     /**
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
@@ -56,7 +54,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
      *
      * @return \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
-    public function mapToFormData(ValueObject $contentTypeDraft, array $params = [])
+    public function mapToFormData(ValueObject $contentTypeDraft, array $params = []): ContentTypeData
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -141,7 +139,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    private function configureOptions(OptionsResolver $optionsResolver)
+    private function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver
             ->setDefined(['language'])

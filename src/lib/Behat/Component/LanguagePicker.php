@@ -24,7 +24,7 @@ class LanguagePicker extends Component
     public function getLanguages(): array
     {
         return $this->getHTMLPage()->findAll($this->getLocator('languageSelector'))->map(
-            static function (ElementInterface $element) {
+            static function (ElementInterface $element): string {
                 return $element->getText();
             }
         );

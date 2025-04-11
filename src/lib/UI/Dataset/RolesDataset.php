@@ -19,29 +19,22 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class RolesDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
-    /** @var array */
-    private $userContentTypeIdentifier;
+    private array $userContentTypeIdentifier;
 
-    /** @var array */
-    private $userGroupContentTypeIdentifier;
+    private array $userGroupContentTypeIdentifier;
 
     /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
-    private $data;
+    private ?array $data = null;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService

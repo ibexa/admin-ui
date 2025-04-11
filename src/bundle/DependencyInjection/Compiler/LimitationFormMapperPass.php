@@ -20,7 +20,7 @@ class LimitationFormMapperPass implements CompilerPassInterface
 {
     private const LIMITATION_MAPPER_FORM_TAG = 'ibexa.admin_ui.limitation.mapper.form';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(LimitationFormMapperRegistry::class)) {
             return;

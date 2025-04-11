@@ -17,14 +17,12 @@ use PHPUnit\Framework\Assert;
 
 class ContentRelationMultiple extends FieldTypeComponent
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableBuilder */
-    private $tableBuilder;
+    private TableBuilder $tableBuilder;
 
     public function __construct(Session $session, UniversalDiscoveryWidget $universalDiscoveryWidget, TableBuilder $tableBuilder)
     {
@@ -143,7 +141,7 @@ class ContentRelationMultiple extends FieldTypeComponent
         return $wantedRelations;
     }
 
-    private function startAddingRelations()
+    private function startAddingRelations(): void
     {
         if ($this->isRelationEmpty()) {
             $selectLocator = CSSLocatorBuilder::base($this->parentLocator)
@@ -160,7 +158,7 @@ class ContentRelationMultiple extends FieldTypeComponent
         }
     }
 
-    private function selectRelationsAndConfirm($items, $paths)
+    private function selectRelationsAndConfirm($items, array $paths): void
     {
         $this->universalDiscoveryWidget->verifyIsLoaded();
 

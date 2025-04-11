@@ -22,8 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
     public function __construct(
         LanguageService $languageService
@@ -60,7 +59,7 @@ class ContentTypeEditType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => true,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentTypeLanguages) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentTypeLanguages): array {
                         return array_map([$this->languageService, 'loadLanguage'], $contentTypeLanguages);
                     }),
                 ]

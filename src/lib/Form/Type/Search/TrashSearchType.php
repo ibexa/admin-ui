@@ -28,17 +28,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class TrashSearchType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader */
-    private $datePeriodChoiceLoader;
+    private DatePeriodChoiceLoader $datePeriodChoiceLoader;
 
-    /** @var \Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader */
-    private $searchContentTypeChoiceLoader;
+    private SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader;
 
     public function __construct(
         TranslatorInterface $translator,

@@ -13,8 +13,7 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 class Timezone implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    protected $userSettingService;
+    protected UserSettingService $userSettingService;
 
     /**
      * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService

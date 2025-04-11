@@ -15,8 +15,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueURLValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService */
-    private $urlService;
+    private URLService $urlService;
 
     /**
      * UniqueURLValidator constructor.

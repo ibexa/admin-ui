@@ -30,16 +30,16 @@ final class InContextTranslationListenerTest extends TestCase
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
     /** @var \Symfony\Component\HttpFoundation\Request */
-    private $request;
+    private MockObject $request;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\HttpKernelInterface */
-    private $httpKernel;
+    private MockObject $httpKernel;
 
     /** @var \Ibexa\User\UserSetting\UserSettingService|\PHPUnit\Framework\MockObject\MockObject */
-    private $userSettingService;
+    private MockObject $userSettingService;
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $translator;
+    private MockObject $translator;
 
     protected function setUp(): void
     {

@@ -15,11 +15,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationSwapData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $currentLocation;
+    protected ?Location $currentLocation;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $newLocation;
+    protected ?Location $newLocation;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $currentLocation
@@ -42,7 +40,7 @@ class LocationSwapData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $currentLocation
      */
-    public function setCurrentLocation(?Location $currentLocation)
+    public function setCurrentLocation(?Location $currentLocation): void
     {
         $this->currentLocation = $currentLocation;
     }
@@ -58,7 +56,7 @@ class LocationSwapData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $newLocation
      */
-    public function setNewLocation(?Location $newLocation)
+    public function setNewLocation(?Location $newLocation): void
     {
         $this->newLocation = $newLocation;
     }

@@ -14,8 +14,7 @@ use Symfony\Component\EventDispatcher as SymfonyEventDispatcher;
 
 class EventDispatcher implements EventDispatcherInterface
 {
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    protected $eventDispatcher;
+    protected SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher

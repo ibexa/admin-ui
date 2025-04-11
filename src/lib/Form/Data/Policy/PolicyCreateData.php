@@ -10,14 +10,11 @@ namespace Ibexa\AdminUi\Form\Data\Policy;
 
 class PolicyCreateData
 {
-    /** @var string */
-    private $module;
+    private ?string $module = null;
 
-    /** @var string */
-    private $function;
+    private ?string $function = null;
 
-    /** @var array */
-    private $limitations = [];
+    private array $limitations = [];
 
     /**
      * @return string
@@ -94,7 +91,7 @@ class PolicyCreateData
     /**
      * @param array $limitations
      */
-    public function setLimitations(array $limitations)
+    public function setLimitations(array $limitations): void
     {
         $this->limitations = $limitations;
     }

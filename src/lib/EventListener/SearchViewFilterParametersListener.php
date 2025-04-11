@@ -21,17 +21,14 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class SearchViewFilterParametersListener implements EventSubscriberInterface
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /** @var string[][] */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     public function __construct(
         FormFactoryInterface $formFactory,
@@ -52,7 +49,7 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
         ];
     }
 
-    public function onFilterViewParameters(FilterViewParametersEvent $event)
+    public function onFilterViewParameters(FilterViewParametersEvent $event): void
     {
         $view = $event->getView();
 

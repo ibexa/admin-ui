@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -25,17 +26,15 @@ class ContentTypeGroupPage extends Page
     /** @var string */
     protected $expectedName;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /** @var mixed */
     private $contentTypeGroupId;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
     public function __construct(Session $session, Router $router, ContentTypeService $contentTypeService, TableBuilder $tableBuilder, Dialog $dialog)
     {
@@ -71,7 +70,7 @@ class ContentTypeGroupPage extends Page
         return $this->table->hasElement(['Name' => $contentTypeName]);
     }
 
-    public function delete(string $contentTypeName)
+    public function delete(string $contentTypeName): void
     {
         $contentTypeLabelLocator = $this->getLocator('contentTypeLabel');
         $listElement = $this->getHTMLPage()
@@ -105,7 +104,7 @@ class ContentTypeGroupPage extends Page
             ->assert()->textContains('List');
     }
 
-    public function setExpectedContentTypeGroupName(string $expectedName)
+    public function setExpectedContentTypeGroupName(string $expectedName): void
     {
         $this->expectedName = $expectedName;
         $groups = $this->contentTypeService->loadContentTypeGroups();

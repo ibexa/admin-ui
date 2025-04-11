@@ -37,29 +37,21 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCreateMapper */
-    private $roleCreateMapper;
+    private RoleCreateMapper $roleCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCopyMapper */
-    private $roleCopyMapper;
+    private RoleCopyMapper $roleCopyMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper */
-    private $roleUpdateMapper;
+    private RoleUpdateMapper $roleUpdateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -184,7 +176,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleCopyData $data) {
+            $result = $this->submitHandler->handle($form, function (RoleCopyData $data): RedirectResponse {
                 $roleCopyStruct = $this->roleCopyMapper->reverseMap($data);
                 $role = $this->roleService->copyRole($data->getCopiedRole(), $roleCopyStruct);
 
@@ -283,7 +275,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (RoleDeleteData $data): RedirectResponse {
                 $role = $data->getRole();
                 $this->roleService->deleteRole($role);
 
@@ -327,7 +319,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RolesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (RolesDeleteData $data): RedirectResponse {
                 foreach ($data->getRoles() as $roleId => $selected) {
                     $role = $this->roleService->loadRole($roleId);
                     $this->roleService->deleteRole($role);

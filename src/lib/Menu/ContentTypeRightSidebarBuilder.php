@@ -28,11 +28,9 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
     /* Menu items */
     public const ITEM__EDIT = 'content_type__sidebar_right__edit';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory

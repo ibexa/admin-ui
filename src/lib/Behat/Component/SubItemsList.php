@@ -23,12 +23,11 @@ use PHPUnit\Framework\Assert;
 class SubItemsList extends Component
 {
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    protected $table;
+    protected TableInterface $table;
 
     protected $isGridViewEnabled;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\SubitemsGrid */
-    private $grid;
+    private SubitemsGrid $grid;
 
     public function __construct(Session $session, TableBuilder $tableBuilder, SubitemsGrid $grid)
     {
@@ -91,7 +90,7 @@ class SubItemsList extends Component
             ->assert()->textContains('Viewing');
     }
 
-    public function clickListElement(string $contentName, string $contentType)
+    public function clickListElement(string $contentName, string $contentType): void
     {
         $this->getTable()->getTableRow(['Name' => $contentName, 'Content type' => $contentType])->goToItem();
     }

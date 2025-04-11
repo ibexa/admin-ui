@@ -22,19 +22,15 @@ class ContentProxyCreateEvent extends Event
     public const OPTION_IS_ON_THE_FLY = 'isOnTheFly';
 
     /** @var \Symfony\Component\HttpFoundation\Response|null */
-    private $response;
+    private ?Response $response = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
-    private $contentType;
+    private ContentType $contentType;
 
-    /** @var string */
-    private $languageCode;
+    private string $languageCode;
 
-    /** @var int */
-    private $parentLocationId;
+    private int $parentLocationId;
 
-    /** @var \Ibexa\AdminUi\Event\Options */
-    private $options;
+    private Options $options;
 
     public function __construct(
         ContentType $contentType,

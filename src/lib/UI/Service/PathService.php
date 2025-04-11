@@ -21,8 +21,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
  */
 class PathService
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
+    private SearchService $searchService;
 
     public function __construct(SearchService $searchService)
     {
@@ -36,7 +35,7 @@ class PathService
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
-    public function loadPathLocations(Location $location)
+    public function loadPathLocations(Location $location): array
     {
         $locationQuery = new LocationQuery([
             'filter' => new Ancestor($location->pathString),

@@ -17,14 +17,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SectionAssign implements EventSubscriberInterface
 {
-    /** @var array */
-    private $restrictedContentTypes;
+    private array $restrictedContentTypes;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
+    private PermissionCheckerInterface $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver

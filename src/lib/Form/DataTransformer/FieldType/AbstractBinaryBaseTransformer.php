@@ -18,11 +18,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 abstract class AbstractBinaryBaseTransformer
 {
-    /** @var \Ibexa\Contracts\Core\Repository\FieldType */
-    protected $fieldType;
+    protected FieldType $fieldType;
 
-    /** @var \Ibexa\Core\FieldType\Value */
-    protected $initialValue;
+    protected Value $initialValue;
 
     /** @var string */
     protected $valueClass;

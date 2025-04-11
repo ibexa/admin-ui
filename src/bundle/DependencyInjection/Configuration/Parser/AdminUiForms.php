@@ -42,7 +42,7 @@ class AdminUiForms extends AbstractParser
      *
      * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
      */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('admin_ui_forms')
@@ -196,7 +196,7 @@ class AdminUiForms extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function postMap(array $config, ContextualizerInterface $contextualizer)
+    public function postMap(array $config, ContextualizerInterface $contextualizer): void
     {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
@@ -220,7 +220,7 @@ class AdminUiForms extends AbstractParser
      *
      * @return array ordered list of templates
      */
-    private function processContentEditFormTemplates(array $formTemplates)
+    private function processContentEditFormTemplates(array $formTemplates): array
     {
         $priorities = array_column($formTemplates, 'priority');
         array_multisort($priorities, SORT_DESC, $formTemplates);

@@ -15,11 +15,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
  */
 class SectionContentAssignData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
-    protected $section;
+    protected ?Section $section;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    protected $locations;
+    protected array $locations;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
@@ -42,7 +41,7 @@ class SectionContentAssignData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
-    public function setSection(?Section $section)
+    public function setSection(?Section $section): void
     {
         $this->section = $section;
     }
@@ -58,7 +57,7 @@ class SectionContentAssignData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
-    public function setLocations(array $locations)
+    public function setLocations(array $locations): void
     {
         $this->locations = $locations;
     }

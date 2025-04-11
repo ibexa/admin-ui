@@ -20,14 +20,14 @@ class LimitationFormMapperRegistry implements LimitationFormMapperRegistryInterf
      *
      * @var LimitationFormMapperInterface[]
      */
-    private $limitationFormMappers = [];
+    private array $limitationFormMappers = [];
 
     public function getMappers()
     {
         return $this->limitationFormMappers;
     }
 
-    public function addMapper(LimitationFormMapperInterface $mapper, $fieldTypeIdentifier)
+    public function addMapper(LimitationFormMapperInterface $mapper, $fieldTypeIdentifier): void
     {
         $this->limitationFormMappers[$fieldTypeIdentifier] = $mapper;
     }
@@ -57,7 +57,7 @@ class LimitationFormMapperRegistry implements LimitationFormMapperRegistryInterf
      *
      * @return bool
      */
-    public function hasMapper($limitationIdentifier)
+    public function hasMapper($limitationIdentifier): bool
     {
         return isset($this->limitationFormMappers[$limitationIdentifier]);
     }
