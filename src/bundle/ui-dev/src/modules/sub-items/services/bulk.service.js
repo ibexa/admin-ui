@@ -1,4 +1,6 @@
-import { handleRequestResponse } from '../../common/helpers/request.helper.js';
+import { getAdminUiConfig, getRestInfo, getTranslator } from '@ibexa-admin-ui-helpers/context.helper.js';
+import { getRequestHeaders, getRequestMode, getJsonFromResponse } from '@ibexa-admin-ui-helpers/request.helper';
+import { showErrorNotification } from '@ibexa-admin-ui-helpers/notification.helper';
 import {
     TRASH_FAKE_LOCATION,
     USER_ENDPOINT,
@@ -8,56 +10,55 @@ import {
     HEADERS_BULK,
 } from './endpoints.js';
 
-const { Translator } = window;
-
-export const bulkMoveLocations = (restInfo, items, newLocationHref, callback) => {
+export const bulkMoveLocations = (items, newLocationHref, callback) => {
     const requestBodyOperations = {};
 
     items.forEach(({ id, pathString }) => {
         requestBodyOperations[id] = getBulkMoveRequestOperation(pathString, newLocationHref);
     });
 
-    makeBulkRequest(restInfo, requestBodyOperations, processBulkResponse.bind(null, items, callback));
+    makeBulkRequest(requestBodyOperations, processBulkResponse.bind(null, items, callback));
 };
 
-export const bulkAddLocations = (restInfo, items, newLocationHref, callback) => {
+export const bulkAddLocations = (items, newLocationHref, callback) => {
     const requestBodyOperations = {};
 
-    items.forEach(({ id, content }) => {
-        requestBodyOperations[id] = getBulkAddLocationRequestOperation(content._info.id, newLocationHref);
+    items.forEach(({ id, contentInfo }) => {
+        requestBodyOperations[id] = getBulkAddLocationRequestOperation(contentInfo.ContentInfo.id, newLocationHref);
     });
 
-    makeBulkRequest(restInfo, requestBodyOperations, processBulkResponse.bind(null, items, callback));
+    makeBulkRequest(requestBodyOperations, processBulkResponse.bind(null, items, callback));
 };
 
-export const bulkHideLocations = (restInfo, items, callback) => {
+export const bulkHideLocations = (items, callback) => {
     const requestBodyOperations = {};
 
     items.forEach(({ id, pathString }) => {
         requestBodyOperations[id] = getBulkVisibilityRequestOperation(pathString, true);
     });
 
-    makeBulkRequest(restInfo, requestBodyOperations, processBulkResponse.bind(null, items, callback));
+    makeBulkRequest(requestBodyOperations, processBulkResponse.bind(null, items, callback));
 };
 
-export const bulkUnhideLocations = (restInfo, items, callback) => {
+export const bulkUnhideLocations = (items, callback) => {
     const requestBodyOperations = {};
 
     items.forEach(({ id, pathString }) => {
         requestBodyOperations[id] = getBulkVisibilityRequestOperation(pathString, false);
     });
 
-    makeBulkRequest(restInfo, requestBodyOperations, processBulkResponse.bind(null, items, callback));
+    makeBulkRequest(requestBodyOperations, processBulkResponse.bind(null, items, callback));
 };
 
-export const bulkDeleteItems = (restInfo, items, callback) => {
+export const bulkDeleteItems = (items, callback) => {
     const requestBodyOperations = {};
+    const adminUiConfig = getAdminUiConfig();
 
     items.forEach((item) => {
-        const { id: locationId, pathString, content } = item;
-        const contentTypeIdentifier = content._info.contentType.identifier;
-        const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
-        const contentId = content._info.id;
+        const { id: locationId, pathString, contentType, contentInfo } = item;
+        const contentTypeIdentifier = contentType.ContentType.identifier;
+        const isUserContentItem = adminUiConfig.userContentTypes.includes(contentTypeIdentifier);
+        const contentId = contentInfo.ContentInfo.id;
 
         if (isUserContentItem) {
             requestBodyOperations[locationId] = getBulkDeleteUserRequestOperation(contentId);
@@ -66,7 +67,7 @@ export const bulkDeleteItems = (restInfo, items, callback) => {
         }
     });
 
-    makeBulkRequest(restInfo, requestBodyOperations, processBulkResponse.bind(null, items, callback));
+    makeBulkRequest(requestBodyOperations, processBulkResponse.bind(null, items, callback));
 };
 
 const getBulkDeleteUserRequestOperation = (contentId) => ({
@@ -135,25 +136,29 @@ const processBulkResponse = (items, callback, response) => {
     callback(itemsMatches.success, itemsMatches.fail);
 };
 
-const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback) => {
+const makeBulkRequest = (requestBodyOperations, callback) => {
+    const Translator = getTranslator();
+    const { token, siteaccess, accessToken, instanceUrl } = getRestInfo();
+
     const request = new Request(ENDPOINT_BULK, {
         method: 'POST',
-        headers: {
-            ...HEADERS_BULK,
-            'X-Siteaccess': siteaccess,
-            'X-CSRF-Token': token,
-        },
+        headers: getRequestHeaders({
+            token,
+            siteaccess,
+            accessToken,
+            extraHeaders: HEADERS_BULK,
+        }),
+        mode: getRequestMode({ instanceUrl }),
+        credentials: 'same-origin',
         body: JSON.stringify({
             bulkOperations: {
                 operations: requestBodyOperations,
             },
         }),
-        mode: 'same-origin',
-        credentials: 'same-origin',
     });
 
     fetch(request)
-        .then(handleRequestResponse)
+        .then(getJsonFromResponse)
         .then(callback)
         .catch(() => {
             const message = Translator.trans(
@@ -163,6 +168,6 @@ const makeBulkRequest = ({ token, siteaccess }, requestBodyOperations, callback)
                 'ibexa_sub_items',
             );
 
-            window.ibexa.helpers.notification.showErrorNotification(message);
+            showErrorNotification(message);
         });
 };
