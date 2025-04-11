@@ -1,3 +1,9 @@
+{% set user_name = ibexa_content_name(user) %}
+
+{% if user_name_extra_data is defined %}
+    {% set user_name = user_name ~ ' ' ~ user_name_extra_data %}
+{% endif %}
+
 <div class="ibexa-user-name">
     <span class="ibexa-user-name__thumbnail">
         {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
@@ -15,8 +21,8 @@
     {% endif %}
 
     {% if user_path is defined %}
-        <a href="{{ user_path }}" class="ibexa-user-name__text">{{ ibexa_content_name(user) }}</a>
+        <a href="{{ user_path }}" class="ibexa-user-name__text">{{ user_name }}</a>
     {% else %}
-        <span class="ibexa-user-name__text">{{ ibexa_content_name(user) }}</span>
+        <span class="ibexa-user-name__text">{{ user_name }}</span>
     {% endif %}
 </div>

@@ -124,6 +124,16 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
                 this.getSuggestions(this.inputNode.value);
             }
         }
+
+        init() {
+            super.init();
+
+            this.inputNode.addEventListener('input', ({ currentTarget }) => {
+                if (currentTarget.value.length < MIN_QUERY_LENGTH) {
+                    this.hideSuggestionsList();
+                }
+            });
+        }
     }
 
     ibexa.addConfig('core.SuggestionTaggify', SuggestionTaggify);
