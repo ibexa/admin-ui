@@ -11,6 +11,9 @@ namespace Ibexa\AdminUi\Component\Event;
 use Ibexa\AdminUi\Component\Registry;
 use Symfony\Contracts\EventDispatcher\Event;
 
+/**
+ * @deprecated use {@see \Ibexa\Contracts\TwigComponents\Event\RenderGroupEvent}
+ */
 class RenderGroupEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_group';

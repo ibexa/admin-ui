@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Component;
 
 use Ibexa\Contracts\AdminUi\Component\Renderable;
 
+/**
+ * @deprecated use {@see \Ibexa\TwigComponents\Component\Registry}
+ */
 class Registry
 {
     /** @var \Ibexa\Contracts\AdminUi\Component\Renderable[] */

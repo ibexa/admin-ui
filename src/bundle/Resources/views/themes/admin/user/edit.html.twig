@@ -38,7 +38,7 @@
 {% endblock %}
 
 {% block form_before %}
-    {{ ibexa_render_component_group('content-edit-form-before', {
+    {{ ibexa_twig_component_group('admin-ui-content-edit-form-before', {
         'content': user,
         'content_type': content_type,
         'location': location,
@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block form_after %}
-    {{ ibexa_render_component_group('content-edit-form-after', {
+    {{ ibexa_twig_component_group('admin-ui-content-edit-form-after', {
         'content': user,
         'content_type': content_type,
         'location': location,
