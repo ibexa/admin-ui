@@ -27,9 +27,9 @@ abstract class AbstractActionBuilder extends AbstractBuilder
 
     protected TranslatorInterface $translator;
 
-    private ContentService $contentService;
-
     protected UrlGeneratorInterface $urlGenerator;
+
+    private ContentService $contentService;
 
     private UserService $userService;
 
