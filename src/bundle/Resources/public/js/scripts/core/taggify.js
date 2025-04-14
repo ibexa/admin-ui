@@ -27,13 +27,9 @@
                     Object.entries(attrValue).forEach(([datasetKey, datasetValue]) => {
                         element.dataset[datasetKey] = getValue(datasetValue);
                     });
+                } else if (element.hasAttribute(attrKey)) {
+                    console.warn(`Element already has the attribute named ${attrKey}`);
                 } else {
-                    if (element.hasAttribute(attrKey)) {
-                        console.warn(`Element already has the attribute named ${attrKey}`);
-
-                        return;
-                    }
-
                     element.setAttribute(attrKey, getValue(attrValue));
                 }
             });
