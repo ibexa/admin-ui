@@ -11,10 +11,10 @@ const controlZIndex = (container) => {
     document.body.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-attached'));
 };
 
-const betterControlZIndex = (items, listenerContainer) => {
+const controlManyZIndexes = (items, listenerContainer) => {
     const listenersAbortController = new AbortController();
     const containersInitialZIndexes = new Map();
-    const removeControlZIndexListeners = () => {
+    const removeControlManyZIndexesListeners = () => {
         listenersAbortController.abort();
         listenerContainer.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-detached'));
     }
@@ -38,8 +38,8 @@ const betterControlZIndex = (items, listenerContainer) => {
     listenerContainer.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-attached'));
 
     return {
-        removeControlZIndexListeners,
+        removeControlManyZIndexesListeners,
     }
 }
 
-export { controlZIndex, betterControlZIndex };
+export { controlZIndex, controlManyZIndexes };
