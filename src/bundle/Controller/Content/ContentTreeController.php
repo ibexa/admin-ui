@@ -226,7 +226,7 @@ class ContentTreeController extends RestController
                 'restrictedLanguageCodes' => $createLimitationsValues[Limitation::LANGUAGE],
             ],
             'edit' => [
-                'hasAccess' => $this->canUserEditContent($location),
+                'hasAccess' => $this->canUserEditContent($location->getContent()),
                 // skipped content type limitation values as in this case it can be inferred from "hasAccess" above
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
@@ -330,10 +330,8 @@ class ContentTreeController extends RestController
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function canUserEditContent(Location $location): bool
+    private function canUserEditContent(Content $content): bool
     {
-        $content = $location->getContent();
-
         return $this->permissionResolver->canUser(
             'content',
             'edit',
