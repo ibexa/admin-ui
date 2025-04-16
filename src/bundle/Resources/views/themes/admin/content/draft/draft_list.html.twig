@@ -65,27 +65,13 @@
                     ]) %}
 
                     {% set col_raw %}
-                        {{ ibexa_render_component_group('content-drafts-list-actions', { version_info: row.versionInfo }) }}
-                        <button
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-draft-edit"
-                            title="{{ 'drafts.list.action.edit'|trans|desc('Edit') }}"
-                            data-content-id="{{ row.versionInfo.contentInfo.id }}"
-                            data-language-code="{{ row.versionInfo.initialLanguageCode }}"
-                            data-content-draft-edit-url="{{ path(content_draft_edit_url, {
-                                'contentId': row.versionInfo.contentInfo.id,
-                                'versionNo': row.versionInfo.versionNo,
-                                'language': row.versionInfo.initialLanguageCode
-                            }) }}"
-                            data-version-has-conflict-url="{{ path('ibexa.version.has_no_conflict', {
-                                'contentId': row.versionInfo.contentInfo.id,
-                                'versionNo': row.versionInfo.versionNo,
-                                'languageCode': row.versionInfo.initialLanguageCode
-                            }) }}"
-                        >
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
-                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                            </svg>
-                        </button>
+                        {% set draft_action_list = knp_menu_get(
+                            'ibexa.admin_ui.action.draft_list',
+                            [],
+                            { versionInfo: row.versionInfo}) %}
+                        {{ knp_menu_render(draft_action_list, {
+                            template: '@ibexadesign/ui/action_list.html.twig',
+                        }) }}
                     {% endset %}
                     {% set body_row_cols = body_row_cols|merge([{
                         has_action_btns: true,

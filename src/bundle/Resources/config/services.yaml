@@ -4,6 +4,7 @@ imports:
     - { resource: services/controller_argument_resolvers.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/tabs.yaml }
+    - { resource: services/action_menu.yaml }
     - { resource: services/menu.yaml }
     - { resource: services/pagination.yaml }
     - { resource: services/ui_config/* }
