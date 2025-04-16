@@ -1,11 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+
+import { getTranslator } from '@ibexa-admin-ui-helpers/context.helper';
+import { getContentTypeIconUrl } from '@ibexa-admin-ui-helpers/content.type.helper';
+import { formatShortDateTime } from '@ibexa-admin-ui-helpers/timezone.helper';
+import { parseCheckbox } from '@ibexa-admin-ui-helpers/table.helper';
+
 import Icon from '../../../common/icon/icon';
 import UserName from '../../../common/user-name/user.name';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
-
-const { ibexa, Translator } = window;
-const { formatShortDateTime } = ibexa.helpers.timezone;
 
 export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
@@ -117,16 +120,17 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     editItem(languageCode) {
-        const { id, currentVersion } = this.props.item.content._info;
+        const { currentVersionNo } = this.props.item;
+        const { id: contentId } = this.props.item.contentInfo.ContentInfo;
 
         this.props.handleEditItem(
             {
-                _id: id,
+                _id: contentId,
                 mainLanguageCode: languageCode,
                 CurrentVersion: {
                     Version: {
                         VersionInfo: {
-                            versionNo: currentVersion.versionNumber,
+                            versionNo: currentVersionNo,
                         },
                     },
                 },
@@ -142,8 +146,8 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     handleEdit() {
-        const { mainLanguageCode, currentVersion } = this.props.item.content._info;
-        const { languageCodes } = currentVersion;
+        const { mainLanguageCode } = this.props.item.contentInfo.ContentInfo;
+        const { languageCodes } = this.props.item;
 
         if (languageCodes.length > 1) {
             this.props.setLanguageSelectorData(this.getLanguageSelectorData());
@@ -158,13 +162,14 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderNameCell() {
-        const { item, generateLink } = this.props;
-        const contentName = item.content._name;
-        const contentTypeIdentifier = item.content._info.contentType.identifier;
-        const contentTypeIconUrl = ibexa.helpers.contentType.getContentTypeIconUrl(contentTypeIdentifier);
+        const { generateLink } = this.props;
+        const { name: contentName, id: contentId } = this.props.item.contentInfo.ContentInfo;
+        const locationId = this.props.item.id;
+        const contentTypeIdentifier = this.props.item.contentType.ContentType.identifier;
+        const contentTypeIconUrl = getContentTypeIconUrl(contentTypeIdentifier);
         const linkAttrs = {
             className: 'c-table-view-item__link c-table-view-item__text-wrapper',
-            href: generateLink(item.id, item.content._info.id),
+            href: generateLink(locationId, contentId),
         };
 
         return (
@@ -228,29 +233,31 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderModifiedCell() {
-        const { modificationDate } = this.props.item.content._info;
+        const { modificationDate } = this.props.item.contentInfo.ContentInfo;
+        const formattedModificationDate = formatShortDateTime(new Date(modificationDate * 1000));
 
-        return <div className="c-table-view-item__text-wrapper">{formatShortDateTime(new Date(modificationDate.timestamp * 1000))}</div>;
+        return <div className="c-table-view-item__text-wrapper">{formattedModificationDate}</div>;
     }
 
     renderPublishedCell() {
-        const { publishedDate } = this.props.item.content._info;
+        const { publishedDate } = this.props.item.contentInfo.ContentInfo;
+        const formattedPublishedDate = formatShortDateTime(new Date(publishedDate * 1000));
 
-        return <div className="c-table-view-item__text-wrapper">{formatShortDateTime(new Date(publishedDate.timestamp * 1000))}</div>;
+        return <div className="c-table-view-item__text-wrapper">{formattedPublishedDate}</div>;
     }
 
     renderContentTypeCell() {
-        const contentTypeName = this.props.item.content._info.contentType.name;
+        const contentTypeName = this.props.item.contentType.ContentType.name;
 
         return <div className="c-table-view-item__text-wrapper">{contentTypeName}</div>;
     }
 
     renderTranslationsCell() {
-        const { item, languages } = this.props;
+        const { languages } = this.props;
 
         return (
             <>
-                {item.content._info.currentVersion.languageCodes.map((languageCode) => (
+                {this.props.item.languageCodes.map((languageCode) => (
                     <span key={languageCode} className="c-table-view-item__translation">
                         {languages.mappings[languageCode].name}
                     </span>
@@ -260,6 +267,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderVisibilityCell() {
+        const Translator = getTranslator();
         const { invisible, hidden } = this.props.item;
         const visibleLabel = Translator.trans(/*@Desc("Visible")*/ 'items_table.row.visible.label', {}, 'ibexa_sub_items');
         const notVisibleLabel = Translator.trans(/*@Desc("Not Visible")*/ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
@@ -279,26 +287,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderCreatorCell() {
-        const { owner } = this.props.item.content._info;
-
-        if (!owner) {
-            return null;
-        }
-
-        return (
-            <div className="c-table-view-item__text-wrapper">
-                <UserName
-                    userId={owner.id}
-                    name={this.getName(owner)}
-                    thumbnail={owner.thumbnail}
-                    contentTypeIdentifier={owner.content?._type?.identifier}
-                />
-            </div>
-        );
-    }
-
-    renderContributorCell() {
-        const { creator } = this.props.item.content._info.currentVersion;
+        const { Owner: creator } = this.props.item.owner;
 
         if (!creator) {
             return null;
@@ -309,15 +298,34 @@ export default class TableViewItemComponent extends PureComponent {
                 <UserName
                     userId={creator.id}
                     name={this.getName(creator)}
-                    thumbnail={creator.thumbnail}
-                    contentTypeIdentifier={creator.content?._type?.identifier}
+                    thumbnail={creator.thumbnail.Thumbnail}
+                    contentTypeIdentifier={creator.contentType.identifier}
+                />
+            </div>
+        );
+    }
+
+    renderContributorCell() {
+        const { Owner: lastContributor } = this.props.item.currentVersionOwner;
+
+        if (!lastContributor) {
+            return null;
+        }
+
+        return (
+            <div className="c-table-view-item__text-wrapper">
+                <UserName
+                    userId={lastContributor.id}
+                    name={this.getName(lastContributor)}
+                    thumbnail={lastContributor.thumbnail.Thumbnail}
+                    contentTypeIdentifier={lastContributor.contentType.identifier}
                 />
             </div>
         );
     }
 
     renderSectionCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.getName(this.props.item.content._info.section)}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.contentInfo.ContentInfo.sectionName}</div>;
     }
 
     renderLocationIdCell() {
@@ -329,11 +337,11 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     renderObjectIdCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.props.item.content._info.id}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.contentInfo.ContentInfo.id}</div>;
     }
 
     renderObjectRemoteIdCell() {
-        return <div className="c-table-view-item__text-wrapper">{this.props.item.content._info.remoteId}</div>;
+        return <div className="c-table-view-item__text-wrapper">{this.props.item.contentInfo.ContentInfo.remoteId}</div>;
     }
 
     renderBasicColumns() {
@@ -375,7 +383,7 @@ export default class TableViewItemComponent extends PureComponent {
      * @param {Event} event
      */
     onSelectCheckboxChange(event) {
-        const { item, onItemSelect } = this.props;
+        const { onItemSelect, item } = this.props;
         const isSelected = event.target.checked;
 
         onItemSelect(item, isSelected);
@@ -389,12 +397,13 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     getLanguageSelectorData() {
+        const Translator = getTranslator();
         const languages = this.props.languages.mappings;
-        const { languageCodes } = this.props.item.content._info.currentVersion;
+        const { languageCodes } = this.props.item;
         const label = Translator.trans(/*@Desc("Select language")*/ 'languages.modal.label', {}, 'ibexa_sub_items');
-        const languageItems = languageCodes.map((item) => ({
-            label: languages[item].name,
-            value: item,
+        const languageItems = languageCodes.map((languageCode) => ({
+            label: languages[languageCode].name,
+            value: languageCode,
         }));
 
         return {
@@ -405,10 +414,11 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     componentDidMount() {
-        ibexa.helpers.table.parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
+        parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
     }
 
     render() {
+        const Translator = getTranslator();
         const { isSelected, showScrollShadowRight } = this.props;
         const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'ibexa_sub_items');
         const actionCellClassName = createCssClassNames({
