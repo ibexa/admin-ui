@@ -10,7 +10,7 @@ on:
 jobs:
   cs-fix:
     name: Run code style check
-    runs-on: "ubuntu-22.04"
+    runs-on: "ubuntu-24.04"
     strategy:
       matrix:
         php:
@@ -60,7 +60,7 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: "ubuntu-22.04"
+    runs-on: "ubuntu-24.04"
     timeout-minutes: 10
 
     strategy:
@@ -110,7 +110,7 @@ jobs:
           --health-timeout 5s
           --health-retries 5
           --tmpfs /var/lib/postgresql/data
-    runs-on: "ubuntu-22.04"
+    runs-on: "ubuntu-24.04"
     timeout-minutes: 20
 
     strategy:
@@ -162,7 +162,7 @@ jobs:
           --health-timeout=5s
           --health-retries=5
           --tmpfs=/var/lib/mysql
-    runs-on: "ubuntu-22.04"
+    runs-on: "ubuntu-24.04"
     timeout-minutes: 20
 
     strategy:
