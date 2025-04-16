@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="9a3c440d94f09d2b4bbddb67d0394ca555f8bd3f" resname="draft_list__action__content_edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: draft_list__action__content_edit</note>
+      </trans-unit>
+      <trans-unit id="3574634178fbd999f1dc70abc2bb1af1adb0a5fa" resname="version_list__action__content_edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: version_list__action__content_edit</note>
+      </trans-unit>
+      <trans-unit id="1a76a5a34ec8f37aa0af6fb321aa10b4b1a4f321" resname="version_list__action__restore_version">
+        <source>Restore archived version</source>
+        <target state="new">Restore archived version</target>
+        <note>key: version_list__action__restore_version</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

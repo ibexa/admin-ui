@@ -583,16 +583,6 @@
         <target state="new">Swap the Content item at this Location with another</target>
         <note>key: tab.locations.swap_with_another</note>
       </trans-unit>
-      <trans-unit id="d2e707023baa6830915c5d12b915974d627522e4" resname="tab.versions.table.action.archived.edit">
-        <source>Restore archived version</source>
-        <target state="new">Restore archived version</target>
-        <note>key: tab.versions.table.action.archived.edit</note>
-      </trans-unit>
-      <trans-unit id="97721a4a6c33834bb6421c29ef72e8654f39a4ab" resname="tab.versions.table.action.draft.edit">
-        <source>Edit</source>
-        <target state="new">Edit</target>
-        <note>key: tab.versions.table.action.draft.edit</note>
-      </trans-unit>
       <trans-unit id="a602612589c6e902caaf8acf1fd51fcd215955f1" resname="tab.versions.table.author.not_found">
         <source>Can't fetch contributor</source>
         <target state="new">Can't fetch contributor</target>
