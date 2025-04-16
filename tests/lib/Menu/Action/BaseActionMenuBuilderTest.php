@@ -25,6 +25,7 @@ use Knp\Menu\MenuFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class BaseActionMenuBuilderTest extends TestCase
 {
@@ -52,6 +53,9 @@ abstract class BaseActionMenuBuilderTest extends TestCase
     /** @var \Ibexa\Contracts\Core\Repository\ContentService&\PHPUnit\Framework\MockObject\MockObject */
     protected ContentService $contentService;
 
+    /** @var \Symfony\Contracts\Translation\TranslatorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    protected TranslatorInterface $translator;
+
     /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject */
     protected UrlGeneratorInterface $urlGenerator;
 
@@ -69,6 +73,7 @@ abstract class BaseActionMenuBuilderTest extends TestCase
         );
         $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->contentService = $this->createMock(ContentService::class);
+        $this->translator = $this->createMock(TranslatorInterface::class);
         $this->urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $this->userService = $this->createMock(UserService::class);
     }
@@ -160,6 +165,15 @@ abstract class BaseActionMenuBuilderTest extends TestCase
             ->method('isUser')
             ->with($content)
             ->willReturn($isUser);
+    }
+
+    protected function mockTranslatorTranslate(): void
+    {
+        $this->translator
+            ->method('trans')
+            ->willReturnCallback(static function (string $id): string {
+                return $id;
+            });
     }
 
     /**
