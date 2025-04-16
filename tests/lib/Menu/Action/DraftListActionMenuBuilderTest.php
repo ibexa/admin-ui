@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder;
 use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as ApiVersionInfo;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @covers \Ibexa\AdminUi\Menu\Action\DraftListActionMenuBuilder
@@ -31,7 +30,7 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             $this->menuItemFactory,
             $this->eventDispatcher,
             $this->contentService,
-            $this->createMock(TranslatorInterface::class),
+            $this->translator,
             $this->urlGenerator,
             $this->userService
         );
@@ -53,6 +52,7 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
     public function testBuildDraftListActionMenu(): void
     {
         $this->mockUrlGeneratorGenerate();
+        $this->mockTranslatorTranslate();
 
         $menu = $this->actionMenuBuilder->build(['versionInfo' => $this->createVersionInfo()]);
 
@@ -76,6 +76,7 @@ final class DraftListActionMenuBuilderTest extends BaseActionMenuBuilderTest
         $this->mockUrlGeneratorGenerate();
         $this->mockContentServiceLoadContentByVersionInfo($versionInfo, $user);
         $this->mockUserServiceIsUser($user);
+        $this->mockTranslatorTranslate();
 
         $menu = $this->actionMenuBuilder->build(['versionInfo' => $versionInfo]);
 
