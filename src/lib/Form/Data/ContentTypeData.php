@@ -56,7 +56,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
     public function isNew(): bool
     {
-            return $this->isNew;
+        return $this->isNew;
     }
 
     protected function getIdentifierValue(): string
