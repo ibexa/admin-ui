@@ -60,6 +60,7 @@ class DashboardPage extends Page
     public function isDraftOnList(string $draftName): bool
     {
         $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
+
         return $this->table->hasElement(['Name' => $draftName]);
     }
 
