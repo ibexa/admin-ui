@@ -59,6 +59,7 @@ class DashboardPage extends Page
 
     public function isDraftOnList(string $draftName): bool
     {
+        $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
         return $this->table->hasElement(['Name' => $draftName]);
     }
 
@@ -95,6 +96,7 @@ class DashboardPage extends Page
             new VisibleCSSLocator('table', '#ibexa-tab-dashboard-my-my-drafts'),
             new VisibleCSSLocator('createButton', '.ibexa-btn--cotf-create'),
             new VisibleCSSLocator('activeTabLink', '.ibexa-tabs__link.active'),
+            new VisibleCSSLocator('scrollableContainer', '.ibexa-back-to-top-scroll-container'),
         ];
     }
 }
