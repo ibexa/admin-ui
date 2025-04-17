@@ -51,7 +51,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     {
         parent::__construct($properties);
 
-        $this->isNew = $this->isNew();
+        $this->isNew = $this->isIdentifierNew();
     }
 
     public function isNew(): bool
