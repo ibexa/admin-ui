@@ -11,7 +11,7 @@ services:
             - { name: ibexa.twig.component, group: admin-ui-global-search }
 
     ibexa.admin_ui.component.user_menu:
-        class: Ibexa\TwigComponents\Component\TemplateComponent
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/user_menu.html.twig'
         tags:
