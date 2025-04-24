@@ -72,6 +72,7 @@ final class Table extends Component implements TableInterface
         $iterationCount = 0;
 
         while ($this->pagination->isNextButtonActive() && $iterationCount < self::MAX_PAGE_COUNT) {
+            sleep(3);
             $this->pagination->clickNextButton();
 
             $hasElementOnCurrentPage = $this->hasElementOnCurrentPage($elementData);

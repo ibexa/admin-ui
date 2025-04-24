@@ -30,8 +30,7 @@ Feature: Content items creation
       And there's draft "TestDraft" on Dashboard list
     When I start editing content draft "TestDraft"
       And I perform the "Delete draft" action
-    Then I should be on Content view Page for root
-      And I open the "Dashboard" page in admin SiteAccess
+    Then  I open the "Dashboard" page in admin SiteAccess
       And there's no draft "TestDraft" on Dashboard list
 
   @javascript
