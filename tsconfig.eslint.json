@@ -1,4 +1,0 @@
-{
-    "extends": "@ibexa/ts-config",
-    "include": ["src/bundle/**/*"]
-}
