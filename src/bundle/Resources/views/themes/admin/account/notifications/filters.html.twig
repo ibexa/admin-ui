@@ -1,0 +1,44 @@
+{% trans_default_domain 'ibexa_notifications' %}
+
+{% form_theme search_form with '@ibexadesign/account/notifications/filters/form_fields.html.twig' %}
+
+{% set is_some_filter_set =
+    (search_form.statuses is defined and search_form.statuses.vars.value|length) or
+    search_form.type.vars.value|length or
+    search_form.createdRange.vars.value != 0
+%}
+
+<div class="ibexa-list-filters">
+    <div class="ibexa-list-filters__header">
+        {# TODO: collapse #}
+        {# <button class="ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--clear">
+            <svg class="ibexa-icon ibexa-icon--tiny-small">
+                <use xlink:href="{{ ibexa_icon_path('expand-right') }}"></use>
+            </svg>
+        </button> #}
+        <h3 class="ibexa-list-filters__title">{{ 'ibexa.notifications.search_form.title'|trans()|desc('Filters') }}</h3>
+        <div class="ibexa-list-filters__btns">
+            <button
+                type="button"
+                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--clear"
+                {% if not is_some_filter_set %}disabled="true"{% endif %}
+            >
+                {{ 'ibexa.notifications.search_form.clear'|trans|desc('Clear') }}
+            </button>
+            <button
+                type="submit"
+                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
+                {% if not is_some_filter_set %}disabled="true"{% endif %}
+            >
+                {{ 'ibexa.notifications.search_form.apply'|trans|desc('Apply') }}
+            </button>
+        </div>
+    </div>
+
+    <div class="ibexa-list-filters__items accordion">
+        {{ form_row(search_form.type) }}
+        {% if search_form.statuses is defined %}{{ form_row(search_form.statuses) }}{% endif %}
+        {{ form_row(search_form.createdRange) }}
+        {{ form_rest(search_form) }}
+    </div>
+</div>

@@ -4,6 +4,11 @@
         display: flex;
         justify-content: flex-end;
         padding: calculateRem(8px);
+        background-color: $ibexa-color-white;
+    }
+    &__results {
+        max-height: calc(100vh - #{calculateRem(200px)});
+        overflow-y: auto;
     }
 
     .table {
@@ -27,11 +32,6 @@
         }
     }
 
-    &__list {
-        max-height: 90vh;
-        overflow-y: auto;
-    }
-
     &__type {
         .type__icon {
             @include type-icon;
@@ -41,11 +41,6 @@
         .type__text {
             margin-left: 1rem;
         }
-    }
-
-    &__item--date {
-        font-size: $ibexa-text-font-size-small;
-        color: $ibexa-color-light-700;
     }
 
     &__type-content {
@@ -80,6 +75,11 @@
         }
     }
 
+    &__item--date {
+        font-size: $ibexa-text-font-size-small;
+        color: $ibexa-color-light-700;
+    }
+    
     &__notice-dot {
         width: calculateRem(8px);
         height: calculateRem(8px);
@@ -90,7 +90,7 @@
         left: calculateRem(10px);
         top: calculateRem(16px);
         font-size: 10px;
-        color: white;
+        color: $ibexa-color-white;
     }
 
     &__item--read {
@@ -177,13 +177,13 @@
         }
     }
 }
-//TODO: needs cleaning
+
 .ibexa-notification-view-all {
     display: flex;
     align-items: center;
     gap: calculateRem(4px);
     flex-wrap: nowrap;
-    white-space: nowrap;
+    overflow: hidden;
 
     &__status-icon {
         position: relative;
@@ -217,7 +217,7 @@
         position: absolute;
         top: calculateRem(8px);
         font-size: 10px;
-        color: white;
+        color: $ibexa-color-white;
 
         &--small {
             width: calculateRem(6px);
@@ -228,9 +228,21 @@
     &__details {
         display: flex;
         gap: calculateRem(4px);
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
 
         .ibexa-notifications-modal__description {
             display: flex;
+            max-width: 100%;
+        }
+
+        .description__text {
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 
@@ -240,6 +252,9 @@
         p {
             margin-bottom: 0;
         }
+        padding-left: 0;
+        min-width: 0;
+        max-width: 100%;
 
         .ibexa-table__cell.ibexa-table__cell {
             padding: calculateRem(12px) 0 calculateRem(12px) 0;

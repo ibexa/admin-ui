@@ -5,6 +5,9 @@
     const { showErrorNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse } = ibexa.helpers.request;
     const markAllAsReadBtn = doc.querySelector('.ibexa-notification-list__mark-all-read');
+    const markAsReadBtn = doc.querySelector('.ibexa-notification-list__btn--mark-as-read');
+    const deleteBtn = doc.querySelector('.ibexa-notification-list__btn--delete');
+    const checkboxes = [...doc.querySelectorAll('.ibexa-notification-list .ibexa-table__cell--has-checkbox .ibexa-input--checkbox')];
     const markAllAsRead = () => {
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
 
@@ -25,6 +28,53 @@
                 showErrorNotification(message);
             });
     };
+
+    //TODO:
+    const markSelectedAsRead = () => {
+        const checkedElements = doc.querySelectorAll('.ibexa-notification-list__mark-row-checkbox:checked');
+        const notificationIds = [...checkedElements].map((element) => element.dataset.notificationId);
+        const bulkOperations = getBulkOperations(notificationIds);
+        const request = new Request('/api/ibexa/v2/bulk', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/vnd.ibexa.api.BulkOperationResponse+json',
+                'Content-Type': 'application/vnd.ibexa.api.BulkOperation+json',
+            },
+            body: JSON.stringify({
+                bulkOperations: {
+                    operations: bulkOperations,
+                },
+            }),
+            mode: 'same-origin',
+            credentials: 'include',
+        });
+        const errorMessage = Translator.trans(
+            /*@Desc("Cannot mark selected notifications as read")*/ 'notifications.modal.message.error.mark_selected_as_read',
+            {},
+            'ibexa_notifications',
+        );
+
+        fetch(request)
+            .then(getJsonFromResponse)
+            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
+    };
+    const getBulkOperations = (notificationIds) =>  notificationIds.reduce((total, notificationId) => {
+            const markAsReadLink = Routing.generate('ibexa.notifications.mark_as_read', { notificationId });
+            
+            total[markAsReadLink] = {
+                uri: markAsReadLink,
+                method: 'GET',
+                mode: 'same-origin',
+                headers: {
+                    Accept: 'application/vnd.ibexa.api.ContentType+json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                credentials: 'same-origin'
+            };
+    
+            return total;
+        }, {});
+
     const handleNotificationClick = (notification, isToggle = false) => {
         const notificationRow = notification.closest('.ibexa-table__row');
         const isRead = notification.classList.contains('ibexa-notifications-modal__item--read');
@@ -99,4 +149,27 @@
         link.addEventListener('click', (event) => handleNotificationActionClick(event, true), false),
     );
     markAllAsReadBtn.addEventListener('click', markAllAsRead, false);
+    markAsReadBtn.addEventListener('click', markSelectedAsRead, false);
+
+
+    const toggleActionButtonState = () => {
+        const checkedNotifications = checkboxes.filter((el) => el.checked);
+        const isAnythingSelected = checkedNotifications.length > 0;
+        const unreadLabel =     Translator.trans(/* @Desc("Unread") */ 'notification.unread',{},'ibexa_notifications');
+
+        deleteBtn.disabled = !isAnythingSelected;
+        markAsReadBtn.disabled = !isAnythingSelected || !checkedNotifications.every((checkbox) => 
+            checkbox.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__read').innerText === unreadLabel
+        );
+    };
+    const handleCheckboxChange = (checkbox) => {
+        const checkboxFormId = checkbox.dataset?.formRemoveId;
+        const formRemoveCheckbox = doc.getElementById(checkboxFormId);
+        if (formRemoveCheckbox) {
+            formRemoveCheckbox.checked = checkbox.checked;
+        }
+        toggleActionButtonState(); 
+    };
+ 
+    checkboxes.forEach((checkbox) => checkbox.addEventListener('change', () => handleCheckboxChange(checkbox), false));
 })(window, window.document, window.ibexa, window.Translator, window.Routing);
