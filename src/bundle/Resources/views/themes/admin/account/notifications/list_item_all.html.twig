@@ -9,11 +9,13 @@
 {% endif %}
 
 {% set icon %}
-    <span class="type__icon">
-        <svg class="ibexa-icon">
-            <use xlink:href="{{ ibexa_icon_path('warning') }}"></use>
-        </svg>
-    </span>
+    {% block icon %}
+        <span class="type__icon">
+            <svg class="ibexa-icon">
+                <use xlink:href="{{ ibexa_icon_path('warning') }}"></use>
+            </svg>
+        </span>
+    {% endblock %}
 {% endset %}
 
 {% set date %}
@@ -37,7 +39,7 @@
 {% set status %}
     <div class="ibexa-notification-view-all ibexa-notification-view-all__status">
         <span class="ibexa-notification-view-all__notice-dot ibexa-notification-view-all__notice-dot--small"></span>
-        <span class="ibexa-notification-view-all__read description__text wxyz">
+        <span class="ibexa-notification-view-all__read description__text">
             {{is_read ? 'notification.read'|trans|desc('Read') : 'notification.unread'|trans|desc('Unread')}}
         </span>
     </div>
@@ -70,13 +72,14 @@
 }
 } %}
     {% block body_row_cells %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-table__cell--has-checkbox' }%}
             {% block content %}
-            {# TODO: to handle #}
                 <div class="form-check">
                     <input
+                        data-notification-id="{{ notification.id }}"
+                        data-form-remove-id="notification_remove_notifications_{{ notification.id}}"
                         type="checkbox"
-                        class="ibexa-input ibexa-input--checkbox ibexa-pc-data-grid__mark-row-checkbox form-check-input"
+                        class="ibexa-input ibexa-input--checkbox ibexa-notification-list__mark-row-checkbox form-check-input"
                     />
                 </div>
             {% endblock %}

@@ -4,6 +4,8 @@
 {% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% trans_default_domain 'ibexa_notifications' %}
+{% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
+{% import _self as macros %}
 
 {% block title %}{{ 'ibexa_notifications'|trans|desc('Notifications') }}{% endblock %}
 
@@ -20,54 +22,120 @@
 {% endblock %}
 
 {% block content %}
-    <div class="align-items-stretch ibexa-main-row">
-        <section class="container ibexa-container">
-            {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-                headline: custom_results_headline ?? results_headline(pager.getNbResults()),
-                head_cols: [
-                    { has_checkbox: true },
-                    { content: 'notification.Title'|trans|desc('Title') },
-                    { content: 'notification.status'|trans|desc('Status') },
-                    { content: 'notification.datetime'|trans|desc('Date and time') },
-                ],
-                class: 'ibexa-table--notifications',
-                attr: {
-                    'data-notifications': path('ibexa.notifications.render.page'),
-                    'data-notifications-count': path('ibexa.notifications.count'),
-                    'data-notifications-count-interval': notifications_count_interval,
-                    'data-notifications-total': pager.nbResults,
-                },
-            } %}
-                {% block tbody %}
-                    {% if pager.count is same as(0) %}
-                        {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
-                            colspan: 3,
-                            empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no notifications.'),
+    {{ form_start(form_remove, {
+        'action': path('ibexa.notifications.delete_multiple'),
+        'attr': {
+            'class': 'ibexa-toggle-btn-state ibexa-notification-list__hidden-btn',
+            'data-toggle-button-id': '#confirm-' ~ form_remove.remove.vars.id
+        }
+    }) }}
+        {% for row in form_remove.notifications %}
+            {{ form_widget(row, {
+                'attr': {
+                    'hidden': true
+                }
+            }) }}
+        {% endfor %}
+        {{ form_widget(form_remove.remove, {
+            'attr': {
+                'hidden': true
+            }
+        }) }}
+    {{ form_end(form_remove) }}
+    {{ form_start(search_form, {
+        attr: { class: 'ibexa-al-list-search-form' }
+    }) }}
+        <div class="ibexa-notification-list">
+            <section class="ibexa-notification-list__data-grid-wrapper container ibexa-container">
+                {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+                    headline: custom_results_headline ?? results_headline(pager.getNbResults()),
+                    head_cols: [
+                        { has_checkbox: true },
+                        { content: 'notification.Title'|trans|desc('Title') },
+                        { content: 'notification.status'|trans|desc('Status') },
+                        { content: 'notification.datetime'|trans|desc('Date and time') },
+                    ],
+                    class: 'ibexa-table--notifications',
+                    actions: macros.table_header_tools(form_remove),
+                    is_scrollable: false,
+                    show_head_cols_if_empty: true,
+                    attr: {
+                        'data-notifications': path('ibexa.notifications.render.page'),
+                        'data-notifications-count': path('ibexa.notifications.count'),
+                        'data-notifications-count-interval': notifications_count_interval,
+                        'data-notifications-total': pager.nbResults,
+                    },
+                } %}
+                    {% block tbody %}
+                        {% if pager.count is same as(0) %}
+                            {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
+                                colspan: 3,
+                                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no notifications.'),
+                            } %}
+                        {% else %}
+                            {% block tbody_not_empty %}
+                                {% for notification in notifications %}
+                                    {{ notification|raw }}
+                                {% endfor %}
+                            {% endblock %}
+                        {% endif %}
+                    {% endblock %}
+                {% endembed %}
+                {% if pager.haveToPaginate %}
+                    <div class="ibexa-al-data-grid__paginator">
+                        {% include '@ibexadesign/ui/pagination.html.twig' with {
+                            pager,
+                            'paginaton_params': {
+                                'routeName': 'ibexa.notifications.render.all',
+                            }
                         } %}
-                    {% else %}
-                        {% block tbody_not_empty %}
-                            {% for notification in notifications %}
-                                {{ notification|raw }}
-                            {% endfor %}
-                        {% endblock %}
-                    {% endif %}
-                {% endblock %}
-            {% endembed %}
-
-            {% if pager.haveToPaginate %}
-                <div class="ibexa-al-data-grid__paginator">
-                    {% include '@ibexadesign/ui/pagination.html.twig' with {
-                        pager,
-                        'paginaton_params': {
-                            'routeName': 'ibexa.notifications.render.all',
-                        }
-                    } %}
-                </div>
-            {% endif %}
-        </section>
-    </div>
+                    </div>
+                {% endif %}
+            </section>
+            <div class="ibexa-notification-list__filters-wrapper">
+                {% include '@ibexadesign/account/notifications/filters.html.twig' %}
+            </div>
+        </div>
+    {{ form_end(search_form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('ibexa-admin-notifications-list-js', null, 'ibexa') }}
 {% endblock %}
+{% macro table_header_tools(form) %}
+    {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
+    <div class="ibexa-notification-list__table-btns">
+        <button
+            type="button"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn--mark-as-read"
+            disabled
+        >
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('mail-open') }}"></use>
+            </svg>
+            <span class="ibexa-btn__label">
+                {{ 'notification.mark_as_read'|trans|desc('Mark as read') }}
+            </span>
+        </button>
+        <button
+            id="confirm-{{ form.remove.vars.id }}"
+            type="button"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn--delete"
+            data-bs-toggle="modal"
+            data-bs-target="#{{ modal_data_target }}"
+            disabled
+        >
+            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+            </svg>
+            <span class="ibexa-btn__label">
+                {{ 'notification.delete'|trans|desc('Delete') }}
+            </span>
+        </button>
+    </div>
+    {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+        'id': modal_data_target,
+        'message': 'notifications.list.action.remove.confirmation.text'|trans|desc('Are you sure you want to permanently delete the selected notification(s)?'),
+        'data_click': '#' ~ form.remove.vars.id,
+    } %}
+{% endmacro %}

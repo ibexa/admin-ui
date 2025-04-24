@@ -89,8 +89,14 @@
     };
     const updateModalTitleTotalInfo = (notificationsCount) => {
         const modalTitle = panel.querySelector(SELECTOR_MODAL_TITLE);
-
+        const modalFooter = panel.querySelector('.ibexa-notifications__view-all-btn--count');
+        modalFooter.textContent = ` (${notificationsCount})`;
         modalTitle.dataset.notificationsTotal = `(${notificationsCount})`;
+
+        if (notificationsCount < 10) {
+            panel.querySelector('.ibexa-notifications-modal__count').textContent = `(${notificationsCount})`;
+        }
+        
     };
     const updatePendingNotificationsView = (notificationsInfo) => {
         const noticeDot = doc.querySelector('.ibexa-header-user-menu__notice-dot');

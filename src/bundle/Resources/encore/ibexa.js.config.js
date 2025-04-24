@@ -254,5 +254,8 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.location.adaptive.tabs.js'),
         ])
         .addEntry('ibexa-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')])
-        .addEntry('ibexa-admin-notifications-list-js', [path.resolve(__dirname, '../public/js/scripts/admin.notifications.list.js')]);
+        .addEntry('ibexa-admin-notifications-list-js', [
+            path.resolve(__dirname, '../public/js/scripts/admin.notifications.list.js'),
+            path.resolve(__dirname, '../public/js/scripts/admin.notifications.filters.js'),
+        ])
 };

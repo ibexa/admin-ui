@@ -22,7 +22,7 @@ parameters:
     ibexa.site_access.config.admin_group.pagination.content_role_limit: 5
     ibexa.site_access.config.admin_group.pagination.content_policy_limit: 5
     ibexa.site_access.config.admin_group.pagination.bookmark_limit: 10
-    ibexa.site_access.config.admin_group.pagination.notification_limit: 5
+    ibexa.site_access.config.admin_group.pagination.notification_limit: 10
     ibexa.site_access.config.admin_group.pagination.user_settings_limit: 10
     ibexa.site_access.config.admin_group.pagination.content_draft_limit: 10
     ibexa.site_access.config.admin_group.pagination.location_limit: 10

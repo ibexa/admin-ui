@@ -1,0 +1,19 @@
+<div class="ibexa-list-filters__item accordion-item {{ extra_class|default('') }}">
+    <span class="ibexa-list-filters__item-header accordion-header">
+        <button
+            type="button"
+            class="ibexa-list-filters__item-header-btn accordion-button {% if collapsed|default(false) %}collapsed{% endif %}"
+            data-bs-toggle="collapse"
+            data-bs-target="#{{ target_id }}"
+        >
+            {{ label|default() }}
+            <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--toggle">
+                <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+            </svg>
+        </button>
+    </span>
+    <div class="ibexa-list-filters__item-content accordion-collapse collapse {% if not collapsed|default(false) %}show{% endif %}" id="{{ target_id }}">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
