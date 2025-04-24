@@ -10,6 +10,7 @@
 
             this.attachEventsToTag = this.attachEventsToTag.bind(this);
             this.handleInputKeyUp = this.handleInputKeyUp.bind(this);
+            this.addElementAttributes = this.addElementAttributes.bind(this);
         }
 
         afterTagsUpdate() {}
@@ -18,7 +19,23 @@
             return this.acceptKeys.includes(key);
         }
 
-        addTag(name, value, dataset = {}) {
+        addElementAttributes(element, attrs) {
+            const getValue = (value) => (typeof value === 'object' ? JSON.stringify(value) : value);
+
+            Object.entries(attrs).forEach(([attrKey, attrValue]) => {
+                if (attrKey === 'dataset') {
+                    Object.entries(attrValue).forEach(([datasetKey, datasetValue]) => {
+                        element.dataset[datasetKey] = getValue(datasetValue);
+                    });
+                } else if (element.hasAttribute(attrKey)) {
+                    console.warn(`Element already has the attribute named ${attrKey}`);
+                } else {
+                    element.setAttribute(attrKey, getValue(attrValue));
+                }
+            });
+        }
+
+        addTag(name, value, attrs = {}, tooltipAttrs = {}) {
             const tagTemplate = this.listNode.dataset.template;
             const renderedTemplate = tagTemplate.replace('{{ name }}', name).replace('{{ value }}', value);
             const div = doc.createElement('div');
@@ -26,9 +43,10 @@
             div.insertAdjacentHTML('beforeend', renderedTemplate);
 
             const tag = div.querySelector('.ibexa-taggify__list-tag');
+            const tagNameNode = tag.querySelector('.ibexa-taggify__list-tag-name');
 
-            Object.entries(dataset).forEach(([datasetKey, datasetValue]) => (tag.dataset[datasetKey] = datasetValue));
-
+            this.addElementAttributes(tag, attrs);
+            this.addElementAttributes(tagNameNode, tooltipAttrs);
             this.attachEventsToTag(tag, value);
             this.listNode.insertBefore(tag, this.inputNode);
             this.tags.add(value);
@@ -37,6 +55,7 @@
 
         removeTag(tag, value) {
             this.tags.delete(value);
+
             tag.remove();
 
             this.afterTagsUpdate();
@@ -53,7 +72,7 @@
                 return;
             }
 
-            if (this.isAcceptKeyPressed(event.key)) {
+            if (this.isAcceptKeyPressed(event.key) && this.inputNode.value && !this.tags.has(this.inputNode.value)) {
                 this.addTag(this.inputNode.value, this.inputNode.value);
 
                 this.inputNode.value = '';

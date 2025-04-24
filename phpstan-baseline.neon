@@ -5209,6 +5209,12 @@ parameters:
 			path: src/lib/Form/Data/ContentType/Translation/TranslationRemoveData.php
 
 		-
+			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\ContentTypeData\:\:\$isNew in isset\(\) is not nullable nor uninitialized\.$#'
+			identifier: isset.initializedProperty
+			count: 1
+			path: src/lib/Form/Data/ContentTypeData.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupCreateData\:\:setIdentifier\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
