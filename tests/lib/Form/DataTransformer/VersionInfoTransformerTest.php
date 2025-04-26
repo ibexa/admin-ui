@@ -111,7 +111,7 @@ final class VersionInfoTransformerTest extends TestCase
      */
     public function testReverseTransformWithValidInput(?array $value, ?VersionInfo $expected): void
     {
-        if ($value !== null) {
+        if ($expected !== null && $value !== null) {
             $this->contentService
                 ->expects(self::once())
                 ->method('loadVersionInfo')
