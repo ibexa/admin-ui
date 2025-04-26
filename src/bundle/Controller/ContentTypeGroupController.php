@@ -98,11 +98,6 @@ class ContentTypeGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
@@ -149,17 +144,12 @@ class ContentTypeGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, ContentTypeGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
         /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateContentTypeGroup(
+            $group,
             new ContentTypeGroupUpdateData($group)
         );
         $form->handleRequest($request);
@@ -213,6 +203,7 @@ class ContentTypeGroupController extends Controller
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->formFactory->deleteContentTypeGroup(
+            $group,
             new ContentTypeGroupDeleteData($group)
         );
         $form->handleRequest($request);

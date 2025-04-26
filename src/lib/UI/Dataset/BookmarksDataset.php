@@ -57,6 +57,6 @@ class BookmarksDataset
      */
     public function getBookmarks(): array
     {
-        return $this->data;
+        return $this->data ?? [];
     }
 }

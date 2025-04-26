@@ -55,12 +55,11 @@ class ConfigureMenuEvent extends Event
 
     private ItemInterface $menu;
 
+    /** @var array<string, mixed> */
     private array $options;
 
     /**
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Knp\Menu\ItemInterface $menu
-     * @param array $options
+     * @param array<string, mixed> $options
      */
     public function __construct(FactoryInterface $factory, ItemInterface $menu, array $options = [])
     {
@@ -69,27 +68,21 @@ class ConfigureMenuEvent extends Event
         $this->options = $options;
     }
 
-    /**
-     * @return \Knp\Menu\FactoryInterface
-     */
     public function getFactory(): FactoryInterface
     {
         return $this->factory;
     }
 
-    /**
-     * @return \Knp\Menu\ItemInterface
-     */
     public function getMenu(): ItemInterface
     {
         return $this->menu;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getOptions(): array
     {
-        return $this->options ?? [];
+        return $this->options;
     }
 }

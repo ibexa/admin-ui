@@ -239,6 +239,7 @@ class ObjectStateGroupController extends Controller
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
         /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateObjectStateGroup(
+            $group,
             new ObjectStateGroupUpdateData($group)
         );
         $form->handleRequest($request);

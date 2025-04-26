@@ -20,15 +20,9 @@ use Symfony\Component\Form\FormInterface;
 
 class FieldTypeFormMapperDispatcherTest extends TestCase
 {
-    /**
-     * @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface
-     */
     private FieldTypeDefinitionFormMapperDispatcher $dispatcher;
 
-    /**
-     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $fieldDefinitionMapperMock;
+    private FieldDefinitionFormMapperInterface&MockObject $fieldDefinitionMapperMock;
 
     protected function setUp(): void
     {

@@ -57,7 +57,7 @@ class DefaultRenderer implements RendererInterface
         $group = $this->registry->getComponents($groupName);
 
         if (!isset($group[$name])) {
-            throw new InvalidArgumentException('id', sprintf("Can't find Component '%s' in group '%s'", $name, $group));
+            throw new InvalidArgumentException('id', sprintf("Can't find Component '%s' in group '%s'", $name, $groupName));
         }
 
         return $group[$name]->render($parameters);

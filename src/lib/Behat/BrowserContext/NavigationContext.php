@@ -21,7 +21,6 @@ class NavigationContext implements Context
 {
     private ArgumentParser $argumentParser;
 
-    /** @var \Ibexa\Behat\Browser\Page\PageRegistry[] */
     private PageRegistry $pageRegistry;
 
     private UpperMenu $upperMenu;

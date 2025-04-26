@@ -78,25 +78,16 @@ class DatasetFactory implements LoggerAwareInterface
         $this->logger = $logger ?? new NullLogger();
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\VersionsDataset
-     */
     public function versions(): VersionsDataset
     {
         return new VersionsDataset($this->contentService, $this->valueFactory);
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\TranslationsDataset
-     */
     public function translations(): TranslationsDataset
     {
         return new TranslationsDataset($this->languageService, $this->valueFactory);
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\RelationListDataset
-     */
     public function relationList(): RelationListDataset
     {
         return new RelationListDataset(
@@ -105,9 +96,6 @@ class DatasetFactory implements LoggerAwareInterface
         );
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\ReverseRelationListDataset
-     */
     public function reverseRelationList(): ReverseRelationListDataset
     {
         return new ReverseRelationListDataset(
@@ -116,39 +104,25 @@ class DatasetFactory implements LoggerAwareInterface
         );
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\LocationsDataset
-     */
     public function locations(): LocationsDataset
     {
         return new LocationsDataset($this->locationService, $this->valueFactory);
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\ObjectStatesDataset
-     */
     public function objectStates(): ObjectStatesDataset
     {
         return new ObjectStatesDataset($this->objectStateService, $this->valueFactory);
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
-     */
     public function customUrls(): CustomUrlsDataset
     {
         return new CustomUrlsDataset($this->urlAliasService, $this->valueFactory, $this->logger);
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\RolesDataset
-     */
     public function roles(): RolesDataset
     {
         return new RolesDataset(
             $this->roleService,
-            $this->contentService,
-            $this->contentTypeService,
             $this->userService,
             $this->valueFactory,
             $this->configResolver->getParameter('user_content_type_identifier'),
@@ -156,15 +130,10 @@ class DatasetFactory implements LoggerAwareInterface
         );
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\PoliciesDataset
-     */
     public function policies(): PoliciesDataset
     {
         return new PoliciesDataset(
             $this->roleService,
-            $this->contentService,
-            $this->contentTypeService,
             $this->userService,
             $this->valueFactory,
             $this->configResolver->getParameter('user_content_type_identifier'),
@@ -172,9 +141,6 @@ class DatasetFactory implements LoggerAwareInterface
         );
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\BookmarksDataset
-     */
     public function bookmarks(): BookmarksDataset
     {
         return new BookmarksDataset(
@@ -183,9 +149,6 @@ class DatasetFactory implements LoggerAwareInterface
         );
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftListDataset
-     */
     public function contentDraftList(): ContentDraftListDataset
     {
         return new ContentDraftListDataset(

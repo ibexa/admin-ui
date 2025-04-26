@@ -41,33 +41,21 @@ class TrashItemData
         $this->creator = $creator;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem
-     */
     public function getLocation(): APITrashItem
     {
         return $this->location;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $location
-     */
     public function setLocation(APITrashItem $location): void
     {
         $this->location = $location;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
-     */
-    public function getContentType(): ContentType
+    public function getContentType(): ?ContentType
     {
         return $this->contentType;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     */
     public function setContentType(ContentType $contentType): void
     {
         $this->contentType = $contentType;

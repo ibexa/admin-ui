@@ -19,17 +19,13 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class RequestListenerTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\EventListener\RequestListener */
+    private Request&MockObject $request;
+
+    private HttpKernelInterface&MockObject $httpKernel;
+
     private RequestListener $requestListener;
 
-    /** @var \Symfony\Component\HttpFoundation\Request */
-    private MockObject $request;
-
-    /** @var \Symfony\Component\HttpKernel\Event\RequestEvent */
     private RequestEvent $event;
-
-    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $httpKernel;
 
     protected function setUp(): void
     {
@@ -64,39 +60,49 @@ class RequestListenerTest extends TestCase
 
     public function testOnKernelRequestAllowAccessWithSubRequest(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $this->event = new RequestEvent(
             $this->httpKernel,
             $this->request,
             HttpKernelInterface::SUB_REQUEST
         );
 
-        self::assertNull($this->requestListener->onKernelRequest($this->event));
+        $this->requestListener->onKernelRequest($this->event);
     }
 
     public function testOnKernelRequestAllowAccessWithoutSiteAccess(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $this->request->attributes->set('siteaccess', 'not_siteaccess_object');
 
-        self::assertNull($this->requestListener->onKernelRequest($this->event));
+        $this->requestListener->onKernelRequest($this->event);
     }
 
     public function testOnKernelRequestAllowAccessWithoutGroupWhitelist(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $this->request->attributes->set('siteaccess_group_whitelist', null);
 
-        self::assertNull($this->requestListener->onKernelRequest($this->event));
+        $this->requestListener->onKernelRequest($this->event);
     }
 
     public function testOnKernelRequestAllowAccessWhenGroupMatch(): void
     {
+        $this->expectNotToPerformAssertions();
+
         $this->request->attributes->set('siteaccess', new SiteAccess('some_name'));
         $this->request->attributes->set('siteaccess_group_whitelist', ['group_1', 'group_2']);
 
-        self::assertNull($this->requestListener->onKernelRequest($this->event));
+        $this->requestListener->onKernelRequest($this->event);
     }
 
     public function testSubscribedEvents(): void
     {
-        self::assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
+        self::assertSame([
+            KernelEvents::REQUEST => ['onKernelRequest', 13],
+        ], $this->requestListener::getSubscribedEvents());
     }
 }

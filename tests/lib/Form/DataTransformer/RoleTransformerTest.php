@@ -20,9 +20,6 @@ class RoleTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
     public function testTransform(?Role $value, ?int $expected): void
     {
@@ -36,10 +33,8 @@ class RoleTransformerTest extends TestCase
 
     /**
      * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $roleService = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($roleService);
@@ -81,7 +76,7 @@ class RoleTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
      */
-    public function testReverseTransformWithInvalidInput(string|bool|float|\stdClass|array $value): void
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $roleService = $this->createMock(RoleService::class);
         $transformer = new RoleTransformer($roleService);
@@ -108,7 +103,7 @@ class RoleTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Core\Repository\Values\User\Role|null, int|null}>
      */
     public function transformDataProvider(): array
     {
@@ -121,7 +116,7 @@ class RoleTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function transformWithInvalidInputDataProvider(): array
     {
@@ -135,6 +130,9 @@ class RoleTransformerTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, array{mixed}>
+     */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
         return [

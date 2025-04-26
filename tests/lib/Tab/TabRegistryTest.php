@@ -36,7 +36,14 @@ class TabRegistryTest extends TestCase
 
     public function testGetTabsByGroupName(): void
     {
-        $tabs = ['tab1', 'tab2'];
+        $twig = $this->createMock(Environment::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+
+        $tabs = [
+            $this->createTab('tab1', $twig, $translator),
+            $this->createTab('tab1', $twig, $translator),
+        ];
+
         $tabGroup = $this->createTabGroup($this->groupName, $tabs);
         $tabRegistry = new TabRegistry();
         $tabRegistry->addTabGroup($tabGroup);
@@ -132,79 +139,41 @@ class TabRegistryTest extends TestCase
     }
 
     /**
-     * Returns Tab Group.
-     *
-     * @param string $name
-     * @param array $tabs
-     *
-     * @return \Ibexa\AdminUi\Tab\TabGroup
+     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
      */
     private function createTabGroup(string $name = 'lorem', array $tabs = []): TabGroup
     {
         return new TabGroup($name, $tabs);
     }
 
-    /**
-     * Returns Tab.
-     *
-     * @param string $name
-     * @param \Twig\Environment|\PHPUnit\Framework\MockObject\MockObject $twig
-     * @param \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface $translator
-     *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
-     */
     private function createTab(string $name, Environment $twig, TranslatorInterface $translator): TabInterface
     {
         return new class($name, $twig, $translator) extends AbstractTab {
             protected string $name;
 
-            /** @var \Twig\Environment */
-            protected $twig;
+            protected Environment $twig;
 
-            /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-            protected $translator;
+            protected TranslatorInterface $translator;
 
-            /**
-             * @param string $name
-             * @param \Twig\Environment $twig
-             * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-             */
-            public function __construct(string $name = 'tab', Environment $twig, TranslatorInterface $translator)
+            public function __construct(string $name, Environment $twig, TranslatorInterface $translator)
             {
                 parent::__construct($twig, $translator);
                 $this->name = $name;
             }
 
-            /**
-             * Returns identifier of the tab.
-             *
-             * @return string
-             */
             public function getIdentifier(): string
             {
                 return 'identifier';
             }
 
-            /**
-             * Returns name of the tab which is displayed as a tab's title in the UI.
-             *
-             * @return string
-             */
             public function getName(): string
             {
                 return $this->name;
             }
 
-            /**
-             * Returns HTML body of the tab.
-             *
-             * @param array $parameters
-             *
-             * @return string
-             */
             public function renderView(array $parameters): string
             {
-                return null;
+                return '';
             }
         };
     }

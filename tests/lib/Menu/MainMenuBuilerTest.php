@@ -26,22 +26,16 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MainMenuBuilerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
-    private MockObject $factory;
+    private MenuItemFactoryInterface&MockObject $factory;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    private MockObject $eventDispatcher;
+    private EventDispatcherInterface&MockObject $eventDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private MockObject $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private MockObject $permissionResolver;
+    private PermissionResolver&MockObject $permissionResolver;
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private MockObject $tokenStorage;
+    private TokenStorageInterface&MockObject $tokenStorage;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService&\PHPUnit\Framework\MockObject\MockObject */
     private UserSettingService $userSettingService;
 
     protected function setUp(): void

@@ -20,65 +20,42 @@ class ContentObjectStateUpdateData
 
     private ?ObjectState $objectState;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null $objectState
-     */
     public function __construct(
-        ContentInfo $contentInfo = null,
-        ObjectStateGroup $objectStateGroup = null,
-        ObjectState $objectState = null
+        ?ContentInfo $contentInfo = null,
+        ?ObjectStateGroup $objectStateGroup = null,
+        ?ObjectState $objectState = null
     ) {
         $this->contentInfo = $contentInfo;
         $this->objectStateGroup = $objectStateGroup;
         $this->objectState = $objectState;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
-     */
-    public function getContentInfo(): ContentInfo
+    public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     */
-    public function setContentInfo(ContentInfo $contentInfo): void
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
-     */
-    public function getObjectStateGroup(): ObjectStateGroup
+    public function getObjectStateGroup(): ?ObjectStateGroup
     {
         return $this->objectStateGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     */
-    public function setObjectStateGroup(ObjectStateGroup $objectStateGroup): void
+    public function setObjectStateGroup(?ObjectStateGroup $objectStateGroup): void
     {
         $this->objectStateGroup = $objectStateGroup;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null
-     */
     public function getObjectState(): ?ObjectState
     {
         return $this->objectState;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     */
-    public function setObjectState(ObjectState $objectState): void
+    public function setObjectState(?ObjectState $objectState): void
     {
         $this->objectState = $objectState;
     }

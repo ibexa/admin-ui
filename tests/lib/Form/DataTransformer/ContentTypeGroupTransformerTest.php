@@ -22,10 +22,8 @@ final class ContentTypeGroupTransformerTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_GROUP_ID = 1;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $contentService;
+    private ContentTypeService&MockObject $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer */
     private ContentTypeGroupTransformer $transformer;
 
     protected function setUp(): void
@@ -57,7 +55,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForTransformWithInvalidInput
      */
-    public function testTransformWithInvalidInput(string|int|bool|float|stdClass|array $value): void
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . APIContentTypeGroup::class . ' object.');
@@ -65,6 +63,9 @@ final class ContentTypeGroupTransformerTest extends TestCase
         $this->transformer->transform($value);
     }
 
+    /**
+     * @return array<string, array{mixed}>
+     */
     public function dataProviderForTransformWithInvalidInput(): array
     {
         return [
@@ -80,7 +81,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForReverseTransformWithValidInput
      */
-    public function testReverseTransformWithValidInput(int|string|null $value, ?APIContentTypeGroup $expected): void
+    public function testReverseTransformWithValidInput(mixed $value, ?APIContentTypeGroup $expected): void
     {
         if ($expected !== null) {
             $this->contentService
@@ -95,6 +96,9 @@ final class ContentTypeGroupTransformerTest extends TestCase
         );
     }
 
+    /**
+     * @return array<string, array{mixed, \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null}>
+     */
     public function dataProviderForReverseTransformWithValidInput(): array
     {
         $contentTypeGroup = new ContentTypeGroup([
@@ -117,7 +121,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForReverseTransformWithInvalidInput
      */
-    public function testReverseTransformWithInvalidInput(string|bool|stdClass|array $value): void
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a numeric string.');
@@ -125,6 +129,9 @@ final class ContentTypeGroupTransformerTest extends TestCase
         $this->transformer->reverseTransform($value);
     }
 
+    /**
+     * @return array<string, array{mixed}>
+     */
     public function dataProviderForReverseTransformWithInvalidInput(): array
     {
         return [

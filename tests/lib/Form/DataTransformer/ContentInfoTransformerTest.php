@@ -19,7 +19,6 @@ final class ContentInfoTransformerTest extends TestCase
 {
     private const EXAMPLE_CONTENT_ID = 123456;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentInfoTransformer */
     private ContentInfoTransformer $contentInfoTransformer;
 
     protected function setUp(): void
@@ -40,11 +39,9 @@ final class ContentInfoTransformerTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider transformWithInvalidInputDataProvider
      */
-    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . ContentInfo::class . ' object.');
@@ -65,7 +62,7 @@ final class ContentInfoTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformDataProvider
      */
-    public function testReverseTransform(int|string|null $value, ?ContentInfo $expected): void
+    public function testReverseTransform(mixed $value, ?ContentInfo $expected): void
     {
         $result = $this->contentInfoTransformer->reverseTransform($value);
 
@@ -73,11 +70,9 @@ final class ContentInfoTransformerTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @dataProvider reverseTransformWithInvalidInputDataProvider
      */
-    public function testReverseTransformWithInvalidInput(string|bool|\stdClass|ContentInfo|array $value): void
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a numeric string.');
@@ -101,6 +96,9 @@ final class ContentInfoTransformerTest extends TestCase
         $transformer->reverseTransform(654321);
     }
 
+    /**
+     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null, int|null}>
+     */
     public function transformDataProvider(): array
     {
         $contentInfo = new ContentInfo([
@@ -113,6 +111,9 @@ final class ContentInfoTransformerTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, array{mixed, \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null}>
+     */
     public function reverseTransformDataProvider(): array
     {
         $contentInfo = new ContentInfo([
@@ -126,6 +127,9 @@ final class ContentInfoTransformerTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, array{mixed}>
+     */
     public function transformWithInvalidInputDataProvider(): array
     {
         return [
@@ -138,6 +142,9 @@ final class ContentInfoTransformerTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, array{mixed}>
+     */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
         return [

@@ -20,9 +20,6 @@ class SectionTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
     public function testTransform(?Section $value, ?int $expected): void
     {
@@ -36,10 +33,8 @@ class SectionTransformerTest extends TestCase
 
     /**
      * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $languageService = $this->createMock(SectionService::class);
         $transformer = new SectionTransformer($languageService);
@@ -106,7 +101,7 @@ class SectionTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{Section|null, int|null}>
      */
     public function transformDataProvider(): array
     {
@@ -119,7 +114,7 @@ class SectionTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function transformWithInvalidInputDataProvider(): array
     {

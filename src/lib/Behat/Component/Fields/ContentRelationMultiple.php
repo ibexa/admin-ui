@@ -158,6 +158,9 @@ class ContentRelationMultiple extends FieldTypeComponent
         }
     }
 
+    /**
+     * @param array<array-key, string> $paths
+     */
     private function selectRelationsAndConfirm($items, array $paths): void
     {
         $this->universalDiscoveryWidget->verifyIsLoaded();

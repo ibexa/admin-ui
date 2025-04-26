@@ -16,7 +16,8 @@ class TabEvent extends Event
     /** @var \Ibexa\Contracts\AdminUi\Tab\TabInterface */
     private TabInterface $data;
 
-    private ?array $parameters = null;
+    /** @var array<string, mixed> */
+    private array $parameters = [];
 
     /**
      * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
@@ -35,7 +36,7 @@ class TabEvent extends Event
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getParameters(): array
     {
@@ -43,7 +44,7 @@ class TabEvent extends Event
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
     public function setParameters(array $parameters): void
     {

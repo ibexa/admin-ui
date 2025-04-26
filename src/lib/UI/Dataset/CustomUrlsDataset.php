@@ -76,6 +76,6 @@ class CustomUrlsDataset
      */
     public function getCustomUrlAliases(): array
     {
-        return $this->data;
+        return $this->data ?? [];
     }
 }

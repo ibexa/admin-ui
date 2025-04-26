@@ -17,10 +17,8 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsNotRootValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private MockObject $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
     private LocationIsNotRootValidator $validator;
 
     protected function setUp(): void

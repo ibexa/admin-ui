@@ -17,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 
 class LanguageCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
     private LanguageCreateMapper $mapper;
 
     protected function setUp(): void
@@ -70,16 +69,23 @@ class LanguageCreateMapperTest extends TestCase
         $this->mapper->reverseMap(new LanguageDeleteData());
     }
 
+    /**
+     * @phpstan-return array<string, array{array{languageCode: string, name: string, enabled: bool}}>
+     */
     public function dataProvider(): array
     {
         return [
-            'enabled_true' => [['languageCode' => 'AB', 'name' => 'Lorem', 'enabled' => true]],
-            'enabled_false' => [['languageCode' => 'CD', 'name' => 'Ipsum', 'enabled' => false]],
+            'enabled_true' => [
+                ['languageCode' => 'AB', 'name' => 'Lorem', 'enabled' => true],
+            ],
+            'enabled_false' => [
+                ['languageCode' => 'CD', 'name' => 'Ipsum', 'enabled' => false],
+            ],
         ];
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
      */

@@ -36,7 +36,7 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      *
-     * @return \list<\list>
+     * @phpstan-return list<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]>
      */
     public function mapLimitationValue(Limitation $limitation): array
     {

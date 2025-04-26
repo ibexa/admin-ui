@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RequestLocaleListenerTest extends TestCase
 {
@@ -28,20 +29,15 @@ class RequestLocaleListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    /** @var \Symfony\Component\HttpFoundation\Request */
-    private MockObject $request;
+    private Request&MockObject $request;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\HttpKernelInterface */
-    private MockObject $httpKernel;
+    private HttpKernelInterface&MockObject $httpKernel;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private MockObject $translator;
+    private TranslatorInterface&MockObject $translator;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private MockObject $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface&MockObject $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
     protected function setUp(): void
     {

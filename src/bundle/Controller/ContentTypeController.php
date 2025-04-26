@@ -166,10 +166,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeCreateView
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException

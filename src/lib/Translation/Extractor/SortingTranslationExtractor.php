@@ -19,6 +19,11 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
  */
 class SortingTranslationExtractor implements ExtractorInterface
 {
+    /**
+     * Default translations for sort fields.
+     *
+     * @var array<int, string>
+     */
     private array $defaultTranslations = [
         1 => 'Location path',
         2 => 'Publication date',

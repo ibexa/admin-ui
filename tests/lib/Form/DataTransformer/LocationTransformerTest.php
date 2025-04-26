@@ -20,9 +20,6 @@ class LocationTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
     public function testTransform(?Location $value, ?int $expected): void
     {
@@ -36,10 +33,8 @@ class LocationTransformerTest extends TestCase
 
     /**
      * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $languageService = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($languageService);
@@ -94,7 +89,7 @@ class LocationTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{Location|null, int|null}>
      */
     public function transformDataProvider(): array
     {
@@ -107,7 +102,7 @@ class LocationTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function transformWithInvalidInputDataProvider(): array
     {

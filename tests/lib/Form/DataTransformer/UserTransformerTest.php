@@ -20,14 +20,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserTransformerTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\UserTransformer */
     private UserTransformer $userTransformer;
 
     protected function setUp(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $userService */
         $userService = $this->createMock(UserService::class);
-        $userService->expects(self::any())
+        $userService
+            ->expects(self::any())
             ->method('loadUser')
             ->with(123456)
             ->willReturn($this->generateUser(123456));
@@ -37,9 +36,6 @@ class UserTransformerTest extends TestCase
 
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
     public function testTransform(?User $value, ?int $expected): void
     {
@@ -50,10 +46,8 @@ class UserTransformerTest extends TestCase
 
     /**
      * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testTransformWithInvalidInput(string|int|bool|float|\stdClass|array $value): void
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . User::class . ' object.');
@@ -63,9 +57,6 @@ class UserTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
     public function testReverseTransform(?int $value, ?User $expected): void
     {
@@ -76,10 +67,8 @@ class UserTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithInvalidInput(string|bool|\stdClass|User|array $value): void
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a numeric string.');
@@ -94,17 +83,17 @@ class UserTransformerTest extends TestCase
 
         /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(UserService::class);
-        $service->method('loadUser')
+        $service
+            ->method('loadUser')
             ->will(self::throwException(new class('User not found') extends NotFoundException {
             }));
 
         $transformer = new UserTransformer($service);
-
         $transformer->reverseTransform(654321);
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\User\User|null, int|null}>
      */
     public function transformDataProvider(): array
     {
@@ -117,7 +106,7 @@ class UserTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{int|null, \Ibexa\Contracts\Core\Repository\Values\User\User|null}>
      */
     public function reverseTransformDataProvider(): array
     {
@@ -130,7 +119,7 @@ class UserTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function transformWithInvalidInputDataProvider(): array
     {
@@ -145,7 +134,7 @@ class UserTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
@@ -158,12 +147,7 @@ class UserTransformerTest extends TestCase
         ];
     }
 
-    /**
-     * @param int $id
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
-     */
-    private function generateUser(int $id = null): User
+    private function generateUser(?int $id = null): User
     {
         $contentInfo = new API\ContentInfo(['id' => $id]);
         $versionInfo = new Core\VersionInfo(['contentInfo' => $contentInfo]);

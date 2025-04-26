@@ -43,11 +43,13 @@ class UniversalDiscoveryProvider implements Provider
 
     private LocationPathQueryType $locationPathQueryType;
 
+    /** @var array<string, class-string> */
     private array $sortClauseClassMap = [
         self::SORT_CLAUSE_DATE_PUBLISHED => Query\SortClause\DatePublished::class,
         self::SORT_CLAUSE_CONTENT_NAME => Query\SortClause\ContentName::class,
     ];
 
+    /** @var string[] */
     private array $availableSortOrder = [
         Query::SORT_ASC,
         Query::SORT_DESC,

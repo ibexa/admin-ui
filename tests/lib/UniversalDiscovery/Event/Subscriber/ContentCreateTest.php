@@ -25,14 +25,11 @@ class ContentCreateTest extends TestCase
     private const ALLOWED_LANGUAGE_CODE = 'eng-GB';
     private const ALLOWED_CONTENT_TYPE_ID = 1;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $permissionChecker;
+    private PermissionCheckerInterface&MockObject $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $permissionResolver;
+    private PermissionResolver&MockObject $permissionResolver;
 
     public function setUp(): void
     {
@@ -43,6 +40,8 @@ class ContentCreateTest extends TestCase
 
     /**
      * @dataProvider createTab
+     *
+     * @phpstan-param array<string, mixed> $config
      */
     public function testUdwConfigResolveWithCreateTab(array $config): void
     {
@@ -66,6 +65,8 @@ class ContentCreateTest extends TestCase
 
     /**
      * @dataProvider withoutCreateTab
+     *
+     * @phpstan-param array<string, mixed> $config
      */
     public function testUdwConfigResolveWithoutCreateTab(array $config): void
     {
@@ -79,6 +80,9 @@ class ContentCreateTest extends TestCase
         self::assertEquals($config, $event->getConfig());
     }
 
+    /**
+     * @phpstan-return array<string, array{array<string, mixed>}>
+     */
     public function createTab(): array
     {
         return [
@@ -101,6 +105,9 @@ class ContentCreateTest extends TestCase
         ];
     }
 
+    /**
+     * @phpstan-return array<string, array{array<string, mixed>}>
+     */
     public function withoutCreateTab(): array
     {
         return [

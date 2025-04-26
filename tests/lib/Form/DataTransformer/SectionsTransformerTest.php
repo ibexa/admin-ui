@@ -18,11 +18,8 @@ class SectionsTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform(string|array|null $value, ?string $expected): void
+    public function testTransform(mixed $value, ?string $expected): void
     {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionsTransformer($service);
@@ -50,10 +47,8 @@ class SectionsTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformWithEmptyDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithEmpty(string|int|float|bool|array|null $value): void
+    public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(SectionService::class);
         $service->expects(self::never())
@@ -67,10 +62,8 @@ class SectionsTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithInvalidInput(int|bool|float|\stdClass|array $value): void
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
@@ -82,16 +75,16 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\Section[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {
-        $location_1 = new APISection(['id' => 123456]);
-        $location_2 = new APISection(['id' => 456789]);
+        $sectionA = new APISection(['id' => 123456]);
+        $sectionB = new APISection(['id' => 456789]);
 
         return [
-            'with_array_of_ids' => [[$location_1, $location_2], '123456,456789'],
-            'with_array_of_id' => [[$location_1], '123456'],
+            'with_array_of_ids' => [[$sectionA, $sectionB], '123456,456789'],
+            'with_array_of_id' => [[$sectionA], '123456'],
             'null' => [null, null],
             'string' => ['string', null],
             'empty_array' => [[], null],
@@ -99,7 +92,7 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
@@ -113,7 +106,7 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithEmptyDataProvider(): array
     {

@@ -18,11 +18,8 @@ class LocationsTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform(string|array|null $value, ?string $expected): void
+    public function testTransform(mixed $value, ?string $expected): void
     {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationsTransformer($service);
@@ -50,10 +47,8 @@ class LocationsTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformWithEmptyDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithEmpty(string|int|float|bool|array|null $value): void
+    public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::never())
@@ -67,10 +62,8 @@ class LocationsTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithInvalidInput(int|bool|float|\stdClass|array $value): void
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
@@ -82,7 +75,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Core\Repository\Values\Content\Location[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {
@@ -99,7 +92,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
@@ -113,7 +106,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithEmptyDataProvider(): array
     {

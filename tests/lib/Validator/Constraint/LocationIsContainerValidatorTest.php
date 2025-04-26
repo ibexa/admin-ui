@@ -19,17 +19,13 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsContainerValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private MockObject $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
     private LocationIsContainerValidator $validator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $location;
+    private Location&MockObject $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $contentType;
+    private ContentType&MockObject $contentType;
 
     protected function setUp(): void
     {

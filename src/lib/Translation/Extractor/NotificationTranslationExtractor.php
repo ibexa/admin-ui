@@ -24,6 +24,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use SplFileInfo;
 use Twig\Node\Node as TwigNode;
 
 /**
@@ -37,11 +38,11 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
 
     private ?MessageCatalogue $catalogue = null;
 
-    private ?\SplFileInfo $file = null;
+    private ?SplFileInfo $file = null;
 
     private DocParser $docParser;
 
-    private \Psr\Log\NullLogger|LoggerInterface $logger;
+    private LoggerInterface $logger;
 
     private ?Node $previousNode = null;
 
@@ -135,16 +136,21 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
             $domain = 'messages';
         }
 
-        $message = new Message($id, $domain);
-        $message->setDesc($desc);
-        $message->setMeaning($meaning);
-        $message->addSource($this->fileSourceFactory->create($this->file, $node->getLine()));
-        $this->catalogue->add($message);
+        if ($this->catalogue !== null) {
+            $message = new Message($id, $domain);
+            $message->setDesc($desc);
+            $message->setMeaning($meaning);
+            if ($this->file !== null) {
+                $message->addSource($this->fileSourceFactory->create($this->file, $node->getLine()));
+            }
+
+            $this->catalogue->add($message);
+        }
 
         return null;
     }
 
-    public function visitPhpFile(\SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
+    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
     {
         $this->file = $file;
         $this->catalogue = $catalogue;
@@ -163,11 +169,11 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     {
     }
 
-    public function visitFile(\SplFileInfo $file, MessageCatalogue $catalogue)
+    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue)
     {
     }
 
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
+    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
     {
     }
 

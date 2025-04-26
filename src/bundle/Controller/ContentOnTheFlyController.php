@@ -218,8 +218,6 @@ class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException

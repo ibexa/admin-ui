@@ -25,7 +25,7 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException If the given value is not an instance of DateInterval
      */
-    public function transform($dateInterval)
+    public function transform(mixed $dateInterval): array
     {
         if ($dateInterval === null) {
             return [
@@ -57,17 +57,15 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
     /**
      * Transforms an array of date interval elements into a date interval.
      *
-     * @param array $value date interval elements
-     *
-     * @return \DateInterval date interval
+     * @param mixed $value date interval elements
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an array,
      *                                       or if the value could not be transformed
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?DateInterval
     {
         if (null === $value) {
-            return;
+            return null;
         }
 
         if (!is_array($value)) {
@@ -75,7 +73,7 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
         }
 
         if ('' === implode('', $value)) {
-            return;
+            return null;
         }
 
         // List the fields that are not set as keys in $value

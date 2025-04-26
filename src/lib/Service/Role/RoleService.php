@@ -45,6 +45,9 @@ class RoleService
         return $this->roleService->loadRole($id);
     }
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role[]
+     */
     public function getRoles(): iterable
     {
         return $this->roleService->loadRoles();
@@ -79,7 +82,7 @@ class RoleService
         $this->roleService->deleteRole($role);
     }
 
-    public function getPolicy(Role $role, int $policyId)
+    public function getPolicy(Role $role, int $policyId): ?Policy
     {
         foreach ($role->getPolicies() as $policy) {
             if ($policy->id === $policyId) {
@@ -141,6 +144,9 @@ class RoleService
         throw new \RuntimeException("Policy {$policy->id} not found.");
     }
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[]
+     */
     public function getRoleAssignments(Role $role): iterable
     {
         return $this->roleService->getRoleAssignments($role);

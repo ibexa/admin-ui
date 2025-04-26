@@ -11,21 +11,40 @@ use DateInterval;
 use Ibexa\AdminUi\Form\DataTransformer\DateIntervalToArrayTransformer;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @phpstan-type TDataIntervalArray array{year: string, month: string, day: string, hour: string, minute: string, second: string}
+ * @phpstan-type TDataIntervalPair array<string, TDataIntervalArray>
+ */
 class DateIntervalToArrayTransformerTest extends TestCase
 {
+    /**
+     * @phpstan-return list<array{TDataIntervalPair}>
+     */
     public function transformProvider(): array
     {
         return [
-            [['P1Y2M3DT4H5M6S' => ['year' => '1', 'month' => '2', 'day' => '3', 'hour' => '4', 'minute' => '5', 'second' => '6']]],
-            [['P42D' => ['year' => '0', 'month' => '0', 'day' => '42', 'hour' => '0', 'minute' => '0', 'second' => '0']]],
-            [['PT12H5M' => ['year' => '0', 'month' => '0', 'day' => '0', 'hour' => '12', 'minute' => '5', 'second' => '0']]],
-            [['P0Y' => ['year' => '0', 'month' => '0', 'day' => '0', 'hour' => '0', 'minute' => '0', 'second' => '0']]],
-            [['PT0S' => ['year' => '0', 'month' => '0', 'day' => '0', 'hour' => '0', 'minute' => '0', 'second' => '0']]],
+            [
+                ['P1Y2M3DT4H5M6S' => ['year' => '1', 'month' => '2', 'day' => '3', 'hour' => '4', 'minute' => '5', 'second' => '6']],
+            ],
+            [
+                ['P42D' => ['year' => '0', 'month' => '0', 'day' => '42', 'hour' => '0', 'minute' => '0', 'second' => '0']],
+            ],
+            [
+                ['PT12H5M' => ['year' => '0', 'month' => '0', 'day' => '0', 'hour' => '12', 'minute' => '5', 'second' => '0']],
+            ],
+            [
+                ['P0Y' => ['year' => '0', 'month' => '0', 'day' => '0', 'hour' => '0', 'minute' => '0', 'second' => '0']],
+            ],
+            [
+                ['PT0S' => ['year' => '0', 'month' => '0', 'day' => '0', 'hour' => '0', 'minute' => '0', 'second' => '0']],
+            ],
         ];
     }
 
     /**
      * @dataProvider transformProvider
+     *
+     * @phpstan-param TDataIntervalPair $valueAsArray
      */
     public function testTransform(array $valueAsArray): void
     {
@@ -36,6 +55,8 @@ class DateIntervalToArrayTransformerTest extends TestCase
 
     /**
      * @dataProvider transformProvider
+     *
+     * @phpstan-param TDataIntervalPair $valueAsArray
      */
     public function testReverseTransform(array $valueAsArray): void
     {
@@ -53,6 +74,9 @@ class DateIntervalToArrayTransformerTest extends TestCase
         );
     }
 
+    /**
+     * @phpstan-return list<array{mixed}>
+     */
     public function reverseTransformNullProvider(): array
     {
         return [
@@ -65,6 +89,8 @@ class DateIntervalToArrayTransformerTest extends TestCase
 
     /**
      * @dataProvider reverseTransformNullProvider
+     *
+     * @phpstan-param array{mixed}|null $value
      */
     public function testReverseTransformNull(?array $value): void
     {

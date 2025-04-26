@@ -102,6 +102,7 @@ class LanguageController extends Controller
     public function viewAction(Language $language): Response
     {
         $deleteForm = $this->formFactory->deleteLanguage(
+            $language,
             new LanguageDeleteData($language)
         );
 
@@ -123,6 +124,7 @@ class LanguageController extends Controller
     public function deleteAction(Request $request, Language $language): Response
     {
         $form = $this->formFactory->deleteLanguage(
+            $language,
             new LanguageDeleteData($language)
         );
         $form->handleRequest($request);

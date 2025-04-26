@@ -25,34 +25,22 @@ class ContentTypeGroupUpdateData
         }
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
     public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup
-     */
-    public function getContentTypeGroup(): ContentTypeGroup
+    public function getContentTypeGroup(): ?ContentTypeGroup
     {
         return $this->contentTypeGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
-     */
-    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup): void
+    public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {
         $this->contentTypeGroup = $contentTypeGroup;
     }
