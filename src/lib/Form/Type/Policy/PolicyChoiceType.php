@@ -36,7 +36,7 @@ class PolicyChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new class() implements DataTransformerInterface {
-            public function transform($value)
+            public function transform(mixed $value): ?string
             {
                 if ($value) {
                     return $value['module'] . '|' . $value['function'];
@@ -45,7 +45,7 @@ class PolicyChoiceType extends AbstractType
                 return null;
             }
 
-            public function reverseTransform($value)
+            public function reverseTransform(mixed $value): array
             {
                 $module = null;
                 $function = null;

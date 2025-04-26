@@ -12,7 +12,7 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 class RelationValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (!$value instanceof Value) {
             return null;
@@ -25,7 +25,7 @@ class RelationValueTransformer implements DataTransformerInterface
         return $value->destinationContentId;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
         if ($value === null || !is_numeric($value)) {
             return null;

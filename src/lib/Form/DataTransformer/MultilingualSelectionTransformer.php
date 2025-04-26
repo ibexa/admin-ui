@@ -30,7 +30,7 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function transform($value)
+    public function transform(mixed $value): mixed
     {
         return $value;
     }
@@ -38,7 +38,7 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): array
     {
         if (!$value) {
             return [$this->languageCode => []];

@@ -26,7 +26,7 @@ class TranslatablePropertyTransformer implements DataTransformerInterface
         $this->languageCode = $languageCode;
     }
 
-    public function transform($valueAsHash)
+    public function transform(mixed $valueAsHash): mixed
     {
         if (!($valueAsHash && is_array($valueAsHash) && isset($valueAsHash[$this->languageCode]))) {
             return null;
@@ -35,7 +35,7 @@ class TranslatablePropertyTransformer implements DataTransformerInterface
         return $valueAsHash[$this->languageCode];
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): array
     {
         $value = (false === $value || [] === $value) ? null : $value;
 

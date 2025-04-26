@@ -31,7 +31,7 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!is_array($value)) {
             return null;
@@ -43,7 +43,7 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): array
     {
         if (!is_string($value) || $value === '') {
             return $value;
