@@ -15,7 +15,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 class KeywordValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!$value instanceof Value) {
             return null;
@@ -24,7 +24,7 @@ class KeywordValueTransformer implements DataTransformerInterface
         return implode(', ', $value->values);
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
         if (empty($value)) {
             return null;

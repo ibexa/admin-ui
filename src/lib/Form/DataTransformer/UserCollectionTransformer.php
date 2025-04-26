@@ -35,7 +35,7 @@ class UserCollectionTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!is_array($value) || empty($value)) {
             return null;

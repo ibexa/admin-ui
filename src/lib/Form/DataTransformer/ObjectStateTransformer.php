@@ -29,7 +29,7 @@ class ObjectStateTransformer implements DataTransformerInterface
         $this->objectStateService = $objectStateService;
     }
 
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -42,7 +42,7 @@ class ObjectStateTransformer implements DataTransformerInterface
         return $value->id;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?ObjectState
     {
         if (empty($value)) {
             return null;

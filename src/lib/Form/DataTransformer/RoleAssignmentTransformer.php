@@ -38,7 +38,7 @@ class RoleAssignmentTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -61,7 +61,7 @@ class RoleAssignmentTransformer implements DataTransformerInterface
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function reverseTransform($value): ?APIRoleAssignment
+    public function reverseTransform(mixed $value): ?APIRoleAssignment
     {
         if (empty($value)) {
             return null;

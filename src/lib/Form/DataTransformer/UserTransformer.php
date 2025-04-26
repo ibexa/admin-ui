@@ -38,7 +38,7 @@ class UserTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -62,7 +62,7 @@ class UserTransformer implements DataTransformerInterface
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
-    public function reverseTransform($value): ?User
+    public function reverseTransform(mixed $value): ?User
     {
         if (empty($value)) {
             return null;

@@ -38,7 +38,7 @@ class LanguageTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not a Language object
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (null === $value) {
             return null;
@@ -61,7 +61,7 @@ class LanguageTransformer implements DataTransformerInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the value can not be found
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Language
     {
         if (empty($value)) {
             return null;

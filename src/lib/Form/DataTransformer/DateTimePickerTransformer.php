@@ -24,7 +24,7 @@ class DateTimePickerTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException when the transformation fails
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -49,7 +49,7 @@ class DateTimePickerTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException when the transformation fails
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?DateTime
     {
         if (empty($value)) {
             return null;
