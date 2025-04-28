@@ -12,7 +12,8 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
 /**
- * @deprecated use {@see \Ibexa\TwigComponents\Component\ScriptComponent}
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\ScriptComponent} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\TwigComponents\Component\ScriptComponent} instead
  */
 class ScriptComponent implements ComponentInterface
 {

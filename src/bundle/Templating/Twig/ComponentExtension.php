@@ -53,7 +53,7 @@ class ComponentExtension extends AbstractExtension
                 [$this, 'renderComponentGroup'],
                 [
                     'is_safe' => ['html'],
-                    'deprecated' => true,
+                    'deprecated' => '4.6.19',
                     'alternative' => 'ibexa_twig_component_group',
                 ]
             ),
@@ -62,7 +62,7 @@ class ComponentExtension extends AbstractExtension
                 [$this, 'renderComponent'],
                 [
                     'is_safe' => ['html'],
-                    'deprecated' => true,
+                    'deprecated' => '4.6.19',
                     'alternative' => 'ibexa_twig_component',
                 ]
             ),

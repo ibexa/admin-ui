@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\AdminUi\Component\Renderer;
 
 /**
- * @deprecated use {@see \Ibexa\Contracts\TwigComponents\Renderer\RendererInterface}
+ * @deprecated 4.6.19 The {@see \Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\Contracts\TwigComponents\Renderer\RendererInterface} instead
  */
 interface RendererInterface
 {

@@ -12,7 +12,8 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
 /**
- * @deprecated use {@see \Ibexa\TwigComponents\Component\LinkComponent}
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\LinkComponent} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\TwigComponents\Component\LinkComponent} instead
  */
 class LinkComponent implements ComponentInterface
 {

@@ -8,22 +8,21 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
+use Ibexa\AdminUi\Component\Registry;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\TwigComponents\Component\Registry;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * @deprecated use {@see \Ibexa\Bundle\TwigComponents\DependencyInjection\Compiler\ComponentPass}
+ * @deprecated 4.6.19 The {@see \Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\Bundle\TwigComponents\DependencyInjection\Compiler\ComponentPass} instead
  */
 class ComponentPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
     public const TAG_NAME = 'ibexa.admin_ui.component';
-
-    public const GROUP_PREFIX = 'admin-ui-';
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
@@ -51,13 +50,7 @@ class ComponentPass implements CompilerPassInterface
                 }
 
                 $id = $tag['id'] ?? $id;
-                $group = $tag['group'];
-
-                //adding prefix to align with new name convention related to new twig-components package
-                if (!str_starts_with($group, self::GROUP_PREFIX)) {
-                    $group = self::GROUP_PREFIX . $group;
-                }
-                $registryDefinition->addMethodCall('addComponent', [$group, $id, $serviceReference]);
+                $registryDefinition->addMethodCall('addComponent', [$tag['group'], $id, $serviceReference]);
             }
         }
     }
