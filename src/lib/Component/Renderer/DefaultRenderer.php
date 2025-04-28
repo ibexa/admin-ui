@@ -16,7 +16,8 @@ use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * @deprecated use {@see \Ibexa\TwigComponents\Component\Renderer\DefaultRenderer}
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Renderer\DefaultRenderer} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\TwigComponents\Component\Renderer\DefaultRenderer} instead
  */
 class DefaultRenderer implements RendererInterface
 {
@@ -60,7 +61,14 @@ class DefaultRenderer implements RendererInterface
         $components = $this->registry->getComponents($groupName);
 
         if (!isset($components[$name])) {
-            throw new InvalidArgumentException('id', sprintf("Can't find Component '%s' in group '%s'", $name, $groupName));
+            throw new InvalidArgumentException(
+                'id',
+                sprintf(
+                    "Can't find Component '%s' in group '%s'",
+                    $name,
+                    $groupName
+                )
+            );
         }
 
         return $components[$name]->render($parameters);

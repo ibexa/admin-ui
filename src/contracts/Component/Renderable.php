@@ -11,7 +11,8 @@ namespace Ibexa\Contracts\AdminUi\Component;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 
 /**
- * @deprecated use {@see \Ibexa\Contracts\TwigComponents\ComponentInterface}
+ * @deprecated 4.6.19 The {@see \Ibexa\Contracts\AdminUi\Component\Renderable} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\Contracts\TwigComponents\ComponentInterface} instead
  */
 interface Renderable extends ComponentInterface
 {
