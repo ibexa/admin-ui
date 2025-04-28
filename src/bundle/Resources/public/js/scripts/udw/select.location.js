@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator) {
     const btns = doc.querySelectorAll('.ibexa-btn--udw-select-location');
     const udwContainer = doc.getElementById('react-udw');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
@@ -101,7 +101,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
@@ -127,4 +127,4 @@
             clearBtn.addEventListener('click', clearSelection.bind(null, btn), false);
         }
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator);

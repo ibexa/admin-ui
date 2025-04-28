@@ -1,13 +1,13 @@
 import initValidator from './validator/richtext-validator';
 
-(function (global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOMClient) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezrichtext';
     const SELECTOR_INPUT = '.ibexa-data-source__richtext';
     const SELECTOR_LABEL = '.ibexa-field-edit__label';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const selectContent = (config) => {
         const udwContainer = document.querySelector('#react-udw');
-        const udwRoot = ReactDOM.createRoot(udwContainer);
+        const udwRoot = ReactDOMClient.createRoot(udwContainer);
         const confirmHandler = (items) => {
             if (typeof config.onConfirm === 'function') {
                 config.onConfirm(items);
@@ -38,4 +38,4 @@ import initValidator from './validator/richtext-validator';
 
         ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient);

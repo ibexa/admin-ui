@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOMClient) {
     const udwContainer = doc.getElementById('react-udw');
     const limitationsRadio = doc.querySelectorAll('.ibexa-assign__limitations-item-radio');
     const selectSubtreeWidget = new ibexa.core.TagViewSelect({
@@ -33,7 +33,7 @@
         const selectedLocations = selectSubtreeWidget.inputField.value;
         const selectedLocationsIds = selectedLocations ? selectedLocations.split(',') : [];
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmSubtreeUDW.bind(this),
@@ -98,4 +98,4 @@
     selectUsersBtn.addEventListener('click', openUsersAndGroupsUDW.bind(null, selectUsersWidget), false);
     selectGroupsBtn.addEventListener('click', openUsersAndGroupsUDW.bind(null, selectGroupsWidget), false);
     limitationsRadio.forEach((radio) => radio.addEventListener('change', toggleDisabledState, false));
-})(window, window.document, window.ibexa, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient);

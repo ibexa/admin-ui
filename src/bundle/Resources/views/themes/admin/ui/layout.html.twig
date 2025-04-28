@@ -103,11 +103,10 @@
         {{ ibexa_render_component_group('stylesheet-head') }}
         {{ ibexa_render_component_group('script-head') }}
 
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
+        {{ encore_entry_script_tags('ibexa-admin-ui-react-load-js', null, 'react') }}
+        {{ encore_entry_script_tags('ibexa-admin-ui-react-dom-load-js', null, 'react-dom') }}
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment-with-locales.min.js') }}"></script>

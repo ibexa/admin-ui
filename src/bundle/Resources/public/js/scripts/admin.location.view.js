@@ -1,4 +1,4 @@
-(function (global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
+(function (global, doc, localStorage, bootstrap, React, ReactDOMClient, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
     const listContainers = doc.querySelectorAll('.ibexa-sil');
     const mfuContainer = doc.querySelector('#ibexa-mfu');
@@ -127,7 +127,7 @@
     listContainers.forEach((container) => {
         const sortField = container.getAttribute('data-sort-field');
         const sortOrder = container.getAttribute('data-sort-order');
-        const subitemsRoot = ReactDOM.createRoot(container);
+        const subitemsRoot = ReactDOMClient.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
         const activeView = getLocationActiveView(parentLocationId);
         const subItemsList = JSON.parse(container.dataset.items).SubitemsList;
@@ -203,7 +203,7 @@
     window.localStorage,
     window.bootstrap,
     window.React,
-    window.ReactDOM,
+    window.ReactDOMClient,
     window.ibexa,
     window.Routing,
     window.Translator,

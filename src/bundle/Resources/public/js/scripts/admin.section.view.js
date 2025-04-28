@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOMClient) {
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     let udwRoot = null;
@@ -18,7 +18,7 @@
         const form = event.target.closest('form');
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
@@ -29,4 +29,4 @@
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.ibexa, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient);
