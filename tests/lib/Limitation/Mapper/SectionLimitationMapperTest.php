@@ -20,13 +20,10 @@ class SectionLimitationMapperTest extends TestCase
 {
     private const EXAMPLE_SECTION_ID = 0xFF;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\SectionService */
-    private MockObject $sectionServiceMock;
+    private SectionService&MockObject $sectionServiceMock;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper */
     private SectionLimitationMapper $mapper;
 
     protected function setUp(): void

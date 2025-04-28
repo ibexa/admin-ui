@@ -24,19 +24,10 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 final class UniqueContentTypeIdentifierValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator
-     */
     private UniqueContentTypeIdentifierValidator $validator;
 
     protected function setUp(): void

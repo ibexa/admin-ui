@@ -227,7 +227,7 @@ class TrashController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (TrashItemRestoreData $data) use ($request): \Symfony\Component\HttpFoundation\RedirectResponse {
+                function (TrashItemRestoreData $data) use ($request): RedirectResponse {
                     $newParentLocation = $data->getLocation();
 
                     foreach ($data->getTrashItems() as $trashItem) {
@@ -284,7 +284,7 @@ class TrashController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (TrashItemDeleteData $data) use ($request): \Symfony\Component\HttpFoundation\RedirectResponse {
+                function (TrashItemDeleteData $data) use ($request): RedirectResponse {
                     foreach ($data->getTrashItems() as $trashItem) {
                         $this->trashService->deleteTrashItem($trashItem);
                     }

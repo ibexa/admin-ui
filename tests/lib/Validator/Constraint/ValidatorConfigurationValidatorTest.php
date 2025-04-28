@@ -21,19 +21,10 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class ValidatorConfigurationValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $fieldTypeService;
+    private FieldTypeService&MockObject $fieldTypeService;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\ValidatorConfigurationValidator
-     */
     private ValidatorConfigurationValidator $validator;
 
     protected function setUp(): void

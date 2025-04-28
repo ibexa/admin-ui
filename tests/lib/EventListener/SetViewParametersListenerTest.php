@@ -43,20 +43,15 @@ final class SetViewParametersListenerTest extends TestCase
     /** @var \Ibexa\AdminUi\EventListener\SetViewParametersListener */
     private SetViewParametersListener $viewParametersListener;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $locationService;
+    private LocationService&MockObject $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $userService;
+    private UserService&MockObject $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $repository;
+    private Repository&MockObject $repository;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
     private ConfigResolverInterface $configResolver;
 
-    /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $groupedContentFormFieldsProvider;
+    private GroupedContentFormFieldsProviderInterface&MockObject $groupedContentFormFieldsProvider;
 
     public function setUp(): void
     {

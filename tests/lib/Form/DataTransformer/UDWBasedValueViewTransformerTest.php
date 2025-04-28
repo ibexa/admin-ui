@@ -19,10 +19,8 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UDWBasedValueViewTransformerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $locationService;
+    private LocationService&MockObject $locationService;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer */
     private UDWBasedValueViewTransformer $transformer;
 
     protected function setUp(): void

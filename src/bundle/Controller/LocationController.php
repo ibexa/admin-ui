@@ -240,7 +240,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location): \Symfony\Component\HttpFoundation\RedirectResponse {
+            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location): RedirectResponse {
                 $newParentLocation = $data->getNewParentLocation();
 
                 $copiedContent = $this->locationService->copySubtree(

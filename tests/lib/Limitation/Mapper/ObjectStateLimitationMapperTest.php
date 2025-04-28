@@ -23,13 +23,10 @@ class ObjectStateLimitationMapperTest extends TestCase
     private const EXAMPLE_OBJECT_STATE_ID_B = 2;
     private const EXAMPLE_OBJECT_STATE_ID_C = 3;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $objectStateService;
+    private ObjectStateService&MockObject $objectStateService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper */
     private ObjectStateLimitationMapper $mapper;
 
     protected function setUp(): void
@@ -92,7 +89,7 @@ class ObjectStateLimitationMapperTest extends TestCase
         self::assertEmpty($actual);
     }
 
-    private function createStateMock(string $value): MockObject
+    private function createStateMock(string $value): ObjectState&MockObject
     {
         $stateGroupMock = $this->createMock(ObjectStateGroup::class);
         $stateGroupMock

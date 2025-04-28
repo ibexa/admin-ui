@@ -16,13 +16,10 @@ use Symfony\Component\Asset\Packages;
 
 class ContentTypeIconResolverTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */
-    private MockObject $packages;
+    private Packages&MockObject $packages;
 
-    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
     private ContentTypeIconResolver $contentTypeIconResolver;
 
     protected function setUp(): void

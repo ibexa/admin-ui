@@ -21,13 +21,10 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueURLValidatorTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $urlService;
+    private URLService&MockObject $urlService;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private MockObject $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator */
     private UniqueURLValidator $validator;
 
     protected function setUp(): void

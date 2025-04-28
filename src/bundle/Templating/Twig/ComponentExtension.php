@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use Ibexa\AdminUi\Component\Registry;
 use Ibexa\AdminUi\Component\Registry as ComponentRegistry;
 use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
 use Twig\Extension\AbstractExtension;
@@ -16,7 +15,7 @@ use Twig\TwigFunction;
 
 class ComponentExtension extends AbstractExtension
 {
-    protected Registry $registry;
+    protected ComponentRegistry $registry;
 
     protected RendererInterface $renderer;
 

@@ -20,14 +20,8 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator
-     */
     private UniqueFieldDefinitionIdentifierValidator $validator;
 
     protected function setUp(): void

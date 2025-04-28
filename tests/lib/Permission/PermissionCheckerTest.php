@@ -24,13 +24,10 @@ class PermissionCheckerTest extends TestCase
 {
     private const USER_ID = 14;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $permissionResolver;
+    private PermissionResolver&MockObject $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $userService;
+    private UserService&MockObject $userService;
 
-    /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
     private PermissionChecker $permissionChecker;
 
     public function setUp(): void

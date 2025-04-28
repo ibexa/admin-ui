@@ -18,13 +18,10 @@ use Psr\Log\LoggerInterface;
 
 class LanguageTypeLimitationMapperTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $languageService;
+    private LanguageService&MockObject $languageService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper */
     private LanguageLimitationMapper $mapper;
 
     protected function setUp(): void

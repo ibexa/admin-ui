@@ -35,25 +35,13 @@ final class ContentTypeFormProcessorTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Routing\RouterInterface
-     */
-    private MockObject $router;
+    private RouterInterface&MockObject $router;
 
-    /**
-     * @var \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
-     */
+    private FieldsGroupsList&MockObject $groupsList;
+
     private ContentTypeFormProcessor $formProcessor;
-
-    /**
-     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $groupsList;
 
     protected function setUp(): void
     {

@@ -84,7 +84,7 @@ class NotificationController extends Controller
             }
         }
 
-        $routeGenerator = function ($page): string {
+        $routeGenerator = function (int $page): string {
             return $this->generateUrl('ibexa.notifications.render.page', [
                 'page' => $page,
             ]);

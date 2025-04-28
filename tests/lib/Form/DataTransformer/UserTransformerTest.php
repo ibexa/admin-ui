@@ -81,7 +81,7 @@ class UserTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('User not found');
 
-        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(UserService::class);
         $service
             ->method('loadUser')

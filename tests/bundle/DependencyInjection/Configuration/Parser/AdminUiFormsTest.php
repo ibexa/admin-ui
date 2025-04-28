@@ -18,15 +18,9 @@ use PHPUnit\Framework\TestCase;
  */
 class AdminUiFormsTest extends TestCase
 {
-    /**
-     * @var \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms
-     */
     private AdminUiForms $parser;
 
-    /**
-     * @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private MockObject $contextualizer;
+    private ContextualizerInterface&MockObject $contextualizer;
 
     protected function setUp(): void
     {

@@ -22,13 +22,10 @@ class ContentTypeLimitationMapperTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID_B = 2;
     private const EXAMPLE_CONTENT_TYPE_ID_C = 3;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper */
     private ContentTypeLimitationMapper $mapper;
 
     protected function setUp(): void

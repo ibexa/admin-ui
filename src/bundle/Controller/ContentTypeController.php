@@ -374,7 +374,7 @@ class ContentTypeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft): \Symfony\Component\HttpFoundation\RedirectResponse {
+            $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft): RedirectResponse {
                 $contentTypeGroup = $data->getContentTypeGroup();
                 $language = $data->getLanguage();
 
@@ -417,7 +417,7 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeCopyData $data) use ($contentTypeService, $notificationHandler): \Symfony\Component\HttpFoundation\RedirectResponse {
+            $result = $this->submitHandler->handle($form, function (ContentTypeCopyData $data) use ($contentTypeService, $notificationHandler): RedirectResponse {
                 $contentType = $data->getContentType();
 
                 try {

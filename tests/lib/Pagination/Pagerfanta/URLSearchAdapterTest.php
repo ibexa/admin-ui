@@ -19,8 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLSearchAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $urlService;
+    private URLService&MockObject $urlService;
 
     protected function setUp(): void
     {
@@ -39,7 +38,7 @@ class URLSearchAdapterTest extends TestCase
         $this->urlService
             ->expects(self::once())
             ->method('findUrls')
-            ->willReturnCallback(function (URLQuery $q) use ($query, $searchResults): \Ibexa\Contracts\Core\Repository\Values\URL\SearchResult {
+            ->willReturnCallback(function (URLQuery $q) use ($query, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals(0, $q->offset);
@@ -71,7 +70,7 @@ class URLSearchAdapterTest extends TestCase
         $this->urlService
             ->expects(self::once())
             ->method('findUrls')
-            ->willReturnCallback(function (URLQuery $q) use ($query, $limit, $offset, $searchResults): \Ibexa\Contracts\Core\Repository\Values\URL\SearchResult {
+            ->willReturnCallback(function (URLQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals($limit, $q->limit);

@@ -17,8 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class URLUsagesAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
-    private MockObject $urlService;
+    private URLService&MockObject $urlService;
 
     protected function setUp(): void
     {

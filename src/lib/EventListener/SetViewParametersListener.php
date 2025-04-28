@@ -246,7 +246,7 @@ class SetViewParametersListener implements EventSubscriberInterface
         }
 
         return $this->repository->sudo(
-            static function (Repository $repository) use ($location): \Ibexa\Contracts\Core\Repository\Values\Content\Location {
+            static function (Repository $repository) use ($location): Location {
                 return $repository->getLocationService()->loadLocation($location->parentLocationId);
             }
         );

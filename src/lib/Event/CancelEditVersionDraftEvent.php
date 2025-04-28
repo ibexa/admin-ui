@@ -19,7 +19,6 @@ final class CancelEditVersionDraftEvent extends Event
 
     private Location $referrerLocation;
 
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
     private ?Response $response = null;
 
     public function __construct(

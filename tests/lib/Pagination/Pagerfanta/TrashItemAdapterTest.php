@@ -19,10 +19,7 @@ use PHPUnit\Framework\TestCase;
 
 class TrashItemAdapterTest extends TestCase
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected MockObject $trashService;
+    protected TrashService&MockObject $trashService;
 
     protected function setUp(): void
     {
