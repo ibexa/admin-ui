@@ -255,6 +255,7 @@ module.exports = (Encore) => {
         ])
         .addEntry('ibexa-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')])
         .addEntry('ibexa-admin-notifications-list-js', [
+            path.resolve(__dirname, '../public/js/scripts/core/sidebar.collapse.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.list.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.filters.js'),
         ])

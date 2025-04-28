@@ -47,17 +47,27 @@
     }
 
     &__data-grid-wrapper {
-        width: calc(100% - #{calculateRem(269px)});
         border-radius: $ibexa-border-radius 0 0 $ibexa-border-radius;
         border: calculateRem(1px) solid $ibexa-color-light;
         border-right: none;
     }
 
     &__filters-wrapper {
-        width: calculateRem(275px);
+        width: calculateRem(360px);
         border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
         border: calculateRem(1px) solid $ibexa-color-light;
         background-color: $ibexa-color-white;
+        transition: width 0.3s ease;
+        
+        &--collapsed {
+            width: calculateRem(64px);
+            margin-right: 0;
+
+            .ibexa-list-filters__header > *:not(.ibexa-list-filters__expand-btn),
+            .ibexa-list-filters__items {
+                display: none;
+            }
+        }
     }
 
     &__table-btns {

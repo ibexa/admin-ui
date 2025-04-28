@@ -24,6 +24,6 @@
                 {{ 'notification.title'|trans|desc('Title:') }}
                 <span class="description__title__item"><strong>{{ title }}</strong></span>
             </p>
-            <p class="description__text description__text--permanently-deleted">{{ 'notification.no_longer_available'|trans|desc('The Content item is no longer available')}}</p>
+            <p class="description__text description__text--permanently-deleted">{{ 'notification.no_longer_available'|trans({}, 'ibexa_notifications')|desc('The Content item is no longer available')}}</p>
         {% endblock %}
 {% endblock %}

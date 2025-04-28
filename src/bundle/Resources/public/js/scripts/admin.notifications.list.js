@@ -102,13 +102,17 @@
                         const statusText = isRead
                             ? Translator.trans(/*@Desc("Unread")*/ 'notification.unread', {}, 'ibexa_notifications')
                             : Translator.trans(/*@Desc("Read")*/ 'notification.read', {}, 'ibexa_notifications');
-                        notification.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__read').innerHTML =
+
+                        notificationRow.querySelectorAll('.ibexa-notification-view-all__notice-dot').forEach((noticeDot) => {
+                            noticeDot.setAttribute('data-is-read', (!isRead).toString());
+                        });
+                        notificationRow.querySelector('.ibexa-notification-view-all__read').innerHTML =
                             statusText;
 
                         return;
                     }
 
-                    if (response.redirect) {
+                    if (!isToggle && response.redirect) {
                         global.location = response.redirect;
                     }
                 }

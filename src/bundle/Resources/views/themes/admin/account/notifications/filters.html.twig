@@ -10,13 +10,19 @@
 
 <div class="ibexa-list-filters">
     <div class="ibexa-list-filters__header">
-        {# TODO: collapse #}
-        {# <button class="ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--clear">
-            <svg class="ibexa-icon ibexa-icon--tiny-small">
+        <button
+            type="button"
+            aria-expanded="true"
+            class="btn ibexa-btn ibexa-btn--secondary-dark ibexa-btn--no-text ibexa-list-filters__expand-btn"
+        >
+            <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-list-filters__collapse-icon">
                 <use xlink:href="{{ ibexa_icon_path('expand-right') }}"></use>
             </svg>
-        </button> #}
-        <h3 class="ibexa-list-filters__title">{{ 'ibexa.notifications.search_form.title'|trans()|desc('Filters') }}</h3>
+            <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-list-filters__expand-icon" hidden>
+                <use xlink:href="{{ ibexa_icon_path('filters') }}"></use>
+            </svg>
+        </button>
+        <h4 class="ibexa-list-filters__title">{{ 'ibexa.notifications.search_form.title'|trans()|desc('Filters') }}</h4>
         <div class="ibexa-list-filters__btns">
             <button
                 type="button"

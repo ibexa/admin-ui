@@ -38,7 +38,7 @@
 
 {% set status %}
     <div class="ibexa-notification-view-all ibexa-notification-view-all__status">
-        <span class="ibexa-notification-view-all__notice-dot ibexa-notification-view-all__notice-dot--small"></span>
+        <span class="ibexa-notification-view-all__notice-dot ibexa-notification-view-all__notice-dot--small" data-is-read="{{ is_read ? 'true' : 'false' }}"></span>
         <span class="ibexa-notification-view-all__read description__text">
             {{is_read ? 'notification.read'|trans|desc('Read') : 'notification.unread'|trans|desc('Unread')}}
         </span>
@@ -46,7 +46,7 @@
 {% endset %}
 
 {% set icon_show %}
-    <svg class="ibexa-icon ibexa-icon--small ibexa-notification-view-all__show">
+    <svg class="ibexa-icon ibexa-icon--small">
         <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
     </svg>
 {% endset %}
@@ -88,7 +88,7 @@
             {% block content %}
                 <div class="ibexa-notification-view-all">
                     <div class="ibexa-notification-view-all__status-icon">
-                        <span class="ibexa-notification-view-all__notice-dot"></span>
+                        <span class="ibexa-notification-view-all__notice-dot" data-is-read="{{ is_read ? 'true' : 'false' }}"></span>
                         <div class="ibexa-notifications-modal__type">{{ icon }}</div>
                     </div>
                     <div class="ibexa-notification-view-all__details">
@@ -110,17 +110,30 @@
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
-                {{ icon_show }}
+                <button 
+                    title="{{ 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') }}" 
+                    type="button" 
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__show">
+                        {{ icon_show }}
+                </button>
             {% endblock %}
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
-            <div class="ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}">
-                {{ icon_mail_open }}
-            </div>
-            <div class="ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}">
-                {{ icon_mail }}
-            </div>
+                <button 
+                    title="{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}" 
+                    type="button" 
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}"
+                >
+                    {{ icon_mail_open }}
+                </button>
+                <button 
+                    title="{{ 'notification.mark_as_unread'|trans({}, 'ibexa_notifications')|desc('Mark as unread') }}" 
+                    type="button" 
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}"
+                >
+                    {{ icon_mail }}
+                </button>
             {% endblock %}
         {% endembed %}
     {% endblock %}

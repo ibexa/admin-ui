@@ -66,6 +66,11 @@
         <target state="new">Delete</target>
         <note>key: notification.delete</note>
       </trans-unit>
+      <trans-unit id="92c52b93d8c07d98273cd99a5b88227dc8cbee13" resname="notification.go_to_content">
+        <source>Go to content</source>
+        <target state="new">Go to content</target>
+        <note>key: notification.go_to_content</note>
+      </trans-unit>
       <trans-unit id="9344cc9dfbf3b017fa5af86291df1dd28c0026e2" resname="notification.mark_as_read">
         <source>Mark as read</source>
         <target state="new">Mark as read</target>
