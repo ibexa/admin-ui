@@ -203,11 +203,6 @@
         overflow: hidden;
     }
 
-    &__show,
-    &__mail {
-        cursor: pointer;
-    }
-
     &__notice-dot {
         width: calculateRem(8px);
         height: calculateRem(8px);
@@ -222,6 +217,12 @@
         &--small {
             width: calculateRem(6px);
             height: calculateRem(6px);
+        }
+        &[data-is-read="true"] {
+            background: $ibexa-color-dark-300;
+        }
+        &[data-is-read="false"] {
+            background: $ibexa-color-danger;
         }
     }
 

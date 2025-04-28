@@ -7,12 +7,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: calculateRem(16px);
+        padding: calculateRem(11px) calculateRem(16px);
+        min-width: calculateRem(275px);
     }
 
     &__title {
         margin: 0;
-        padding: 0;
+        padding: 0 0 0 calculateRem(8px);
         font-weight: 600;
     }
 
