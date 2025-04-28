@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Compiler;
 
+use Ibexa\AdminUi\Component\Registry;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass;
-use Ibexa\TwigComponents\Component\Registry;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -50,29 +50,7 @@ class ComponentPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             Registry::class,
             'addComponent',
-            ['admin-ui-someGroup', $taggedServiceId, new Reference($taggedServiceId)]
-        );
-    }
-
-    public function testProcessWithAdminUiGroup(): void
-    {
-        $taggedServiceId = 'collected_service';
-        $collectedService = new Definition();
-        $collectedService->addTag(ComponentPass::TAG_NAME, ['group' => 'admin-ui-someGroup']);
-        $this->setDefinition($taggedServiceId, $collectedService);
-
-        $this->compile();
-
-        $this->assertContainerBuilderHasServiceDefinitionWithTag(
-            $taggedServiceId,
-            ComponentPass::TAG_NAME,
-            ['group' => 'admin-ui-someGroup']
-        );
-
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            Registry::class,
-            'addComponent',
-            ['admin-ui-someGroup', $taggedServiceId, new Reference($taggedServiceId)]
+            ['someGroup', $taggedServiceId, new Reference($taggedServiceId)]
         );
     }
 
