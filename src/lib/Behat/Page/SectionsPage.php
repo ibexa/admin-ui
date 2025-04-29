@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -18,11 +19,9 @@ use PHPUnit\Framework\Assert;
 
 class SectionsPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $table;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
     public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
     {
@@ -41,7 +40,7 @@ class SectionsPage extends Page
         return $this->table->hasElement(['Name' => $sectionName]);
     }
 
-    public function assignContentItems(string $sectionName)
+    public function assignContentItems(string $sectionName): void
     {
         $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
         $this->table->getTableRow(['Name' => $sectionName])->assign();
@@ -52,7 +51,7 @@ class SectionsPage extends Page
         return (int) $this->table->getTableRow(['Name' => $sectionName])->getCellValue('Assigned content');
     }
 
-    public function editSection(string $sectionName)
+    public function editSection(string $sectionName): void
     {
         $this->table->getTableRow(['Name' => $sectionName])->edit();
     }
@@ -62,7 +61,7 @@ class SectionsPage extends Page
         return $this->table->getTableRow(['Name' => $sectionName])->canBeSelected();
     }
 
-    public function deleteSection(string $sectionName)
+    public function deleteSection(string $sectionName): void
     {
         $this->table->getTableRow(['Name' => $sectionName])->select();
         $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();

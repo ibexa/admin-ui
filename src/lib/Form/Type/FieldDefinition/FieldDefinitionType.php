@@ -34,17 +34,13 @@ class FieldDefinitionType extends AbstractType
 {
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
-    private $fieldTypeMapperDispatcher;
+    private FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
-    private $fieldTypeService;
+    private FieldTypeService $fieldTypeService;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    private $groupsList;
+    private ?FieldsGroupsList $groupsList = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
-    private $thumbnailStrategy;
+    private ThumbnailStrategy $thumbnailStrategy;
 
     public function __construct(
         ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
@@ -58,7 +54,7 @@ class FieldDefinitionType extends AbstractType
         $this->thumbnailStrategy = $thumbnailStrategy;
     }
 
-    public function setGroupsList(FieldsGroupsList $groupsList)
+    public function setGroupsList(FieldsGroupsList $groupsList): void
     {
         $this->groupsList = $groupsList;
     }
@@ -133,7 +129,7 @@ class FieldDefinitionType extends AbstractType
             ]);
 
         // Hook on form generation for specific FieldType needs
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data */
             $data = $event->getData();
             $form = $event->getForm();
@@ -176,12 +172,12 @@ class FieldDefinitionType extends AbstractType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['disable_remove'] = $options['disable_remove'];
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }

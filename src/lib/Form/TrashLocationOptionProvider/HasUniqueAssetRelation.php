@@ -22,11 +22,9 @@ final class HasUniqueAssetRelation implements TrashLocationOptionProvider
     public const RADIO_SELECT_TRASH_WITH_ASSETS = 'trash_with_assets';
     public const RADIO_SELECT_DEFAULT_TRASH = 'trash_default';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         ContentService $contentService,

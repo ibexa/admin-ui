@@ -17,11 +17,9 @@ use Symfony\Component\Form\FormEvent;
 
 class AddLanguageFieldBasedOnContentListener
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
@@ -39,7 +37,7 @@ class AddLanguageFieldBasedOnContentListener
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function onPreSetData(FormEvent $event)
+    public function onPreSetData(FormEvent $event): void
     {
         /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
         $data = $event->getData();
@@ -72,7 +70,7 @@ class AddLanguageFieldBasedOnContentListener
      */
     protected function getCallableFilter(array $contentLanguages): callable
     {
-        return function () use ($contentLanguages) {
+        return function () use ($contentLanguages): array {
             return $this->filterLanguages($contentLanguages);
         };
     }
@@ -86,7 +84,7 @@ class AddLanguageFieldBasedOnContentListener
     {
         return array_filter(
             $this->languageService->loadLanguages(),
-            static function (Language $language) use ($contentLanguages) {
+            static function (Language $language) use ($contentLanguages): bool {
                 return in_array($language->languageCode, $contentLanguages, true);
             }
         );

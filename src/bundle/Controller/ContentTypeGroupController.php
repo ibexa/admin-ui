@@ -31,20 +31,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContentTypeGroupController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -103,11 +98,6 @@ class ContentTypeGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
@@ -154,17 +144,12 @@ class ContentTypeGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, ContentTypeGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
         /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateContentTypeGroup(
+            $group,
             new ContentTypeGroupUpdateData($group)
         );
         $form->handleRequest($request);
@@ -218,12 +203,13 @@ class ContentTypeGroupController extends Controller
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->formFactory->deleteContentTypeGroup(
+            $group,
             new ContentTypeGroupDeleteData($group)
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupDeleteData $data): void {
                 $group = $data->getContentTypeGroup();
                 $this->contentTypeService->deleteContentTypeGroup($group);
 
@@ -259,7 +245,7 @@ class ContentTypeGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupsDeleteData $data): void {
                 foreach ($data->getContentTypeGroups() as $contentTypeGroupId => $selected) {
                     $group = $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                     $this->contentTypeService->deleteContentTypeGroup($group);

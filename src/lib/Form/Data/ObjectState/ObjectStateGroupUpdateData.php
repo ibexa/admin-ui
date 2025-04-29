@@ -12,71 +12,47 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStateGroupUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null */
-    private $objectStateGroup;
+    private ?ObjectStateGroup $objectStateGroup;
 
-    /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
-    /** @var string */
-    private $name;
+    private ?string $name = null;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
-     */
     public function __construct(?ObjectStateGroup $objectStateGroup = null)
     {
+        $this->objectStateGroup = $objectStateGroup;
         if ($objectStateGroup instanceof ObjectStateGroup) {
-            $this->objectStateGroup = $objectStateGroup;
             $this->name = $objectStateGroup->getName();
             $this->identifier = $objectStateGroup->identifier;
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
-     */
-    public function getObjectStateGroup(): ObjectStateGroup
+    public function getObjectStateGroup(): ?ObjectStateGroup
     {
         return $this->objectStateGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     */
-    public function setObjectStateGroup(ObjectStateGroup $objectStateGroup)
+    public function setObjectStateGroup(?ObjectStateGroup $objectStateGroup): void
     {
         $this->objectStateGroup = $objectStateGroup;
     }

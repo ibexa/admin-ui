@@ -13,22 +13,19 @@ use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsContainerValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
-    private $validator;
+    private LocationIsContainerValidator $validator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
-    private $location;
+    private Location&MockObject $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\PHPUnit\Framework\MockObject\MockObject */
-    private $contentType;
+    private ContentType&MockObject $contentType;
 
     protected function setUp(): void
     {
@@ -50,7 +47,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn($this->contentType);
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->contentType
             ->method('isContainer')
@@ -63,7 +60,7 @@ class LocationIsContainerValidatorTest extends TestCase
         $this->validator->validate($this->location, new LocationIsContainer());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $this->contentType
             ->method('isContainer')

@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 class ContentTypeGroupData
 {
     /** @var string */
-    private $identifier;
+    private string $identifier;
 
     /**
      * ContentTypeGroupData constructor.
@@ -30,7 +30,7 @@ class ContentTypeGroupData
         return $this->identifier;
     }
 
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }

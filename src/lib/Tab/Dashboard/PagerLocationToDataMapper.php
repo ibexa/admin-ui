@@ -19,11 +19,9 @@ use Pagerfanta\Pagerfanta;
 
 final class PagerLocationToDataMapper
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
-    private $locationResolver;
+    private LocationResolver $locationResolver;
 
     private LanguageService $languageService;
 

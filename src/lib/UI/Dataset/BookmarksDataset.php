@@ -13,14 +13,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class BookmarksDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
+    private BookmarkService $bookmarkService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
+    private ValueFactory $valueFactory;
 
     /** @var \Ibexa\AdminUi\UI\Value\Location\Bookmark[] */
-    private $data;
+    private ?array $data = null;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
@@ -59,6 +57,6 @@ class BookmarksDataset
      */
     public function getBookmarks(): array
     {
-        return $this->data;
+        return $this->data ?? [];
     }
 }

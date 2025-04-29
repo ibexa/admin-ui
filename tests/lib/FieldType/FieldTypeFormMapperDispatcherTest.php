@@ -14,20 +14,15 @@ use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
 class FieldTypeFormMapperDispatcherTest extends TestCase
 {
-    /**
-     * @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface
-     */
-    private $dispatcher;
+    private FieldTypeDefinitionFormMapperDispatcher $dispatcher;
 
-    /**
-     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $fieldDefinitionMapperMock;
+    private FieldDefinitionFormMapperInterface&MockObject $fieldDefinitionMapperMock;
 
     protected function setUp(): void
     {

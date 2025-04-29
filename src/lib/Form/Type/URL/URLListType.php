@@ -22,10 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class URLListType extends AbstractType
 {
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * URLListType constructor.
@@ -87,7 +84,7 @@ class URLListType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }

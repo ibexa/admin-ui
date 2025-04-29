@@ -26,7 +26,7 @@ class IbexaAdminUiBundle extends Bundle
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\LogicException
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension $core */
         $core = $container->getExtension('ibexa');
@@ -42,7 +42,7 @@ class IbexaAdminUiBundle extends Bundle
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    private function addCompilerPasses(ContainerBuilder $container)
+    private function addCompilerPasses(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new TabPass());
         $container->addCompilerPass(new UiConfigProviderPass());

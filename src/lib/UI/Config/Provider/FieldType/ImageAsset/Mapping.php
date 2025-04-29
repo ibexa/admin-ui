@@ -16,8 +16,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
  */
 class Mapping implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     /**
      * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver

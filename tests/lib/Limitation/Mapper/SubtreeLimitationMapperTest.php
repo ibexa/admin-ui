@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
 
 class SubtreeLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['/1/2/5/', '/1/2/7/', '/1/2/11/'];
         $expected = [
@@ -76,7 +76,14 @@ class SubtreeLimitationMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    private function createSearchResultsMock($expected)
+    /**
+     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $expected
+     *
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<
+     *     \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * >
+     */
+    private function createSearchResultsMock(array $expected): SearchResult
     {
         $hits = [];
         foreach ($expected as $contentInfo) {
@@ -89,6 +96,7 @@ class SubtreeLimitationMapperTest extends TestCase
             $hits[] = new SearchHit(['valueObject' => $locationMock]);
         }
 
+        /** @phpstan-var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Location> */
         return new SearchResult(['searchHits' => $hits]);
     }
 }

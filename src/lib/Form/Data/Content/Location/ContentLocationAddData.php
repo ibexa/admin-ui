@@ -12,14 +12,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class ContentLocationAddData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    protected $contentInfo;
+    protected ?ContentInfo $contentInfo;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    protected $newLocations;
+    protected array $newLocations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $currentLocation
      * @param array $newLocations
      */
     public function __construct(
@@ -38,10 +36,7 @@ class ContentLocationAddData
         return $this->contentInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     */
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -57,7 +52,7 @@ class ContentLocationAddData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $newLocations
      */
-    public function setNewLocations(array $newLocations)
+    public function setNewLocations(array $newLocations): void
     {
         $this->newLocations = $newLocations;
     }

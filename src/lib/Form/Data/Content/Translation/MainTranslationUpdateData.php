@@ -48,7 +48,7 @@ class MainTranslationUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $contentInfo
      */
-    public function setContent(?Content $contentInfo = null)
+    public function setContent(?Content $contentInfo = null): void
     {
         $this->content = $contentInfo;
     }
@@ -64,7 +64,7 @@ class MainTranslationUpdateData
     /**
      * @param string|null $languageCode
      */
-    public function setLanguageCode(?string $languageCode = null)
+    public function setLanguageCode(?string $languageCode = null): void
     {
         $this->languageCode = $languageCode;
     }

@@ -23,6 +23,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\Query\QueryFactoryInterface;
+use Ibexa\Rest\Output\Generator\Json;
 use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
 use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
 use Ibexa\Rest\Server\Values\ContentTypeInfoList;
@@ -35,35 +36,25 @@ use Ibexa\User\UserSetting\UserSettingService;
  */
 class ContentViewParameterSupplier
 {
-    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
-    private $outputVisitor;
+    private Visitor $outputVisitor;
 
-    /** @var \Ibexa\Rest\Output\Generator\Json */
-    private $outputGenerator;
+    private Json $outputGenerator;
 
-    /** @var \Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList */
-    private $contentTypeInfoListValueObjectVisitor;
+    private ContentTypeInfoListValueObjectVisitor $contentTypeInfoListValueObjectVisitor;
 
-    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList */
-    private $subitemsListValueObjectVisitor;
+    private SubitemsListValueObjectVisitor $subitemsListValueObjectVisitor;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings */
-    private $contentTypeMappings;
+    private ContentTypeMappings $contentTypeMappings;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
+    private UserSettingService $userSettingService;
 
     private QueryFactoryInterface $queryFactory;
 
@@ -113,7 +104,7 @@ class ContentViewParameterSupplier
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function supply(ContentView $view)
+    public function supply(ContentView $view): void
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes */
         $contentTypes = [];

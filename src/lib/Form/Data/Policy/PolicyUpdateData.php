@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 class PolicyUpdateData
 {
     /** @var string */
-    private $module;
+    private ?string $module = null;
 
     /** @var string */
-    private $function;
+    private ?string $function = null;
 
     /** @var array */
     private $limitations;
@@ -43,7 +43,7 @@ class PolicyUpdateData
     /**
      * @param string $module
      */
-    public function setModule(string $module)
+    public function setModule(string $module): void
     {
         $this->module = $module;
     }
@@ -59,7 +59,7 @@ class PolicyUpdateData
     /**
      * @param string $function
      */
-    public function setFunction(string $function)
+    public function setFunction(string $function): void
     {
         $this->function = $function;
     }
@@ -75,7 +75,7 @@ class PolicyUpdateData
     /**
      * @param array $limitations
      */
-    public function setLimitations(array $limitations)
+    public function setLimitations(array $limitations): void
     {
         $this->limitations = $limitations;
     }
@@ -83,7 +83,7 @@ class PolicyUpdateData
     /**
      * @param array $policy
      */
-    public function setPolicy(array $policy)
+    public function setPolicy(array $policy): void
     {
         $this->setModule($policy['module']);
         $this->setFunction($policy['function']);

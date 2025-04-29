@@ -16,17 +16,14 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class ContentDraftListDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
+    private ValueFactory $valueFactory;
 
     /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface[] */
-    private $data = [];
+    private array $data = [];
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService

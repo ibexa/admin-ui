@@ -16,8 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ObjectStateChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
     public function __construct(ObjectStateService $objectStateService)
     {
@@ -33,7 +32,7 @@ class ObjectStateChoiceType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'choice_loader' => new CallbackChoiceLoader(function () {
+                'choice_loader' => new CallbackChoiceLoader(function (): array {
                     $objectStates = [];
                     $objectStateGroups = $this->objectStateService->loadObjectStateGroups();
                     foreach ($objectStateGroups as $objectStateGroup) {

@@ -13,21 +13,16 @@ use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifier;
 use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator
-     */
-    private $validator;
+    private UniqueFieldDefinitionIdentifierValidator $validator;
 
     protected function setUp(): void
     {

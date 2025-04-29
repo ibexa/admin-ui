@@ -22,10 +22,7 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ObjectStateService
-     */
-    private $objectStateService;
+    private ObjectStateService $objectStateService;
 
     public function __construct(ObjectStateService $objectStateService)
     {
@@ -33,7 +30,10 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         $this->logger = new NullLogger();
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $choices = [];
         foreach ($this->objectStateService->loadObjectStateGroups() as $group) {
@@ -45,7 +45,10 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         return $choices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 
@@ -62,7 +65,7 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         return $values;
     }
 
-    protected function getObjectStateLabel(ObjectState $state)
+    protected function getObjectStateLabel(ObjectState $state): string
     {
         $groupName = $state
             ->getObjectStateGroup()

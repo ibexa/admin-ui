@@ -16,11 +16,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends Controller
 {
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
+    protected FormFactory $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     /**
      * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory

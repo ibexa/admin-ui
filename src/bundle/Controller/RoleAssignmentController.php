@@ -32,20 +32,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleAssignmentController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
+    private RoleService $roleService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
@@ -77,7 +72,7 @@ class RoleAssignmentController extends Controller
 
         // If user has no permission to content/read than he should see empty table.
         try {
-            /** @var \eZ\Publish\API\Repository\Values\User\RoleAssignment[] $assignments */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $assignments */
             $assignments = $pagerfanta->getCurrentPageResults();
         } catch (UnauthorizedException $e) {
             $assignments = [];
@@ -109,7 +104,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentCreateData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentCreateData $data) use ($role): RedirectResponse {
                 foreach ($this->createLimitations($data) as $limitation) {
                     foreach ($data->getUsers() as $user) {
                         $this->roleService->assignRoleToUser($role, $user, $limitation);
@@ -159,7 +154,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentDeleteData $data) use ($role): RedirectResponse {
                 $roleAssignment = $data->getRoleAssignment();
                 $this->roleService->removeRoleAssignment($roleAssignment);
 
@@ -202,7 +197,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentsDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentsDeleteData $data) use ($role): RedirectResponse {
                 foreach ($data->getRoleAssignments() as $roleAssignmentId => $selected) {
                     $roleAssignment = $this->roleService->loadRoleAssignment($roleAssignmentId);
                     $this->roleService->removeRoleAssignment($roleAssignment);

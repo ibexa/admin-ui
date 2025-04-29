@@ -13,19 +13,19 @@ namespace Ibexa\AdminUi\Form\Data\Section;
  */
 class SectionsDeleteData
 {
-    /** @var array|null */
-    protected $sections;
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null */
+    protected ?array $sections;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
      */
-    public function __construct(array $sections = [])
+    public function __construct(?array $sections = [])
     {
         $this->sections = $sections;
     }
 
     /**
-     * @return array|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
      */
     public function getSections(): ?array
     {
@@ -33,9 +33,9 @@ class SectionsDeleteData
     }
 
     /**
-     * @param array|null $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
      */
-    public function setSections(?array $sections)
+    public function setSections(?array $sections): void
     {
         $this->sections = $sections;
     }

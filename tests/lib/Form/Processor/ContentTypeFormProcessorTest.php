@@ -35,25 +35,13 @@ final class ContentTypeFormProcessorTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_ID = 1;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Routing\RouterInterface
-     */
-    private $router;
+    private RouterInterface&MockObject $router;
 
-    /**
-     * @var \Ibexa\AdminUi\Form\Processor\ContentType\ContentTypeFormProcessor
-     */
-    private $formProcessor;
+    private FieldsGroupsList&MockObject $groupsList;
 
-    /**
-     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $groupsList;
+    private ContentTypeFormProcessor $formProcessor;
 
     protected function setUp(): void
     {
@@ -283,7 +271,7 @@ final class ContentTypeFormProcessorTest extends TestCase
                                      static function (
                                          ContentTypeDraft $actualContentTypeDraft,
                                          FieldDefinition $actualFieldDefinition
-                                     ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3) {
+                                     ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3): void {
                                         self::assertSame($contentTypeDraft, $actualContentTypeDraft);
                                         match ($matcher->getInvocationCount()) {
                                             1 => self::assertSame($fieldDefinition2, $actualFieldDefinition),

@@ -51,19 +51,15 @@ class ConfigureMenuEvent extends Event
     public const USER_SETTING_UPDATE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.user_setting_update_sidebar_right';
     public const CONTENT_TYPE_SIDEBAR_RIGHT = 'ezplatform_admin_ui.menu_configure.content_type_sidebar_right';
 
-    /** @var \Knp\Menu\FactoryInterface */
-    private $factory;
+    private FactoryInterface $factory;
 
-    /** @var \Knp\Menu\ItemInterface */
-    private $menu;
+    private ItemInterface $menu;
 
-    /** @var array|null */
-    private $options;
+    /** @var array<string, mixed> */
+    private array $options;
 
     /**
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Knp\Menu\ItemInterface $menu
-     * @param array $options
+     * @param array<string, mixed> $options
      */
     public function __construct(FactoryInterface $factory, ItemInterface $menu, array $options = [])
     {
@@ -72,27 +68,21 @@ class ConfigureMenuEvent extends Event
         $this->options = $options;
     }
 
-    /**
-     * @return \Knp\Menu\FactoryInterface
-     */
     public function getFactory(): FactoryInterface
     {
         return $this->factory;
     }
 
-    /**
-     * @return \Knp\Menu\ItemInterface
-     */
     public function getMenu(): ItemInterface
     {
         return $this->menu;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getOptions(): array
     {
-        return $this->options ?? [];
+        return $this->options;
     }
 }

@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -21,14 +22,11 @@ class ContentTypeLimitationMapperTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID_B = 2;
     private const EXAMPLE_CONTENT_TYPE_ID_C = 3;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
-    private $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper */
-    private $mapper;
+    private ContentTypeLimitationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -39,7 +37,7 @@ class ContentTypeLimitationMapperTest extends TestCase
         $this->mapper->setLogger($this->logger);
     }
 
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = [
             self::EXAMPLE_CONTENT_TYPE_ID_A,
@@ -69,7 +67,7 @@ class ContentTypeLimitationMapperTest extends TestCase
         self::assertCount(3, $result);
     }
 
-    public function testMapLimitationValueWithNotExistingContentType()
+    public function testMapLimitationValueWithNotExistingContentType(): void
     {
         $this->contentTypeService
             ->expects(self::once())

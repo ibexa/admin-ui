@@ -17,8 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class LanguageCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
-    private $mapper;
+    private LanguageCreateMapper $mapper;
 
     protected function setUp(): void
     {
@@ -35,7 +34,7 @@ class LanguageCreateMapperTest extends TestCase
      *
      * @param array $properties
      */
-    public function testMap(array $properties)
+    public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
@@ -47,14 +46,14 @@ class LanguageCreateMapperTest extends TestCase
      *
      * @param array $properties
      */
-    public function testReverseMap(array $properties)
+    public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
         self::assertEquals($this->createStruct($properties), $struct);
     }
 
-    public function testMapWithWrongInstance()
+    public function testMapWithWrongInstance(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'value\' is invalid: must be an instance of ' . LanguageCreateStruct::class);
@@ -62,7 +61,7 @@ class LanguageCreateMapperTest extends TestCase
         $this->mapper->map(new LocationCreateStruct());
     }
 
-    public function testReverseMapWithWrongInstance()
+    public function testReverseMapWithWrongInstance(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'data\' is invalid: must be an instance of ' . LanguageCreateData::class);
@@ -70,16 +69,23 @@ class LanguageCreateMapperTest extends TestCase
         $this->mapper->reverseMap(new LanguageDeleteData());
     }
 
-    public function dataProvider()
+    /**
+     * @phpstan-return array<string, array{array{languageCode: string, name: string, enabled: bool}}>
+     */
+    public function dataProvider(): array
     {
         return [
-            'enabled_true' => [['languageCode' => 'AB', 'name' => 'Lorem', 'enabled' => true]],
-            'enabled_false' => [['languageCode' => 'CD', 'name' => 'Ipsum', 'enabled' => false]],
+            'enabled_true' => [
+                ['languageCode' => 'AB', 'name' => 'Lorem', 'enabled' => true],
+            ],
+            'enabled_false' => [
+                ['languageCode' => 'CD', 'name' => 'Ipsum', 'enabled' => false],
+            ],
         ];
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
      */

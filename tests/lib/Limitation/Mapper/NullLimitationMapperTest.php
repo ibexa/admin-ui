@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class NullLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['foo', 'bar', 'baz'];
 

@@ -14,10 +14,10 @@ use Symfony\Contracts\EventDispatcher\Event;
 class TabEvent extends Event
 {
     /** @var \Ibexa\Contracts\AdminUi\Tab\TabInterface */
-    private $data;
+    private TabInterface $data;
 
-    /** @var array */
-    private $parameters;
+    /** @var array<string, mixed> */
+    private array $parameters = [];
 
     /**
      * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
@@ -30,13 +30,13 @@ class TabEvent extends Event
     /**
      * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $data
      */
-    public function setData(TabInterface $data)
+    public function setData(TabInterface $data): void
     {
         $this->data = $data;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getParameters(): array
     {
@@ -44,7 +44,7 @@ class TabEvent extends Event
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
     public function setParameters(array $parameters): void
     {

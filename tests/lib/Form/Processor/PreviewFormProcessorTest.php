@@ -32,17 +32,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PreviewFormProcessorTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService&MockObject $contentService;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface&MockObject $urlGenerator;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface&MockObject $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService&MockObject $locationService;
 
     protected function setUp(): void
     {
@@ -52,19 +48,11 @@ class PreviewFormProcessorTest extends TestCase
         $this->locationService = $this->createMock(LocationService::class);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService|null $contentService
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface|null $urlGenerator
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface|null $notificationHandler
-     * @param \Ibexa\Contracts\Core\Repository\LocationService|null $locationService
-     *
-     * @return \Ibexa\AdminUi\Form\Processor\PreviewFormProcessor
-     */
     private function createPreviewFormProcessor(
-        ContentService $contentService = null,
-        UrlGeneratorInterface $urlGenerator = null,
-        TranslatableNotificationHandlerInterface $notificationHandler = null,
-        LocationService $locationService = null
+        ?ContentService $contentService = null,
+        ?UrlGeneratorInterface $urlGenerator = null,
+        ?TranslatableNotificationHandlerInterface $notificationHandler = null,
+        ?LocationService $locationService = null
     ): PreviewFormProcessor {
         return new PreviewFormProcessor(
             $contentService ?? $this->contentService,
@@ -74,7 +62,7 @@ class PreviewFormProcessorTest extends TestCase
         );
     }
 
-    public function testProcessPreview()
+    public function testProcessPreview(): void
     {
         $languageCode = 'cyb-CY';
         $contentDraftId = 123;
@@ -105,7 +93,7 @@ class PreviewFormProcessorTest extends TestCase
         self::assertEquals(new RedirectResponse($url), $event->getResponse());
     }
 
-    public function testProcessPreviewHandleExceptionWithNew()
+    public function testProcessPreviewHandleExceptionWithNew(): void
     {
         $languageCode = 'cyb-CY';
         $contentDraftId = 123;
@@ -139,20 +127,18 @@ class PreviewFormProcessorTest extends TestCase
         self::assertEquals(new RedirectResponse($url), $event->getResponse());
     }
 
-    public function testSubscribedEvents()
+    public function testSubscribedEvents(): void
     {
         $previewFormProcessor = $this->createPreviewFormProcessor();
 
-        self::assertSame([ContentEditEvents::CONTENT_PREVIEW => ['processPreview', 10]], $previewFormProcessor::getSubscribedEvents());
+        self::assertSame(
+            [
+                ContentEditEvents::CONTENT_PREVIEW => ['processPreview', 10],
+            ],
+            $previewFormProcessor::getSubscribedEvents()
+        );
     }
 
-    /**
-     * @param string $mainLanguageCode
-     * @param string $fieldDefinitionIdentifier
-     * @param string $fieldDataValue
-     *
-     * @return \Ibexa\ContentForms\Data\Content\ContentCreateData
-     */
     private function generateContentStruct(string $mainLanguageCode, string $fieldDefinitionIdentifier, string $fieldDataValue): ContentCreateData
     {
         $contentStruct = new ContentCreateData([
@@ -170,13 +156,7 @@ class PreviewFormProcessorTest extends TestCase
         return $contentStruct;
     }
 
-    /**
-     * @param \Ibexa\ContentForms\Data\Content\ContentCreateData $contentStruct
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     */
-    private function generateContentServiceMock(ContentCreateData $contentStruct, APIContent $contentDraft): MockObject
+    private function generateContentServiceMock(ContentCreateData $contentStruct, APIContent $contentDraft): ContentService&MockObject
     {
         $contentService = $this->createMock(ContentService::class);
         $contentService
@@ -189,9 +169,9 @@ class PreviewFormProcessorTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject
+     * @phpstan-return \Symfony\Component\Form\FormConfigInterface<mixed>&MockObject
      */
-    private function generateConfigMock($languageCode): MockObject
+    private function generateConfigMock(string $languageCode): FormConfigInterface&MockObject
     {
         $config = $this->createMock(FormConfigInterface::class);
         $config
@@ -204,11 +184,9 @@ class PreviewFormProcessorTest extends TestCase
     }
 
     /**
-     * @param $config
-     *
-     * @return \Symfony\Component\Form\FormInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @param \Symfony\Component\Form\FormConfigInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject $config
      */
-    private function generateFormMock($config): MockObject
+    private function generateFormMock(FormConfigInterface&MockObject $config): FormInterface&MockObject
     {
         $form = $this->createMock(FormInterface::class);
         $form
@@ -219,20 +197,12 @@ class PreviewFormProcessorTest extends TestCase
         return $form;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
-     * @param string $languageCode
-     * @param string $url
-     * @param int|null $locationId
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     */
     private function generateUrlGeneratorMock(
         APIContent $contentDraft,
         string $languageCode,
         string $url,
         ?int $locationId = null
-    ): MockObject {
+    ): UrlGeneratorInterface&MockObject {
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $urlGenerator
             ->method('generate')
@@ -247,14 +217,7 @@ class PreviewFormProcessorTest extends TestCase
         return $urlGenerator;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $contentDraft
-     * @param string $languageCode
-     * @param string $url
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     */
-    private function generateUrlGeneratorForContentEditUrlMock(APIContent $contentDraft, string $languageCode, string $url): MockObject
+    private function generateUrlGeneratorForContentEditUrlMock(APIContent $contentDraft, string $languageCode, string $url): UrlGeneratorInterface&MockObject
     {
         $urlGenerator = $this->createMock(UrlGeneratorInterface::class);
         $urlGenerator
@@ -270,15 +233,9 @@ class PreviewFormProcessorTest extends TestCase
         return $urlGenerator;
     }
 
-    /**
-     * @param $contentDraftId
-     * @param $languageCode
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
-     */
-    private function generateContentDraft($contentDraftId, $languageCode, $mainLocationId): APIContent
+    private function generateContentDraft(int $contentDraftId, string $languageCode, ?int $mainLocationId): APIContent
     {
-        $contentDraft = new Content([
+        return new Content([
             'versionInfo' => new VersionInfo(
                 [
                     'contentInfo' => new ContentInfo([
@@ -289,7 +246,5 @@ class PreviewFormProcessorTest extends TestCase
                 ]
             ),
         ]);
-
-        return $contentDraft;
     }
 }

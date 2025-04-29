@@ -26,8 +26,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         's' => 'seconds',
     ];
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator)
     {
@@ -41,7 +40,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         ];
     }
 
-    public function formatInterval(string $periodFormat)
+    public function formatInterval(string $periodFormat): string
     {
         $interval = new DateInterval($periodFormat);
         $parts = [];

@@ -46,41 +46,29 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LocationController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
-    private $trashService;
+    private TrashService $trashService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
+    private SectionService $sectionService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
+    private TranslationHelper $translationHelper;
 
     /**
      * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
@@ -140,7 +128,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationMoveData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationMoveData $data): RedirectResponse {
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
@@ -193,7 +181,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationCopyData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationCopyData $data): RedirectResponse {
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
@@ -252,7 +240,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location) {
+            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location): RedirectResponse {
                 $newParentLocation = $data->getNewParentLocation();
 
                 $copiedContent = $this->locationService->copySubtree(
@@ -298,7 +286,7 @@ class LocationController extends Controller
         $location = $form->getData()->getCurrentLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationSwapData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationSwapData $data): RedirectResponse {
                 $currentLocation = $data->getCurrentLocation();
                 $newLocation = $data->getNewLocation();
 
@@ -353,7 +341,7 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationTrashData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationTrashData $data): RedirectResponse {
                 return $this->handleTrashLocation($data);
             });
 
@@ -452,7 +440,7 @@ class LocationController extends Controller
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentLocationRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentLocationRemoveData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getLocations() as $locationId => $selected) {
@@ -616,7 +604,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationUpdateData $data): RedirectResponse {
                 $location = $data->getLocation();
 
                 $locationUpdateStruct = new LocationUpdateStruct(['sortField' => $data->getSortField(), 'sortOrder' => $data->getSortOrder()]);
@@ -663,7 +651,7 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data): RedirectResponse {
                 $section = $data->getSection();
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $data->getLocation();

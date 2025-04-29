@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class InContextTranslationListenerTest extends TestCase
 {
@@ -29,17 +30,13 @@ final class InContextTranslationListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    /** @var \Symfony\Component\HttpFoundation\Request */
-    private $request;
+    private Request&MockObject $request;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\HttpKernelInterface */
-    private $httpKernel;
+    private HttpKernelInterface&MockObject $httpKernel;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService|\PHPUnit\Framework\MockObject\MockObject */
-    private $userSettingService;
+    private UserSettingService&MockObject $userSettingService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $translator;
+    private TranslatorInterface&MockObject $translator;
 
     protected function setUp(): void
     {

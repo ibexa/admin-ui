@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -21,25 +22,21 @@ use PHPUnit\Framework\Assert;
 
 class RolePage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    public $dialog;
+    public Dialog $dialog;
 
-    /** @var string */
-    private $expectedRoleName;
+    private ?string $expectedRoleName = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\TableNavigationTab */
-    private $tableNavigationTab;
+    private TableNavigationTab $tableNavigationTab;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
-    private $expectedRoleId;
+    private int $expectedRoleId;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $policies;
+    private TableInterface $policies;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $assignments;
+    private TableInterface $assignments;
 
     public function __construct(
         Session $session,
@@ -93,7 +90,7 @@ class RolePage extends Page
         }
 
         [$expectedLimitationType, $expectedLimitationValue] = explode(':', $expectedLimitation);
-        $expectedLimitationValues = array_map(static function (string $value) {
+        $expectedLimitationValues = array_map(static function (string $value): string {
             return trim($value);
         }, explode(',', $expectedLimitationValue));
 
@@ -117,12 +114,12 @@ class RolePage extends Page
         return strpos($actualLimitations, $combinedExpectedLimitation) !== false;
     }
 
-    public function setExpectedRoleName(string $roleName)
+    public function setExpectedRoleName(string $roleName): void
     {
         $this->expectedRoleName = $roleName;
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
-        $roles = $this->repository->sudo(static function (Repository $repository) {
+        $roles = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getRoleService()->loadRoles();
         });
 
@@ -134,7 +131,7 @@ class RolePage extends Page
         }
     }
 
-    public function goToTab(string $tabName)
+    public function goToTab(string $tabName): void
     {
         $this->tableNavigationTab->goToTab($tabName);
     }
@@ -183,7 +180,7 @@ class RolePage extends Page
         return count($this->assignments->getColumnValues(['User/Group'])) > 0;
     }
 
-    public function verifyAssignments(array $expectedAssignments)
+    public function verifyAssignments(array $expectedAssignments): void
     {
         $this->goToTab('Assignment');
 
@@ -196,7 +193,7 @@ class RolePage extends Page
         Assert::assertCount(count($expectedAssignments), $actualAssignments);
     }
 
-    public function startAssigningUsers()
+    public function startAssigningUsers(): void
     {
         $this->goToTab('Assignments');
         $this->getHTMLPage()
@@ -205,7 +202,7 @@ class RolePage extends Page
             ->click();
     }
 
-    public function deleteAssignments(array $itemNames)
+    public function deleteAssignments(array $itemNames): void
     {
         $this->goToTab('Assignments');
 
@@ -221,7 +218,7 @@ class RolePage extends Page
         $this->dialog->confirm();
     }
 
-    public function deletePolicies(array $itemNames)
+    public function deletePolicies(array $itemNames): void
     {
         $this->goToTab('Policies');
 

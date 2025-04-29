@@ -18,6 +18,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,20 +26,15 @@ class ContentDraftController extends Controller
 {
     private const PAGINATION_PARAM_NAME = 'page';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
+    private DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
+    private FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
+    private SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(
         ContentService $contentService,
@@ -90,7 +86,7 @@ class ContentDraftController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentRemoveData $data): RedirectResponse {
                 foreach (array_keys($data->getVersions()) as $version) {
                     $versionId = VersionId::fromString($version);
 

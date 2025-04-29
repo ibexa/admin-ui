@@ -15,14 +15,11 @@ class RenderGroupEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_group';
 
-    /** @var \Ibexa\AdminUi\Component\Registry */
-    private $registry;
+    private Registry $registry;
 
-    /** @var string */
-    private $groupName;
+    private string $groupName;
 
-    /** @var array */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @param \Ibexa\AdminUi\Component\Registry $registry
@@ -55,7 +52,7 @@ class RenderGroupEvent extends Event
     /**
      * @param array $components
      */
-    public function setComponents(array $components)
+    public function setComponents(array $components): void
     {
         $this->registry->setComponents($this->getGroupName(), $components);
     }

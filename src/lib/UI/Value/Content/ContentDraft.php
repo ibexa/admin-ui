@@ -13,14 +13,11 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class ContentDraft implements ContentDraftInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
-    private $versionInfo;
+    private VersionInfo $versionInfo;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\VersionId */
-    private $versionId;
+    private VersionId $versionId;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
-    private $contentType;
+    private ContentType $contentType;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo

@@ -16,8 +16,7 @@ use Ibexa\Contracts\Core\Repository\SectionService;
  */
 class Sections implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
+    private SectionService $sectionService;
 
     public function __construct(
         SectionService $sectionService

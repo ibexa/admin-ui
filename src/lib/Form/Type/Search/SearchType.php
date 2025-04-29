@@ -21,11 +21,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class SearchType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /** @var \Symfony\Component\Form\AbstractType */
-    private $baseType;
+    private AbstractType $baseType;
 
     public function __construct(AbstractType $baseType, TranslatorInterface $translator)
     {

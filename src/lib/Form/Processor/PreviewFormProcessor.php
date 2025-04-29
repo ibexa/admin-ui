@@ -10,9 +10,12 @@ namespace Ibexa\AdminUi\Form\Processor;
 
 use Exception;
 use Ibexa\AdminUi\Form\Event\ContentEditEvents;
+use Ibexa\ContentForms\Data\Content\ContentCreateData;
+use Ibexa\ContentForms\Data\Content\ContentUpdateData;
 use Ibexa\ContentForms\Data\NewnessCheckable;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -28,17 +31,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class PreviewFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
+    private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
@@ -168,15 +167,19 @@ class PreviewFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Data\Content\ContentCreateData|\Ibexa\ContentForms\Data\Content\ContentUpdateData|\Ibexa\AdminUi\Form\Data\NewnessChecker $data
-     *
-     * @return string
+     * @throws \Ibexa\Contracts\Core\Exception\InvalidArgumentException If unable to resolve main language code given $data
      */
-    private function resolveMainLanguageCode($data): string
+    private function resolveMainLanguageCode(ContentStruct $data): string
     {
-        return $data->isNew()
-            ? $data->mainLanguageCode
-            : $data->contentDraft->getVersionInfo()->getContentInfo()->mainLanguageCode;
+        if ($data instanceof ContentCreateData) {
+            return $data->mainLanguageCode;
+        }
+
+        if ($data instanceof ContentUpdateData) {
+            return $data->contentDraft->getVersionInfo()->getContentInfo()->mainLanguageCode;
+        }
+
+        throw new InvalidArgumentException('$data', 'Unable to resolve main language code for data of type: ' . get_class($data));
     }
 
     /**

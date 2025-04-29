@@ -15,10 +15,9 @@ use PHPUnit\Framework\Assert;
 
 class UDWContext implements Context
 {
-    private $argumentParser;
+    private ArgumentParser $argumentParser;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
     public function __construct(ArgumentParser $argumentParser, UniversalDiscoveryWidget $universalDiscoveryWidget)
     {

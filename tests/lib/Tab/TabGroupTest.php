@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class TabGroupTest extends TestCase
 {
-    public function testAddTab()
+    public function testAddTab(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -32,7 +32,7 @@ class TabGroupTest extends TestCase
         self::assertCount(1, $tabGroup->getTabs());
     }
 
-    public function testAddTabWithSameIdentifier()
+    public function testAddTabWithSameIdentifier(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -54,7 +54,7 @@ class TabGroupTest extends TestCase
         self::assertCount(1, $tabGroup->getTabs());
     }
 
-    public function testRemoveTab()
+    public function testRemoveTab(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -71,7 +71,7 @@ class TabGroupTest extends TestCase
         self::assertCount(0, $tabGroup->getTabs());
     }
 
-    public function testRemoveTabWhenNotExist()
+    public function testRemoveTabWhenNotExist(): void
     {
         $tabIdentifier = 'tab_identifier';
 

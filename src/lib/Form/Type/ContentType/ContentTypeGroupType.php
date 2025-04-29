@@ -23,7 +23,7 @@ class ContentTypeGroupType extends AbstractType
             ->add('save', SubmitType::class, ['label' => /** @Desc("Save") */ 'content_type.group.save']);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }

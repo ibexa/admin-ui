@@ -16,8 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SectionUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
-    protected $section;
+    protected ?Section $section;
 
     /**
      * @var string|null
@@ -56,7 +55,7 @@ class SectionUpdateData
     /**
      * @param string|null $identifier
      */
-    public function setIdentifier(?string $identifier)
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -72,7 +71,7 @@ class SectionUpdateData
     /**
      * @param string|null $name
      */
-    public function setName(?string $name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -88,7 +87,7 @@ class SectionUpdateData
     /**
      * @param mixed $section
      */
-    public function setSection(?Section $section = null)
+    public function setSection(?Section $section = null): void
     {
         $this->section = $section;
     }

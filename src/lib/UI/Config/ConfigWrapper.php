@@ -12,8 +12,7 @@ use RuntimeException;
 
 class ConfigWrapper implements \ArrayAccess, \JsonSerializable
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     /**
      * @param array $config

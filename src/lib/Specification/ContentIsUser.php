@@ -11,26 +11,18 @@ namespace Ibexa\AdminUi\Specification;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
+/**
+ * Checks if given content is an existing User content.
+ */
 class ContentIsUser implements ContentSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
+    private UserService $userService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
-    /**
-     * Checks if $contentId is an existing User content.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     *
-     * @return bool
-     */
     public function isSatisfiedBy(Content $content): bool
     {
         return $this->userService->isUser($content);

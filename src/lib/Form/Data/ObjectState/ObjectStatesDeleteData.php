@@ -11,12 +11,12 @@ namespace Ibexa\AdminUi\Form\Data\ObjectState;
 class ObjectStatesDeleteData
 {
     /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null */
-    protected $objectStates;
+    protected ?array $objectStates;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null $objectStates
      */
-    public function __construct(array $objectStates = [])
+    public function __construct(?array $objectStates = [])
     {
         $this->objectStates = $objectStates;
     }
@@ -32,7 +32,7 @@ class ObjectStatesDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null $objectStates
      */
-    public function setObjectStates(?array $objectStates)
+    public function setObjectStates(?array $objectStates): void
     {
         $this->objectStates = $objectStates;
     }

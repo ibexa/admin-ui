@@ -27,17 +27,13 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-relations';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
+    protected PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
+    protected DatasetFactory $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
     /**
      * @param \Twig\Environment $twig

@@ -17,9 +17,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DefaultRenderer implements RendererInterface
 {
-    protected $registry;
+    protected Registry $registry;
 
-    protected $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(Registry $registry, EventDispatcherInterface $eventDispatcher)
     {
@@ -57,7 +57,7 @@ class DefaultRenderer implements RendererInterface
         $group = $this->registry->getComponents($groupName);
 
         if (!isset($group[$name])) {
-            throw new InvalidArgumentException('id', sprintf("Can't find Component '%s' in group '%s'", $name, $group));
+            throw new InvalidArgumentException('id', sprintf("Can't find Component '%s' in group '%s'", $name, $groupName));
         }
 
         return $group[$name]->render($parameters);

@@ -16,8 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ContentTypeGroupType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeService)
     {

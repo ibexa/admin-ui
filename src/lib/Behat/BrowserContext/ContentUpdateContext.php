@@ -17,11 +17,9 @@ use PHPUnit\Framework\Assert;
 
 class ContentUpdateContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage */
-    private $contentUpdateItemPage;
+    private ContentUpdateItemPage $contentUpdateItemPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\UserUpdatePage */
-    private $userUpdatePage;
+    private UserUpdatePage $userUpdatePage;
 
     public function __construct(ContentUpdateItemPage $contentUpdateItemPage, UserUpdatePage $userUpdatePage)
     {
@@ -92,7 +90,7 @@ class ContentUpdateContext implements Context
         $values = $parameters;
         unset($values['label']);
 
-        return array_filter($values, static function ($element) { return !empty($element) || $element === 0;});
+        return array_filter($values, static function ($element): bool { return !empty($element) || $element === 0;});
     }
 
     /**
@@ -108,7 +106,7 @@ class ContentUpdateContext implements Context
     /**
      * @When I switch to :tabName field group
      */
-    public function iSwitchToContentTab(string $tabName)
+    public function iSwitchToContentTab(string $tabName): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldGroup($tabName);
@@ -117,7 +115,7 @@ class ContentUpdateContext implements Context
     /**
      * @When I switch to :tabName field tab
      */
-    public function iSwitchToContentGroup(string $tabName)
+    public function iSwitchToContentGroup(string $tabName): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldTab($tabName);

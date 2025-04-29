@@ -15,8 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
+    protected ?Location $location;
 
     /** @var string|null */
     protected $sortField;
@@ -45,7 +44,7 @@ class LocationUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
      */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }

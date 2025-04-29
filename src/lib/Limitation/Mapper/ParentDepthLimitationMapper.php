@@ -25,7 +25,10 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
         $this->maxDepth = $maxDepth;
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $choices = [];
         foreach (range(1, $this->maxDepth) as $depth) {

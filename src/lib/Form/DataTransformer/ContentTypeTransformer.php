@@ -17,8 +17,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 class ContentTypeTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
+    protected ContentTypeService $contentTypeService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService

@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ObjectStateLimitation;
 use Ibexa\Core\Repository\Values\ObjectState\ObjectState;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -22,14 +23,11 @@ class ObjectStateLimitationMapperTest extends TestCase
     private const EXAMPLE_OBJECT_STATE_ID_B = 2;
     private const EXAMPLE_OBJECT_STATE_ID_C = 3;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService|\PHPUnit\Framework\MockObject\MockObject */
-    private $objectStateService;
+    private ObjectStateService&MockObject $objectStateService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\ObjectStateLimitationMapper */
-    private $mapper;
+    private ObjectStateLimitationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -40,7 +38,7 @@ class ObjectStateLimitationMapperTest extends TestCase
         $this->mapper->setLogger($this->logger);
     }
 
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = [
             self::EXAMPLE_OBJECT_STATE_ID_A,
@@ -71,7 +69,7 @@ class ObjectStateLimitationMapperTest extends TestCase
         ], $result);
     }
 
-    public function testMapLimitationValueWithNotExistingObjectState()
+    public function testMapLimitationValueWithNotExistingObjectState(): void
     {
         $this->objectStateService
             ->expects(self::once())
@@ -91,7 +89,7 @@ class ObjectStateLimitationMapperTest extends TestCase
         self::assertEmpty($actual);
     }
 
-    private function createStateMock($value)
+    private function createStateMock(string $value): ObjectState&MockObject
     {
         $stateGroupMock = $this->createMock(ObjectStateGroup::class);
         $stateGroupMock

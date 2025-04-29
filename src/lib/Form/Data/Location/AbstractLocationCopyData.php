@@ -12,11 +12,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 abstract class AbstractLocationCopyData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
+    protected ?Location $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $newParentLocation;
+    protected ?Location $newParentLocation;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
@@ -39,7 +37,7 @@ abstract class AbstractLocationCopyData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location||null $location
      */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -55,7 +53,7 @@ abstract class AbstractLocationCopyData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location||null $newParentLocation
      */
-    public function setNewParentLocation(?Location $newParentLocation)
+    public function setNewParentLocation(?Location $newParentLocation): void
     {
         $this->newParentLocation = $newParentLocation;
     }

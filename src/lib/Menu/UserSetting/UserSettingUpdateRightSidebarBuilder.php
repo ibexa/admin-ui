@@ -29,8 +29,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public const ITEM__SAVE_AND_EDIT = 'user_setting_update__sidebar_right__save_end_edit';
     public const ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,

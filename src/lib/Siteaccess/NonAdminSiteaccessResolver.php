@@ -18,11 +18,10 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
  */
 class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolver */
-    private $siteaccessResolver;
+    private SiteaccessResolver $siteaccessResolver;
 
     /** @var string[] */
-    private $siteAccessGroups;
+    private array $siteAccessGroups;
 
     /**
      * @param \Ibexa\AdminUi\Siteaccess\SiteaccessResolver $siteaccessResolver

@@ -12,10 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 
 class ObjectStateDeleteData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null
-     */
-    private $objectState;
+    private ?ObjectState $objectState;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState|null $objectState
@@ -36,7 +33,7 @@ class ObjectStateDeleteData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
      */
-    public function setObjectState(ObjectState $objectState)
+    public function setObjectState(ObjectState $objectState): void
     {
         $this->objectState = $objectState;
     }

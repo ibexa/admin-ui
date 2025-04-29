@@ -39,44 +39,34 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentOnTheFlyController extends Controller
 {
     private const AUTOSAVE_ACTION_NAME = 'autosave';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
+    private ContentService $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
+    private LocationService $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private ContentTypeService $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface */
-    private $groupedContentFormFieldsProvider;
+    private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\AdminUi\Form\ActionDispatcher\CreateContentOnTheFlyDispatcher */
-    private $createContentActionDispatcher;
+    private CreateContentOnTheFlyDispatcher $createContentActionDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
-    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
-    private $contentActionDispatcher;
+    private ActionDispatcherInterface $contentActionDispatcher;
 
     public function __construct(
         ContentService $contentService,
@@ -228,8 +218,6 @@ class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -242,7 +230,7 @@ class ContentOnTheFlyController extends Controller
         int $contentId,
         int $versionNo,
         ?int $locationId
-    ) {
+    ): Response|EditContentOnTheFlySuccessView|EditContentOnTheFlyView {
         $content = $this->contentService->loadContent($contentId, [$languageCode], $versionNo);
         $versionInfo = $content->getVersionInfo();
 

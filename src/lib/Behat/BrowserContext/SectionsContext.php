@@ -16,11 +16,9 @@ use PHPUnit\Framework\Assert;
 
 class SectionsContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\SectionPage */
-    private $sectionPage;
+    private SectionPage $sectionPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\SectionsPage */
-    private $sectionsPage;
+    private SectionsPage $sectionsPage;
 
     public function __construct(SectionPage $sectionPage, SectionsPage $sectionsPage)
     {
@@ -66,7 +64,7 @@ class SectionsContext implements Context
     /**
      * @Given there's no :sectionName on Sections list
      */
-    public function thereSNoSectionOnSectionList(string $sectionName)
+    public function thereSNoSectionOnSectionList(string $sectionName): void
     {
         Assert::assertFalse($this->sectionsPage->isSectionOnTheList($sectionName));
     }
@@ -74,7 +72,7 @@ class SectionsContext implements Context
     /**
      * @Given I start assigning to :sectionName from Sections page
      */
-    public function iAssignContentItems(string $sectionName)
+    public function iAssignContentItems(string $sectionName): void
     {
         $this->sectionsPage->assignContentItems($sectionName);
     }
@@ -82,7 +80,7 @@ class SectionsContext implements Context
     /**
      * @Given I start assigning to :sectionName Section
      */
-    public function assignContentItems()
+    public function assignContentItems(): void
     {
         $this->sectionPage->assignContentItems();
     }
@@ -90,7 +88,7 @@ class SectionsContext implements Context
     /**
      * @Given I delete Section :sectionName
      */
-    public function deleteSectionNamed(string $sectionName)
+    public function deleteSectionNamed(string $sectionName): void
     {
         $this->sectionsPage->deleteSection($sectionName);
     }
@@ -98,7 +96,7 @@ class SectionsContext implements Context
     /**
      * @Given there's a :sectionName on Sections list
      */
-    public function thereASectionOnSectionList(string $sectionName)
+    public function thereASectionOnSectionList(string $sectionName): void
     {
         Assert::assertTrue($this->sectionsPage->isSectionOnTheList($sectionName));
     }
@@ -106,7 +104,7 @@ class SectionsContext implements Context
     /**
      * @Given the :sectionName on Sections list has no assigned Content Items
      */
-    public function sectionOnSectionListHasNoAssignedContentItems(string $sectionName)
+    public function sectionOnSectionListHasNoAssignedContentItems(string $sectionName): void
     {
         Assert::assertEquals(0, $this->sectionsPage->getAssignedContentItemsCount($sectionName));
     }
@@ -114,7 +112,7 @@ class SectionsContext implements Context
     /**
      * @Given the :sectionName has no assigned Content Items
      */
-    public function sectionHasNoAssignedContentItems(string $sectionName)
+    public function sectionHasNoAssignedContentItems(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
         Assert::assertEquals(0, $this->sectionPage->hasAssignedItems());
@@ -123,7 +121,7 @@ class SectionsContext implements Context
     /**
      * @Then I should be on :sectionName Section page
      */
-    public function iShouldBeOnSectionPage(string $sectionName)
+    public function iShouldBeOnSectionPage(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
         $this->sectionPage->verifyIsLoaded();
@@ -132,7 +130,7 @@ class SectionsContext implements Context
     /**
      * @Then Content items list in is empty for Section
      */
-    public function contentListIsEmty()
+    public function contentListIsEmty(): void
     {
         Assert::assertTrue($this->sectionPage->isContentListEmpty());
     }
@@ -140,7 +138,7 @@ class SectionsContext implements Context
     /**
      * @Then I start editing :sectionName from Sections list
      */
-    public function editSectionFromSectionsList(string $sectionName)
+    public function editSectionFromSectionsList(string $sectionName): void
     {
         $this->sectionsPage->editSection($sectionName);
     }
@@ -148,7 +146,7 @@ class SectionsContext implements Context
     /**
      * @Then Section has proper attributes
      */
-    public function sectionHasProperAttributes(TableNode $sectionData)
+    public function sectionHasProperAttributes(TableNode $sectionData): void
     {
         $expectedSectionName = $sectionData->getHash()[0]['Name'];
         $expectedSectionIdentifier = $sectionData->getHash()[0]['Identifier'];
@@ -161,7 +159,7 @@ class SectionsContext implements Context
     /**
      * @Then I open :sectionName Section page in admin SiteAccess
      */
-    public function openSectionPage(string $sectionName)
+    public function openSectionPage(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
         $this->sectionPage->open('admin');
@@ -171,7 +169,7 @@ class SectionsContext implements Context
     /**
      * @Then I start editing the Section
      */
-    public function editSection()
+    public function editSection(): void
     {
         $this->sectionPage->edit();
     }
@@ -179,7 +177,7 @@ class SectionsContext implements Context
     /**
      * @Then the :sectionName on Sections list has assigned Content Items
      */
-    public function sectionHasAssignedContentItems(string $sectionName)
+    public function sectionHasAssignedContentItems(string $sectionName): void
     {
         Assert::assertGreaterThan(0, $this->sectionsPage->getAssignedContentItemsCount($sectionName));
     }
@@ -187,7 +185,7 @@ class SectionsContext implements Context
     /**
      * @Then Section :sectionName cannot be selected
      */
-    public function sectionCannotBeSelected(string $sectionName)
+    public function sectionCannotBeSelected(string $sectionName): void
     {
         Assert::assertFalse($this->sectionsPage->canBeSelected($sectionName));
     }

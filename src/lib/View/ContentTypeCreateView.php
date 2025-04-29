@@ -15,14 +15,11 @@ use Symfony\Component\Form\FormInterface;
 
 final class ContentTypeCreateView extends BaseView
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
-    private $contentTypeGroup;
+    private ContentTypeGroup $contentTypeGroup;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
-    private $contentTypeDraft;
+    private ContentTypeDraft $contentTypeDraft;
 
-    /** @var \Symfony\Component\Form\FormInterface */
-    private $form;
+    private FormInterface $form;
 
     /**
      * @param string|\Closure $templateIdentifier Valid path to the template. Can also be a closure.

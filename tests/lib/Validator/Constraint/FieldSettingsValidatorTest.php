@@ -14,26 +14,18 @@ use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Core\FieldType\ValidationError;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class FieldSettingsValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $fieldTypeService;
+    private FieldTypeService&MockObject $fieldTypeService;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\FieldSettingsValidator
-     */
-    private $validator;
+    private FieldSettingsValidator $validator;
 
     protected function setUp(): void
     {
@@ -44,7 +36,7 @@ class FieldSettingsValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testNotFieldDefinitionData()
+    public function testNotFieldDefinitionData(): void
     {
         $this->executionContext
             ->expects(self::never())
@@ -53,7 +45,7 @@ class FieldSettingsValidatorTest extends TestCase
         $this->validator->validate('foo', new FieldSettings());
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $this->executionContext
             ->expects(self::never())
@@ -78,7 +70,7 @@ class FieldSettingsValidatorTest extends TestCase
         $this->validator->validate($fieldDefData, new FieldSettings());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $fieldTypeIdentifier = 'ezstring';
         $fieldDefinition = new FieldDefinition(['fieldTypeIdentifier' => $fieldTypeIdentifier]);

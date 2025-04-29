@@ -50,7 +50,7 @@ class ContentLocationRemoveData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
      */
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -66,7 +66,7 @@ class ContentLocationRemoveData
     /**
      * @param array $locations
      */
-    public function setLocations(array $locations)
+    public function setLocations(array $locations): void
     {
         $this->locations = $locations;
     }

@@ -25,20 +25,15 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SubmitHandler implements UserActionsSubmitHandler
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
-    protected $notificationHandler;
+    protected NotificationHandlerInterface $notificationHandler;
 
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    protected $router;
+    protected RouterInterface $router;
 
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface */
-    protected $uiActionEventDispatcher;
+    protected EventDispatcherInterface $uiActionEventDispatcher;
 
-    /** @var \Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher */
-    protected $formUiActionMappingDispatcher;
+    protected FormUiActionMappingDispatcher $formUiActionMappingDispatcher;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
         NotificationHandlerInterface $notificationHandler,

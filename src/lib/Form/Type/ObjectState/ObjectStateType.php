@@ -16,8 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ObjectStateType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
     public function __construct(ObjectStateService $objectStateService)
     {

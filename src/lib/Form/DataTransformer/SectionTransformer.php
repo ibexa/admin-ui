@@ -19,8 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class SectionTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
+    private SectionService $sectionService;
 
     public function __construct(SectionService $sectionService)
     {

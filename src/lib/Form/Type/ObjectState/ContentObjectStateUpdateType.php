@@ -24,11 +24,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentObjectStateUpdateType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
     public function __construct(ObjectStateService $objectStateService, PermissionResolver $permissionResolver)
     {
@@ -49,26 +47,32 @@ class ContentObjectStateUpdateType extends AbstractType
                 'label' => /** @Desc("Set") */ 'object_state.button.set',
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $contentObjectStateUpdateData */
-            $contentObjectStateUpdateData = $event->getData();
-            $objectStateGroup = $contentObjectStateUpdateData->getObjectStateGroup();
-            $contentInfo = $contentObjectStateUpdateData->getContentInfo();
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
+            /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $data */
+            $data = $event->getData();
             $form = $event->getForm();
 
-            $form->add('objectState', ObjectStateChoiceType::class, [
-                'label' => false,
-                'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo) {
-                    $contentState = $this->objectStateService->getContentState($contentInfo, $objectStateGroup);
+            $objectStateGroup = $data->getObjectStateGroup();
+            $contentInfo = $data->getContentInfo();
+            if ($objectStateGroup === null || $contentInfo === null) {
+                return;
+            }
 
-                    return array_filter(
-                        $this->objectStateService->loadObjectStates($objectStateGroup),
-                        function (ObjectState $objectState) use ($contentInfo, $contentState) {
-                            return $this->permissionResolver->canUser('state', 'assign', $contentInfo, [$objectState]);
-                        }
-                    );
-                }),
-            ]);
+            $form->add(
+                'objectState',
+                ObjectStateChoiceType::class,
+                [
+                    'label' => false,
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo): array {
+                        return array_filter(
+                            iterator_to_array($this->objectStateService->loadObjectStates($objectStateGroup)),
+                            function (ObjectState $objectState) use ($contentInfo) {
+                                return $this->permissionResolver->canUser('state', 'assign', $contentInfo, [$objectState]);
+                            }
+                        );
+                    }),
+                ]
+            );
         });
     }
 

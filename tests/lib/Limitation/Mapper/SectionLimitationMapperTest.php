@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -19,14 +20,11 @@ class SectionLimitationMapperTest extends TestCase
 {
     private const EXAMPLE_SECTION_ID = 0xFF;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionServiceMock;
+    private SectionService&MockObject $sectionServiceMock;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper */
-    private $mapper;
+    private SectionLimitationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -37,7 +35,7 @@ class SectionLimitationMapperTest extends TestCase
         $this->mapper->setLogger($this->logger);
     }
 
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['3', '5', '7'];
 
@@ -61,7 +59,7 @@ class SectionLimitationMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
-    public function testMapLimitationValueWithNotExistingContentType()
+    public function testMapLimitationValueWithNotExistingContentType(): void
     {
         $values = [self::EXAMPLE_SECTION_ID];
 

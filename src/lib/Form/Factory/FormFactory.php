@@ -123,6 +123,10 @@ use Ibexa\AdminUi\Form\Type\User\UserDeleteType;
 use Ibexa\AdminUi\Form\Type\User\UserEditType;
 use Ibexa\AdminUi\Form\Type\Version\VersionRemoveType;
 use Ibexa\Bundle\Search\Form\Data\SearchData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
@@ -131,14 +135,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
@@ -239,31 +240,27 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @phpstan-return \Symfony\Component\Form\FormInterface<ContentTypeGroupUpdateData>
      */
     public function updateContentTypeGroup(
+        ContentTypeGroup $group,
         ContentTypeGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-content-type-group-%d', $data->getContentTypeGroup()->id);
+        $name = $name ?: sprintf('update-content-type-group-%d', $group->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupUpdateType::class, $data);
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData>
      */
     public function deleteContentTypeGroup(
+        ContentTypeGroup $group,
         ContentTypeGroupDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-content-type-group-%d', $data->getContentTypeGroup()->id);
+        $name = $name ?: sprintf('delete-content-type-group-%d', $group->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupDeleteType::class, $data);
     }
@@ -616,10 +613,11 @@ class FormFactory
      * @return \Symfony\Component\Form\FormInterface
      */
     public function deleteLanguage(
+        APILanguage $language,
         LanguageDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-language-%d', $data->getLanguage()->id);
+        $name = $name ?: sprintf('delete-language-%d', $language->id);
 
         return $this->formFactory->createNamed($name, LanguageDeleteType::class, $data);
     }
@@ -733,7 +731,7 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $role = $data->getRoleAssignment()->getRole()->id;
-        $limitation = !empty($data->getRoleAssignment()->getRoleLimitation())
+        $limitation = $data->getRoleAssignment()->getRoleLimitation() instanceof RoleLimitation
             ? $data->getRoleAssignment()->getRoleLimitation()->getIdentifier()
             : 'none';
 
@@ -986,16 +984,14 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData>
      */
     public function updateObjectStateGroup(
+        ObjectStateGroup $group,
         ObjectStateGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-object-state-group-%d', $data->getObjectStateGroup()->id);
+        $name = $name ?: sprintf('update-object-state-group-%d', $group->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupUpdateType::class, $data);
     }

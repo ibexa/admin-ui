@@ -24,17 +24,13 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
 {
     private const COPY_LIMIT = 10;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
-    private $locationService;
+    private LocationService&MockObject $locationService;
 
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
-    private $validator;
+    private LocationIsWithinCopySubtreeLimitValidator $validator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
-    private $location;
+    private Location&MockObject $location;
 
     protected function setUp(): void
     {

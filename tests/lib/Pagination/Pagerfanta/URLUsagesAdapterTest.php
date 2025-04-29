@@ -12,19 +12,19 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\UsageSearchResult;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class URLUsagesAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
-    private $urlService;
+    private URLService&MockObject $urlService;
 
     protected function setUp(): void
     {
         $this->urlService = $this->createMock(URLService::class);
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $url = $this->createMock(URL::class);
 
@@ -47,7 +47,7 @@ class URLUsagesAdapterTest extends TestCase
         );
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $url = $this->createMock(URL::class);
         $offset = 10;

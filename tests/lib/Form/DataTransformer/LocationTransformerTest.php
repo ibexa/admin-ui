@@ -20,11 +20,8 @@ class LocationTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?Location $value, ?int $expected): void
     {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($service);
@@ -36,10 +33,8 @@ class LocationTransformerTest extends TestCase
 
     /**
      * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $languageService = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($languageService);
@@ -50,7 +45,7 @@ class LocationTransformerTest extends TestCase
         $transformer->transform($value);
     }
 
-    public function testReverseTransformWithId()
+    public function testReverseTransformWithId(): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::once())
@@ -65,7 +60,7 @@ class LocationTransformerTest extends TestCase
         self::assertEquals(new Location(['id' => 123456]), $result);
     }
 
-    public function testReverseTransformWithNull()
+    public function testReverseTransformWithNull(): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::never())
@@ -78,7 +73,7 @@ class LocationTransformerTest extends TestCase
         self::assertNull($result);
     }
 
-    public function testReverseTransformWithNotFoundException()
+    public function testReverseTransformWithNotFoundException(): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Location not found');
@@ -94,7 +89,7 @@ class LocationTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{Location|null, int|null}>
      */
     public function transformDataProvider(): array
     {
@@ -107,7 +102,7 @@ class LocationTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function transformWithInvalidInputDataProvider(): array
     {

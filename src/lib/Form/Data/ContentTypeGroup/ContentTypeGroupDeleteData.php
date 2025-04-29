@@ -12,26 +12,19 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
-    private $contentTypeGroup;
+    private ?ContentTypeGroup $contentTypeGroup;
 
     public function __construct(?ContentTypeGroup $contentTypeGroup = null)
     {
         $this->contentTypeGroup = $contentTypeGroup;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup
-     */
-    public function getContentTypeGroup(): ContentTypeGroup
+    public function getContentTypeGroup(): ?ContentTypeGroup
     {
         return $this->contentTypeGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
-     */
-    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup)
+    public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {
         $this->contentTypeGroup = $contentTypeGroup;
     }

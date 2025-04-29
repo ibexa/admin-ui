@@ -12,6 +12,7 @@ use Exception;
 use Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
+use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper as ImageAssetMapper;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,17 +31,13 @@ class AssetController extends Controller
     public const LANGUAGE_CODE_KEY = 'languageCode';
     public const FILE_KEY = 'file';
 
-    /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
-    private $validator;
+    private ValidatorInterface $validator;
 
-    /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface */
-    private $csrfTokenManager;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
-    private $imageAssetMapper;
+    private AssetMapper $imageAssetMapper;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     /**
      * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator

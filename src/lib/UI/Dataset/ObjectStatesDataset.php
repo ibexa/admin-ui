@@ -16,11 +16,9 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStatesDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
+    protected ObjectStateService $objectStateService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
+    protected ValueFactory $valueFactory;
 
     /** @var UIValue\ObjectState\ObjectState[] */
     protected $data;

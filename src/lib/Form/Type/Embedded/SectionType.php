@@ -18,8 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    protected $sectionService;
+    protected SectionService $sectionService;
 
     public function __construct(SectionService $sectionService)
     {

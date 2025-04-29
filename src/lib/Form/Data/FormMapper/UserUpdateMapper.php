@@ -60,7 +60,7 @@ class UserUpdateMapper
         return $data;
     }
 
-    private function configureOptions(OptionsResolver $optionsResolver)
+    private function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver
             ->setRequired(['languageCode']);

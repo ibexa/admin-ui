@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Behat\Mink\Session;
 use DateTimeInterface;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class DateAndTimePopup extends Component
@@ -35,7 +36,7 @@ class DateAndTimePopup extends Component
             }';
 
     /** @var \Ibexa\Behat\Browser\Locator\VisibleCSSLocator */
-    private $parentLocator;
+    private CSSLocator $parentLocator;
 
     public function __construct(Session $session)
     {
@@ -102,7 +103,7 @@ class DateAndTimePopup extends Component
         $this->getSession()->getDriver()->executeScript($timeScript);
     }
 
-    public function setParentLocator(VisibleCSSLocator $locator)
+    public function setParentLocator(VisibleCSSLocator $locator): void
     {
         $this->parentLocator = $locator;
     }

@@ -22,8 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
+    protected LanguageService $languageService;
 
     public function __construct(LanguageService $languageService)
     {
@@ -85,7 +84,7 @@ class UserEditType extends AbstractType
         ];
 
         if (is_array($options['language_codes'])) {
-            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options) {
+            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options): array {
                 return array_map([$this->languageService, 'loadLanguage'], $options['language_codes']);
             });
         }

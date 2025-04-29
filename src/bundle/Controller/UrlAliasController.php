@@ -15,19 +15,17 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Tab\LocationView\UrlsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UrlAliasController extends Controller
 {
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
+    protected FormFactory $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    protected $submitHandler;
+    protected SubmitHandler $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    protected $urlAliasService;
+    protected URLAliasService $urlAliasService;
 
     /**
      * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
@@ -59,7 +57,7 @@ class UrlAliasController extends Controller
         $location = $data->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (CustomUrlAddData $data) {
+            $result = $this->submitHandler->handle($form, function (CustomUrlAddData $data): RedirectResponse {
                 $this->urlAliasService->createUrlAlias(
                     $data->getLocation(),
                     $data->getPath(),
@@ -95,7 +93,7 @@ class UrlAliasController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (CustomUrlRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (CustomUrlRemoveData $data): RedirectResponse {
                 $aliasToRemoveList = [];
                 foreach ($data->getUrlAliases() as $customUrlId => $selected) {
                     $aliasToRemoveList[] = $this->urlAliasService->load($customUrlId);

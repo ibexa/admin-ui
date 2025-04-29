@@ -14,14 +14,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Trash\SearchResult;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class TrashItemAdapterTest extends TestCase
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService|\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $trashService;
+    protected TrashService&MockObject $trashService;
 
     protected function setUp(): void
     {
@@ -42,7 +40,7 @@ class TrashItemAdapterTest extends TestCase
         return new TrashItemAdapter($query, $trashService);
     }
 
-    public function testGetNbResults()
+    public function testGetNbResults(): void
     {
         $nbResults = 123;
         $query = new Query();
@@ -69,7 +67,7 @@ class TrashItemAdapterTest extends TestCase
         self::assertSame($nbResults, $adapter->getNbResults());
     }
 
-    public function testGetSlice()
+    public function testGetSlice(): void
     {
         $offset = 20;
         $limit = 25;

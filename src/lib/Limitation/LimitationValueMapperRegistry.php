@@ -17,7 +17,7 @@ class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInte
     /**
      * @var LimitationValueMapperInterface[]
      */
-    private $limitationValueMappers;
+    private array $limitationValueMappers;
 
     /**
      * LimitationValueMapperRegistry constructor.
@@ -43,12 +43,12 @@ class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInte
         return $this->limitationValueMappers[$limitationType];
     }
 
-    public function hasMapper($limitationType)
+    public function hasMapper($limitationType): bool
     {
         return isset($this->limitationValueMappers[$limitationType]);
     }
 
-    public function addMapper(LimitationValueMapperInterface $mapper, $limitationType)
+    public function addMapper(LimitationValueMapperInterface $mapper, $limitationType): void
     {
         $this->limitationValueMappers[$limitationType] = $mapper;
     }

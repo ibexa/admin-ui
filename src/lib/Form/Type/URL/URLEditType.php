@@ -37,7 +37,7 @@ class URLEditType extends AbstractType
         ]);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }

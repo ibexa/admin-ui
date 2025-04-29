@@ -10,8 +10,7 @@ namespace Ibexa\AdminUi\Form\Data\Role;
 
 class RolesDeleteData
 {
-    /** @var array|null */
-    protected $roles;
+    protected array $roles;
 
     /**
      * @param array|null $roles
@@ -32,7 +31,7 @@ class RolesDeleteData
     /**
      * @param array $roles
      */
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): void
     {
         $this->roles = $roles;
     }

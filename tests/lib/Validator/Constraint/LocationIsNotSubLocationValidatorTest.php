@@ -11,17 +11,16 @@ namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotSubLocation;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotSubLocationValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class LocationIsNotSubLocationValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsNotSubLocationValidator */
-    private $validator;
+    private LocationIsNotSubLocationValidator $validator;
 
     protected function setUp(): void
     {
@@ -30,7 +29,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $location = $this
             ->getMockBuilder(Location::class)
@@ -53,7 +52,7 @@ class LocationIsNotSubLocationValidatorTest extends TestCase
         $this->validator->validate($location, $constraint);
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $location = $this
             ->getMockBuilder(Location::class)

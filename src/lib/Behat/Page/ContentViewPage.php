@@ -34,52 +34,39 @@ use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu Element representing the right menu */
-    private $contentActionsMenu;
+    /** Element representing the right menu */
+    private ContentActionsMenu $contentActionsMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\SubItemsList */
-    private $subItemList;
+    private SubItemsList $subItemList;
 
-    /** @var string */
-    private $locationPath;
+    private ?string $locationPath = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentTypePicker */
-    private $contentTypePicker;
+    private ContentTypePicker $contentTypePicker;
 
-    /** @var string */
-    private $expectedContentType;
+    private string $expectedContentType;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\LanguagePicker */
-    private $languagePicker;
+    private LanguagePicker $languagePicker;
 
-    /** @var string */
-    private $expectedContentName;
+    private ?string $expectedContentName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\TranslationDialog */
-    private $translationDialog;
+    private TranslationDialog $translationDialog;
 
-    private $route;
+    private ?string $route = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Breadcrumb */
-    private $breadcrumb;
+    private Breadcrumb $breadcrumb;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview */
-    private $contentItemAdminPreview;
+    private ContentItemAdminPreview $contentItemAdminPreview;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     /** @var \Ibexa\Behat\Core\Behat\ArgumentParser; */
-    private $argumentParser;
+    private ArgumentParser $argumentParser;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
-    private $ibexaDropdown;
+    private IbexaDropdown $ibexaDropdown;
 
     private UpperMenu $upperMenu;
 
@@ -120,7 +107,7 @@ class ContentViewPage extends Page
         $this->deleteContentDialog = $deleteContentDialog;
     }
 
-    public function startCreatingContent(string $contentTypeName, string $language = null)
+    public function startCreatingContent(string $contentTypeName, string $language = null): void
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
@@ -131,7 +118,7 @@ class ContentViewPage extends Page
         $this->contentTypePicker->confirm();
     }
 
-    public function startCreatingUser(string $contentTypeName)
+    public function startCreatingUser(string $contentTypeName): void
     {
         $this->contentActionsMenu->clickButton('Create user');
         $this->contentTypePicker->verifyIsLoaded();
@@ -215,7 +202,7 @@ class ContentViewPage extends Page
         }
     }
 
-    public function setExpectedLocationPath(string $locationPath)
+    public function setExpectedLocationPath(string $locationPath): void
     {
         [$this->expectedContentType, $this->expectedContentName, $contentId, $contentMainLocationId] = $this->getContentData($this->argumentParser->parseUrl($locationPath));
         $this->route = sprintf('/view/content/%s/full/1/%s', $contentId, $contentMainLocationId);
@@ -249,7 +236,7 @@ class ContentViewPage extends Page
         return 'Content view';
     }
 
-    public function editContent(?string $language)
+    public function editContent(?string $language): void
     {
         $this->contentActionsMenu->clickButton('Edit');
 
@@ -268,7 +255,7 @@ class ContentViewPage extends Page
         return $this->subItemList->isElementInTable($parameters);
     }
 
-    public function sendToTrash()
+    public function sendToTrash(): void
     {
         $this->contentActionsMenu->clickButton('Send to trash');
         $this->dialog->verifyIsLoaded();
@@ -276,7 +263,7 @@ class ContentViewPage extends Page
         $this->dialog->confirm();
     }
 
-    public function verifyFieldHasValues(string $fieldLabel, array $expectedFieldValues, ?string $fieldTypeIdentifier)
+    public function verifyFieldHasValues(string $fieldLabel, array $expectedFieldValues, ?string $fieldTypeIdentifier): void
     {
         $this->contentItemAdminPreview->verifyFieldHasValues($fieldLabel, $expectedFieldValues, $fieldTypeIdentifier);
     }
@@ -323,7 +310,7 @@ class ContentViewPage extends Page
 
     private function getContentData(string $locationPath): array
     {
-        return $this->repository->sudo(function (Repository $repository) use ($locationPath) {
+        return $this->repository->sudo(function (Repository $repository) use ($locationPath): array {
             $content = $this->loadContent($repository, $locationPath);
 
             return [
@@ -337,7 +324,7 @@ class ContentViewPage extends Page
 
     private function loadContent(Repository $repository, string $locationPath): Content
     {
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($repository, $locationPath) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($repository, $locationPath): bool {
             $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
 
             return URLAlias::LOCATION === $urlAlias->type;

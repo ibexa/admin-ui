@@ -15,9 +15,9 @@ use Twig\TwigFunction;
 
 class ComponentExtension extends AbstractExtension
 {
-    protected $registry;
+    protected ComponentRegistry $registry;
 
-    protected $renderer;
+    protected RendererInterface $renderer;
 
     public function __construct(
         ComponentRegistry $registry,
@@ -43,7 +43,7 @@ class ComponentExtension extends AbstractExtension
         ];
     }
 
-    public function renderComponentGroup(string $group, array $parameters = [])
+    public function renderComponentGroup(string $group, array $parameters = []): string
     {
         return implode('', $this->renderer->renderGroup($group, $parameters));
     }

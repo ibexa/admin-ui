@@ -13,14 +13,14 @@ use PHPUnit\Framework\TestCase;
 
 class FieldDefinitionDataTest extends TestCase
 {
-    public function testFieldDefinition()
+    public function testFieldDefinition(): void
     {
         $fieldDefinition = $this->getMockForAbstractClass(FieldDefinition::class);
         $data = new FieldDefinitionData(['fieldDefinition' => $fieldDefinition]);
         self::assertSame($fieldDefinition, $data->fieldDefinition);
     }
 
-    public function testGetFieldTypeIdentifier()
+    public function testGetFieldTypeIdentifier(): void
     {
         $fieldTypeIdentifier = 'ezstring';
         $fieldDefinition = $this->getMockBuilder(FieldDefinition::class)

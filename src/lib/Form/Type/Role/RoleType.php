@@ -16,8 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class RoleType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    protected $roleService;
+    protected RoleService $roleService;
 
     public function __construct(RoleService $roleService)
     {

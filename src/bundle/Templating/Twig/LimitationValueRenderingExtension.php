@@ -16,8 +16,7 @@ use Twig\TwigFunction;
 
 class LimitationValueRenderingExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer */
-    private $limitationRenderer;
+    private LimitationBlockRendererInterface $limitationRenderer;
 
     public function __construct(LimitationBlockRendererInterface $limitationRenderer)
     {

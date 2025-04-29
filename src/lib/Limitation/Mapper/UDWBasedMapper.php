@@ -30,15 +30,9 @@ use Symfony\Component\Form\FormInterface;
  */
 class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\LocationService
-     */
-    protected $locationService;
+    protected LocationService $locationService;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\SearchService
-     */
-    protected $searchService;
+    protected SearchService $searchService;
 
     /**
      * Form template to use.
@@ -47,11 +41,9 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
      */
     private $template;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    private PermissionResolver $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private Repository $repository;
 
     public function __construct(
         LocationService $locationService,
@@ -65,7 +57,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         $this->repository = $repository;
     }
 
-    public function setFormTemplate($template)
+    public function setFormTemplate($template): void
     {
         $this->template = $template;
     }
@@ -75,7 +67,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         return $this->template;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $form->add(
             // Creating from FormBuilder as we need to add a DataTransformer.
@@ -102,7 +94,10 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
     {
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @phpstan-return list<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]>
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 

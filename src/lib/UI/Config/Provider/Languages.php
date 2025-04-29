@@ -18,17 +18,14 @@ use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
  */
 class Languages implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
+    private LanguageService $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private ConfigResolverInterface $configResolver;
 
     /** @var string[] */
-    private $siteAccesses;
+    private array $siteAccesses;
 
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
-    private $siteAccessService;
+    private SiteAccessServiceInterface $siteAccessService;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
@@ -101,7 +98,7 @@ class Languages implements ProviderInterface
 
         $languageCodes = array_unique($priority);
 
-        $languages = array_filter(array_values($languageCodes), static function ($languageCode) use ($languagesMap) {
+        $languages = array_filter(array_values($languageCodes), static function ($languageCode) use ($languagesMap): bool {
             // Get only Languages defined and enabled in Admin
             return isset($languagesMap[$languageCode]) && $languagesMap[$languageCode]['enabled'];
         });

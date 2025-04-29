@@ -14,8 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserSelectionAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
+    protected ConfigResolverInterface $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)
     {

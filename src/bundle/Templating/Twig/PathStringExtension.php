@@ -14,7 +14,7 @@ use Twig\TwigFunction;
 
 class PathStringExtension extends AbstractExtension
 {
-    private $locationService;
+    private LocationService $locationService;
 
     public function __construct(
         LocationService $locationService
@@ -44,8 +44,14 @@ class PathStringExtension extends AbstractExtension
             'intval',
             explode('/', trim($pathString, '/'))
         );
+
         array_shift($locationIds);
 
-        return $this->locationService->loadLocationList($locationIds);
+        $locations = $this->locationService->loadLocationList($locationIds);
+        if (!is_array($locations)) {
+            $locations = iterator_to_array($locations);
+        }
+
+        return $locations;
     }
 }

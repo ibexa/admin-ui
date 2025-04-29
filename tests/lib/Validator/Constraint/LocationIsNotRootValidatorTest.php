@@ -11,16 +11,15 @@ namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotRoot;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotRootValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsNotRootValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
-    private $validator;
+    private LocationIsNotRootValidator $validator;
 
     protected function setUp(): void
     {
@@ -29,7 +28,7 @@ class LocationIsNotRootValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $location = $this
             ->getMockBuilder(Location::class)
@@ -44,7 +43,7 @@ class LocationIsNotRootValidatorTest extends TestCase
         $this->validator->validate($location, new LocationIsNotRoot());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $location = $this
             ->getMockBuilder(Location::class)

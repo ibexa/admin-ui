@@ -19,8 +19,7 @@ final class ContentTypeThumbnailStrategy implements ThumbnailStrategy
 {
     private const THUMBNAIL_MIME_TYPE = 'image/svg+xml';
 
-    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
-    private $contentTypeIconResolver;
+    private ContentTypeIconResolver $contentTypeIconResolver;
 
     public function __construct(
         ContentTypeIconResolver $contentTypeIconResolver

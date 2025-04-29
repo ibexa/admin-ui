@@ -13,19 +13,19 @@ use Symfony\Component\Validator\Constraint;
 
 class ValidatorConfigurationTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $constraint = new ValidatorConfiguration();
         self::assertSame('ez.field_definition.validator_configuration', $constraint->message);
     }
 
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new ValidatorConfiguration();
         self::assertSame('ezplatform.content_forms.validator.validator_configuration', $constraint->validatedBy());
     }
 
-    public function testGetTargets()
+    public function testGetTargets(): void
     {
         $constraint = new ValidatorConfiguration();
         self::assertSame(Constraint::CLASS_CONSTRAINT, $constraint->getTargets());
