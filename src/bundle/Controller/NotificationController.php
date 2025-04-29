@@ -21,6 +21,7 @@ use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -115,7 +116,10 @@ class NotificationController extends Controller
         $formData = $this->createNotificationSelectionData($pagerfanta);
 
         $deleteForm = $this->formFactory->deleteNotification($formData);
+        $deleteForm->add('remove', SubmitType::class);
+
         $markAsReadForm = $this->formFactory->markNotificationAsRead($formData);
+        $markAsReadForm->add('mark_as_read', SubmitType::class);
 
         $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
 
