@@ -172,7 +172,7 @@ class RichText extends FieldTypeComponent
         $this->getSession()->executeScript($script);
     }
 
-    private function clickElementsToolbarButton(string $buttonText): void
+    protected function clickElementsToolbarButton(string $buttonText): void
     {
         $script = sprintf(
             "Array.from(document.querySelectorAll('%s')).filter(e => e.textContent =='%s')[0].click()",
