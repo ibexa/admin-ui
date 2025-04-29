@@ -79,7 +79,7 @@
         font-size: $ibexa-text-font-size-small;
         color: $ibexa-color-light-700;
     }
-    
+
     &__notice-dot {
         width: calculateRem(8px);
         height: calculateRem(8px);
@@ -218,10 +218,10 @@
             width: calculateRem(6px);
             height: calculateRem(6px);
         }
-        &[data-is-read="true"] {
+        &[data-is-read='true'] {
             background: $ibexa-color-dark-300;
         }
-        &[data-is-read="false"] {
+        &[data-is-read='false'] {
             background: $ibexa-color-danger;
         }
     }

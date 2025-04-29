@@ -1,13 +1,13 @@
 .ibexa-list-filters {
     $self: &;
-    
+
     overflow: hidden;
 
     &__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: calculateRem(11px) calculateRem(16px);
+        padding: calculateRem(11px) calculateRem(12px);
         min-width: calculateRem(275px);
     }
 
@@ -15,6 +15,18 @@
         margin: 0;
         padding: 0 0 0 calculateRem(8px);
         font-weight: 600;
+    }
+
+    &__sidebar {
+        &--collapsed {
+            width: calculateRem(68px);
+            margin-right: 0;
+
+            .ibexa-list-filters__header > *:not(.ibexa-list-filters__expand-btn),
+            .ibexa-list-filters__items {
+                display: none;
+            }
+        }
     }
 
     .accordion-item {

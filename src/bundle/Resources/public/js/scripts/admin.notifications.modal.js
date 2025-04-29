@@ -96,7 +96,6 @@
         if (notificationsCount < 10) {
             panel.querySelector('.ibexa-notifications-modal__count').textContent = `(${notificationsCount})`;
         }
-        
     };
     const updatePendingNotificationsView = (notificationsInfo) => {
         const noticeDot = doc.querySelector('.ibexa-header-user-menu__notice-dot');

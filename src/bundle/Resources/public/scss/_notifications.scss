@@ -36,11 +36,11 @@
 
     .ibexa-table-header {
         padding: calculateRem(8px) 0;
-        &__headline{
-        font-size: $ibexa-text-font-size-extra-large;
+        &__headline {
+            font-size: $ibexa-text-font-size-extra-large;
         }
     }
-    
+
     &__mark-all-read {
         display: flex;
         justify-content: flex-end;
@@ -58,22 +58,12 @@
         border: calculateRem(1px) solid $ibexa-color-light;
         background-color: $ibexa-color-white;
         transition: width 0.3s ease;
-        
-        &--collapsed {
-            width: calculateRem(64px);
-            margin-right: 0;
-
-            .ibexa-list-filters__header > *:not(.ibexa-list-filters__expand-btn),
-            .ibexa-list-filters__items {
-                display: none;
-            }
-        }
     }
 
     &__table-btns {
         font-size: $ibexa-text-font-size-medium;
     }
-    
+
     &__hidden-btn {
         display: none;
     }
