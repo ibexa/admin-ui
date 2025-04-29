@@ -68,7 +68,7 @@
         const selectedContentIds = selectedContent ? selectedContent.split(',') : [];
         const selectedLocationsIds = selectedContentIds.map((contentId) => itemsMap[contentId]);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmUsersAndGroupsUDW.bind(this, widget),
