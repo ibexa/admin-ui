@@ -58,9 +58,10 @@
             .then(getJsonFromResponse)
             .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
     };
-    const getBulkOperations = (notificationIds) =>  notificationIds.reduce((total, notificationId) => {
+    const getBulkOperations = (notificationIds) =>
+        notificationIds.reduce((total, notificationId) => {
             const markAsReadLink = Routing.generate('ibexa.notifications.mark_as_read', { notificationId });
-            
+
             total[markAsReadLink] = {
                 uri: markAsReadLink,
                 method: 'GET',
@@ -69,9 +70,9 @@
                     Accept: 'application/vnd.ibexa.api.ContentType+json',
                     'X-Requested-With': 'XMLHttpRequest',
                 },
-                credentials: 'same-origin'
+                credentials: 'same-origin',
             };
-    
+
             return total;
         }, {});
 
@@ -106,8 +107,7 @@
                         notificationRow.querySelectorAll('.ibexa-notification-view-all__notice-dot').forEach((noticeDot) => {
                             noticeDot.setAttribute('data-is-read', (!isRead).toString());
                         });
-                        notificationRow.querySelector('.ibexa-notification-view-all__read').innerHTML =
-                            statusText;
+                        notificationRow.querySelector('.ibexa-notification-view-all__read').innerHTML = statusText;
 
                         return;
                     }
@@ -155,16 +155,18 @@
     markAllAsReadBtn.addEventListener('click', markAllAsRead, false);
     markAsReadBtn.addEventListener('click', markSelectedAsRead, false);
 
-
     const toggleActionButtonState = () => {
         const checkedNotifications = checkboxes.filter((el) => el.checked);
         const isAnythingSelected = checkedNotifications.length > 0;
-        const unreadLabel =     Translator.trans(/* @Desc("Unread") */ 'notification.unread',{},'ibexa_notifications');
+        const unreadLabel = Translator.trans(/* @Desc("Unread") */ 'notification.unread', {}, 'ibexa_notifications');
 
         deleteBtn.disabled = !isAnythingSelected;
-        markAsReadBtn.disabled = !isAnythingSelected || !checkedNotifications.every((checkbox) => 
-            checkbox.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__read').innerText === unreadLabel
-        );
+        markAsReadBtn.disabled =
+            !isAnythingSelected ||
+            !checkedNotifications.every(
+                (checkbox) =>
+                    checkbox.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__read').innerText === unreadLabel,
+            );
     };
     const handleCheckboxChange = (checkbox) => {
         const checkboxFormId = checkbox.dataset?.formRemoveId;
@@ -172,8 +174,8 @@
         if (formRemoveCheckbox) {
             formRemoveCheckbox.checked = checkbox.checked;
         }
-        toggleActionButtonState(); 
+        toggleActionButtonState();
     };
- 
+
     checkboxes.forEach((checkbox) => checkbox.addEventListener('change', () => handleCheckboxChange(checkbox), false));
 })(window, window.document, window.ibexa, window.Translator, window.Routing);
