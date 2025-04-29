@@ -14,38 +14,30 @@ class Node extends RestValue
 {
     private int $depth;
 
-    /** @var int */
-    public $locationId;
+    public int $locationId;
 
-    /** @var int */
-    public $contentId;
+    public int $contentId;
 
     public int $versionNo;
 
-    /** @var string */
-    public $name;
+    public string $name;
 
-    /** @var string */
-    public $contentTypeIdentifier;
+    public string $contentTypeIdentifier;
 
-    /** @var bool */
-    public $isContainer;
+    public bool $isContainer;
 
-    /** @var bool */
-    public $isInvisible;
+    public bool $isInvisible;
 
-    /** @var int */
-    public $displayLimit;
+    public int $displayLimit;
 
-    /** @var int */
-    public $totalChildrenCount;
+    public int $totalChildrenCount;
 
     public int $reverseRelationsCount;
 
     public bool $isBookmarked;
 
     /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
-    public $children;
+    public array $children;
 
     public string $pathString;
 

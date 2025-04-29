@@ -17,7 +17,6 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentProxyTranslateEvent extends Event
 {
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
     private ?Response $response = null;
 
     private int $contentId;

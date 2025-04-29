@@ -34,7 +34,7 @@ use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu Element representing the right menu */
+    /** Element representing the right menu */
     private ContentActionsMenu $contentActionsMenu;
 
     private SubItemsList $subItemList;
@@ -43,13 +43,11 @@ class ContentViewPage extends Page
 
     private ContentTypePicker $contentTypePicker;
 
-    /** @var string */
-    private $expectedContentType;
+    private string $expectedContentType;
 
     private LanguagePicker $languagePicker;
 
-    /** @var string */
-    private $expectedContentName;
+    private ?string $expectedContentName;
 
     private Dialog $dialog;
 

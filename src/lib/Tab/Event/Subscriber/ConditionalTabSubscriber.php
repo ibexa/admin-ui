@@ -29,9 +29,6 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         $this->tabService = $tabService;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -39,9 +36,6 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
-     */
     public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent): void
     {
         $tabGroup = $tabGroupEvent->getData();

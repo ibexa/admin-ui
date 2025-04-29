@@ -22,8 +22,7 @@ use PHPUnit\Framework\Assert;
 
 class RolePage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    public $dialog;
+    public Dialog $dialog;
 
     private ?string $expectedRoleName = null;
 
@@ -31,7 +30,7 @@ class RolePage extends Page
 
     private Repository $repository;
 
-    private $expectedRoleId;
+    private int $expectedRoleId;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $policies;

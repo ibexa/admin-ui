@@ -16,7 +16,6 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class DraftConflictDialog extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $table;
 
     public function __construct(Session $session, TableBuilder $tableBuilder)

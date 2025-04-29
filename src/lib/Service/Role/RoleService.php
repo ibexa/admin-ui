@@ -28,12 +28,6 @@ class RoleService
 
     private SearchService $searchService;
 
-    /**
-     * RoleService constructor.
-     *
-     * @param Repository\RoleService $roleService
-     * @param \Ibexa\Core\Repository\SearchService $searchService
-     */
     public function __construct(Repository\RoleService $roleService, SearchService $searchService)
     {
         $this->roleService = $roleService;

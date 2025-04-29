@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -19,8 +20,7 @@ class ContentRelationMultiple extends FieldTypeComponent
 {
     private UniversalDiscoveryWidget $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
     private TableBuilder $tableBuilder;
 

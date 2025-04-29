@@ -18,7 +18,6 @@ class ContentLocationAddData
     protected array $newLocations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $currentLocation
      * @param array $newLocations
      */
     public function __construct(
@@ -37,9 +36,6 @@ class ContentLocationAddData
         return $this->contentInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     */
     public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;

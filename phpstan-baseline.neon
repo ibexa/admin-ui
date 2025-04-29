@@ -949,7 +949,7 @@ parameters:
 			path: src/bundle/Controller/RoleController.php
 
 		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
+			message: '#^Argument of an invalid type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
 			path: src/bundle/Controller/SectionController.php
@@ -1723,12 +1723,6 @@ parameters:
 			path: src/lib/Behat/Component/DraftConflictDialog.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Component\\DraftConflictDialog\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Component/DraftConflictDialog.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Authors\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1807,6 +1801,12 @@ parameters:
 			path: src/lib/Behat/Component/Fields/ContentQuery.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:getColumnValues\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1858,12 +1858,6 @@ parameters:
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 5
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
 			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
 
 		-
@@ -2701,6 +2695,12 @@ parameters:
 			path: src/lib/Behat/Page/ContentViewPage.php
 
 		-
+			message: '#^Parameter \#1 \$needle of static method PHPUnit\\Framework\\Assert\:\:assertStringContainsString\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Behat/Page/ContentViewPage.php
+
+		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withParentLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2823,12 +2823,6 @@ parameters:
 		-
 			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:\$assignments \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
 			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/RolePage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:\$expectedRoleId has no type specified\.$#'
-			identifier: missingType.property
 			count: 1
 			path: src/lib/Behat/Page/RolePage.php
 
@@ -4325,36 +4319,6 @@ parameters:
 			identifier: return.phpDocType
 			count: 1
 			path: src/lib/Form/Data/Section/SectionUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\:\:__construct\(\) has parameter \$sections with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Section/SectionsDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\:\:getSections\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Section/SectionsDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\:\:setSections\(\) has parameter \$sections with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Section/SectionsDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$sections with type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\>\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Section/SectionsDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\:\:\$sections type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Section/SectionsDeleteData.php
 
 		-
 			message: '#^Cannot access property \$path on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|false\.$#'
@@ -8135,12 +8099,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/lib/Tab/Dashboard/PagerLocationToDataMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Tab\\Event\\Subscriber\\ConditionalTabSubscriber\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Tab/Event/Subscriber/ConditionalTabSubscriber.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Tab\\Event\\Subscriber\\OrderedTabSubscriber\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'

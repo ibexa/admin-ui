@@ -24,8 +24,7 @@ class SectionPage extends Page
 {
     private ?string $expectedSectionName = null;
 
-    /** @var int */
-    private $expectedSectionId;
+    private int $expectedSectionId;
 
     private TableInterface $contentItemsTable;
 
