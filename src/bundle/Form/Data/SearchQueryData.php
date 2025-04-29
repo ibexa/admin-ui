@@ -13,10 +13,10 @@ use Ibexa\AdminUi\Form\Data\DateRangeData;
 final class SearchQueryData
 {
     private array $statuses = [];
+
     private ?string $type = null;
 
     private ?DateRangeData $createdRange = null;
-
 
     public function getStatuses(): array
     {

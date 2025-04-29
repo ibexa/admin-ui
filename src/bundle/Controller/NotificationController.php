@@ -10,7 +10,7 @@ namespace Ibexa\Bundle\AdminUi\Controller;
 
 use DateTimeInterface;
 use Exception;
-use Ibexa\AdminUi\Form\Data\Notification\NotificationRemoveData;
+use Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
@@ -21,7 +21,6 @@ use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,10 +79,12 @@ class NotificationController extends Controller
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
     {
+        $allNotifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
+
         $notificationTypes = array_unique(
             array_map(
-                fn($notification) => $notification->type,
-                $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items
+                static fn($notification) => $notification->type,
+                $allNotifications
             )
         );
         sort($notificationTypes);
@@ -95,8 +96,7 @@ class NotificationController extends Controller
 
         $query = [];
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $data = $searchForm->getData();
-            $query = $this->buildQuery($data);
+            $query = $this->buildQuery($searchForm->getData());
         }
 
         $pagerfanta = new Pagerfanta(
@@ -108,23 +108,24 @@ class NotificationController extends Controller
         $notifications = [];
         foreach ($pagerfanta->getCurrentPageResults() as $notification) {
             if ($this->registry->hasRenderer($notification->type)) {
-                $renderer = $this->registry->getRenderer($notification->type);
-                $notifications[] = $renderer->render($notification);
+                $notifications[] = $this->registry->getRenderer($notification->type)->render($notification);
             }
         }
 
-        $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
+        $formData = $this->createNotificationSelectionData($pagerfanta);
 
-        $deleteNotificationsForm = $this->formFactory->deleteNotification(
-            $this->createNotificationRemoveData($pagerfanta)
-        );
+        $deleteForm = $this->formFactory->deleteNotification($formData);
+        $markAsReadForm = $this->formFactory->markNotificationAsRead($formData);
+
+        $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
 
         return $this->render($template, [
             'notifications' => $notifications,
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
             'search_form' => $searchForm->createView(),
-            'form_remove' => $deleteNotificationsForm->createView(),
+            'form_remove' => $deleteForm->createView(),
+            'form_mark_as_read' => $markAsReadForm->createView(),
         ]);
     }
 
@@ -159,16 +160,15 @@ class NotificationController extends Controller
         return $query;
     }
 
-
-    private function createNotificationRemoveData(Pagerfanta $pagerfanta): NotificationRemoveData
+    private function createNotificationSelectionData(Pagerfanta $pagerfanta): NotificationSelectionData
     {
-        $notificationIds = [];
+        $notifications = [];
 
         foreach ($pagerfanta->getCurrentPageResults() as $notification) {
-            $notificationIds[$notification->id] = false;
+            $notifications[$notification->id] = false;
         }
 
-        return new NotificationRemoveData($notificationIds);
+        return new NotificationSelectionData($notifications);
     }
 
     /**
@@ -228,6 +228,29 @@ class NotificationController extends Controller
         }
 
         return $response;
+    }
+
+    public function markNotificationsAsReadAction(Request $request): Response
+    {
+        $form = $this->formFactory->markNotificationAsRead();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            $result = $this->submitHandler->handle($form, function (NotificationSelectionData $data) {
+                foreach (array_keys($data->getNotifications()) as $id) {
+                    $notification = $this->notificationService->getNotification((int)$id);
+                    $this->notificationService->markNotificationAsRead($notification);
+                }
+
+                return $this->redirectToRoute('ibexa.notifications.render.all');
+            });
+
+            if ($result instanceof Response) {
+                return $result;
+            }
+        }
+
+        return $this->redirectToRoute('ibexa.notifications.render.all');
     }
 
     public function markAllNotificationsAsReadAction(Request $request): JsonResponse
@@ -302,7 +325,7 @@ class NotificationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (NotificationRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (NotificationSelectionData $data) {
                 foreach (array_keys($data->getNotifications()) as $id) {
                     $notification = $this->notificationService->getNotification((int)$id);
                     $this->notificationService->deleteNotification($notification);

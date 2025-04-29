@@ -36,7 +36,7 @@ use Ibexa\AdminUi\Form\Data\Location\LocationSwapData;
 use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData;
-use Ibexa\AdminUi\Form\Data\Notification\NotificationRemoveData;
+use Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
@@ -93,7 +93,7 @@ use Ibexa\AdminUi\Form\Type\Location\LocationSwapType;
 use Ibexa\AdminUi\Form\Type\Location\LocationTrashType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateVisibilityType;
-use Ibexa\AdminUi\Form\Type\Notification\NotificationRemoveType;
+use Ibexa\AdminUi\Form\Type\Notification\NotificationSelectionType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupDeleteType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupsDeleteType;
@@ -1067,18 +1067,33 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationRemoveData|null $data
+     * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null $data
      * @param string|null $name
      *
      * @return \Symfony\Component\Form\FormInterface
      */
     public function deleteNotification(
-        NotificationRemoveData $data = null,
+        NotificationSelectionData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationRemoveType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
 
-        return $this->formFactory->createNamed($name, NotificationRemoveType::class, $data);
+        return $this->formFactory->createNamed($name, NotificationSelectionType::class, $data);
+    }
+
+    /**
+     * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null $data
+     * @param string|null $name
+     *
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function markNotificationAsRead(
+        NotificationSelectionData $data = null,
+        ?string $name = null
+    ): FormInterface {
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
+
+        return $this->formFactory->createNamed($name, NotificationSelectionType::class, $data);
     }
 
     /**
