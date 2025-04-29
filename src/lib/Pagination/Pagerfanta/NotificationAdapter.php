@@ -55,7 +55,6 @@ class NotificationAdapter implements AdapterInterface
 
         $this->nbResults ??= $notifications->totalCount;
 
-
         return $notifications;
     }
 }

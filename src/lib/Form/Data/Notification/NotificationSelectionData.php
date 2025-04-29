@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Notification;
 
-class NotificationRemoveData
+class NotificationSelectionData
 {
     private array $notifications;
 
