@@ -4291,18 +4291,6 @@ parameters:
 			path: src/lib/Component/Renderer/DefaultRenderer.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:\$eventDispatcher has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:\$registry has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\ScriptComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1

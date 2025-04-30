@@ -16,7 +16,6 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
  */
 interface Renderable extends ComponentInterface
 {
-    public function render(array $parameters = []): string;
 }
 
 class_alias(Renderable::class, 'EzSystems\EzPlatformAdminUi\Component\Renderable');

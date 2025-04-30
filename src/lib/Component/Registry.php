@@ -20,7 +20,7 @@ class Registry
     /**
      * @var string[]
      */
-    public const COMPONENTS_WHITELIST =
+    private const COMPONENTS_WHITELIST =
         [
             'action-configuration-tabs',
             'attribute-definition-block',
@@ -80,7 +80,7 @@ class Registry
             'user-profile-blocks',
         ];
 
-    public const GROUP_PREFIX = 'admin-ui-';
+    private const GROUP_PREFIX = 'admin-ui-';
 
     protected TwigComponentsRegistry $inner;
 

@@ -8,12 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\Renderer;
 
-use Ibexa\AdminUi\Component\Event\RenderGroupEvent;
-use Ibexa\AdminUi\Component\Event\RenderSingleEvent;
-use Ibexa\AdminUi\Component\Registry;
-use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Ibexa\TwigComponents\Component\Renderer\DefaultRenderer as TwigComponentsDefaultRenderer;
 
 /**
  * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Renderer\DefaultRenderer} class is deprecated, will be removed in 5.0.
@@ -21,57 +17,21 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class DefaultRenderer implements RendererInterface
 {
-    protected $registry;
+    protected TwigComponentsDefaultRenderer $inner;
 
-    protected $eventDispatcher;
-
-    public function __construct(Registry $registry, EventDispatcherInterface $eventDispatcher)
+    public function __construct(TwigComponentsDefaultRenderer $inner)
     {
-        $this->registry = $registry;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->inner = $inner;
     }
 
     public function renderGroup(string $groupName, array $parameters = []): array
     {
-        $this->eventDispatcher->dispatch(new RenderGroupEvent(
-            $this->registry,
-            $groupName,
-            $parameters
-        ), RenderGroupEvent::NAME);
-
-        $components = $this->registry->getComponents($groupName);
-
-        $rendered = [];
-        foreach ($components as $id => $component) {
-            $rendered[] = $this->renderSingle($id, $groupName, $parameters);
-        }
-
-        return $rendered;
+        return $this->inner->renderGroup($groupName, $parameters);
     }
 
     public function renderSingle(string $name, $groupName, array $parameters = []): string
     {
-        $this->eventDispatcher->dispatch(new RenderSingleEvent(
-            $this->registry,
-            $groupName,
-            $name,
-            $parameters
-        ), RenderSingleEvent::NAME);
-
-        $components = $this->registry->getComponents($groupName);
-
-        if (!isset($components[$name])) {
-            throw new InvalidArgumentException(
-                'id',
-                sprintf(
-                    "Can't find Component '%s' in group '%s'",
-                    $name,
-                    $groupName
-                )
-            );
-        }
-
-        return $components[$name]->render($parameters);
+        return $this->inner->renderSingle($name, $groupName, $parameters);
     }
 }
 
