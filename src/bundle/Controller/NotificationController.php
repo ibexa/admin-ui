@@ -20,6 +20,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
+use InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -118,9 +119,6 @@ class NotificationController extends Controller
         $deleteForm = $this->formFactory->deleteNotification($formData);
         $deleteForm->add('remove', SubmitType::class);
 
-        $markAsReadForm = $this->formFactory->markNotificationAsRead($formData);
-        $markAsReadForm->add('mark_as_read', SubmitType::class);
-
         $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
 
         return $this->render($template, [
@@ -129,7 +127,6 @@ class NotificationController extends Controller
             'pager' => $pagerfanta,
             'search_form' => $searchForm->createView(),
             'form_remove' => $deleteForm->createView(),
-            'form_mark_as_read' => $markAsReadForm->createView(),
         ]);
     }
 
@@ -234,27 +231,35 @@ class NotificationController extends Controller
         return $response;
     }
 
-    public function markNotificationsAsReadAction(Request $request): Response
+    public function markNotificationsAsReadAction(Request $request): JsonResponse
     {
-        $form = $this->formFactory->markNotificationAsRead();
-        $form->handleRequest($request);
+        $response = new JsonResponse();
 
-        if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (NotificationSelectionData $data) {
-                foreach (array_keys($data->getNotifications()) as $id) {
-                    $notification = $this->notificationService->getNotification((int)$id);
-                    $this->notificationService->markNotificationAsRead($notification);
-                }
+        try {
+            $ids = $request->toArray()['ids'] ?? [];
 
-                return $this->redirectToRoute('ibexa.notifications.render.all');
-            });
-
-            if ($result instanceof Response) {
-                return $result;
+            if (!is_array($ids) || empty($ids)) {
+                throw new InvalidArgumentException('Missing or invalid "ids" parameter.');
             }
+
+            foreach ($ids as $id) {
+                $notification = $this->notificationService->getNotification((int)$id);
+                $this->notificationService->markNotificationAsRead($notification);
+            }
+
+            $response->setData([
+                'status' => 'success',
+                'redirect' => $this->generateUrl('ibexa.notifications.render.all'),
+            ]);
+        } catch (Exception $exception) {
+            $response->setData([
+                'status' => 'failed',
+                'error' => $exception->getMessage(),
+            ]);
+            $response->setStatusCode(400);
         }
 
-        return $this->redirectToRoute('ibexa.notifications.render.all');
+        return $response;
     }
 
     public function markAllNotificationsAsReadAction(Request $request): JsonResponse
