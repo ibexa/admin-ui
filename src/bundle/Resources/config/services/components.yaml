@@ -47,3 +47,7 @@ services:
             $template: '@@ibexadesign/ui/layout_content_after.html.twig'
         tags:
             - { name: ibexa.twig.component, group: 'admin-ui-layout-content-after' }
+            
+    Ibexa\AdminUi\Component\EventSubscriber\RenderEventLegacyBridgeSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
