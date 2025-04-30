@@ -1082,21 +1082,6 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function markNotificationAsRead(
-        NotificationSelectionData $data = null,
-        ?string $name = null
-    ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
-
-        return $this->formFactory->createNamed($name, NotificationSelectionType::class, $data);
-    }
-
-    /**
      * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData|null $data
      * @param string|null $name
      *

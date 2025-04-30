@@ -938,7 +938,7 @@ ibexa.notifications.mark_as_read:
         notificationId: '\d+'
 
 ibexa.notifications.mark_multiple_as_read:
-    path: /notification/mark-multiple-as-read
+    path: /notifications/read
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationsAsReadAction'
     methods: [ POST ]
