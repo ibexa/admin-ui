@@ -119,7 +119,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     return;
                 }
 
-                throw new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, $file, $e);
+                throw new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, null, $e);
             }
 
             try {
@@ -131,7 +131,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     return;
                 }
 
-                $e = new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, $file, $e);
+                $e = new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, null, $e);
 
                 $output = trim(sprintf('%s: %s', \get_class($e), $e->getMessage()));
             }
