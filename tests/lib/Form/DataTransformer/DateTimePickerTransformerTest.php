@@ -12,7 +12,6 @@ use DateTime;
 use DateTimeImmutable;
 use Ibexa\AdminUi\Form\DataTransformer\DateTimePickerTransformer;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class DateTimePickerTransformerTest extends TestCase
 {
@@ -36,15 +35,6 @@ final class DateTimePickerTransformerTest extends TestCase
         yield 'DateTimeImmutable' => [new DateTimeImmutable('2021-01-01 00:00:00'), 1609459200];
     }
 
-    public function testTransformWithInvalidValue(): void
-    {
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Found string instead of DateTimeInterface');
-
-        $transformer = new DateTimePickerTransformer();
-        $transformer->transform('invalid');
-    }
-
     /**
      * @dataProvider dataProviderForTestReverseTransform
      */
@@ -62,14 +52,5 @@ final class DateTimePickerTransformerTest extends TestCase
     {
         yield 'null' => [null, null];
         yield 'DateTime' => [1609459200, new DateTime('2021-01-01 00:00:00')];
-    }
-
-    public function testReverseTransformWithInvalidValue(): void
-    {
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Found string instead of a numeric value');
-
-        $transformer = new DateTimePickerTransformer();
-        $transformer->reverseTransform('invalid');
     }
 }

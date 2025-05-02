@@ -16,27 +16,20 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Transforms between a Role's ID and a domain specific object.
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\Role, int>
  */
 class RoleTransformer implements DataTransformerInterface
 {
     protected RoleService $roleService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
     public function __construct(RoleService $roleService)
     {
         $this->roleService = $roleService;
     }
 
     /**
-     * Transforms a domain specific Role object into a Role identifier.
-     *
-     * @param mixed $value
-     *
-     * @return mixed|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * Transforms a domain specific Role object into a Role id.
      */
     public function transform(mixed $value): ?int
     {
@@ -44,22 +37,11 @@ class RoleTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!$value instanceof APIRole) {
-            throw new TransformationFailedException('Expected a ' . APIRole::class . ' object.');
-        }
-
         return $value->id;
     }
 
     /**
-     * Transforms a Role identifier into a domain specific Role object.
-     *
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * Transforms a Role ID into a domain specific Role object.
      */
     public function reverseTransform(mixed $value): ?APIRole
     {
