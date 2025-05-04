@@ -47,7 +47,7 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return [new FieldEditRenderingExtension($fieldBlockRenderer)];
     }
 
-    public function getFixturesDir(): string
+    protected static function getFixturesDirectory(): string
     {
         return __DIR__ . '/_fixtures/field_edit_rendering_functions/';
     }
