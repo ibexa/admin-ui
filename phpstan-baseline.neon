@@ -3667,12 +3667,6 @@ parameters:
 			path: src/lib/Form/Data/ContentType/Translation/TranslationRemoveData.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\:\:__construct\(\) has parameter \$contentTypeGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentTypeGroup/ContentTypeGroupsDeleteData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\:\:getContentTypeGroups\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3887,12 +3881,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Data/FormMapper/UserUpdateMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:__construct\(\) has parameter \$languages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Language/LanguagesDeleteData.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:getLanguages\(\) return type has no value type specified in iterable type array\.$#'
