@@ -5155,12 +5155,6 @@ parameters:
 			path: src/lib/Form/Data/ContentType/ContentTypeCopyData.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentType\\ContentTypesDeleteData\:\:__construct\(\) has parameter \$contentTypes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentType/ContentTypesDeleteData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentType\\ContentTypesDeleteData\:\:getContentTypes\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -5243,12 +5237,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Data/ContentTypeGroup/ContentTypeGroupUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\:\:__construct\(\) has parameter \$contentTypeGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentTypeGroup/ContentTypeGroupsDeleteData.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\:\:getContentTypeGroups\(\) return type has no value type specified in iterable type array\.$#'
@@ -5563,12 +5551,6 @@ parameters:
 			path: src/lib/Form/Data/Language/LanguageUpdateData.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:__construct\(\) has parameter \$languages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Language/LanguagesDeleteData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:getLanguages\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -5857,12 +5839,6 @@ parameters:
 			path: src/lib/Form/Data/ObjectState/ObjectStateGroupUpdateData.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupsDeleteData\:\:__construct\(\) has parameter \$objectStateGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ObjectState/ObjectStateGroupsDeleteData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupsDeleteData\:\:setObjectStateGroups\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -5903,12 +5879,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: src/lib/Form/Data/ObjectState/ObjectStateUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStatesDeleteData\:\:__construct\(\) has parameter \$objectStates with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ObjectState/ObjectStatesDeleteData.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStatesDeleteData\:\:setObjectStates\(\) has no return type specified\.$#'
@@ -6437,12 +6407,6 @@ parameters:
 			identifier: return.phpDocType
 			count: 1
 			path: src/lib/Form/Data/Section/SectionUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\:\:__construct\(\) has parameter \$sections with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Section/SectionsDeleteData.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\:\:getSections\(\) return type has no value type specified in iterable type array\.$#'
