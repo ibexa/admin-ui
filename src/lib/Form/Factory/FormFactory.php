@@ -1074,11 +1074,17 @@ class FormFactory
      */
     public function deleteNotification(
         NotificationSelectionData $data = null,
-        ?string $name = null
+        ?string $name = null,
+        string $submitName = 'remove'
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
 
-        return $this->formFactory->createNamed($name, NotificationSelectionType::class, $data);
+        return $this->formFactory->createNamed(
+            $name,
+            NotificationSelectionType::class,
+            $data,
+            ['submit_name' => $submitName]
+        );
     }
 
     /**
