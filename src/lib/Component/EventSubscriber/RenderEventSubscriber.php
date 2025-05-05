@@ -18,9 +18,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class RenderEventSubscriber implements EventSubscriberInterface
 {
-    protected Registry $registry;
+    private Registry $registry;
 
-    protected EventDispatcherInterface $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
