@@ -33,7 +33,7 @@ class NotificationSelectionType extends AbstractType
         );
 
         $builder->add(
-            'remove',
+            $options['submit_name'],
             SubmitType::class
         );
     }
@@ -42,6 +42,7 @@ class NotificationSelectionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => NotificationSelectionData::class,
+            'submit_name' => 'submit',
         ]);
     }
 }
