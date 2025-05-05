@@ -15,7 +15,7 @@ use Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent as TwigComponentsRend
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RenderEventLegacyBridgeSubscriber implements EventSubscriberInterface
+final class RenderEventSubscriber implements EventSubscriberInterface
 {
     protected Registry $registry;
 

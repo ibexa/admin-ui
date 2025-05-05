@@ -48,6 +48,6 @@ services:
         tags:
             - { name: ibexa.twig.component, group: 'admin-ui-layout-content-after' }
             
-    Ibexa\AdminUi\Component\EventSubscriber\RenderEventLegacyBridgeSubscriber:
+    Ibexa\AdminUi\Component\EventSubscriber\RenderEventSubscriber:
         tags:
             - { name: kernel.event_subscriber }
