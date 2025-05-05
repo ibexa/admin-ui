@@ -30,4 +30,4 @@ registerView(VIEW_MODE_GRID, {
 });
 
 export const getViewComponent = (viewName) => viewRegistry.get(viewName)?.component;
-export const getViewSwitcherOptions = () => Array.from(viewRegistry.values()).map(({ switcherOption }) => switcherOption);
+export const getViewSwitcherOptions = () => Array.from(viewRegistry.values(), ({ switcherOption }) => switcherOption);
