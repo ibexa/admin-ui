@@ -7753,24 +7753,6 @@ parameters:
 			path: src/lib/QueryType/TrashSearchQueryType.php
 
 		-
-			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/REST/Input/Parser/BulkOperation.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\REST\\Input\\Parser\\BulkOperation\:\:parse\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/REST/Input/Parser/BulkOperation.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\REST\\Input\\Parser\\Operation\:\:parse\(\) has parameter \$data with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/REST/Input/Parser/Operation.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\REST\\Security\\NonAdminRESTRequestMatcher\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1

@@ -16,16 +16,11 @@ use Ibexa\Rest\Input\BaseParser;
 class BulkOperation extends BaseParser
 {
     /**
-     * Parse input structure.
-     *
-     * @param array $data
-     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
-     *
-     * @return \Ibexa\AdminUi\REST\Value\BulkOperation
+     * @param array{operations?: array<int|string, array{uri?: string|mixed, method?: string|mixed, headers?: array|mixed, parameters?: array|mixed, content?: string|mixed}>} $data
      */
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher)
+    public function parse(array $data, ParsingDispatcher $parsingDispatcher): BulkOperationValue
     {
-        if (!is_array($data) || 'operations' !== key($data)) {
+        if (!array_key_exists('operations', $data)) {
             throw new Exceptions\Parser('Invalid structure for BulkOperation.');
         }
 
