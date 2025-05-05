@@ -89,7 +89,7 @@
     };
     const updateModalTitleTotalInfo = (notificationsCount) => {
         const modalTitle = panel.querySelector(SELECTOR_MODAL_TITLE);
-        const modalFooter = panel.querySelector('.ibexa-notifications__view-all-btn--count');
+        const modalFooter = panel.querySelector('.ibexa-notifications-modal__view-all-btn--count');
         modalFooter.textContent = ` (${notificationsCount})`;
         modalTitle.dataset.notificationsTotal = `(${notificationsCount})`;
 
