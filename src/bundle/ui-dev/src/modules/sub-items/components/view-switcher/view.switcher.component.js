@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { getViewSwitcherOptions } from '../../services/view.registry';
 
+const { Translator } = window;
+
 const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
     let componentClassName = 'c-view-switcher';
 
@@ -13,7 +15,7 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
     const switchView = ({ value }) => {
         onViewChange(value);
     };
-    
+
     const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_sub_items');
     const viewOptions = getViewSwitcherOptions();
     const selectedOption = viewOptions.find((option) => option.value === activeView) || viewOptions[0];
