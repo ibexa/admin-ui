@@ -6,18 +6,14 @@ const { Translator } = window;
 
 const viewRegistry = new Map();
 
-export const registerView = (viewName, {
-    component,
-    iconName,
-    label
-}) => {
+export const registerView = (viewName, { component, iconName, label }) => {
     viewRegistry.set(viewName, {
         component,
         switcherOption: {
             iconName,
             label,
-            value: viewName
-        }
+            value: viewName,
+        },
     });
 };
 
@@ -34,4 +30,4 @@ registerView(VIEW_MODE_GRID, {
 });
 
 export const getViewComponent = (viewName) => viewRegistry.get(viewName)?.component;
-export const getViewSwitcherOptions = () => Array.from(viewRegistry.values()).map(({switcherOption}) => switcherOption);
+export const getViewSwitcherOptions = () => Array.from(viewRegistry.values()).map(({ switcherOption }) => switcherOption);
