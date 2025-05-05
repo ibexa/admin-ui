@@ -29,52 +29,41 @@
             });
     };
 
-    //TODO:
     const markSelectedAsRead = () => {
-        const checkedElements = doc.querySelectorAll('.ibexa-notification-list__mark-row-checkbox:checked');
-        const notificationIds = [...checkedElements].map((element) => element.dataset.notificationId);
-        const bulkOperations = getBulkOperations(notificationIds);
-        const request = new Request('/api/ibexa/v2/bulk', {
+        const selectedNotifications = [...checkboxes]
+            .filter((checkbox) => checkbox.checked)
+            .map((checkbox) => checkbox.dataset.notificationId);
+
+        const markAsReadLink = Routing.generate('ibexa.notifications.mark_multiple_as_read');
+        const request = new Request(markAsReadLink, {
             method: 'POST',
             headers: {
-                Accept: 'application/vnd.ibexa.api.BulkOperationResponse+json',
-                'Content-Type': 'application/vnd.ibexa.api.BulkOperation+json',
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                bulkOperations: {
-                    operations: bulkOperations,
-                },
-            }),
             mode: 'same-origin',
-            credentials: 'include',
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                ids: selectedNotifications,
+            }),
         });
-        const errorMessage = Translator.trans(
-            /*@Desc("Cannot mark selected notifications as read")*/ 'notifications.modal.message.error.mark_selected_as_read',
-            {},
-            'ibexa_notifications',
-        );
 
         fetch(request)
             .then(getJsonFromResponse)
-            .catch(() => ibexa.helpers.notification.showErrorNotification(errorMessage));
+            .then((response) => {
+                if (response.status === 'success') {
+                    global.location.reload();
+                }
+            })
+            .catch(() => {
+                const message = Translator.trans(
+                    /* @Desc("Cannot mark notifications as read") */
+                    'notifications.modal.message.error.mark_as_read',
+                    {},
+                    'ibexa_notifications',
+                );
+                showErrorNotification(message);
+            });
     };
-    const getBulkOperations = (notificationIds) =>
-        notificationIds.reduce((total, notificationId) => {
-            const markAsReadLink = Routing.generate('ibexa.notifications.mark_as_read', { notificationId });
-
-            total[markAsReadLink] = {
-                uri: markAsReadLink,
-                method: 'GET',
-                mode: 'same-origin',
-                headers: {
-                    Accept: 'application/vnd.ibexa.api.ContentType+json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-                credentials: 'same-origin',
-            };
-
-            return total;
-        }, {});
 
     const handleNotificationClick = (notification, isToggle = false) => {
         const notificationRow = notification.closest('.ibexa-table__row');
@@ -169,11 +158,15 @@
             );
     };
     const handleCheckboxChange = (checkbox) => {
-        const checkboxFormId = checkbox.dataset?.formRemoveId;
-        const formRemoveCheckbox = doc.getElementById(checkboxFormId);
+        const checkboxFormId = checkbox.dataset?.formCheckboxId;
+        const formRemoveCheckbox = doc.querySelector(
+            `[data-toggle-button-id="#confirm-notification_selection_remove"] input#${checkboxFormId}`,
+        );
+
         if (formRemoveCheckbox) {
             formRemoveCheckbox.checked = checkbox.checked;
         }
+
         toggleActionButtonState();
     };
 

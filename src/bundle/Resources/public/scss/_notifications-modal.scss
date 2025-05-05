@@ -55,14 +55,10 @@
     &__item {
         position: relative;
         border: 1px solid $ibexa-color-light;
-        border-bottom: none;
+        border-top: none;
 
         &--wrapper {
             display: flex;
-        }
-
-        &:first-of-type {
-            border-top: none;
         }
 
         .description__text {
@@ -91,6 +87,12 @@
         top: calculateRem(16px);
         font-size: 10px;
         color: $ibexa-color-white;
+    }
+
+    &__view-all-btn {
+        &--count {
+            padding-left: calculateRem(2px);
+        }
     }
 
     &__item--read {

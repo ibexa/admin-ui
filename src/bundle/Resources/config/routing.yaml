@@ -939,9 +939,11 @@ ibexa.notifications.mark_as_read:
 
 ibexa.notifications.mark_multiple_as_read:
     path: /notifications/read
+    options:
+        expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationsAsReadAction'
-    methods: [ POST ]
+    methods: [POST]
 
 ibexa.notifications.mark_all_as_read:
     path: /notifications/read-all

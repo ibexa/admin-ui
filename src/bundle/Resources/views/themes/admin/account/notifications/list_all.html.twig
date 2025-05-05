@@ -7,6 +7,8 @@
 {% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
 {% import _self as macros %}
 
+{% block main_container_class %}{{ parent() }} ibexa-notification-list__container {% endblock %}
+
 {% block title %}{{ 'ibexa_notifications'|trans|desc('Notifications') }}{% endblock %}
 
 {% block header %}
@@ -43,10 +45,10 @@
         }) }}
     {{ form_end(form_remove) }}
     {{ form_start(search_form, {
-        attr: { class: 'ibexa-al-list-search-form' }
+        attr: { class: 'ibexa-list-search-form' }
     }) }}
         <div class="ibexa-notification-list">
-            <section class="ibexa-notification-list__data-grid-wrapper container ibexa-container">
+            <section class="ibexa-notification-list__data-grid-wrapper ibexa-container">
                 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: custom_results_headline ?? results_headline(pager.getNbResults()),
                     head_cols: [
@@ -97,15 +99,17 @@
             </div>
         </div>
     {{ form_end(search_form) }}
+    {{dump()}}
 {% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('ibexa-admin-notifications-list-js', null, 'ibexa') }}
 {% endblock %}
-{% macro table_header_tools(form) %}
+{% macro table_header_tools(form,) %}
     {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
     <div class="ibexa-notification-list__table-btns">
         <button
+            id="confirm-mark-selected-as-read"
             type="button"
             class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn--mark-as-read"
             disabled
