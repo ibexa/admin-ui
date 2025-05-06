@@ -1,4 +1,5 @@
 {% set user_name = ibexa_content_name(user) %}
+{% set is_link = is_link is defined ? is_link : true %}
 
 {% if user_name_extra_data is defined %}
     {% set user_name = user_name ~ ' ' ~ user_name_extra_data %}
@@ -20,7 +21,7 @@
         {% set user_path = path('ibexa.user.profile.view', { userId: user.id }) %}
     {% endif %}
 
-    {% if user_path is defined %}
+    {% if user_path is defined and is_link  %}
         <a href="{{ user_path }}" class="ibexa-user-name__text">{{ user_name }}</a>
     {% else %}
         <span class="ibexa-user-name__text">{{ user_name }}</span>
