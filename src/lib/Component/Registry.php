@@ -75,7 +75,6 @@ class Registry
             'shipping-method-block',
             'stylesheet-body',
             'stylesheet-head',
-            'systeminfo-tab-groups',
             'user-menu',
             'user-profile-blocks',
         ];
