@@ -18,26 +18,26 @@
     {% endblock %}
     
     {% block content %}
-    <div class="ibexa-side-panel__content">
-        <div class="ibexa-notifications-modal__spinner">
-            <svg class="ibexa-icon ibexa-spin">
-                <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
-            </svg>
+        <div class="ibexa-side-panel__content">
+            <div class="ibexa-notifications-modal__spinner">
+                <svg class="ibexa-icon ibexa-spin">
+                    <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
+                </svg>
+            </div>
+            <div class="ibexa-notifications-modal__results">
+                {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
+                    'page': 1,
+                })) }}
+            </div>
         </div>
-        <div class="ibexa-notifications-modal__results">
-            {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\NotificationController::renderNotificationsPageAction', {
-                'page': 1,
-            })) }}
-        </div>
-    </div>
     {% endblock %}
 
     {% block footer %}
-    <div class="ibexa-notifications-modal__footer">
-        <a class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications-modal__view-all-btn" href="{{ path('ibexa.notifications.render.all') }}">
-            {{ 'side_panel.view_all'|trans|desc('View all') }}
-            <span class="ibexa-notifications-modal__view-all-btn--count"></span>
-        </a>
-    </div>
+        <div class="ibexa-notifications-modal__footer">
+            <a class="btn ibexa-btn ibexa-btn--ghost ibexa-notifications-modal__view-all-btn" href="{{ path('ibexa.notifications.render.all') }}">
+                {{ 'side_panel.view_all'|trans|desc('View all') }}
+                <span class="ibexa-notifications-modal__view-all-btn--count"></span>
+            </a>
+        </div>
     {% endblock %}
 {% endembed %}

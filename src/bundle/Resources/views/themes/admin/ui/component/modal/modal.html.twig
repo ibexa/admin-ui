@@ -23,9 +23,7 @@
 }) %}
 
 {% if id is defined %}
-    {% set attr = attr|default({})|merge({
-        id,
-    }) %}
+    {% set attr = attr|default({})|merge({ id }) %}
 {% endif %}
 
 {% if has_static_backdrop|default(false) %}

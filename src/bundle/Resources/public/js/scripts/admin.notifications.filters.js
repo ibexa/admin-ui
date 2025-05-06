@@ -39,7 +39,7 @@
 
         searchForm.submit();
     };
-    const attachFilterEvent = (filterNode) => {
+    const attachFilterEvents = (filterNode) => {
         if (!filterNode) {
             return;
         }
@@ -49,6 +49,7 @@
             '.ibexa-list-filters__item-content .ibexa-input--checkbox:not([name="dropdown-checkbox"])',
         );
         const picker = filterNode.querySelector('.ibexa-input--date');
+
         picker?.addEventListener('change', filterChange, false);
         sourceSelect?.addEventListener('change', filterChange, false);
         checkboxes.forEach((checkbox) => {
@@ -82,9 +83,9 @@
         return hasStatusFilterValue || hasTypeFilterValue || hasDatetimeFilterValue;
     };
     const attachInitEvents = () => {
-        attachFilterEvent(statusFilterNode);
-        attachFilterEvent(typeFilterNode);
-        datetimeFilterNodes.forEach((input) => attachFilterEvent(input));
+        attachFilterEvents(statusFilterNode);
+        attachFilterEvents(typeFilterNode);
+        datetimeFilterNodes.forEach((input) => attachFilterEvents(input));
     };
     const filterChange = () => {
         const hasFiltersSetValue = isSomeFilterSet();

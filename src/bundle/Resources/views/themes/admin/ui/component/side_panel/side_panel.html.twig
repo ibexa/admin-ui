@@ -12,38 +12,36 @@
 }) %}
 
 {% if id is defined %}
-    {% set attr = attr|default({})|merge({
-        id,
-    }) %}
+    {% set attr = attr|default({})|merge({ id }) %}
 {% endif %}
 
 <div {{ html.attributes(attr) }}>
     {% block panel %}
-    <div>
-        {% block header %}
-            <button
-                type="button"
-                class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--close-config-panel"
-            >
-                <svg class="ibexa-icon ibexa-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('caret-back') }}"></use>
-                </svg>
-            </button>
-            <h2 class="ibexa-side-panel__title">{{ title }}</h2>
-        {% endblock %}
-        {% block content %}{% endblock %}
-        
-        <div class="{{ config_panel_footer_class }}">
-            {% block footer %}
+        <div>
+            {% block header %}
                 <button
                     type="button"
-                    class="btn ibexa-btn ibexa-btn--info ibexa-side-panel__cancel-btn ibexa-btn--close-config-panel"
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--close-config-panel"
                 >
-                    {{ 'side_panel.btn.cancel_label'|trans|desc('Cancel') }}
+                    <svg class="ibexa-icon ibexa-icon--small">
+                        <use xlink:href="{{ ibexa_icon_path('caret-back') }}"></use>
+                    </svg>
                 </button>
+                <h2 class="ibexa-side-panel__title">{{ title }}</h2>
             {% endblock %}
+            {% block content %}{% endblock %}
+            
+            <div class="{{ config_panel_footer_class }}">
+                {% block footer %}
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--info ibexa-side-panel__cancel-btn ibexa-btn--close-config-panel"
+                    >
+                        {{ 'side_panel.btn.cancel_label'|trans|desc('Cancel') }}
+                    </button>
+                {% endblock %}
+            </div>
         </div>
-    </div>
     {% endblock %}
 </div>
 
