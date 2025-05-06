@@ -112,6 +112,7 @@ form:not(.form-inline) {
     margin-top: calculateRem(8px);
 
     &__icon {
+        flex-shrink: 0;
         fill: $ibexa-color-dark-400;
         margin-right: calculateRem(4px);
     }
