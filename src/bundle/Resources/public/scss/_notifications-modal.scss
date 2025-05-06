@@ -18,7 +18,7 @@
 
         .ibexa-table__row {
             .ibexa-table__cell {
-                height: 115px;
+                height: calculateRem(115px);
                 padding-right: 0;
                 border-radius: 0;
                 background-color: $ibexa-color-light-300;
@@ -45,7 +45,7 @@
 
     &__type-content {
         width: 100%;
-        font-size: 14px;
+        font-size: $ibexa-text-font-size-medium;
 
         p {
             margin-bottom: 0;
@@ -54,7 +54,7 @@
 
     &__item {
         position: relative;
-        border: 1px solid $ibexa-color-light;
+        border: calculateRem(1px) solid $ibexa-color-light;
         border-top: none;
 
         &--wrapper {
@@ -85,7 +85,6 @@
         position: absolute;
         left: calculateRem(10px);
         top: calculateRem(16px);
-        font-size: 10px;
         color: $ibexa-color-white;
     }
 
@@ -213,7 +212,6 @@
         opacity: 1;
         position: absolute;
         top: calculateRem(8px);
-        font-size: 10px;
         color: $ibexa-color-white;
 
         &--small {
@@ -250,7 +248,7 @@
     }
 
     &__cell-wrapper {
-        font-size: 14px;
+        font-size: $ibexa-text-font-size-medium;
 
         p {
             margin-bottom: 0;

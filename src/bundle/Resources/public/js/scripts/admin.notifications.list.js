@@ -12,7 +12,7 @@
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
 
         fetch(markAllAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     global.location.reload();

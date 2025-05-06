@@ -90,6 +90,7 @@
     const updateModalTitleTotalInfo = (notificationsCount) => {
         const modalTitle = panel.querySelector(SELECTOR_MODAL_TITLE);
         const modalFooter = panel.querySelector('.ibexa-notifications-modal__view-all-btn--count');
+
         modalFooter.textContent = ` (${notificationsCount})`;
         modalTitle.dataset.notificationsTotal = `(${notificationsCount})`;
 
@@ -120,7 +121,7 @@
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
 
         fetch(markAllAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     const allUnreadNotifications = doc.querySelectorAll('.ibexa-notifications-modal__item');
@@ -144,7 +145,7 @@
         const markAsReadLink = Routing.generate('ibexa.notifications.mark_as_read', { notificationId });
 
         fetch(markAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${notificationId}"]`);
@@ -171,7 +172,7 @@
         const markAsUnreadLink = Routing.generate('ibexa.notifications.mark_as_unread', { notificationId });
 
         fetch(markAsUnreadLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${notificationId}"]`);
@@ -198,7 +199,7 @@
         const deleteLink = Routing.generate('ibexa.notifications.delete', { notificationId });
 
         fetch(deleteLink, { mode: 'same-origin', credentials: 'same-origin' })
-            .then(ibexa.helpers.request.getJsonFromResponse)
+            .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${notificationId}"]`);
