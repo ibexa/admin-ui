@@ -48,7 +48,7 @@ class UserNotificationPopup extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('notificationsPopupTitle', '#view-notifications .modal-title'),
+            new VisibleCSSLocator('notificationsPopupTitle', '.ibexa-side-panel__header'),
             new VisibleCSSLocator('notificationItem', '.ibexa-notifications-modal__item'),
             new VisibleCSSLocator('notificationType', '.ibexa-notifications-modal__type'),
             new VisibleCSSLocator('notificationDescription', '.ibexa-notifications-modal__description'),
