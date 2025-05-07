@@ -1,5 +1,5 @@
 (function (global, doc, ibexa) {
-    const initMutlilevelPopupMenus = (container) => {
+    const initMultilevelPopupMenus = (container) => {
         const multilevelPopupMenusContainers = container.querySelectorAll(
             '.ibexa-multilevel-popup-menu:not(.ibexa-multilevel-popup-menu--custom-init)',
         );
@@ -15,14 +15,14 @@
         });
     };
 
-    initMutlilevelPopupMenus(doc);
+    initMultilevelPopupMenus(doc);
 
     doc.body.addEventListener(
         'ibexa-multilevel-popup-menu:init',
         (event) => {
             const { container } = event.detail;
 
-            initMutlilevelPopupMenus(container);
+            initMultilevelPopupMenus(container);
         },
         false,
     );
