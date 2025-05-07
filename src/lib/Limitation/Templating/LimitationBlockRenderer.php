@@ -18,8 +18,8 @@ use Twig\Environment;
 
 class LimitationBlockRenderer implements LimitationBlockRendererInterface
 {
-    public const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
-    public const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
+    public const LIMITATION_VALUE_BLOCK_NAME = 'ibexa_limitation_%s_value';
+    public const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ibexa_limitation_value_fallback';
 
     private LimitationValueMapperRegistryInterface $valueMapperRegistry;
 
