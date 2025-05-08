@@ -1,15 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableViewComponent from '../table-view/table.view.component.js';
-import GridViewComponent from '../grid-view/grid.view.component.js';
-import { VIEW_MODE_GRID, VIEW_MODE_TABLE } from '../../sub.items.module.js';
+import { getViewComponent } from '../../services/view.registry';
 
 const SubItemsListComponent = (props) => {
-    const views = {
-        [VIEW_MODE_TABLE]: TableViewComponent,
-        [VIEW_MODE_GRID]: GridViewComponent,
-    };
-    const Component = views[props.activeView];
+    const Component = getViewComponent(props.activeView);
 
     return <Component {...props} />;
 };
