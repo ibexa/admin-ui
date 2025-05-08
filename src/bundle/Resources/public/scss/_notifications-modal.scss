@@ -83,8 +83,8 @@
         background: $ibexa-color-danger;
         opacity: 1;
         position: absolute;
-        left: calculateRem(10px);
-        top: calculateRem(16px);
+        left: calculateRem(16px);
+        top: calculateRem(22px);
         color: $ibexa-color-white;
     }
 
@@ -105,7 +105,7 @@
         .description__title {
             margin-bottom: 0;
 
-            &__item {
+            &--item {
                 display: inline-block;
                 vertical-align: top;
                 max-width: 100%;
