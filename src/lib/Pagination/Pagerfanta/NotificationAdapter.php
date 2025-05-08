@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion\NotificationQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -19,13 +20,13 @@ class NotificationAdapter implements AdapterInterface
 {
     private NotificationService $notificationService;
 
-    private array $query;
+    private NotificationQuery $query;
 
     private int $nbResults;
 
     public function __construct(
         NotificationService $notificationService,
-        array $query = []
+        NotificationQuery $query
     ) {
         $this->notificationService = $notificationService;
         $this->query = $query;

@@ -18,6 +18,7 @@ use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
 use Ibexa\Bundle\AdminUi\Form\Type\SearchType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion\NotificationQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use InvalidArgumentException;
@@ -95,15 +96,18 @@ class NotificationController extends Controller
         ]);
         $searchForm->handleRequest($request);
 
-        $query = [];
+        $query = new NotificationQuery();
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $query = $this->buildQuery($searchForm->getData());
         }
 
+        $query->offset = ($page - 1) * $this->configResolver->getParameter('pagination.notification_limit');
+        $query->limit = $this->configResolver->getParameter('pagination.notification_limit');
+
         $pagerfanta = new Pagerfanta(
             new NotificationAdapter($this->notificationService, $query)
         );
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
+        $pagerfanta->setMaxPerPage($query->limit);
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         $notifications = [];
@@ -127,35 +131,39 @@ class NotificationController extends Controller
         ]);
     }
 
-    private function buildQuery(SearchQueryData $data): array
+    private function buildQuery(SearchQueryData $data): NotificationQuery
     {
-        $query = [];
+        $criteria = [];
 
         if ($data->getType()) {
-            $query['type'] = $data->getType();
+            $criteria[] = new Criterion\Type($data->getType());
         }
 
         if (!empty($data->getStatuses())) {
-            $query['status'] = [];
+            $statuses = [];
             if (in_array('read', $data->getStatuses(), true)) {
-                $query['status'][] = 'read';
+                $statuses[] = 'read';
             }
             if (in_array('unread', $data->getStatuses(), true)) {
-                $query['status'][] = 'unread';
+                $statuses[] = 'unread';
+            }
+
+            if (!empty($statuses)) {
+                $criteria[] = new Criterion\Status($statuses);
             }
         }
 
         $range = $data->getCreatedRange();
         if ($range !== null) {
-            if ($range->getMin() instanceof DateTimeInterface) {
-                $query['created_from'] = $range->getMin()->getTimestamp();
-            }
-            if ($range->getMax() instanceof DateTimeInterface) {
-                $query['created_to'] = $range->getMax()->getTimestamp();
+            $min = $range->getMin() instanceof DateTimeInterface ? $range->getMin() : null;
+            $max = $range->getMax() instanceof DateTimeInterface ? $range->getMax() : null;
+
+            if ($min !== null || $max !== null) {
+                $criteria[] = new Criterion\DateCreated($min, $max);
             }
         }
 
-        return $query;
+        return new NotificationQuery($criteria);
     }
 
     private function createNotificationSelectionData(Pagerfanta $pagerfanta): NotificationSelectionData
