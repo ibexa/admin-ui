@@ -14,6 +14,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @deprecated 4.6.19 The {@see \Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\Bundle\TwigComponents\DependencyInjection\Compiler\ComponentPass} instead
+ */
 class ComponentPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;

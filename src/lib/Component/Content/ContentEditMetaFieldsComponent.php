@@ -8,14 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component\Content;
 
-use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCollection;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Twig\Environment;
 
-class ContentEditMetaFieldsComponent implements Renderable
+class ContentEditMetaFieldsComponent implements ComponentInterface
 {
     private const NO_CONTENT = '';
 

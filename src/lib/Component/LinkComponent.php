@@ -8,10 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component;
 
-use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
-class LinkComponent implements Renderable
+/**
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\LinkComponent} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\TwigComponents\Component\LinkComponent} instead
+ */
+class LinkComponent implements ComponentInterface
 {
     /** @var \Twig\Environment */
     protected $twig;

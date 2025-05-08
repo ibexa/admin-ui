@@ -100,8 +100,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('bundles/ibexaadminui/img/favicon-32x32.png') }}" />
 
-        {{ ibexa_render_component_group('stylesheet-head') }}
-        {{ ibexa_render_component_group('script-head') }}
+        {{ ibexa_twig_component_group('admin-ui-stylesheet-head') }}
+        {{ ibexa_twig_component_group('admin-ui-script-head') }}
 
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
@@ -136,14 +136,14 @@
                 {% block global_search_wrapper %}
                     <div class="ibexa-main-header__search-column">
                         {% block global_search %}
-                            {{ ibexa_render_component_group('global-search') }}
+                            {{ ibexa_twig_component_group('admin-ui-global-search') }}
                         {% endblock %}
                     </div>
                 {% endblock %}
                 {% block user_menu_wrapper %}
                     <div class="ibexa-main-header__user-menu-column">
                         {% block user_menu %}
-                            {{ ibexa_render_component_group('user-menu') }}
+                            {{ ibexa_twig_component_group('admin-ui-user-menu') }}
                         {% endblock %}
                     </div>
                 {% endblock %}
@@ -232,7 +232,7 @@
             {% endblock %}
         {% endif %}
 
-        {{ ibexa_render_component_group('layout-content-after') }}
+        {{ ibexa_twig_component_group('admin-ui-layout-content-after') }}
 
         {{ encore_entry_script_tags('ibexa-admin-ui-layout-js', null, 'ibexa') }}
         {{ encore_entry_script_tags('ibexa-admin-ui-udw-tabs-js', null, 'ibexa') }}
@@ -241,7 +241,7 @@
 
         {% block react_modules %}{% endblock %}
         {% block javascripts %}{% endblock %}
-        {{ ibexa_render_component_group('stylesheet-body') }}
-        {{ ibexa_render_component_group('script-body') }}
+        {{ ibexa_twig_component_group('admin-ui-stylesheet-body') }}
+        {{ ibexa_twig_component_group('admin-ui-script-body') }}
     </body>
 </html>

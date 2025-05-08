@@ -53,7 +53,7 @@
 {% block right_sidebar_wrapper %}{% endblock %}
 
 {% block form_before %}
-    {{ ibexa_render_component_group('content-create-form-before', {
+    {{ ibexa_twig_component_group('admin-ui-content-create-form-before', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language
@@ -61,7 +61,7 @@
 {% endblock %}
 
 {% block form_after %}
-    {{ ibexa_render_component_group('content-create-form-after', {
+    {{ ibexa_twig_component_group('admin-ui-content-create-form-after', {
         'parent_location': parent_location,
         'content_type': content_type,
         'language': language
@@ -84,7 +84,7 @@
 {% endblock %}
 
 {% block content_sections %}
-    {{ ibexa_render_component_group('content-edit-sections', {
+    {{ ibexa_twig_component_group('admin-ui-content-edit-sections', {
         'form': form,
         'content_type': content_type,
         'parent_location': parent_location,

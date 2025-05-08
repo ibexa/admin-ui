@@ -42,8 +42,12 @@ services:
     Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface: '@Ibexa\AdminUi\Component\Renderer\DefaultRenderer'
 
     ibexa.adminui.layout.content.after:
-        parent: Ibexa\AdminUi\Component\TwigComponent
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/layout_content_after.html.twig'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'layout-content-after' }
+            - { name: ibexa.twig.component, group: 'admin-ui-layout-content-after' }
+            
+    Ibexa\AdminUi\Component\EventSubscriber\RenderEventSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
