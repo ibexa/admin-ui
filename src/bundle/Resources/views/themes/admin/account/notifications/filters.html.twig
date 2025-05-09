@@ -5,7 +5,8 @@
 {% set is_some_filter_set =
     (search_form.statuses is defined and search_form.statuses.vars.value|length) or
     search_form.type.vars.value|length or
-    search_form.createdRange.vars.value != 0
+    (search_form.createdRange.vars.value is not null and (search_form.createdRange.vars.value.min is not null or
+        search_form.createdRange.vars.value.max is not null))
 %}
 
 <div class="ibexa-list-filters">
