@@ -9655,12 +9655,6 @@ parameters:
 			path: tests/bundle/Templating/Twig/LimitationMock.php
 
 		-
-			message: '#^Instantiated class PHPUnit_Framework_Constraint_Exception not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:getLimitation\(\) has parameter \$identifier with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
