@@ -45,7 +45,7 @@ final class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'method' => 'GET',
+            'method' => 'POST',
             'csrf_protection' => false,
             'data_class' => SearchQueryData::class,
             'notification_types' => [],
