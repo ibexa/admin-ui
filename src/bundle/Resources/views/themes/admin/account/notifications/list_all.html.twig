@@ -1,11 +1,11 @@
 {% extends "@ibexadesign/ui/layout.html.twig" %}
 
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+{% import _self as macros %}
 {% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% trans_default_domain 'ibexa_notifications' %}
 {% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
-{% import _self as macros %}
 
 {% block main_container_class %}{{ parent() }} ibexa-notification-list__container {% endblock %}
 
@@ -104,13 +104,15 @@
 {% block javascripts %}
     {{ encore_entry_script_tags('ibexa-admin-notifications-list-js', null, 'ibexa') }}
 {% endblock %}
+
 {% macro table_header_tools(form,) %}
     {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
+
     <div class="ibexa-notification-list__table-btns">
         <button
             id="confirm-mark-selected-as-read"
             type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn--mark-as-read"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn ibexa-notification-list__btn--mark-as-read"
             disabled
         >
             <svg class="ibexa-icon ibexa-icon--small">
@@ -123,7 +125,7 @@
         <button
             id="confirm-{{ form.remove.vars.id }}"
             type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn--delete"
+            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn ibexa-notification-list__btn--delete"
             data-bs-toggle="modal"
             data-bs-target="#{{ modal_data_target }}"
             disabled

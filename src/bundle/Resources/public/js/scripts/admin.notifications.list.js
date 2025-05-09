@@ -7,7 +7,9 @@
     const markAllAsReadBtn = doc.querySelector('.ibexa-notification-list__mark-all-read');
     const markAsReadBtn = doc.querySelector('.ibexa-notification-list__btn--mark-as-read');
     const deleteBtn = doc.querySelector('.ibexa-notification-list__btn--delete');
-    const checkboxes = [...doc.querySelectorAll('.ibexa-notification-list .ibexa-table__cell--has-checkbox .ibexa-input--checkbox')];
+    const notificationsCheckboxes = [
+        ...doc.querySelectorAll('.ibexa-notification-list .ibexa-table__cell--has-checkbox .ibexa-input--checkbox'),
+    ];
     const markAllAsRead = () => {
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
 
@@ -30,7 +32,7 @@
     };
 
     const markSelectedAsRead = () => {
-        const selectedNotifications = [...checkboxes]
+        const selectedNotifications = [...notificationsCheckboxes]
             .filter((checkbox) => checkbox.checked)
             .map((checkbox) => checkbox.dataset.notificationId);
 
@@ -145,16 +147,16 @@
     markAsReadBtn.addEventListener('click', markSelectedAsRead, false);
 
     const toggleActionButtonState = () => {
-        const checkedNotifications = checkboxes.filter((el) => el.checked);
+        const checkedNotifications = notificationsCheckboxes.filter((el) => el.checked);
         const isAnythingSelected = checkedNotifications.length > 0;
-        const unreadLabel = Translator.trans(/* @Desc("Unread") */ 'notification.unread', {}, 'ibexa_notifications');
 
         deleteBtn.disabled = !isAnythingSelected;
         markAsReadBtn.disabled =
             !isAnythingSelected ||
             !checkedNotifications.every(
                 (checkbox) =>
-                    checkbox.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__read').innerText === unreadLabel,
+                    checkbox.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__notice-dot').dataset.isRead ===
+                    'false',
             );
     };
     const handleCheckboxChange = (checkbox) => {
@@ -170,5 +172,5 @@
         toggleActionButtonState();
     };
 
-    checkboxes.forEach((checkbox) => checkbox.addEventListener('change', () => handleCheckboxChange(checkbox), false));
+    notificationsCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', () => handleCheckboxChange(checkbox), false));
 })(window, window.document, window.ibexa, window.Translator, window.Routing);

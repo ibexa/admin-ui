@@ -1,3 +1,5 @@
+{% set max_visible_notifications_count = 10 %}
+
 {% embed '@ibexadesign/ui/component/side_panel/side_panel.html.twig' with {
     title: 'ibexa_notifications'|trans|desc('Notifications'),
     attr: {
@@ -9,7 +11,7 @@
     {% block header %}
         <div class="ibexa-side-panel__header">
             <span>{{ 'ibexa_notifications'|trans|desc('Notifications')}}
-                <span class="ibexa-notifications-modal__count">(10)</span>
+                <span class="ibexa-notifications-modal__count">({{max_visible_notifications_count}})</span>
             </span>
             <button class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-notifications-modal__mark-all-read-btn">
                 {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}

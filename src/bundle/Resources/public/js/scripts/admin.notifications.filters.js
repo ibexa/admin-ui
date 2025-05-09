@@ -20,7 +20,9 @@
         const timePicker = filterNode.querySelector('.ibexa-date-time-picker__input');
 
         if (sourceSelect) {
-            sourceSelectOptions.forEach((option) => (option.selected = false));
+            sourceSelectOptions.forEach((option) => {
+                option.selected = false;
+            });
 
             if (isNodeTimeFilter(filterNode)) {
                 sourceSelectOptions[0].selected = true;
@@ -78,7 +80,7 @@
     const isSomeFilterSet = () => {
         const hasStatusFilterValue = hasFilterValue(statusFilterNode);
         const hasTypeFilterValue = hasFilterValue(typeFilterNode);
-        const hasDatetimeFilterValue = [...datetimeFilterNodes].some((input) => hasFilterValue(input));
+        const hasDatetimeFilterValue = [...datetimeFilterNodes].some(hasFilterValue);
 
         return hasStatusFilterValue || hasTypeFilterValue || hasDatetimeFilterValue;
     };
