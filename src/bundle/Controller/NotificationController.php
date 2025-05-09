@@ -64,7 +64,9 @@ class NotificationController extends Controller
         $response = new JsonResponse();
 
         try {
-            $notificationList = $this->notificationService->loadNotifications($offset, $limit);
+            $notificationList = $this->notificationService->loadNotifications(
+                new NotificationQuery([], $offset, $limit)
+            );
             $response->setData([
                 'pending' => $this->notificationService->getPendingNotificationCount(),
                 'total' => $notificationList->totalCount,
@@ -86,12 +88,7 @@ class NotificationController extends Controller
             new NotificationQuery([], 0, PHP_INT_MAX)
         )->items;
 
-        $notificationTypes = array_unique(
-            array_map(
-                static fn($notification) => $notification->type,
-                $allNotifications
-            )
-        );
+        $notificationTypes = array_unique(array_column($allNotifications, 'type'));
         sort($notificationTypes);
 
         $searchForm = $this->createForm(SearchType::class, null, [
@@ -275,7 +272,9 @@ class NotificationController extends Controller
         $response = new JsonResponse();
 
         try {
-            $notifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
+            $notifications = $this->notificationService->loadNotifications(
+                new NotificationQuery([], 0, PHP_INT_MAX)
+            )->items;
 
             foreach ($notifications as $notification) {
                 $this->notificationService->markNotificationAsRead($notification);
