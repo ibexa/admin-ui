@@ -18,6 +18,7 @@ use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
 use Ibexa\Bundle\AdminUi\Form\Type\SearchType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion\NotificationQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
@@ -81,7 +82,9 @@ class NotificationController extends Controller
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
     {
-        $allNotifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
+        $allNotifications = $this->notificationService->loadNotifications(
+            new NotificationQuery([], 0, PHP_INT_MAX)
+        )->items;
 
         $notificationTypes = array_unique(
             array_map(
