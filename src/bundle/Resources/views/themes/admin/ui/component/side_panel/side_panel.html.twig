@@ -12,7 +12,7 @@
 }) %}
 
 {% if id is defined %}
-    {% set attr = attr|default({})|merge({ id }) %}
+    {% set attr = attr|merge({ id }) %}
 {% endif %}
 
 <div {{ html.attributes(attr) }}>

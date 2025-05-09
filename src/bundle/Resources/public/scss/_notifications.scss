@@ -21,9 +21,11 @@
 
     .ibexa-table__header-cell {
         padding: calculateRem(16px) calculateRem(8px);
+
         &:first-child {
             padding-left: calculateRem(16px);
         }
+
         &:last-child {
             padding-right: calculateRem(16px);
         }
@@ -31,9 +33,11 @@
 
     .ibexa-table__cell {
         padding: calculateRem(8px);
+
         &:first-child {
             padding-left: calculateRem(16px);
         }
+
         &:last-child {
             padding-right: calculateRem(16px);
         }
@@ -46,6 +50,7 @@
 
     .ibexa-table-header {
         padding: calculateRem(8px) 0;
+
         &__headline {
             font-size: $ibexa-text-font-size-extra-large;
         }

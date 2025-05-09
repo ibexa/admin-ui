@@ -72,7 +72,7 @@
 }
 } %}
     {% block body_row_cells %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-table__cell--has-checkbox' }%}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-table__cell--has-checkbox' } %}
             {% block content %}
                 <div class="form-check">
                     <input
@@ -113,7 +113,8 @@
                 <button 
                     title="{{ 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') }}" 
                     type="button" 
-                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__show">
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__show"
+                >
                         {{ icon_show }}
                 </button>
             {% endblock %}

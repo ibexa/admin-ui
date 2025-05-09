@@ -95,7 +95,7 @@
         position: absolute;
         left: calculateRem(8px);
         top: 0;
-        color: white;
+        color: $ibexa-color-white;
 
         &::after {
             display: flex;

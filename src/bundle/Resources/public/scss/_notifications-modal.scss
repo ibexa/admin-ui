@@ -104,15 +104,15 @@
     &__description {
         .description__title {
             margin-bottom: 0;
+        }
 
-            &--item {
-                display: inline-block;
-                vertical-align: top;
-                max-width: 100%;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                font-weight: bold;
-            }
+        .description__title-item {
+            display: inline-block;
+            vertical-align: top;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: bold;
         }
 
         .description__text {
@@ -218,9 +218,11 @@
             width: calculateRem(6px);
             height: calculateRem(6px);
         }
+
         &[data-is-read='true'] {
             background: $ibexa-color-dark-300;
         }
+
         &[data-is-read='false'] {
             background: $ibexa-color-danger;
         }
@@ -232,6 +234,10 @@
         min-width: 0;
         max-width: 100%;
         overflow: hidden;
+
+        .type__text {
+            white-space: nowrap;
+        }
 
         .ibexa-notifications-modal__description {
             display: flex;
@@ -249,16 +255,16 @@
 
     &__cell-wrapper {
         font-size: $ibexa-text-font-size-medium;
-
-        p {
-            margin-bottom: 0;
-        }
         padding-left: 0;
         min-width: 0;
         max-width: 100%;
 
+        p {
+            margin-bottom: 0;
+        }
+
         .ibexa-table__cell.ibexa-table__cell {
-            padding: calculateRem(12px) 0 calculateRem(12px) 0;
+            padding: calculateRem(12px) 0;
         }
     }
 
