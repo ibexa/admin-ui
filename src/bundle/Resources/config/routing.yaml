@@ -917,7 +917,7 @@ ibexa.notifications.render.all:
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\AllNotificationsController::renderAllNotificationsPageAction'
         page: 1
-    methods: [GET]
+    methods: [ GET, POST ]
     requirements:
         page: '\d+'
 
