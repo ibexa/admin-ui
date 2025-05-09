@@ -16,14 +16,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Transforms between a User's ID and a domain specific User object.
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\User, int>
  */
 class UserTransformer implements DataTransformerInterface
 {
     protected UserService $userService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
@@ -31,45 +30,23 @@ class UserTransformer implements DataTransformerInterface
 
     /**
      * Transforms a domain specific User object into a Users's ID.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $value
-     *
-     * @return mixed|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
         }
 
-        if (!$value instanceof User) {
-            throw new TransformationFailedException('Expected a ' . User::class . ' object.');
-        }
-
-        return $value->id;
+        return $value->getId();
     }
 
     /**
      * Transforms a Users's ID integer into a domain specific User object.
-     *
-     * @param mixed|null $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User|null
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
-     *                                                                         or if the value can not be transformed
      */
-    public function reverseTransform($value): ?User
+    public function reverseTransform(mixed $value): ?User
     {
         if (empty($value)) {
             return null;
-        }
-
-        if (!is_numeric($value)) {
-            throw new TransformationFailedException('Expected a numeric string.');
         }
 
         try {

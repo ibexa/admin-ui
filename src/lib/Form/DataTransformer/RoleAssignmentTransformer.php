@@ -15,7 +15,9 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
- * Transforms between a Role Assignment's identifier and a domain specific object.
+ * Transforms between a Role Assignment's ID and a domain specific object.
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment, int>
  */
 class RoleAssignmentTransformer implements DataTransformerInterface
 {
@@ -30,29 +32,19 @@ class RoleAssignmentTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a domain specific RoleAssignment object into a RoleAssignment string.
-     *
-     * @param mixed $value
-     *
-     * @return mixed|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * Transforms a domain specific RoleAssignment object into an ID.
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
         }
 
-        if (!$value instanceof APIRoleAssignment) {
-            throw new TransformationFailedException('Expected a ' . APIRoleAssignment::class . ' object.');
-        }
-
-        return $value->id;
+        return $value->getId();
     }
 
     /**
-     * Transforms a RoleAssignment's ID into a domain specific RoleAssignment object.
+     * Transforms a Role Assignment's ID into a domain specific RoleAssignment object.
      *
      * @param mixed $value
      *
@@ -61,7 +53,7 @@ class RoleAssignmentTransformer implements DataTransformerInterface
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function reverseTransform($value): ?APIRoleAssignment
+    public function reverseTransform(mixed $value): ?APIRoleAssignment
     {
         if (empty($value)) {
             return null;

@@ -1,0 +1,119 @@
+{
+    "recipesEndpoint": "",
+    "packages": [
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/content-forms",
+            "package": "ibexa/content-forms",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/core",
+            "package": "ibexa/core",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/design-engine",
+            "package": "ibexa/design-engine",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/rest",
+            "package": "ibexa/rest",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/search",
+            "package": "ibexa/search",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/user",
+            "package": "ibexa/user",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/behat",
+            "package": "ibexa/behat",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/doctrine-schema",
+            "package": "ibexa/doctrine-schema",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/http-cache",
+            "package": "ibexa/http-cache",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/notifications",
+            "package": "ibexa/notifications",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/rector",
+            "package": "ibexa/rector",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/test-core",
+            "package": "ibexa/test-core",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/test-rest",
+            "package": "ibexa/test-rest",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 4.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/templated-uri-bundle",
+            "package": "ibexa/templated-uri-bundle",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 4.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/templated-uri-router",
+            "package": "ibexa/templated-uri-router",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/oss",
+            "package": "ibexa/oss",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/headless",
+            "package": "ibexa/headless",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/experience",
+            "package": "ibexa/experience",
+            "shouldBeAddedAsVCS": false
+        },
+        {
+            "requirement": "dev-ibx-8471-symfony-7 as 5.0.x-dev",
+            "repositoryUrl": "https://github.com/ibexa/commerce",
+            "package": "ibexa/commerce",
+            "shouldBeAddedAsVCS": false
+        }
+    ]
+}

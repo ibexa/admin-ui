@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\AbstractComparison;
  */
 class LocationIsNotSubLocation extends AbstractComparison implements TranslationContainerInterface
 {
-    public $message = 'ezplatform.copy_subtree.is_sub_location';
+    public string $message = 'ezplatform.copy_subtree.is_sub_location';
 
     public static function getTranslationMessages()
     {

@@ -32,7 +32,7 @@ class ContentTypeTransformer implements DataTransformerInterface
      *
      * @return string|null
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         return null !== $value
             ? $value->identifier
@@ -46,7 +46,7 @@ class ContentTypeTransformer implements DataTransformerInterface
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?ContentType
     {
         return null !== $value && !empty($value)
             ? $this->contentTypeService->loadContentTypeByIdentifier($value)
