@@ -38,6 +38,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.prevent.click.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.picker.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.notifications.modal.js'),
+    path.resolve(__dirname, '../public/js/scripts/sidebar/side.panel.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.location.add.translation.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.autosubmit.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.anchor.navigation'),
@@ -252,5 +253,10 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.location.adaptive.tabs.js'),
         ])
-        .addEntry('ibexa-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')]);
+        .addEntry('ibexa-admin-ui-edit-base-js', [path.resolve(__dirname, '../public/js/scripts/edit.header.js')])
+        .addEntry('ibexa-admin-notifications-list-js', [
+            path.resolve(__dirname, '../public/js/scripts/core/sidebar.collapse.js'),
+            path.resolve(__dirname, '../public/js/scripts/admin.notifications.list.js'),
+            path.resolve(__dirname, '../public/js/scripts/admin.notifications.filters.js'),
+        ]);
 };
