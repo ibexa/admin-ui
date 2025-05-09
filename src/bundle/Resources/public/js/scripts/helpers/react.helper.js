@@ -15,7 +15,7 @@ const createDynamicRoot = ({ contextDOMElement = getRootDOMElement(), id } = {})
 
     contextDOMElement.appendChild(rootDOMElement);
 
-    const reactRoot = window.ReactDOM.createRoot(rootDOMElement);
+    const reactRoot = window.ReactDOMClient.createRoot(rootDOMElement);
 
     return reactRoot;
 };
