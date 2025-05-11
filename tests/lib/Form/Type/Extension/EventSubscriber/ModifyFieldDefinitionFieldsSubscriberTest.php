@@ -73,7 +73,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
             )
         );
 
-        $this->modifyFieldDefinitionFieldsSubscriber->onPreSetData($event);
+        $this->modifyFieldDefinitionFieldsSubscriber->onPostSetData($event);
     }
 
     private function getFormData(string $identifier): array

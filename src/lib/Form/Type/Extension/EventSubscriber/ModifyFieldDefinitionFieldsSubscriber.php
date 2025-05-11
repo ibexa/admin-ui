@@ -35,11 +35,11 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SET_DATA => ['onPreSetData'],
+            FormEvents::POST_SET_DATA => ['onPostSetData'],
         ];
     }
 
-    public function onPreSetData(FormEvent $event): void
+    public function onPostSetData(FormEvent $event): void
     {
         /** @var array<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>|null $data */
         $data = $event->getData();
