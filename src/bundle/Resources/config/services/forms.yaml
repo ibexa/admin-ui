@@ -384,7 +384,7 @@ services:
             - { name: ibexa.admin_ui.form.trash_location_option, priority: 20 }
 
     Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory:
-        arguments: [!tagged ibexa.admin_ui.form.trash_location_option]
+        arguments: [!tagged_iterator ibexa.admin_ui.form.trash_location_option]
 
     Ibexa\AdminUi\Form\Extension\HelpMultilineMessageExtension:
         tags:
