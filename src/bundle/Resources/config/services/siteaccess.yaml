@@ -12,7 +12,7 @@ services:
 
     Ibexa\AdminUi\Siteaccess\SiteaccessResolver:
         arguments:
-            $siteaccessPreviewVoters: !tagged ibexa.admin_ui.site_access.preview.voter
+            $siteaccessPreviewVoters: !tagged_iterator ibexa.admin_ui.site_access.preview.voter
             $siteAccessService: '@Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService'
 
     Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver:

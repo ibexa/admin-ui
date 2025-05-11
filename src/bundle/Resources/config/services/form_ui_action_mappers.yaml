@@ -16,5 +16,5 @@ services:
 
     Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher:
         arguments:
-            $mappers: !tagged ibexa.admin_ui.form_ui.mapper.action
+            $mappers: !tagged_iterator ibexa.admin_ui.form_ui.mapper.action
             $defaultMapper: '@Ibexa\AdminUi\UI\Action\FormUiActionMapper'
