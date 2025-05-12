@@ -35,7 +35,7 @@ class UserGroupCollectionTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!is_array($value) || empty($value)) {
             return null;
@@ -53,7 +53,7 @@ class UserGroupCollectionTransformer implements DataTransformerInterface
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
-    public function reverseTransform($value): array
+    public function reverseTransform(mixed $value): array
     {
         if (empty($value)) {
             return [];

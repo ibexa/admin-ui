@@ -23,7 +23,7 @@ class DateIntervalTransformer implements DataTransformerInterface
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?array
     {
         return null;
     }
@@ -38,7 +38,7 @@ class DateIntervalTransformer implements DataTransformerInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?array
     {
         if (null === $value || !is_array($value) || empty($value['date_interval'])) {
             return [];

@@ -13,17 +13,26 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * DataTransformer for Author\Value.
+ *
+ * @phpstan-type TAuthorProperties = array{id: ?int, name: string, email: string}
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Core\FieldType\Author\Value, TAuthorProperties[]>
  */
 class AuthorValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    /**
+     * @phpstan-return TAuthorProperties[]
+     */
+    public function transform(mixed $value): array
     {
-        if (is_array($value)) {
-            return $value;
-        }
-
         if (!$value instanceof Value || $value->authors->count() == 0) {
-            return [[]];
+            return [
+                [
+                    'id' => null,
+                    'name' => '',
+                    'email' => '',
+                ],
+            ];
         }
 
         $authors = [];
@@ -38,9 +47,9 @@ class AuthorValueTransformer implements DataTransformerInterface
         return $authors;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
-        if ($value === null || !is_array($value)) {
+        if ($value === null) {
             return null;
         }
 

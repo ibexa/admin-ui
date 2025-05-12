@@ -15,7 +15,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 class RelationListValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!$value instanceof Value) {
             return null;
@@ -28,7 +28,7 @@ class RelationListValueTransformer implements DataTransformerInterface
         return implode(',', $value->destinationContentIds);
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
         if ($value === null) {
             return null;

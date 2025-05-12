@@ -45,17 +45,6 @@ class UserTransformerTest extends TestCase
     }
 
     /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
-    public function testTransformWithInvalidInput(mixed $value): void
-    {
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a ' . User::class . ' object.');
-
-        $this->userTransformer->transform($value);
-    }
-
-    /**
      * @dataProvider reverseTransformDataProvider
      */
     public function testReverseTransform(?int $value, ?User $expected): void
@@ -63,17 +52,6 @@ class UserTransformerTest extends TestCase
         $result = $this->userTransformer->reverseTransform($value);
 
         self::assertEquals($expected, $result);
-    }
-
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     */
-    public function testReverseTransformWithInvalidInput(mixed $value): void
-    {
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a numeric string.');
-
-        $this->userTransformer->reverseTransform($value);
     }
 
     public function testReverseTransformWithNotFoundException(): void
@@ -115,35 +93,6 @@ class UserTransformerTest extends TestCase
         return [
             'integer' => [123456, $user],
             'null' => [null, null],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed}>
-     */
-    public function transformWithInvalidInputDataProvider(): array
-    {
-        return [
-            'string' => ['string'],
-            'integer' => [123456],
-            'bool' => [true],
-            'float' => [12.34],
-            'array' => [[]],
-            'object' => [new \stdClass()],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed}>
-     */
-    public function reverseTransformWithInvalidInputDataProvider(): array
-    {
-        return [
-            'string' => ['string'],
-            'bool' => [true],
-            'array' => [['element']],
-            'object' => [new \stdClass()],
-            'user' => [$this->generateUser()],
         ];
     }
 

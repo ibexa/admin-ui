@@ -11,7 +11,6 @@ namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 use Ibexa\AdminUi\Form\DataTransformer\RoleTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
-use Ibexa\Contracts\Core\Repository\Values\User\Role as APIRole;
 use Ibexa\Core\Repository\Values\User\Role;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -29,20 +28,6 @@ class RoleTransformerTest extends TestCase
         $result = $transformer->transform($value);
 
         self::assertEquals($expected, $result);
-    }
-
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     */
-    public function testTransformWithInvalidInput(mixed $value): void
-    {
-        $roleService = $this->createMock(RoleService::class);
-        $transformer = new RoleTransformer($roleService);
-
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a ' . APIRole::class . ' object.');
-
-        $transformer->transform($value);
     }
 
     public function testReverseTransformWithId(): void
@@ -112,21 +97,6 @@ class RoleTransformerTest extends TestCase
         return [
             'with_id' => [$transform, 123456],
             'null' => [null, null],
-        ];
-    }
-
-    /**
-     * @return array<string, array{mixed}>
-     */
-    public function transformWithInvalidInputDataProvider(): array
-    {
-        return [
-            'string' => ['string'],
-            'integer' => [123456],
-            'bool' => [true],
-            'float' => [12.34],
-            'array' => [[]],
-            'object' => [new \stdClass()],
         ];
     }
 

@@ -11,27 +11,25 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
+/**
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<Location[], string>
+ */
 class UDWBasedValueViewTransformer implements DataTransformerInterface
 {
-    public const DELIMITER = ',';
+    public const string DELIMITER = ',';
 
     private LocationService $locationService;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(LocationService $locationService)
     {
         $this->locationService = $locationService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!is_array($value)) {
             return null;
@@ -41,16 +39,19 @@ class UDWBasedValueViewTransformer implements DataTransformerInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?array
     {
         if (!is_string($value) || $value === '') {
-            return $value;
+            return null;
         }
 
+        $ids = explode(self::DELIMITER, $value);
+        $ids = array_map('intval', $ids);
+
         try {
-            return array_map([$this->locationService, 'loadLocation'], explode(self::DELIMITER, $value));
+            return array_map($this->locationService->loadLocation(...), $ids);
         } catch (NotFoundException | UnauthorizedException $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }

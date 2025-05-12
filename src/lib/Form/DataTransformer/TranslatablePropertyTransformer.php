@@ -11,34 +11,40 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * Data transformer to deal with translatable properties, where values are indexed by language code.
+ *
+ * @phpstan-type TPropertyType mixed
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<array<string, TPropertyType>, TPropertyType>
  */
 class TranslatablePropertyTransformer implements DataTransformerInterface
 {
     /**
      * Current language code (e.g. eng-GB).
-     *
-     * @var string
      */
-    private $languageCode;
+    private string $languageCode;
 
-    public function __construct($languageCode)
+    public function __construct(string $languageCode)
     {
         $this->languageCode = $languageCode;
     }
 
-    public function transform($valueAsHash)
+    public function transform(mixed $value): mixed
     {
-        if (!($valueAsHash && is_array($valueAsHash) && isset($valueAsHash[$this->languageCode]))) {
+        if (!($value && isset($value[$this->languageCode]))) {
             return null;
         }
 
-        return $valueAsHash[$this->languageCode];
+        return $value[$this->languageCode];
     }
 
-    public function reverseTransform($value)
+    /**
+     * @phpstan-return array<string, TPropertyType>
+     */
+    public function reverseTransform(mixed $value): array
     {
         $value = (false === $value || [] === $value) ? null : $value;
 
+        /** @phpstan-var TPropertyType */
         return [$this->languageCode => $value];
     }
 }

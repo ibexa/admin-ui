@@ -17,7 +17,6 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Twig\Environment;
-use Twig\Error\Error;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
@@ -63,6 +62,8 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
 
     /**
      * @see \Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase::doIntegrationTest
+     *
+     * @throws \Twig\Error\Error
      */
     protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
     {
@@ -79,7 +80,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
 
         $loader = new ChainLoader([
             new ArrayLoader($templates),
-            new FilesystemLoader($this->getFixturesDir()),
+            new FilesystemLoader(self::getFixturesDirectory()),
         ]);
 
         foreach ($outputs as $i => $match) {
@@ -119,7 +120,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     return;
                 }
 
-                throw new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, $file, $e);
+                throw $this->buildTwigErrorFromException($e, $file);
             }
 
             try {
@@ -131,15 +132,14 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     return;
                 }
 
-                $e = new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, $file, $e);
+                $e = $this->buildTwigErrorFromException($e, $file);
 
                 $output = trim(sprintf('%s: %s', \get_class($e), $e->getMessage()));
             }
 
             if (false !== $exception) {
-                list($class) = explode(':', $exception);
-                $constraintClass = class_exists('PHPUnit\Framework\Constraint\Exception') ? 'PHPUnit\Framework\Constraint\Exception' : 'PHPUnit_Framework_Constraint_Exception';
-                self::assertThat(null, new $constraintClass($class));
+                [$class] = explode(':', $exception);
+                self::assertThat(null, new \PHPUnit\Framework\Constraint\Exception($class));
             }
 
             $expected = trim($match[3], "\n ");
@@ -156,7 +156,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
         }
     }
 
-    protected function getFixturesDir()
+    protected static function getFixturesDirectory(): string
     {
         return __DIR__ . '/_fixtures/render_limitation_value/';
     }

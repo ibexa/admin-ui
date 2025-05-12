@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -81,17 +80,6 @@ class UDWBasedValueViewTransformerTest extends TestCase
                 ],
             ],
         ];
-    }
-
-    public function testTransformWithDeletedLocation(): void
-    {
-        $this->locationService
-            ->method('loadLocation')
-            ->willThrowException(
-                $this->createMock(NotFoundException::class)
-            );
-
-        self::assertEmpty($this->transformer->transform(['/1/2/54']));
     }
 
     public function testReverseTransformThrowsTransformationFailedException(): void

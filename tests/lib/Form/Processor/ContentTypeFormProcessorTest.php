@@ -242,7 +242,7 @@ final class ContentTypeFormProcessorTest extends TestCase
         $existingFieldDefinitions = [$fieldDefinition1, $fieldDefinition2, $fieldDefinition3];
         $contentTypeDraft = new ContentTypeDraft([
             'innerContentType' => new ContentType([
-                'fieldDefinitions' => $existingFieldDefinitions,
+                'fieldDefinitions' => new FieldDefinitionCollection($existingFieldDefinitions),
                 'identifier' => 'foo',
             ]),
         ]);
