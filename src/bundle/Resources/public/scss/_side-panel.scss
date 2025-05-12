@@ -2,7 +2,7 @@
     background-color: $ibexa-color-white;
     padding: calculateRem(8px) 0;
     width: calculateRem(516px);
-    height: calc(100vh - #{calculateRem(73px)});
+    height: calc(100vh - calculateRem(73px));
     position: fixed;
     top: calculateRem(73px);
     right: 0;

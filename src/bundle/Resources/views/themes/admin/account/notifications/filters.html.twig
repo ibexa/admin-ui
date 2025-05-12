@@ -44,7 +44,9 @@
 
     <div class="ibexa-list-filters__items accordion">
         {{ form_row(search_form.type) }}
-        {% if search_form.statuses is defined %}{{ form_row(search_form.statuses) }}{% endif %}
+        {% if search_form.statuses is defined %}
+            {{ form_row(search_form.statuses) }}
+        {% endif %}
         {{ form_row(search_form.createdRange) }}
         {{ form_rest(search_form) }}
     </div>

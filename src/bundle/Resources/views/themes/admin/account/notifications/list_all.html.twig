@@ -1,4 +1,4 @@
-{% extends "@ibexadesign/ui/layout.html.twig" %}
+{% extends '@ibexadesign/ui/layout.html.twig' %}
 
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 {% import _self as macros %}
@@ -12,7 +12,7 @@
 {% block title %}{{ 'ibexa_notifications'|trans|desc('Notifications') }}{% endblock %}
 
 {% block header %}
-    <div class="ibexa-notification-list__mark-all-read">
+    <div class="ibexa-notification-list__btn--mark-all-as-read">
         <button class="btn ibexa-btn ibexa-btn--secondary">
             {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
         </button>
@@ -25,7 +25,7 @@
 
 {% block content %}
     {{ form_start(form_remove, {
-        'action': path('ibexa.notifications.delete_multiple'),
+        action: path('ibexa.notifications.delete_multiple'),
         'attr': {
             'class': 'ibexa-toggle-btn-state ibexa-notification-list__hidden-btn',
             'data-toggle-button-id': '#confirm-' ~ form_remove.remove.vars.id
