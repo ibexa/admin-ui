@@ -4,14 +4,14 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const EVENT_VALUE_CHANGED = 'change';
 
-    class EzSelectionValidator extends ibexa.BaseFieldValidator {
+    class IbexaSelectionValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the textarea field value
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzSelectionValidator
+         * @memberof IbexaSelectionValidator
          */
         validateInput(event) {
             const fieldContainer = event.currentTarget.closest(SELECTOR_FIELD);
@@ -28,7 +28,7 @@
         }
     }
 
-    const validator = new EzSelectionValidator({
+    const validator = new IbexaSelectionValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

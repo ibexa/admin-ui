@@ -6,14 +6,14 @@
     const SELECTOR_FIELD_EMAIL = '.ibexa-data-source__field--email';
     const SELECTOR_FIELD_NAME = '.ibexa-data-source__field--name';
 
-    class EzAuthorValidator extends ibexa.MultiInputFieldValidator {
+    class IbexaAuthorValidator extends ibexa.MultiInputFieldValidator {
         /**
          * Validates the 'name' input field value
          *
          * @method validateName
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         validateName(event) {
             const isError = !event.target.value.trim() && event.target.required;
@@ -32,7 +32,7 @@
          * @method validateEmail
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         validateEmail(event) {
             const input = event.currentTarget;
@@ -59,7 +59,7 @@
          * @param {HTMLElement} parentNode
          * @param {String} template
          * @returns {String}
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         setIndex(parentNode, template) {
             return template.replace(/__index__/g, parentNode.dataset.nextAuthorId);
@@ -70,7 +70,7 @@
          *
          * @method updateDisabledState
          * @param {HTMLElement} parentNode
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         updateDisabledState(parentNode) {
             const isEnabled = parentNode.querySelectorAll(SELECTOR_AUTHOR).length > 1;
@@ -91,7 +91,7 @@
          *
          * @method removeItem
          * @param {Event} event
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         removeItem(event) {
             const authorNode = event.target.closest(SELECTOR_FIELD);
@@ -135,7 +135,7 @@
          *
          * @method addItem
          * @param {Event} event
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         addItem(event) {
             const authorNode = event.target.closest(SELECTOR_FIELD);
@@ -159,7 +159,7 @@
          * @param {HTMLElement} input
          * @param {Array} selectors
          * @returns {Array}
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         findValidationStateNodes(fieldNode, input, selectors) {
             const authorRow = input.closest(SELECTOR_AUTHOR);
@@ -176,7 +176,7 @@
          * @param {HTMLElement} input
          * @param {Array} selectors
          * @returns {Array}
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         findErrorContainers(fieldNode, input, selectors) {
             const authorRow = input.closest(SELECTOR_AUTHOR);
@@ -192,7 +192,7 @@
          * @param {HTMLElement} input
          * @param {Array} selectors
          * @returns {Array}
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         findExistingErrorNodes(fieldNode, input, selectors) {
             return selectors.reduce((total, selector) => total.concat([...input.closest(SELECTOR_AUTHOR).querySelectorAll(selector)]), []);
@@ -202,7 +202,7 @@
          * Attaches event listeners based on a config.
          *
          * @method init
-         * @memberof EzAuthorValidator
+         * @memberof IbexaAuthorValidator
          */
         init() {
             super.init();
@@ -211,7 +211,7 @@
         }
     }
 
-    const validator = new EzAuthorValidator({
+    const validator = new IbexaAuthorValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         containerSelectors: ['.ibexa-data-source__author', '.ibexa-field-edit--ezauthor'],

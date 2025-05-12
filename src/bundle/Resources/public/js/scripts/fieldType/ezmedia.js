@@ -7,14 +7,14 @@
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const CLASS_MEDIA_WRAPPER_LOADING = 'ibexa-field-edit-preview__media-wrapper--loading';
 
-    class EzMediaValidator extends ibexa.BaseFileFieldValidator {
+    class IbexaMediaValidator extends ibexa.BaseFileFieldValidator {
         /**
          * Validates the dimensions inputs
          *
          * @method validateDimensions
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzMediaValidator
+         * @memberof IbexaMediaValidator
          */
         validateDimensions(event) {
             const input = event.currentTarget;
@@ -130,7 +130,7 @@
     }
 
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
-        const validator = new EzMediaValidator({
+        const validator = new IbexaMediaValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [

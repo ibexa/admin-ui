@@ -7,14 +7,14 @@
     const SELECTOR_ROW = '.ibexa-relations__item';
     const EVENT_CUSTOM = 'validateInput';
 
-    class EzObjectRelationListValidator extends ibexa.BaseFieldValidator {
+    class IbexaObjectRelationListValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzObjectRelationListValidator
+         * @memberof IbexaObjectRelationListValidator
          */
         validateInput({ currentTarget }) {
             const isRequired = currentTarget.required;
@@ -37,7 +37,7 @@
     }
 
     [...doc.querySelectorAll(SELECTOR_FIELD_MULTIPLE), ...doc.querySelectorAll(SELECTOR_FIELD_SINGLE)].forEach((fieldContainer) => {
-        const validator = new EzObjectRelationListValidator({
+        const validator = new IbexaObjectRelationListValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [

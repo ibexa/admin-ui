@@ -1,7 +1,7 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezbinaryfile';
 
-    class EzBinaryFilePreviewField extends ibexa.BasePreviewField {
+    class IbexaBinaryFilePreviewField extends ibexa.BasePreviewField {
         /**
          * Loads dropped file preview
          *
@@ -52,7 +52,7 @@
                 },
             ],
         });
-        const previewField = new EzBinaryFilePreviewField({
+        const previewField = new IbexaBinaryFilePreviewField({
             validator,
             fieldContainer,
         });

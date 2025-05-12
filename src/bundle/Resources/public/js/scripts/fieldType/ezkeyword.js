@@ -25,14 +25,14 @@ import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/pub
         });
     };
 
-    class EzKeywordValidator extends ibexa.BaseFieldValidator {
+    class IbexaKeywordValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the keywords input
          *
          * @method validateKeywords
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzKeywordValidator
+         * @memberof IbexaKeywordValidator
          */
         validateKeywords(event) {
             const fieldContainer = event.currentTarget.closest(SELECTOR_FIELD);
@@ -70,7 +70,7 @@ import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/pub
 
         tagsObserver.observe(taggifyContainer, tagsObserverConfig);
 
-        const validator = new EzKeywordValidator({
+        const validator = new IbexaKeywordValidator({
             classInvalid: 'is-invalid',
             fieldSelector: SELECTOR_FIELD,
             eventsMap: [

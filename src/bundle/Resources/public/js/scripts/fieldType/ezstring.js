@@ -2,14 +2,14 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezstring';
     const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
 
-    class EzStringValidator extends ibexa.BaseFieldValidator {
+    class IbexaStringValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzStringValidator
+         * @memberof IbexaStringValidator
          */
         validateInput(event) {
             const isRequired = event.target.required;
@@ -32,7 +32,7 @@
         }
     }
 
-    const validator = new EzStringValidator({
+    const validator = new IbexaStringValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

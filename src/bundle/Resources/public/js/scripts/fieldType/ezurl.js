@@ -5,7 +5,7 @@
     const SELECTOR_LABEL = '.ibexa-data-source__label';
     const SELECTOR_ERROR_NODE = '.ibexa-data-source__field--link .ibexa-form-error';
 
-    class EzUrlValidator extends ibexa.BaseFieldValidator {
+    class IbexaUrlValidator extends ibexa.BaseFieldValidator {
         validateUrl(event) {
             const result = {
                 isError: false,
@@ -35,7 +35,7 @@
         }
     }
 
-    const validator = new EzUrlValidator({
+    const validator = new IbexaUrlValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

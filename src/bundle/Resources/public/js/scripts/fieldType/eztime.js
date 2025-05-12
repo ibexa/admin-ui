@@ -5,14 +5,14 @@
     const SELECTOR_ERROR_NODE = '.ibexa-data-source';
     const EVENT_VALUE_CHANGED = 'change';
 
-    class EzTimeValidator extends ibexa.BaseFieldValidator {
+    class IbexaTimeValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzTimeValidator
+         * @memberof IbexaTimeValidator
          */
         validateInput(event) {
             const target = event.currentTarget;
@@ -34,7 +34,7 @@
         }
     }
 
-    const validator = new EzTimeValidator({
+    const validator = new IbexaTimeValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

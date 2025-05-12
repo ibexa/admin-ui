@@ -4,14 +4,14 @@
     const EVENT_VALUE_CHANGED = 'change';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
-    class EzCountryValidator extends ibexa.BaseFieldValidator {
+    class IbexaCountryValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the country field value
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzCountryValidator
+         * @memberof IbexaCountryValidator
          */
         validateInput(event) {
             const fieldContainer = event.currentTarget.closest(SELECTOR_FIELD);
@@ -27,7 +27,7 @@
             };
         }
     }
-    const validator = new EzCountryValidator({
+    const validator = new IbexaCountryValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

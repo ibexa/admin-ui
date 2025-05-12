@@ -6,14 +6,14 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const { convertDateToTimezone } = ibexa.helpers.timezone;
 
-    class EzDateTimeValidator extends ibexa.BaseFieldValidator {
+    class IbexaDateTimeValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzDateTimeValidator
+         * @memberof IbexaDateTimeValidator
          */
         validateInput(event) {
             const target = event.currentTarget;
@@ -35,7 +35,7 @@
         }
     }
 
-    const validator = new EzDateTimeValidator({
+    const validator = new IbexaDateTimeValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

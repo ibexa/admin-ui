@@ -8,7 +8,7 @@
     const { getJsonFromResponse } = ibexa.helpers.request;
     const { imageAssetMapping } = ibexa.adminUiConfig;
 
-    class EzImageAssetPreviewField extends ibexa.BasePreviewField {
+    class IbexaImageAssetPreviewField extends ibexa.BasePreviewField {
         constructor(props) {
             super(props);
 
@@ -275,7 +275,7 @@
 
         const inputFileFieldContainer = fieldContainer.querySelector(SELECTOR_INPUT_FILE);
         const { allowedFileTypes = [] } = inputFileFieldContainer.dataset;
-        const previewField = new EzImageAssetPreviewField({
+        const previewField = new IbexaImageAssetPreviewField({
             validator,
             fieldContainer,
             fileTypeAccept: inputFileFieldContainer.accept,

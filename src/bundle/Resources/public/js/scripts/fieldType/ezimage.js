@@ -5,7 +5,7 @@
     const SELECTOR_INPUT_ALT = '.ibexa-field-edit-preview__image-alt .ibexa-data-source__input';
     const EVENT_CANCEL_ERROR = 'ibexa-cancel-errors';
 
-    class EzImageFilePreviewField extends ibexa.BasePreviewField {
+    class IbexaImageFilePreviewField extends ibexa.BasePreviewField {
         /**
          * Gets a temporary image URL
          *
@@ -85,7 +85,7 @@
          * @method validateAltInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzStringValidator
+         * @memberof IbexaStringValidator
          */
         validateAltInput(event) {
             const fileField = this.fieldContainer.querySelector(SELECTOR_INPUT_FILE);
@@ -151,7 +151,7 @@
 
         const inputFileFieldContainer = fieldContainer.querySelector(SELECTOR_INPUT_FILE);
         const { allowedFileTypes = [] } = inputFileFieldContainer.dataset;
-        const previewField = new EzImageFilePreviewField({
+        const previewField = new IbexaImageFilePreviewField({
             validator,
             fieldContainer,
             fileTypeAccept: inputFileFieldContainer.accept,
