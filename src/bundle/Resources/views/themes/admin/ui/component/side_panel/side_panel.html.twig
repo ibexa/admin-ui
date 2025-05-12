@@ -6,9 +6,8 @@
 {% set config_panel_footer_class = 'ibexa-side-panel__footer' ~ (footer_class is defined ? footer_class ~ '')%}
 
 {% set attr = attr|default({})|merge({
-    class: (' '
-        ~ class|default('') ~ ' '
-        ~ attr.class|default(''))|trim ~ ' ' ~ config_panel_main_class,
+        ~ attr.class|default(''))|trim ~ ' '
+        ~ config_panel_main_class,
 }) %}
 
 {% if id is defined %}

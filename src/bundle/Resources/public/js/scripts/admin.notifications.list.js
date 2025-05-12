@@ -4,7 +4,7 @@
     const SELECTOR_TOGGLE_NOTIFICATION = '.ibexa-notification-view-all__mail';
     const { showErrorNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse } = ibexa.helpers.request;
-    const markAllAsReadBtn = doc.querySelector('.ibexa-notification-list__mark-all-read');
+    const markAllAsReadBtn = doc.querySelector('.ibexa-notification-list__btn--mark-all-as-read');
     const markAsReadBtn = doc.querySelector('.ibexa-notification-list__btn--mark-as-read');
     const deleteBtn = doc.querySelector('.ibexa-notification-list__btn--delete');
     const notificationsCheckboxes = [

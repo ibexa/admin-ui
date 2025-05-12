@@ -73,7 +73,7 @@
         border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
         border: calculateRem(1px) solid $ibexa-color-light;
         background-color: $ibexa-color-white;
-        transition: width 0.3s ease;
+        transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
 
     &__table-btns {
