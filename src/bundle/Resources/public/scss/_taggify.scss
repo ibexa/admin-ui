@@ -58,6 +58,8 @@
         background-color: $ibexa-color-white;
         padding: calculateRem(4px);
         box-shadow: $ibexa-edit-content-box-shadow;
+        max-height: calculateRem(480px);
+        overflow-y: auto;
 
         &--hidden {
             display: none;
