@@ -3,11 +3,14 @@
 {% trans_default_domain 'ibexa_admin_ui' %}
 
 {% set config_panel_main_class = 'ibexa-side-panel ibexa-side-panel--hidden' %}
-{% set config_panel_footer_class = 'ibexa-side-panel__footer' ~ (footer_class is defined ? footer_class ~ '')%}
+{% set attr_footer = attr_footer|default({})|merge({
+    class: ('ibexa-side-panel__footer' 
+    ~ (footer_class is defined ? footer_class ~ ''))|trim,
+}) %}
+
 
 {% set attr = attr|default({})|merge({
-        ~ attr.class|default(''))|trim ~ ' '
-        ~ config_panel_main_class,
+    class: attr.class|default('')|trim ~ ' ' ~ config_panel_main_class,
 }) %}
 
 {% if id is defined %}
@@ -30,7 +33,7 @@
             {% endblock %}
             {% block content %}{% endblock %}
             
-            <div class="{{ config_panel_footer_class }}">
+            <div {{ html.attributes(attr_footer) }}>
                 {% block footer %}
                     <button
                         type="button"

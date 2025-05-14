@@ -19,20 +19,9 @@
         }
     }
 
-    .ibexa-table__header-cell {
-        padding: calculateRem(16px) calculateRem(8px);
-
-        &:first-child {
-            padding-left: calculateRem(16px);
-        }
-
-        &:last-child {
-            padding-right: calculateRem(16px);
-        }
-    }
-
+    .ibexa-table__header-cell,
     .ibexa-table__cell {
-        padding: calculateRem(8px);
+        padding: calculateRem(16px) calculateRem(8px);
 
         &:first-child {
             padding-left: calculateRem(16px);
@@ -55,10 +44,11 @@
             font-size: $ibexa-text-font-size-extra-large;
         }
     }
-
-    &__mark-all-read {
-        display: flex;
-        justify-content: flex-end;
+    &__btn {
+        &--mark-all-as-read {
+            display: flex;
+            justify-content: flex-end;
+        }
     }
 
     &__data-grid-wrapper {

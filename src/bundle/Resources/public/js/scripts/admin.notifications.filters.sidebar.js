@@ -14,4 +14,4 @@
     };
 
     toggleBtn.addEventListener('click', toggleSidebar, false);
-})(window, window.document, window.bootstrap, window.Translator);
+})(window, window.document);
