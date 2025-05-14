@@ -6285,13 +6285,7 @@ parameters:
 		-
 			message: '#^Cannot call method get\(\) on Symfony\\Component\\Form\\FormInterface\|null\.$#'
 			identifier: method.nonObject
-			count: 3
-			path: src/lib/Form/Type/Location/LocationTrashType.php
-
-		-
-			message: '#^Cannot call method getData\(\) on Symfony\\Component\\Form\\FormInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
+			count: 2
 			path: src/lib/Form/Type/Location/LocationTrashType.php
 
 		-
@@ -6309,7 +6303,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$form of method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationTrashType\:\:addConfirmCheckbox\(\) expects Symfony\\Component\\Form\\FormInterface, Symfony\\Component\\Form\\FormInterface\|null given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: src/lib/Form/Type/Location/LocationTrashType.php
 
 		-
