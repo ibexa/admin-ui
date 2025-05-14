@@ -2,14 +2,14 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezfloat';
     const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
 
-    class EzFloatValidator extends ibexa.BaseFieldValidator {
+    class IbexaFloatValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateFloat
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzFloatValidator
+         * @memberof IbexaFloatValidator
          */
         validateFloat(event) {
             const isRequired = event.target.required;
@@ -40,7 +40,7 @@
         }
     }
 
-    const validator = new EzFloatValidator({
+    const validator = new IbexaFloatValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

@@ -1,14 +1,14 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--eztext';
 
-    class EzTextValidator extends ibexa.BaseFieldValidator {
+    class IbexaTextValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the textarea field value
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzTextValidator
+         * @memberof IbexaTextValidator
          */
         validateInput(event) {
             const isError = event.target.required && !event.target.value.trim();
@@ -22,7 +22,7 @@
         }
     }
 
-    const validator = new EzTextValidator({
+    const validator = new IbexaTextValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

@@ -5,14 +5,14 @@
     const EVENT_VALUE_CHANGED = 'change';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
-    class EzDateValidator extends ibexa.BaseFieldValidator {
+    class IbexaDateValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzDateValidator
+         * @memberof IbexaDateValidator
          */
         validateInput(event) {
             const target = event.currentTarget;
@@ -34,7 +34,7 @@
         }
     }
 
-    const validator = new EzDateValidator({
+    const validator = new IbexaDateValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

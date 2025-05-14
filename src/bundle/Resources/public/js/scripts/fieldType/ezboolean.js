@@ -2,14 +2,14 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezboolean';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
-    class EzBooleanValidator extends ibexa.BaseFieldValidator {
+    class IbexaBooleanValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input field value
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzBooleanValidator
+         * @memberof IbexaBooleanValidator
          */
         validateInput(event) {
             const isError = !event.target.checked && event.target.required;
@@ -23,7 +23,7 @@
         }
     }
 
-    const validator = new EzBooleanValidator({
+    const validator = new IbexaBooleanValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

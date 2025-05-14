@@ -2,14 +2,14 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezemail';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
-    class EzEmailValidator extends ibexa.BaseFieldValidator {
+    class IbexaEmailValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzEmailValidator
+         * @memberof IbexaEmailValidator
          */
         validateInput(event) {
             const input = event.currentTarget;
@@ -30,7 +30,7 @@
         }
     }
 
-    const validator = new EzEmailValidator({
+    const validator = new IbexaEmailValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

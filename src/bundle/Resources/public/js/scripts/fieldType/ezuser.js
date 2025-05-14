@@ -9,14 +9,14 @@
     const SELECTOR_INPUT = '.ibexa-data-source__input';
     const SELECTOR_ERROR_WRAPPER = '.ibexa-form-error';
 
-    class EzUserValidator extends ibexa.BaseFieldValidator {
+    class IbexaUserValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input field value
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzUserValidator
+         * @memberof IbexaUserValidator
          */
         validateInput({ target }) {
             const fieldContainer = target.closest(SELECTOR_INNER_FIELD);
@@ -36,7 +36,7 @@
          * @method validateEmailInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzUserValidator
+         * @memberof IbexaUserValidator
          */
         validateEmailInput({ target }) {
             const isRequired = target.required;
@@ -64,7 +64,7 @@
          * @method comparePasswords
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzUserValidator
+         * @memberof IbexaUserValidator
          */
         comparePasswords({ target }) {
             const validationResults = this.validateInput({ target });
@@ -96,7 +96,7 @@
         }
     }
 
-    const validator = new EzUserValidator({
+    const validator = new IbexaUserValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

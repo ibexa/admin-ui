@@ -2,14 +2,14 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ezinteger';
     const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
 
-    class EzIntegerValidator extends ibexa.BaseFieldValidator {
+    class IbexaIntegerValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates the input
          *
          * @method validateInteger
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzIntegerValidator
+         * @memberof IbexaIntegerValidator
          */
         validateInteger(event) {
             const isRequired = event.target.required;
@@ -40,7 +40,7 @@
         }
     }
 
-    const validator = new EzIntegerValidator({
+    const validator = new IbexaIntegerValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [

@@ -19,7 +19,7 @@
     const VALIDATE_ADDRESS = 'validateAddress';
     const maps = [];
 
-    class EzGMapLocationValidator extends ibexa.BaseFieldValidator {
+    class IbexaGMapLocationValidator extends ibexa.BaseFieldValidator {
         /**
          * Validates latitude/longitude input value
          *
@@ -318,7 +318,7 @@
         }
     }
 
-    const validator = new EzGMapLocationValidator({
+    const validator = new IbexaGMapLocationValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [
