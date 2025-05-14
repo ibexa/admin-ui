@@ -21,6 +21,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Webmozart\Assert\Assert;
 
 class LocationTrashType extends AbstractType
 {
@@ -59,13 +60,15 @@ class LocationTrashType extends AbstractType
 
         $builder->get('trash_options')->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
+            $parentForm = $form->getParent();
+            Assert::notNull($parentForm, 'LocationTrashType: missing parent context for trash_options');
             $this->trashTypeStrategy->addOptions(
                 $form,
-                $form->getParent()->getData()->getLocation()
+                $parentForm->getData()->getLocation()
             );
 
-            if (!empty($form->getParent()->get('trash_options')->all())) {
-                $this->addConfirmCheckbox($form->getParent());
+            if (!empty($form->all())) {
+                $this->addConfirmCheckbox($parentForm);
             }
         });
 
