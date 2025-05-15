@@ -151,6 +151,11 @@
         <target state="new">Cannot mark selected notifications as read</target>
         <note>key: notifications.modal.message.error.mark_selected_as_read</note>
       </trans-unit>
+      <trans-unit id="3474521689fc84daab1c58d9dcd260402f8d1563" resname="notifications.modal.message.error.update">
+        <source>Cannot update this notification</source>
+        <target state="new">Cannot update this notification</target>
+        <note>key: notifications.modal.message.error.update</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>

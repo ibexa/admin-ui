@@ -12,21 +12,22 @@
     ];
     const markAllAsRead = () => {
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
+        const message = Translator.trans(
+            /* @Desc("Cannot mark all notifications as read") */ 'notifications.modal.message.error.mark_all_as_read',
+            {},
+            'ibexa_notifications',
+        );
 
         fetch(markAllAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     global.location.reload();
+                } else {
+                    showErrorNotification(message);
                 }
             })
             .catch(() => {
-                const message = Translator.trans(
-                    /* @Desc("Cannot mark all notifications as read") */ 'notifications.modal.message.error.mark_all_as_read',
-                    {},
-                    'ibexa_notifications',
-                );
-
                 showErrorNotification(message);
             });
     };
@@ -48,21 +49,23 @@
                 ids: selectedNotifications,
             }),
         });
+        const message = Translator.trans(
+            /* @Desc("Cannot mark selected notifications as read") */
+            'notifications.modal.message.error.mark_selected_as_read',
+            {},
+            'ibexa_notifications',
+        );
 
         fetch(request)
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
                     global.location.reload();
+                } else {
+                    showErrorNotification(message);
                 }
             })
             .catch(() => {
-                const message = Translator.trans(
-                    /* @Desc("Cannot mark notifications as read") */
-                    'notifications.modal.message.error.mark_as_read',
-                    {},
-                    'ibexa_notifications',
-                );
                 showErrorNotification(message);
             });
     };
@@ -106,6 +109,15 @@
                     if (!isToggle && response.redirect) {
                         global.location = response.redirect;
                     }
+                } else {
+                    const message = Translator.trans(
+                        /* @Desc("Cannot update this notification") */
+                        'notifications.modal.message.error.update',
+                        {},
+                        'ibexa_notifications',
+                    );
+
+                    showErrorNotification(message);
                 }
             })
             .catch(showErrorNotification);
