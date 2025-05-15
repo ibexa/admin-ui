@@ -1,0 +1,15 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-content-edit-button {
+    &__btn {
+        padding: calculateRem(4px);
+        width: calculateRem(34px);
+        height: calculateRem(34px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .ibexa-icon {
+        margin-right: 0;
+    }
+}

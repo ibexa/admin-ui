@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .ibexa-link {
     text-decoration: underline;
     transition: all 0.2s $ibexa-admin-transition;

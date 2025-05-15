@@ -1,0 +1,13 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-udw-view-switcher {
+    padding: calculateRem(8px);
+    display: flex;
+    align-items: center;
+
+    .c-simple-dropdown {
+        &__items {
+            min-width: calculateRem(200px);
+        }
+    }
+}

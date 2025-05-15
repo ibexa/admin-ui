@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .ibexa-badge {
     height: calculateRem(24px);
     padding: calculateRem(4px) calculateRem(8px) calculateRem(5px);
