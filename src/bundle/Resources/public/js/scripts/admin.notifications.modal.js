@@ -119,6 +119,11 @@
     };
     const markAllAsRead = () => {
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
+        const message = Translator.trans(
+            /* @Desc("Cannot mark all notifications as read") */ 'notifications.modal.message.error.mark_all_as_read',
+            {},
+            'ibexa_notifications',
+        );
 
         fetch(markAllAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
             .then(getJsonFromResponse)
@@ -128,21 +133,22 @@
 
                     allUnreadNotifications.forEach((notification) => notification.classList.add('ibexa-notifications-modal__item--read'));
                     getNotificationsStatus();
+                } else {
+                    showErrorNotification(message);
                 }
             })
             .catch(() => {
-                const message = Translator.trans(
-                    /* @Desc("Cannot mark all notifications as read") */ 'notifications.modal.message.error.mark_all_as_read',
-                    {},
-                    'ibexa_notifications',
-                );
-
                 showErrorNotification(message);
             });
     };
     const markAsRead = ({ currentTarget }) => {
         const { notificationId } = currentTarget.dataset;
         const markAsReadLink = Routing.generate('ibexa.notifications.mark_as_read', { notificationId });
+        const message = Translator.trans(
+            /* @Desc("Cannot mark notification as read") */ 'notifications.modal.message.error.mark_as_read',
+            {},
+            'ibexa_notifications',
+        );
 
         fetch(markAsReadLink, { mode: 'same-origin', credentials: 'same-origin' })
             .then(getJsonFromResponse)
@@ -155,21 +161,22 @@
                     menuInstance.closeMenu();
                     notification.classList.add('ibexa-notifications-modal__item--read');
                     getNotificationsStatus();
+                } else {
+                    showErrorNotification(message);
                 }
             })
             .catch(() => {
-                const message = Translator.trans(
-                    /* @Desc("Cannot mark notification as read") */ 'notifications.modal.message.error.mark_as_read',
-                    {},
-                    'ibexa_notifications',
-                );
-
                 showErrorNotification(message);
             });
     };
     const markAsUnread = ({ currentTarget }) => {
         const { notificationId } = currentTarget.dataset;
         const markAsUnreadLink = Routing.generate('ibexa.notifications.mark_as_unread', { notificationId });
+        const message = Translator.trans(
+            /* @Desc("Cannot mark notification as unread") */ 'notifications.modal.message.error.mark_as_unread',
+            {},
+            'ibexa_notifications',
+        );
 
         fetch(markAsUnreadLink, { mode: 'same-origin', credentials: 'same-origin' })
             .then(getJsonFromResponse)
@@ -182,21 +189,22 @@
                     menuInstance.closeMenu();
                     notification.classList.remove('ibexa-notifications-modal__item--read');
                     getNotificationsStatus();
+                } else {
+                    showErrorNotification(message);
                 }
             })
             .catch(() => {
-                const message = Translator.trans(
-                    /* @Desc("Cannot mark notification as unread") */ 'notifications.modal.message.error.mark_as_unread',
-                    {},
-                    'ibexa_notifications',
-                );
-
                 showErrorNotification(message);
             });
     };
     const deleteNotification = ({ currentTarget }) => {
         const { notificationId } = currentTarget.dataset;
         const deleteLink = Routing.generate('ibexa.notifications.delete', { notificationId });
+        const message = Translator.trans(
+            /* @Desc("Cannot delete notification") */ 'notifications.modal.message.error.delete',
+            {},
+            'ibexa_notifications',
+        );
 
         fetch(deleteLink, { mode: 'same-origin', credentials: 'same-origin' })
             .then(getJsonFromResponse)
@@ -208,15 +216,11 @@
 
                     menuInstance.closeMenu();
                     notification.remove();
+                } else {
+                    showErrorNotification(message);
                 }
             })
             .catch(() => {
-                const message = Translator.trans(
-                    /* @Desc("Cannot delete notification") */ 'notifications.modal.message.error.delete',
-                    {},
-                    'ibexa_notifications',
-                );
-
                 showErrorNotification(message);
             });
     };
