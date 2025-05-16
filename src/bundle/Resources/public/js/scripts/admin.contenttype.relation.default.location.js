@@ -1,6 +1,6 @@
 import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
 
-(function (global, doc, ibexa, React, ReactDOM) {
+(function (global, doc, ibexa, React, ReactDOMClient) {
     const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-tag__remove-btn';
     const defaultLocationContainers = doc.querySelectorAll('.ibexa-default-location');
     const udwContainer = doc.getElementById('react-udw');
@@ -40,7 +40,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
@@ -103,4 +103,4 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
         toggleDisabledState(defaultLocationContainer);
         middleEllipsisHelper.parse();
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient);

@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator, Routing) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator, Routing) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezimageasset';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
     const SELECTOR_INPUT_DESTINATION_CONTENT_ID = '.ibexa-data-source__destination-content-id';
@@ -172,7 +172,7 @@
             event.preventDefault();
 
             const udwContainer = doc.getElementById('react-udw');
-            const udwRoot = ReactDOM.createRoot(udwContainer);
+            const udwRoot = ReactDOMClient.createRoot(udwContainer);
             const config = JSON.parse(event.currentTarget.dataset.udwConfig);
             const title = Translator.trans(/*@Desc("Select Image Asset")*/ 'ezimageasset.title', {}, 'ibexa_universal_discovery_widget');
             const closeUDW = () => udwRoot.unmount();
@@ -286,4 +286,4 @@
 
         ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.Routing);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator, window.Routing);
