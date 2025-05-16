@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 :root {
     --ibexa-hover-color: var(--ibexa-hover-color, $ibexa-color-primary);
     --ibexa-border-color: var(--ibexa-border-color, $ibexa-color-dark);

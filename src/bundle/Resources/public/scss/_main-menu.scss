@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .ibexa-main-menu {
     @mixin hidden-main-menu-node {
         width: 0;
@@ -186,7 +189,9 @@
         &--popup-container {
             @include hidden-main-menu-node;
 
-            overflow: hidden;
+            & {
+                overflow: hidden;
+            }
         }
 
         .ibexa-popup-menu {

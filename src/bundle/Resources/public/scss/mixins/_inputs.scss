@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 @mixin input-active {
     border-color: var(--ibexa-input-focus-border-color, $ibexa-color-primary);
     box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{rgba($ibexa-color-primary, 0.25)});
@@ -33,11 +36,15 @@
 @mixin error-under-input {
     @include error-input();
 
-    margin: calculateRem(-7px) 0 0 calculateRem(2px);
+    & {
+        margin: calculateRem(-7px) 0 0 calculateRem(2px);
+    }
 }
 
 @mixin error-under-label {
     @include error-input();
 
-    flex-basis: 100%;
+    & {
+        flex-basis: 100%;
+    }
 }

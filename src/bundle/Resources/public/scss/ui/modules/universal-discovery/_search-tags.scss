@@ -1,0 +1,7 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-search-tags {
+    &__tag {
+        margin-right: calculateRem(8px);
+    }
+}

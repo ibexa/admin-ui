@@ -1,18 +1,6 @@
-@import 'custom';
-@import 'functions/calculate.rem';
-@import 'mixins/image-preview';
-@import 'mixins/type-icon';
-@import 'mixins/inputs';
-@import 'mixins/general';
-@import 'mixins/tags';
-@import 'mixins/modals';
-@import 'mixins/togglers';
-@import 'mixins/pagination';
-@import 'mixins/containers';
-@import 'mixins/drag-and-drop';
-@import 'mixins/spinner';
-@import 'mixins/tab-selector';
-@import 'mixins/tooltips';
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
 
 @mixin datetime-field() {
     &.is-invalid {

@@ -1,0 +1,12 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '../../../mixins/search-form-no-results' as *;
+
+.c-search-no-results {
+    grid-area: results;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: calculateRem(50px);
+
+    @include search-form-no-results;
+}

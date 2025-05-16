@@ -1,0 +1,25 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-content-type-selector-list {
+    padding: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+
+    &__item {
+        padding: calculateRem(6px) 0;
+
+        .form-check {
+            width: 100%;
+        }
+
+        .form-check-label {
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .ibexa-input--checkbox {
+            margin-right: calculateRem(8px);
+        }
+    }
+}

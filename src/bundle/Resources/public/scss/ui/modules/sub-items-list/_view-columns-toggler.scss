@@ -1,0 +1,22 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-view-columns-toggler {
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $ibexa-color-dark;
+    background-color: $ibexa-color-light-100;
+    border-left: calculateRem(2px) solid $ibexa-color-light;
+    padding: calculateRem(12px) calculateRem(16px);
+
+    &__panel {
+        min-width: calculateRem(200px);
+
+        &--hidden {
+            display: none;
+        }
+    }
+}

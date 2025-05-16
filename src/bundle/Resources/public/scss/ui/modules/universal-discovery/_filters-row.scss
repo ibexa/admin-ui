@@ -1,3 +1,5 @@
+@use 'mixins/filters-row' as *;
+
 .c-filters-row {
     @include c-filters-row('__title');
 }

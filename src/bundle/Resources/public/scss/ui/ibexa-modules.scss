@@ -1,8 +1,5 @@
-@import '../custom';
-@import '../functions/calculate.rem';
-@import '../mixins';
-@import 'modules/common';
-@import 'modules/multi.file.upload';
-@import 'modules/sub.items.list';
-@import 'modules/content.tree';
-@import 'modules/universal.discovery';
+@use 'modules/common';
+@use 'modules/multi-file-upload';
+@use 'modules/sub-items-list';
+@use 'modules/content-tree';
+@use 'modules/universal-discovery';

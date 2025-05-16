@@ -1,0 +1,13 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-section-view {
+    .ibexa-details {
+        margin-bottom: calculateRem(42px);
+    }
+
+    [name='section_content_assign'] {
+        .form-group {
+            margin-bottom: 0;
+        }
+    }
+}

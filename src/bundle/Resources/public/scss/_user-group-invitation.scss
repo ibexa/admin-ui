@@ -1,3 +1,5 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .ibexa-user-group-invitation {
     .ibexa-user-invitation-modal {
         &__labels,

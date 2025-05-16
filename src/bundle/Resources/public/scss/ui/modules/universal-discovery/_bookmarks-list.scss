@@ -1,0 +1,47 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-bookmarks-list {
+    width: calculateRem(215px);
+    background-color: $ibexa-color-light-200;
+    overflow: auto;
+    flex-shrink: 0;
+    margin-left: calculateRem(1px);
+
+    &__item {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: calculateRem(7px) calculateRem(12px);
+        font-size: $ibexa-text-font-size;
+
+        &--not-selectable {
+            background-color: $ibexa-color-light-500;
+            cursor: not-allowed;
+        }
+
+        &--marked {
+            background-color: $ibexa-color-light-500;
+            color: $ibexa-color-primary;
+            font-weight: bold;
+
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
+        }
+    }
+
+    &__item-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: calculateRem(185px);
+        margin-left: calculateRem(5px);
+    }
+
+    &__spinner-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

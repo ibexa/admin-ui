@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 @mixin modal-main() {
     background: $ibexa-color-white;
     box-shadow: 0 0 calculateRem(30px) 0 rgba($ibexa-color-black, 0.35);

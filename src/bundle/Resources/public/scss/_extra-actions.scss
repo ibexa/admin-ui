@@ -1,9 +1,15 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/general' as *;
+
 .ibexa-extra-actions {
     @include container-box-shadow-left;
 
-    background-color: $ibexa-color-white;
-    padding: calculateRem(16px) 0;
-    width: calculateRem(700px);
+    & {
+        background-color: $ibexa-color-white;
+        padding: calculateRem(16px) 0;
+        width: calculateRem(700px);
+    }
 
     &__action {
         display: block;

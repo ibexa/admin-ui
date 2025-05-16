@@ -1,3 +1,5 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+
 @keyframes background-to-transparent {
     0% {
         transform: scale(1);
