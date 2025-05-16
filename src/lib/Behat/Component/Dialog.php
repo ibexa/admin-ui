@@ -32,7 +32,7 @@ class Dialog extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('confirm', '.modal.show button[type="submit"],.modal.show button[data-click], .modal.show .ibexa-btn--confirm'),
+            new VisibleCSSLocator('confirm', '.modal.show button[type="submit"],.modal.show button[data-click], .modal.show .ibexa-btn--confirm, .modal.show .ibexa-btn--primary'),
             new VisibleCSSLocator('decline', '.modal.show .ibexa-btn--secondary'),
         ];
     }
