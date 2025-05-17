@@ -51,12 +51,20 @@ class ComponentExtension extends AbstractExtension
             new TwigFunction(
                 'ibexa_render_component_group',
                 [$this, 'renderComponentGroup'],
-                ['is_safe' => ['html']]
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.6.19',
+                    'alternative' => 'ibexa_twig_component_group',
+                ]
             ),
             new TwigFunction(
                 'ibexa_render_component',
                 [$this, 'renderComponent'],
-                ['is_safe' => ['html']]
+                [
+                    'is_safe' => ['html'],
+                    'deprecated' => '4.6.19',
+                    'alternative' => 'ibexa_twig_component',
+                ]
             ),
         ];
     }

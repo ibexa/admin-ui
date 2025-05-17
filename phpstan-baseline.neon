@@ -1729,12 +1729,6 @@ parameters:
 			path: src/bundle/View/Template/EzPagerfantaTemplate.php
 
 		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderable\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Component/Renderable.php
-
-		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -4267,32 +4261,8 @@ parameters:
 			path: src/lib/Component/LinkComponent.php
 
 		-
-			message: '#^Cannot access offset string on Ibexa\\Contracts\\AdminUi\\Component\\Renderable\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Registry\:\:getComponents\(\) should return array\<Ibexa\\Contracts\\AdminUi\\Component\\Renderable\> but returns array\|Ibexa\\Contracts\\AdminUi\\Component\\Renderable\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\Registry\:\:setComponents\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Registry\:\:setComponents\(\) has parameter \$components with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Registry\:\:\$components \(array\<Ibexa\\Contracts\\AdminUi\\Component\\Renderable\>\) does not accept array\<array\|Ibexa\\Contracts\\AdminUi\\Component\\Renderable\>\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: src/lib/Component/Registry.php
 
@@ -4321,28 +4291,10 @@ parameters:
 			path: src/lib/Component/Renderer/DefaultRenderer.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:\$eventDispatcher has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:\$registry has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\ScriptComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Component/ScriptComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Search\\GlobalSearchTwigComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Search/GlobalSearchTwigComponent.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
@@ -4364,12 +4316,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:dispatchTabPreRenderEvent\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Component/TabsComponent.php
@@ -5201,12 +5147,6 @@ parameters:
 			identifier: parameter.phpDocType
 			count: 1
 			path: src/lib/Form/Data/ContentType/Translation/TranslationRemoveData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\ContentTypeData\:\:\$isNew in isset\(\) is not nullable nor uninitialized\.$#'
-			identifier: isset.initializedProperty
-			count: 1
-			path: src/lib/Form/Data/ContentTypeData.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupCreateData\:\:setIdentifier\(\) has no return type specified\.$#'
@@ -14459,18 +14399,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: src/lib/View/Provider/ContentTranslateView/Configured.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\ComponentPassTest\:\:testProcess\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/bundle/DependencyInjection/Compiler/ComponentPassTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\ComponentPassTest\:\:testProcessWithNoGroup\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: tests/bundle/DependencyInjection/Compiler/ComponentPassTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\FieldTypeFormMapperDispatcherPassTest\:\:tagsProvider\(\) return type has no value type specified in iterable type array\.$#'

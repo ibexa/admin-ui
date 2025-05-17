@@ -50,29 +50,29 @@ services:
         public: false
 
     ibexa.adminui.dashboard.me:
-        parent: Ibexa\AdminUi\Component\TwigComponent
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/dashboard/block/me.html.twig'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
+            - { name: ibexa.twig.component, group: 'admin-ui-dashboard-blocks' }
 
     ibexa.adminui.dashboard.all:
-        parent: Ibexa\AdminUi\Component\TwigComponent
+        parent: Ibexa\TwigComponents\Component\TemplateComponent
         arguments:
             $template: '@@ibexadesign/ui/dashboard/block/all.html.twig'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'dashboard-blocks' }
+            - { name: ibexa.twig.component, group: 'admin-ui-dashboard-blocks' }
 
     ibexa.adminui.dashboard.my.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $groupIdentifier: 'dashboard-my'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'dashboard-my-tab-groups' }
+            - { name: ibexa.twig.component, group: 'admin-ui-dashboard-my-tab-groups' }
 
     ibexa.adminui.dashboard.all.tab_groups:
         parent: Ibexa\AdminUi\Component\TabsComponent
         arguments:
             $groupIdentifier: 'dashboard-everyone'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'dashboard-all-tab-groups' }
+            - { name: ibexa.twig.component, group: 'admin-ui-dashboard-all-tab-groups' }

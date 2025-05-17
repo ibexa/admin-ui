@@ -9,9 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\Event;
 
 use Ibexa\AdminUi\Component\Registry;
-use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
+/**
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderSingleEvent} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent} instead
+ */
 class RenderSingleEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_single';
@@ -58,9 +62,9 @@ class RenderSingleEvent extends Event
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Component\Renderable
+     * @return \Ibexa\Contracts\TwigComponents\ComponentInterface
      */
-    public function getComponent(): Renderable
+    public function getComponent(): ComponentInterface
     {
         $group = $this->registry->getComponents($this->getGroupName());
 
@@ -68,9 +72,9 @@ class RenderSingleEvent extends Event
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Component\Renderable $component
+     * @param \Ibexa\Contracts\TwigComponents\ComponentInterface $component
      */
-    public function setComponent(Renderable $component)
+    public function setComponent(ComponentInterface $component)
     {
         $this->registry->addComponent($this->getGroupName(), $this->getName(), $component);
     }
