@@ -1429,12 +1429,6 @@ parameters:
 			path: src/bundle/Templating/Twig/UserPreferencesGlobalExtension.php
 
 		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderable\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Component/Renderable.php
-
-		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -2983,12 +2977,6 @@ parameters:
 			path: src/lib/Component/Event/RenderSingleEvent.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Event\\RenderSingleEvent\:\:getParameters\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderSingleEvent.php
-
-		-
 			message: '#^Property Ibexa\\AdminUi\\Component\\Event\\RenderSingleEvent\:\:\$parameters type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -2999,30 +2987,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Component/LinkComponent.php
-
-		-
-			message: '#^Cannot access offset string on Ibexa\\Contracts\\AdminUi\\Component\\Renderable\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Registry\:\:getComponents\(\) should return array\<Ibexa\\Contracts\\AdminUi\\Component\\Renderable\> but returns array\|Ibexa\\Contracts\\AdminUi\\Component\\Renderable\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Registry\:\:setComponents\(\) has parameter \$components with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Registry.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Registry\:\:\$components \(array\<Ibexa\\Contracts\\AdminUi\\Component\\Renderable\>\) does not accept array\<array\|Ibexa\\Contracts\\AdminUi\\Component\\Renderable\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Component/Registry.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:renderGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
@@ -3055,12 +3019,6 @@ parameters:
 			path: src/lib/Component/ScriptComponent.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Search\\GlobalSearchTwigComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Search/GlobalSearchTwigComponent.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3080,12 +3038,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:dispatchTabPreRenderEvent\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Component/TabsComponent.php

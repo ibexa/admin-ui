@@ -12,12 +12,12 @@ use Ibexa\AdminUi\Tab\Event\TabEvent;
 use Ibexa\AdminUi\Tab\Event\TabEvents;
 use Ibexa\AdminUi\Tab\Event\TabGroupEvent;
 use Ibexa\AdminUi\Tab\TabGroup;
-use Ibexa\Contracts\AdminUi\Component\Renderable;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
-class TabsComponent implements Renderable
+class TabsComponent implements ComponentInterface
 {
     protected Environment $twig;
 

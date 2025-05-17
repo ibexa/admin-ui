@@ -30,6 +30,7 @@
         "ibexa/polyfill-php82": "^1.0",
         "ibexa/rest": "~5.0.x-dev",
         "ibexa/search": "~5.0.x-dev",
+        "ibexa/twig-components": "~5.0.x-dev",
         "ibexa/user": "~5.0.x-dev",
         "jms/translation-bundle": "^2.4",
         "knplabs/knp-menu-bundle": "^3.0",

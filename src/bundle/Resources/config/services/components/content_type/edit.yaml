@@ -6,4 +6,4 @@ services:
 
     Ibexa\AdminUi\Component\ContentType\ContentTypeEditMetaFieldsComponent:
         tags:
-            - { name: ibexa.admin_ui.component, group: 'content-type-edit-sections' }
+            - { name: ibexa.twig.component, group: 'admin-ui-content-type-edit-sections' }

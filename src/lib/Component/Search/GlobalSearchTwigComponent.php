@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\Search;
 
 use Ibexa\AdminUi\Form\Type\Search\GlobalSearchType;
-use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-final class GlobalSearchTwigComponent implements Renderable
+final class GlobalSearchTwigComponent implements ComponentInterface
 {
     private Environment $twig;
 

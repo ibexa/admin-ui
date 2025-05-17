@@ -8,10 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Component;
 
-use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
-class TwigComponent implements Renderable
+/**
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\TwigComponent} class is deprecated, will be removed in 5.0.
+ * Use {@see \Ibexa\TwigComponents\Component\TemplateComponent} instead
+ */
+class TwigComponent implements ComponentInterface
 {
     protected string $template;
 

@@ -5,7 +5,7 @@ services:
             $template: '@@ibexadesign/ui/tab/url_management.html.twig'
             $groupIdentifier: 'link-manager'
         tags:
-            - { name: ibexa.admin_ui.component, group: 'link-manager-block' }
+            - { name: ibexa.twig.component, group: 'admin-ui-link-manager-block' }
 
     Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab:
         class: Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab
