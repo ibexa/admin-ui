@@ -1,93 +1,93 @@
 {# fallback block for limitations without defined value mapper #}
-{% block ez_limitation_value_fallback %}
+{% block ibexa_limitation_value_fallback %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_class_value %}
+{% block ibexa_limitation_class_value %}
     {% for value in values %}
         {{ value.name }}{% if not loop.last %},{% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_language_value %}
+{% block ibexa_limitation_language_value %}
     {% for value in values %}
         {{ value.name }}{% if not loop.last %},{% else %}{% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_node_value %}
+{% block ibexa_limitation_node_value %}
     {% for path in values %}
         {% for value in path %}/{{ value.name }}{% endfor %}
         {% if not loop.last %}, {% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_owner_value %}
+{% block ibexa_limitation_owner_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_changeowner_value %}
+{% block ibexa_limitation_changeowner_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_parentowner_value %}
+{% block ibexa_limitation_parentowner_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_parentclass_value %}
+{% block ibexa_limitation_parentclass_value %}
     {% for value in values %}
         {{ value.name }}{% if not loop.last %},{% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_section_value %}
+{% block ibexa_limitation_section_value %}
     {% for value in values %}
         {{ value.name }}{% if not loop.last %},{% else %}{% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_newsection_value %}
+{% block ibexa_limitation_newsection_value %}
     {% for value in values %}
         {{ value.name }}{% if not loop.last %},{% else %}{% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_siteaccess_value %}
+{% block ibexa_limitation_siteaccess_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_state_value %}
+{% block ibexa_limitation_state_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_newstate_value %}
+{% block ibexa_limitation_newstate_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_subtree_value %}
+{% block ibexa_limitation_subtree_value %}
     {% for path in values %}
         {% for value in path %}/{{ value.name }}{% endfor %}
         {% if not loop.last %}, {% endif %}
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_group_value %}
+{% block ibexa_limitation_group_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_parentdepth_value %}
+{% block ibexa_limitation_parentdepth_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_parentgroup_value %}
+{% block ibexa_limitation_parentgroup_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_status_value %}
+{% block ibexa_limitation_status_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_userpermissions_value %}
+{% block ibexa_limitation_userpermissions_value %}
     <br>
     {{ "role.policy.limitation.userpermissions.role_title"
     |trans({}, 'ibexa_content_forms_role')
@@ -110,10 +110,10 @@
     {% endfor %}
 {% endblock %}
 
-{% block ez_limitation_memberof_value %}
+{% block ibexa_limitation_memberof_value %}
     {{ values|join(', ') }}
 {% endblock %}
 
-{% block ez_limitation_role_value %}
+{% block ibexa_limitation_role_value %}
     {{ values|join(', ') }}
 {% endblock %}
