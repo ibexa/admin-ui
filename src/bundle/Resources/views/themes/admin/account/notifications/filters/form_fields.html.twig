@@ -1,0 +1,55 @@
+{% extends '@ibexadesign/ui/form_fields.html.twig' %}
+
+{% trans_default_domain 'ibexa_notifications' %}
+
+{% block _search_type_row %}
+    {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
+        target_id: form.vars.id|slug,
+        extra_class: 'ibexa-list-filters__item--type',
+        label: 'ibexa.notifications.search_form.label.type'|trans|desc('Type'),
+    } %}
+        {% block content %}
+            {{ form_widget(form) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock _search_type_row %}
+
+{% block _search_statuses_row %}
+    {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
+        target_id: form.vars.id|slug,
+        extra_class: 'ibexa-list-filters__item--statuses',
+        label: 'ibexa.notifications.search_form.label.status'|trans|desc('Status'),
+    } %}
+        {% block content %}
+            {{ form_widget(form) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock _search_statuses_row %}
+
+{% block _search_createdRange_row %}
+    {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
+        target_id: form.vars.id|slug,
+        extra_class: 'ibexa-list-filters__item--date-time',
+        label: 'ibexa.notifications.search_form.label.date_and_time'|trans|desc('Date and Time'),
+    } %}
+        {% block content %}
+            <div class="form-group">
+                {{ form_label(form.children.min) }}
+                {{ form_widget(form.children.min, {
+                    attr: {
+                        'data-seconds': 0,
+                    }
+                }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.children.max) }}
+                {{ form_widget(form.children.max, {
+                    attr: {
+                        'data-seconds': 0,
+                    }
+                }) }}
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock _search_createdRange_row %}
