@@ -1,6 +1,6 @@
 {% extends '@ibexadesign/limitation/limitation_values.html.twig' %}
 
-{% block ez_limitation_subtree_value %}
+{% block ibexa_limitation_subtree_value %}
     {% for path in values %}
         {% for value in path %}
             <a href="{{ path('ibexa.content.view', {'contentId': value.id, 'locationId': value.mainLocationId}) }}" >{{ value.name }}</a>
