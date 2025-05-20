@@ -17,9 +17,11 @@ import deepClone from '../common/helpers/deep.clone.helper.js';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import { updateLocationPriority, loadLocation as loadLocationService } from './services/sub.items.service';
 import { bulkAddLocations, bulkDeleteItems, bulkHideLocations, bulkUnhideLocations, bulkMoveLocations } from './services/bulk.service.js';
+import { VIEW_MODE_GRID, VIEW_MODE_TABLE } from './constants.js';
 
 const { Translator, ibexa, Popper, document } = window;
 
+export { VIEW_MODE_GRID, VIEW_MODE_TABLE };
 export const ASCENDING_SORT_ORDER = 'ascending';
 const DESCENDING_SORT_ORDER = 'descending';
 const DEFAULT_SORT_ORDER = ASCENDING_SORT_ORDER;
@@ -59,9 +61,6 @@ export const columnsLabels = {
     'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.columns.object_id', {}, 'ibexa_sub_items'),
     'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.columns.object_remote_id', {}, 'ibexa_sub_items'),
 };
-
-export const VIEW_MODE_TABLE = 'table';
-export const VIEW_MODE_GRID = 'grid';
 
 export default class SubItemsModule extends Component {
     constructor(props) {

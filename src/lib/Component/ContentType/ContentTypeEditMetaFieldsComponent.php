@@ -9,10 +9,10 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\ContentType;
 
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
-use Ibexa\Contracts\AdminUi\Component\Renderable;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
-final class ContentTypeEditMetaFieldsComponent implements Renderable
+final class ContentTypeEditMetaFieldsComponent implements ComponentInterface
 {
     private const NO_CONTENT = '';
 

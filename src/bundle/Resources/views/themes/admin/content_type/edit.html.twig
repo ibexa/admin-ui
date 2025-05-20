@@ -113,7 +113,7 @@
 {% endblock %}
 
 {% block content_type_sections %}
-    {{ ibexa_render_component_group('content-type-edit-sections', {
+    {{ ibexa_twig_component_group('admin-ui-content-type-edit-sections', {
         'form': form,
         'content_type': content_type,
     }) }}

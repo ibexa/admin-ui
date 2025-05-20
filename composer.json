@@ -55,6 +55,7 @@
         "ibexa/rest": "~4.6.0@dev",
         "ibexa/polyfill-php82": "^1.0",
         "ibexa/search": "~4.6.x-dev",
+        "ibexa/twig-components": "~4.6.x-dev",
         "babdev/pagerfanta-bundle": "^2.1",
         "knplabs/knp-menu-bundle": "^3.0",
         "mck89/peast": "^1.9",
