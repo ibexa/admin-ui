@@ -10,18 +10,28 @@ namespace Ibexa\AdminUi\Form\Data\Notification;
 
 class NotificationSelectionData
 {
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] */
     private array $notifications;
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] $notifications
+     */
     public function __construct(array $notifications = [])
     {
         $this->notifications = $notifications;
     }
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[]
+     */
     public function getNotifications(): array
     {
         return $this->notifications;
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] $notifications
+     */
     public function setNotifications(array $notifications): void
     {
         $this->notifications = $notifications;

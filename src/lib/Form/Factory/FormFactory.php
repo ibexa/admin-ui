@@ -1070,7 +1070,7 @@ class FormFactory
      * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null $data
      * @param string|null $name
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
      */
     public function deleteNotification(
         NotificationSelectionData $data = null,
@@ -1141,7 +1141,7 @@ class FormFactory
         ?URLWildcardDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class);
+        $name = (string)($name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class));
 
         return $this->formFactory->createNamed(
             $name,
