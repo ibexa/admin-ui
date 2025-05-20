@@ -8,6 +8,7 @@
         {% set source %}
             {{- block('choice_widget_collapsed') -}}
         {% endset %}
+        {% set has_errors = form.vars.errors|length > 0 %}
 
         {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
             source: source,
@@ -25,6 +26,7 @@
             is_ghost: attr.is_ghost|default(false),
             is_selector: attr.is_selector|default(false),
             is_dynamic: attr.is_dynamic|default(false),
+            is_invalid: attr.is_invalid|default(has_errors),
             has_select_all_toggler: attr.has_select_all_toggler|default(false),
             placeholder: attr.placeholder|default(placeholder),
             selected_item_template_path: selected_item_template_path|default(null),

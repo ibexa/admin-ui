@@ -107,6 +107,20 @@
         margin-top: calculateRem(24px);
     }
 
+    &.is-invalid {
+        @include input-invalid();
+
+        #{$self} {
+            &__info {
+                color: $ibexa-color-danger-600;
+            }
+
+            &__btn-select-path {
+                background-color: $ibexa-color-white;
+            }
+        }
+    }
+
     &:disabled,
     &[disabled] {
         @include colorful-tags($ibexa-color-dark-400, $ibexa-color-light-300);

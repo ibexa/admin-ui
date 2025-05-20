@@ -17,6 +17,7 @@
 {% set is_dynamic = is_dynamic|default(false) %}
 {% set is_disabled = is_disabled|default(false) or attr.readonly|default(false) %}
 {% set is_selector = is_selector|default(false) %}
+{% set is_invalid = is_invalid|default(false) %}
 {% set has_select_all_toggler = has_select_all_toggler|default(false) %}
 {% set item_icon = item_icon|default() %}
 {% set item_icon_class = item_icon_class|default('') %}
@@ -36,6 +37,7 @@
         ~ (is_ghost|default(false) ? 'ibexa-dropdown--ghost ')
         ~ (is_selector ? 'ibexa-dropdown--selector ')
         ~ (no_items and not is_dynamic or is_disabled ? 'ibexa-dropdown--disabled ')
+        ~ (is_invalid ? 'is-invalid ')
         ~ class|default('') ~ ' '
         ~ attr.class|default('') ~ ' ')|trim,
     hidden: attr.hidden|default(is_hidden|default(false) ? 'hidden' : false)
