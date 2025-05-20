@@ -29,7 +29,7 @@ class UserUpdatePage extends ContentUpdateItemPage
         $this->locators->replace(
             new VisibleCSSLocator(
                 'formElement',
-                '[name=ezplatform_content_forms_user_create],[name=ezplatform_content_forms_user_update]'
+                '[name=ezplatform_content_forms_user_create],[name=ezplatform_content_forms_user_update],[for= member_create_fieldsData_user_value]'
             )
         );
     }
