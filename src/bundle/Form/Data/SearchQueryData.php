@@ -12,17 +12,24 @@ use Ibexa\AdminUi\Form\Data\DateRangeData;
 
 final class SearchQueryData
 {
+    /** @var string[] */
     private array $statuses = [];
 
     private ?string $type = null;
 
     private ?DateRangeData $createdRange = null;
 
+    /**
+     * @return string[]
+     */
     public function getStatuses(): array
     {
         return $this->statuses;
     }
 
+    /**
+     * @param string[] $statuses
+     */
     public function setStatuses(array $statuses): void
     {
         $this->statuses = $statuses;
