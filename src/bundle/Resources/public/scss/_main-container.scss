@@ -116,6 +116,14 @@
         }
     }
 
+    &__full-width {
+        .container.container {
+            @media (min-width: 1200px) {
+                max-width: calculateRem(2000px);
+            }
+        }
+    }
+
     .ibexa-content-container {
         display: flex;
         flex-direction: column;
