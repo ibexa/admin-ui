@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator, Routing) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator, Routing) {
     const btns = doc.querySelectorAll('.ibexa-btn--cotf-create');
     const udwContainer = doc.getElementById('react-udw');
     let udwRoot = null;
@@ -18,7 +18,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Create content")*/ 'dashboard.create.title', {}, 'ibexa_universal_discovery_widget');
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm,
@@ -32,4 +32,4 @@
     };
 
     btns.forEach((btn) => btn.addEventListener('click', openUDW, false));
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.Routing);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator, window.Routing);
