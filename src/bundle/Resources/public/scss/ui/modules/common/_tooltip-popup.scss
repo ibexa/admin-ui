@@ -1,0 +1,30 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/modals' as *;
+
+.c-tooltip-popup {
+    @include modal-main();
+
+    &__header {
+        @include modal-header();
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    &__subtitle {
+        @include modal-subtitle();
+
+        & {
+            color: $ibexa-color-dark;
+        }
+    }
+
+    &__close {
+        @include close-button();
+    }
+
+    &__footer {
+        @include modal-footer();
+    }
+}

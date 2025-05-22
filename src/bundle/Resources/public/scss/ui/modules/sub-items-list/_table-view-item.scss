@@ -1,0 +1,137 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-table-view-item {
+    &__translation {
+        display: block;
+    }
+
+    &__cell {
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        .ibexa-table.table &--shadow-left {
+            box-shadow: calculateRem(-13px) calculateRem(5px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.1);
+        }
+
+        .ibexa-table.table &--shadow-right {
+            box-shadow: calculateRem(13px) calculateRem(5px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.1);
+        }
+
+        &--content-type {
+            min-width: calculateRem(130px);
+        }
+
+        &--name .c-table-view-item__text-wrapper {
+            min-width: calculateRem(120px);
+        }
+
+        &--modified .c-table-view-item__text-wrapper {
+            max-width: calculateRem(190px);
+        }
+
+        &--checkbox {
+            position: sticky;
+            z-index: 1;
+            left: 0;
+            width: calculateRem(30px);
+            line-height: 0;
+            background: $ibexa-color-white;
+        }
+
+        &--name {
+            position: sticky;
+            z-index: 1;
+            left: calculateRem(48px);
+            padding-left: 0;
+            padding-right: calculateRem(5px);
+            background: $ibexa-color-white;
+        }
+
+        &--priority {
+            padding-top: 0;
+            width: calculateRem(80px);
+        }
+
+        &--actions {
+            position: sticky;
+            right: 0;
+            width: calculateRem(70px);
+            padding: 0;
+            background: $ibexa-color-white;
+        }
+
+        &--toggler {
+            position: absolute;
+            height: calculateRem(55px);
+            width: calculateRem(80px);
+        }
+    }
+
+    &__inner-wrapper {
+        cursor: pointer;
+
+        &--input {
+            width: 7ch;
+        }
+    }
+
+    &__priority-wrapper {
+        position: relative;
+        min-width: calculateRem(145px);
+    }
+
+    &__priority-actions {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: 0;
+        top: 0;
+    }
+
+    &__priority-value {
+        max-width: 100%;
+        padding: 0 calculateRem(10px);
+    }
+
+    &__btn {
+        &--submit {
+            margin-right: calculateRem(8px);
+        }
+
+        &--edit {
+            text-align: center;
+            cursor: pointer;
+            color: $ibexa-color-white;
+            display: inline-block;
+
+            .c-table-view-item__btn-inner {
+                padding: calculateRem(7px) calculateRem(14px);
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &:hover {
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
+        }
+    }
+
+    &__link {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    &__icon-with-name-wrapper {
+        display: flex;
+        align-items: center;
+
+        .ibexa-icon {
+            flex-shrink: 0;
+            margin-right: calculateRem(16px);
+        }
+    }
+}

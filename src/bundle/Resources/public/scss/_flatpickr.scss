@@ -1,3 +1,5 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .ibexa-content-view .flatpickr-calendar {
     &.animate.open {
         -webkit-animation: ibexaFpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);

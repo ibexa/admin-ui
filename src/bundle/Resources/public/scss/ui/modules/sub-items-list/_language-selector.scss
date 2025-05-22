@@ -1,0 +1,17 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-language-selector {
+    .ibexa-instant-filter {
+        &__items {
+            margin-top: calculateRem(5px);
+            max-height: calc(100vh - #{calculateRem(220px)});
+            overflow: auto;
+
+            .form-check-label {
+                font-size: $ibexa-text-font-size;
+                line-height: calculateRem(50px);
+            }
+        }
+    }
+}

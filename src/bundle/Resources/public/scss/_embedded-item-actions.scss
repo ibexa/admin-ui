@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/spinner' as *;
+
 .ibexa-embedded-item-actions {
     &__loader-container {
         min-width: calculateRem(100px);

@@ -1,0 +1,123 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-finder-leaf {
+    @mixin hover {
+        &:hover {
+            .c-finder-leaf__name {
+                color: $ibexa-color-primary;
+
+                .ibexa-icon {
+                    fill: $ibexa-color-primary;
+                }
+            }
+
+            &.c-finder-leaf--has-children:after {
+                border-left: calculateRem(6px) solid $ibexa-color-primary;
+            }
+        }
+    }
+
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: calculateRem(8px) calculateRem(16px);
+    border-radius: $ibexa-border-radius;
+    position: relative;
+
+    @include hover();
+
+    &--has-children:after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-top: calculateRem(4px) solid transparent;
+        border-left: calculateRem(6px) solid $ibexa-color-dark;
+        border-bottom: calculateRem(4px) solid transparent;
+        position: absolute;
+        right: calculateRem(15px);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    &--marked {
+        font-weight: bold;
+        background-color: $ibexa-color-light-300;
+        color: $ibexa-color-primary;
+
+        .c-finder-leaf__name {
+            color: $ibexa-color-dark;
+            font-weight: 600;
+
+            .ibexa-icon {
+                fill: $ibexa-color-dark;
+            }
+        }
+
+        @include hover();
+    }
+
+    &--selected {
+        color: $ibexa-color-primary;
+
+        .c-finder-leaf__name {
+            color: $ibexa-color-primary;
+
+            .ibexa-icon {
+                fill: $ibexa-color-primary;
+            }
+        }
+    }
+
+    &__name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: $ibexa-text-font-size-medium;
+        line-height: calculateRem(21px);
+        color: $ibexa-color-dark;
+        flex: 1;
+
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
+        }
+    }
+
+    &__icon-wrapper {
+        position: relative;
+        margin-right: calculateRem(20px);
+        text-align: center;
+
+        .ibexa-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-top: calculateRem(-1px);
+            fill: $ibexa-color-dark;
+        }
+    }
+
+    .c-udw-toggle-selection {
+        margin-right: calculateRem(15px);
+    }
+
+    &--hidden {
+        .c-finder-leaf {
+            &__hidden-icon {
+                margin-left: calculateRem(8px);
+                fill: $ibexa-color-light-700;
+            }
+
+            &__name {
+                color: $ibexa-color-light-700;
+            }
+
+            &__icon-wrapper {
+                .ibexa-icon {
+                    fill: $ibexa-color-light-700;
+                }
+            }
+        }
+    }
+}

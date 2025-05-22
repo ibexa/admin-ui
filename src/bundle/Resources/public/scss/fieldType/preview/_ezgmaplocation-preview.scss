@@ -1,0 +1,34 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-field-preview--ezgmaplocation {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ibexa-field-preview {
+        &__map-wrapper {
+            width: calculateRem(520px);
+            height: calculateRem(320px);
+            margin-right: calculateRem(32px);
+            z-index: 1;
+        }
+
+        &__map-meta-wrapper {
+            overflow: auto;
+        }
+
+        &__map-meta-title {
+            padding-bottom: calculateRem(24px);
+            font-weight: normal;
+        }
+
+        &__map-meta-value-row {
+            td {
+                padding-bottom: calculateRem(12px);
+            }
+        }
+    }
+
+    .ibexa-gmaplocation__map {
+        height: 100%;
+    }
+}

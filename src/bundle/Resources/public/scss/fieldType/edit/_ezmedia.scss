@@ -1,3 +1,7 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+
 .ibexa-field-edit--ezmedia {
     .ibexa-field-edit-preview {
         &__details {
@@ -45,7 +49,9 @@
                 &.is-invalid {
                     @include input-invalid;
 
-                    padding-right: calculateRem(12px);
+                    & {
+                        padding-right: calculateRem(12px);
+                    }
                 }
             }
         }
