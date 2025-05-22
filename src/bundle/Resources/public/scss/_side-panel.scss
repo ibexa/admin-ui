@@ -1,0 +1,47 @@
+.ibexa-side-panel {
+    background-color: $ibexa-color-white;
+    padding: calculateRem(8px) 0;
+    width: calculateRem(516px);
+    height: calc(100vh - calculateRem(73px));
+    position: fixed;
+    top: calculateRem(73px);
+    right: 0;
+    z-index: 200;
+
+    &__header {
+        padding: calculateRem(8px) calculateRem(32px) calculateRem(16px);
+        font-weight: bold;
+        border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__content {
+        max-height: calc(100% - #{calculateRem(60px)});
+        overflow: auto;
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        box-shadow: 0 0 calculateRem(16px) 0 rgba($ibexa-color-dark, 0.16);
+        z-index: 1000;
+        width: calculateRem(516px);
+        position: fixed;
+        bottom: 0;
+
+        .ibexa-btn {
+            margin-right: calculateRem(16px);
+        }
+
+        .ibexa-notifications-modal__footer {
+            width: calculateRem(516px);
+        }
+    }
+
+    &--hidden {
+        display: none;
+    }
+}
