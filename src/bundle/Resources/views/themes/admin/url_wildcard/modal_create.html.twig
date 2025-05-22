@@ -32,11 +32,14 @@
                     {{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}
                 </label>
                 {{ form_widget(form.forward) }}
-                <div class="ibexa-modal__info-text">
-                    {{ 'url_wildcard.modal.create.redirect.helper'|trans|desc(
-                        'When checked, the URL displayed will be the URL of the destination. When unchecked, the wildcard will not redirect to the destination and the URL will stay the same.'
-                    ) }}
-                </div>
+                <small class="ibexa-form-help">
+                    <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
+                        <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
+                    </svg>
+                    <span class="ibexa-custom-url-from__helper-text">
+                        {{ 'url_wildcard.modal.create.redirect.helper'|trans|desc('When checked, the URL displayed will be the URL of the destination. When unchecked, the wildcard will not redirect to the destination and the URL will stay the same.') }}
+                    </span>
+                </small>
             </div>
         </div>
     {% endblock %}

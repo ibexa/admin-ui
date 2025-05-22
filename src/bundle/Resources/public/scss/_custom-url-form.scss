@@ -32,4 +32,8 @@
             }
         }
     }
+
+    &__helper-text {
+        width: calc(100% - calculateRem(16px));
+    }
 }
