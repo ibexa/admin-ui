@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator) {
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
@@ -50,7 +50,7 @@
             'ibexa_universal_discovery_widget',
         );
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
@@ -287,4 +287,4 @@
     updateTrashForm(trashRestoreCheckboxes);
     enableButtons();
     trashRestoreCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.flatpickr);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator, window.flatpickr);

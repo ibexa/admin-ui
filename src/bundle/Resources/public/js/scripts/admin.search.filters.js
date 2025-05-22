@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, flatpickr, React, ReactDOM) {
+(function (global, doc, ibexa, flatpickr, React, ReactDOMClient) {
     let getUsersTimeout;
     const CLASS_DATE_RANGE = 'ibexa-filters__range-wrapper';
     const CLASS_VISIBLE_DATE_RANGE = 'ibexa-filters__range-wrapper--visible';
@@ -331,7 +331,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmSubtreeUDW.bind(this),
@@ -365,4 +365,4 @@
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
-})(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOMClient);

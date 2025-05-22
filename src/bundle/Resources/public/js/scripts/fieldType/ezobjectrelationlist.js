@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator) {
     const CLASS_FIELD_SINGLE = 'ibexa-field-edit--ezobjectrelation';
     const SELECTOR_FIELD_MULTIPLE = '.ibexa-field-edit--ezobjectrelationlist';
     const SELECTOR_FIELD_SINGLE = '.ibexa-field-edit--ezobjectrelation';
@@ -151,7 +151,7 @@
                           'ibexa_universal_discovery_widget',
                       );
 
-            udwRoot = ReactDOM.createRoot(udwContainer);
+            udwRoot = ReactDOMClient.createRoot(udwContainer);
             udwRoot.render(
                 React.createElement(ibexa.modules.UniversalDiscovery, {
                     onConfirm,
@@ -332,4 +332,4 @@
 
         ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator);

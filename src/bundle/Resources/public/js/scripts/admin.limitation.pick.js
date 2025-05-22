@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator) {
     const SELECTOR_LOCATION_LIMITATION_BTN = '.ibexa-pick-location-limitation-button';
     const SELECTOR_IBEXA_TAG = '.ibexa-tag';
     const IDS_SEPARATOR = ',';
@@ -173,7 +173,7 @@
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'ibexa_universal_discovery_widget');
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: handleUdwConfirm.bind(this, event.target),
@@ -193,4 +193,4 @@
         tags.forEach(attachTagEventHandlers.bind(null, limitationBtn));
         limitationBtn.addEventListener('click', openUDW, false);
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator);
