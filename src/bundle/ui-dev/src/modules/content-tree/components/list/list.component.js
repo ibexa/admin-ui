@@ -8,13 +8,13 @@ const List = ({
     loadMoreSubitems,
     currentLocationId,
     path,
-    subitemsLoadLimit,
+    subitemsLoadLimit = null,
     subitemsLimit,
     treeMaxDepth,
     afterItemToggle,
-    indent,
-    isRoot,
-    onClickItem,
+    indent = 0,
+    isRoot = false,
+    onClickItem = () => {},
 }) => {
     const Translator = getTranslator();
     const Routing = getRouting();
@@ -80,13 +80,6 @@ List.propTypes = {
     indent: PropTypes.number,
     isRoot: PropTypes.bool,
     onClickItem: PropTypes.func,
-};
-
-List.defaultProps = {
-    indent: 0,
-    isRoot: false,
-    onClickItem: () => {},
-    subitemsLoadLimit: null,
 };
 
 export default List;

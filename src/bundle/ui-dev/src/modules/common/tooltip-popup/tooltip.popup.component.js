@@ -5,16 +5,16 @@ import { createCssClassNames } from '../helpers/css.class.names';
 
 const TooltipPopupComponent = ({
     title,
-    subtitle,
+    subtitle = '',
     children,
-    onConfirm,
-    confirmBtnAttrs,
-    confirmLabel,
-    onClose,
-    closeBtnAttrs,
-    closeLabel,
+    onConfirm = () => {},
+    confirmBtnAttrs = {},
+    confirmLabel = '',
+    onClose = () => {},
+    closeBtnAttrs = {},
+    closeLabel = '',
     visible,
-    extraClasses,
+    extraClasses = '',
 }) => {
     const contentRef = useRef();
     const className = createCssClassNames({
@@ -63,17 +63,6 @@ TooltipPopupComponent.propTypes = {
     confirmBtnAttrs: PropTypes.object,
     closeBtnAttrs: PropTypes.object,
     extraClasses: PropTypes.string,
-};
-
-TooltipPopupComponent.defaultProps = {
-    subtitle: '',
-    onClose: () => {},
-    onConfirm: () => {},
-    confirmLabel: '',
-    closeLabel: '',
-    confirmBtnAttrs: {},
-    closeBtnAttrs: {},
-    extraClasses: '',
 };
 
 export default TooltipPopupComponent;

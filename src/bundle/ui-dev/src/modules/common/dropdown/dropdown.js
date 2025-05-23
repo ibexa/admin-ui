@@ -18,13 +18,13 @@ const Dropdown = ({
     value,
     options,
     onChange,
-    small,
-    single,
-    disabled,
-    placeholder,
-    extraClasses,
-    renderSelectedItem,
-    minSearchItems,
+    small = false,
+    single = false,
+    disabled = false,
+    placeholder = null,
+    extraClasses = '',
+    renderSelectedItem = (item) => item?.label,
+    minSearchItems = MIN_SEARCH_ITEMS_DEFAULT,
 }) => {
     const Translator = getTranslator();
     const containerRef = useRef();
@@ -280,16 +280,6 @@ Dropdown.propTypes = {
     extraClasses: PropTypes.string,
     renderSelectedItem: PropTypes.func,
     minSearchItems: PropTypes.number,
-};
-
-Dropdown.defaultProps = {
-    small: false,
-    single: false,
-    disabled: false,
-    placeholder: null,
-    extraClasses: '',
-    renderSelectedItem: (item) => item?.label,
-    minSearchItems: MIN_SEARCH_ITEMS_DEFAULT,
 };
 
 export default Dropdown;

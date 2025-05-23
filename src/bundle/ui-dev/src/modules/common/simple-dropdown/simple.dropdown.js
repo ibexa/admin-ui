@@ -4,7 +4,15 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 import Icon from '../icon/icon';
 
-const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, isDisabled, selectedItemLabel, isSwitcher }) => {
+const SimpleDropdown = ({
+    options,
+    selectedOption,
+    extraClasses = '',
+    onOptionClick,
+    isDisabled = false,
+    selectedItemLabel = '',
+    isSwitcher = false,
+}) => {
     const containerRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
     const dropdownClass = createCssClassNames({
@@ -120,13 +128,6 @@ SimpleDropdown.propTypes = {
     isDisabled: PropTypes.bool,
     selectedItemLabel: PropTypes.string,
     isSwitcher: PropTypes.bool,
-};
-
-SimpleDropdown.defaultProps = {
-    isDisabled: false,
-    extraClasses: '',
-    selectedItemLabel: '',
-    isSwitcher: false,
 };
 
 export default SimpleDropdown;

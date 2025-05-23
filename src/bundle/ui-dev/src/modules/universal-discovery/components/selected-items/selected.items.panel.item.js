@@ -13,7 +13,7 @@ import { SelectedItemsContext } from '../../universal.discovery.module';
 
 import { REMOVE_SELECTED_ITEMS } from '../../hooks/useSelectedItemsReducer';
 
-const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraContent }) => {
+const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraContent = null }) => {
     const adminUiConfig = getAdminUiConfig();
     const Translator = getTranslator();
     const refSelectedLocationsItem = useRef(null);
@@ -83,10 +83,6 @@ SelectedItemsPanelItem.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.node.isRequired,
     extraContent: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-};
-
-SelectedItemsPanelItem.defaultProps = {
-    extraContent: null,
 };
 
 export default SelectedItemsPanelItem;

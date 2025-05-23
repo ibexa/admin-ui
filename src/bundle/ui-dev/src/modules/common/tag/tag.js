@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const Tag = ({ content, onRemove, isDeletable, extraClasses }) => {
+const Tag = ({ content, onRemove = () => {}, isDeletable = true, extraClasses = '' }) => {
     const className = createCssClassNames({
         'ibexa-tag': true,
         'ibexa-tag--deletable': isDeletable,
@@ -25,12 +25,6 @@ Tag.propTypes = {
     onRemove: PropTypes.func,
     isDeletable: PropTypes.bool,
     extraClasses: PropTypes.string,
-};
-
-Tag.defaultProps = {
-    onRemove: () => {},
-    isDeletable: true,
-    extraClasses: '',
 };
 
 export default Tag;

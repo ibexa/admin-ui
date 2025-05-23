@@ -97,8 +97,7 @@ const iconsMap = {
     warning: Warning,
 };
 
-const InculdedIcon = (props) => {
-    const { name, cssClass, defaultIconName } = props;
+const InculdedIcon = ({ name = 'about-info', cssClass = '', defaultIconName = 'about-info' }) => {
     const IconComponent = iconsMap[name] ?? iconsMap[defaultIconName];
 
     return <IconComponent className={cssClass} />;
@@ -108,12 +107,6 @@ InculdedIcon.propTypes = {
     cssClass: PropTypes.string,
     name: PropTypes.string,
     defaultIconName: PropTypes.string,
-};
-
-InculdedIcon.defaultProps = {
-    cssClass: '',
-    name: 'about-info',
-    defaultIconName: 'about-info',
 };
 
 export default InculdedIcon;

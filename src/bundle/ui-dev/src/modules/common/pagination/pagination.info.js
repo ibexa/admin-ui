@@ -4,7 +4,7 @@ import { createCssClassNames } from '../helpers/css.class.names';
 
 import { getTranslator } from '../../../../../Resources/public/js/scripts/helpers/context.helper';
 
-const PaginationInfo = ({ totalCount, viewingCount, extraClasses }) => {
+const PaginationInfo = ({ totalCount, viewingCount, extraClasses = '' }) => {
     if (totalCount === 0) {
         return null;
     }
@@ -29,10 +29,6 @@ PaginationInfo.propTypes = {
     totalCount: PropTypes.number.isRequired,
     viewingCount: PropTypes.number.isRequired,
     extraClasses: PropTypes.string,
-};
-
-PaginationInfo.defaultProps = {
-    extraClasses: '',
 };
 
 export default PaginationInfo;

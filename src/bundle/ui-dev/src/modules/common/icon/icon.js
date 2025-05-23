@@ -7,20 +7,20 @@ import { createCssClassNames } from '../helpers/css.class.names';
 import UrlIcon from './urlIcon';
 import InculdedIcon from './inculdedIcon';
 
-const Icon = (props) => {
+const Icon = ({ extraClasses = '', name = null, customPath = '', useIncludedIcon = false, defaultIconName = 'about-info' }) => {
     const cssClass = createCssClassNames({
         'ibexa-icon': true,
-        [props.extraClasses]: true,
+        [extraClasses]: true,
     });
 
-    const isIconIncluded = props.useIncludedIcon || isExternalInstance();
+    const isIconIncluded = useIncludedIcon || isExternalInstance();
 
     return (
         <>
             {isIconIncluded ? (
-                <InculdedIcon cssClass={cssClass} name={props.name} defaultIconName={props.defaultIconName} />
+                <InculdedIcon cssClass={cssClass} name={name} defaultIconName={defaultIconName} />
             ) : (
-                <UrlIcon cssClass={cssClass} name={props.name} customPath={props.customPath} />
+                <UrlIcon cssClass={cssClass} name={name} customPath={customPath} />
             )}
         </>
     );
@@ -32,14 +32,6 @@ Icon.propTypes = {
     customPath: PropTypes.string,
     useIncludedIcon: PropTypes.bool,
     defaultIconName: PropTypes.string,
-};
-
-Icon.defaultProps = {
-    customPath: null,
-    name: null,
-    extraClasses: null,
-    useIncludedIcon: false,
-    defaultIconName: 'about-info',
 };
 
 export default Icon;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ThreeStateCheckboxComponent = ({ indeterminate, ...restOfProps }) => (
+const ThreeStateCheckboxComponent = ({ indeterminate = false, ...restOfProps }) => (
     <input
         {...restOfProps}
         type="checkbox"
@@ -15,10 +15,6 @@ const ThreeStateCheckboxComponent = ({ indeterminate, ...restOfProps }) => (
 
 ThreeStateCheckboxComponent.propTypes = {
     indeterminate: PropTypes.bool,
-};
-
-ThreeStateCheckboxComponent.defaultProps = {
-    indeterminate: false,
 };
 
 export default ThreeStateCheckboxComponent;

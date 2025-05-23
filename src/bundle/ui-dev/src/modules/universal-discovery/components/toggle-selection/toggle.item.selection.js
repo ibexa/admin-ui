@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { MultipleConfigContext, SelectedItemsContext } from '../../universal.discovery.module';
 
-const ToggleItemSelection = ({ item, isDisabled, isPreselected, isHidden, isIndeterminate }) => {
+const ToggleItemSelection = ({ item, isDisabled = false, isPreselected = false, isHidden = false, isIndeterminate = false }) => {
     const { selectedItems } = useContext(SelectedItemsContext);
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const inputRef = useRef(null);
@@ -44,13 +44,6 @@ ToggleItemSelection.propTypes = {
     isDisabled: PropTypes.bool,
     isPreselected: PropTypes.bool,
     isIndeterminate: PropTypes.bool,
-};
-
-ToggleItemSelection.defaultProps = {
-    isHidden: false,
-    isDisabled: false,
-    isPreselected: false,
-    isIndeterminate: false,
 };
 
 export default ToggleItemSelection;

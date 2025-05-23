@@ -2,10 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getViewComponent } from '../../services/view.registry';
 
-const SubItemsListComponent = (props) => {
-    const Component = getViewComponent(props.activeView);
+const SubItemsListComponent = ({
+    activeView,
+    items = [],
+    handleItemPriorityUpdate,
+    handleEditItem,
+    generateLink,
+    languages,
+    onItemSelect,
+    toggleAllItemsSelect,
+    selectedLocationsIds,
+    onSortChange,
+    sortClause,
+    sortOrder,
+    languageContainerSelector,
+}) => {
+    const Component = getViewComponent(activeView);
 
-    return <Component {...props} />;
+    return (
+        <Component
+            {...{
+                activeView,
+                items,
+                handleItemPriorityUpdate,
+                handleEditItem,
+                generateLink,
+                languages,
+                onItemSelect,
+                toggleAllItemsSelect,
+                selectedLocationsIds,
+                onSortChange,
+                sortClause,
+                sortOrder,
+                languageContainerSelector,
+            }}
+        />
+    );
 };
 
 SubItemsListComponent.propTypes = {
@@ -22,10 +54,6 @@ SubItemsListComponent.propTypes = {
     sortClause: PropTypes.string.isRequired,
     sortOrder: PropTypes.string.isRequired,
     languageContainerSelector: PropTypes.string.isRequired,
-};
-
-SubItemsListComponent.defaultProps = {
-    items: [],
 };
 
 export default SubItemsListComponent;

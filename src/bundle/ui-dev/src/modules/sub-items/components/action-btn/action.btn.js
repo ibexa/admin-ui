@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const ActionButton = (props) => {
-    const { disabled, onClick, label, title, type } = props;
+const ActionButton = ({ disabled, onClick, label = null, title = null, type }) => {
     const handleClick = () => {
         if (!disabled) {
             onClick();
@@ -31,11 +30,6 @@ ActionButton.propTypes = {
     disabled: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-};
-
-ActionButton.defaultProps = {
-    label: null,
-    title: null,
 };
 
 export default ActionButton;

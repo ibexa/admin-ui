@@ -23,20 +23,20 @@ const MODAL_SIZE_CLASS = {
 
 const Popup = ({
     isVisible,
-    onClose,
+    onClose = null,
     children,
-    title,
-    subtitle,
-    hasFocus,
-    noKeyboard,
+    title = null,
+    subtitle = null,
+    hasFocus = true,
+    noKeyboard = false,
     actionBtnsConfig,
-    size,
-    noHeader,
-    noFooter,
-    noCloseBtn,
-    extraClasses,
-    showTooltip,
-    subheader,
+    size = 'large',
+    noHeader = false,
+    noFooter = false,
+    noCloseBtn = false,
+    extraClasses = '',
+    showTooltip = true,
+    subheader = null,
 }) => {
     const rootDOMElement = getRootDOMElement();
     const modalRef = useRef(null);
@@ -196,21 +196,6 @@ Popup.propTypes = {
     extraClasses: PropTypes.string,
     showTooltip: PropTypes.bool,
     subheader: PropTypes.node,
-};
-
-Popup.defaultProps = {
-    hasFocus: true,
-    noKeyboard: false,
-    onClose: null,
-    size: 'large',
-    noHeader: false,
-    noFooter: false,
-    noCloseBtn: false,
-    extraClasses: '',
-    title: null,
-    subtitle: null,
-    showTooltip: true,
-    subheader: null,
 };
 
 export default Popup;

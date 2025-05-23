@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const Table = ({ extraClasses, children, isLastColumnSticky }) => {
+const Table = ({ extraClasses = '', children = null, isLastColumnSticky = false }) => {
     const scrollableWrapperRef = useRef(null);
     const [hasLastColumnShadow, setHasLastColumnShadow] = useState(false);
     const className = createCssClassNames({
@@ -66,12 +66,6 @@ Table.propTypes = {
     extraClasses: PropTypes.string,
     children: PropTypes.element,
     isLastColumnSticky: PropTypes.bool,
-};
-
-Table.defaultProps = {
-    extraClasses: '',
-    children: null,
-    isLastColumnSticky: false,
 };
 
 export default Table;
