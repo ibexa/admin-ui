@@ -48,6 +48,10 @@ class Assets extends AbstractParser
                     ->scalarNode('default_icon_set')
                         ->isRequired()
                     ->end()
+                    ->arrayNode('icon_map')
+                        ->useAttributeAsKey('name')
+                        ->scalarPrototype()->end()
+                    ->end()
                 ->end()
             ->end();
     }
