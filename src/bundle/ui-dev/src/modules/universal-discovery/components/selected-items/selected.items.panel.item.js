@@ -19,7 +19,7 @@ const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraC
     const refSelectedLocationsItem = useRef(null);
     const { dispatchSelectedItemsAction } = useContext(SelectedItemsContext);
     const removeItemLabel = Translator.trans(
-        /*@Desc("Clear selection")*/ 'selected_items_panel.item.remove_item',
+        /* @Desc("Clear selection") */ 'selected_items_panel.item.remove_item',
         {},
         'ibexa_universal_discovery_widget',
     );

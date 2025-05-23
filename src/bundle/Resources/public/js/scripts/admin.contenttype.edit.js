@@ -17,7 +17,7 @@
     const addGroupTriggerBtn = sectionsNode.querySelector('.ibexa-content-type-edit__add-field-definitions-group-btn');
     const fieldDefinitionsGroups = doc.querySelectorAll('.ibexa-collapse--field-definitions-group');
     const noFieldsAddedError = Translator.trans(
-        /*@Desc("You have to add at least one field definition")*/ 'content_type.edit.error.no_added_fields_definition',
+        /* @Desc("You have to add at least one field definition") */ 'content_type.edit.error.no_added_fields_definition',
         {},
         'ibexa_content_type',
     );

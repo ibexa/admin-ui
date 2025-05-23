@@ -21,7 +21,7 @@
         event.preventDefault();
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-        const title = Translator.trans(/*@Desc("Select destination")*/ 'move.title', {}, 'ibexa_universal_discovery_widget');
+        const title = Translator.trans(/* @Desc("Select destination") */ 'move.title', {}, 'ibexa_universal_discovery_widget');
 
         udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(

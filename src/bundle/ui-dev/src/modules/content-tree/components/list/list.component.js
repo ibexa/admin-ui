@@ -24,7 +24,7 @@ const List = ({
     const renderNoSubitemMessage = () => {
         const [rootLocation] = items;
         const isRootLoaded = rootLocation;
-        const noSubitemsMessage = Translator.trans(/*@Desc("This Location has no sub-items")*/ 'no_subitems', {}, 'ibexa_content_tree');
+        const noSubitemsMessage = Translator.trans(/* @Desc("This Location has no sub-items") */ 'no_subitems', {}, 'ibexa_content_tree');
 
         if (!isRoot || !isRootLoaded || (rootLocation.subitems && rootLocation.subitems.length)) {
             return;

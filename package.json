@@ -2,18 +2,20 @@
     "name": "admin-ui",
     "repository": "git@github.com:ibexa/admin-ui.git",
     "private": true,
-    "prettier": "eslint-config-ibexa/prettier",
+    "prettier": "@ibexa/eslint-config/prettier",
     "dependencies": {},
     "devDependencies": {
-        "eslint-config-ibexa": "https://github.com/ibexa/eslint-config-ibexa.git#~v1.2.0",
-        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#~v1.0.0",
-        "@types/react": "^18.3.11",
-        "@types/react-dom": "^18.3.1"
+        "@ibexa/eslint-config": "https://github.com/ibexa/eslint-config-ibexa.git#~v2.0.0",
+        "@ibexa/ts-config": "https://github.com/ibexa/ts-config-ibexa#~v1.1.0",
+        "@types/react": "^19.1.2",
+        "@types/react-dom": "^19.1.2"
     },
     "scripts": {
-        "test": "yarn prettier-test && yarn eslint-test",
+        "test": "yarn prettier-test && yarn ts-test && yarn eslint-test",
         "fix": "yarn prettier-test --write && yarn eslint-test --fix",
+        "ts-test": "tsc --noEmit",
         "eslint-test": "eslint \"./src/bundle/Resources/**/*.{js,ts}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\"",
-        "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check"
+        "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check",
+        "postinstall": "yarn ibexa-generate-tsconfig --use-root-project-tsconfig"
     }
 }

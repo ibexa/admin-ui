@@ -14,7 +14,7 @@ const PaginationInfo = ({ totalCount, viewingCount, extraClasses = '' }) => {
         [extraClasses]: true,
     });
     const message = Translator.trans(
-        /*@Desc("Viewing %viewingCount% out of %totalCount% items")*/ 'pagination.info.viewing_message',
+        /* @Desc("Viewing %viewingCount% out of %totalCount% items") */ 'pagination.info.viewing_message',
         {
             viewingCount,
             totalCount,

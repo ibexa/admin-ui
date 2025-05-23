@@ -60,7 +60,7 @@ export default class DropAreaComponent extends Component {
         return (
             <li className="c-drop-area__max-file-size-item">
                 <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
-                {Translator.trans(/*@Desc("Max. file size")*/ 'max_file_size.message.general', {}, 'ibexa_multi_file_upload')}
+                {Translator.trans(/* @Desc("Max. file size") */ 'max_file_size.message.general', {}, 'ibexa_multi_file_upload')}
                 <button
                     type="button"
                     className="c-drop-area__max-file-size-toggle-btn"
@@ -88,7 +88,7 @@ export default class DropAreaComponent extends Component {
                                 <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
                             )}
                             {Translator.trans(
-                                /*@Desc("%contentTypeName% max file size: %maxFileSize%")*/ 'max_file_size.message',
+                                /* @Desc("%contentTypeName% max file size: %maxFileSize%") */ 'max_file_size.message',
                                 {
                                     contentTypeName: contentType.name,
                                     maxFileSize: fileSizeToString(contentType.maxFileSize),
@@ -116,9 +116,9 @@ export default class DropAreaComponent extends Component {
 
     render() {
         const Translator = getTranslator();
-        const dropActionMessage = Translator.trans(/*@Desc("Drag and drop file")*/ 'drop_action.message', {}, 'ibexa_multi_file_upload');
-        const separatorMessage = Translator.trans(/*@Desc("or")*/ 'drop_action.separator', {}, 'ibexa_multi_file_upload');
-        const uploadBtnLabel = Translator.trans(/*@Desc("Upload file")*/ 'upload_btn.label', {}, 'ibexa_multi_file_upload');
+        const dropActionMessage = Translator.trans(/* @Desc("Drag and drop file") */ 'drop_action.message', {}, 'ibexa_multi_file_upload');
+        const separatorMessage = Translator.trans(/* @Desc("or") */ 'drop_action.separator', {}, 'ibexa_multi_file_upload');
+        const uploadBtnLabel = Translator.trans(/* @Desc("Upload file") */ 'upload_btn.label', {}, 'ibexa_multi_file_upload');
         const maxFilesSizeListClassNames = createCssClassNames({
             'c-drop-area__max-files-size': true,
             'c-drop-area__max-files-size--expanded': this.state.filesSizeExpanded,

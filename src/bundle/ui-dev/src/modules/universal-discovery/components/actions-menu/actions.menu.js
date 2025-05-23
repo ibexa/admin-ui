@@ -18,8 +18,8 @@ const ActionsMenu = () => {
     const allowConfirmation = useContext(AllowConfirmationContext);
     const [selectedLocations] = useContext(SelectedLocationsContext);
     const { selectedItems } = useContext(SelectedItemsContext);
-    const confirmLabel = Translator.trans(/*@Desc("Confirm")*/ 'actions_menu.confirm', {}, 'ibexa_universal_discovery_widget');
-    const cancelLabel = Translator.trans(/*@Desc("Discard")*/ 'actions_menu.cancel', {}, 'ibexa_universal_discovery_widget');
+    const confirmLabel = Translator.trans(/* @Desc("Confirm") */ 'actions_menu.confirm', {}, 'ibexa_universal_discovery_widget');
+    const cancelLabel = Translator.trans(/* @Desc("Discard") */ 'actions_menu.cancel', {}, 'ibexa_universal_discovery_widget');
     const isConfirmDisabled = selectedLocations.length === 0 && selectedItems.length === 0;
     const handleConfirmBtnClick = useCallback(() => {
         if (selectedLocations.length > 0) {

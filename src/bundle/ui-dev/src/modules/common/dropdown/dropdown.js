@@ -116,7 +116,7 @@ const Dropdown = ({
         setItemsListStyles(itemsStyles);
     };
     const renderItemsList = () => {
-        const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'ibexa_universal_discovery_widget');
+        const searchPlaceholder = Translator.trans(/* @Desc("Search...") */ 'dropdown.placeholder', {}, 'ibexa_universal_discovery_widget');
         const itemsContainerClass = createCssClassNames({
             'ibexa-dropdown__items': true,
             'ibexa-dropdown__items--search-hidden': options.length < minSearchItems,

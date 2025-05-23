@@ -20,13 +20,13 @@ export const registerView = (viewName, { component, iconName, label }) => {
 registerView(VIEW_MODE_TABLE, {
     component: TableViewComponent,
     iconName: 'view-list',
-    label: Translator.trans(/*@Desc("List view")*/ 'view_switcher.list_view', {}, 'ibexa_sub_items'),
+    label: Translator.trans(/* @Desc("List view") */ 'view_switcher.list_view', {}, 'ibexa_sub_items'),
 });
 
 registerView(VIEW_MODE_GRID, {
     component: GridViewComponent,
     iconName: 'view-grid',
-    label: Translator.trans(/*@Desc("Grid view")*/ 'view_switcher.grid_view', {}, 'ibexa_sub_items'),
+    label: Translator.trans(/* @Desc("Grid view") */ 'view_switcher.grid_view', {}, 'ibexa_sub_items'),
 });
 
 export const getViewComponent = (viewName) => viewRegistry.get(viewName)?.component;

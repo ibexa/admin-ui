@@ -35,10 +35,14 @@ const ContentMetaPreview = () => {
     const restInfo = useContext(RestInfoContext);
     const allowRedirects = useContext(AllowRedirectsContext);
     const locationData = useMemo(() => findMarkedLocation(loadedLocationsMap, markedLocationId), [markedLocationId, loadedLocationsMap]);
-    const lastModifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'meta_preview.last_modified', {}, 'ibexa_universal_discovery_widget');
-    const creationDateLabel = Translator.trans(/*@Desc("Created")*/ 'meta_preview.creation_date', {}, 'ibexa_universal_discovery_widget');
+    const lastModifiedLabel = Translator.trans(
+        /* @Desc("Modified") */ 'meta_preview.last_modified',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
+    const creationDateLabel = Translator.trans(/* @Desc("Created") */ 'meta_preview.creation_date', {}, 'ibexa_universal_discovery_widget');
     const translationsLabel = Translator.trans(
-        /*@Desc("Translations")*/ 'meta_preview.translations',
+        /* @Desc("Translations") */ 'meta_preview.translations',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -70,15 +74,15 @@ const ContentMetaPreview = () => {
         );
     };
     const renderActions = () => {
-        const previewLabel = Translator.trans(/*@Desc("Preview")*/ 'meta_preview.preview', {}, 'ibexa_universal_discovery_widget');
-        const editLabel = Translator.trans(/*@Desc("Edit")*/ 'meta_preview.edit', {}, 'ibexa_universal_discovery_widget');
+        const previewLabel = Translator.trans(/* @Desc("Preview") */ 'meta_preview.preview', {}, 'ibexa_universal_discovery_widget');
+        const editLabel = Translator.trans(/* @Desc("Edit") */ 'meta_preview.edit', {}, 'ibexa_universal_discovery_widget');
         const bookmarksAddLabel = Translator.trans(
-            /*@Desc("Add to bookmarks")*/ 'meta_preview.bookmarks_add',
+            /* @Desc("Add to bookmarks") */ 'meta_preview.bookmarks_add',
             {},
             'ibexa_universal_discovery_widget',
         );
         const bookmarksRemoveLabel = Translator.trans(
-            /*@Desc("Remove from bookmarks")*/ 'meta_preview.bookrmarks_remove',
+            /* @Desc("Remove from bookmarks") */ 'meta_preview.bookrmarks_remove',
             {},
             'ibexa_universal_discovery_widget',
         );

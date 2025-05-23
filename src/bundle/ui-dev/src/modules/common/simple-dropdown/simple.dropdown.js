@@ -69,7 +69,7 @@ const SimpleDropdown = ({
 
         return (
             <span className="c-simple-dropdown__selected-item-label">
-                {selectedItemLabel.length ? selectedItemLabel : selectedOption.label ?? selectedOption.getLabel()}
+                {selectedItemLabel.length ? selectedItemLabel : (selectedOption.label ?? selectedOption.getLabel())}
             </span>
         );
     };
