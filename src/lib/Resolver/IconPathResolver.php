@@ -67,10 +67,11 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
 
     private function iconMapping(string $icon): string
     {
-      $iconsMap =  $this->configResolver->getParameter('assets.icon_map');
+      $iconsMap = $this->configResolver->getParameter('assets.icon_map');
         if (isset($iconsMap[$icon])) {
             return $iconsMap[$icon];
         }
+
         return $icon;
     }
 }
