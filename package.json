@@ -12,7 +12,7 @@
     },
     "scripts": {
         "test": "yarn prettier-test && yarn ts-test && yarn eslint-test",
-        "fix": "yarn prettier-test --write && yarn eslint-test --fix",
+        "fix": "yarn prettier-test --write && yarn ts-test && yarn eslint-test --fix",
         "ts-test": "tsc --noEmit",
         "eslint-test": "eslint \"./src/bundle/Resources/**/*.{js,ts}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\"",
         "prettier-test": "yarn prettier \"./src/bundle/Resources/**/*.{js,ts,scss}\" \"./src/bundle/ui-dev/**/*.{js,tsx}\" --check",
