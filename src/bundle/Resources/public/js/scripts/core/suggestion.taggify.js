@@ -2,6 +2,7 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 
 (function (global, doc, ibexa) {
     const MIN_QUERY_LENGTH = 3;
+    const SUGGESTIONS_LIST_BOTTOM_MARGIN = 16;
 
     class SuggestionTaggify extends ibexa.core.Taggify {
         constructor(config) {
@@ -15,6 +16,21 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 
             this.renderSuggestionsList = this.renderSuggestionsList.bind(this);
             this.getItemsFromResponse = this.getItemsFromResponse.bind(this);
+            this.updateSuggestionsMaxHeight = this.updateSuggestionsMaxHeight.bind(this);
+        }
+
+        updateSuggestionsMaxHeight() {
+            if (this.suggestionsListNode.classList.contains('ibexa-taggify__suggestions--hidden')) {
+                return;
+            }
+
+            const suggestionRect = this.suggestionsListNode.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            const topOffset = suggestionRect.top;
+            const countedMaxHeight = windowHeight - topOffset - SUGGESTIONS_LIST_BOTTOM_MARGIN;
+            const maxHeight = this.suggestionsListMaxHeight ? Math.min(this.suggestionsListMaxHeight, countedMaxHeight) : countedMaxHeight;
+
+            this.suggestionsListNode.style.maxHeight = `${maxHeight}px`;
         }
 
         hideSuggestionsList() {
@@ -133,6 +149,8 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
                     this.hideSuggestionsList();
                 }
             });
+
+            window.addEventListener('resize', this.updateSuggestionsMaxHeight);
         }
     }
 
