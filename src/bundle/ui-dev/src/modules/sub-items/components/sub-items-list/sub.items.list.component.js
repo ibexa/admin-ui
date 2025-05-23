@@ -21,21 +21,19 @@ const SubItemsListComponent = ({
 
     return (
         <Component
-            {...{
-                activeView,
-                items,
-                handleItemPriorityUpdate,
-                handleEditItem,
-                generateLink,
-                languages,
-                onItemSelect,
-                toggleAllItemsSelect,
-                selectedLocationsIds,
-                onSortChange,
-                sortClause,
-                sortOrder,
-                languageContainerSelector,
-            }}
+            activeView={activeView}
+            items={items}
+            handleItemPriorityUpdate={handleItemPriorityUpdate}
+            handleEditItem={handleEditItem}
+            generateLink={generateLink}
+            languages={languages}
+            onItemSelect={onItemSelect}
+            toggleAllItemsSelect={toggleAllItemsSelect}
+            selectedLocationsIds={selectedLocationsIds}
+            onSortChange={onSortChange}
+            sortClause={sortClause}
+            sortOrder={sortOrder}
+            languageContainerSelector={languageContainerSelector}
         />
     );
 };
