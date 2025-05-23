@@ -27,7 +27,8 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
             const suggestionRect = this.suggestionsListNode.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             const topOffset = suggestionRect.top;
-            const maxHeight = windowHeight - topOffset - SUGGESTIONS_LIST_BOTTOM_MARGIN;
+            const countedMaxHeight = windowHeight - topOffset - SUGGESTIONS_LIST_BOTTOM_MARGIN;
+            const maxHeight = this.suggestionsListMaxHeight ? Math.min(this.suggestionsListMaxHeight, countedMaxHeight) : countedMaxHeight;
 
             this.suggestionsListNode.style.maxHeight = `${maxHeight}px`;
         }
