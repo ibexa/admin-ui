@@ -68,7 +68,7 @@
                 }
 
                 showErrorNotification(
-                    Translator.trans(/*@Desc("Cannot load suggestions")*/ 'autocomplete.request.error', {}, 'ibexa_search'),
+                    Translator.trans(/* @Desc("Cannot load suggestions") */ 'autocomplete.request.error', {}, 'ibexa_search'),
                 );
             });
     };

@@ -32,7 +32,7 @@
             credentials: 'same-origin',
         });
         const errorMessage = Translator.trans(
-            /*@Desc("Cannot find children Locations with ID %idList%")*/ 'select_location.error',
+            /* @Desc("Cannot find children Locations with ID %idList%") */ 'select_location.error',
             { idList: idList.join(',') },
             'ibexa_universal_discovery_widget',
         );

@@ -12,11 +12,11 @@ const NoItemsComponent = () => {
                         <img className="ibexa-table__empty-table-image" src="/bundles/ibexaadminui/img/ibexa-empty-table.svg" />
                         <div className="ibexa-table__empty-table-text">
                             <div className="ibexa-table__empty-table-info-text">
-                                {Translator.trans(/*@Desc("Add first sub-item")*/ 'no_items.info', {}, 'ibexa_sub_items')}
+                                {Translator.trans(/* @Desc("Add first sub-item") */ 'no_items.info', {}, 'ibexa_sub_items')}
                             </div>
                             <div className="ibexa-table__empty-table-action-text">
                                 {Translator.trans(
-                                    /*@Desc("Add sub-items by uploading or use the ‘Create’ button in the top right corner to populate this section.")*/ 'no_items.action',
+                                    /* @Desc("Add sub-items by uploading or use the ‘Create’ button in the top right corner to populate this section.") */ 'no_items.action',
                                     {},
                                     'ibexa_sub_items',
                                 )}

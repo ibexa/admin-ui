@@ -22,7 +22,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const clearLabel = Translator.trans(
-        /*@Desc("Clear selection")*/ 'selected_locations.clear_selection',
+        /* @Desc("Clear selection") */ 'selected_locations.clear_selection',
         {},
         'ibexa_universal_discovery_widget',
     );

@@ -77,7 +77,7 @@ const Search = ({ itemsPerPage = 50 }) => {
     const renderCustomTableHeader = () => {
         const selectedLanguageName = languages.mappings[selectedLanguage].name;
         const searchResultsTitle = Translator.trans(
-            /*@Desc("Results for “%search_phrase%” (%total%)")*/ 'search.search_results',
+            /* @Desc("Results for “%search_phrase%” (%total%)") */ 'search.search_results',
             {
                 search_phrase: searchText,
                 total: data.count,
@@ -85,12 +85,12 @@ const Search = ({ itemsPerPage = 50 }) => {
             'ibexa_universal_discovery_widget',
         );
         const searchResultsSubtitle = Translator.trans(
-            /*@Desc("in %search_language%")*/ 'search.search_results.in_language',
+            /* @Desc("in %search_language%") */ 'search.search_results.in_language',
             { search_language: selectedLanguageName },
             'ibexa_universal_discovery_widget',
         );
         const searchResultsClearBtnLabel = Translator.trans(
-            /*@Desc("Clear results")*/ 'search.search_results.clear_btn.label',
+            /* @Desc("Clear results") */ 'search.search_results.clear_btn.label',
             {},
             'ibexa_universal_discovery_widget',
         );

@@ -16,7 +16,7 @@ const ViewSwitcherComponent = ({ onViewChange, activeView, isDisabled }) => {
         onViewChange(value);
     };
 
-    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_sub_items');
+    const viewLabel = Translator.trans(/* @Desc("View") */ 'view_switcher.view', {}, 'ibexa_sub_items');
     const viewOptions = getViewSwitcherOptions();
     const selectedOption = viewOptions.find((option) => option.value === activeView) ?? viewOptions[0];
 

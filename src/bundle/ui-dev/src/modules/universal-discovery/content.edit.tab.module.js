@@ -103,7 +103,7 @@ const ContentEditTab = {
     getLabel: () => {
         const Translator = getTranslator();
 
-        return Translator.trans(/*@Desc("Content edit")*/ 'content_edit.label', {}, 'ibexa_universal_discovery_widget');
+        return Translator.trans(/* @Desc("Content edit") */ 'content_edit.label', {}, 'ibexa_universal_discovery_widget');
     },
     isHiddenOnList: true,
 };

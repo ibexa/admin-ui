@@ -20,7 +20,7 @@
 
         if (numberOfSubitems) {
             const message = Translator.trans(
-                /*@Desc("Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.")*/ 'trash_container.modal.message_main',
+                /* @Desc("Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.") */ 'trash_container.modal.message_main',
                 {
                     content: contentName,
                     children_count: numberOfSubitems,
@@ -31,7 +31,7 @@
             modalBody.querySelector('.ibexa-modal__option-description').innerHTML = message;
         } else {
             const message = Translator.trans(
-                /*@Desc("Are you sure you want to send this Content item to Trash?")*/ 'trash.modal.message',
+                /* @Desc("Are you sure you want to send this Content item to Trash?") */ 'trash.modal.message',
                 {},
                 'ibexa_content',
             );

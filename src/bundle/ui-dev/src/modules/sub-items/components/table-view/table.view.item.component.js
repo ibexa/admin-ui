@@ -269,8 +269,8 @@ export default class TableViewItemComponent extends PureComponent {
     renderVisibilityCell() {
         const Translator = getTranslator();
         const { invisible, hidden } = this.props.item;
-        const visibleLabel = Translator.trans(/*@Desc("Visible")*/ 'items_table.row.visible.label', {}, 'ibexa_sub_items');
-        const notVisibleLabel = Translator.trans(/*@Desc("Not Visible")*/ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
+        const visibleLabel = Translator.trans(/* @Desc("Visible") */ 'items_table.row.visible.label', {}, 'ibexa_sub_items');
+        const notVisibleLabel = Translator.trans(/* @Desc("Not Visible") */ 'items_table.row.not_visible.label', {}, 'ibexa_sub_items');
         const isVisible = !invisible && !hidden;
         const label = isVisible ? visibleLabel : notVisibleLabel;
         const badgeClasses = createCssClassNames({
@@ -400,7 +400,7 @@ export default class TableViewItemComponent extends PureComponent {
         const Translator = getTranslator();
         const languages = this.props.languages.mappings;
         const { languageCodes } = this.props.item;
-        const label = Translator.trans(/*@Desc("Select language")*/ 'languages.modal.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Select language") */ 'languages.modal.label', {}, 'ibexa_sub_items');
         const languageItems = languageCodes.map((languageCode) => ({
             label: languages[languageCode].name,
             value: languageCode,
@@ -420,7 +420,7 @@ export default class TableViewItemComponent extends PureComponent {
     render() {
         const Translator = getTranslator();
         const { isSelected, showScrollShadowRight } = this.props;
-        const editLabel = Translator.trans(/*@Desc("Edit")*/ 'edit_item_btn.label', {}, 'ibexa_sub_items');
+        const editLabel = Translator.trans(/* @Desc("Edit") */ 'edit_item_btn.label', {}, 'ibexa_sub_items');
         const actionCellClassName = createCssClassNames({
             'ibexa-table__cell': true,
             'c-table-view-item__cell': true,

@@ -4,8 +4,8 @@
     const toggleAllBtns = [...doc.querySelectorAll(`[data-multi-collapse-btn-id]`)];
     const toggleMultiCollapseBtn = (btn, changeToCollapseAll) => {
         const displayedText = changeToCollapseAll
-            ? Translator.trans(/*@Desc("Collapse all sections")*/ 'collapse.collapse_all', {}, 'ibexa_collapse')
-            : Translator.trans(/*@Desc("Expand all sections")*/ 'collapse.expand_all', {}, 'ibexa_collapse');
+            ? Translator.trans(/* @Desc("Collapse all sections") */ 'collapse.collapse_all', {}, 'ibexa_collapse')
+            : Translator.trans(/* @Desc("Expand all sections") */ 'collapse.expand_all', {}, 'ibexa_collapse');
 
         btn.innerText = displayedText;
         btn.classList.toggle('ibexa-multi-collapse__btn--expand-all-label', !changeToCollapseAll);
