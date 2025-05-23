@@ -8,7 +8,7 @@ import { MultipleConfigContext } from '../../universal.discovery.module';
 import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
-const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
+const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title = '', onPageChange, renderCustomHeader = null }) => {
     const Translator = getTranslator();
     const [multiple] = useContext(MultipleConfigContext);
     const refContentTable = useRef(null);
@@ -78,11 +78,6 @@ ContentTable.propTypes = {
     title: PropTypes.string,
     onPageChange: PropTypes.func.isRequired,
     renderCustomHeader: PropTypes.func,
-};
-
-ContentTable.defaultProps = {
-    title: '',
-    renderCustomHeader: null,
 };
 
 export default ContentTable;

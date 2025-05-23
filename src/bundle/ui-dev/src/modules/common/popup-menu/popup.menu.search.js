@@ -6,7 +6,7 @@ import Icon from '@ibexa-admin-ui/src/bundle/ui-dev/src/modules/common/icon/icon
 
 const MIN_SEARCH_ITEMS_DEFAULT = 5;
 
-const PopupMenuSearch = ({ numberOfItems, filterText, setFilterText }) => {
+const PopupMenuSearch = ({ numberOfItems, filterText = '', setFilterText }) => {
     const Translator = getTranslator();
     const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'ibexa_popup_menu.search.placeholder', {}, 'ibexa_popup_menu');
     const updateFilterValue = (event) => setFilterText(event.target.value);
@@ -54,10 +54,6 @@ PopupMenuSearch.propTypes = {
     numberOfItems: PropTypes.number.isRequired,
     setFilterText: PropTypes.func.isRequired,
     filterText: PropTypes.string,
-};
-
-PopupMenuSearch.defaultProps = {
-    filterText: '',
 };
 
 export default PopupMenuSearch;

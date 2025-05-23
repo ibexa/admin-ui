@@ -14,7 +14,7 @@ import {
     ContentTypesMapContext,
 } from '../..//universal.discovery.module';
 
-const ContentEditButton = ({ version, location, isDisabled, label }) => {
+const ContentEditButton = ({ version, location, isDisabled, label = null }) => {
     const Routing = getRouting();
     const adminUiConfig = getAdminUiConfig();
     const restInfo = useContext(RestInfoContext);
@@ -132,10 +132,6 @@ ContentEditButton.propTypes = {
     version: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
     label: PropTypes.node,
-};
-
-ContentEditButton.defaultProps = {
-    label: null,
 };
 
 export default ContentEditButton;

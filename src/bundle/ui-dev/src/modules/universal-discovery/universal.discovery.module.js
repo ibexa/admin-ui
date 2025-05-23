@@ -203,16 +203,40 @@ export const GridActiveLocationIdContext = createContext();
 export const SnackbarActionsContext = createContext();
 export const ViewContext = createContext();
 
-const UniversalDiscoveryModule = (props) => {
+const UniversalDiscoveryModule = ({
+    onConfirm,
+    onItemsConfirm = () => {},
+    onCancel = null,
+    title,
+    activeTab = 'browse',
+    rootLocationId = 1,
+    startingLocationId = null,
+    multiple = false,
+    multipleItemsLimit = 1,
+    containersOnly = false,
+    allowedContentTypes,
+    activeSortClause = 'date',
+    activeSortOrder = 'ascending',
+    activeView = 'finder',
+    contentOnTheFly,
+    tabsConfig,
+    selectedLocations = [],
+    initSelectedItems = [],
+    isInitLocationsDeselectionBlocked = false,
+    deselectAlertTitle = null,
+    allowRedirects,
+    allowConfirmation,
+    restInfo = defaultRestInfo,
+    snackbarEnabledActions = Object.values(SNACKBAR_ACTIONS),
+}) => {
     const Translator = getTranslator();
-    const { restInfo } = props;
     const adminUiConfig = getAdminUiConfig();
     const { tabs } = adminUiConfig.universalDiscoveryWidget;
-    const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
+    const defaultMarkedLocationId = startingLocationId || rootLocationId;
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
-    const [{ activeTab, previousActiveTab }, setActiveTabsData] = useState({
-        activeTab: props.activeTab,
+    const [{ activeTab: currentActiveTab, previousActiveTab }, setActiveTabsData] = useState({
+        activeTab,
         previousActiveTab: null,
     });
     const setActiveTab = (activeTabNew) =>
@@ -220,37 +244,37 @@ const UniversalDiscoveryModule = (props) => {
             activeTab: activeTabNew,
             previousActiveTab: activeTabOld,
         }));
-    const [sorting, setSorting] = useState(props.activeSortClause);
-    const [sortOrder, setSortOrder] = useState(props.activeSortOrder);
-    const [currentView, setCurrentView] = useState(props.activeView);
+    const [sorting, setSorting] = useState(activeSortClause);
+    const [sortOrder, setSortOrder] = useState(activeSortOrder);
+    const [currentView, setCurrentView] = useState(activeView);
     const [markedLocationId, setMarkedLocationId] = useState(defaultMarkedLocationId !== 1 ? defaultMarkedLocationId : null);
     const [createContentVisible, setCreateContentVisible] = useState(false);
     const [contentOnTheFlyData, setContentOnTheFlyData] = useState({});
     const [editOnTheFlyData, setEditOnTheFlyData] = useState({});
     const [contentTypesInfoMap, setContentTypesInfoMap] = useState({});
     const [isFetchLocationHookBlocked, setIsFetchLocationHookBlocked] = useState(
-        props.startingLocationId && props.startingLocationId !== 1 && props.startingLocationId !== props.rootLocationId,
+        startingLocationId && startingLocationId !== 1 && startingLocationId !== rootLocationId,
     );
     const [searchText, setSearchText] = useState('');
     const [suggestionsStorage, setSuggestionsStorage] = useState({});
     const [gridActiveLocationId, setGridActiveLocationId] = useState(markedLocationId);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useLoadedLocationsReducer([
-        { parentLocationId: props.rootLocationId, subitems: [] },
+        { parentLocationId: rootLocationId, subitems: [] },
     ]);
-    const [selectedLocations, dispatchSelectedLocationsAction] = useSelectedLocationsReducer();
+    const [selectedLocationsState, dispatchSelectedLocationsAction] = useSelectedLocationsReducer();
     const { selectedItems, dispatchSelectedItemsAction } = useSelectedItemsReducer({
-        isMultiple: props.multiple,
-        multipleItemsLimit: props.multipleItemsLimit,
+        isMultiple: multiple,
+        multipleItemsLimit,
     });
-    const activeTabConfig = tabs.find((tab) => tab.id === activeTab);
+    const activeTabConfig = tabs.find((tab) => tab.id === currentActiveTab);
     const Tab = activeTabConfig.component;
     const className = createCssClassNames({
         'm-ud': true,
-        'm-ud--locations-selected': !!selectedLocations.length && props.allowConfirmation,
+        'm-ud--locations-selected': !!selectedLocationsState.length && allowConfirmation,
     });
     const selectionConfigValue = useMemo(() => {
-        const deselectAlertTitle =
-            props.deselectAlertTitle ??
+        const deselectAlertTitleValue =
+            deselectAlertTitle ??
             Translator.trans(
                 /*@Desc("Items already added to the list are marked as selected and unable to deselect.")*/ 'init_selected_locations.alert.title',
                 {},
@@ -258,14 +282,14 @@ const UniversalDiscoveryModule = (props) => {
             );
 
         return {
-            isInitLocationsDeselectionBlocked: props.isInitLocationsDeselectionBlocked,
-            initSelectedLocationsIds: props.selectedLocations,
-            initSelectedItems: props.initSelectedItems,
-            deselectAlertTitle: deselectAlertTitle,
+            isInitLocationsDeselectionBlocked,
+            initSelectedLocationsIds: selectedLocations,
+            initSelectedItems,
+            deselectAlertTitle: deselectAlertTitleValue,
         };
     }, []);
     const loadPermissions = () => {
-        const locationIds = selectedLocations
+        const locationIds = selectedLocationsState
             .filter((item) => !item.permissions)
             .map((item) => item.location.id)
             .join(',');
@@ -281,7 +305,7 @@ const UniversalDiscoveryModule = (props) => {
         });
     };
     const loadVersions = (signal = null) => {
-        const locationsWithoutVersion = selectedLocations.filter(
+        const locationsWithoutVersion = selectedLocationsState.filter(
             (selectedItem) => !selectedItem.location.ContentInfo.Content.CurrentVersion.Version,
         );
 
@@ -315,8 +339,8 @@ const UniversalDiscoveryModule = (props) => {
             }, {}),
         [adminUiConfig.contentTypes],
     );
-    const onConfirm = useCallback(
-        (selection = selectedLocations) => {
+    const onConfirmCallback = useCallback(
+        (selection = selectedLocationsState) => {
             loadVersions().then((locationsWithVersions) => {
                 const clonedSelectedLocation = deepClone(selection);
 
@@ -341,17 +365,14 @@ const UniversalDiscoveryModule = (props) => {
                     return clonedLocation;
                 });
 
-                props.onConfirm(updatedLocations);
+                onConfirm(updatedLocations);
             });
         },
-        [selectedLocations, contentTypesInfoMap, props.onConfirm],
+        [selectedLocationsState, contentTypesInfoMap, onConfirm],
     );
-    const onItemsConfirm = useCallback(
-        (selection = selectedItems) => props.onItemsConfirm(selection),
-        [selectedItems, props.onItemsConfirm],
-    );
+    const onItemsConfirmCallback = useCallback((selection = selectedItems) => onItemsConfirm(selection), [selectedItems, onItemsConfirm]);
     const makeSearch = (value) => {
-        if (activeTab !== SEARCH_TAB_ID) {
+        if (currentActiveTab !== SEARCH_TAB_ID) {
             setActiveTab('search');
         }
 
@@ -387,7 +408,7 @@ const UniversalDiscoveryModule = (props) => {
     }, []);
 
     useEffect(() => {
-        if (!props.selectedLocations.length) {
+        if (!selectedLocations.length) {
             return;
         }
 
@@ -396,11 +417,11 @@ const UniversalDiscoveryModule = (props) => {
                 ...restInfo,
                 noLanguageCode: true,
                 useAlwaysAvailable: true,
-                id: props.selectedLocations.join(','),
-                limit: props.selectedLocations.length,
+                id: selectedLocations.join(','),
+                limit: selectedLocations.length,
             },
             (locations) => {
-                const mappedLocation = props.selectedLocations.map((locationId) => {
+                const mappedLocation = selectedLocations.map((locationId) => {
                     const location = locations.find(({ id }) => id === parseInt(locationId, 10));
 
                     return { location };
@@ -409,7 +430,7 @@ const UniversalDiscoveryModule = (props) => {
                 dispatchSelectedLocationsAction({ type: 'REPLACE_SELECTED_LOCATIONS', locations: mappedLocation });
             },
         );
-    }, [props.selectedLocations]);
+    }, [selectedLocations]);
 
     useEffect(() => {
         abortControllerRef.current?.abort();
@@ -422,7 +443,7 @@ const UniversalDiscoveryModule = (props) => {
                 return;
             }
 
-            const clonedSelectedLocation = deepClone(selectedLocations);
+            const clonedSelectedLocation = deepClone(selectedLocationsState);
 
             locationsWithPermissions.LocationList.locations.forEach((item) => {
                 const locationWithoutPermissions = clonedSelectedLocation.find(
@@ -453,7 +474,7 @@ const UniversalDiscoveryModule = (props) => {
         return () => {
             abortControllerRef.current?.abort();
         };
-    }, [selectedLocations]);
+    }, [selectedLocationsState]);
 
     useEffect(() => {
         document.body.classList.add(CLASS_SCROLL_DISABLED);
@@ -481,30 +502,26 @@ const UniversalDiscoveryModule = (props) => {
     }, [currentView]);
 
     useEffect(() => {
-        if (
-            !props.startingLocationId ||
-            props.startingLocationId === SYSTEM_ROOT_LOCATION_ID ||
-            props.startingLocationId === props.rootLocationId
-        ) {
+        if (!startingLocationId || startingLocationId === SYSTEM_ROOT_LOCATION_ID || startingLocationId === rootLocationId) {
             return;
         }
 
         loadAccordionData(
             {
                 ...restInfo,
-                parentLocationId: props.startingLocationId,
+                parentLocationId: startingLocationId,
                 sortClause: sorting,
                 sortOrder: sortOrder,
                 gridView: currentView === 'grid',
-                rootLocationId: props.rootLocationId,
+                rootLocationId,
             },
             (locationsMap) => {
                 dispatchLoadedLocationsAction({ type: 'SET_LOCATIONS', data: locationsMap });
-                setMarkedLocationId(props.startingLocationId);
+                setMarkedLocationId(startingLocationId);
                 setIsFetchLocationHookBlocked(false);
             },
         );
-    }, [props.startingLocationId]);
+    }, [startingLocationId]);
 
     useEffect(() => {
         const locationsMap = loadedLocationsMap.map((loadedLocation) => {
@@ -527,23 +544,25 @@ const UniversalDiscoveryModule = (props) => {
             <UDWContext.Provider value={true}>
                 <RestInfoContext.Provider value={restInfo}>
                     <BlockFetchLocationHookContext.Provider value={[isFetchLocationHookBlocked, setIsFetchLocationHookBlocked]}>
-                        <AllowRedirectsContext.Provider value={props.allowRedirects}>
-                            <AllowConfirmationContext.Provider value={props.allowConfirmation}>
+                        <AllowRedirectsContext.Provider value={allowRedirects}>
+                            <AllowConfirmationContext.Provider value={allowConfirmation}>
                                 <ContentTypesInfoMapContext.Provider value={contentTypesInfoMap}>
                                     <ContentTypesMapContext.Provider value={contentTypesMapGlobal}>
-                                        <MultipleConfigContext.Provider value={[props.multiple, props.multipleItemsLimit]}>
-                                            <ContainersOnlyContext.Provider value={props.containersOnly}>
-                                                <AllowedContentTypesContext.Provider value={props.allowedContentTypes}>
-                                                    <SnackbarActionsContext.Provider value={props.snackbarEnabledActions}>
+                                        <MultipleConfigContext.Provider value={[multiple, multipleItemsLimit]}>
+                                            <ContainersOnlyContext.Provider value={containersOnly}>
+                                                <AllowedContentTypesContext.Provider value={allowedContentTypes}>
+                                                    <SnackbarActionsContext.Provider value={snackbarEnabledActions}>
                                                         <ActiveTabContext.Provider
-                                                            value={[activeTab, setActiveTab, previousActiveTab, props.activeTab]}
+                                                            value={[currentActiveTab, setActiveTab, previousActiveTab, activeTab]}
                                                         >
                                                             <TabsContext.Provider value={tabs}>
-                                                                <TabsConfigContext.Provider value={props.tabsConfig}>
-                                                                    <TitleContext.Provider value={props.title}>
-                                                                        <CancelContext.Provider value={props.onCancel}>
-                                                                            <ConfirmContext.Provider value={onConfirm}>
-                                                                                <ConfirmItemsContext.Provider value={onItemsConfirm}>
+                                                                <TabsConfigContext.Provider value={tabsConfig}>
+                                                                    <TitleContext.Provider value={title}>
+                                                                        <CancelContext.Provider value={onCancel}>
+                                                                            <ConfirmContext.Provider value={onConfirmCallback}>
+                                                                                <ConfirmItemsContext.Provider
+                                                                                    value={onItemsConfirmCallback}
+                                                                                >
                                                                                     <SortingContext.Provider value={[sorting, setSorting]}>
                                                                                         <SortOrderContext.Provider
                                                                                             value={[sortOrder, setSortOrder]}
@@ -563,7 +582,7 @@ const UniversalDiscoveryModule = (props) => {
                                                                                                         ]}
                                                                                                     >
                                                                                                         <StartingLocationIdContext.Provider
-                                                                                                            value={props.startingLocationId}
+                                                                                                            value={startingLocationId}
                                                                                                         >
                                                                                                             <GridActiveLocationIdContext.Provider
                                                                                                                 value={[
@@ -579,7 +598,7 @@ const UniversalDiscoveryModule = (props) => {
                                                                                                                 >
                                                                                                                     <RootLocationIdContext.Provider
                                                                                                                         value={
-                                                                                                                            props.rootLocationId
+                                                                                                                            rootLocationId
                                                                                                                         }
                                                                                                                     >
                                                                                                                         <SelectionConfigContext.Provider
@@ -595,7 +614,7 @@ const UniversalDiscoveryModule = (props) => {
                                                                                                                             >
                                                                                                                                 <SelectedLocationsContext.Provider
                                                                                                                                     value={[
-                                                                                                                                        selectedLocations,
+                                                                                                                                        selectedLocationsState,
                                                                                                                                         dispatchSelectedLocationsAction,
                                                                                                                                     ]}
                                                                                                                                 >
@@ -619,7 +638,7 @@ const UniversalDiscoveryModule = (props) => {
                                                                                                                                             >
                                                                                                                                                 <ContentOnTheFlyConfigContext.Provider
                                                                                                                                                     value={
-                                                                                                                                                        props.contentOnTheFly
+                                                                                                                                                        contentOnTheFly
                                                                                                                                                     }
                                                                                                                                                 >
                                                                                                                                                     <EditOnTheFlyDataContext.Provider
@@ -726,26 +745,6 @@ UniversalDiscoveryModule.propTypes = {
         instanceUrl: PropTypes.string,
     }),
     snackbarEnabledActions: PropTypes.array,
-};
-
-UniversalDiscoveryModule.defaultProps = {
-    onItemsConfirm: () => {},
-    onCancel: null,
-    activeTab: 'browse',
-    rootLocationId: 1,
-    startingLocationId: null,
-    multiple: false,
-    multipleItemsLimit: 1,
-    containersOnly: false,
-    activeSortClause: 'date',
-    activeSortOrder: 'ascending',
-    activeView: 'finder',
-    selectedLocations: [],
-    initSelectedItems: [],
-    isInitLocationsDeselectionBlocked: false,
-    deselectAlertTitle: null,
-    restInfo: defaultRestInfo,
-    snackbarEnabledActions: Object.values(SNACKBAR_ACTIONS),
 };
 
 export default UniversalDiscoveryModule;

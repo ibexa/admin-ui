@@ -15,7 +15,7 @@ import {
 
 const SCROLL_OFFSET = 200;
 
-const GridView = ({ itemsPerPage }) => {
+const GridView = ({ itemsPerPage = 50 }) => {
     const [offset, setOffset] = useState(0);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [sorting] = useContext(SortingContext);
@@ -72,10 +72,6 @@ const GridView = ({ itemsPerPage }) => {
 
 GridView.propTypes = {
     itemsPerPage: PropTypes.number,
-};
-
-GridView.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default GridView;

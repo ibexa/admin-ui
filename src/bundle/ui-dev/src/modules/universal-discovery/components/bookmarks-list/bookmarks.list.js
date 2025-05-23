@@ -21,7 +21,7 @@ import {
 
 const SCROLL_OFFSET = 200;
 
-const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
+const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage = 50 }) => {
     const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
@@ -139,10 +139,6 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 BookmarksList.propTypes = {
     setBookmarkedLocationMarked: PropTypes.func.isRequired,
     itemsPerPage: PropTypes.number,
-};
-
-BookmarksList.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default BookmarksList;

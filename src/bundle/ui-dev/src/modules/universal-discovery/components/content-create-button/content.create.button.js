@@ -15,7 +15,7 @@ import {
     ContentTypesMapContext,
 } from '../../universal.discovery.module';
 
-const ContentCreateButton = ({ isDisabled }) => {
+const ContentCreateButton = ({ isDisabled = false }) => {
     const Translator = getTranslator();
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
@@ -67,10 +67,6 @@ const ContentCreateButton = ({ isDisabled }) => {
 
 ContentCreateButton.propTypes = {
     isDisabled: PropTypes.bool,
-};
-
-ContentCreateButton.defaultProps = {
-    isDisabled: false,
 };
 
 export const ContentCreateButtonMenuItem = {

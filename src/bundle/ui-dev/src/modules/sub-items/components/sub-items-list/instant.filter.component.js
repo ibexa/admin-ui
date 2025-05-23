@@ -5,21 +5,21 @@ const { Translator } = window;
 
 const FILTER_TIMEOUT = 200;
 
-const InstantFilter = (props) => {
+const InstantFilter = ({ items = [], handleItemChange = () => {} }) => {
     const _refInstantFilter = useRef(null);
     const [filterQuery, setFilterQuery] = useState('');
     const [itemsMap, setItemsMap] = useState([]);
     let filterTimeout = null;
 
     useEffect(() => {
-        const items = [..._refInstantFilter.current.querySelectorAll('.ibexa-instant-filter__item')];
-        const itemsMapNext = items.map((item) => ({
+        const currentItems = [..._refInstantFilter.current.querySelectorAll('.ibexa-instant-filter__item')];
+        const itemsMapNext = currentItems.map((item) => ({
             label: item.textContent.toLowerCase(),
             element: item,
         }));
 
         setItemsMap(itemsMapNext);
-    }, [props.items]);
+    }, [items]);
 
     useEffect(() => {
         const filterQueryLowerCase = filterQuery.toLowerCase();
@@ -49,7 +49,7 @@ const InstantFilter = (props) => {
                 />
             </div>
             <div className="ibexa-instant-filter__items">
-                {props.items.map((item) => {
+                {items.map((item) => {
                     const radioId = `item_${item.value}`;
 
                     return (
@@ -61,7 +61,7 @@ const InstantFilter = (props) => {
                                     name="items"
                                     className="form-check-input"
                                     value={item.value}
-                                    onChange={() => props.handleItemChange(item.value)}
+                                    onChange={() => handleItemChange(item.value)}
                                 />
                                 <label className="form-check-label" htmlFor={radioId}>
                                     {item.label}
@@ -78,11 +78,6 @@ const InstantFilter = (props) => {
 InstantFilter.propTypes = {
     items: PropTypes.array,
     handleItemChange: PropTypes.func,
-};
-
-InstantFilter.defaultProps = {
-    items: [],
-    handleItemChange: () => {},
 };
 
 export default InstantFilter;

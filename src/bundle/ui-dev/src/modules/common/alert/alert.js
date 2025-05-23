@@ -14,16 +14,16 @@ const SIZES = ['small', 'medium', 'large'];
 
 const Alert = ({
     type,
-    title,
-    subtitle,
-    size,
-    iconName: iconNameProp,
-    iconPath,
-    showSubtitleBelow,
-    showCloseBtn,
-    onClose,
-    extraClasses,
-    children,
+    title = null,
+    subtitle = null,
+    size = 'medium',
+    iconName: iconNameProp = null,
+    iconPath = null,
+    showSubtitleBelow = false,
+    showCloseBtn = false,
+    onClose = () => {},
+    extraClasses = '',
+    children = null,
 }) => {
     const className = createCssClassNames({
         'alert ibexa-alert': true,
@@ -71,19 +71,6 @@ Alert.propTypes = {
     extraClasses: PropTypes.string,
     children: PropTypes.element,
     size: PropTypes.oneOf(SIZES),
-};
-
-Alert.defaultProps = {
-    title: null,
-    subtitle: null,
-    iconName: null,
-    iconPath: null,
-    showSubtitleBelow: false,
-    showCloseBtn: false,
-    onClose: () => {},
-    extraClasses: '',
-    children: null,
-    size: 'medium',
 };
 
 export default Alert;

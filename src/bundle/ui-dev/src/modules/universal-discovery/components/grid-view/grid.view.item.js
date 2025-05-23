@@ -21,7 +21,7 @@ const isSelectionButtonClicked = (event) => {
     return event.target.closest('.c-udw-toggle-selection');
 };
 
-const GridViewItem = ({ location, version }) => {
+const GridViewItem = ({ location, version = {} }) => {
     const [, setGridActiveLocationId] = useContext(GridActiveLocationIdContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
@@ -104,10 +104,6 @@ const GridViewItem = ({ location, version }) => {
 GridViewItem.propTypes = {
     location: PropTypes.object.isRequired,
     version: PropTypes.object,
-};
-
-GridViewItem.defaultProps = {
-    version: {},
 };
 
 export default GridViewItem;

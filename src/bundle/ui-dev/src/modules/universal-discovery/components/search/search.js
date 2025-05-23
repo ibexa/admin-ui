@@ -31,7 +31,7 @@ const selectedContentTypesReducer = (state, action) => {
     }
 };
 
-const Search = ({ itemsPerPage }) => {
+const Search = ({ itemsPerPage = 50 }) => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
     const allowedContentTypes = useContext(AllowedContentTypesContext);
@@ -174,10 +174,6 @@ const Search = ({ itemsPerPage }) => {
 
 Search.propTypes = {
     itemsPerPage: PropTypes.number,
-};
-
-Search.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default Search;
