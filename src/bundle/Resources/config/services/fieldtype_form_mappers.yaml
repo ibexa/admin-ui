@@ -6,7 +6,9 @@ services:
 
     Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface: '@Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher'
 
-    Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher: ~
+    Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher:
+        arguments:
+            $fieldTypeAliasResolver: '@Ibexa\Core\FieldType\FieldTypeAliasResolverInterface'
 
     Ibexa\AdminUi\FieldType\Mapper\AbstractRelationFormMapper:
         abstract: true
@@ -81,7 +83,7 @@ services:
 
     Ibexa\AdminUi\FieldType\Mapper\TextLineFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezstring }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_string }
 
     Ibexa\AdminUi\FieldType\Mapper\TextBlockFormMapper:
         tags:

@@ -220,16 +220,16 @@
     </div>
 {% endblock %}
 
-{% block ezstring_field_definition_edit %}
-    <div class="ezstring-validator min-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_string_field_definition_edit %}
+    <div class="ibexa_string-validator min-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.minLength) -}}
     </div>
 
-    <div class="ezstring-validator max-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_string-validator max-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.maxLength) -}}
     </div>
 
-    <div class="ezstring-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_string-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultValue) -}}
     </div>
 {% endblock %}
