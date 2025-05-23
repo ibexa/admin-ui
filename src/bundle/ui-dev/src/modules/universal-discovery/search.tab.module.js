@@ -55,7 +55,7 @@ const SearchTab = {
     getLabel: () => {
         const Translator = getTranslator();
 
-        return Translator.trans(/*@Desc("Search")*/ 'search.label', {}, 'ibexa_universal_discovery_widget');
+        return Translator.trans(/* @Desc("Search") */ 'search.label', {}, 'ibexa_universal_discovery_widget');
     },
     getIcon: () => getIconPath('search'),
     isHiddenOnList: true,

@@ -159,7 +159,7 @@ export default class MultiFileUploadModule extends Component {
 
         const Translator = getTranslator();
         const { uploadDisabled } = this.state;
-        const label = Translator.trans(/*@Desc("Upload")*/ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Upload") */ 'multi_file_upload_open_btn.label', {}, 'ibexa_multi_file_upload');
         const isTriggeredBySubitems = this.props.triggerId === SUBITEMS_TRIGGER_ID;
         const buttonClassName = createCssClassNames({
             'ibexa-btn btn': true,
@@ -206,7 +206,7 @@ export default class MultiFileUploadModule extends Component {
 
         const Translator = getTranslator();
         const subtitle = Translator.trans(
-            /*@Desc("Under %name%")*/ 'multi_file_upload_popup.subtitle',
+            /* @Desc("Under %name%") */ 'multi_file_upload_popup.subtitle',
             { name: this.props.parentInfo.name },
             'ibexa_multi_file_upload',
         );

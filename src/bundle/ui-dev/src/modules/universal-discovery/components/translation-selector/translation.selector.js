@@ -11,7 +11,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
     const adminUiConfig = getAdminUiConfig();
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
     const editTranslationLabel = Translator.trans(
-        /*@Desc("Select translation")*/ 'meta_preview.edit_translation',
+        /* @Desc("Select translation") */ 'meta_preview.edit_translation',
         {},
         'ibexa_universal_discovery_widget',
     );

@@ -91,7 +91,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
         .catch(() => {
             contentErrorCallback(
                 Translator.trans(
-                    /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                    /* @Desc("Cannot get content type by identifier") */ 'cannot_get_content_type_identifier.message',
                     {},
                     'ibexa_multi_file_upload',
                 ),
@@ -113,7 +113,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
                 .catch(() => {
                     contentErrorCallback(
                         Translator.trans(
-                            /*@Desc("Cannot get content type by identifier")*/ 'cannot_get_content_type_identifier.message',
+                            /* @Desc("Cannot get content type by identifier") */ 'cannot_get_content_type_identifier.message',
                             {},
                             'ibexa_multi_file_upload',
                         ),
@@ -149,7 +149,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
                 .catch(() => {
                     contentErrorCallback(
                         Translator.trans(
-                            /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
+                            /* @Desc("Cannot create content structure") */ 'cannot_create_content_structure.message',
                             {},
                             'ibexa_multi_file_upload',
                         ),
@@ -159,7 +159,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
         .catch(() => {
             contentErrorCallback(
                 Translator.trans(
-                    /*@Desc("Cannot create content structure")*/ 'cannot_create_content_structure.message',
+                    /* @Desc("Cannot create content structure") */ 'cannot_create_content_structure.message',
                     {},
                     'ibexa_multi_file_upload',
                 ),
@@ -255,7 +255,7 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
     if (!canCreateContent(file, parentInfo, config)) {
         errorMsgs.push(
             Translator.trans(
-                /*@Desc("You don’t have permission to create this content item.")*/ 'disallowed_content_type.message',
+                /* @Desc("You don’t have permission to create this content item.") */ 'disallowed_content_type.message',
                 {},
                 'ibexa_multi_file_upload',
             ),
@@ -263,11 +263,11 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
     }
 
     if (!checkFileTypeAllowed(file, locationMapping)) {
-        errorMsgs.push(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
+        errorMsgs.push(Translator.trans(/* @Desc("File type is not allowed") */ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
     }
 
     if (file.size > maxFileSize) {
-        errorMsgs.push(Translator.trans(/*@Desc("File size is not allowed")*/ 'disallowed_size.message', {}, 'ibexa_multi_file_upload'));
+        errorMsgs.push(Translator.trans(/* @Desc("File size is not allowed") */ 'disallowed_size.message', {}, 'ibexa_multi_file_upload'));
     }
 
     if (errorMsgs.length) {
@@ -289,7 +289,7 @@ export const publishFile = (data, requestEventHandlers, successCallback, content
 
             contentErrorCallback(
                 Translator.trans(
-                    /*@Desc("An error occurred while publishing a file")*/ 'general.error.message',
+                    /* @Desc("An error occurred while publishing a file") */ 'general.error.message',
                     {},
                     'ibexa_multi_file_upload',
                 ),
@@ -317,7 +317,7 @@ export const deleteFile = (struct, callback, contentErrorCallback) => {
 
             contentErrorCallback(
                 Translator.trans(
-                    /*@Desc("An error occurred while deleting a file")*/ 'delete.error.message',
+                    /* @Desc("An error occurred while deleting a file") */ 'delete.error.message',
                     {},
                     'ibexa_multi_file_upload',
                 ),

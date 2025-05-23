@@ -76,7 +76,7 @@ const Popup = ({
         'c-popup--has-subheader': !noHeader && subheader,
         [extraClasses]: extraClasses,
     });
-    const closeBtnLabel = Translator.trans(/*@Desc("Close")*/ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
+    const closeBtnLabel = Translator.trans(/* @Desc("Close") */ 'popup.close.label', {}, 'ibexa_universal_discovery_widget');
     const hidePopup = () => {
         latestBootstrapModal.current.hide();
         rootDOMElement.classList.remove(CLASS_MODAL_OPEN, CLASS_NON_SCROLLABLE);

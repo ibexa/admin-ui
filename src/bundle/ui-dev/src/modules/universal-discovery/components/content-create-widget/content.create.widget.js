@@ -76,26 +76,30 @@ const ContentCreateWidget = () => {
         });
         setActiveTab('content-create');
     };
-    const createContentLabel = Translator.trans(/*@Desc("Create content")*/ 'create_content.label', {}, 'ibexa_universal_discovery_widget');
-    const selectLanguageLabel = Translator.trans(
-        /*@Desc("Select a language")*/ 'create_content.select_language',
+    const createContentLabel = Translator.trans(
+        /* @Desc("Create content") */ 'create_content.label',
         {},
         'ibexa_universal_discovery_widget',
     );
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
-    const cancelLabel = Translator.trans(/*@Desc("Discard")*/ 'content_create.cancel.label', {}, 'ibexa_universal_discovery_widget');
+    const selectLanguageLabel = Translator.trans(
+        /* @Desc("Select a language") */ 'create_content.select_language',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
+    const createLabel = Translator.trans(/* @Desc("Create") */ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
+    const cancelLabel = Translator.trans(/* @Desc("Discard") */ 'content_create.cancel.label', {}, 'ibexa_universal_discovery_widget');
     const placeholder = Translator.trans(
-        /*@Desc("Search by content type")*/ 'content_create.placeholder',
+        /* @Desc("Search by content type") */ 'content_create.placeholder',
         {},
         'ibexa_universal_discovery_widget',
     );
     const filtersDescLabel = Translator.trans(
-        /*@Desc("Select a content type from list")*/ 'content.create.filters.desc',
+        /* @Desc("Select a content type from list") */ 'content.create.filters.desc',
         {},
         'ibexa_universal_discovery_widget',
     );
     const createUnderLabel = Translator.trans(
-        /*@Desc("Location: %location%")*/ 'content.create.editing_details',
+        /* @Desc("Location: %location%") */ 'content.create.editing_details',
         { location: selectedLocation?.location?.ContentInfo.Content.TranslatedName },
         'ibexa_universal_discovery_widget',
     );

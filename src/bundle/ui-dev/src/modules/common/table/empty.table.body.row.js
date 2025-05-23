@@ -15,7 +15,7 @@ const EmptyTableBodyRow = ({
 }) => {
     const Translator = getTranslator();
     const defaultEmptyTableInfoText = Translator.trans(
-        /*@Desc("Table is empty")*/ 'table.empty_table_body_row.info_text.default',
+        /* @Desc("Table is empty") */ 'table.empty_table_body_row.info_text.default',
         {},
         'ibexa_universal_discovery_widget',
     );
