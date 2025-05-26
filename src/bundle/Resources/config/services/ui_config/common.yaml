@@ -106,7 +106,7 @@ services:
 
     Ibexa\Bundle\AdminUi\Templating\Twig\SecurityExtension:
         arguments:
-                $csrfTokenIntention: 'rest'
+                $csrfTokenIntention: '%ibexa.rest.csrf_token_intention%'
 
     Ibexa\AdminUi\UI\Config\Provider\UserContentTypes:
         tags:
