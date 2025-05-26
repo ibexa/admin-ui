@@ -16,6 +16,7 @@ const SubItemsListComponent = ({
     sortClause,
     sortOrder,
     languageContainerSelector,
+    columnsVisibility,
 }) => {
     const Component = getViewComponent(activeView);
 
@@ -34,6 +35,7 @@ const SubItemsListComponent = ({
             sortClause={sortClause}
             sortOrder={sortOrder}
             languageContainerSelector={languageContainerSelector}
+            columnsVisibility={columnsVisibility}
         />
     );
 };
@@ -52,6 +54,7 @@ SubItemsListComponent.propTypes = {
     sortClause: PropTypes.string.isRequired,
     sortOrder: PropTypes.string.isRequired,
     languageContainerSelector: PropTypes.string.isRequired,
+    columnsVisibility: PropTypes.object.isRequired,
 };
 
 export default SubItemsListComponent;

@@ -1225,7 +1225,7 @@ export default class SubItemsModule extends Component {
 
     renderActionBtnWrapper(btn, extraClasses = '', extraProps = {}) {
         return (
-            <div className={`ibexa-adaptive-items__item ${extraClasses}`} {...extraProps}>
+            <div className={`ibexa-adaptive-items__item ${extraClasses}`} {...extraProps} key={extraProps.key}>
                 {btn}
             </div>
         );
@@ -1234,7 +1234,11 @@ export default class SubItemsModule extends Component {
     renderBulkMoveBtn(disabled) {
         const label = Translator.trans(/*@Desc("Move")*/ 'move_btn.label', {}, 'ibexa_sub_items');
 
-        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />);
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />,
+            '',
+            { key: 'bulk-move-btn' },
+        );
     }
 
     renderBulkAddLocationBtn(disabled) {
@@ -1242,13 +1246,19 @@ export default class SubItemsModule extends Component {
 
         return this.renderActionBtnWrapper(
             <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />,
+            '',
+            { key: 'bulk-add-locations-btn' },
         );
     }
 
     renderBulkHideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Hide")*/ 'hide_locations_btn.label', {}, 'ibexa_sub_items');
 
-        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />);
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />,
+            '',
+            { key: 'bulk-hide-btn' },
+        );
     }
 
     renderBulkUnhideBtn(disabled) {
@@ -1256,13 +1266,19 @@ export default class SubItemsModule extends Component {
 
         return this.renderActionBtnWrapper(
             <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />,
+            '',
+            { key: 'bulk-unhide-btn' },
         );
     }
 
     renderBulkDeleteBtn(disabled) {
         const label = Translator.trans(/*@Desc("Delete")*/ 'trash_btn.label', {}, 'ibexa_sub_items');
 
-        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />);
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />,
+            '',
+            { key: 'bulk-delete-btn' },
+        );
     }
 
     renderSpinner() {
@@ -1429,7 +1445,7 @@ export default class SubItemsModule extends Component {
             this.renderActionBtnWrapper(
                 <ActionButton disabled={false} onClick={this.showMorePanel} type="options" />,
                 'ibexa-adaptive-items__item--selector',
-                { ref: this._refAdaptiveItemMoreBtn },
+                { ref: this._refAdaptiveItemMoreBtn, key: 'more-btn' },
             ),
             ReactDOM.createPortal(
                 <div className={panelClasses} ref={this._refAdaptiveItemMorePanel}>
