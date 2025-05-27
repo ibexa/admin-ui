@@ -10,6 +10,7 @@ namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\AdminUi\Component\Registry as ComponentRegistry;
 use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
+use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -35,8 +36,7 @@ class ComponentExtension extends AbstractExtension
                 $this->renderComponentGroup(...),
                 [
                     'is_safe' => ['html'],
-                    'deprecated' => '4.6.19',
-                    'alternative' => 'ibexa_twig_component_group',
+                    $this->getDeprecationOptions('ibexa_twig_component_group'),
                 ]
             ),
             new TwigFunction(
@@ -44,8 +44,7 @@ class ComponentExtension extends AbstractExtension
                 $this->renderComponent(...),
                 [
                     'is_safe' => ['html'],
-                    'deprecated' => '4.6.19',
-                    'alternative' => 'ibexa_twig_component',
+                    $this->getDeprecationOptions('ibexa_twig_component'),
                 ]
             ),
         ];
@@ -59,5 +58,12 @@ class ComponentExtension extends AbstractExtension
     public function renderComponent(string $group, string $id, array $parameters = [])
     {
         return $this->renderer->renderSingle($group, $id, $parameters);
+    }
+
+    private function getDeprecationOptions(string $newFunction): array
+    {
+        return [
+            'deprecation_info' => new DeprecatedCallableInfo('ibexa/admin-ui', '4.6.19', $newFunction),
+        ];
     }
 }
