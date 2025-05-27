@@ -60,6 +60,11 @@ class ComponentExtension extends AbstractExtension
         return $this->renderer->renderSingle($group, $id, $parameters);
     }
 
+    /**
+     * @return array{
+     *     deprecation_info: \Twig\DeprecatedCallableInfo
+     * }
+     */
     private function getDeprecationOptions(string $newFunction): array
     {
         return [
