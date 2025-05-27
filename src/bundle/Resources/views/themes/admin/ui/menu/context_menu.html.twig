@@ -85,6 +85,13 @@
         {% endset %}
 
         {%- set split_btn_type = null -%}
+        {%- set all_subitems_disabled = true -%}
+
+        {% for subitem in subitems %}
+            {%- if not subitem.action_attr.disabled is defined -%}
+                {%- set all_subitems_disabled = false -%}
+            {%- endif -%}
+        {% endfor %}
 
         {% if not item.extras.noDefaultBtnStyling|default(false) %}
             {%- set split_btn_type = item.extras.primary|default(false) ? 'primary' : 'secondary' -%}
@@ -105,6 +112,7 @@
             main_btn_element: element,
             toggler_btn_attr: {
                 class: attributes.class|replace({ 'ibexa-btn--trigger': '' }),
+                disabled: all_subitems_disabled,
             },
             label: btn_label,
             subitems,
