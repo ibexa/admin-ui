@@ -1,0 +1,8 @@
+--TEST--
+"ibexa_get_rest_csrf_token_intention" function
+--TEMPLATE--
+{{ ibexa_get_rest_csrf_token_intention() }}
+--DATA--
+return [];
+--EXPECT--
+foo_intention

@@ -14,7 +14,7 @@ use Twig\TwigFunction;
 final class SecurityExtension extends AbstractExtension
 {
     public function __construct(
-        private string $csrfTokenIntention,
+        private readonly string $csrfTokenIntention,
     ) {
     }
 
