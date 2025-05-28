@@ -34,18 +34,18 @@ class ComponentExtension extends AbstractExtension
             new TwigFunction(
                 'ibexa_render_component_group',
                 $this->renderComponentGroup(...),
-                [
-                    'is_safe' => ['html'],
-                    $this->getDeprecationOptions('ibexa_twig_component_group'),
-                ]
+                array_merge(
+                    ['is_safe' => ['html']],
+                    $this->getDeprecationOptions('ibexa_twig_component_group')
+                )
             ),
             new TwigFunction(
                 'ibexa_render_component',
                 $this->renderComponent(...),
-                [
-                    'is_safe' => ['html'],
-                    $this->getDeprecationOptions('ibexa_twig_component'),
-                ]
+                array_merge(
+                    ['is_safe' => ['html']],
+                    $this->getDeprecationOptions('ibexa_twig_component_group')
+                )
             ),
         ];
     }
