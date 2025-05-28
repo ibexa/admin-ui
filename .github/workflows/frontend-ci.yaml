@@ -3,14 +3,24 @@ name: Frontend build
 on:
     push:
         paths:
-            - "**.[cm]?[jt]sx?"
+            - "**.cjs"
+            - "**.mjs"
+            - "**.js"
+            - "**.jsx"
+            - "**.ts"
+            - "**.tsx"
             - "**.scss"
         branches:
             - main
             - '[0-9]+.[0-9]+'
     pull_request:
         paths:
-            - "**.[cm]?[jt]sx?"
+            - "**.cjs"
+            - "**.mjs"
+            - "**.js"
+            - "**.jsx"
+            - "**.ts"
+            - "**.tsx"
             - "**.scss"
 
 jobs:
