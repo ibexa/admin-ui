@@ -122,7 +122,7 @@ export default class ViewColumnsTogglerComponent extends Component {
     }
 
     renderToggler() {
-        const label = Translator.trans(/*@Desc("Columns")*/ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Columns") */ 'view_columns_toggler.label', {}, 'ibexa_sub_items');
 
         return (
             <button ref={this._refTogglerButton} type="button" className="c-simple-dropdown__selected" onClick={this.togglePanel}>

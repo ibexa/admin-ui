@@ -43,7 +43,7 @@ export const SORTING_OPTIONS = [
 
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/* @Desc("Date") */ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
@@ -53,7 +53,7 @@ export const SORTING_OPTIONS = [
 
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/* @Desc("Sort by date") */ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-down ibexa-icon--tiny-small" />
                 </div>
             );
@@ -68,7 +68,7 @@ export const SORTING_OPTIONS = [
 
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {Translator.trans(/*@Desc("Date")*/ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/* @Desc("Date") */ 'sorting.date.label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );
@@ -78,7 +78,7 @@ export const SORTING_OPTIONS = [
 
             return (
                 <div className="c-simple-dropdown__option-label">
-                    {Translator.trans(/*@Desc("Sort by date")*/ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
+                    {Translator.trans(/* @Desc("Sort by date") */ 'sorting.date.selected_label', {}, 'ibexa_universal_discovery_widget')}
                     <Icon name="back" extraClasses="c-simple-dropdown__arrow-up ibexa-icon--tiny-small" />
                 </div>
             );
@@ -91,13 +91,13 @@ export const SORTING_OPTIONS = [
         getLabel: () => {
             const Translator = getTranslator();
 
-            return Translator.trans(/*@Desc("Name A-Z")*/ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget');
+            return Translator.trans(/* @Desc("Name A-Z") */ 'sorting.name.asc.label', {}, 'ibexa_universal_discovery_widget');
         },
         selectedLabel: () => {
             const Translator = getTranslator();
 
             return Translator.trans(
-                /*@Desc("Sort by name A-Z")*/ 'sorting.name.asc.selected_label',
+                /* @Desc("Sort by name A-Z") */ 'sorting.name.asc.selected_label',
                 {},
                 'ibexa_universal_discovery_widget',
             );
@@ -110,13 +110,13 @@ export const SORTING_OPTIONS = [
         getLabel: () => {
             const Translator = getTranslator();
 
-            return Translator.trans(/*@Desc("Name Z-A")*/ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget');
+            return Translator.trans(/* @Desc("Name Z-A") */ 'sorting.name.desc.label', {}, 'ibexa_universal_discovery_widget');
         },
         selectedLabel: () => {
             const Translator = getTranslator();
 
             return Translator.trans(
-                /*@Desc("Sort by name Z-A")*/ 'sorting.name.desc.selected_label',
+                /* @Desc("Sort by name Z-A") */ 'sorting.name.desc.selected_label',
                 {},
                 'ibexa_universal_discovery_widget',
             );
@@ -133,7 +133,7 @@ export const VIEWS = [
         getLabel: () => {
             const Translator = getTranslator();
 
-            return Translator.trans(/*@Desc("Panels view")*/ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget');
+            return Translator.trans(/* @Desc("Panels view") */ 'sorting.panels.view', {}, 'ibexa_universal_discovery_widget');
         },
     },
     {
@@ -142,7 +142,7 @@ export const VIEWS = [
         getLabel: () => {
             const Translator = getTranslator();
 
-            return Translator.trans(/*@Desc("Grid view")*/ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget');
+            return Translator.trans(/* @Desc("Grid view") */ 'sorting.grid.view', {}, 'ibexa_universal_discovery_widget');
         },
     },
     {
@@ -151,7 +151,7 @@ export const VIEWS = [
         getLabel: () => {
             const Translator = getTranslator();
 
-            return Translator.trans(/*@Desc("Tree view")*/ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget');
+            return Translator.trans(/* @Desc("Tree view") */ 'sorting.tree.view', {}, 'ibexa_universal_discovery_widget');
         },
     },
 ];
@@ -276,7 +276,7 @@ const UniversalDiscoveryModule = ({
         const deselectAlertTitleValue =
             deselectAlertTitle ??
             Translator.trans(
-                /*@Desc("Items already added to the list are marked as selected and unable to deselect.")*/ 'init_selected_locations.alert.title',
+                /* @Desc("Items already added to the list are marked as selected and unable to deselect.") */ 'init_selected_locations.alert.title',
                 {},
                 'ibexa_universal_discovery_widget',
             );
@@ -699,7 +699,6 @@ const UniversalDiscoveryModule = ({
             </UDWContext.Provider>
         </div>
     );
-    /* eslint-enable max-len */
 };
 
 UniversalDiscoveryModule.propTypes = {

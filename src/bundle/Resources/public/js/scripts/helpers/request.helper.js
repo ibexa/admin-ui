@@ -16,7 +16,7 @@ const handleRequest = async (response, getErrorMessage = defaultGetErrorMessage)
         const responseErrorMessageObject = await getErrorMessageObject(response);
         const errorMessage = getErrorMessage(responseErrorMessageObject) || response.statusText;
         const defaultErrorMsg = Translator.trans(
-            /*@Desc("Something went wrong. Try to refresh the page or contact your administrator.")*/ 'error.request.default_msg',
+            /* @Desc("Something went wrong. Try to refresh the page or contact your administrator.") */ 'error.request.default_msg',
         );
 
         throw Error(errorMessage || defaultErrorMsg);

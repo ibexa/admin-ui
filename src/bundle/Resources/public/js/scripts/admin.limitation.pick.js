@@ -26,7 +26,7 @@
             credentials: 'same-origin',
         });
         const errorMessage = Translator.trans(
-            /*@Desc("Could not fetch content names")*/ 'limitation.pick.error',
+            /* @Desc("Could not fetch content names") */ 'limitation.pick.error',
             {},
             'ibexa_universal_discovery_widget',
         );
@@ -171,7 +171,7 @@
             .filter((idString) => !!idString)
             .map((idString) => parseInt(idString, 10));
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-        const title = Translator.trans(/*@Desc("Choose Locations")*/ 'subtree_limitation.title', {}, 'ibexa_universal_discovery_widget');
+        const title = Translator.trans(/* @Desc("Choose Locations") */ 'subtree_limitation.title', {}, 'ibexa_universal_discovery_widget');
 
         udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(

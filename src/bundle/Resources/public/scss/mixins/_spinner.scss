@@ -2,8 +2,8 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 @mixin spinner($size, $line-size, $color: $ibexa-color-info) {
-    --mask: conic-gradient(#{rgba($ibexa-color-black, 0)} 10%, #{$ibexa-color-black}),
-        linear-gradient(#{$ibexa-color-black} 0 0) content-box;
+    --mask:
+        conic-gradient(#{rgba($ibexa-color-black, 0)} 10%, #{$ibexa-color-black}), linear-gradient(#{$ibexa-color-black} 0 0) content-box;
 
     width: $size;
     height: $size;

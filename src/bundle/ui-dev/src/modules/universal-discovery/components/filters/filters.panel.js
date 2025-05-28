@@ -5,9 +5,9 @@ import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/sc
 
 const FiltersPanel = ({ children = null, isApplyButtonEnabled, makeSearch, clearFilters }) => {
     const Translator = getTranslator();
-    const filtersLabel = Translator.trans(/*@Desc("Filters")*/ 'filters.title', {}, 'ibexa_universal_discovery_widget');
-    const clearLabel = Translator.trans(/*@Desc("Clear")*/ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
-    const applyLabel = Translator.trans(/*@Desc("Apply")*/ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
+    const filtersLabel = Translator.trans(/* @Desc("Filters") */ 'filters.title', {}, 'ibexa_universal_discovery_widget');
+    const clearLabel = Translator.trans(/* @Desc("Clear") */ 'filters.clear', {}, 'ibexa_universal_discovery_widget');
+    const applyLabel = Translator.trans(/* @Desc("Apply") */ 'filters.apply', {}, 'ibexa_universal_discovery_widget');
 
     return (
         <div className="c-filters-panel">

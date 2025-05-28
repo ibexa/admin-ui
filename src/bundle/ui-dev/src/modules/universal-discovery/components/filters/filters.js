@@ -98,12 +98,12 @@ const Filters = ({ search }) => {
     };
     const renderSelectContentButton = () => {
         const selectLabel = Translator.trans(
-            /*@Desc("Select content")*/ 'filters.tag_view_select.select',
+            /* @Desc("Select content") */ 'filters.tag_view_select.select',
             {},
             'ibexa_universal_discovery_widget',
         );
         const changeLabel = Translator.trans(
-            /*@Desc("Change content")*/ 'filters.tag_view_change.select',
+            /* @Desc("Change content") */ 'filters.tag_view_change.select',
             {},
             'ibexa_universal_discovery_widget',
         );
@@ -118,9 +118,9 @@ const Filters = ({ search }) => {
             </button>
         );
     };
-    const languageLabel = Translator.trans(/*@Desc("Language")*/ 'filters.language', {}, 'ibexa_universal_discovery_widget');
-    const sectionLabel = Translator.trans(/*@Desc("Section")*/ 'filters.section', {}, 'ibexa_universal_discovery_widget');
-    const subtreeLabel = Translator.trans(/*@Desc("Subtree")*/ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
+    const languageLabel = Translator.trans(/* @Desc("Language") */ 'filters.language', {}, 'ibexa_universal_discovery_widget');
+    const sectionLabel = Translator.trans(/* @Desc("Section") */ 'filters.section', {}, 'ibexa_universal_discovery_widget');
+    const subtreeLabel = Translator.trans(/* @Desc("Subtree") */ 'filters.subtree', {}, 'ibexa_universal_discovery_widget');
     const languageOptions = Object.values(adminUiConfig.languages.mappings)
         .filter((language) => language.enabled)
         .map((language) => ({

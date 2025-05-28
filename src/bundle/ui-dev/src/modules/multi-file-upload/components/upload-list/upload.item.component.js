@@ -289,7 +289,7 @@ export default class UploadItemComponent extends Component {
         const Translator = getTranslator();
         const hasMultipleErrors = errorMsgs.length > 1;
         const label = hasMultipleErrors
-            ? Translator.trans(/*@Desc("Failed to upload ")*/ 'multierror.label', {}, 'ibexa_multi_file_upload')
+            ? Translator.trans(/* @Desc("Failed to upload ") */ 'multierror.label', {}, 'ibexa_multi_file_upload')
             : errorMsgs[0];
 
         return (
@@ -321,7 +321,7 @@ export default class UploadItemComponent extends Component {
             return;
         }
 
-        const message = Translator.trans(/*@Desc("100% Uploaded")*/ 'upload.success.message', {}, 'ibexa_multi_file_upload');
+        const message = Translator.trans(/* @Desc("100% Uploaded") */ 'upload.success.message', {}, 'ibexa_multi_file_upload');
 
         return (
             <div className="c-upload-list-item__message c-upload-list-item__message--success">
@@ -339,7 +339,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Abort")*/ 'abort.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Abort") */ 'abort.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button
@@ -381,7 +381,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Edit")*/ 'edit.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Edit") */ 'edit.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button
@@ -406,7 +406,7 @@ export default class UploadItemComponent extends Component {
         }
 
         const Translator = getTranslator();
-        const label = Translator.trans(/*@Desc("Delete")*/ 'delete.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Delete") */ 'delete.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button

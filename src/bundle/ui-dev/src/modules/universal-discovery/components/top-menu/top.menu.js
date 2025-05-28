@@ -28,7 +28,7 @@ const TopMenu = ({
             return actionB.priority - actionA.priority;
         });
     }, []);
-    const backTitle = Translator.trans(/*@Desc("Close")*/ 'close.label', {}, 'ibexa_universal_discovery_widget');
+    const backTitle = Translator.trans(/* @Desc("Close") */ 'close.label', {}, 'ibexa_universal_discovery_widget');
     const className = createCssClassNames({
         'c-top-menu': true,
         'c-top-menu--search-opened': isSearchOpened,

@@ -20,7 +20,7 @@
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
-    const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'ibexa_trash_ui');
+    const errorMessage = Translator.trans(/* @Desc("Cannot fetch user list") */ 'trash.user_list.error', {}, 'ibexa_trash_ui');
     const dateConfig = {
         mode: 'range',
         locale: {
@@ -45,7 +45,7 @@
         const form = event.target.closest('form[name="trash_item_restore"]');
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(
-            /*@Desc("Select a new location to restore the content items")*/ 'restore_under_new_location.title',
+            /* @Desc("Select a new location to restore the content items") */ 'restore_under_new_location.title',
             {},
             'ibexa_universal_discovery_widget',
         );

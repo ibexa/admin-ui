@@ -8,7 +8,7 @@ import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/sc
 
 const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
     const Translator = getTranslator();
-    const headerTitle = Translator.trans(/*@Desc("Content tree")*/ 'content_tree.header', {}, 'ibexa_content_tree');
+    const headerTitle = Translator.trans(/* @Desc("Content tree") */ 'content_tree.header', {}, 'ibexa_content_tree');
     const renderCollapseButton = () => {
         const iconName = isCollapsed ? 'caret-next' : 'caret-back';
         const caretIconClass = createCssClassNames({

@@ -141,12 +141,12 @@
             const title =
                 limit === 1
                     ? Translator.trans(
-                          /*@Desc("Select a Content item")*/ 'ezobjectrelationlist.title.single',
+                          /* @Desc("Select a Content item") */ 'ezobjectrelationlist.title.single',
                           {},
                           'ibexa_universal_discovery_widget',
                       )
                     : Translator.trans(
-                          /*@Desc("Select Content item(s)")*/ 'ezobjectrelationlist.title.multi',
+                          /* @Desc("Select Content item(s)") */ 'ezobjectrelationlist.title.multi',
                           {},
                           'ibexa_universal_discovery_widget',
                       );

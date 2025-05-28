@@ -158,7 +158,7 @@ export class UserInvitationModal {
 
         if (emptyEmailsCount) {
             const emptyEmailsMessage = Translator.trans(
-                /*@Desc("Empty emails (%count%)")*/ 'modal.entry_issues.alert.empty_emails',
+                /* @Desc("Empty emails (%count%)") */ 'modal.entry_issues.alert.empty_emails',
                 { count: emptyEmailsCount },
                 'ibexa_user_invitation',
             );
@@ -168,7 +168,7 @@ export class UserInvitationModal {
 
         if (invalidEmailsCount) {
             const invalidEmailsMessage = Translator.trans(
-                /*@Desc("Invalid emails (%count%)")*/ 'modal.entry_issues.alert.invalid_emails',
+                /* @Desc("Invalid emails (%count%)") */ 'modal.entry_issues.alert.invalid_emails',
                 { count: invalidEmailsCount },
                 'ibexa_user_invitation',
             );
@@ -178,7 +178,7 @@ export class UserInvitationModal {
 
         if (duplicateEntryCount) {
             const duplicatedEmailsMessage = Translator.trans(
-                /*@Desc("Duplicated emails (%count%)")*/ 'modal.entry_issues.alert.duplicate_emails',
+                /* @Desc("Duplicated emails (%count%)") */ 'modal.entry_issues.alert.duplicate_emails',
                 { count: duplicateEntryCount },
                 'ibexa_user_invitation',
             );
@@ -350,7 +350,7 @@ export class UserInvitationModal {
 
     showUploadedFileNotification(fileName) {
         const message = Translator.trans(
-            /*@Desc("File %fileName% was uploaded")*/ 'modal.file_uploaded.message',
+            /* @Desc("File %fileName% was uploaded") */ 'modal.file_uploaded.message',
             { fileName },
             'ibexa_user_invitation',
         );
@@ -436,7 +436,7 @@ export class UserInvitationModal {
         const invitationsCount = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry').length;
 
         titleNode.innerText = Translator.trans(
-            /*@Desc("Invite members (%invitations_count%)")*/ 'modal.title',
+            /* @Desc("Invite members (%invitations_count%)") */ 'modal.title',
             { invitations_count: invitationsCount },
             'ibexa_user_invitation',
         );

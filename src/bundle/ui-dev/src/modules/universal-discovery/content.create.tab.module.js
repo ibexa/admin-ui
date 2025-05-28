@@ -107,7 +107,7 @@ const ContentCreateTab = {
     getLabel: () => {
         const Translator = getTranslator();
 
-        return Translator.trans(/*@Desc("Content create")*/ 'content_create.label', {}, 'ibexa_universal_discovery_widget');
+        return Translator.trans(/* @Desc("Content create") */ 'content_create.label', {}, 'ibexa_universal_discovery_widget');
     },
     getIcon: () => getIconPath('search'),
     isHiddenOnList: true,

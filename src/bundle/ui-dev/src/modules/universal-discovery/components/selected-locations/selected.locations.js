@@ -27,12 +27,12 @@ const SelectedLocations = () => {
         'c-selected-locations--expanded': isExpanded,
     });
     const expandLabel = Translator.trans(
-        /*@Desc("Expand sidebar")*/ 'selected_locations.expand.sidebar',
+        /* @Desc("Expand sidebar") */ 'selected_locations.expand.sidebar',
         {},
         'ibexa_universal_discovery_widget',
     );
     const collapseLabel = Translator.trans(
-        /*@Desc("Collapse sidebar")*/ 'selected_locations.collapse.sidebar',
+        /* @Desc("Collapse sidebar") */ 'selected_locations.collapse.sidebar',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -54,7 +54,7 @@ const SelectedLocations = () => {
     const renderSelectionCounter = () => {
         const selectedLocationsCount = isInitLocationsDeselectionBlocked ? selectedLocationsWithoutInit.length : selectedLocations.length;
         const selectedLabel = Translator.transChoice(
-            /*@Desc("{1}%count% selected item|[2,Inf]%count% selected items")*/ 'selected_locations.selected_items',
+            /* @Desc("{1}%count% selected item|[2,Inf]%count% selected items") */ 'selected_locations.selected_items',
             selectedLocations.length,
             { count: selectedLocationsCount },
             'ibexa_universal_discovery_widget',
@@ -77,7 +77,7 @@ const SelectedLocations = () => {
     };
     const renderActionButtons = () => {
         const removeLabel = Translator.transChoice(
-            /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_locations.deselect_all',
+            /* @Desc("{1}Deselect|[2,Inf]Deselect all") */ 'selected_locations.deselect_all',
             selectedLocations.length,
             {},
             'ibexa_universal_discovery_widget',
