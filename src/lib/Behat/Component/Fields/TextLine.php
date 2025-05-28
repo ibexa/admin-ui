@@ -32,6 +32,6 @@ class TextLine extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezstring';
+        return 'ibexa_string';
     }
 }
