@@ -7,6 +7,7 @@
 {% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% block body_class %}ibexa-bookmark-list-view{% endblock %}
+{% block main_container_class %}{{ parent() }} ibexa-main-container--full-width {% endblock %}
 
 {% block header %}
     {% include '@ibexadesign/ui/page_title.html.twig' with {
@@ -92,7 +93,7 @@
                     { },
                 ],
                 body_rows,
-                actions: form_widget(form_remove.remove, {'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true}}),
+                actions: form_widget(form_remove.remove, {'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true} }),
                 empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no bookmarks yet. Your bookmarks will show up here.'),
             } %}
             {{ form_end(form_remove) }}
@@ -108,7 +109,7 @@
             'action': path('ibexa.content.edit'),
             'attr': { 'class': 'ibexa-edit-content-form'}
         }) }}
-        {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'}}) }}
+        {{ form_widget(form_edit.language, {'attr': {'hidden': 'hidden', 'class': 'language-input'} }) }}
         {{ form_end(form_edit) }}
     </div>
 {% endblock %}
