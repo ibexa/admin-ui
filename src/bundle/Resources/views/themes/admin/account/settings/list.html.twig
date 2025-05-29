@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block body_class %}ibexa-user-settings-list-view{% endblock %}
+{% block main_container_class %}{{ parent() }} ibexa-main-container--full-width {% endblock %}
 
 {% block content %}
     {% embed '@ibexadesign/ui/component/tab/tabs.html.twig' with {
