@@ -13,12 +13,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeDispatcher extends AbstractActionDispatcher
 {
-    protected function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('languageCode');
     }
 
-    protected function getActionEventBaseName()
+    protected function getActionEventBaseName(): string
     {
         return FormEvents::CONTENT_TYPE_UPDATE;
     }

@@ -22,19 +22,23 @@ class ValidatorConfigurationValidator extends FieldTypeValidator
      * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     *
      * @api
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }
 
         $fieldType = $this->fieldTypeService->getFieldType($value->getFieldTypeIdentifier());
-        $this->processValidationErrors($fieldType->validateValidatorConfiguration($value->validatorConfiguration));
+        $this->processValidationErrors(
+            iterator_to_array($fieldType->validateValidatorConfiguration($value->validatorConfiguration))
+        );
     }
 
-    protected function generatePropertyPath($errorIndex, $errorTarget)
+    protected function generatePropertyPath($errorIndex, $errorTarget): string
     {
         return 'defaultValue';
     }
