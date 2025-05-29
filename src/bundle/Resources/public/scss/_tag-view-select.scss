@@ -11,6 +11,10 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        &--disabled {
+            color: $ibexa-color-dark-300;
+        }
     }
 
     &__selected-list {
