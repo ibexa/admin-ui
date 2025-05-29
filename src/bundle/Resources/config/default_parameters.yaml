@@ -1,49 +1,49 @@
 parameters:
     ibexa.site_access.config.default.content_type.about:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#about'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#info-square'
     ibexa.site_access.config.default.content_type.article:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#article'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#file-text'
     ibexa.site_access.config.default.content_type.blog:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#blog'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#app-blog'
     ibexa.site_access.config.default.content_type.blog_post:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#blog_post'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#note-blog'
     ibexa.site_access.config.default.content_type.folder:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#folder'
     ibexa.site_access.config.default.content_type.form:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#form'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#form-checkbox-square'
     ibexa.site_access.config.default.content_type.place:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#place'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#place' # TODO: missing icon
     ibexa.site_access.config.default.content_type.product:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#product'
     ibexa.site_access.config.default.content_type.field:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#fields'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#form-input'
     ibexa.site_access.config.default.content_type.user:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user'
     ibexa.site_access.config.default.content_type.user_group:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user_group'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user-group'
     ibexa.site_access.config.default.content_type.file:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#file'
     ibexa.site_access.config.default.content_type.gallery:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#gallery'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#image-gallery'
     ibexa.site_access.config.default.content_type.image:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#image'
     ibexa.site_access.config.default.content_type.video:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#video'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#video-play'
     ibexa.site_access.config.default.content_type.landing_page:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#landing_page'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#layout-navbar'
     ibexa.site_access.config.default.content_type.editor:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#author'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user-editor'
     ibexa.site_access.config.default.content_type.default-config:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#file'
 
     ibexa.site_access.config.default.content_type_group.default-config:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#file'
     ibexa.site_access.config.default.content_type_group.content:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#content-type-content'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#content-type-content' # TODO: missing icon
     ibexa.site_access.config.default.content_type_group.users:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user-type'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user-type' # TODO: missing icon
     ibexa.site_access.config.default.content_type_group.media:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#media-type'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#media-type' # TODO: missing icon
 
     ibexa.content_view.tabs.default_template: '@@ibexadesign/ui/tab/default.html.twig'
 
