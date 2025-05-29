@@ -51,7 +51,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
      *
      * @var array method => position of the "domain" parameter
      */
-    protected $methodsToExtractFrom = [
+    protected array $methodsToExtractFrom = [
         'success' => 2,
         'info' => 2,
         'warning' => 2,
@@ -72,7 +72,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->logger = $logger;
     }
 
-    public function enterNode(Node $node)
+    public function enterNode(Node $node): int|Node|array|null
     {
         $methodCallNodeName = null;
         if ($node instanceof Node\Expr\MethodCall) {
@@ -80,7 +80,11 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         }
 
         if (!is_string($methodCallNodeName)
-            || !in_array(strtolower($methodCallNodeName), array_map('strtolower', array_keys($this->methodsToExtractFrom)))) {
+            || !in_array(
+                strtolower($methodCallNodeName),
+                array_map('strtolower', array_keys($this->methodsToExtractFrom)),
+                true
+            )) {
             $this->previousNode = $node;
 
             return null;
@@ -150,6 +154,9 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
+    /**
+     * @param \PhpParser\Node[] $ast
+     */
     public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
     {
         $this->file = $file;
@@ -157,23 +164,26 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->traverser->traverse($ast);
     }
 
-    public function beforeTraverse(array $nodes)
+    public function beforeTraverse(array $nodes): ?array
+    {
+        return null;
+    }
+
+    public function leaveNode(Node $node): int|Node|array|null
+    {
+        return null;
+    }
+
+    public function afterTraverse(array $nodes): ?array
+    {
+        return null;
+    }
+
+    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
     {
     }
 
-    public function leaveNode(Node $node)
-    {
-    }
-
-    public function afterTraverse(array $nodes)
-    {
-    }
-
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue)
-    {
-    }
-
-    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
+    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast): void
     {
     }
 
@@ -191,7 +201,9 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         // /** @Desc("FOO") */ $translator->trans('my.id')
         if (null !== $comment = $node->getDocComment()) {
             return $comment->getText();
-        } elseif (null !== $this->previousNode && $this->previousNode->getDocComment() !== null) {
+        }
+
+        if (null !== $this->previousNode && $this->previousNode->getDocComment() !== null) {
             $comment = $this->previousNode->getDocComment();
 
             return is_object($comment) ? $comment->getText() : $comment;

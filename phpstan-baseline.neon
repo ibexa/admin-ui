@@ -1339,12 +1339,6 @@ parameters:
 			path: src/bundle/DependencyInjection/IbexaAdminUiExtension.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\ComponentExtension\:\:renderComponent\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/bundle/Templating/Twig/ComponentExtension.php
-
-		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\ComponentExtension\:\:renderComponent\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8257,42 +8251,6 @@ parameters:
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:afterTraverse\(\) should return array\<PhpParser\\Node\>\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:beforeTraverse\(\) should return array\<PhpParser\\Node\>\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:leaveNode\(\) should return array\<PhpParser\\Node\>\|int\|PhpParser\\Node\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitFile\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitPhpFile\(\) has parameter \$ast with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitTwigFile\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
 			message: '#^Parameter \#1 \$desc of method JMS\\TranslationBundle\\Model\\Message\:\:setDesc\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -9211,12 +9169,6 @@ parameters:
 			path: src/lib/Validator/Constraints/FieldSettings.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\LocationHasChildren\:\:\$message has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Validator/Constraints/LocationHasChildren.php
-
-		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 2
@@ -9227,12 +9179,6 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: src/lib/Validator/Constraints/LocationHasChildrenValidator.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\LocationHaveUniqueAssetRelation\:\:\$message has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Validator/Constraints/LocationHaveUniqueAssetRelation.php
 
 		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
@@ -9247,12 +9193,6 @@ parameters:
 			path: src/lib/Validator/Constraints/LocationHaveUniqueAssetRelationValidator.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\LocationIsContainer\:\:\$message has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Validator/Constraints/LocationIsContainer.php
-
-		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 2
@@ -9265,12 +9205,6 @@ parameters:
 			path: src/lib/Validator/Constraints/LocationIsContainerValidator.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\LocationIsNotRoot\:\:\$message has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Validator/Constraints/LocationIsNotRoot.php
-
-		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 2
@@ -9281,12 +9215,6 @@ parameters:
 			identifier: identical.alwaysFalse
 			count: 1
 			path: src/lib/Validator/Constraints/LocationIsNotRootValidator.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\LocationIsWithinCopySubtreeLimit\:\:\$message has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Validator/Constraints/LocationIsWithinCopySubtreeLimit.php
 
 		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'

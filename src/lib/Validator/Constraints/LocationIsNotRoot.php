@@ -12,14 +12,11 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
 class LocationIsNotRoot extends Constraint implements TranslationContainerInterface
 {
-    public $message = 'ezplatform.copy_subtree.is_root';
+    public string $message = 'ezplatform.copy_subtree.is_root';
 
-    public static function getTranslationMessages()
+    public static function getTranslationMessages(): array
     {
         return [
             Message::create('ezplatform.copy_subtree.is_root', 'validators')

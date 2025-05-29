@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
-use Ibexa\AdminUi\Component\Registry as ComponentRegistry;
-use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
+use Ibexa\Contracts\TwigComponents\Renderer\RendererInterface;
+use Ibexa\TwigComponents\Component\Registry as ComponentRegistry;
 use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -28,7 +28,7 @@ class ComponentExtension extends AbstractExtension
         $this->renderer = $renderer;
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(
@@ -55,7 +55,7 @@ class ComponentExtension extends AbstractExtension
         return implode('', $this->renderer->renderGroup($group, $parameters));
     }
 
-    public function renderComponent(string $group, string $id, array $parameters = [])
+    public function renderComponent(string $group, string $id, array $parameters = []): string
     {
         return $this->renderer->renderSingle($group, $id, $parameters);
     }
