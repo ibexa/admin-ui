@@ -1,13 +1,15 @@
 import { getAdminUiConfig } from './context.helper';
 
-const getIconPath = (path, iconSet) => {
+const getIconPath = (aliasPath, iconSet) => {
     const adminUiConfig = getAdminUiConfig();
+    const { defaultIconSet, iconSets, iconAliases } = adminUiConfig.iconPaths;
+    const path = iconAliases[aliasPath] || aliasPath;
 
     if (!iconSet) {
-        iconSet = adminUiConfig.iconPaths.defaultIconSet;
+        iconSet = defaultIconSet;
     }
 
-    const iconSetPath = adminUiConfig.iconPaths.iconSets[iconSet];
+    const iconSetPath = iconSets[iconSet];
 
     return `${iconSetPath}#${path}`;
 };

@@ -182,6 +182,8 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     {
         $token = $this->tokenStorage->getToken();
 
+        die;
+
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->createMenuItem('root');
 
