@@ -52,7 +52,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
                     'multiple' => true,
                     'choices' => $this->getMimeTypesChoiceList(),
                     'property_path' => 'fieldSettings[mimeTypes]',
-                    'label' => /** @Desc("Image types") */ 'field_definition.ezimage.image_types',
+                    'label' => /** @Desc("Image types") */ 'field_definition.ibexa_image.image_types',
                 ]);
         }
 
@@ -60,7 +60,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
             ->add('maxSize', NumberType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
-                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ezimage.max_file_size',
+                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ibexa_image.max_file_size',
                 'constraints' => [
                     new Range([
                         'min' => 0,
@@ -77,7 +77,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
             ->add('isAlternativeTextRequired', CheckboxType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[AlternativeTextValidator][required]',
-                'label' => /** @Desc("Alternative text is required") */ 'field_definition.ezimage.is_alternative_text_required',
+                'label' => /** @Desc("Alternative text is required") */ 'field_definition.ibexa_image.is_alternative_text_required',
                 'disabled' => $isTranslation,
             ]);
     }

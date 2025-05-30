@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for eztime FieldType.
+ * FormMapper for ibexa_time FieldType.
  */
 class TimeFormMapper implements FieldDefinitionFormMapperInterface
 {
@@ -31,7 +31,7 @@ class TimeFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[useSeconds]',
-                    'label' => /** @Desc("Use seconds") */ 'field_definition.eztime.use_seconds',
+                    'label' => /** @Desc("Use seconds") */ 'field_definition.ibexa_time.use_seconds',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -41,14 +41,14 @@ class TimeFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'choices' => [
                         /** @Desc("Empty") */
-                        'field_definition.eztime.default_type_empty' => Type::DEFAULT_EMPTY,
+                        'field_definition.ibexa_time.default_type_empty' => Type::DEFAULT_EMPTY,
                         /** @Desc("Current time") */
-                        'field_definition.eztime.default_type_current' => Type::DEFAULT_CURRENT_TIME,
+                        'field_definition.ibexa_time.default_type_current' => Type::DEFAULT_CURRENT_TIME,
                     ],
                     'expanded' => true,
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultType]',
-                    'label' => /** @Desc("Default value") */ 'field_definition.eztime.default_type',
+                    'label' => /** @Desc("Default value") */ 'field_definition.ibexa_time.default_type',
                     'disabled' => $isTranslation,
                 ]
             );

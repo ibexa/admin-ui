@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for eztext FieldType.
+ * FormMapper for ibexa_text FieldType.
  */
 class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
 {
@@ -29,7 +29,7 @@ class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[textRows]',
-                    'label' => /** @Desc("Number of text rows") */ 'field_definition.eztext.text_rows',
+                    'label' => /** @Desc("Number of text rows") */ 'field_definition.ibexa_text.text_rows',
                     'disabled' => $isTranslation,
                 ]
             );

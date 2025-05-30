@@ -39,15 +39,15 @@ The `BaseFieldValidator` class has a few required properties. All of them are li
 
 **classInvalid** _{String}_ - CSS class name to be added when field is invalid, example: 'is-invalid'.
 
-**fieldSelector** _{String}_ - CSS selector of the field, example: '.ez-field-edit-ezstring',
+**fieldSelector** _{String}_ - CSS selector of the field, example: '.ez-field-edit-ibexa_string',
 
 **eventsMap** _{Array}_  - events config:
-- **selector** _{String}_ - CSS selector of input (where to add an event listener), example: '.ez-field-edit-ezstring input'.
+- **selector** _{String}_ - CSS selector of input (where to add an event listener), example: '.ez-field-edit-ibexa_string input'.
 - **eventName** _{String}_ - event name, example: 'blur'.
 - **callback** _{String}_ - callback for event listener, example: 'validateInput', should return object with two params:
     - **isError** _{Boolean}_ - indicator of error state (true/false).
     - **errorMessage** _{String}_ - text of the error.
-- **invalidStateSelectors** {Array} - CSS selectors where to add invalid class, example: ['.ez-field-edit-ezstring'].
+- **invalidStateSelectors** {Array} - CSS selectors where to add invalid class, example: ['.ez-field-edit-ibexa_string'].
 - **errorNodeSelectors** {Array} - CSS selectors where to append an error message, example: ['.ez-field-edit-text-zone'].
 
 ## Useful methods

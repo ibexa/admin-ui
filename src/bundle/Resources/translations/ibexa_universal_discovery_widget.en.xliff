@@ -121,20 +121,20 @@
         <target state="new">Search...</target>
         <note>key: dropdown.placeholder</note>
       </trans-unit>
-      <trans-unit id="bc4850e9ccff0c6effc58a089fe148c16689d8ee" resname="ezimageasset.title">
+      <trans-unit id="bc4850e9ccff0c6effc58a089fe148c16689d8ee" resname="ibexa_image_asset.title">
         <source>Select Image Asset</source>
         <target state="new">Select Image Asset</target>
-        <note>key: ezimageasset.title</note>
+        <note>key: ibexa_image_asset.title</note>
       </trans-unit>
-      <trans-unit id="a46e5fdf25ad5fc5725b6db78274102983e65ef2" resname="ezobjectrelationlist.title.multi">
+      <trans-unit id="a46e5fdf25ad5fc5725b6db78274102983e65ef2" resname="ibexa_object_relation_list.title.multi">
         <source>Select Content item(s)</source>
         <target state="new">Select Content item(s)</target>
-        <note>key: ezobjectrelationlist.title.multi</note>
+        <note>key: ibexa_object_relation_list.title.multi</note>
       </trans-unit>
-      <trans-unit id="af2bf80ec528976a55efeb36753db6ca6ca652e5" resname="ezobjectrelationlist.title.single">
+      <trans-unit id="af2bf80ec528976a55efeb36753db6ca6ca652e5" resname="ibexa_object_relation_list.title.single">
         <source>Select a Content item</source>
         <target state="new">Select a Content item</target>
-        <note>key: ezobjectrelationlist.title.single</note>
+        <note>key: ibexa_object_relation_list.title.single</note>
       </trans-unit>
       <trans-unit id="b01a58cb9736974403f9f94ecce5180fb95a9627" resname="filters.apply">
         <source>Apply</source>

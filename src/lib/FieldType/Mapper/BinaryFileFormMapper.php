@@ -32,7 +32,7 @@ class BinaryFileFormMapper implements FieldDefinitionFormMapperInterface
             ->add('maxSize', IntegerType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
-                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ezbinaryfile.max_file_size',
+                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ibexa_binaryfile.max_file_size',
                 'translation_domain' => 'ibexa_content_type',
                 'constraints' => [
                     new Range([

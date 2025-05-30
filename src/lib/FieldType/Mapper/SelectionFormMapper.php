@@ -45,7 +45,7 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
             ->add('isMultiple', CheckboxType::class, [
                 'required' => false,
                 'property_path' => 'fieldSettings[isMultiple]',
-                'label' => /** @Desc("Multiple choice") */ 'field_definition.ezselection.is_multiple',
+                'label' => /** @Desc("Multiple choice") */ 'field_definition.ibexa_selection.is_multiple',
                 'disabled' => $isTranslation,
             ]);
 
@@ -61,7 +61,7 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
             'prototype_name' => '__number__',
             'required' => false,
             'property_path' => 'fieldSettings[' . $dataPropertyPathName . ']',
-            'label' => /** @Desc("Options") */ 'field_definition.ezselection.options',
+            'label' => /** @Desc("Options") */ 'field_definition.ibexa_selection.options',
         ]);
 
         if ($isMultilingual) {

@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezinteger FieldType.
+ * FormMapper for ibexa_integer FieldType.
  */
 class IntegerFormMapper implements FieldDefinitionFormMapperInterface
 {
@@ -29,7 +29,7 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
             ->createBuilder()
             ->create('defaultValue', IntegerFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezinteger.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_integer.default_value',
             ])
             ->setAutoInitialize(false)
             ->getForm();
@@ -41,7 +41,7 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[IntegerValueValidator][minIntegerValue]',
-                    'label' => /** @Desc("Minimum value") */ 'field_definition.ezinteger.min_value',
+                    'label' => /** @Desc("Minimum value") */ 'field_definition.ibexa_integer.min_value',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -51,7 +51,7 @@ class IntegerFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[IntegerValueValidator][maxIntegerValue]',
-                    'label' => /** @Desc("Maximum value") */ 'field_definition.ezinteger.max_value',
+                    'label' => /** @Desc("Maximum value") */ 'field_definition.ibexa_integer.max_value',
                     'disabled' => $isTranslation,
                 ]
             )

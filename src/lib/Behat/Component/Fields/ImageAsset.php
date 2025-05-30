@@ -82,6 +82,6 @@ class ImageAsset extends Image
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezimageasset';
+        return 'ibexa_imageasset';
     }
 }

@@ -67,7 +67,7 @@ class Authors extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezauthor';
+        return 'ibexa_author';
     }
 
     public function specifyLocators(): array

@@ -11,7 +11,7 @@ use Ibexa\Core\FieldType\Media\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * Data transformer for ezmedia field type.
+ * Data transformer for ibexa_media field type.
  *
  * @phpstan-type TMediaProperties = array{hasController: bool, loop: bool, autoplay: bool, width: int, height: int}
  *

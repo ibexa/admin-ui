@@ -122,7 +122,7 @@ const prepareStruct = ({ parentInfo, config, languageCode }, data, contentErrorC
                 .then((parsedResponse) => {
                     const fieldDefinition = parsedResponse.FieldDefinition;
 
-                    if (fieldDefinition.fieldType === 'ezimage') {
+                    if (fieldDefinition.fieldType === 'ibexa_image') {
                         fileValue.alternativeText = data.file.name;
                     }
 

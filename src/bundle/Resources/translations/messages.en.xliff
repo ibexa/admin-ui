@@ -306,50 +306,50 @@
         <target state="new">Something went wrong. Try to refresh the page or contact your administrator.</target>
         <note>key: error.request.default_msg</note>
       </trans-unit>
-      <trans-unit id="2c7f89a37db43b829ff76f40565020c5bd4c2dae" resname="ezauthor.Email">
+      <trans-unit id="2c7f89a37db43b829ff76f40565020c5bd4c2dae" resname="ibexa_author.Email">
         <source>Email</source>
         <target state="new">Email</target>
-        <note>key: ezauthor.Email</note>
+        <note>key: ibexa_author.Email</note>
       </trans-unit>
-      <trans-unit id="86a1d081394a7faba471dc5eaa4b1c112e9ff03a" resname="ezauthor.action.add">
+      <trans-unit id="86a1d081394a7faba471dc5eaa4b1c112e9ff03a" resname="ibexa_author.action.add">
         <source>Add</source>
         <target state="new">Add</target>
-        <note>key: ezauthor.action.add</note>
+        <note>key: ibexa_author.action.add</note>
       </trans-unit>
-      <trans-unit id="3a0389d073f00ef9a968a5cdc60e2794b434b381" resname="ezauthor.action.delete">
+      <trans-unit id="3a0389d073f00ef9a968a5cdc60e2794b434b381" resname="ibexa_author.action.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
-        <note>key: ezauthor.action.delete</note>
+        <note>key: ibexa_author.action.delete</note>
       </trans-unit>
-      <trans-unit id="06a34ac23ac86f7c4368380203e3dd4d91489fa0" resname="ezauthor.name">
+      <trans-unit id="06a34ac23ac86f7c4368380203e3dd4d91489fa0" resname="ibexa_author.name">
         <source>Name</source>
         <target state="new">Name</target>
-        <note>key: ezauthor.name</note>
+        <note>key: ibexa_author.name</note>
       </trans-unit>
-      <trans-unit id="9a8153d976ff4a6805e00fa7945d153f01bc61a8" resname="ezobjectrelationlist.cta.limit.multi">
+      <trans-unit id="9a8153d976ff4a6805e00fa7945d153f01bc61a8" resname="ibexa_object_relation_list.cta.limit.multi">
         <source>Set up a Relation with one or several Items</source>
         <target state="new">Set up a Relation with one or several Items</target>
-        <note>key: ezobjectrelationlist.cta.limit.multi</note>
+        <note>key: ibexa_object_relation_list.cta.limit.multi</note>
       </trans-unit>
-      <trans-unit id="6589b9cece0e96f6430a994e1b4e9db1ee5f8139" resname="ezobjectrelationlist.cta.limit.single">
+      <trans-unit id="6589b9cece0e96f6430a994e1b4e9db1ee5f8139" resname="ibexa_object_relation_list.cta.limit.single">
         <source>Set up a relation with one Content item</source>
         <target state="new">Set up a relation with one Content item</target>
-        <note>key: ezobjectrelationlist.cta.limit.single</note>
+        <note>key: ibexa_object_relation_list.cta.limit.single</note>
       </trans-unit>
-      <trans-unit id="e3d3887285c9d2ee774741a92bbfe53708143bc6" resname="ezobjectrelationlist.cta.limit.sub_text">
+      <trans-unit id="e3d3887285c9d2ee774741a92bbfe53708143bc6" resname="ibexa_object_relation_list.cta.limit.sub_text">
         <source>Relations max. %limit%</source>
         <target state="new">Relations max. %limit%</target>
-        <note>key: ezobjectrelationlist.cta.limit.sub_text</note>
+        <note>key: ibexa_object_relation_list.cta.limit.sub_text</note>
       </trans-unit>
-      <trans-unit id="df33d5cc8c00514b2c50d4949b872cc3cd99284c" resname="ezobjectrelationlist.cta.select">
+      <trans-unit id="df33d5cc8c00514b2c50d4949b872cc3cd99284c" resname="ibexa_object_relation_list.cta.select">
         <source>Select Item</source>
         <target state="new">Select Item</target>
-        <note>key: ezobjectrelationlist.cta.select</note>
+        <note>key: ibexa_object_relation_list.cta.select</note>
       </trans-unit>
-      <trans-unit id="85874e8811087f9c2169915345cdf71d5243182e" resname="ezobjectrelationlist.delete_selected_relations">
+      <trans-unit id="85874e8811087f9c2169915345cdf71d5243182e" resname="ibexa_object_relation_list.delete_selected_relations">
         <source>Delete</source>
         <target state="new">Delete</target>
-        <note>key: ezobjectrelationlist.delete_selected_relations</note>
+        <note>key: ibexa_object_relation_list.delete_selected_relations</note>
       </trans-unit>
       <trans-unit id="8c3f0606ebb870dd8113cca42da7510414c5a0a8" resname="ezplatform.forgot_password.reset_your_password.reason.migration">
         <source>Your password has expired, change it.</source>

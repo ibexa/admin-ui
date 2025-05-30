@@ -1,6 +1,6 @@
 {% trans_default_domain 'ibexa_content_forms_content' %}
 
-{% block ezobjectrelation_base_widget %}
+{% block ibexa_object_relation_base_widget %}
     {% set limit = limit|default(0) %}
     {% set default_location = default_location|default(1) %}
     {% set has_relations = relations|length > 0 %}
@@ -11,7 +11,7 @@
         <button
             type="button"
             class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-relations__table-action--remove-item ibexa-btn"
-            title="{{ 'ezobjectrelationlist.delete_selected_relations'|trans|desc('Delete') }}"
+            title="{{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}"
             {{ readonly ? 'disabled' }}
         >
             <svg class="ibexa-icon ibexa-icon--small">
@@ -214,14 +214,14 @@
         {% endif %}
 
         {% set head_cols = head_cols|merge([
-            { content: 'ezobjectrelationlist.table.row.name'|trans|desc('Name') },
-            { content: 'ezobjectrelationlist.table.row.content_type'|trans|desc('Content type') },
-            { content: 'ezobjectrelationlist.table.row.created'|trans|desc('Created') },
+            { content: 'ibexa_object_relation_list.table.row.name'|trans|desc('Name') },
+            { content: 'ibexa_object_relation_list.table.row.content_type'|trans|desc('Content type') },
+            { content: 'ibexa_object_relation_list.table.row.created'|trans|desc('Created') },
         ]) %}
 
         {% if limit != 1 %}
             {% set head_cols = head_cols|merge([
-                { content: 'ezobjectrelationlist.table.row.order'|trans|desc('Order') },
+                { content: 'ibexa_object_relation_list.table.row.order'|trans|desc('Order') },
             ]) %}
         {% endif %}
 
@@ -249,14 +249,14 @@
                         <div class="ibexa-relations__info-wrapper">
                             <p class="ibexa-relations__info-text">
                                 {% if limit != 1 %}
-                                    {{ 'ezobjectrelationlist.cta.limit.multi'|trans|desc('Set up a Relation with one or several Items') }}
+                                    {{ 'ibexa_object_relation_list.cta.limit.multi'|trans|desc('Set up a Relation with one or several Items') }}
                                 {% else %}
-                                    {{ 'ezobjectrelationlist.cta.limit.single'|trans|desc('Set up a relation with one Content item') }}
+                                    {{ 'ibexa_object_relation_list.cta.limit.single'|trans|desc('Set up a relation with one Content item') }}
                                 {% endif %}
                             </p>
                             {% if limit != 0 %}
                                 <p class="ibexa-relations__info-sub-text">
-                                    {{ 'ezobjectrelationlist.cta.limit.sub_text'|trans({'%limit%': limit})|desc('Relations max. %limit%') }}
+                                    {{ 'ibexa_object_relation_list.cta.limit.sub_text'|trans({'%limit%': limit})|desc('Relations max. %limit%') }}
                                 </p>
                             {% endif %}
                         </div>
@@ -275,7 +275,7 @@
                                 disabled
                                 {% if not has_relations %}hidden="true"{% endif %}
                             >
-                                <span class="ibexa-btn__label">{{ 'ezobjectrelationlist.cta.select'|trans|desc('Select Item') }}</span>
+                                <span class="ibexa-btn__label">{{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}</span>
                             </button>
                             <button
                                 type="button"
@@ -286,7 +286,7 @@
                                 <svg class="ibexa-icon ibexa-icon--small">
                                     <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                 </svg>
-                                <span class="ibexa-btn__label">{{ 'ezobjectrelationlist.delete_selected_relations'|trans|desc('Delete') }}</span>
+                                <span class="ibexa-btn__label">{{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}</span>
                             </button>
                         {% endif %}
                     {% endblock %}
@@ -310,7 +310,7 @@
             {{ readonly|default(false) ? 'disabled' }}
         >
             <span class="ibexa-relations__cta-btn-label">
-                {{ 'ezobjectrelationlist.cta.select'|trans|desc('Select Item') }}
+                {{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}
             </span>
         </button>
         <p class="ibexa-relations__helper-text">{{ helper }}</p>

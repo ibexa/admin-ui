@@ -1,0 +1,56 @@
+{% trans_default_domain 'ibexa_content_forms_content' %}
+
+{% use '@ibexadesign/ui/field_type/edit/binary_base.html.twig' %}
+
+{%- block ezplatform_fieldtype_ibexa_binaryfile_row -%}
+    {% set preview_block_name = 'ibexa_binaryfile_preview' %}
+    {% set max_file_size = min(form.parent.vars.value.fieldDefinition.validatorConfiguration.FileSizeValidator.maxFileSize * 1024 * 1024, max_upload_size)|round %}
+    {{ block('binary_base_row') }}
+{%- endblock -%}
+
+{% block ibexa_binaryfile_preview %}
+    {% set readonly = attr.readonly|default(false) %}
+    {% set inLanguageQueryParameter = 'inLanguage=' ~ form.parent.vars.languageCode %}
+    {% set uri = form.parent.vars.value.value.uri %}
+    {% set url = uri ~ ('?' in uri ? '&' : '?') ~ inLanguageQueryParameter %}
+
+    <div class="ibexa-field-edit-preview">
+        <div class="ibexa-field-edit-preview__visual">
+            <div class="ibexa-field-edit-preview__media-wrapper">
+                <div class="ibexa-field-edit-preview__actions">
+                    <a
+                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        href="{{ url }}"
+                        download
+                        {{ readonly ? 'disabled' }}
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('download') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">{{ 'ibexa_binaryfile.action.download'|trans|desc('Download') }}</span>
+                    </a>
+                    <button
+                        type="button"
+                        class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ readonly ? 'disabled' }}
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">{{ 'ibexa_binaryfile.action.remove'|trans|desc('Delete') }}</span>
+                    </button>
+                </div>
+                <div class="ibexa-field-edit-preview__file-name-wrapper">
+                    <label class="ibexa-label form-label">{{ 'ibexa_binaryfile.file_name.label'|trans|desc('File name') }}</label>
+                    <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
+                </div>
+                <div class="ibexa-field-edit-preview__file-size-wrapper">
+                    <label class="ibexa-label form-label">{{ 'ibexa_binaryfile.file_size.label'|trans|desc('Size') }}</label>
+                    <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

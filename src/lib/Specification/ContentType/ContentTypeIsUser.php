@@ -14,7 +14,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 class ContentTypeIsUser extends AbstractSpecification
 {
-    private const EZUSER_FIELD_TYPE_IDENTIFIER = 'ezuser';
+    private const EZUSER_FIELD_TYPE_IDENTIFIER = 'ibexa_user';
 
     private array $userContentTypeIdentifier;
 
