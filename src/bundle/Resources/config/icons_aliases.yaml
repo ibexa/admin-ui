@@ -10,6 +10,7 @@ system:
                 align-justify: align-text-justified
                 align-left: align-text-left
                 align-right: align-text-right
+                archive-restore: archived-restore
                 arrow-down: arrow-caret-down
                 arrow-right: arrow-caret-right
                 article: file-text
@@ -39,7 +40,7 @@ system:
                 bookmark-manager: book
                 browse: folder-browse
                 business-deal-cash: user-money
-                button: cursor-clicked-hand
+                button: cursor-clicked
                 campaign: speaker
                 caret-back: arrow-chevron-back
                 caret-double-back: arrow-double-left
@@ -56,8 +57,8 @@ system:
                 checkmark: form-check
                 circle-close: discard-circle
                 circle-create: plus-circle
-                circle-minus: minus-circle
-                clicked-recommendations: cursor-clicked
+                circle-pause: minus-circle
+                clicked-recommendations: cursor-clicked-hand
                 collapse: arrow-collapse-right
                 collection: collection
                 column-settings: table-settings-column
@@ -66,7 +67,7 @@ system:
                 components: box-component
                 connect: connection
                 content-draft: draft
-                content-list: list-content
+                contentlist: list-content
                 content-tree: content-tree
                 content-type: tools
                 content-type-group: tool-group
@@ -138,7 +139,7 @@ system:
                 last-purchased: cursor-clicked-hand
                 layout-switch: layout-switch
                 link: link
-                link-anchor: anchor
+                link-anchor: link-anchor
                 link-remove: unlink
                 list: list-bullet
                 list-numbered: list-number
