@@ -28,6 +28,7 @@ final class IconPaths implements ProviderInterface
         return [
             'iconSets' => $this->configResolver->getParameter('assets.icon_sets'),
             'defaultIconSet' => $this->configResolver->getParameter('assets.default_icon_set'),
+            'iconAliases' => $this->configResolver->getParameter('assets.icon_aliases'),
         ];
     }
 }
