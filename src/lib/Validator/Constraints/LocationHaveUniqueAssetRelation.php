@@ -12,14 +12,11 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
 class LocationHaveUniqueAssetRelation extends Constraint implements TranslationContainerInterface
 {
-    public $message = 'ezplatform.trash.have_used_assets';
+    public string $message = 'ezplatform.trash.have_used_assets';
 
-    public static function getTranslationMessages()
+    public static function getTranslationMessages(): array
     {
         return [
             Message::create('ezplatform.trash.have_used_assets', 'validators')

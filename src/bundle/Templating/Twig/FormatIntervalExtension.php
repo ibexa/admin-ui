@@ -17,7 +17,7 @@ use Twig\TwigFilter;
 
 class FormatIntervalExtension extends AbstractExtension implements TranslationContainerInterface
 {
-    private const INTERVAL_PARTS = [
+    private const array INTERVAL_PARTS = [
         'y' => 'years',
         'm' => 'months',
         'd' => 'days',
@@ -33,7 +33,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         $this->translator = $translator;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('format_interval', $this->formatInterval(...)),

@@ -23,7 +23,7 @@ class TimeDiffExtension extends AbstractExtension
         $this->dateTimeFormatter = $dateTimeFormatter;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter(
