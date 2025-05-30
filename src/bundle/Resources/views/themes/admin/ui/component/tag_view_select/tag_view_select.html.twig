@@ -23,7 +23,7 @@
     {% if is_disabled %}disabled{% endif %}
 >
     {% if show_title %}
-        <div class="ibexa-tag-view-select__info {{ is_disabled is defined ? 'ibexa-tag-view-select__info--disabled' }}">
+        <div class="ibexa-tag-view-select__info {{ is_disabled|default(false) ? 'ibexa-tag-view-select__info--disabled' }}">
             {{ title|default(default_title) }}
         </div>
     {% endif %}
