@@ -38,7 +38,7 @@ class MediaFormMapper implements FieldDefinitionFormMapperInterface
             ->add('maxSize', IntegerType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
-                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ezmedia.max_file_size',
+                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ibexa_media.max_file_size',
                 'constraints' => [
                     new Range([
                         'min' => 0,
@@ -54,23 +54,23 @@ class MediaFormMapper implements FieldDefinitionFormMapperInterface
             ->add('mediaType', ChoiceType::class, [
                 'choices' => [
                     /** @Desc("Flash") */
-                    'field_definition.ezmedia.type_flash' => Type::TYPE_FLASH,
+                    'field_definition.ibexa_media.type_flash' => Type::TYPE_FLASH,
                     /** @Desc("HTML5 video") */
-                    'field_definition.ezmedia.type_html5_video' => Type::TYPE_HTML5_VIDEO,
+                    'field_definition.ibexa_media.type_html5_video' => Type::TYPE_HTML5_VIDEO,
                     /** @Desc("QuickTime") */
-                    'field_definition.ezmedia.type_quick_time' => Type::TYPE_QUICKTIME,
+                    'field_definition.ibexa_media.type_quick_time' => Type::TYPE_QUICKTIME,
                     /** @Desc("RealPlayer") */
-                    'field_definition.ezmedia.type_real_player' => Type::TYPE_REALPLAYER,
+                    'field_definition.ibexa_media.type_real_player' => Type::TYPE_REALPLAYER,
                     /** @Desc("Silverlight") */
-                    'field_definition.ezmedia.type_silverlight' => Type::TYPE_SILVERLIGHT,
+                    'field_definition.ibexa_media.type_silverlight' => Type::TYPE_SILVERLIGHT,
                     /** @Desc("Windows Media Player") */
-                    'field_definition.ezmedia.type_windows_media_player' => Type::TYPE_WINDOWSMEDIA,
+                    'field_definition.ibexa_media.type_windows_media_player' => Type::TYPE_WINDOWSMEDIA,
                     /** @Desc("HTML5 audio") */
-                    'field_definition.ezmedia.type_html5_audio' => Type::TYPE_HTML5_AUDIO,
+                    'field_definition.ibexa_media.type_html5_audio' => Type::TYPE_HTML5_AUDIO,
                 ],
                 'required' => true,
                 'property_path' => 'fieldSettings[mediaType]',
-                'label' => /** @Desc("Media type") */ 'field_definition.ezmedia.media_type',
+                'label' => /** @Desc("Media type") */ 'field_definition.ibexa_media.media_type',
                 'disabled' => $isTranslation,
             ]);
     }

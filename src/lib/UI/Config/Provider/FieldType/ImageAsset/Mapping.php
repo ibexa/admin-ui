@@ -31,7 +31,7 @@ class Mapping implements ProviderInterface
      */
     public function getConfig(): array
     {
-        $mappings = $this->configResolver->getParameter('fieldtypes.ezimageasset.mappings');
+        $mappings = $this->configResolver->getParameter('fieldtypes.ibexa_image_asset.mappings');
 
         return [
             'contentTypeIdentifier' => $mappings['content_type_identifier'],

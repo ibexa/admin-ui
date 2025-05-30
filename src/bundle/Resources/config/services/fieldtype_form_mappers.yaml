@@ -17,53 +17,53 @@ services:
 
     Ibexa\AdminUi\FieldType\Mapper\AuthorFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezauthor }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_author }
 
     Ibexa\AdminUi\FieldType\Mapper\BinaryFileFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezbinaryfile }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_binaryfile }
 
     Ibexa\AdminUi\FieldType\Mapper\CheckboxFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezboolean }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_boolean }
 
     Ibexa\AdminUi\FieldType\Mapper\SelectionFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezselection }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_selection }
 
     Ibexa\AdminUi\FieldType\Mapper\CountryFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezcountry }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_country }
 
     Ibexa\AdminUi\FieldType\Mapper\DateFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezdate }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_date }
 
     Ibexa\AdminUi\FieldType\Mapper\DateTimeFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezdatetime }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_datetime }
 
     Ibexa\AdminUi\FieldType\Mapper\FloatFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezfloat }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_float }
 
     Ibexa\AdminUi\FieldType\Mapper\ImageFormMapper:
         arguments:
             $allowedMimeTypes: '%ibexa.field_type.ezimage.mime_types%'
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezimage }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_image }
 
     Ibexa\AdminUi\FieldType\Mapper\IntegerFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezinteger }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_integer }
 
     Ibexa\AdminUi\FieldType\Mapper\ISBNFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezisbn }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_isbn }
 
     Ibexa\AdminUi\FieldType\Mapper\MediaFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezmedia }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_media }
 
     Ibexa\AdminUi\FieldType\Mapper\RelationFormMapper:
         parent: Ibexa\AdminUi\FieldType\Mapper\AbstractRelationFormMapper
@@ -71,7 +71,7 @@ services:
         autoconfigure: false
         public: false
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezobjectrelation }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_object_relation }
 
     Ibexa\AdminUi\FieldType\Mapper\RelationListFormMapper:
         parent: Ibexa\AdminUi\FieldType\Mapper\AbstractRelationFormMapper
@@ -79,7 +79,7 @@ services:
         autoconfigure: false
         public: false
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezobjectrelationlist }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_object_relation_list }
 
     Ibexa\AdminUi\FieldType\Mapper\TextLineFormMapper:
         tags:
@@ -87,12 +87,12 @@ services:
 
     Ibexa\AdminUi\FieldType\Mapper\TextBlockFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: eztext }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_text }
 
     Ibexa\AdminUi\FieldType\Mapper\TimeFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: eztime }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_time }
 
     Ibexa\AdminUi\FieldType\Mapper\UserAccountFormMapper:
         tags:
-            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ezuser }
+            - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_user }

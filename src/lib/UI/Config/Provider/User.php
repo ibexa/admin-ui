@@ -61,7 +61,7 @@ class User implements ProviderInterface
     }
 
     /**
-     * Returns first occurrence of an `ezimage` fieldtype.
+     * Returns first occurrence of an `ibexa_image` fieldtype.
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
      *
@@ -73,7 +73,7 @@ class User implements ProviderInterface
         foreach ($user->getFields() as $field) {
             $fieldDef = $contentType->getFieldDefinition($field->fieldDefIdentifier);
 
-            if ('ezimage' === $fieldDef->fieldTypeIdentifier) {
+            if ('ibexa_image' === $fieldDef->fieldTypeIdentifier) {
                 return $field;
             }
         }

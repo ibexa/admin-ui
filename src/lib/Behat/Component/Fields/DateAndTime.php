@@ -76,7 +76,7 @@ class DateAndTime extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezdatetime';
+        return 'ibexa_datetime';
     }
 
     protected function specifyLocators(): array

@@ -6,30 +6,30 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="6e348032e081597394411395f7fce3700da6f4d4" resname="ezimage.dimensions.height">
+      <trans-unit id="6e348032e081597394411395f7fce3700da6f4d4" resname="ibexa_image.dimensions.height">
         <source>H:%height% px</source>
         <target state="new">H:%height% px</target>
-        <note>key: ezimage.dimensions.height</note>
+        <note>key: ibexa_image.dimensions.height</note>
       </trans-unit>
-      <trans-unit id="cc4b26a9652d9bcfff2d5627d7e34b2fe9eb99b6" resname="ezimage.dimensions.width">
+      <trans-unit id="cc4b26a9652d9bcfff2d5627d7e34b2fe9eb99b6" resname="ibexa_image.dimensions.width">
         <source>W:%width% px</source>
         <target state="new">W:%width% px</target>
-        <note>key: ezimage.dimensions.width</note>
+        <note>key: ibexa_image.dimensions.width</note>
       </trans-unit>
-      <trans-unit id="dc2dfb4a937fee7119e733e0b6715a09320d5078" resname="ezimageasset.create.message.error">
+      <trans-unit id="dc2dfb4a937fee7119e733e0b6715a09320d5078" resname="ibexa_image_asset.create.message.error">
         <source>Error while creating Image Asset: %error%</source>
         <target state="new">Error while creating Image Asset: %error%</target>
-        <note>key: ezimageasset.create.message.error</note>
+        <note>key: ibexa_image_asset.create.message.error</note>
       </trans-unit>
-      <trans-unit id="56d1cc1d279fa173f9f73ab42a61df985aeb5b0c" resname="ezimageasset.create.message.success">
+      <trans-unit id="56d1cc1d279fa173f9f73ab42a61df985aeb5b0c" resname="ibexa_image_asset.create.message.success">
         <source>The image has been published and can now be reused</source>
         <target state="new">The image has been published and can now be reused</target>
-        <note>key: ezimageasset.create.message.success</note>
+        <note>key: ibexa_image_asset.create.message.success</note>
       </trans-unit>
-      <trans-unit id="75c1175bca5f2a2334ffe321afdaedf7fa6887bd" resname="ezimageasset.empty_data.message.error">
+      <trans-unit id="75c1175bca5f2a2334ffe321afdaedf7fa6887bd" resname="ibexa_image_asset.empty_data.message.error">
         <source>The chosen asset has no image data available.</source>
         <target state="new">The chosen asset has no image data available.</target>
-        <note>key: ezimageasset.empty_data.message.error</note>
+        <note>key: ibexa_image_asset.empty_data.message.error</note>
       </trans-unit>
       <trans-unit id="d10ad93186c93b5a79a7aa921eb874b7df716935" resname="ezmaplocation.create.message.error">
         <source>Area below needs correction</source>

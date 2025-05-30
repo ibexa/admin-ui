@@ -11,7 +11,7 @@ use Ibexa\Core\FieldType\BinaryFile\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * Data transformer for ezbinaryfile field type.
+ * Data transformer for ibexa_binaryfile field type.
  *
  * {@inheritdoc}
  */

@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezauthor FieldType.
+ * FormMapper for ibexa_author FieldType.
  */
 class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValueFormMapperInterface
 {
@@ -33,14 +33,14 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                 [
                     'choices' => [
                         /** @Desc("Empty") */
-                        'field_definition.ezauthor.default_user_empty' => Type::DEFAULT_VALUE_EMPTY,
+                        'field_definition.ibexa_author.default_user_empty' => Type::DEFAULT_VALUE_EMPTY,
                         /** @Desc("Current User") */
-                        'field_definition.ezauthor.default_user_current' => Type::DEFAULT_CURRENT_USER,
+                        'field_definition.ibexa_author.default_user_current' => Type::DEFAULT_CURRENT_USER,
                     ],
                     'expanded' => true,
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultAuthor]',
-                    'label' => /** @Desc("Default value") */ 'field_definition.ezauthor.default_author',
+                    'label' => /** @Desc("Default value") */ 'field_definition.ibexa_author.default_author',
                     'translation_domain' => 'ibexa_content_type',
                     'disabled' => $isTranslation,
                 ]

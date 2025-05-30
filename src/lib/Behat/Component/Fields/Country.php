@@ -31,7 +31,7 @@ class Country extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezcountry';
+        return 'ibexa_country';
     }
 
     public function specifyLocators(): array

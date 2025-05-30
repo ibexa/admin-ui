@@ -27,7 +27,7 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[isMultiple]',
-                    'label' => /** @Desc("Multiple choice") */ 'field_definition.ezcountry.is_multiple',
+                    'label' => /** @Desc("Multiple choice") */ 'field_definition.ibexa_country.is_multiple',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -41,7 +41,7 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
                             'multiple' => true,
                             'expanded' => false,
                             'required' => false,
-                            'label' => /** @Desc("Default country") */ 'field_definition.ezcountry.default_value',
+                            'label' => /** @Desc("Default country") */ 'field_definition.ibexa_country.default_value',
                             'disabled' => $isTranslation,
                         ]
                     )

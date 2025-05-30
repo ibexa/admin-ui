@@ -21,6 +21,6 @@ class EmailAddress extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezemail';
+        return 'ibexa_email';
     }
 }

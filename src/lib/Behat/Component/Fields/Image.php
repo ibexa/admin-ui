@@ -78,6 +78,6 @@ class Image extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezimage';
+        return 'ibexa_image';
     }
 }

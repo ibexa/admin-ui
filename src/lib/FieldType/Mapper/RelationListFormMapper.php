@@ -25,12 +25,12 @@ class RelationListFormMapper extends AbstractRelationFormMapper
             ->add('selectionDefaultLocation', RelationType::class, [
                 'required' => false,
                 'property_path' => 'fieldSettings[selectionDefaultLocation]',
-                'label' => /** @Desc("Default Location") */ 'field_definition.ezobjectrelationlist.selection_default_location',
+                'label' => /** @Desc("Default Location") */ 'field_definition.ibexa_object_relation_list.selection_default_location',
                 'disabled' => $isTranslation,
             ])
             ->add('rootDefaultLocation', CheckboxType::class, [
                 'required' => false,
-                'label' => /** @Desc("Root Default Location") */ 'field_definition.ezobjectrelationlist.root_default_location',
+                'label' => /** @Desc("Root Default Location") */ 'field_definition.ibexa_object_relation_list.root_default_location',
                 'property_path' => 'fieldSettings[rootDefaultLocation]',
             ])
             ->add('selectionContentTypes', ChoiceType::class, [
@@ -39,14 +39,14 @@ class RelationListFormMapper extends AbstractRelationFormMapper
                 'multiple' => true,
                 'required' => false,
                 'property_path' => 'fieldSettings[selectionContentTypes]',
-                'label' => /** @Desc("Allowed content types") */ 'field_definition.ezobjectrelationlist.selection_content_types',
+                'label' => /** @Desc("Allowed content types") */ 'field_definition.ibexa_object_relation_list.selection_content_types',
                 'disabled' => $isTranslation,
             ])
             ->add('selectionLimit', IntegerType::class, [
                 'required' => false,
                 'empty_data' => 0,
                 'property_path' => 'validatorConfiguration[RelationListValueValidator][selectionLimit]',
-                'label' => /** @Desc("Selection limit") */ 'field_definition.ezobjectrelationlist.selection_limit',
+                'label' => /** @Desc("Selection limit") */ 'field_definition.ibexa_object_relation_list.selection_limit',
                 'disabled' => $isTranslation,
             ]);
     }

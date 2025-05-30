@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezfloat FieldType.
+ * FormMapper for ibexa_float FieldType.
  */
 class FloatFormMapper implements FieldDefinitionFormMapperInterface
 {
@@ -29,7 +29,7 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
             ->createBuilder()
             ->create('defaultValue', FloatFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezfloat.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_float.default_value',
                 'disabled' => $isTranslation,
             ])
             ->setAutoInitialize(false)
@@ -42,7 +42,7 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[FloatValueValidator][minFloatValue]',
-                    'label' => /** @Desc("Minimum value") */ 'field_definition.ezfloat.min_value',
+                    'label' => /** @Desc("Minimum value") */ 'field_definition.ibexa_float.min_value',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -52,7 +52,7 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[FloatValueValidator][maxFloatValue]',
-                    'label' => /** @Desc("Maximum value") */ 'field_definition.ezfloat.max_value',
+                    'label' => /** @Desc("Maximum value") */ 'field_definition.ibexa_float.max_value',
                     'disabled' => $isTranslation,
                 ]
             )

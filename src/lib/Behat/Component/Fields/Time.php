@@ -69,6 +69,6 @@ class Time extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'eztime';
+        return 'ibexa_time';
     }
 }

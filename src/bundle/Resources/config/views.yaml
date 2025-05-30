@@ -9,15 +9,15 @@ system:
                     controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
                     template: '@ibexadesign/content/location_view.html.twig'
                     match: true
-            preview_ezobjectrelationlist_row:
+            preview_ibexa_object_relation_list_row:
                 default:
                     controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
-                    template: '@ibexadesign/ui/field_type/preview/ezobjectrelationlist_row.html.twig'
+                    template: '@ibexadesign/ui/field_type/preview/ibexa_object_relation_list_row.html.twig'
                     match: true
-            preview_ezimageasset:
+            preview_ibexa_image_asset:
                 default:
                     controller: 'Ibexa\Bundle\AdminUi\Controller\ContentViewController::locationViewAction'
-                    template: '@ibexadesign/ui/field_type/preview/ezimageasset.html.twig'
+                    template: '@ibexadesign/ui/field_type/preview/ibexa_image_asset.html.twig'
                     match: true
 
         content_edit_view:

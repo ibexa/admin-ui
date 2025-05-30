@@ -1,0 +1,67 @@
+{% trans_default_domain 'ibexa_fieldtypes_preview' %}
+
+{% set field = ibexa_field(content, ibexa_content_field_identifier_image_asset()) %}
+{% set versionInfo = content.versionInfo  %}
+
+{% if not ibexa_field_is_empty(content, field) %}
+    {% set imageAlias = ibexa_image_alias( field, versionInfo, parameters.alias|default( 'original' ) ) %}
+    {% set src = imageAlias ? asset( imageAlias.uri ) : "//:0" %}
+
+    <div class="ibexa-field-preview__image-wrapper">
+        <div class="ibexa-field-preview__image">
+            <img src="{{ src }}">
+        </div>
+        <div class="ibexa-field-preview__meta-wrapper">
+            <table class="ibexa-field-preview__meta">
+                <thead>
+                    <tr class="ibexa-field-preview__meta-title-row">
+                        <th colspan="2">
+                            {{ 'ibexa_image_asset.image_file_properties'|trans|desc('Image file properties') }}:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="ibexa-field-preview__meta-value-row">
+                        <td>{{ 'ibexa_image_asset.file_name'|trans|desc('File name') }}:</td>
+                        <td>{{ field.value.fileName }}</td>
+                    </tr>
+                    <tr class="ibexa-field-preview__meta-value-row">
+                        <td>{{ 'ibexa_image_asset.size'|trans|desc('Size') }}:</td>
+                        <td>{{ field.value.fileSize|ibexa_file_size(1) }}</td>
+                    </tr>
+                    <tr class="ibexa-field-preview__meta-value-row">
+                        <td>{{ 'ibexa_image_asset.alternative_text'|trans|desc('Alternative text') }}:</td>
+                        <td>{{ parameters.alternativeText|default(field.value.alternativeText) }}</td>
+                    </tr>
+                    <tr class="ibexa-field-preview__meta-value-row">
+                        <td>{{ 'ibexa_image_asset.master_dimensions'|trans|desc('Master dimensions') }}:</td>
+                        <td>
+                            {{ 'ibexa_image_asset.width_and_height'|trans({
+                                '%width%': field.value.width,
+                                '%height%': field.value.height})|desc('Width: %width%px height: %height%px')
+                            }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'ibexa_image_asset.ratio'|trans|desc('Ratio') }}:</td>
+                        <td>{{ (field.value.width/field.value.height)|round(2) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="ibexa-field-preview__actions-wrapper">
+        <a
+            class="ibexa-field-preview__action ibexa-field-preview__action--preview"
+            href="{{ field.value.uri }}"
+            target="_blank">
+            <svg class="ibexa-icon ibexa-icon--medium ibexa-icon--light">
+                <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
+            </svg>
+        </a>
+    </div>
+{% else %}
+    <a href="{{ path('ibexa.content.view', { 'contentId': content.id, 'locationId': content.contentInfo.mainLocationId }) }}" target="_blank">
+        {{ ibexa_content_name(content) }}
+    </a>
+{% endif %}

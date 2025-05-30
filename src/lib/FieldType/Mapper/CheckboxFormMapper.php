@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezboolean FieldType.
+ * FormMapper for ibexa_boolean FieldType.
  */
 class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
 {
@@ -28,7 +28,7 @@ class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
             ->createBuilder()
             ->create('defaultValue', CheckboxFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezboolean.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_boolean.default_value',
                 'disabled' => $isTranslation,
             ])
             ->setAutoInitialize(false)
