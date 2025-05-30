@@ -556,7 +556,7 @@
                 {{- form_label(form) -}}
             </div>
             <div class="ibexa-field-edit__distraction-free-mode-extras">
-                {{ ibexa_render_component_group('distraction-free-mode-extras', {}) }}
+                {{ ibexa_twig_component_group('distraction-free-mode-extras', {}) }}
             </div>
             <div class="ibexa-field-edit__distraction-free-mode-btns">
                  <button {{ (fieldtype_is_not_translatable or disabled) ? 'disabled' }} type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--enable">
