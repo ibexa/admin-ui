@@ -13,8 +13,12 @@ use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
 
 final class Options implements MutableOptionsBag
 {
+    /** @var array<string, mixed> */
     private array $options;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(array $options = [])
     {
         $this->options = $options;
@@ -25,13 +29,9 @@ final class Options implements MutableOptionsBag
         return $this->options;
     }
 
-    public function get(
-        string $key,
-        $default = null
-    ) {
-        return $this->has($key)
-            ? $this->options[$key]
-            : $default;
+    public function get(string $key, mixed $default = null): mixed
+    {
+        return $this->options[$key] ?? $default;
     }
 
     public function has(string $key): bool
@@ -39,7 +39,7 @@ final class Options implements MutableOptionsBag
         return isset($this->options[$key]);
     }
 
-    public function set(string $key, $value): void
+    public function set(string $key, mixed $value): void
     {
         $this->options[$key] = $value;
     }
