@@ -3067,24 +3067,6 @@ parameters:
 			path: src/lib/Config/AdminUiForms/ContentTypeFieldTypesResolver.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:__construct\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Event/Options.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:all\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Event/Options.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Event\\Options\:\:\$options type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Event/Options.php
-
-		-
 			message: '#^Cannot call method log\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
 			identifier: method.nonObject
 			count: 1
