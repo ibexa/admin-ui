@@ -29,8 +29,8 @@ Feature: Content fields setting and editing
 
     Examples:
       | fieldInternalName    | fieldName                    | fieldSettings                                                         |  label1   | value1                                                                    | label2     | value2                | label3  | value3      | contentItemName           |
-      #| ezgmaplocation       | Map location                 |                                                                       | latitude  | 34.1                                                                      | longitude  | -118.2                | address | Los Angeles | Los Angeles               |
-      | ezcountry            | Country                      |                                                                       | value     | Angola                                                                    |            |                       |         |             | Angola                    |
+      #| ibexa_gmap_location       | Map location                 |                                                                       | latitude  | 34.1                                                                      | longitude  | -118.2                | address | Los Angeles | Los Angeles               |
+      | ibexa_country            | Country                      |                                                                       | value     | Angola                                                                    |            |                       |         |             | Angola                    |
 
   @javascript @APIUser:admin
   Scenario Outline: Edit content item with given field

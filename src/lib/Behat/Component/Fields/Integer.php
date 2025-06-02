@@ -21,6 +21,6 @@ class Integer extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezinteger';
+        return 'ibexa_integer';
     }
 }

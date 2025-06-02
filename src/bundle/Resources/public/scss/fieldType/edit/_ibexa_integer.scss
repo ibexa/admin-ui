@@ -1,7 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
-.ibexa-field-edit--ezinteger {
+.ibexa-field-edit--ibexa_integer {
     .ibexa-data-source__input {
         &::-webkit-inner-spin-button {
             margin-left: calculateRem(24px);

@@ -17,7 +17,7 @@ class User extends FieldTypeComponent
 {
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezuser';
+        return 'ibexa_time';
     }
 
     public function setValue(array $parameters): void

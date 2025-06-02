@@ -48,10 +48,10 @@ Feature: Content fields setting and editing
 
     Examples:
       | fieldInternalName    | fieldName                    | fieldSettings                                                         |  label1   | value1           | label2     | value2                | label3  | value3      | contentItemName           |
-      | ezmedia              | Media                        |                                                                       | value     | video1.mp4       |            |                       |         |             | video1.mp4                |
-      | ezimage              | Image                        |                                                                       | value     | image1.png       |            |                       |         |             | image1.png                |
-      | ezbinaryfile         | File                         |                                                                       | value     | binary1.txt      |            |                       |         |             | binary1.txt               |
-      | ezimageasset         | Image Asset                  |                                                                       | value     | imageasset1.png  |            |                       |         |             | imageasset1.png           |
+      | ibexa_media              | Media                        |                                                                       | value     | video1.mp4       |            |                       |         |             | video1.mp4                |
+      | ibexa_image              | Image                        |                                                                       | value     | image1.png       |            |                       |         |             | image1.png                |
+      | ibexa_binaryfile         | File                         |                                                                       | value     | binary1.txt      |            |                       |         |             | binary1.txt               |
+      | ibexa_image_asset         | Image Asset                  |                                                                       | value     | imageasset1.png  |            |                       |         |             | imageasset1.png           |
 
   @javascript @APIUser:admin
   Scenario Outline: Edit content item with given field

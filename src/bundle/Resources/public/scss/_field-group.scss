@@ -132,22 +132,22 @@
         &__value {
             width: 100%;
 
-            .ezstring-field,
-            .eztext-field {
+            .ibexa_string-field,
+            .ibexa_text-field {
                 display: inline-block;
                 max-width: 100%;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
-            .ezcountry-field {
+            .ibexa_country-field {
                 margin-bottom: 0;
             }
         }
     }
 
     .ibexa-field-preview {
-        &--ezobjectrelationlist {
+        &--ibexa_object_relation_list {
             .table {
                 margin-bottom: 0;
             }

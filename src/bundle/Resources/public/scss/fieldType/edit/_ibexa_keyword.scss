@@ -3,7 +3,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tags' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
 
-.ibexa-field-edit--ezkeyword {
+.ibexa-field-edit--ibexa_keyword {
     .ibexa-data-source__taggify {
         display: flex;
         flex-wrap: wrap;

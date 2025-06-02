@@ -21,6 +21,6 @@ class FloatField extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezfloat';
+        return 'ibexa_float';
     }
 }

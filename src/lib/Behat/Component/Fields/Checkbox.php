@@ -51,7 +51,7 @@ class Checkbox extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezboolean';
+        return 'ibexa_boolean';
     }
 
     public function specifyLocators(): array

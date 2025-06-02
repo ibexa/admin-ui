@@ -49,7 +49,7 @@ services:
 
     Ibexa\AdminUi\FieldType\Mapper\ImageFormMapper:
         arguments:
-            $allowedMimeTypes: '%ibexa.field_type.ezimage.mime_types%'
+            $allowedMimeTypes: '%ibexa.field_type.ibexa_image.mime_types%'
         tags:
             - { name: ibexa.admin_ui.field_type.form.mapper.definition, fieldType: ibexa_image }
 

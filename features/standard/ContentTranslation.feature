@@ -51,6 +51,6 @@ Feature: Content item transation
     And content attributes equal
       | label             | value               | fieldTypeIdentifier |
       | Name              | Folder              |                     |
-      | Short name        | This field is empty | ezstring            |
+      | Short name        | This field is empty | ibexa_string            |
       | Short description | This field is empty | ezrichtext          |
       | Description       | This field is empty | ezrichtext          |

@@ -1,5 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/image-preview' as *;
 
-.ibexa-field-preview--ezimage {
+.ibexa-field-preview--ibexa_image {
     @include image-preview();
 }

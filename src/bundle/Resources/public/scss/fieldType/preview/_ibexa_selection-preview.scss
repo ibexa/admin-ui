@@ -1,6 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
-.ibexa-field-preview--ezselection-multiple {
+.ibexa-field-preview--ibexa_selection-multiple {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
@@ -14,6 +14,6 @@
     }
 }
 
-.ibexa-field-preview--ezselection-single {
+.ibexa-field-preview--ibexa_selection-single {
     padding: calculateRem(4px) calculateRem(10px);
 }

@@ -115,7 +115,7 @@ class ContentRelationMultiple extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezobjectrelationlist';
+        return 'ibexa_object_relation_list';
     }
 
     private function removeRedundantRelations(array $wantedRelations): array

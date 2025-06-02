@@ -29,13 +29,13 @@ Feature: Content fields setting and editing
 
     Examples:
       | fieldInternalName    | fieldName                    | fieldSettings                                                         |  label1   | value1                                                                    | contentItemName           | fieldTypeIdentifier | 
-      | ezselection          | Selection                    | is_multiple:false,options:A first-Bielefeld-TestValue-Turtles-Zombies | value     | TestValue                                                                 | TestValue                 | ezselection         |
-      | ezboolean            | Checkbox                     |                                                                       | value     | true                                                                      | 1                         |                     |
-      | ezemail              | Email address                |                                                                       | value     | email@example.com                                                         | email@example.com         |                     |
-      | ezfloat              | Float                        |                                                                       | value     | 11.11                                                                     | 11.11                     |                     |
-      | ezisbn               | ISBN                         |                                                                       | value     | 978-3-16-148410-0                                                         | 978-3-16-148410-0         |                     |
-      | ezinteger            | Integer                      |                                                                       | value     | 1111                                                                      | 1111                      |                     |
-      | ezkeyword            | Keywords                     |                                                                       | value     | keyword1                                                                  | keyword1                  |                     |
+      | ibexa_selection          | Selection                    | is_multiple:false,options:A first-Bielefeld-TestValue-Turtles-Zombies | value     | TestValue                                                                 | TestValue                 | ibexa_selection         |
+      | ibexa_boolean            | Checkbox                     |                                                                       | value     | true                                                                      | 1                         |                     |
+      | ibexa_email              | Email address                |                                                                       | value     | email@example.com                                                         | email@example.com         |                     |
+      | ibexa_float              | Float                        |                                                                       | value     | 11.11                                                                     | 11.11                     |                     |
+      | ibexa_isbn               | ISBN                         |                                                                       | value     | 978-3-16-148410-0                                                         | 978-3-16-148410-0         |                     |
+      | ibexa_integer            | Integer                      |                                                                       | value     | 1111                                                                      | 1111                      |                     |
+      | ibexa_keyword            | Keywords                     |                                                                       | value     | keyword1                                                                  | keyword1                  |                     |
       | ezmatrix             | Matrix                       | Min_rows:2,Columns:col1-col2-col3                                     | value     | col1:col2:col3,Ala:miała:kota,Szpak:dziobał:bociana,Bociana:dziobał:szpak | Matrix                    |                     |
 
   @javascript @APIUser:admin
@@ -55,7 +55,7 @@ Feature: Content fields setting and editing
 
     Examples:
       | label1    | value1                                    | oldContentItemName        | newContentItemName           | fieldTypeIdentifier |
-      | value     | Bielefeld                                 | TestValue                 | Bielefeld                    | ezselection         |
+      | value     | Bielefeld                                 | TestValue                 | Bielefeld                    | ibexa_selection         |
       | value     | false                                     | 1                         | 0                            |                     |
       | value     | edited.email@example.com                  | email@example.com         | edited.email@example.com     |                     |
       | value     | 12.34                                     | 11.11                     | 12.34                        |                     |

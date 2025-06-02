@@ -51,7 +51,7 @@ class FieldSettingsValidatorTest extends TestCase
             ->expects(self::never())
             ->method('buildViolation');
 
-        $fieldTypeIdentifier = 'ezstring';
+        $fieldTypeIdentifier = 'ibexa_string';
         $fieldDefinition = new FieldDefinition(['fieldTypeIdentifier' => $fieldTypeIdentifier]);
         $fieldSettings = ['foo' => 'bar'];
         $fieldDefData = new FieldDefinitionData(['identifier' => 'foo', 'fieldDefinition' => $fieldDefinition, 'fieldSettings' => $fieldSettings]);
@@ -72,7 +72,7 @@ class FieldSettingsValidatorTest extends TestCase
 
     public function testInvalid(): void
     {
-        $fieldTypeIdentifier = 'ezstring';
+        $fieldTypeIdentifier = 'ibexa_string';
         $fieldDefinition = new FieldDefinition(['fieldTypeIdentifier' => $fieldTypeIdentifier]);
         $fieldSettings = ['%foo%' => 'bar'];
         $fieldDefData = new FieldDefinitionData(['identifier' => 'foo', 'fieldDefinition' => $fieldDefinition, 'fieldSettings' => $fieldSettings]);

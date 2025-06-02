@@ -2,8 +2,8 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
 
-.ibexa-field-edit--ezobjectrelation,
-.ibexa-field-edit--ezobjectrelationlist {
+.ibexa-field-edit--ibexa_object_relation,
+.ibexa-field-edit--ibexa_object_relation_list {
     &.is-invalid {
         .ibexa-data-source {
             @include area-invalid();

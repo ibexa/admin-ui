@@ -21,7 +21,7 @@ class TranslateEzSelectionMultilingualOptions implements EventSubscriberInterfac
     public function setMultilingualOptions(FieldDefinitionMappingEvent $event): void
     {
         $fieldDefinition = $event->getFieldDefinitionData()->fieldDefinition;
-        if ('ezselection' !== $fieldDefinition->fieldTypeIdentifier) {
+        if ('ibexa_selection' !== $fieldDefinition->fieldTypeIdentifier) {
             return;
         }
 

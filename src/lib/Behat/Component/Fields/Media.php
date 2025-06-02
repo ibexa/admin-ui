@@ -66,6 +66,6 @@ class Media extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezmedia';
+        return 'ibexa_media';
     }
 }

@@ -22,7 +22,7 @@ class FieldDefinitionDataTest extends TestCase
 
     public function testGetFieldTypeIdentifier(): void
     {
-        $fieldTypeIdentifier = 'ezstring';
+        $fieldTypeIdentifier = 'ibexa_string';
         $fieldDefinition = $this->getMockBuilder(FieldDefinition::class)
             ->setConstructorArgs([['fieldTypeIdentifier' => $fieldTypeIdentifier]])
             ->getMockForAbstractClass();
