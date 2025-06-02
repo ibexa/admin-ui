@@ -60,7 +60,7 @@
 @use 'fieldType/edit/ibexa_time';
 @use 'fieldType/edit/ibexa_keyword';
 @use 'fieldType/edit/ibexa_gmap_location';
-@use 'fieldType/edit/ibexa_time';
+@use 'fieldType/edit/ibexa_user';
 @use 'fieldType/edit/ibexa_object_relation_list';
 @use 'fieldType/edit/eznoneditable';
 @use 'fieldType/edit/ibexa_text';
@@ -68,7 +68,7 @@
 @use 'fieldType/preview/ibexa_author-preview';
 @use 'fieldType/preview/ibexa_keyword-preview';
 @use 'fieldType/preview/ibexa_selection-preview';
-@use 'fieldType/preview/ibexa_time-preview';
+@use 'fieldType/preview/ibexa_user-preview';
 @use 'fieldType/preview/ibexa_binaryfile-preview';
 @use 'fieldType/preview/ibexa_media-preview';
 @use 'fieldType/preview/ibexa_image-preview';
