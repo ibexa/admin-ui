@@ -67,11 +67,12 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
 
     private function resolveIconAlias(string $icon): string
     {
-      $iconAliases = $this->configResolver->getParameter('assets.icon_aliases');
-        if (isset($iconAliases[$icon])) {
-            return $iconAliases[$icon];
+        $iconAliases = [];
+
+        if ($this->configResolver->hasParameter('assets.icon_aliases')) {
+            $iconAliases = $this->configResolver->getParameter('assets.icon_aliases');
         }
 
-        return $icon;
+        return $iconAliases[$icon] ?? $icon;
     }
 }
