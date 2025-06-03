@@ -2,20 +2,17 @@ system:
     admin_group:
         assets:
             icon_aliases:
-                about-info: info-hexa
+                about-info: help
                 about: info-square
-                activate: activate
                 airtime: signal-radio
                 align-center: align-text-center
                 align-justify: align-text-justified
                 align-left: align-text-left
                 align-right: align-text-right
-                archive-restore: archived-restore
                 arrow-down: arrow-caret-down
                 arrow-right: arrow-caret-right
                 article: file-text
                 assign-section: assign
-                assign-user: assign-user
                 author: user-editor
                 autosave-error: cloud-error
                 autosave-off: cloud-discard
@@ -25,23 +22,22 @@ system:
                 b2b: handshake
                 back: arrow-left
                 back-current-date: calendar-back
-                banner: banner
-                bell: bell
                 bestseller: badge-star
-                block-add: block-add
-                block-invisible: calendar-invisible
-                block-visible: calendar-visible
-                block-visible-recurring: calendar-block
+                block-invisible: block-hidden
+                block-visible-recurring: block-lock
                 blog: app-blog
                 blog_post: note-blog
                 bold: text-bold
-                bookmark: favourite
+                bookmark: favourite-outline
                 bookmark-active: favourite-filled
                 bookmark-manager: book
+                box-collapse: arrow-move-right
                 browse: folder-browse
+                bubbles: message-bubbles
                 business-deal-cash: user-money
                 button: cursor-clicked
                 campaign: speaker
+                captcha: form-captcha
                 caret-back: arrow-chevron-back
                 caret-double-back: arrow-double-left
                 caret-double-next: arrow-double-right
@@ -50,82 +46,88 @@ system:
                 caret-next: arrow-chevron-right
                 caret-up: arrow-chevron-up
                 cart: shopping-cart
-                catalog: catalog
+                cart-full: shopping-cart
+                cart-upload: shopping-cart-arrow-up
+                cart-wishlist: shopping-cart-heart
                 category: tag
                 checkbox: form-checkbox
                 checkbox-multiple: form-check-list
                 checkmark: form-check
+                circle-caret-down: chevron-down-circle
+                circle-caret-left: chevron-left-circle
+                circle-caret-right: chevron-right-circle
+                circle-caret-up: chevron-up-circle
                 circle-close: discard-circle
-                circle-create: plus-circle
+                circle-create: add-circle
                 circle-pause: minus-circle
                 clicked-recommendations: cursor-clicked-hand
+                clipboard: clipboard-check
                 collapse: arrow-collapse-right
-                collection: collection
+                content-write: file-text-write
                 column-settings: table-settings-column
                 comment: message
-                company: company
                 components: box-component
                 connect: connection
                 content-draft: draft
                 contentlist: list-content
-                content-tree: content-tree
                 content-type: tools
+                content-type-content: file-type
                 content-type-group: tool-group
-                copy: copy
                 copy-subtree: content-tree-copy
                 create: add
                 create-content: file-add
                 create-location: content-tree-create-location
-                crop: crop
                 customer: user-customer
                 customer-portal: device-monitor-user
                 customer-portal-page: app-user
+                customer-type: device-monitor-type
                 custom_tags: prompt
-                database: database
-                dectivate: deactivate
-                discard: discard
+                date: calendar
+                date-updated: calendar-reload
                 discount-coupon: discount-ticket
-                download: download
                 drafts: edit-draft
-                drag: drag
                 dropdown: form-dropdown
                 earth-access: world-coursor
-                edit: edit
-                embed: text-embeded
+                embed: text-embedded
+                embed-inline: text-embedded-inline
+                erp: connection-erp
+                error: exclamation-mark
                 error-icon: file-warning
                 expand-left: arrow-expand-left
                 expand-right: arrow-expand-right
                 explore: ai
-                facebook: facebook
                 fields: form-input
-                file: file
                 file-text: file-txt-other
-                filters: filters
-                flag: flag
+                file-video: video
                 flash: lightning
-                flip-horizontal: flip-horizontal
-                flip-vertical: flip-vertical
                 focus: arrows-outside
                 focus-image: focus-target
-                folder: folder
-                form: form-checkbox-square
+                folder-empty: folder-open
+                form: form-check-square
                 full-view: arrow-full-view
                 future-publication: calendar-clock
                 gallery: image-gallery
                 go-right: arrow-to-right
                 go-to-root: content-tree-arrow-up
                 go-up: arrow-to-up
-                h1: header
-                hide: eye-no-visibility
+                h1: header-1
+                h2: header-2
+                h3: header-3
+                h4: header-4
+                h5: header-5
+                h6: header-6
+                hide: visibility-hidden
                 hierarchy: hierarchy-site-map
-                history: history
                 history-file: file-history
                 home-page: home
-                image: image
                 image-center: align-block-center
+                image-editor: image-edit
                 image-left: align-block-left
                 image-right: align-block-right
-                imported-items: database-sync
+                image-variations: image-focus
+                imported-items: database-synch
+                information: info-square
+                input-hidden: form-input-hidden
                 input-line: form-input-single-line
                 input-line-multiple: form-input-multi-line
                 input-number: form-input-number
@@ -133,27 +135,27 @@ system:
                 italic: text-italic
                 keyword: hash
                 landing_page: layout-navbar
-                landingpage-add: layout-navbar-plus
+                landingpage-add: layout-navbar-add
+                landingpage-preview: layout-navbar-visible
                 languages: world
-                languages-add: world-plus
+                languages-add: world-add
                 last-purchased: cursor-clicked-hand
-                layout-switch: layout-switch
-                link: link
-                link-anchor: link-anchor
+                last-viewed: app-recent
+                link-content: file-link
                 link-remove: unlink
                 list: list-bullet
                 list-numbered: list-number
                 localize: target-location
                 location-add-new: content-tree-create-location
-                lock: lock
                 lock-unlock: unlock
                 logout: log-out
-                mail-open: message-mail-read
+                maform: chart-histogram
+                mail: message-email
+                mail-open: message-email-read
                 markup: file-code
                 menu: menu-hamburger
-                merge: merge
                 move: folder-open-move
-                news: news
+                newsletter: news
                 notice: alert-error
                 open-newtab: open-new-window
                 open-sametab: open-same-window
@@ -163,67 +165,79 @@ system:
                 order-status: product-search
                 panels: view-panels
                 paragraph: text-paragraph
+                paragraph-add: text-paragraph-add
+                pdf-file: file-pdf
                 personalize: user-target
                 personalize-block: file-settings
                 personalize-content: tag-settings
-                product: product
-                product-catalog: product-catalog
+                pin-unpin: unpin
+                place: pin-location
+                places: pins-locations
+                portfolio: suitcase
+                previewed: overdue
                 product-category: product-tag
+                product-list: clipboard-list
                 product-low: product-arrow-down
                 product type: product-collection
                 profile: user-profile
+                publish: rocket
                 publish-later: calendar-number
+                publish-later-cancel: calendar-discard
+                publish-later-create: calendar-add
+                qa-form: qa-form-check
                 radio-button: form-radio
                 radio-button-multiple: form-radio-list
+                rate: stars
+                rate-review: star-circle
                 recent-activity: activity-clock
+                recently-added: history
+                recommendation-calls: arrows-circle
                 redo: action-redo
                 refresh: arrows-reloaded
+                rejected: arrow-to-down-circle
+                relations: hierarchy-square
                 restore: arrow-restore
+                restore-parent: content-tree-restore-parent
+                review: message-edit
                 roles: user-id
-                save: save
+                rss: signal-rss
                 schedule: calendar-schedule
-                search: search
                 sections: database
-                seen this: seen-this
-                segments: segments
+                send-email: send
                 settings-block: settings
                 settings-config: settings-configure
-                share: share
-                sites: sites
+                sites-all: sites
+                spinner: arrow-rotate
+                stats: chart-dots
                 strikethtough: text-strikethrough
+                subscriber: user-mail
                 subscript: text-subscript
                 superscript: text-superscript
+                swap: arrows-synchronize
                 system-information: info-circle
-                table-add: table-plus
-                table-cell: table-cell
-                table-column: table-column
-                table-row: table-row
                 tag: text-code
-                tags: tags
-                timeline: timeline
-                trash: trash
-                unarchive: unarchive
+                trash-empty: trash-discard
+                trash-notrashed: trash-open
                 underscore: text-underline
                 undo: action-undo
                 un-focus: arrows-inside
                 un-full-view: arrows-full-view-out
-                upload: upload
                 upload-image: image-upload
-                user: user
                 user-blocked: user-block
                 user_group: user-group
                 users-personalization: user-focus
+                user-recycle: arrows-reload-user
                 users-select: users-plus
                 user-tick: user-check
                 version-compare: action-compare-versions
+                version-compare-action: action-compare
                 versions: archived-version
+                vertical-left-right: arrow-collapse-expand
                 video: video-play
                 view: visibility
-                view-grid: view-grid
+                view-desktop: device-monitor
                 view-hide: invisibility
-                view-list: view-list
                 view-mobile: device-mobile
                 view-tablet: device-tablet
                 warning: alert-warning
                 warning-triangle: alert-warning
-                workflow: workflow
