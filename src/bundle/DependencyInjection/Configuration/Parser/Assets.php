@@ -50,6 +50,7 @@ class Assets extends AbstractParser
                     ->end()
                     ->arrayNode('icon_aliases')
                         ->useAttributeAsKey('name')
+                        ->normalizeKeys(false)
                         ->scalarPrototype()->end()
                     ->end()
                 ->end()
