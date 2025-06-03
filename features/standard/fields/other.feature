@@ -36,7 +36,7 @@ Feature: Content fields setting and editing
       | ibexa_isbn               | ISBN                         |                                                                       | value     | 978-3-16-148410-0                                                         | 978-3-16-148410-0         |                     |
       | ibexa_integer            | Integer                      |                                                                       | value     | 1111                                                                      | 1111                      |                     |
       | ibexa_keyword            | Keywords                     |                                                                       | value     | keyword1                                                                  | keyword1                  |                     |
-      | ezmatrix             | Matrix                       | Min_rows:2,Columns:col1-col2-col3                                     | value     | col1:col2:col3,Ala:miała:kota,Szpak:dziobał:bociana,Bociana:dziobał:szpak | Matrix                    |                     |
+      | ibexa_matrix             | Matrix                       | Min_rows:2,Columns:col1-col2-col3                                     | value     | col1:col2:col3,Ala:miała:kota,Szpak:dziobał:bociana,Bociana:dziobał:szpak | Matrix                    |                     |
 
   @javascript @APIUser:admin
   Scenario Outline: Edit content item with given field

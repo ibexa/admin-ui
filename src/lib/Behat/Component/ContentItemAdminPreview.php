@@ -85,7 +85,7 @@ class ContentItemAdminPreview extends Component
         }
 
         if (false !== strpos($fieldClass, 'ibexa-table-header')) {
-            return 'ezmatrix';
+            return 'ibexa_matrix';
         }
 
         if ('' === $fieldClass) {
