@@ -66,7 +66,7 @@ class ContentTypeIsUserTest extends TestCase
             'content_type_a', 'content_type_b', 'content_type_c',
         ]);
 
-        $articleContentType = $this->createContentType('article', ['ibexa_string', 'ezrichtext']);
+        $articleContentType = $this->createContentType('article', ['ibexa_string', 'ibexa_richtext']);
 
         self::assertFalse($specification->isSatisfiedBy($articleContentType));
     }

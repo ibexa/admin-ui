@@ -134,7 +134,7 @@ final class ContentTypeDraftMapperTest extends TestCase
                     'name' => 'Bar',
                     'position' => 2,
                 ],
-                'ezrichtext' => [
+                'ibexa_richtext' => [
                     'identifier' => 'identifier3',
                     'defaultValue' => null,
                     'name' => 'Baz',

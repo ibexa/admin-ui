@@ -236,7 +236,7 @@ final class SetViewParametersListenerTest extends TestCase
                 'group' => 'content',
             ],
             'description' => [
-                'type' => 'ezrichtext',
+                'type' => 'ibexa_richtext',
                 'group' => 'content',
             ],
             'tags' => [
