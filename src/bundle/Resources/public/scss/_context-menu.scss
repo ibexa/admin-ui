@@ -36,6 +36,11 @@
 
         &--more {
             position: relative;
+
+            .ibexa-btn--more {
+                align-items: center;
+                height: calculateRem(48px);
+            }
         }
     }
 
