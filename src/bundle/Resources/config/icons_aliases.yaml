@@ -10,8 +10,6 @@ system:
                 align-left: align-text-left
                 align-right: align-text-right
                 approved: check-circle
-                arrow-down: arrow-caret-down
-                arrow-right: arrow-caret-right
                 article: file-text
                 assign-section: assign
                 author: user-editor
@@ -98,7 +96,6 @@ system:
                 expand-right: arrow-expand-right
                 explore: ai
                 fields: form-input
-                file-text: file-txt-other
                 file-video: video
                 flash: lightning
                 focus: arrows-outside
@@ -216,7 +213,6 @@ system:
                 superscript: text-superscript
                 swap: arrows-synchronize
                 system-information: info-circle
-                tag: text-code
                 trash-empty: trash-discard
                 trash-notrashed: trash-open
                 underscore: text-underline
@@ -234,7 +230,6 @@ system:
                 version-compare-action: action-compare
                 versions: archived-version
                 vertical-left-right: arrow-collapse-expand
-                video: video-play
                 view: visibility
                 view-desktop: device-monitor
                 view-hide: invisibility
