@@ -22,4 +22,6 @@
 
         {{ form_end(form_forgot_user_password) }}
     {% endif %}
+
+    {{ encore_entry_script_tags('ibexa-admin-ui-reset-password-js', null, 'ibexa') }}
 {%- endblock content -%}
