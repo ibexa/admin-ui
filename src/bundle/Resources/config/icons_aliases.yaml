@@ -9,6 +9,7 @@ system:
                 align-justify: align-text-justified
                 align-left: align-text-left
                 align-right: align-text-right
+                approved: check-circle
                 arrow-down: arrow-caret-down
                 arrow-right: arrow-caret-right
                 article: file-text
@@ -87,7 +88,7 @@ system:
                 discount-coupon: discount-ticket
                 drafts: edit-draft
                 dropdown: form-dropdown
-                earth-access: world-coursor
+                earth-access: world-cursor
                 embed: text-embedded
                 embed-inline: text-embedded-inline
                 erp: connection-erp
@@ -119,7 +120,7 @@ system:
                 hide: visibility-hidden
                 hierarchy: hierarchy-site-map
                 history-file: file-history
-                home-page: home
+                'home-page': home
                 image-center: align-block-center
                 image-editor: image-edit
                 image-left: align-block-left

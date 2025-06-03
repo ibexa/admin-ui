@@ -12,7 +12,7 @@ parameters:
     ibexa.site_access.config.default.content_type.form:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#form-checkbox-square'
     ibexa.site_access.config.default.content_type.place:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#place' # TODO: missing icon
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#pin-location'
     ibexa.site_access.config.default.content_type.product:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#product'
     ibexa.site_access.config.default.content_type.field:
@@ -39,11 +39,11 @@ parameters:
     ibexa.site_access.config.default.content_type_group.default-config:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#file'
     ibexa.site_access.config.default.content_type_group.content:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#content-type-content' # TODO: missing icon
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#file-type'
     ibexa.site_access.config.default.content_type_group.users:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user-type' # TODO: missing icon
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#user-type'
     ibexa.site_access.config.default.content_type_group.media:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#media-type' # TODO: missing icon
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#media-type'
 
     ibexa.content_view.tabs.default_template: '@@ibexadesign/ui/tab/default.html.twig'
 
