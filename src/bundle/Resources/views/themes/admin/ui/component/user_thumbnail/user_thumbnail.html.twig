@@ -1,6 +1,6 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
-{% set user_image = user_content.thumbnail|default() %}
+{% set user_image = user.thumbnail|default() %}
 
 {% if user_image.mimeType is defined and user_image.mimeType == 'image/svg+xml' %}
     {% set attr_svg = attr_svg|default({})|merge({
@@ -17,7 +17,7 @@
     {% set attr_img = attr_img|default({})|merge({
         class: ('ibexa-user-thumbnail ibexa-user-thumbnail--img ' ~ attr_img.class|default(''))|trim,
         src: attr_img.src is defined ? attr_img.src : user_image.resource,
-        alt: attr_img.alt is defined ? attr_img.alt : user_content.name,
+        alt: attr_img.alt is defined ? attr_img.alt : user.name,
     }) %}
 
     <img {{ html.attributes(attr_img|default({})) }}/>

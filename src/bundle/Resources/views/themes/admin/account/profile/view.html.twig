@@ -16,17 +16,14 @@
     } %}
 {% endblock %}
 
-{% set content = user.content %}
-
 {% block content %}
     <div class="ibexa-user-profile">
         <header class="ibexa-user-profile__header ibexa-container container">
             <div class="ibexa-user-profile-name">
-                <h2>{{ ibexa_content_name(content) }}</h2>
+                <h2>{{ ibexa_content_name(user) }}</h2>
             </div>
             <div class="ibexa-user-thumbnail-wrapper">
                 {% include '@ibexadesign/ui/component/user_thumbnail/user_thumbnail.html.twig' with {
-                    user_content: content,
                     user: user,
                     attr_svg: { width: 220, height: 220 }
                 } only %}
@@ -58,7 +55,7 @@
                     {% set items = [
                         {
                             label: 'user_profile.summary.full_name.label'|trans|desc("Full name"),
-                            content: ibexa_content_name(content),
+                            content: ibexa_content_name(user),
                         },
                         {
                             label: 'user_profile.summary.email.label'|trans|desc("Email"),
@@ -67,14 +64,14 @@
                     ] %}
 
                     {% for group in field_groups %}
-                        {% set field_definitions = content.getContentType().getFieldDefinitions().filterByGroup(group) %}
+                        {% set field_definitions = user.getContentType().getFieldDefinitions().filterByGroup(group) %}
 
                         {% for field_definition in field_definitions %}
                             {% set field_identifier = field_definition.identifier %}
-                            {% set is_field_empty = ibexa_field_is_empty(content, field_identifier) %}
+                            {% set is_field_empty = ibexa_field_is_empty(user, field_identifier) %}
                             {% set items = items|merge([{
-                                label: ibexa_field_name(content, field_identifier),
-                                content_raw: is_field_empty ? '' : ibexa_render_field(content, field_identifier),
+                                label: ibexa_field_name(user, field_identifier),
+                                content_raw: is_field_empty ? '' : ibexa_render_field(user, field_identifier),
                                 is_field_empty,
                             }]) %}
                         {% endfor %}
