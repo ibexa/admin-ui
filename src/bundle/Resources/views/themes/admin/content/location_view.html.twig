@@ -110,24 +110,24 @@
     {% endembed %}
 
     {% if location is defined and location is not null %}
-    {% if location.hidden or location.invisible %}
-        <div class="pb-4">
-            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
-                type: 'info',
-                title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
-                icon_path: ibexa_icon_path('hide'),
-                class: 'mb-4',
-            } only %}
-        </div>
+        {% if location.hidden or location.invisible %}
+            <div class="pb-4">
+                {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                    type: 'info',
+                    title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
+                    icon_path: ibexa_icon_path('hide'),
+                    class: 'mb-4',
+                } only %}
+            </div>
+        {% endif %}
+        {{ ibexa_render_component_group(
+            'admin-ui-location-view-content-alerts',
+            {
+                'versionInfo': content.versionInfo,
+                'location': location,
+            }
+        ) }}
     {% endif %}
-    {{ ibexa_twig_component_group(
-        'admin-ui-location-view-content-alerts',
-        {
-            'versionInfo': content.versionInfo,
-            'location': location,
-        }
-    ) }}
-{% endblock %}
 {% endblock %}
 
 {% block content %}
