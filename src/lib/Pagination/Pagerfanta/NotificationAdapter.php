@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion\NotificationQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -17,19 +18,18 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class NotificationAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
-    private $notificationService;
+    private NotificationService $notificationService;
 
-    /** @var int */
-    private $nbResults;
+    private NotificationQuery $query;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\NotificationService $notificationService
-     */
+    private int $nbResults;
+
     public function __construct(
-        NotificationService $notificationService
+        NotificationService $notificationService,
+        NotificationQuery $query
     ) {
         $this->notificationService = $notificationService;
+        $this->query = $query;
     }
 
     /**
@@ -39,11 +39,7 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
-        if ($this->nbResults !== null) {
-            return $this->nbResults;
-        }
-
-        return $this->nbResults = $this->notificationService->getNotificationCount();
+        return $this->nbResults ?? ($this->nbResults = $this->notificationService->getNotificationCount($this->query));
     }
 
     /**
@@ -56,11 +52,9 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length): NotificationList
     {
-        $notifications = $this->notificationService->loadNotifications($offset, $length);
+        $notifications = $this->notificationService->loadNotifications($this->query);
 
-        if (null === $this->nbResults) {
-            $this->nbResults = $notifications->totalCount;
-        }
+        $this->nbResults ??= $notifications->totalCount;
 
         return $notifications;
     }
