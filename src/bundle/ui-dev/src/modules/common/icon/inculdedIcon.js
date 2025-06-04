@@ -18,7 +18,7 @@ import Date from '@ids-assets/img/icons/calendar.svg';
 import Discard from '@ids-assets/img/icons/discard.svg';
 import Drag from '@ids-assets/img/icons/drag.svg';
 import Download from '@ids-assets/img/icons/download.svg';
-import Duplicate from '@ids-assets/img/icons/duplicate.svg'; // TODO: missing icon
+import Duplicate from '@ids-assets/img/icons/duplicate.svg';
 import Edit from '@ids-assets/img/icons/edit.svg';
 import ExpandLeft from '@ids-assets/img/icons/arrow-expand-left.svg';
 import Fields from '@ids-assets/img/icons/form-input.svg';
