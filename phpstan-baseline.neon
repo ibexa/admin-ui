@@ -8641,12 +8641,6 @@ parameters:
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
-			message: '#^Parameter \#1 \$aggregationResult of method Ibexa\\AdminUi\\UI\\Module\\ContentTree\\NodeFactory\:\:aggregationResultToArray\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\AggregationResult\\TermAggregationResult, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\AggregationResult given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/UI/Module/ContentTree/NodeFactory.php
-
-		-
 			message: '#^Parameter \#2 \$length of function array_chunk expects int\<1, max\>, int given\.$#'
 			identifier: argument.type
 			count: 1
