@@ -174,7 +174,11 @@
             const udwContainer = doc.getElementById('react-udw');
             const udwRoot = ReactDOMClient.createRoot(udwContainer);
             const config = JSON.parse(event.currentTarget.dataset.udwConfig);
-            const title = Translator.trans(/*@Desc("Select Image Asset") */ 'ibexa_image_asset.title', {}, 'ibexa_universal_discovery_widget');
+            const title = Translator.trans(
+                /*@Desc("Select Image Asset") */ 'ibexa_image_asset.title',
+                {},
+                'ibexa_universal_discovery_widget',
+            );
             const closeUDW = () => udwRoot.unmount();
             const onCancel = closeUDW;
             const onConfirm = (items) => {
