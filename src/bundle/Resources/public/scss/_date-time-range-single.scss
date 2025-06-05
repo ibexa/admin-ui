@@ -1,0 +1,11 @@
+.ibexa-date-time-range-single {
+    margin-top: calculateRem(16px);
+
+    &--hidden {
+        height: 0;
+        width: 0;
+        opacity: 0;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+        pointer-events: none;
+    }
+}

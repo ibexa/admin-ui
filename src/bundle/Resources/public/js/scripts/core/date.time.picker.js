@@ -32,7 +32,8 @@ class DateTimePicker {
             ...(config.flatpickrConfig ?? {}),
         };
 
-        setInstance(this.container, this);
+        setInstance(this.container, this); // TODO: reove in 5.0
+        setInstance(this.fieldWrapper, this);
     }
 
     clear() {

@@ -1,13 +1,14 @@
 (function (global, doc, ibexa, React, ReactDOM, Translator) {
     const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
     const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
+    const { getInstance } = ibexa.helpers.objectInstances;
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ibexa-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ibexa-table__sort-column--desc';
-    const CLASS_VISIBLE_DATE_RANGE = 'ibexa-trash-search-form__range-wrapper--visible';
     const sortedActiveField = doc.querySelector('#trash_search_sort_field').value;
     const sortedActiveDirection = doc.querySelector('#trash_search_sort_direction').value;
-    const dateFields = doc.querySelectorAll('.ibexa-trash-search-form__range-wrapper');
+    const trashedDateTimeRangeNode = doc.querySelector('.ibexa-trash-search-form__trashed-date-time-range');
+    const trashedDateTimeRange = getInstance(trashedDateTimeRangeNode);
     const trashedTypeInput = doc.querySelector('#trash_search_trashed');
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
@@ -23,13 +24,6 @@
     const udwContainer = doc.getElementById('react-udw');
     const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
     const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'ibexa_trash_ui');
-    const dateConfig = {
-        mode: 'range',
-        locale: {
-            rangeSeparator: ' - ',
-        },
-        formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
-    };
     let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();
     const onConfirm = (form, content) => {
@@ -200,59 +194,14 @@
         formSearch.submit();
     };
     const toggleDatesSelectVisibility = (event) => {
-        const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);
-
         if (event.target.value !== 'custom_range') {
-            doc.querySelector(datesRangeNode.dataset.periodSelector).value = event.target.value;
-            doc.querySelector(datesRangeNode.dataset.endSelector).value = '';
-            datesRangeNode.classList.remove(CLASS_VISIBLE_DATE_RANGE);
-            formSearch.submit();
+            trashedDateTimeRange.setDates([]);
+            trashedDateTimeRange.toggleHidden(true);
 
             return;
         }
 
-        datesRangeNode.classList.add(CLASS_VISIBLE_DATE_RANGE);
-    };
-    const setSelectedDateRange = (timestamps, { dates, inputField }) => {
-        const dateRange = inputField.closest('.ibexa-trash-search-form__range-wrapper');
-
-        if (dates.length === 2) {
-            const startDate = getUnixTimestampUTC(dates[0]);
-            const endDate = getUnixTimestampUTC(dates[1]);
-            const secondsInDay = 86400;
-            const days = (endDate - startDate) / secondsInDay;
-
-            doc.querySelector(dateRange.dataset.periodSelector).value = `P0Y0M${days}D`;
-            doc.querySelector(dateRange.dataset.endSelector).value = endDate;
-
-            formSearch.submit();
-        } else if (dates.length === 0) {
-            doc.querySelector(dateRange.dataset.periodSelector).value = '';
-            doc.querySelector(dateRange.dataset.endSelector).value = '';
-
-            formSearch.submit();
-        }
-    };
-    const getUnixTimestampUTC = (dateObject) => {
-        let date = new Date(Date.UTC(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate()));
-        date = Math.floor(date.getTime() / 1000);
-
-        return date;
-    };
-    const initFlatPickr = (dateRangeField) => {
-        const { start, end } = dateRangeField.querySelector('.ibexa-trash-search-form__range-select').dataset;
-        const defaultDate = start && end ? [start, end] : [];
-
-        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
-            container: dateRangeField,
-            onChange: setSelectedDateRange,
-            flatpickrConfig: {
-                ...dateConfig,
-                defaultDate,
-            },
-        });
-
-        dateTimePickerWidget.init();
+        trashedDateTimeRange.toggleHidden(false);
     };
     const handleAutoSubmitNodes = (event) => {
         event.preventDefault();
@@ -282,7 +231,16 @@
     };
 
     setSortedClass();
-    dateFields.forEach(initFlatPickr);
+    trashedDateTimeRangeNode.addEventListener(
+        'ibexa:date-time-range-single:change',
+        (event) => {
+            const { dates } = event.detail;
+            if (dates.length === 2 || dates.length === 0) {
+                formSearch.submit();
+            }
+        },
+        false,
+    );
     autoSendNodes.forEach((node) => node.addEventListener('change', handleAutoSubmitNodes, false));
     sortableColumns.forEach((column) => column.addEventListener('click', sortTrashItems, false));
     trashedTypeInput.addEventListener('change', toggleDatesSelectVisibility, false);
