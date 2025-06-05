@@ -38,6 +38,8 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
 
     public function resolve(string $icon, ?string $set = null): string
     {
+        $icon = $this->resolveIconAlias($icon);
+
         if (isset($this->iconCache[$set][$icon])) {
             return $this->iconCache[$set][$icon];
         }
@@ -61,5 +63,16 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
     public function onConfigScopeChange(ScopeChangeEvent $event): void
     {
         $this->iconCache = [];
+    }
+
+    private function resolveIconAlias(string $icon): string
+    {
+        $iconAliases = [];
+
+        if ($this->configResolver->hasParameter('assets.icon_aliases')) {
+            $iconAliases = $this->configResolver->getParameter('assets.icon_aliases');
+        }
+
+        return $iconAliases[$icon] ?? $icon;
     }
 }

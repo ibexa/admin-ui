@@ -28,6 +28,9 @@ class Assets extends AbstractParser
                 ->end()
                 ->children()
                     ->arrayNode('icon_sets')
+                        ->defaultValue([
+                            'default' => [],
+                        ])
                         ->validate()
                             ->ifTrue(static function (array $value): bool {
                                 foreach ($value as $set => $path) {
@@ -43,10 +46,16 @@ class Assets extends AbstractParser
                             ->thenInvalid('Icon Path is invalid. Please provide *.svg file.')
                         ->end()
                         ->useAttributeAsKey('name')
-                        ->scalarPrototype()->end()
+                        ->scalarPrototype()
+                        ->end()
                     ->end()
                     ->scalarNode('default_icon_set')
-                        ->isRequired()
+                        ->defaultValue('default')
+                    ->end()
+                    ->arrayNode('icon_aliases')
+                        ->useAttributeAsKey('name')
+                        ->normalizeKeys(false)
+                        ->scalarPrototype()->end()
                     ->end()
                 ->end()
             ->end();
