@@ -112,7 +112,7 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
         $results = $this->searchService->findLocations($query);
 
         if ($results->aggregations->has(self::SUGGESTIONS_AGGREGATION_KEY)) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult $aggregationResult */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult<ContentType> $aggregationResult */
             $aggregationResult = $results->aggregations->get(self::SUGGESTIONS_AGGREGATION_KEY);
 
             $suggestions = [];

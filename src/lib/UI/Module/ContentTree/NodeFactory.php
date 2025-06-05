@@ -31,6 +31,8 @@ use Ibexa\Core\Repository\Repository;
 
 /**
  * @internal
+ *
+ * @phpstan-type TLocationTermAggregationResult \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult<\Ibexa\Contracts\Core\Repository\Values\Content\Location>
  */
 final class NodeFactory
 {
@@ -256,13 +258,18 @@ final class NodeFactory
         $result = $this->searchService->findLocations($searchQuery);
 
         if ($result->aggregations->has('childrens')) {
-            return $this->aggregationResultToArray($result->aggregations->get('childrens'));
+            /** @phpstan-var TLocationTermAggregationResult $childrenTermAggregationResult */
+            $childrenTermAggregationResult = $result->aggregations->get('childrens');
+
+            return $this->aggregationResultToArray($childrenTermAggregationResult);
         }
 
         return [];
     }
 
     /**
+     * @phpstan-param TLocationTermAggregationResult $aggregationResult
+     *
      * @return array<int,int>
      */
     private function aggregationResultToArray(TermAggregationResult $aggregationResult): array
