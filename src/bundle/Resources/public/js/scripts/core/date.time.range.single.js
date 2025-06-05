@@ -1,0 +1,88 @@
+import { formatShortDateTime } from '../helpers/timezone.helper';
+import { setInstance } from '../helpers/object.instances';
+
+const { ibexa } = window;
+
+class DateTimeRangeSingle {
+    constructor(config) {
+        this.container = config.container;
+        this.dateTimePickerInputWrapper = this.container.querySelector('.ibexa-date-time-range-single__date-time-picker-input-wrapper');
+
+        const { periodSelector, endSelector } = this.container.dataset;
+        this.periodInput = window.document.querySelector(periodSelector);
+        this.endInput = window.document.querySelector(endSelector);
+
+        const customDateConfig = config.dateConfig || {};
+        this.dateConfig = {
+            mode: 'range',
+            locale: {
+                rangeSeparator: ' - ',
+            },
+            formatDate: (date) => formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
+            ...customDateConfig,
+        };
+
+        this.setSelectedDateRange = this.setSelectedDateRange.bind(this);
+
+        setInstance(this.container, this);
+    }
+
+    getUnixTimestampUTC(dateObject) {
+        let date = new Date(Date.UTC(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate()));
+        date = Math.floor(date.getTime() / 1000);
+
+        return date;
+    }
+
+    setDates(dates) {
+        if (dates.length === 2) {
+            const startDate = this.getUnixTimestampUTC(dates[0]);
+            const endDate = this.getUnixTimestampUTC(dates[1]);
+            const secondsInDay = 86400;
+            const days = (endDate - startDate) / secondsInDay;
+
+            this.periodInput.value = `P0Y0M${days}D`;
+            this.endInput.value = endDate;
+        } else if (dates.length === 0) {
+            this.periodInput.value = '';
+            this.endInput.value = '';
+        }
+    }
+
+    setSelectedDateRange(timestamps, { dates }) {
+        this.setDates(dates);
+
+        this.container.dispatchEvent(
+            new CustomEvent('ibexa:date-time-range-single:change', {
+                detail: {
+                    timestamps,
+                    dates,
+                },
+            }),
+        );
+    }
+
+    toggleHidden(isHidden) {
+        this.container.classList.toggle('ibexa-date-time-range-single--hidden', isHidden);
+    }
+
+    init() {
+        const { start, end } = this.container.dataset;
+        const defaultDate = start && end ? [start, end] : [];
+
+        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+            container: this.dateTimePickerInputWrapper,
+            onChange: this.setSelectedDateRange,
+            flatpickrConfig: {
+                ...this.dateConfig,
+                defaultDate,
+            },
+        });
+
+        dateTimePickerWidget.init();
+    }
+}
+
+ibexa?.addConfig('core.DateTimeRangeSingle', DateTimeRangeSingle);
+
+export { DateTimeRangeSingle as DateRangeSingle };

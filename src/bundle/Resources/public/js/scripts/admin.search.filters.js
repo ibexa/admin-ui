@@ -1,22 +1,24 @@
 (function (global, doc, ibexa, flatpickr, React, ReactDOM) {
     const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
     const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
+    const { getInstance } = ibexa.helpers.objectInstances;
     let getUsersTimeout;
-    const CLASS_DATE_RANGE = 'ibexa-filters__range-wrapper';
-    const CLASS_VISIBLE_DATE_RANGE = 'ibexa-filters__range-wrapper--visible';
     const SELECTOR_TAG = '.ibexa-tag';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const filters = doc.querySelector('.ibexa-filters');
     const clearBtn = filters.querySelector('.ibexa-btn--clear');
     const applyBtn = filters.querySelector('.ibexa-btn--apply');
-    const dateFields = doc.querySelectorAll('.ibexa-filters__range-wrapper');
     const contentTypeSelect = doc.querySelector('.ibexa-filters__item--content-type .ibexa-filters__select');
     const sectionSelect = doc.querySelector('.ibexa-filters__item--section .ibexa-filters__select');
-    const lastModifiedSelect = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__select');
-    const lastModifiedDateRange = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__range-select');
-    const lastCreatedSelect = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
-    const lastCreatedDateRange = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__range-select');
+    const lastModifiedSelectNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__select');
+    const lastModifiedSelect = getInstance(lastModifiedSelectNode);
+    const lastModifiedDateRangeNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-date-time-range-single');
+    const lastModifiedDateRange = getInstance(lastModifiedDateRangeNode);
+    const lastCreatedSelectNode = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
+    const lastCreatedSelect = getInstance(lastCreatedSelectNode);
+    const lastCreatedDateRangeNode = doc.querySelector('.ibexa-filters__item--created .ibexa-date-time-range-single');
+    const lastCreatedDateRange = getInstance(lastCreatedDateRangeNode);
     const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
@@ -24,20 +26,13 @@
     const selectSubtreeBtn = doc.querySelector('.ibexa-filters__item--subtree .ibexa-tag-view-select__btn-select-path');
     const subtreeInput = doc.querySelector('#search_subtree');
     const showMoreBtns = doc.querySelectorAll('.ibexa-content-type-selector__show-more');
-    const dateConfig = {
-        mode: 'range',
-        locale: {
-            rangeSeparator: ' - ',
-        },
-        formatDate: (date) => ibexa.helpers.timezone.formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
-    };
     const clearFilters = (event) => {
         event.preventDefault();
 
         const option = contentTypeSelect.querySelector('option');
         const defaultText = option.dataset.default;
-        const lastModifiedDataRange = doc.querySelector(lastModifiedSelect.dataset.targetSelector);
-        const lastCreatedDataRange = doc.querySelector(lastCreatedSelect.dataset.targetSelector);
+        const lastModifiedDataRange = doc.querySelector(lastModifiedSelectNode.dataset.targetSelector);
+        const lastCreatedDataRange = doc.querySelector(lastCreatedSelectNode.dataset.targetSelector);
         const lastModifiedPeriod = doc.querySelector(lastModifiedDataRange.dataset.periodSelector);
         const lastModifiedEnd = doc.querySelector(lastModifiedDataRange.dataset.endSelector);
         const lastCreatedPeriod = doc.querySelector(lastCreatedDataRange.dataset.periodSelector);
@@ -53,9 +48,9 @@
             sectionSelect[0].selected = true;
         }
 
-        lastModifiedSelect[0].selected = true;
-        lastCreatedSelect[0].selected = true;
-        lastModifiedSelect.querySelector('option').selected = true;
+        lastModifiedSelectNode[0].selected = true;
+        lastCreatedSelectNode[0].selected = true;
+        lastModifiedSelectNode.querySelector('option').selected = true;
         lastModifiedPeriod.value = '';
         lastModifiedEnd.value = '';
         lastCreatedPeriod.value = '';
@@ -72,12 +67,11 @@
         const isSectionSelected = sectionSelect ? !!sectionSelect.value : false;
         const isCreatorSelected = !!searchCreatorInput.value;
         const isSubtreeSelected = !!subtreeInput.value.trim().length;
-        let isModifiedSelected = !!lastModifiedSelect.value;
-        let isCreatedSelected = !!lastCreatedSelect.value;
+        let isModifiedSelected = !!lastModifiedSelectNode.value;
+        let isCreatedSelected = !!lastCreatedSelectNode.value;
 
-        if (lastModifiedSelect.value === 'custom_range') {
-            const lastModifiedWrapper = lastModifiedDateRange.closest(`.${CLASS_DATE_RANGE}`);
-            const { periodSelector, endSelector } = lastModifiedWrapper.dataset;
+        if (lastModifiedSelectNode.value === 'custom_range') {
+            const { periodSelector, endSelector } = lastModifiedDateRangeNode.dataset;
             const lastModifiedPeriodValue = doc.querySelector(periodSelector).value;
             const lastModifiedEndDate = doc.querySelector(endSelector).value;
 
@@ -86,9 +80,8 @@
             }
         }
 
-        if (lastCreatedSelect.value === 'custom_range') {
-            const lastCreatedWrapper = lastCreatedDateRange.closest(`.${CLASS_DATE_RANGE}`);
-            const { periodSelector, endSelector } = lastCreatedWrapper.dataset;
+        if (lastCreatedSelectNode.value === 'custom_range') {
+            const { periodSelector, endSelector } = lastCreatedDateRangeNode.dataset;
             const lastCreatedPeriodValue = doc.querySelector(periodSelector).value;
             const lastCreatedEndDate = doc.querySelector(endSelector).value;
 
@@ -103,20 +96,17 @@
 
         applyBtn[methodName]('disabled', !isEnabled);
     };
-    const toggleDatesSelectVisibility = (event) => {
-        const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);
-
-        if (event.target.value !== 'custom_range') {
-            doc.querySelector(datesRangeNode.dataset.periodSelector).value = event.target.value;
-            doc.querySelector(datesRangeNode.dataset.endSelector).value = '';
-            datesRangeNode.classList.remove(CLASS_VISIBLE_DATE_RANGE);
+    const toggleDatesSelectVisibility = (select, dateRange) => {
+        if (select.value !== 'custom_range') {
+            dateRange.setDates([]);
+            dateRange.toggleHidden(true);
 
             toggleDisabledStateOnApplyBtn();
 
             return;
         }
 
-        datesRangeNode.classList.add(CLASS_VISIBLE_DATE_RANGE);
+        dateRange.toggleHidden(false);
     };
     const filterByContentType = () => {
         const selectedCheckboxes = [...contentTypeCheckboxes].filter((checkbox) => checkbox.checked);
@@ -127,31 +117,6 @@
         dangerouslySetInnerHTML(option, contentTypesText || defaultText);
 
         toggleDisabledStateOnApplyBtn();
-    };
-    const setSelectedDateRange = (timestamps, { dates, inputField }) => {
-        const dateRange = inputField.closest('.ibexa-filters__range-wrapper');
-
-        if (dates.length === 2) {
-            const startDate = getUnixTimestampUTC(dates[0]);
-            const endDate = getUnixTimestampUTC(dates[1]);
-            const secondsInDay = 86400;
-            const days = (endDate - startDate) / secondsInDay;
-
-            doc.querySelector(dateRange.dataset.periodSelector).value = `P0Y0M${days}D`;
-            doc.querySelector(dateRange.dataset.endSelector).value = endDate;
-        } else if (dates.length === 0) {
-            doc.querySelector(dateRange.dataset.periodSelector).value = '';
-            doc.querySelector(dateRange.dataset.endSelector).value = '';
-        }
-
-        toggleDisabledStateOnApplyBtn();
-    };
-    const getUnixTimestampUTC = (dateObject) => {
-        let date = new Date(Date.UTC(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate()));
-
-        date = Math.floor(date.getTime() / 1000);
-
-        return date;
     };
     const getUsersList = (value) => {
         const body = JSON.stringify({
@@ -244,21 +209,6 @@
         usersList.classList.add('ibexa-filters__user-list--hidden');
         doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
     };
-    const initFlatPickr = (dateRangeField) => {
-        const { start, end } = dateRangeField.querySelector('.ibexa-filters__range-select').dataset;
-        const defaultDate = start && end ? [start, end] : [];
-
-        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
-            container: dateRangeField,
-            onChange: setSelectedDateRange,
-            flatpickrConfig: {
-                ...dateConfig,
-                defaultDate,
-            },
-        });
-
-        dateTimePickerWidget.init();
-    };
     const removeSearchTag = (event) => {
         const tag = event.currentTarget.closest(SELECTOR_TAG);
         const form = event.currentTarget.closest('form');
@@ -281,16 +231,10 @@
         subtreeInput.value = '';
         removeSearchTag(event);
     };
-    const clearDataRange = (event, selector) => {
-        const dataRange = doc.querySelector(selector);
-        const rangeSelect = dataRange.parentNode.querySelector('.ibexa-filters__select');
-        const periodInput = doc.querySelector(dataRange.dataset.periodSelector);
-        const endDateInput = doc.querySelector(dataRange.dataset.endSelector);
-
-        rangeSelect[0].selected = true;
-        periodInput.value = '';
-        endDateInput.vaue = '';
-        dataRange.classList.remove(CLASS_VISIBLE_DATE_RANGE);
+    const clearDataRange = (event, select, dateRange) => {
+        select.clearCurrentSelection();
+        dateRange.setDates([]);
+        dateRange.toggleHidden(true);
         removeSearchTag(event);
     };
     const clearCreator = (event) => {
@@ -302,8 +246,8 @@
         subtree: (event) => clearSubtree(event),
         creator: (event) => clearCreator(event),
         'content-types': (event) => clearContentType(event),
-        'last-modified': (event) => clearDataRange(event, lastModifiedSelect.dataset.targetSelector),
-        'last-created': (event) => clearDataRange(event, lastCreatedSelect.dataset.targetSelector),
+        'last-modified': (event) => clearDataRange(event, lastModifiedSelect, lastModifiedDateRange),
+        'last-created': (event) => clearDataRange(event, lastCreatedSelect, lastCreatedDateRange),
     };
     const showMoreContentTypes = (event) => {
         const btn = event.currentTarget;
@@ -347,7 +291,6 @@
         );
     };
 
-    dateFields.forEach(initFlatPickr);
     filterByContentType();
 
     clearBtn.addEventListener('click', clearFilters, false);
@@ -363,8 +306,12 @@
     }
 
     subtreeInput.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
-    lastModifiedSelect.addEventListener('change', toggleDatesSelectVisibility, false);
-    lastCreatedSelect.addEventListener('change', toggleDatesSelectVisibility, false);
+    lastModifiedSelectNode.addEventListener(
+        'change',
+        () => toggleDatesSelectVisibility(lastModifiedSelectNode, lastModifiedDateRange),
+        false,
+    );
+    lastCreatedSelectNode.addEventListener('change', () => toggleDatesSelectVisibility(lastCreatedSelectNode, lastCreatedDateRange), false);
     creatorInput.addEventListener('keyup', handleTyping, false);
     usersList.addEventListener('click', handleSelectUser, false);
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));

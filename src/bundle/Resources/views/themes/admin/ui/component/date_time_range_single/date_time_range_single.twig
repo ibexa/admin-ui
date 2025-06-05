@@ -1,0 +1,29 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+{% set attr = attr|default({})|merge({
+    class: ('ibexa-date-time-range-single '
+        ~ (is_hidden|default(false) ? 'ibexa-date-time-range-single--hidden ')
+        ~ attr.class|default(''))|trim,
+    'data-period-selector': period_input_selector,
+    'data-end-selector': end_input_selector,
+    'data-start': start_date is defined and start_date is not null
+        ? start_date|date('Y-m-d') : '',
+    'data-end': end_date is defined and end_date is not null
+        ? end_date|date('Y-m-d') : '',
+}) %}
+
+{% set picker_wrapper_attr = picker_wrapper_attr|default({})|merge({
+    class: ('ibexa-date-time-range-single__date-time-picker-input-wrapper '
+        ~ picker_wrapper_attr.class|default(''))|trim,
+}) %}
+
+<div {{ html.attributes(attr) }} >
+    <div {{ html.attributes(picker_wrapper_attr) }} >
+        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
+            input_attr: {
+                class: 'ibexa-date-time-range-single__date-time-picker-input',
+                placeholder: 'search.date.range'|trans({}, 'ibexa_search')|desc('From date - to date'),
+            },
+        } %}
+    </div>
+</div>
