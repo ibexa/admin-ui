@@ -568,6 +568,17 @@
     }
 }
 
+@mixin drag-item-placeholder-static($border-color: $ibexa-color-info) {
+    display: flex;
+    border: 2px solid $border-color;
+    border-radius: 8px;
+    margin-top: 8px;
+
+    &--hidden {
+        display: none;
+    }
+}
+
 @mixin drag-item-placeholder-full {
     $self: &;
 
