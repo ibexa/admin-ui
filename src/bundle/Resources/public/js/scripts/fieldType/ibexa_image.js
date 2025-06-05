@@ -78,7 +78,7 @@
         }
     }
 
-    class ibexa_imageFieldValidator extends ibexa.BaseFileFieldValidator {
+    class IbexaImageFieldValidator extends ibexa.BaseFileFieldValidator {
         /**
          * Validates the alternative text input
          *
@@ -107,7 +107,7 @@
     }
 
     doc.querySelectorAll(SELECTOR_FIELD).forEach((fieldContainer) => {
-        const validator = new ibexa_imageFieldValidator({
+        const validator = new IbexaImageFieldValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
             eventsMap: [
