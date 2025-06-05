@@ -50,8 +50,8 @@ class ContentTypeIsUserTest extends TestCase
         $specification = new ContentTypeIsUser([]);
 
         $contentTypeWithEzUserField = $this->createContentType(
-            'ibexa_time',
-            ['ibexa_string', 'ibexa_time']
+            'ibexa_user',
+            ['ibexa_string', 'ibexa_user']
         );
 
         self::assertTrue($specification->isSatisfiedBy($contentTypeWithEzUserField));
