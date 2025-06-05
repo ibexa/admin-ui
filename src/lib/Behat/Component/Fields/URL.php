@@ -82,13 +82,13 @@ class URL extends FieldTypeComponent
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('url', '#ezplatform_content_forms_content_edit_fieldsData_ezurl_value_link'),
-            new VisibleCSSLocator('text', '#ezplatform_content_forms_content_edit_fieldsData_ezurl_value_text'),
+            new VisibleCSSLocator('url', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_url_value_link'),
+            new VisibleCSSLocator('text', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_url_value_text'),
         ];
     }
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezurl';
+        return 'ibexa_url';
     }
 }

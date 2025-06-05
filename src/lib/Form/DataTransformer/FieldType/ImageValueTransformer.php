@@ -11,7 +11,7 @@ use Ibexa\Core\FieldType\Image\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
- * Data transformer for ezimage field type.
+ * Data transformer for ibexa_image field type.
  *
  * {@inheritdoc}
  */

@@ -1,0 +1,6 @@
+{% use '@ibexadesign/ui/form_fields/dropdown_widget.html.twig' %}
+
+{%- block ezplatform_fieldtype_ibexa_country_widget -%}
+    {% set attr = attr|merge({'class': 'ibexa-data-source__input ibexa-data-source__input--ibexa_country'}) %}
+    {{ block('choice_widget') }}
+{%- endblock -%}

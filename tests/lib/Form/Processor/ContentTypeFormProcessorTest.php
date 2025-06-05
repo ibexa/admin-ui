@@ -105,7 +105,7 @@ final class ContentTypeFormProcessorTest extends TestCase
 
     public function testAddFieldDefinition(): void
     {
-        $fieldTypeIdentifier = 'ezstring';
+        $fieldTypeIdentifier = 'ibexa_string';
         $languageCode = 'fre-FR';
         $existingFieldDefinitions = new FieldDefinitionCollection([
             new FieldDefinition([

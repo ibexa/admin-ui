@@ -107,6 +107,6 @@ class ContentRelationSingle extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezobjectrelation';
+        return 'ibexa_object_relation';
     }
 }

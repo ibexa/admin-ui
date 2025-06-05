@@ -1,0 +1,5 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins' as *;
+
+.ibexa-field-edit--ibexa_datetime {
+    @include datetime-field();
+}

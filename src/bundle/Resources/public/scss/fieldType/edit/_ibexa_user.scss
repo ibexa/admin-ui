@@ -1,0 +1,18 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-field-edit--ibexa_time {
+    .ibexa-field-edit__data {
+        background: $ibexa-color-white;
+
+        .ibexa-data-source {
+            max-width: 80%;
+
+            .ibexa-data-source__field:first-of-type {
+                .ibexa-label {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

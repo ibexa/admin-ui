@@ -1,0 +1,82 @@
+{% trans_default_domain 'ibexa_content_forms_content' %}
+
+{% use '@ibexadesign/ui/field_type/edit/binary_base.html.twig' %}
+
+{%- block ezplatform_fieldtype_ibexa_media_row -%}
+    {% set preview_block_name = 'ibexa_media_preview' %}
+    {% set max_file_size = min(form.parent.vars.value.fieldDefinition.validatorConfiguration.FileSizeValidator.maxFileSize * 1024 * 1024, max_upload_size)|round %}
+    {{ block('binary_base_row') }}
+{%- endblock -%}
+
+{% block ibexa_media_preview %}
+    {% form_theme form '@ibexadesign/ui/field_type/edit/binary_base_fields.html.twig' %}
+
+    {% set readonly = attr.readonly|default(false) %}
+
+    <div class="ibexa-field-edit-preview">
+        <div class="ibexa-field-edit-preview__visual">
+            <div class="ibexa-field-edit-preview__media-wrapper ibexa-field-edit-preview__media-wrapper--loading">
+                <div class="ibexa-field-edit-preview__actions">
+                    <button 
+                        type="button" 
+                        class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ readonly ? 'disabled' }}
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_media.delete'|trans|desc('Delete') }}</span>
+                    </button>
+                    <a 
+                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        href="{{ form.parent.vars.value.value.uri }}"
+                        target="_blank"
+                        {{ readonly ? 'disabled' }}
+                    >
+                        <svg class="ibexa-icon ibexa-icon--small">
+                            <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
+                        </svg>
+                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_media.download'|trans|desc('Download') }}</span>
+                    </a>
+                </div>
+                <svg class="ibexa-field-edit-preview__spinner ibexa-icon ibexa-spin">
+                    <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>
+                </svg>
+                <video
+                    class="ibexa-field-edit-preview__media"
+                    src="{{ form.parent.vars.value.value.uri }}"
+                    preload="metadata"
+                    controls>
+                </video>
+            </div>
+
+            <div class="ibexa-field-edit-preview__details">
+                <span class="ibexa-field-edit-preview__file-name-wrapper">
+                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans|desc('File name') }}</label>
+                    <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
+                </span>
+                <span class="ibexa-field-edit-preview__file-size-wrapper">
+                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans|desc('Size') }}</label>
+                    <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
+                </span>
+                <div class="ibexa-field-edit-preview__settings">
+                    <div class="ibexa-field-edit-preview__dimensions">
+                        {{ form_row(form.width, {'label_attr': {'class': 'ibexa-field-edit-preview__label'}, attr: { readonly: readonly }}) }}
+                        {{ form_row(form.height, {'label_attr': {'class': 'ibexa-field-edit-preview__label'}, attr: { readonly: readonly }}) }}
+                    </div>
+                </div>
+                <div class="ibexa-field-edit-preview__control">
+                    <label class="ibexa-label form-label">
+                        {{ 'content.field_type.ibexa_media.player_settings'|trans({}, 'ibexa_content_forms_content')|desc('Player settings') }}
+                    </label>
+                    <div class="ibexa-field-edit-preview__toggles">
+                        {{ form_row(form.hasController, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
+                        {{ form_row(form.autoplay, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
+                        {{ form_row(form.loop, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

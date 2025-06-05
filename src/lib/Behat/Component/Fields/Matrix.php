@@ -47,7 +47,7 @@ class Matrix extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezmatrix';
+        return 'ibexa_matrix';
     }
 
     protected function specifyLocators(): array
@@ -92,7 +92,7 @@ class Matrix extends FieldTypeComponent
 
     private function internalSetValue(int $rowIndex, string $column, $value): void
     {
-        $matrixCellSelector = new VisibleCSSLocator('matrixCell', sprintf('[name="ezplatform_content_forms_content_edit[fieldsData][ezmatrix][value][entries][%d][%s]"]', $rowIndex, $column));
+        $matrixCellSelector = new VisibleCSSLocator('matrixCell', sprintf('[name="ezplatform_content_forms_content_edit[fieldsData][ibexa_matrix][value][entries][%d][%s]"]', $rowIndex, $column));
 
         $this->getHTMLPage()->find($matrixCellSelector)->setValue($value);
     }

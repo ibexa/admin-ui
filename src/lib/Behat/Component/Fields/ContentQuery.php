@@ -36,7 +36,7 @@ class ContentQuery extends NonEditableField
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezcontentquery';
+        return 'ibexa_content_query';
     }
 
     private function getValueInItemView(): array

@@ -81,15 +81,15 @@ class ContentItemAdminPreview extends Component
             ->getAttribute('class');
 
         if ('ibexa-scrollable-table-wrapper mb-0' === $fieldClass) {
-            return 'ezuser';
+            return 'ibexa_time';
         }
 
         if (false !== strpos($fieldClass, 'ibexa-table-header')) {
-            return 'ezmatrix';
+            return 'ibexa_matrix';
         }
 
         if ('' === $fieldClass) {
-            return 'ezboolean';
+            return 'ibexa_boolean';
         }
 
         $fieldTypeIdentifierRegex = '/ez|ibexa[a-z_]*-field/';

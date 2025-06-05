@@ -1,0 +1,18 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-field-edit--ibexa_float {
+    .ibexa-input-text-wrapper {
+        width: calculateRem(84px);
+        height: calculateRem(48px);
+    }
+
+    .ibexa-data-source__input {
+        &.is-invalid {
+            background-image: none;
+            padding-right: calculateRem(12px);
+            background-color: $ibexa-color-danger-100;
+            color: $ibexa-color-danger;
+        }
+    }
+}

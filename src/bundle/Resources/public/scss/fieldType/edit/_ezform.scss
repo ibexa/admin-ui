@@ -1,7 +1,0 @@
-@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
-
-.ibexa-field-edit--ezform {
-    .ibexa-field-edit__error {
-        @include error-under-label();
-    }
-}

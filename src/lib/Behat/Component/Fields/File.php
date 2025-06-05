@@ -61,12 +61,12 @@ class File extends FieldTypeComponent
     {
         return [
             new CSSLocator('fieldInput', 'input[type=file]'),
-            new VisibleCSSLocator('file', '.ezbinaryfile-field a'),
+            new VisibleCSSLocator('file', '.ibexa_binaryfile-field a'),
         ];
     }
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezbinaryfile';
+        return 'ibexa_binaryfile';
     }
 }

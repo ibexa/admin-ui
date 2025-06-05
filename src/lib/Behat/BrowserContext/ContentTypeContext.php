@@ -227,7 +227,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given I check :blockName block in ezlandingpage field blocks section
+     * @Given I check :blockName block in ibexa_landing_page field blocks section
      */
     public function iCheckBlockInField(string $blockName): void
     {
@@ -238,7 +238,7 @@ class ContentTypeContext implements Context
     }
 
     /**
-     * @Given I select :viewMode editor launch mode in ezlandingpage field options
+     * @Given I select :viewMode editor launch mode in ibexa_landing_page field options
      */
     public function iCheckEditorLaunchModeOption(string $viewMode): void
     {

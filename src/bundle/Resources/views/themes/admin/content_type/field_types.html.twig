@@ -8,160 +8,160 @@
 
 {# @var data \Ibexa\ContentForms\Data\FieldDefinitionData #}
 {# @var form \Symfony\Component\Form\FormView #}
-{% block ezauthor_field_definition_edit %}
-    <div class="ezauthor-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_author_field_definition_edit %}
+    <div class="ibexa_author-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultAuthor, {'label_attr': {'class': 'radio-inline'}}) -}}
     </div>
 {% endblock %}
 
-{% block ezbinaryfile_field_definition_edit %}
-    <div class="ezbinaryfile-validator max-file-size{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_binaryfile_field_definition_edit %}
+    <div class="ibexa_binaryfile-validator max-file-size{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.maxSize) -}}
     </div>
 {% endblock %}
 
-{% block ezboolean_field_definition_edit %}
-    <div class="ezboolean-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_boolean_field_definition_edit %}
+    <div class="ibexa_boolean-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultValue) -}}
     </div>
 {% endblock %}
 
-{% block ezcountry_field_definition_edit %}
-    <div class="ezcountry-settings is-multiple{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_country_field_definition_edit %}
+    <div class="ibexa_country-settings is-multiple{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.isMultiple) -}}
     </div>
 
-    <div class="ezcountry-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_country-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultValue) -}}
     </div>
 {% endblock %}
 
-{% block ezdate_field_definition_edit %}
-    <div class="ezdate-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_date_field_definition_edit %}
+    <div class="ibexa_date-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultType, {'label_attr': {'class': 'radio-inline'}}) -}}
     </div>
 {% endblock %}
 
-{% block ezdatetime_field_definition_edit %}
-    <div class="ezdatetime-settings use-seconds{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_datetime_field_definition_edit %}
+    <div class="ibexa_datetime-settings use-seconds{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.useSeconds) -}}
     </div>
 
-    <div class="ezdatetime-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_datetime-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultType) -}}
     </div>
 
-    <div class="ezdatetime-settings date-interval{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_datetime-settings date-interval{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.dateInterval, {'label_attr': {'class': 'col-form-group'}}) -}}
     </div>
 {% endblock %}
 
-{% block eztime_field_definition_edit %}
-    <div class="eztime-settings use-seconds{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_time_field_definition_edit %}
+    <div class="ibexa_time-settings use-seconds{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.useSeconds) -}}
     </div>
 
-    <div class="eztime-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_time-settings default-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultType, {'label_attr': {'class': 'radio-inline'}}) -}}
     </div>
 {% endblock %}
 
-{% block ezfloat_field_definition_edit %}
+{% block ibexa_float_field_definition_edit %}
     <div class="ibexa-content-type-edit__field-settings-group">
-        <div class="ibexa-content-type-edit__field-settings-field ezfloat-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.minValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ezfloat-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.maxValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ezfloat-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_float-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.defaultValue) -}}
         </div>
     </div>
 {% endblock %}
 
-{% block ezimage_field_definition_edit %}
-    <div class="ezimage-validator max-file-size{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_image_field_definition_edit %}
+    <div class="ibexa_image-validator max-file-size{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.maxSize) -}}
     </div>
 
     {% if form.mimeTypes is defined %}
-        <div class="ezimage-validator mime-types{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa_image-validator mime-types{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.mimeTypes) -}}
         </div>
     {% endif %}
 
-    <div class="ezimage-validator is-alternative-text-required"{% if group_class is not empty %} {{ group_class }}{% endif %}>
+    <div class="ibexa_image-validator is-alternative-text-required"{% if group_class is not empty %} {{ group_class }}{% endif %}>
         {{ form_row(form.isAlternativeTextRequired) }}
     </div>
 {% endblock %}
 
-{% block ezinteger_field_definition_edit %}
+{% block ibexa_integer_field_definition_edit %}
     <div class="ibexa-content-type-edit__field-settings-group">
-        <div class="ibexa-content-type-edit__field-settings-field ezinteger-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-validator min-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.minValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ezinteger-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-validator max-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.maxValue) -}}
         </div>
 
-        <div class="ibexa-content-type-edit__field-settings-field ezinteger-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+        <div class="ibexa-content-type-edit__field-settings-field ibexa_integer-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.defaultValue) -}}
         </div>
     </div>
 {% endblock %}
 
-{% block ezisbn_field_definition_edit %}
-    <div class="ezisbn-settings is-isbn13{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_isbn_field_definition_edit %}
+    <div class="ibexa_isbn-settings is-isbn13{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.isISBN13) -}}
     </div>
 
-    <div class="ezisbn-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_isbn-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultValue) -}}
     </div>
 {% endblock %}
 
-{% block ezmedia_field_definition_edit %}
-    <div class="ezmedia-validator max-file-size{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_media_field_definition_edit %}
+    <div class="ibexa_media-validator max-file-size{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.maxSize) -}}
     </div>
 
-    <div class="ezmedia-settings media-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_media-settings media-type{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.mediaType) -}}
     </div>
 {% endblock %}
 
-{% block ezobjectrelation_field_definition_edit %}
+{% block ibexa_object_relation_field_definition_edit %}
     {% set is_translation = is_translation ?? false %}
     {% form_theme form.selectionRoot.location_type '@ibexadesign/content_type/relation_form_fields.html.twig' %}
-    <div class="ezobjectrelation-settings selection-root ibexa-default-location">
+    <div class="ibexa_object_relation-settings selection-root ibexa-default-location">
         {{- form_row(form.selectionRoot.location_type, { disabled: is_translation }) -}}
         {{- form_row(form.rootDefaultLocation, { disabled: is_translation }) -}}
         {{- form_row(form.selectionRoot.location, { disabled: is_translation }) -}}
     </div>
 
-    <div class="ezobjectrelationlist-settings selection-content-types mt-1">
+    <div class="ibexa_object_relation_list-settings selection-content-types mt-1">
         {{- form_row(form.selectionContentTypes) -}}
     </div>
 {% endblock %}
 
-{% block ezobjectrelationlist_field_definition_edit %}
+{% block ibexa_object_relation_list_field_definition_edit %}
     {% set is_translation = is_translation ?? false %}
     {% form_theme form.selectionDefaultLocation.location_type '@ibexadesign/content_type/relation_list_form_fields.html.twig' %}
-    <div class="ezobjectrelationlist-settings selection-default-location ibexa-default-location">
+    <div class="ibexa_object_relation_list-settings selection-default-location ibexa-default-location">
         {{- form_row(form.selectionDefaultLocation.location_type, { disabled: is_translation }) -}}
         {{- form_row(form.rootDefaultLocation, { disabled: is_translation }) -}}
         {{- form_row(form.selectionDefaultLocation.location, { disabled: is_translation }) -}}
     </div>
 
-    <div class="ezobjectrelationlist-settings selection-content-types mt-1">
+    <div class="ibexa_object_relation_list-settings selection-content-types mt-1">
         {{- form_row(form.selectionContentTypes) -}}
     </div>
 
-    <div class="ezobjectrelationlist-settings selection-limit">
+    <div class="ibexa_object_relation_list-settings selection-limit">
         {{- form_row(form.selectionLimit) -}}
     </div>
 {% endblock %}
@@ -172,75 +172,75 @@
     </div>
 {% endblock %}
 
-{% block ezselection_field_definition_edit %}
-    <div class="ezselection-settings is-multiple{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_selection_field_definition_edit %}
+    <div class="ibexa_selection-settings is-multiple{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.isMultiple) -}}
     </div>
 
-    <div class="ezselection-settings options{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_selection-settings options{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{ form_label(form.options, 'Options') }}
         {{ form_errors(form.options) }}
         <ul
-            class="ezselection-settings-option-list ibexa-selection-table list-unstyled"
-            data-selection-buttons=".ezselection-settings-option-remove"
+            class="ibexa_selection-settings-option-list ibexa-selection-table list-unstyled"
+            data-selection-buttons=".ibexa_selection-settings-option-remove"
             data-next-option-id="{{ form.options.vars.value is empty ? 0 : max(form.options.vars.value|keys) + 1 }}">
             {% for option in form.options %}
-                <li class="ezselection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
+                <li class="ibexa_selection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
                     <input
                         type="checkbox"
-                        class="ibexa-input ibexa-input--checkbox ezselection-settings-option-checkbox ibexa-selection-table-checkbox">
+                        class="ibexa-input ibexa-input--checkbox ibexa_selection-settings-option-checkbox ibexa-selection-table-checkbox">
                     {{ form_errors(option) }}
                     {{ form_widget(option, { 'attr': { 'class': 'form-control ml-1 mb-0'}}) }}
                 </li>
             {% endfor %}
         </ul>
         <script
-            type="text/template" class="ezselection-settings-option-value-prototype"
-            data-ezselection-option-input-name="{{ form.options.vars.prototype.vars.full_name }}"
-            data-ezselection-option-input-id="{{ form.options.vars.prototype.vars.id }}">
-            <li class="ezselection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
-                <input type="checkbox" class="ibexa-input ibexa-input--checkbox ezselection-settings-option-checkbox ibexa-selection-table-checkbox">
+            type="text/template" class="ibexa_selection-settings-option-value-prototype"
+            data-ibexa_selection-option-input-name="{{ form.options.vars.prototype.vars.full_name }}"
+            data-ibexa_selection-option-input-id="{{ form.options.vars.prototype.vars.id }}">
+            <li class="ibexa_selection-settings-option-value ibexa-selection-table-row mb-2 d-flex align-items-center">
+                <input type="checkbox" class="ibexa-input ibexa-input--checkbox ibexa_selection-settings-option-checkbox ibexa-selection-table-checkbox">
                 {{ form_widget(form.options.vars.prototype, { 'attr': { 'class': 'form-control ml-1 mb-0'}}) }}
             </li>
         </script>
 
-        <div class="ezselection-settings-toolbar">
+        <div class="ibexa_selection-settings-toolbar">
             <button
                 type="button"
-                class="ezselection-settings-option-add btn ibexa-btn ibexa-btn--secondary">
-                {{ "field_definition.ezselection.add_option"|trans({}, 'ibexa_content_type')|desc("Add an option") }}
+                class="ibexa_selection-settings-option-add btn ibexa-btn ibexa-btn--secondary">
+                {{ "field_definition.ibexa_selection.add_option"|trans({}, 'ibexa_content_type')|desc("Add an option") }}
             </button>
             <button
                 type="button"
-                class="ezselection-settings-option-remove btn ibexa-btn ibexa-btn--secondary"
+                class="ibexa_selection-settings-option-remove btn ibexa-btn ibexa-btn--secondary"
                 disabled>
-                {{ "field_definition.ezselection.remove_selected_options"|trans({}, 'ibexa_content_type')|desc("Remove selected options") }}
+                {{ "field_definition.ibexa_selection.remove_selected_options"|trans({}, 'ibexa_content_type')|desc("Remove selected options") }}
             </button>
         </div>
     </div>
 {% endblock %}
 
-{% block ezstring_field_definition_edit %}
-    <div class="ezstring-validator min-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_string_field_definition_edit %}
+    <div class="ibexa_string-validator min-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.minLength) -}}
     </div>
 
-    <div class="ezstring-validator max-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_string-validator max-length{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.maxLength) -}}
     </div>
 
-    <div class="ezstring-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
+    <div class="ibexa_string-default-value{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.defaultValue) -}}
     </div>
 {% endblock %}
 
-{% block eztext_field_definition_edit %}
-    <div class="eztext-settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
+{% block ibexa_text_field_definition_edit %}
+    <div class="ibexa_text-settings text-rows{% if group_class is not empty %} {{ group_class }}{% endif %}">
         {{- form_row(form.textRows) -}}
     </div>
 {% endblock %}
 
-{% block ezuser_field_definition_edit %}
+{% block ibexa_user_field_definition_edit %}
     <div class="ibexa-field ibexa-field--user ibexa-user">
         <div class="ibexa-user__settings {% if group_class is not empty %} {{ group_class }}{% endif %}">
             {{- form_row(form.requireAtLeastOneUpperCaseCharacter) -}}

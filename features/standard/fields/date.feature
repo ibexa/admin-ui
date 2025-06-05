@@ -29,9 +29,9 @@ Feature: Content fields setting and editing
 
     Examples:
       | fieldInternalName    | fieldName                    | fieldSettings                                                         |  label1   | value1                                                                    | label2     | value2                | label3  | value3      | contentItemName           |
-      | ezdate               | Date                         |                                                                       | value     | 11/23/2019                                                                |            |                       |         |             | Saturday 23 November 2019 |
-      | ezdatetime           | Date and time                |                                                                       | date      | 11/23/2019                                                                | time       | 14:45                 |         |             | Sat 2019-23-11 14:45:00   |
-      | eztime               | Time                         |                                                                       | value     | 14:45                                                                     |            |                       |         |             | 2:45:00 pm                |
+      | ibexa_date               | Date                         |                                                                       | value     | 11/23/2019                                                                |            |                       |         |             | Saturday 23 November 2019 |
+      | ibexa_datetime           | Date and time                |                                                                       | date      | 11/23/2019                                                                | time       | 14:45                 |         |             | Sat 2019-23-11 14:45:00   |
+      | ibexa_time               | Time                         |                                                                       | value     | 14:45                                                                     |            |                       |         |             | 2:45:00 pm                |
 
   @javascript @APIUser:admin
   Scenario Outline: Edit content item with given field

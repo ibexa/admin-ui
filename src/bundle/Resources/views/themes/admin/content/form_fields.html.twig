@@ -1,23 +1,23 @@
 {% extends '@ibexadesign/ui/form_fields.html.twig' %}
 
 {# specific fieldtypes theming #}
-{% use '@ibexadesign/ui/field_type/edit/ezauthor.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezboolean.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezcountry.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezdatetime.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezrichtext.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezselection.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/eztime.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezdate.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezmedia.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezimage.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezimageasset.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezbinaryfile.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezkeyword.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezgmaplocation.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezobjectrelationlist.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezobjectrelation.html.twig' %}
-{% use '@ibexadesign/ui/field_type/edit/ezuser.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_author.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_boolean.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_country.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_datetime.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_richtext.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_selection.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_time.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_date.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_media.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_image.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_image_asset.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_binaryfile.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_keyword.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_gmap_location.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_object_relation_list.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_object_relation.html.twig' %}
+{% use '@ibexadesign/ui/field_type/edit/ibexa_user.html.twig' %}
 
 {% trans_default_domain 'ibexa_content_edit' %}
 
@@ -81,7 +81,7 @@
     {% set fieldtype_identifier = fieldtype.vars.value.fieldDefinition.fieldTypeIdentifier %}
     {% set translation_mode = fieldtype.vars.mainLanguageCode != fieldtype.vars.languageCode %}
     {% set fieldtype_is_not_translatable = translation_mode and not fieldtype.vars.value.fieldDefinition.isTranslatable %}
-    {% set has_distraction_free_mode = fieldtype_identifier == 'ezrichtext' %}
+    {% set has_distraction_free_mode = fieldtype_identifier == 'ibexa_richtext' %}
 
     {% set widget_wrapper_attr = widget_wrapper_attr|default({})|merge({'class': (widget_wrapper_attr.class|default('') ~ ' ibexa-field-edit__data')|trim}) %}
     {% set wrapper_class = 'ibexa-field-edit ibexa-form-field ibexa-field-edit--' ~ fieldtype_identifier ~ (has_distraction_free_mode ? ' ibexa-field-edit--has-distraction-free-mode') %}

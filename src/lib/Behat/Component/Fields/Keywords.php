@@ -85,6 +85,6 @@ SCRIPT;
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezkeyword';
+        return 'ibexa_keyword';
     }
 }

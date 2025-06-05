@@ -27,20 +27,20 @@ final class FieldDefinitionCreateTest extends TestCase
     public function testValidInput(): void
     {
         self::assertEquals(
-            new FieldDefinitionCreateValue('ezstring', null),
+            new FieldDefinitionCreateValue('ibexa_string', null),
             $this->parser->parse(
                 [
-                    'fieldTypeIdentifier' => 'ezstring',
+                    'fieldTypeIdentifier' => 'ibexa_string',
                 ],
                 $this->createMock(ParsingDispatcher::class)
             )
         );
 
         self::assertEquals(
-            new FieldDefinitionCreateValue('ezstring', 'foo_identifier', 10),
+            new FieldDefinitionCreateValue('ibexa_string', 'foo_identifier', 10),
             $this->parser->parse(
                 [
-                    'fieldTypeIdentifier' => 'ezstring',
+                    'fieldTypeIdentifier' => 'ibexa_string',
                     'fieldGroupIdentifier' => 'foo_identifier',
                     'position' => 10,
                 ],

@@ -21,6 +21,6 @@ class TextBlock extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'eztext';
+        return 'ibexa_text';
     }
 }

@@ -8,6 +8,7 @@
 namespace Ibexa\AdminUi\FieldType;
 
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\FieldType\FieldTypeAliasResolverInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -18,18 +19,12 @@ use Symfony\Component\Form\FormInterface;
 class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionFormMapperDispatcherInterface
 {
     /**
-     * FieldType form mappers, indexed by FieldType identifier.
-     *
-     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[]
-     */
-    private array $mappers = [];
-
-    /**
      * @param \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[] $mappers
      */
-    public function __construct(array $mappers = [])
-    {
-        $this->mappers = $mappers;
+    public function __construct(
+        private readonly FieldTypeAliasResolverInterface $fieldTypeAliasResolver,
+        private array $mappers = []
+    ) {
     }
 
     public function addMapper(FieldDefinitionFormMapperInterface $mapper, string $fieldTypeIdentifier): void
@@ -40,6 +35,7 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
     public function map(FormInterface $fieldForm, FieldDefinitionData $data): void
     {
         $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
+        $fieldTypeIdentifier = $this->fieldTypeAliasResolver->resolveIdentifier($fieldTypeIdentifier);
 
         if (!isset($this->mappers[$fieldTypeIdentifier])) {
             return;

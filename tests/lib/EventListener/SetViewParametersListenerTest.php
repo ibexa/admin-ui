@@ -228,15 +228,15 @@ final class SetViewParametersListenerTest extends TestCase
     {
         $fields = [
             'name' => [
-                'type' => 'ezstring',
+                'type' => 'ibexa_string',
                 'group' => 'content',
             ],
             'short_name' => [
-                'type' => 'ezstring',
+                'type' => 'ibexa_string',
                 'group' => 'content',
             ],
             'description' => [
-                'type' => 'ezrichtext',
+                'type' => 'ibexa_richtext',
                 'group' => 'content',
             ],
             'tags' => [
@@ -244,7 +244,7 @@ final class SetViewParametersListenerTest extends TestCase
                 'group' => 'content',
             ],
             'metadata_field' => [
-                'type' => 'ezstring',
+                'type' => 'ibexa_string',
                 'group' => 'metadata',
             ],
         ];

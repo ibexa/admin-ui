@@ -1,0 +1,84 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tags' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+
+.ibexa-field-edit--ibexa_keyword {
+    .ibexa-data-source__taggify {
+        display: flex;
+        flex-wrap: wrap;
+        height: auto;
+        min-height: calculateRem(48px);
+        padding: 0 calculateRem(8px) calculateRem(4px) calculateRem(4px);
+        border: calculateRem(1px) solid $ibexa-color-dark-200;
+
+        &.ibexa-data-source__taggify--focused {
+            border-color: $ibexa-color-primary;
+            box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
+        }
+
+        &.is-invalid {
+            @include input-invalid();
+        }
+    }
+
+    .taggify__wrapper {
+        flex: 1 1 auto;
+        order: 2;
+    }
+
+    .taggify__input {
+        display: block;
+        width: 100%;
+        height: 100%;
+        margin-top: calculateRem(3px);
+        border: 0 none;
+        outline: none;
+        background: transparent;
+    }
+
+    .taggify__tags {
+        order: 1;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .taggify__tag {
+        @include tag;
+
+        & {
+            max-width: 100%;
+        }
+    }
+
+    .taggify__tag-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .taggify__btn--remove {
+        position: absolute;
+        right: 0;
+        color: $ibexa-color-dark;
+        background: none;
+        border: 0 none;
+    }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-data-source__taggify {
+            background-color: $ibexa-color-light-300;
+            pointer-events: none;
+
+            .taggify__tag {
+                background-color: $ibexa-color-light-500;
+                color: $ibexa-color-dark-400;
+
+                .taggify__btn--remove {
+                    color: $ibexa-color-dark-400;
+                }
+            }
+        }
+    }
+}

@@ -158,7 +158,7 @@ class RichText extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezrichtext';
+        return 'ibexa_richtext';
     }
 
     private function executeCommand(string $commandName): void

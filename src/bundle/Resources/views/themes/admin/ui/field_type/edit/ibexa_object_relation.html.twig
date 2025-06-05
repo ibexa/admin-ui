@@ -1,0 +1,11 @@
+{% trans_default_domain 'ibexa_content_forms_content' %}
+
+{% use '@ibexadesign/ui/field_type/edit/relation_base.html.twig' %}
+
+{% block ezplatform_fieldtype_ibexa_object_relation_widget %}
+    {% set limit = 1 %}
+    {% set default_location = form.vars.default_location ? form.vars.default_location.id : null %}
+    {% set allowed_content_type_identifiers = form.parent.vars.value.fieldDefinition.fieldSettings.selectionContentTypes %}
+    {% set helper = 'ibexa_object_relation.helper'|trans|desc('Stores a Relation to a Content item.') %}
+    {{ block('ibexa_object_relation_base_widget') }}
+{% endblock %}

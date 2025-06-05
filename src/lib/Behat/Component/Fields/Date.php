@@ -70,6 +70,6 @@ class Date extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezdate';
+        return 'ibexa_date';
     }
 }

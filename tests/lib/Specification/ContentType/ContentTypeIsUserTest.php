@@ -45,13 +45,13 @@ class ContentTypeIsUserTest extends TestCase
     /**
      * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
      */
-    public function testIsSatisfiedByContentTypeWithEzUserField(): void
+    public function testIsSatisfiedByContentTypeWithIbexaUserField(): void
     {
         $specification = new ContentTypeIsUser([]);
 
         $contentTypeWithEzUserField = $this->createContentType(
-            'ezuser',
-            ['ezstring', 'ezuser']
+            'ibexa_user',
+            ['ibexa_string', 'ibexa_user']
         );
 
         self::assertTrue($specification->isSatisfiedBy($contentTypeWithEzUserField));
@@ -66,7 +66,7 @@ class ContentTypeIsUserTest extends TestCase
             'content_type_a', 'content_type_b', 'content_type_c',
         ]);
 
-        $articleContentType = $this->createContentType('article', ['ezstring', 'ezrichtext']);
+        $articleContentType = $this->createContentType('article', ['ibexa_string', 'ibexa_richtext']);
 
         self::assertFalse($specification->isSatisfiedBy($articleContentType));
     }

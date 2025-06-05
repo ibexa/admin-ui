@@ -31,7 +31,7 @@ class PasswordConstraintCheckboxType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['label'] = 'field_definition.ezuser.' . $this->toSnakeCase($view->vars['name']);
+        $view->vars['label'] = 'field_definition.ibexa_user.' . $this->toSnakeCase($view->vars['name']);
     }
 
     /**

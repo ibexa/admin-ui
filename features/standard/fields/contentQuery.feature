@@ -16,7 +16,7 @@ Feature: Content fields setting and editing
     Given I am logged as admin
     And I'm on Content view Page for "ContentQueryFieldContainer"
     When I start creating a new content "<fieldName> CT"
-    And the "Ezcontentquery" field is noneditable
+    And the "ibexa_content_query" field is noneditable
     And I set content fields
       | label    | <label1>    |
       | Name     | <fieldName> |
@@ -28,7 +28,7 @@ Feature: Content fields setting and editing
       | Field    | <value1> | <fieldInternalName> |
     Examples:
       | fieldInternalName | fieldName     | fieldSettings                                                                                                  | label1 | value1                  |
-      | ezcontentquery    | Content query | QueryType-Folders under media,ContentType-folder,ItemsPerPage-100,Parameters-contentTypeId:folder;locationId:43| value  | Images,Files,Multimedia |
+      | ibexa_content_query    | Content query | QueryType-Folders under media,ContentType-folder,ItemsPerPage-100,Parameters-contentTypeId:folder;locationId:43| value  | Images,Files,Multimedia |
 
   @javascript @APIUser:admin @contentQuery
   Scenario: Edit content item with Content Query
@@ -43,4 +43,4 @@ Feature: Content fields setting and editing
     And I should be on Content view Page for "ContentQueryFieldContainer/New Content query"
     And content attributes equal
       | label    | value                   | fieldTypeIdentifier |
-      | Field    | Images,Files,Multimedia | ezcontentquery      |
+      | Field    | Images,Files,Multimedia | ibexa_content_query      |

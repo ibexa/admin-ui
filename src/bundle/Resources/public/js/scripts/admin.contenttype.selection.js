@@ -1,12 +1,12 @@
 (function (global, doc) {
-    const SELECTOR_TEMPLATE = '.ezselection-settings-option-value-prototype';
-    const SELECTOR_OPTION = '.ezselection-settings-option-value';
-    const SELECTOR_OPTIONS_LIST = '.ezselection-settings-option-list';
-    const SELECTOR_BTN_REMOVE = '.ezselection-settings-option-remove';
-    const SELECTOR_BTN_ADD = '.ezselection-settings-option-add';
+    const SELECTOR_TEMPLATE = '.ibexa_selection-settings-option-value-prototype';
+    const SELECTOR_OPTION = '.ibexa_selection-settings-option-value';
+    const SELECTOR_OPTIONS_LIST = '.ibexa_selection-settings-option-list';
+    const SELECTOR_BTN_REMOVE = '.ibexa_selection-settings-option-remove';
+    const SELECTOR_BTN_ADD = '.ibexa_selection-settings-option-add';
     const NUMBER_PLACEHOLDER = /__number__/g;
     const initField = (container) => {
-        const findCheckedOptions = () => container.querySelectorAll('.ezselection-settings-option-checkbox:checked');
+        const findCheckedOptions = () => container.querySelectorAll('.ibexa_selection-settings-option-checkbox:checked');
         const toggleDisableState = () => {
             const disabledState = !!findCheckedOptions().length;
             const methodName = disabledState ? 'removeAttribute' : 'setAttribute';
@@ -31,7 +31,7 @@
         container.querySelector(SELECTOR_BTN_REMOVE).addEventListener('click', removeOptions, false);
     };
 
-    doc.querySelectorAll('.ezselection-settings.options').forEach(initField);
+    doc.querySelectorAll('.ibexa_selection-settings.options').forEach(initField);
     doc.body.addEventListener(
         'ibexa-drop-field-definition',
         (event) => {

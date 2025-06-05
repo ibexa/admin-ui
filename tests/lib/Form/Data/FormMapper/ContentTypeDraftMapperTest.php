@@ -33,7 +33,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 final class ContentTypeDraftMapperTest extends TestCase
 {
-    private const TAB_FIELD_DEF_IDENTIFIER = 'ezstring';
+    private const TAB_FIELD_DEF_IDENTIFIER = 'ibexa_string';
 
     private FormDataMapperInterface $contentTypeDraftMapper;
 
@@ -128,13 +128,13 @@ final class ContentTypeDraftMapperTest extends TestCase
     {
         return $this->createFieldDefinitionCollection(
             [
-                'eztext' => [
+                'ibexa_text' => [
                     'identifier' => 'identifier2',
                     'defaultValue' => $this->getMockForAbstractClass(Value::class),
                     'name' => 'Bar',
                     'position' => 2,
                 ],
-                'ezrichtext' => [
+                'ibexa_richtext' => [
                     'identifier' => 'identifier3',
                     'defaultValue' => null,
                     'name' => 'Baz',

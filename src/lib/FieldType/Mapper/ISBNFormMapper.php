@@ -26,7 +26,7 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
             ->createBuilder()
             ->create('defaultValue', ISBNFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezisbn.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_isbn.default_value',
                 'disabled' => $isTranslation,
             ])
             ->setAutoInitialize(false)
@@ -39,7 +39,7 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[isISBN13]',
-                    'label' => /** @Desc("ISBN-13 format") */ 'field_definition.ezisbn.is_isbn13',
+                    'label' => /** @Desc("ISBN-13 format") */ 'field_definition.ibexa_isbn.is_isbn13',
                     'disabled' => $isTranslation,
                 ]
             )

@@ -44,8 +44,8 @@ Feature: Content types management
 #        | Content name pattern | <name>                    |
 #      And content type "Test content type" has proper fields
 #        | fieldName      | fieldType |
-#        | Name           | ezstring  |
-#        | DateField      | ezdate    |
+#        | Name           | ibexa_string  |
+#        | DateField      | ibexa_date    |
 #
 #  @javascript @APIUser:admin @broken
 #  Scenario: Content type can be deleted from content type group
@@ -95,4 +95,4 @@ Feature: Content types management
       | Content name pattern | <name>                    |
     And content type "Test content type" has proper fields
       | fieldName       | fieldType |
-      | Country field   | ezcountry |
+      | Country field   | ibexa_country |
