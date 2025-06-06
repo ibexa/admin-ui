@@ -10,7 +10,7 @@ parameters:
     ibexa.site_access.config.default.content_type.folder:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#folder'
     ibexa.site_access.config.default.content_type.form:
-        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#form-checkbox-square'
+        thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#form-check-square'
     ibexa.site_access.config.default.content_type.place:
         thumbnail: '/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg#pin-location'
     ibexa.site_access.config.default.content_type.product:
