@@ -22,10 +22,9 @@ class Pagination extends Component
     {
         $currentPage = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
         // scroll to the bottom to avoid "Go to top" button
-        $this->getHTMLPage()->executeJavaScript("
-    var el = document.querySelector('.ibexa-back-to-top-scroll-container');
-    if (el) el.scrollTo(0, el.scrollHeight);
-    ");
+        $this->getHTMLPage()->executeJavaScript(<<<'JS'
+document.querySelector('.ibexa-back-to-top-scroll-container') && document.querySelector('.ibexa-back-to-top-scroll-container').scrollTo(0, document.querySelector('.ibexa-back-to-top-scroll-container').scrollHeight);
+JS);
         $this->getHTMLPage()
             ->setTimeout(3)
             ->findAll(new VisibleCSSLocator('backToTopWithTitle', '.ibexa-back-to-top__title--visible'));
