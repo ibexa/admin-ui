@@ -168,7 +168,18 @@ class ContentUpdateItemPage extends Page
         }
 
         throw new InvalidArgumentException(
-            sprintf('Could not handle field %s with field type identifier %s', $fieldName, $fieldTypeIdentifier)
+            sprintf(
+                'Could not handle field "%s" with field type identifier %s. Available field type components: %s; Field Selector: %s',
+                $fieldName,
+                $fieldTypeIdentifier,
+                implode(
+                    ', ',
+                    array_map(static function (FieldTypeComponent $fieldTypeComponent): string {
+                        return $fieldTypeComponent->getFieldTypeIdentifier();
+                    }, iterator_to_array($this->fieldTypeComponents))
+                ),
+                $fieldLocator->getSelector()
+            )
         );
     }
 
