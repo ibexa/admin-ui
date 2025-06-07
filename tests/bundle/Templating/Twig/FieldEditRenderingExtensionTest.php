@@ -17,6 +17,8 @@ use Twig\Environment;
 
 class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 {
+    private const int EXAMPLE_FIELD_DEFINITION_ID = 1;
+
     /**
      * @return \Twig\Extension\ExtensionInterface[]
      */
@@ -52,8 +54,11 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return __DIR__ . '/_fixtures/field_edit_rendering_functions/';
     }
 
-    public function getFieldDefinitionData($typeIdentifier, $id = null, $settings = []): FieldDefinitionData
-    {
+    public function getFieldDefinitionData(
+        string $typeIdentifier,
+        int $id = self::EXAMPLE_FIELD_DEFINITION_ID,
+        array $settings = []
+    ): FieldDefinitionData {
         return new FieldDefinitionData([
             'fieldDefinition' => new FieldDefinition([
                 'id' => $id,

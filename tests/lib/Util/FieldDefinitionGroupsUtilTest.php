@@ -18,7 +18,7 @@ class FieldDefinitionGroupsUtilTest extends TestCase
     {
         $randomGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'random']);
         $testGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'test']);
-        $defaultGroupFieldDefinition = new FieldDefinition();
+        $defaultGroupFieldDefinition = new FieldDefinition(['fieldGroup' => '']);
 
         $fieldDefinitions = [
             $randomGroupFieldDefinition,

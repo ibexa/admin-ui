@@ -475,12 +475,6 @@ parameters:
 			path: src/bundle/Controller/FieldDefinitionController.php
 
 		-
-			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinitionCreateStruct\:\:\$fieldGroup \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/bundle/Controller/FieldDefinitionController.php
-
-		-
 			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -3067,6 +3061,12 @@ parameters:
 			path: src/lib/Config/AdminUiForms/ContentTypeFieldTypesResolver.php
 
 		-
+			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinitionUpdateStruct\:\:\$names \(array\<string, string\>\|null\) does not accept array\<string, string\|null\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/lib/EventListener/AddNewTranslationFieldDefinition.php
+
+		-
 			message: '#^Cannot call method log\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -4721,6 +4721,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/lib/Form/DataTransformer/LocationsTransformer.php
+
+		-
+			message: '#^Offset ''multilingualOptions'' might not exist on array\<string, mixed\>\|null\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: src/lib/Form/DataTransformer/MultilingualSelectionTransformer.php
 
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ObjectStateGroupTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
@@ -9229,6 +9235,12 @@ parameters:
 			path: src/lib/Validator/Constraints/UniqueFieldDefinitionIdentifierValidator.php
 
 		-
+			message: '#^Parameter \#2 \$value of method Symfony\\Component\\Validator\\Violation\\ConstraintViolationBuilderInterface\:\:setParameter\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Validator/Constraints/UniqueFieldDefinitionIdentifierValidator.php
+
+		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 1
@@ -9451,20 +9463,8 @@ parameters:
 			path: tests/bundle/Templating/Twig/EmbeddedItemEditFormExtensionTest.php
 
 		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\FieldEditRenderingExtensionTest\:\:getFieldDefinitionData\(\) has parameter \$id with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/FieldEditRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\FieldEditRenderingExtensionTest\:\:getFieldDefinitionData\(\) has parameter \$settings with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/FieldEditRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\FieldEditRenderingExtensionTest\:\:getFieldDefinitionData\(\) has parameter \$typeIdentifier with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\FieldEditRenderingExtensionTest\:\:getFieldDefinitionData\(\) has parameter \$settings with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: tests/bundle/Templating/Twig/FieldEditRenderingExtensionTest.php
 

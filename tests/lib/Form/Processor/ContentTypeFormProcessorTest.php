@@ -71,13 +71,17 @@ final class ContentTypeFormProcessorTest extends TestCase
     public function testProcessDefaultAction(): void
     {
         $contentTypeDraft = $this->getContentTypeDraft();
-        $fieldDef1 = new FieldDefinition();
+        $fieldDef1 = new FieldDefinition([
+            'position' => 1,
+        ]);
         $fieldDefData1 = new FieldDefinitionData([
             'fieldDefinition' => $fieldDef1,
             'fieldGroup' => 'foo',
             'identifier' => 'foo',
         ]);
-        $fieldDef2 = new FieldDefinition();
+        $fieldDef2 = new FieldDefinition([
+            'position' => 2,
+        ]);
         $fieldDefData2 = new FieldDefinitionData([
             'fieldDefinition' => $fieldDef2,
             'fieldGroup' => 'foo',
@@ -111,10 +115,12 @@ final class ContentTypeFormProcessorTest extends TestCase
             new FieldDefinition([
                 'fieldTypeIdentifier' => $fieldTypeIdentifier,
                 'identifier' => sprintf('new_%s_%d', $fieldTypeIdentifier, 1),
+                'position' => 1,
             ]),
             new FieldDefinition([
                 'fieldTypeIdentifier' => $fieldTypeIdentifier,
                 'identifier' => sprintf('new_%s_%d', $fieldTypeIdentifier, 2),
+                'position' => 2,
             ]),
         ]);
         $contentTypeDraft = new ContentTypeDraft([
@@ -158,7 +164,7 @@ final class ContentTypeFormProcessorTest extends TestCase
             'fieldTypeIdentifier' => $fieldTypeIdentifier,
             'identifier' => $expectedNewFieldDefIdentifier,
             'names' => [$languageCode => 'New FieldDefinition'],
-            'position' => 1,
+            'position' => 3,
             'fieldGroup' => 'content',
         ]);
         $this->contentTypeService
