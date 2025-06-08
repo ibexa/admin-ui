@@ -214,7 +214,7 @@ class ContentUpdateItemPage extends Page
             ->hasClass($this->getLocator('noneditableFieldClass')->getSelector());
 
         if (!$isEditable) {
-            return strtolower($fieldName);
+            return strtolower(str_replace(' ', '_', $fieldName));
         }
 
         $fieldClass = $this->getHTMLPage()->find($fieldLocator)->getAttribute('class');
