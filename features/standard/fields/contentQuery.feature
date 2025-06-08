@@ -16,7 +16,7 @@ Feature: Content fields setting and editing
     Given I am logged as admin
     And I'm on Content view Page for "ContentQueryFieldContainer"
     When I start creating a new content "<fieldName> CT"
-    And the "ibexa_content_query" field is noneditable
+    And the "Ibexa content query" field is noneditable
     And I set content fields
       | label    | <label1>    |
       | Name     | <fieldName> |

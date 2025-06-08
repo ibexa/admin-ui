@@ -81,7 +81,7 @@ class ContentItemAdminPreview extends Component
             ->getAttribute('class');
 
         if ('ibexa-scrollable-table-wrapper mb-0' === $fieldClass) {
-            return 'ibexa_time';
+            return 'ibexa_user';
         }
 
         if (false !== strpos($fieldClass, 'ibexa-table-header')) {
