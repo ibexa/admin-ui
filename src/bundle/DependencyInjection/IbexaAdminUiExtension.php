@@ -76,6 +76,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $this->prependEzDesignConfiguration($container);
         $this->prependAdminUiFormsConfiguration($container);
         $this->prependIconsAliasesConfiguration($container);
+        $this->prependIconsSetsConfiguration($container);
         $this->prependBazingaJsTranslationConfiguration($container);
         $this->prependJMSTranslation($container);
     }
@@ -127,6 +128,14 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         $config = Yaml::parseFile($iconsAliasesConfigFile);
         $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($iconsAliasesConfigFile));
+    }
+
+    private function prependIconsSetsConfiguration(ContainerBuilder $container): void
+    {
+        $iconsSetsConfigFile = __DIR__ . '/../Resources/config/icons_sets.yaml';
+        $config = Yaml::parseFile($iconsSetsConfigFile);
+        $container->prependExtensionConfig('ibexa', $config);
+        $container->addResource(new FileResource($iconsSetsConfigFile));
     }
 
     private function prependBazingaJsTranslationConfiguration(ContainerBuilder $container): void
