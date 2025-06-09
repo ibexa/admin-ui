@@ -42,10 +42,20 @@ class DateTimeRangeSingle {
             const days = (endDate - startDate) / secondsInDay;
 
             this.periodInput.value = `P0Y0M${days}D`;
+            this.periodInput.dispatchEvent(new Event('change'));
+            this.periodInput.dispatchEvent(new Event('input'));
+
             this.endInput.value = endDate;
+            this.endInput.dispatchEvent(new Event('change'));
+            this.endInput.dispatchEvent(new Event('input'));
         } else if (dates.length === 0) {
             this.periodInput.value = '';
+            this.periodInput.dispatchEvent(new Event('change'));
+            this.periodInput.dispatchEvent(new Event('change'));
+
             this.endInput.value = '';
+            this.endInput.dispatchEvent(new Event('change'));
+            this.endInput.dispatchEvent(new Event('input'));
         }
     }
 
