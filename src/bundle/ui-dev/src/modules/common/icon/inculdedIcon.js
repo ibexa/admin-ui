@@ -60,7 +60,7 @@ const bcIconsMap = {
     'caret-up': ArrowChevronUp,
     checkmark: FormCheck,
     'circle-close': DiscardCircle,
-    'create': Add,
+    create: Add,
     date: Calendar,
     'expand-left': ArrowExpandLeft,
     fields: FormInput,
@@ -77,7 +77,7 @@ const bcIconsMap = {
     video: VideoPlay,
     view: Visibility,
     warning: AlertWarning,
-}
+};
 
 const iconsMap = {
     ...bcIconsMap,
