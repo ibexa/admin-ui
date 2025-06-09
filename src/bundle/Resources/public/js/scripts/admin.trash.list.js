@@ -195,7 +195,7 @@
     };
     const toggleDatesSelectVisibility = (event) => {
         if (event.target.value !== 'custom_range') {
-            trashedDateTimeRange.setDates([]);
+            trashedDateTimeRange.clearDates();
             trashedDateTimeRange.toggleHidden(true);
 
             return;

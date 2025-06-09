@@ -59,6 +59,10 @@ class DateTimeRangeSingle {
         }
     }
 
+    clearDates() {
+        this.dateTimePickerWidget.clear();
+    }
+
     setSelectedDateRange(timestamps, { dates }) {
         this.setDates(dates);
 
@@ -80,7 +84,7 @@ class DateTimeRangeSingle {
         const { start, end } = this.container.dataset;
         const defaultDate = start && end ? [start, end] : [];
 
-        const dateTimePickerWidget = new ibexa.core.DateTimePicker({
+        this.dateTimePickerWidget = new ibexa.core.DateTimePicker({
             container: this.dateTimePickerInputWrapper,
             onChange: this.setSelectedDateRange,
             flatpickrConfig: {
@@ -89,7 +93,7 @@ class DateTimeRangeSingle {
             },
         });
 
-        dateTimePickerWidget.init();
+        this.dateTimePickerWidget.init();
     }
 }
 
