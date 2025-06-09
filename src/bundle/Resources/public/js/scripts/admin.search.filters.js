@@ -96,7 +96,7 @@
     };
     const toggleDatesSelectVisibility = (select, dateRange) => {
         if (select.value !== 'custom_range') {
-            dateRange.setDates([]);
+            dateRange.clearDates();
             dateRange.toggleHidden(true);
 
             toggleDisabledStateOnApplyBtn();
@@ -228,7 +228,7 @@
     };
     const clearDataRange = (event, select, dateRange) => {
         select.clearCurrentSelection();
-        dateRange.setDates([]);
+        dateRange.clearDates();
         dateRange.toggleHidden(true);
         removeSearchTag(event);
     };
