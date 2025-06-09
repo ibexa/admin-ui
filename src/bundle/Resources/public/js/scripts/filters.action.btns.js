@@ -67,7 +67,7 @@
                     if (dateTimeRangeSingleNode) {
                         const dateTimeRangeSingleInstance = ibexa.helpers.objectInstances.getInstance(dateTimeRangeSingleNode);
 
-                        dateTimeRangeSingleInstance.setDates([]);
+                        dateTimeRangeSingleInstance.clearDates();
                     }
                 }
             });
