@@ -96,18 +96,18 @@
         {% set body_rows = [] %}
 
         {% for relation in relations %}
-            {% set body_row_cols = [] %}
-            {% set col_raw_actions %}
-                {{ remove_item_btn }}
-
-                {% include '@ibexadesign/ui/component/embedded_item_actions/embedded_item_actions.html.twig' with {
-                    content_id: relation.contentId,
-                    location_id: relation.contentInfo.mainLocationId,
-                    version_no: relation.contentInfo.currentVersionNo,
-                } only %}
-            {% endset %}
-
             {% if relation.contentInfo is not null and relation.contentType is not null %}
+                {% set body_row_cols = [] %}
+                {% set col_raw_actions %}
+                    {{ remove_item_btn }}
+
+                    {% include '@ibexadesign/ui/component/embedded_item_actions/embedded_item_actions.html.twig' with {
+                        content_id: relation.contentId,
+                        location_id: relation.contentInfo.mainLocationId,
+                        version_no: relation.contentInfo.currentVersionNo,
+                    } only %}
+                {% endset %}
+
                 {% set col_raw_checkbox %}
                     <input
                         type="checkbox"
@@ -199,8 +199,8 @@
                     class: 'ibexa-relations__item',
                     attr: {
                         'data-content-id': relation.contentId,
-                        'data-location-id': relation.contentInfo.mainLocationId,
-                    },
+                        'data-location-id': relation.contentInfo is defined and relation.contentInfo is not null ? relation.contentInfo.mainLocationId,
+                    }|filter(v => v is not null),
                 }]) %}
             {% endif %}
         {% endfor %}
