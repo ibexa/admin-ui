@@ -52,7 +52,7 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length): NotificationList
     {
-        $notifications = $this->notificationService->loadNotifications($this->query);
+        $notifications = $this->notificationService->findNotifications($this->query);
 
         $this->nbResults ??= $notifications->totalCount;
 
