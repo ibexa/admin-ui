@@ -64,9 +64,7 @@ class NotificationController extends Controller
         $response = new JsonResponse();
 
         try {
-            $notificationList = $this->notificationService->loadNotifications(
-                new NotificationQuery([], $offset, $limit)
-            );
+            $notificationList = $this->notificationService->loadNotifications($offset, $limit);
             $response->setData([
                 'pending' => $this->notificationService->getPendingNotificationCount(),
                 'total' => $notificationList->totalCount,
@@ -84,9 +82,7 @@ class NotificationController extends Controller
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
     {
-        $allNotifications = $this->notificationService->loadNotifications(
-            new NotificationQuery([], 0, PHP_INT_MAX)
-        )->items;
+        $allNotifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
 
         $notificationTypes = array_unique(array_column($allNotifications, 'type'));
         sort($notificationTypes);
@@ -101,13 +97,13 @@ class NotificationController extends Controller
             $query = $this->buildQuery($searchForm->getData());
         }
 
-        $query->offset = ($page - 1) * $this->configResolver->getParameter('pagination.notification_limit');
-        $query->limit = $this->configResolver->getParameter('pagination.notification_limit');
+        $query->setOffset(($page - 1) * $this->configResolver->getParameter('pagination.notification_limit'));
+        $query->setLimit($this->configResolver->getParameter('pagination.notification_limit'));
 
         $pagerfanta = new Pagerfanta(
             new NotificationAdapter($this->notificationService, $query)
         );
-        $pagerfanta->setMaxPerPage($query->limit);
+        $pagerfanta->setMaxPerPage($query->getLimit());
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         $notifications = [];
@@ -272,9 +268,7 @@ class NotificationController extends Controller
         $response = new JsonResponse();
 
         try {
-            $notifications = $this->notificationService->loadNotifications(
-                new NotificationQuery([], 0, PHP_INT_MAX)
-            )->items;
+            $notifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
 
             foreach ($notifications as $notification) {
                 $this->notificationService->markNotificationAsRead($notification);
