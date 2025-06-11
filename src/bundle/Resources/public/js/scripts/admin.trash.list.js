@@ -1,4 +1,6 @@
 (function (global, doc, eZ, React, ReactDOM, Translator) {
+    const { escapeHTML, escapeHTMLAttribute } = eZ.helpers.text;
+    const { dangerouslySetInnerHTML } = eZ.helpers.dom;
     let getUsersTimeout;
     const CLASS_SORTED_ASC = 'ez-table__sort-column--asc';
     const CLASS_SORTED_DESC = 'ez-table__sort-column--desc';
@@ -149,14 +151,17 @@
             .catch(() => eZ.helpers.notification.showErrorNotification(errorMessage));
     };
     const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ez-trash-search-form__user-item">${user.TranslatedName}</li>`;
+        const userNameHtmlEscaped = escapeHTML(user.TranslatedName);
+        const userNameHtmlAttributeEscaped = escapeHTMLAttribute(user.TranslatedName);
+
+        return `<li data-id="${user._id}" data-name="${userNameHtmlAttributeEscaped}" class="ez-trash-search-form__user-item">${userNameHtmlEscaped}</li>`;
     };
     const showUsersList = (data) => {
         const hits = data.View.Result.searchHits.searchHit;
         const users = hits.reduce((total, hit) => total + createUsersListItem(hit.value.Content), '');
         const methodName = users ? 'addEventListener' : 'removeEventListener';
 
-        usersList.innerHTML = users;
+        dangerouslySetInnerHTML(usersList, users);
         usersList.classList.remove('ez-trash-search-form__user-list--hidden');
 
         doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);

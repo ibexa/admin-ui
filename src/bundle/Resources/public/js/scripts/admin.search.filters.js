@@ -1,4 +1,6 @@
 (function (global, doc, eZ, $, flatpickr) {
+    const { escapeHTML, escapeHTMLAttribute } = eZ.helpers.text;
+    const { dangerouslySetInnerHTML } = eZ.helpers.dom;
     let getUsersTimeout;
     const CLASS_DATE_RANGE = 'ez-filters__range-wrapper';
     const CLASS_VISIBLE_DATE_RANGE = 'ez-filters__range-wrapper--visible';
@@ -149,11 +151,11 @@
     };
     const filterByContentType = () => {
         const selectedCheckboxes = [...contentTypeCheckboxes].filter((checkbox) => checkbox.checked);
-        const contentTypesText = selectedCheckboxes.map((checkbox) => checkbox.dataset.name).join(', ');
+        const contentTypesText = selectedCheckboxes.map((checkbox) => escapeHTML(checkbox.dataset.name)).join(', ');
         const option = contentTypeSelect[0];
         const defaultText = option.dataset.default;
 
-        option.innerHTML = contentTypesText || defaultText;
+        dangerouslySetInnerHTML(option, contentTypesText || defaultText);
 
         toggleDisabledStateOnApplyBtn();
     };
@@ -214,14 +216,17 @@
             .then(showUsersList);
     };
     const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ez-filters__user-item">${user.TranslatedName}</li>`;
+        const userNameHtmlEscaped = escapeHTML(user.TranslatedName);
+        const userNameHtmlAttributeEscaped = escapeHTMLAttribute(user.TranslatedName);
+
+        return `<li data-id="${user._id}" data-name="${userNameHtmlAttributeEscaped}" class="ez-filters__user-item">${userNameHtmlEscaped}</li>`;
     };
     const showUsersList = (data) => {
         const hits = data.View.Result.searchHits.searchHit;
         const users = hits.reduce((total, hit) => total + createUsersListItem(hit.value.Content), '');
         const methodName = users ? 'addEventListener' : 'removeEventListener';
 
-        usersList.innerHTML = users;
+        dangerouslySetInnerHTML(usersList, users);
         usersList.classList.remove('ez-filters__user-list--hidden');
 
         doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
