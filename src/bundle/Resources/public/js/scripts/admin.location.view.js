@@ -116,20 +116,19 @@
 
         bootstrap.Modal.getOrCreateInstance(doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL)).show();
     };
-    const getLocationActiveView = (parentLocationId) => {
-        const mediaLocationId = ibexa.adminUiConfig.locations.media;
-        const defaultActiveView = parentLocationId === mediaLocationId ? 'grid' : 'table';
-        const activeView = localStorage.getItem(`ibexa-subitems-active-view-location-${parentLocationId}`);
+    // const getLocationActiveView = (parentLocationId) => {
+    //     const mediaLocationId = ibexa.adminUiConfig.locations.media;
+    //     const defaultActiveView = parentLocationId === mediaLocationId ? 'grid' : 'table';
+    //     const activeView = localStorage.getItem(`ibexa-subitems-active-view-location-${parentLocationId}`);
 
-        return activeView || defaultActiveView;
-    };
-
+    //     return activeView || defaultActiveView;
+    // };
+console.log(listContainers)
     listContainers.forEach((container) => {
         const sortField = container.getAttribute('data-sort-field');
         const sortOrder = container.getAttribute('data-sort-order');
         const subitemsRoot = ReactDOM.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
-        const activeView = getLocationActiveView(parentLocationId);
         const subItemsList = JSON.parse(container.dataset.items).SubitemsList;
         const items = subItemsList.SubitemsRow.map((item) => ({
             content: item.Content,
@@ -169,7 +168,7 @@
             React.createElement(ibexa.modules.SubItems, {
                 handleEditItem,
                 generateLink,
-                activeView,
+                // activeView,
                 parentLocationId,
                 sortClauses: { [sortField]: sortOrder },
                 restInfo: { token, siteaccess },

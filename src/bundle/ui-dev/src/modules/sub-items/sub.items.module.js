@@ -17,7 +17,12 @@ import deepClone from '../common/helpers/deep.clone.helper.js';
 import { createCssClassNames } from '../common/helpers/css.class.names';
 import { updateLocationPriority, loadLocation as loadLocationService } from './services/sub.items.service';
 import { bulkAddLocations, bulkDeleteItems, bulkHideLocations, bulkUnhideLocations, bulkMoveLocations } from './services/bulk.service.js';
-import { VIEW_MODE_GRID, VIEW_MODE_TABLE } from './constants.js';
+import {
+    VIEW_MODE_GRID,
+    VIEW_MODE_TABLE,
+    VIEW_MODE_MEDIA_STORAGE_KEY,
+    VIEW_MODE_CONTENT_STORAGE_KEY
+} from './constants.js';
 
 const { Translator, ibexa, Popper, document } = window;
 
@@ -61,7 +66,6 @@ export const columnsLabels = {
     'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.columns.object_id', {}, 'ibexa_sub_items'),
     'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.columns.object_remote_id', {}, 'ibexa_sub_items'),
 };
-
 export default class SubItemsModule extends Component {
     constructor(props) {
         super(props);
@@ -112,7 +116,7 @@ export default class SubItemsModule extends Component {
         const sortClauseData = this.getDefaultSortClause(props.sortClauses);
 
         this.state = {
-            activeView: props.activeView,
+            activeView: this.getActiveViewMode(),
             activePageItems: null,
             pages: [],
             selectedItems: new Map(),
@@ -365,6 +369,31 @@ export default class SubItemsModule extends Component {
         });
     }
 
+    checkIsMediaLocation() {
+        return this.props.parentLocationId === ibexa.adminUiConfig.locations.media;
+    }
+
+    getDefaultViewMode() {
+        return this.checkIsMediaLocation() ? VIEW_MODE_GRID : VIEW_MODE_TABLE;
+    }
+
+    getActiveViewMode() {
+        if (this.props.activeView) {
+            return this.props.activeView
+        }
+
+        const storageKey = this.checkIsMediaLocation() ? VIEW_MODE_MEDIA_STORAGE_KEY : VIEW_MODE_CONTENT_STORAGE_KEY;
+        const defaultViewMode = this.getDefaultViewMode();
+
+        return localStorage.getItem(storageKey) || defaultViewMode;
+    }
+
+    setActiveViewMode(activeView) {
+        const storageKey = this.checkIsMediaLocation() ? VIEW_MODE_MEDIA_STORAGE_KEY : VIEW_MODE_CONTENT_STORAGE_KEY;
+
+        localStorage.setItem(storageKey, activeView);
+    }
+
     /**
      * Switches active view
      *
@@ -377,7 +406,7 @@ export default class SubItemsModule extends Component {
             () => ({ activeView }),
             () => {
                 ibexa.helpers.tooltips.hideAll();
-                window.localStorage.setItem(`ibexa-subitems-active-view-location-${this.props.parentLocationId}`, activeView);
+                this.setActiveViewMode(activeView);
             },
         );
     }
@@ -1343,7 +1372,7 @@ export default class SubItemsModule extends Component {
 
     updateTrashModal() {
         document.body.dispatchEvent(
-            new CustomEvent('ibexa-trash-modal-refresh', {
+            new CustomEvent('ibexa-trash-modal-rezresh', {
                 detail: {
                     numberOfSubitems: this.state.totalCount,
                 },
@@ -1594,7 +1623,7 @@ SubItemsModule.defaultProps = {
     loadLocation: loadLocationService,
     sortClauses: {},
     updateLocationPriority,
-    activeView: VIEW_MODE_TABLE,
+    activeView: '',
     extraActions: [],
     languages: window.ibexa.adminUiConfig.languages,
     items: [],

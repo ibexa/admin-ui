@@ -4,6 +4,7 @@ system:
             configuration:
                 # Default UDW Configuration
                 _default:
+                    prefix: 'udw'
                     multiple: false
                     multiple_items_limit: 0
                     root_location_id: 1
