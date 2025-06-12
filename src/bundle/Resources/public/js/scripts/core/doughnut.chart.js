@@ -1,4 +1,6 @@
 (function (global, doc, ibexa, ChartDataLabels) {
+    const { escapeHTML } = ibexa.helpers.text;
+    const { dangerouslyInsertAdjacentHTML } = ibexa.helpers.dom;
     const IBEXA_WHITE = '#fff';
     const IBEXA_COLOR_BASE_DARK = '#878b90';
     const dataLabelsMap = new Map();
@@ -71,13 +73,14 @@
                         data.legend.forEach((legendItem, index) => {
                             dataLabelsMap.set(index, true);
 
+                            const legendItemHtmlEscaped = escapeHTML(legendItem);
                             const container = doc.createElement('div');
                             const renderedItemTemplate = itemTemplate
                                 .replace('{{ checked_color }}', data.backgroundColor[index])
                                 .replace('{{ dataset_index }}', index)
-                                .replace('{{ label }}', legendItem);
+                                .replace('{{ label }}', legendItemHtmlEscaped);
 
-                            container.insertAdjacentHTML('beforeend', renderedItemTemplate);
+                            dangerouslyInsertAdjacentHTML(container, 'beforeend', renderedItemTemplate);
 
                             const checkboxNode = container.querySelector('.ibexa-chart-legend__item-wrapper');
 

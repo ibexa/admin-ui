@@ -1,6 +1,9 @@
 import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
 
 (function (global, doc, ibexa) {
+    const { escapeHTML } = ibexa.helpers.text;
+    const { dangerouslyAppend } = ibexa.helpers.dom;
+
     class TagViewSelect {
         constructor(config) {
             this.inputSelector = config.inputSelector || 'input';
@@ -76,14 +79,14 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
 
             items.forEach((item) => {
                 const { id, name } = item;
-                const itemTemplate = this.selectedItemTemplate.replace('{{ id }}', id).replaceAll('{{ name }}', name);
+                const itemTemplate = this.selectedItemTemplate.replace('{{ id }}', id).replaceAll('{{ name }}', escapeHTML(name));
                 const range = doc.createRange();
                 const itemHtmlWidget = range.createContextualFragment(itemTemplate);
                 const deleteButton = itemHtmlWidget.querySelector('.ibexa-tag-view-select__selected-item-tag-remove-btn');
 
                 deleteButton.toggleAttribute('disabled', false);
                 deleteButton.addEventListener('click', () => this.removeItem(String(id)), false);
-                this.listContainer.append(itemHtmlWidget);
+                dangerouslyAppend(this.listContainer, itemHtmlWidget);
             });
 
             this.inputField.dispatchEvent(new Event('change'));

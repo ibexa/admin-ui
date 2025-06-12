@@ -1,4 +1,7 @@
 (function (global, doc, ibexa, React, ReactDOMClient, Translator) {
+    const { dangerouslyInsertAdjacentHTML } = ibexa.helpers.dom;
+    const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
+    const { formatShortDateTime } = ibexa.helpers.timezone;
     const CLASS_FIELD_SINGLE = 'ibexa-field-edit--ibexa_object_relation';
     const SELECTOR_FIELD_MULTIPLE = '.ibexa-field-edit--ibexa_object_relation_list';
     const SELECTOR_FIELD_SINGLE = '.ibexa-field-edit--ibexa_object_relation';
@@ -72,9 +75,8 @@
         const closeUDW = () => udwRoot.unmount();
         const renderRows = (items) => {
             items.forEach((item, index) => {
-                relationsContainer.insertAdjacentHTML('beforeend', renderRow(item, index));
+                dangerouslyInsertAdjacentHTML(relationsContainer, 'beforeend', renderRow(item, index));
 
-                const { escapeHTML } = ibexa.helpers.text;
                 const itemNodes = relationsContainer.querySelectorAll('.ibexa-relations__item');
                 const itemNode = itemNodes[itemNodes.length - 1];
                 const contentId = escapeHTML(item.ContentInfo.Content._id);
@@ -168,17 +170,16 @@
         };
         const excludeDuplicatedItems = (items) => items.filter((item) => !selectedItems.includes(item.ContentInfo.Content._id));
         const renderRow = (item, index) => {
-            const { escapeHTML } = ibexa.helpers.text;
-            const { formatShortDateTime } = ibexa.helpers.timezone;
             const contentTypeName = ibexa.helpers.contentType.getContentTypeName(item.ContentInfo.Content.ContentTypeInfo.identifier);
-            const contentName = escapeHTML(item.ContentInfo.Content.TranslatedName);
-            const contentId = escapeHTML(item.ContentInfo.Content._id);
+            const contentTypeNameHtmlAttributeEscaped = escapeHTMLAttribute(contentTypeName);
+            const contentNameHtmlEscaped = escapeHTML(item.ContentInfo.Content.TranslatedName);
+            const contentIdHtmlEscaped = escapeHTML(item.ContentInfo.Content._id);
             const { rowTemplate } = relationsWrapper.dataset;
 
             return rowTemplate
-                .replace('{{ content_id }}', contentId)
-                .replace('{{ content_name }}', contentName)
-                .replace('{{ content_type_name }}', contentTypeName)
+                .replace('{{ content_id }}', contentIdHtmlEscaped)
+                .replace('{{ content_name }}', contentNameHtmlEscaped)
+                .replace('{{ content_type_name }}', contentTypeNameHtmlAttributeEscaped)
                 .replace('{{ published_date }}', formatShortDateTime(item.ContentInfo.Content.publishedDate))
                 .replace('{{ order }}', selectedItems.length + index + 1);
         };

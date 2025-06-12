@@ -1,4 +1,7 @@
 (function (global, doc, ibexa, bootstrap, Translator) {
+    const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
+    const { dangerouslySetInnerHTML, dangerouslyInsertAdjacentHTML } = ibexa.helpers.dom;
+
     const EVENT_VALUE_CHANGED = 'change';
     const RESTRICTED_AREA_ITEMS_CONTAINER = 190;
     const MINIMUM_LETTERS_TO_FILTER = 3;
@@ -104,10 +107,10 @@
         createSelectedItem(value, label, icon) {
             const container = doc.createElement('div');
             const selectedItemRendered = this.selectedItemTemplate
-                .replaceAll('{{ value }}', ibexa.helpers.text.escapeHTMLAttribute(value))
+                .replaceAll('{{ value }}', escapeHTMLAttribute(value))
                 .replaceAll('{{ label }}', label);
 
-            container.insertAdjacentHTML('beforeend', selectedItemRendered);
+            dangerouslyInsertAdjacentHTML(container, 'beforeend', selectedItemRendered);
 
             const selectedItemNode = container.querySelector('.ibexa-dropdown__selected-item');
             const removeSelectionBtn = selectedItemNode.querySelector('.ibexa-dropdown__remove-selection');
@@ -341,7 +344,7 @@
             const separator = this.itemsListContainer.querySelector('.ibexa-dropdown__separator');
             const emptyMessage = Translator.trans(
                 /* @Desc("No results found for &quot;%phrase%&quot;") */ 'dropdown.no_results',
-                { phrase: searchedTerm },
+                { phrase: escapeHTML(searchedTerm) },
                 'ibexa_dropdown',
             );
             let hideSeparator = true;
@@ -378,7 +381,10 @@
 
             this.itemsListContainer.toggleAttribute('hidden', !anyItemVisible);
             this.itemsListFilterEmptyContainer.toggleAttribute('hidden', anyItemVisible);
-            this.itemsListFilterEmptyContainer.querySelector('.ibexa-dropdown__items-list-filter-empty-message').innerHTML = emptyMessage;
+
+            const emptyMessageNode = this.itemsListFilterEmptyContainer.querySelector('.ibexa-dropdown__items-list-filter-empty-message');
+
+            dangerouslySetInnerHTML(emptyMessageNode, emptyMessage);
         }
 
         itemsPopoverContent() {
@@ -434,9 +440,7 @@
 
         createOption(value, label) {
             const container = doc.createElement('div');
-            const itemRendered = this.itemTemplate
-                .replaceAll('{{ value }}', ibexa.helpers.text.escapeHTMLAttribute(value))
-                .replaceAll('{{ label }}', label);
+            const itemRendered = this.itemTemplate.replaceAll('{{ value }}', escapeHTMLAttribute(value)).replaceAll('{{ label }}', label);
 
             container.insertAdjacentHTML('beforeend', itemRendered);
 

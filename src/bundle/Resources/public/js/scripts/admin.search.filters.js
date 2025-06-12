@@ -1,4 +1,6 @@
 (function (global, doc, ibexa, flatpickr, React, ReactDOMClient) {
+    const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
+    const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
     let getUsersTimeout;
     const CLASS_DATE_RANGE = 'ibexa-filters__range-wrapper';
     const CLASS_VISIBLE_DATE_RANGE = 'ibexa-filters__range-wrapper--visible';
@@ -118,11 +120,11 @@
     };
     const filterByContentType = () => {
         const selectedCheckboxes = [...contentTypeCheckboxes].filter((checkbox) => checkbox.checked);
-        const contentTypesText = selectedCheckboxes.map((checkbox) => checkbox.dataset.name).join(', ');
+        const contentTypesText = selectedCheckboxes.map((checkbox) => escapeHTML(checkbox.dataset.name)).join(', ');
         const [option] = contentTypeSelect;
         const defaultText = option.dataset.default;
 
-        option.innerHTML = contentTypesText || defaultText;
+        dangerouslySetInnerHTML(option, contentTypesText || defaultText);
 
         toggleDisabledStateOnApplyBtn();
     };
@@ -186,14 +188,17 @@
             .then(showUsersList);
     };
     const createUsersListItem = (user) => {
-        return `<li data-id="${user._id}" data-name="${user.TranslatedName}" class="ibexa-filters__user-item">${user.TranslatedName}</li>`;
+        const userNameHtmlEscaped = escapeHTML(user.TranslatedName);
+        const userNameHtmlAttributeEscaped = escapeHTMLAttribute(user.TranslatedName);
+
+        return `<li data-id="${user._id}" data-name="${userNameHtmlAttributeEscaped}" class="ibexa-filters__user-item">${userNameHtmlEscaped}</li>`;
     };
     const showUsersList = (data) => {
         const hits = data.View.Result.searchHits.searchHit;
         const users = hits.reduce((total, hit) => total + createUsersListItem(hit.value.Content), '');
         const methodName = users ? 'addEventListener' : 'removeEventListener';
 
-        usersList.innerHTML = users;
+        dangerouslySetInnerHTML(usersList, users);
         usersList.classList.remove('ibexa-filters__user-list--hidden');
 
         doc.querySelector('body')[methodName]('click', handleClickOutsideUserList, false);
