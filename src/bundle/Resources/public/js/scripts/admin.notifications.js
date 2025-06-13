@@ -1,4 +1,4 @@
-(function (global, doc, ibexa) {
+(function (global, doc, ibexa, bootstrap) {
     const notificationsContainer = doc.querySelector('.ibexa-notifications-container');
     const notifications = JSON.parse(notificationsContainer.dataset.notifications);
     const { template } = notificationsContainer.dataset;
@@ -32,7 +32,9 @@
         notificationsContainer.append(notificationNode);
 
         if (timeout) {
-            global.setTimeout(() => notificationNode.querySelector('.ibexa-alert__close-btn').click(), timeout);
+            const alertBootstrapInstance = bootstrap.Alert.getOrCreateInstance(notificationNode);
+
+            global.setTimeout(() => alertBootstrapInstance.close(), timeout);
         }
 
         if (typeof onShow === 'function') {
@@ -45,4 +47,4 @@
     });
 
     doc.body.addEventListener('ibexa-notify', addNotification, false);
-})(window, window.document, window.ibexa);
+})(window, window.document, window.ibexa, window.bootstrap);
