@@ -1,4 +1,7 @@
 (function (global, doc, ibexa) {
+    const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
+    const { dangerouslyInsertAdjacentHTML } = ibexa.helpers.dom;
+
     class Taggify {
         constructor(config) {
             this.container = config.container;
@@ -10,6 +13,7 @@
 
             this.attachEventsToTag = this.attachEventsToTag.bind(this);
             this.handleInputKeyUp = this.handleInputKeyUp.bind(this);
+            this.handleInputBlur = this.handleInputBlur.bind(this);
             this.addElementAttributes = this.addElementAttributes.bind(this);
         }
 
@@ -17,6 +21,14 @@
 
         isAcceptKeyPressed(key) {
             return this.acceptKeys.includes(key);
+        }
+
+        removeAcceptKey(name) {
+            if (this.acceptKeys.includes(name.at(-1))) {
+                return name.slice(0, -1);
+            }
+
+            return name;
         }
 
         addElementAttributes(element, attrs) {
@@ -36,21 +48,35 @@
         }
 
         addTag(name, value, attrs = {}, tooltipAttrs = {}) {
+            if (!value || this.tags.has(value)) {
+                return;
+            }
+
             const tagTemplate = this.listNode.dataset.template;
-            const renderedTemplate = tagTemplate.replace('{{ name }}', name).replace('{{ value }}', value);
+            const nameHtmlEscaped = escapeHTML(name);
+            const valueHtmlAttributeEscaped = escapeHTMLAttribute(value);
+            const renderedTemplate = tagTemplate.replace('{{ name }}', nameHtmlEscaped).replace('{{ value }}', valueHtmlAttributeEscaped);
             const div = doc.createElement('div');
 
-            div.insertAdjacentHTML('beforeend', renderedTemplate);
+            dangerouslyInsertAdjacentHTML(div, 'beforeend', renderedTemplate);
 
             const tag = div.querySelector('.ibexa-taggify__list-tag');
             const tagNameNode = tag.querySelector('.ibexa-taggify__list-tag-name');
 
-            this.addElementAttributes(tag, attrs);
+            this.addElementAttributes(tag, { ...attrs, dataset: { ...attrs.dataset, value } });
             this.addElementAttributes(tagNameNode, tooltipAttrs);
             this.attachEventsToTag(tag, value);
             this.listNode.insertBefore(tag, this.inputNode);
             this.tags.add(value);
             this.afterTagsUpdate();
+        }
+
+        removeTagWithValue(value) {
+            const tag = this.listNode.querySelector(`.ibexa-taggify__list-tag[data-value="${value}"]`);
+
+            if (tag) {
+                this.removeTag(tag, value);
+            }
         }
 
         removeTag(tag, value) {
@@ -61,10 +87,30 @@
             this.afterTagsUpdate();
         }
 
+        removeAllTags() {
+            this.tags.forEach((tag) => {
+                const tagNode = this.listNode.querySelector(`.ibexa-taggify__list-tag[data-value="${tag}"]`);
+
+                if (tagNode) {
+                    tagNode.remove();
+                }
+            });
+
+            this.tags.clear();
+            this.afterTagsUpdate();
+        }
+
         attachEventsToTag(tag, value) {
             const removeBtn = tag.querySelector('.ibexa-taggify__btn--remove');
 
             removeBtn.addEventListener('click', () => this.removeTag(tag, value), false);
+        }
+
+        handleInputBlur() {
+            const inputValue = this.inputNode.value.trim();
+
+            this.addTag(inputValue, inputValue);
+            this.inputNode.value = '';
         }
 
         handleInputKeyUp(event) {
@@ -72,8 +118,10 @@
                 return;
             }
 
-            if (this.isAcceptKeyPressed(event.key) && this.inputNode.value && !this.tags.has(this.inputNode.value)) {
-                this.addTag(this.inputNode.value, this.inputNode.value);
+            if (this.isAcceptKeyPressed(event.key)) {
+                const nameWithoutAcceptKey = this.removeAcceptKey(this.inputNode.value);
+
+                this.addTag(nameWithoutAcceptKey, nameWithoutAcceptKey);
 
                 this.inputNode.value = '';
             }
@@ -81,6 +129,7 @@
 
         init() {
             this.inputNode.addEventListener('keyup', this.handleInputKeyUp, false);
+            this.inputNode.addEventListener('blur', this.handleInputBlur, false);
         }
     }
 

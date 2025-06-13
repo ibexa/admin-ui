@@ -7,6 +7,12 @@
 {% set have_actions = (is_draft or is_archived) or custom_actions %}
 
 <div class="ibexa-scrollable-wrapper">
+    {{ ibexa_twig_component_group('admin-ui-versions-table-before', {
+        is_draft: is_draft,
+        is_archived: is_archived,
+        is_draft_conflict: is_draft_conflict,
+    }) }}
+
     <table class="ibexa-table table ibexa-table--draft-conflict {{ (is_draft and have_to_paginate ? 'mb-3' : '') }}">
         <thead>
             <tr class="ibexa-table__head-row">

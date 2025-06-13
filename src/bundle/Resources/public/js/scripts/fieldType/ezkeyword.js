@@ -1,29 +1,8 @@
-import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
-
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezkeyword';
-    const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
+    const SELECTOR_TAGGIFY_CONTAINER = '.ibexa-data-source__taggify';
+    const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify .ibexa-taggify';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
-    const CLASS_TAGGIFY_FOCUS = 'ibexa-data-source__taggify--focused';
-    const ENTER_KEY_CODE = 13;
-    const COMMA_KEY_CODE = 188;
-    const tagsObserverConfig = {
-        childList: true,
-        subtree: true,
-    };
-    const addTooltipToTag = (mutationList) => {
-        mutationList.forEach((mutation) => {
-            if (mutation.target.classList.contains('taggify__tags')) {
-                mutation.addedNodes.forEach((addedNode) => {
-                    const labelElement = addedNode.querySelector('.taggify__tag-label');
-
-                    labelElement.title = labelElement.innerText;
-                });
-
-                parseTooltips(mutation.target);
-            }
-        });
-    };
 
     class EzKeywordValidator extends ibexa.BaseFieldValidator {
         /**
@@ -65,10 +44,8 @@ import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/pub
     };
 
     doc.querySelectorAll(SELECTOR_FIELD).forEach((field) => {
-        const taggifyContainer = field.querySelector(SELECTOR_TAGGIFY);
-        const tagsObserver = new MutationObserver(addTooltipToTag);
-
-        tagsObserver.observe(taggifyContainer, tagsObserverConfig);
+        const taggifyContainer = field.querySelector(SELECTOR_TAGGIFY_CONTAINER);
+        const ibexaTaggifyNode = taggifyContainer.querySelector('.ibexa-taggify');
 
         const validator = new EzKeywordValidator({
             classInvalid: 'is-invalid',
@@ -76,7 +53,7 @@ import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/pub
             eventsMap: [
                 {
                     isValueValidator: false,
-                    selector: `${SELECTOR_FIELD} .taggify__input`,
+                    selector: `${SELECTOR_FIELD} .ibexa-taggify__input`,
                     eventName: 'blur',
                     callback: 'validateKeywords',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
@@ -91,16 +68,21 @@ import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/pub
                 },
             ],
         });
-        const taggify = new global.Taggify({
-            containerNode: taggifyContainer,
-            displayLabel: false,
-            displayInputValues: false,
-            hotKeys: [ENTER_KEY_CODE, COMMA_KEY_CODE],
-        });
+
         const keywordInput = field.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
+        class EzKeywordTaggify extends ibexa.core.Taggify {
+            afterTagsUpdate() {
+                const tags = [...this.tags];
+
+                keywordInput.value = tags.join();
+                keywordInput.dispatchEvent(new Event('change'));
+            }
+        }
+        const taggify = new EzKeywordTaggify({
+            container: ibexaTaggifyNode,
+            acceptKeys: ['Enter', ','],
+        });
         const updateKeywords = updateValue.bind(this, keywordInput);
-        const addFocusState = () => taggifyContainer.classList.add(CLASS_TAGGIFY_FOCUS);
-        const removeFocusState = () => taggifyContainer.classList.remove(CLASS_TAGGIFY_FOCUS);
         const taggifyInput = taggifyContainer.querySelector('.taggify__input');
 
         if (keywordInput.required) {
@@ -108,20 +90,16 @@ import { parse as parseTooltips } from '@ibexa-admin-ui/src/bundle/Resources/pub
         }
 
         validator.init();
+        taggify.init();
 
         if (keywordInput.value.length) {
-            taggify.updateTags(
-                keywordInput.value.split(',').map((item) => ({
-                    id: Math.floor((1 + Math.random()) * 0x10000).toString(16),
-                    label: item,
-                })),
-            );
+            keywordInput.value.split(',').forEach((tag) => {
+                taggify.addTag(tag, tag);
+            });
         }
 
         taggifyContainer.addEventListener('tagsCreated', updateKeywords, false);
         taggifyContainer.addEventListener('tagRemoved', updateKeywords, false);
-        taggifyInput.addEventListener('focus', addFocusState, false);
-        taggifyInput.addEventListener('blur', removeFocusState, false);
 
         ibexa.addConfig('fieldTypeValidators', [validator], true);
     });
