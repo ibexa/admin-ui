@@ -280,7 +280,7 @@
         {% endblock %}
 
         {% block actions %}
-            {{ extra_actions_after|default(null)}}
+            {{ extra_actions_after|default(null) }}
         {% endblock %}
     {%- endembed -%}
 {%- endblock textarea_widget %}
@@ -403,9 +403,6 @@
     {%- set type = type|default('text') -%}
     {%- set is_text_input = type == 'text' or type == 'number' or force_text|default(false) -%}
     {%- if is_text_input -%}
-        {# @deprecated extra_actions_after in attr will be removed in 5.0, used for BC in 4.6 #}
-        {%- set extra_actions_after_from_attr = attr.extra_actions_after|default(null) -%}
-        {%- set attr = attr|filter((value, key) => key != 'extra_actions_after') -%}
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
@@ -419,7 +416,7 @@
 
             {% block actions %}
                 {{ parent() }}
-                {{ extra_actions_after|default(extra_actions_after_from_attr)}}
+                {{ extra_actions_after|default(null) }}
             {% endblock %}
         {%- endembed -%}
     {%- else -%}
