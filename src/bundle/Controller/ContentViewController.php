@@ -41,6 +41,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -158,6 +159,12 @@ class ContentViewController extends Controller
      */
     public function locationViewAction(Request $request, ContentView $view): ContentView
     {
+        $location = $view->getLocation();
+        if ($location === null || $location->id === null) {
+            $contentId = $view->getContent()->id ?? 'unknown';
+            throw new NotFoundException('Location', "content ID {$contentId}");
+        }
+
         // We should not cache ContentView because we use forms with CSRF tokens in template
         // JIRA ref: https://issues.ibexa.co/browse/EZP-28190
         $view->setCacheEnabled(false);

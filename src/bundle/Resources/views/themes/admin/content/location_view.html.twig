@@ -37,7 +37,7 @@
 
 {% block breadcrumbs %}
     {% set items = [] %}
-    {% for path_location in  path_locations ?? [] %}
+    {% for path_location in path_locations %}
         {% if not loop.last %}
             {% set items = items|merge([{
                 'value': ibexa_content_name(path_location.contentInfo),
@@ -55,14 +55,12 @@
 {% endblock %}
 
 {% block context_menu %}
-    {% if location is defined and location is not null %}
-        {% set content_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content.sidebar_right', [], {
-            'location': location,
-            'content': content,
-            'content_type': content_type
-        }) %}
-        {{ knp_menu_render(content_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
-    {% endif %}
+    {% set content_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content.sidebar_right', [], {
+        'location': location,
+        'content': content,
+        'content_type': content_type
+    }) %}
+    {{ knp_menu_render(content_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
 
     <div class="ibexa-extra-actions-container">
         {% if form_content_create is defined %}
@@ -84,18 +82,10 @@
     {% if form_user_delete is defined %}
         {% include '@ibexadesign/content/modal/user_delete.html.twig' with {'form': form_user_delete} only %}
     {% endif %}
-    {% if form_location_copy is defined %}
-        {{ form(form_location_copy, {'action': path('ibexa.location.copy')}) }}
-    {% endif %}
-    {% if form_location_move is defined %}
-        {{ form(form_location_move, {'action': path('ibexa.location.move')}) }}
-    {% endif %}
-    {% if form_location_copy_subtree is defined %}
-        {{ form(form_location_copy_subtree, {'action': path('ibexa.location.copy_subtree')}) }}
-    {% endif %}
-    {% if form_content_visibility_update is defined %}
-        {{ form(form_content_visibility_update, {'action': path('ibexa.content.update_visibility')}) }}
-    {% endif %}
+    {{ form(form_location_copy, {'action': path('ibexa.location.copy')}) }}
+    {{ form(form_location_move, {'action': path('ibexa.location.move')}) }}
+    {{ form(form_location_copy_subtree, {'action': path('ibexa.location.copy_subtree')}) }}
+    {{ form(form_content_visibility_update, {'action': path('ibexa.content.update_visibility')}) }}
 {% endblock %}
 
 {% block header %}
@@ -123,25 +113,23 @@
         {% endblock %}
     {% endembed %}
 
-    {% if location is defined and location is not null %}
-        {% if location.hidden or location.invisible %}
-            <div class="pb-4">
-                {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
-                    type: 'info',
-                    title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
-                    icon_path: ibexa_icon_path('hide'),
-                    class: 'mb-4',
-                } only %}
-            </div>
-        {% endif %}
-        {{ ibexa_render_component_group(
-            'admin-ui-location-view-content-alerts',
-            {
-                'versionInfo': content.versionInfo,
-                'location': location,
-            }
-        ) }}
+    {% if location.hidden or location.invisible %}
+        <div class="pb-4">
+            {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+                type: 'info',
+                title: 'content.hidden.message'|trans()|desc('This Content item or its Location is hidden.'),
+                icon_path: ibexa_icon_path('hide'),
+                class: 'mb-4',
+            } only %}
+        </div>
     {% endif %}
+    {{ ibexa_twig_component_group(
+        'admin-ui-location-view-content-alerts',
+        {
+            'versionInfo': content.versionInfo,
+            'location': location,
+        }
+    ) }}
 {% endblock %}
 
 {% block content %}
@@ -149,22 +137,20 @@
         <div class="ibexa-content-container">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    {% if location is defined and location is not null %}
-                        {{ ibexa_render_component_group('admin-ui-location-view-tab-groups', {
-                            'content': content,
-                            'location': location,
-                            'contentType': content_type,
-                            'draft_pagination_params': draft_pagination_params,
-                            'reverse_relation_pagination_params': reverse_relation_pagination_params,
-                            'relation_pagination_params': relation_pagination_params,
-                            'custom_urls_pagination_params': custom_urls_pagination_params,
-                            'system_urls_pagination_params': system_urls_pagination_params,
-                            'roles_pagination_params': roles_pagination_params,
-                            'policies_pagination_params': policies_pagination_params,
-                            'is_location_visible': not location.invisible,
-                            'subitems_module': subitems_module,
-                        }) }}
-                    {% endif %}
+                    {{ ibexa_twig_component_group('admin-ui-location-view-tab-groups', {
+                        'content': content,
+                        'location': location,
+                        'contentType': content_type,
+                        'draft_pagination_params': draft_pagination_params,
+                        'reverse_relation_pagination_params': reverse_relation_pagination_params,
+                        'relation_pagination_params': relation_pagination_params,
+                        'custom_urls_pagination_params': custom_urls_pagination_params,
+                        'system_urls_pagination_params': system_urls_pagination_params,
+                        'roles_pagination_params': roles_pagination_params,
+                        'policies_pagination_params': policies_pagination_params,
+                        'is_location_visible': not location.invisible,
+                        'subitems_module': subitems_module,
+                    }) }}
 
                     {% if content_type.isContainer %}
                         {{ form_start(form_subitems_content_edit, { 'action': path('ibexa.content.edit'), 'attr': { 'hidden': 'hidden' }}) }}
@@ -182,7 +168,7 @@
                 </div>
             </div>
         </div>
-        {% if content_has_reverse_relations is defined and content_has_reverse_relations and location is defined and location is not null and not location.contentInfo.isHidden %}
+        {% if content_has_reverse_relations and not location.contentInfo.isHidden %}
             {% include '@ibexadesign/content/modal/hide_confirmation.html.twig' %}
         {% endif %}
     </div>
