@@ -37,7 +37,7 @@
 
 {% block breadcrumbs %}
     {% set items = [] %}
-    {% for path_location in path_locations %}
+    {% for path_location in  path_locations ?? [] %}
         {% if not loop.last %}
             {% set items = items|merge([{
                 'value': ibexa_content_name(path_location.contentInfo),
@@ -55,13 +55,19 @@
 {% endblock %}
 
 {% block context_menu %}
-    {% set content_sidebar_right = location is defined and location is not null
-        ? knp_menu_get('ezplatform_admin_ui.menu.content.sidebar_right', [], {'location': location, 'content': content, 'content_type': content_type})
-        : [] %}
-    {{ knp_menu_render(content_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
+    {% if location is defined and location is not null %}
+        {% set content_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.content.sidebar_right', [], {
+            'location': location,
+            'content': content,
+            'content_type': content_type
+        }) %}
+        {{ knp_menu_render(content_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
+    {% endif %}
 
     <div class="ibexa-extra-actions-container">
-        {% include '@ibexadesign/content/widget/content_create.html.twig' with {'form': form_content_create, content } only %}
+        {% if form_content_create is defined %}
+            {% include '@ibexadesign/content/widget/content_create.html.twig' with {'form': form_content_create, content } only %}
+        {% endif %}
         {% if form_content_edit is defined and form_user_edit is not defined %}
             {% include '@ibexadesign/content/widget/content_edit.html.twig' with {'form': form_content_edit} only %}
         {% endif %}
@@ -78,10 +84,18 @@
     {% if form_user_delete is defined %}
         {% include '@ibexadesign/content/modal/user_delete.html.twig' with {'form': form_user_delete} only %}
     {% endif %}
-    {{ form(form_location_copy, {'action': path('ibexa.location.copy')}) }}
-    {{ form(form_location_move, {'action': path('ibexa.location.move')}) }}
-    {{ form(form_location_copy_subtree, {'action': path('ibexa.location.copy_subtree')}) }}
-    {{ form(form_content_visibility_update, {'action': path('ibexa.content.update_visibility')}) }}
+    {% if form_location_copy is defined %}
+        {{ form(form_location_copy, {'action': path('ibexa.location.copy')}) }}
+    {% endif %}
+    {% if form_location_move is defined %}
+        {{ form(form_location_move, {'action': path('ibexa.location.move')}) }}
+    {% endif %}
+    {% if form_location_copy_subtree is defined %}
+        {{ form(form_location_copy_subtree, {'action': path('ibexa.location.copy_subtree')}) }}
+    {% endif %}
+    {% if form_content_visibility_update is defined %}
+        {{ form(form_content_visibility_update, {'action': path('ibexa.content.update_visibility')}) }}
+    {% endif %}
 {% endblock %}
 
 {% block header %}
@@ -168,9 +182,9 @@
                 </div>
             </div>
         </div>
-        {% if content_has_reverse_relations and location is defined and location is not null and not location.contentInfo.isHidden %}
-        {% include '@ibexadesign/content/modal/hide_confirmation.html.twig' %}
-    {% endif %}
+        {% if content_has_reverse_relations is defined and content_has_reverse_relations and location is defined and location is not null and not location.contentInfo.isHidden %}
+            {% include '@ibexadesign/content/modal/hide_confirmation.html.twig' %}
+        {% endif %}
     </div>
 {% endblock %}
 

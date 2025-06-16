@@ -17,22 +17,13 @@ class LocationVoter implements VoterInterface
 {
     private const CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     */
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function matchItem(ItemInterface $item): ?bool
     {
         $routes = $item->getExtra('routes', []);
@@ -43,8 +34,15 @@ class LocationVoter implements VoterInterface
                 $contentView = $request->attributes->get('view');
                 $locationId = $route['parameters']['locationId'];
 
-                if ($contentView instanceof ContentView && in_array($locationId, $contentView->getLocation()->path ?? [$contentView->getLocation()->id])) {
-                    return true;
+                if ($contentView instanceof ContentView) {
+                    $location = $contentView->getLocation();
+                    if ($location !== null) {
+                        $path = $location->path ?? [$location->id];
+
+                        if (in_array($locationId, $path, true)) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
