@@ -35,6 +35,8 @@ const defaultRestInfo = {
     siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };
 
+export const ITEMS_VIEW_TYPE_STORAGE_KEY_PREFIX = 'ibexa-udw-active-view-location';
+
 export const SORTING_OPTIONS = [
     {
         value: 'date:asc',
@@ -521,6 +523,15 @@ const UniversalDiscoveryModule = (props) => {
             setGridActiveLocationId(markedLocationId ?? defaultMarkedLocationId);
         }
     }, [currentView]);
+
+    useEffect(() => {
+        const itemsViewStorageKey = `${ITEMS_VIEW_TYPE_STORAGE_KEY_PREFIX}-${markedLocationId ?? props.rootLocationId}`;
+        const itemsViewType = window.localStorage.getItem(itemsViewStorageKey) || props.activeView;
+
+        if (itemsViewType) {
+            setCurrentView(itemsViewType);
+        }
+    }, [markedLocationId]);
 
     return (
         <div className={className}>
