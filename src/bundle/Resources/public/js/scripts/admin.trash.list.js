@@ -235,6 +235,7 @@
         'ibexa:date-time-range-single:change',
         (event) => {
             const { dates } = event.detail;
+
             if (dates.length === 2 || dates.length === 0) {
                 formSearch.submit();
             }
