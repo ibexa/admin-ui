@@ -160,8 +160,8 @@ class ContentViewController extends Controller
     public function locationViewAction(Request $request, ContentView $view): ContentView
     {
         $location = $view->getLocation();
-        if ($location === null || $location->id === null) {
-            $contentId = $view->getContent()->id ?? 'unknown';
+        if ($location === null) {
+            $contentId = $view->getContent()->getId();
             throw new NotFoundException('Location', "content ID {$contentId}");
         }
 
@@ -169,7 +169,7 @@ class ContentViewController extends Controller
         // JIRA ref: https://issues.ibexa.co/browse/EZP-28190
         $view->setCacheEnabled(false);
 
-        if (!$view->getContent()->contentInfo->isTrashed()) {
+        if (!$view->getContent()->getContentInfo()->isTrashed()) {
             $this->supplyPathLocations($view);
             $this->subitemsContentViewParameterSupplier->supply($view);
             $this->supplyContentActionForms($view);
