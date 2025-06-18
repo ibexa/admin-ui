@@ -69,26 +69,6 @@
         }
     }
 
-    &__range-wrapper {
-        height: 0;
-        opacity: 0;
-        background: $ibexa-color-white;
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        pointer-events: none;
-
-        &--visible {
-            height: calculateRem(40px);
-            opacity: 1;
-            pointer-events: auto;
-            margin-top: calculateRem(16px);
-        }
-    }
-
-    &__range-select {
-        outline: none;
-        border-radius: $ibexa-border-radius-small;
-    }
-
     &__header {
         display: flex;
         align-items: center;
