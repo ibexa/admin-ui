@@ -9,15 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\AdminUi\Controller;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\User\Controller\AccessCheckController;
+use Ibexa\Contracts\User\Controller\AuthenticatedRememberedCheckTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-abstract class Controller extends AbstractController
+abstract class Controller extends AbstractController implements AccessCheckController
 {
-    public function performAccessCheck(): void
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
-    }
+    use AuthenticatedRememberedCheckTrait;
 
     public function redirectToLocation(Location $location, string $uriFragment = ''): RedirectResponse
     {
