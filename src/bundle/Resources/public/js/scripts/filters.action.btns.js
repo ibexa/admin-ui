@@ -64,7 +64,7 @@
                     }
 
                     const dateTimeRangeSingleNode = dateInputNode.closest('.ibexa-date-time-range-single');
-                    
+
                     if (dateTimeRangeSingleNode) {
                         const dateTimeRangeSingleInstance = ibexa.helpers.objectInstances.getInstance(dateTimeRangeSingleNode);
 
