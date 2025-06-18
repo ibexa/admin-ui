@@ -1,0 +1,11 @@
+{
+  "recipesEndpoint": "",
+  "packages": [
+    {
+      "requirement": "dev-ibx-10170-access-check as 5.0.x-dev",
+      "repositoryUrl": "https://github.com/ibexa/user",
+      "package": "ibexa/user",
+      "shouldBeAddedAsVCS": false
+    }
+  ]
+}
