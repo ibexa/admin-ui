@@ -1,0 +1,12 @@
+{% block mail_row %}
+    {% set base_style = '
+        width: 585px;
+        padding: 0 48px 16px 48px;
+        font-family: \'Noto Sans\', sans-serif;
+        font-size: 14px;'
+    %}
+
+    <tr>
+        <td style="{{ base_style ~ style|default('') }}">{{ content|raw }}</td>
+    </tr>
+{% endblock mail_row %}
