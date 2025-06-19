@@ -4231,12 +4231,6 @@ parameters:
 			path: src/lib/Form/Data/Section/SectionUpdateData.php
 
 		-
-			message: '#^Cannot access property \$path on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|false\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/Data/TrashItemData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\URLWildcard\\URLWildcardDeleteData\:\:__construct\(\) has parameter \$urlWildcardsChoices with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1

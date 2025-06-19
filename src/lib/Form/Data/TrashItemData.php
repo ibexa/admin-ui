@@ -81,7 +81,7 @@ class TrashItemData
     {
         $lastAncestor = end($this->ancestors);
 
-        return $this->location->path !== array_merge($lastAncestor->path, [(string)$this->location->id]);
+        return $lastAncestor !== false && $this->location->path !== array_merge($lastAncestor->path, [(string)$this->location->id]);
     }
 
     public function getCreator(): ?User
