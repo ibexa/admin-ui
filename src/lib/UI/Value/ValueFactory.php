@@ -36,6 +36,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 
@@ -74,7 +75,8 @@ class ValueFactory
     /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     protected $locationResolver;
 
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    protected $configResolver;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\UserService $userService
@@ -88,6 +90,7 @@ class ValueFactory
      * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
      * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
      * @param \Ibexa\Core\Repository\LocationResolver\LocationResolver $locationResolver
+     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
      */
     public function __construct(
         UserService $userService,
@@ -100,7 +103,8 @@ class ValueFactory
         PathService $pathService,
         DatasetFactory $datasetFactory,
         UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        LocationResolver $locationResolver
+        LocationResolver $locationResolver,
+        ConfigResolverInterface $configResolver
     ) {
         $this->userService = $userService;
         $this->languageService = $languageService;
@@ -113,6 +117,7 @@ class ValueFactory
         $this->datasetFactory = $datasetFactory;
         $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
         $this->locationResolver = $locationResolver;
+        $this->configResolver = $configResolver;
     }
 
     /**
@@ -239,9 +244,11 @@ class ValueFactory
     {
         $translations = $location->getContent()->getVersionInfo()->languageCodes;
         $target = (new Target\Version())->deleteTranslations($translations);
+        $limit = $this->configResolver->getParameter('subtree_operations.query_subtree.limit');
+        $useLimit = $limit > 0;
 
         return new UIValue\Content\Location($location, [
-            'childCount' => $this->locationService->getLocationChildCount($location),
+            'childCount' => $this->locationService->getLocationChildCount($location, $useLimit ? $limit + 1 : null),
             'pathLocations' => $this->pathService->loadPathLocations($location),
             'userCanManage' => $this->permissionResolver->canUser(
                 'content',
