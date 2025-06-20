@@ -50,7 +50,7 @@ final class HasChildren implements TrashLocationOptionProvider
         $translatorParameters = [
             '%children_count%' => ($useLimit && $childCount >= $limit) ?
                 sprintf('%d+', $limit) :
-                $childCount,,
+                $childCount,
             '%content%' => $location->getContent()->getName(),
         ];
 
