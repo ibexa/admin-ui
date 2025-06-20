@@ -23,8 +23,8 @@ final class HasChildren implements TrashLocationOptionProvider
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
-    
-     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+
+    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(LocationService $locationService, TranslatorInterface $translator, ConfigResolverInterface $configResolver)
@@ -45,7 +45,6 @@ final class HasChildren implements TrashLocationOptionProvider
 
         $useLimit = $limit > 0;
         $childCount = $this->locationService->getLocationChildCount($location, $useLimit ? $limit + 1 : null);
-        
 
         $translatorParameters = [
             '%children_count%' => ($useLimit && $childCount >= $limit) ?
