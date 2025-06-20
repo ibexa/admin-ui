@@ -74,6 +74,8 @@ class ValueFactory
     /** @var \Ibexa\Core\Repository\LocationResolver\LocationResolver */
     protected $locationResolver;
 
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+
     /**
      * @param \Ibexa\Contracts\Core\Repository\UserService $userService
      * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService

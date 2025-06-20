@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 use Ibexa\AdminUi\Specification\Location\HasChildren as HasChildrenSpec;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -22,11 +23,15 @@ final class HasChildren implements TrashLocationOptionProvider
 
     /** @var \Symfony\Contracts\Translation\TranslatorInterface */
     private $translator;
+    
+     /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    private $configResolver;
 
-    public function __construct(LocationService $locationService, TranslatorInterface $translator)
+    public function __construct(LocationService $locationService, TranslatorInterface $translator, ConfigResolverInterface $configResolver)
     {
         $this->locationService = $locationService;
         $this->translator = $translator;
+        $this->configResolver = $configResolver;
     }
 
     public function supports(Location $location): bool
@@ -36,10 +41,16 @@ final class HasChildren implements TrashLocationOptionProvider
 
     public function addOptions(FormInterface $form, Location $location): void
     {
-        $childCount = $this->locationService->getLocationChildCount($location);
+        $limit = $this->configResolver->getParameter('subtree_operations.query_subtree.limit');
+
+        $useLimit = $limit > 0;
+        $childCount = $this->locationService->getLocationChildCount($location, $useLimit ? $limit + 1 : null);
+        
 
         $translatorParameters = [
-            '%children_count%' => $childCount,
+            '%children_count%' => ($useLimit && $childCount >= $limit) ?
+                sprintf('%d+', $limit) :
+                $childCount,,
             '%content%' => $location->getContent()->getName(),
         ];
 

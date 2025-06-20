@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\Query\QueryFactoryInterface;
@@ -69,6 +70,8 @@ class ContentViewParameterSupplier
 
     private SearchService $searchService;
 
+    private ConfigResolverInterface $configResolver;
+
     public function __construct(
         Visitor $outputVisitor,
         JsonOutputGenerator $outputGenerator,
@@ -81,7 +84,8 @@ class ContentViewParameterSupplier
         ContentTypeMappings $contentTypeMappings,
         UserSettingService $userSettingService,
         QueryFactoryInterface $queryFactory,
-        SearchService $searchService
+        SearchService $searchService,
+        ConfigResolverInterface $configResolver
     ) {
         $this->outputVisitor = $outputVisitor;
         $this->outputGenerator = $outputGenerator;
@@ -95,6 +99,7 @@ class ContentViewParameterSupplier
         $this->userSettingService = $userSettingService;
         $this->queryFactory = $queryFactory;
         $this->searchService = $searchService;
+        $this->configResolver = $configResolver;
     }
 
     /**
@@ -185,7 +190,12 @@ class ContentViewParameterSupplier
     {
         return new RestLocation(
             $location,
-            $this->locationService->getLocationChildCount($location)
+            $this->locationService->getLocationChildCount(
+                $location,
+                 // For the sub items module we only ever use the count to determine if there are children (0 or 1+),
+                 // hence setting a limit of 1 is sufficient here.
+                1
+            )
         );
     }
 
