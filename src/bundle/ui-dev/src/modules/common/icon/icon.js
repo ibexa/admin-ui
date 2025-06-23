@@ -5,7 +5,7 @@ import { isExternalInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/
 import { createCssClassNames } from '../helpers/css.class.names';
 
 import UrlIcon from './urlIcon';
-import InculdedIcon from './inculdedIcon';
+import IncludedIcon from './includedIcon';
 
 const Icon = (props) => {
     const cssClass = createCssClassNames({
@@ -18,7 +18,7 @@ const Icon = (props) => {
     return (
         <>
             {isIconIncluded ? (
-                <InculdedIcon cssClass={cssClass} name={props.name} defaultIconName={props.defaultIconName} />
+                <IncludedIcon cssClass={cssClass} name={props.name} defaultIconName={props.defaultIconName} />
             ) : (
                 <UrlIcon cssClass={cssClass} name={props.name} customPath={props.customPath} />
             )}
