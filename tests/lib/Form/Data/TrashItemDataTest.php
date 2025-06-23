@@ -13,7 +13,7 @@ use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\TrashItem;
 use PHPUnit\Framework\TestCase;
 
-class TrashItemDataTest extends TestCase
+final class TrashItemDataTest extends TestCase
 {
     public function testIsParentInTrashReturnsFalseWhenNoAncestors(): void
     {
