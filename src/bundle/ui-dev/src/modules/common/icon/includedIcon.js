@@ -129,16 +129,16 @@ const iconsMap = {
     visibility: Visibility,
 };
 
-const InculdedIcon = ({ name = 'help', cssClass = '', defaultIconName = 'help' }) => {
+const IncludedIcon = ({ name = 'help', cssClass = '', defaultIconName = 'help' }) => {
     const IconComponent = iconsMap[name] ?? iconsMap[defaultIconName];
 
     return <IconComponent className={cssClass} />;
 };
 
-InculdedIcon.propTypes = {
+IncludedIcon.propTypes = {
     cssClass: PropTypes.string,
     name: PropTypes.string,
     defaultIconName: PropTypes.string,
 };
 
-export default InculdedIcon;
+export default IncludedIcon;
