@@ -6397,12 +6397,6 @@ parameters:
 			path: src/lib/Form/Data/Trash/TrashItemRestoreData.php
 
 		-
-			message: '#^Cannot access property \$path on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|false\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/Data/TrashItemData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\TrashItemData\:\:setAncestors\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
