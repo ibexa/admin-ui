@@ -26,6 +26,7 @@ export class UserInvitationModal {
         this.fileInput = this.modal.querySelector('.ibexa-user-invitation-modal__file-input');
         this.fakeSubmitBtn = this.modal.querySelector('.ibexa-user-invitation-modal__fake-submit-btn');
         this.realSubmitBtn = this.modal.querySelector('.ibexa-user-invitation-modal__real-submit-btn');
+        this.form = this.modal.querySelector('.ibexa-user-invitation-modal__form');
         this.lastScrolledToEntryWithIssue = null;
 
         this.attachEntryListeners = this.attachEntryListeners.bind(this);
@@ -443,6 +444,8 @@ export class UserInvitationModal {
     }
 
     init() {
+        const ENTER_KEY_CODE = 13;
+
         this.initialEntries = this.entriesContainer.querySelectorAll('.ibexa-user-invitation-modal__entry');
         this.entryCounter = this.initialEntries.length;
 
@@ -503,5 +506,15 @@ export class UserInvitationModal {
         );
 
         this.updateModalTitle();
+
+        this.form.addEventListener(
+            'keydown',
+            (event) => {
+                if (event.keyCode === ENTER_KEY_CODE) {
+                    event.preventDefault();
+                }
+            },
+            false,
+        );
     }
 }
