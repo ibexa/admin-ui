@@ -117,7 +117,7 @@ const getContentTypeDataByHref = (contentTypeHref) => {
     return contentTypesDataMapByHref[contentTypeHref];
 };
 
-const isContainer = (contentTypeIdentifier) => {
+const checkIsContainer = (contentTypeIdentifier) => {
     if (!contentTypesDataMap) {
         contentTypesDataMap = createContentTypeDataMap();
     }
@@ -135,5 +135,5 @@ export {
     getContentTypeDataByHref,
     getContentTypeNameByHref,
     getContentTypeIdentifierByHref,
-    isContainer,
+    checkIsContainer,
 };
