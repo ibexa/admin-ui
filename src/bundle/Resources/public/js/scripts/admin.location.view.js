@@ -1,3 +1,5 @@
+import { checkIsContainer } from './helpers/content.type.helper';
+
 (function (global, doc, localStorage, bootstrap, React, ReactDOMClient, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
     const listContainers = doc.querySelectorAll('.ibexa-sil');
@@ -181,6 +183,7 @@
                             onPopupClose: (itemsUploaded) => itemsUploaded.length && global.location.reload(true),
                             contentCreatePermissionsConfig: JSON.parse(container.dataset.mfuCreatePermissionsConfig),
                             contentTypesMap: mfuContentTypesMap,
+                            withUploadButton: checkIsContainer(mfuContainer.dataset.parentContentTypeIdentifier),
                         },
                     },
                 ],
