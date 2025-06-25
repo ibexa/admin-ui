@@ -3,15 +3,14 @@ import { setInstance } from '../helpers/object.instances';
 
 const { ibexa, document } = window;
 
-const SECONDS_IN_DAY = 86400;
-
 class DateTimeRangeSingle {
     constructor(config) {
         this.container = config.container;
         this.dateTimePickerInputWrapper = this.container.querySelector('.ibexa-date-time-range-single__date-time-picker-input-wrapper');
 
-        const { periodSelector, endSelector } = this.container.dataset;
+        const { periodSelector, startSelector, endSelector } = this.container.dataset;
         this.periodInput = document.querySelector(periodSelector);
+        this.startInput = document.querySelector(startSelector);
         this.endInput = document.querySelector(endSelector);
 
         const customDateConfig = config.dateConfig || {};
@@ -37,19 +36,22 @@ class DateTimeRangeSingle {
         if (dates.length === 2) {
             const startDate = this.getUnixTimestampUTC(dates[0]);
             const endDate = this.getUnixTimestampUTC(dates[1]);
-            const days = Math.floor((endDate - startDate) / SECONDS_IN_DAY);
 
-            this.periodInput.value = `P0Y0M${days}D`;
+            this.periodInput.value = '';
             this.periodInput.dispatchEvent(new Event('change'));
             this.periodInput.dispatchEvent(new Event('input'));
+
+            this.startInput.value = startDate;
+            this.startInput.dispatchEvent(new Event('change'));
+            this.startInput.dispatchEvent(new Event('input'));
 
             this.endInput.value = endDate;
             this.endInput.dispatchEvent(new Event('change'));
             this.endInput.dispatchEvent(new Event('input'));
         } else if (dates.length === 0) {
-            this.periodInput.value = '';
-            this.periodInput.dispatchEvent(new Event('change'));
-            this.periodInput.dispatchEvent(new Event('input'));
+            this.startInput.value = '';
+            this.startInput.dispatchEvent(new Event('change'));
+            this.startInput.dispatchEvent(new Event('input'));
 
             this.endInput.value = '';
             this.endInput.dispatchEvent(new Event('change'));

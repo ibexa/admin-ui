@@ -5,6 +5,7 @@
         ~ (is_hidden|default(false) ? 'ibexa-date-time-range-single--hidden ')
         ~ attr.class|default(''))|trim,
     'data-period-selector': period_input_selector,
+    'data-start-selector': start_input_selector,
     'data-end-selector': end_input_selector,
     'data-start': start_date is defined and start_date is not null
         ? start_date|date('Y-m-d H:i:s') : '',

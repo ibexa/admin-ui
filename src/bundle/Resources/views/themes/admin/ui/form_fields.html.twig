@@ -334,6 +334,7 @@
         start_date: form.parent.vars.data.lastModified.start_date|default(null),
         end_date: form.parent.vars.data.lastModified.end_date|default(null),
         period_input_selector: '#' ~ form.parent.last_modified.children.date_interval.vars.id,
+        start_input_selector: '#' ~ form.parent.last_modified.children.start_date.vars.id,
         end_input_selector: '#' ~ form.parent.last_modified.children.end_date.vars.id,
     } %}
 {%- endblock -%}
@@ -348,6 +349,7 @@
         start_date: form.parent.vars.data.created.start_date|default(null),
         end_date: form.parent.vars.data.created.end_date|default(null),
         period_input_selector: '#' ~ form.parent.created.children.date_interval.vars.id,
+        start_input_selector: '#' ~ form.parent.created.children.start_date.vars.id,
         end_input_selector: '#' ~ form.parent.created.children.end_date.vars.id,
     } %}
 {%- endblock -%}
@@ -362,6 +364,7 @@
         start_date: form.parent.vars.data.trashedInterval.start_date|default(null),
         end_date: form.parent.vars.data.trashedInterval.end_date|default(null),
         period_input_selector: '#' ~ form.parent.trashed_interval.children.date_interval.vars.id,
+        start_input_selector: '#' ~ form.parent.trashed_interval.children.start_date.vars.id,
         end_input_selector: '#' ~ form.parent.trashed_interval.children.end_date.vars.id,
     } %}
 {%- endblock -%}
