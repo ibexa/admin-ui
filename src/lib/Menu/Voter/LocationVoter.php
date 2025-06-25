@@ -36,12 +36,8 @@ class LocationVoter implements VoterInterface
 
                 if ($contentView instanceof ContentView) {
                     $location = $contentView->getLocation();
-                    if ($location !== null) {
-                        $path = $location->getPath();
-
-                        if (in_array($locationId, $path, true)) {
-                            return true;
-                        }
+                    if ($location !== null && in_array($locationId, $location->path ?? [$location->id])) {
+                        return true;
                     }
                 }
             }
