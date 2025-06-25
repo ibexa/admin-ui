@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\AdminUi\Controller;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
-use Ibexa\Contracts\User\Controller\AccessCheckController;
 use Ibexa\Contracts\User\Controller\AuthenticatedRememberedCheckTrait;
+use Ibexa\Contracts\User\Controller\RestrictedControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-abstract class Controller extends AbstractController implements AccessCheckController
+abstract class Controller extends AbstractController implements RestrictedControllerInterface
 {
     use AuthenticatedRememberedCheckTrait;
 
