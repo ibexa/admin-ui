@@ -328,6 +328,9 @@
     {{ form_widget(form) }}
     {% include '@ibexadesign/ui/component/date_time_range_single/date_time_range_single.twig' with {
         is_hidden: form.vars.data != 'custom_range',
+        attr: {
+            class: 'ibexa-trash-search-form__last-modified-date-time-range',
+        },
         start_date: form.parent.vars.data.lastModified.start_date|default(null),
         end_date: form.parent.vars.data.lastModified.end_date|default(null),
         period_input_selector: '#' ~ form.parent.last_modified.children.date_interval.vars.id,
@@ -339,6 +342,9 @@
     {{ form_widget(form) }}
     {% include '@ibexadesign/ui/component/date_time_range_single/date_time_range_single.twig' with {
         is_hidden: form.vars.data != 'custom_range',
+        attr: {
+            class: 'ibexa-trash-search-form__created-date-time-range',
+        },
         start_date: form.parent.vars.data.created.start_date|default(null),
         end_date: form.parent.vars.data.created.end_date|default(null),
         period_input_selector: '#' ~ form.parent.created.children.date_interval.vars.id,

@@ -96,10 +96,14 @@
 
         applyBtn[methodName]('disabled', !isEnabled);
     };
-    const toggleDatesSelectVisibility = (select, dateRange) => {
+    const toggleDatesSelectVisibility = (event, select, dateRange) => {
+        const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);
+
         if (select.value !== 'custom_range') {
-            dateRange.clearDates();
             dateRange.toggleHidden(true);
+
+            dateRange.clearDates();
+            doc.querySelector(datesRangeNode.dataset.periodSelector).value = event.target.value;
 
             toggleDisabledStateOnApplyBtn();
 
@@ -308,10 +312,14 @@
     subtreeInput.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
     lastModifiedSelectNode.addEventListener(
         'change',
-        () => toggleDatesSelectVisibility(lastModifiedSelectNode, lastModifiedDateRange),
+        (event) => toggleDatesSelectVisibility(event, lastModifiedSelectNode, lastModifiedDateRange),
         false,
     );
-    lastCreatedSelectNode.addEventListener('change', () => toggleDatesSelectVisibility(lastCreatedSelectNode, lastCreatedDateRange), false);
+    lastCreatedSelectNode.addEventListener(
+        'change',
+        (event) => toggleDatesSelectVisibility(event, lastCreatedSelectNode, lastCreatedDateRange),
+        false,
+    );
     creatorInput.addEventListener('keyup', handleTyping, false);
     usersList.addEventListener('click', handleSelectUser, false);
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));

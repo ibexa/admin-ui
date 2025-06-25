@@ -194,9 +194,15 @@
         formSearch.submit();
     };
     const toggleDatesSelectVisibility = (event) => {
+        const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);
+
         if (event.target.value !== 'custom_range') {
-            trashedDateTimeRange.clearDates();
             trashedDateTimeRange.toggleHidden(true);
+
+            trashedDateTimeRange.clearDates();
+            doc.querySelector(datesRangeNode.dataset.periodSelector).value = event.target.value;
+
+            formSearch.submit();
 
             return;
         }
@@ -207,7 +213,7 @@
         event.preventDefault();
 
         if (event.target.value !== 'custom_range') {
-            formSearch.submit();
+            // formSearch.submit();
         }
     };
     const setSortedClass = () => {
