@@ -213,7 +213,7 @@
         event.preventDefault();
 
         if (event.target.value !== 'custom_range') {
-            // formSearch.submit();
+            formSearch.submit();
         }
     };
     const setSortedClass = () => {
