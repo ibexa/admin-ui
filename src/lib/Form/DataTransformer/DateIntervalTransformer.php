@@ -56,12 +56,11 @@ class DateIntervalTransformer implements DataTransformerInterface
             $date->setTimestamp($value['end_date']);
         }
 
-        $date->setTime(23, 59, 59);
         $endDate = $date->getTimestamp();
         $interval = new \DateInterval($value['date_interval']);
         $date->sub($interval);
-        $date->setTime(00, 00, 00);
-        $startDate = $date->getTimestamp();
+
+        $startDate = $value['start_date'] ?? $date->getTimestamp();
 
         return ['start_date' => $startDate, 'end_date' => $endDate];
     }
