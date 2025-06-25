@@ -1,6 +1,10 @@
 {%- block ezplatform_fieldtype_ezkeyword_widget -%}
     <div class="ibexa-data-source__taggify">
-        {% include '@ibexadesign/ui/component/taggify/taggify.html.twig' %}
+        {% embed '@ibexadesign/ui/component/taggify/taggify.html.twig' %}
+            {% block main_class %}
+                {{- form.vars.errors|length > 0 ? 'is-invalid' -}}
+            {% endblock %}
+        {% endembed %}
     </div>
     <div class="ibexa-data-source__input-wrapper" hidden>
         {{- block('form_widget') -}}

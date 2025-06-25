@@ -73,9 +73,12 @@
         class EzKeywordTaggify extends ibexa.core.Taggify {
             afterTagsUpdate() {
                 const tags = [...this.tags];
+                const tagsInputValue = tags.join();
 
-                keywordInput.value = tags.join();
-                keywordInput.dispatchEvent(new Event('change'));
+                if (keywordInput.value !== tagsInputValue) {
+                    keywordInput.value = tags.join();
+                    keywordInput.dispatchEvent(new Event('change'));
+                }
             }
         }
         const taggify = new EzKeywordTaggify({
