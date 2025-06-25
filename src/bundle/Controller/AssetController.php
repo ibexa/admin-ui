@@ -150,6 +150,7 @@ class AssetController extends Controller
         return new JsonResponse(
             [
                 'status' => 'failed',
+                'error' => $errorMessage,
                 'errorMessage' => $errorMessage,
             ],
             Response::HTTP_BAD_REQUEST
