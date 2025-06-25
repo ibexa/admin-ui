@@ -20,7 +20,7 @@ class DateTimeRangeSingle {
             locale: {
                 rangeSeparator: ' - ',
             },
-            formatDate: (date) => formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDate),
+            formatDate: (date) => formatShortDateTime(date, null, ibexa.adminUiConfig.dateFormat.shortDateTime),
             ...customDateConfig,
         };
 
@@ -30,17 +30,14 @@ class DateTimeRangeSingle {
     }
 
     getUnixTimestampUTC(dateObject) {
-        let date = new Date(Date.UTC(dateObject.getFullYear(), dateObject.getMonth(), dateObject.getDate()));
-        date = Math.floor(date.getTime() / 1000);
-
-        return date;
+        return Math.floor(dateObject.getTime() / 1000);
     }
 
     setDates(dates) {
         if (dates.length === 2) {
             const startDate = this.getUnixTimestampUTC(dates[0]);
             const endDate = this.getUnixTimestampUTC(dates[1]);
-            const days = (endDate - startDate) / SECONDS_IN_DAY;
+            const days = Math.floor((endDate - startDate) / SECONDS_IN_DAY);
 
             this.periodInput.value = `P0Y0M${days}D`;
             this.periodInput.dispatchEvent(new Event('change'));
