@@ -76,7 +76,7 @@
                 const tagsInputValue = tags.join();
 
                 if (keywordInput.value !== tagsInputValue) {
-                    keywordInput.value = tags.join();
+                    keywordInput.value = tagsInputValue;
                     keywordInput.dispatchEvent(new Event('change'));
                 }
             }
