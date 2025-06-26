@@ -96,9 +96,12 @@
         taggify.init();
 
         if (keywordInput.value.length) {
-            keywordInput.value.split(',').forEach((tag) => {
-                taggify.addTag(tag, tag);
-            });
+            const tagsData = keywordInput.value.split(',').map((tag) => ({
+                name: tag,
+                value: tag,
+            }));
+
+            taggify.addTags(tagsData);
         }
 
         taggifyContainer.addEventListener('tagsCreated', updateKeywords, false);
