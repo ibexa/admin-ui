@@ -7,17 +7,23 @@
 {% set separator = separator|default(',') %}
 {% set values = form.vars.value|split(separator)|filter(value => value is not empty) %}
 {% set has_value = values|length > 0 %}
+{% set has_errors = form.vars.errors|length > 0 %}
 {% set can_be_empty = can_be_empty is defined ? can_be_empty : false %}
 {% set is_single_select = is_single_select is defined ? is_single_select : false %}
 {% set is_delete_visible = can_be_empty or values|length != 1 %}
 {% set default_title = 'tag_view_select.info'|trans|desc('Select location') %}
 {% set is_disabled = attr.disabled is defined ? attr.disabled : false %}
+{% set is_invalid = is_invalid|default(has_errors) %}
 {% set default_type = 'tag_view_select.default_type'|trans|desc('path') %}
 {% set type = type|default(default_type) %}
 {% set show_title = show_title ?? true %}
 
+{% set class = 'ibexa-tag-view-select '
+    ~ (is_invalid ? 'is-invalid ')
+    ~ class|default('') %}
+
 <div
-    class="ibexa-tag-view-select {{ class|default('') }}"
+    class="{{ class }}"
     data-is-single-select="{{ is_single_select }}"
     data-can-be-empty="{{ can_be_empty }}"
     {% if is_disabled %}disabled{% endif %}
