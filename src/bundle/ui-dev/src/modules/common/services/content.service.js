@@ -32,7 +32,7 @@ export const loadContentInfo = (contentIds, callback) => {
 export const findContentBySearchQuery = (query, callback) => {
     const body = JSON.stringify({
         ViewInput: {
-            identifier: `udw-locations-by-search-query-${query}`,
+            identifier: `udw-locations-by-search-query-${encodeURIComponent(query)}`,
             public: false,
             LocationQuery: {
                 FacetBuilders: {},
