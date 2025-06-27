@@ -326,59 +326,47 @@
 
 {%- block _search_last_modified_select_widget -%}
     {{ form_widget(form) }}
-    <div
-        class="ibexa-filters__range-wrapper ibexa-filters__range-wrapper--select-modified-range {% if form.vars.data == "custom_range" %}ibexa-filters__range-wrapper--visible{% endif %}"
-        data-period-selector="#search_last_modified_date_interval"
-        data-end-selector="#search_last_modified_end_date"
-    >
-        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
-            input_attr: {
-                class: "ibexa-filters__range-select",
-                placeholder: 'search.date.range'|trans({}, 'ibexa_search')|desc('From date - to date'),
-                'data-start': form.parent.vars.data.lastModified.start_date is defined ? form.parent.vars.data.lastModified.start_date|date("Y-m-d") : '',
-                'data-end': form.parent.vars.data.lastModified.end_date is defined ? form.parent.vars.data.lastModified.end_date|date("Y-m-d") : '',
-
-            }
-        } %}
-    </div>
+    {% include '@ibexadesign/ui/component/date_time_range_single/date_time_range_single.twig' with {
+        is_hidden: form.vars.data != 'custom_range',
+        attr: {
+            class: 'ibexa-trash-search-form__last-modified-date-time-range',
+        },
+        start_date: form.parent.vars.data.lastModified.start_date|default(null),
+        end_date: form.parent.vars.data.lastModified.end_date|default(null),
+        period_input_selector: '#' ~ form.parent.last_modified.children.date_interval.vars.id,
+        start_input_selector: '#' ~ form.parent.last_modified.children.start_date.vars.id,
+        end_input_selector: '#' ~ form.parent.last_modified.children.end_date.vars.id,
+    } %}
 {%- endblock -%}
 
 {%- block _search_created_select_widget -%}
     {{ form_widget(form) }}
-    <div
-        class="ibexa-filters__range-wrapper ibexa-filters__range-wrapper--select-created-range {% if form.vars.data == "custom_range" %}ibexa-filters__range-wrapper--visible{% endif %}"
-        data-period-selector="#search_created_date_interval"
-        data-end-selector="#search_created_end_date"
-    >
-        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
-            input_attr: {
-                class: "ibexa-filters__range-select",
-                placeholder: 'search.date.range'|trans({}, 'ibexa_search')|desc('From date - to date'),
-                'data-start': form.parent.vars.data.created.start_date is defined ? form.parent.vars.data.created.start_date|date("Y-m-d") : '',
-                'data-end': form.parent.vars.data.created.end_date is defined ? form.parent.vars.data.created.end_date|date("Y-m-d") : '',
-
-            }
-        } %}
-    </div>
+    {% include '@ibexadesign/ui/component/date_time_range_single/date_time_range_single.twig' with {
+        is_hidden: form.vars.data != 'custom_range',
+        attr: {
+            class: 'ibexa-trash-search-form__created-date-time-range',
+        },
+        start_date: form.parent.vars.data.created.start_date|default(null),
+        end_date: form.parent.vars.data.created.end_date|default(null),
+        period_input_selector: '#' ~ form.parent.created.children.date_interval.vars.id,
+        start_input_selector: '#' ~ form.parent.created.children.start_date.vars.id,
+        end_input_selector: '#' ~ form.parent.created.children.end_date.vars.id,
+    } %}
 {%- endblock -%}
 
 {%- block _trash_search_trashed_row -%}
     {{ form_row(form) }}
-    <div
-        class="ibexa-trash-search-form__range-wrapper ibexa-trash-search-form__range-wrapper--select-trashed-range {% if form.vars.data == "custom_range" %}ibexa-trash-search-form__range-wrapper--visible{% endif %}"
-        data-period-selector="#trash_search_trashed_interval_date_interval"
-        data-end-selector="#trash_search_trashed_interval_end_date"
-    >
-        {% include '@ibexadesign/ui/component/inputs/input_date_time_picker.html.twig' with {
-            input_attr: {
-                class: "ibexa-trash-search-form__range-select",
-                placeholder: 'search.date.range'|trans({}, 'ibexa_search')|desc('From date - to date'),
-                'data-start': form.parent.vars.data.trashedInterval.start_date is defined ? form.parent.vars.data.trashedInterval.start_date|date("Y-m-d") : '',
-                'data-end': form.parent.vars.data.trashedInterval.end_date is defined ? form.parent.vars.data.trashedInterval.end_date|date("Y-m-d") : '',
-
-            }
-        } %}
-    </div>
+    {% include '@ibexadesign/ui/component/date_time_range_single/date_time_range_single.twig' with {
+        is_hidden: form.vars.data != 'custom_range',
+        attr: {
+            class: 'ibexa-trash-search-form__trashed-date-time-range',
+        },
+        start_date: form.parent.vars.data.trashedInterval.start_date|default(null),
+        end_date: form.parent.vars.data.trashedInterval.end_date|default(null),
+        period_input_selector: '#' ~ form.parent.trashed_interval.children.date_interval.vars.id,
+        start_input_selector: '#' ~ form.parent.trashed_interval.children.start_date.vars.id,
+        end_input_selector: '#' ~ form.parent.trashed_interval.children.end_date.vars.id,
+    } %}
 {%- endblock -%}
 
 {% block form_errors -%}

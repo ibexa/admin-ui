@@ -6703,32 +6703,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/DateIntervalToArrayTransformer.php
 
 		-
-			message: '#^Call to function array_key_exists\(\) with ''date_interval'' and non\-empty\-array will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:reverseTransform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:reverseTransform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
 
