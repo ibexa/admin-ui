@@ -47,28 +47,58 @@
             });
         }
 
-        addTag(name, value, attrs = {}, tooltipAttrs = {}) {
-            if (!value || this.tags.has(value)) {
+        addTags(tagsData) {
+            const newTagsData = tagsData.reduce((processedTags, tagData) => {
+                const { value } = tagData;
+                const processedTagsValues = new Set(processedTags.map((tag) => tag.value));
+
+                if (!value || this.tags.has(value) || processedTagsValues.has(value)) {
+                    return processedTags;
+                }
+
+                processedTags.push(tagData);
+
+                return processedTags;
+            }, []);
+
+            if (newTagsData.length === 0) {
                 return;
             }
 
             const tagTemplate = this.listNode.dataset.template;
-            const nameHtmlEscaped = escapeHTML(name);
-            const valueHtmlAttributeEscaped = escapeHTMLAttribute(value);
-            const renderedTemplate = tagTemplate.replace('{{ name }}', nameHtmlEscaped).replace('{{ value }}', valueHtmlAttributeEscaped);
-            const div = doc.createElement('div');
 
-            dangerouslyInsertAdjacentHTML(div, 'beforeend', renderedTemplate);
+            newTagsData.forEach(({ name, value, attrs = {}, tooltipAttrs = {} }) => {
+                const nameHtmlEscaped = escapeHTML(name);
+                const valueHtmlAttributeEscaped = escapeHTMLAttribute(value);
+                const renderedTemplate = tagTemplate
+                    .replace('{{ name }}', nameHtmlEscaped)
+                    .replace('{{ value }}', valueHtmlAttributeEscaped);
+                const div = doc.createElement('div');
 
-            const tag = div.querySelector('.ibexa-taggify__list-tag');
-            const tagNameNode = tag.querySelector('.ibexa-taggify__list-tag-name');
+                dangerouslyInsertAdjacentHTML(div, 'beforeend', renderedTemplate);
 
-            this.addElementAttributes(tag, { ...attrs, dataset: { ...attrs.dataset, value } });
-            this.addElementAttributes(tagNameNode, tooltipAttrs);
-            this.attachEventsToTag(tag, value);
-            this.listNode.insertBefore(tag, this.inputNode);
-            this.tags.add(value);
+                const tag = div.querySelector('.ibexa-taggify__list-tag');
+                const tagNameNode = tag.querySelector('.ibexa-taggify__list-tag-name');
+
+                this.addElementAttributes(tag, { ...attrs, dataset: { ...attrs.dataset, value } });
+                this.addElementAttributes(tagNameNode, tooltipAttrs);
+                this.attachEventsToTag(tag, value);
+                this.listNode.insertBefore(tag, this.inputNode);
+                this.tags.add(value);
+            });
+
             this.afterTagsUpdate();
+        }
+
+        addTag(name, value, attrs = {}, tooltipAttrs = {}) {
+            this.addTags([
+                {
+                    name,
+                    value,
+                    attrs,
+                    tooltipAttrs,
+                },
+            ]);
         }
 
         removeTagWithValue(value) {
