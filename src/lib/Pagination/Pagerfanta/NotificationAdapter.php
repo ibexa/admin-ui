@@ -9,7 +9,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
-use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion\NotificationQuery;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
