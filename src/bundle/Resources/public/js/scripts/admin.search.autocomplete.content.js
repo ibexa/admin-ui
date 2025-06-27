@@ -20,7 +20,9 @@
                 return total;
             }
 
-            return index === 0 ? parentLocation.name : `${total} / ${parentLocation.name}`;
+            const parentLocationNameHTMLEscaped = escapeHTML(parentLocation.name);
+
+            return index === 0 ? parentLocationNameHTMLEscaped : `${total} / ${parentLocationNameHTMLEscaped}`;
         }, '');
         const breadcrumbsClass = !breadcrumb ? 'ibexa-global-search__autocomplete-item-breadcrumbs--empty' : '';
         const autocompleteItemTemplate = autocompleteContentTemplateNode.dataset.templateItem;
