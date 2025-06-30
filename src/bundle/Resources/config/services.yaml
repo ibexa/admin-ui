@@ -165,3 +165,25 @@ services:
             - {name: kernel.event_subscriber}
 
     Ibexa\AdminUi\Permission\Mapper\UsersWithPermissionInfoMapper: ~
+
+    Ibexa\AdminUi\Specification\ContentType\ContentTypeIsCompany:
+        arguments:
+            $companyContentTypeIdentifier: 'company'
+
+    Ibexa\AdminUi\Form\Type\Extension\ModifyFieldDefinitionsCollectionTypeExtension.corporate_fields:
+        class: Ibexa\AdminUi\Form\Type\Extension\ModifyFieldDefinitionsCollectionTypeExtension
+        arguments:
+            $fieldTypeIdentifier: ''
+            $fieldIdentifiers:
+                - 'customer_group'
+                - 'sales_rep'
+                - 'contact'
+                - 'default_address'
+                - 'billing_address'
+                - 'address_book'
+                - 'members'
+            $modifiedOptions:
+                disable_remove: true
+            $contentTypeSpecification: '@Ibexa\AdminUi\Specification\ContentType\ContentTypeIsCompany'
+        tags:
+            - { name: form.type_extension }
