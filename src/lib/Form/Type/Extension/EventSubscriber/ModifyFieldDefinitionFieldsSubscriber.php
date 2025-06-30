@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Extension\EventSubscriber;
 
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
+use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -20,16 +21,28 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
 {
     private string $fieldTypeIdentifier;
 
+    /** @var string[] */
+    private array $fieldIdentifiers;
+
     /** @var array<string, mixed> */
     private array $modifiedOptions;
 
+    private ?SpecificationInterface $contentTypeSpecification;
+
     /**
+     * @param string[]|string $fieldIdentifiers
      * @param array<string, mixed> $modifiedOptions
      */
-    public function __construct(string $fieldTypeIdentifier, array $modifiedOptions)
-    {
+    public function __construct(
+        string $fieldTypeIdentifier,
+        array $modifiedOptions,
+        $fieldIdentifiers = [],
+        ?SpecificationInterface $contentTypeSpecification = null
+    ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->modifiedOptions = $modifiedOptions;
+        $this->fieldIdentifiers = is_array($fieldIdentifiers) ? $fieldIdentifiers : [$fieldIdentifiers];
+        $this->contentTypeSpecification = $contentTypeSpecification;
     }
 
     public static function getSubscribedEvents(): array
@@ -45,29 +58,40 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
         $data = $event->getData();
         $form = $event->getForm();
 
-        if (null === $data) {
+        if (empty($data)) {
             return;
         }
 
-        foreach ($data as $fieldTypeIdentifier => $fieldTypeData) {
-            if ($this->fieldTypeIdentifier !== $fieldTypeData->fieldDefinition->fieldTypeIdentifier) {
+        $firstField = reset($data);
+        $contentTypeDraft = $firstField->contentTypeData->contentTypeDraft ?? null;
+
+        if (
+            $this->contentTypeSpecification !== null &&
+            !$this->contentTypeSpecification->isSatisfiedBy($contentTypeDraft)
+        ) {
+            return;
+        }
+        foreach ($data as $fieldIdentifier => $fieldTypeData) {
+            $matchesType = $this->fieldTypeIdentifier === $fieldTypeData->fieldDefinition->fieldTypeIdentifier;
+            $matchesId = in_array($fieldIdentifier, $this->fieldIdentifiers, true);
+
+            if (!($matchesType || $matchesId)) {
                 continue;
             }
 
-            if (!$form->has($fieldTypeIdentifier)) {
-                return;
+            if (!$form->has($fieldIdentifier)) {
+                continue;
             }
 
-            $baseFieldForm = $form->get($fieldTypeIdentifier);
+            $baseFieldForm = $form->get($fieldIdentifier);
             $baseFieldFormName = $baseFieldForm->getName();
-
-            $form->remove($baseFieldFormName);
 
             $options = array_merge(
                 $baseFieldForm->getConfig()->getOptions(),
                 $this->modifiedOptions
             );
 
+            $form->remove($baseFieldFormName);
             $form->add($baseFieldFormName, FieldDefinitionType::class, $options);
         }
     }
