@@ -15,10 +15,26 @@
     const lastModifiedSelect = getInstance(lastModifiedSelectNode);
     const lastModifiedDateRangeNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-date-time-range-single');
     const lastModifiedDateRange = getInstance(lastModifiedDateRangeNode);
+    const {
+        periodSelector: lastModifiedPeriodSelector,
+        startSelector: lastModifiedStartSelector,
+        endSelector: lastModifiedEndSelector,
+    } = lastModifiedDateRangeNode.dataset;
+    const lastModifiedPeriod = doc.querySelector(lastModifiedPeriodSelector);
+    const lastModifiedStartDate = doc.querySelector(lastModifiedStartSelector);
+    const lastModifiedEndDate = doc.querySelector(lastModifiedEndSelector);
     const lastCreatedSelectNode = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
     const lastCreatedSelect = getInstance(lastCreatedSelectNode);
     const lastCreatedDateRangeNode = doc.querySelector('.ibexa-filters__item--created .ibexa-date-time-range-single');
     const lastCreatedDateRange = getInstance(lastCreatedDateRangeNode);
+    const {
+        periodSelector: lastCreatedPeriodSelector,
+        startSelector: lastCreatedStartDateSelector,
+        endSelector: lastCreatedEndDateSelector,
+    } = lastCreatedDateRangeNode.dataset;
+    const lastCreatedPeriod = doc.querySelector(lastCreatedPeriodSelector);
+    const lastCreatedStartDate = doc.querySelector(lastCreatedStartDateSelector);
+    const lastCreatedEndDate = doc.querySelector(lastCreatedEndDateSelector);
     const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
@@ -33,9 +49,7 @@
         const defaultText = option.dataset.default;
         const lastModifiedDataRange = doc.querySelector(lastModifiedSelectNode.dataset.targetSelector);
         const lastCreatedDataRange = doc.querySelector(lastCreatedSelectNode.dataset.targetSelector);
-        const lastModifiedPeriod = doc.querySelector(lastModifiedDataRange.dataset.periodSelector);
         const lastModifiedEnd = doc.querySelector(lastModifiedDataRange.dataset.endSelector);
-        const lastCreatedPeriod = doc.querySelector(lastCreatedDataRange.dataset.periodSelector);
         const lastCreatedEnd = doc.querySelector(lastCreatedDataRange.dataset.endSelector);
 
         option.innerHTML = defaultText;
@@ -71,21 +85,19 @@
         let isCreatedSelected = !!lastCreatedSelectNode.value;
 
         if (lastModifiedSelectNode.value === 'custom_range') {
-            const { periodSelector, endSelector } = lastModifiedDateRangeNode.dataset;
-            const lastModifiedPeriodValue = doc.querySelector(periodSelector).value;
-            const lastModifiedEndDate = doc.querySelector(endSelector).value;
+            const lastModifiedStartDateValue = lastModifiedStartDate.value;
+            const lastModifiedEndDateValue = lastModifiedEndDate.value;
 
-            if (!lastModifiedPeriodValue || !lastModifiedEndDate) {
+            if (!lastModifiedStartDateValue || !lastModifiedEndDateValue) {
                 isModifiedSelected = false;
             }
         }
 
         if (lastCreatedSelectNode.value === 'custom_range') {
-            const { periodSelector, endSelector } = lastCreatedDateRangeNode.dataset;
-            const lastCreatedPeriodValue = doc.querySelector(periodSelector).value;
-            const lastCreatedEndDate = doc.querySelector(endSelector).value;
+            const lastCreatedStartDateValue = lastCreatedStartDate.value;
+            const lastCreatedEndDateValue = lastCreatedEndDate.value;
 
-            if (!lastCreatedPeriodValue || !lastCreatedEndDate) {
+            if (!lastCreatedStartDateValue || !lastCreatedEndDateValue) {
                 isCreatedSelected = false;
             }
         }
@@ -308,6 +320,14 @@
 
         tagBtns.forEach((btn) => btn.addEventListener('click', clearSearchTagBtnMethods[tagType], false));
     }
+
+    lastModifiedPeriod.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
+    lastModifiedStartDate.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
+    lastModifiedEndDate.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
+
+    lastCreatedPeriod.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
+    lastCreatedStartDate.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
+    lastCreatedEndDate.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
 
     subtreeInput.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
     lastModifiedSelectNode.addEventListener(
