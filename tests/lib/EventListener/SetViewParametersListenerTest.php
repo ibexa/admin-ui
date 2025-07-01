@@ -33,9 +33,10 @@ use Symfony\Component\Form\FormInterface;
 
 final class SetViewParametersListenerTest extends TestCase
 {
-    private const EXAMPLE_LOCATION_A_ID = 1;
-    private const EXAMPLE_LOCATION_B_ID = 2;
-    private const EXAMPLE_OWNER_ID = 14;
+    private const int EXAMPLE_LOCATION_A_ID = 1;
+    private const int EXAMPLE_LOCATION_B_ID = 2;
+    private const int EXAMPLE_OWNER_ID = 14;
+    private const int DEFAULT_PARENT_LOCATION_ID = 0;
 
     /** @var \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent */
     private PreContentViewEvent $event;
@@ -127,12 +128,7 @@ final class SetViewParametersListenerTest extends TestCase
         self::assertSame($locations, $contentView->getParameter('parent_locations'));
     }
 
-    /**
-     * @param int|null $parentLocationId
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
-     */
-    private function generateLocation(int $parentLocationId = null): API\Location
+    private function generateLocation(int $parentLocationId = self::DEFAULT_PARENT_LOCATION_ID): API\Location
     {
         return new Core\Location(['id' => 3, 'parentLocationId' => $parentLocationId]);
     }
