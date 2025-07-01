@@ -156,7 +156,7 @@
     const getUsersList = (value) => {
         const body = JSON.stringify({
             ViewInput: {
-                identifier: `find-user-by-name-${value}`,
+                identifier: `find-user-by-name-${encodeURIComponent(value)}`,
                 public: false,
                 ContentQuery: {
                     FacetBuilders: {},
