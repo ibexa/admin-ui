@@ -18,18 +18,12 @@ class SectionUpdateData
 {
     protected ?Section $section;
 
-    /**
-     * @var string|null
-     */
     #[Assert\NotBlank]
     #[Assert\Regex(pattern: '/^[[:alnum:]_]+$/', message: 'ez.section.identifier.format')]
-    protected $identifier;
+    protected ?string $identifier;
 
-    /**
-     * @var string|null
-     */
     #[Assert\NotBlank]
-    protected $name;
+    protected ?string $name;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
@@ -76,17 +70,11 @@ class SectionUpdateData
         $this->name = $name;
     }
 
-    /**
-     * @return mixed
-     */
     public function getSection(): ?Section
     {
         return $this->section;
     }
 
-    /**
-     * @param mixed $section
-     */
     public function setSection(?Section $section = null): void
     {
         $this->section = $section;
