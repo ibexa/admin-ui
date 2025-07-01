@@ -38,10 +38,6 @@ final class SetViewParametersListenerTest extends TestCase
     private const int EXAMPLE_OWNER_ID = 14;
     private const int DEFAULT_PARENT_LOCATION_ID = 0;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent */
-    private PreContentViewEvent $event;
-
-    /** @var \Ibexa\AdminUi\EventListener\SetViewParametersListener */
     private SetViewParametersListener $viewParametersListener;
 
     private LocationService&MockObject $locationService;
@@ -49,8 +45,6 @@ final class SetViewParametersListenerTest extends TestCase
     private UserService&MockObject $userService;
 
     private Repository&MockObject $repository;
-
-    private ConfigResolverInterface $configResolver;
 
     private GroupedContentFormFieldsProviderInterface&MockObject $groupedContentFormFieldsProvider;
 
@@ -63,14 +57,12 @@ final class SetViewParametersListenerTest extends TestCase
         $contentView = new ContentEditView();
         $contentView->setParameters(['content' => $this->generateContent($versionInfo)]);
 
-        $this->event = new PreContentViewEvent($contentView);
-
         $this->locationService = $this->createMock(LocationService::class);
         $this->userService = $this->createMock(UserService::class);
         $this->repository = $this->createMock(Repository::class);
 
-        $this->configResolver = $this->createMock(ConfigResolverInterface::class);
-        $this->configResolver
+        $configResolver = $this->createMock(ConfigResolverInterface::class);
+        $configResolver
             ->method('getParameter')
             ->withConsecutive(
                 ['admin_ui_forms.content_edit.fieldtypes'],
@@ -91,7 +83,7 @@ final class SetViewParametersListenerTest extends TestCase
             $this->locationService,
             $this->userService,
             $this->repository,
-            $this->configResolver,
+            $configResolver,
             $this->groupedContentFormFieldsProvider
         );
     }
