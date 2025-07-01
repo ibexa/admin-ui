@@ -170,10 +170,8 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        self::assertNull(
-            $this->viewParametersListener->setContentEditViewTemplateParameters(
-                new PreContentViewEvent($contentView)
-            )
+        $this->viewParametersListener->setContentEditViewTemplateParameters(
+            new PreContentViewEvent($contentView)
         );
     }
 
@@ -184,10 +182,8 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        self::assertNull(
-            $this->viewParametersListener->setUserUpdateViewTemplateParameters(
-                new PreContentViewEvent($view)
-            )
+        $this->viewParametersListener->setUserUpdateViewTemplateParameters(
+            new PreContentViewEvent($view)
         );
     }
 
