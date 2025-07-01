@@ -73,12 +73,10 @@ class SelectionUpdateMapperTest extends TestCase
 
     public function dataProvider(): array
     {
-        return [
-            'simple' => [['identifier' => 'hash', 'name' => 'Lorem']],
-            'without_name' => [['identifier' => 'hash', 'name' => null]],
-            'without_identifier' => [['identifier' => null, 'name' => 'Lorem']],
-            'with_null' => [['identifier' => null, 'name' => null]],
-        ];
+        yield 'simple' => [['identifier' => 'hash', 'name' => 'Lorem']];
+        yield 'without_name' => [['identifier' => 'hash', 'name' => '']];
+        yield 'without_identifier' => [['identifier' => '', 'name' => 'Lorem']];
+        yield 'with_null' => [['identifier' => '', 'name' => '']];
     }
 
     /**
