@@ -43,11 +43,7 @@ class TrashItemAdapterTest extends TestCase
     public function testGetNbResults(): void
     {
         $nbResults = 123;
-        $query = new Query();
-        $query->query = $this->createMock(CriterionInterface::class);
-        $query->sortClauses = $this->getMockBuilder(SortClause::class)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+        $query = $this->createMockedQuery();
 
         // Count query will necessarily have a 0 limit.
         $countQuery = clone $query;
@@ -73,11 +69,7 @@ class TrashItemAdapterTest extends TestCase
         $limit = 25;
         $nbResults = 123;
 
-        $query = new Query();
-        $query->query = $this->createMock(CriterionInterface::class);
-        $query->sortClauses = $this->getMockBuilder(SortClause::class)
-            ->disableOriginalConstructor()
-            ->getMockForAbstractClass();
+        $query = $this->createMockedQuery();
 
         // Injected query is being cloned to modify offset/limit,
         // so we need to do the same here for our assertions.
@@ -106,5 +98,14 @@ class TrashItemAdapterTest extends TestCase
         self::assertSame($nbResults, $adapter->getNbResults());
         // Running a 2nd time to ensure SearchService::findContent() is called only once.
         self::assertSame($nbResults, $adapter->getNbResults());
+    }
+
+    private function createMockedQuery(): Query
+    {
+        $query = new Query();
+        $query->query = $this->createMock(CriterionInterface::class);
+        $query->sortClauses = [$this->createMock(SortClause::class)];
+
+        return $query;
     }
 }
