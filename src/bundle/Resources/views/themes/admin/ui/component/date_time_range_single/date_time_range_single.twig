@@ -7,10 +7,8 @@
     'data-period-selector': period_input_selector,
     'data-start-selector': start_input_selector,
     'data-end-selector': end_input_selector,
-    'data-start': start_date is defined and start_date is not null
-        ? start_date|date('Y-m-d H:i:s') : '',
-    'data-end': end_date is defined and end_date is not null
-        ? end_date|date('Y-m-d H:i:s') : '',
+    'data-start': start_date|default(''),
+    'data-end': end_date|default(''),
 }) %}
 
 {% set picker_wrapper_attr = picker_wrapper_attr|default({})|merge({

@@ -1,4 +1,5 @@
-import { formatShortDateTime } from '../helpers/timezone.helper';
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { convertDateToTimezone, formatShortDateTime, getBrowserTimezone } from '../helpers/timezone.helper';
 import { setInstance } from '../helpers/object.instances';
 
 const { ibexa, document } = window;
@@ -29,7 +30,11 @@ class DateTimeRangeSingle {
     }
 
     getUnixTimestampUTC(dateObject) {
-        return Math.floor(dateObject.getTime() / 1000);
+        const { timezone } = getAdminUiConfig();
+        const selectedDateWithUserTimezone = convertDateToTimezone(dateObject, timezone, true);
+        const timestamp = Math.floor(selectedDateWithUserTimezone.valueOf() / 1000);
+
+        return timestamp;
     }
 
     setDates(dates) {
@@ -82,7 +87,18 @@ class DateTimeRangeSingle {
 
     init() {
         const { start, end } = this.container.dataset;
-        const defaultDate = start && end ? [start, end] : [];
+        let defaultDate = [];
+
+        if (start && end) {
+            const defaultStartDateWithUserTimezone = convertDateToTimezone(start * 1000);
+            const defaultEndDateWithUserTimezone = convertDateToTimezone(end * 1000);
+            const browserTimezone = getBrowserTimezone();
+
+            defaultDate = [
+                new Date(convertDateToTimezone(defaultStartDateWithUserTimezone, browserTimezone, true)),
+                new Date(convertDateToTimezone(defaultEndDateWithUserTimezone, browserTimezone, true)),
+            ];
+        }
 
         this.dateTimePickerWidget = new ibexa.core.DateTimePicker({
             container: this.dateTimePickerInputWrapper,
