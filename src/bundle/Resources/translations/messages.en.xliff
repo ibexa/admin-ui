@@ -594,8 +594,8 @@
         <note>key: section.modal.message</note>
       </trans-unit>
       <trans-unit id="f23116eb24bb41bef564f8e374666196eead5127" resname="side_panel.view_all">
-        <source>View all</source>
-        <target state="new">View all</target>
+        <source>View all notifications</source>
+        <target state="new">View all notifications</target>
         <note>key: side_panel.view_all</note>
       </trans-unit>
       <trans-unit id="1152c93462d8bed85642b961f01ed63a6f2525ab" resname="tab.locations.location_content_swap">
