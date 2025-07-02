@@ -10,17 +10,17 @@ namespace Ibexa\AdminUi\Form\Data\URL;
 
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
-class URLListData extends ValueObject
+final class URLListData extends ValueObject
 {
-    /** @var string|null */
-    public $searchQuery;
+    public ?string $searchQuery;
 
-    /** @var bool|null */
-    public $status;
+    public ?bool $status;
 
-    /** @var int */
-    public $page = 1;
-
-    /** @var int */
-    public $limit = 10;
+    public function __construct(
+        ?string $searchQuery = null,
+        ?bool $status = null,
+    ) {
+        $this->searchQuery = $searchQuery;
+        $this->status = $status;
+    }
 }

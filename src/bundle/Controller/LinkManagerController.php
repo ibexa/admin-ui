@@ -25,40 +25,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class LinkManagerController extends Controller
 {
-    public const DEFAULT_MAX_PER_PAGE = 10;
+    public const int DEFAULT_MAX_PER_PAGE = 10;
 
-    private URLService $urlService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     */
     public function __construct(
-        URLService $urlService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        TranslatableNotificationHandlerInterface $notificationHandler
+        private readonly URLService $urlService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler
     ) {
-        $this->urlService = $urlService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->notificationHandler = $notificationHandler;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $urlId
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -107,11 +84,6 @@ final class LinkManagerController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $urlId
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -123,9 +95,7 @@ final class LinkManagerController extends Controller
         $usages->setCurrentPage($request->query->getInt('page', 1));
         $usages->setMaxPerPage($request->query->getInt('limit', self::DEFAULT_MAX_PER_PAGE));
 
-        $editForm = $this->formFactory->contentEdit(
-            new ContentEditData()
-        );
+        $editForm = $this->formFactory->contentEdit(new ContentEditData());
 
         return $this->render('@ibexadesign/link_manager/view.html.twig', [
             'url' => $url,
