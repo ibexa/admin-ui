@@ -68,6 +68,10 @@ class Assets extends AbstractParser
         }
 
         foreach ($scopeSettings[self::ASSETS_NODE] as $identifier => $config) {
+            if (empty($config)) {
+                continue;
+            }
+
             $contextualizer->setContextualParameter(sprintf('%s.%s', self::ASSETS_NODE, $identifier), $currentScope, $config);
         }
     }
