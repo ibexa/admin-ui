@@ -32,6 +32,7 @@ const readFile = function (file, resolve, reject) {
     this.readAsDataURL(file);
 };
 const findFileTypeMapping = (mappings, file) => mappings.find((item) => item.mimeTypes.find((type) => type === file.type));
+const fileWithinMimetypes = (mimeTypes, file) => mimeTypes.find((type) => type === file.type);
 const isMimeTypeAllowed = (mappings, file) => !!findFileTypeMapping(mappings, file);
 
 const checkFileTypeAllowed = (file, locationMapping) => (!locationMapping ? true : isMimeTypeAllowed(locationMapping.mappings, file));
@@ -264,6 +265,19 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
 
     if (!checkFileTypeAllowed(file, locationMapping)) {
         errorMsgs.push(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
+    }
+
+    if (!locationMapping) {
+        let allowed = false;
+        config.defaultMappings.forEach((mapping) => {
+            if (fileWithinMimetypes(mapping.mimeTypes, file)) {
+                allowed = true;
+            }
+        })
+
+        if (!allowed) {
+            errorMsgs.push(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
+        }
     }
 
     if (file.size > maxFileSize) {
