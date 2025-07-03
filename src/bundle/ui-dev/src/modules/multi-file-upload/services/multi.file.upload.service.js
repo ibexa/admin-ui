@@ -273,10 +273,12 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
             if (fileWithinMimetypes(mapping.mimeTypes, file)) {
                 allowed = true;
             }
-        })
+        });
 
         if (!allowed) {
-            errorMsgs.push(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
+            errorMsgs.push(
+                Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'),
+            );
         }
     }
 
