@@ -97,25 +97,7 @@
         }
     }
 
-    &__range-wrapper {
-        width: 0;
-        opacity: 0;
-        background: $ibexa-color-white;
-        border: calculateRem(1px) solid $ibexa-color-white;
-        border-radius: calculateRem(4px);
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
-        pointer-events: none;
-        overflow: hidden;
-
-        &--visible {
-            width: auto;
-            margin-left: calculateRem(16px);
-            opacity: 1;
-            pointer-events: auto;
-        }
-    }
-
-    &__range-select {
-        outline: none;
+    .ibexa-date-time-range-single:not(.ibexa-date-time-range-single--hidden) {
+        margin-left: calculateRem(16px);
     }
 }
