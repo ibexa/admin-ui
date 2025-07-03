@@ -36,6 +36,7 @@ use Ibexa\AdminUi\Form\Data\Location\LocationSwapData;
 use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData;
+use Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
@@ -92,6 +93,7 @@ use Ibexa\AdminUi\Form\Type\Location\LocationSwapType;
 use Ibexa\AdminUi\Form\Type\Location\LocationTrashType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateVisibilityType;
+use Ibexa\AdminUi\Form\Type\Notification\NotificationSelectionType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupDeleteType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupsDeleteType;
@@ -1065,6 +1067,27 @@ class FormFactory
     }
 
     /**
+     * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null $data
+     * @param string|null $name
+     *
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
+     */
+    public function deleteNotification(
+        NotificationSelectionData $data = null,
+        ?string $name = null,
+        string $submitName = 'remove'
+    ): FormInterface {
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
+
+        return $this->formFactory->createNamed(
+            $name,
+            NotificationSelectionType::class,
+            $data,
+            ['submit_name' => $submitName]
+        );
+    }
+
+    /**
      * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData|null $data
      * @param string|null $name
      *
@@ -1118,7 +1141,7 @@ class FormFactory
         ?URLWildcardDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class);
+        $name = (string)($name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class));
 
         return $this->formFactory->createNamed(
             $name,
