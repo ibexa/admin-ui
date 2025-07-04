@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
  */
 final class SourceLanguageValueResolver extends AbstractValueResolver
 {
-    private const string ARGUMENT_NAME = 'language';
+    private const string ARGUMENT_NAME = 'baseLanguage';
     private const string ATTRIBUTE_LANGUAGE_CODE_FROM = 'fromLanguageCode';
 
     public function __construct(
