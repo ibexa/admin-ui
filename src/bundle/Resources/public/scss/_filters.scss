@@ -94,7 +94,7 @@
         transform: scaleY(1);
         transform-origin: top center;
         transition: transform $ibexa-admin-transition-duration $ibexa-admin-transition;
-        z-index: 1;
+        z-index: 2;
 
         &--hidden {
             transform: scaleY(0);
