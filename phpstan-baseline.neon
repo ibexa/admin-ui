@@ -8089,24 +8089,6 @@ parameters:
 			path: src/lib/Tab/TabGroup.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Tab\\URLManagement\\LinkManagerTab\:\:evaluate\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Tab/URLManagement/LinkManagerTab.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Tab\\URLManagement\\LinkManagerTab\:\:\$notificationHandler is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Tab/URLManagement/LinkManagerTab.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Tab\\URLManagement\\LinkManagerTab\:\:\$submitHandler is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Tab/URLManagement/LinkManagerTab.php
-
-		-
 			message: '#^Cannot access property \$query on Symfony\\Component\\HttpFoundation\\Request\|null\.$#'
 			identifier: property.nonObject
 			count: 1

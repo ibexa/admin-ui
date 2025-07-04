@@ -14,7 +14,6 @@
                 {{ form_label(form.status) }}
                 {{ form_widget(form.status) }}
             </div>
-            {{ form_widget(form.page, { attr: { value: '1' }}) }}
         {{ form_end(form) }}
     </section>
 
@@ -81,8 +80,7 @@
 
         {% if urls.haveToPaginate %}
             {% include '@ibexadesign/ui/pagination.html.twig' with {
-                'pager': urls,
-                'paginaton_params' : {'pageParameter': '[search_data][page]'}
+                'pager': urls
             } %}
         {% endif %}
     </section>

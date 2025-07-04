@@ -10,8 +10,7 @@ namespace Ibexa\AdminUi\Form\Data\URL;
 
 use Ibexa\Contracts\Core\Repository\Values\URL\URLUpdateStruct;
 
-class URLUpdateData extends URLUpdateStruct
+final class URLUpdateData extends URLUpdateStruct
 {
-    /** @var int */
-    public $id;
+    public int $id;
 }

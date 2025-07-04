@@ -10,9 +10,7 @@ namespace Ibexa\AdminUi\Tab\URLManagement;
 
 use Ibexa\AdminUi\Form\Data\URL\URLListData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
-use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLSearchAdapter;
-use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
@@ -31,39 +29,18 @@ use Twig\Environment;
 
 class LinkManagerTab extends AbstractTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-link-manager-link-manager';
-    private const DEFAULT_MAX_PER_PAGE = 10;
-
-    private URLService $urlService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private RequestStack $requestStack;
-
-    private PermissionResolver $permissionResolver;
+    public const string URI_FRAGMENT = 'ibexa-tab-link-manager-link-manager';
+    private const int DEFAULT_MAX_PER_PAGE = 10;
 
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        URLService $urlService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        RequestStack $request,
-        PermissionResolver $permissionResolver
+        private readonly URLService $urlService,
+        private readonly FormFactory $formFactory,
+        private readonly RequestStack $requestStack,
+        private readonly PermissionResolver $permissionResolver
     ) {
         parent::__construct($twig, $translator);
-
-        $this->urlService = $urlService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->notificationHandler = $notificationHandler;
-        $this->requestStack = $request;
-        $this->permissionResolver = $permissionResolver;
     }
 
     public function getIdentifier(): string
@@ -83,9 +60,7 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return bool
+     * @param array<string, mixed> $parameters
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -103,19 +78,26 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
             'csrf_protection' => false,
         ]);
 
-        $form->handleRequest($this->requestStack->getCurrentRequest());
+        $request = $this->requestStack->getCurrentRequest();
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
             throw new BadRequestHttpException();
         }
 
-        $urls = new Pagerfanta(new URLSearchAdapter(
-            $this->buildListQuery($data),
-            $this->urlService
-        ));
+        $urls = new Pagerfanta(
+            new URLSearchAdapter(
+                $this->buildListQuery($data),
+                $this->urlService
+            )
+        );
 
-        $urls->setCurrentPage($data->page);
-        $urls->setMaxPerPage($data->limit ? $data->limit : self::DEFAULT_MAX_PER_PAGE);
+        $page = $request !== null
+            ? $request->query->getInt('page', 1)
+            : 1;
+
+        $urls->setCurrentPage($page);
+        $urls->setMaxPerPage(self::DEFAULT_MAX_PER_PAGE);
 
         return $this->twig->render('@ibexadesign/link_manager/list.html.twig', [
             'form' => $form->createView(),
@@ -124,13 +106,6 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
         ]);
     }
 
-    /**
-     * Builds URL criteria from list data.
-     *
-     * @param \Ibexa\AdminUi\Form\Data\URL\URLListData $data
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery
-     */
     private function buildListQuery(URLListData $data): URLQuery
     {
         $query = new URLQuery();
