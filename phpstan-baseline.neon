@@ -4219,18 +4219,6 @@ parameters:
 			path: src/lib/Form/Data/Search/TrashSearchData.php
 
 		-
-			message: '#^PHPDoc tag @param for parameter \$section with type mixed is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Section/SectionUpdateData.php
-
-		-
-			message: '#^PHPDoc tag @return with type mixed is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: return.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Section/SectionUpdateData.php
-
-		-
 			message: '#^Cannot access property \$path on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|false\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -9505,32 +9493,8 @@ parameters:
 			path: tests/lib/EventListener/ContentProxyCreateDraftListenerTest.php
 
 		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with null will always evaluate to true\.$#'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\EventListener\\SetViewParametersListenerTest\:\:createFieldMock\(\) should return Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Field&PHPUnit\\Framework\\MockObject\\MockObject but returns PHPUnit\\Framework\\MockObject\\MockObject&Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: return.type
-			count: 1
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
-
-		-
-			message: '#^Property Ibexa\\Tests\\AdminUi\\EventListener\\SetViewParametersListenerTest\:\:\$event is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
-
-		-
-			message: '#^Result of method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:setContentEditViewTemplateParameters\(\) \(void\) is used\.$#'
-			identifier: method.void
-			count: 1
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
-
-		-
-			message: '#^Result of method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:setUserUpdateViewTemplateParameters\(\) \(void\) is used\.$#'
-			identifier: method.void
 			count: 1
 			path: tests/lib/EventListener/SetViewParametersListenerTest.php
 
@@ -9865,42 +9829,6 @@ parameters:
 			path: tests/lib/Form/DataMapper/SelectionCreateMapperTest.php
 
 		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\SelectionUpdateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\SelectionUpdateMapperTest\:\:createStruct\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\SelectionUpdateMapperTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\SelectionUpdateMapperTest\:\:testMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\SelectionUpdateMapperTest\:\:testReverseMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
-
-		-
-			message: '#^Parameter \#1 \$data of method Ibexa\\AdminUi\\Form\\DataMapper\\SectionUpdateMapper\:\:reverseMap\(\) expects Ibexa\\AdminUi\\Form\\Data\\Section\\SectionUpdateData, Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
-
-		-
 			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer\:\:transform\(\) on a separate line has no effect\.$#'
 			identifier: method.resultUnused
 			count: 1
@@ -10025,12 +9953,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: tests/lib/Menu/ReorderByOrderNumberListenerTest.php
-
-		-
-			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\:\:\$sortClauses \(array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\SortClause\>\) does not accept Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\SortClause&PHPUnit\\Framework\\MockObject\\MockObject\.$#'
-			identifier: assign.propertyType
-			count: 2
-			path: tests/lib/Pagination/Pagerfanta/TrashItemAdapterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Permission\\PermissionCheckerTest\:\:restrictionsProvider\(\) return type has no value type specified in iterable type array\.$#'

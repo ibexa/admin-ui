@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -16,9 +17,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class SelectionUpdateMapperTest extends TestCase
+/**
+ * @phpstan-type TSectionProperties array{identifier: string, name: string}
+ */
+final class SelectionUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper */
     private SectionUpdateMapper $mapper;
 
     protected function setUp(): void
@@ -34,7 +37,9 @@ class SelectionUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @phpstan-param TSectionProperties $properties
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testMap(array $properties): void
     {
@@ -46,7 +51,9 @@ class SelectionUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @phpstan-param TSectionProperties $properties
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function testReverseMap(array $properties): void
     {
@@ -68,23 +75,23 @@ class SelectionUpdateMapperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'data\' is invalid: must be an instance of ' . SectionUpdateData::class);
 
+        /** @phpstan-ignore argument.type */
         $this->mapper->reverseMap(new LanguageCreateData());
     }
 
-    public function dataProvider(): array
+    /**
+     * @phpstan-return iterable<string, array<TSectionProperties>>
+     */
+    public static function dataProvider(): iterable
     {
-        return [
-            'simple' => [['identifier' => 'hash', 'name' => 'Lorem']],
-            'without_name' => [['identifier' => 'hash', 'name' => null]],
-            'without_identifier' => [['identifier' => null, 'name' => 'Lorem']],
-            'with_null' => [['identifier' => null, 'name' => null]],
-        ];
+        yield 'simple' => [['identifier' => 'hash', 'name' => 'Lorem']];
+        yield 'without_name' => [['identifier' => 'hash', 'name' => '']];
+        yield 'without_identifier' => [['identifier' => '', 'name' => 'Lorem']];
+        yield 'with_null' => [['identifier' => '', 'name' => '']];
     }
 
     /**
-     * @param array $properties
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct
+     * @phpstan-param TSectionProperties $properties
      */
     private function createStruct(array $properties): SectionUpdateStruct
     {
@@ -92,9 +99,7 @@ class SelectionUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData
+     * @phpstan-param TSectionProperties $properties
      */
     private function createData(array $properties): SectionUpdateData
     {

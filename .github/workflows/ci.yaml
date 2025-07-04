@@ -80,6 +80,9 @@ jobs:
           extensions: pdo_sqlite, gd
           tools: cs2pr
 
+      - name: Install core dev branch
+        run: composer require --no-update ibexa/core:'dev-add_missing_type_hints_to_content_vo as 5.0.x-dev'
+
       - uses: ramsey/composer-install@v3
         with:
           dependency-versions: highest
@@ -128,6 +131,9 @@ jobs:
             coverage: none
             extensions: pdo_pgsql, gd
             tools: cs2pr
+
+      -   name: Install core dev branch
+          run: composer require --no-update ibexa/core:'dev-add_missing_type_hints_to_content_vo as 5.0.x-dev'
 
       -   uses: ramsey/composer-install@v3
           with:
@@ -181,6 +187,9 @@ jobs:
             coverage: none
             extensions: pdo_mysql, gd
             tools: cs2pr
+
+      -   name: Install core dev branch
+          run: composer require --no-update ibexa/core:'dev-add_missing_type_hints_to_content_vo as 5.0.x-dev'
 
       -   uses: ramsey/composer-install@v3
           with:

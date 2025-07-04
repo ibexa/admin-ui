@@ -34,7 +34,14 @@ class SectionUpdateMapper implements DataMapperInterface
             throw new InvalidArgumentException('value', 'must be an instance of ' . SectionUpdateStruct::class);
         }
 
-        return new SectionUpdateData(new Section(['identifier' => $value->identifier, 'name' => $value->name]));
+        return new SectionUpdateData(
+            new Section(
+                [
+                    'identifier' => $value->identifier ?? '',
+                    'name' => $value->name ?? '',
+                ]
+            )
+        );
     }
 
     /**
