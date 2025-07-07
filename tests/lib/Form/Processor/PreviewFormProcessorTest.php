@@ -243,6 +243,7 @@ class PreviewFormProcessorTest extends TestCase
                         'mainLanguageCode' => $languageCode,
                         'mainLocationId' => $mainLocationId,
                     ]),
+                    'versionNo' => 1,
                 ]
             ),
         ]);

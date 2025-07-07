@@ -35,8 +35,12 @@ class LanguageCreateMapper implements DataMapperInterface
 
         $data = new LanguageCreateData();
 
-        $data->setName($value->name);
-        $data->setLanguageCode($value->languageCode);
+        if (isset($value->name)) {
+            $data->setName($value->name);
+        }
+        if (isset($value->languageCode)) {
+            $data->setLanguageCode($value->languageCode);
+        }
         $data->setEnabled($value->enabled);
 
         return $data;
