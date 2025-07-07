@@ -28,6 +28,15 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
         'ibexa.webpack.custom.config.js' => [
             'ibexa.webpack.custom.config.js' => [],
         ],
+        'ibexa.webpack.internal.config.js' => [
+            'ibexa.webpack.internal.config.js' => [],
+        ],
+        'ibexa.webpack.richtext.config.js' => [
+            'ibexa.webpack.richtext.config.js' => [],
+        ],
+        'ibexa.webpack.libs.config.js' => [
+            'ibexa.webpack.libs.config.js' => [],
+        ],
         'ibexa.config.setup.js' => [
             'ibexa.config.setup.js' => [],
         ],
