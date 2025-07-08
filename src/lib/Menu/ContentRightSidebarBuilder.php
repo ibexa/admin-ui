@@ -293,7 +293,11 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if (!$contentIsUser && 1 !== $location->depth && $canTrashLocation) {
+        $rootContentDepth = $this->configResolver->getParameter('location_ids.content_structure');
+        $isAtRootLevel = (new IsRoot())->isSatisfiedBy($location);
+        $isRootContent = $location->depth === $rootContentDepth;
+
+        if (!$contentIsUser && !$isAtRootLevel && !$isRootContent && $canTrashLocation) {
             $menu->addChild(
                 $this->createMenuItem(
                     self::ITEM__SEND_TO_TRASH,
@@ -305,7 +309,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if (1 === $location->depth) {
+        if ($isAtRootLevel || $isRootContent) {
             $menu[self::ITEM__MOVE]->setAttribute('disabled', 'disabled');
         }
 
