@@ -1,6 +1,6 @@
 (function (global, doc) {
     const INPUT_PADDING = 12;
-    const TEXTAREA_SCROLLBAR_PADDING = 6;
+    const EXTRA_SPACING = 6;
     const togglePasswordVisibility = (event) => {
         const passwordTogglerBtn = event.currentTarget;
         const passwordShowIcon = passwordTogglerBtn.querySelector('.ibexa-input-text-wrapper__password-show');
@@ -47,12 +47,21 @@
         const textWrapper = inputActionsContainer.closest('.ibexa-input-text-wrapper');
         const inputType = textWrapper.classList.contains('ibexa-input-text-wrapper--multiline') ? 'textarea' : 'input';
         const input = textWrapper.querySelector(inputType);
+        const { width: actionsWidth } = inputActionsContainer.getBoundingClientRect();
 
-        if (!input || input.type === 'number') {
+        if (!input) {
             return;
         }
 
-        const { width: actionsWidth } = inputActionsContainer.getBoundingClientRect();
+        if (input.type === 'number') {
+            if (input.value) {
+                input.style.paddingRight = `${actionsWidth + EXTRA_SPACING}px`;
+            } else {
+                input.style.paddingRight = `${INPUT_PADDING}px`;
+            }
+
+            return;
+        }
 
         input.style.paddingRight = `${actionsWidth + INPUT_PADDING}px`;
     };
@@ -90,7 +99,7 @@
         const scrollbarWidth = offsetWidth - clientWidth;
 
         multilineInputWrapper.classList.toggle('ibexa-input-text-wrapper--scrollbar-visible', hasScrollbar);
-        multilineInputWrapper.style.setProperty('--scrollbar-width', `${scrollbarWidth + TEXTAREA_SCROLLBAR_PADDING}px`);
+        multilineInputWrapper.style.setProperty('--scrollbar-width', `${scrollbarWidth + EXTRA_SPACING}px`);
     };
 
     doc.body.addEventListener('ibexa-inputs:added', attachListenersToAllInputs, false);
