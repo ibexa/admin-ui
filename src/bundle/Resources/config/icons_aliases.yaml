@@ -1,5 +1,5 @@
 system:
-    admin_group:
+    default:
         assets:
             icon_aliases:
                 about-info: help
