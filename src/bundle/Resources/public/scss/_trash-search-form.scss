@@ -27,7 +27,8 @@
                         display: none;
                     }
 
-                    &:disabled {
+                    &:disabled,
+                    &.ibexa-input:disabled {
                         cursor: auto;
                         background-color: $ibexa-color-white;
                         color: $ibexa-color-black;
