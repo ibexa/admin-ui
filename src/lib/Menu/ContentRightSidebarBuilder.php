@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\Specification\Location\IsContentStructureRoot;
 use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
@@ -293,11 +294,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        $rootContentDepth = $this->configResolver->getParameter('location_ids.content_structure');
         $isAtRootLevel = (new IsRoot())->isSatisfiedBy($location);
-        $isRootContent = $location->depth === $rootContentDepth;
+        $isContentStructureRoot = (new IsContentStructureRoot($this->configResolver))->isSatisfiedBy($location);
 
-        if (!$contentIsUser && !$isAtRootLevel && !$isRootContent && $canTrashLocation) {
+        if (!$contentIsUser && !$isAtRootLevel && !$isContentStructureRoot && $canTrashLocation) {
             $menu->addChild(
                 $this->createMenuItem(
                     self::ITEM__SEND_TO_TRASH,
@@ -309,7 +309,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if ($isAtRootLevel || $isRootContent) {
+        if ($isAtRootLevel || $isContentStructureRoot) {
             $menu[self::ITEM__MOVE]->setAttribute('disabled', 'disabled');
         }
 
