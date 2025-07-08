@@ -6,6 +6,7 @@
         constructor(config) {
             this.container = config.container;
             this.acceptKeys = config.acceptKeys ?? ['Enter'];
+            this.shouldAddTagByInputBlur = config.shouldAddTagByInputBlur ?? true;
             this.inputNode = config.inputNode ?? this.container.querySelector('.ibexa-taggify__input');
             this.listNode = config.listNode ?? this.container.querySelector('.ibexa-taggify__list');
             this.tagsPattern = config.tagsPattern ?? null;
@@ -159,7 +160,10 @@
 
         init() {
             this.inputNode.addEventListener('keyup', this.handleInputKeyUp, false);
-            this.inputNode.addEventListener('blur', this.handleInputBlur, false);
+
+            if (this.shouldAddTagByInputBlur) {
+                this.inputNode.addEventListener('blur', this.handleInputBlur, false);
+            }
         }
     }
 
