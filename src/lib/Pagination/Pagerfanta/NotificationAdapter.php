@@ -39,7 +39,15 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
-        return $this->nbResults ?? ($this->nbResults = $this->notificationService->getNotificationCount($this->query));
+        if (isset($this->nbResults)) {
+            return $this->nbResults;
+        }
+
+        $query = clone $this->query;
+        $query->setOffset(0);
+        $query->setLimit(0);
+
+        return $this->nbResults = $this->notificationService->getNotificationCount($query);
     }
 
     /**
@@ -52,7 +60,10 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length): NotificationList
     {
-        $notifications = $this->notificationService->findNotifications($this->query);
+        $query = clone $this->query;
+        $query->setOffset($offset);
+        $query->setLimit($length);
+        $notifications = $this->notificationService->findNotifications($query);
 
         $this->nbResults ??= $notifications->totalCount;
 

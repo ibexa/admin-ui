@@ -17,9 +17,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @extends AbstractType<NotificationSelectionData>
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData>
  */
-class NotificationSelectionType extends AbstractType
+final class NotificationSelectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

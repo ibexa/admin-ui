@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Notification;
 
-class NotificationSelectionData
+final class NotificationSelectionData
 {
     /** @var \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] */
     private array $notifications;

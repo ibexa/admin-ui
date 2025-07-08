@@ -12,7 +12,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AllNotificationsController extends Controller
+final class AllNotificationsController extends Controller
 {
     public function renderAllNotificationsPageAction(Request $request, int $page): Response
     {

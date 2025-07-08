@@ -6,42 +6,60 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Bundle\AdminUi\Form\Type;
+namespace Ibexa\AdminUi\Form\Type\Notification;
 
 use Ibexa\AdminUi\Form\Type\DateRangeType;
 use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @extends AbstractType<SearchQueryData>
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData>
  */
 final class SearchType extends AbstractType
 {
+    public const NOTIFICATION_STATUS_READ = 'read';
+    public const NOTIFICATION_STATUS_UNREAD = 'unread';
+
+    private TranslatorInterface $translator;
+
+    public function __construct(
+        TranslatorInterface $translator
+    ) {
+        $this->translator = $translator;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $notificationTypeChoices = array_flip($options['notification_types']);
+        $statusChoices = [
+            /** @Desc("Read") */
+            $this->translator->trans('notification.status.read') => self::NOTIFICATION_STATUS_READ,
+            /** @Desc("Unread") */
+            $this->translator->trans('notification.status.unread') => self::NOTIFICATION_STATUS_UNREAD,
+        ];
+
         $builder
             ->add('type', ChoiceType::class, [
                 'required' => false,
-                'choices' => array_combine($options['notification_types'], $options['notification_types']),
+                'choices' => $notificationTypeChoices,
                 'placeholder' => 'All types',
-                'label' => 'Type',
+                'label' => /** @Desc("Type") */ 'notification.type',
             ])
             ->add('statuses', ChoiceType::class, [
-                'choices' => [
-                    'Read' => 'read',
-                    'Unread' => 'unread',
-                ],
+                'choices' => $statusChoices,
                 'expanded' => true,
                 'multiple' => true,
                 'required' => false,
-                'label' => 'Status',
+                'label' => /** @Desc("Status") */ 'notification.status',
             ])
             ->add('createdRange', DateRangeType::class, [
                 'required' => false,
-                'label' => 'Date and time',
+                'label' => /** @Desc("Date and time") */ 'notification.date_and_time',
             ]);
     }
 
@@ -52,6 +70,7 @@ final class SearchType extends AbstractType
             'csrf_protection' => false,
             'data_class' => SearchQueryData::class,
             'notification_types' => [],
+            'translation_domain' => 'ibexa_notifications',
         ]);
     }
 }

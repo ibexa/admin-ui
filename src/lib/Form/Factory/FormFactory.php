@@ -1067,9 +1067,6 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null $data
-     * @param string|null $name
-     *
      * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
      */
     public function deleteNotification(

@@ -13,9 +13,9 @@ use Exception;
 use Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
+use Ibexa\AdminUi\Form\Type\Notification\SearchType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
 use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
-use Ibexa\Bundle\AdminUi\Form\Type\SearchType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion;
@@ -25,6 +25,7 @@ use Ibexa\Core\Notification\Renderer\Registry;
 use InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -82,28 +83,23 @@ class NotificationController extends Controller
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
     {
-        $allNotifications = $this->notificationService->loadNotifications(0, PHP_INT_MAX)->items;
-
-        $notificationTypes = array_unique(array_column($allNotifications, 'type'));
-        sort($notificationTypes);
+        $notificationLabels = $this->registry->getTypeLabels();
 
         $searchForm = $this->createForm(SearchType::class, null, [
-            'notification_types' => $notificationTypes,
+            'notification_types' => $notificationLabels,
         ]);
+
         $searchForm->handleRequest($request);
 
         $query = new NotificationQuery();
-        if ($searchForm->isSubmitted() && $searchForm->isValid() && $searchForm->getData() instanceof SearchQueryData) {
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
             $query = $this->buildQuery($searchForm->getData());
         }
-
-        $query->setOffset(($page - 1) * $this->configResolver->getParameter('pagination.notification_limit'));
-        $query->setLimit($this->configResolver->getParameter('pagination.notification_limit'));
 
         $pagerfanta = new Pagerfanta(
             new NotificationAdapter($this->notificationService, $query)
         );
-        $pagerfanta->setMaxPerPage($query->getLimit());
+        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         $notifications = [];
@@ -127,35 +123,27 @@ class NotificationController extends Controller
         ]);
     }
 
-    private function buildQuery(SearchQueryData $data): NotificationQuery
+    private function buildQuery(?SearchQueryData $data): NotificationQuery
     {
         $criteria = [];
 
-        if ($data->getType()) {
-            $criteria[] = new Criterion\Type($data->getType());
-        }
-
-        if (!empty($data->getStatuses())) {
-            $statuses = [];
-            if (in_array('read', $data->getStatuses(), true)) {
-                $statuses[] = 'read';
-            }
-            if (in_array('unread', $data->getStatuses(), true)) {
-                $statuses[] = 'unread';
+        if ($data !== null) {
+            if ($data->getType()) {
+                $criteria[] = new Criterion\Type($data->getType());
             }
 
-            if (!empty($statuses)) {
-                $criteria[] = new Criterion\Status($statuses);
+            if (!empty($data->getStatuses())) {
+                $criteria[] = new Criterion\Status($data->getStatuses());
             }
-        }
 
-        $range = $data->getCreatedRange();
-        if ($range !== null) {
-            $min = $range->getMin() instanceof DateTimeInterface ? $range->getMin() : null;
-            $max = $range->getMax() instanceof DateTimeInterface ? $range->getMax() : null;
+            $range = $data->getCreatedRange();
+            if ($range !== null) {
+                $min = $range->getMin() instanceof DateTimeInterface ? $range->getMin() : null;
+                $max = $range->getMax() instanceof DateTimeInterface ? $range->getMax() : null;
 
-            if ($min !== null || $max !== null) {
-                $criteria[] = new Criterion\DateCreated($min, $max);
+                if ($min !== null || $max !== null) {
+                    $criteria[] = new Criterion\DateCreated($min, $max);
+                }
             }
         }
 
@@ -163,7 +151,7 @@ class NotificationController extends Controller
     }
 
     /**
-     * @param Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $pagerfanta
+     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $pagerfanta
      */
     private function createNotificationSelectionData(Pagerfanta $pagerfanta): NotificationSelectionData
     {
@@ -242,7 +230,7 @@ class NotificationController extends Controller
         try {
             $ids = $request->toArray()['ids'] ?? [];
 
-            if (!is_array($ids) || empty($ids)) {
+            if (empty($ids)) {
                 throw new InvalidArgumentException('Missing or invalid "ids" parameter.');
             }
 
@@ -338,7 +326,7 @@ class NotificationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (NotificationSelectionData $data) {
+            $result = $this->submitHandler->handle($form, function (NotificationSelectionData $data): RedirectResponse {
                 foreach (array_keys($data->getNotifications()) as $id) {
                     $notification = $this->notificationService->getNotification((int)$id);
                     $this->notificationService->deleteNotification($notification);
