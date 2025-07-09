@@ -9,11 +9,11 @@
         return;
     }
 
+    const headerBottomRowNode = headerNode.querySelector('.ibexa-edit-header__row--bottom');
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
     const { controlZIndex } = ibexa.helpers.modal;
     const fitEllipsizedTitle = () => {
-        const headerBottomRowNode = headerNode.querySelector('.ibexa-edit-header__row--bottom');
         const titleNode = headerBottomRowNode.querySelector('.ibexa-edit-header__name--ellipsized');
         const firstMenuEntryNode = headerNode.querySelector('.ibexa-context-menu .ibexa-context-menu__item');
         const { left: titleNodeLeft, width: titleNodeWidth } = titleNode.getBoundingClientRect();
@@ -43,6 +43,8 @@
 
         if (shouldHeaderBeSlim) {
             fitEllipsizedTitle();
+        } else {
+            headerBottomRowNode.style.width = '100%';
         }
     };
 
