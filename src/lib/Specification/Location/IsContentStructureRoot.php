@@ -25,6 +25,6 @@ final class IsContentStructureRoot extends AbstractSpecification
      */
     public function isSatisfiedBy($item): bool
     {
-        return $item->depth === (int)$this->configResolver->getParameter('location_ids.content_structure');
+        return $item->getDepth() === (int)$this->configResolver->getParameter('location_ids.content_structure');
     }
 }
