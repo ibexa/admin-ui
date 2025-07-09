@@ -14,12 +14,10 @@ class IsRoot extends AbstractSpecification
 {
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
-     *
-     * @return bool
      */
     public function isSatisfiedBy($item): bool
     {
-        return 1 === $item->depth;
+        return 1 === $item->getDepth();
     }
 }
 
