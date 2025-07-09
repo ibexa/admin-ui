@@ -59,3 +59,6 @@ services:
   Ibexa\AdminUi\Behat\Component\FullView: ~
 
   Ibexa\AdminUi\Behat\Component\DeleteContentDialog: ~
+
+  Ibexa\AdminUi\Behat\Component\CreateUrlAliasForm: ~
+
