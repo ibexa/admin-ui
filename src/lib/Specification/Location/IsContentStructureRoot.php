@@ -11,13 +11,13 @@ namespace Ibexa\AdminUi\Specification\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class IsContentStructureRoot extends AbstractSpecification
+final class IsContentStructureRoot extends AbstractSpecification
 {
-    private int $contentStructureRootDepth;
+    private ConfigResolverInterface $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)
     {
-        $this->contentStructureRootDepth = (int)$configResolver->getParameter('location_ids.content_structure');
+        $this->configResolver = $configResolver;
     }
 
     /**
@@ -25,6 +25,6 @@ class IsContentStructureRoot extends AbstractSpecification
      */
     public function isSatisfiedBy($item): bool
     {
-        return $item->depth === $this->contentStructureRootDepth;
+        return $item->depth === (int)$this->configResolver->getParameter('location_ids.content_structure');
     }
 }
