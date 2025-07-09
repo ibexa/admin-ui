@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use PHPUnit\Framework\TestCase;
 
-class IsContentStructureRootTest extends TestCase
+final class IsContentStructureRootTest extends TestCase
 {
     /**
      * @covers \Ibexa\AdminUi\Specification\Location\IsContentStructureRoot::isSatisfiedBy
@@ -26,7 +26,7 @@ class IsContentStructureRootTest extends TestCase
             $this->createConfigResolverReturning($depth)
         );
 
-        $this->assertTrue(
+        self::assertTrue(
             $specification->isSatisfiedBy($this->createLocationWithDepth($depth))
         );
     }
@@ -40,7 +40,7 @@ class IsContentStructureRootTest extends TestCase
             $this->createConfigResolverReturning(1)
         );
 
-        $this->assertFalse(
+        self::assertFalse(
             $specification->isSatisfiedBy($this->createLocationWithDepth(3))
         );
     }

@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
-class IsRootTest extends TestCase
+final class IsRootTest extends TestCase
 {
     /**
      * @covers \Ibexa\AdminUi\Specification\Location\IsRoot::isSatisfiedBy
@@ -23,7 +23,7 @@ class IsRootTest extends TestCase
 
         $location = $this->createLocationWithDepth(1);
 
-        $this->assertTrue($specification->isSatisfiedBy($location));
+        self::assertTrue($specification->isSatisfiedBy($location));
     }
 
     /**
@@ -35,7 +35,7 @@ class IsRootTest extends TestCase
 
         $location = $this->createLocationWithDepth(2);
 
-        $this->assertFalse($specification->isSatisfiedBy($location));
+        self::assertFalse($specification->isSatisfiedBy($location));
     }
 
     private function createLocationWithDepth(int $depth): Location
