@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
-use Ibexa\AdminUi\Specification\Location\IsContentStructureRoot;
+use Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds;
 use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
@@ -295,9 +295,9 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         }
 
         $isAtRootLevel = (new IsRoot())->isSatisfiedBy($location);
-        $isContentStructureRoot = (new IsContentStructureRoot($this->configResolver))->isSatisfiedBy($location);
+        $isInContextualRootIds = (new IsInContextualTreeRootIds($this->configResolver))->isSatisfiedBy($location);
 
-        if (!$contentIsUser && !$isAtRootLevel && !$isContentStructureRoot && $canTrashLocation) {
+        if (!$contentIsUser && !$isAtRootLevel && !$isInContextualRootIds && $canTrashLocation) {
             $menu->addChild(
                 $this->createMenuItem(
                     self::ITEM__SEND_TO_TRASH,
@@ -309,7 +309,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if ($isAtRootLevel || $isContentStructureRoot) {
+        if ($isAtRootLevel || $isInContextualRootIds) {
             $menu[self::ITEM__MOVE]->setAttribute('disabled', 'disabled');
         }
 

@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Specification\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-final class IsContentStructureRoot extends AbstractSpecification
+final class IsInContextualTreeRootIds extends AbstractSpecification
 {
     private ConfigResolverInterface $configResolver;
 
@@ -25,6 +25,10 @@ final class IsContentStructureRoot extends AbstractSpecification
      */
     public function isSatisfiedBy($item): bool
     {
-        return $item->getId() === (int)$this->configResolver->getParameter('location_ids.content_structure');
+        $contextualRootIds = $this->configResolver->getParameter(
+            'content_tree_module.contextual_tree_root_location_ids'
+        );
+
+        return in_array($item->getId(), $contextualRootIds, true);
     }
 }
