@@ -19,17 +19,15 @@ class Keywords extends FieldTypeComponent
 const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
 const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
 const taggify = new window.ibexa.core.Taggify({
-    containerNode: taggifyContainer,
-    displayLabel: false,
-    displayInputValues: false,
+    container: taggifyContainer,
 });
 
 const tags = [%s];
 var list = tags.map(function (item) {
-    return {id: item, label: item};
+    return {name: item, value: item};
 });
 
-taggify.updateTags(list);
+taggify.addTags(list);
 SCRIPT;
 
     public function setValue(array $parameters): void
