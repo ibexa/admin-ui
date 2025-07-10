@@ -18,7 +18,7 @@ class Keywords extends FieldTypeComponent
     private string $setKeywordsValueScript = <<<SCRIPT
 const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
 const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
-const taggify = new window.Taggify({
+const taggify = new window.ibexa.core.Taggify({
     containerNode: taggifyContainer,
     displayLabel: false,
     displayInputValues: false,
