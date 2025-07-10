@@ -24,7 +24,7 @@
 
         {% set body_row_cols = body_row_cols|merge([
             { content: policy.module == '*' ? ('role.policy.all_modules')|trans({}, 'forms')|desc('All modules') : ('role.policy.' ~ policy.module)|trans({}, 'forms') },
-            { content: policy.function == '*' ? ('role.policy.all_functions')|trans({}, 'forms')|desc('All functions') : policy.function|capitalize },
+            { content: policy.function|lower in ['*', 'all_functions'] ? ('role.policy.all_functions')|trans({}, 'forms')|desc('All functions') : policy.function|capitalize },
         ]) %}
 
         {% set col_raw %}
