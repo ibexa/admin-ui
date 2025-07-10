@@ -20,14 +20,14 @@ final class IsContentStructureRootTest extends TestCase
      */
     public function testReturnsTrueWhenLocationDepthMatchesRoot(): void
     {
-        $depth = 1;
+        $id = 1;
 
         $specification = new IsContentStructureRoot(
-            $this->createConfigResolverReturning($depth)
+            $this->createConfigResolverReturning($id)
         );
 
         self::assertTrue(
-            $specification->isSatisfiedBy($this->createLocationWithDepth($depth))
+            $specification->isSatisfiedBy($this->createLocationWithId($id))
         );
     }
 
@@ -41,25 +41,25 @@ final class IsContentStructureRootTest extends TestCase
         );
 
         self::assertFalse(
-            $specification->isSatisfiedBy($this->createLocationWithDepth(3))
+            $specification->isSatisfiedBy($this->createLocationWithId(3))
         );
     }
 
-    private function createLocationWithDepth(int $depth): Location
+    private function createLocationWithId(int $id): Location
     {
         $location = $this->createMock(Location::class);
-        $location->method('getDepth')->willReturn($depth);
+        $location->method('getId')->willReturn($id);
 
         return $location;
     }
 
-    private function createConfigResolverReturning(int $depth): ConfigResolverInterface
+    private function createConfigResolverReturning(int $id): ConfigResolverInterface
     {
         $configResolver = $this->createMock(ConfigResolverInterface::class);
         $configResolver
             ->method('getParameter')
             ->with('location_ids.content_structure')
-            ->willReturn($depth);
+            ->willReturn($id);
 
         return $configResolver;
     }
