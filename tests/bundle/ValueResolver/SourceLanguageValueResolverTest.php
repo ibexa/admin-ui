@@ -42,7 +42,7 @@ final class SourceLanguageValueResolverTest extends TestCase
         $argumentMetadata->method('getType')
             ->willReturn(Language::class);
         $argumentMetadata->method('getName')
-            ->willReturn('language');
+            ->willReturn('baseLanguage');
 
         $request = new Request([], [], $attributes);
 
