@@ -51,6 +51,13 @@ class CompileAssetsCommand extends Command
                 'Config name passed to webpack encore',
                 null
             )
+            ->addOption(
+                'frontend-config-name',
+                'fcn',
+                InputOption::VALUE_REQUIRED,
+                'Frontend config name passed to webpack encore',
+                null
+            )
         ;
     }
 
@@ -68,6 +75,7 @@ class CompileAssetsCommand extends Command
         $timeout = (float)$input->getOption('timeout');
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
+        $frontendConfigName = $input->getOption('frontend-config-name');
 
         $output->writeln(sprintf('Compiling all <comment>%s</comment> assets.', $env));
         $output->writeln('');
@@ -77,6 +85,10 @@ class CompileAssetsCommand extends Command
 
         if (!empty($configName)) {
             $yarnEncoreCommand .= " --config-name {$configName}";
+        }
+
+        if (!empty($frontendConfigName)) {
+            $yarnEncoreCommand .= " --config ./node_modules/@ibexa/frontend-config/ibexa.webpack.{$frontendConfigName}.configs";
         }
 
         $debugFormatter = $this->getHelper('debug_formatter');
