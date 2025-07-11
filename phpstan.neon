@@ -3,6 +3,7 @@ includes:
     - phpstan-baseline.neon.php
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/ibexa/phpstan/extension.neon
 
 parameters:
     level: 8
