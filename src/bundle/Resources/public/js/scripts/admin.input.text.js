@@ -54,9 +54,7 @@
         }
 
         if (input.type === 'number') {
-            input.value
-                ? (input.style.paddingRight = `${actionsWidth + EXTRA_SPACING}px`)
-                : (input.style.paddingRight = `${INPUT_PADDING}px`);
+            input.style.paddingRight = input.value ? `${actionsWidth + EXTRA_SPACING}px` : `${INPUT_PADDING}px`;
 
             return;
         }
