@@ -25,6 +25,7 @@ use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Event\ContentEditEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
@@ -240,6 +241,19 @@ class ContentController extends Controller
                         'versionNo' => $versionNo,
                         'language' => $language->languageCode,
                     ]);
+                }
+
+                /** @var \Ibexa\Contracts\AdminUi\Event\ContentEditEvent $event */
+                $event = $this->eventDispatcher->dispatch(
+                    new ContentEditEvent(
+                        $content,
+                        $versionInfo,
+                        $language->languageCode
+                    )
+                );
+
+                if ($event->hasResponse()) {
+                    return $event->getResponse();
                 }
 
                 if (!$versionInfo->isDraft()) {
