@@ -57,9 +57,19 @@
             dateInputNodes.forEach((dateInputNode) => {
                 if (!dateInputNode.disabled) {
                     const datePickerNode = dateInputNode.closest('.ibexa-picker');
-                    const datePickerInstance = ibexa.helpers.objectInstances.getInstance(datePickerNode);
+                    if (datePickerNode) {
+                        const datePickerInstance = ibexa.helpers.objectInstances.getInstance(datePickerNode);
 
-                    datePickerInstance.clear();
+                        datePickerInstance.clear();
+                    }
+
+                    const dateTimeRangeSingleNode = dateInputNode.closest('.ibexa-date-time-range-single');
+
+                    if (dateTimeRangeSingleNode) {
+                        const dateTimeRangeSingleInstance = ibexa.helpers.objectInstances.getInstance(dateTimeRangeSingleNode);
+
+                        dateTimeRangeSingleInstance.clearDates();
+                    }
                 }
             });
             dropdownNodes.forEach((dropdownNode) => {
