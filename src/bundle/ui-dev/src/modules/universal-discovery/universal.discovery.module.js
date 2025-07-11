@@ -34,6 +34,10 @@ const defaultRestInfo = {
     token: document.querySelector('meta[name="CSRF-Token"]')?.content,
     siteaccess: document.querySelector('meta[name="SiteAccess"]')?.content,
 };
+const DEFAULT_ITEMS_VIEW_TYPE_MODE = 'grid';
+export const ITEMS_VIEW_TYPE_STORAGE_KEY = 'ibexa-subitems-active-view-mode-media';
+
+export const ITEMS_VIEW_TYPE_STORAGE_KEY_PREFIX = 'ibexa-udw-active-view-location'; // TO DO: delete !!!!!!!!
 
 export const SORTING_OPTIONS = [
     {
@@ -209,6 +213,10 @@ const UniversalDiscoveryModule = (props) => {
     const adminUiConfig = getAdminUiConfig();
     const { tabs } = adminUiConfig.universalDiscoveryWidget;
     const defaultMarkedLocationId = props.startingLocationId || props.rootLocationId;
+    const defaultActiveViewMode = props.activeView || localStorage.getItem(ITEMS_VIEW_TYPE_STORAGE_KEY) || DEFAULT_ITEMS_VIEW_TYPE_MODE;
+
+    console.log(defaultActiveViewMode, props.activeView, localStorage.getItem(ITEMS_VIEW_TYPE_STORAGE_KEY), DEFAULT_ITEMS_VIEW_TYPE_MODE);
+
     const abortControllerRef = useRef();
     const dropdownPortalRef = useRef();
     const [{ activeTab, previousActiveTab }, setActiveTabsData] = useState({
@@ -222,7 +230,7 @@ const UniversalDiscoveryModule = (props) => {
         }));
     const [sorting, setSorting] = useState(props.activeSortClause);
     const [sortOrder, setSortOrder] = useState(props.activeSortOrder);
-    const [currentView, setCurrentView] = useState(props.activeView);
+    const [currentView, setCurrentView] = useState(defaultActiveViewMode);
     const [markedLocationId, setMarkedLocationId] = useState(defaultMarkedLocationId !== 1 ? defaultMarkedLocationId : null);
     const [createContentVisible, setCreateContentVisible] = useState(false);
     const [contentOnTheFlyData, setContentOnTheFlyData] = useState({});
@@ -739,7 +747,7 @@ UniversalDiscoveryModule.defaultProps = {
     containersOnly: false,
     activeSortClause: 'date',
     activeSortOrder: 'ascending',
-    activeView: 'finder',
+    activeView: '',
     selectedLocations: [],
     initSelectedItems: [],
     isInitLocationsDeselectionBlocked: false,
