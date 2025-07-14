@@ -7747,12 +7747,6 @@ parameters:
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
-			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 42
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: '#^Parameter \$data of method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createSearchForm\(\) has invalid type Ibexa\\AdminUi\\Form\\Data\\Search\\SearchData\.$#'
 			identifier: class.notFound
 			count: 1

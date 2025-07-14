@@ -171,7 +171,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentEditType::class));
         $data = $data ?? new ContentEditData();
 
         if (empty($options['language_codes']) && null !== $data->getVersionInfo()) {
@@ -199,7 +199,7 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $data = $data ?? new ContentCreateData();
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentCreateType::class));
 
         return $this->formFactory->createNamed($name, ContentCreateType::class, $data);
     }
@@ -216,7 +216,7 @@ class FormFactory
         ContentTypesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypesDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentTypesDeleteType::class));
 
         return $this->formFactory->createNamed($name, ContentTypesDeleteType::class, $data);
     }
@@ -231,7 +231,7 @@ class FormFactory
         ?ContentTypeGroupCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentTypeGroupCreateType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -250,7 +250,7 @@ class FormFactory
         ContentTypeGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-content-type-group-%d', $data->getContentTypeGroup()->id);
+        $name = $name ?? sprintf('update-content-type-group-%d', $data->getContentTypeGroup()->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupUpdateType::class, $data);
     }
@@ -265,7 +265,7 @@ class FormFactory
         ContentTypeGroupDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-content-type-group-%d', $data->getContentTypeGroup()->id);
+        $name = $name ?? sprintf('delete-content-type-group-%d', $data->getContentTypeGroup()->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupDeleteType::class, $data);
     }
@@ -282,7 +282,7 @@ class FormFactory
         ContentTypeGroupsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupsDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentTypeGroupsDeleteType::class));
 
         return $this->formFactory->createNamed($name, ContentTypeGroupsDeleteType::class, $data);
     }
@@ -299,7 +299,7 @@ class FormFactory
         TranslationAddData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('add-translation');
+        $name = $name ?? sprintf('add-translation');
 
         return $this->formFactory->createNamed($name, TranslationAddType::class, $data ?? new TranslationAddData());
     }
@@ -316,7 +316,7 @@ class FormFactory
         TranslationDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-translations');
+        $name = $name ?? sprintf('delete-translations');
 
         return $this->formFactory->createNamed($name, TranslationDeleteType::class, $data);
     }
@@ -333,7 +333,7 @@ class FormFactory
         VersionRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(VersionRemoveType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(VersionRemoveType::class));
 
         return $this->formFactory->createNamed($name, VersionRemoveType::class, $data);
     }
@@ -348,7 +348,7 @@ class FormFactory
         ContentLocationAddData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationAddType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentLocationAddType::class));
 
         return $this->formFactory->createNamed($name, ContentLocationAddType::class, $data);
     }
@@ -363,7 +363,7 @@ class FormFactory
         ContentLocationRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationRemoveType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentLocationRemoveType::class));
 
         return $this->formFactory->createNamed($name, ContentLocationRemoveType::class, $data);
     }
@@ -378,7 +378,7 @@ class FormFactory
         LocationSwapData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationSwapType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationSwapType::class));
 
         return $this->formFactory->createNamed($name, LocationSwapType::class, $data);
     }
@@ -395,7 +395,7 @@ class FormFactory
         ?ContentMainLocationUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentMainLocationUpdateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentMainLocationUpdateType::class));
         $data = $data ?? new ContentMainLocationUpdateData();
 
         return $this->formFactory->createNamed(
@@ -415,7 +415,7 @@ class FormFactory
         LocationTrashData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationTrashType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationTrashType::class));
         $data = $data ?? new LocationTrashData();
 
         return $this->formFactory->createNamed($name, LocationTrashType::class, $data);
@@ -431,7 +431,7 @@ class FormFactory
         LocationMoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationMoveType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationMoveType::class));
 
         return $this->formFactory->createNamed($name, LocationMoveType::class, $data);
     }
@@ -446,7 +446,7 @@ class FormFactory
         LocationCopyData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopyType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationCopyType::class));
 
         return $this->formFactory->createNamed($name, LocationCopyType::class, $data);
     }
@@ -463,7 +463,7 @@ class FormFactory
         LocationUpdateVisibilityData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityData::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityData::class));
 
         return $this->formFactory->createNamed($name, LocationUpdateVisibilityType::class, $data);
     }
@@ -475,7 +475,7 @@ class FormFactory
         ?ContentVisibilityUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentVisibilityUpdateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentVisibilityUpdateType::class));
         $data = $data ?? new ContentVisibilityUpdateData();
 
         return $this->formFactory->createNamed($name, ContentVisibilityUpdateType::class, $data);
@@ -491,7 +491,7 @@ class FormFactory
         LocationUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationUpdateType::class));
 
         return $this->formFactory->createNamed($name, LocationUpdateType::class, $data);
     }
@@ -506,7 +506,7 @@ class FormFactory
         SectionContentAssignData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionContentAssignType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(SectionContentAssignType::class));
 
         return $this->formFactory->createNamed($name, SectionContentAssignType::class, $data);
     }
@@ -521,7 +521,7 @@ class FormFactory
         SectionDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-section-%d', $data->getSection()->id);
+        $name = $name ?? sprintf('delete-section-%d', $data->getSection()->id);
 
         return $this->formFactory->createNamed($name, SectionDeleteType::class, $data);
     }
@@ -538,7 +538,7 @@ class FormFactory
         SectionsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionsDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(SectionsDeleteType::class));
 
         return $this->formFactory->createNamed($name, SectionsDeleteType::class, $data);
     }
@@ -553,7 +553,7 @@ class FormFactory
         ?SectionCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(SectionCreateType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -572,7 +572,7 @@ class FormFactory
         SectionUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-section-%d', $data->getSection()->id);
+        $name = $name ?? sprintf('update-section-%d', $data->getSection()->id);
 
         return $this->formFactory->createNamed($name, SectionUpdateType::class, $data);
     }
@@ -587,7 +587,7 @@ class FormFactory
         ?LanguageCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguageCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LanguageCreateType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -606,7 +606,7 @@ class FormFactory
         LanguageUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-language-%d', $data->getLanguage()->id);
+        $name = $name ?? sprintf('update-language-%d', $data->getLanguage()->id);
 
         return $this->formFactory->createNamed($name, LanguageUpdateType::class, $data);
     }
@@ -621,7 +621,7 @@ class FormFactory
         LanguageDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-language-%d', $data->getLanguage()->id);
+        $name = $name ?? sprintf('delete-language-%d', $data->getLanguage()->id);
 
         return $this->formFactory->createNamed($name, LanguageDeleteType::class, $data);
     }
@@ -638,7 +638,7 @@ class FormFactory
         LanguagesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguagesDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LanguagesDeleteType::class));
 
         return $this->formFactory->createNamed($name, LanguagesDeleteType::class, $data);
     }
@@ -653,7 +653,7 @@ class FormFactory
         ?RoleCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(RoleCreateType::class));
 
         return $this->formFactory->createNamed($name, RoleCreateType::class, $data);
     }
@@ -668,7 +668,7 @@ class FormFactory
         RoleUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-role-%d', $data->getRole()->id);
+        $name = $name ?? sprintf('update-role-%d', $data->getRole()->id);
 
         return $this->formFactory->createNamed($name, RoleUpdateType::class, $data);
     }
@@ -683,7 +683,7 @@ class FormFactory
         RoleDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-role-%d', $data->getRole()->id);
+        $name = $name ?? sprintf('delete-role-%d', $data->getRole()->id);
 
         return $this->formFactory->createNamed($name, RoleDeleteType::class, $data);
     }
@@ -700,7 +700,7 @@ class FormFactory
         RolesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-roles');
+        $name = $name ?? sprintf('delete-roles');
 
         return $this->formFactory->createNamed($name, RolesDeleteType::class, $data);
     }
@@ -715,7 +715,7 @@ class FormFactory
         ?RoleAssignmentCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(RoleAssignmentCreateType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -739,9 +739,12 @@ class FormFactory
             ? $data->getRoleAssignment()->getRoleLimitation()->getIdentifier()
             : 'none';
 
-        $name = $name ?: sprintf('delete-role-assignment-%s', md5(
-            implode('/', [$role, $limitation])
-        ));
+        $name = $name ?? sprintf(
+            'delete-role-assignment-%s',
+            md5(
+                implode('/', [$role, $limitation])
+            )
+        );
 
         return $this->formFactory->createNamed($name, RoleAssignmentDeleteType::class, $data);
     }
@@ -758,7 +761,7 @@ class FormFactory
         RoleAssignmentsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentsDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(RoleAssignmentsDeleteType::class));
 
         return $this->formFactory->createNamed($name, RoleAssignmentsDeleteType::class, $data);
     }
@@ -773,7 +776,7 @@ class FormFactory
         ?PolicyCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(PolicyCreateType::class));
 
         return $this->formFactory->createNamed($name, PolicyCreateType::class, $data);
     }
@@ -788,7 +791,7 @@ class FormFactory
         ?PolicyCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyCreateWithLimitationType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(PolicyCreateWithLimitationType::class));
 
         return $this->formFactory->createNamed($name, PolicyCreateWithLimitationType::class, $data);
     }
@@ -803,7 +806,7 @@ class FormFactory
         PolicyUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-policy-%s', md5(implode('/', $data->getPolicy())));
+        $name = $name ?? sprintf('update-policy-%s', md5(implode('/', $data->getPolicy())));
 
         return $this->formFactory->createNamed($name, PolicyUpdateType::class, $data);
     }
@@ -818,7 +821,7 @@ class FormFactory
         PolicyDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-policy-%s', md5(implode('/', $data->getPolicy())));
+        $name = $name ?? sprintf('delete-policy-%s', md5(implode('/', $data->getPolicy())));
 
         return $this->formFactory->createNamed($name, PolicyDeleteType::class, $data);
     }
@@ -835,7 +838,7 @@ class FormFactory
         PoliciesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(PoliciesDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(PoliciesDeleteType::class));
 
         return $this->formFactory->createNamed($name, PoliciesDeleteType::class, $data);
     }
@@ -852,7 +855,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(SearchData::class));
 
         return $this->formFactory->createNamed($name, SearchType::class, $data, $options);
     }
@@ -869,7 +872,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(SearchData::class));
 
         return $this->formFactory->createNamed($name, URLListType::class, $data, $options);
     }
@@ -886,7 +889,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(SearchData::class));
 
         return $this->formFactory->createNamed($name, URLEditType::class, $data, $options);
     }
@@ -901,7 +904,7 @@ class FormFactory
         UserDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(UserDeleteType::class));
 
         return $this->formFactory->createNamed($name, UserDeleteType::class, $data);
     }
@@ -916,7 +919,7 @@ class FormFactory
         CustomUrlAddData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlAddType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(CustomUrlAddType::class));
 
         return $this->formFactory->createNamed($name, CustomUrlAddType::class, $data ?? new CustomUrlAddData());
     }
@@ -931,7 +934,7 @@ class FormFactory
         CustomUrlRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlRemoveType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(CustomUrlRemoveType::class));
 
         return $this->formFactory->createNamed($name, CustomUrlRemoveType::class, $data ?? new CustomUrlRemoveData());
     }
@@ -946,7 +949,7 @@ class FormFactory
         ?ObjectStateGroupCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupCreateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ObjectStateGroupCreateType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -965,7 +968,7 @@ class FormFactory
         ObjectStateGroupDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-object-state-group-%d', $data->getObjectStateGroup()->id);
+        $name = $name ?? sprintf('delete-object-state-group-%d', $data->getObjectStateGroup()->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupDeleteType::class, $data);
     }
@@ -982,7 +985,7 @@ class FormFactory
         ObjectStateGroupsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupsDeleteType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ObjectStateGroupsDeleteType::class));
 
         return $this->formFactory->createNamed($name, ObjectStateGroupsDeleteType::class, $data);
     }
@@ -997,7 +1000,7 @@ class FormFactory
         ObjectStateGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-object-state-group-%d', $data->getObjectStateGroup()->id);
+        $name = $name ?? sprintf('update-object-state-group-%d', $data->getObjectStateGroup()->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupUpdateType::class, $data);
     }
@@ -1012,7 +1015,7 @@ class FormFactory
         LocationCopySubtreeData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopySubtreeType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(LocationCopySubtreeType::class));
 
         return $this->formFactory->createNamed($name, LocationCopySubtreeType::class, $data);
     }
@@ -1027,7 +1030,7 @@ class FormFactory
         BookmarkRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(BookmarkRemoveType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(BookmarkRemoveType::class));
 
         return $this->formFactory->createNamed($name, BookmarkRemoveType::class, $data);
     }
@@ -1042,7 +1045,7 @@ class FormFactory
         UserEditData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserEditType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(UserEditType::class));
         $data = $data ?? new UserEditData();
         $options = null !== $data->getVersionInfo()
             ? ['language_codes' => $data->getVersionInfo()->languageCodes]
@@ -1061,7 +1064,7 @@ class FormFactory
         ContentRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentRemoveType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(ContentRemoveType::class));
 
         return $this->formFactory->createNamed($name, ContentRemoveType::class, $data);
     }
@@ -1074,7 +1077,7 @@ class FormFactory
         ?string $name = null,
         string $submitName = 'remove'
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -1096,7 +1099,7 @@ class FormFactory
         ?URLWildcardData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(URLWildcardType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -1117,7 +1120,7 @@ class FormFactory
         ?URLWildcardUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardUpdateType::class);
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(URLWildcardUpdateType::class));
 
         return $this->formFactory->createNamed(
             $name,
@@ -1138,7 +1141,7 @@ class FormFactory
         ?URLWildcardDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = (string)($name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class));
+        $name = (string)($name ?? StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class));
 
         return $this->formFactory->createNamed(
             $name,
