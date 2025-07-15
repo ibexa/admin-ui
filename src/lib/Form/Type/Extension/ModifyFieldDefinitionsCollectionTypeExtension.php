@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Form\Type\Extension;
 
 use Ibexa\AdminUi\Form\Type\ContentType\FieldDefinitionsCollectionType;
 use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber;
-use Ibexa\CorporateAccount\Configuration\CorporateAccount;
+use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -29,7 +29,7 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
     /** @var array<string, mixed> */
     private array $modifiedOptions;
 
-    private ?CorporateAccount $corporateAccount;
+    private ?SpecificationInterface $contentTypeSpecification;
 
     /**
      * @param string|string[] $fieldIdentifiers
@@ -39,12 +39,12 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
         string $fieldTypeIdentifier,
         array $modifiedOptions,
         $fieldIdentifiers = [],
-        ?CorporateAccount $corporateAccount = null
+        ?SpecificationInterface $contentTypeSpecification = null
     ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->fieldIdentifiers = is_array($fieldIdentifiers) ? $fieldIdentifiers : [$fieldIdentifiers];
         $this->modifiedOptions = $modifiedOptions;
-        $this->corporateAccount = $corporateAccount;
+        $this->contentTypeSpecification = $contentTypeSpecification;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -53,7 +53,7 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
             $this->fieldTypeIdentifier,
             $this->modifiedOptions,
             $this->fieldIdentifiers,
-            $this->corporateAccount
+            $this->contentTypeSpecification
         );
 
         foreach ($builder->all() as $fieldTypeGroup) {
