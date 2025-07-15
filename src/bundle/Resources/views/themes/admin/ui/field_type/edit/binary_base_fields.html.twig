@@ -1,6 +1,6 @@
 {% block checkbox_row %}
     <div class="ibexa-field-edit-preview__info ibexa-field-edit-preview__info--{{ name }}">
-        <div class="ibexa-field-edit-preview__input-wrapper">
+        <div class="ibexa-field-edit-preview__input-wrapper ibexa-field-edit-preview__checkbox-wrapper">
             <input class="ibexa-input ibexa-input--checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
             <span class="ibexa-data-source__label-text">{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
         </div>
