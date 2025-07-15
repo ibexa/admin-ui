@@ -4,7 +4,7 @@ const defaultGetErrorMessage = (error = {}) => error.errorMessage;
 
 const getErrorMessageObject = (response) => {
     const responseErrorMessage = response.json().then((jsonResponse) => {
-        return jsonResponse.ErrorMessage;
+        return jsonResponse.ErrorMessage ?? jsonResponse;
     });
 
     return responseErrorMessage;

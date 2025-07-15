@@ -30,11 +30,8 @@ class LocationIsNotRootValidatorTest extends TestCase
 
     public function testValid(): void
     {
-        $location = $this
-            ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
-            ->setConstructorArgs([['depth' => 5]])
-            ->getMock();
+        $location = $this->createMock(Location::class);
+        $location->method('getDepth')->willReturn(5);
 
         $this->executionContext
             ->expects(self::never())
@@ -45,11 +42,8 @@ class LocationIsNotRootValidatorTest extends TestCase
 
     public function testInvalid(): void
     {
-        $location = $this
-            ->getMockBuilder(Location::class)
-            ->setMethodsExcept(['__get'])
-            ->setConstructorArgs([['depth' => 1]])
-            ->getMock();
+        $location = $this->createMock(Location::class);
+        $location->method('getDepth')->willReturn(1);
 
         $this->executionContext
             ->expects(self::once())

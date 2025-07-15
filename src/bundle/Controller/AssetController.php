@@ -144,10 +144,14 @@ class AssetController extends Controller
      */
     private function createGenericErrorResponse(string $errorMessage): JsonResponse
     {
-        return new JsonResponse([
-            'status' => 'failed',
-            'error' => $errorMessage,
-        ]);
+        return new JsonResponse(
+            [
+                'status' => 'failed',
+                'error' => $errorMessage,
+                'errorMessage' => $errorMessage,
+            ],
+            Response::HTTP_BAD_REQUEST
+        );
     }
 
     /**

@@ -8,15 +8,23 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class IsRoot extends AbstractSpecification
+final class IsContentStructureRoot extends AbstractSpecification
 {
+    private ConfigResolverInterface $configResolver;
+
+    public function __construct(ConfigResolverInterface $configResolver)
+    {
+        $this->configResolver = $configResolver;
+    }
+
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      */
     public function isSatisfiedBy($item): bool
     {
-        return 1 === $item->getDepth();
+        return $item->getId() === (int)$this->configResolver->getParameter('location_ids.content_structure');
     }
 }
