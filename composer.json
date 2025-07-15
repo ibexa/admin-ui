@@ -25,6 +25,12 @@
             "Ibexa\\Tests\\AdminUi\\": "tests/lib/"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://updates.ibexa.co"
+        }
+    ],
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
@@ -48,6 +54,7 @@
         "symfony/webpack-encore-bundle": "^v1.17",
         "jms/translation-bundle": "^1.5",
         "ibexa/core": "~4.6.0@dev",
+        "ibexa/corporate-account": "~4.6.0@dev",
         "ibexa/content-forms": "~4.6.0@dev",
         "ibexa/design-engine": "~4.6.0@dev",
         "ibexa/user": "~4.6.0@dev",

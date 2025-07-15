@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Extension\EventSubscriber;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
-use Ibexa\Contracts\Core\Specification\SpecificationInterface;
+use Ibexa\CorporateAccount\Configuration\CorporateAccount;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -30,7 +30,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
     /** @var array<string, mixed> */
     private array $modifiedOptions;
 
-    private ?SpecificationInterface $contentTypeSpecification;
+    private ?CorporateAccount $corporateAccount;
 
     /**
      * @param string[]|string $fieldIdentifiers
@@ -40,12 +40,12 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
         string $fieldTypeIdentifier,
         array $modifiedOptions,
         $fieldIdentifiers = [],
-        ?SpecificationInterface $contentTypeSpecification = null
+        ?CorporateAccount $corporateAccount = null
     ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->modifiedOptions = $modifiedOptions;
         $this->fieldIdentifiers = is_array($fieldIdentifiers) ? $fieldIdentifiers : [$fieldIdentifiers];
-        $this->contentTypeSpecification = $contentTypeSpecification;
+        $this->corporateAccount = $corporateAccount;
     }
 
     public static function getSubscribedEvents(): array
@@ -84,7 +84,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
 
     private function isApplicableToContentTypeDraft(?ContentTypeDraft $contentTypeDraft): bool
     {
-        if ($this->contentTypeSpecification === null) {
+        if ($this->corporateAccount === null) {
             return true;
         }
 
@@ -92,7 +92,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
             return false;
         }
 
-        return $this->contentTypeSpecification->isSatisfiedBy($contentTypeDraft);
+        return $contentTypeDraft->getIdentifier() === $this->corporateAccount->getCompanyContentTypeIdentifier();
     }
 
     /**
