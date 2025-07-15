@@ -52,10 +52,10 @@ class CompileAssetsCommand extends Command
                 null
             )
             ->addOption(
-                'frontend-config-name',
+                'frontend-configs-name',
                 'fcn',
                 InputOption::VALUE_REQUIRED,
-                'Frontend config name passed to webpack encore',
+                'Frontend configs name passed to webpack encore',
                 null
             )
         ;
@@ -70,25 +70,35 @@ class CompileAssetsCommand extends Command
         }
     }
 
+    protected function getFrontendConfigPath(string $configName): string
+    {
+        return "./node_modules/@ibexa/frontend-config/ibexa.webpack.{$configName}.configs.js";
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $timeout = (float)$input->getOption('timeout');
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
-        $frontendConfigName = $input->getOption('frontend-config-name');
+        $frontendConfigsName = $input->getOption('frontend-configs-name');
 
         $output->writeln(sprintf('Compiling all <comment>%s</comment> assets.', $env));
         $output->writeln('');
 
         $encoreEnv = $env === 'prod' ? 'prod' : 'dev';
-        $yarnEncoreCommand = "yarn encore {$encoreEnv}";
+        $yarnBaseEncoreCommand = "yarn encore {$encoreEnv}";
+        $yarnEncoreCommand = $yarnBaseEncoreCommand;
 
         if (!empty($configName)) {
-            $yarnEncoreCommand .= " --config-name {$configName}";
+            $yarnEncoreCommand = "{$yarnBaseEncoreCommand} --config-name {$configName}";
         }
 
-        if (!empty($frontendConfigName)) {
-            $yarnEncoreCommand .= " --config ./node_modules/@ibexa/frontend-config/ibexa.webpack.{$frontendConfigName}.configs";
+        if (!empty($frontendConfigsName)) {
+            $frontendConfigsNameArr = explode(',', $frontendConfigsName);
+            $yarnEncoreCommand = implode(' && ', array_map(
+                fn (string $configName) => "{$yarnBaseEncoreCommand} --config {$this->getFrontendConfigPath($configName)}",
+                $frontendConfigsNameArr
+            ));
         }
 
         $debugFormatter = $this->getHelper('debug_formatter');
