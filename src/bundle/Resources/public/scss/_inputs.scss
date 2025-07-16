@@ -450,12 +450,6 @@
     &--type-number {
         max-width: calculateRem(150px);
 
-        .ibexa-input-text-wrapper {
-            &__actions {
-                right: calculateRem(32px);
-            }
-        }
-
         .ibexa-input--text {
             padding-right: calculateRem(12px);
         }
