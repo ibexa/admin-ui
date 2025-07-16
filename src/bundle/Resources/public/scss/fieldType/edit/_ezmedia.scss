@@ -18,6 +18,18 @@
             }
         }
 
+        &__input-wrapper {
+            &--checkbox-input {
+                display: flex;
+                align-items: flex-start;
+                gap: calculateRem(8px);
+
+                .ibexa-input--checkbox {
+                    margin-top: calculateRem(4px);
+                }
+            }
+        }
+
         &__spinner {
             display: none;
         }
