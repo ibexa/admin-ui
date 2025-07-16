@@ -7,7 +7,7 @@
             display: grid;
             column-gap: calculateRem(16px);
             grid-template-columns: repeat(2, 1fr);
-            padding: 0 calculateRem(46px);
+            padding: calculateRem(16px) calculateRem(46px) 0;
         }
 
         &__author {
@@ -19,7 +19,7 @@
         &__main-actions {
             display: flex;
             justify-content: flex-end;
-            padding: calculateRem(24px) 0 calculateRem(16px);
+            padding: 0 0 calculateRem(24px);
             border-bottom: calculateRem(1px) solid $ibexa-color-light;
         }
 

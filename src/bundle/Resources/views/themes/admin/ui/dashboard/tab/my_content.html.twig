@@ -1,6 +1,7 @@
 {% trans_default_domain 'ibexa_dashboard' %}
 
 {% import "@ibexadesign/ui/dashboard/macros.html.twig" as macros %}
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% set body_rows = [] %}
 {% for row in data %}
@@ -37,6 +38,7 @@
 {% endfor %}
 
 {% include '@ibexadesign/ui/component/table/table.html.twig' with {
+    headline: results_headline(data|length),
     head_cols: [
         { has_icon: true },
         { content: 'dashboard.table.name'|trans|desc('Name') },
