@@ -229,7 +229,10 @@
     }
 
     &__items-list-filter-empty-img {
+        width: 100%;
         max-width: calculateRem(300px);
+        height: auto;
+        object-fit: contain;
     }
 
     &__items-list-filter-empty-message {
