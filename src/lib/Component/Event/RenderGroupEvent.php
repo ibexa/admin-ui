@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Component\Registry;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderGroupEvent} class is deprecated, will be removed in 5.0.
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderGroupEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderGroupEvent} instead
  */
 class RenderGroupEvent extends Event
