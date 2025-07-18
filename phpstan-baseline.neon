@@ -7351,19 +7351,7 @@ parameters:
 			path: src/lib/Notification/FlashBagNotificationHandler.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:error\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Notification/TranslatableNotificationHandler.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:info\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Notification/TranslatableNotificationHandler.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:success\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Notification/TranslatableNotificationHandler.php
