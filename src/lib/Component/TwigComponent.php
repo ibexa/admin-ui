@@ -12,7 +12,7 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\TwigComponent} class is deprecated, will be removed in 5.0.
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\TwigComponent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\TemplateComponent} instead
  */
 class TwigComponent implements ComponentInterface

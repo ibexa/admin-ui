@@ -12,7 +12,7 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Ibexa\TwigComponents\Component\Registry as TwigComponentsRegistry;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Registry} class is deprecated, will be removed in 5.0.
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Registry} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\Registry} instead
  */
 class Registry
