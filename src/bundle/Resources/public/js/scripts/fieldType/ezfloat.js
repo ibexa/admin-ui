@@ -1,6 +1,7 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezfloat';
     const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class EzFloatValidator extends ibexa.BaseFieldValidator {
         /**
@@ -19,7 +20,7 @@
             const isLess = value < parseFloat(event.target.getAttribute('min'));
             const isGreater = value > parseFloat(event.target.getAttribute('max'));
             const isError = (isEmpty && isRequired) || (!isEmpty && (!isFloat || isLess || isGreater));
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector(SELECTOR_LABEL).innerText;
             const result = { isError };
 
             if (isEmpty) {
@@ -49,6 +50,7 @@
                 eventName: 'blur',
                 callback: 'validateFloat',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
+                invalidStateSelectors: [SELECTOR_LABEL],
             },
         ],
     });

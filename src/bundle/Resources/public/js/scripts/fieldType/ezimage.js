@@ -95,7 +95,7 @@
             const alreadyIsError = this.fieldContainer.classList.contains(this.classInvalid);
             const isEmpty = !event.target.value;
             const isError = alreadyIsError || (isEmpty && isRequired && !isFileFieldEmpty);
-            const label = event.target.closest(SELECTOR_ALT_WRAPPER).querySelector('.ibexa-data-source__label').innerHTML;
+            const label = event.target.closest(SELECTOR_ALT_WRAPPER).querySelector('.ibexa-data-source__label').innerText;
             const result = { isError };
 
             if (isEmpty) {
@@ -116,12 +116,13 @@
                     eventName: 'change',
                     callback: 'validateInput',
                     errorNodeSelectors: ['.ibexa-form-error'],
+                    invalidStateSelectors: ['.ibexa-field-edit__label'],
                 },
                 {
                     selector: SELECTOR_INPUT_ALT,
                     eventName: 'blur',
                     callback: 'validateAltInput',
-                    invalidStateSelectors: ['.ibexa-data-source__field--alternativeText'],
+                    invalidStateSelectors: ['.ibexa-data-source__field--alternativeText', '.ibexa-field-edit__label'],
                     errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-form-error`],
                 },
                 {
@@ -130,6 +131,7 @@
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
+                    invalidStateSelectors: ['.ibexa-field-edit__label'],
                 },
                 {
                     isValueValidator: false,
@@ -137,13 +139,14 @@
                     eventName: 'ibexa-invalid-file-type',
                     callback: 'showFileTypeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
+                    invalidStateSelectors: ['.ibexa-field-edit__label'],
                 },
                 {
                     isValueValidator: false,
                     selector: SELECTOR_INPUT_ALT,
                     eventName: EVENT_CANCEL_ERROR,
                     callback: 'cancelErrors',
-                    invalidStateSelectors: ['.ibexa-data-source__field--alternativeText'],
+                    invalidStateSelectors: ['.ibexa-data-source__field--alternativeText', '.ibexa-field-edit__label'],
                     errorNodeSelectors: [`${SELECTOR_ALT_WRAPPER} .ibexa-form-error`],
                 },
             ],
