@@ -1,6 +1,7 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ezboolean';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class EzBooleanValidator extends ibexa.BaseFieldValidator {
         /**
@@ -13,7 +14,7 @@
          */
         validateInput(event) {
             const isError = !event.target.checked && event.target.required;
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector(SELECTOR_LABEL).innerText;
             const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
             return {
@@ -32,6 +33,7 @@
                 eventName: 'change',
                 callback: 'validateInput',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
+                invalidStateSelectors: [SELECTOR_LABEL],
             },
         ],
     });
