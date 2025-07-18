@@ -1,12 +1,8 @@
 {% trans_default_domain 'ibexa_notifications' %}
 
 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
-    head_cols: [
-        { content: 'notification.type'|trans|desc('Type') },
-        { content: 'notification.description'|trans|desc('Description') },
-        { content: 'notification.date'|trans|desc('Date') },
-    ],
-    class: 'ibexa-table--notifications',
+    head_cols: [],
+    class: 'ibexa-table--not-striped ibexa-list--notifications',
     attr: {
         'data-notifications': path('ibexa.notifications.render.page'),
         'data-notifications-count': path('ibexa.notifications.count'),
@@ -16,27 +12,11 @@
 } %}
     {% block tbody %}
         {% if pager.count is same as(0) %}
-            {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
-                colspan: 3,
-                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no notifications.'),
-            } %}
+            {{ 'bookmark.list.empty'|trans|desc('You have no notifications.') }}
         {% else %}
-            {% block tbody_not_empty %}
-                {{ notifications|raw }}
-            {% endblock %}
+            {% for notification in notifications %}
+                {{ notification|raw }}
+            {% endfor %}
         {% endif %}
     {% endblock %}
 {% endembed %}
-
-{% if pager.haveToPaginate %}
-    <div class="ibexa-pagination">
-        <div class="ibexa-pagination__text">
-            {{ 'pagination.viewing'|trans({
-            '%viewing%': pager.currentPageResults|length,
-            '%total%': pager.nbResults}, 'ibexa_pagination')|desc('Viewing %viewing% out of %total% items')|raw }}
-        </div>
-        <div class="ibexa-pagination__navigation">
-            {{ pagination|raw }}
-        </div>
-    </div>
-{% endif %}
