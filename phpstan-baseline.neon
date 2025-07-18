@@ -135,7 +135,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$languageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
 			identifier: property.nonObject
-			count: 4
+			count: 5
 			path: src/bundle/Controller/ContentController.php
 
 		-
