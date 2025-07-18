@@ -81,7 +81,7 @@ final class ProfileEditController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        $languageCode ??= $user->contentInfo->mainLanguageCode;
+        $languageCode ??= $user->getContentInfo()->getMainLanguageCode();
 
         $data = (new UserUpdateMapper())->mapToFormData($user, $user->getContentType(), [
             'languageCode' => $languageCode,
@@ -93,7 +93,8 @@ final class ProfileEditController extends Controller
             $data,
             [
                 'languageCode' => $languageCode,
-                'mainLanguageCode' => $user->contentInfo->mainLanguageCode,
+                'mainLanguageCode' => $user->getContentInfo()->getMainLanguageCode(),
+                'struct' => $data,
             ]
         );
 
@@ -107,7 +108,7 @@ final class ProfileEditController extends Controller
 
         $location = $this->repository->sudo(
             fn (): Location => $this->locationService->loadLocation(
-                (int)$user->versionInfo->contentInfo->mainLocationId
+                (int)$user->getVersionInfo()->getContentInfo()->getMainLocationId()
             )
         );
 
