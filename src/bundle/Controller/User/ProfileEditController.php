@@ -28,51 +28,28 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\FieldType\User\Type as UserFieldType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class ProfileEditController extends Controller
 {
-    private Repository $repository;
-
-    private UserService $userService;
-
-    private LocationService $locationService;
-
-    private UserProfileConfigurationInterface $configuration;
-
-    private PermissionResolver $permissionResolver;
-
-    private LanguageService $languageService;
-
-    private ActionDispatcherInterface $userActionDispatcher;
-
-    private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
-
     public function __construct(
-        Repository $repository,
-        UserService $userService,
-        LocationService $locationService,
-        UserProfileConfigurationInterface $configuration,
-        PermissionResolver $permissionResolver,
-        LanguageService $languageService,
-        ActionDispatcherInterface $userActionDispatcher,
-        GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
+        private readonly Repository $repository,
+        private readonly UserService $userService,
+        private readonly LocationService $locationService,
+        private readonly UserProfileConfigurationInterface $configuration,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LanguageService $languageService,
+        private readonly ActionDispatcherInterface $userActionDispatcher,
+        private readonly GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
     ) {
-        $this->repository = $repository;
-        $this->userService = $userService;
-        $this->locationService = $locationService;
-        $this->configuration = $configuration;
-        $this->permissionResolver = $permissionResolver;
-        $this->languageService = $languageService;
-        $this->userActionDispatcher = $userActionDispatcher;
-        $this->groupedContentFormFieldsProvider = $groupedContentFormFieldsProvider;
     }
 
-    /**
-     * @return \Ibexa\ContentForms\User\View\UserUpdateView|\Symfony\Component\HttpFoundation\Response
-     */
-    public function editAction(Request $request, ?string $languageCode)
+    public function editAction(Request $request, ?string $languageCode): UserUpdateView|Response
     {
-        $user = $this->userService->loadUser($this->permissionResolver->getCurrentUserReference()->getUserId());
+        $user = $this->userService->loadUser(
+            $this->permissionResolver->getCurrentUserReference()->getUserId()
+        );
+
         if (!$this->isUserProfileAvailable($user)) {
             throw $this->createNotFoundException();
         }
@@ -81,11 +58,11 @@ final class ProfileEditController extends Controller
             throw $this->createAccessDeniedException();
         }
 
-        $languageCode ??= $user->contentInfo->mainLanguageCode;
+        $languageCode ??= $user->getContentInfo()->getMainLanguageCode();
 
         $data = (new UserUpdateMapper())->mapToFormData($user, $user->getContentType(), [
             'languageCode' => $languageCode,
-            'filter' => static fn (Field $field): bool => $field->fieldTypeIdentifier !== UserFieldType::FIELD_TYPE_IDENTIFIER,
+            'filter' => static fn (Field $field): bool => $field->getFieldTypeIdentifier() !== UserFieldType::FIELD_TYPE_IDENTIFIER,
         ]);
 
         $form = $this->createForm(
@@ -93,7 +70,9 @@ final class ProfileEditController extends Controller
             $data,
             [
                 'languageCode' => $languageCode,
-                'mainLanguageCode' => $user->contentInfo->mainLanguageCode,
+                'mainLanguageCode' => $user->getContentInfo()->getMainLanguageCode(),
+                'struct' => $data,
+                'content' => $user,
             ]
         );
 
@@ -107,14 +86,15 @@ final class ProfileEditController extends Controller
 
         $location = $this->repository->sudo(
             fn (): Location => $this->locationService->loadLocation(
-                (int)$user->versionInfo->contentInfo->mainLocationId
+                (int)$user->getVersionInfo()->getContentInfo()->getMainLocationId()
             )
         );
 
         $parentLocation = null;
         try {
             $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
-        } catch (UnauthorizedException $e) {
+        } catch (UnauthorizedException) {
+            //do nothing
         }
 
         return new UserUpdateView(

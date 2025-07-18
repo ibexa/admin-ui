@@ -101,6 +101,7 @@ class UserOnTheFlyController extends Controller
         $form = $this->createForm(UserCreateType::class, $data, [
             'languageCode' => $language->languageCode,
             'mainLanguageCode' => $language->languageCode,
+            'struct' => $data,
         ]);
 
         $form->handleRequest($request);
@@ -195,7 +196,8 @@ class UserOnTheFlyController extends Controller
             [
                 'location' => $location,
                 'languageCode' => $languageCode,
-                'mainLanguageCode' => $user->contentInfo->mainLanguageCode,
+                'mainLanguageCode' => $user->getContentInfo()->getMainLanguageCode(),
+                'struct' => $contentUpdate,
             ]
         );
 
