@@ -16,7 +16,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 /**
  * @internal
  */
-class ContentEditEvent extends Event
+final class ContentEditEvent extends Event
 {
     private ?Response $response = null;
 
