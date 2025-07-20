@@ -73,6 +73,12 @@ parameters:
 			path: src/bundle/Controller/Content/VersionDraftConflictController.php
 
 		-
+			message: '#^Anonymous function should return Symfony\\Component\\HttpFoundation\\Response but returns Symfony\\Component\\HttpFoundation\\Response\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
 			message: '#^Call to an undefined method Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\MainTranslationUpdateData\:\:getContentInfo\(\)\.$#'
 			identifier: method.notFound
 			count: 1

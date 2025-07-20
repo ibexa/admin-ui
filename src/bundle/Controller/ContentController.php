@@ -212,7 +212,7 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentEditData $data): RedirectResponse {
+            $result = $this->submitHandler->handle($form, function (ContentEditData $data): Response {
                 $contentInfo = $data->getContentInfo();
                 $language = $data->getLanguage();
                 $location = $data->getLocation();
