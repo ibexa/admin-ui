@@ -56,7 +56,7 @@
             });
             dateInputNodes.forEach((dateInputNode) => {
                 if (!dateInputNode.disabled) {
-                    const datePickerNode = dateInputNode.closest('.ibexa-picker');
+                    const datePickerNode = dateInputNode.closest('.ibexa-picker').querySelector('.ibexa-date-time-picker');
                     if (datePickerNode) {
                         const datePickerInstance = ibexa.helpers.objectInstances.getInstance(datePickerNode);
 
