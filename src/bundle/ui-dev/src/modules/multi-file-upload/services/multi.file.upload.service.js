@@ -268,7 +268,7 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
     }
 
     if (!locationMapping) {
-        const isAllowed = config.defaultMappings.every(mapping => checkIsFileWithinMimeTypes(mapping.mimeTypes, file));
+        const isAllowed = config.defaultMappings.every((mapping) => checkIsFileWithinMimeTypes(mapping.mimeTypes, file));
 
         if (!isAllowed) {
             errorMsgs.push(
