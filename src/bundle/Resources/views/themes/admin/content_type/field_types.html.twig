@@ -220,9 +220,7 @@
             </button>
         </div>
 
-        {% if form.options is empty %}
-            {{ form_widget(form.options, { attr: { hidden: 'hidden' } }) }}
-        {% endif %}
+        {% do form.options.setRendered %}
     </div>
 {% endblock %}
 
