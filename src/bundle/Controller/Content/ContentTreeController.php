@@ -49,7 +49,7 @@ class ContentTreeController extends RestController
 
     private ConfigResolverInterface $configResolver;
 
-    private SiteaccessResolverInterface  $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
     public function __construct(
         LocationService $locationService,
@@ -226,7 +226,7 @@ class ContentTreeController extends RestController
                 'restrictedLanguageCodes' => $createLimitationsValues[Limitation::LANGUAGE],
             ],
             'edit' => [
-                'hasAccess' => $lookupUpdateLimitationsResult->hasAccess(),
+                'hasAccess' => $this->canUserEditContent($location),
                 // skipped content type limitation values as in this case it can be inferred from "hasAccess" above
                 'restrictedLanguageCodes' => $updateLimitationsValues[Limitation::LANGUAGE],
             ],
@@ -324,6 +324,20 @@ class ContentTreeController extends RestController
         );
 
         return !empty($siteAccesses);
+    }
+
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
+    private function canUserEditContent(Location $location): bool
+    {
+        return $this->permissionResolver->canUser(
+            'content',
+            'edit',
+            $location->getContent(),
+            [$location]
+        );
     }
 }
 

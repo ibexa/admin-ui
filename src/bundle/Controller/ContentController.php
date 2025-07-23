@@ -216,6 +216,7 @@ class ContentController extends Controller
     public function editAction(Request $request): Response
     {
         /* @todo it shouldn't rely on keys from request */
+        /** @var string[] $requestKeys */
         $requestKeys = $request->request->keys();
         $formName = $request->query->get(
             'formName',
