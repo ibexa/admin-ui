@@ -72,7 +72,11 @@ final class ProfileEditController extends Controller
                 'languageCode' => $languageCode,
                 'mainLanguageCode' => $user->getContentInfo()->getMainLanguageCode(),
                 'struct' => $data,
-                'content' => $user,
+                //This is **the only permissible case for nullable content**. It stems from the fact that
+                //one's own user profile editing shouldn't undergo permissions checks. Otherwise, it
+                //would be impossible to composer role that would allow that out of the box for all users
+                //that are assigned to it.
+                'content' => null,
             ]
         );
 
