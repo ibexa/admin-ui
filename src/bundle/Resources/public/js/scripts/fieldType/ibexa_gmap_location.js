@@ -5,7 +5,7 @@
     const SELECTOR_LON_FIELD = '.ibexa-data-source__field--longitude';
     const SELECTOR_LAT_INPUT = '.ibexa-data-source__field--latitude .ibexa-data-source__input';
     const SELECTOR_LON_INPUT = '.ibexa-data-source__field--longitude .ibexa-data-source__input';
-    const SELECTOR_ADDRESS_ERROR_NODE = '.ibexa-data-source__field--address';
+    const SELECTOR_ADDRESS_ERROR_NODE = '.ibexa-data-source__field--address .ibexa-form-error';
     const SELECTOR_LAT_ERROR_NODE = '.ibexa-data-source__field--latitude';
     const SELECTOR_LON_ERROR_NODE = '.ibexa-data-source__field--longitude';
     const EVENT_BLUR = 'blur';

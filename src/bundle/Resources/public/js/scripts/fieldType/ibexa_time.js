@@ -2,7 +2,7 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_time';
     const SELECTOR_INPUT = '.ibexa-data-source__input:not(.flatpickr-input)';
     const SELECTOR_FLATPICKR_INPUT = '.flatpickr-input';
-    const SELECTOR_ERROR_NODE = '.ibexa-data-source';
+    const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const EVENT_VALUE_CHANGED = 'change';
 
     class IbexaTimeValidator extends ibexa.BaseFieldValidator {

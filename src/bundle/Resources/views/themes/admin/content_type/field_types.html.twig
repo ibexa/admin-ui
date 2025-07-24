@@ -207,16 +207,20 @@
         <div class="ibexa_selection-settings-toolbar">
             <button
                 type="button"
-                class="ibexa_selection-settings-option-add btn ibexa-btn ibexa-btn--secondary">
+                class="ibexa_selection-settings-option-add btn ibexa-btn ibexa-btn--secondary"
+            >
                 {{ "field_definition.ibexa_selection.add_option"|trans({}, 'ibexa_content_type')|desc("Add an option") }}
             </button>
             <button
                 type="button"
                 class="ibexa_selection-settings-option-remove btn ibexa-btn ibexa-btn--secondary"
-                disabled>
+                disabled
+            >
                 {{ "field_definition.ibexa_selection.remove_selected_options"|trans({}, 'ibexa_content_type')|desc("Remove selected options") }}
             </button>
         </div>
+
+        {% do form.options.setRendered %}
     </div>
 {% endblock %}
 
