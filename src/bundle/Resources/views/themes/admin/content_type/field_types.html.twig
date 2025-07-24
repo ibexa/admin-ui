@@ -207,16 +207,20 @@
         <div class="ezselection-settings-toolbar">
             <button
                 type="button"
-                class="ezselection-settings-option-add btn ibexa-btn ibexa-btn--secondary">
+                class="ezselection-settings-option-add btn ibexa-btn ibexa-btn--secondary"
+            >
                 {{ "field_definition.ezselection.add_option"|trans({}, 'ibexa_content_type')|desc("Add an option") }}
             </button>
             <button
                 type="button"
                 class="ezselection-settings-option-remove btn ibexa-btn ibexa-btn--secondary"
-                disabled>
+                disabled
+            >
                 {{ "field_definition.ezselection.remove_selected_options"|trans({}, 'ibexa_content_type')|desc("Remove selected options") }}
             </button>
         </div>
+
+        {% do form.options.setRendered %}
     </div>
 {% endblock %}
 
