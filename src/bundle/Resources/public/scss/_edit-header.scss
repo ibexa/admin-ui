@@ -30,7 +30,10 @@
         }
 
         &--full {
-            display: inline-block;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            white-space: normal;
             max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -44,6 +47,7 @@
 
         &--top {
             height: calculateRem(48px);
+            margin-bottom: calculateRem(16px);
 
             .ibexa-edit-header__title {
                 height: 0;
@@ -73,15 +77,6 @@
                 fill: $ibexa-color-dark-400;
             }
         }
-
-        &--left {
-            max-width: 75%;
-
-            .ibexa-label {
-                margin-bottom: 0;
-                color: $ibexa-color-dark-400;
-            }
-        }
     }
 
     &__context-actions {
@@ -89,15 +84,14 @@
         width: 100%;
     }
 
-    &__tooltip {
-        margin-left: calculateRem(8px);
+    &__info-bar {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
 
-    &__action-name-container {
-        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    &__info-bar-action-type {
+        display: flex;
+        align-items: center;
     }
 
     &__action-name {
@@ -108,6 +102,8 @@
     }
 
     &__subtitle {
+        margin-top: calculateRem(4px);
+        font-size: $ibexa-text-font-size-medium;
         opacity: 1;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     }
@@ -122,12 +118,30 @@
         transition-duration: $ibexa-admin-transition-duration;
     }
 
+    &__meta {
+        display: flex;
+        flex-direction: row;
+        gap: calculateRem(4px);
+    }
+
+    &__meta-item {
+        display: flex;
+        gap: calculateRem(4px);
+        align-items: center;
+        margin-top: calculateRem(8px);
+        padding: calculateRem(4px) calculateRem(8px);
+        font-size: calculateRem(10px);
+        color: $ibexa-color-dark-500;
+        border-radius: calculateRem(16px);
+        border: calculateRem(1px) solid $ibexa-color-light-600;
+    }
+
     &__extra-bottom-content {
         margin-top: calculateRem(10px);
     }
 
     .ibexa-autosave {
-        display: inline-block;
+        display: flex;
         border-left: calculateRem(1px) solid $ibexa-color-light;
         padding-left: calculateRem(12px);
         margin-left: calculateRem(12px);
@@ -152,7 +166,7 @@
                 border-bottom: none;
             }
 
-            &__action-name-container {
+            &__info-bar {
                 margin-top: calculateRem(-8px);
             }
 
@@ -168,6 +182,10 @@
 
             &__title {
                 min-height: calculateRem(34px);
+            }
+
+            &__meta {
+                display: none;
             }
 
             &__name {

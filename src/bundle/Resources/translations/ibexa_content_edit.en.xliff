@@ -16,6 +16,11 @@
         <target state="new">This Field Type is not editable</target>
         <note>key: content.field.non_editable</note>
       </trans-unit>
+      <trans-unit id="927b5658769b10a67f0aa5e9f3d8b35e746e0276" resname="content.meta.created_by">
+        <source>Created by %name%</source>
+        <target state="new">Created by %name%</target>
+        <note>key: content.meta.created_by</note>
+      </trans-unit>
       <trans-unit id="07d6fb7c02b8730592a3bb68a315caa63031d44e" resname="content.published.success">
         <source>Content published.</source>
         <target state="new">Content published.</target>
@@ -30,6 +35,11 @@
         <source>Location: %location% Translation: %language%</source>
         <target state="new">Location: %location% Translation: %language%</target>
         <note>key: editing_details</note>
+      </trans-unit>
+      <trans-unit id="582b09a837963ba464ba24493c8cc7c360b99708" resname="editing_details_subtitle">
+        <source>under: %location%</source>
+        <target state="new">under: %location%</target>
+        <note>key: editing_details_subtitle</note>
       </trans-unit>
       <trans-unit id="009667fab56f0bec66634f009a75ffd9425f2987" resname="fieldtype.translation_is_disabled">
         <source>Translating the %fieldName% Field is disabled. See content type definition for details.</source>
