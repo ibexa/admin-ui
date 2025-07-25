@@ -2,12 +2,44 @@
     const SELECTOR_PICKER = '.ibexa-picker';
     const SELECTOR_PICKER_INPUT = '.ibexa-date-time-picker__input';
     const SELECTOR_FORM_INPUT = '.ibexa-picker__form-input';
+    const SECTION_ADJUSTMENT = 24;
+    const PICKER_ADJUSTMENT = 2;
     const pickers = doc.querySelectorAll(SELECTOR_PICKER);
     const { formatShortDateTime, convertDateToTimezone, getBrowserTimezone } = ibexa.helpers.timezone;
     const userTimezone = ibexa.adminUiConfig.timezone;
     const pickerConfig = {
         enableTime: true,
         time_24hr: true,
+        onOpen: (_selectedDates, _dateStr, instance) => {
+            instance.scrollHandler = () => {
+                if (instance.isOpen) {
+                    const { calendarContainer } = instance;
+                    const { input } = instance;
+                    const rect = input.getBoundingClientRect();
+                    const pickerHeight = calendarContainer.offsetHeight;
+                    const spaceBelow = global.innerHeight - (rect.bottom + SECTION_ADJUSTMENT);
+
+                    if (pickerHeight > spaceBelow) {
+                        calendarContainer.style.top = `${rect.top + global.scrollY - pickerHeight - PICKER_ADJUSTMENT}px`;
+                        calendarContainer.classList.remove('arrowTop');
+                        calendarContainer.classList.add('arrowBottom');
+                    } else {
+                        calendarContainer.style.top = `${rect.bottom + global.scrollY + PICKER_ADJUSTMENT}px`;
+                        calendarContainer.classList.remove('arrowBottom');
+                        calendarContainer.classList.add('arrowTop');
+                    }
+                }
+            };
+
+            global.addEventListener('scroll', instance.scrollHandler, true);
+            doc.addEventListener('scroll', instance.scrollHandler, true);
+
+            instance.scrollHandler();
+        },
+        onClose: (_selectedDates, _dateStr, instance) => {
+            global.removeEventListener('scroll', instance.scrollHandler, true);
+            doc.removeEventListener('scroll', instance.scrollHandler, true);
+        },
         formatDate: (date) => formatShortDateTime(date, null),
     };
     const updateInputValue = (formInput, timestamp) => {
