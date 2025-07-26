@@ -10,6 +10,10 @@
     const SELECTOR_ERROR_WRAPPER = '.ibexa-form-error';
 
     class IbexaUserValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaUserValidator';
+        }
+
         /**
          * Validates the input field value
          *

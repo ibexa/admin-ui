@@ -2,6 +2,10 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_text';
 
     class IbexaTextValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaTextValidator';
+        }
+
         /**
          * Validates the textarea field value
          *

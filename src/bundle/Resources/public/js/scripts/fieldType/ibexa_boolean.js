@@ -3,6 +3,10 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
     class IbexaBooleanValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaBooleanValidator';
+        }
+
         /**
          * Validates the input field value
          *
