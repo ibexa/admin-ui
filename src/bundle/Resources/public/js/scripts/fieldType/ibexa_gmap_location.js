@@ -20,6 +20,10 @@
     const maps = [];
 
     class IbexaGMapLocationValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaGMapLocationValidator';
+        }
+
         /**
          * Validates latitude/longitude input value
          *
