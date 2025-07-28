@@ -165,6 +165,8 @@ const ContentCreateWidget = () => {
         }
 
         setSelectedLanguage(preselectedLanguage ?? firstLanguageCode);
+        setSelectedContentType(preselectedContentType);
+        setIsSelectedSuggestion(false);
         setFilterQuery('');
     }, [createContentVisible]);
 
