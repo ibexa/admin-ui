@@ -35,7 +35,10 @@ const findFileTypeMapping = (mappings, file) => mappings.find((item) => item.mim
 const checkIsFileWithinMimeTypes = (mimeTypes, file) => !!mimeTypes.find((type) => type === file.type);
 const isMimeTypeAllowed = (mappings, file) => !!findFileTypeMapping(mappings, file);
 
-const checkFileTypeAllowed = (file, locationMapping) => (!locationMapping ? true : isMimeTypeAllowed(locationMapping.mappings, file));
+const checkFileTypeAllowed = (file, locationMapping, config) => (!locationMapping
+    ? config.defaultMappings.every((mapping) => checkIsFileWithinMimeTypes(mapping.mimeTypes, file))
+    : isMimeTypeAllowed(locationMapping.mappings, file)
+);
 
 const detectContentTypeMapping = (file, parentInfo, config) => {
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
@@ -263,18 +266,8 @@ export const checkCanUpload = (file, parentInfo, config, errorCallback) => {
         );
     }
 
-    if (!checkFileTypeAllowed(file, locationMapping)) {
+    if (!checkFileTypeAllowed(file, locationMapping, config)) {
         errorMsgs.push(Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'));
-    }
-
-    if (!locationMapping) {
-        const isAllowed = config.defaultMappings.every((mapping) => checkIsFileWithinMimeTypes(mapping.mimeTypes, file));
-
-        if (!isAllowed) {
-            errorMsgs.push(
-                Translator.trans(/*@Desc("File type is not allowed")*/ 'disallowed_type.message', {}, 'ibexa_multi_file_upload'),
-            );
-        }
     }
 
     if (file.size > maxFileSize) {
