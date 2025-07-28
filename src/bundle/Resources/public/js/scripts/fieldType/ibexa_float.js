@@ -3,6 +3,10 @@
     const SELECTOR_ERROR_NODE = `${SELECTOR_FIELD} .ibexa-form-error`;
 
     class IbexaFloatValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaFloatValidator';
+        }
+
         /**
          * Validates the input
          *
