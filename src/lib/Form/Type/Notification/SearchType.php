@@ -66,7 +66,7 @@ final class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'method' => 'POST',
-            'csrf_protection' => false, // Safe: form used only for filtering/searching, no data is modified
+            'csrf_protection' => false,
             'data_class' => SearchQueryData::class,
             'notification_types' => [],
             'translation_domain' => 'ibexa_notifications',

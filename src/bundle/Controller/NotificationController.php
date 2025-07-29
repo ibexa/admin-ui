@@ -158,7 +158,7 @@ class NotificationController extends Controller
         $notifications = [];
 
         foreach ($pagerfanta->getCurrentPageResults() as $notification) {
-            $notifications[] = $notification;
+            $notifications[$notification->id] = false;
         }
 
         return new NotificationSelectionData($notifications);
