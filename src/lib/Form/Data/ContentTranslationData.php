@@ -28,7 +28,7 @@ class ContentTranslationData extends ContentUpdateStruct implements NewnessCheck
 
     public function addFieldData(FieldData $fieldData): void
     {
-        $this->fieldsData[$fieldData->fieldDefinition->identifier] = $fieldData;
+        $this->fieldsData[$fieldData->getFieldDefinition()->getIdentifier()] = $fieldData;
     }
 
     public function isNew(): bool

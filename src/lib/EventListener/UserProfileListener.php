@@ -124,7 +124,7 @@ final class UserProfileListener implements EventSubscriberInterface
         $updateStruct = $this->userService->newUserUpdateStruct();
         $updateStruct->contentUpdateStruct = $this->contentService->newContentUpdateStruct();
 
-        foreach ($data->fieldsData as $fieldDefIdentifier => $fieldData) {
+        foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
             $updateStruct->contentUpdateStruct->setField($fieldDefIdentifier, $fieldData->value, $languageCode);
         }
 
@@ -138,7 +138,7 @@ final class UserProfileListener implements EventSubscriberInterface
             return false;
         }
 
-        foreach ($data->fieldsData as $fieldData) {
+        foreach ($data->getFieldsData() as $fieldData) {
             if ($fieldData->getFieldTypeIdentifier() === UserFieldType::class) {
                 return false;
             }

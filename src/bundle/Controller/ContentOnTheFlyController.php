@@ -195,6 +195,7 @@ class ContentOnTheFlyController extends Controller
             'contentCreateStruct' => $data,
             'drafts_enabled' => false,
             'intent' => 'create',
+            'struct' => $data,
         ]);
 
         $form->handleRequest($request);
@@ -240,7 +241,7 @@ class ContentOnTheFlyController extends Controller
         }
 
         $contentType = $this->contentTypeService->loadContentType(
-            $content->contentInfo->contentTypeId,
+            $content->getContentInfo()->contentTypeId,
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
 
@@ -266,10 +267,11 @@ class ContentOnTheFlyController extends Controller
             [
                 'location' => $location,
                 'languageCode' => $languageCode,
-                'mainLanguageCode' => $content->contentInfo->mainLanguageCode,
+                'mainLanguageCode' => $content->getContentInfo()->getMainLanguageCode(),
                 'content' => $content,
                 'contentUpdateStruct' => $contentUpdate,
                 'drafts_enabled' => true,
+                'struct' => $contentUpdate,
             ]
         );
 
