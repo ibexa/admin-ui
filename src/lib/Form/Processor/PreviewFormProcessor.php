@@ -108,32 +108,34 @@ class PreviewFormProcessor implements EventSubscriberInterface
      * Saves content draft corresponding to $data.
      * Depending on the nature of $data (create or update data), the draft will either be created or simply updated.
      *
-     * @param \Ibexa\ContentForms\Data\Content\ContentCreateData|\Ibexa\Contracts\Core\Repository\Values\Content\ContentStruct|\Ibexa\ContentForms\Data\Content\ContentUpdateData $data
-     * @param string $languageCode
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
      */
-    private function saveDraft(ContentStruct $data, string $languageCode, ?array $fieldIdentifiersToValidate): Content
-    {
+    private function saveDraft(
+        ContentCreateData|ContentStruct|ContentUpdateData $data,
+        string $languageCode,
+        ?array $fieldIdentifiersToValidate
+    ): Content {
         $mainLanguageCode = $this->resolveMainLanguageCode($data);
-        foreach ($data->fieldsData as $fieldDefIdentifier => $fieldData) {
-            if ($mainLanguageCode != $languageCode && !$fieldData->fieldDefinition->isTranslatable) {
+        foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
+            if ($mainLanguageCode != $languageCode && !$fieldData->getFieldDefinition()->isTranslatable()) {
                 continue;
             }
 
-            $data->setField($fieldDefIdentifier, $fieldData->value, $languageCode);
+            $data->setField($fieldDefIdentifier, $fieldData->getValue(), $languageCode);
         }
 
         if ($data->isNew()) {
             $contentDraft = $this->contentService->createContent($data, $data->getLocationStructs(), $fieldIdentifiersToValidate);
         } else {
-            $contentDraft = $this->contentService->updateContent($data->contentDraft->getVersionInfo(), $data, $fieldIdentifiersToValidate);
+            $contentDraft = $this->contentService->updateContent(
+                $data->getContentDraft()->getVersionInfo(),
+                $data,
+                $fieldIdentifiersToValidate
+            );
         }
 
         return $contentDraft;
@@ -142,26 +144,21 @@ class PreviewFormProcessor implements EventSubscriberInterface
     /**
      * Returns content create or edit URL depending on $data type.
      *
-     * @param \Ibexa\ContentForms\Data\Content\ContentCreateData|\Ibexa\ContentForms\Data\Content\ContentUpdateData $data
-     * @param string $languageCode
-     *
-     * @return string
-     *
      * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException
      * @throws \Symfony\Component\Routing\Exception\MissingMandatoryParametersException
      * @throws \Symfony\Component\Routing\Exception\InvalidParameterException
      */
-    private function getContentEditUrl($data, string $languageCode): string
+    private function getContentEditUrl(ContentCreateData|ContentUpdateData $data, string $languageCode): string
     {
-        return $data->isNew()
+        return $data->isNew() && $data instanceof ContentCreateData
             ? $this->urlGenerator->generate('ibexa.content.create.proxy', [
                 'parentLocationId' => $data->getLocationStructs()[0]->parentLocationId,
                 'contentTypeIdentifier' => $data->contentType->identifier,
                 'languageCode' => $languageCode,
             ])
             : $this->urlGenerator->generate('ibexa.content.draft.edit', [
-                'contentId' => $data->contentDraft->id,
-                'versionNo' => $data->contentDraft->getVersionInfo()->versionNo,
+                'contentId' => $data->getContentDraft()->getId(),
+                'versionNo' => $data->getContentDraft()->getVersionInfo()->getVersionNo(),
                 'language' => $languageCode,
             ]);
     }
@@ -176,7 +173,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
         }
 
         if ($data instanceof ContentUpdateData) {
-            return $data->contentDraft->getVersionInfo()->getContentInfo()->mainLanguageCode;
+            return $data->getContentDraft()->getVersionInfo()->getContentInfo()->getMainLanguageCode();
         }
 
         throw new InvalidArgumentException('$data', 'Unable to resolve main language code for data of type: ' . get_class($data));
@@ -191,10 +188,12 @@ class PreviewFormProcessor implements EventSubscriberInterface
      */
     private function resolveLocation(Content $content, ?Location $referrerLocation, NewnessCheckable $data): ?Location
     {
-        if ($data->isNew() || (!$content->contentInfo->published && null === $content->contentInfo->mainLocationId)) {
+        if ($data->isNew() || (!$content->getContentInfo()->published && null === $content->getContentInfo()->getMainLocationId())) {
             return null; // no location exists until new content is published
         }
 
-        return $referrerLocation ?? $this->locationService->loadLocation($content->contentInfo->mainLocationId);
+        return $referrerLocation ?? $this->locationService->loadLocation(
+            $content->getContentInfo()->getMainLocationId()
+        );
     }
 }

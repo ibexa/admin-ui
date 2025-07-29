@@ -49,7 +49,7 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
 
     public function mapFieldValueForm(FormInterface $fieldForm, FieldData $data): void
     {
-        $fieldDefinition = $data->fieldDefinition;
+        $fieldDefinition = $data->getFieldDefinition();
         $fieldSettings = $fieldDefinition->getFieldSettings();
         $formConfig = $fieldForm->getConfig();
 
@@ -58,7 +58,7 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                 $formConfig->getFormFactory()->createBuilder()
                     ->create('value', AuthorFieldType::class, [
                         'default_author' => $fieldSettings['defaultAuthor'],
-                        'required' => $fieldDefinition->isRequired,
+                        'required' => $fieldDefinition->isRequired(),
                         'label' => $fieldDefinition->getName(),
                     ])
                     ->setAutoInitialize(false)

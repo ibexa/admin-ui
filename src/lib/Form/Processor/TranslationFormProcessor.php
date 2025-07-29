@@ -54,12 +54,12 @@ class TranslationFormProcessor implements EventSubscriberInterface
             return;
         }
 
-        $contentDraft = $this->contentService->createContentDraft($data->content->contentInfo);
+        $contentDraft = $this->contentService->createContentDraft($data->content->getContentInfo());
         $fields = array_filter($data->fieldsData, static function (FieldData $fieldData) use ($contentDraft, $data): bool {
-            $mainLanguageCode = $contentDraft->getVersionInfo()->getContentInfo()->mainLanguageCode;
+            $mainLanguageCode = $contentDraft->getVersionInfo()->getContentInfo()->getMainLanguageCode();
 
             return $mainLanguageCode === $data->initialLanguageCode
-                || ($mainLanguageCode !== $data->initialLanguageCode && $fieldData->fieldDefinition->isTranslatable);
+                || ($mainLanguageCode !== $data->initialLanguageCode && $fieldData->getFieldDefinition()->isTranslatable());
         });
         $contentUpdateData = new ContentUpdateData([
             'initialLanguageCode' => $data->initialLanguageCode,
