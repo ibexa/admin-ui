@@ -22,8 +22,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class SearchType extends AbstractType
 {
-    public const NOTIFICATION_STATUS_READ = 'read';
-    public const NOTIFICATION_STATUS_UNREAD = 'unread';
+    public const NOTIFICATION_STATUS_READ = 0;
+    public const NOTIFICATION_STATUS_UNREAD = 1;
 
     private TranslatorInterface $translator;
 
