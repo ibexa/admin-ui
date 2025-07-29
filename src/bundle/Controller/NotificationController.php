@@ -155,13 +155,11 @@ class NotificationController extends Controller
      */
     private function createNotificationSelectionData(Pagerfanta $pagerfanta): NotificationSelectionData
     {
-        $notifications = [];
+        $results = $pagerfanta->getCurrentPageResults();
 
-        foreach ($pagerfanta->getCurrentPageResults() as $notification) {
-            $notifications[$notification->id] = false;
-        }
+        $notifications = is_array($results) ? $results : iterator_to_array($results);
 
-        return new NotificationSelectionData($notifications);
+        return NotificationSelectionData::fromNotificationObjects($notifications);
     }
 
     /**
