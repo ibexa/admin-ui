@@ -47,8 +47,7 @@ final class SearchType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'required' => false,
                 'choices' => $notificationTypeChoices,
-                'placeholder' => 'All types',
-                'label' => /** @Desc("Type") */ 'notification.type',
+                'placeholder' => /** @Desc("All types") */ 'notification.all_types',
             ])
             ->add('statuses', ChoiceType::class, [
                 'choices' => $statusChoices,
@@ -67,7 +66,7 @@ final class SearchType extends AbstractType
     {
         $resolver->setDefaults([
             'method' => 'POST',
-            'csrf_protection' => false,
+            'csrf_protection' => false, // Safe: form used only for filtering/searching, no data is modified
             'data_class' => SearchQueryData::class,
             'notification_types' => [],
             'translation_domain' => 'ibexa_notifications',

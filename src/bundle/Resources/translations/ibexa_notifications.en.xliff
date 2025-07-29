@@ -56,6 +56,16 @@
         <target state="new">Title</target>
         <note>key: notification.Title</note>
       </trans-unit>
+      <trans-unit id="dce114c7f342bdd010f06e8599715c297d86512f" resname="notification.all_types">
+        <source>All types</source>
+        <target state="new">All types</target>
+        <note>key: notification.all_types</note>
+      </trans-unit>
+      <trans-unit id="24a71056da4260afabc5896a5aeac1cc63f00195" resname="notification.date_and_time">
+        <source>Date and time</source>
+        <target state="new">Date and time</target>
+        <note>key: notification.date_and_time</note>
+      </trans-unit>
       <trans-unit id="dd85350967e778493887d4d0057828c2c175732c" resname="notification.datetime">
         <source>Date and time</source>
         <target state="new">Date and time</target>

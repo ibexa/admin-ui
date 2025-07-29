@@ -518,6 +518,16 @@
         <target state="new">Password</target>
         <note>key: my_account_settings.password.title</note>
       </trans-unit>
+      <trans-unit id="6cc1d9d457eb5b33316f23748e81f1fc3d848ac9" resname="notification.status.read">
+        <source>Read</source>
+        <target state="new">Read</target>
+        <note>key: notification.status.read</note>
+      </trans-unit>
+      <trans-unit id="32af6b054b04d592c0fe216b5ee64b175f6c485f" resname="notification.status.unread">
+        <source>Unread</source>
+        <target state="new">Unread</target>
+        <note>key: notification.status.unread</note>
+      </trans-unit>
       <trans-unit id="0480844e257807b48dbf75fa7a374ceb7649ec5c" resname="object_state.delete.bulk_delete.submit">
         <source>Delete</source>
         <target state="new">Delete</target>
