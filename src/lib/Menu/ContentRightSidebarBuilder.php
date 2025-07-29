@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\Specification\Location\IsInContextualTreeRootIds;
 use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
@@ -293,7 +294,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if (!$contentIsUser && 1 !== $location->depth && $canTrashLocation) {
+        $isAtRootLevel = (new IsRoot())->isSatisfiedBy($location);
+        $isInContextualRootIds = (new IsInContextualTreeRootIds($this->configResolver))->isSatisfiedBy($location);
+
+        if (!$contentIsUser && !$isAtRootLevel && !$isInContextualRootIds && $canTrashLocation) {
             $menu->addChild(
                 $this->createMenuItem(
                     self::ITEM__SEND_TO_TRASH,
@@ -305,7 +309,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if (1 === $location->depth) {
+        if ($isAtRootLevel || $isInContextualRootIds) {
             $menu[self::ITEM__MOVE]->setAttribute('disabled', 'disabled');
         }
 

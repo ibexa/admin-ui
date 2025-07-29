@@ -38,9 +38,13 @@
         }) }}
     {% endif %}
 
-    {% if form.vars.value.lastModified is not empty %}
-        {% set start_date = form.vars.value.lastModified.start_date|ibexa_short_date %}
-        {% set end_date = form.vars.value.lastModified.end_date|ibexa_short_date %}
+    {% set last_modified = form.vars.value.lastModified %}
+    {% if last_modified is not empty
+        and last_modified.start_date is not null
+        and last_modified.end_date is not null
+    %}
+        {% set start_date = last_modified.start_date|ibexa_short_datetime %}
+        {% set end_date = last_modified.end_date|ibexa_short_datetime %}
 
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': "#{'search.last.modified'|trans|desc('Last modified')}: #{start_date} - #{end_date}",
@@ -48,9 +52,13 @@
         }) }}
     {% endif %}
 
-    {% if form.vars.value.created is not empty %}
-        {% set start_date = form.vars.value.created.start_date|ibexa_short_date %}
-        {% set end_date = form.vars.value.created.end_date|ibexa_short_date %}
+    {% set created = form.vars.value.created %}
+    {% if created is not empty
+        and created.start_date is not null
+        and created.end_date is not null
+    %}
+        {% set start_date = form.vars.value.created.start_date|ibexa_short_datetime %}
+        {% set end_date = form.vars.value.created.end_date|ibexa_short_datetime %}
 
         {{ include('@ibexadesign/ui/search_tag.html.twig', {
             'content': "#{'search.created'|trans|desc('Created')}: #{start_date} - #{end_date}",

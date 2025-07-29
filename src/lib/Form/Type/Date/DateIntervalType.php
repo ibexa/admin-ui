@@ -24,6 +24,10 @@ class DateIntervalType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
+            ->add('start_date', IntegerType::class, [
+                'attr' => ['hidden' => true],
+                'required' => false,
+            ])
             ->add('end_date', IntegerType::class, [
                 'attr' => ['hidden' => true],
                 'required' => false,
