@@ -164,6 +164,17 @@ const ContentCreateWidget = () => {
     }, [preselectedLanguage, firstLanguageCode]);
 
     useEffect(() => {
+        if (!createContentVisible) {
+            return;
+        }
+
+        setSelectedLanguage(preselectedLanguage ?? firstLanguageCode);
+        setSelectedContentType(preselectedContentType);
+        setIsSelectedSuggestion(false);
+        setFilterQuery('');
+    }, [createContentVisible]);
+
+    useEffect(() => {
         parseTooltip(refContentTree.current);
     }, []);
 
@@ -191,6 +202,7 @@ const ContentCreateWidget = () => {
                         <div className="ibexa-instant-filter">
                             <div className={instantFilterInputWrapperClassName}>
                                 <input
+                                    value={filterQuery}
                                     autoFocus={true}
                                     className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
                                     type="text"
