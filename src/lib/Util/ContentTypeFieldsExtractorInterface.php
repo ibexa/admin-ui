@@ -16,4 +16,9 @@ interface ContentTypeFieldsExtractorInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function extractFieldsFromExpression(string $expression): array;
+
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     */
+    public function isFieldWithinExpression(int $fieldDefinitionId, string $expression): bool;
 }

@@ -37,6 +37,13 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
         return $this->mergeFieldIds($extractedMetadata[2], $contentTypes);
     }
 
+    public function isFieldWithinExpression(int $fieldDefinitionId, string $expression): bool
+    {
+        $fieldsFromExpression = $this->extractFieldsFromExpression($expression);
+
+        return in_array($fieldDefinitionId, $fieldsFromExpression, true);
+    }
+
     /**
      * @param array{non-empty-list<string>|null, non-empty-list<string>|null, non-empty-list<string>|null} $extractedMetadata
      *
