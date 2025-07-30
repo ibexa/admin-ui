@@ -38,15 +38,13 @@ final class NotificationSelectionData
     }
 
     /**
-     * Pomocnicza metoda do stworzenia obiektu z tablicy powiadomień.
-     *
      * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] $notifications
      */
     public static function fromNotificationObjects(array $notifications): self
     {
         $ids = [];
         foreach ($notifications as $notification) {
-            $ids[$notification->id] = false; // domyślnie false - niezaznaczone
+            $ids[$notification->id] = false;
         }
 
         return new self($ids);
