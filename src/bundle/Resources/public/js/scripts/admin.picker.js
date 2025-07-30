@@ -10,11 +10,10 @@
     const pickerConfig = {
         enableTime: true,
         time_24hr: true,
-        onOpen: (_selectedDates, _dateStr, instance) => {
+        onOpen: (selectedDates, dateStr, instance) => {
             instance.scrollHandler = () => {
                 if (instance.isOpen) {
-                    const { calendarContainer } = instance;
-                    const { input } = instance;
+                    const { calendarContainer, input } = instance;
                     const rect = input.getBoundingClientRect();
                     const pickerHeight = calendarContainer.offsetHeight;
                     const spaceBelow = global.innerHeight - (rect.bottom + SECTION_ADJUSTMENT);
@@ -36,7 +35,7 @@
 
             instance.scrollHandler();
         },
-        onClose: (_selectedDates, _dateStr, instance) => {
+        onClose: (selectedDates, dateStr, instance) => {
             global.removeEventListener('scroll', instance.scrollHandler, true);
             doc.removeEventListener('scroll', instance.scrollHandler, true);
         },
