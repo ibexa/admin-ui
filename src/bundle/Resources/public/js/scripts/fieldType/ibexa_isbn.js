@@ -1,19 +1,19 @@
 (function (global, doc, ibexa) {
-    const SELECTOR_FIELD = '.ibexa-field-edit--ezboolean';
-    const SELECTOR_ERROR_NODE = '.ibexa-form-error';
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezisbn';
+    const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
     const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
-    class EzBooleanValidator extends ibexa.BaseFieldValidator {
+    class IbexaIsbnValidator extends ibexa.BaseFieldValidator {
         /**
-         * Validates the input field value
+         * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof EzBooleanValidator
+         * @memberof IbexaIsbnValidator
          */
         validateInput(event) {
-            const isError = !event.target.checked && event.target.required;
+            const isError = event.target.required && !event.target.value.trim();
             const label = event.target.closest(SELECTOR_FIELD).querySelector(SELECTOR_LABEL).innerText;
             const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
@@ -24,16 +24,16 @@
         }
     }
 
-    const validator = new EzBooleanValidator({
+    const validator = new IbexaIsbnValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [
             {
-                selector: '.ibexa-field-edit--ezboolean input',
-                eventName: 'change',
+                selector: `${SELECTOR_FIELD} input`,
+                eventName: 'blur',
                 callback: 'validateInput',
-                errorNodeSelectors: [SELECTOR_ERROR_NODE],
-                invalidStateSelectors: [SELECTOR_LABEL],
+                errorNodeSelectors: ['.ibexa-form-error'],
+                invalidStateSelectors: [SELECTOR_SOURCE_INPUT, SELECTOR_LABEL],
             },
         ],
     });
