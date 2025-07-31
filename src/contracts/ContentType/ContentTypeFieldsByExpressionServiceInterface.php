@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\AdminUi\Service;
+namespace Ibexa\Contracts\AdminUi\ContentType;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 

@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\AdminUi\Service;
+namespace Ibexa\AdminUi\ContentType;
 
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
-use Ibexa\Contracts\AdminUi\Service\ContentTypeFieldsByExpressionServiceInterface;
+use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;

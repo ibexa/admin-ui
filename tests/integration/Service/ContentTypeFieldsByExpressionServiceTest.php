@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\AdminUi\Service;
 
-use Ibexa\Contracts\AdminUi\Service\ContentTypeFieldsByExpressionServiceInterface;
+use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
