@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Util;
 
-use RuntimeException;
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
 
 final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpressionParserInterface
 {
@@ -46,7 +46,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
                 $this->expectSlash();
                 $fieldTokens = $this->parseSection();
             } else {
-                throw new RuntimeException('Invalid expression, expected one or two T_SLASH delimiters.');
+                throw new FieldTypeExpressionParserException('Invalid expression, expected one or two T_SLASH delimiters.');
             }
         }
 
@@ -57,7 +57,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
         ];
 
         if (array_filter($parsedTokens) === []) {
-            throw new RuntimeException('Choosing every possible content type field is not allowed.');
+            throw new FieldTypeExpressionParserException('Choosing every possible content type field is not allowed.');
         }
 
         return $parsedTokens;
@@ -71,7 +71,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
         $items = [];
 
         if ($this->lexer->token === null) {
-            throw new RuntimeException('A token inside a section cannot be empty.');
+            throw new FieldTypeExpressionParserException('A token inside a section cannot be empty.');
         }
 
         // Multiple elements between braces
@@ -83,7 +83,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
             }
 
             if (!$this->lexer->token->isA(ContentTypeFieldsExpressionDoctrineLexer::T_RBRACE)) {
-                throw new RuntimeException('Expected T_RBRACE to close the list.');
+                throw new FieldTypeExpressionParserException('Expected T_RBRACE to close the list.');
             }
 
             $this->lexer->moveNext();
@@ -107,19 +107,19 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
 
         $token = $this->expectIdentifierOrWildcard();
         if ($token === null) {
-            throw new RuntimeException('Wildcards cannot be mixed with identifiers inside the expression.');
+            throw new FieldTypeExpressionParserException('Wildcards cannot be mixed with identifiers inside the expression.');
         }
 
         return $token;
     }
 
     /**
-     * @throws \RuntimeException
+     * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
      */
     private function expectSlash(): void
     {
         if ($this->lexer->token === null) {
-            throw new RuntimeException(
+            throw new FieldTypeExpressionParserException(
                 sprintf(
                     'Expected token of type "%s" but got "null"',
                     ContentTypeFieldsExpressionDoctrineLexer::T_SLASH,
@@ -128,7 +128,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
         }
 
         if (!$this->lexer->token->isA(ContentTypeFieldsExpressionDoctrineLexer::T_SLASH)) {
-            throw new RuntimeException(
+            throw new FieldTypeExpressionParserException(
                 sprintf(
                     'Expected token of type "%s" but got "%s"',
                     ContentTypeFieldsExpressionDoctrineLexer::T_SLASH,
@@ -143,7 +143,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
     private function expectIdentifierOrWildcard(): ?string
     {
         if ($this->lexer->token === null) {
-            throw new RuntimeException(
+            throw new FieldTypeExpressionParserException(
                 sprintf(
                     'Expected token of type "%s" but got "null"',
                     ContentTypeFieldsExpressionDoctrineLexer::T_SLASH,
@@ -159,7 +159,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
             ],
             true,
         )) {
-            throw new RuntimeException('Expected an identifier or wildcard.');
+            throw new FieldTypeExpressionParserException('Expected an identifier or wildcard.');
         }
 
         $value = $this->lexer->token->isA(ContentTypeFieldsExpressionDoctrineLexer::T_WILDCARD)
