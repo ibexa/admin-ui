@@ -16,6 +16,7 @@
 
         .close {
             @include close-button();
+            padding: calculateRem(2px);
         }
     }
 
