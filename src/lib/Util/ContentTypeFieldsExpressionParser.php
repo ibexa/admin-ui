@@ -19,9 +19,9 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
         $this->lexer = new ContentTypeFieldsExpressionDoctrineLexer();
     }
 
-    public function parseExpression(string $expression): array
+    public function parseExpression(string $expression): ContentTypeFieldsParsedStructure
     {
-        // Content type group can be omitted therefore we need to know how many parts are there
+        // Content type group can be omitted, therefore we need to know how many parts are there
         $slashCount = substr_count($expression, '/');
 
         $this->lexer->setInput($expression);
@@ -50,17 +50,17 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
             }
         }
 
-        $parsedTokens = [
+        $structure = new ContentTypeFieldsParsedStructure(
             $groupTokens,
             $contentTypeTokens,
             $fieldTokens,
-        ];
+        );
 
-        if (array_filter($parsedTokens) === []) {
+        if ($structure->isAllChosen()) {
             throw new FieldTypeExpressionParserException('Choosing every possible content type field is not allowed.');
         }
 
-        return $parsedTokens;
+        return $structure;
     }
 
     /**

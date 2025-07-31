@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Util;
 
 use Ibexa\AdminUi\Util\ContentTypeFieldsExpressionParser;
+use Ibexa\AdminUi\Util\ContentTypeFieldsParsedStructure;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -24,15 +25,15 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
     }
 
     /**
-     * @param array{0: non-empty-list<string>|null, 1: non-empty-list<string>|null, 2: non-empty-list<string>|null} $expectedResult
-     *
      * @dataProvider dataProviderForTestParse
      */
-    public function testParse(string $expression, array $expectedResult): void
+    public function testParse(string $expression, ContentTypeFieldsParsedStructure $expectedResult): void
     {
         $result = $this->contentTypeFieldsExpressionExtractor->parseExpression($expression);
 
-        self::assertSame($expectedResult, $result);
+        self::assertSame($expectedResult->getGroups(), $result->getGroups());
+        self::assertSame($expectedResult->getContentTypes(), $result->getContentTypes());
+        self::assertSame($expectedResult->getFields(), $result->getFields());
     }
 
     /**
@@ -46,62 +47,62 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
     }
 
     /**
-     * @return iterable<string, array{0: string, 1: array{0: non-empty-list<string>|null, 1: non-empty-list<string>|null, 2: non-empty-list<string>|null}}>
+     * @return iterable<string, array{string, \Ibexa\AdminUi\Util\ContentTypeFieldsParsedStructure}>
      */
     public function dataProviderForTestParse(): iterable
     {
         yield 'product content type group, every content type, few fields' => [
             'product/*/{name, description}',
-            [
+            new ContentTypeFieldsParsedStructure(
                 ['product'],
                 null,
                 ['name', 'description'],
-            ],
+            ),
         ];
 
         yield 'product content type group, every content type, singular field' => [
             'product/*/name',
-            [
+            new ContentTypeFieldsParsedStructure(
                 ['product'],
                 null,
                 ['name'],
-            ],
+            ),
         ];
 
         yield 'media content type group, file content type, singular field' => [
             'media/file/name',
-            [
+            new ContentTypeFieldsParsedStructure(
                 ['media'],
                 ['file'],
                 ['name'],
-            ],
+            ),
         ];
 
         yield 'media content type group, file content type, few field' => [
             'media/file/{name,path}',
-            [
+            new ContentTypeFieldsParsedStructure(
                 ['media'],
                 ['file'],
                 ['name', 'path'],
-            ],
+            ),
         ];
 
         yield 'file content type, few fields, without group' => [
             'file/{name, description}',
-            [
+            new ContentTypeFieldsParsedStructure(
                 null,
                 ['file'],
                 ['name', 'description'],
-            ],
+            ),
         ];
 
         yield 'file content type, all fields, without group' => [
             'file/*',
-            [
+            new ContentTypeFieldsParsedStructure(
                 null,
                 ['file'],
                 null,
-            ],
+            ),
         ];
     }
 
