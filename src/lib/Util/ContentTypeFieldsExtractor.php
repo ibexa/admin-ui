@@ -47,7 +47,7 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
     /**
      * @param array{non-empty-list<string>|null, non-empty-list<string>|null, non-empty-list<string>|null} $extractedMetadata
      *
-     * @return list<ContentType>
+     * @return list<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>
      */
     private function resolveContentTypes(array $extractedMetadata): array
     {
@@ -109,7 +109,7 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
     }
 
     /**
-     * @param non-empty-list<ContentType> $contentTypes
+     * @param non-empty-list<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType> $contentTypes
      * @param list<string> $contentTypeGroupIdentifiers
      */
     private function validateContentTypesInsideGroups(
