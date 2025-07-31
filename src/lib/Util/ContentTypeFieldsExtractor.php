@@ -34,7 +34,7 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
 
         $contentTypes = $this->resolveContentTypes($extractedMetadata);
 
-        return $this->mergeFieldIds($extractedMetadata[2], $contentTypes);
+        return $this->mergeFieldIds($extractedMetadata->getFields(), $contentTypes);
     }
 
     public function isFieldWithinExpression(int $fieldDefinitionId, string $expression): bool
@@ -45,14 +45,12 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
     }
 
     /**
-     * @param array{non-empty-list<string>|null, non-empty-list<string>|null, non-empty-list<string>|null} $extractedMetadata
-     *
      * @return list<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>
      */
-    private function resolveContentTypes(array $extractedMetadata): array
+    private function resolveContentTypes(ContentTypeFieldsParsedStructure $extractedMetadata): array
     {
-        $contentTypeGroupIdentifiers = $extractedMetadata[0];
-        $contentTypeIdentifiers = $extractedMetadata[1];
+        $contentTypeGroupIdentifiers = $extractedMetadata->getGroups();
+        $contentTypeIdentifiers = $extractedMetadata->getContentTypes();
 
         // Resolve content type groups first
         if ($contentTypeGroupIdentifiers === null) {

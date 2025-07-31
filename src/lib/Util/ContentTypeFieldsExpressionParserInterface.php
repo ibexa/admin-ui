@@ -11,9 +11,7 @@ namespace Ibexa\AdminUi\Util;
 interface ContentTypeFieldsExpressionParserInterface
 {
     /**
-     * @return array{non-empty-list<string>|null, non-empty-list<string>|null, non-empty-list<string>|null}
-     *
      * @throws \RuntimeException
      */
-    public function parseExpression(string $expression): array;
+    public function parseExpression(string $expression): ContentTypeFieldsParsedStructure;
 }
