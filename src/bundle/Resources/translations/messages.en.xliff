@@ -121,26 +121,6 @@
         <target state="new">words</target>
         <note>key: character_counter.words</note>
       </trans-unit>
-      <trans-unit id="21e7545fc420d95a59a713437d9dc28d85d82ceb" resname="content.details.content_id">
-        <source>Content ID: %contentId%</source>
-        <target state="new">Content ID: %contentId%</target>
-        <note>key: content.details.content_id</note>
-      </trans-unit>
-      <trans-unit id="fbf8f503b8af11a779316ffa7e12085401212748" resname="content.details.created_by">
-        <source>Created by %name%</source>
-        <target state="new">Created by %name%</target>
-        <note>key: content.details.created_by</note>
-      </trans-unit>
-      <trans-unit id="b703ce905c39239f607ffa395acf83d2dd6046f0" resname="content.details.location_id">
-        <source>Location ID: %locationId%</source>
-        <target state="new">Location ID: %locationId%</target>
-        <note>key: content.details.location_id</note>
-      </trans-unit>
-      <trans-unit id="fc543140fe88431b31013a20fbceef4ecf9e7430" resname="content.details.parent_location_id">
-        <source>Parent Location ID: %locationId%</source>
-        <target state="new">Parent Location ID: %locationId%</target>
-        <note>key: content.details.parent_location_id</note>
-      </trans-unit>
       <trans-unit id="e136be672df8eb27dc4eb2f1ce0650096090bf81" resname="content.hidden.message">
         <source>You don't have permissions to view this Content item (contentID: %contentId%).</source>
         <target state="new">You don't have permissions to view this Content item (contentID: %contentId%).</target>
