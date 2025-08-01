@@ -121,14 +121,6 @@ class ContentTypeGroupController extends Controller
                     'ibexa_content_type'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ContentTypeGroupCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.content_type_group.update', [
-                        'contentTypeGroupId' => $group->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
@@ -168,14 +160,6 @@ class ContentTypeGroupController extends Controller
                     ['%name%' => $group->identifier],
                     'ibexa_content_type'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ContentTypeGroupCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.content_type_group.update', [
-                        'contentTypeGroupId' => $group->id,
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
