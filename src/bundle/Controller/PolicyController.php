@@ -216,15 +216,6 @@ final class PolicyController extends Controller
                     'ibexa_role'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === PolicyUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.policy.update', [
-                        'roleId' => $roleDraft->id,
-                        'policyId' => $policy->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
                 ]));

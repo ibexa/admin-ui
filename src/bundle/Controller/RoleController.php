@@ -119,14 +119,6 @@ final class RoleController extends Controller
                     'ibexa_role'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === RoleCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.role.update', [
-                        'roleId' => $roleDraft->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $roleDraft->id,
                 ]));
@@ -203,14 +195,6 @@ final class RoleController extends Controller
                     ['%role%' => $role->identifier],
                     'ibexa_role'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === RoleUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.role.update', [
-                        'roleId' => $role->id,
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.role.view', [
                     'roleId' => $role->id,
