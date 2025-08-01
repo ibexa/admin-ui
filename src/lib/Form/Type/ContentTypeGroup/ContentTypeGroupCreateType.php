@@ -18,8 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeGroupCreateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -27,10 +25,7 @@ class ContentTypeGroupCreateType extends AbstractType
                 'label' => /** @Desc("Name") */ 'content_type_group.create.name',
             ])
             ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'content_type_group.create.submit',
-            ])
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'content_type_group.create.save',
+                'label' => /** @Desc("Save") */ 'content_type_group.create.submit',
             ]);
     }
 
