@@ -7,7 +7,6 @@
 {% block header_admin %}
     {% set policy_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.policy_edit.sidebar_right', [], {
         role,
-        save_id: form.save.vars.id,
         save_and_close_id: form.save_and_close.vars.id,
     }) %}
 
@@ -35,7 +34,6 @@
                 {% endfor %}
             </div>
         </section>
-        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
         {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}
