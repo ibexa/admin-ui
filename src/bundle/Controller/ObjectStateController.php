@@ -151,14 +151,6 @@ class ObjectStateController extends Controller
                         'ibexa_object_state'
                     );
 
-                    if ($form->getClickedButton() instanceof Button
-                        && $form->getClickedButton()->getName() === ObjectStateCreateType::BTN_CREATE_AND_EDIT
-                    ) {
-                        return $this->redirectToRoute('ibexa.object_state.state.update', [
-                            'objectStateId' => $objectState->id,
-                        ]);
-                    }
-
                     return $this->redirectToRoute('ibexa.object_state.state.view', [
                         'objectStateId' => $objectState->id,
                     ]);
@@ -286,14 +278,6 @@ class ObjectStateController extends Controller
                     ['%name%' => $updatedObjectState->getName()],
                     'ibexa_object_state'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ObjectStateUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.object_state.state.update', [
-                        'objectStateId' => $objectState->id,
-                    ]);
-                }
 
                 return $this->redirectToRoute('ibexa.object_state.state.view', [
                     'objectStateId' => $objectState->id,

@@ -131,14 +131,6 @@ class ObjectStateGroupController extends Controller
                         'ibexa_object_state'
                     );
 
-                    if ($form->getClickedButton() instanceof Button
-                        && $form->getClickedButton()->getName() === ObjectStateGroupCreateType::BTN_CREATE_AND_EDIT
-                    ) {
-                        return $this->redirectToRoute('ibexa.object_state.group.update', [
-                            'objectStateGroupId' => $group->id,
-                        ]);
-                    }
-
                     return $this->redirectToRoute('ibexa.object_state.group.view', [
                         'objectStateGroupId' => $group->id,
                     ]);
@@ -259,14 +251,6 @@ class ObjectStateGroupController extends Controller
                     ['%name%' => $updatedGroup->getName()],
                     'ibexa_object_state'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ObjectStateUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.object_state.group.update', [
-                        'objectStateGroupId' => $group->id,
-                    ]);
-                }
 
                 return $this->redirectToRoute('ibexa.object_state.group.view', [
                     'objectStateGroupId' => $group->id,
