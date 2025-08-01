@@ -18,8 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ObjectStateCreateType extends AbstractType
 {
-    public const BTN_CREATE_AND_EDIT = 'create_and_edit';
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,9 +29,6 @@ class ObjectStateCreateType extends AbstractType
             ])
             ->add('create', SubmitType::class, [
                 'label' => /** @Desc("Save and close") */ 'object_state.create.create',
-            ])
-            ->add(self::BTN_CREATE_AND_EDIT, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'object_state.create.create_and_edit',
             ]);
     }
 

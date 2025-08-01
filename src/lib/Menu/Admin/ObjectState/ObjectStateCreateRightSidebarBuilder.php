@@ -15,21 +15,12 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-/**
- * KnpMenuBundle Menu Builder service implementation for AdminUI Section Edit contextual sidebar menu.
- *
- * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
- */
 class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
     public const ITEM__CREATE = 'object_state_create__sidebar_right__create';
-    public const ITEM__CREATE_AND_EDIT = 'object_state_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'object_state_create__sidebar_right__cancel';
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::OBJECT_STATE_CREATE_SIDEBAR_RIGHT;
@@ -37,8 +28,6 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
 
     /**
      * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -57,16 +46,6 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
                 'attributes' => [
                     'class' => 'ibexa-btn--trigger',
                     'data-click' => '#object_state_create_create',
-                ],
-            ]
-        );
-
-        $createItem->addChild(
-            self::ITEM__CREATE_AND_EDIT,
-            [
-                'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
-                    'data-click' => '#object_state_create_create_and_edit',
                 ],
             ]
         );
@@ -93,8 +72,7 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save and close'),
-            (new Message(self::ITEM__CREATE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }
