@@ -62,14 +62,6 @@ final class LinkManagerController extends Controller
                     'ibexa_linkmanager'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === URLEditType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.link_manager.edit', [
-                        'urlId' => $url->getId(),
-                    ]);
-                }
-
                 return $this->redirectToRoute('ibexa.url_management');
             });
 
