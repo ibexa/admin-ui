@@ -18,33 +18,11 @@ use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * KnpMenuBundle Menu Builder service implementation for AdminUI Section Edit contextual sidebar menu.
- *
- * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
- */
 class SectionEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__SAVE = 'section_edit__sidebar_right__save';
     public const ITEM__SAVE_AND_CLOSE = 'section_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'section_edit__sidebar_right__cancel';
 
-    private TranslatorInterface $translator;
-
-    public function __construct(
-        MenuItemFactoryInterface $factory,
-        EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator
-    ) {
-        parent::__construct($factory, $eventDispatcher);
-
-        $this->translator = $translator;
-    }
-
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::SECTION_EDIT_SIDEBAR_RIGHT;
@@ -77,16 +55,6 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
             ]
         );
 
-        $saveAndCloseItem->addChild(
-            self::ITEM__SAVE,
-            [
-                'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
-                    'data-click' => sprintf('#update-section-%d_update_and_edit', $section->id),
-                ],
-            ]
-        );
-
         $menu->setChildren([
             self::ITEM__SAVE_AND_CLOSE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
@@ -106,8 +74,7 @@ class SectionEditRightSidebarBuilder extends AbstractBuilder implements Translat
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
-            (new Message(self::ITEM__SAVE_AND_CLOSE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__SAVE_AND_CLOSE, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }

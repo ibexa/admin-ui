@@ -331,14 +331,6 @@ final class SectionController extends Controller
                     'ibexa_section'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === SectionCreateType::BTN_CREATE_AND_EDIT
-                ) {
-                    return $this->redirectToRoute('ibexa.section.update', [
-                        'sectionId' => $section->getId(),
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->getId(),
                 ]));
@@ -375,14 +367,6 @@ final class SectionController extends Controller
                     ['%name%' => $section->name],
                     'ibexa_section'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === SectionUpdateType::BTN_UPDATE
-                ) {
-                    return new RedirectResponse($this->generateUrl('ibexa.section.view', [
-                        'sectionId' => $section->id,
-                    ]));
-                }
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
                     $e->getMessage()
