@@ -162,14 +162,6 @@ final class LanguageController extends Controller
                     'ibexa_language'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === LanguageCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.language.edit', [
-                        'languageId' => $language->getId(),
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->getId(),
                 ]));
@@ -210,14 +202,6 @@ final class LanguageController extends Controller
                     ['%name%' => $language->name],
                     'ibexa_language'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === LanguageUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.language.edit', [
-                        'languageId' => $language->getId(),
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->getId(),
