@@ -444,7 +444,6 @@ class SectionController extends Controller
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
-
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
                     $e->getMessage()
