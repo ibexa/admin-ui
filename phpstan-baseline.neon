@@ -267,7 +267,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
@@ -401,6 +401,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\URL\\URL\:\:\$id\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/bundle/Controller/LinkManagerController.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\URL\\URL\:\:\$url\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/bundle/Controller/LinkManagerController.php
 
 		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
@@ -537,7 +549,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
@@ -627,7 +639,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
@@ -5691,6 +5703,18 @@ parameters:
 		-
 			message: '#^Property Ibexa\\AdminUi\\Menu\\URLWildcardEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
 			identifier: property.onlyWritten
+			count: 1
+			path: src/lib/Menu/URLWildcardEditRightSidebarBuilder.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Menu\\URLEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/lib/Menu/URLEditRightSidebarBuilder.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Menu\\URLWildcardEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Menu/URLWildcardEditRightSidebarBuilder.php
 

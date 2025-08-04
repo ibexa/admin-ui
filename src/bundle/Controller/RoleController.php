@@ -104,7 +104,7 @@ final class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleCreateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (RoleCreateData $data): Response {
                 $roleCreateStruct = $this->roleCreateMapper->reverseMap($data);
                 $roleDraft = $this->roleService->createRole($roleCreateStruct);
                 $this->roleService->publishRoleDraft($roleDraft);
@@ -176,7 +176,7 @@ final class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleUpdateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (RoleUpdateData $data): Response {
                 /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
                 $role = $data->getRole();
 
