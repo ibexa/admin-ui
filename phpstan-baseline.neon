@@ -345,7 +345,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
@@ -531,7 +531,7 @@ parameters:
 		-
 			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\URL\\URL\:\:\$id\.$#'
 			identifier: property.protected
-			count: 2
+			count: 1
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
@@ -693,7 +693,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
@@ -801,7 +801,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
@@ -3263,18 +3263,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: src/lib/EventListener/SetViewParametersListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\UserPasswordChangeRightSidebarListener\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/UserPasswordChangeRightSidebarListener.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\UserPasswordChangeRightSidebarListener\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/EventListener/UserPasswordChangeRightSidebarListener.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Exception\\ContentTypeIconNotFoundException\:\:__construct\(\) has parameter \$code with no type specified\.$#'
@@ -6979,20 +6967,8 @@ parameters:
 			path: src/lib/Menu/Admin/ContentType/ContentTypeGroupCreateRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\ContentTypeGroupCreateRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/Admin/ContentType/ContentTypeGroupCreateRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\ContentTypeGroupEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/Admin/ContentType/ContentTypeGroupEditRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\ContentTypeGroupEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/Admin/ContentType/ContentTypeGroupEditRightSidebarBuilder.php
 
@@ -7003,20 +6979,8 @@ parameters:
 			path: src/lib/Menu/Admin/Language/LanguageCreateRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\Language\\LanguageCreateRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/Admin/Language/LanguageCreateRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\Language\\LanguageEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/Admin/Language/LanguageEditRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\Language\\LanguageEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/Admin/Language/LanguageEditRightSidebarBuilder.php
 
@@ -7039,20 +7003,8 @@ parameters:
 			path: src/lib/Menu/Admin/ObjectState/ObjectStateGroupCreateRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\ObjectState\\ObjectStateGroupCreateRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/Admin/ObjectState/ObjectStateGroupCreateRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\ObjectState\\ObjectStateGroupEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/Admin/ObjectState/ObjectStateGroupEditRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\ObjectState\\ObjectStateGroupEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/Admin/ObjectState/ObjectStateGroupEditRightSidebarBuilder.php
 
@@ -7105,20 +7057,8 @@ parameters:
 			path: src/lib/Menu/Admin/Role/RoleCreateRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\Role\\RoleCreateRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/Admin/Role/RoleCreateRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\Role\\RoleEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/Admin/Role/RoleEditRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\Admin\\Role\\RoleEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/Admin/Role/RoleEditRightSidebarBuilder.php
 
@@ -7225,20 +7165,8 @@ parameters:
 			path: src/lib/Menu/SectionCreateRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\SectionCreateRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/SectionCreateRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\SectionEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/SectionEditRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\SectionEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/SectionEditRightSidebarBuilder.php
 
@@ -7273,20 +7201,8 @@ parameters:
 			path: src/lib/Menu/URLEditRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\URLEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/URLEditRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\URLWildcardEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/URLWildcardEditRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\URLWildcardEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/URLWildcardEditRightSidebarBuilder.php
 
@@ -7315,20 +7231,8 @@ parameters:
 			path: src/lib/Menu/UserPasswordChangeRightSidebarBuilder.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\UserPasswordChangeRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Menu/UserPasswordChangeRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\UserSetting\\UserSettingUpdateRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/UserSetting/UserSettingUpdateRightSidebarBuilder.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Menu\\UserSetting\\UserSettingUpdateRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/UserSetting/UserSettingUpdateRightSidebarBuilder.php
 

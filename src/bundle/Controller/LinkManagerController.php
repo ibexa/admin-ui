@@ -50,7 +50,7 @@ final class LinkManagerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (URLUpdateData $data) use ($url, $form): Response {
+            $result = $this->submitHandler->handle($form, function (URLUpdateData $data) use ($url): Response {
                 $this->urlService->updateUrl($url, $data);
                 $this->notificationHandler->success(
                     /** @Desc("URL updated") */

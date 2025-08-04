@@ -58,7 +58,7 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $this->submitHandler->handle($form, function (URLWildcardData $data) use ($form): Response {
+            $this->submitHandler->handle($form, function (URLWildcardData $data): Response {
                 $this->urlWildcardService->create(
                     $data->getSourceURL(),
                     $data->getDestinationUrl(),
@@ -101,7 +101,7 @@ final class URLWildcardController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (URLWildcardUpdateData $data) use ($urlWildcard, $form): Response {
+                function (URLWildcardUpdateData $data) use ($urlWildcard): Response {
                     $urlWildcardUpdateStruct = new URLWildcardUpdateStruct();
                     $urlWildcardUpdateStruct->destinationUrl = $data->getDestinationUrl();
                     $urlWildcardUpdateStruct->sourceUrl = $data->getSourceURL();

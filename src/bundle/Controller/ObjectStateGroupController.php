@@ -113,7 +113,7 @@ class ObjectStateGroupController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (ObjectStateGroupCreateData $data) use ($defaultLanguageCode, $form): Response {
+                function (ObjectStateGroupCreateData $data) use ($defaultLanguageCode): Response {
                     $createStruct = $this->objectStateService->newObjectStateGroupCreateStruct(
                         $data->getIdentifier()
                     );
@@ -234,7 +234,7 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateGroupUpdateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ObjectStateGroupUpdateData $data): Response {
                 $group = $data->getObjectStateGroup();
                 $updateStruct = $this->objectStateService->newObjectStateGroupUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();

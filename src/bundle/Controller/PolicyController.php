@@ -227,7 +227,7 @@ class PolicyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (PolicyUpdateData $data) use ($role, $policy, $form): Response {
+            $result = $this->submitHandler->handle($form, function (PolicyUpdateData $data) use ($role, $policy): Response {
                 $policyUpdateStruct = $this->policyUpdateMapper->reverseMap($data);
 
                 $roleDraft = $this->roleService->createRoleDraft($role);
