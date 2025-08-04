@@ -86,11 +86,6 @@
         <target state="new">Name</target>
         <note>key: ezplatform.language.update.name</note>
       </trans-unit>
-      <trans-unit id="87ed807e48a8c3fc19eba5338ddbaa91df68d19d" resname="ezplatform.language.update.save">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: ezplatform.language.update.save</note>
-      </trans-unit>
       <trans-unit id="1a2cc7b7518a1267208aafa8aa96d1dba950eeb1" resname="form.has_children.label">
         <source>Sub-items</source>
         <target state="new">Sub-items</target>
@@ -110,11 +105,6 @@
         <source>Asset Fields(s)</source>
         <target state="new">Asset Fields(s)</target>
         <note>key: form.trash_assets_non_unique.label</note>
-      </trans-unit>
-      <trans-unit id="32094a2bed643086c29c124312938f6eee9240c8" resname="language.create.save">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: language.create.save</note>
       </trans-unit>
       <trans-unit id="727cf4d3d72a4f4fcbd056fcb66a6c25bc5690e7" resname="language.create.save_and_close">
         <source>Save and close</source>
@@ -236,11 +226,6 @@
         <target state="new">Name</target>
         <note>key: role_create.name</note>
       </trans-unit>
-      <trans-unit id="776c77290a994aebb3c657ee11dd2c5cff117dca" resname="role_create.save">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: role_create.save</note>
-      </trans-unit>
       <trans-unit id="601d9f0ac729e1b65dfe9afa12aa2b5b691613f1" resname="role_create.save_and_close">
         <source>Save and close</source>
         <target state="new">Save and close</target>
@@ -256,14 +241,9 @@
         <target state="new">Name</target>
         <note>key: role_update.name</note>
       </trans-unit>
-      <trans-unit id="453d030fbc11c10c842807ff213039adfffbe051" resname="role_update.save">
+      <trans-unit id="004e2e90e1b877d6a3c2def0a6f50ad62ef5f019" resname="role_update.save_and_close">
         <source>Save</source>
         <target state="new">Save</target>
-        <note>key: role_update.save</note>
-      </trans-unit>
-      <trans-unit id="004e2e90e1b877d6a3c2def0a6f50ad62ef5f019" resname="role_update.save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
         <note>key: role_update.save_and_close</note>
       </trans-unit>
       <trans-unit id="2b8a62034311f415eba9826996495c2ddd076745" resname="roles_delete_form.delete">
@@ -286,14 +266,9 @@
         <target state="new">Create</target>
         <note>key: section_create_form.create</note>
       </trans-unit>
-      <trans-unit id="e835dcbf9f6e33bbce3ed1de437c59e1ab4b224c" resname="section_create_form.create_and_edit">
-        <source>Save and edit</source>
-        <target state="new">Save and edit</target>
-        <note>key: section_create_form.create_and_edit</note>
-      </trans-unit>
       <trans-unit id="6dec25847a8a644fae3b714ea034886b987af430" resname="section_create_form.update_and_edit">
-        <source>Save and edit</source>
-        <target state="new">Save and edit</target>
+        <source>Save</source>
+        <target state="new">Save</target>
         <note>key: section_create_form.update_and_edit</note>
       </trans-unit>
       <trans-unit id="157171a054bf3089d55c971b318b95a26a1cbb92" resname="section_delete_form.delete">
@@ -315,11 +290,6 @@
         <source>Change section</source>
         <target state="new">Change section</target>
         <note>key: section_subtree_assign_form.assign</note>
-      </trans-unit>
-      <trans-unit id="ecaa9ee7b46159c99796726b8e14693d821e5500" resname="section_update_form.update">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: section_update_form.update</note>
       </trans-unit>
       <trans-unit id="1076fdadc49ac9198c278970f355457c26075975" resname="sections_delete_form.delete">
         <source>Delete Sections</source>

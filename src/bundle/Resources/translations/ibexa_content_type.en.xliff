@@ -386,11 +386,6 @@
         <target state="new">Name</target>
         <note>key: content_type_group.create.name</note>
       </trans-unit>
-      <trans-unit id="2bc6dff09cd526fde1a8e5688ed488ddc5a50356" resname="content_type_group.create.save">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: content_type_group.create.save</note>
-      </trans-unit>
       <trans-unit id="b04a9c80f0219d1a12813a8aa4bc532e97653b28" resname="content_type_group.create.submit">
         <source>Save and close</source>
         <target state="new">Save and close</target>
@@ -425,11 +420,6 @@
         <source>Name</source>
         <target state="new">Name</target>
         <note>key: content_type_group.update.name</note>
-      </trans-unit>
-      <trans-unit id="87d2becd0dc155bbfe9382c8b48a4bb9f6456959" resname="content_type_group.update.save">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: content_type_group.update.save</note>
       </trans-unit>
       <trans-unit id="d44e2ddf0ee9d2e6fcb0b4f2c49a2b579d629588" resname="content_type_group.update.submit">
         <source>Save and close</source>
