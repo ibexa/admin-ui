@@ -5,7 +5,8 @@
     class: 'ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--small ibexa-btn--secondary ' ~ attr.class|default(''),
 }) %}
 {% set separator = separator|default(',') %}
-{% set values = form.vars.value|split(separator)|filter(value => value is not empty) %}
+{% set custom_form = custom_form|default(false) %}
+{% set values = custom_form ? values|default([]) : form.vars.value|split(separator)|filter(value => value is not empty) %}
 {% set has_value = values|length > 0 %}
 {% set can_be_empty = can_be_empty is defined ? can_be_empty : false %}
 {% set is_single_select = is_single_select is defined ? is_single_select : false %}
@@ -44,9 +45,13 @@
             }) }}
         {% endfor %}
     </div>
-    {{ form_widget(form, {
-        attr: { hidden: true }
-    }) }}
+    {% if custom_form %}
+        {{ form }}
+    {% else %}
+        {{ form_widget(form, {
+            attr: { hidden: true }
+        }) }}
+    {% endif %}
     <button
         type="button"
         {{ html.attributes(attr|default({})) }}
