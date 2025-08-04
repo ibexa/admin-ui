@@ -27,9 +27,9 @@ class SectionUpdateType extends AbstractType
         $this->sectionType->buildForm($builder, $options);
 
         $builder
-            ->add('update_and_edit', SubmitType::class, [
+            ->add('update', SubmitType::class, [
                 'label' => /** @Desc("Save") */
-                    'section_create_form.update_and_edit',
+                    'section_update_form.update',
             ]);
     }
 
