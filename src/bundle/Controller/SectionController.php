@@ -440,6 +440,11 @@ class SectionController extends Controller
                     ['%name%' => $section->name],
                     'ibexa_section'
                 );
+
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
+                    'sectionId' => $section->id,
+                ]));
+
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
                     $e->getMessage()
@@ -447,9 +452,10 @@ class SectionController extends Controller
             }
         }
 
-        return new RedirectResponse($this->generateUrl('ibexa.section.view', [
-            'sectionId' => $section->id,
-        ]));
+        return $this->render('@ibexadesign/section/update.html.twig', [
+            'section' => $section,
+            'form_section_update' => $form,
+        ]);
     }
 
     /**
