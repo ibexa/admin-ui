@@ -391,15 +391,15 @@ export default class TableViewItemComponent extends PureComponent {
     getLanguageSelectorData() {
         const languages = this.props.languages.mappings;
         const { languageCodes } = this.props.item.content._info.currentVersion;
-        const label = Translator.trans(/*@Desc("Select language")*/ 'languages.modal.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/*@Desc("Select translation")*/ 'languages.modal.label', {}, 'ibexa_sub_items');
         const languageItems = languageCodes.map((item) => ({
             label: languages[item].name,
             value: item,
         }));
 
         return {
+            label,
             languageItems,
-            label: `${label} (${languageItems.length})`,
             handleItemChange: this.editItem,
         };
     }

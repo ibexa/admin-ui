@@ -1,0 +1,19 @@
+@mixin edit-language-item {
+    display: block;
+    margin: 0 0 calculateRem(12px) 0;
+    padding: calculateRem(8px) calculateRem(16px);
+    border-radius: calculateRem(8px);
+    font-size: $ibexa-text-font-size-medium;
+    color: $ibexa-color-dark;
+    border: calculateRem(1px) solid $ibexa-color-light;
+
+    &:hover {
+        border-color: $ibexa-color-primary;
+        cursor: pointer;
+    }
+
+    &--active {
+        background-color: $ibexa-color-light-200;
+        border-color: $ibexa-color-light-400;
+    }
+}

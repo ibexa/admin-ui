@@ -1,0 +1,11 @@
+{% extends '@ibexadesign/content/form_fields.html.twig' %}
+
+{% block _content_edit_language_entry_widget %}
+    <div class="ibexa-instant-filter__group-item">
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}
+
+{% block _content_edit_language_widget %}
+    {{ form_widget(form, { 'attr': { 'class': 'ibexa-instant-filter__items' } }) }}
+{% endblock %}

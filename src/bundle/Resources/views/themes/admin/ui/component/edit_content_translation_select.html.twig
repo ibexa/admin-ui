@@ -1,0 +1,57 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+{% set title = title|default('') %}
+{% set filter_placeholder = filter_placeholder|default('') %}
+{% set filter_description = filter_description|default('') %}
+{% set hasSearch = hasSearch|default(true) %}
+{% set extra_class = extra_class|default('') %}
+{% set container_attr = {
+    class: ('ibexa-extra-actions ibexa-extra-actions--edit ibexa-extra-actions--hidden '
+        ~ (hasSearch ? 'ibexa-extra-actions--has-search ')
+        ~ extra_class),
+    }|merge(data_attr|default({})) %}
+
+<div {{ html.attributes(container_attr) }}>
+    {% block before_body %}
+    {% endblock %}
+
+    {% block header %}
+        {% if title %}
+            <div class="ibexa-extra-actions__header">
+                <h2 class="ibexa-extra-actions__header-content">{{ title }}</h2>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block content %}
+        <div class="ibexa-extra-actions__content">
+            <div class="ibexa-instant-filter">
+                    <div class="ibexa-instant-filter__input-wrapper {% if not hasSearch %}ibexa-instant-filter__input-wrapper--hidden{% endif %}">
+                        <input
+                            type="text"
+                            class="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
+                            placeholder="{{ filter_placeholder }}"
+                            value=""
+                        />
+                    </div>
+                {% if filter_description %}
+                    <div class="ibexa-instant-filter__desc">
+                        {{ filter_description }}
+                    </div>
+                {% endif %}
+
+                {% block content_items %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block footer %}
+        <div class="ibexa-extra-actions__confirm-wrapper">
+            {% block footer_items %}{% endblock %}
+        </div>
+    {% endblock %}
+
+    {% block after_body %}
+    {% endblock %}
+</div>

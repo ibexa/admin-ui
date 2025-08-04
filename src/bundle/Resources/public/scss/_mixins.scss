@@ -14,6 +14,7 @@
 @import 'mixins/spinner';
 @import 'mixins/tab-selector';
 @import 'mixins/tooltips';
+@import 'mixins/edit-language-selector';
 
 @mixin datetime-field() {
     &.is-invalid {
