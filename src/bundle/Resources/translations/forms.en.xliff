@@ -266,11 +266,6 @@
         <target state="new">Create</target>
         <note>key: section_create_form.create</note>
       </trans-unit>
-      <trans-unit id="6dec25847a8a644fae3b714ea034886b987af430" resname="section_create_form.update_and_edit">
-        <source>Save</source>
-        <target state="new">Save</target>
-        <note>key: section_create_form.update_and_edit</note>
-      </trans-unit>
       <trans-unit id="157171a054bf3089d55c971b318b95a26a1cbb92" resname="section_delete_form.delete">
         <source>Delete</source>
         <target state="new">Delete</target>
@@ -290,6 +285,11 @@
         <source>Change section</source>
         <target state="new">Change section</target>
         <note>key: section_subtree_assign_form.assign</note>
+      </trans-unit>
+      <trans-unit id="ecaa9ee7b46159c99796726b8e14693d821e5500" resname="section_update_form.update">
+        <source>Save</source>
+        <target state="new">Save</target>
+        <note>key: section_update_form.update</note>
       </trans-unit>
       <trans-unit id="1076fdadc49ac9198c278970f355457c26075975" resname="sections_delete_form.delete">
         <source>Delete Sections</source>
