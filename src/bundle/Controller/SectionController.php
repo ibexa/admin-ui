@@ -371,10 +371,9 @@ final class SectionController extends Controller
             }
         }
 
-        return $this->render('@ibexadesign/section/update.html.twig', [
-            'section' => $section,
-            'form_section_update' => $form,
-        ]);
+        return new RedirectResponse($this->generateUrl('ibexa.section.view', [
+            'sectionId' => $section->id,
+        ]));
     }
 
     /**
