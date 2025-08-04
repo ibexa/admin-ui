@@ -15,7 +15,6 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {

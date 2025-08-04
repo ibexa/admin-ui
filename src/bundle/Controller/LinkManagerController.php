@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\URL\URLEditType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -20,7 +19,6 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

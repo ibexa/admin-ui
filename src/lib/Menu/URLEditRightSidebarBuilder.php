@@ -9,18 +9,14 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     public const ITEM__SAVE_AND_CLOSE = 'url_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'url_edit__sidebar_right__cancel';
-
 
     protected function getConfigureEventName(): string
     {
