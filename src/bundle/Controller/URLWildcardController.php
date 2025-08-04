@@ -13,7 +13,6 @@ use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardUpdateType;
 use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -21,7 +20,6 @@ use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use JMS\TranslationBundle\Annotation\Desc;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
