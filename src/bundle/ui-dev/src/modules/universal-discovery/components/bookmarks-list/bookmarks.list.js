@@ -40,17 +40,18 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
         [markedLocationId, loadedLocationsMap],
     );
     const [data, isLoading, reloadBookmarks] = useLoadBookmarksFetch(itemsPerPage, offset);
+    const areSomeBookmarksAdded = bookmarks.length === 0;
     const containerClassName = createCssClassNames({
         'c-bookmarks-list': true,
-        'c-bookmarks-list--no-items': bookmarks.length === 0,
+        'c-bookmarks-list--no-items': areSomeBookmarksAdded,
     });
     const noBookmarksInfoText = Translator.trans(
-        /*@Desc("No bookmarks yet")*/ 'bookmarks_tab.no_items.info_text',
+        /*@Desc("You have no bookmarks yet")*/ 'bookmarks_tab.no_items.info_text',
         {},
         'ibexa_universal_discovery_widget',
     );
     const noBookmarksActionText = Translator.trans(
-        /*@Desc("All bookmarked assets will appear here.")*/ 'bookmarks_tab.no_items.action_text',
+        /*@Desc("Your bookmarks will show up here.")*/ 'bookmarks_tab.no_items.action_text',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -103,9 +104,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 
     return (
         <div className={containerClassName} onScroll={loadMore} ref={refBookmarksList}>
-            {!isLoading && bookmarks.length === 0 && (
-                <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />
-            )}
+            {!isLoading && areSomeBookmarksAdded && <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />}
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
