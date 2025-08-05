@@ -94,7 +94,7 @@
                 return;
             }
 
-            this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
+            this.handleToggle();
         }
 
         updatePosition() {
