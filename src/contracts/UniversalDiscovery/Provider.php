@@ -83,9 +83,23 @@ interface Provider
     ): array;
 
     /**
-     * @param int[] $locationIds
+     * @param list<string> $locationIds
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return array<array{
+     *     location: \Ibexa\Contracts\Core\Repository\Values\Content\Location,
+     *     permissions: array{
+     *       create: array{
+     *         hasAccess: bool,
+     *         restrictedContentTypeIds: array<int>,
+     *         restrictedLanguageCodes: array<string>
+     *       },
+     *       edit: array{
+     *         hasAccess: bool,
+     *         restrictedContentTypeIds: array<int>,
+     *         restrictedLanguageCodes: array<string>
+     *       }
+     *     }
+     * }>
      */
     public function getLocations(array $locationIds): array;
 

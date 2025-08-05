@@ -1087,18 +1087,6 @@ parameters:
 			path: src/bundle/Controller/URLWildcardController.php
 
 		-
-			message: '#^Parameter \#1 \$locationIds of method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getLocations\(\) expects array\<int\>, list\<string\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/UniversalDiscoveryController.php
-
-		-
-			message: '#^Parameter \#1 \$locationList of class Ibexa\\AdminUi\\REST\\Value\\UniversalDiscovery\\LocationListData constructor expects array\<array\{location\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, permissions\: array\{create\: array\{hasAccess\: bool, restrictedContentTypeIds\: array\<int\>, restrictedLanguageCodes\: array\<string\>\}, edit\: array\{hasAccess\: bool, restrictedContentTypeIds\: array\<int\>, restrictedLanguageCodes\: array\<string\>\}\}\}\>, array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/UniversalDiscoveryController.php
-
-		-
 			message: '#^Cannot access property \$languageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -7291,18 +7279,6 @@ parameters:
 			path: src/lib/QueryType/TrashSearchQueryType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\REST\\Generator\\ProfilePictureFieldConfigRestGenerator\:\:generate\(\) has parameter \$parameter with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/REST/Generator/ProfilePictureFieldConfigRestGenerator.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\REST\\Generator\\UserConfigRestGenerator\:\:generate\(\) has parameter \$parameter with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/REST/Generator/UserConfigRestGenerator.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\REST\\Security\\NonAdminRESTRequestMatcher\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8707,7 +8683,7 @@ parameters:
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocations\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> but returns list\<array\<string, array\<string, mixed\>\|Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\>\>\.$#'
+			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocations\(\) should return array\<array\{location\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, permissions\: array\{create\: array\{hasAccess\: bool, restrictedContentTypeIds\: array\<int\>, restrictedLanguageCodes\: array\<string\>\}, edit\: array\{hasAccess\: bool, restrictedContentTypeIds\: array\<int\>, restrictedLanguageCodes\: array\<string\>\}\}\}\> but returns list\<array\{location\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, permissions\: array\<string, mixed\>\}\>\.$#'
 			identifier: return.type
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
@@ -8756,6 +8732,12 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$query of method Ibexa\\Contracts\\Core\\Repository\\SearchService\:\:findLocations\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\LocationQuery, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
+
+		-
+			message: '#^Parameter \#1 \$value of class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\LocationId constructor expects array\<int\>\|int, list\<string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php

@@ -16,14 +16,11 @@ use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Rest\Server\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class UniversalDiscoveryController extends Controller
+final class UniversalDiscoveryController extends Controller
 {
-    private Provider $provider;
-
     public function __construct(
-        Provider $provider
+        private readonly Provider $provider
     ) {
-        $this->provider = $provider;
     }
 
     public function locationsAction(Request $request): LocationListData
