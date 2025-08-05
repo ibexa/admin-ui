@@ -35,10 +35,11 @@ const findFileTypeMapping = (mappings, file) => mappings.find((item) => item.mim
 const checkIsFileWithinMimeTypes = (mimeTypes, file) => !!mimeTypes.find((type) => type === file.type);
 const isMimeTypeAllowed = (mappings, file) => !!findFileTypeMapping(mappings, file);
 
-const checkFileTypeAllowed = (file, locationMapping, config) =>
-    !locationMapping
-        ? config.defaultMappings.every((mapping) => checkIsFileWithinMimeTypes(mapping.mimeTypes, file))
+const checkFileTypeAllowed = (file, locationMapping, config) => {
+    return !locationMapping
+        ? config.defaultMappings.some((mapping) => checkIsFileWithinMimeTypes(mapping.mimeTypes, file))
         : isMimeTypeAllowed(locationMapping.mappings, file);
+};
 
 const detectContentTypeMapping = (file, parentInfo, config) => {
     const locationMapping = config.locationMappings.find((item) => item.contentTypeIdentifier === parentInfo.contentTypeIdentifier);
