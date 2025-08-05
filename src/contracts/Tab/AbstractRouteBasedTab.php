@@ -18,20 +18,13 @@ use Twig\Environment;
  */
 abstract class AbstractRouteBasedTab extends AbstractTab
 {
-    protected UrlGeneratorInterface $urlGenerator;
-
-    private HttpKernelRuntime $httpKernelRuntime;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator,
-        HttpKernelRuntime $httpKernelRuntime
+        protected readonly UrlGeneratorInterface $urlGenerator,
+        private readonly HttpKernelRuntime $httpKernelRuntime
     ) {
         parent::__construct($twig, $translator);
-
-        $this->urlGenerator = $urlGenerator;
-        $this->httpKernelRuntime = $httpKernelRuntime;
     }
 
     public function renderView(array $parameters): string

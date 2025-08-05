@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Tab;
 
@@ -15,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class TabRegistryTest extends TestCase
+final class TabRegistryTest extends TestCase
 {
     private string $groupName;
 
@@ -28,7 +29,9 @@ class TabRegistryTest extends TestCase
     public function testGetTabsByGroupNameWhenGroupDoesNotExist(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName));
+        $this->expectExceptionMessage(
+            sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName)
+        );
 
         $tabRegistry = new TabRegistry();
         $tabRegistry->getTabsByGroupName($this->groupName);
@@ -68,7 +71,9 @@ class TabRegistryTest extends TestCase
     public function testGetTabFromGroupWhenGroupDoesNotExist(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName));
+        $this->expectExceptionMessage(
+            sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName)
+        );
 
         $tabRegistry = new TabRegistry();
         $tabRegistry->getTabFromGroup('tab1', $this->groupName);
@@ -79,7 +84,13 @@ class TabRegistryTest extends TestCase
         $tabName = 'tab1';
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf('Could not find the requested tab "%s" from group "%s". Did you tag the service?', $tabName, $this->groupName));
+        $this->expectExceptionMessage(
+            sprintf(
+                'Could not find the requested tab "%s" from group "%s". Did you tag the service?',
+                $tabName,
+                $this->groupName
+            )
+        );
 
         $tabs = [];
         $tabRegistry = new TabRegistry();
@@ -149,16 +160,12 @@ class TabRegistryTest extends TestCase
     private function createTab(string $name, Environment $twig, TranslatorInterface $translator): TabInterface
     {
         return new class($name, $twig, $translator) extends AbstractTab {
-            protected string $name;
-
-            protected Environment $twig;
-
-            protected TranslatorInterface $translator;
-
-            public function __construct(string $name, Environment $twig, TranslatorInterface $translator)
-            {
+            public function __construct(
+                protected readonly string $name,
+                Environment $twig,
+                TranslatorInterface $translator
+            ) {
                 parent::__construct($twig, $translator);
-                $this->name = $name;
             }
 
             public function getIdentifier(): string

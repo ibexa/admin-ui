@@ -13,27 +13,18 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class FieldDefinitionMappingEvent extends Event
+final class FieldDefinitionMappingEvent extends Event
 {
     /**
      * Triggered when contentTypeData is created from contentTypeDraft.
      */
-    public const NAME = 'field_definition.mapping';
-
-    private FieldDefinitionData $fieldDefinitionData;
-
-    private ?Language $baseLanguage;
-
-    private ?Language $targetLanguage;
+    public const string NAME = 'field_definition.mapping';
 
     public function __construct(
-        FieldDefinitionData $fieldDefinitionData,
-        ?Language $baseLanguage,
-        ?Language $targetLanguage
+        private FieldDefinitionData $fieldDefinitionData,
+        private readonly ?Language $baseLanguage,
+        private readonly ?Language $targetLanguage
     ) {
-        $this->baseLanguage = $baseLanguage;
-        $this->targetLanguage = $targetLanguage;
-        $this->fieldDefinitionData = $fieldDefinitionData;
     }
 
     public function getFieldDefinition(): FieldDefinition

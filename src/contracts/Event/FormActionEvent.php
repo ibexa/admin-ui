@@ -12,47 +12,26 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class FormActionEvent extends FormEvent
+final class FormActionEvent extends FormEvent
 {
-    /**
-     * Name of the button used to submit the form.
-     */
-    private ?string $clickedButton;
-
-    /**
-     * Hash of options.
-     *
-     * @var array<string, mixed>
-     */
-    private array $options;
-
     /**
      * Response to return after form post-processing. Typically, a RedirectResponse.
      */
-    private ?Response $response;
+    private ?Response $response = null;
 
     /**
-     * Additional payload populated for event listeners next in priority.
-     *
-     * @var array<mixed>
-     */
-    private array $payloads;
-
-    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      * @param array<string, mixed> $options
-     * @param array<mixed> $payloads
+     * @param array<mixed> $payloads additional payloads populated for event listeners next in priority
      */
     public function __construct(
         FormInterface $form,
         mixed $data,
-        ?string $clickedButton,
-        array $options = [],
-        array $payloads = []
+        private readonly ?string $clickedButton,
+        private readonly array $options = [],
+        private array $payloads = []
     ) {
         parent::__construct($form, $data);
-        $this->clickedButton = $clickedButton;
-        $this->options = $options;
-        $this->payloads = $payloads;
     }
 
     public function getClickedButton(): ?string

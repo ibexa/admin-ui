@@ -14,25 +14,13 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  * Simple value provider that passes on the value it is given in the constructor.
  * Can be used for container config.
  */
-class Value implements ProviderInterface
+readonly class Value implements ProviderInterface
 {
-    /** @var mixed */
-    protected $config;
-
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value)
+    public function __construct(protected mixed $config)
     {
-        $this->config = $value;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return mixed
-     */
-    public function getConfig()
+    public function getConfig(): mixed
     {
         return $this->config;
     }

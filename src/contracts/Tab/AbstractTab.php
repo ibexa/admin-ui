@@ -17,13 +17,9 @@ use Twig\Environment;
  */
 abstract class AbstractTab implements TabInterface
 {
-    protected Environment $twig;
-
-    protected TranslatorInterface $translator;
-
-    public function __construct(Environment $twig, TranslatorInterface $translator)
-    {
-        $this->twig = $twig;
-        $this->translator = $translator;
+    public function __construct(
+        protected Environment $twig,
+        protected TranslatorInterface $translator
+    ) {
     }
 }

@@ -18,16 +18,12 @@ use Twig\Environment;
  */
 abstract class AbstractControllerBasedTab extends AbstractTab
 {
-    protected HttpKernelRuntime $httpKernelRuntime;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        HttpKernelRuntime $httpKernelRuntime
+        protected readonly HttpKernelRuntime $httpKernelRuntime
     ) {
         parent::__construct($twig, $translator);
-
-        $this->httpKernelRuntime = $httpKernelRuntime;
     }
 
     public function renderView(array $parameters): string

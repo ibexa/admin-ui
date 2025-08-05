@@ -13,46 +13,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface UiActionEventInterface
 {
-    public const TYPE_SUCCESS = 'success';
-    public const TYPE_FAILURE = 'failure';
+    public const string TYPE_SUCCESS = 'success';
+    public const string TYPE_FAILURE = 'failure';
 
-    /**
-     * @return string
-     */
     public function getName(): string;
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void;
 
-    /**
-     * @return string
-     */
     public function getType(): string;
 
-    /**
-     * @param string $type
-     */
     public function setType(string $type): void;
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function getForm(): FormInterface;
 
-    /**
-     * @param \Symfony\Component\Form\FormInterface $form
-     */
     public function setForm(FormInterface $form): void;
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response|null
-     */
     public function getResponse(): ?Response;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Response|null $response
-     */
     public function setResponse(?Response $response): void;
 }

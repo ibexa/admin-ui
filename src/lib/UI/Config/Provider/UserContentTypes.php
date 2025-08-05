@@ -11,23 +11,16 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
-class UserContentTypes implements ProviderInterface
+final readonly class UserContentTypes implements ProviderInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    /**
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     */
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @return mixed Anything that is serializable via json_encode()
-     */
-    public function getConfig()
+    public function getConfig(): mixed
     {
-        return $this->configResolver->getParameter('user_content_type_identifier');
+        return $this->configResolver->getParameter(
+            'user_content_type_identifier'
+        );
     }
 }

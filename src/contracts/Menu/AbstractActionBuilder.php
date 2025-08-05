@@ -19,34 +19,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class AbstractActionBuilder extends AbstractBuilder
 {
-    protected const TRANSLATION_DOMAIN = 'ibexa_action_menu';
-    protected const IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
+    protected const string TRANSLATION_DOMAIN = 'ibexa_action_menu';
+    protected const string IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
 
-    private const ICON_EDIT = 'edit';
-    private const ORDER_NUMBER = 200;
-
-    protected TranslatorInterface $translator;
-
-    protected UrlGeneratorInterface $urlGenerator;
-
-    private ContentService $contentService;
-
-    private UserService $userService;
+    private const string ICON_EDIT = 'edit';
+    private const int ORDER_NUMBER = 200;
 
     public function __construct(
         MenuItemFactoryInterface $menuItemFactory,
         EventDispatcherInterface $eventDispatcher,
-        ContentService $contentService,
-        TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator,
-        UserService $userService
+        private readonly ContentService $contentService,
+        protected readonly TranslatorInterface $translator,
+        protected readonly UrlGeneratorInterface $urlGenerator,
+        private readonly UserService $userService
     ) {
         parent::__construct($menuItemFactory, $eventDispatcher);
-
-        $this->contentService = $contentService;
-        $this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;
-        $this->userService = $userService;
     }
 
     /**
