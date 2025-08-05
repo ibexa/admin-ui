@@ -25,7 +25,7 @@ Feature: Content type groups management
       And I set fields
         | label | value    |
         | Name  | Test content type Group |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on content type group page for "Test content type Group" group
     And there're no content types for that group
 
@@ -50,7 +50,7 @@ Feature: Content type groups management
       And I set fields
         | label | value                          |
         | Name  | Test content type Group edited |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on content type group page for "Test content type Group edited" group
       And success notification that "Updated content type group 'Test content type Group'." appears
 

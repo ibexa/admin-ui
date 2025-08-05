@@ -11,7 +11,6 @@ use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Data\URL\URLUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\URL\URLEditType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\URLUsagesAdapter;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -19,7 +18,6 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -52,7 +50,7 @@ final class LinkManagerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (URLUpdateData $data) use ($url, $form): Response {
+            $result = $this->submitHandler->handle($form, function (URLUpdateData $data) use ($url): Response {
                 $this->urlService->updateUrl($url, $data);
                 $this->notificationHandler->success(
                     /** @Desc("URL updated") */
@@ -60,14 +58,6 @@ final class LinkManagerController extends Controller
                     [],
                     'ibexa_linkmanager'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === URLEditType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.link_manager.edit', [
-                        'urlId' => $url->id,
-                    ]);
-                }
 
                 return $this->redirectToRoute('ibexa.url_management');
             });

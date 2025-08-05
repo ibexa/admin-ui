@@ -18,8 +18,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ObjectStateGroupUpdateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -28,9 +26,6 @@ class ObjectStateGroupUpdateType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'label' => /** @Desc("Name") */ 'object_state_group.update.name',
-            ])
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'object_state_group.update.save',
             ])
             ->add('save_and_close', SubmitType::class, [
                 'label' => /** @Desc("Save and close") */ 'object_state_group.update.save_and_close',

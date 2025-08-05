@@ -18,8 +18,6 @@ use Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper;
 use Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
-use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
 use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
@@ -40,7 +38,6 @@ use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -401,14 +398,6 @@ class SectionController extends Controller
                     'ibexa_section'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === SectionCreateType::BTN_CREATE_AND_EDIT
-                ) {
-                    return $this->redirectToRoute('ibexa.section.update', [
-                        'sectionId' => $section->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
                     'sectionId' => $section->id,
                 ]));
@@ -452,13 +441,9 @@ class SectionController extends Controller
                     'ibexa_section'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === SectionUpdateType::BTN_UPDATE
-                ) {
-                    return new RedirectResponse($this->generateUrl('ibexa.section.view', [
-                        'sectionId' => $section->id,
-                    ]));
-                }
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
+                    'sectionId' => $section->id,
+                ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
                     $e->getMessage()

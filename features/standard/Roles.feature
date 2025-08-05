@@ -24,7 +24,7 @@ Feature: Roles management
     And I set fields
       | label | value     |
       | Name  | Test Role |
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And Policies list is empty
     And Assignments list is empty
@@ -51,7 +51,7 @@ Feature: Roles management
     And I set fields
       | label | value            |
       | Name  | Anonymous edited |
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Anonymous edited" Role page
 
   @javascript
@@ -85,7 +85,7 @@ Feature: Roles management
       | path          |
       | Users/Editors |
     And I select limitation "Media/Images" for assignment through UDW
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And Policies list is empty
     And there are assignments on the "Test Role" assignments list
@@ -102,7 +102,7 @@ Feature: Roles management
     And I assign groups to role
       | path  |
       | Users |
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And Policies list is empty
     And there are assignments on the "Test Role" assignments list
@@ -146,12 +146,12 @@ Feature: Roles management
     And I open "Test Role" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "Content / Read"
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     And success notification that "Now you can set Limitations for the Policy." appears
     And I select limitation for "Content type"
       | option  |
       | File    |
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And there is a policy "Content/Read" with "Content type: File" limitation on the "Test Role" policies list
     And there are assignments on the "Test Role" assignments list
@@ -164,7 +164,7 @@ Feature: Roles management
     And I open "Test Role" Role page in admin SiteAccess
     When I start creating a new Policy
     And I select policy "User / Password"
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And there is a policy "User/Password" with "None" limitation on the "Test Role" policies list
     And there are assignments on the "Test Role" assignments list
@@ -184,7 +184,7 @@ Feature: Roles management
     And I select limitation for "State"
       | option      |
       | Lock:Locked |
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then I should be on "Test Role" Role page
     And there are policies on the "Test Role" policies list
       | policy       | limitation                                  |

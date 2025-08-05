@@ -27,7 +27,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier  |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Test Section" Section page
       And Content items list in is empty for Section
       And Section has proper attributes
@@ -84,7 +84,7 @@ Feature: Sections management
       And I set fields
         | label | value               |
         | Name  | Test Section edited |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Test Section edited" Section page
       And notification that "Section" "Test Section edited" is updated appears
 
@@ -107,7 +107,7 @@ Feature: Sections management
       And I set fields
         | label | value                |
         | Name  | Test Section edited2 |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Test Section edited2" Section page
       And notification that "Section" "Test Section edited2" is updated appears
 
@@ -125,7 +125,7 @@ Feature: Sections management
       | label      | value                       |
       | Name       | TestSectionAssign           |
       | Identifier | TestSectionAssignIdentifier |
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     And I open "TestSectionAssign" Section page in admin SiteAccess
     When I start assigning to "TestSectionAssign" Section
     And I select content "Media/TestSection" through UDW
@@ -154,7 +154,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier2 |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     And notification that "Section" "Test Section" is created appears
     When I delete the section
     Then notification that "Section" "Test Section" is removed appears
