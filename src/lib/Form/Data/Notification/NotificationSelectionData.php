@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Form\Data\Notification;
 
 final class NotificationSelectionData
 {
-    /** @var bool[] */
+    /** @var bool[] notificationId => selected */
     private array $notifications;
 
     /**
@@ -35,18 +35,5 @@ final class NotificationSelectionData
     public function setNotifications(array $notifications): void
     {
         $this->notifications = $notifications;
-    }
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Notification\Notification[] $notifications
-     */
-    public static function fromNotificationObjects(array $notifications): self
-    {
-        $ids = [];
-        foreach ($notifications as $notification) {
-            $ids[$notification->id] = false;
-        }
-
-        return new self($ids);
     }
 }

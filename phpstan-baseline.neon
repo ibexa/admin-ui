@@ -7281,7 +7281,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
@@ -7324,12 +7324,6 @@ parameters:
 			message: '#^Cannot call method getRoleLimitation\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\RoleAssignment\|null\.$#'
 			identifier: method.nonObject
 			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getSection\(\) on Ibexa\\AdminUi\\Form\\Data\\Section\\SectionDeleteData\|null\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
