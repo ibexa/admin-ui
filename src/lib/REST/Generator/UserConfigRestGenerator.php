@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\Visitor;
 
-final class UserConfigRestGenerator implements ApplicationConfigRestGeneratorInterface
+final readonly class UserConfigRestGenerator implements ApplicationConfigRestGeneratorInterface
 {
-    private const NAMESPACE = 'user';
-    private const PARAMETER = 'user';
+    private const string NAMESPACE = 'user';
+    private const string PARAMETER = 'user';
 
     public function supportsNamespace(string $namespace): bool
     {
@@ -28,7 +28,7 @@ final class UserConfigRestGenerator implements ApplicationConfigRestGeneratorInt
         return self::PARAMETER === $parameterName;
     }
 
-    public function generate($parameter, Generator $generator, Visitor $visitor): void
+    public function generate(mixed $parameter, Generator $generator, Visitor $visitor): void
     {
         if ($parameter instanceof User) {
             $generator->startHashElement(self::PARAMETER);

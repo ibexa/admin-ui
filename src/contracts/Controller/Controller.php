@@ -21,8 +21,8 @@ abstract class Controller extends AbstractController implements RestrictedContro
     public function redirectToLocation(Location $location, string $uriFragment = ''): RedirectResponse
     {
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $location->contentId,
-            'locationId' => $location->id,
+            'contentId' => $location->getContentId(),
+            'locationId' => $location->getId(),
             '_fragment' => $uriFragment,
         ]);
     }

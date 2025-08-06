@@ -18,44 +18,27 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractBuilder
 {
-    protected MenuItemFactoryInterface $factory;
-
-    protected EventDispatcherInterface $eventDispatcher;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
-    public function __construct(MenuItemFactoryInterface $factory, EventDispatcherInterface $eventDispatcher)
-    {
-        $this->factory = $factory;
-        $this->eventDispatcher = $eventDispatcher;
+    public function __construct(
+        protected readonly MenuItemFactoryInterface $factory,
+        protected readonly EventDispatcherInterface $eventDispatcher
+    ) {
     }
 
     /**
-     * @param string $id
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @param array<mixed> $options
      */
     protected function createMenuItem(string $id, array $options = []): ItemInterface
     {
         return $this->factory->createItem($id, $options);
     }
 
-    /**
-     * @param string $name
-     * @param \Symfony\Contracts\EventDispatcher\Event $event
-     */
     protected function dispatchMenuEvent(string $name, Event $event): void
     {
         $this->eventDispatcher->dispatch($event, $name);
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
-     *
-     * @return \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+     * @param array<mixed> $options
      */
     protected function createConfigureMenuEvent(ItemInterface $menu, array $options = []): ConfigureMenuEvent
     {
@@ -63,9 +46,7 @@ abstract class AbstractBuilder
     }
 
     /**
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @param array<mixed> $options
      */
     public function build(array $options): ItemInterface
     {
@@ -78,5 +59,8 @@ abstract class AbstractBuilder
 
     abstract protected function getConfigureEventName(): string;
 
+    /**
+     * @param array<mixed> $options
+     */
     abstract protected function createStructure(array $options): ItemInterface;
 }

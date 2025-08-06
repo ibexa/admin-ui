@@ -1447,118 +1447,10 @@ parameters:
 			path: src/contracts/Component/Renderer/RendererInterface.php
 
 		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Event\\FormActionEvent\:\:__construct\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/contracts/Event/FormActionEvent.php
-
-		-
-			message: '#^Property Ibexa\\Contracts\\AdminUi\\Event\\FormActionEvent\:\:\$response \(Symfony\\Component\\HttpFoundation\\Response\|null\) is never assigned null so it can be removed from the property type\.$#'
-			identifier: property.unusedType
-			count: 1
-			path: src/contracts/Event/FormActionEvent.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Form\\ActionDispatcher\\ActionDispatcherInterface\:\:dispatchFormAction\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/contracts/Form/ActionDispatcher/ActionDispatcherInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Form\\ActionDispatcher\\ActionDispatcherInterface\:\:dispatchFormAction\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/contracts/Form/ActionDispatcher/ActionDispatcherInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Form\\ActionDispatcher\\ActionDispatcherInterface\:\:dispatchFormAction\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Form/ActionDispatcher/ActionDispatcherInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Form\\Data\\FormMapper\\FormDataMapperInterface\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Form/Data/FormMapper/FormDataMapperInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Menu\\AbstractBuilder\:\:build\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Menu/AbstractBuilder.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Menu\\AbstractBuilder\:\:createConfigureMenuEvent\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Menu/AbstractBuilder.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Menu\\AbstractBuilder\:\:createMenuItem\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Menu/AbstractBuilder.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Menu\\AbstractBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Menu/AbstractBuilder.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Notification\\TranslatableNotificationHandlerInterface\:\:error\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Notification/TranslatableNotificationHandlerInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Notification\\TranslatableNotificationHandlerInterface\:\:info\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Notification/TranslatableNotificationHandlerInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Notification\\TranslatableNotificationHandlerInterface\:\:success\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Notification/TranslatableNotificationHandlerInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Notification\\TranslatableNotificationHandlerInterface\:\:warning\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Notification/TranslatableNotificationHandlerInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Permission\\PermissionCheckerInterface\:\:canCreateInLocation\(\) has parameter \$hasAccess with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Permission/PermissionCheckerInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\Permission\\PermissionCheckerInterface\:\:getRestrictions\(\) has parameter \$hasAccess with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/Permission/PermissionCheckerInterface.php
-
-		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\Permission\\PermissionCheckerInterface\:\:getRestrictions\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/contracts/Permission/PermissionCheckerInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UI\\Action\\FormUiActionMapperInterface\:\:map\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/contracts/UI/Action/FormUiActionMapperInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UI\\Action\\FormUiActionMapperInterface\:\:supports\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/contracts/UI/Action/FormUiActionMapperInterface.php
 
 		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\UI\\Action\\UiActionEventInterface\:\:getForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
@@ -1571,60 +1463,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/contracts/UI/Action/UiActionEventInterface.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getBreadcrumbLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getColumns\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getLocationData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getLocationGridViewData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getLocationPermissionRestrictions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getLocations\(\) has parameter \$locationIds with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getSubitemContents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
-
-		-
-			message: '#^Method Ibexa\\Contracts\\AdminUi\\UniversalDiscovery\\Provider\:\:getSubitemLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/contracts/UniversalDiscovery/Provider.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\ContentTypeContext\:\:thereAContentTypeOnContentTypesList\(\) has parameter \$contentTypeName with no type specified\.$#'
@@ -6967,12 +6805,6 @@ parameters:
 			path: src/lib/Limitation/Templating/LimitationBlockRendererInterface.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\AbstractContentTypeRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/Admin/ContentType/AbstractContentTypeRightSidebarBuilder.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\ContentTypeGroupCreateRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -7091,12 +6923,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Menu/Admin/Role/RoleAssignmentCreateRightSidebarBuilder.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\Role\\RoleCopyRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/Admin/Role/RoleCopyRightSidebarBuilder.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\Role\\RoleCreateRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
@@ -7267,22 +7093,10 @@ parameters:
 			path: src/lib/Menu/TrashRightSidebarBuilder.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Menu\\URLEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/URLEditRightSidebarBuilder.php
-
-		-
 			message: '#^Property Ibexa\\AdminUi\\Menu\\URLEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
 			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/URLEditRightSidebarBuilder.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Menu\\URLWildcardEditRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Menu/URLWildcardEditRightSidebarBuilder.php
 
 		-
 			message: '#^Property Ibexa\\AdminUi\\Menu\\URLWildcardEditRightSidebarBuilder\:\:\$translator is never read, only written\.$#'
@@ -7337,18 +7151,6 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: src/lib/Notification/FlashBagNotificationHandler.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:info\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Notification/TranslatableNotificationHandler.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:warning\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Notification/TranslatableNotificationHandler.php
 
 		-
 			message: '#^Cannot access offset mixed on iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\>\.$#'
@@ -7424,12 +7226,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Permission\\PermissionChecker\:\:flattenArrayOfLimitationsForCurrentUser\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Permission/PermissionChecker.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Permission\\PermissionChecker\:\:getRestrictions\(\) has parameter \$hasAccess with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Permission/PermissionChecker.php
@@ -8167,18 +7963,6 @@ parameters:
 			path: src/lib/Translation/Extractor/SortingTranslationExtractor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\UI\\Action\\FormUiActionMapper\:\:map\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/lib/UI/Action/FormUiActionMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UI\\Action\\FormUiActionMapper\:\:supports\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/lib/UI/Action/FormUiActionMapper.php
-
-		-
 			message: '#^Parameter \#1 \$fqcn of static method Symfony\\Component\\Form\\Util\\StringUtil\:\:fqcnToBlockPrefix\(\) expects string, class\-string\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -8899,44 +8683,8 @@ parameters:
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getBreadcrumbLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getColumns\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocationData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocationGridViewData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocationPermissionRestrictions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocations\(\) has parameter \$locationIds with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getLocations\(\) should return array\<array\{location\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, permissions\: array\{create\: array\{hasAccess\: bool, restrictedContentTypeIds\: array\<int\>, restrictedLanguageCodes\: array\<string\>\}, edit\: array\{hasAccess\: bool, restrictedContentTypeIds\: array\<int\>, restrictedLanguageCodes\: array\<string\>\}\}\}\> but returns list\<array\{location\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, permissions\: array\<string, mixed\>\}\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
@@ -8959,14 +8707,14 @@ parameters:
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getSubitemContents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getSubitemContents\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content\> but returns list\<Ibexa\\Rest\\Server\\Values\\Version\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getSubitemLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:getSubitemLocations\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> but returns array\<string, int\<0, max\>\|list\<Ibexa\\Rest\\Server\\Values\\RestLocation\>\|null\>\.$#'
+			identifier: return.type
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
 
@@ -8984,6 +8732,18 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$query of method Ibexa\\Contracts\\Core\\Repository\\SearchService\:\:findLocations\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\LocationQuery, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
+
+		-
+			message: '#^Parameter \#1 \$value of class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\LocationId constructor expects array\<int\>\|int, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php
+
+		-
+			message: '#^Parameter \#2 \$locations of method Ibexa\\AdminUi\\UniversalDiscovery\\UniversalDiscoveryProvider\:\:moveSelectedLocationOnTop\(\) expects array, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/UniversalDiscovery/UniversalDiscoveryProvider.php

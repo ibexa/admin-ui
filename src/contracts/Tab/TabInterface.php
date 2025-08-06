@@ -14,19 +14,11 @@ namespace Ibexa\Contracts\AdminUi\Tab;
  */
 interface TabInterface
 {
-    /**
-     * Returns identifier of the tab.
-     */
     public function getIdentifier(): string;
 
-    /**
-     * Returns name of the tab which is displayed as a tab's title in the UI.
-     */
     public function getName(): string;
 
     /**
-     * Returns HTML body of the tab.
-     *
      * @param array<string, mixed> $parameters
      */
     public function renderView(array $parameters): string;

@@ -14,20 +14,12 @@ use Symfony\Component\Form\FormInterface;
 interface FormUiActionMapperInterface
 {
     /**
-     * Maps $form object to UiActionEvent object.
-     *
-     * @param \Symfony\Component\Form\FormInterface $form
-     *
-     * @return \Ibexa\AdminUi\UI\Action\UiActionEvent
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
     public function map(FormInterface $form): UiActionEvent;
 
     /**
-     * Returns true if FormUiActionMapper is able to create Event from the $form;.
-     *
-     * @param \Symfony\Component\Form\FormInterface $form
-     *
-     * @return bool
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
     public function supports(FormInterface $form): bool;
 }

@@ -18,28 +18,19 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentProxyCreateEvent extends Event
 {
-    public const OPTION_CONTENT_DRAFT = 'contentDraft';
-    public const OPTION_IS_ON_THE_FLY = 'isOnTheFly';
+    public const string OPTION_CONTENT_DRAFT = 'contentDraft';
+    public const string OPTION_IS_ON_THE_FLY = 'isOnTheFly';
 
     private ?Response $response = null;
-
-    private ContentType $contentType;
-
-    private string $languageCode;
-
-    private int $parentLocationId;
 
     private Options $options;
 
     public function __construct(
-        ContentType $contentType,
-        string $languageCode,
-        int $parentLocationId,
+        private readonly ContentType $contentType,
+        private readonly string $languageCode,
+        private readonly int $parentLocationId,
         ?Options $options = null
     ) {
-        $this->contentType = $contentType;
-        $this->languageCode = $languageCode;
-        $this->parentLocationId = $parentLocationId;
         $this->options = $options ?? new Options();
     }
 

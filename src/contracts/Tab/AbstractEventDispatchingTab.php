@@ -21,16 +21,12 @@ use Twig\Environment;
  */
 abstract class AbstractEventDispatchingTab extends AbstractTab
 {
-    protected EventDispatcherInterface $eventDispatcher;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        EventDispatcherInterface $eventDispatcher
+        protected readonly EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator);
-
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function renderView(array $parameters): string

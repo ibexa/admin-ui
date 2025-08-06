@@ -19,28 +19,16 @@ class ContentProxyTranslateEvent extends Event
 {
     private ?Response $response = null;
 
-    private int $contentId;
-
-    private ?string $fromLanguageCode;
-
-    private string $toLanguageCode;
-
     private Options $options;
 
-    private ?int $locationId;
-
     public function __construct(
-        int $contentId,
-        ?string $fromLanguageCode,
-        string $toLanguageCode,
+        private readonly int $contentId,
+        private readonly ?string $fromLanguageCode,
+        private readonly string $toLanguageCode,
         ?Options $options = null,
-        ?int $locationId = null
+        private readonly ?int $locationId = null
     ) {
-        $this->contentId = $contentId;
-        $this->fromLanguageCode = $fromLanguageCode;
-        $this->toLanguageCode = $toLanguageCode;
         $this->options = $options ?? new Options();
-        $this->locationId = $locationId;
     }
 
     public function getContentId(): int

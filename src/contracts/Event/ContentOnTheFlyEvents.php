@@ -8,17 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Event;
 
-final class ContentOnTheFlyEvents
+final readonly class ContentOnTheFlyEvents
 {
-    /** @var string */
-    public const CONTENT_CREATE = 'ibexa.content_on_the_fly.create';
+    public const string CONTENT_CREATE = 'ibexa.content_on_the_fly.create';
 
-    /** @var string */
-    public const CONTENT_CREATE_PUBLISH = 'ibexa.content_on_the_fly.create.publish';
+    public const string CONTENT_CREATE_PUBLISH = 'ibexa.content_on_the_fly.create.publish';
 
-    /** @var string */
-    public const CONTENT_EDIT = 'ibexa.content_on_the_fly.edit';
+    public const string CONTENT_EDIT = 'ibexa.content_on_the_fly.edit';
 
-    /** @var string */
-    public const CONTENT_EDIT_PUBLISH = 'ibexa.content_on_the_fly.edit.publish';
+    public const string CONTENT_EDIT_PUBLISH = 'ibexa.content_on_the_fly.edit.publish';
 }
