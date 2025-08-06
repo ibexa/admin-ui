@@ -47,4 +47,9 @@ final class NotificationStatusChoiceType extends AbstractType
     {
         return ChoiceType::class;
     }
+
+    public function getBlockPrefix(): string
+    {
+        return 'notification_status_choice';
+    }
 }

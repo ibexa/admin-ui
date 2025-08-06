@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Notification;
 
-use Ibexa\AdminUi\Form\Type\DateRangeType;
 use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
-use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -20,6 +20,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class SearchType extends AbstractType
 {
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        /** @var \Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData|null $data */
+        $data = $form->getData();
+        $view->vars['is_some_filter_set'] = false;
+
+        if ($data) {
+            $statuses = $data->getStatuses();
+            $type = $data->getType();
+            $createdRange = $data->getCreatedRange();
+
+            $view->vars['is_some_filter_set'] =
+                (!empty($statuses)) ||
+                (!empty($type)) ||
+                ($createdRange !== null && ($createdRange->getMin() !== null || $createdRange->getMax() !== null));
+        }
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,9 +49,8 @@ final class SearchType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('createdRange', DateRangeType::class, [
+            ->add('createdRange', NotificationCreatedRangeType::class, [
                 'required' => false,
-                'label' => /** @Desc("Date and time") */ 'notification.date_and_time',
             ]);
     }
 

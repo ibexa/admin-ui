@@ -8,45 +8,32 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Notification;
 
-use Ibexa\Core\Notification\Renderer\Registry;
+use Ibexa\AdminUi\Form\Type\DateRangeType;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
-final class NotificationTypeChoiceType extends AbstractType
+final class NotificationCreatedRangeType extends AbstractType
 {
-    private Registry $registry;
-
-    public function __construct(Registry $registry)
-    {
-        $this->registry = $registry;
-    }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $typeLabels = $this->registry->getTypeLabels() ?: [];
-
-        $choices = array_flip($typeLabels);
-
         $resolver->setDefaults([
-            'choices' => $choices,
             'required' => false,
-            'placeholder' => /** @Desc("All types") */ 'notification.all_types',
+            'label' => /** @Desc("Date and time") */ 'notification.date_and_time',
             'translation_domain' => 'ibexa_notifications',
         ]);
     }
 
     public function getParent(): string
     {
-        return ChoiceType::class;
+        return DateRangeType::class;
     }
 
     public function getBlockPrefix(): string
     {
-        return 'notification_type_choice';
+        return 'notification_created_range';
     }
 }

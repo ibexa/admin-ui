@@ -915,9 +915,7 @@ class FormFactory
 
         $name = $name ?: sprintf(
             'delete-role-assignment-%s',
-            md5(
-                implode('/', [$role, $limitation])
-            )
+            hash('sha256', implode('/', [$role, $limitation]))
         );
 
         return $this->formFactory->createNamed($name, RoleAssignmentDeleteType::class, $data);

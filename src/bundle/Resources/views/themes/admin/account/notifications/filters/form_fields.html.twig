@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'ibexa_notifications' %}
 
-{% block _search_type_row %}
+{% block notification_type_choice_row %}
     {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
         target_id: form.vars.id|slug,
         extra_class: 'ibexa-list-filters__item--type',
@@ -12,9 +12,9 @@
             {{ form_widget(form) }}
         {% endblock %}
     {% endembed %}
-{% endblock _search_type_row %}
+{% endblock notification_type_choice_row %}
 
-{% block _search_statuses_row %}
+{% block notification_status_choice_row %}
     {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
         target_id: form.vars.id|slug,
         extra_class: 'ibexa-list-filters__item--statuses',
@@ -24,9 +24,9 @@
             {{ form_widget(form) }}
         {% endblock %}
     {% endembed %}
-{% endblock _search_statuses_row %}
+{% endblock notification_status_choice_row %}
 
-{% block _search_createdRange_row %}
+{% block notification_created_range_row %}
     {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
         target_id: form.vars.id|slug,
         extra_class: 'ibexa-list-filters__item--date-time',
@@ -52,4 +52,4 @@
             </div>
         {% endblock %}
     {% endembed %}
-{% endblock _search_createdRange_row %}
+{% endblock notification_created_range_row %}

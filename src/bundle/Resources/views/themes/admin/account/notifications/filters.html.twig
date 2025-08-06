@@ -1,13 +1,7 @@
 {% trans_default_domain 'ibexa_notifications' %}
 
 {% form_theme search_form with '@ibexadesign/account/notifications/filters/form_fields.html.twig' %}
-
-{% set is_some_filter_set =
-    (search_form.statuses is defined and search_form.statuses.vars.value|length) or
-    search_form.type.vars.value|length or
-    (search_form.createdRange.vars.value is not null and (search_form.createdRange.vars.value.min is not null or
-        search_form.createdRange.vars.value.max is not null))
-%}
+{% set is_some_filter_set = search_form.vars.is_some_filter_set %}
 
 <div class="ibexa-list-filters">
     <div class="ibexa-list-filters__header">
