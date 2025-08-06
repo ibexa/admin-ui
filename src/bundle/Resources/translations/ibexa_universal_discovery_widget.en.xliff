@@ -26,6 +26,16 @@
         <target state="new">Bookmarks</target>
         <note>key: bookmarks.label</note>
       </trans-unit>
+      <trans-unit id="6a27aa8bb1f77862aa607880471de50849aea20e" resname="bookmarks_tab.no_items.action_text">
+        <source>Your bookmarks will show up here.</source>
+        <target state="new">Your bookmarks will show up here.</target>
+        <note>key: bookmarks_tab.no_items.action_text</note>
+      </trans-unit>
+      <trans-unit id="a7f079b96b6372b637b83c0c13e517159fdf8c21" resname="bookmarks_tab.no_items.info_text">
+        <source>You have no bookmarks yet</source>
+        <target state="new">You have no bookmarks yet</target>
+        <note>key: bookmarks_tab.no_items.info_text</note>
+      </trans-unit>
       <trans-unit id="2467591f8170f453c7e896466beb7bb255078cb7" resname="breadcrumbs.root_location">
         <source>Root Location</source>
         <target state="new">Root Location</target>
