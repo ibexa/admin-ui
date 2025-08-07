@@ -38,7 +38,7 @@ final class NotificationSelectionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => NotificationSelectionData::class
+            'data_class' => NotificationSelectionData::class,
         ]);
     }
 }
