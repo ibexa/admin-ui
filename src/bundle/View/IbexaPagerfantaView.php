@@ -15,7 +15,7 @@ use Pagerfanta\View\Template\TemplateInterface;
 /**
  * View to render Pagerfanta pagination.
  */
-class IbexaPagerfantaView extends DefaultView
+final class IbexaPagerfantaView extends DefaultView
 {
     protected function createDefaultTemplate(): TemplateInterface
     {

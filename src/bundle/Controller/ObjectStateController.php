@@ -34,41 +34,18 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ObjectStateController extends Controller
+final class ObjectStateController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private ObjectStateService $objectStateService;
-
-    private FormFactoryInterface $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private PermissionResolver $permissionResolver;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ObjectStateService $objectStateService,
-        FormFactoryInterface $formFactory,
-        SubmitHandler $submitHandler,
-        PermissionResolver $permissionResolver,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ObjectStateService $objectStateService,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->objectStateService = $objectStateService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(ObjectStateGroup $objectStateGroup): Response
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $objectStates */
@@ -80,7 +57,6 @@ class ObjectStateController extends Controller
         );
 
         $unusedObjectStates = [];
-
         foreach ($objectStates as $state) {
             $unusedObjectStates[$state->id] = empty($this->objectStateService->getContentCount($state));
         }
@@ -94,11 +70,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(ObjectState $objectState): Response
     {
         $deleteForm = $this->formFactory->create(
@@ -114,12 +85,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request, ObjectStateGroup $objectStateGroup): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -138,7 +103,7 @@ class ObjectStateController extends Controller
                 $form,
                 function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup, $form): Response {
                     $createStruct = $this->objectStateService->newObjectStateCreateStruct(
-                        $data->getIdentifier()
+                        $data->getIdentifier() ?? ''
                     );
                     $createStruct->defaultLanguageCode = $defaultLanguageCode;
                     $createStruct->names = [$defaultLanguageCode => $data->getName()];
@@ -175,12 +140,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, ObjectState $objectState): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -213,14 +172,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * Handles removing object state groups based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $objectStateGroupId
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request, int $objectStateGroupId): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -255,12 +206,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, ObjectState $objectState): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -313,12 +258,6 @@ class ObjectStateController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function updateContentStateAction(
@@ -361,16 +300,16 @@ class ObjectStateController extends Controller
         }
 
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => 'ibexa-tab-location-view-details',
         ]);
     }
 
     /**
-     * @param array $states
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $states
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getObjectStatesIds(array $states): array
     {

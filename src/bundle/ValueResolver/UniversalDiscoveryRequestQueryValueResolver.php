@@ -21,16 +21,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class UniversalDiscoveryRequestQueryValueResolver implements ValueResolverInterface
 {
-    private Provider $provider;
-
-    private ValidatorInterface $validator;
-
     public function __construct(
-        Provider $provider,
-        ValidatorInterface $validator
+        private readonly Provider $provider,
+        private readonly ValidatorInterface $validator
     ) {
-        $this->provider = $provider;
-        $this->validator = $validator;
     }
 
     private function supports(ArgumentMetadata $argument): bool

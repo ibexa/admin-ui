@@ -12,18 +12,15 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class PathStringExtension extends AbstractExtension
+final class PathStringExtension extends AbstractExtension
 {
-    private LocationService $locationService;
-
     public function __construct(
-        LocationService $locationService
+        private readonly LocationService $locationService
     ) {
-        $this->locationService = $locationService;
     }
 
     /**
-     * @return array
+     * @return \Twig\TwigFunction[]
      */
     public function getFunctions(): array
     {

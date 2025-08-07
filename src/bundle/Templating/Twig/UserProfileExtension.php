@@ -16,11 +16,9 @@ use Twig\TwigFunction;
 
 final class UserProfileExtension extends AbstractExtension
 {
-    private UserProfileConfigurationInterface $configuration;
-
-    public function __construct(UserProfileConfigurationInterface $configuration)
-    {
-        $this->configuration = $configuration;
+    public function __construct(
+        private readonly UserProfileConfigurationInterface $configuration
+    ) {
     }
 
     public function getFunctions(): array

@@ -16,24 +16,14 @@ use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class BulkOperationController extends RestController
+final class BulkOperationController extends RestController
 {
-    private HttpKernelInterface $httpKernel;
-
-    /**
-     * @param \Symfony\Component\HttpKernel\HttpKernelInterface $httpKernel
-     */
     public function __construct(
-        HttpKernelInterface $httpKernel
+        private readonly HttpKernelInterface $httpKernel
     ) {
-        $this->httpKernel = $httpKernel;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Ibexa\AdminUi\REST\Value\BulkOperationResponse
-     *
      * @throws \Exception
      */
     public function bulkAction(Request $request): BulkOperationResponse
@@ -56,19 +46,13 @@ class BulkOperationController extends RestController
             $responses[$operationId] = new OperationResponse(
                 $response->getStatusCode(),
                 $response->headers->all(),
-                $response->getContent()
+                $response->getContent() ?: '',
             );
         }
 
         return new BulkOperationResponse($responses);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\AdminUi\REST\Value\Operation $operation
-     *
-     * @return \Symfony\Component\HttpFoundation\Request
-     */
     private function buildSubRequest(Request $request, Operation $operation): Request
     {
         $subRequest = Request::create(

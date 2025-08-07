@@ -22,39 +22,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentDraftController extends Controller
+final class ContentDraftController extends Controller
 {
-    private const PAGINATION_PARAM_NAME = 'page';
-
-    private ContentService $contentService;
-
-    private DatasetFactory $datasetFactory;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private ConfigResolverInterface $configResolver;
+    private const string PAGINATION_PARAM_NAME = 'page';
 
     public function __construct(
-        ContentService $contentService,
-        DatasetFactory $datasetFactory,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly ContentService $contentService,
+        private readonly DatasetFactory $datasetFactory,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(Request $request): Response
     {
         $currentPage = $request->query->getInt(self::PAGINATION_PARAM_NAME, 1);
@@ -62,7 +42,11 @@ class ContentDraftController extends Controller
         $pagination = new Pagerfanta(
             new ContentDraftAdapter($this->contentService, $this->datasetFactory)
         );
-        $pagination->setMaxPerPage($this->configResolver->getParameter('pagination.content_draft_limit'));
+
+        $pagination->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.content_draft_limit')
+        );
+
         $pagination->setCurrentPage(min($currentPage, $pagination->getNbPages()));
 
         $removeContentDraftForm = $this->formFactory->removeContentDraft(
@@ -75,11 +59,6 @@ class ContentDraftController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->removeContentDraft();
@@ -109,11 +88,6 @@ class ContentDraftController extends Controller
         return $this->redirectToRoute('ibexa.content_draft.list');
     }
 
-    /**
-     * @param \Pagerfanta\Pagerfanta $pagerfanta
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
-     */
     private function createContentRemoveData(Pagerfanta $pagerfanta): ContentRemoveData
     {
         $versions = [];

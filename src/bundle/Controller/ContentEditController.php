@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -17,22 +18,13 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class ContentEditController extends Controller
+final class ContentEditController extends Controller
 {
-    private ContentService $contentService;
-
-    private LocationService $locationService;
-
-    private EventDispatcherInterface $eventDispatcher;
-
     public function __construct(
-        ContentService $contentService,
-        LocationService $locationService,
-        EventDispatcherInterface $eventDispatcher
+        private readonly ContentService $contentService,
+        private readonly LocationService $locationService,
+        private readonly EventDispatcherInterface $eventDispatcher
     ) {
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function proxyTranslateAction(
@@ -64,21 +56,11 @@ class ContentEditController extends Controller
         ]);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\View\ContentTranslateView $view
-     *
-     * @return \Ibexa\AdminUi\View\ContentTranslateView
-     */
     public function translateAction(ContentTranslateView $view): ContentTranslateView
     {
         return $view;
     }
 
-    /**
-     * @param \Ibexa\AdminUi\View\ContentTranslateSuccessView $view
-     *
-     * @return \Ibexa\AdminUi\View\ContentTranslateSuccessView
-     */
     public function translationSuccessAction(ContentTranslateSuccessView $view): ContentTranslateSuccessView
     {
         return $view;

@@ -26,22 +26,17 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *                      - { template: 'template.html.twig', priority: 0 }
  * ```
  */
-class AdminUiForms extends AbstractParser
+final class AdminUiForms extends AbstractParser
 {
-    public const FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
-    public const FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
-    public const META_FIELD_GROUPS_LIST_PARAM = 'admin_ui_forms.content_edit.meta_field_groups_list';
-    public const CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
-    public const CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM =
+    public const string FORM_TEMPLATES_PARAM = 'admin_ui_forms.content_edit_form_templates';
+    public const string FIELD_TYPES_PARAM = 'admin_ui_forms.content_edit.fieldtypes';
+    public const string META_FIELD_GROUPS_LIST_PARAM = 'admin_ui_forms.content_edit.meta_field_groups_list';
+    public const string CONTENT_TYPE_FIELD_TYPES_PARAM = 'admin_ui_forms.content_type_edit.field_types';
+    public const string CONTENT_TYPE_DEFAULT_META_FIELD_TYPE_GROUP_PARAM =
         'admin_ui_forms.content_type_edit.default_meta_field_type_group';
 
-    private const GROUP_NAME_PATTERN = '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D';
+    private const string GROUP_NAME_PATTERN = '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/D';
 
-    /**
-     * Adds semantic configuration definition.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
-     */
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
@@ -128,11 +123,11 @@ class AdminUiForms extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
     public function mapConfig(
         array &$scopeSettings,
-        $currentScope,
+        mixed $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
         if (!empty($scopeSettings['admin_ui_forms']['content_edit']['form_templates'])) {
@@ -194,10 +189,12 @@ class AdminUiForms extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $config
      */
-    public function postMap(array $config, ContextualizerInterface $contextualizer): void
-    {
+    public function postMap(
+        array $config,
+        ContextualizerInterface $contextualizer
+    ): void {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.meta_field_groups_list', $config);
@@ -216,9 +213,9 @@ class AdminUiForms extends AbstractParser
      *  ],
      * </code>
      *
-     * @param array $formTemplates
+     * @param string[] $formTemplates
      *
-     * @return array ordered list of templates
+     * @return string[] ordered list of templates
      */
     private function processContentEditFormTemplates(array $formTemplates): array
     {

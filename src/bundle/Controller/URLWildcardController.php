@@ -27,31 +27,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class URLWildcardController extends Controller
 {
-    private URLWildcardService $urlWildcardService;
-
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
     public function __construct(
-        URLWildcardService $urlWildcardService,
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler
+        private readonly URLWildcardService $urlWildcardService,
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler
     ) {
-        $this->urlWildcardService = $urlWildcardService;
-        $this->notificationHandler = $notificationHandler;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request): Response
     {
         /** @var \Symfony\Component\Form\Form $form */
@@ -62,8 +45,8 @@ final class URLWildcardController extends Controller
         if ($form->isSubmitted()) {
             $this->submitHandler->handle($form, function (URLWildcardData $data) use ($form): Response {
                 $urlWildcard = $this->urlWildcardService->create(
-                    $data->getSourceURL(),
-                    $data->getDestinationUrl(),
+                    $data->getSourceURL() ?? '',
+                    $data->getDestinationUrl() ?? '',
                     (bool) $data->getForward()
                 );
 
@@ -93,12 +76,6 @@ final class URLWildcardController extends Controller
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard $urlWildcard
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(URLWildcard $urlWildcard, Request $request): Response
     {
         /** @var \Symfony\Component\Form\Form $form */
@@ -160,11 +137,6 @@ final class URLWildcardController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request): Response
     {
         $form = $this->formFactory->deleteURLWildcard();

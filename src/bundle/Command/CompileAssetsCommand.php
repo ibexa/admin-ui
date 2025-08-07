@@ -21,16 +21,14 @@ use Symfony\Component\Process\Process;
     name: self::COMMAND_NAME,
     description: 'Compiles all assets using Webpack Encore'
 )]
-class CompileAssetsCommand extends Command
+final class CompileAssetsCommand extends Command
 {
-    public const COMMAND_NAME = 'ibexa:encore:compile';
-    public const COMMAND_DEFAULT_TIMEOUT = 300;
+    public const string COMMAND_NAME = 'ibexa:encore:compile';
+    public const int COMMAND_DEFAULT_TIMEOUT = 300;
 
-    private int $timeout;
-
-    public function __construct(int $timeout = self::COMMAND_DEFAULT_TIMEOUT)
-    {
-        $this->timeout = $timeout;
+    public function __construct(
+        private readonly int $timeout = self::COMMAND_DEFAULT_TIMEOUT
+    ) {
         parent::__construct();
     }
 
@@ -96,11 +94,12 @@ class CompileAssetsCommand extends Command
         if (!empty($frontendConfigsName)) {
             $frontendConfigsNameArr = explode(',', $frontendConfigsName);
             $yarnEncoreCommand = implode(' && ', array_map(
-                fn (string $configName) => "{$yarnBaseEncoreCommand} --config {$this->getFrontendConfigPath($configName)}",
+                fn (string $configName): string => "{$yarnBaseEncoreCommand} --config {$this->getFrontendConfigPath($configName)}",
                 $frontendConfigsNameArr
             ));
         }
 
+        /** @var \Symfony\Component\Console\Helper\DebugFormatterHelper $debugFormatter */
         $debugFormatter = $this->getHelper('debug_formatter');
 
         $process = Process::fromShellCommandline(
@@ -138,6 +137,6 @@ class CompileAssetsCommand extends Command
             )
         );
 
-        return $process->getExitCode();
+        return $process->getExitCode() ?? Command::FAILURE;
     }
 }

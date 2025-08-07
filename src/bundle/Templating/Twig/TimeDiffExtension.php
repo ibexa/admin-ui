@@ -14,13 +14,11 @@ use Ibexa\AdminUi\UI\Service\DateTimeFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-class TimeDiffExtension extends AbstractExtension
+final class TimeDiffExtension extends AbstractExtension
 {
-    private DateTimeFormatter $dateTimeFormatter;
-
-    public function __construct(DateTimeFormatter $dateTimeFormatter)
-    {
-        $this->dateTimeFormatter = $dateTimeFormatter;
+    public function __construct(
+        private readonly DateTimeFormatter $dateTimeFormatter
+    ) {
     }
 
     public function getFilters(): array

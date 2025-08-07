@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
@@ -16,10 +17,10 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Compiler pass to register Limitation value mappers.
  */
-class LimitationValueMapperPass implements CompilerPassInterface
+final readonly class LimitationValueMapperPass implements CompilerPassInterface
 {
-    public const LIMITATION_VALUE_MAPPER_REGISTRY = LimitationValueMapperRegistry::class;
-    public const LIMITATION_VALUE_MAPPER_TAG = 'ibexa.admin_ui.limitation.mapper.value';
+    public const string LIMITATION_VALUE_MAPPER_REGISTRY = LimitationValueMapperRegistry::class;
+    public const string LIMITATION_VALUE_MAPPER_TAG = 'ibexa.admin_ui.limitation.mapper.value';
 
     public function process(ContainerBuilder $container): void
     {

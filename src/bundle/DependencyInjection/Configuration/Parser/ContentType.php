@@ -28,19 +28,26 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *                thumbnail: '/assets/images/poll.svg'
  * ```
  */
-class ContentType extends AbstractParser
+final class ContentType extends AbstractParser
 {
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['content_type'])) {
             return;
         }
 
         foreach ($scopeSettings['content_type'] as $identifier => $config) {
-            $contextualizer->setContextualParameter("content_type.$identifier", $currentScope, $config);
+            $contextualizer->setContextualParameter(
+                "content_type.$identifier",
+                $currentScope,
+                $config
+            );
         }
     }
 

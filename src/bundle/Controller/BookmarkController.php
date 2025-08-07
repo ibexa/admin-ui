@@ -23,41 +23,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class BookmarkController extends Controller
+final class BookmarkController extends Controller
 {
-    private BookmarkService $bookmarkService;
-
-    private DatasetFactory $datasetFactory;
-
-    private FormFactory $formFactory;
-
-    private LocationService $locationService;
-
-    private SubmitHandler $submitHandler;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        BookmarkService $bookmarkService,
-        DatasetFactory $datasetFactory,
-        FormFactory $formFactory,
-        LocationService $locationService,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly BookmarkService $bookmarkService,
+        private readonly DatasetFactory $datasetFactory,
+        private readonly FormFactory $formFactory,
+        private readonly LocationService $locationService,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->bookmarkService = $bookmarkService;
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
-        $this->locationService = $locationService;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(Request $request): Response
     {
         /** @phpstan-var int<0, max> $page */
@@ -67,7 +44,9 @@ class BookmarkController extends Controller
             new BookmarkAdapter($this->bookmarkService, $this->datasetFactory)
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.bookmark_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.bookmark_limit')
+        );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         $editForm = $this->formFactory->contentEdit(
@@ -75,7 +54,9 @@ class BookmarkController extends Controller
         );
 
         $removeBookmarkForm = $this->formFactory->removeBookmark(
-            new BookmarkRemoveData($this->getChoices(iterator_to_array($pagerfanta->getCurrentPageResults())))
+            new BookmarkRemoveData(
+                $this->getChoices(iterator_to_array($pagerfanta->getCurrentPageResults()))
+            )
         );
 
         return $this->render(
@@ -88,11 +69,6 @@ class BookmarkController extends Controller
         );
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->removeBookmark(
@@ -101,15 +77,18 @@ class BookmarkController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (BookmarkRemoveData $data): RedirectResponse {
-                foreach ($data->getBookmarks() as $locationId => $selected) {
-                    $this->bookmarkService->deleteBookmark(
-                        $this->locationService->loadLocation($locationId)
-                    );
-                }
+            $result = $this->submitHandler->handle(
+                $form,
+                function (BookmarkRemoveData $data): RedirectResponse {
+                    foreach ($data->getBookmarks() as $locationId => $selected) {
+                        $this->bookmarkService->deleteBookmark(
+                            $this->locationService->loadLocation($locationId)
+                        );
+                    }
 
-                return $this->redirectToRoute('ibexa.bookmark.list');
-            });
+                    return $this->redirectToRoute('ibexa.bookmark.list');
+                }
+            );
 
             if ($result instanceof Response) {
                 return $result;

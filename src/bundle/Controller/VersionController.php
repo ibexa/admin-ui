@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -20,45 +21,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class VersionController extends Controller
+final class VersionController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private ContentService $contentService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private TranslationHelper $translationHelper;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
-     */
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ContentService $contentService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        TranslationHelper $translationHelper
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ContentService $contentService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly TranslationHelper $translationHelper
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->contentService = $contentService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->translationHelper = $translationHelper;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \InvalidArgumentException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -102,8 +76,8 @@ class VersionController extends Controller
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
+                    'contentId' => $contentInfo->getId(),
+                    'locationId' => $contentInfo->getMainLocationId(),
                     '_fragment' => VersionsTab::URI_FRAGMENT,
                 ]));
             });
@@ -114,8 +88,8 @@ class VersionController extends Controller
         }
 
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => VersionsTab::URI_FRAGMENT,
         ]);
     }

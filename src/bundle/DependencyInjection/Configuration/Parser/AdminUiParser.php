@@ -26,7 +26,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 final class AdminUiParser extends AbstractParser
 {
-    private const MODES = [
+    private const array MODES = [
         'off' => FocusMode::FOCUS_MODE_OFF,
         'on' => FocusMode::FOCUS_MODE_ON,
     ];
@@ -36,7 +36,7 @@ final class AdminUiParser extends AbstractParser
      */
     public function mapConfig(
         array &$scopeSettings,
-        $currentScope,
+        mixed $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
         if (empty($scopeSettings['admin_ui'])) {

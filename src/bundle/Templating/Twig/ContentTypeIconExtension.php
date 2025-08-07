@@ -12,13 +12,11 @@ use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ContentTypeIconExtension extends AbstractExtension
+final class ContentTypeIconExtension extends AbstractExtension
 {
-    private ContentTypeIconResolver $contentTypeIconResolver;
-
-    public function __construct(ContentTypeIconResolver $contentTypeIconResolver)
-    {
-        $this->contentTypeIconResolver = $contentTypeIconResolver;
+    public function __construct(
+        private readonly ContentTypeIconResolver $contentTypeIconResolver
+    ) {
     }
 
     public function getFunctions(): array

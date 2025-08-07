@@ -15,11 +15,9 @@ use Twig\TwigFunction;
 
 final class IconPathExtension extends AbstractExtension
 {
-    private IconPathResolverInterface $iconPathResolver;
-
-    public function __construct(IconPathResolverInterface $iconPathResolver)
-    {
-        $this->iconPathResolver = $iconPathResolver;
+    public function __construct(
+        private readonly IconPathResolverInterface $iconPathResolver
+    ) {
     }
 
     public function getFunctions(): array

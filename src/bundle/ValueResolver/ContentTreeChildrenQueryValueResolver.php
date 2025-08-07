@@ -18,18 +18,14 @@ use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 /**
  * @phpstan-import-type TCriterionProcessor from \Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor
  */
-final class ContentTreeChildrenQueryValueResolver implements ValueResolverInterface
+final readonly class ContentTreeChildrenQueryValueResolver implements ValueResolverInterface
 {
-    /** @phpstan-var TCriterionProcessor */
-    private CriterionProcessorInterface $criterionProcessor;
-
     /**
      * @phpstan-param TCriterionProcessor $criterionProcessor
      */
     public function __construct(
-        CriterionProcessorInterface $criterionProcessor
+        private CriterionProcessorInterface $criterionProcessor
     ) {
-        $this->criterionProcessor = $criterionProcessor;
     }
 
     /**

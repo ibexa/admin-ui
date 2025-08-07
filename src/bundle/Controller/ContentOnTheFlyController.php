@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -36,62 +37,30 @@ use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
+use Ibexa\Core\MVC\Symfony\View\BaseView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class ContentOnTheFlyController extends Controller
+final class ContentOnTheFlyController extends Controller
 {
-    private const AUTOSAVE_ACTION_NAME = 'autosave';
-
-    private ContentService $contentService;
-
-    private LanguageService $languageService;
-
-    private LocationService $locationService;
-
-    private ContentTypeService $contentTypeService;
-
-    private PermissionResolver $permissionResolver;
-
-    private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
-
-    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
-
-    private CreateContentOnTheFlyDispatcher $createContentActionDispatcher;
-
-    private ConfigResolverInterface $configResolver;
-
-    private EventDispatcherInterface $eventDispatcher;
-
-    private ActionDispatcherInterface $contentActionDispatcher;
+    private const string AUTOSAVE_ACTION_NAME = 'autosave';
 
     public function __construct(
-        ContentService $contentService,
-        LanguageService $languageService,
-        LocationService $locationService,
-        ContentTypeService $contentTypeService,
-        PermissionResolver $permissionResolver,
-        GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        CreateContentOnTheFlyDispatcher $createContentActionDispatcher,
-        ConfigResolverInterface $configResolver,
-        EventDispatcherInterface $eventDispatcher,
-        ActionDispatcherInterface $contentActionDispatcher
+        private readonly ContentService $contentService,
+        private readonly LanguageService $languageService,
+        private readonly LocationService $locationService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider,
+        private readonly UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
+        private readonly CreateContentOnTheFlyDispatcher $createContentActionDispatcher,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ActionDispatcherInterface $contentActionDispatcher
     ) {
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->languageService = $languageService;
-        $this->contentTypeService = $contentTypeService;
-        $this->permissionResolver = $permissionResolver;
-        $this->groupedContentFormFieldsProvider = $groupedContentFormFieldsProvider;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->createContentActionDispatcher = $createContentActionDispatcher;
-        $this->configResolver = $configResolver;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->contentActionDispatcher = $contentActionDispatcher;
     }
 
     /**
@@ -109,24 +78,38 @@ class ContentOnTheFlyController extends Controller
             $contentCreateStruct = $this->createContentCreateStruct($parentLocation, $contentType, $languageCode);
             $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
 
-            if (!$this->permissionResolver->canUser('content', 'create', $contentCreateStruct, [$locationCreateStruct])) {
+            if (
+                !$this->permissionResolver->canUser(
+                    'content',
+                    'create',
+                    $contentCreateStruct,
+                    [$locationCreateStruct]
+                )
+            ) {
                 throw new UnauthorizedException(
                     'content',
                     'create',
                     [
-                        'contentTypeIdentifier' => $contentType->identifier,
+                        'contentTypeIdentifier' => $contentType->getIdentifier(),
                         'parentLocationId' => $locationCreateStruct->parentLocationId,
                         'languageCode' => $languageCode,
                     ]
                 );
             }
 
-            if (!$this->permissionResolver->canUser('content', 'publish', $contentCreateStruct, [$locationCreateStruct])) {
+            if (
+                !$this->permissionResolver->canUser(
+                    'content',
+                    'publish',
+                    $contentCreateStruct,
+                    [$locationCreateStruct]
+                )
+            ) {
                 throw new UnauthorizedException(
                     'content',
                     'publish',
                     [
-                        'contentTypeIdentifier' => $contentType->identifier,
+                        'contentTypeIdentifier' => $contentType->getIdentifier(),
                         'parentLocationId' => $locationCreateStruct->parentLocationId,
                         'languageCode' => $languageCode,
                     ]
@@ -147,8 +130,6 @@ class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -157,8 +138,11 @@ class ContentOnTheFlyController extends Controller
         string $languageCode,
         ContentType $contentType,
         Location $parentLocation
-    ) {
-        if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
+    ): BaseView|Response {
+        if (
+            (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
+            ->isSatisfiedBy($contentType)
+        ) {
             return $this->forward('Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController::createUserAction', [
                 'languageCode' => $languageCode,
                 'contentType' => $contentType,
@@ -201,7 +185,12 @@ class ContentOnTheFlyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $form->getClickedButton()) {
-            $this->createContentActionDispatcher->dispatchFormAction($form, $data, $form->getClickedButton()->getName());
+            $this->createContentActionDispatcher->dispatchFormAction(
+                $form,
+                $data,
+                $form->getClickedButton()->getName()
+            );
+
             if ($response = $this->createContentActionDispatcher->getResponse()) {
                 return $response;
             }
@@ -245,7 +234,10 @@ class ContentOnTheFlyController extends Controller
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
 
-        if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
+        if (
+            (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
+            ->isSatisfiedBy($contentType)
+        ) {
             return $this->forward('Ibexa\Bundle\AdminUi\Controller\UserOnTheFlyController::editUserAction', [
                 'languageCode' => $languageCode,
                 'contentId' => $contentId,
@@ -281,12 +273,12 @@ class ContentOnTheFlyController extends Controller
             throw new BadStateException('Version', 'The status is not draft');
         }
 
-        if (null === $location && $content->contentInfo->isPublished()) {
+        if (null === $location && $content->getContentInfo()->isPublished()) {
             // assume main location if no location was provided
-            $location = $content->contentInfo->getMainLocation();
+            $location = $content->getContentInfo()->getMainLocation();
         }
 
-        if (null !== $location && $location->contentId !== $content->id) {
+        if (null !== $location && $location->getContentId() !== $content->getId()) {
             throw new InvalidArgumentException('Location', 'The provided Location does not belong to the selected content');
         }
 
@@ -305,17 +297,20 @@ class ContentOnTheFlyController extends Controller
             );
 
             if (!$location instanceof Location) {
-                $contentInfo = $this->contentService->loadContentInfo($content->id);
+                $contentInfo = $this->contentService->loadContentInfo($content->getId());
 
-                if (null !== $contentInfo->mainLocationId) {
-                    $location = $this->locationService->loadLocation($contentInfo->mainLocationId);
+                if (null !== $contentInfo->getMainLocationId()) {
+                    $location = $this->locationService->loadLocation($contentInfo->getMainLocationId());
                 }
             }
 
             if ($actionDispatcher->getResponse()) {
-                $view = new EditContentOnTheFlySuccessView('@ibexadesign/ui/on_the_fly/content_edit_response.html.twig');
+                $view = new EditContentOnTheFlySuccessView(
+                    '@ibexadesign/ui/on_the_fly/content_edit_response.html.twig'
+                );
+
                 $view->addParameters([
-                    'locationId' => $location instanceof Location ? $location->id : null,
+                    'locationId' => $location instanceof Location ? $location->getId() : null,
                 ]);
 
                 return $view;
@@ -331,7 +326,7 @@ class ContentOnTheFlyController extends Controller
         string $language
     ): ContentCreateStruct {
         $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $language);
-        $contentCreateStruct->sectionId = $location->contentInfo->sectionId;
+        $contentCreateStruct->sectionId = $location->getContentInfo()->getSectionId();
 
         return $contentCreateStruct;
     }
@@ -343,7 +338,9 @@ class ContentOnTheFlyController extends Controller
         FormInterface $form,
         ContentType $contentType
     ): EditContentOnTheFlyView {
-        $view = new EditContentOnTheFlyView('@ibexadesign/ui/on_the_fly/content_edit_on_the_fly.html.twig');
+        $view = new EditContentOnTheFlyView(
+            '@ibexadesign/ui/on_the_fly/content_edit_on_the_fly.html.twig'
+        );
 
         $view->setContent($content);
         $view->setLanguage($language);

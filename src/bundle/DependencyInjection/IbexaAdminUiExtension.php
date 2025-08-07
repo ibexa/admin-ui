@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\DependencyInjection;
 
@@ -16,9 +17,9 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 
-class IbexaAdminUiExtension extends Extension implements PrependExtensionInterface
+final class IbexaAdminUiExtension extends Extension implements PrependExtensionInterface
 {
-    private const WEBPACK_CONFIG_NAMES = [
+    private const array WEBPACK_CONFIG_NAMES = [
         'ibexa.config.js' => [
             'ibexa.config.js' => [],
         ],
@@ -43,10 +44,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     ];
 
     /**
-     * Loads a specific configuration.
-     *
-     * @param array $configs An array of configuration values
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container A ContainerBuilder instance
+     * @param array<string, mixed> $configs
      *
      * @throws \InvalidArgumentException When provided tag is not defined in this extension
      * @throws \Exception
@@ -93,7 +91,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     private function prependViews(ContainerBuilder $container): void
     {
         $configFile = __DIR__ . '/../Resources/config/views.yaml';
-        $config = Yaml::parse(file_get_contents($configFile));
+        $config = Yaml::parseFile($configFile);
         $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($configFile));
     }
@@ -101,7 +99,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     private function prependImageVariations(ContainerBuilder $container): void
     {
         $imageConfigFile = __DIR__ . '/../Resources/config/image_variations.yaml';
-        $config = Yaml::parse(file_get_contents($imageConfigFile));
+        $config = Yaml::parseFile($imageConfigFile);
         $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($imageConfigFile));
     }
@@ -109,7 +107,7 @@ class IbexaAdminUiExtension extends Extension implements PrependExtensionInterfa
     private function prependUniversalDiscoveryWidget(ContainerBuilder $container): void
     {
         $udwConfigFile = __DIR__ . '/../Resources/config/universal_discovery_widget.yaml';
-        $config = Yaml::parse(file_get_contents($udwConfigFile));
+        $config = Yaml::parseFile($udwConfigFile);
         $container->prependExtensionConfig('ibexa', $config);
         $container->addResource(new FileResource($udwConfigFile));
     }
