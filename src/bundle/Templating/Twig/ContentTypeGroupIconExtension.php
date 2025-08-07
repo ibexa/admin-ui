@@ -17,11 +17,9 @@ use Twig\TwigFunction;
  */
 final class ContentTypeGroupIconExtension extends AbstractExtension
 {
-    private ContentTypeGroupIconResolver $contentTypeGroupIconResolver;
-
-    public function __construct(ContentTypeGroupIconResolver $contentTypeGroupIconResolver)
-    {
-        $this->contentTypeGroupIconResolver = $contentTypeGroupIconResolver;
+    public function __construct(
+        private readonly ContentTypeGroupIconResolver $contentTypeGroupIconResolver
+    ) {
     }
 
     public function getFunctions(): array

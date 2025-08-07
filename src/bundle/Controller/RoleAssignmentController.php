@@ -30,30 +30,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleAssignmentController extends Controller
+final class RoleAssignmentController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private RoleService $roleService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        RoleService $roleService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly RoleService $roleService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->roleService = $roleService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
     public function listAction(
@@ -91,12 +76,6 @@ class RoleAssignmentController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
@@ -138,13 +117,6 @@ class RoleAssignmentController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, Role $role, RoleAssignment $roleAssignment): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
@@ -180,14 +152,6 @@ class RoleAssignmentController extends Controller
         ]);
     }
 
-    /**
-     * Handles removing role assignments based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
@@ -229,7 +193,7 @@ class RoleAssignmentController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getRoleAssignmentsNumbers(array $roleAssignments): array
     {
@@ -239,8 +203,6 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData $data
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation[]
      */
     private function createLimitations(RoleAssignmentCreateData $data): array

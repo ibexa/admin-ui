@@ -11,6 +11,11 @@
         <target state="new">Subtree assigned to Section '%name%'</target>
         <note>key: location.assign_section.success</note>
       </trans-unit>
+      <trans-unit id="df6925dba48ec5f8cb20d42eaa50a907d817702a" resname="location.copy.failure">
+        <source>Location cannot be copied.</source>
+        <target state="new">Location cannot be copied.</target>
+        <note>key: location.copy.failure</note>
+      </trans-unit>
       <trans-unit id="7f616359fa64ad9a44aba2d7eeebfde7aac7f16f" resname="location.copy.success">
         <source>'%name%' copied to '%location%'</source>
         <target state="new">'%name%' copied to '%location%'</target>

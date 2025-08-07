@@ -1,76 +1,10 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to an undefined method Symfony\\Component\\Console\\Helper\\HelperInterface\:\:progress\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Command/CompileAssetsCommand.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Console\\Helper\\HelperInterface\:\:start\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Command/CompileAssetsCommand.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Console\\Helper\\HelperInterface\:\:stop\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Command/CompileAssetsCommand.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Command\\CompileAssetsCommand\:\:execute\(\) should return int but returns int\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Command/CompileAssetsCommand.php
-
-		-
-			message: '#^Cannot call method getClientOriginalName\(\) on Symfony\\Component\\HttpFoundation\\File\\UploadedFile\|null\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: src/bundle/Controller/AssetController.php
-
-		-
-			message: '#^Cannot call method getRealPath\(\) on Symfony\\Component\\HttpFoundation\\File\\UploadedFile\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/bundle/Controller/AssetController.php
-
-		-
-			message: '#^Cannot call method getSize\(\) on Symfony\\Component\\HttpFoundation\\File\\UploadedFile\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/bundle/Controller/AssetController.php
-
-		-
 			message: '#^Parameter \#2 \$languageCode of class Ibexa\\AdminUi\\Form\\Data\\Asset\\ImageAssetUploadData constructor expects string\|null, bool\|float\|int\|string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/AssetController.php
-
-		-
-			message: '#^Parameter \#3 \$languageCode of method Ibexa\\Core\\FieldType\\ImageAsset\\AssetMapper\:\:createAsset\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/AssetController.php
-
-		-
-			message: '#^Parameter \#3 \$content of class Ibexa\\AdminUi\\REST\\Value\\OperationResponse constructor expects string\|null, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/BulkOperation/BulkOperationController.php
-
-		-
-			message: '#^Parameter \#1 \$array of function array_shift expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/Content/VersionDraftConflictController.php
-
-		-
-			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/Content/VersionDraftConflictController.php
 
 		-
 			message: '#^Anonymous function should return Symfony\\Component\\HttpFoundation\\Response but returns Symfony\\Component\\HttpFoundation\\Response\|null\.$#'
@@ -85,51 +19,45 @@ parameters:
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: '#^Cannot access property \$contentInfo on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 4
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: '#^Cannot access property \$identifier on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/bundle/Controller/ContentController.php
-
-		-
 			message: '#^Cannot access property \$isHidden on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
 			identifier: property.nonObject
 			count: 4
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: '#^Cannot access property \$languageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
+			message: '#^Cannot access property \$name on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
 			identifier: property.nonObject
-			count: 5
+			count: 1
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: '#^Cannot access property \$mainLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
+			message: '#^Cannot call method getContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
+			count: 4
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
+			identifier: method.nonObject
 			count: 2
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: '#^Cannot access property \$name on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 1
+			message: '#^Cannot call method getLanguageCode\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
+			identifier: method.nonObject
+			count: 5
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: '#^Cannot call method getMainLocationId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
+			count: 2
 			path: src/bundle/Controller/ContentController.php
 
 		-
@@ -170,12 +98,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$contentInfo of method Ibexa\\Core\\Helper\\TranslationHelper\:\:getTranslatedContentNameByContentInfo\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: '#^Parameter \#1 \$contentType of method Ibexa\\AdminUi\\Specification\\ContentType\\ContentTypeIsUser\:\:isSatisfiedBy\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentController.php
@@ -241,7 +163,7 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Call to an undefined method Symfony\\Component\\Form\\FormInterface\:\:getClickedButton\(\)\.$#'
+			message: '#^Call to an undefined method Symfony\\Component\\Form\\FormInterface\<mixed\>\:\:getClickedButton\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: src/bundle/Controller/ContentTypeController.php
@@ -261,7 +183,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$languageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
 			identifier: property.nonObject
-			count: 4
+			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
@@ -277,6 +199,12 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
+			message: '#^Cannot call method getLanguageCode\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
 			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null\.$#'
 			identifier: method.nonObject
 			count: 4
@@ -289,14 +217,8 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:createDeleteForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:createUpdateForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
-			identifier: missingType.generics
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:addAction\(\) never returns Symfony\\Component\\HttpFoundation\\RedirectResponse so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
 
@@ -355,12 +277,6 @@ parameters:
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeGroupController\:\:getContentTypeGroupsNumbers\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
-
-		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: varTag.nativeType
 			count: 2
@@ -403,15 +319,21 @@ parameters:
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\PermissionResolver\:\:sudo\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Cannot call method getContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/bundle/Controller/ContentViewController.php
+
+		-
+			message: '#^Cannot call method getLanguageCodes\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
-			message: '#^Cannot call method getContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: method.nonObject
-			count: 3
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
@@ -433,49 +355,7 @@ parameters:
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
-			message: '#^Parameter \#1 \$array of function array_shift expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentViewController.php
-
-		-
-			message: '#^Parameter \#1 \$location of method Ibexa\\AdminUi\\UI\\Service\\PathService\:\:loadPathLocations\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentViewController.php
-
-		-
-			message: '#^Parameter \#1 \$value of function count expects array\|Countable, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentViewController.php
-
-		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\ContentViewController\:\:\$contentService is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/bundle/Controller/ContentViewController.php
-
-		-
-			message: '#^PHPDoc tag @throws has invalid value \(\\Ibexa\\Contracts\\Core\\Repository\\Exceptions\\InvalidArgumentException;\)\: Unexpected token ";", expected TOKEN_HORIZONTAL_WS at offset 289 on line 6$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/bundle/Controller/DownloadImageController.php
-
-		-
-			message: '#^PHPDoc tag @throws has invalid value \(\\Ibexa\\Contracts\\Core\\Repository\\Exceptions\\InvalidCriterionArgumentException;\)\: Unexpected token ";", expected TOKEN_HORIZONTAL_WS at offset 383 on line 7$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/bundle/Controller/DownloadImageController.php
-
-		-
 			message: '#^Parameter \#2 \$fieldDefinition of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:updateFieldDefinition\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/FieldDefinitionController.php
-
-		-
-			message: '#^Parameter \#2 \$fieldTypeIdentifier of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:newFieldDefinitionCreateStruct\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/FieldDefinitionController.php
@@ -487,14 +367,8 @@ parameters:
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^Cannot access property \$name on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\LanguageController\:\:getLanguagesNumbers\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
 
@@ -506,6 +380,12 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$language of method Ibexa\\Contracts\\Core\\Repository\\LanguageService\:\:deleteLanguage\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/bundle/Controller/LanguageController.php
+
+		-
+			message: '#^Parameter \#1 \$languages of class Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData constructor expects array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\>, array\<int, bool\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
@@ -523,64 +403,10 @@ parameters:
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^Parameter \#2 \$newName of method Ibexa\\Contracts\\Core\\Repository\\LanguageService\:\:updateLanguageName\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
-			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\URL\\URL\:\:\$id\.$#'
-			identifier: property.protected
-			count: 2
-			path: src/bundle/Controller/LinkManagerController.php
-
-		-
-			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\URL\\URL\:\:\$url\.$#'
-			identifier: property.protected
-			count: 1
-			path: src/bundle/Controller/LinkManagerController.php
-
-		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: varTag.nativeType
 			count: 1
 			path: src/bundle/Controller/LinkManagerController.php
-
-		-
-			message: '#^Cannot access property \$contentId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot access property \$contentInfo on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot access property \$mainLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot access property \$name on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/LocationController.php
 
 		-
 			message: '#^Cannot access property \$parentLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
@@ -595,9 +421,39 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
+			message: '#^Cannot call method getContentId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: src/bundle/Controller/LocationController.php
+
+		-
 			message: '#^Cannot call method getContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
 			identifier: method.nonObject
-			count: 11
+			count: 12
+			path: src/bundle/Controller/LocationController.php
+
+		-
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/bundle/Controller/LocationController.php
+
+		-
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: src/bundle/Controller/LocationController.php
+
+		-
+			message: '#^Cannot call method getMainLocationId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: src/bundle/Controller/LocationController.php
+
+		-
+			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
+			identifier: method.nonObject
+			count: 1
 			path: src/bundle/Controller/LocationController.php
 
 		-
@@ -667,18 +523,6 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\LocationController\:\:\$contentTypeService is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\LocationController\:\:\$permissionResolver is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
 			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -709,18 +553,6 @@ parameters:
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateController\:\:getObjectStatesIds\(\) has parameter \$states with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateController\:\:getObjectStatesIds\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: varTag.nativeType
 			count: 2
@@ -728,12 +560,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$contentInfo of method Ibexa\\Contracts\\Core\\Repository\\ObjectStateService\:\:setContentState\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: '#^Parameter \#1 \$identifier of method Ibexa\\Contracts\\Core\\Repository\\ObjectStateService\:\:newObjectStateCreateStruct\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
@@ -811,12 +637,6 @@ parameters:
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateGroupController\:\:getObjectStateGroupsIds\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
-
-		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: varTag.nativeType
 			count: 2
@@ -877,15 +697,9 @@ parameters:
 			path: src/bundle/Controller/PolicyController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\PolicyController\:\:getPoliciesNumbers\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Controller/PolicyController.php
-
-		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 1
+			message: '#^Call to an undefined method Symfony\\Component\\Form\\FormInterface\:\:getClickedButton\(\)\.$#'
+			identifier: method.notFound
+			count: 2
 			path: src/bundle/Controller/PolicyController.php
 
 		-
@@ -909,12 +723,6 @@ parameters:
 		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\RoleAssignmentController\:\:createLimitations\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\\RoleLimitation\> but returns list\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\\SectionLimitation\|Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\\SubtreeLimitation\|null\>\.$#'
 			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\RoleAssignmentController\:\:getRoleAssignmentsNumbers\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/bundle/Controller/RoleAssignmentController.php
 
@@ -955,20 +763,20 @@ parameters:
 			path: src/bundle/Controller/SectionController.php
 
 		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
+			message: '#^Cannot access property \$name on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: src/bundle/Controller/SectionController.php
 
 		-
-			message: '#^Cannot access property \$name on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: property.nonObject
-			count: 2
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
+			identifier: method.nonObject
+			count: 1
 			path: src/bundle/Controller/SectionController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\SectionController\:\:getSectionsNumbers\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/SectionController.php
 
@@ -997,31 +805,31 @@ parameters:
 			path: src/bundle/Controller/SectionController.php
 
 		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/TranslationController.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/TranslationController.php
-
-		-
-			message: '#^Cannot access property \$languageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/TranslationController.php
-
-		-
-			message: '#^Cannot access property \$mainLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/TranslationController.php
-
-		-
 			message: '#^Cannot call method getContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/bundle/Controller/TranslationController.php
+
+		-
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/bundle/Controller/TranslationController.php
+
+		-
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/bundle/Controller/TranslationController.php
+
+		-
+			message: '#^Cannot call method getLanguageCode\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/bundle/Controller/TranslationController.php
+
+		-
+			message: '#^Cannot call method getMainLocationId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/TranslationController.php
@@ -1051,18 +859,6 @@ parameters:
 			path: src/bundle/Controller/URLWildcardController.php
 
 		-
-			message: '#^Parameter \#1 \$sourceUrl of method Ibexa\\Contracts\\Core\\Repository\\URLWildcardService\:\:create\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/URLWildcardController.php
-
-		-
-			message: '#^Parameter \#2 \$destinationUrl of method Ibexa\\Contracts\\Core\\Repository\\URLWildcardService\:\:create\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/URLWildcardController.php
-
-		-
 			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\URLWildcard\\URLWildcardDeleteData\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1087,8 +883,8 @@ parameters:
 			path: src/bundle/Controller/URLWildcardController.php
 
 		-
-			message: '#^Cannot access property \$languageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
-			identifier: property.nonObject
+			message: '#^Cannot call method getLanguageCode\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/UrlAliasController.php
 
@@ -1111,46 +907,10 @@ parameters:
 			path: src/bundle/Controller/UrlAliasController.php
 
 		-
-			message: '#^Parameter \#1 \$enabled of class Ibexa\\Contracts\\AdminUi\\Event\\FocusModeChangedEvent constructor expects bool, bool\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/User/FocusModeController.php
-
-		-
-			message: '#^Cannot access property \$name on Ibexa\\Core\\MVC\\Symfony\\SiteAccess\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/User/InvitationController.php
-
-		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\User\\InvitationController\:\:\$twig is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/bundle/Controller/User/InvitationController.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Component\\Form\\ClickableInterface\|Symfony\\Component\\Form\\FormInterface\:\:getName\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: src/bundle/Controller/User/ProfileEditController.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/User/UserDeleteController.php
-
-		-
-			message: '#^Cannot access property \$mainLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/User/UserDeleteController.php
-
-		-
-			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/User/UserDeleteController.php
 
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\Form\\FormInterface\<mixed\>\:\:getClickedButton\(\)\.$#'
@@ -1161,24 +921,6 @@ parameters:
 		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\UserOnTheFlyController\:\:buildEditView\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/bundle/Controller/UserOnTheFlyController.php
-
-		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\UserOnTheFlyController\:\:\$contentService is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/bundle/Controller/UserOnTheFlyController.php
-
-		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\UserOnTheFlyController\:\:\$contentTypeService is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/bundle/Controller/UserOnTheFlyController.php
-
-		-
-			message: '#^Property Ibexa\\Bundle\\AdminUi\\Controller\\UserOnTheFlyController\:\:\$userLanguagePreferenceProvider is never read, only written\.$#'
-			identifier: property.onlyWritten
 			count: 1
 			path: src/bundle/Controller/UserOnTheFlyController.php
 
@@ -1207,14 +949,14 @@ parameters:
 			path: src/bundle/Controller/VersionController.php
 
 		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
+			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/VersionController.php
 
 		-
-			message: '#^Cannot access property \$mainLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: property.nonObject
+			message: '#^Cannot call method getMainLocationId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/VersionController.php
 
@@ -1231,122 +973,8 @@ parameters:
 			path: src/bundle/Controller/VersionController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\AdminUiForms\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/AdminUiForms.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\AdminUiForms\:\:postMap\(\) has parameter \$config with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/AdminUiForms.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\AdminUiForms\:\:processContentEditFormTemplates\(\) has parameter \$formTemplates with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/AdminUiForms.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\AdminUiForms\:\:processContentEditFormTemplates\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/AdminUiForms.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Assets\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Assets.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\ContentType\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/ContentType.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\LocationIds\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/LocationIds.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Module\\ContentTree\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Module/ContentTree.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Module\\Subitems\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Module/Subitems.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Module\\UniversalDiscoveryWidget\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Module/UniversalDiscoveryWidget.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Notifications\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Notifications.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Pagination\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Pagination.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\Security\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/Security.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\SubtreeOperations\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/SubtreeOperations.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\SubtreePath\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/SubtreePath.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\UserGroupIdentifier\:\:mapConfig\(\) has parameter \$scopeSettings with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration/Parser/UserGroupIdentifier.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\IbexaAdminUiExtension\:\:load\(\) has parameter \$configs with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/DependencyInjection/IbexaAdminUiExtension.php
-
-		-
-			message: '#^Parameter \#1 \$input of static method Symfony\\Component\\Yaml\\Yaml\:\:parse\(\) expects string, string\|false given\.$#'
-			identifier: argument.type
-			count: 3
-			path: src/bundle/DependencyInjection/IbexaAdminUiExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\ComponentExtension\:\:renderComponent\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/ComponentExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\ComponentExtension\:\:renderComponentGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Property Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\ComponentExtension\:\:\$registry is never read, only written\.$#'
+			identifier: property.onlyWritten
 			count: 1
 			path: src/bundle/Templating/Twig/ComponentExtension.php
 
@@ -1357,70 +985,10 @@ parameters:
 			path: src/bundle/Templating/Twig/FieldEditRenderingExtension.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\FieldEditRenderingExtension\:\:renderFieldDefinitionEdit\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/FieldEditRenderingExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\PathStringExtension\:\:getFunctions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/PathStringExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UiConfigExtension\:\:getGlobals\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/UiConfigExtension.php
-
-		-
 			message: '#^Parameter \#2 \$initializer of method ProxyManager\\Factory\\LazyLoadingValueHolderFactory\:\:createProxy\(\) expects Closure\(Ibexa\\AdminUi\\UI\\Config\\ConfigWrapper\|null\=, Ibexa\\AdminUi\\UI\\Config\\ConfigWrapper&ProxyManager\\Proxy\\ValueHolderInterface\<Ibexa\\AdminUi\\UI\\Config\\ConfigWrapper\>&ProxyManager\\Proxy\\VirtualProxyInterface\=, string\=, array\<string, mixed\>\=, Closure\|null\=\)\: bool, Closure\(mixed, ProxyManager\\Proxy\\LazyLoadingInterface, mixed, array, mixed\)\: true given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Templating/Twig/UiConfigExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UniversalDiscoveryExtension\:\:getFunctions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UniversalDiscoveryExtension\:\:recursiveConfigurationArrayNormalize\(\) has parameter \$config with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UniversalDiscoveryExtension\:\:recursiveConfigurationArrayNormalize\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UniversalDiscoveryExtension\:\:renderUniversalDiscoveryWidgetConfig\(\) has parameter \$context with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UniversalDiscoveryExtension\:\:renderUniversalDiscoveryWidgetConfig\(\) should return string but returns string\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Parameter \#1 \$separator of function explode expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\UserPreferencesGlobalExtension\:\:getGlobals\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Templating/Twig/UserPreferencesGlobalExtension.php
 
 		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\Component\\Renderer\\RendererInterface\:\:renderGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
@@ -6791,18 +6359,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Limitation/Templating/LimitationBlockRenderer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Limitation\\Templating\\LimitationBlockRenderer\:\:renderLimitationValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Limitation/Templating/LimitationBlockRenderer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Limitation\\Templating\\LimitationBlockRendererInterface\:\:renderLimitationValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Limitation/Templating/LimitationBlockRendererInterface.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\ContentTypeGroupCreateRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'

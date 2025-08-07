@@ -15,11 +15,9 @@ use Twig\TwigFunction;
 
 final class FocusModeExtension extends AbstractExtension
 {
-    private UserSettingService $userService;
-
-    public function __construct(UserSettingService $userService)
-    {
-        $this->userService = $userService;
+    public function __construct(
+        private readonly UserSettingService $userService
+    ) {
     }
 
     public function getFunctions(): array

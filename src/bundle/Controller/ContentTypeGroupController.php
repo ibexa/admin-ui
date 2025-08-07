@@ -29,37 +29,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentTypeGroupController extends Controller
+final class ContentTypeGroupController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private ContentTypeService $contentTypeService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ContentTypeService $contentTypeService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->contentTypeService = $contentTypeService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(Request $request): Response
     {
         $deletableContentTypeGroup = [];
@@ -71,7 +51,9 @@ class ContentTypeGroupController extends Controller
             new ArrayAdapter(iterator_to_array($this->contentTypeService->loadContentTypeGroups()))
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_group_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.content_type_group_limit')
+        );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
@@ -193,12 +175,6 @@ class ContentTypeGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, ContentTypeGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
@@ -229,13 +205,6 @@ class ContentTypeGroupController extends Controller
         return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
-    /**
-     * Handles removing content type groups based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
@@ -267,13 +236,6 @@ class ContentTypeGroupController extends Controller
         return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param int $page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(Request $request, ContentTypeGroup $group, int $page = 1): Response
     {
         return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
@@ -287,7 +249,7 @@ class ContentTypeGroupController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getContentTypeGroupsNumbers(array $contentTypeGroups): array
     {

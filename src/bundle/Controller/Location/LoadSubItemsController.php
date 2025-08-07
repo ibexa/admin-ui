@@ -44,6 +44,9 @@ final class LoadSubItemsController extends RestController
     {
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     public function loadAction(
         Request $request,
         Location $location,
@@ -77,13 +80,16 @@ final class LoadSubItemsController extends RestController
     {
         try {
             $sortClauses = $location->getSortClauses();
-        } catch (NotImplementedException $e) {
+        } catch (NotImplementedException) {
             return [];
         }
 
         return $sortClauses;
     }
 
+    /**
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     */
     private function buildSortClause(string $sortClause, string $sortOrder): SortClause
     {
         if (!isset(static::SORT_CLAUSE_MAP[$sortClause])) {
@@ -111,7 +117,7 @@ final class LoadSubItemsController extends RestController
             $versionInfo = $content->getVersionInfo();
             $owner = $location->getContentInfo()->getOwner();
             try {
-                $sectionName = $contentInfo->getSection()->name;
+                $sectionName = $contentInfo->getSection()->getName();
             } catch (UnauthorizedException $e) {
                 $sectionName = null;
             }

@@ -16,13 +16,11 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Supplies config Providers to the Aggregator.
  */
-class UiConfigProviderPass implements CompilerPassInterface
+final readonly class UiConfigProviderPass implements CompilerPassInterface
 {
-    public const TAG_CONFIG_PROVIDER = 'ibexa.admin_ui.config.provider';
+    public const string TAG_CONFIG_PROVIDER = 'ibexa.admin_ui.config.provider';
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
      * @throws \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
      */

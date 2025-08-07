@@ -19,34 +19,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UrlAliasController extends Controller
+final class UrlAliasController extends Controller
 {
-    protected FormFactory $formFactory;
-
-    protected SubmitHandler $submitHandler;
-
-    protected URLAliasService $urlAliasService;
-
-    /**
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $urlAliasService
-     */
     public function __construct(
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        URLAliasService $urlAliasService
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly URLAliasService $urlAliasService
     ) {
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->urlAliasService = $urlAliasService;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request): Response
     {
         $form = $this->formFactory->addCustomUrl();
@@ -61,7 +42,7 @@ class UrlAliasController extends Controller
                 $this->urlAliasService->createUrlAlias(
                     $data->getLocation(),
                     $data->getPath(),
-                    $data->getLanguage()->languageCode,
+                    $data->getLanguage()->getLanguageCode(),
                     $data->isRedirect()
                 );
 
@@ -80,11 +61,6 @@ class UrlAliasController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->removeCustomUrl();

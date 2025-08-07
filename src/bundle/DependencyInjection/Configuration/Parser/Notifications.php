@@ -27,20 +27,23 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              interval: 60000 # in milliseconds
  * ```
  */
-class Notifications extends AbstractParser
+final class Notifications extends AbstractParser
 {
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (!empty($scopeSettings['notifications'])) {
             $settings = $scopeSettings['notifications'];
             $nodes = ['timeout'];
 
             foreach ($settings as $type => $config) {
                 foreach ($nodes as $key) {
-                    if (!isset($config[$key]) || empty($config[$key])) {
+                    if (empty($config[$key])) {
                         continue;
                     }
 

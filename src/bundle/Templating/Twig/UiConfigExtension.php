@@ -12,31 +12,21 @@ use Ibexa\AdminUi\UI\Config\Aggregator;
 use Ibexa\AdminUi\UI\Config\ConfigWrapper;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Proxy\LazyLoadingInterface;
-use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 
 /**
  * Exports `ibexa_admin_ui_config` providing UI Config as a global Twig variable.
  */
-class UiConfigExtension extends AbstractExtension implements GlobalsInterface
+final class UiConfigExtension extends AbstractExtension implements GlobalsInterface
 {
-    protected Environment $twig;
-
-    protected Aggregator $aggregator;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Ibexa\AdminUi\UI\Config\Aggregator $aggregator
-     */
-    public function __construct(Environment $twig, Aggregator $aggregator)
-    {
-        $this->twig = $twig;
-        $this->aggregator = $aggregator;
+    public function __construct(
+        private readonly Aggregator $aggregator
+    ) {
     }
 
     /**
-     * @return array
+     * @return array<string, \Ibexa\AdminUi\UI\Config\ConfigWrapper>
      */
     public function getGlobals(): array
     {
@@ -49,8 +39,6 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
 
     /**
      * Create lazy loaded configuration.
-     *
-     * @return \Ibexa\AdminUi\UI\Config\ConfigWrapper
      */
     private function createConfigWrapper(): ConfigWrapper
     {
