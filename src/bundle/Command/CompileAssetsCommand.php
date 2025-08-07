@@ -38,10 +38,16 @@ class CompileAssetsCommand extends Command
     {
         $this
             ->addOption(
+                'watch',
+                'w',
+                InputOption::VALUE_NONE,
+                'Watch mode rebuilds on file change'
+            )
+            ->addOption(
                 'timeout',
                 't',
                 InputOption::VALUE_REQUIRED,
-                'Timeout in seconds',
+                'Timeout in seconds (ignored in watch mode)',
                 $this->timeout
             )
             ->addOption(
@@ -77,7 +83,8 @@ class CompileAssetsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $timeout = (float)$input->getOption('timeout');
+        $watch = $input->getOption('watch');
+        $timeout = $watch ? null : (float)$input->getOption('timeout');
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
         $frontendConfigsName = $input->getOption('frontend-configs-name');
@@ -88,6 +95,10 @@ class CompileAssetsCommand extends Command
         $encoreEnv = $env === 'prod' ? 'prod' : 'dev';
         $yarnBaseEncoreCommand = "yarn encore {$encoreEnv}";
         $yarnEncoreCommand = $yarnBaseEncoreCommand;
+
+        if ($watch) {
+            $yarnEncoreCommand = "{$yarnBaseEncoreCommand} --watch";
+        }
 
         if (!empty($configName)) {
             $yarnEncoreCommand = "{$yarnBaseEncoreCommand} --config-name {$configName}";
