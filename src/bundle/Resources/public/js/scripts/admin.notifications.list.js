@@ -173,9 +173,7 @@
     };
     const handleCheckboxChange = (checkbox) => {
         const checkboxFormId = checkbox.dataset?.formCheckboxId;
-        const formRemoveCheckbox = doc.querySelector(
-            `[data-toggle-button-id="#confirm-notification_selection_remove"] input#${checkboxFormId}`,
-        );
+        const formRemoveCheckbox = doc.querySelector(`[data-toggle-button-id="#confirm-selection_remove"] input#${checkboxFormId}`);
 
         if (formRemoveCheckbox) {
             formRemoveCheckbox.checked = checkbox.checked;

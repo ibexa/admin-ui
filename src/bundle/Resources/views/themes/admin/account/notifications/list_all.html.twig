@@ -28,7 +28,7 @@
         action: path('ibexa.notifications.delete_multiple'),
         'attr': {
             'class': 'ibexa-toggle-btn-state ibexa-notification-list__hidden-btn',
-            'data-toggle-button-id': '#confirm-' ~ form_remove.remove.vars.id
+            'data-toggle-button-id': '#confirm-selection_remove'
         }
     }) }}
         {% for row in form_remove.notifications %}
@@ -38,11 +38,11 @@
                 }
             }) }}
         {% endfor %}
-        {{ form_widget(form_remove.remove, {
-            'attr': {
-                'hidden': true
-            }
-        }) }}
+        <button
+           id="selection_remove"
+           type="submit"
+           hidden
+        ></button>
     {{ form_end(form_remove) }}
     {{ form_start(search_form, {
         attr: { class: 'ibexa-list-search-form' }
@@ -106,7 +106,7 @@
 {% endblock %}
 
 {% macro table_header_tools(form,) %}
-    {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
+    {% set modal_data_target = 'modal-selection_remove' %}
 
     <div class="ibexa-notification-list__table-btns">
         <button
@@ -123,7 +123,7 @@
             </span>
         </button>
         <button
-            id="confirm-{{ form.remove.vars.id }}"
+            id="confirm-selection_remove"
             type="button"
             class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn ibexa-notification-list__btn--delete"
             data-bs-toggle="modal"
@@ -141,6 +141,6 @@
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'notifications.list.action.remove.confirmation.text'|trans|desc('Are you sure you want to permanently delete the selected notification(s)?'),
-        'data_click': '#' ~ form.remove.vars.id,
+        'data_click': '#selection_remove',
     } %}
 {% endmacro %}
