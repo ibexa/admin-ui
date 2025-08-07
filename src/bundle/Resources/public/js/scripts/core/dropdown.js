@@ -99,6 +99,12 @@
             const removeSelectionBtn = item.querySelector('.ibexa-dropdown__remove-selection');
 
             removeSelectionBtn.addEventListener('click', (event) => {
+                const isDisabled = this.container.classList.contains('ibexa-dropdown--disabled');
+
+                if (isDisabled) {
+                    return;
+                }
+
                 event.stopPropagation();
                 this.deselectOption(item);
             });
