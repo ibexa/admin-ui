@@ -17,6 +17,7 @@ use Ibexa\AdminUi\Form\Type\Notification\SearchType;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
 use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion;
@@ -24,6 +25,7 @@ use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Notification\Renderer\Registry;
 use InvalidArgumentException;
+use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -46,13 +48,16 @@ final class NotificationController extends Controller
 
     private SubmitHandler $submitHandler;
 
+    private TranslatableNotificationHandlerInterface $notificationHandler;
+
     public function __construct(
         NotificationService $notificationService,
         Registry $registry,
         TranslatorInterface $translator,
         ConfigResolverInterface $configResolver,
         FormFactory $formFactory,
-        SubmitHandler $submitHandler
+        SubmitHandler $submitHandler,
+        TranslatableNotificationHandlerInterface $notificationHandler
     ) {
         $this->notificationService = $notificationService;
         $this->registry = $registry;
@@ -60,6 +65,7 @@ final class NotificationController extends Controller
         $this->configResolver = $configResolver;
         $this->formFactory = $formFactory;
         $this->submitHandler = $submitHandler;
+        $this->notificationHandler = $notificationHandler;
     }
 
     public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
@@ -317,18 +323,30 @@ final class NotificationController extends Controller
             return $this->redirectToRoute('ibexa.notifications.render.all');
         }
 
-        $result = $this->submitHandler->handle($form, function (NotificationSelectionData $data): RedirectResponse {
-            foreach (array_keys($data->getNotifications()) as $id) {
-                $notification = $this->notificationService->getNotification((int)$id);
-                $this->notificationService->deleteNotification($notification);
-            }
+        $result = $this->submitHandler->handle($form, [$this, 'processDeleteNotifications']);
 
-            return $this->redirectToRoute('ibexa.notifications.render.all');
-        });
+        if ($result instanceof Response) {
+            return $result;
+        }
 
-        return $result instanceof Response
-            ? $result
-            : $this->redirectToRoute('ibexa.notifications.render.all');
+        $this->notificationHandler->error(
+            /** @Desc("An unexpected error occurred while deleting notifications.") */
+            'error.unexpected_delete_notifications',
+            [],
+            'ibexa_notifications'
+        );
+
+        return $this->redirectToRoute('ibexa.notifications.render.all');
+    }
+
+    private function processDeleteNotifications(NotificationSelectionData $data): RedirectResponse
+    {
+        foreach (array_keys($data->getNotifications()) as $id) {
+            $notification = $this->notificationService->getNotification((int)$id);
+            $this->notificationService->deleteNotification($notification);
+        }
+
+        return $this->redirectToRoute('ibexa.notifications.render.all');
     }
 }
 

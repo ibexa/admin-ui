@@ -10,9 +10,7 @@ namespace Ibexa\AdminUi\Form\Data\Notification;
 
 final class NotificationSelectionData
 {
-    /**
-     * @var array<int, bool> notificationId => selected
-     */
+    /** @var array<int, bool> */
     private array $notifications;
 
     /**
