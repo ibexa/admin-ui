@@ -111,11 +111,6 @@ parameters:
 			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
 
 		-
-			message: "#^Parameter \\#2 \\$pieces of function implode expects array, array\\|null given\\.$#"
-			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: "#^Parameter \\#1 \\$input of function array_filter expects array, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Language\\> given\\.$#"
 			count: 1
 			path: src/lib/Form/Type/ChoiceList/Loader/AvailableTranslationLanguageChoiceLoader.php

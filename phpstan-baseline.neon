@@ -727,12 +727,6 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
-			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/NotificationController.php
-
-		-
 			message: '#^Argument of an invalid type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -7287,7 +7281,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
@@ -7330,12 +7324,6 @@ parameters:
 			message: '#^Cannot call method getRoleLimitation\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\RoleAssignment\|null\.$#'
 			identifier: method.nonObject
 			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getSection\(\) on Ibexa\\AdminUi\\Form\\Data\\Section\\SectionDeleteData\|null\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
@@ -7720,12 +7708,6 @@ parameters:
 			message: '#^PHPDoc tag @param for parameter \$data with type Ibexa\\AdminUi\\Form\\Data\\Search\\SearchData\|null is not subtype of native type Ibexa\\Bundle\\Search\\Form\\Data\\SearchData\|null\.$#'
 			identifier: parameter.phpDocType
 			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 42
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
