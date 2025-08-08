@@ -12,10 +12,19 @@ interface TableInterface
 {
     public function isEmpty(): bool;
 
+    /**
+     * @param array<string, mixed> $elementData
+     */
     public function hasElement(array $elementData): bool;
 
+    /**
+     * @param array<string, mixed> $elementData
+     */
     public function hasElementOnCurrentPage(array $elementData): bool;
 
+    /**
+     * @param array<string, mixed> $elementData
+     */
     public function getTableRow(array $elementData): TableRow;
 
     public function getTableRowByIndex(int $rowIndex): TableRow;

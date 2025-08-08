@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use PHPUnit\Framework\Assert;
 
-class ContentPreviewPage extends Page
+final class ContentPreviewPage extends Page
 {
     protected function getRoute(): string
     {
@@ -56,6 +56,9 @@ class ContentPreviewPage extends Page
 
     public function getActiveViewName(): string
     {
-        return $this->getHTMLPage()->find($this->getLocator('selectedView'))->getAttribute('data-preview-mode');
+        return $this
+            ->getHTMLPage()
+            ->find($this->getLocator('selectedView'))
+            ->getAttribute('data-preview-mode');
     }
 }

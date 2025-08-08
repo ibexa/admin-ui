@@ -15,22 +15,13 @@ use Ibexa\AdminUi\Behat\Page\ObjectStateGroupsPage;
 use Ibexa\AdminUi\Behat\Page\ObjectStatePage;
 use PHPUnit\Framework\Assert;
 
-class ObjectStatesContext implements Context
+final readonly class ObjectStatesContext implements Context
 {
-    private ObjectStateGroupPage $objectStateGroupPage;
-
-    private ObjectStateGroupsPage $objectStateGroupsPage;
-
-    private ObjectStatePage $objectStatePage;
-
     public function __construct(
-        ObjectStateGroupPage $objectStateGroupPage,
-        ObjectStateGroupsPage $objectStateGroupsPage,
-        ObjectStatePage $objectStatePage
+        private ObjectStateGroupPage $objectStateGroupPage,
+        private ObjectStateGroupsPage $objectStateGroupsPage,
+        private ObjectStatePage $objectStatePage
     ) {
-        $this->objectStateGroupPage = $objectStateGroupPage;
-        $this->objectStateGroupsPage = $objectStateGroupsPage;
-        $this->objectStatePage = $objectStatePage;
     }
 
     /**
@@ -38,7 +29,9 @@ class ObjectStatesContext implements Context
      */
     public function isObjectStateOnTheList(string $objectStateGroupName): void
     {
-        Assert::assertTrue($this->objectStateGroupsPage->isObjectStateGroupOnTheList($objectStateGroupName));
+        Assert::assertTrue(
+            $this->objectStateGroupsPage->isObjectStateGroupOnTheList($objectStateGroupName)
+        );
     }
 
     /**

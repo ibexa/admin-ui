@@ -15,14 +15,13 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class File extends FieldTypeComponent
+final class File extends FieldTypeComponent
 {
-    private FileUploadHelper $fileUploadHelper;
-
-    public function __construct(Session $session, FileUploadHelper $fileUploadHelper)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly FileUploadHelper $fileUploadHelper
+    ) {
         parent::__construct($session);
-        $this->fileUploadHelper = $fileUploadHelper;
     }
 
     public function setValue(array $parameters): void

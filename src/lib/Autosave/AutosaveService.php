@@ -15,18 +15,18 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 final class AutosaveService implements AutosaveServiceInterface
 {
-    private UserSettingService $userSettingService;
-
     private bool $inProgress = false;
 
-    public function __construct(UserSettingService $userSettingService)
-    {
-        $this->userSettingService = $userSettingService;
+    public function __construct(
+        private readonly UserSettingService $userSettingService
+    ) {
     }
 
     public function isEnabled(): bool
     {
-        return $this->userSettingService->getUserSetting(Autosave::IDENTIFIER)->value === Autosave::ENABLED_OPTION;
+        return $this->userSettingService->getUserSetting(
+            Autosave::IDENTIFIER
+        )->value === Autosave::ENABLED_OPTION;
     }
 
     /**

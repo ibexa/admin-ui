@@ -12,12 +12,24 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 interface FieldTypeComponentInterface
 {
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function setValue(array $parameters): void;
 
+    /**
+     * @return array<string|int, mixed>
+     */
     public function getValue(): array;
 
+    /**
+     * @param array<string, mixed> $values
+     */
     public function verifyValueInItemView(array $values): void;
 
+    /**
+     * @param array<string, mixed> $values
+     */
     public function verifyValueInEditView(array $values): void;
 
     public function getFieldTypeIdentifier(): string;

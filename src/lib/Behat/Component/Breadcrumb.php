@@ -13,11 +13,15 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Breadcrumb extends Component
+final class Breadcrumb extends Component
 {
     public function clickBreadcrumbItem(string $itemName): void
     {
-        $this->getHTMLPage()->findAll($this->getLocator('breadcrumbItemLink'))->getByCriterion(new ElementTextCriterion($itemName))->click();
+        $this
+            ->getHTMLPage()
+            ->findAll($this->getLocator('breadcrumbItemLink'))
+            ->getByCriterion(new ElementTextCriterion($itemName))
+            ->click();
     }
 
     public function getActiveName(): string

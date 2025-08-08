@@ -14,7 +14,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class IbexaDropdown extends Component
+final class IbexaDropdown extends Component
 {
     public function verifyIsLoaded(): void
     {

@@ -11,7 +11,6 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
-use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -20,26 +19,20 @@ use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
 use PHPUnit\Framework\Assert;
 
-class LanguagePage extends Page
+final class LanguagePage extends Page
 {
     private ?string $expectedLanguageName = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private TableInterface $table;
+    private int $expectedLanguageId;
 
-    private Dialog $dialog;
-
-    /** @var int */
-    private $expectedLanguageId;
-
-    private Repository $repository;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog,
+        private readonly Repository $repository
+    ) {
         parent::__construct($session, $router);
-        $this->table = $tableBuilder->newTable()->build();
-        $this->dialog = $dialog;
-        $this->repository = $repository;
     }
 
     public function delete(): void
@@ -52,6 +45,9 @@ class LanguagePage extends Page
         $this->dialog->confirm();
     }
 
+    /**
+     * @param array<string, mixed> $languageProperties
+     */
     public function hasProperties(array $languageProperties): bool
     {
         $hasExpectedEnabledFieldValue = true;
@@ -68,11 +64,12 @@ class LanguagePage extends Page
         }
 
         foreach ($languageProperties as $label => $value) {
-            $isExpectedValuePresent = $this->getHTMLPage()
-                    ->findAll($this->getLocator('languagePropertiesItem'))
-                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('languagePropertiesLabel'), $label))
-                    ->find($this->getLocator('languagePropertiesValue'))
-                    ->getText() === $value;
+            $isExpectedValuePresent = $this
+                ->getHTMLPage()
+                ->findAll($this->getLocator('languagePropertiesItem'))
+                ->getByCriterion(new ChildElementTextCriterion($this->getLocator('languagePropertiesLabel'), $label))
+                ->find($this->getLocator('languagePropertiesValue'))
+                ->getText() === $value;
 
             if (!$isExpectedValuePresent) {
                 return false;

@@ -14,19 +14,13 @@ use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\DashboardPage;
 use PHPUnit\Framework\Assert;
 
-class DashboardContext implements Context
+final readonly class DashboardContext implements Context
 {
-    private UpperMenu $upperMenu;
-
-    private DashboardPage $dashboardPage;
-
-    private ContentUpdateItemPage $contentUpdateItemPage;
-
-    public function __construct(UpperMenu $upperMenu, DashboardPage $dashboardPage, ContentUpdateItemPage $contentUpdateItemPage)
-    {
-        $this->upperMenu = $upperMenu;
-        $this->dashboardPage = $dashboardPage;
-        $this->contentUpdateItemPage = $contentUpdateItemPage;
+    public function __construct(
+        private UpperMenu $upperMenu,
+        private DashboardPage $dashboardPage,
+        private ContentUpdateItemPage $contentUpdateItemPage
+    ) {
     }
 
     /**

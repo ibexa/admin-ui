@@ -17,7 +17,7 @@ use PHPUnit\Framework\Assert;
 
 class RichText extends FieldTypeComponent
 {
-    private const STYLE_MAPPING = [
+    private const array STYLE_MAPPING = [
         'Paragraph' => 'p',
         'Heading 1' => 'h1',
         'Heading 2' => 'h2',
@@ -29,7 +29,9 @@ class RichText extends FieldTypeComponent
 
     private function getFieldInput(): ElementInterface
     {
-        return $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('fieldInput'));
+        return $this->getHTMLPage()
+            ->find($this->parentLocator)
+            ->find($this->getLocator('fieldInput'));
     }
 
     private function focusFieldInput(): void
@@ -80,7 +82,7 @@ class RichText extends FieldTypeComponent
         $this->executeCommand('enter');
     }
 
-    public function insertLine($value, $style = ''): void
+    public function insertLine(mixed $value, string $style = ''): void
     {
         $this->getFieldInput()->setValue($value);
 
@@ -97,6 +99,9 @@ class RichText extends FieldTypeComponent
         );
     }
 
+    /**
+     * @param array<string, mixed> $listElements
+     */
     public function addUnorderedList(array $listElements): void
     {
         $this->focusFieldInput();

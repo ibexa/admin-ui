@@ -15,16 +15,12 @@ use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\UserUpdatePage;
 use PHPUnit\Framework\Assert;
 
-class ContentUpdateContext implements Context
+final readonly class ContentUpdateContext implements Context
 {
-    private ContentUpdateItemPage $contentUpdateItemPage;
-
-    private UserUpdatePage $userUpdatePage;
-
-    public function __construct(ContentUpdateItemPage $contentUpdateItemPage, UserUpdatePage $userUpdatePage)
-    {
-        $this->contentUpdateItemPage = $contentUpdateItemPage;
-        $this->userUpdatePage = $userUpdatePage;
+    public function __construct(
+        private ContentUpdateItemPage $contentUpdateItemPage,
+        private UserUpdatePage $userUpdatePage
+    ) {
     }
 
     /**
@@ -49,7 +45,7 @@ class ContentUpdateContext implements Context
     }
 
     /**
-     * @Given the :fieldName field is noneditable
+     * @Given the :fieldName field is non-editable
      */
     public function verifyFieldIsNotEditable(string $fieldName): void
     {
@@ -85,6 +81,11 @@ class ContentUpdateContext implements Context
         $this->contentUpdateItemPage->getField($fieldName)->selectFromRepository($contentPath);
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     *
+     * @return array<string, mixed>
+     */
     private function filterOutNonEmptyValues(array $parameters): array
     {
         $values = $parameters;

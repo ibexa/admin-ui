@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class TableNavigationTab extends Component
+final class TableNavigationTab extends Component
 {
     public function getActiveTabName(): string
     {

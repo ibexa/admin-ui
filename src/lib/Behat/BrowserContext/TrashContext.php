@@ -13,13 +13,10 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\TrashPage;
 use PHPUnit\Framework\Assert;
 
-class TrashContext implements Context
+final readonly class TrashContext implements Context
 {
-    private TrashPage $trashPage;
-
-    public function __construct(TrashPage $trashPage)
+    public function __construct(private TrashPage $trashPage)
     {
-        $this->trashPage = $trashPage;
     }
 
     /**

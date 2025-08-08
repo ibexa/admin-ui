@@ -22,47 +22,36 @@ use PHPUnit\Framework\Assert;
 
 class RolePage extends Page
 {
-    public Dialog $dialog;
-
     private ?string $expectedRoleName = null;
-
-    private TableNavigationTab $tableNavigationTab;
-
-    private Repository $repository;
 
     private int $expectedRoleId;
 
     /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $policies;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $assignments;
 
     public function __construct(
-        Session $session,
-        Router $router,
-        TableNavigationTab $tableNavigationTab,
-        Dialog $dialog,
-        Repository $repository,
-        TableBuilder $tableBuilder
+        readonly Session $session,
+        readonly Router $router,
+        private readonly TableNavigationTab $tableNavigationTab,
+        public readonly Dialog $dialog,
+        private readonly Repository $repository,
+        readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
-        $this->tableNavigationTab = $tableNavigationTab;
-        $this->dialog = $dialog;
-        $this->repository = $repository;
-        $this->policies = $tableBuilder->newTable()->withParentLocator($this->getLocator('policiesTable'))->build();
-        $this->assignments = $tableBuilder->newTable()->withParentLocator($this->getLocator('assignmentTable'))->build();
+
+        $this->policies = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('policiesTable'))
+            ->build();
+
+        $this->assignments = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('assignmentTable'))
+            ->build();
     }
 
-    /**
-     * Verifies if Role with Limitation from given list is present.
-     *
-     * @param string $listName
-     * @param string $moduleAndFunction
-     * @param string $limitation
-     *
-     * @return bool
-     */
     public function isRoleWithLimitationPresent(string $moduleAndFunction, string $limitation): bool
     {
         $this->tableNavigationTab->goToTab('Policies');
@@ -94,7 +83,7 @@ class RolePage extends Page
             return trim($value);
         }, explode(',', $expectedLimitationValue));
 
-        $limitationTypePos = strpos($actualLimitations, $expectedLimitationType);
+        $limitationTypePos = strpos($actualLimitations, $expectedLimitationType) ?: 0;
         $actualLimitationsStartingFromExpectedType = substr($actualLimitations, $limitationTypePos);
 
         $valuePositionsDictionary = [];
@@ -111,7 +100,7 @@ class RolePage extends Page
         ksort($valuePositionsDictionary);
         $combinedExpectedLimitation = sprintf('%s: %s', $expectedLimitationType, implode(', ', $valuePositionsDictionary));
 
-        return strpos($actualLimitations, $combinedExpectedLimitation) !== false;
+        return str_contains($actualLimitations, $combinedExpectedLimitation);
     }
 
     public function setExpectedRoleName(string $roleName): void
@@ -202,6 +191,9 @@ class RolePage extends Page
             ->click();
     }
 
+    /**
+     * @param string[] $itemNames
+     */
     public function deleteAssignments(array $itemNames): void
     {
         $this->goToTab('Assignments');
@@ -218,6 +210,9 @@ class RolePage extends Page
         $this->dialog->confirm();
     }
 
+    /**
+     * @param string[] $itemNames
+     */
     public function deletePolicies(array $itemNames): void
     {
         $this->goToTab('Policies');

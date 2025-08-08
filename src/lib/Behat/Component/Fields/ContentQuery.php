@@ -13,17 +13,20 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class ContentQuery extends NonEditableField
+final class ContentQuery extends NonEditableField
 {
-    public const ELEMENT_NAME = 'Content query';
+    public const string ELEMENT_NAME = 'Content query';
 
+    /**
+     * @param array<string, string> $values
+     */
     public function verifyValueInItemView(array $values): void
     {
-        $expecteditems = explode(',', $values['value']);
+        $expectedItems = explode(',', $values['value']);
         $actualItems = $this->getValueInItemView();
-        $commonItems = array_intersect($expecteditems, $actualItems);
+        $commonItems = array_intersect($expectedItems, $actualItems);
 
-        Assert::assertEquals([], array_diff($expecteditems, $commonItems));
+        Assert::assertEquals([], array_diff($expectedItems, $commonItems));
     }
 
     public function specifyLocators(): array
@@ -39,6 +42,9 @@ class ContentQuery extends NonEditableField
         return 'ibexa_content_query';
     }
 
+    /**
+     * @return array<mixed>
+     */
     private function getValueInItemView(): array
     {
         $itemSelector = CSSLocatorBuilder::base($this->parentLocator)

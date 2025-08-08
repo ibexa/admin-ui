@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Page;
 
@@ -18,12 +19,12 @@ final class UserProfilePage extends Page
 {
     private string $locationPath;
 
-    private ContentFacade $contentFacade;
-
-    public function __construct(Session $session, Router $router, ContentFacade $contentFacade)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentFacade $contentFacade
+    ) {
         parent::__construct($session, $router);
-        $this->contentFacade = $contentFacade;
     }
 
     public function verifyIsLoaded(): void

@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class Pagination extends Component
+final class Pagination extends Component
 {
     public function isNextButtonActive(): bool
     {
@@ -22,12 +22,16 @@ class Pagination extends Component
     {
         $currentPage = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
         // scroll to the bottom to avoid "Go to top" button
-        $this->getHTMLPage()->executeJavaScript(<<<'JS'
-document.querySelector('.ibexa-back-to-top-scroll-container') && document.querySelector('.ibexa-back-to-top-scroll-container').scrollTo(0, document.querySelector('.ibexa-back-to-top-scroll-container').scrollHeight);
-JS);
+        $this->getHTMLPage()->executeJavaScript(
+            <<<'JS'
+                document.querySelector('.ibexa-back-to-top-scroll-container') && document.querySelector('.ibexa-back-to-top-scroll-container').scrollTo(0, document.querySelector('.ibexa-back-to-top-scroll-container').scrollHeight);
+            JS
+        );
+
         $this->getHTMLPage()
             ->setTimeout(3)
             ->findAll(new VisibleCSSLocator('backToTopWithTitle', '.ibexa-back-to-top__title--visible'));
+
         $this->getHTMLPage()->find($this->getLocator('nextButton'))->click();
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage): bool {
             $activePge = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();

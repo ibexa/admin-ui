@@ -13,13 +13,10 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use PHPUnit\Framework\Assert;
 
-class ContentActionsMenuContext implements Context
+final readonly class ContentActionsMenuContext implements Context
 {
-    private ContentActionsMenu $contentActionsMenu;
-
-    public function __construct(ContentActionsMenu $contentActionsMenu)
+    public function __construct(private ContentActionsMenu $contentActionsMenu)
     {
-        $this->contentActionsMenu = $contentActionsMenu;
     }
 
     /**

@@ -11,14 +11,13 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class TranslationDialog extends Dialog
+final class TranslationDialog extends Dialog
 {
-    private IbexaDropdown $ibexaDropdown;
-
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
-        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function selectNewTranslation(string $languageName): void
