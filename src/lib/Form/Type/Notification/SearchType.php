@@ -24,14 +24,14 @@ final class SearchType extends AbstractType
     {
         /** @var \Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData|null $data */
         $data = $form->getData();
-        $view->vars['is_some_filter_set'] = false;
+        $view->vars['is_any_filter_set'] = false;
 
-        if ($data) {
+        if ($data !== null) {
             $statuses = $data->getStatuses();
             $type = $data->getType();
             $createdRange = $data->getCreatedRange();
 
-            $view->vars['is_some_filter_set'] =
+            $view->vars['is_any_filter_set'] =
                 (!empty($statuses)) ||
                 (!empty($type)) ||
                 ($createdRange !== null && ($createdRange->getMin() !== null || $createdRange->getMax() !== null));

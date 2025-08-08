@@ -10,11 +10,13 @@ namespace Ibexa\AdminUi\Form\Data\Notification;
 
 final class NotificationSelectionData
 {
-    /** @var bool[] notificationId => selected */
+    /**
+     * @var array<int, bool> notificationId => selected
+     */
     private array $notifications;
 
     /**
-     * @param bool[] $notifications
+     * @param array<int, bool> $notifications
      */
     public function __construct(array $notifications = [])
     {
@@ -22,7 +24,7 @@ final class NotificationSelectionData
     }
 
     /**
-     * @return bool[]
+     * @return array<int, bool>
      */
     public function getNotifications(): array
     {
@@ -30,7 +32,7 @@ final class NotificationSelectionData
     }
 
     /**
-     * @param bool[] $notifications
+     * @param array<int, bool> $notifications
      */
     public function setNotifications(array $notifications): void
     {
