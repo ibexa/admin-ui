@@ -14,13 +14,11 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class LimitationValueRenderingExtension extends AbstractExtension
+final class LimitationValueRenderingExtension extends AbstractExtension
 {
-    private LimitationBlockRendererInterface $limitationRenderer;
-
-    public function __construct(LimitationBlockRendererInterface $limitationRenderer)
-    {
-        $this->limitationRenderer = $limitationRenderer;
+    public function __construct(
+        private readonly LimitationBlockRendererInterface $limitationRenderer
+    ) {
     }
 
     /**
@@ -28,7 +26,7 @@ class LimitationValueRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []) {
+        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []): string {
             return $this->limitationRenderer->renderLimitationValue($limitation, $params);
         };
 

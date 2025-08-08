@@ -10,8 +10,8 @@ namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\Parser\View;
 
-class ContentTranslateView extends View
+final class ContentTranslateView extends View
 {
-    public const NODE_KEY = 'content_translate_view';
-    public const INFO = 'Template selection settings when displaying a content translate form';
+    public const string NODE_KEY = 'content_translate_view';
+    public const string INFO = 'Template selection settings when displaying a content translate form';
 }

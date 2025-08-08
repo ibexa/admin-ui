@@ -14,7 +14,7 @@ use Twig\TwigFunction;
 
 final class LocationExtension extends AbstractExtension
 {
-    private const SORT_FIELD_TO_SORT_CLAUSE_MAP = [
+    private const array SORT_FIELD_TO_SORT_CLAUSE_MAP = [
         Location::SORT_FIELD_PATH => 'LocationPath',
         Location::SORT_FIELD_PUBLISHED => 'DatePublished',
         Location::SORT_FIELD_MODIFIED => 'DateModified',

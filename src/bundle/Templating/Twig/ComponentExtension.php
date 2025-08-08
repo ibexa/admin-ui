@@ -14,18 +14,12 @@ use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ComponentExtension extends AbstractExtension
+final class ComponentExtension extends AbstractExtension
 {
-    protected ComponentRegistry $registry;
-
-    protected RendererInterface $renderer;
-
     public function __construct(
-        ComponentRegistry $registry,
-        RendererInterface $renderer
+        private readonly ComponentRegistry $registry,
+        private readonly RendererInterface $renderer
     ) {
-        $this->registry = $registry;
-        $this->renderer = $renderer;
     }
 
     public function getFunctions(): array
@@ -50,11 +44,17 @@ class ComponentExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function renderComponentGroup(string $group, array $parameters = []): string
     {
         return implode('', $this->renderer->renderGroup($group, $parameters));
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function renderComponent(string $group, string $id, array $parameters = []): string
     {
         return $this->renderer->renderSingle($group, $id, $parameters);

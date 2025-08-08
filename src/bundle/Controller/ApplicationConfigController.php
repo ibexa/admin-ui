@@ -14,11 +14,8 @@ use Ibexa\Rest\Server\Controller;
 
 final class ApplicationConfigController extends Controller
 {
-    private Aggregator $aggregator;
-
-    public function __construct(Aggregator $aggregator)
+    public function __construct(private readonly Aggregator $aggregator)
     {
-        $this->aggregator = $aggregator;
     }
 
     public function loadConfigAction(): ApplicationConfig

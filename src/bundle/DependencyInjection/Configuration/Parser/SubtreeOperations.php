@@ -25,10 +25,16 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *                  limit: 200
  * ```
  */
-class SubtreeOperations extends AbstractParser
+final class SubtreeOperations extends AbstractParser
 {
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    /**
+     * @param array<string, mixed> $scopeSettings
+     */
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (!isset($scopeSettings['subtree_operations']['copy_subtree']['limit'])) {
             return;
         }

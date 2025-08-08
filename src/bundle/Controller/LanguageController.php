@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -30,43 +31,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LanguageController extends Controller
+final class LanguageController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private LanguageService $languageService;
-
-    private LanguageCreateMapper $languageCreateMapper;
-
-    private SubmitHandler $submitHandler;
-
-    private FormFactory $formFactory;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        LanguageService $languageService,
-        LanguageCreateMapper $languageCreateMapper,
-        SubmitHandler $submitHandler,
-        FormFactory $formFactory,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly LanguageService $languageService,
+        private readonly LanguageCreateMapper $languageCreateMapper,
+        private readonly SubmitHandler $submitHandler,
+        private readonly FormFactory $formFactory,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->languageService = $languageService;
-        $this->languageCreateMapper = $languageCreateMapper;
-        $this->submitHandler = $submitHandler;
-        $this->formFactory = $formFactory;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * Renders the language list.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
@@ -75,7 +51,10 @@ class LanguageController extends Controller
             new ArrayAdapter(iterator_to_array($this->languageService->loadLanguages()))
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.language_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.language_limit')
+        );
+
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageList */
@@ -92,13 +71,6 @@ class LanguageController extends Controller
         ]);
     }
 
-    /**
-     * Renders the view of a language.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(Language $language): Response
     {
         $deleteForm = $this->formFactory->deleteLanguage(
@@ -113,14 +85,6 @@ class LanguageController extends Controller
         ]);
     }
 
-    /**
-     * Deletes a language.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, Language $language): Response
     {
         $form = $this->formFactory->deleteLanguage(
@@ -137,7 +101,7 @@ class LanguageController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("Language '%name%' removed.") */
                     'language.delete.success',
-                    ['%name%' => $language->name],
+                    ['%name%' => $language->getName()],
                     'ibexa_language'
                 );
             });
@@ -150,20 +114,6 @@ class LanguageController extends Controller
         return $this->redirectToRoute('ibexa.language.list');
     }
 
-    /**
-     * Handles removing languages based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \InvalidArgumentException
-     */
     public function bulkDeleteAction(Request $request): Response
     {
         $form = $this->formFactory->deleteLanguages(
@@ -180,7 +130,7 @@ class LanguageController extends Controller
                     $this->notificationHandler->success(
                         /** @Desc("Language '%name%' removed.") */
                         'language.delete.success',
-                        ['%name%' => $language->name],
+                        ['%name%' => $language->getName()],
                         'ibexa_language'
                     );
                 }
@@ -216,12 +166,12 @@ class LanguageController extends Controller
                     && $form->getClickedButton()->getName() === LanguageCreateType::BTN_SAVE
                 ) {
                     return $this->redirectToRoute('ibexa.language.edit', [
-                        'languageId' => $language->id,
+                        'languageId' => $language->getId(),
                     ]);
                 }
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
-                    'languageId' => $language->id,
+                    'languageId' => $language->getId(),
                 ]));
             });
 
@@ -246,7 +196,9 @@ class LanguageController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (LanguageUpdateData $data) use ($language, $form): Response {
-                $this->languageService->updateLanguageName($language, $data->getName());
+                if ($data->getName() !== null) {
+                    $this->languageService->updateLanguageName($language, $data->getName());
+                }
 
                 $data->isEnabled()
                     ? $this->languageService->enableLanguage($language)
@@ -263,12 +215,12 @@ class LanguageController extends Controller
                     && $form->getClickedButton()->getName() === LanguageUpdateType::BTN_SAVE
                 ) {
                     return $this->redirectToRoute('ibexa.language.edit', [
-                        'languageId' => $language->id,
+                        'languageId' => $language->getId(),
                     ]);
                 }
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
-                    'languageId' => $language->id,
+                    'languageId' => $language->getId(),
                 ]));
             });
 
@@ -287,7 +239,7 @@ class LanguageController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
      *
-     * @return array
+     * @return array<int, bool>
      */
     private function getLanguagesNumbers(array $languages): array
     {

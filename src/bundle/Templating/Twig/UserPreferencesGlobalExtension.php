@@ -19,19 +19,13 @@ use Twig\Extension\GlobalsInterface;
  */
 class UserPreferencesGlobalExtension extends AbstractExtension implements GlobalsInterface
 {
-    protected UserSettingArrayAccessor $userSettingArrayAccessor;
-
-    /**
-     * @param \Ibexa\User\UserSetting\UserSettingArrayAccessor $userSettingArrayAccessor
-     */
     public function __construct(
-        UserSettingArrayAccessor $userSettingArrayAccessor
+        private readonly UserSettingArrayAccessor $userSettingArrayAccessor
     ) {
-        $this->userSettingArrayAccessor = $userSettingArrayAccessor;
     }
 
     /**
-     * @return array
+     * @return array<string, \ArrayAccess<string, mixed>>
      */
     public function getGlobals(): array
     {

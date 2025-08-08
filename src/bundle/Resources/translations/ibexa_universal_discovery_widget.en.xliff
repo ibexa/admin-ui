@@ -131,21 +131,6 @@
         <target state="new">Search...</target>
         <note>key: dropdown.placeholder</note>
       </trans-unit>
-      <trans-unit id="bc4850e9ccff0c6effc58a089fe148c16689d8ee" resname="ibexa_image_asset.title">
-        <source>Select Image Asset</source>
-        <target state="new">Select Image Asset</target>
-        <note>key: ibexa_image_asset.title</note>
-      </trans-unit>
-      <trans-unit id="a46e5fdf25ad5fc5725b6db78274102983e65ef2" resname="ibexa_object_relation_list.title.multi">
-        <source>Select Content item(s)</source>
-        <target state="new">Select Content item(s)</target>
-        <note>key: ibexa_object_relation_list.title.multi</note>
-      </trans-unit>
-      <trans-unit id="af2bf80ec528976a55efeb36753db6ca6ca652e5" resname="ibexa_object_relation_list.title.single">
-        <source>Select a Content item</source>
-        <target state="new">Select a Content item</target>
-        <note>key: ibexa_object_relation_list.title.single</note>
-      </trans-unit>
       <trans-unit id="b01a58cb9736974403f9f94ecce5180fb95a9627" resname="filters.apply">
         <source>Apply</source>
         <target state="new">Apply</target>
@@ -185,6 +170,21 @@
         <source>Filters</source>
         <target state="new">Filters</target>
         <note>key: filters.title</note>
+      </trans-unit>
+      <trans-unit id="70241b02d194cfdc379557b7d72c06d9e1af7eba" resname="ibexa_image_asset.title">
+        <source>Select Image Asset</source>
+        <target state="new">Select Image Asset</target>
+        <note>key: ibexa_image_asset.title</note>
+      </trans-unit>
+      <trans-unit id="7b2eaa0119065cdb6f6fa51245a3aa14bc8fbf55" resname="ibexa_object_relation_list.title.multi">
+        <source>Select Content item(s)</source>
+        <target state="new">Select Content item(s)</target>
+        <note>key: ibexa_object_relation_list.title.multi</note>
+      </trans-unit>
+      <trans-unit id="6213e21a12c44abeb6ba2e601127cebc2f0a03df" resname="ibexa_object_relation_list.title.single">
+        <source>Select a Content item</source>
+        <target state="new">Select a Content item</target>
+        <note>key: ibexa_object_relation_list.title.single</note>
       </trans-unit>
       <trans-unit id="94d848778c1cab60409c69dcff7e1cb8ea415ffc" resname="init_selected_locations.alert.title">
         <source>Items already added to the list are marked as selected and unable to deselect.</source>

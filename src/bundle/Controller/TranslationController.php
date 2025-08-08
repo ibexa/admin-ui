@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -21,43 +22,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TranslationController extends Controller
+final class TranslationController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private ContentService $contentService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private TranslationHelper $translationHelper;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     */
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ContentService $contentService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        TranslationHelper $translationHelper
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ContentService $contentService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly TranslationHelper $translationHelper
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->contentService = $contentService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->translationHelper = $translationHelper;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request): Response
     {
         $formName = $request->query->get('formName');
@@ -76,10 +51,10 @@ class TranslationController extends Controller
                 $baseLanguage = $data->getBaseLanguage();
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.translate_with_location.proxy', [
-                    'contentId' => $contentInfo->id,
-                    'fromLanguageCode' => null !== $baseLanguage ? $baseLanguage->languageCode : null,
-                    'toLanguageCode' => $language->languageCode,
-                    'locationId' => $location->id,
+                    'contentId' => $contentInfo->getId(),
+                    'fromLanguageCode' => $baseLanguage?->getLanguageCode(),
+                    'toLanguageCode' => $language->getLanguageCode(),
+                    'locationId' => $location->getId(),
                 ]));
             });
 
@@ -90,19 +65,14 @@ class TranslationController extends Controller
 
         $redirectionUrl = null !== $location
             ? $this->generateUrl('ibexa.content.view', [
-                'contentId' => $location->contentId,
-                'locationId' => $location->id,
+                'contentId' => $location->getContentId(),
+                'locationId' => $location->getId(),
             ])
             : $this->generateUrl('ibexa.dashboard');
 
         return $this->redirect($redirectionUrl);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->deleteTranslation();
@@ -130,8 +100,8 @@ class TranslationController extends Controller
                 }
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
+                    'contentId' => $contentInfo->getId(),
+                    'locationId' => $contentInfo->getMainLocationId(),
                     '_fragment' => TranslationsTab::URI_FRAGMENT,
                 ]));
             });
@@ -142,8 +112,8 @@ class TranslationController extends Controller
         }
 
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => TranslationsTab::URI_FRAGMENT,
         ]);
     }

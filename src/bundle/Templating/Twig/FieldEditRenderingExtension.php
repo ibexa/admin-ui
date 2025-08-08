@@ -15,13 +15,11 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class FieldEditRenderingExtension extends AbstractExtension
+final class FieldEditRenderingExtension extends AbstractExtension
 {
-    private FieldBlockRendererInterface $fieldBlockRenderer;
-
-    public function __construct(FieldBlockRendererInterface $fieldBlockRenderer)
-    {
-        $this->fieldBlockRenderer = $fieldBlockRenderer;
+    public function __construct(
+        private readonly FieldBlockRendererInterface $fieldBlockRenderer
+    ) {
     }
 
     /**
@@ -29,7 +27,11 @@ class FieldEditRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []): string {
+        $fieldDefinitionEditCallable = function (
+            Environment $twig,
+            FieldDefinitionData $fieldDefinitionData,
+            array $params = []
+        ): string {
             $this->fieldBlockRenderer->setTwig($twig);
 
             return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);
@@ -47,12 +49,18 @@ class FieldEditRenderingExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param array<string, mixed> $params
+     */
     public function renderFieldDefinitionEdit(FieldDefinitionData $fieldDefinitionData, array $params = []): string
     {
         $params += ['data' => $fieldDefinitionData];
         try {
-            return $this->fieldBlockRenderer->renderFieldDefinitionEdit($fieldDefinitionData->fieldDefinition, $params);
-        } catch (MissingFieldBlockException $e) {
+            return $this->fieldBlockRenderer->renderFieldDefinitionEdit(
+                $fieldDefinitionData->fieldDefinition,
+                $params
+            );
+        } catch (MissingFieldBlockException) {
             // Silently fail on purpose.
             // If there is no template block for current field definition, there might not be anything specific to add.
             return '';

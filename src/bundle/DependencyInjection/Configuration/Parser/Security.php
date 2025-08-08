@@ -17,20 +17,15 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          security:
  *              token_interval_spec: 'PT1H'
  * ```
  */
-class Security extends AbstractParser
+final class Security extends AbstractParser
 {
-    /**
-     * Adds semantic configuration definition.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
-     */
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
@@ -46,10 +41,13 @@ class Security extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['security'])) {
             return;
         }
@@ -58,7 +56,7 @@ class Security extends AbstractParser
         $keys = ['token_interval_spec'];
 
         foreach ($keys as $key) {
-            if (!isset($settings[$key]) || empty($settings[$key])) {
+            if (empty($settings[$key])) {
                 continue;
             }
 

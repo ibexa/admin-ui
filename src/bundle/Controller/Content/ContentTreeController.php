@@ -32,40 +32,19 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @phpstan-import-type TPermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
  */
-class ContentTreeController extends RestController
+final class ContentTreeController extends RestController
 {
-    private const ROOT_LOCATION_ID = 1;
-
-    private LocationService $locationService;
-
-    private LookupLimitationsTransformer $lookupLimitationsTransformer;
-
-    private NodeFactory $contentTreeNodeFactory;
-
-    private PermissionResolver $permissionResolver;
-
-    private ConfigResolverInterface $configResolver;
-
-    private SiteaccessResolverInterface $siteaccessResolver;
-
-    private LimitationResolverInterface $limitationResolver;
+    private const int ROOT_LOCATION_ID = 1;
 
     public function __construct(
-        LocationService $locationService,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        NodeFactory $contentTreeNodeFactory,
-        PermissionResolver $permissionResolver,
-        ConfigResolverInterface $configResolver,
-        SiteaccessResolverInterface $siteaccessResolver,
-        LimitationResolverInterface $limitationResolver
+        private readonly LocationService $locationService,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly NodeFactory $contentTreeNodeFactory,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly SiteaccessResolverInterface $siteaccessResolver,
+        private readonly LimitationResolverInterface $limitationResolver
     ) {
-        $this->locationService = $locationService;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->contentTreeNodeFactory = $contentTreeNodeFactory;
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
-        $this->siteaccessResolver = $siteaccessResolver;
-        $this->limitationResolver = $limitationResolver;
     }
 
     /**
@@ -98,10 +77,6 @@ class ContentTreeController extends RestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Ibexa\AdminUi\REST\Value\ContentTree\Root
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -187,7 +162,7 @@ class ContentTreeController extends RestController
 
         $content = $location->getContent();
         $versionInfo = $content->getVersionInfo();
-        $translations = $versionInfo->languageCodes;
+        $translations = $versionInfo->getLanguageCodes();
         $previewableTranslations = array_filter(
             $translations,
             fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
@@ -248,8 +223,9 @@ class ContentTreeController extends RestController
     {
         $content = $location->getContent();
         $contentType = $content->getContentType();
-        $contentIsUser = (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
-            ->isSatisfiedBy($contentType);
+        $contentIsUser = (new ContentTypeIsUser(
+            $this->configResolver->getParameter('user_content_type_identifier')
+        ))->isSatisfiedBy($contentType);
 
         $translations = $content->getVersionInfo()->getLanguageCodes();
         $target = (new Target\Version())->deleteTranslations($translations);
