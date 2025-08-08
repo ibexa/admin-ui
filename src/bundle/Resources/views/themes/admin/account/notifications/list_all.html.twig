@@ -5,7 +5,7 @@
 {% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
 {% trans_default_domain 'ibexa_notifications' %}
-{% form_theme form_remove '@ibexadesign/ui/form_fields.html.twig' %}
+{% form_theme delete_form '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% block main_container_class %}{{ parent() }} ibexa-notification-list__container {% endblock %}
 
@@ -24,14 +24,14 @@
 {% endblock %}
 
 {% block content %}
-    {{ form_start(form_remove, {
+    {{ form_start(delete_form, {
         action: path('ibexa.notifications.delete_multiple'),
         'attr': {
             'class': 'ibexa-toggle-btn-state ibexa-notification-list__hidden-btn',
             'data-toggle-button-id': '#confirm-selection_remove'
         }
     }) }}
-        {% for row in form_remove.notifications %}
+        {% for row in delete_form.notifications %}
             {{ form_widget(row, {
                 'attr': {
                     'hidden': true
@@ -43,7 +43,7 @@
            type="submit"
            hidden
         ></button>
-    {{ form_end(form_remove) }}
+    {{ form_end(delete_form) }}
     {{ form_start(search_form, {
         attr: { class: 'ibexa-list-search-form' }
     }) }}
@@ -58,7 +58,7 @@
                         { content: 'notification.datetime'|trans|desc('Date and time') },
                     ],
                     class: 'ibexa-table--notifications',
-                    actions: macros.table_header_tools(form_remove),
+                    actions: macros.table_header_tools(delete_form),
                     is_scrollable: false,
                     show_head_cols_if_empty: true,
                     attr: {

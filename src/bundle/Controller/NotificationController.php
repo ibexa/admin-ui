@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use DateTimeInterface;
-use Exception;
 use Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
@@ -68,25 +67,37 @@ final class NotificationController extends Controller
         $this->notificationHandler = $notificationHandler;
     }
 
+    /**
+     * @param callable(): JsonResponse $callback
+     */
+    private function handleJsonErrors(callable $callback): JsonResponse
+    {
+        try {
+            return $callback();
+        } catch (NotFoundException $exception) {
+            return new JsonResponse([
+                'status' => 'failed',
+                'error' => $exception->getMessage(),
+            ], 404);
+        } catch (Throwable $exception) {
+            return new JsonResponse([
+                'status' => 'failed',
+                'error' => 'Unexpected error occurred.',
+            ], 500);
+        }
+    }
+
     public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
     {
-        $response = new JsonResponse();
-
-        try {
+        return $this->handleJsonErrors(function () use ($offset, $limit) {
             $notificationList = $this->notificationService->loadNotifications($offset, $limit);
-            $response->setData([
+
+            return new JsonResponse([
                 'pending' => $this->notificationService->getPendingNotificationCount(),
                 'total' => $notificationList->totalCount,
                 'notifications' => $notificationList->items,
             ]);
-        } catch (Exception $exception) {
-            $response->setData([
-                'status' => 'failed',
-                'error' => $exception->getMessage(),
-            ]);
-        }
-
-        return $response;
+        });
     }
 
     public function renderNotificationsPageAction(Request $request, int $page): Response
@@ -122,7 +133,7 @@ final class NotificationController extends Controller
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
             'search_form' => $searchForm->createView(),
-            'form_remove' => $deleteForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ]);
     }
 
@@ -169,22 +180,12 @@ final class NotificationController extends Controller
         return new NotificationSelectionData($notifications);
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     public function countNotificationsAction(): JsonResponse
     {
-        try {
-            return new JsonResponse([
-                'pending' => $this->notificationService->getPendingNotificationCount(),
-                'total' => $this->notificationService->getNotificationCount(),
-            ]);
-        } catch (Throwable $e) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Unable to count notifications.',
-            ], 500);
-        }
+        return $this->handleJsonErrors(fn () => new JsonResponse([
+            'pending' => $this->notificationService->getPendingNotificationCount(),
+            'total' => $this->notificationService->getNotificationCount(),
+        ]));
     }
 
     /**
@@ -194,9 +195,7 @@ final class NotificationController extends Controller
      */
     public function markNotificationAsReadAction(Request $request, int $notificationId): JsonResponse
     {
-        $response = new JsonResponse();
-
-        try {
+        return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
 
             $this->notificationService->markNotificationAsRead($notification);
@@ -212,22 +211,12 @@ final class NotificationController extends Controller
             }
 
             return new JsonResponse($data);
-        } catch (NotFoundException $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Notification not found.',
-            ], 404);
-        } catch (Throwable $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Unexpected error occurred.',
-            ], 500);
-        }
+        });
     }
 
     public function markNotificationsAsReadAction(Request $request): JsonResponse
     {
-        try {
+        return $this->handleJsonErrors(function () use ($request) {
             $ids = $request->toArray()['ids'] ?? [];
 
             if (empty($ids)) {
@@ -240,78 +229,38 @@ final class NotificationController extends Controller
                 'status' => 'success',
                 'redirect' => $this->generateUrl('ibexa.notifications.render.all'),
             ]);
-        } catch (NotFoundException $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => $exception->getMessage(),
-            ], 404);
-        } catch (Throwable $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Unexpected error occurred.',
-            ], 500);
-        }
+        });
     }
 
     public function markAllNotificationsAsReadAction(Request $request): JsonResponse
     {
-        try {
+        return $this->handleJsonErrors(function () {
             $this->notificationService->markUserNotificationsAsRead();
 
             return new JsonResponse(['status' => 'success']);
-        } catch (NotFoundException $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => $exception->getMessage(),
-            ], 404);
-        } catch (Throwable $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Unexpected error occurred.',
-            ], 500);
-        }
+        });
     }
 
     public function markNotificationAsUnreadAction(Request $request, int $notificationId): JsonResponse
     {
-        try {
+        return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
 
             $this->notificationService->markNotificationAsUnread($notification);
 
             return new JsonResponse(['status' => 'success']);
-        } catch (NotFoundException $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => $exception->getMessage(),
-            ], 404);
-        } catch (Throwable $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Unexpected error occurred.',
-            ], 500);
-        }
+        });
     }
 
     public function deleteNotificationAction(Request $request, int $notificationId): JsonResponse
     {
-        try {
+        return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
 
             $this->notificationService->deleteNotification($notification);
 
             return new JsonResponse(['status' => 'success']);
-        } catch (NotFoundException $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => $exception->getMessage(),
-            ], 404);
-        } catch (Throwable $exception) {
-            return new JsonResponse([
-                'status' => 'failed',
-                'error' => 'Unexpected error occurred.',
-            ], 500);
-        }
+        });
     }
 
     public function deleteNotificationsAction(Request $request): Response

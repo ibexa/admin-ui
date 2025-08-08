@@ -12,7 +12,6 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @extends \Symfony\Component\Form\AbstractType<mixed>
@@ -22,23 +21,17 @@ final class NotificationStatusChoiceType extends AbstractType
     public const NOTIFICATION_STATUS_READ = 0;
     public const NOTIFICATION_STATUS_UNREAD = 1;
 
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => [
                 /** @Desc("Read") */
-                $this->translator->trans('notification.status.read') => self::NOTIFICATION_STATUS_READ,
+                'notification.status.read' => self::NOTIFICATION_STATUS_READ,
                 /** @Desc("Unread") */
-                $this->translator->trans('notification.status.unread') => self::NOTIFICATION_STATUS_UNREAD,
+                'notification.status.unread' => self::NOTIFICATION_STATUS_UNREAD,
             ],
             'translation_domain' => 'ibexa_notifications',
+            'choice_translation_domain' => 'ibexa_notifications',
             'label' => /** @Desc("Status") */ 'notification.status',
         ]);
     }

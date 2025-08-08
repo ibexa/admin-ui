@@ -295,8 +295,6 @@ services:
 
     Ibexa\AdminUi\Form\Type\Notification\SearchType: ~
 
-    Ibexa\AdminUi\Form\Type\Notification\NotificationStatusChoiceType: ~
-
     Ibexa\AdminUi\Form\Type\Notification\NotificationTypeChoiceType: ~
 
     Ibexa\AdminUi\Form\Type\Section\SectionChoiceType: ~

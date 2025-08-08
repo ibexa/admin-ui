@@ -6,6 +6,11 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="d957718e6a908793c3573766261f5fa0c8db09a4" resname="error.unexpected_delete_notifications">
+        <source>An unexpected error occurred while deleting notifications.</source>
+        <target state="new">An unexpected error occurred while deleting notifications.</target>
+        <note>key: error.unexpected_delete_notifications</note>
+      </trans-unit>
       <trans-unit id="a01de82c6cc5d0ce8849e067d0c2cfd048bedb81" resname="ibexa.notifications.search_form.apply">
         <source>Apply</source>
         <target state="new">Apply</target>
@@ -110,6 +115,16 @@
         <source>Status</source>
         <target state="new">Status</target>
         <note>key: notification.status</note>
+      </trans-unit>
+      <trans-unit id="6cc1d9d457eb5b33316f23748e81f1fc3d848ac9" resname="notification.status.read">
+        <source>Read</source>
+        <target state="new">Read</target>
+        <note>key: notification.status.read</note>
+      </trans-unit>
+      <trans-unit id="32af6b054b04d592c0fe216b5ee64b175f6c485f" resname="notification.status.unread">
+        <source>Unread</source>
+        <target state="new">Unread</target>
+        <note>key: notification.status.unread</note>
       </trans-unit>
       <trans-unit id="1c91fe849525c315015b2e765f6600fd199e78a0" resname="notification.title">
         <source>Title:</source>

@@ -28,7 +28,7 @@ final class NotificationTypeChoiceType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $typeLabels = $this->registry->getTypeLabels() ?: [];
+        $typeLabels = $this->registry->getTypeLabels();
 
         $choices = array_flip($typeLabels);
 
