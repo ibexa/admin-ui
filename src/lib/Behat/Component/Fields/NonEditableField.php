@@ -14,7 +14,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 
 abstract class NonEditableField extends FieldTypeComponent
 {
-    public const EXPECTED_NON_EDITABLE_TEXT = 'This Field Type is not editable';
+    public const string EXPECTED_NON_EDITABLE_TEXT = 'This Field Type is not editable';
 
     public function setValue(array $parameters): void
     {

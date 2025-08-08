@@ -20,28 +20,25 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 class ContentTypeGroupPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList */
-    protected $adminList;
+    protected string $expectedName;
 
-    /** @var string */
-    protected $expectedName;
+    private mixed $contentTypeGroupId;
 
-    private ContentTypeService $contentTypeService;
-
-    /** @var mixed */
-    private $contentTypeGroupId;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $table;
 
-    private Dialog $dialog;
-
-    public function __construct(Session $session, Router $router, ContentTypeService $contentTypeService, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentTypeService $contentTypeService,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
-        $this->contentTypeService = $contentTypeService;
-        $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('tableContainer'))->build();
-        $this->dialog = $dialog;
+
+        /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
+        $locator = $this->getLocator('tableContainer');
+
+        $this->table = $tableBuilder->newTable()->withParentLocator($locator)->build();
     }
 
     public function hasContentTypes(): bool
@@ -65,7 +62,7 @@ class ContentTypeGroupPage extends Page
         $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
-    public function isContentTypeOnTheList($contentTypeName): bool
+    public function isContentTypeOnTheList(string $contentTypeName): bool
     {
         return $this->table->hasElement(['Name' => $contentTypeName]);
     }

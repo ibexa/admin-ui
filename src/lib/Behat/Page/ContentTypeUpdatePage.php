@@ -20,12 +20,13 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class ContentTypeUpdatePage extends AdminUpdateItemPage
 {
-    public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value): void
+    public function fillFieldDefinitionFieldWithValue(string $label, string $value): void
     {
         $this->expandLastFieldDefinition();
         $this->getHTMLPage()
             ->find($this->getLocator('fieldDefinitionOpenContainer'))
-            ->findAll($this->getLocator('field'))->getByCriterion(new ElementTextCriterion($label))
+            ->findAll($this->getLocator('field'))
+            ->getByCriterion(new ElementTextCriterion($label))
             ->find($this->getLocator('fieldInput'))
             ->setValue($value);
     }
@@ -51,7 +52,15 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
         }, 'Error expanding the last Field definition');
 
         $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(new ElementTransitionHasEndedCondition($lastFieldDefinition, new VisibleCSSLocator('transition', 'div')));
+        $this
+            ->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementTransitionHasEndedCondition(
+                    $lastFieldDefinition,
+                    new VisibleCSSLocator('transition', 'div')
+                )
+            );
     }
 
     public function specifyLocators(): array

@@ -25,14 +25,7 @@ use RuntimeException;
 
 class ContentUpdateItemPage extends Page
 {
-    private ContentActionsMenu $contentActionsMenu;
-
     private ?string $pageTitle = null;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] */
-    protected iterable $fieldTypeComponents;
-
-    private Notification $notification;
 
     private string $languageCode;
 
@@ -40,21 +33,18 @@ class ContentUpdateItemPage extends Page
 
     private string $locationPath;
 
-    private ContentFacade $contentFacade;
-
+    /**
+     * @param \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] $fieldTypeComponents
+     */
     public function __construct(
-        Session $session,
-        Router $router,
-        ContentActionsMenu $contentActionsMenu,
-        iterable $fieldTypeComponents,
-        Notification $notification,
-        ContentFacade $contentFacade
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentActionsMenu $contentActionsMenu,
+        protected readonly iterable $fieldTypeComponents,
+        private readonly Notification $notification,
+        private readonly ContentFacade $contentFacade
     ) {
         parent::__construct($session, $router);
-        $this->contentActionsMenu = $contentActionsMenu;
-        $this->fieldTypeComponents = $fieldTypeComponents;
-        $this->notification = $notification;
-        $this->contentFacade = $contentFacade;
     }
 
     public function verifyIsLoaded(): void
@@ -90,6 +80,9 @@ class ContentUpdateItemPage extends Page
         return 'Content Update';
     }
 
+    /**
+     * @param array<string, mixed> $value
+     */
     public function fillFieldWithValue(string $label, array $value, ?int $fieldPosition = null): void
     {
         $this->getField($label, $fieldPosition)->setValue($value);
@@ -126,12 +119,18 @@ class ContentUpdateItemPage extends Page
             '/content/create/proxy/%s/%s/%d',
             $this->contentTypeIdentifier,
             $this->languageCode,
-            $this->contentFacade->getContentByLocationURL($this->locationPath)->contentInfo->getMainLocation()->id
+            $this->contentFacade
+                ->getContentByLocationURL($this->locationPath)
+                ->getContentInfo()
+                ->getMainLocationId()
         );
     }
 
-    public function setExpectedContentDraftData(string $contentTypeIdentifier, string $languageCode, string $locationPath): void
-    {
+    public function setExpectedContentDraftData(
+        string $contentTypeIdentifier,
+        string $languageCode,
+        string $locationPath
+    ): void {
         $this->contentTypeIdentifier = $contentTypeIdentifier;
         $this->languageCode = $languageCode;
         $this->locationPath = $locationPath;
@@ -202,6 +201,9 @@ class ContentUpdateItemPage extends Page
         Assert::fail(sprintf('Field %s not found. Found: %s', $fieldName, implode(',', $foundFields)));
     }
 
+    /**
+     * @param array<string, mixed> $fieldData
+     */
     public function verifyFieldHasValue(string $label, array $fieldData): void
     {
         $this->getField($label)->verifyValueInEditView($fieldData);

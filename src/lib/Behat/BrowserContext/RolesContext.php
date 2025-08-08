@@ -15,22 +15,13 @@ use Ibexa\AdminUi\Behat\Page\RolesPage;
 use Ibexa\AdminUi\Behat\Page\RoleUpdatePage;
 use PHPUnit\Framework\Assert;
 
-class RolesContext implements Context
+final readonly class RolesContext implements Context
 {
-    private RolesPage $rolesPage;
-
-    private RolePage $rolePage;
-
-    private RoleUpdatePage $roleUpdatePage;
-
     public function __construct(
-        RolesPage $rolesPage,
-        RolePage $rolePage,
-        RoleUpdatePage $roleUpdatePage
+        private RolesPage $rolesPage,
+        private RolePage $rolePage,
+        private RoleUpdatePage $roleUpdatePage
     ) {
-        $this->rolePage = $rolePage;
-        $this->roleUpdatePage = $roleUpdatePage;
-        $this->rolesPage = $rolesPage;
     }
 
     /**
@@ -69,7 +60,9 @@ class RolesContext implements Context
     public function thereIsAPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
-        Assert::assertTrue($this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation));
+        Assert::assertTrue(
+            $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
+        );
     }
 
     /**
@@ -78,7 +71,9 @@ class RolesContext implements Context
     public function thereIsNoPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
-        Assert::assertFalse($this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation));
+        Assert::assertFalse(
+            $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
+        );
     }
 
     /**
@@ -202,7 +197,7 @@ class RolesContext implements Context
     /**
      * @Then Assignments list is empty
      */
-    public function assignmentslistIsEmpty(): void
+    public function assignmentsListIsEmpty(): void
     {
         Assert::assertFalse($this->rolePage->hasAssignments());
     }

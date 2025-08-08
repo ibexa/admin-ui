@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 
-class SubitemsGrid extends Component implements TableInterface
+final class SubitemsGrid extends Component implements TableInterface
 {
     protected function specifyLocators(): array
     {

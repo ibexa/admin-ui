@@ -17,33 +17,31 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
-class ContentTypePage extends Page
+final class ContentTypePage extends Page
 {
     private ?string $expectedContentTypeName = null;
 
-    private ContentTypeService $contentTypeService;
+    private mixed $expectedContentTypeGroupId;
 
-    /** @var mixed */
-    private $expectedContenTypeGroupId;
+    private mixed $expectedContentTypeId;
 
-    /** @var mixed */
-    private $expectedContenTypeId;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $fieldTable;
 
     public function __construct(
-        Session $session,
-        Router $router,
-        ContentTypeService $contentTypeService,
-        TableBuilder $tableBuilder
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentTypeService $contentTypeService,
+        readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
-        $this->contentTypeService = $contentTypeService;
-        $this->fieldTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentFieldsTable'))->build();
+
+        $this->fieldTable = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('contentFieldsTable'))
+            ->build();
     }
 
-    public function hasProperty($label, $value): bool
+    public function hasProperty(string $label, string $value): bool
     {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('globalPropertiesItem'))
@@ -52,6 +50,9 @@ class ContentTypePage extends Page
             ->getText() === $value;
     }
 
+    /**
+     * @param array<string, mixed> $fieldTypeData
+     */
     public function hasFieldType(array $fieldTypeData): bool
     {
         return $this->fieldTable->hasElement($fieldTypeData);
@@ -76,8 +77,8 @@ class ContentTypePage extends Page
         foreach ($this->contentTypeService->loadContentTypeGroups() as $group) {
             foreach ($this->contentTypeService->loadContentTypes($group) as $contentType) {
                 if ($contentType->getName() === $contentTypeName) {
-                    $this->expectedContenTypeId = $contentType->id;
-                    $this->expectedContenTypeGroupId = $group->id;
+                    $this->expectedContentTypeId = $contentType->id;
+                    $this->expectedContentTypeGroupId = $group->id;
 
                     return;
                 }
@@ -89,8 +90,8 @@ class ContentTypePage extends Page
     {
         return sprintf(
             '/contenttypegroup/%d/contenttype/%d',
-            $this->expectedContenTypeGroupId,
-            $this->expectedContenTypeId
+            $this->expectedContentTypeGroupId,
+            $this->expectedContentTypeId
         );
     }
 

@@ -19,20 +19,23 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class RoleUpdatePage extends AdminUpdateItemPage
+final class RoleUpdatePage extends AdminUpdateItemPage
 {
-    private UniversalDiscoveryWidget $universalDiscoveryWidget;
-
-    private IbexaDropdown $ibexaDropdown;
-
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, UniversalDiscoveryWidget $universalDiscoveryWidget, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        ContentActionsMenu $contentActionsMenu,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session, $router, $contentActionsMenu);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->ibexaDropdown = $ibexaDropdown;
+
         $this->locators->replace(new VisibleCSSLocator('button', '.ibexa-edit-content__container button'));
     }
 
+    /**
+     * @param string[] $values
+     */
     public function selectLimitationValues(string $selectName, array $values): void
     {
         try {
@@ -50,7 +53,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
                     ->find($this->getLocator('limitationDropdownOptionRemove'))
                     ->click();
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             // no need to remove current selection
         }
 
@@ -90,6 +93,9 @@ class RoleUpdatePage extends AdminUpdateItemPage
         );
     }
 
+    /**
+     * @param array<string> $itemPaths
+     */
     public function assign(array $itemPaths, string $itemType): void
     {
         $itemTypeToLabelMapping = [

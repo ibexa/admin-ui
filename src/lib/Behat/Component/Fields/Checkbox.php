@@ -12,8 +12,11 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Checkbox extends FieldTypeComponent
+final class Checkbox extends FieldTypeComponent
 {
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function setValue(array $parameters): void
     {
         $fieldSelector = CSSLocatorBuilder::base($this->parentLocator)
@@ -22,11 +25,14 @@ class Checkbox extends FieldTypeComponent
 
         $newValue = ($parameters['value'] === 'true');
 
-        if ($this->getValue() !== $newValue) {
+        if ($this->getValue() != $newValue) {
             $this->getHTMLPage()->find($fieldSelector)->click();
         }
     }
 
+    /**
+     * @return bool[]
+     */
     public function getValue(): array
     {
         $fieldSelector = CSSLocatorBuilder::base($this->parentLocator)
@@ -38,6 +44,9 @@ class Checkbox extends FieldTypeComponent
         ];
     }
 
+    /**
+     * @param array<string, string> $values
+     */
     public function verifyValueInItemView(array $values): void
     {
         $expectedValue = $values['value'] === 'true' ? 'Yes' : 'No';

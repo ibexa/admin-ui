@@ -12,14 +12,13 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class Country extends FieldTypeComponent
+final class Country extends FieldTypeComponent
 {
-    private IbexaDropdown $dropdown;
-
-    public function __construct(Session $session, IbexaDropdown $dropdown)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly IbexaDropdown $dropdown
+    ) {
         parent::__construct($session);
-        $this->dropdown = $dropdown;
     }
 
     public function setValue(array $parameters): void

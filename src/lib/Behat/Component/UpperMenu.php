@@ -13,14 +13,13 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class UpperMenu extends Component
+final class UpperMenu extends Component
 {
-    private IbexaDropdown $ibexaDropdown;
-
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
-        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function goToDashboard(): void

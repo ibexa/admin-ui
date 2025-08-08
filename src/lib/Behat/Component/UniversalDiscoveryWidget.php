@@ -18,10 +18,10 @@ use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class UniversalDiscoveryWidget extends Component
+final class UniversalDiscoveryWidget extends Component
 {
-    private const LONG_TIMEOUT = 20;
-    private const SHORT_TIMEOUT = 2;
+    private const int LONG_TIMEOUT = 20;
+    private const int SHORT_TIMEOUT = 2;
 
     public function selectContent(string $itemPath): void
     {
