@@ -14,18 +14,17 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class DateAndTime extends FieldTypeComponent
+final class DateAndTime extends FieldTypeComponent
 {
-    private const VIEW_DATE_TIME_FORMAT = 'n/j/y, g:i A';
+    private const string VIEW_DATE_TIME_FORMAT = 'n/j/y, g:i A';
 
-    private const FIELD_DISPLAY_FORMAT = 'd/m/Y G:i';
+    private const string FIELD_DISPLAY_FORMAT = 'd/m/Y G:i';
 
-    private DateAndTimePopup $dateAndTimePopup;
-
-    public function __construct(Session $session, DateAndTimePopup $dateAndTimePopup)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly DateAndTimePopup $dateAndTimePopup
+    ) {
         parent::__construct($session);
-        $this->dateAndTimePopup = $dateAndTimePopup;
     }
 
     public function setValue(array $parameters): void
@@ -46,9 +45,16 @@ class DateAndTime extends FieldTypeComponent
         // This click is closing the date and time picker, to finally ensure that value is set up.
         $this->getHTMLPage()->find($this->parentLocator)->click();
 
-        $expectedDateAndTimeValue = date_format(date_create(sprintf('%s, %s', $parameters['date'], $parameters['time'])), self::VIEW_DATE_TIME_FORMAT);
+        $expectedDateAndTimeValue = date_format(
+            date_create(sprintf('%s, %s', $parameters['date'], $parameters['time'])),
+            self::VIEW_DATE_TIME_FORMAT
+        );
+
         $currentFieldValue = $this->getHTMLPage()->find($fieldSelector)->getValue();
-        $actualTimeValue = date_format(date_create_from_format(self::FIELD_DISPLAY_FORMAT, $currentFieldValue), self::VIEW_DATE_TIME_FORMAT);
+        $actualTimeValue = date_format(
+            date_create_from_format(self::FIELD_DISPLAY_FORMAT, $currentFieldValue),
+            self::VIEW_DATE_TIME_FORMAT
+        );
 
         Assert::assertEquals($expectedDateAndTimeValue, $actualTimeValue);
     }
@@ -65,8 +71,16 @@ class DateAndTime extends FieldTypeComponent
 
     public function verifyValueInItemView(array $values): void
     {
-        $expectedDate = date_format(date_create(sprintf('%s, %s', $values['date'], $values['time'])), self::VIEW_DATE_TIME_FORMAT);
-        $actualDate = date_format(date_create($this->getHTMLPage()->find($this->parentLocator)->getText()), self::VIEW_DATE_TIME_FORMAT);
+        $expectedDate = date_format(
+            date_create(sprintf('%s, %s', $values['date'], $values['time'])),
+            self::VIEW_DATE_TIME_FORMAT
+        );
+
+        $actualDate = date_format(
+            date_create($this->getHTMLPage()->find($this->parentLocator)->getText()),
+            self::VIEW_DATE_TIME_FORMAT
+        );
+
         Assert::assertEquals(
             $expectedDate,
             $actualDate,

@@ -18,18 +18,19 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
 
-class RolesPage extends Page
+final class RolesPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $table;
 
-    private Dialog $dialog;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
+
         $this->table = $tableBuilder->newTable()->build();
-        $this->dialog = $dialog;
     }
 
     public function verifyItemAttribute(string $label, string $value, string $itemName): void

@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class DeleteContentDialog extends Dialog
+final class DeleteContentDialog extends Dialog
 {
     public function confirmTrashing(): void
     {

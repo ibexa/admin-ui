@@ -19,30 +19,20 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
 
-class TrashPage extends Page
+final class TrashPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    public $dialog;
-
-    private UniversalDiscoveryWidget $universalDiscoveryWidget;
-
-    private ContentActionsMenu $contentActionsMenu;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $table;
 
     public function __construct(
-        Session $session,
-        Router $router,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
-        Dialog $dialog,
-        ContentActionsMenu $contentActionsMenu,
-        TableBuilder $tableBuilder
+        readonly Session $session,
+        readonly Router $router,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly Dialog $dialog,
+        private readonly ContentActionsMenu $contentActionsMenu,
+        readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->dialog = $dialog;
-        $this->contentActionsMenu = $contentActionsMenu;
+
         $this->table = $tableBuilder->newTable()->build();
     }
 

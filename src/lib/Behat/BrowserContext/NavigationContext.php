@@ -17,38 +17,17 @@ use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Browser\Page\PageRegistry;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 
-class NavigationContext implements Context
+final readonly class NavigationContext implements Context
 {
-    private ArgumentParser $argumentParser;
-
-    private PageRegistry $pageRegistry;
-
-    private UpperMenu $upperMenu;
-
-    private LeftMenu $leftMenu;
-
-    private Breadcrumb $breadcrumb;
-
-    private ContentViewPage $contentViewPage;
-
-    private ContentUpdateItemPage $contentUpdateItemPage;
-
     public function __construct(
-        ArgumentParser $argumentParser,
-        UpperMenu $upperMenu,
-        LeftMenu $leftMenu,
-        Breadcrumb $breadcrumb,
-        ContentViewPage $contentViewPage,
-        PageRegistry $pageRegistry,
-        ContentUpdateItemPage $contentUpdateItemPage
+        private ArgumentParser $argumentParser,
+        private UpperMenu $upperMenu,
+        private LeftMenu $leftMenu,
+        private Breadcrumb $breadcrumb,
+        private ContentViewPage $contentViewPage,
+        private PageRegistry $pageRegistry,
+        private ContentUpdateItemPage $contentUpdateItemPage
     ) {
-        $this->argumentParser = $argumentParser;
-        $this->pageRegistry = $pageRegistry;
-        $this->upperMenu = $upperMenu;
-        $this->leftMenu = $leftMenu;
-        $this->breadcrumb = $breadcrumb;
-        $this->contentViewPage = $contentViewPage;
-        $this->contentUpdateItemPage = $contentUpdateItemPage;
     }
 
     /**

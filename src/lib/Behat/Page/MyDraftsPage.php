@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Page;
 
@@ -19,13 +20,15 @@ final class MyDraftsPage extends Page
 {
     private TableInterface $table;
 
-    private Dialog $dialog;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
+
         $this->table = $tableBuilder->newTable()->build();
-        $this->dialog = $dialog;
     }
 
     public function verifyIsLoaded(): void

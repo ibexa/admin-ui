@@ -14,16 +14,12 @@ use Ibexa\AdminUi\Behat\Page\LanguagePage;
 use Ibexa\AdminUi\Behat\Page\LanguagesPage;
 use PHPUnit\Framework\Assert;
 
-class LanguageContext implements Context
+final readonly class LanguageContext implements Context
 {
-    private LanguagesPage $languagesPage;
-
-    private LanguagePage $languagePage;
-
-    public function __construct(LanguagePage $languagePage, LanguagesPage $languagesPage)
-    {
-        $this->languagePage = $languagePage;
-        $this->languagesPage = $languagesPage;
+    public function __construct(
+        private LanguagePage $languagePage,
+        private LanguagesPage $languagesPage
+    ) {
     }
 
     /**
@@ -77,7 +73,11 @@ class LanguageContext implements Context
         $expectedEnabledFlag = $languageData->getHash()[0]['Enabled'];
 
         Assert::assertTrue(
-            $this->languagePage->hasProperties(['Name' => $expectedName, 'Language code' => $expectedCode, 'Enabled' => $expectedEnabledFlag])
+            $this->languagePage->hasProperties([
+                'Name' => $expectedName,
+                'Language code' => $expectedCode,
+                'Enabled' => $expectedEnabledFlag,
+            ])
         );
     }
 

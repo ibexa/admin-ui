@@ -13,9 +13,9 @@ use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Notification extends Component
+final class Notification extends Component
 {
-    private const TIMEOUT = 30;
+    private const int TIMEOUT = 30;
 
     public function verifyAlertSuccess(): void
     {
@@ -48,7 +48,11 @@ class Notification extends Component
 
     public function getMessage(): string
     {
-        return $this->getHTMLPage()->setTimeout(self::TIMEOUT)->find($this->getLocator('alertMessage'))->getText();
+        return $this
+            ->getHTMLPage()
+            ->setTimeout(self::TIMEOUT)
+            ->find($this->getLocator('alertMessage'))
+            ->getText();
     }
 
     public function closeAlert(): void
@@ -76,7 +80,12 @@ class Notification extends Component
 
     public function verifyMessage(string $expectedMessage): void
     {
-        $this->getHTMLPage()->setTimeout(self::TIMEOUT)->find($this->getLocator('alertMessage'))->assert()->textEquals($expectedMessage);
+        $this
+            ->getHTMLPage()
+            ->setTimeout(self::TIMEOUT)
+            ->find($this->getLocator('alertMessage'))
+            ->assert()
+            ->textEquals($expectedMessage);
     }
 
     protected function specifyLocators(): array

@@ -14,13 +14,16 @@ use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class DraftConflictDialog extends Component
+final class DraftConflictDialog extends Component
 {
     private TableInterface $table;
 
-    public function __construct(Session $session, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly TableBuilder $tableBuilder
+    ) {
         parent::__construct($session);
+
         $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('table'))->build();
     }
 

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
@@ -11,13 +12,11 @@ use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Page\MyDraftsPage;
 use PHPUnit\Framework\Assert;
 
-final class MyDraftsContext implements Context
+final readonly class MyDraftsContext implements Context
 {
-    private MyDraftsPage $myDraftsPage;
-
-    public function __construct(MyDraftsPage $myDraftsPage)
-    {
-        $this->myDraftsPage = $myDraftsPage;
+    public function __construct(
+        private MyDraftsPage $myDraftsPage
+    ) {
     }
 
     /**

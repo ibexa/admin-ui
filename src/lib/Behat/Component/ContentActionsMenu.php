@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class ContentActionsMenu extends Component
+final class ContentActionsMenu extends Component
 {
     public function clickButton(string $buttonName, ?string $groupName = null): void
     {
@@ -79,7 +79,11 @@ class ContentActionsMenu extends Component
             $moreButton->single()->click();
         }
 
-        return !$this->getHTMLPage()->findAll($this->getLocator('menuButton'))->getByCriterion(new ElementTextCriterion($buttonName))->hasAttribute('disabled');
+        return !$this
+            ->getHTMLPage()
+            ->findAll($this->getLocator('menuButton'))
+            ->getByCriterion(new ElementTextCriterion($buttonName))
+            ->hasAttribute('disabled');
     }
 
     public function isButtonVisible(string $buttonName): bool

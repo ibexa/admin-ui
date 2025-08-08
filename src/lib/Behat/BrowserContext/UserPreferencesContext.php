@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
@@ -11,16 +12,12 @@ use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Page\ChangePasswordPage;
 use Ibexa\AdminUi\Behat\Page\UserSettingsPage;
 
-class UserPreferencesContext implements Context
+final readonly class UserPreferencesContext implements Context
 {
-    private ChangePasswordPage $changePasswordPage;
-
-    private UserSettingsPage $userSettingsPage;
-
-    public function __construct(ChangePasswordPage $changePasswordPage, UserSettingsPage $userSettingsPage)
-    {
-        $this->changePasswordPage = $changePasswordPage;
-        $this->userSettingsPage = $userSettingsPage;
+    public function __construct(
+        private ChangePasswordPage $changePasswordPage,
+        private UserSettingsPage $userSettingsPage
+    ) {
     }
 
     /**
