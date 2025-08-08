@@ -143,6 +143,7 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
         initExtraActionsWidget(dataset);
     });
     doc.body.addEventListener('ibexa-extra-actions:toggle-widget', (event) => toggleExtraActionsWidget(event.detail), false);
+
     closeBtns.forEach((closeBtn) =>
         closeBtn.addEventListener(
             'click',

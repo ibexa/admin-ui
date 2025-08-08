@@ -4,7 +4,7 @@
     const editVersion = (event) => {
         const versionEditForm = doc.querySelector(FORM_EDIT);
         const versionEditFormName = versionEditForm.name;
-        const { contentId, versionNo, languageCode } = event.currentTarget.dataset;
+        const { contentId, versionNo, languageCode, withConfirm } = event.currentTarget.dataset;
         const contentInfoInput = versionEditForm.querySelector(`input[name="${versionEditFormName}[content_info]"]`);
         const versionInfoContentInfoInput = versionEditForm.querySelector(
             `input[name="${versionEditFormName}[version_info][content_info]"]`,
@@ -34,6 +34,7 @@
 
             wrapper.innerHTML = modalHtml;
 
+            const conflictModal = doc.querySelector('#version-draft-conflict-modal');
             const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
 
             if (addDraftButton) {
@@ -43,7 +44,11 @@
             wrapper
                 .querySelectorAll('.ibexa-btn--prevented')
                 .forEach((btn) => btn.addEventListener('click', (wrapperBtnEvent) => wrapperBtnEvent.preventDefault(), false));
-            bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).show();
+
+            bootstrap.Modal.getOrCreateInstance(conflictModal).show();
+            conflictModal.addEventListener('hide.bs.modal', () => {
+                doc.body.dispatchEvent(new CustomEvent('ibexa:edit-content-reset-language-selector'));
+            });
         };
         const handleCanEditCheck = (response) => {
             if (response.canEdit) {
@@ -60,7 +65,9 @@
             } else if (response.status === 403) {
                 response.text().then(showErrorNotification);
             } else if (response.status === 200) {
-                submitVersionEditForm();
+                if (!withConfirm) {
+                    submitVersionEditForm();
+                }
             }
         };
 

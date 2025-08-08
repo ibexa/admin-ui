@@ -3,34 +3,32 @@
         constructor(config) {
             this.container = config.container;
             this.toggler = config.container.querySelector('.ibexa-btn--translations-list-toggler');
-            this.translationsList = config.container.querySelector('.ibexa-translation-selector__list-wrapper');
+            this.extraActionsContainer = config.container.querySelector('.ibexa-extra-actions');
+            this.closeBtn = config.container.querySelector('.ibexa-extra-actions__close-btn');
+            this.confirmBtn = config.container.querySelector('.ibexa-extra-actions__confirm-btn');
+            this.languagesBtns = config.container.querySelectorAll('.ibexa-btn--select-language');
             this.backdrop = config.backdrop;
 
             this.tableNode = null;
 
-            this.hideTranslationsList = this.hideTranslationsList.bind(this);
-            this.showTranslationsList = this.showTranslationsList.bind(this);
+            this.hideExtraActionPanel = this.hideExtraActionPanel.bind(this);
+            this.showExtraActionPanel = this.showExtraActionPanel.bind(this);
+            this.setActiveLanguage = this.setActiveLanguage.bind(this);
+            this.resetLanguageSelector = this.resetLanguageSelector.bind(this);
+
             this.setPosition = this.setPosition.bind(this);
         }
 
         setPosition() {
-            const topOffset = parseInt(this.translationsList.dataset.topOffset, 10);
+            const topOffset = parseInt(this.extraActionsContainer.dataset.topOffset, 10);
             const topPosition = window.scrollY > topOffset ? 0 : topOffset - window.scrollY;
             const height = window.scrollY > topOffset ? window.innerHeight : window.innerHeight + window.scrollY - topOffset;
 
-            this.translationsList.style.top = `${topPosition}px`;
-            this.translationsList.style.height = `${height}px`;
+            this.extraActionsContainer.style.top = `${topPosition}px`;
+            this.extraActionsContainer.style.height = `${height}px`;
         }
 
-        hideTranslationsList(event) {
-            const closestTranslationSelector = event.target.closest('.ibexa-translation-selector');
-            const clickedOnTranslationsList = closestTranslationSelector && closestTranslationSelector.isSameNode(this.container);
-            const clickedOnDraftConflictModal = event.target.closest('.ibexa-modal--version-draft-conflict');
-
-            if (clickedOnTranslationsList || clickedOnDraftConflictModal) {
-                return;
-            }
-
+        hideExtraActionPanel() {
             if (this.tableNode) {
                 this.tableNode.classList.add('ibexa-table--last-column-sticky');
 
@@ -38,12 +36,13 @@
             }
 
             this.backdrop.hide();
-            this.translationsList.classList.add('ibexa-translation-selector__list-wrapper--hidden');
-            doc.removeEventListener('click', this.hideTranslationsList, false);
+            this.extraActionsContainer.classList.add('ibexa-extra-actions--hidden');
+
+            this.closeBtn.removeEventListener('click', this.hideExtraActionPanel, false);
         }
 
-        showTranslationsList({ currentTarget }) {
-            this.translationsList.classList.remove('ibexa-translation-selector__list-wrapper--hidden');
+        showExtraActionPanel({ currentTarget }) {
+            this.extraActionsContainer.classList.remove('ibexa-extra-actions--hidden');
 
             this.tableNode = currentTarget.closest('.ibexa-table--last-column-sticky');
 
@@ -52,14 +51,38 @@
             }
 
             this.setPosition();
-
             this.backdrop.show();
-            doc.addEventListener('click', this.hideTranslationsList, false);
+            this.closeBtn.addEventListener('click', this.hideExtraActionPanel, false);
+
             ibexa.helpers.tooltips.hideAll();
         }
 
+        setActiveLanguage(event) {
+            const { contentId, languageCode } = event.currentTarget.dataset;
+
+            this.confirmBtn.dataset.contentId = contentId;
+            this.confirmBtn.dataset.languageCode = languageCode;
+            this.confirmBtn.disabled = false;
+
+            this.languagesBtns.forEach((btn) => btn.classList.remove('ibexa-btn--active'));
+            event.currentTarget.classList.add('ibexa-btn--active');
+        }
+
+        resetLanguageSelector() {
+            this.confirmBtn.dataset.contentId = null;
+            this.confirmBtn.dataset.languageCode = null;
+            this.confirmBtn.disabled = true;
+
+            this.languagesBtns.forEach((btn) => btn.classList.remove('ibexa-btn--active'));
+        }
+
         init() {
-            this.toggler.addEventListener('click', this.showTranslationsList, false);
+            this.toggler.addEventListener('click', this.showExtraActionPanel, false);
+            this.languagesBtns.forEach((btn) => {
+                btn.addEventListener('click', this.setActiveLanguage, false);
+            });
+
+            document.body.addEventListener('ibexa:edit-content-reset-language-selector', this.resetLanguageSelector, false);
         }
     }
 

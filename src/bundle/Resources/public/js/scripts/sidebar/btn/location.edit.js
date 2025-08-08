@@ -53,21 +53,32 @@
         const checkedBtn = event.currentTarget;
         const languageCode = checkedBtn.value;
         const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
+        const activeLanguageItem = event.target.closest('.ibexa-instant-filter__group-item').querySelector('.ibexa-label');
+        const allLanguageItems = form.querySelectorAll('.ibexa-instant-filter__group-item .ibexa-label');
+        const submitBtn = form.querySelector('.ibexa-extra-actions__confirm-btn');
+
+        allLanguageItems.forEach((item) => {
+            item.classList.remove('ibexa-label--active');
+        });
 
         fetch(checkVersionDraftLink, {
             credentials: 'same-origin',
         }).then((response) => {
             if (response.status === 409) {
                 response.text().then(showModal.bind(null, form, btns));
+                submitBtn.disabled = true;
+
+                return;
             } else if (response.status === 200) {
                 if (form.querySelector('#user_edit_version_info')) {
                     redirectToUserEdit(languageCode, contentId, form);
 
                     return;
                 }
-
-                form.submit();
             }
+
+            submitBtn.disabled = false;
+            activeLanguageItem.classList.add('ibexa-label--active');
         });
     };
     const attachEventsToEditActionsWidget = (container) => {

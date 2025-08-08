@@ -1,34 +1,49 @@
 {% trans_default_domain 'ibexa_locationview' %}
+{% form_theme form '@ibexadesign/content/widget/form_fields.html.twig' %}
 
 {% set data_actions = data_actions|default('edit') %}
+{% set action = action is defined ? action : path('ibexa.content.edit') %}
+{% set checkIsPreventShow = form.language.vars.choices|length == 1 %}
 
-<div class="ibexa-extra-actions ibexa-extra-actions--edit ibexa-extra-actions--hidden {% if form.language.vars.choices|length == 1 %} ibexa-extra-actions--prevent-show {% endif %}" data-actions="{{ data_actions }}">
-    <div class="ibexa-extra-actions__header">
-        <h3>{{ 'content.edit.select_language'|trans|desc('Select translation') }} (<span class="ibexa-extra-actions__counter">{{ form.language.vars.choices|length }}</span>)</h3>
-        <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text ibexa-btn--close">
-            <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-            </svg>
-        </button>
-    </div>
-    <div class="ibexa-extra-actions__content">
-        {% set action = action is defined ? action : path('ibexa.content.edit') %}
+{% embed '@ibexadesign/ui/component/edit_content_translation_select.html.twig' with {
+    title: 'content.edit.select_language'|trans|desc('Select translation'),
+    hasSearch: form.language.vars.choices|length >= 10,
+    filter_placeholder: 'instant.filter.languages.placeholder'|trans|desc('Search...'),
+    filter_description: 'instant.filter.languages.select_language.desc'|trans|desc('Languages'),
+    extra_class: checkIsPreventShow ? 'ibexa-extra-actions--prevent-show',
+    data_attr: {
+        'data-actions': data_actions
+    },
+} %}
+    {% block before_body %}
         {{ form_start(form, { 'action': action }) }}
+    {% endblock %}
+
+    {% block content_items %}
+        {{ form_widget(form.language, { 'attr': { 'class': 'ibexa-instant-filter__items' } }) }}
+        {{ form_widget(form.version_info, { 'attr': { 'hidden': 'hidden' } }) }}
         {{ form_widget(form.content_info, { 'attr': {
             'hidden': 'hidden',
             'class': 'ibexa-extra-actions__form-field ibexa-extra-actions__form-field--content-info'
-        } }) }}
-        {{ form_widget(form.version_info, { 'attr': {
-            'hidden': 'hidden',
-            'class': 'ibexa-extra-actions__form-field'
-        } }) }}
-        {{ form_widget(form.language, { 'attr': {
-            'class': 'ibexa-extra-actions__form-values'
         } }) }}
         {{ form_widget(form.location, { 'attr': {
             'hidden': 'hidden',
             'class': 'ibexa-extra-actions__form-field ibexa-extra-actions__form-field--location'
         } }) }}
+    {% endblock %}
+
+    {% block footer_items %}
+        {% trans_default_domain 'ibexa_locationview' %}
+
+        <button type="submit" class="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary " disabled>
+            {{ 'edit.languages.edit'|trans|desc('Edit') }}
+        </button>
+        <button type="button" class="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary">
+            {{ 'edit.languages.discard'|trans|desc('Discard') }}
+        </button>
+    {% endblock %}
+
+    {% block after_body %}
         {{ form_end(form) }}
-    </div>
-</div>
+    {% endblock %}
+{% endembed %}
