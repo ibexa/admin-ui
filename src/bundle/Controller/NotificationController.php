@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Exception;
 use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
 use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
 use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
@@ -18,28 +19,14 @@ use Ibexa\Core\Notification\Renderer\Registry;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class NotificationController extends Controller
+final class NotificationController extends Controller
 {
-    protected NotificationService $notificationService;
-
-    protected Registry $registry;
-
-    protected TranslatorInterface $translator;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        NotificationService $notificationService,
-        Registry $registry,
-        TranslatorInterface $translator,
-        ConfigResolverInterface $configResolver
+        private readonly NotificationService $notificationService,
+        private readonly Registry $registry,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationService = $notificationService;
-        $this->registry = $registry;
-        $this->translator = $translator;
-        $this->configResolver = $configResolver;
     }
 
     public function getNotificationsAction(int $offset, int $limit): JsonResponse
@@ -53,7 +40,7 @@ class NotificationController extends Controller
                 'total' => $notificationList->totalCount,
                 'notifications' => $notificationList->items,
             ]);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
@@ -63,11 +50,6 @@ class NotificationController extends Controller
         return $response;
     }
 
-    /**
-     * @param int $page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function renderNotificationsPageAction(int $page): Response
     {
         $pagerfanta = new Pagerfanta(
@@ -101,9 +83,6 @@ class NotificationController extends Controller
         ])->getContent());
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     public function countNotificationsAction(): JsonResponse
     {
         $response = new JsonResponse();
@@ -148,7 +127,7 @@ class NotificationController extends Controller
             }
 
             $response->setData($data);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $response->setData([
                 'status' => 'failed',
                 'error' => $exception->getMessage(),

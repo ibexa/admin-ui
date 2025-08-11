@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -45,8 +46,8 @@ final class LinkManagerController extends Controller
 
         /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->createUrlEditForm(new URLUpdateData([
-            'id' => $url->id,
-            'url' => $url->url,
+            'id' => $url->getId(),
+            'url' => $url->getUrl(),
         ]));
 
         $form->handleRequest($request);
@@ -65,7 +66,7 @@ final class LinkManagerController extends Controller
                     && $form->getClickedButton()->getName() === URLEditType::BTN_SAVE
                 ) {
                     return $this->redirectToRoute('ibexa.link_manager.edit', [
-                        'urlId' => $url->id,
+                        'urlId' => $url->getId(),
                     ]);
                 }
 

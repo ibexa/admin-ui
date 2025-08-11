@@ -35,42 +35,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleController extends Controller
+final class RoleController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private RoleService $roleService;
-
-    private RoleCreateMapper $roleCreateMapper;
-
-    private RoleCopyMapper $roleCopyMapper;
-
-    private RoleUpdateMapper $roleUpdateMapper;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        RoleService $roleService,
-        RoleCreateMapper $roleCreateMapper,
-        RoleCopyMapper $roleCopyMapper,
-        RoleUpdateMapper $roleUpdateMapper,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly RoleService $roleService,
+        private readonly RoleCreateMapper $roleCreateMapper,
+        private readonly RoleCopyMapper $roleCopyMapper,
+        private readonly RoleUpdateMapper $roleUpdateMapper,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->roleService = $roleService;
-        $this->roleCreateMapper = $roleCreateMapper;
-        $this->roleCopyMapper = $roleCopyMapper;
-        $this->roleUpdateMapper = $roleUpdateMapper;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
     public function listAction(Request $request): Response
@@ -81,7 +57,10 @@ class RoleController extends Controller
             new ArrayAdapter(iterator_to_array($this->roleService->loadRoles()))
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.role_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.role_limit')
+        );
+
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
@@ -120,11 +99,6 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'create'));
@@ -203,12 +177,6 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
@@ -260,12 +228,6 @@ class RoleController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'delete'));
@@ -300,12 +262,6 @@ class RoleController extends Controller
     }
 
     /**
-     * Handles removing roles based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException

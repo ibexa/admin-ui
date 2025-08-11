@@ -17,16 +17,10 @@ use Twig\TwigFunction;
 
 final class EmbeddedItemEditFormExtension extends AbstractExtension
 {
-    private FormFactory $formFactory;
-
-    private RouterInterface $router;
-
     public function __construct(
-        FormFactory $formFactory,
-        RouterInterface $router
+        private readonly FormFactory $formFactory,
+        private readonly RouterInterface $router
     ) {
-        $this->formFactory = $formFactory;
-        $this->router = $router;
     }
 
     public function getFunctions(): array

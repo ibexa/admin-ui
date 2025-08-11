@@ -27,35 +27,17 @@ use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ObjectStateGroupController extends Controller
+final class ObjectStateGroupController extends Controller
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private ObjectStateService $objectStateService;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ObjectStateService $objectStateService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ObjectStateService $objectStateService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->objectStateService = $objectStateService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(): Response
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
@@ -78,11 +60,6 @@ class ObjectStateGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(ObjectStateGroup $objectStateGroup): Response
     {
         $deleteForm = $this->formFactory->deleteObjectStateGroup(
@@ -96,11 +73,6 @@ class ObjectStateGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -155,12 +127,6 @@ class ObjectStateGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, ObjectStateGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -190,13 +156,6 @@ class ObjectStateGroupController extends Controller
         return $this->redirectToRoute('ibexa.object_state.groups.list');
     }
 
-    /**
-     * Handles removing object state groups based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -228,12 +187,6 @@ class ObjectStateGroupController extends Controller
         return $this->redirectToRoute('ibexa.object_state.groups.list');
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, ObjectStateGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -287,7 +240,7 @@ class ObjectStateGroupController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $groups
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getObjectStateGroupsIds(array $groups): array
     {
