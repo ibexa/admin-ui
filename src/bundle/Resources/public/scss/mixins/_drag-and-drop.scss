@@ -140,7 +140,7 @@
         }
 
         #{$self}__drag-icon {
-            fill: $ibexa-color-dark;
+            fill: $ibexa-color-dark-400;
         }
     }
 
@@ -166,7 +166,7 @@
     }
 
     &__drag-icon {
-        fill: $ibexa-color-light;
+        fill: $ibexa-color-dark-400;
     }
 
     &__type {
@@ -331,7 +331,7 @@
         padding-right: calculateRem(16px);
 
         .ibexa-icon {
-            fill: $ibexa-color-dark-200;
+            fill: $ibexa-color-dark-400;
         }
     }
 
