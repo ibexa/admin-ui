@@ -9,6 +9,7 @@
     <contentTypeIdentifier/>
     <isContainer>true</isContainer>
     <isInvisible>false</isInvisible>
+    <isHidden>false</isHidden>
     <displayLimit>10</displayLimit>
     <totalChildrenCount>5</totalChildrenCount>
     <reverseRelationsCount>0</reverseRelationsCount>
@@ -23,6 +24,7 @@
         <contentTypeIdentifier>landing_page</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
+        <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
         <totalChildrenCount>1</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>
@@ -38,6 +40,7 @@
         <contentTypeIdentifier>folder</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
+        <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
         <totalChildrenCount>3</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>
@@ -53,6 +56,7 @@
         <contentTypeIdentifier>folder</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
+        <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
         <totalChildrenCount>0</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>
@@ -68,6 +72,7 @@
         <contentTypeIdentifier>user_group</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
+        <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
         <totalChildrenCount>5</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>
@@ -83,6 +88,7 @@
         <contentTypeIdentifier>folder</contentTypeIdentifier>
         <isContainer>true</isContainer>
         <isInvisible>false</isInvisible>
+        <isHidden>false</isHidden>
         <displayLimit>30</displayLimit>
         <totalChildrenCount>0</totalChildrenCount>
         <reverseRelationsCount>0</reverseRelationsCount>

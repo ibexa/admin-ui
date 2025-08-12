@@ -12,6 +12,7 @@
                 <xs:element type="xs:string" name="contentTypeIdentifier"/>
                 <xs:element type="xs:boolean" name="isContainer"/>
                 <xs:element type="xs:string" name="isInvisible"/>
+                <xs:element type="xs:string" name="isHidden"/>
                 <xs:element type="xs:integer" name="displayLimit"/>
                 <xs:element type="xs:integer" name="totalChildrenCount"/>
                 <xs:element type="xs:integer" name="reverseRelationsCount"/>
@@ -28,6 +29,7 @@
                             <xs:element type="xs:string" name="contentTypeIdentifier"/>
                             <xs:element type="xs:boolean" name="isContainer"/>
                             <xs:element type="xs:string" name="isInvisible"/>
+                            <xs:element type="xs:string" name="isHidden"/>
                             <xs:element type="xs:integer" name="displayLimit"/>
                             <xs:element type="xs:integer" name="totalChildrenCount"/>
                             <xs:element type="xs:integer" name="reverseRelationsCount"/>
