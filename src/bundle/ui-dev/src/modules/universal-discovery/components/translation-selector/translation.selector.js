@@ -81,9 +81,9 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
             });
 
             return (
-                <div key={languageCode} className={languageNodeClassName} onClick={() => setActiveLanguage(languageCode)}>
+                <button type="button" key={languageCode} className={languageNodeClassName} onClick={() => setActiveLanguage(languageCode)}>
                     {adminUiConfig.languages.mappings[languageCode].name}
-                </div>
+                </button>
             );
         });
     };
