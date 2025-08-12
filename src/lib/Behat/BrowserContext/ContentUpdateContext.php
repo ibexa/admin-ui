@@ -45,7 +45,7 @@ final readonly class ContentUpdateContext implements Context
     }
 
     /**
-     * @Given the :fieldName field is non-editable
+     * @Given the :fieldName field is noneditable
      */
     public function verifyFieldIsNotEditable(string $fieldName): void
     {
