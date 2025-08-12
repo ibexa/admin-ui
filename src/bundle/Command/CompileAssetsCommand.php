@@ -48,7 +48,7 @@ class CompileAssetsCommand extends Command
                 't',
                 InputOption::VALUE_REQUIRED,
                 'Timeout in seconds (ignored in watch mode)',
-                $this->timeout
+                null
             )
             ->addOption(
                 'config-name',
@@ -69,10 +69,16 @@ class CompileAssetsCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
+        $watch = $input->getOption('watch');
         $timeout = $input->getOption('timeout');
 
-        if (!is_numeric($timeout)) {
-            throw new InvalidArgumentException('Timeout value has to be an integer.');
+        if (null !== $timeout) {
+            if ($watch) {
+                throw new InvalidArgumentException('Watch mode can\'t be used with a timeout.');
+            }
+            if (!is_numeric($timeout)) {
+                throw new InvalidArgumentException('Timeout value has to be an integer.');
+            }
         }
     }
 
@@ -84,7 +90,7 @@ class CompileAssetsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $watch = $input->getOption('watch');
-        $timeout = $watch ? null : (float)$input->getOption('timeout');
+        $timeout = $watch ? null : (int)($input->getOption('timeout')??$this->timeout);
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
         $frontendConfigsName = $input->getOption('frontend-configs-name');
