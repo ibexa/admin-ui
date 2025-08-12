@@ -4,10 +4,41 @@ import { setInstance } from '../helpers/object.instances';
 
 const { ibexa } = window;
 
+const SECTION_ADJUSTMENT = 24;
+const PICKER_ADJUSTMENT = 2;
 const DEFAULT_CONFIG = {
     enableTime: true,
     time_24hr: true,
     formatDate: (date) => formatShortDateTime(date, null),
+    onOpen: (selectedDates, dateStr, instance) => {
+        instance.scrollHandler = () => {
+            if (instance.isOpen) {
+                const { calendarContainer, input } = instance;
+                const rect = input.getBoundingClientRect();
+                const pickerHeight = calendarContainer.offsetHeight;
+                const spaceBelow = global.innerHeight - (rect.bottom + SECTION_ADJUSTMENT);
+
+                if (pickerHeight > spaceBelow) {
+                    calendarContainer.style.top = `${rect.top + global.scrollY - pickerHeight - PICKER_ADJUSTMENT}px`;
+                    calendarContainer.classList.remove('arrowTop');
+                    calendarContainer.classList.add('arrowBottom');
+                } else {
+                    calendarContainer.style.top = `${rect.bottom + global.scrollY + PICKER_ADJUSTMENT}px`;
+                    calendarContainer.classList.remove('arrowBottom');
+                    calendarContainer.classList.add('arrowTop');
+                }
+            }
+        };
+
+        window.addEventListener('scroll', instance.scrollHandler, true);
+        document.addEventListener('scroll', instance.scrollHandler, true);
+
+        instance.scrollHandler();
+    },
+    onClose: (selectedDates, dateStr, instance) => {
+        window.removeEventListener('scroll', instance.scrollHandler, true);
+        document.removeEventListener('scroll', instance.scrollHandler, true);
+    },
 };
 
 class DateTimePicker {

@@ -35,7 +35,7 @@
                 popupMenuItem.addEventListener(
                     'click',
                     (event) => {
-                        this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
+                        this.handleToggle();
                         this.onItemClick(event);
                     },
                     false,
@@ -58,7 +58,7 @@
             item.querySelector('.ibexa-popup-menu__item-content').addEventListener(
                 'click',
                 (event) => {
-                    this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
+                    this.handleToggle();
                     this.onItemClick(event);
                 },
                 false,
@@ -94,7 +94,7 @@
                 return;
             }
 
-            this.popupMenuElement.classList.add(CLASS_POPUP_MENU_HIDDEN);
+            this.handleToggle();
         }
 
         updatePosition() {
