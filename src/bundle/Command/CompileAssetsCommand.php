@@ -90,7 +90,7 @@ class CompileAssetsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $watch = $input->getOption('watch');
-        $timeout = $watch ? null : (float)($input->getOption('timeout')??$this->timeout);
+        $timeout = $watch ? null : (float)($input->getOption('timeout') ?? $this->timeout);
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
         $frontendConfigsName = $input->getOption('frontend-configs-name');
