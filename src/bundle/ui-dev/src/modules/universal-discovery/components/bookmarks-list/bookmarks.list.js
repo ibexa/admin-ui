@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
+import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 import Icon from '../../../common/icon/icon';
 import Spinner from '../../../common/spinner/spinner';
+import EmptyTableBodyRow from '../../../common/table/empty.table.body.row';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { findMarkedLocation } from '../../helpers/locations.helper';
@@ -22,6 +24,7 @@ import {
 const SCROLL_OFFSET = 200;
 
 const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
+    const Translator = getTranslator();
     const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
     const [bookmarks, setBookmarks] = useState([]);
@@ -37,6 +40,21 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
         [markedLocationId, loadedLocationsMap],
     );
     const [data, isLoading, reloadBookmarks] = useLoadBookmarksFetch(itemsPerPage, offset);
+    const areSomeBookmarksAdded = bookmarks.length === 0;
+    const containerClassName = createCssClassNames({
+        'c-bookmarks-list': true,
+        'c-bookmarks-list--no-items': areSomeBookmarksAdded,
+    });
+    const noBookmarksInfoText = Translator.trans(
+        /*@Desc("You have no bookmarks yet")*/ 'bookmarks_tab.no_items.info_text',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
+    const noBookmarksActionText = Translator.trans(
+        /*@Desc("Your bookmarks will show up here.")*/ 'bookmarks_tab.no_items.action_text',
+        {},
+        'ibexa_universal_discovery_widget',
+    );
     const loadMore = ({ target }) => {
         const areAllItemsLoaded = bookmarks.length >= data.count;
         const isOffsetReached = target.scrollHeight - target.clientHeight - target.scrollTop < SCROLL_OFFSET;
@@ -84,12 +102,9 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
         }
     }, [markedLocationData.bookmarked]);
 
-    if (!bookmarks.length) {
-        return null;
-    }
-
     return (
-        <div className="c-bookmarks-list" onScroll={loadMore} ref={refBookmarksList}>
+        <div className={containerClassName} onScroll={loadMore} ref={refBookmarksList}>
+            {!isLoading && areSomeBookmarksAdded && <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />}
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];

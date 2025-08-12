@@ -7,7 +7,7 @@
 
     const header = doc.querySelector('.ibexa-edit-header');
     const headerContainer = header?.querySelector('.ibexa-edit-header__container');
-    const SECTION_ADJUST_MARGIN_TOP = 20;
+    const SECTION_ADJUST_MARGIN_TOP = 36;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const lastSectionObserver = new ResizeObserver(() => {
         fitSections();
