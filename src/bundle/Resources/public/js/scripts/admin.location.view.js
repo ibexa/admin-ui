@@ -8,7 +8,7 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const publishedContentId = urlParams.get('publishedContentId');
-    const handleEditItem = (content, location) => {
+    const handleEditItem = (content, location, isLanguageSelectorOpened) => {
         const contentId = content._id;
         const locationId = location._id;
         const languageCode = content.mainLanguageCode;
@@ -75,6 +75,10 @@
                     response.text().then(showModal);
                 } else if (response.status === 200) {
                     updateForm();
+
+                    if (!isLanguageSelectorOpened) {
+                        doc.querySelector('#form_subitems_content_edit_create').click();
+                    }
                 }
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
@@ -87,6 +91,7 @@
         modalTableTitleNode.setAttribute('title', title);
         modalTableTitleNode.dataset.originalTitle = title;
     };
+
     const setModalTableBody = (failedItemsData) => {
         const modal = doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL);
         const table = modal.querySelector('.ibexa-bulk-action-failed-modal__table');

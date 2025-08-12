@@ -1,9 +1,17 @@
 {% extends '@ibexadesign/content/form_fields.html.twig' %}
 
-{% block _content_edit_language_entry_widget %}
+{% block language_entry %}
     <div class="ibexa-instant-filter__group-item">
         {{ form_widget(form) }}
     </div>
+{% endblock %}
+
+{% block _content_tree_content_edit_language_entry_widget %}
+   {{ block('language_entry') }}
+{% endblock %}
+
+{% block _content_edit_language_entry_widget %}
+    {{ block('language_entry') }}
 {% endblock %}
 
 {% block _content_edit_language_widget %}

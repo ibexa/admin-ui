@@ -27,6 +27,7 @@ export default class TableViewItemComponent extends PureComponent {
             priorityValue: props.item.priority,
             priorityInputEnabled: false,
             startingPriorityValue: props.item.priority,
+            isLanguageSelectorOpened: false,
         };
 
         this.columnsRenderers = {
@@ -118,6 +119,7 @@ export default class TableViewItemComponent extends PureComponent {
      */
     editItem(languageCode) {
         const { id, currentVersion } = this.props.item.content._info;
+        const { isLanguageSelectorOpened } = this.state;
 
         this.props.handleEditItem(
             {
@@ -132,6 +134,7 @@ export default class TableViewItemComponent extends PureComponent {
                 },
             },
             this.props.item.id,
+            isLanguageSelectorOpened,
         );
     }
 
@@ -145,11 +148,14 @@ export default class TableViewItemComponent extends PureComponent {
         const { mainLanguageCode, currentVersion } = this.props.item.content._info;
         const { languageCodes } = currentVersion;
 
+        this.setState(() => ({ isLanguageSelectorOpened: false }));
+
         if (languageCodes.length > 1) {
             this.props.setLanguageSelectorData(this.getLanguageSelectorData());
             this.props.openLanguageSelector();
+            this.setState(() => ({ isLanguageSelectorOpened: true }));
         } else {
-            this.editItem(mainLanguageCode);
+            this.editItem(mainLanguageCode, languageCodes);
         }
     }
 

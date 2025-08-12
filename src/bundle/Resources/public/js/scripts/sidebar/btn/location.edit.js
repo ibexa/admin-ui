@@ -46,6 +46,7 @@
         attachModalListeners(wrapper, form, btns);
     };
     const changeHandler = (form, btns, event) => {
+        const sendImmediately = event?.detail?.sendImmediately;
         const contentIdInput = form.querySelector('.ibexa-extra-actions__form-field--content-info');
         const locationInput = form.querySelector('.ibexa-extra-actions__form-field--location');
         const contentId = contentIdInput.value;
@@ -53,7 +54,7 @@
         const checkedBtn = event.currentTarget;
         const languageCode = checkedBtn.value;
         const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
-        const activeLanguageItem = event.target.closest('.ibexa-instant-filter__group-item').querySelector('.ibexa-label');
+        const activeLanguageItem = event.target.closest('.ibexa-instant-filter__group-item')?.querySelector('.ibexa-label');
         const allLanguageItems = form.querySelectorAll('.ibexa-instant-filter__group-item .ibexa-label');
         const submitBtn = form.querySelector('.ibexa-extra-actions__confirm-btn');
 
@@ -75,10 +76,14 @@
 
                     return;
                 }
+
+                if (sendImmediately) {
+                    form.submit();
+                }
             }
 
             submitBtn.disabled = false;
-            activeLanguageItem.classList.add('ibexa-label--active');
+            activeLanguageItem?.classList.add('ibexa-label--active');
         });
     };
     const attachEventsToEditActionsWidget = (container) => {
