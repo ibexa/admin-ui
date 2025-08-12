@@ -15,8 +15,6 @@ use PHPUnit\Framework\Assert;
 
 final class ContentQuery extends NonEditableField
 {
-    public const string ELEMENT_NAME = 'Content query';
-
     /**
      * @param array<string, string> $values
      */
