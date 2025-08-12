@@ -275,22 +275,20 @@ final class NotificationController extends Controller
         if ($form->isValid()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (NotificationSelectionData $data) {
+                function (NotificationSelectionData $data): Response {
                     return $this->processDeleteNotifications($data);
                 }
             );
 
-            if ($result instanceof Response) {
-                return $result;
-            }
-        } else {
-            $this->notificationHandler->error(
-                /** @Desc("An unexpected error occurred while deleting notifications.") */
-                'error.unexpected_delete_notifications',
-                [],
-                'ibexa_notifications'
-            );
+            return $result ?? $this->redirectToRoute('ibexa.notifications.render.all');
         }
+
+        $this->notificationHandler->error(
+            /** @Desc("An unexpected error occurred while deleting notifications.") */
+            'error.unexpected_delete_notifications',
+            [],
+            'ibexa_notifications'
+        );
 
         return $this->redirectToRoute('ibexa.notifications.render.all');
     }
