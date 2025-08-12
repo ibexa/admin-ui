@@ -47,7 +47,7 @@ class CompileAssetsCommand extends Command
                 'timeout',
                 't',
                 InputOption::VALUE_REQUIRED,
-                'Timeout in seconds (ignored in watch mode)',
+                "Timeout in seconds (default timeout is {$this->timeout}s when this option isn't used and not in watch mode)",
                 null
             )
             ->addOption(
