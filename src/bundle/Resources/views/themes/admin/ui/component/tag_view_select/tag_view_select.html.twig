@@ -54,21 +54,25 @@
             attr: { hidden: true }
         }) }}
     {% endif %}
-    <button
-        type="button"
-        {{ html.attributes(attr|default({})) }}
-    >
-        <span
-            class="ibexa-btn__label ibexa-tag-view-select__btn-label ibexa-tag-view-select__btn-label--select"
-            {% if is_single_select and has_value %}hidden{% endif %}
-        >
-            {{ 'tag_view_select.select'|trans({ '%type%': type })|desc('Select %type%') }}
-        </span>
-        <span
-            class="ibexa-btn__label ibexa-tag-view-select__btn-label ibexa-tag-view-select__btn-label--change"
-            {% if (is_single_select and not has_value) or not is_single_select %}hidden{% endif %}
-        >
-            {{ 'tag_view_select.change'|trans({ '%type%': type })|desc('Change %type%') }}
-        </span>
-    </button>
+    <div class="ibexa-tag-view-select__actions">
+        {% block actions %}
+            <button
+                type="button"
+                {{ html.attributes(attr|default({})) }}
+            >
+                <span
+                    class="ibexa-btn__label ibexa-tag-view-select__btn-label ibexa-tag-view-select__btn-label--select"
+                    {% if is_single_select and has_value %}hidden{% endif %}
+                >
+                    {{ 'tag_view_select.select'|trans({ '%type%': type })|desc('Select %type%') }}
+                </span>
+                <span
+                    class="ibexa-btn__label ibexa-tag-view-select__btn-label ibexa-tag-view-select__btn-label--change"
+                    {% if (is_single_select and not has_value) or not is_single_select %}hidden{% endif %}
+                >
+                    {{ 'tag_view_select.change'|trans({ '%type%': type })|desc('Change %type%') }}
+                </span>
+            </button>
+        {% endblock actions %}
+    </div>
 </div>
