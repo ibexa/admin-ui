@@ -76,6 +76,15 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage = 50 }) => {
             </div>
         );
     };
+    const renderNoBookmarksContent = () => {
+        return (
+            <table>
+                <tbody>
+                    <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />
+                </tbody>
+            </table>
+        );
+    };
 
     useEffect(() => {
         if (isLoading) {
@@ -104,7 +113,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage = 50 }) => {
 
     return (
         <div className={containerClassName} onScroll={loadMore} ref={refBookmarksList}>
-            {!isLoading && areSomeBookmarksAdded && <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />}
+            {!isLoading && areSomeBookmarksAdded && renderNoBookmarksContent()}
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
