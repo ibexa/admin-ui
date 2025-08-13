@@ -191,6 +191,11 @@
         <target state="new">Items already added to the list are marked as selected and unable to deselect.</target>
         <note>key: init_selected_locations.alert.title</note>
       </trans-unit>
+      <trans-unit id="36c14ac08f24f86dbd38979c15f7ddaa9447d8c8" resname="instant.filter.languages.placeholder">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: instant.filter.languages.placeholder</note>
+      </trans-unit>
       <trans-unit id="2d4febe56a341671c069ff47b6e6adfd2bba005c" resname="limitation.pick.error">
         <source>Could not fetch content names</source>
         <target state="new">Could not fetch content names</target>

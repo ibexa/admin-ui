@@ -46,7 +46,7 @@
         attachModalListeners(wrapper, form, btns);
     };
     const changeHandler = (form, btns, event) => {
-        const sendImmediately = event?.detail?.sendImmediately;
+        const sendImmediately = event?.detail?.sendImmediately ?? false;
         const contentIdInput = form.querySelector('.ibexa-extra-actions__form-field--content-info');
         const locationInput = form.querySelector('.ibexa-extra-actions__form-field--location');
         const contentId = contentIdInput.value;

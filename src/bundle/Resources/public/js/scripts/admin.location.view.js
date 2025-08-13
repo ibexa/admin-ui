@@ -8,18 +8,22 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const publishedContentId = urlParams.get('publishedContentId');
+    const sendForm = () => {
+        doc.querySelector('#form_subitems_content_edit_create').click();
+    };
+    const updateForm = (contentId, languageCode) => {
+        doc.querySelector('#form_subitems_content_edit_content_info').value = contentId;
+        doc.querySelector(`#form_subitems_content_edit_language_${languageCode}`).checked = true;
+    };
     const handleEditItem = (content, location, isLanguageSelectorOpened) => {
         const contentId = content._id;
         const locationId = location._id;
         const languageCode = content.mainLanguageCode;
         const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
-        const updateForm = () => {
-            doc.querySelector('#form_subitems_content_edit_content_info').value = contentId;
-            doc.querySelector(`#form_subitems_content_edit_language_${languageCode}`).checked = true;
-        };
+
         const addDraft = () => {
-            updateForm();
-            doc.querySelector('#form_subitems_content_edit_create').click();
+            updateForm(contentId, languageCode);
+            sendForm();
             bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
         };
         const attachModalListeners = (wrapper) => {
@@ -74,10 +78,10 @@
                 if (response.status === 409) {
                     response.text().then(showModal);
                 } else if (response.status === 200) {
-                    updateForm();
+                    updateForm(contentId, languageCode);
 
                     if (!isLanguageSelectorOpened) {
-                        doc.querySelector('#form_subitems_content_edit_create').click();
+                        sendForm();
                     }
                 }
             })
@@ -205,7 +209,7 @@
     doc.body.addEventListener(
         'ibexa-sub-items:submit-version-edit-form',
         () => {
-            doc.querySelector('#form_subitems_content_edit_create').click();
+            sendForm();
         },
         false,
     );

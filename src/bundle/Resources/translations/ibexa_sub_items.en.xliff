@@ -201,11 +201,6 @@
         <target state="new">Hide</target>
         <note>key: hide_locations_btn.label</note>
       </trans-unit>
-      <trans-unit id="36c14ac08f24f86dbd38979c15f7ddaa9447d8c8" resname="instant.filter.languages.placeholder">
-        <source>Search...</source>
-        <target state="new">Search...</target>
-        <note>key: instant.filter.languages.placeholder</note>
-      </trans-unit>
       <trans-unit id="de8bb1e6f538f44a79b62917155d15d17691211c" resname="instant.filter.languages.select_language.desc">
         <source>Languages</source>
         <target state="new">Languages</target>

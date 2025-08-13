@@ -3,14 +3,14 @@
 
 {% set data_actions = data_actions|default('edit') %}
 {% set action = action is defined ? action : path('ibexa.content.edit') %}
-{% set checkIsPreventShow = form.language.vars.choices|length == 1 %}
+{% set check_is_prevent_show = form.language.vars.choices|length == 1 %}
 
 {% embed '@ibexadesign/ui/component/edit_content_translation_select.html.twig' with {
     title: 'content.edit.select_language'|trans|desc('Select translation'),
-    hasSearch: form.language.vars.choices|length >= 10,
+    has_search: form.language.vars.choices|length >= 10,
     filter_placeholder: 'instant.filter.languages.placeholder'|trans|desc('Search...'),
     filter_description: 'instant.filter.languages.select_language.desc'|trans|desc('Languages'),
-    extra_class: checkIsPreventShow ? 'ibexa-extra-actions--prevent-show',
+    extra_class: check_is_prevent_show ? 'ibexa-extra-actions--prevent-show',
     data_attr: {
         'data-actions': data_actions
     },

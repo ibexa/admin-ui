@@ -31,7 +31,7 @@
 
         {% embed '@ibexadesign/ui/component/edit_content_translation_select.html.twig' with {
             title: 'edit_translation.languages.select_language_title'|trans|desc('Select translation'),
-            hasSearch: translations|length >= 10,
+            has_search: translations|length >= 10,
             filter_placeholder: 'edit_translation.languages.filter.placeholder'|trans|desc('Search...'),
             filter_description: 'edit_translation.languages.filter.description'|trans|desc('Languages'),
             data_attr: {

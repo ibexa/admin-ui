@@ -13,13 +13,13 @@ const LanguageSelector = (props) => {
     const discardBtnRef = useRef(null);
     const submitBtnRef = useRef(null);
     const [activeLanguage, setActiveLanguage] = useState('');
-    const hasSearchEnabled = props.languageItems.length >= MIN_ITEMS_WITH_SEARCH;
+    const isSearchEnabled = props.languageItems.length >= MIN_ITEMS_WITH_SEARCH;
     const className = createCssClassNames({
         'c-language-selector': true,
         'ibexa-extra-actions': true,
         'ibexa-extra-actions--edit': true,
         'ibexa-extra-actions--hidden': !props.isOpen,
-        'ibexa-extra-actions--has-search': hasSearchEnabled,
+        'ibexa-extra-actions--has-search': isSearchEnabled,
     });
     const closeLanguageSelector = (event) => {
         if (!event.target.closest('.c-table-view-item__btn') && !event.target.classList.contains('ibexa-instant-filter__input')) {
@@ -60,7 +60,7 @@ const LanguageSelector = (props) => {
                     items={props.languageItems}
                     activeLanguage={activeLanguage}
                     handleItemChange={handleItemChange}
-                    hasSearchEnabled={hasSearchEnabled}
+                    isSearchEnabled={isSearchEnabled}
                 />
             </div>
             <div className="ibexa-extra-actions__confirm-wrapper">

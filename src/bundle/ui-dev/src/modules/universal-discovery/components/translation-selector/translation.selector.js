@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -6,17 +6,14 @@ import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
 const MIN_ITEMS_WITH_SEARCH = 10;
-const FILTER_TIMEOUT = 200;
 
 const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation, version, isOpen }) => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
-    const _refInstantFilter = useRef(null);
     const [filterQuery, setFilterQuery] = useState('');
-    const [itemsMap, setItemsMap] = useState([]);
     const [activeLanguage, setActiveLanguage] = useState('');
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
-    const hasSearchEnabled = languageCodes.length >= MIN_ITEMS_WITH_SEARCH;
+    const isSearchEnabled = languageCodes.length >= MIN_ITEMS_WITH_SEARCH;
     const editTranslationLabel = Translator.trans(
         /*@Desc("Select translation")*/ 'meta_preview.edit_translation',
         {},
@@ -26,33 +23,28 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
         setFilterQuery('');
         setActiveLanguage('');
     };
+    const getLanguageName = (languageCode, lowerCase = true) => {
+        const language = window.ibexa.adminUiConfig.languages.mappings[languageCode];
 
-    let filterTimeout = null;
+        if (!language) {
+            return null;
+        }
 
-    useEffect(() => {
-        const items = [..._refInstantFilter.current.querySelectorAll('.ibexa-instant-filter__item')];
-        const itemsMapNext = items.map((item) => ({
-            label: item.textContent.toLowerCase(),
-            element: item,
-        }));
+        return lowerCase ? language.name.toLowerCase() : language.name;
+    };
 
-        setItemsMap(itemsMapNext);
-    }, []);
+    const filteredLanguageCodes = useMemo(() => {
+        if (!filterQuery) {
+            return languageCodes;
+        }
 
-    useEffect(() => {
         const filterQueryLowerCase = filterQuery.toLowerCase();
 
-        filterTimeout = window.setTimeout(() => {
-            itemsMap.forEach((item) => {
-                const methodName = item.label.includes(filterQueryLowerCase) ? 'removeAttribute' : 'setAttribute';
+        return languageCodes.filter((languageCode) => {
+            const languageNameLowerCase = getLanguageName(languageCode);
 
-                item.element[methodName]('hidden', true);
-            });
-        }, FILTER_TIMEOUT);
-
-        return () => {
-            window.clearTimeout(filterTimeout);
-        };
+            return languageNameLowerCase.includes(filterQueryLowerCase);
+        });
     }, [filterQuery]);
 
     useEffect(() => {
@@ -61,20 +53,20 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
         }
     }, [isOpen]);
 
-    const className = createCssClassNames({
+    const containerClassName = createCssClassNames({
         'c-translation-selector': true,
         'ibexa-extra-actions': true,
         'ibexa-extra-actions--edit': true,
         'ibexa-extra-actions--full-height': true,
         'ibexa-extra-actions--hidden': !isOpen,
-        'ibexa-extra-actions--has-search': hasSearchEnabled,
+        'ibexa-extra-actions--has-search': isSearchEnabled,
     });
     const searchInputWrapperClassName = createCssClassNames({
         'ibexa-instant-filter__input-wrapper': true,
-        'ibexa-instant-filter__input-wrapper--hidden': !hasSearchEnabled,
+        'ibexa-instant-filter__input-wrapper--hidden': !isSearchEnabled,
     });
     const renderLanguages = () => {
-        return languageCodes.map((languageCode) => {
+        return filteredLanguageCodes.map((languageCode) => {
             const languageNodeClassName = createCssClassNames({
                 'ibexa-instant-filter__item': true,
                 'ibexa-instant-filter__item--active': activeLanguage === languageCode,
@@ -89,12 +81,12 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
     };
 
     return (
-        <div className={className}>
+        <div className={containerClassName}>
             <div className="ibexa-extra-actions__header">
                 <h2 className="ibexa-extra-actions__header-content">{editTranslationLabel}</h2>
             </div>
             <div className="ibexa-extra-actions__content">
-                <div className="ibexa-instant-filter" ref={_refInstantFilter}>
+                <div className="ibexa-instant-filter">
                     <div className={searchInputWrapperClassName}>
                         <input
                             type="text"
@@ -102,7 +94,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                             placeholder={Translator.trans(
                                 /*@Desc("Search...")*/ 'instant.filter.languages.placeholder',
                                 {},
-                                'ibexa_sub_items',
+                                'ibexa_universal_discovery_widget',
                             )}
                             value={filterQuery}
                             onChange={(event) => setFilterQuery(event.target.value)}

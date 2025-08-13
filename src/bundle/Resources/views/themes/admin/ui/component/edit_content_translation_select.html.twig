@@ -3,17 +3,16 @@
 {% set title = title|default('') %}
 {% set filter_placeholder = filter_placeholder|default('') %}
 {% set filter_description = filter_description|default('') %}
-{% set hasSearch = hasSearch|default(true) %}
 {% set extra_class = extra_class|default('') %}
+
 {% set container_attr = {
     class: ('ibexa-extra-actions ibexa-extra-actions--edit ibexa-extra-actions--hidden '
-        ~ (hasSearch ? 'ibexa-extra-actions--has-search ')
+        ~ (has_search ? 'ibexa-extra-actions--has-search ')
         ~ extra_class),
     }|merge(data_attr|default({})) %}
 
 <div {{ html.attributes(container_attr) }}>
-    {% block before_body %}
-    {% endblock %}
+    {% block before_body %}{% endblock %}
 
     {% block header %}
         {% if title %}
@@ -26,7 +25,7 @@
     {% block content %}
         <div class="ibexa-extra-actions__content">
             <div class="ibexa-instant-filter">
-                    <div class="ibexa-instant-filter__input-wrapper {% if not hasSearch %}ibexa-instant-filter__input-wrapper--hidden{% endif %}">
+                    <div class="ibexa-instant-filter__input-wrapper {% if not has_search %}ibexa-instant-filter__input-wrapper--hidden{% endif %}">
                         <input
                             type="text"
                             class="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
@@ -40,8 +39,7 @@
                     </div>
                 {% endif %}
 
-                {% block content_items %}
-                {% endblock %}
+                {% block content_items %}{% endblock %}
             </div>
         </div>
     {% endblock %}
@@ -52,6 +50,5 @@
         </div>
     {% endblock %}
 
-    {% block after_body %}
-    {% endblock %}
+    {% block after_body %}{% endblock %}
 </div>
