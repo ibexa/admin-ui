@@ -14,16 +14,12 @@ use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Component\UserNotificationPopup;
 use PHPUnit\Framework\Assert;
 
-class UserNotificationContext implements Context
+final readonly class UserNotificationContext implements Context
 {
-    private UpperMenu $upperMenu;
-
-    private UserNotificationPopup $userNotificationPopup;
-
-    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup)
-    {
-        $this->upperMenu = $upperMenu;
-        $this->userNotificationPopup = $userNotificationPopup;
+    public function __construct(
+        private UpperMenu $upperMenu,
+        private UserNotificationPopup $userNotificationPopup
+    ) {
     }
 
     /**

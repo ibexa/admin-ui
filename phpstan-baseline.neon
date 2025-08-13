@@ -1033,64 +1033,16 @@ parameters:
 			path: src/contracts/UI/Action/UiActionEventInterface.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\ContentTypeContext\:\:thereAContentTypeOnContentTypesList\(\) has parameter \$contentTypeName with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/BrowserContext/ContentTypeContext.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\ContentTypeContext\:\:thereSNoOnContentTypesList\(\) has parameter \$contentTypeName with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/BrowserContext/ContentTypeContext.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentTypeUpdatePage\:\:expandLastFieldDefinition\(\) invoked with 1 parameter, 0 required\.$#'
-			identifier: arguments.count
-			count: 1
-			path: src/lib/Behat/BrowserContext/ContentTypeContext.php
-
-		-
 			message: '#^Call to an undefined method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponent\:\:selectFromRepository\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: src/lib/Behat/BrowserContext/ContentUpdateContext.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\ContentUpdateContext\:\:filterOutNonEmptyValues\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/BrowserContext/ContentUpdateContext.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\ContentUpdateContext\:\:filterOutNonEmptyValues\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/BrowserContext/ContentUpdateContext.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\BrowserContext\\NotificationContext\:\:\$argumentParser is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Behat/BrowserContext/NotificationContext.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\BrowserContext\\UDWContext\:\:changeUDWTab\(\) has parameter \$tabName with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Behat/BrowserContext/UDWContext.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\ContentItemAdminPreview\:\:__construct\(\) has parameter \$fieldTypeComponents with no value type specified in iterable type iterable\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/ContentItemAdminPreview.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\ContentItemAdminPreview\:\:verifyFieldHasValues\(\) has parameter \$expectedValues with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/ContentItemAdminPreview.php
 
 		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1105,40 +1057,10 @@ parameters:
 			path: src/lib/Behat/Component/ContentItemAdminPreview.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Component\\DateAndTimePopup\:\:\$parentLocator \(Ibexa\\Behat\\Browser\\Locator\\VisibleCSSLocator\) does not accept Ibexa\\Behat\\Browser\\Locator\\CSSLocator\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Component/DateAndTimePopup.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withParentLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Behat/Component/DraftConflictDialog.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Authors\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Authors.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Authors\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Authors.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Authors\:\:verifyValueInEditView\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Authors.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Authors\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Authors.php
 
 		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1147,46 +1069,16 @@ parameters:
 			path: src/lib/Behat/Component/Fields/Authors.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Checkbox\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Checkbox.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Checkbox\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Checkbox.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Checkbox\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Checkbox.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/lib/Behat/Component/Fields/Checkbox.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between array and bool will always evaluate to true\.$#'
+			message: '#^Strict comparison using \!\=\= between array\<bool\> and bool will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: src/lib/Behat/Component/Fields/Checkbox.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentQuery\:\:getValueInItemView\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentQuery.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentQuery\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentQuery.php
 
 		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1197,42 +1089,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:getColumnValues\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:removeRedundantRelations\(\) has parameter \$wantedRelations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:removeRedundantRelations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:selectRelationsAndConfirm\(\) has parameter \$items with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationMultiple\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
 
@@ -1255,24 +1111,6 @@ parameters:
 			path: src/lib/Behat/Component/Fields/ContentRelationMultiple.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationSingle\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationSingle.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationSingle\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationSingle.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationSingle\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationSingle.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withColumnLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1291,36 +1129,6 @@ parameters:
 			path: src/lib/Behat/Component/Fields/ContentRelationSingle.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Component\\Fields\\ContentRelationSingle\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Component/Fields/ContentRelationSingle.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Country\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Country.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Date\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Date.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Date\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Date.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Date\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Date.php
-
-		-
 			message: '#^Parameter \#1 \$date of method Ibexa\\AdminUi\\Behat\\Component\\DateAndTimePopup\:\:setDate\(\) expects DateTimeInterface, DateTime\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1331,24 +1139,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: src/lib/Behat/Component/Fields/Date.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\DateAndTime\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/DateAndTime.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\DateAndTime\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/DateAndTime.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\DateAndTime\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/DateAndTime.php
 
 		-
 			message: '#^Parameter \#1 \$date of method Ibexa\\AdminUi\\Behat\\Component\\DateAndTimePopup\:\:setDate\(\) expects DateTimeInterface, DateTime\|false given\.$#'
@@ -1369,70 +1159,10 @@ parameters:
 			path: src/lib/Behat/Component/Fields/DateAndTime.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponent\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponent\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponent\:\:verifyValueInEditView\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponent\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponent.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/lib/Behat/Component/Fields/FieldTypeComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponentInterface\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponentInterface.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponentInterface\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponentInterface.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponentInterface\:\:verifyValueInEditView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponentInterface.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\FieldTypeComponentInterface\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/FieldTypeComponentInterface.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\File\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/File.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\File\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/File.php
 
 		-
 			message: '#^Parameter \#1 \$baseElement of static method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:base\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1445,18 +1175,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/lib/Behat/Component/Fields/File.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Image\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Image.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Image\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Image.php
 
 		-
 			message: '#^Parameter \#1 \$baseElement of static method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:base\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1471,12 +1189,6 @@ parameters:
 			path: src/lib/Behat/Component/Fields/Image.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\ImageAsset\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/ImageAsset.php
-
-		-
 			message: '#^Parameter \#1 \$baseElement of static method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:base\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1489,52 +1201,10 @@ parameters:
 			path: src/lib/Behat/Component/Fields/ImageAsset.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Keywords\:\:parseValueString\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Keywords.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Keywords\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Keywords.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Keywords\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Keywords.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Behat/Component/Fields/Keywords.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\MapLocation\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/MapLocation.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\MapLocation\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/MapLocation.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\MapLocation\:\:verifyValueInEditView\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/MapLocation.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\MapLocation\:\:verifyValueInItemView\(\) has parameter \$expectedValues with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/MapLocation.php
 
 		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1543,54 +1213,6 @@ parameters:
 			path: src/lib/Behat/Component/Fields/MapLocation.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Matrix\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Matrix.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Matrix\:\:internalSetValue\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Component/Fields/Matrix.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Matrix\:\:parseParameters\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Matrix.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Matrix\:\:parseParameters\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Matrix.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Matrix\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Matrix.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Matrix\:\:verifyValueInItemView\(\) has parameter \$expectedValue with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Matrix.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Media\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Media.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Media\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Media.php
-
-		-
 			message: '#^Parameter \#1 \$baseElement of static method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:base\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
@@ -1603,28 +1225,10 @@ parameters:
 			path: src/lib/Behat/Component/Fields/Media.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\NonEditableField\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/NonEditableField.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\NonEditableField\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/NonEditableField.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Behat/Component/Fields/NonEditableField.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\RichText\:\:addUnorderedList\(\) has parameter \$listElements with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/RichText.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\RichText\:\:equalsEmbedInlineItem\(\) has parameter \$itemName with no type specified\.$#'
@@ -1639,70 +1243,16 @@ parameters:
 			path: src/lib/Behat/Component/Fields/RichText.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\RichText\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/RichText.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\RichText\:\:insertLine\(\) has parameter \$style with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Component/Fields/RichText.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\RichText\:\:insertLine\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Component/Fields/RichText.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\RichText\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/RichText.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Selection\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Selection.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Selection\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Selection.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/lib/Behat/Component/Fields/Selection.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\TextLine\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/TextLine.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Behat/Component/Fields/TextLine.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Time\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Time.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\Time\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/Time.php
 
 		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1717,76 +1267,10 @@ parameters:
 			path: src/lib/Behat/Component/Fields/Time.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\URL\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/URL.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\URL\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/URL.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\URL\:\:verifyValueInEditView\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/URL.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\URL\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/URL.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\Behat\\Browser\\Locator\\CSSLocatorBuilder\:\:withDescendant\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 2
 			path: src/lib/Behat/Component/Fields/URL.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\User\:\:getValue\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/User.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\User\:\:setValue\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/User.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\User\:\:verifyValue\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/User.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Fields\\User\:\:verifyValueInItemView\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Fields/User.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\LanguagePicker\:\:chooseLanguage\(\) has parameter \$language with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Component/LanguagePicker.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\LanguagePicker\:\:getLanguages\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/LanguagePicker.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\SubItemsList\:\:isElementInTable\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/SubItemsList.php
 
 		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withEmptyLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
@@ -1801,36 +1285,6 @@ parameters:
 			path: src/lib/Behat/Component/SubItemsList.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Component\\SubItemsList\:\:\$isGridViewEnabled has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Behat/Component/SubItemsList.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Component\\SubItemsList\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Component/SubItemsList.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\SubitemsGrid\:\:getTableRow\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/SubitemsGrid.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\SubitemsGrid\:\:hasElement\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/SubitemsGrid.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\SubitemsGrid\:\:hasElementOnCurrentPage\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/SubitemsGrid.php
-
-		-
 			message: '#^Cannot call method findAll\(\) on Ibexa\\Behat\\Browser\\Element\\ElementInterface\|null\.$#'
 			identifier: method.nonObject
 			count: 4
@@ -1843,68 +1297,8 @@ parameters:
 			path: src/lib/Behat/Component/Table/Table.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getColumnValues\(\) has parameter \$columnNames with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getColumnValues\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getHeaderPositions\(\) has parameter \$allHeaders with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getHeaderPositions\(\) has parameter \$searchedHeaders with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getHeaderPositions\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getMatchingTableRow\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getMatchingTableRow\(\) has parameter \$foundHeaders with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:getTableRow\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:hasElement\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\:\:hasElementOnCurrentPage\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$elementData$#'
-			identifier: parameter.notFound
 			count: 1
 			path: src/lib/Behat/Component/Table/Table.php
 
@@ -1913,24 +1307,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/lib/Behat/Component/Table/Table.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:getTableRow\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/TableInterface.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:hasElement\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/TableInterface.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:hasElementOnCurrentPage\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Component/Table/TableInterface.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Component\\UniversalDiscoveryWidget\:\:changeTab\(\) has parameter \$tabName with no type specified\.$#'
@@ -1945,66 +1321,6 @@ parameters:
 			path: src/lib/Behat/Component/UniversalDiscoveryWidget.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\AdminUpdateItemPage\:\:fillFieldWithValue\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/AdminUpdateItemPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\AdminUpdateItemPage\:\:getFieldValue\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Behat/Page/AdminUpdateItemPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentTypeGroupPage\:\:isContentTypeOnTheList\(\) has parameter \$contentTypeName with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/ContentTypeGroupPage.php
-
-		-
-			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withParentLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Behat/Page/ContentTypeGroupPage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ContentTypeGroupPage\:\:\$adminList has unknown class Ibexa\\AdminUi\\Behat\\Component\\AdminList as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/lib/Behat/Page/ContentTypeGroupPage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ContentTypeGroupPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/ContentTypeGroupPage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ContentTypeGroupsPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/ContentTypeGroupsPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentTypePage\:\:hasFieldType\(\) has parameter \$fieldTypeData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentTypePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentTypePage\:\:hasProperty\(\) has parameter \$label with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/ContentTypePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentTypePage\:\:hasProperty\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/ContentTypePage.php
-
-		-
 			message: '#^Parameter \#1 \$expectedText of method Ibexa\\Behat\\Browser\\Assert\\ElementAssertInterface\:\:textEquals\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2017,128 +1333,20 @@ parameters:
 			path: src/lib/Behat/Page/ContentTypePage.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ContentTypePage\:\:\$fieldTable \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/ContentTypePage.php
-
-		-
 			message: '#^Binary operation "\+" between int\|string\|false and 1 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: src/lib/Behat/Page/ContentTypeUpdatePage.php
 
 		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Behat/Page/ContentUpdateItemPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentUpdateItemPage\:\:__construct\(\) has parameter \$fieldTypeComponents with no value type specified in iterable type iterable\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentUpdateItemPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentUpdateItemPage\:\:fillFieldWithValue\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentUpdateItemPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentUpdateItemPage\:\:verifyFieldHasValue\(\) has parameter \$fieldData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentUpdateItemPage.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentViewPage\:\:getContentData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentViewPage\:\:getRoute\(\) should return string but returns string\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentViewPage\:\:isChildElementPresent\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ContentViewPage\:\:verifyFieldHasValues\(\) has parameter \$expectedFieldValues with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\\Ibexa\\Behat\\Core\\Behat\\ArgumentParser;\)\: Unexpected token ";", expected TOKEN_HORIZONTAL_WS at offset 47 on line 1$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
-			message: '#^Parameter \#1 \$needle of static method PHPUnit\\Framework\\Assert\:\:assertStringContainsString\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Behat/Page/ContentViewPage.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withParentLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Behat/Page/DashboardPage.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\DashboardPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/DashboardPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\LanguagePage\:\:hasProperties\(\) has parameter \$languageProperties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/LanguagePage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\LanguagePage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/LanguagePage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\LanguagePage\:\:\$table is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Behat/Page/LanguagePage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\LanguagesPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/LanguagesPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ObjectStateGroupPage\:\:hasAttribute\(\) has parameter \$label with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/ObjectStateGroupPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ObjectStateGroupPage\:\:hasAttribute\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
+			message: '#^Call to an undefined method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:getColumnValues\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/lib/Behat/Page/ObjectStateGroupPage.php
 
@@ -2149,56 +1357,14 @@ parameters:
 			path: src/lib/Behat/Page/ObjectStateGroupPage.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ObjectStateGroupPage\:\:\$objectStates \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/ObjectStateGroupPage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ObjectStateGroupsPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/ObjectStateGroupsPage.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Behat/Page/ObjectStatePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ObjectStatePage\:\:hasAttribute\(\) has parameter \$label with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/ObjectStatePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\ObjectStatePage\:\:hasAttribute\(\) has parameter \$value with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Behat/Page/ObjectStatePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:deleteAssignments\(\) has parameter \$itemNames with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/RolePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:deletePolicies\(\) has parameter \$itemNames with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
+			message: '#^Call to an undefined method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\:\:getColumnValues\(\)\.$#'
+			identifier: method.notFound
+			count: 2
 			path: src/lib/Behat/Page/RolePage.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:verifyAssignments\(\) has parameter \$expectedAssignments with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/RolePage.php
-
-		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$listName$#'
-			identifier: parameter.notFound
 			count: 1
 			path: src/lib/Behat/Page/RolePage.php
 
@@ -2209,34 +1375,10 @@ parameters:
 			path: src/lib/Behat/Page/RolePage.php
 
 		-
-			message: '#^Parameter \#2 \$offset of function substr expects int, int\<0, max\>\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Behat/Page/RolePage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:\$assignments \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/RolePage.php
-
-		-
 			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\RolePage\:\:\$policies \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: src/lib/Behat/Page/RolePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\RoleUpdatePage\:\:assign\(\) has parameter \$itemPaths with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/RoleUpdatePage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\RoleUpdatePage\:\:selectLimitationValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/RoleUpdatePage.php
 
 		-
 			message: '#^Access to an undefined property Ibexa\\AdminUi\\Behat\\Page\\RolesPage\:\:\$adminList\.$#'
@@ -2245,28 +1387,10 @@ parameters:
 			path: src/lib/Behat/Page/RolesPage.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\RolesPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/RolesPage.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\SearchPage\:\:isElementInResults\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Behat/Page/SearchPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\SectionPage\:\:hasAssignedItem\(\) has parameter \$elementData with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/SectionPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\SectionPage\:\:hasProperties\(\) has parameter \$sectionProperties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/SectionPage.php
 
 		-
 			message: '#^Parameter \#1 \$expectedText of method Ibexa\\Behat\\Browser\\Assert\\ElementAssertInterface\:\:textEquals\(\) expects string, string\|null given\.$#'
@@ -2293,18 +1417,6 @@ parameters:
 			path: src/lib/Behat/Page/SystemInfoPage.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\SystemInfoPage\:\:verifyBundles\(\) has parameter \$bundleNames with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/SystemInfoPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\SystemInfoPage\:\:verifyPackages\(\) has parameter \$packages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/SystemInfoPage.php
-
-		-
 			message: '#^Parameter \#1 \$locator of method Ibexa\\AdminUi\\Behat\\Component\\Table\\TableBuilder\:\:withParentLocator\(\) expects Ibexa\\Behat\\Browser\\Locator\\CSSLocator, Ibexa\\Behat\\Browser\\Locator\\LocatorInterface given\.$#'
 			identifier: argument.type
 			count: 1
@@ -2315,18 +1427,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Behat/Page/TrashPage.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\TrashPage\:\:\$table \(Ibexa\\AdminUi\\Behat\\Component\\Table\\Table\) does not accept Ibexa\\AdminUi\\Behat\\Component\\Table\\TableInterface\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Behat/Page/TrashPage.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Behat\\Page\\UserUpdatePage\:\:__construct\(\) has parameter \$fieldTypeComponents with no value type specified in iterable type Traversable\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Behat/Page/UserUpdatePage.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\Content\\PreviewUnavailableTwigComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'

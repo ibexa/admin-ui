@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Page;
 
@@ -18,20 +19,16 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
 
-class UserSettingsPage extends Page
+final class UserSettingsPage extends Page
 {
-    private ContentActionsMenu $contentActionsMenu;
-
-    private TableNavigationTab $tableNavigationTab;
-
-    private IbexaDropdown $ibexaDropdown;
-
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, TableNavigationTab $tableNavigationTab, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentActionsMenu $contentActionsMenu,
+        private readonly TableNavigationTab $tableNavigationTab,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session, $router);
-        $this->contentActionsMenu = $contentActionsMenu;
-        $this->tableNavigationTab = $tableNavigationTab;
-        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function verifyIsLoaded(): void

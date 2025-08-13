@@ -14,16 +14,15 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Time extends FieldTypeComponent
+final class Time extends FieldTypeComponent
 {
-    private const VALUE_TIME_FORMAT = 'G:i';
+    private const string VALUE_TIME_FORMAT = 'G:i';
 
-    private DateAndTimePopup $dateAndTimePopup;
-
-    public function __construct(Session $session, DateAndTimePopup $dateAndTimePopup)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly DateAndTimePopup $dateAndTimePopup
+    ) {
         parent::__construct($session);
-        $this->dateAndTimePopup = $dateAndTimePopup;
     }
 
     public function setValue(array $parameters): void
@@ -51,8 +50,12 @@ class Time extends FieldTypeComponent
 
     public function verifyValueInItemView(array $values): void
     {
-        $actualTimeValue = date_format(date_create($this->getHTMLPage()->find($this->parentLocator)->getText()), self::VALUE_TIME_FORMAT);
+        $actualTimeValue = date_format(
+            date_create($this->getHTMLPage()->find($this->parentLocator)->getText()),
+            self::VALUE_TIME_FORMAT
+        );
         $expectedTimeValue = date_format(date_create($values['value']), self::VALUE_TIME_FORMAT);
+
         Assert::assertEquals(
             $expectedTimeValue,
             $actualTimeValue,

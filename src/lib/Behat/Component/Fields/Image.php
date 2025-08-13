@@ -17,12 +17,11 @@ use PHPUnit\Framework\Assert;
 
 class Image extends FieldTypeComponent
 {
-    protected FileUploadHelper $fileUploadHelper;
-
-    public function __construct(Session $session, FileUploadHelper $fileUploadHelper)
-    {
+    public function __construct(
+        Session $session,
+        protected readonly FileUploadHelper $fileUploadHelper
+    ) {
         parent::__construct($session);
-        $this->fileUploadHelper = $fileUploadHelper;
     }
 
     public function setValue(array $parameters): void
@@ -37,12 +36,12 @@ class Image extends FieldTypeComponent
 
         $alternativeText = str_replace('.zip', '', $parameters['value']);
 
-        $alternaticveTextFieldLocator = CSSLocatorBuilder::base($this->parentLocator)
+        $alternativeTextFieldLocator = CSSLocatorBuilder::base($this->parentLocator)
             ->withDescendant($this->getLocator('alternativeText'))
             ->build();
 
         $this->getHTMLPage()
-            ->find($alternaticveTextFieldLocator)
+            ->find($alternativeTextFieldLocator)
             ->setValue($alternativeText);
     }
 

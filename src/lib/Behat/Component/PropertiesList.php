@@ -12,7 +12,7 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class PropertiesList extends Component
+final class PropertiesList extends Component
 {
     public function verifyIsLoaded(): void
     {

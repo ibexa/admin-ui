@@ -17,17 +17,22 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
 
-class SectionsPage extends Page
+final class SectionsPage extends Page
 {
     private TableInterface $table;
 
-    private Dialog $dialog;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
-        $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('tableContainer'))->build();
-        $this->dialog = $dialog;
+
+        $this->table = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('tableContainer'))
+            ->build();
     }
 
     public function createNew(): void
@@ -42,13 +47,20 @@ class SectionsPage extends Page
 
     public function assignContentItems(string $sectionName): void
     {
-        $this->getHTMLPage()->find($this->getLocator('scrollableContainer'))->scrollToBottom($this->getSession());
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('scrollableContainer'))
+            ->scrollToBottom($this->getSession());
+
         $this->table->getTableRow(['Name' => $sectionName])->assign();
     }
 
     public function getAssignedContentItemsCount(string $sectionName): int
     {
-        return (int) $this->table->getTableRow(['Name' => $sectionName])->getCellValue('Assigned content');
+        return (int) $this
+            ->table
+            ->getTableRow(['Name' => $sectionName])
+            ->getCellValue('Assigned content');
     }
 
     public function editSection(string $sectionName): void

@@ -12,13 +12,11 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\SystemInfoPage;
 
-class SystemInfoContext implements Context
+final readonly class SystemInfoContext implements Context
 {
-    private SystemInfoPage $systemInfoPage;
-
-    public function __construct(SystemInfoPage $systemInfoPage)
-    {
-        $this->systemInfoPage = $systemInfoPage;
+    public function __construct(
+        private SystemInfoPage $systemInfoPage
+    ) {
     }
 
     /**

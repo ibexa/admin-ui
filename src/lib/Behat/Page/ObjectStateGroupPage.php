@@ -20,27 +20,27 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
 
-class ObjectStateGroupPage extends Page
+final class ObjectStateGroupPage extends Page
 {
-    /** @var string */
-    protected $expectedObjectStateGroupName;
+    protected string $expectedObjectStateGroupName;
 
-    private Dialog $dialog;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $objectStates;
 
-    private Repository $repository;
+    private mixed $expectedObjectStateGroupId;
 
-    /** @var mixed */
-    private $expectedObjectStateGroupId;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog,
+        private readonly Repository $repository
+    ) {
         parent::__construct($session, $router);
-        $this->dialog = $dialog;
-        $this->objectStates = $tableBuilder->newTable()->withParentLocator($this->getLocator('objectStatesTable'))->build();
-        $this->repository = $repository;
+
+        $this->objectStates = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('objectStatesTable'))
+            ->build();
     }
 
     public function editObjectState(string $itemName): void
@@ -58,7 +58,7 @@ class ObjectStateGroupPage extends Page
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
-        $objectStateGroups = $this->repository->sudo(function () {
+        $objectStateGroups = $this->repository->sudo(function (): iterable {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });
 
@@ -74,13 +74,13 @@ class ObjectStateGroupPage extends Page
         return count($this->objectStates->getColumnValues(['Object state name'])) > 0;
     }
 
-    public function hasAttribute($label, $value): bool
+    public function hasAttribute(string $label, string $value): bool
     {
         return $this->getHTMLPage()
-                    ->findAll($this->getLocator('objectStateGroupAttribute'))
-                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
-                    ->find($this->getLocator('value'))
-                    ->getText() === $value;
+            ->findAll($this->getLocator('objectStateGroupAttribute'))
+            ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
+            ->find($this->getLocator('value'))
+            ->getText() === $value;
     }
 
     public function hasObjectState(string $objectStateName): bool

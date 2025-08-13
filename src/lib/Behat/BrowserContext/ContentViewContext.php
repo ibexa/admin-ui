@@ -15,22 +15,13 @@ use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
-final class ContentViewContext implements Context
+final readonly class ContentViewContext implements Context
 {
-    private ArgumentParser $argumentParser;
-
-    private ContentViewPage $contentViewPage;
-
-    private DraftConflictDialog $draftConflictDialog;
-
     public function __construct(
-        ArgumentParser $argumentParser,
-        ContentViewPage $contentViewPage,
-        DraftConflictDialog $draftConflictDialog
+        private ArgumentParser $argumentParser,
+        private ContentViewPage $contentViewPage,
+        private DraftConflictDialog $draftConflictDialog
     ) {
-        $this->argumentParser = $argumentParser;
-        $this->contentViewPage = $contentViewPage;
-        $this->draftConflictDialog = $draftConflictDialog;
     }
 
     /**

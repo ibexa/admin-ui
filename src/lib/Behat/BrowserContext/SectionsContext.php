@@ -14,16 +14,12 @@ use Ibexa\AdminUi\Behat\Page\SectionPage;
 use Ibexa\AdminUi\Behat\Page\SectionsPage;
 use PHPUnit\Framework\Assert;
 
-class SectionsContext implements Context
+final readonly class SectionsContext implements Context
 {
-    private SectionPage $sectionPage;
-
-    private SectionsPage $sectionsPage;
-
-    public function __construct(SectionPage $sectionPage, SectionsPage $sectionsPage)
-    {
-        $this->sectionPage = $sectionPage;
-        $this->sectionsPage = $sectionsPage;
+    public function __construct(
+        private SectionPage $sectionPage,
+        private SectionsPage $sectionsPage
+    ) {
     }
 
     /**
@@ -130,7 +126,7 @@ class SectionsContext implements Context
     /**
      * @Then Content items list in is empty for Section
      */
-    public function contentListIsEmty(): void
+    public function contentListIsEmpty(): void
     {
         Assert::assertTrue($this->sectionPage->isContentListEmpty());
     }

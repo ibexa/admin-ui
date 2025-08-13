@@ -11,13 +11,10 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Page\ContentPreviewPage;
 
-class ContentPreviewContext implements Context
+final readonly class ContentPreviewContext implements Context
 {
-    private ContentPreviewPage $contentPreviewPage;
-
-    public function __construct(ContentPreviewPage $contentPreviewPage)
+    public function __construct(private ContentPreviewPage $contentPreviewPage)
     {
-        $this->contentPreviewPage = $contentPreviewPage;
     }
 
     /**
