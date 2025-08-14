@@ -32,8 +32,8 @@
         <note>key: editing</note>
       </trans-unit>
       <trans-unit id="582b09a837963ba464ba24493c8cc7c360b99708" resname="editing_details_subtitle">
-        <source>under: %location%</source>
-        <target state="new">under: %location%</target>
+        <source>under %location%</source>
+        <target state="new">under %location%</target>
         <note>key: editing_details_subtitle</note>
       </trans-unit>
       <trans-unit id="009667fab56f0bec66634f009a75ffd9425f2987" resname="fieldtype.translation_is_disabled">
