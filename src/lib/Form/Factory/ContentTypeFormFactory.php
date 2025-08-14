@@ -33,14 +33,8 @@ class ContentTypeFormFactory
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function addContentTypeTranslation(
-        TranslationAddData $data = null,
+        ?TranslationAddData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: 'add-translation';
@@ -48,14 +42,8 @@ class ContentTypeFormFactory
         return $this->formFactory->createNamed($name, TranslationAddType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function removeContentTypeTranslation(
-        TranslationRemoveData $data = null,
+        ?TranslationRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: 'delete-translations';
@@ -64,14 +52,10 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData|null $data
-     * @param string|null $name
      * @param array $options
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function contentTypeEdit(
-        ContentTypeEditData $data = null,
+        ?ContentTypeEditData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
@@ -81,8 +65,6 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData
-     * @param string|null $name
      * @param array $options
      *
      * @return \Symfony\Component\Form\FormInterface

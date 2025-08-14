@@ -63,7 +63,7 @@ class ContentViewPage extends Page
         parent::__construct($session, $router);
     }
 
-    public function startCreatingContent(string $contentTypeName, string $language = null): void
+    public function startCreatingContent(string $contentTypeName, ?string $language = null): void
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();

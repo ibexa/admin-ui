@@ -31,7 +31,7 @@ class TrashItemData
      */
     public function __construct(
         APITrashItem $location,
-        ContentType $contentType = null,
+        ?ContentType $contentType = null,
         array $ancestors = [],
         ?User $creator = null
     ) {

@@ -405,8 +405,8 @@ final class ContentTypeController extends Controller
         Request $request,
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft,
-        Language $language = null,
-        Language $baseLanguage = null
+        ?Language $language = null,
+        ?Language $baseLanguage = null
     ): Response|ContentTypeEditView {
         if (!$language) {
             $language = $this->getDefaultLanguage($contentTypeDraft);

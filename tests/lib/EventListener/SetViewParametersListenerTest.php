@@ -303,7 +303,7 @@ final class SetViewParametersListenerTest extends TestCase
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
-    private function generateContentInfo(int $mainLocationId = null, bool $published = false): API\ContentInfo
+    private function generateContentInfo(?int $mainLocationId = null, bool $published = false): API\ContentInfo
     {
         return new API\ContentInfo([
             'mainLocationId' => $mainLocationId,
