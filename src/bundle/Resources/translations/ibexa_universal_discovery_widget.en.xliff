@@ -286,6 +286,11 @@
         <target state="new">Try more general keywords.</target>
         <note>key: search.no_results.hint.more_general</note>
       </trans-unit>
+      <trans-unit id="9a697642846df0197cb9e2c0987d6e53d9bb3bc4" resname="search.no_results_without_query">
+        <source>No results found</source>
+        <target state="new">No results found</target>
+        <note>key: search.no_results_without_query</note>
+      </trans-unit>
       <trans-unit id="2b096dbbbcadb6a316903dce656706b528229e21" resname="search.placeholder">
         <source>Search...</source>
         <target state="new">Search...</target>
