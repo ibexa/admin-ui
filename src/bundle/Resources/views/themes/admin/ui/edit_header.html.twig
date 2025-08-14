@@ -54,6 +54,10 @@
             {% if subtitle is defined %}
                 <div class="ibexa-edit-header__subtitle">{{ subtitle }}</div>
             {% endif %}
+            
+            {# {{ dump(ibexa_admin_ui_config.userContentTypes) }}
+            {{ dump(content_type.identifier) }}
+            {% set checkIsMetaVisible = (content is defined and content is not null) %} #}
 
             {% if content is not null and not is_user_content_type %}
                 <div class="ibexa-edit-header__meta">
