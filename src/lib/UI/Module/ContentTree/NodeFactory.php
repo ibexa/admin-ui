@@ -15,7 +15,6 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
@@ -396,7 +395,8 @@ final class NodeFactory
             '', // node name will be provided later by `supplyTranslatedContentName` method
             null !== $contentType ? $contentType->getIdentifier() : '',
             null === $contentType || $contentType->isContainer(),
-            $location->isInvisible() || $location->isHidden(),
+            $location->isInvisible(),
+            $location->isHidden(),
             $limit,
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
