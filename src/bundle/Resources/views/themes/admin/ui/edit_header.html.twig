@@ -1,5 +1,8 @@
 {% trans_default_domain 'ibexa_content_edit' %}
+
+{% set content = content|default(null) %}
 {% set show_extra_bottom_content = show_extra_bottom_content|default(false) %}
+{% set is_user_content_type = content_type is defined and content_type.identifier in ibexa_admin_ui_config.userContentTypes %}
 
 <div class="ibexa-edit-header {{ show_extra_bottom_content ? 'ibexa-edit-header--has-extra-content' }}">
     <div class="ibexa-edit-header__container">
@@ -52,7 +55,7 @@
                 <div class="ibexa-edit-header__subtitle">{{ subtitle }}</div>
             {% endif %}
 
-            {% if content is defined and content is not null %}
+            {% if content is not null and not is_user_content_type %}
                 <div class="ibexa-edit-header__meta">
                     <div class="ibexa-edit-header__meta-item">
                          <svg class="ibexa-icon ibexa-icon--tiny-small">
