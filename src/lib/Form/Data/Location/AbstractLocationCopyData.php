@@ -27,7 +27,7 @@ abstract class AbstractLocationCopyData
         return $this->location;
     }
 
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -37,7 +37,7 @@ abstract class AbstractLocationCopyData
         return $this->newParentLocation;
     }
 
-    public function setNewParentLocation(?Location $newParentLocation)
+    public function setNewParentLocation(?Location $newParentLocation): void
     {
         $this->newParentLocation = $newParentLocation;
     }

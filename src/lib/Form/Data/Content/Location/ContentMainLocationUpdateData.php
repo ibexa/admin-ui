@@ -44,7 +44,7 @@ class ContentMainLocationUpdateData
         return $this->contentInfo;
     }
 
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -54,7 +54,7 @@ class ContentMainLocationUpdateData
         return $this->location;
     }
 
-    public function setLocation(Location $location)
+    public function setLocation(Location $location): void
     {
         $this->location = $location;
     }
