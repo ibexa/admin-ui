@@ -16,10 +16,6 @@ interface SiteaccessResolverInterface
     /**
      * Accepts $location and returns all siteaccesses in which Content item can be previewed.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param int|null $versionNo
-     * @param string|null $languageCode
-     *
      * @return string[]
      *
      * @deprecated Deprecated since Ibexa DXP 4.5.0.
@@ -27,8 +23,8 @@ interface SiteaccessResolverInterface
      */
     public function getSiteaccessesForLocation(
         Location $location,
-        int $versionNo = null,
-        string $languageCode = null
+        ?int $versionNo = null,
+        ?string $languageCode = null
     ): array;
 
     /**

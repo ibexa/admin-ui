@@ -5119,32 +5119,8 @@ parameters:
 			path: src/lib/Form/Data/ContentType/ContentTypesDeleteData.php
 
 		-
-			message: '#^PHPDoc tag @param for parameter \$baseLanguage with type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/ContentType/Translation/TranslationAddData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$contentType with type Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/ContentType/Translation/TranslationAddData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$language with type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/ContentType/Translation/TranslationAddData.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentType\\Translation\\TranslationRemoveData\:\:__construct\(\) has parameter \$languageCodes with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentType/Translation/TranslationRemoveData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$contentType with type Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\.$#'
-			identifier: parameter.phpDocType
 			count: 1
 			path: src/lib/Form/Data/ContentType/Translation/TranslationRemoveData.php
 
@@ -5530,24 +5506,6 @@ parameters:
 			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Location\\AbstractLocationCopyData\:\:setNewParentLocation\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
-			path: src/lib/Form/Data/Location/AbstractLocationCopyData.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(\\Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|\|null \$location\)\: Unexpected token "\|", expected type at offset 75 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/lib/Form/Data/Location/AbstractLocationCopyData.php
-
-		-
-			message: '#^PHPDoc tag @param has invalid value \(\\Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|\|null \$newParentLocation\)\: Unexpected token "\|", expected type at offset 75 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/lib/Form/Data/Location/AbstractLocationCopyData.php
-
-		-
-			message: '#^PHPDoc tag @return has invalid value \(\\Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|\|null\)\: Unexpected token "\|", expected type at offset 76 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 2
 			path: src/lib/Form/Data/Location/AbstractLocationCopyData.php
 
 		-
@@ -7267,12 +7225,6 @@ parameters:
 			path: src/lib/Form/Factory/ContentTypeFormFactory.php
 
 		-
-			message: '#^PHPDoc tag @param has invalid value \(\\Ibexa\\AdminUi\\Form\\Data\\ContentType\\ContentTypeEditData\)\: Unexpected token "\\n     \* ", expected variable at offset 74 on line 2$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/lib/Form/Factory/ContentTypeFormFactory.php
-
-		-
 			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 2
@@ -7717,21 +7669,9 @@ parameters:
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
-			message: '#^PHPDoc tag @param for parameter \$data with type Ibexa\\AdminUi\\Form\\Data\\Search\\SearchData\|null is not subtype of native type Ibexa\\Bundle\\Search\\Form\\Data\\SearchData\|null\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 42
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Parameter \$data of method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createSearchForm\(\) has invalid type Ibexa\\AdminUi\\Form\\Data\\Search\\SearchData\.$#'
-			identifier: class.notFound
-			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-

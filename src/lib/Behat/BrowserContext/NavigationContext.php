@@ -137,7 +137,7 @@ class NavigationContext implements Context
     /**
      * @Given I navigate to content :contentName of type :contentType in :path
      */
-    public function iNavigateToContent(string $contentName, string $contentType, string $path = null)
+    public function iNavigateToContent(string $contentName, string $contentType, ?string $path = null)
     {
         $expectedContentPath = sprintf('%s/%s', $path, $contentName);
         $pathParts = explode('/', $expectedContentPath);

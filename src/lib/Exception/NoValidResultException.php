@@ -16,12 +16,11 @@ class NoValidResultException extends Exception
     /**
      * @param string $message
      * @param int $code
-     * @param \Throwable|null $previous
      */
     public function __construct(
         $message = 'No valid result from strategy',
         $code = 0,
-        Throwable $previous = null
+        ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);
     }

@@ -61,10 +61,10 @@ class PreviewFormProcessorTest extends TestCase
      * @return \Ibexa\AdminUi\Form\Processor\PreviewFormProcessor
      */
     private function createPreviewFormProcessor(
-        ContentService $contentService = null,
-        UrlGeneratorInterface $urlGenerator = null,
-        TranslatableNotificationHandlerInterface $notificationHandler = null,
-        LocationService $locationService = null
+        ?ContentService $contentService = null,
+        ?UrlGeneratorInterface $urlGenerator = null,
+        ?TranslatableNotificationHandlerInterface $notificationHandler = null,
+        ?LocationService $locationService = null
     ): PreviewFormProcessor {
         return new PreviewFormProcessor(
             $contentService ?? $this->contentService,
