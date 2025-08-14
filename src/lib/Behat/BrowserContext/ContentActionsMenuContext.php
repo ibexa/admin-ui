@@ -13,13 +13,10 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use PHPUnit\Framework\Assert;
 
-class ContentActionsMenuContext implements Context
+final readonly class ContentActionsMenuContext implements Context
 {
-    private ContentActionsMenu $contentActionsMenu;
-
-    public function __construct(ContentActionsMenu $contentActionsMenu)
+    public function __construct(private ContentActionsMenu $contentActionsMenu)
     {
-        $this->contentActionsMenu = $contentActionsMenu;
     }
 
     /**
@@ -27,7 +24,7 @@ class ContentActionsMenuContext implements Context
      * @Given I perform the :buttonName action
      * @Given I perform the :buttonName action from the :groupName group
      */
-    public function clickEditActionBar(string $buttonName, string $groupName = null): void
+    public function clickEditActionBar(string $buttonName, ?string $groupName = null): void
     {
         $this->contentActionsMenu->clickButton($buttonName, $groupName);
     }

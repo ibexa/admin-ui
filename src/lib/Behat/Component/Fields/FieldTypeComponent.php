@@ -15,8 +15,7 @@ use PHPUnit\Framework\Assert;
 
 abstract class FieldTypeComponent extends Component implements FieldTypeComponentInterface
 {
-    /** @var \Ibexa\Behat\Browser\Locator\VisibleCSSLocator */
-    protected $parentLocator;
+    protected VisibleCSSLocator $parentLocator;
 
     public function setValue(array $parameters): void
     {
@@ -63,10 +62,10 @@ abstract class FieldTypeComponent extends Component implements FieldTypeComponen
 
     abstract public function getFieldTypeIdentifier(): string;
 
-    public function verifyValueInEditView(array $value): void
+    public function verifyValueInEditView(array $values): void
     {
         Assert::assertEquals(
-            $value['value'],
+            $values['value'],
             $this->getValue()[0]
         );
     }

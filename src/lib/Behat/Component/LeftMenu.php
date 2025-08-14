@@ -14,13 +14,15 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class LeftMenu extends Component
+final class LeftMenu extends Component
 {
     public function goToTab(string $tabName): void
     {
-        $menuButton = $this->getHTMLPage()->setTimeout(5)
+        $menuButton = $this->getHTMLPage()
+            ->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));
+
         $menuButton->click();
         $menuButton->find(new VisibleCSSLocator('activeMarker', '.ibexa-main-menu__item-action.active'))->assert()->isVisible();
     }

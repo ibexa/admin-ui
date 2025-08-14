@@ -15,14 +15,13 @@ use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class CreateNewPopup extends Component
+final class CreateNewPopup extends Component
 {
-    private IbexaDropdown $ibexaDropdown;
-
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
-        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function verifyIsLoaded(): void

@@ -27,13 +27,11 @@ class TranslationRemoveData
     private array $languageCodes;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
      * @param array $languageCodes
      */
     public function __construct(
-        ContentType $contentType = null,
-        ContentTypeGroup $contentTypeGroup = null,
+        ?ContentType $contentType = null,
+        ?ContentTypeGroup $contentTypeGroup = null,
         array $languageCodes = []
     ) {
         $this->contentType = $contentType;
@@ -41,19 +39,11 @@ class TranslationRemoveData
         $this->languageCodes = $languageCodes;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
-     */
     public function getContentType(): ?ContentType
     {
         return $this->contentType;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
-     *
-     * @return self
-     */
     public function setContentType(ContentType $contentType): self
     {
         $this->contentType = $contentType;
@@ -61,19 +51,11 @@ class TranslationRemoveData
         return $this;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
-     */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
         return $this->contentTypeGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
-     *
-     * @return self
-     */
     public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup): self
     {
         $this->contentTypeGroup = $contentTypeGroup;

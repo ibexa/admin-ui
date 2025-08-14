@@ -12,13 +12,11 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\AdminUpdateItemPage;
 
-class AdminUpdateContext implements Context
+final readonly class AdminUpdateContext implements Context
 {
-    private AdminUpdateItemPage $adminUpdateItemPage;
-
-    public function __construct(AdminUpdateItemPage $adminUpdateItemPage)
-    {
-        $this->adminUpdateItemPage = $adminUpdateItemPage;
+    public function __construct(
+        private AdminUpdateItemPage $adminUpdateItemPage
+    ) {
     }
 
     /**

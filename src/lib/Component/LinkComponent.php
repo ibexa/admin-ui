@@ -29,21 +29,13 @@ class LinkComponent implements ComponentInterface
 
     protected ?string $integrity;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param string $href
-     * @param string $type
-     * @param string $rel
-     * @param string|null $crossorigin
-     * @param string|null $integrity
-     */
     public function __construct(
         Environment $twig,
         string $href,
         string $type = 'text/css',
         string $rel = 'stylesheet',
-        string $crossorigin = null,
-        string $integrity = null
+        ?string $crossorigin = null,
+        ?string $integrity = null
     ) {
         $this->twig = $twig;
         $this->href = $href;

@@ -20,7 +20,7 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
 
-class SectionPage extends Page
+final class SectionPage extends Page
 {
     private ?string $expectedSectionName = null;
 
@@ -28,21 +28,22 @@ class SectionPage extends Page
 
     private TableInterface $contentItemsTable;
 
-    private Dialog $dialog;
-
-    private Repository $repository;
-
+    /**
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
+     */
     public function __construct(
-        Session $session,
-        Router $router,
-        TableBuilder $tableBuilder,
-        Dialog $dialog,
-        Repository $repository
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog,
+        private readonly Repository $repository
     ) {
         parent::__construct($session, $router);
-        $this->contentItemsTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentItemsTable'))->build();
-        $this->dialog = $dialog;
-        $this->repository = $repository;
+
+        $this->contentItemsTable = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('contentItemsTable'))
+            ->build();
     }
 
     public function isContentListEmpty(): bool
@@ -50,6 +51,9 @@ class SectionPage extends Page
         return $this->contentItemsTable->isEmpty();
     }
 
+    /**
+     * @param array<string, string> $sectionProperties
+     */
     public function hasProperties(array $sectionProperties): bool
     {
         foreach ($sectionProperties as $label => $value) {
@@ -67,6 +71,9 @@ class SectionPage extends Page
         return true;
     }
 
+    /**
+     * @param array<string, mixed> $elementData
+     */
     public function hasAssignedItem(array $elementData): bool
     {
         return $this->contentItemsTable->hasElement($elementData);
@@ -96,6 +103,7 @@ class SectionPage extends Page
             ->findAll($this->getLocator('button'))
             ->getByCriterion(new ElementTextCriterion('Delete'))
             ->click();
+
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }

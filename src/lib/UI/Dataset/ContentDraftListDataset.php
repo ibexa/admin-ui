@@ -40,14 +40,7 @@ class ContentDraftListDataset
         $this->valueFactory = $valueFactory;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftListDataset
-     */
-    public function load(User $user = null, int $offset = 0, int $limit = 10): self
+    public function load(?User $user = null, int $offset = 0, int $limit = 10): self
     {
         $contentDraftListItems = $this->contentService->loadContentDraftList($user, $offset, $limit)->items;
 

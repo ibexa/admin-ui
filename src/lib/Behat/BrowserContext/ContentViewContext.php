@@ -15,29 +15,20 @@ use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
-final class ContentViewContext implements Context
+final readonly class ContentViewContext implements Context
 {
-    private ArgumentParser $argumentParser;
-
-    private ContentViewPage $contentViewPage;
-
-    private DraftConflictDialog $draftConflictDialog;
-
     public function __construct(
-        ArgumentParser $argumentParser,
-        ContentViewPage $contentViewPage,
-        DraftConflictDialog $draftConflictDialog
+        private ArgumentParser $argumentParser,
+        private ContentViewPage $contentViewPage,
+        private DraftConflictDialog $draftConflictDialog
     ) {
-        $this->argumentParser = $argumentParser;
-        $this->contentViewPage = $contentViewPage;
-        $this->draftConflictDialog = $draftConflictDialog;
     }
 
     /**
      * @Given I start creating a new Content :contentType
      * @Given I start creating a new Content :contentType in :language language
      */
-    public function startCreatingContent(string $contentType, string $language = null): void
+    public function startCreatingContent(string $contentType, ?string $language = null): void
     {
         $this->contentViewPage->startCreatingContent($contentType, $language);
     }
@@ -105,7 +96,7 @@ final class ContentViewContext implements Context
      * @Given I start editing the current content
      * @Given I start editing the current content in :language language
      */
-    public function startEditingContent(string $language = null): void
+    public function startEditingContent(?string $language = null): void
     {
         $this->contentViewPage->editContent($language);
     }

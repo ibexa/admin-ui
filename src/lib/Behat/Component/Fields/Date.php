@@ -14,16 +14,15 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Date extends FieldTypeComponent
+final class Date extends FieldTypeComponent
 {
-    private const DATE_FORMAT = 'm/d/Y';
+    private const string DATE_FORMAT = 'm/d/Y';
 
-    private DateAndTimePopup $dateAndTimePopup;
-
-    public function __construct(Session $session, DateAndTimePopup $dateAndTimePopup)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly DateAndTimePopup $dateAndTimePopup
+    ) {
         parent::__construct($session);
-        $this->dateAndTimePopup = $dateAndTimePopup;
     }
 
     public function setValue(array $parameters): void

@@ -17,15 +17,21 @@ use RuntimeException;
 
 class ContentItemAdminPreview extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
-    protected iterable $fieldTypeComponents;
-
-    public function __construct(Session $session, iterable $fieldTypeComponents)
-    {
+    /**
+     * @param \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] $fieldTypeComponents
+     */
+    public function __construct(
+        Session $session,
+        protected iterable $fieldTypeComponents
+    ) {
         parent::__construct($session);
-        $this->fieldTypeComponents = $fieldTypeComponents;
     }
 
+    /**
+     * @param array<string, mixed> $expectedValues
+     *
+     * @throws \RuntimeException
+     */
     public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier): void
     {
         $fieldPosition = $this->getFieldPosition($fieldLabel);

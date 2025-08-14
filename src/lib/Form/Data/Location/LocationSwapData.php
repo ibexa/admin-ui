@@ -19,43 +19,27 @@ class LocationSwapData
 
     protected ?Location $newLocation;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $currentLocation
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $newLocation
-     */
-    public function __construct(?Location $currentLocation = null, Location $newLocation = null)
+    public function __construct(?Location $currentLocation = null, ?Location $newLocation = null)
     {
         $this->currentLocation = $currentLocation;
         $this->newLocation = $newLocation;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     public function getCurrentLocation(): ?Location
     {
         return $this->currentLocation;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $currentLocation
-     */
     public function setCurrentLocation(?Location $currentLocation): void
     {
         $this->currentLocation = $currentLocation;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     public function getNewLocation(): ?Location
     {
         return $this->newLocation;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $newLocation
-     */
     public function setNewLocation(?Location $newLocation): void
     {
         $this->newLocation = $newLocation;

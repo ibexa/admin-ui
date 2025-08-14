@@ -16,18 +16,19 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class LanguagesPage extends Page
+final class LanguagesPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
     private TableInterface $table;
 
-    private Dialog $dialog;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
+
         $this->table = $tableBuilder->newTable()->build();
-        $this->dialog = $dialog;
     }
 
     public function editLanguage(string $languageName): void
@@ -50,8 +51,17 @@ class LanguagesPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('Languages');
-        $this->getHTMLPage()->find($this->getLocator('listHeader'))->assert()->textContains('List');
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('pageTitle'))
+            ->assert()
+            ->textEquals('Languages');
+
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('listHeader'))
+            ->assert()
+            ->textContains('List');
     }
 
     public function getName(): string

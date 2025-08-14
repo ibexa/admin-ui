@@ -16,26 +16,14 @@ use Ibexa\AdminUi\Behat\Page\ContentTypePage;
 use Ibexa\AdminUi\Behat\Page\ContentTypeUpdatePage;
 use PHPUnit\Framework\Assert;
 
-class ContentTypeContext implements Context
+final readonly class ContentTypeContext implements Context
 {
-    private ContentTypePage $contentTypePage;
-
-    private ContentTypeUpdatePage $contentTypeUpdatePage;
-
-    private ContentTypeGroupPage $contentTypeGroupPage;
-
-    private ContentTypeGroupsPage $contentTypeGroupsPage;
-
     public function __construct(
-        ContentTypePage $contentTypePage,
-        ContentTypeUpdatePage $contentTypeUpdatePage,
-        ContentTypeGroupPage $contentTypeGroupPage,
-        ContentTypeGroupsPage $contentTypeGroupsPage
+        private ContentTypePage $contentTypePage,
+        private ContentTypeUpdatePage $contentTypeUpdatePage,
+        private ContentTypeGroupPage $contentTypeGroupPage,
+        private ContentTypeGroupsPage $contentTypeGroupsPage
     ) {
-        $this->contentTypePage = $contentTypePage;
-        $this->contentTypeUpdatePage = $contentTypeUpdatePage;
-        $this->contentTypeGroupPage = $contentTypeGroupPage;
-        $this->contentTypeGroupsPage = $contentTypeGroupsPage;
     }
 
     /**
@@ -79,7 +67,7 @@ class ContentTypeContext implements Context
     /**
      * @Given there's no :contentTypeName on content types list
      */
-    public function thereSNoOnContentTypesList($contentTypeName): void
+    public function thereSNoOnContentTypesList(string $contentTypeName): void
     {
         Assert::assertFalse($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
@@ -103,7 +91,7 @@ class ContentTypeContext implements Context
     /**
      * @Given there's a :contentTypeName on content types list
      */
-    public function thereAContentTypeOnContentTypesList($contentTypeName): void
+    public function thereAContentTypeOnContentTypesList(string $contentTypeName): void
     {
         Assert::assertTrue($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
@@ -232,7 +220,7 @@ class ContentTypeContext implements Context
     public function iCheckBlockInField(string $blockName): void
     {
         $this->contentTypeUpdatePage->verifyIsLoaded();
-        $this->contentTypeUpdatePage->expandLastFieldDefinition('fieldDefinitionOpenContainerEdit');
+        $this->contentTypeUpdatePage->expandLastFieldDefinition();
         $this->contentTypeUpdatePage->expandDefaultBlocksOption();
         $this->contentTypeUpdatePage->selectBlock($blockName);
     }

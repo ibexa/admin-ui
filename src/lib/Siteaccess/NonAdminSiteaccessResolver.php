@@ -24,7 +24,6 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     private array $siteAccessGroups;
 
     /**
-     * @param \Ibexa\AdminUi\Siteaccess\SiteaccessResolver $siteaccessResolver
      * @param string[] $siteAccessGroups
      */
     public function __construct(SiteaccessResolver $siteaccessResolver, array $siteAccessGroups)

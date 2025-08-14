@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class EmailAddress extends FieldTypeComponent
+final class EmailAddress extends FieldTypeComponent
 {
     public function specifyLocators(): array
     {
