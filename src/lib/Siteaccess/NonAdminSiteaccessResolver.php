@@ -25,7 +25,6 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     private $siteAccessGroups;
 
     /**
-     * @param \Ibexa\AdminUi\Siteaccess\SiteaccessResolver $siteaccessResolver
      * @param string[] $siteAccessGroups
      */
     public function __construct(SiteaccessResolver $siteaccessResolver, array $siteAccessGroups)
@@ -36,8 +35,8 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
 
     public function getSiteaccessesForLocation(
         Location $location,
-        int $versionNo = null,
-        string $languageCode = null
+        ?int $versionNo = null,
+        ?string $languageCode = null
     ): array {
         return array_column(
             $this->getSiteAccessesListForLocation($location, $versionNo, $languageCode),

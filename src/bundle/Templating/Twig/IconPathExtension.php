@@ -44,7 +44,7 @@ final class IconPathExtension extends AbstractExtension
         ];
     }
 
-    public function getIconPath(string $icon, string $set = null): string
+    public function getIconPath(string $icon, ?string $set = null): string
     {
         return $this->iconPathResolver->resolve($icon, $set);
     }
