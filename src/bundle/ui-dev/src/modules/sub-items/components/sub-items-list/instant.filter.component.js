@@ -5,7 +5,7 @@ import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/sc
 import { createCssClassNames } from '@ibexa-admin-ui-modules/common/helpers/css.class.names';
 
 const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnabled = true, activeLanguage = '' }) => {
-    const _refInstantFilter = useRef(null);
+    const Translator = getTranslator();
     const [filterQuery, setFilterQuery] = useState('');
     const searchInputWrapperClassName = createCssClassNames({
         'ibexa-instant-filter__input-wrapper': true,

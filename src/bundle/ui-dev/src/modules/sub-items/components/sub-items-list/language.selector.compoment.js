@@ -30,21 +30,17 @@ const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], hand
     const dispatchSubmitFormEvent = () => {
         document.body.dispatchEvent(new CustomEvent('ibexa-sub-items:submit-version-edit-form'));
     };
-    const handleItemChange = (value) => {
-        handleItemChange(value);
-        setActiveLanguage(value);
-    };
     const resetLanguageSelector = () => {
         setActiveLanguage('');
     };
 
     useEffect(() => {
-        discardBtnRef.current?.addEventListener('click', closeLanguageSelector, false);
+        discardBtnRef.current?.addEventListener('click', closeSelector, false);
         submitBtnRef.current?.addEventListener('click', dispatchSubmitFormEvent, false);
         document.body.addEventListener('ibexa:edit-content-reset-language-selector', resetLanguageSelector, false);
 
         return () => {
-            discardBtnRef.current?.removeEventListener('click', closeLanguageSelector);
+            discardBtnRef.current?.removeEventListener('click', closeSelector);
             submitBtnRef.current?.removeEventListener('click', dispatchSubmitFormEvent);
             document.body.removeEventListener('ibexa:edit-content-reset-language-selector', resetLanguageSelector);
         };
@@ -59,7 +55,10 @@ const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], hand
                 <InstantFilter
                     items={languageItems}
                     activeLanguage={activeLanguage}
-                    handleItemChange={handleItemChange}
+                    handleItemChange={(value) => {
+                        handleItemChange(value);
+                        setActiveLanguage(value);
+                    }}
                     isSearchEnabled={isSearchEnabled}
                 />
             </div>
@@ -85,7 +84,6 @@ LanguageSelector.propTypes = {
     label: PropTypes.string,
     languageItems: PropTypes.array,
     handleItemChange: PropTypes.func,
-    closeLanguageSelector: PropTypes.func,
     close: PropTypes.func,
 };
 
