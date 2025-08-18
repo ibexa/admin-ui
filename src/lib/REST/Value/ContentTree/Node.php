@@ -35,8 +35,7 @@ class Node extends RestValue
     /** @var bool */
     public $isInvisible;
 
-    /** @var bool */
-    public $isHidden;
+    public bool $isHidden;
 
     /** @var int */
     public $displayLimit;
