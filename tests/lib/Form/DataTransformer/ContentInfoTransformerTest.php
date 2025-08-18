@@ -47,7 +47,7 @@ final class ContentInfoTransformerTest extends TestCase
         $this->expectExceptionMessage('Expected a ' . ContentInfo::class . ' object.');
 
         $result = $this->contentInfoTransformer->transform($value);
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     /**
