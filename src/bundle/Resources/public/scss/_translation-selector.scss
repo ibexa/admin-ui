@@ -2,65 +2,13 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 .ibexa-translation-selector {
-    &__list-wrapper {
-        display: block;
-        position: fixed;
-        opacity: 1;
-        text-align: left;
-        background-color: $ibexa-color-white;
-        border: calculateRem(16px) solid $ibexa-color-white;
-        width: calculateRem(360px);
-        padding: calculateRem(9px);
-        box-shadow: calculateRem(-4px) calculateRem(4px) calculateRem(6px) 0 rgba($ibexa-color-dark-300, 0.35);
-        border-radius: calculateRem(4px);
-        top: calculateRem(100px);
-        right: 0;
-        height: calc(100vh - #{calculateRem(100px)});
-        opacity: 1;
-        transform: scaleX(1);
-        transform-origin: right center;
-        z-index: 200;
-        transition:
-            transform 0.4s ease-in,
-            opacity 0.4s ease-in;
+    .ibexa-instant-filter__group-item {
+        .ibexa-btn {
+            @include edit-language-item;
 
-        &--hidden {
-            opacity: 0;
-            transform: scaleX(0);
-            transition:
-                transform 0.2s ease-out,
-                opacity 0.2s ease-out;
-        }
-    }
-
-    &__title {
-        color: $ibexa-color-primary;
-        font-size: calculateRem(16px);
-        line-height: 2;
-        font-weight: bold;
-        border-bottom: calculateRem(1px) solid $ibexa-color-primary;
-        margin-bottom: calculateRem(15px);
-    }
-
-    &__list {
-        display: flex;
-        flex-direction: column;
-        max-height: calculateRem(300px);
-        overflow: auto;
-
-        .ibexa-btn--content-edit {
-            background-color: $ibexa-color-white;
-            padding: calculateRem(9px) calculateRem(24px);
+            display: block;
+            width: 100%;
             text-align: left;
-            box-shadow: 0 calculateRem(2px) calculateRem(4px) 0 rgba($ibexa-color-black, 0.1);
-            margin-bottom: calculateRem(8px);
-
-            &:hover,
-            &:focus {
-                background: $ibexa-color-light;
-                font-weight: 700;
-                text-decoration: none;
-            }
         }
     }
 }
