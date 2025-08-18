@@ -126,7 +126,7 @@
                     border-color: $ibexa-color-dark;
 
                     .ibexa-collapse__draggable-btn .ibexa-icon {
-                        fill: $ibexa-color-dark;
+                        fill: $ibexa-color-dark-400;
                     }
                 }
 
@@ -173,7 +173,7 @@
                         cursor: grab;
 
                         .ibexa-icon {
-                            fill: $ibexa-color-light;
+                            fill: $ibexa-color-dark-400;
                         }
                     }
                 }
