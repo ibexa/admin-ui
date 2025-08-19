@@ -26,6 +26,8 @@ services:
 
   Ibexa\AdminUi\Behat\BrowserContext\UDWContext: ~
 
+  Ibexa\AdminUi\Behat\BrowserContext\ContentTreeContext: ~
+
   Ibexa\AdminUi\Behat\BrowserContext\ContentTypeContext: ~
 
   Ibexa\AdminUi\Behat\BrowserContext\NavigationContext: ~
