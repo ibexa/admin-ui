@@ -11,6 +11,18 @@
         overflow-y: auto;
     }
 
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - #{calculateRem(240px)});
+    }
+
+    &__empty-text {
+        color: $ibexa-color-dark-300;
+    }
+
     .table {
         table-layout: fixed;
         white-space: normal;

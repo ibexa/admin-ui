@@ -12,6 +12,7 @@
     const CLASS_MODAL_LOADING = 'ibexa-notifications-modal--loading';
     const INTERVAL = 30000;
     const panel = doc.querySelector('.ibexa-notifications-modal');
+    const markAllAsReadBtn = panel.querySelector('.ibexa-notifications-modal__mark-all-read-btn');
     const { showErrorNotification, showWarningNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse, getTextFromResponse } = ibexa.helpers.request;
     const handleNotificationClickRequest = (notification, response) => {
@@ -93,6 +94,7 @@
 
         modalFooter.textContent = ` (${notificationsCount})`;
         modalTitle.dataset.notificationsTotal = `(${notificationsCount})`;
+        markAllAsReadBtn.disabled = notificationsCount === 0;
 
         if (notificationsCount < 10) {
             panel.querySelector('.ibexa-notifications-modal__count').textContent = `(${notificationsCount})`;
@@ -157,9 +159,16 @@
                     const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${notificationId}"]`);
                     const menuBranch = currentTarget.closest('.ibexa-multilevel-popup-menu__branch');
                     const menuInstance = ibexa.helpers.objectInstances.getInstance(menuBranch.menuInstanceElement);
-
+                    const markAsUnreadLabel = Translator.trans(
+                        /* @Desc("Mark as unread") */ 'notification.mark_as_unread',
+                        {},
+                        'ibexa_notifications',
+                    );
                     menuInstance.closeMenu();
                     notification.classList.add('ibexa-notifications-modal__item--read');
+                    currentTarget.classList.remove('ibexa-notifications-modal--mark-as-read');
+                    currentTarget.classList.add('ibexa-notifications-modal--mark-as-unread');
+                    currentTarget.textContent = markAsUnreadLabel;
                     getNotificationsStatus();
                 } else {
                     showErrorNotification(message);
@@ -185,9 +194,17 @@
                     const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${notificationId}"]`);
                     const menuBranch = currentTarget.closest('.ibexa-multilevel-popup-menu__branch');
                     const menuInstance = ibexa.helpers.objectInstances.getInstance(menuBranch.menuInstanceElement);
+                    const markAsReadLabel = Translator.trans(
+                        /* @Desc("Mark as read") */ 'notification.mark_as_read',
+                        {},
+                        'ibexa_notifications',
+                    );
 
                     menuInstance.closeMenu();
                     notification.classList.remove('ibexa-notifications-modal__item--read');
+                    currentTarget.classList.remove('ibexa-notifications-modal--mark-as-unread');
+                    currentTarget.classList.add('ibexa-notifications-modal--mark-as-read');
+                    currentTarget.textContent = markAsReadLabel;
                     getNotificationsStatus();
                 } else {
                     showErrorNotification(message);
@@ -196,6 +213,10 @@
             .catch(() => {
                 showErrorNotification(message);
             });
+    };
+    const handleMarkAsAction = ({ currentTarget }) => {
+        const markAsReadLabel = Translator.trans(/* @Desc("Mark as read") */ 'notification.mark_as_read', {}, 'ibexa_notifications');
+        currentTarget.textContent.trim() === markAsReadLabel ? markAsRead({ currentTarget }) : markAsUnread({ currentTarget });
     };
     const deleteNotification = ({ currentTarget }) => {
         const { notificationId } = currentTarget.dataset;
@@ -226,16 +247,11 @@
     };
     const attachActionsListeners = () => {
         const attachListener = (node, callback) => node.addEventListener('click', callback, false);
-        const markAsReadButtons = doc.querySelectorAll('.ibexa-notifications-modal--mark-as-read');
-        const markAsUnreadButtons = doc.querySelectorAll('.ibexa-notifications-modal--mark-as-unread');
+        const markAsButtons = doc.querySelectorAll('.ibexa-notifications-modal--mark-as');
         const deleteButtons = doc.querySelectorAll('.ibexa-notifications-modal--delete');
 
-        markAsReadButtons.forEach((markAsReadButton) => {
-            attachListener(markAsReadButton, markAsRead);
-        });
-
-        markAsUnreadButtons.forEach((markAsUnreadButton) => {
-            attachListener(markAsUnreadButton, markAsUnread);
+        markAsButtons.forEach((markAsButton) => {
+            attachListener(markAsButton, handleMarkAsAction);
         });
 
         deleteButtons.forEach((deleteButton) => {
@@ -304,7 +320,6 @@
         return;
     }
 
-    const markAllAsReadBtn = panel.querySelector('.ibexa-notifications-modal__mark-all-read-btn');
     const notificationsTable = panel.querySelector(SELECTOR_LIST);
     currentPageLink = notificationsTable.dataset.notifications;
     const interval = Number.parseInt(notificationsTable.dataset.notificationsCountInterval, 10) || INTERVAL;

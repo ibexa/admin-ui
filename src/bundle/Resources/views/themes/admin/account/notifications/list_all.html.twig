@@ -10,10 +10,10 @@
 {% block main_container_class %}{{ parent() }} ibexa-notification-list__container {% endblock %}
 
 {% block title %}{{ 'ibexa_notifications'|trans|desc('Notifications') }}{% endblock %}
-
+{% set no_items = pager.count is same as(0) %}
 {% block header %}
     <div class="ibexa-notification-list__btn--mark-all-as-read">
-        <button class="btn ibexa-btn ibexa-btn--secondary">
+        <button class="btn ibexa-btn ibexa-btn--secondary" disabled={{ no_items }}>
             {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
         </button>
     </div>
@@ -60,19 +60,20 @@
                     class: 'ibexa-table--notifications',
                     actions: macros.table_header_tools(delete_form),
                     is_scrollable: false,
-                    show_head_cols_if_empty: true,
+                    show_head_cols_if_empty: not no_items,
                     attr: {
                         'data-notifications': path('ibexa.notifications.render.page'),
                         'data-notifications-count': path('ibexa.notifications.count'),
                         'data-notifications-count-interval': notifications_count_interval,
                         'data-notifications-total': pager.nbResults,
                     },
+                    empty_table_info_text: 'notifications.list.empty'|trans|desc('You don\'t have any notifications.'),
                 } %}
                     {% block tbody %}
-                        {% if pager.count is same as(0) %}
+                        {% if no_items %}
                             {% include '@ibexadesign/ui/component/table/empty_table_body_row.html.twig' with {
                                 colspan: 3,
-                                empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no notifications.'),
+                                empty_table_info_text: 'notifications.list.empty'|trans|desc('You don\'t have any notifications.'),
                             } %}
                         {% else %}
                             {% block tbody_not_empty %}

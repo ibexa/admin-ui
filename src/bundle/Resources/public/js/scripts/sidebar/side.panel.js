@@ -20,6 +20,9 @@
                 sidePanel.classList.add(CLASS_HIDDEN);
                 doc.body.removeEventListener('click', handleClickOutside, false);
                 removeBackdrop();
+                if (global.location.href.includes('notifications/render/all')) {
+                    global.location.reload();
+                }
             }
         };
 

@@ -101,11 +101,6 @@
         <target state="new"><![CDATA[Welcome to<br/> Ibexa DXP]]></target>
         <note>key: base.welcome</note>
       </trans-unit>
-      <trans-unit id="e55cc61e6e0bcd97f329c00790704a381212f55b" resname="bookmark.list.empty">
-        <source>You have no notifications.</source>
-        <target state="new">You have no notifications.</target>
-        <note>key: bookmark.list.empty</note>
-      </trans-unit>
       <trans-unit id="d21d07085caa55b0fee2fc054a6878bbdb24ae78" resname="breadcrumb.admin">
         <source>Admin</source>
         <target state="new">Admin</target>
@@ -517,6 +512,11 @@
         <source>Password</source>
         <target state="new">Password</target>
         <note>key: my_account_settings.password.title</note>
+      </trans-unit>
+      <trans-unit id="05b456539a9866744a3469d40b20bf4df9c4d8a8" resname="notifications.list.empty">
+        <source>You don't have any notifications.</source>
+        <target state="new">You don't have any notifications.</target>
+        <note>key: notifications.list.empty</note>
       </trans-unit>
       <trans-unit id="0480844e257807b48dbf75fa7a374ceb7649ec5c" resname="object_state.delete.bulk_delete.submit">
         <source>Delete</source>
