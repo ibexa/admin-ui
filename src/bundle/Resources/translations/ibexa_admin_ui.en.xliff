@@ -51,10 +51,30 @@
         <target state="new">Edit</target>
         <note>key: edit_translation.edit.title</note>
       </trans-unit>
-      <trans-unit id="8ecff4fc7797b03440a0430a65abf71a62d0ffc9" resname="edit_translation.list.title">
-        <source>Select language</source>
-        <target state="new">Select language</target>
-        <note>key: edit_translation.list.title</note>
+      <trans-unit id="6440d0cab7da47283a3f48e639ef28f6282482f5" resname="edit_translation.languages.discard">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: edit_translation.languages.discard</note>
+      </trans-unit>
+      <trans-unit id="dfb1b57cd634e14121d123c154cf8891de777989" resname="edit_translation.languages.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: edit_translation.languages.edit</note>
+      </trans-unit>
+      <trans-unit id="4d7f251c085c1e5480ee089bc1afc239282692f9" resname="edit_translation.languages.filter.description">
+        <source>Languages</source>
+        <target state="new">Languages</target>
+        <note>key: edit_translation.languages.filter.description</note>
+      </trans-unit>
+      <trans-unit id="254c685c0e1761a940ffb741110a87d3665d20a5" resname="edit_translation.languages.filter.placeholder">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: edit_translation.languages.filter.placeholder</note>
+      </trans-unit>
+      <trans-unit id="8080e605875823f6d0f4b144cc8d7996db99a5d1" resname="edit_translation.languages.select_language_title">
+        <source>Select translation</source>
+        <target state="new">Select translation</target>
+        <note>key: edit_translation.languages.select_language_title</note>
       </trans-unit>
       <trans-unit id="e4b8188e898e654dae14fc6b18133958f8e56084" resname="translation.remove.success">
         <source>Removed '%languageCode%' translation from '%name%'.</source>
