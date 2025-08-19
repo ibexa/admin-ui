@@ -35,8 +35,6 @@ class LanguageTransformer implements DataTransformerInterface
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $value
      *
      * @return string|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not a Language object
      */
     public function transform(mixed $value): ?string
     {

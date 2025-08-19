@@ -3127,12 +3127,6 @@ parameters:
 			path: src/lib/Form/DataTransformer/LanguageTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/lib/Form/DataTransformer/LanguageTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
@@ -8153,12 +8147,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: tests/lib/Form/DataMapper/SelectionCreateMapperTest.php
-
-		-
-			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer\:\:transform\(\) on a separate line has no effect\.$#'
-			identifier: method.resultUnused
-			count: 1
-			path: tests/lib/Form/DataTransformer/ContentInfoTransformerTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataTransformer\\ContentTypeGroupTransformerTest\:\:dataProviderForTransformWithValidInput\(\) return type has no value type specified in iterable type array\.$#'
