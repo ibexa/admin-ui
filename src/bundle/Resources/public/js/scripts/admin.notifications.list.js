@@ -132,7 +132,9 @@
 
         handleNotificationClick(notification, isToggle);
     };
-    const initStatusIcons = () => {
+    const init = () => {
+        doc.querySelector('.ibexa-notifications-modal').dataset.closeReload = 'true';
+
         doc.querySelectorAll(SELECTOR_MODAL_ITEM).forEach((item) => {
             const isRead = item.classList.contains('ibexa-notifications-modal__item--read');
 
@@ -147,7 +149,7 @@
         }, false);
     };
 
-    initStatusIcons();
+    init();
 
     doc.querySelectorAll(SELECTOR_GO_TO_NOTIFICATION).forEach((link) =>
         link.addEventListener('click', handleNotificationActionClick, false),

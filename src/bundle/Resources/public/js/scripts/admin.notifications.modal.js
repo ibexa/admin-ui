@@ -216,6 +216,7 @@
     };
     const handleMarkAsAction = ({ currentTarget }) => {
         const markAsReadLabel = Translator.trans(/* @Desc("Mark as read") */ 'notification.mark_as_read', {}, 'ibexa_notifications');
+
         currentTarget.textContent.trim() === markAsReadLabel ? markAsRead({ currentTarget }) : markAsUnread({ currentTarget });
     };
     const deleteNotification = ({ currentTarget }) => {
