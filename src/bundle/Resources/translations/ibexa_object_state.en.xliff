@@ -36,11 +36,6 @@
         <target state="new">Set</target>
         <note>key: object_state.button.set</note>
       </trans-unit>
-      <trans-unit id="064308edb6cadea3cbc55a488811610e3ceaf2a8" resname="object_state.create.create">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: object_state.create.create</note>
-      </trans-unit>
       <trans-unit id="ba36d98066b4d157d8c91e3d642a2b54442f4846" resname="object_state.create.identifier">
         <source>Identifier</source>
         <target state="new">Identifier</target>
@@ -101,11 +96,6 @@
         <target state="new">Name</target>
         <note>key: object_state.update.name</note>
       </trans-unit>
-      <trans-unit id="8b0cdd1fff0afd68d0716c1d8dc122a13b5f2e58" resname="object_state.update.save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: object_state.update.save_and_close</note>
-      </trans-unit>
       <trans-unit id="d21ddef10954199297aeb0a318e9f627dda69ec9" resname="object_state.update.success">
         <source>Object state '%name%' updated.</source>
         <target state="new">Object state '%name%' updated.</target>
@@ -145,11 +135,6 @@
         <source>Delete Object state group</source>
         <target state="new">Delete Object state group</target>
         <note>key: object_state_group.bulk_delete.delete</note>
-      </trans-unit>
-      <trans-unit id="3d528bcbfbe40fbefd8dc7590a33b77bf666c9ea" resname="object_state_group.create.create">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: object_state_group.create.create</note>
       </trans-unit>
       <trans-unit id="f87d9f18a93e3ce9f164386ee0255d53d4c5227e" resname="object_state_group.create.identifier">
         <source>Identifier</source>
@@ -225,11 +210,6 @@
         <source>Name</source>
         <target state="new">Name</target>
         <note>key: object_state_group.update.name</note>
-      </trans-unit>
-      <trans-unit id="234776708dc81f062b0a28676112bacf7ecca25d" resname="object_state_group.update.save_and_close">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
-        <note>key: object_state_group.update.save_and_close</note>
       </trans-unit>
       <trans-unit id="36efba078c092e0aa3fb7c44fcd55b1ee292cc35" resname="object_state_group.update.success">
         <source>Object state group '%name%' updated.</source>

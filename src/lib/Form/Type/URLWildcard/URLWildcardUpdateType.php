@@ -35,9 +35,7 @@ final class URLWildcardUpdateType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'url_wildcard.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
     /**

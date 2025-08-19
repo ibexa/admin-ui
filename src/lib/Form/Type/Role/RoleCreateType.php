@@ -27,8 +27,7 @@ class RoleCreateType extends AbstractType
             )
             ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'role_create.save_and_close']
+                SubmitType::class
             );
     }
 

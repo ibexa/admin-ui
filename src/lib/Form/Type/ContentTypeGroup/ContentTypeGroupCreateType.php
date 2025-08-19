@@ -24,9 +24,7 @@ class ContentTypeGroupCreateType extends AbstractType
             ->add('identifier', TextType::class, [
                 'label' => /** @Desc("Name") */ 'content_type_group.create.name',
             ])
-            ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'content_type_group.create.submit',
-            ]);
+            ->add('create', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

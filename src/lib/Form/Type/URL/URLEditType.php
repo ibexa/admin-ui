@@ -19,9 +19,7 @@ class URLEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('url', TextType::class)
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'url.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

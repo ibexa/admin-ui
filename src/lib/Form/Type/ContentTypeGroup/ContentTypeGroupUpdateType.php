@@ -24,9 +24,7 @@ class ContentTypeGroupUpdateType extends AbstractType
             ->add('identifier', TextType::class, [
                 'label' => /** @Desc("Name") */ 'content_type_group.update.name',
             ])
-            ->add('update', SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'content_type_group.update.submit',
-            ]);
+            ->add('update', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

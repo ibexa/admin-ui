@@ -25,9 +25,7 @@ class RoleUpdateType extends AbstractType
                 TextType::class,
                 ['label' => /** @Desc("Name") */ 'role_update.name']
             )
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'role_update.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

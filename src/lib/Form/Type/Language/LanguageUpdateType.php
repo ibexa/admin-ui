@@ -40,8 +40,7 @@ class LanguageUpdateType extends AbstractType
             )
             ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'language.update.save_and_close']
+                SubmitType::class
             );
     }
 

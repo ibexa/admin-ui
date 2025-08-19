@@ -27,10 +27,7 @@ class SectionCreateType extends AbstractType
         $this->sectionType->buildForm($builder, $options);
 
         $builder
-            ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Create") */
-                    'section_create_form.create',
-            ]);
+            ->add('create', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

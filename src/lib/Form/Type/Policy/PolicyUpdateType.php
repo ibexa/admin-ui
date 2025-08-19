@@ -43,8 +43,7 @@ class PolicyUpdateType extends AbstractType
             )
             ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'policy_update.save_and_close']
+                SubmitType::class
             );
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {

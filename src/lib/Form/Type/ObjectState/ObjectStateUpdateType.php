@@ -27,9 +27,7 @@ class ObjectStateUpdateType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => /** @Desc("Name") */ 'object_state.update.name',
             ])
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'object_state.update.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

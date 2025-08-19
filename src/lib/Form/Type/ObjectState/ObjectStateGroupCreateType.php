@@ -27,9 +27,7 @@ class ObjectStateGroupCreateType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => /** @Desc("Name") */ 'object_state_group.create.name',
             ])
-            ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'object_state_group.create.create',
-            ]);
+            ->add('create', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
