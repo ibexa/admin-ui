@@ -136,7 +136,7 @@ final class SetViewParametersListenerTest extends TestCase
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
-    private function generateLocation(int $parentLocationId = null): API\Location
+    private function generateLocation(?int $parentLocationId = null): API\Location
     {
         return new Core\Location(['id' => 3, 'parentLocationId' => $parentLocationId]);
     }
@@ -323,7 +323,7 @@ final class SetViewParametersListenerTest extends TestCase
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
      */
-    private function generateContentInfo(int $mainLocationId = null, bool $published = false): API\ContentInfo
+    private function generateContentInfo(?int $mainLocationId = null, bool $published = false): API\ContentInfo
     {
         return new API\ContentInfo([
             'mainLocationId' => $mainLocationId,

@@ -181,19 +181,34 @@
         <target state="new">The selected location(s) have been revealed.</target>
         <note>key: bulk_unhide.success.message</note>
       </trans-unit>
+      <trans-unit id="833bd91b4779ab4c463ae659e839438a3d6231ea" resname="edit.languages.discard">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: edit.languages.discard</note>
+      </trans-unit>
+      <trans-unit id="476e257532d8c6abbc878763d24390146278ae85" resname="edit.languages.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: edit.languages.edit</note>
+      </trans-unit>
       <trans-unit id="5e1792d4a193550fe8afd9a4be6d0a8c3f6596e9" resname="edit_item_btn.label">
         <source>Edit</source>
         <target state="new">Edit</target>
         <note>key: edit_item_btn.label</note>
       </trans-unit>
       <trans-unit id="0f2106150fc552b94658eee2125a4c4680f3564c" resname="hide_locations_btn.label">
-        <source>Hide</source>
-        <target state="new">Hide</target>
+        <source>Hide Location</source>
+        <target state="new">Hide Location</target>
         <note>key: hide_locations_btn.label</note>
       </trans-unit>
+      <trans-unit id="de8bb1e6f538f44a79b62917155d15d17691211c" resname="instant.filter.languages.select_language.desc">
+        <source>Languages</source>
+        <target state="new">Languages</target>
+        <note>key: instant.filter.languages.select_language.desc</note>
+      </trans-unit>
       <trans-unit id="2f2de7291ed87063841f5d65e5d73c1c50eaa3be" resname="instant.filter.placeholder">
-        <source>Search by content type</source>
-        <target state="new">Search by content type</target>
+        <source>Search...</source>
+        <target state="new">Search...</target>
         <note>key: instant.filter.placeholder</note>
       </trans-unit>
       <trans-unit id="2a9e4002be191374ee14674d2e67eb9fe2d631d2" resname="items_list.title">
@@ -282,8 +297,8 @@
         <note>key: items_table.row.visible.label</note>
       </trans-unit>
       <trans-unit id="c509fd3a9e7282070fa03f793bb932863c45d8f6" resname="languages.modal.label">
-        <source>Select language</source>
-        <target state="new">Select language</target>
+        <source>Select translation</source>
+        <target state="new">Select translation</target>
         <note>key: languages.modal.label</note>
       </trans-unit>
       <trans-unit id="e3c395cec9466f06c8f2f3f4b2bfcd9021537714" resname="move_btn.label">
@@ -312,8 +327,8 @@
         <note>key: udw.choose_location.title</note>
       </trans-unit>
       <trans-unit id="8518fc267b3ab3f637351ddbd8ad08e1312d822c" resname="unhide_locations_btn.label">
-        <source>Reveal</source>
-        <target state="new">Reveal</target>
+        <source>Reveal Location</source>
+        <target state="new">Reveal Location</target>
         <note>key: unhide_locations_btn.label</note>
       </trans-unit>
       <trans-unit id="712c8bc3c12cd6e3f3940ae76271148a9e4b0818" resname="view_columns_toggler.label">

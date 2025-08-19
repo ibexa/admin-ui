@@ -120,7 +120,7 @@ class ContentViewPage extends Page
         $this->deleteContentDialog = $deleteContentDialog;
     }
 
-    public function startCreatingContent(string $contentTypeName, string $language = null)
+    public function startCreatingContent(string $contentTypeName, ?string $language = null)
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();

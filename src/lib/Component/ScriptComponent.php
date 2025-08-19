@@ -38,23 +38,14 @@ class ScriptComponent implements ComponentInterface
     /** @var string|null */
     protected $integrity;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param string $src
-     * @param string $type
-     * @param string|null $async
-     * @param string|null $defer
-     * @param string|null $crossorigin
-     * @param string|null $integrity
-     */
     public function __construct(
         Environment $twig,
         string $src,
         string $type = 'text/javascript',
-        string $async = null,
-        string $defer = null,
-        string $crossorigin = null,
-        string $integrity = null
+        ?string $async = null,
+        ?string $defer = null,
+        ?string $crossorigin = null,
+        ?string $integrity = null
     ) {
         $this->twig = $twig;
         $this->src = $src;
@@ -67,8 +58,6 @@ class ScriptComponent implements ComponentInterface
 
     /**
      * @param array $parameters
-     *
-     * @return string
      */
     public function render(array $parameters = []): string
     {

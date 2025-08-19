@@ -15,12 +15,7 @@ class ContentTypeGroupData
     /** @var string */
     private $identifier;
 
-    /**
-     * ContentTypeGroupData constructor.
-     *
-     * @param string $identifier
-     */
-    public function __construct(string $identifier = null)
+    public function __construct(?string $identifier = null)
     {
         $this->identifier = $identifier;
     }

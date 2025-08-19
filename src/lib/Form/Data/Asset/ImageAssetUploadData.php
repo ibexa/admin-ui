@@ -29,29 +29,17 @@ class ImageAssetUploadData
      */
     private $languageCode;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile|null $file
-     * @param string|null $languageCode
-     */
-    public function __construct(?UploadedFile $file = null, string $languageCode = null)
+    public function __construct(?UploadedFile $file = null, ?string $languageCode = null)
     {
         $this->file = $file;
         $this->languageCode = $languageCode;
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\File\UploadedFile|null
-     */
     public function getFile(): ?UploadedFile
     {
         return $this->file;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file|null
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData
-     */
     public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
@@ -59,19 +47,11 @@ class ImageAssetUploadData
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLanguageCode(): ?string
     {
         return $this->languageCode;
     }
 
-    /**
-     * @param string|null $languageCode
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Asset\ImageAssetUploadData
-     */
     public function setLanguageCode(?string $languageCode): self
     {
         $this->languageCode = $languageCode;

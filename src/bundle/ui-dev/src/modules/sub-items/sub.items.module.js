@@ -1258,13 +1258,13 @@ export default class SubItemsModule extends Component {
     }
 
     renderBulkHideBtn(disabled) {
-        const label = Translator.trans(/*@Desc("Hide")*/ 'hide_locations_btn.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/*@Desc("Hide Location")*/ 'hide_locations_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />);
     }
 
     renderBulkUnhideBtn(disabled) {
-        const label = Translator.trans(/*@Desc("Reveal")*/ 'unhide_locations_btn.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/*@Desc("Reveal Location")*/ 'unhide_locations_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
             <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />,

@@ -43,13 +43,6 @@ class ContentTranslateViewBuilder implements ViewBuilder
     /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
     private $languagePreferenceProvider;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     * @param \Ibexa\Core\MVC\Symfony\View\Configurator $viewConfigurator
-     * @param \Ibexa\Core\MVC\Symfony\View\ParametersInjector $viewParametersInjector
-     * @param \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface $contentActionDispatcher
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
-     */
     public function __construct(
         Repository $repository,
         Configurator $viewConfigurator,
@@ -138,16 +131,14 @@ class ContentTranslateViewBuilder implements ViewBuilder
     /**
      * Loads Content with id $contentId.
      *
-     * @param int $contentId
      * @param array $languages
-     * @param int|null $versionNo
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    private function loadContent(int $contentId, array $languages = [], int $versionNo = null): Content
+    private function loadContent(int $contentId, array $languages = [], ?int $versionNo = null): Content
     {
         return $this->repository->getContentService()->loadContent($contentId, $languages, $versionNo);
     }
@@ -155,7 +146,6 @@ class ContentTranslateViewBuilder implements ViewBuilder
     /**
      * Loads a visible Location.
      *
-     * @param int $locationId
      * @param array|null $languages
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
@@ -163,17 +153,13 @@ class ContentTranslateViewBuilder implements ViewBuilder
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    private function loadLocation(int $locationId, array $languages = null): Location
+    private function loadLocation(int $locationId, ?array $languages = null): Location
     {
         return $this->repository->getLocationService()->loadLocation($locationId, $languages);
     }
 
     /**
      * Loads Language with code $languageCode.
-     *
-     * @param string $languageCode
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
@@ -184,8 +170,6 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
     /**
      * @param array $parameters
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -205,8 +189,6 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
     /**
      * @param array $parameters
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -229,10 +211,6 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
     /**
      * @param array $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -262,9 +240,6 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
     /**
      * @param array $parameters
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException

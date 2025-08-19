@@ -12,7 +12,13 @@
         'click',
         () => {
             languageRadioOption.checked = true;
-            languageRadioOption.dispatchEvent(new CustomEvent('change'));
+            languageRadioOption.dispatchEvent(
+                new CustomEvent('change', {
+                    detail: {
+                        sendImmediately: true,
+                    },
+                }),
+            );
         },
         false,
     );
