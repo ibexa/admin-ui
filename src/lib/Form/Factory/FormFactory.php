@@ -135,20 +135,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
+    protected UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
-    /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     */
     public function __construct(
         FormFactoryInterface $formFactory,
         UrlGeneratorInterface $urlGenerator,
@@ -160,8 +152,6 @@ class FormFactory
     }
 
     /**
-     * @param array $options
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function contentEdit(
@@ -200,7 +190,7 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $data = $data ?? new ContentCreateData();
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -219,7 +209,7 @@ class FormFactory
         ?ContentTypesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypesDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -235,7 +225,7 @@ class FormFactory
         ?ContentTypeGroupCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -282,7 +272,7 @@ class FormFactory
         ?ContentTypeGroupsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupsDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -325,7 +315,7 @@ class FormFactory
         ?VersionRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(VersionRemoveType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -337,14 +327,11 @@ class FormFactory
         return $this->formFactory->createNamed($name, VersionRemoveType::class, $data);
     }
 
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function addLocation(
         ?ContentLocationAddData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationAddType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -360,7 +347,7 @@ class FormFactory
         ?ContentLocationRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationRemoveType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -376,7 +363,7 @@ class FormFactory
         ?LocationSwapData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationSwapType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -395,7 +382,7 @@ class FormFactory
         ?ContentMainLocationUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentMainLocationUpdateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -417,7 +404,7 @@ class FormFactory
         ?LocationTrashData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationTrashType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -435,7 +422,7 @@ class FormFactory
         ?LocationMoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationMoveType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -451,7 +438,7 @@ class FormFactory
         ?LocationCopyData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopyType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -470,7 +457,7 @@ class FormFactory
         ?LocationUpdateVisibilityData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -489,7 +476,7 @@ class FormFactory
         ?ContentVisibilityUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentVisibilityUpdateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -507,7 +494,7 @@ class FormFactory
         ?LocationUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -523,7 +510,7 @@ class FormFactory
         ?SectionContentAssignData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionContentAssignType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -561,7 +548,7 @@ class FormFactory
         ?SectionsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionsDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -577,7 +564,7 @@ class FormFactory
         ?SectionCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -616,7 +603,7 @@ class FormFactory
         ?LanguageCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguageCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -663,7 +650,7 @@ class FormFactory
         ?LanguagesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguagesDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -679,7 +666,7 @@ class FormFactory
         ?RoleCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -725,7 +712,7 @@ class FormFactory
         ?RoleAssignmentCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -762,7 +749,7 @@ class FormFactory
         ?RoleAssignmentsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentsDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -778,7 +765,7 @@ class FormFactory
         ?PolicyCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -794,7 +781,7 @@ class FormFactory
         ?PolicyCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyCreateWithLimitationType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -810,7 +797,7 @@ class FormFactory
         PolicyUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyUpdateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -826,7 +813,7 @@ class FormFactory
         PolicyDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -845,7 +832,7 @@ class FormFactory
         ?PoliciesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(PoliciesDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -857,15 +844,12 @@ class FormFactory
         return $this->formFactory->createNamed($name, PoliciesDeleteType::class, $data);
     }
 
-    /**
-     * @param array $options
-     */
     public function createSearchForm(
         ?SearchData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -877,15 +861,12 @@ class FormFactory
         return $this->formFactory->createNamed($name, SearchType::class, $data, $options);
     }
 
-    /**
-     * @param array $options
-     */
     public function createUrlListForm(
         ?URLListData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLListType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -897,15 +878,12 @@ class FormFactory
         return $this->formFactory->createNamed($name, URLListType::class, $data, $options);
     }
 
-    /**
-     * @param array $options
-     */
     public function createUrlEditForm(
         ?URLUpdateData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLEditType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -921,7 +899,7 @@ class FormFactory
         ?UserDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -937,7 +915,7 @@ class FormFactory
         ?CustomUrlAddData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlAddType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -953,7 +931,7 @@ class FormFactory
         ?CustomUrlRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlRemoveType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -969,7 +947,7 @@ class FormFactory
         ?ObjectStateGroupCreateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupCreateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1004,7 +982,7 @@ class FormFactory
         ?ObjectStateGroupsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupsDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1032,7 +1010,7 @@ class FormFactory
         ?LocationCopySubtreeData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopySubtreeType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1048,7 +1026,7 @@ class FormFactory
         ?BookmarkRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(BookmarkRemoveType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1064,7 +1042,7 @@ class FormFactory
         ?UserEditData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(UserEditType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1085,7 +1063,7 @@ class FormFactory
         ?ContentRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentRemoveType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1104,7 +1082,7 @@ class FormFactory
         NotificationSelectionData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1127,7 +1105,7 @@ class FormFactory
         ?URLWildcardData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1150,7 +1128,7 @@ class FormFactory
         ?URLWildcardUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardUpdateType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -1173,7 +1151,7 @@ class FormFactory
         ?URLWildcardDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(

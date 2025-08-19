@@ -146,6 +146,11 @@
         <target state="new">Are you sure you want to permanently delete the selected notification(s)?</target>
         <note>key: notifications.list.action.remove.confirmation.text</note>
       </trans-unit>
+      <trans-unit id="05b456539a9866744a3469d40b20bf4df9c4d8a8" resname="notifications.list.empty">
+        <source>You don't have any notifications.</source>
+        <target state="new">You don't have any notifications.</target>
+        <note>key: notifications.list.empty</note>
+      </trans-unit>
       <trans-unit id="79036b8a9fecbed5d0c14a94c5639d611c6ab6d1" resname="notifications.modal.message.error">
         <source>Cannot update notifications</source>
         <target state="new">Cannot update notifications</target>
