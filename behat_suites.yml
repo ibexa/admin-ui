@@ -24,6 +24,7 @@ browser:
                 - Ibexa\AdminUi\Behat\BrowserContext\AdminUpdateContext
                 - Ibexa\AdminUi\Behat\BrowserContext\BookmarkContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentPreviewContext
+                - Ibexa\AdminUi\Behat\BrowserContext\ContentTreeContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentTypeContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentUpdateContext
                 - Ibexa\AdminUi\Behat\BrowserContext\ContentViewContext
