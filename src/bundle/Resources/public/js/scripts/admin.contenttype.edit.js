@@ -371,8 +371,8 @@
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
         const field = input.closest('.form-group');
-        const labelNode = field.querySelector('.ibexa-label');
-        const errorNode = field.querySelector('.ibexa-form-error');
+        const labelNode = field?.querySelector('.ibexa-label');
+        const errorNode = field?.querySelector('.ibexa-form-error');
 
         input.classList.toggle('is-invalid', isInputEmpty);
 
@@ -390,8 +390,21 @@
 
         isEditFormValid = isEditFormValid && !isInputEmpty;
     };
+    const validateMatrixColumns = (columnSettingsNode) => {
+        const columns = columnSettingsNode.querySelectorAll('.ibexa-matrix-settings__column');
+        const requiredInputs = columnSettingsNode.querySelectorAll('.ibexa-input[required]');
+        const hasAddedColumns = columns.length > 0;
+        const hasEmptyRequiredInputs = [...requiredInputs].some((input) => !input.value);
+        const isValid = hasAddedColumns && !hasEmptyRequiredInputs;
+        const errorNode = columnSettingsNode.querySelector('.ibexa-form-error');
+
+        errorNode.toggleAttribute('hidden', hasAddedColumns);
+
+        return isValid;
+    };
     const validateForm = () => {
         const fieldDefinitionsStatuses = {};
+        const matrixColumnsSettingsNodes = doc.querySelectorAll('.ibexa-matrix-settings__columns');
 
         isEditFormValid = true;
         inputsToValidate = editForm.querySelectorAll(SELECTOR_INPUTS_TO_VALIDATE);
@@ -413,6 +426,19 @@
             validateInput(input);
         });
 
+        matrixColumnsSettingsNodes.forEach((columnSettingsNode) => {
+            const fieldDefinition = columnSettingsNode.closest('.ibexa-collapse--field-definition');
+            const { fieldDefinitionIdentifier } = fieldDefinition.dataset;
+            const hasError = !validateMatrixColumns(columnSettingsNode);
+
+            if (!fieldDefinitionsStatuses[fieldDefinitionIdentifier]) {
+                fieldDefinitionsStatuses[fieldDefinitionIdentifier] = [];
+            }
+
+            fieldDefinitionsStatuses[fieldDefinitionIdentifier].push(hasError);
+            isEditFormValid = isEditFormValid && !hasError;
+        });
+
         Object.entries(fieldDefinitionsStatuses).forEach(([fieldDefinitionIdentifier, inputsStatus]) => {
             const isFieldDefinitionValid = inputsStatus.every((hasError) => !hasError);
             const fieldDefinitionNode = doc.querySelector(`[data-field-definition-identifier="${fieldDefinitionIdentifier}"]`);
@@ -427,8 +453,8 @@
     };
     const scrollToInvalidInput = () => {
         const firstInvalidInput = editForm.querySelector('.ibexa-input.is-invalid');
-        const fieldDefinition = firstInvalidInput.closest('.ibexa-collapse--field-definition');
-        const scrollToNode = fieldDefinition ?? firstInvalidInput;
+        const firstInvalidFieldDefinition = editForm.querySelector('.ibexa-collapse--field-definition.is-invalid');
+        const scrollToNode = firstInvalidFieldDefinition ?? firstInvalidInput;
 
         scrollToNode.scrollIntoView({ behavior: 'smooth' });
     };
@@ -627,6 +653,15 @@
 
         draggable.init();
         draggableGroups.push(draggable);
+    });
+
+    doc.body.addEventListener('ibexa-fieldtype-matrix:added-column', (event) => {
+        const { columnNode } = event.detail;
+        const inputs = columnNode.querySelectorAll('.ibexa-input[required]');
+
+        [...inputs].forEach((input) => {
+            attachValidateEvents(input);
+        });
     });
 
     fieldDefinitionsGroups.forEach((group) => group.addEventListener('click', () => setActiveGroup(group), false));
