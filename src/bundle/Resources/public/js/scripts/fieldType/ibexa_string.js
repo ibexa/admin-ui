@@ -3,6 +3,10 @@
     const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
 
     class IbexaStringValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaStringValidator';
+        }
+
         /**
          * Validates the input
          *
