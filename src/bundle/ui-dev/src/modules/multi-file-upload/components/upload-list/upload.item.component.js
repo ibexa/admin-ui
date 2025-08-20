@@ -263,10 +263,10 @@ export default class UploadItemComponent extends Component {
         const [, iconName] = contentTypeIconUrl.split('#');
 
         if (this.isExternalInstance) {
-            return <Icon name={iconName} extraClasses="ibexa-icon--small" defaultIconName="file" />;
+            return <Icon name={iconName} extraClasses="ibexa-icon--small-medium" defaultIconName="file" />;
         }
 
-        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />;
+        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />;
     }
 
     renderProgressBar() {
@@ -349,7 +349,7 @@ export default class UploadItemComponent extends Component {
                 tabIndex="-1"
                 type="button"
             >
-                <Icon name="trash" extraClasses="ibexa-icon--small" />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     }
@@ -392,7 +392,7 @@ export default class UploadItemComponent extends Component {
                 type="button"
                 disabled={!struct}
             >
-                <Icon name="edit" extraClasses="ibexa-icon--small" />
+                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     }
@@ -417,7 +417,7 @@ export default class UploadItemComponent extends Component {
                 type="button"
                 disabled={!(struct || failed)}
             >
-                <Icon name="trash" extraClasses="ibexa-icon--small" />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     }

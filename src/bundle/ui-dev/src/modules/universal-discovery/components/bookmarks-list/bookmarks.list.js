@@ -144,7 +144,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage = 50 }) => {
 
                 return (
                     <div key={bookmark.id} className={className} onClick={markLocation}>
-                        <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
+                        <Icon extraClasses="ibexa-icon--small-medium" customPath={contentTypeInfo.thumbnail} />
                         <span
                             title={bookmark.ContentInfo.Content.TranslatedName}
                             data-tooltip-container-selector=".c-bookmarks-list"

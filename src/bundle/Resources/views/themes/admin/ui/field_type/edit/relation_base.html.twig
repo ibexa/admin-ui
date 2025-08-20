@@ -14,7 +14,7 @@
             title="{{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}"
             {{ readonly ? 'disabled' }}
         >
-            <svg class="ibexa-icon ibexa-icon--small">
+            <svg class="ibexa-icon ibexa-icon--small-medium">
                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
             </svg>
         </button>
@@ -283,7 +283,7 @@
                                 disabled
                                 {% if not has_relations %}hidden="true"{% endif %}
                             >
-                                <svg class="ibexa-icon ibexa-icon--small">
+                                <svg class="ibexa-icon ibexa-icon--small-medium">
                                     <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                 </svg>
                                 <span class="ibexa-btn__label">{{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}</span>

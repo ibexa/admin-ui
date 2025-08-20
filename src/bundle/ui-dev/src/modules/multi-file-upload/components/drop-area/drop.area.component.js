@@ -59,7 +59,7 @@ export default class DropAreaComponent extends Component {
 
         return (
             <li className="c-drop-area__max-file-size-item">
-                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
+                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small-medium" />
                 {Translator.trans(/* @Desc("Max. file size") */ 'max_file_size.message.general', {}, 'ibexa_multi_file_upload')}
                 <button
                     type="button"
@@ -85,7 +85,7 @@ export default class DropAreaComponent extends Component {
                     return (
                         <li key={itemKey} className="c-drop-area__max-file-size-item">
                             {!this.hasMultiMsgForFileSizes && (
-                                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small" />
+                                <Icon name="about-info" extraClasses="c-drop-area__max-file-size-icon ibexa-icon--small-medium" />
                             )}
                             {Translator.trans(
                                 /* @Desc("%contentTypeName% max file size: %maxFileSize%") */ 'max_file_size.message',

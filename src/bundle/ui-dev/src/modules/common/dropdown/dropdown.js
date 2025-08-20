@@ -147,7 +147,7 @@ const Dropdown = ({
                                 className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
                                 tabIndex="-1"
                             >
-                                <Icon name="search" extraClasses="ibexa-icon--small" />
+                                <Icon name="search" extraClasses="ibexa-icon--small-medium" />
                             </button>
                         </div>
                     </div>

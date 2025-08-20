@@ -229,7 +229,7 @@
             {{ field.value.fileName }}
             {{ field.value.fileSize|ibexa_file_size( 1 ) }}
             <a class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ml-4" download href="{{ path( route_reference.getRoute(), route_reference.getParams() ) }}">
-                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--download">
+                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--download">
                     <use xlink:href="{{ ibexa_icon_path('download') }}"></use>
                 </svg>
             </a>

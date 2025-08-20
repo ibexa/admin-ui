@@ -14,7 +14,7 @@ const Tag = ({ content, onRemove = () => {}, isDeletable = true, extraClasses = 
         <div className={className}>
             <div className="ibexa-tag__content">{content}</div>
             <button type="button" className="ibexa-tag__remove-btn" onClick={onRemove}>
-                <Icon name="circle-close" extraClasses="ibexa-icon--small" />
+                <Icon name="circle-close" extraClasses="ibexa-icon--small-medium" />
             </button>
         </div>
     );

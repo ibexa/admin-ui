@@ -124,7 +124,7 @@ class ListItem extends Component {
     renderIcon() {
         const { contentTypeIdentifier, locationId } = this.props;
         const iconAttrs = {
-            extraClasses: 'ibexa-icon--small ibexa-icon--dark',
+            extraClasses: 'ibexa-icon--small-medium ibexa-icon--dark',
         };
 
         if (!this.state.isLoading || this.props.subitems.length) {
@@ -161,7 +161,7 @@ class ListItem extends Component {
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner" />;
+            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small-medium c-list-item__load-more-btn-spinner" />;
         }
 
         return (
@@ -217,7 +217,7 @@ class ListItem extends Component {
                     {this.renderIcon()}
                     <span className="c-list-item__label-content" title={name}>
                         {name}
-                        {isInvisible && <Icon name="view-hide" extraClasses="ibexa-icon--small c-list-item__hidden-icon" />}
+                        {isInvisible && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium c-list-item__hidden-icon" />}
                     </span>
                 </a>
                 <div className="c-list-item__actions">

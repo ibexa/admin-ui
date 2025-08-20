@@ -13,7 +13,7 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
         const iconName = isCollapsed ? 'caret-next' : 'caret-back';
         const caretIconClass = createCssClassNames({
             'ibexa-icon--tiny': isCollapsed,
-            'ibexa-icon--small': !isCollapsed,
+            'ibexa-icon--small-medium': !isCollapsed,
         });
 
         return (
@@ -22,7 +22,7 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
                 className="ibexa-btn btn ibexa-btn--no-text ibexa-btn--tertiary c-header__toggle-btn"
                 onClick={toggleCollapseTree}
             >
-                {isCollapsed && <Icon name="content-tree" extraClasses="ibexa-icon--small" />}
+                {isCollapsed && <Icon name="content-tree" extraClasses="ibexa-icon--small-medium" />}
                 <Icon name={iconName} extraClasses={caretIconClass} />
             </button>
         );
@@ -36,7 +36,7 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
         <div className="c-header">
             {renderCollapseButton()}
             <div className="c-header__name">
-                <Icon name="content-tree" extraClasses="ibexa-icon--small" />
+                <Icon name="content-tree" extraClasses="ibexa-icon--small-medium" />
                 {headerTitle}
             </div>
             <div className="c-header__options">
