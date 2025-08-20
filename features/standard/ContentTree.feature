@@ -3,9 +3,7 @@
 @tree
 Feature: Content tree basic operations
   Scenario: Content tree can be displayed
-#    Given I am logged as admin
-    Given I open Login page in admin SiteAccess
-    And I log in as admin with password publish
+    Given I am logged as admin
     And I should be on Dashboard page
     When I go to "Content structure" in Content tab
     Then I verify Content tree visibility
