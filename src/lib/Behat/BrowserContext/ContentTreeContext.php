@@ -15,10 +15,9 @@ final class ContentTreeContext implements Context
 {
     private ContentTree $contentTree;
 
-    public function __construct (
+    public function __construct(
         ContentTree $contentTree
-    )
-    {
+    ) {
         $this->contentTree = $contentTree;
     }
 
@@ -29,5 +28,4 @@ final class ContentTreeContext implements Context
     {
         $this->contentTree->verifyIsLoaded();
     }
-
 }
