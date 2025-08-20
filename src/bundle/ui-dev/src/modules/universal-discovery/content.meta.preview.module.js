@@ -94,7 +94,7 @@ const ContentMetaPreview = () => {
                     type="button"
                     onClick={previewContent}
                 >
-                    <Icon name="view" extraClasses="ibexa-icon--small" />
+                    <Icon name="view" extraClasses="ibexa-icon--small-medium" />
                     {previewLabel}
                 </button>
             </div>
@@ -113,7 +113,7 @@ const ContentMetaPreview = () => {
                         type="button"
                         onClick={toggleBookmarked}
                     >
-                        <Icon name={bookmarkIconName} extraClasses="ibexa-icon--small" />
+                        <Icon name={bookmarkIconName} extraClasses="ibexa-icon--small-medium" />
                         {bookmarked ? bookmarksRemoveLabel : bookmarksAddLabel}
                     </button>
                 </div>

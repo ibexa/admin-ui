@@ -60,7 +60,7 @@
         {%- else -%}
             <div class="ibexa-instant-filter__group-item" data-identifier="{{ option.value }}">
                 <label class="ibexa-instant-filter__group-item-label-icon" for="{{ form[key].vars.id }}">
-                    <svg class="ibexa-icon ibexa-icon--small">
+                    <svg class="ibexa-icon ibexa-icon--small-medium">
                         <use xlink:href="{{ ibexa_content_type_icon(option.value) }}"></use>
                     </svg>
                 </label>
@@ -174,7 +174,7 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('restore') }}"></use>
         </svg>
         <span class="ibexa-btn__label">
@@ -196,7 +196,7 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('restore-parent') }}"></use>
         </svg>
         <span class="ibexa-btn__label">
@@ -235,7 +235,7 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path(icon|default('')) }}"></use>
         </svg>
         {%- if title -%}
@@ -374,7 +374,7 @@
         {%- set form_errors_attr = form_errors_attr|default({})|merge({class: (form_errors_attr.class|default('') ~ ' ibexa-form-error__row')|trim}) -%}
         {%- for error in errors -%}
             <em {% with { attr: form_errors_attr } %}{{ block('attributes') }}{% endwith %}>
-                <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
+                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
                     <use xlink:href="{{ ibexa_icon_path('notice') }}"></use>
                 </svg>
                 {{ error.message }}
@@ -419,7 +419,7 @@
 
         <small id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
             {% if with_icon %}
-                <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
+                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-help__icon">
                     <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
                 </svg>
             {% endif %}
@@ -518,7 +518,7 @@
     {% trans_default_domain 'ibexa_admin_ui' %}
 
     {%- set title_icon -%}
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
         </svg>
     {%- endset -%}

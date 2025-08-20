@@ -168,7 +168,7 @@ export default class MultiFileUploadModule extends Component {
         });
         return (
             <button type="button" className={buttonClassName} onClick={this.showUploadPopup} disabled={uploadDisabled}>
-                <Icon name="upload" extraClasses="ibexa-icon--small" /> {label}
+                <Icon name="upload" extraClasses="ibexa-icon--small-medium" /> {label}
             </button>
         );
     }
