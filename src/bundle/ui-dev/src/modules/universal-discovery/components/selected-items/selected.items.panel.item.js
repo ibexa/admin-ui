@@ -46,7 +46,7 @@ const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraC
         >
             <div className="c-selected-items-panel-item__main-content">
                 <div className="c-selected-items-panel-item__image-wrapper">
-                    <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
+                    <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small-medium" />
                 </div>
                 <div className="c-selected-items-panel-item__info">
                     <span className="c-selected-items-panel-item__info-name">{name}</span>

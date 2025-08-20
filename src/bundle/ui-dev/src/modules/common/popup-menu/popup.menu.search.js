@@ -41,7 +41,7 @@ const PopupMenuSearch = ({ numberOfItems, filterText = '', setFilterText }) => {
                             className="btn ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
                             tabIndex="-1"
                         >
-                            <Icon name="search" extraClasses="ibexa-icon--small" />
+                            <Icon name="search" extraClasses="ibexa-icon--small-medium" />
                         </button>
                     </div>
                 </div>

@@ -29,7 +29,7 @@
                     href="{{ path('ibexa.content_type_group.create') }}"
                     class="btn ibexa-btn ibexa-btn--primary"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
                         <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
                     </svg>
                     <span class="ibexa-btn__label">
@@ -72,7 +72,7 @@
                 raw: true,
             }]) %}
             {% set col_raw %}
-                <svg class="ibexa-icon ibexa-icon--small">
+                <svg class="ibexa-icon ibexa-icon--small-medium">
                     <use xlink:href="{{ ibexa_content_type_group_icon(content_type_group.identifier) }}"></use>
                 </svg>
             {% endset %}
@@ -109,7 +109,7 @@
                         href="{{ edit_url }}"
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
                             <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                         </svg>
                     </a>
@@ -151,7 +151,7 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#{{ modal_data_target }}"
                             >
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+                                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
                                     <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                                 </svg>
                                 <span class="ibexa-btn__label">

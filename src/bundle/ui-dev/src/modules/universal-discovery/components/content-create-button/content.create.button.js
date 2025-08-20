@@ -58,7 +58,7 @@ const ContentCreateButton = ({ isDisabled = false }) => {
                 onClick={toggleContentCreateVisibility}
                 type="button"
             >
-                <Icon name="create" extraClasses="ibexa-icon--small" />
+                <Icon name="create" extraClasses="ibexa-icon--small-medium" />
                 <span className="ibexa-btn__label">{createLabel}</span>
             </button>
         </div>
