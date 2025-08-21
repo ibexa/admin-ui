@@ -457,7 +457,7 @@ class FormFactory
         ?LocationUpdateVisibilityData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityData::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -797,14 +797,10 @@ class FormFactory
         PolicyUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyUpdateType::class);
-
-        if (!is_string($name) || $name === '') {
-            throw new InvalidArgumentException(
-                'name',
-                'The form name must be a non-empty string.'
-            );
-        }
+        $name = $name ?: sprintf(
+            'update-policy-%s',
+            hash('sha256', implode('/', $data->getPolicy() ?? []))
+        );
 
         return $this->formFactory->createNamed($name, PolicyUpdateType::class, $data);
     }
@@ -813,14 +809,10 @@ class FormFactory
         PolicyDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyDeleteType::class);
-
-        if (!is_string($name) || $name === '') {
-            throw new InvalidArgumentException(
-                'name',
-                'The form name must be a non-empty string.'
-            );
-        }
+        $name = $name ?: sprintf(
+            'delete-policy-%s',
+            hash('sha256', implode('/', $data->getPolicy() ?? []))
+        );
 
         return $this->formFactory->createNamed($name, PolicyDeleteType::class, $data);
     }
@@ -849,7 +841,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -866,7 +858,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLListType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
@@ -883,7 +875,7 @@ class FormFactory
         ?string $name = null,
         array $options = []
     ): FormInterface {
-        $name = $name ?: StringUtil::fqcnToBlockPrefix(URLEditType::class);
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
 
         if (!is_string($name) || $name === '') {
             throw new InvalidArgumentException(
