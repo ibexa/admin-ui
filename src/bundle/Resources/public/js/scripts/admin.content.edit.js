@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, Translator, moment) {
+(function (global, doc, ibexa, Translator, bootstrap, moment) {
     const ENTER_KEY_CODE = 13;
     const STATUS_ERROR = 'error';
     const STATUS_OFF = 'off';
@@ -30,6 +30,7 @@
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const menuButtonsToValidate = doc.querySelectorAll('button[data-validate]');
     const fields = doc.querySelectorAll('.ibexa-field-edit');
+    const autosaveNode = doc.querySelector('.ibexa-autosave');
     const getValidationResults = (validator) => {
         const isValid = validator.isValid();
         const validatorName = validator.constructor.name;
@@ -130,31 +131,35 @@
         return ibexa.adminUiConfig.autosave.enabled && form.querySelector('[name="ezplatform_content_forms_content_edit[autosave]"]');
     };
 
-    if (isAutosaveEnabled()) {
-        const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
-        const autosave = doc.querySelector('.ibexa-autosave');
-        const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
-        let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
+    if (autosaveNode) {
+        let currentAutosaveStatus = autosaveNode.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
+        let isAutosaveSimple = autosaveNode.classList.contains('ibexa-autosave--simple');
+        const tooltipInstance = bootstrap.Tooltip.getOrCreateInstance(autosaveNode);
         const generateCssStatusClass = (status) => `ibexa-autosave--${status}`;
         const setAutosaveStatus = (newStatus) => {
-            if (!autosave) {
-                return;
-            }
-
             const oldCssStatusClass = generateCssStatusClass(currentAutosaveStatus);
             const newCssStatusClass = generateCssStatusClass(newStatus);
 
-            autosave.classList.remove(oldCssStatusClass);
-            autosave.classList.remove('ibexa-autosave--saved');
-            autosave.classList.add(newCssStatusClass);
+            autosaveNode.classList.remove(oldCssStatusClass);
+            autosaveNode.classList.remove('ibexa-autosave--saved');
+            autosaveNode.classList.add(newCssStatusClass);
 
             currentAutosaveStatus = newStatus;
+            setAutosaveTooltipContent();
         };
-        const setDraftSavedMessage = () => {
-            if (!autosave) {
-                return;
-            }
+        const setAutosaveTooltipContent = () => {
+            const statusMsgFromNode = autosaveNode.querySelector(`.ibexa-autosave__status--${currentAutosaveStatus}`).innerText;
+            const tooltipContent = isAutosaveSimple
+                ? statusMsgFromNode
+                : Translator.trans(
+                      /*@Desc("You can turn autosave off in your user settings")*/ 'content.autosave.turn_off.message',
+                      {},
+                      'ibexa_content',
+                  );
 
+            tooltipInstance.setContent({ '.tooltip-inner': tooltipContent });
+        };
+        const setDraftSavedMessage = (autosaveStatusSavedNode) => {
             const userPreferredTimezone = ibexa.adminUiConfig.timezone;
             const saveDate = ibexa.helpers.timezone.convertDateToTimezone(new Date(), userPreferredTimezone);
             const saveTime = moment(saveDate).formatICU('HH:mm');
@@ -165,25 +170,41 @@
             );
 
             autosaveStatusSavedNode.innerHTML = saveMessage;
-            autosave.classList.add('ibexa-autosave--saved');
+            autosaveNode.classList.add('ibexa-autosave--saved');
         };
 
-        setInterval(() => {
-            const formData = new FormData(form);
+        setAutosaveTooltipContent();
 
-            formData.set(AUTOSAVE_SUBMIT_BUTTON_NAME, true);
-            setAutosaveStatus(STATUS_SAVING);
+        doc.body.addEventListener('ibexa:edit-content-change-header-size', ({ detail }) => {
+            isAutosaveSimple = detail.isHeaderSlim;
+            autosaveNode.classList.toggle('ibexa-autosave--simple', isAutosaveSimple);
+            setAutosaveTooltipContent();
+        });
 
-            fetch(form.target || window.location.href, { method: 'POST', body: formData })
-                .then(ibexa.helpers.request.getStatusFromResponse)
-                .then(() => {
-                    setAutosaveStatus(STATUS_SAVED);
-                    setDraftSavedMessage();
-                })
-                .catch(() => {
-                    setAutosaveStatus(STATUS_ERROR);
-                });
-        }, ibexa.adminUiConfig.autosave.interval);
+        if (isAutosaveEnabled()) {
+            const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
+            const autosaveStatusSavedNode = autosaveNode.querySelector('.ibexa-autosave__status--saved');
+
+            setInterval(() => {
+                const formData = new FormData(form);
+
+                formData.set(AUTOSAVE_SUBMIT_BUTTON_NAME, true);
+                setAutosaveStatus(STATUS_SAVING);
+
+                fetch(form.target || window.location.href, { method: 'POST', body: formData })
+                    .then(ibexa.helpers.request.getStatusFromResponse)
+                    .then(() => {
+                        setAutosaveStatus(STATUS_SAVED);
+                        setDraftSavedMessage(autosaveStatusSavedNode);
+                    })
+                    .catch(() => {
+                        setAutosaveStatus(STATUS_ERROR);
+                    })
+                    .finally(() => {
+                        setAutosaveTooltipContent();
+                    });
+            }, ibexa.adminUiConfig.autosave.interval);
+        }
     }
 
     form.setAttribute('novalidate', true);
@@ -204,4 +225,4 @@
     menuButtonsToValidate.forEach((btn) => {
         btn.addEventListener('click', validateHandler, false);
     });
-})(window, window.document, window.ibexa, window.Translator, window.moment);
+})(window, window.document, window.ibexa, window.Translator, window.bootstrap, window.moment);
