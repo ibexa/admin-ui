@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, Translator, moment) {
+(function (global, doc, ibexa, Translator, bootstrap, moment) {
     const ENTER_KEY_CODE = 13;
     const STATUS_ERROR = 'error';
     const STATUS_OFF = 'off';
@@ -134,8 +134,22 @@
         const AUTOSAVE_SUBMIT_BUTTON_NAME = 'ezplatform_content_forms_content_edit[autosave]';
         const autosave = doc.querySelector('.ibexa-autosave');
         const autosaveStatusSavedNode = autosave.querySelector('.ibexa-autosave__status-saved');
+        const tooltipInstance = bootstrap.Tooltip.getOrCreateInstance(autosave);
         let currentAutosaveStatus = autosave.classList.contains('ibexa-autosave--on') ? STATUS_ON : STATUS_OFF;
+        let isAutosaveSimple = autosave.classList.contains('ibexa-autosave--simple');
         const generateCssStatusClass = (status) => `ibexa-autosave--${status}`;
+        const setAutosaveTooltipContent = () => {
+            const statusMsgFromNode = autosave.querySelector(`.ibexa-autosave__status--${currentAutosaveStatus}`).innerText;
+            const tooltipContent = isAutosaveSimple
+                ? statusMsgFromNode
+                : Translator.trans(
+                      /*@Desc("You can turn autosave off in your user settings")*/ 'content.autosave.turn_off.message',
+                      {},
+                      'ibexa_content',
+                  );
+
+            tooltipInstance.setContent({ '.tooltip-inner': tooltipContent });
+        };
         const setAutosaveStatus = (newStatus) => {
             if (!autosave) {
                 return;
@@ -149,6 +163,7 @@
             autosave.classList.add(newCssStatusClass);
 
             currentAutosaveStatus = newStatus;
+            setAutosaveTooltipContent();
         };
         const setDraftSavedMessage = () => {
             if (!autosave) {
@@ -168,6 +183,8 @@
             autosave.classList.add('ibexa-autosave--saved');
         };
 
+        setAutosaveTooltipContent();
+
         setInterval(() => {
             const formData = new FormData(form);
 
@@ -182,8 +199,17 @@
                 })
                 .catch(() => {
                     setAutosaveStatus(STATUS_ERROR);
+                })
+                .finally(() => {
+                    setAutosaveTooltipContent();
                 });
         }, ibexa.adminUiConfig.autosave.interval);
+
+        doc.body.addEventListener('ibexa:edit-content-change-header-size', ({ detail }) => {
+            isAutosaveSimple = detail.isHeaderSlim;
+            autosave.classList.toggle('ibexa-autosave--simple', isAutosaveSimple);
+            setAutosaveTooltipContent();
+        });
     }
 
     form.setAttribute('novalidate', true);
@@ -204,4 +230,4 @@
     menuButtonsToValidate.forEach((btn) => {
         btn.addEventListener('click', validateHandler, false);
     });
-})(window, window.document, window.ibexa, window.Translator, window.moment);
+})(window, window.document, window.ibexa, window.Translator, window.bootstrap, window.moment);
