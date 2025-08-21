@@ -53,6 +53,8 @@ class Node extends ValueObjectVisitor
         $generator->startValueElement('isInvisible', $generator->serializeBool($data->isInvisible));
         $generator->endValueElement('isInvisible');
 
+        $generator->valueElement('isHidden', $generator->serializeBool($data->isHidden));
+
         $generator->startValueElement('displayLimit', $data->displayLimit);
         $generator->endValueElement('displayLimit');
 

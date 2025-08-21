@@ -403,7 +403,8 @@ final class NodeFactory
             '', // node name will be provided later by `supplyTranslatedContentName` method
             null !== $contentType ? $contentType->getIdentifier() : '',
             null === $contentType || $contentType->isContainer(),
-            $location->isInvisible() || $location->isHidden(),
+            $location->isInvisible(),
+            $location->isHidden(),
             $limit,
             $totalChildrenCount,
             $this->getReverseRelationsCount($contentInfo),
