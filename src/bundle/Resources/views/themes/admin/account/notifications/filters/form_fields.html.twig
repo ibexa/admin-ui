@@ -34,7 +34,9 @@
     } %}
         {% block content %}
             <div class="form-group">
-                {{ form_label(form.children.min) }}
+                <label class="ibexa-label form-label">
+                    {{ 'ibexa.notifications.search_form.label.from'|trans|desc('From') }}
+                </label>
                 {{ form_widget(form.children.min, {
                     attr: {
                         'data-seconds': 0,
@@ -43,7 +45,9 @@
             </div>
 
             <div class="form-group">
-                {{ form_label(form.children.max) }}
+                <label class="ibexa-label form-label">
+                    {{ 'ibexa.notifications.search_form.label.to'|trans|desc('To') }}
+                </label>
                 {{ form_widget(form.children.max, {
                     attr: {
                         'data-seconds': 0,

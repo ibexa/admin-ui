@@ -12,7 +12,6 @@
     const CLASS_MODAL_LOADING = 'ibexa-notifications-modal--loading';
     const INTERVAL = 30000;
     const panel = doc.querySelector('.ibexa-notifications-modal');
-    const markAllAsReadBtn = panel.querySelector('.ibexa-notifications-modal__mark-all-read-btn');
     const { showErrorNotification, showWarningNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse, getTextFromResponse } = ibexa.helpers.request;
     const handleNotificationClickRequest = (notification, response) => {
@@ -320,7 +319,7 @@
     if (!panel) {
         return;
     }
-
+    const markAllAsReadBtn = panel.querySelector('.ibexa-notifications-modal__mark-all-read-btn');
     const notificationsTable = panel.querySelector(SELECTOR_LIST);
     currentPageLink = notificationsTable.dataset.notifications;
     const interval = Number.parseInt(notificationsTable.dataset.notificationsCountInterval, 10) || INTERVAL;

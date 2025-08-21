@@ -458,6 +458,16 @@
         <target state="new">We’ve sent to your email account a link to reset your password.</target>
         <note>key: ibexa.forgot_user_password.success.alert</note>
       </trans-unit>
+      <trans-unit id="ed391233ecfa73eeaf4884c184b6b07e30d8f8fa" resname="ibexa.notifications.search_form.label.from">
+        <source>From</source>
+        <target state="new">From</target>
+        <note>key: ibexa.notifications.search_form.label.from</note>
+      </trans-unit>
+      <trans-unit id="b5ffcfba814a8539a4257894dc59affdfb49f1c6" resname="ibexa.notifications.search_form.label.to">
+        <source>To</source>
+        <target state="new">To</target>
+        <note>key: ibexa.notifications.search_form.label.to</note>
+      </trans-unit>
       <trans-unit id="a8c78354005b82690d25244c10c2914d1c7cc620" resname="ibexa_notifications">
         <source>Notifications</source>
         <target state="new">Notifications</target>

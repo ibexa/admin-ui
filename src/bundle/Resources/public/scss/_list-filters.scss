@@ -29,6 +29,14 @@
         }
     }
 
+    &__checkbox {
+        .form-check {
+            &:not(:first-child) {
+                margin-top: calculateRem(16px);
+            }
+        }
+    }
+
     .accordion-item {
         background: transparent;
 
