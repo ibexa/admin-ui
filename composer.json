@@ -69,7 +69,7 @@
         "dama/doctrine-test-bundle": "^v6.7",
         "ibexa/ci-scripts": "^0.2@dev",
         "ibexa/behat": "~4.6.0@dev",
-        "friendsofphp/php-cs-fixer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.30",
         "phpunit/phpunit": "^9.5",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "ibexa/doctrine-schema": "~4.6.0@dev",
@@ -79,7 +79,7 @@
         "ibexa/phpstan": "~4.6.x-dev",
         "ibexa/test-rest": "^0.1.x-dev",
         "ibexa/test-core": "^0.1.x-dev",
-        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan": "^2.1",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-symfony": "^2.0"
     },
