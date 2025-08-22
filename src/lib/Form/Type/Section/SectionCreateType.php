@@ -15,8 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionCreateType extends AbstractType
 {
-    public const BTN_CREATE_AND_EDIT = 'create_and_edit';
-
     protected SectionType $sectionType;
 
     public function __construct(SectionType $sectionType)
@@ -29,14 +27,7 @@ class SectionCreateType extends AbstractType
         $this->sectionType->buildForm($builder, $options);
 
         $builder
-            ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Create") */
-                    'section_create_form.create',
-            ])
-            ->add(self::BTN_CREATE_AND_EDIT, SubmitType::class, [
-                'label' => /** @Desc("Save and edit") */
-                    'section_create_form.create_and_edit',
-            ]);
+            ->add('create', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -10,36 +10,16 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * KnpMenuBundle Menu Builder service implementation for AdminUI change password contextual sidebar menu.
- *
- * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
- */
 class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
     public const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
     public const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
-
-    private TranslatorInterface $translator;
-
-    public function __construct(
-        MenuItemFactoryInterface $factory,
-        EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator
-    ) {
-        parent::__construct($factory, $eventDispatcher);
-
-        $this->translator = $translator;
-    }
 
     /**
      * @return string
@@ -51,8 +31,6 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
 
     /**
      * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -93,7 +71,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__UPDATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__UPDATE, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }

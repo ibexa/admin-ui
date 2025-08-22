@@ -17,8 +17,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleCreateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -28,14 +26,8 @@ class RoleCreateType extends AbstractType
                 ['label' => /** @Desc("Name") */ 'role_create.name']
             )
             ->add(
-                self::BTN_SAVE,
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'role_create.save']
-            )
-            ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save and close") */ 'role_create.save_and_close']
+                SubmitType::class
             );
     }
 

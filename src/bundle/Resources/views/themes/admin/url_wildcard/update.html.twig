@@ -16,7 +16,6 @@
 {% block context_menu %}
     {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu_configure.url_wildcard_edit_sidebar_right', [], {
         submit_selector: '#' ~ form.save_and_close.vars.id,
-        save_selector: '#' ~ form.save.vars.id,
     }) %}
 
     {{ knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
@@ -57,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-                {{ form_widget(form.save, { attr: { hidden: 'hidden' } }) }}
                 {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' } }) }}
             {{ form_end(form) }}
         </div>

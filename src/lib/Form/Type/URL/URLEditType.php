@@ -16,17 +16,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class URLEditType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('url', TextType::class)
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'url.save',
-            ])
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'url.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

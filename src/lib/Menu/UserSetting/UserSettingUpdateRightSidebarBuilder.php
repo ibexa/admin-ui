@@ -15,35 +15,20 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * KnpMenuBundle Menu Builder service implementation for User Setting Edit contextual sidebar menu.
- *
- * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
- */
 class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Menu items */
     public const ITEM__SAVE = 'user_setting_update__sidebar_right__save';
-    public const ITEM__SAVE_AND_EDIT = 'user_setting_update__sidebar_right__save_end_edit';
     public const ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
-
-    private TranslatorInterface $translator;
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        TranslatorInterface $translator
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->translator = $translator;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::USER_SETTING_UPDATE_SIDEBAR_RIGHT;
@@ -51,8 +36,6 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
 
     /**
      * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
      *
      * @throws \InvalidArgumentException
      */
@@ -67,19 +50,6 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
                 'attributes' => [
                     'class' => 'ibexa-btn--trigger',
                     'data-click' => '#user_setting_update_update',
-                ],
-            ]
-        );
-
-        $saveItem->addChild(
-            self::ITEM__SAVE_AND_EDIT,
-            [
-                'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
-                    'data-click' => '#user_setting_update_update_and_edit',
-                ],
-                'extras' => [
-                    'orderNumber' => 10,
                 ],
             ]
         );
@@ -103,8 +73,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save and close'),
-            (new Message(self::ITEM__SAVE_AND_EDIT, 'ibexa_menu'))->setDesc('Save'),
+            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }

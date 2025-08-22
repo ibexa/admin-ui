@@ -29,7 +29,6 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
-use Symfony\Component\Form\Button;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -101,7 +100,7 @@ final class ObjectStateController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup, $form): Response {
+                function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup): Response {
                     $createStruct = $this->objectStateService->newObjectStateCreateStruct(
                         $data->getIdentifier() ?? ''
                     );
@@ -115,14 +114,6 @@ final class ObjectStateController extends Controller
                         ['%name%' => $data->getName()],
                         'ibexa_object_state'
                     );
-
-                    if ($form->getClickedButton() instanceof Button
-                        && $form->getClickedButton()->getName() === ObjectStateCreateType::BTN_CREATE_AND_EDIT
-                    ) {
-                        return $this->redirectToRoute('ibexa.object_state.state.update', [
-                            'objectStateId' => $objectState->id,
-                        ]);
-                    }
 
                     return $this->redirectToRoute('ibexa.object_state.state.view', [
                         'objectStateId' => $objectState->id,
@@ -217,7 +208,7 @@ final class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateUpdateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ObjectStateUpdateData $data): Response {
                 $objectState = $data->getObjectState();
                 $updateStruct = $this->objectStateService->newObjectStateUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();
@@ -231,14 +222,6 @@ final class ObjectStateController extends Controller
                     ['%name%' => $updatedObjectState->getName()],
                     'ibexa_object_state'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ObjectStateUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.object_state.state.update', [
-                        'objectStateId' => $objectState->id,
-                    ]);
-                }
 
                 return $this->redirectToRoute('ibexa.object_state.state.view', [
                     'objectStateId' => $objectState->id,

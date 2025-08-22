@@ -15,8 +15,6 @@ use Ibexa\AdminUi\Form\Data\Language\LanguageUpdateData;
 use Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\Language\LanguageCreateType;
-use Ibexa\AdminUi\Form\Type\Language\LanguageUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -26,7 +24,6 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -151,7 +148,7 @@ final class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguageCreateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (LanguageCreateData $data): Response {
                 $languageCreateStruct = $this->languageCreateMapper->reverseMap($data);
                 $language = $this->languageService->createLanguage($languageCreateStruct);
 
@@ -161,14 +158,6 @@ final class LanguageController extends Controller
                     ['%name%' => $language->name],
                     'ibexa_language'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === LanguageCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.language.edit', [
-                        'languageId' => $language->getId(),
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->getId(),
@@ -195,7 +184,7 @@ final class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguageUpdateData $data) use ($language, $form): Response {
+            $result = $this->submitHandler->handle($form, function (LanguageUpdateData $data) use ($language): Response {
                 if ($data->getName() !== null) {
                     $this->languageService->updateLanguageName($language, $data->getName());
                 }
@@ -210,14 +199,6 @@ final class LanguageController extends Controller
                     ['%name%' => $language->name],
                     'ibexa_language'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === LanguageUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.language.edit', [
-                        'languageId' => $language->getId(),
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.language.view', [
                     'languageId' => $language->getId(),

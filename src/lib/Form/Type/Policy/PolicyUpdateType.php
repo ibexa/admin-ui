@@ -22,8 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PolicyUpdateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
     private RoleService $roleService;
 
     public function __construct(RoleService $roleService)
@@ -44,14 +42,8 @@ class PolicyUpdateType extends AbstractType
                 ]
             )
             ->add(
-                self::BTN_SAVE,
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'policy_update.save']
-            )
-            ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save and close") */ 'policy_update.save_and_close']
+                SubmitType::class
             );
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {

@@ -13,7 +13,6 @@ use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData;
 use Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\URLWildcard\URLWildcardUpdateType;
 use Ibexa\AdminUi\Tab\URLManagement\URLWildcardsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
@@ -21,7 +20,6 @@ use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use JMS\TranslationBundle\Annotation\Desc;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,8 +41,8 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $this->submitHandler->handle($form, function (URLWildcardData $data) use ($form): Response {
-                $urlWildcard = $this->urlWildcardService->create(
+            $this->submitHandler->handle($form, function (URLWildcardData $data): Response {
+                $this->urlWildcardService->create(
                     $data->getSourceURL() ?? '',
                     $data->getDestinationUrl() ?? '',
                     (bool) $data->getForward()
@@ -56,14 +54,6 @@ final class URLWildcardController extends Controller
                     [],
                     'ibexa_url_wildcard'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === URLWildcardUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.url_wildcard.update', [
-                        'urlWildcardId' => $urlWildcard->id,
-                    ]);
-                }
 
                 return $this->redirectToRoute('ibexa.url_management', [
                     '_fragment' => URLWildcardsTab::URI_FRAGMENT,
@@ -88,7 +78,7 @@ final class URLWildcardController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (URLWildcardUpdateData $data) use ($urlWildcard, $form): Response {
+                function (URLWildcardUpdateData $data) use ($urlWildcard): Response {
                     $urlWildcardUpdateStruct = new URLWildcardUpdateStruct();
                     $urlWildcardUpdateStruct->destinationUrl = $data->getDestinationUrl();
                     $urlWildcardUpdateStruct->sourceUrl = $data->getSourceURL();
@@ -105,14 +95,6 @@ final class URLWildcardController extends Controller
                         [],
                         'ibexa_url_wildcard'
                     );
-
-                    if ($form->getClickedButton() instanceof Button
-                        && $form->getClickedButton()->getName() === URLWildcardUpdateType::BTN_SAVE
-                    ) {
-                        return $this->redirectToRoute('ibexa.url_wildcard.update', [
-                            'urlWildcardId' => $urlWildcard->id,
-                        ]);
-                    }
 
                     return $this->redirectToRoute('ibexa.url_management', [
                         '_fragment' => URLWildcardsTab::URI_FRAGMENT,

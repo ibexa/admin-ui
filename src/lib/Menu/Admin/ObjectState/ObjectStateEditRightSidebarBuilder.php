@@ -15,15 +15,8 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-/**
- * KnpMenuBundle Menu Builder service implementation for AdminUI Section Edit contextual sidebar menu.
- *
- * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
- */
 class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__SAVE = 'object_state_edit__sidebar_right__save';
     public const ITEM__SAVE_AND_CLOSE = 'object_state_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
 
@@ -38,8 +31,6 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
-     *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
@@ -47,8 +38,7 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     public function createStructure(array $options): ItemInterface
     {
         $groupId = $options['group_id'];
-        $saveId = $options['save_id'];
-        $saveAncCloseId = $options['save_and_close_id'];
+        $saveAndCloseId = $options['save_and_close_id'];
 
         /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
@@ -58,23 +48,13 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
             [
                 'attributes' => [
                     'class' => 'ibexa-btn--trigger',
-                    'data-click' => sprintf('#%s', $saveAncCloseId),
-                ],
-            ]
-        );
-
-        $saveAndCloseItem->addChild(
-            self::ITEM__SAVE,
-            [
-                'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
-                    'data-click' => sprintf('#%s', $saveId),
+                    'data-click' => sprintf('#%s', $saveAndCloseId),
                 ],
             ]
         );
 
         $menu->setChildren([
-            self::ITEM__SAVE => $saveAndCloseItem,
+            self::ITEM__SAVE_AND_CLOSE => $saveAndCloseItem,
             self::ITEM__CANCEL => $this->createMenuItem(
                 self::ITEM__CANCEL,
                 [
@@ -95,8 +75,7 @@ class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements Tran
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__SAVE, 'ibexa_menu'))->setDesc('Save'),
-            (new Message(self::ITEM__SAVE_AND_CLOSE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__SAVE_AND_CLOSE, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard changes'),
         ];
     }

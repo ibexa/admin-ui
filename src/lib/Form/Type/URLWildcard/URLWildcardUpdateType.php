@@ -19,8 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class URLWildcardUpdateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
     /**
      * {@inheritdoc}
      */
@@ -37,12 +35,7 @@ final class URLWildcardUpdateType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'url_wildcard.save',
-            ])
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'url_wildcard.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
     /**

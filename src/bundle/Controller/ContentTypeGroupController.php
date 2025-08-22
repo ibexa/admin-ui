@@ -14,7 +14,6 @@ use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
 use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupCreateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -24,7 +23,6 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,7 +88,7 @@ final class ContentTypeGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupCreateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupCreateData $data): Response {
                 $createStruct = $this->contentTypeService->newContentTypeGroupCreateStruct(
                     $data->getIdentifier()
                 );
@@ -102,14 +100,6 @@ final class ContentTypeGroupController extends Controller
                     ['%name%' => $data->getIdentifier()],
                     'ibexa_content_type'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ContentTypeGroupCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.content_type_group.update', [
-                        'contentTypeGroupId' => $group->id,
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
@@ -137,7 +127,7 @@ final class ContentTypeGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupUpdateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupUpdateData $data): Response {
                 $group = $data->getContentTypeGroup();
                 $updateStruct = $this->contentTypeService->newContentTypeGroupUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();
@@ -150,14 +140,6 @@ final class ContentTypeGroupController extends Controller
                     ['%name%' => $group->identifier],
                     'ibexa_content_type'
                 );
-
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ContentTypeGroupCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.content_type_group.update', [
-                        'contentTypeGroupId' => $group->id,
-                    ]);
-                }
 
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,

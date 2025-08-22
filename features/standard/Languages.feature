@@ -26,7 +26,7 @@ Feature: Languages management
         | label         | value   |
         | Name          | Deutsch |
         | Language code | de-DE   |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Deutsch" Language page
       And Language has proper attributes
         | Name         | Language code   | Enabled |
@@ -39,7 +39,7 @@ Feature: Languages management
         | label         | value          |
         | Name          | Deutsch Second |
         | Language code | de-DE          |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then error notification that 'language with the "de-DE" language code already exists' appears
 
   @javascript
@@ -62,7 +62,7 @@ Feature: Languages management
         | label         | value          |
         | Name          | Edited Deutsch |
         | Enabled       | false          |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Edited Deutsch" Language page
       And notification that "Language" "Deutsch" is updated appears
       And Language has proper attributes
@@ -79,7 +79,7 @@ Feature: Languages management
       And I set fields
         | label   | value |
         | Enabled | true  |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Edited Deutsch" Language page
       And notification that "Language" "Edited Deutsch" is updated appears
       And Language has proper attributes
