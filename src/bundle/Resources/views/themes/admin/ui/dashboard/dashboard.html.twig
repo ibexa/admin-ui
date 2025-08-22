@@ -17,7 +17,7 @@
             data-udw-config="{{ ibexa_udw_config('create', {'type': 'content_create'}) }}"
             {% if not can_create_content %}disabled{% endif %}
         >
-            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
                 <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
             </svg>
             <span>{{ 'dashboard.create'|trans|desc('Create content') }}</span>
