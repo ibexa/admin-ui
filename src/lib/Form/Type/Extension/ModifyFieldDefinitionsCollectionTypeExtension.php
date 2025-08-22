@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeExtension
 {
-    private string $fieldTypeIdentifier;
+    private ?string $fieldTypeIdentifier;
 
     /** @var string[] */
     private array $fieldIdentifiers;
@@ -32,17 +32,17 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
     private ?SpecificationInterface $contentTypeSpecification;
 
     /**
-     * @param string|string[] $fieldIdentifiers
      * @param array<string, mixed> $modifiedOptions
+     * @param array<string> $fieldIdentifiers
      */
     public function __construct(
-        string $fieldTypeIdentifier,
+        ?string $fieldTypeIdentifier,
         array $modifiedOptions,
-        $fieldIdentifiers = [],
+        array $fieldIdentifiers = [],
         ?SpecificationInterface $contentTypeSpecification = null
     ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
-        $this->fieldIdentifiers = is_array($fieldIdentifiers) ? $fieldIdentifiers : [$fieldIdentifiers];
+        $this->fieldIdentifiers = $fieldIdentifiers;
         $this->modifiedOptions = $modifiedOptions;
         $this->contentTypeSpecification = $contentTypeSpecification;
     }
