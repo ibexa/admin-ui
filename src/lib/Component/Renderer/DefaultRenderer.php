@@ -12,7 +12,7 @@ use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
 use Ibexa\TwigComponents\Component\Renderer\DefaultRenderer as TwigComponentsDefaultRenderer;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Renderer\DefaultRenderer} class is deprecated, will be removed in 5.0.
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Renderer\DefaultRenderer} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\Renderer\DefaultRenderer} instead
  */
 class DefaultRenderer implements RendererInterface

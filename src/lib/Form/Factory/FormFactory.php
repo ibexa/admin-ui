@@ -156,11 +156,7 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData|null $data
-     * @param string|null $name
      * @param array $options
-     *
-     * @return \Symfony\Component\Form\FormInterface
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
@@ -185,11 +181,6 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function createContent(
@@ -203,15 +194,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteContentTypes(
-        ContentTypesDeleteData $data = null,
+        ?ContentTypesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypesDeleteType::class);
@@ -219,12 +205,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, ContentTypesDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createContentTypeGroup(
         ?ContentTypeGroupCreateData $data = null,
         ?string $name = null
@@ -238,46 +218,35 @@ class FormFactory
         );
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updateContentTypeGroup(
-        ContentTypeGroupUpdateData $data = null,
+        ?ContentTypeGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
+        if ($name === null && $data === null) {
+            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+        }
         $name = $name ?: sprintf('update-content-type-group-%d', $data->getContentTypeGroup()->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteContentTypeGroup(
-        ContentTypeGroupDeleteData $data = null,
+        ?ContentTypeGroupDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
+        if ($name === null && $data === null) {
+            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+        }
         $name = $name ?: sprintf('delete-content-type-group-%d', $data->getContentTypeGroup()->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupDeleteType::class, $data);
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteContentTypeGroups(
-        ContentTypeGroupsDeleteData $data = null,
+        ?ContentTypeGroupsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupsDeleteType::class);
@@ -286,15 +255,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function addTranslation(
-        TranslationAddData $data = null,
+        ?TranslationAddData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: sprintf('add-translation');
@@ -303,15 +267,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteTranslation(
-        TranslationDeleteData $data = null,
+        ?TranslationDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: sprintf('delete-translations');
@@ -320,15 +279,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Version\VersionRemoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function removeVersion(
-        VersionRemoveData $data = null,
+        ?VersionRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(VersionRemoveType::class);
@@ -337,13 +291,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData|null $data
-     * @param string|null $name
-     *
      * @return \Symfony\Component\Form\FormInterface
      */
     public function addLocation(
-        ContentLocationAddData $data = null,
+        ?ContentLocationAddData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationAddType::class);
@@ -351,14 +302,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, ContentLocationAddType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function removeLocation(
-        ContentLocationRemoveData $data = null,
+        ?ContentLocationRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationRemoveType::class);
@@ -366,14 +311,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, ContentLocationRemoveType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationSwapData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function swapLocation(
-        LocationSwapData $data = null,
+        ?LocationSwapData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationSwapType::class);
@@ -382,11 +321,6 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function updateContentMainLocation(
@@ -403,14 +337,8 @@ class FormFactory
         );
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationTrashData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function trashLocation(
-        LocationTrashData $data = null,
+        ?LocationTrashData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationTrashType::class);
@@ -419,14 +347,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, LocationTrashType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationMoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function moveLocation(
-        LocationMoveData $data = null,
+        ?LocationMoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationMoveType::class);
@@ -434,14 +356,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, LocationMoveType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationCopyData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function copyLocation(
-        LocationCopyData $data = null,
+        ?LocationCopyData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopyType::class);
@@ -450,15 +366,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function updateVisibilityLocation(
-        LocationUpdateVisibilityData $data = null,
+        ?LocationUpdateVisibilityData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityData::class);
@@ -479,14 +390,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, ContentVisibilityUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updateLocation(
-        LocationUpdateData $data = null,
+        ?LocationUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateType::class);
@@ -494,14 +399,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, LocationUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionContentAssignData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function assignContentSectionForm(
-        SectionContentAssignData $data = null,
+        ?SectionContentAssignData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionContentAssignType::class);
@@ -509,31 +408,23 @@ class FormFactory
         return $this->formFactory->createNamed($name, SectionContentAssignType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteSection(
-        SectionDeleteData $data = null,
+        ?SectionDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
+        if ($name === null && $data === null) {
+            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+        }
         $name = $name ?: sprintf('delete-section-%d', $data->getSection()->id);
 
         return $this->formFactory->createNamed($name, SectionDeleteType::class, $data);
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionsDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteSections(
-        SectionsDeleteData $data = null,
+        ?SectionsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionsDeleteType::class);
@@ -541,12 +432,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, SectionsDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createSection(
         ?SectionCreateData $data = null,
         ?string $name = null
@@ -560,27 +445,18 @@ class FormFactory
         );
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updateSection(
-        SectionUpdateData $data = null,
+        ?SectionUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
+        if ($name === null && $data === null) {
+            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+        }
         $name = $name ?: sprintf('update-section-%d', $data->getSection()->id);
 
         return $this->formFactory->createNamed($name, SectionUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createLanguage(
         ?LanguageCreateData $data = null,
         ?string $name = null
@@ -594,12 +470,6 @@ class FormFactory
         );
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageUpdateData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updateLanguage(
         LanguageUpdateData $data,
         ?string $name = null
@@ -609,31 +479,26 @@ class FormFactory
         return $this->formFactory->createNamed($name, LanguageUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Language\LanguageDeleteData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteLanguage(
         LanguageDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-language-%d', $data->getLanguage()->id);
+        if ($name === null) {
+            $language = $data->getLanguage();
+            if ($language === null) {
+                throw new \InvalidArgumentException('Language is not provided in LanguageDeleteData.');
+            }
+            $name = sprintf('delete-language-%d', $language->id);
+        }
 
         return $this->formFactory->createNamed($name, LanguageDeleteType::class, $data);
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteLanguages(
-        LanguagesDeleteData $data = null,
+        ?LanguagesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguagesDeleteType::class);
@@ -641,12 +506,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, LanguagesDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createRole(
         ?RoleCreateData $data = null,
         ?string $name = null
@@ -656,12 +515,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, RoleCreateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updateRole(
         RoleUpdateData $data,
         ?string $name = null
@@ -671,12 +524,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, RoleUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleDeleteData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteRole(
         RoleDeleteData $data,
         ?string $name = null
@@ -687,15 +534,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RolesDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteRoles(
-        RolesDeleteData $data = null,
+        ?RolesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: sprintf('delete-roles');
@@ -703,12 +545,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, RolesDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createRoleAssignment(
         ?RoleAssignmentCreateData $data = null,
         ?string $name = null
@@ -722,12 +558,6 @@ class FormFactory
         );
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteRoleAssignment(
         RoleAssignmentDeleteData $data,
         ?string $name = null
@@ -744,16 +574,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, RoleAssignmentDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentsDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
     public function deleteRoleAssignments(
-        RoleAssignmentsDeleteData $data = null,
+        ?RoleAssignmentsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentsDeleteType::class);
@@ -761,12 +583,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, RoleAssignmentsDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createPolicy(
         ?PolicyCreateData $data = null,
         ?string $name = null
@@ -776,12 +592,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, PolicyCreateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createPolicyWithLimitation(
         ?PolicyCreateData $data = null,
         ?string $name = null
@@ -791,12 +601,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, PolicyCreateWithLimitationType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updatePolicy(
         PolicyUpdateData $data,
         ?string $name = null
@@ -806,12 +610,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, PolicyUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deletePolicy(
         PolicyDeleteData $data,
         ?string $name = null
@@ -822,15 +620,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deletePolicies(
-        PoliciesDeleteData $data = null,
+        ?PoliciesDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(PoliciesDeleteType::class);
@@ -839,14 +632,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Search\SearchData|null $data
-     * @param string|null $name
      * @param array $options
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function createSearchForm(
-        SearchData $data = null,
+        ?SearchData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
@@ -856,14 +645,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\URL\URLListData|null $data
-     * @param string|null $name
      * @param array $options
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function createUrlListForm(
-        URLListData $data = null,
+        ?URLListData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
@@ -873,14 +658,10 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\URL\URLUpdateData|null $data
-     * @param string|null $name
      * @param array $options
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function createUrlEditForm(
-        URLUpdateData $data = null,
+        ?URLUpdateData $data = null,
         ?string $name = null,
         array $options = []
     ): FormInterface {
@@ -889,14 +670,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, URLEditType::class, $data, $options);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\User\UserDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteUser(
-        UserDeleteData $data = null,
+        ?UserDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(UserDeleteType::class);
@@ -904,14 +679,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, UserDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function addCustomUrl(
-        CustomUrlAddData $data = null,
+        ?CustomUrlAddData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlAddType::class);
@@ -919,14 +688,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, CustomUrlAddType::class, $data ?? new CustomUrlAddData());
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlRemoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function removeCustomUrl(
-        CustomUrlRemoveData $data = null,
+        ?CustomUrlRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlRemoveType::class);
@@ -934,12 +697,6 @@ class FormFactory
         return $this->formFactory->createNamed($name, CustomUrlRemoveType::class, $data ?? new CustomUrlRemoveData());
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createObjectStateGroup(
         ?ObjectStateGroupCreateData $data = null,
         ?string $name = null
@@ -953,31 +710,23 @@ class FormFactory
         );
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function deleteObjectStateGroup(
-        ObjectStateGroupDeleteData $data = null,
+        ?ObjectStateGroupDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
+        if ($name === null && $data === null) {
+            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+        }
         $name = $name ?: sprintf('delete-object-state-group-%d', $data->getObjectStateGroup()->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupDeleteType::class, $data);
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteObjectStateGroups(
-        ObjectStateGroupsDeleteData $data = null,
+        ?ObjectStateGroupsDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupsDeleteType::class);
@@ -985,29 +734,20 @@ class FormFactory
         return $this->formFactory->createNamed($name, ObjectStateGroupsDeleteType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function updateObjectStateGroup(
-        ObjectStateGroupUpdateData $data = null,
+        ?ObjectStateGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
+        if ($name === null && $data === null) {
+            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+        }
         $name = $name ?: sprintf('update-object-state-group-%d', $data->getObjectStateGroup()->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupUpdateType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationCopySubtreeData $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function copyLocationSubtree(
-        LocationCopySubtreeData $data = null,
+        ?LocationCopySubtreeData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopySubtreeType::class);
@@ -1015,14 +755,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, LocationCopySubtreeType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function removeBookmark(
-        BookmarkRemoveData $data = null,
+        ?BookmarkRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(BookmarkRemoveType::class);
@@ -1030,14 +764,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, BookmarkRemoveType::class, $data);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\User\UserEditData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function editUser(
-        UserEditData $data = null,
+        ?UserEditData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(UserEditType::class);
@@ -1049,14 +777,8 @@ class FormFactory
         return $this->formFactory->createNamed($name, UserEditType::class, $data, $options);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData|null $data
-     * @param string|null $name
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function removeContentDraft(
-        ContentRemoveData $data = null,
+        ?ContentRemoveData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentRemoveType::class);
@@ -1065,12 +787,7 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData|null $data
-     * @param string|null $name
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function createURLWildcard(
         ?URLWildcardData $data = null,
@@ -1086,12 +803,7 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData|null $data
-     * @param string|null $name
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function createURLWildcardUpdate(
         ?URLWildcardUpdateData $data = null,
@@ -1107,12 +819,7 @@ class FormFactory
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardDeleteData|null $data
-     * @param string|null $name
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     public function deleteURLWildcard(
         ?URLWildcardDeleteData $data = null,

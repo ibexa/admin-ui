@@ -222,7 +222,10 @@
     }
 
     &__items-list-filter-empty-img {
+        width: 100%;
         max-width: calculateRem(300px);
+        height: auto;
+        object-fit: contain;
     }
 
     &__items-list-filter-empty-message {
@@ -476,6 +479,18 @@
                 &::before,
                 &::after {
                     background-color: $ibexa-color-dark-400;
+                }
+            }
+
+            &__selected-item {
+                color: $ibexa-color-dark-400;
+                fill: $ibexa-color-dark-400;
+            }
+
+            &__remove-selection {
+                &::before,
+                &::after {
+                    background: $ibexa-color-dark-400;
                 }
             }
         }

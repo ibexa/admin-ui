@@ -8,18 +8,22 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const publishedContentId = urlParams.get('publishedContentId');
-    const handleEditItem = (content, location) => {
+    const sendForm = () => {
+        doc.querySelector('#form_subitems_content_edit_create').click();
+    };
+    const updateForm = (contentId, languageCode) => {
+        doc.querySelector('#form_subitems_content_edit_content_info').value = contentId;
+        doc.querySelector(`#form_subitems_content_edit_language_${languageCode}`).checked = true;
+    };
+    const handleEditItem = (content, location, isLanguageSelectorOpened) => {
         const contentId = content._id;
         const locationId = location._id;
         const languageCode = content.mainLanguageCode;
         const checkVersionDraftLink = Routing.generate('ibexa.version_draft.has_no_conflict', { contentId, languageCode, locationId });
-        const submitVersionEditForm = () => {
-            doc.querySelector('#form_subitems_content_edit_content_info').value = contentId;
-            doc.querySelector(`#form_subitems_content_edit_language_${languageCode}`).checked = true;
-            doc.querySelector('#form_subitems_content_edit_create').click();
-        };
+
         const addDraft = () => {
-            submitVersionEditForm();
+            updateForm(contentId, languageCode);
+            sendForm();
             bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
         };
         const attachModalListeners = (wrapper) => {
@@ -37,6 +41,9 @@
             if (conflictModal) {
                 bootstrap.Modal.getOrCreateInstance(conflictModal).show();
                 conflictModal.addEventListener('shown.bs.modal', () => ibexa.helpers.tooltips.parse());
+                conflictModal.addEventListener('hide.bs.modal', () => {
+                    doc.body.dispatchEvent(new CustomEvent('ibexa:edit-content-reset-language-selector'));
+                });
             }
         };
         const showModal = (modalHtml) => {
@@ -71,7 +78,11 @@
                 if (response.status === 409) {
                     response.text().then(showModal);
                 } else if (response.status === 200) {
-                    submitVersionEditForm();
+                    updateForm(contentId, languageCode);
+
+                    if (!isLanguageSelectorOpened) {
+                        sendForm();
+                    }
                 }
             })
             .catch(ibexa.helpers.notification.showErrorNotification);
@@ -84,6 +95,7 @@
         modalTableTitleNode.setAttribute('title', title);
         modalTableTitleNode.dataset.originalTitle = title;
     };
+
     const setModalTableBody = (failedItemsData) => {
         const modal = doc.querySelector(SELECTOR_MODAL_BULK_ACTION_FAIL);
         const table = modal.querySelector('.ibexa-bulk-action-failed-modal__table');
@@ -193,6 +205,14 @@
             }),
         );
     });
+
+    doc.body.addEventListener(
+        'ibexa-sub-items:submit-version-edit-form',
+        () => {
+            sendForm();
+        },
+        false,
+    );
 
     if (publishedContentId) {
         emdedItemsUpdateChannel.postMessage({ contentId: publishedContentId });

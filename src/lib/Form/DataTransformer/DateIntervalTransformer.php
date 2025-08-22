@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
+use DateInterval;
+use DateTime;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -29,41 +31,43 @@ class DateIntervalTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param array|null $value
+     * @param array<mixed>|null $value
      *
-     * @return array|null
-     *
-     * @throws \Exception
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @return array<string, int>
      */
-    public function reverseTransform($value)
+    public function reverseTransform($value): array
     {
-        if (null === $value || !is_array($value) || empty($value['date_interval'])) {
+        if (!is_array($value)) {
             return [];
         }
 
-        if (!array_key_exists('date_interval', $value) || !array_key_exists('end_date', $value)) {
+        if (
+            !array_key_exists('date_interval', $value)
+            || !array_key_exists('start_date', $value)
+            || !array_key_exists('end_date', $value)
+        ) {
             throw new TransformationFailedException(
-                "Invalid data. Value array is missing 'date_interval' and/or 'end_date' keys"
+                "Invalid data. On of the array keys is missing 'date_interval', 'start_date' or 'end_date'"
             );
         }
 
-        $date = new \DateTime();
+        $startDateTimestamp = $value['start_date'] ?? null;
+        $endDateTimestamp = $value['end_date'] ?? null;
 
-        if ($value['end_date']) {
-            $date->setTimestamp($value['end_date']);
+        $dateInterval = $value['date_interval'];
+        if (!empty($dateInterval)) {
+            $interval = new DateInterval($dateInterval);
+
+            $date = new DateTime();
+            $endDateTimestamp = $date->getTimestamp();
+
+            $date->setTimestamp($endDateTimestamp);
+            $date->sub($interval);
+
+            $startDateTimestamp = $date->getTimestamp();
         }
 
-        $date->setTime(23, 59, 59);
-        $endDate = $date->getTimestamp();
-        $interval = new \DateInterval($value['date_interval']);
-        $date->sub($interval);
-        $date->setTime(00, 00, 00);
-        $startDate = $date->getTimestamp();
-
-        return ['start_date' => $startDate, 'end_date' => $endDate];
+        return ['start_date' => $startDateTimestamp, 'end_date' => $endDateTimestamp];
     }
 }
 

@@ -45,10 +45,6 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param int|null $versionNo
-     * @param string|null $languageCode
-     *
      * @return array
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -56,8 +52,8 @@ class SiteaccessResolver implements SiteaccessResolverInterface
      */
     public function getSiteaccessesForLocation(
         Location $location,
-        int $versionNo = null,
-        string $languageCode = null
+        ?int $versionNo = null,
+        ?string $languageCode = null
     ): array {
         @trigger_error(
             sprintf(

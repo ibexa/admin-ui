@@ -160,6 +160,17 @@ const ContentCreateWidget = () => {
     }, [preselectedLanguage, firstLanguageCode]);
 
     useEffect(() => {
+        if (!createContentVisible) {
+            return;
+        }
+
+        setSelectedLanguage(preselectedLanguage ?? firstLanguageCode);
+        setSelectedContentType(preselectedContentType);
+        setIsSelectedSuggestion(false);
+        setFilterQuery('');
+    }, [createContentVisible]);
+
+    useEffect(() => {
         parseTooltip(refContentTree.current);
     }, []);
 
@@ -171,7 +182,7 @@ const ContentCreateWidget = () => {
                     <h3>{createContentLabel}</h3>
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
-                <div className="ibexa-extra-actions__content ibexa-extra-actions__content--create">
+                <div className="ibexa-extra-actions__content">
                     <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
                     <div className="ibexa-extra-actions__section-content">
                         <Dropdown
@@ -187,6 +198,7 @@ const ContentCreateWidget = () => {
                         <div className="ibexa-instant-filter">
                             <div className={instantFilterInputWrapperClassName}>
                                 <input
+                                    value={filterQuery}
                                     autoFocus={true}
                                     className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
                                     type="text"

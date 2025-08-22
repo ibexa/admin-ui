@@ -49,12 +49,7 @@ class ContentDraftsDataset
         $this->locationService = $locationService;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User|null $user
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftsDataset
-     */
-    public function load(User $user = null): self
+    public function load(?User $user = null): self
     {
         try {
             $contentDrafts = $this->contentService->loadContentDrafts($user);

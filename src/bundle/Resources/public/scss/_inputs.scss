@@ -271,6 +271,7 @@
 .ibexa-toggle {
     display: flex;
     align-items: center;
+    width: fit-content;
     min-width: calculateRem(77px);
     cursor: pointer;
 
@@ -450,12 +451,6 @@
     &--type-number {
         max-width: calculateRem(150px);
 
-        .ibexa-input-text-wrapper {
-            &__actions {
-                right: calculateRem(32px);
-            }
-        }
-
         .ibexa-input--text {
             padding-right: calculateRem(12px);
         }
@@ -496,7 +491,7 @@
     }
 
     &:hover {
-        .ibexa-input {
+        .ibexa-input:not(:disabled) {
             border-color: var(--ibexa-input-hover-border-color, #{$ibexa-color-primary});
 
             &.is-invalid {

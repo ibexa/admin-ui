@@ -244,7 +244,7 @@ export default class ContentTree extends Component {
                     {this.renderHeader()}
                     {this.renderList()}
                     {this.renderLoadingSpinner()}
-                    <div className="m-tree__resize-handler" onMouseDown={this.addWidthChangeListener} />
+                    {resizable && <div className="m-tree__resize-handler" onMouseDown={this.addWidthChangeListener} />}
                 </div>
                 <div ref={this._refPopupContainer} />
             </>

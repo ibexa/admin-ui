@@ -200,7 +200,7 @@ export const findLocationsBySearchQuery = (
 ) => {
     const body = {
         ViewInput: {
-            identifier: `udw-locations-by-search-query-${query.FullTextCriterion}`,
+            identifier: `udw-locations-by-search-query-${encodeURIComponent(query.FullTextCriterion)}`,
             public: false,
             useAlwaysAvailable,
             LocationQuery: {

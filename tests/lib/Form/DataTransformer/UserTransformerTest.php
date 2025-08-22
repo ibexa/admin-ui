@@ -158,12 +158,7 @@ class UserTransformerTest extends TestCase
         ];
     }
 
-    /**
-     * @param int $id
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
-     */
-    private function generateUser(int $id = null): User
+    private function generateUser(?int $id = null): User
     {
         $contentInfo = new API\ContentInfo(['id' => $id]);
         $versionInfo = new Core\VersionInfo(['contentInfo' => $contentInfo]);

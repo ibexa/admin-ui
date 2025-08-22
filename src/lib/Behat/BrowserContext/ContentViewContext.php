@@ -39,7 +39,7 @@ final class ContentViewContext implements Context
      * @Given I start creating a new Content :contentType
      * @Given I start creating a new Content :contentType in :language language
      */
-    public function startCreatingContent(string $contentType, string $language = null): void
+    public function startCreatingContent(string $contentType, ?string $language = null): void
     {
         $this->contentViewPage->startCreatingContent($contentType, $language);
     }
@@ -107,7 +107,7 @@ final class ContentViewContext implements Context
      * @Given I start editing the current content
      * @Given I start editing the current content in :language language
      */
-    public function startEditingContent(string $language = null): void
+    public function startEditingContent(?string $language = null): void
     {
         $this->contentViewPage->editContent($language);
     }

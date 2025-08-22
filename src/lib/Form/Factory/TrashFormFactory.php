@@ -43,7 +43,7 @@ class TrashFormFactory
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function deleteTrashItem(
-        TrashItemDeleteData $data = null,
+        ?TrashItemDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(TrashItemDeleteType::class);

@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Menu\Action;
 use Ibexa\Contracts\AdminUi\Menu\AbstractActionBuilder;
 use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use JMS\TranslationBundle\Annotation\Ignore;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -46,6 +47,7 @@ final class DraftListActionMenuBuilder extends AbstractActionBuilder implements 
         $menu = $this->createActionItem('root_action_list');
 
         $parameters['label'] = $this->translator->trans(
+            /** @Ignore */
             self::ITEM_EDIT_DRAFT,
             [],
             self::TRANSLATION_DOMAIN

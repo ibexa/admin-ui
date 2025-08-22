@@ -66,6 +66,26 @@
         <target state="new">You do not have the '%function%' '%module%' permission for content ID: %contentId%</target>
         <note>key: dashboard.table.relation.unauthorized</note>
       </trans-unit>
+      <trans-unit id="833bd91b4779ab4c463ae659e839438a3d6231ea" resname="edit.languages.discard">
+        <source>Discard</source>
+        <target state="new">Discard</target>
+        <note>key: edit.languages.discard</note>
+      </trans-unit>
+      <trans-unit id="476e257532d8c6abbc878763d24390146278ae85" resname="edit.languages.edit">
+        <source>Edit</source>
+        <target state="new">Edit</target>
+        <note>key: edit.languages.edit</note>
+      </trans-unit>
+      <trans-unit id="36c14ac08f24f86dbd38979c15f7ddaa9447d8c8" resname="instant.filter.languages.placeholder">
+        <source>Search...</source>
+        <target state="new">Search...</target>
+        <note>key: instant.filter.languages.placeholder</note>
+      </trans-unit>
+      <trans-unit id="de8bb1e6f538f44a79b62917155d15d17691211c" resname="instant.filter.languages.select_language.desc">
+        <source>Languages</source>
+        <target state="new">Languages</target>
+        <note>key: instant.filter.languages.select_language.desc</note>
+      </trans-unit>
       <trans-unit id="eeb49235f0e3b40e651725430b85a2885174bd2b" resname="location.bookmark.add">
         <source>Add to bookmarks</source>
         <target state="new">Add to bookmarks</target>

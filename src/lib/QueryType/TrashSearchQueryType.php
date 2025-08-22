@@ -70,9 +70,12 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
             $criteria[] = new Criterion\ContentTypeId([$searchData->getContentType()->id]);
         }
 
-        if (!empty($searchData->getTrashedInterval())) {
-            $trashedInterval = $searchData->getTrashedInterval();
-
+        $trashedInterval = $searchData->getTrashedInterval();
+        if (
+            !empty($trashedInterval)
+            && $trashedInterval['start_date'] !== null
+            && $trashedInterval['end_date'] !== null
+        ) {
             $criteria[] = new Criterion\DateMetadata(
                 Criterion\DateMetadata::TRASHED,
                 Criterion\Operator::BETWEEN,

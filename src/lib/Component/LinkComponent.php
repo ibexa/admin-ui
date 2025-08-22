@@ -12,7 +12,7 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\LinkComponent} class is deprecated, will be removed in 5.0.
+ * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\LinkComponent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\LinkComponent} instead
  */
 class LinkComponent implements ComponentInterface
@@ -35,21 +35,13 @@ class LinkComponent implements ComponentInterface
     /** @var string|null */
     protected $integrity;
 
-    /**
-     * @param \Twig\Environment $twig
-     * @param string $href
-     * @param string $type
-     * @param string $rel
-     * @param string|null $crossorigin
-     * @param string|null $integrity
-     */
     public function __construct(
         Environment $twig,
         string $href,
         string $type = 'text/css',
         string $rel = 'stylesheet',
-        string $crossorigin = null,
-        string $integrity = null
+        ?string $crossorigin = null,
+        ?string $integrity = null
     ) {
         $this->twig = $twig;
         $this->href = $href;

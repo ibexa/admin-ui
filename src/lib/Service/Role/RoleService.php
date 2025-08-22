@@ -201,7 +201,7 @@ class RoleService
         }
     }
 
-    private function doAssignLimitation(Role $role, array $users = null, array $groups = null, RoleLimitation $limitation = null)
+    private function doAssignLimitation(Role $role, ?array $users = null, ?array $groups = null, ?RoleLimitation $limitation = null)
     {
         if (null !== $users) {
             foreach ($users as $user) {

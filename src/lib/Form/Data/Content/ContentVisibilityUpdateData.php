@@ -24,24 +24,16 @@ class ContentVisibilityUpdateData
      */
     private $location;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param bool|null $visible
-     */
     public function __construct(
-        ContentInfo $contentInfo = null,
-        Location $location = null,
-        bool $visible = null
+        ?ContentInfo $contentInfo = null,
+        ?Location $location = null,
+        ?bool $visible = null
     ) {
         $this->contentInfo = $contentInfo;
         $this->visible = $visible;
         $this->location = $location;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
@@ -55,9 +47,6 @@ class ContentVisibilityUpdateData
         return $this->visible;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     */
     public function setContentInfo(ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
@@ -71,17 +60,11 @@ class ContentVisibilityUpdateData
         $this->visible = $visible;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     */
     public function setLocation(?Location $location): void
     {
         $this->location = $location;

@@ -9,6 +9,7 @@
 {% form_theme form_search '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% block body_class %}ibexa-trash-list-view ibexa-has-two-sidebars{% endblock %}
+{% block main_container_class %}{{ parent() }} ibexa-main-container--full-width {% endblock %}
 
 {% block context_menu %}
     {% if can_cleantrash and form_trash_item_restore.trash_items|length > 0 %}
@@ -61,7 +62,7 @@
                 'attr': {'class': 'ibexa-trash-search-form__item ibexa-trash-search-form__item--auto-send'}
             }),
             form_row(form_search.trashed, {
-                'attr': {'data-target-selector': '.ibexa-trash-search-form__range-wrapper--select-trashed-range'}
+                attr: { 'data-target-selector': '.ibexa-trash-search-form__trashed-date-time-range' },
             }),
         ] %}
 

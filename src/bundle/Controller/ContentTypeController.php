@@ -122,12 +122,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param string $routeName
-     * @param int $page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
      * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
@@ -180,8 +174,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
      * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeCreateView
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -227,11 +219,6 @@ class ContentTypeController extends Controller
         return $view;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addTranslationAction(Request $request): Response
     {
         $form = $this->contentTypeFormFactory->addContentTypeTranslation(
@@ -287,11 +274,6 @@ class ContentTypeController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeTranslationAction(Request $request): Response
     {
         $form = $this->contentTypeFormFactory->removeContentTypeTranslation(
@@ -349,11 +331,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
@@ -415,11 +392,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function copyAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
@@ -472,12 +444,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
-     *
      * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeEditView
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -486,8 +452,8 @@ class ContentTypeController extends Controller
         Request $request,
         ContentTypeGroup $group,
         ContentTypeDraft $contentTypeDraft,
-        Language $language = null,
-        Language $baseLanguage = null
+        ?Language $language = null,
+        ?Language $baseLanguage = null
     ) {
         if (!$language) {
             $language = $this->getDefaultLanguage($contentTypeDraft);
@@ -599,12 +565,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
     public function deleteAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
@@ -637,11 +597,6 @@ class ContentTypeController extends Controller
 
     /**
      * Handles removing content types based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
@@ -680,11 +635,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function viewAction(
@@ -737,18 +687,10 @@ class ContentTypeController extends Controller
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     public function createUpdateForm(
         ContentTypeGroup $contentTypeGroup,
         ContentTypeDraft $contentTypeDraft,
-        Language $language = null,
+        ?Language $language = null,
         ?Language $baseLanguage = null
     ): FormInterface {
         $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft, $language);
@@ -773,12 +715,6 @@ class ContentTypeController extends Controller
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     protected function createDeleteForm(ContentTypeGroup $group, ContentType $contentType): FormInterface
     {
         $formBuilder = $this->createFormBuilder(null, [
@@ -805,10 +741,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param int $userId
-     *
-     * @return string|null
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
     private function getUserNameById(int $userId): ?string
@@ -828,10 +760,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function getDefaultLanguage(ContentTypeDraft $contentTypeDraft): Language
@@ -850,10 +778,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */

@@ -35,6 +35,8 @@ class Node extends RestValue
     /** @var bool */
     public $isInvisible;
 
+    public bool $isHidden;
+
     /** @var int */
     public $displayLimit;
 
@@ -64,6 +66,7 @@ class Node extends RestValue
         string $contentTypeIdentifier,
         bool $isContainer,
         bool $isInvisible,
+        bool $isHidden,
         int $displayLimit,
         int $totalChildrenCount,
         int $reverseRelationsCount,
@@ -78,6 +81,7 @@ class Node extends RestValue
         $this->versionNo = $versionNo;
         $this->name = $name;
         $this->isInvisible = $isInvisible;
+        $this->isHidden = $isHidden;
         $this->contentTypeIdentifier = $contentTypeIdentifier;
         $this->isContainer = $isContainer;
         $this->totalChildrenCount = $totalChildrenCount;
