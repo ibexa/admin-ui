@@ -25,19 +25,7 @@
     }
 
     &__name {
-        &--ellipsized {
-            display: none;
-        }
-
-        &--full {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            white-space: normal;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        max-width: calc(100vw - calculateRem(130px));
     }
 
     &__row {
@@ -153,21 +141,8 @@
         }
 
         .ibexa-edit-header {
-            &__row {
-                &--bottom {
-                    z-index: 1;
-                    min-width: initial;
-                    margin-top: calculateRem(-34px);
-                    min-height: initial;
-                }
-            }
-
             &__bottom-row-line {
                 border-bottom: none;
-            }
-
-            &__info-bar {
-                margin-top: calculateRem(-8px);
             }
 
             &__separate-div {
@@ -186,16 +161,6 @@
 
             &__meta {
                 display: none;
-            }
-
-            &__name {
-                &--ellipsized {
-                    display: inline-block;
-                }
-
-                &--full {
-                    display: none;
-                }
             }
         }
     }
