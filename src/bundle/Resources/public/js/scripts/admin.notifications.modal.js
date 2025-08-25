@@ -134,6 +134,18 @@
 
                     allUnreadNotifications.forEach((notification) => notification.classList.add('ibexa-notifications-modal__item--read'));
                     getNotificationsStatus();
+                    const actions = doc.querySelectorAll('.ibexa-notifications-modal--mark-as-read');
+                    const markAsUnreadLabel = Translator.trans(
+                        /* @Desc("Mark as unread") */ 'notification.mark_as_unread',
+                        {},
+                        'ibexa_notifications',
+                    );
+
+                    actions.forEach((notification) => {
+                        notification.classList.remove('ibexa-notifications-modal--mark-as-read');
+                        notification.classList.add('ibexa-notifications-modal--mark-as-unread');
+                        notification.textContent = markAsUnreadLabel;
+                    });
                 } else {
                     showErrorNotification(message);
                 }

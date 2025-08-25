@@ -18,6 +18,11 @@
     </span>
 {% endblock %}
 
+{% set btn_disabled = true %}
+{% block btn_show_content %}
+    {{ parent() }}
+{% endblock %}
+
 {% block message %}
         {% block content %}
             <p class="description__title">

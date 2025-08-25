@@ -12,8 +12,11 @@
 {% block title %}{{ 'ibexa_notifications'|trans|desc('Notifications') }}{% endblock %}
 {% set no_items = pager.count is same as(0) %}
 {% block header %}
-    <div class="ibexa-notification-list__btn--mark-all-as-read">
-        <button class="btn ibexa-btn ibexa-btn--secondary" disabled={{ no_items }}>
+    <div class="ibexa-notification-list__btn">
+        <button 
+        class="btn ibexa-btn ibexa-btn--secondary ibexa-notification-list__mark-all-as-read"
+        {% if no_items %}disabled="true"{% endif %}
+        >
             {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
         </button>
     </div>

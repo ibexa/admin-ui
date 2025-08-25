@@ -45,10 +45,21 @@
     </div>
 {% endset %}
 
-{% set icon_show %}
-    <svg class="ibexa-icon ibexa-icon--small">
-        <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
-    </svg>
+{% set btn_show_content %}
+    {% block btn_show_content %}
+        {% set is_disabled = btn_disabled|default(false) %}
+
+        <button 
+            title="{{ 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') }}" 
+            type="button" 
+            class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small ibexa-notification-view-all__show"
+            {% if is_disabled %} disabled {% endif %}
+        >
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
+            </svg>
+        </button>
+    {% endblock %}
 {% endset %}
 
 {% set icon_mail_open %}
@@ -110,13 +121,7 @@
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
-                <button 
-                    title="{{ 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') }}" 
-                    type="button" 
-                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__show"
-                >
-                        {{ icon_show }}
-                </button>
+                {{ btn_show_content }}
             {% endblock %}
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
@@ -124,14 +129,14 @@
                 <button 
                     title="{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}" 
                     type="button" 
-                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}"
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}"
                 >
                     {{ icon_mail_open }}
                 </button>
                 <button 
                     title="{{ 'notification.mark_as_unread'|trans({}, 'ibexa_notifications')|desc('Mark as unread') }}" 
                     type="button" 
-                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--small ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}"
+                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}"
                 >
                     {{ icon_mail }}
                 </button>
