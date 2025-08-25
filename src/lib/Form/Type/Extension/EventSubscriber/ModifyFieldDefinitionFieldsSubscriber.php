@@ -110,7 +110,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
 
     private function acceptsFieldDefinition(FieldDefinitionData $field, string $identifier): bool
     {
-        $matchesType = $this->fieldTypeIdentifier === $field->fieldDefinition->fieldTypeIdentifier;
+        $matchesType = $this->fieldTypeIdentifier === $field->getFieldTypeIdentifier();
         $matchesIdentifier = in_array($identifier, $this->fieldIdentifiers, true);
 
         return $matchesType || $matchesIdentifier;
