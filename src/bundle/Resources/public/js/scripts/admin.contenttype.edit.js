@@ -376,7 +376,7 @@
 
         input.classList.toggle('is-invalid', isInputEmpty);
 
-        if (errorNode) {
+        if (errorNode && labelNode) {
             errorNode.innerHTML = '';
 
             if (isInputEmpty) {
@@ -416,10 +416,7 @@
                 const { fieldDefinitionIdentifier } = fieldDefinition.dataset;
                 const isInputEmpty = !input.value;
 
-                if (!fieldDefinitionsStatuses[fieldDefinitionIdentifier]) {
-                    fieldDefinitionsStatuses[fieldDefinitionIdentifier] = [];
-                }
-
+                fieldDefinitionsStatuses[fieldDefinitionIdentifier] ??= [];
                 fieldDefinitionsStatuses[fieldDefinitionIdentifier].push(isInputEmpty);
             }
 
@@ -431,10 +428,7 @@
             const { fieldDefinitionIdentifier } = fieldDefinition.dataset;
             const hasError = !validateMatrixColumns(columnSettingsNode);
 
-            if (!fieldDefinitionsStatuses[fieldDefinitionIdentifier]) {
-                fieldDefinitionsStatuses[fieldDefinitionIdentifier] = [];
-            }
-
+            fieldDefinitionsStatuses[fieldDefinitionIdentifier] ??= [];
             fieldDefinitionsStatuses[fieldDefinitionIdentifier].push(hasError);
             isEditFormValid = isEditFormValid && !hasError;
         });
@@ -659,7 +653,7 @@
         const { columnNode } = event.detail;
         const inputs = columnNode.querySelectorAll('.ibexa-input[required]');
 
-        [...inputs].forEach((input) => {
+        inputs.forEach((input) => {
             attachValidateEvents(input);
         });
     });
