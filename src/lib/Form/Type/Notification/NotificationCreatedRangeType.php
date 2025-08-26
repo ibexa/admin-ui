@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Notification;
 
 use Ibexa\AdminUi\Form\Type\DateRangeType;
+use Ibexa\AdminUi\Validator\Constraints\DateRangeConstraint;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,6 +25,7 @@ final class NotificationCreatedRangeType extends AbstractType
             'required' => false,
             'label' => /** @Desc("Date and time") */ 'notification.date_and_time',
             'translation_domain' => 'ibexa_notifications',
+            'constraints' => [new DateRangeConstraint()],
         ]);
     }
 
