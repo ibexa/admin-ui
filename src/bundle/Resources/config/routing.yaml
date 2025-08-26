@@ -969,7 +969,7 @@ ibexa.notifications.delete:
         expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationAction'
-    methods: [ POST ]
+    methods: [GET]
     requirements:
         notificationId: '\d+'
 
