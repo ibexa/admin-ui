@@ -239,7 +239,7 @@
             'ibexa_notifications',
         );
 
-        fetch(deleteLink, { mode: 'same-origin', credentials: 'same-origin' })
+        fetch(deleteLink, { method: 'POST', mode: 'same-origin', credentials: 'same-origin' })
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
