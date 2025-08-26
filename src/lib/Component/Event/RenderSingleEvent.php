@@ -16,50 +16,31 @@ use Symfony\Contracts\EventDispatcher\Event;
  * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderSingleEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent} instead
  */
-class RenderSingleEvent extends Event
+final class RenderSingleEvent extends Event
 {
-    public const NAME = 'ezplatform_admin_ui.component.render_single';
-
-    private Registry $registry;
-
-    private string $groupName;
-
-    private string $serviceId;
-
-    private array $parameters;
+    public const string NAME = 'ezplatform_admin_ui.component.render_single';
 
     /**
-     * @param \Ibexa\AdminUi\Component\Registry $registry
-     * @param string $groupName
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
-    public function __construct(Registry $registry, string $groupName, string $serviceId, array $parameters = [])
-    {
-        $this->registry = $registry;
-        $this->groupName = $groupName;
-        $this->serviceId = $serviceId;
-        $this->parameters = $parameters;
+    public function __construct(
+        private readonly Registry $registry,
+        private readonly string $groupName,
+        private readonly string $serviceId,
+        private readonly array $parameters = []
+    ) {
     }
 
-    /**
-     * @return string
-     */
     public function getGroupName(): string
     {
         return $this->groupName;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->serviceId;
     }
 
-    /**
-     * @return \Ibexa\Contracts\TwigComponents\ComponentInterface
-     */
     public function getComponent(): ComponentInterface
     {
         $group = $this->registry->getComponents($this->getGroupName());
@@ -67,9 +48,6 @@ class RenderSingleEvent extends Event
         return $group[$this->serviceId];
     }
 
-    /**
-     * @param \Ibexa\Contracts\TwigComponents\ComponentInterface $component
-     */
     public function setComponent(ComponentInterface $component): void
     {
         $this->registry->addComponent($this->getGroupName(), $this->getName(), $component);

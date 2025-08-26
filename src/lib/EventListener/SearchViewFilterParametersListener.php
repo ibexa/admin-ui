@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
@@ -19,27 +20,17 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class SearchViewFilterParametersListener implements EventSubscriberInterface
+final readonly class SearchViewFilterParametersListener implements EventSubscriberInterface
 {
-    private FormFactoryInterface $formFactory;
-
-    private ConfigResolverInterface $configResolver;
-
-    private RequestStack $requestStack;
-
-    /** @var string[][] */
-    private array $siteAccessGroups;
-
+    /**
+     * @param string[][] $siteAccessGroups
+     */
     public function __construct(
-        FormFactoryInterface $formFactory,
-        ConfigResolverInterface $configResolver,
-        RequestStack $requestStack,
-        array $siteAccessGroups
+        private FormFactoryInterface $formFactory,
+        private ConfigResolverInterface $configResolver,
+        private RequestStack $requestStack,
+        private array $siteAccessGroups
     ) {
-        $this->formFactory = $formFactory;
-        $this->configResolver = $configResolver;
-        $this->requestStack = $requestStack;
-        $this->siteAccessGroups = $siteAccessGroups;
     }
 
     public static function getSubscribedEvents(): array
@@ -57,7 +48,12 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
             return;
         }
 
-        if (!$this->isAdminSiteAccess($this->requestStack->getCurrentRequest())) {
+        $request = $this->requestStack->getCurrentRequest();
+        if (null === $request) {
+            return;
+        }
+
+        if (!$this->isAdminSiteAccess($request)) {
             return;
         }
 
@@ -68,12 +64,16 @@ final class SearchViewFilterParametersListener implements EventSubscriberInterfa
 
         $event->getParameterBag()->add([
             'form_edit' => $editForm->createView(),
-            'user_content_type_identifier' => $this->configResolver->getParameter('user_content_type_identifier'),
+            'user_content_type_identifier' => $this->configResolver->getParameter(
+                'user_content_type_identifier'
+            ),
         ]);
     }
 
     private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }

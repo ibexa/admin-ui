@@ -17,21 +17,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class CredentialsExpiredListener implements EventSubscriberInterface
+final readonly class CredentialsExpiredListener implements EventSubscriberInterface
 {
-    private RequestStack $requestStack;
-
-    /** @var string[][] */
-    private array $siteAccessGroups;
-
     /**
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param string[] $siteAccessGroups
+     * @param string[][] $siteAccessGroups
      */
-    public function __construct(RequestStack $requestStack, array $siteAccessGroups)
-    {
-        $this->requestStack = $requestStack;
-        $this->siteAccessGroups = $siteAccessGroups;
+    public function __construct(
+        private RequestStack $requestStack,
+        private array $siteAccessGroups
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -60,6 +55,8 @@ final class CredentialsExpiredListener implements EventSubscriberInterface
 
     private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }

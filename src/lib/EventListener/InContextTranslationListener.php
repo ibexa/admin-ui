@@ -18,25 +18,18 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class InContextTranslationListener implements EventSubscriberInterface
+final readonly class InContextTranslationListener implements EventSubscriberInterface
 {
-    private const ACHOLI_LANG = 'ach-UG';
+    private const string ACHOLI_LANG = 'ach-UG';
 
-    private UserSettingService $userSettingService;
-
-    /** @var string[] */
-    private array $siteAccessGroups;
-
-    private TranslatorInterface $translator;
-
+    /**
+     * @param string[][] $siteAccessGroups
+     */
     public function __construct(
-        array $siteAccessGroups,
-        UserSettingService $userSettingService,
-        TranslatorInterface $translator
+        private array $siteAccessGroups,
+        private UserSettingService $userSettingService,
+        private TranslatorInterface $translator
     ) {
-        $this->siteAccessGroups = $siteAccessGroups;
-        $this->userSettingService = $userSettingService;
-        $this->translator = $translator;
     }
 
     /**
@@ -72,6 +65,8 @@ final class InContextTranslationListener implements EventSubscriberInterface
 
     private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }

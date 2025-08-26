@@ -15,18 +15,12 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class CancelEditVersionDraftEvent extends Event
 {
-    private Content $content;
-
-    private Location $referrerLocation;
-
     private ?Response $response = null;
 
     public function __construct(
-        Content $content,
-        Location $referrerLocation
+        private readonly Content $content,
+        private readonly Location $referrerLocation
     ) {
-        $this->content = $content;
-        $this->referrerLocation = $referrerLocation;
     }
 
     public function getContent(): Content

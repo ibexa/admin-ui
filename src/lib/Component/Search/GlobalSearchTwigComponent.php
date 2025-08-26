@@ -15,22 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 
-final class GlobalSearchTwigComponent implements ComponentInterface
+final readonly class GlobalSearchTwigComponent implements ComponentInterface
 {
-    private Environment $twig;
-
-    private FormFactoryInterface $formFactory;
-
-    private UrlGeneratorInterface $urlGenerator;
-
     public function __construct(
-        Environment $twig,
-        FormFactoryInterface $formFactory,
-        UrlGeneratorInterface $urlGenerator
+        private Environment $twig,
+        private FormFactoryInterface $formFactory,
+        private UrlGeneratorInterface $urlGenerator
     ) {
-        $this->twig = $twig;
-        $this->formFactory = $formFactory;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function render(array $parameters = []): string

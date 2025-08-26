@@ -4,13 +4,13 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\ContentForms\ConfigResolver\MaxUploadSize;
-use Ibexa\Contracts\Core\Repository\FieldTypeService;
 use Ibexa\Core\FieldType\Media\Type;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,16 +19,11 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
 
-class MediaFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class MediaFormMapper implements FieldDefinitionFormMapperInterface
 {
-    private MaxUploadSize $maxUploadSize;
-
-    protected const ACCEPT_VIDEO = 'video/*';
-    protected const ACCEPT_AUDIO = 'audio/*';
-
-    public function __construct(FieldTypeService $fieldTypeService, MaxUploadSize $maxUploadSize)
-    {
-        $this->maxUploadSize = $maxUploadSize;
+    public function __construct(
+        private MaxUploadSize $maxUploadSize
+    ) {
     }
 
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void

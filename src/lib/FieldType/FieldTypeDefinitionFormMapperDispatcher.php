@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Form\FormInterface;
  *
  * Adds the form elements matching the given Field Data (Value or Definition) to a given Form.
  */
-class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionFormMapperDispatcherInterface
+final class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionFormMapperDispatcherInterface
 {
     /**
      * @param \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[] $mappers
@@ -32,7 +33,7 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
         $this->mappers[$fieldTypeIdentifier] = $mapper;
     }
 
-    public function map(FormInterface $fieldForm, FieldDefinitionData $data): void
+    public function map(FormInterface $form, FieldDefinitionData $data): void
     {
         $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
         $fieldTypeIdentifier = $this->fieldTypeAliasResolver->resolveIdentifier($fieldTypeIdentifier);
@@ -41,6 +42,6 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
             return;
         }
 
-        $this->mappers[$fieldTypeIdentifier]->mapFieldDefinitionForm($fieldForm, $data);
+        $this->mappers[$fieldTypeIdentifier]->mapFieldDefinitionForm($form, $data);
     }
 }

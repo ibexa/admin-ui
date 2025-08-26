@@ -15,20 +15,24 @@ use Ibexa\TwigComponents\Component\Renderer\DefaultRenderer as TwigComponentsDef
  * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Renderer\DefaultRenderer} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\Renderer\DefaultRenderer} instead
  */
-class DefaultRenderer implements RendererInterface
+readonly class DefaultRenderer implements RendererInterface
 {
-    protected TwigComponentsDefaultRenderer $inner;
-
-    public function __construct(TwigComponentsDefaultRenderer $inner)
-    {
-        $this->inner = $inner;
+    public function __construct(
+        private TwigComponentsDefaultRenderer $inner
+    ) {
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function renderGroup(string $groupName, array $parameters = []): array
     {
         return $this->inner->renderGroup($groupName, $parameters);
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function renderSingle(string $name, $groupName, array $parameters = []): string
     {
         return $this->inner->renderSingle($name, $groupName, $parameters);

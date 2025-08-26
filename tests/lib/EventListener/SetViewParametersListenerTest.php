@@ -115,7 +115,9 @@ final class SetViewParametersListenerTest extends TestCase
             ->method('sudo')
             ->willReturn([$locationA]);
 
-        $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
+        $this->viewParametersListener->setContentEditViewTemplateParameters(
+            new PreContentViewEvent($contentView)
+        );
 
         self::assertSame($locations, $contentView->getParameter('parent_locations'));
     }
@@ -157,7 +159,9 @@ final class SetViewParametersListenerTest extends TestCase
             ->method('sudo')
             ->willReturn($parentLocation);
 
-        $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
+        $this->viewParametersListener->setContentEditViewTemplateParameters(
+            new PreContentViewEvent($contentView)
+        );
 
         self::assertSame([], $contentView->getParameter('parent_locations'));
         self::assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
@@ -190,7 +194,6 @@ final class SetViewParametersListenerTest extends TestCase
     public function testSetUserUpdateViewTemplateParameters(): void
     {
         $ownerId = 42;
-
         $user = $this->generateUser($ownerId);
 
         $userUpdateView = new UserUpdateView();
@@ -203,7 +206,9 @@ final class SetViewParametersListenerTest extends TestCase
             ->with($ownerId)
             ->willReturn($user);
 
-        $this->viewParametersListener->setUserUpdateViewTemplateParameters(new PreContentViewEvent($userUpdateView));
+        $this->viewParametersListener->setUserUpdateViewTemplateParameters(
+            new PreContentViewEvent($userUpdateView)
+        );
 
         self::assertSame($user, $userUpdateView->getParameter('creator'));
     }
@@ -297,49 +302,34 @@ final class SetViewParametersListenerTest extends TestCase
         }
     }
 
-    /**
-     * @param int $mainLocationId
-     * @param bool $published
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
-     */
     private function generateContentInfo(?int $mainLocationId = null, bool $published = false): API\ContentInfo
     {
         return new API\ContentInfo([
             'mainLocationId' => $mainLocationId,
             'ownerId' => self::EXAMPLE_OWNER_ID,
             'published' => $published,
+            'owner' => $this->generateUser(self::EXAMPLE_OWNER_ID),
+            'id' => self::EXAMPLE_OWNER_ID,
+            'status' => $published ? API\ContentInfo::STATUS_PUBLISHED : API\ContentInfo::STATUS_DRAFT,
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
-     */
     private function generateVersionInfo(API\ContentInfo $contentInfo): API\VersionInfo
     {
         return new VersionInfo(['contentInfo' => $contentInfo]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
-     */
     private function generateContent(API\VersionInfo|VersionInfo $versionInfo): API\Content
     {
         return new Core\Content(['versionInfo' => $versionInfo]);
     }
 
-    /**
-     * @param int $ownerId
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
-     */
     private function generateUser(int $ownerId): APIUser
     {
-        $contentInfo = new API\ContentInfo(['ownerId' => $ownerId]);
+        $contentInfo = new API\ContentInfo([
+            'ownerId' => $ownerId,
+            'id' => $ownerId,
+        ]);
 
         $versionInfo = new VersionInfo(['contentInfo' => $contentInfo]);
 
@@ -348,10 +338,7 @@ final class SetViewParametersListenerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject
+    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject|Field
     {
         $data = new FieldData([
             'field' => new Field([

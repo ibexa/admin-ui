@@ -19,15 +19,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @internal for internal use by AdminUI
  */
-final class ContentDownloadRouteReferenceListener implements EventSubscriberInterface
+final readonly class ContentDownloadRouteReferenceListener implements EventSubscriberInterface
 {
-    public const CONTENT_DOWNLOAD_ROUTE_NAME = 'ibexa.content.download';
+    public const string CONTENT_DOWNLOAD_ROUTE_NAME = 'ibexa.content.download';
 
-    private array $siteAccessGroups;
-
-    public function __construct(array $siteAccessGroups)
+    /**
+     * @param string[][] $siteAccessGroups
+     */
+    public function __construct(private array $siteAccessGroups)
     {
-        $this->siteAccessGroups = $siteAccessGroups;
     }
 
     public static function getSubscribedEvents(): array
@@ -52,6 +52,9 @@ final class ContentDownloadRouteReferenceListener implements EventSubscriberInte
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     private function isAdminSiteAccess(SiteAccess $siteAccess): bool
     {
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($siteAccess);

@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\EventListener;
 use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TranslateEzSelectionMultilingualOptions implements EventSubscriberInterface
+final readonly class TranslateSelectionMultilingualOptions implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
     {
@@ -21,7 +21,7 @@ class TranslateEzSelectionMultilingualOptions implements EventSubscriberInterfac
     public function setMultilingualOptions(FieldDefinitionMappingEvent $event): void
     {
         $fieldDefinition = $event->getFieldDefinitionData()->fieldDefinition;
-        if ('ibexa_selection' !== $fieldDefinition->fieldTypeIdentifier) {
+        if ('ibexa_selection' !== $fieldDefinition->getFieldTypeIdentifier()) {
             return;
         }
 
@@ -35,8 +35,8 @@ class TranslateEzSelectionMultilingualOptions implements EventSubscriberInterfac
         $fieldDefinitionData = $event->getFieldDefinitionData();
         $fieldSettings = $fieldDefinitionData->fieldSettings;
 
-        if (isset($fieldSettings['multilingualOptions'][$baseLanguage->languageCode])) {
-            $fieldSettings['multilingualOptions'][$targetLanguage->languageCode] = $fieldSettings['multilingualOptions'][$baseLanguage->languageCode];
+        if (isset($fieldSettings['multilingualOptions'][$baseLanguage->getLanguageCode()])) {
+            $fieldSettings['multilingualOptions'][$targetLanguage->getLanguageCode()] = $fieldSettings['multilingualOptions'][$baseLanguage->getLanguageCode()];
         }
 
         $fieldDefinitionData->fieldSettings = $fieldSettings;

@@ -25,38 +25,17 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class UserProfileListener implements EventSubscriberInterface
+final readonly class UserProfileListener implements EventSubscriberInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    private Repository $repository;
-
-    private PermissionResolver $permissionResolver;
-
-    private ContentService $contentService;
-
-    private UserService $userService;
-
-    private UserProfileConfigurationInterface $configuration;
-
-    private RequestStack $requestStack;
-
     public function __construct(
-        Repository $repository,
-        PermissionResolver $permissionResolver,
-        ContentService $contentService,
-        UserService $userService,
-        UrlGeneratorInterface $urlGenerator,
-        UserProfileConfigurationInterface $configuration,
-        RequestStack $requestStack
+        private Repository $repository,
+        private PermissionResolver $permissionResolver,
+        private ContentService $contentService,
+        private UserService $userService,
+        private UrlGeneratorInterface $urlGenerator,
+        private UserProfileConfigurationInterface $configuration,
+        private RequestStack $requestStack
     ) {
-        $this->repository = $repository;
-        $this->permissionResolver = $permissionResolver;
-        $this->contentService = $contentService;
-        $this->userService = $userService;
-        $this->urlGenerator = $urlGenerator;
-        $this->configuration = $configuration;
-        $this->requestStack = $requestStack;
     }
 
     public static function getSubscribedEvents(): array
@@ -125,7 +104,11 @@ final class UserProfileListener implements EventSubscriberInterface
         $updateStruct->contentUpdateStruct = $this->contentService->newContentUpdateStruct();
 
         foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
-            $updateStruct->contentUpdateStruct->setField($fieldDefIdentifier, $fieldData->value, $languageCode);
+            $updateStruct->contentUpdateStruct->setField(
+                $fieldDefIdentifier,
+                $fieldData->getValue(),
+                $languageCode
+            );
         }
 
         return $updateStruct;

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -23,7 +24,7 @@ use Symfony\Component\Validator\Constraints\Range;
 /**
  * Maps a user FieldType.
  */
-final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface, TranslationContainerInterface
+final readonly class UserAccountFormMapper implements FieldDefinitionFormMapperInterface, TranslationContainerInterface
 {
     /**
      * {@inheritdoc}
@@ -109,8 +110,6 @@ final class UserAccountFormMapper implements FieldDefinitionFormMapperInterface,
 
     /**
      * Fake method to set the translation domain for the extractor.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
