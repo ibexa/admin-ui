@@ -67,7 +67,7 @@
         }
 
         const picker = filterNode.querySelector('.ibexa-input--date');
-        picker?.addEventListener('change', filterChange, false);
+        picker?.addEventListener('change', dateFilterChange, false);
     };
 
     const isTimeFilterNode = (filterNode) => {
@@ -100,6 +100,21 @@
         attachStatusFilterEvents(statusFilterNode);
         attachTypeFilterEvents(typeFilterNode);
         datetimeFilterNodes.forEach((input) => attachDateFilterEvents(input));
+    };
+    const dateFilterChange = (event) => {
+        const dateInput = event.target;
+
+        if (dateInput.classList.contains('is-invalid')) {
+            dateInput.classList.remove('is-invalid');
+
+            const errorWrapper = dateInput.closest('.form-group').querySelector('.ibexa-form-error');
+
+            if (errorWrapper) {
+                errorWrapper.innerText = '';
+            }
+        }
+
+        filterChange();
     };
     const filterChange = () => {
         const hasFiltersSetValue = isSomeFilterSet();
