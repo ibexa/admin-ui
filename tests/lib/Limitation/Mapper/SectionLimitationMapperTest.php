@@ -37,7 +37,7 @@ class SectionLimitationMapperTest extends TestCase
 
     public function testMapLimitationValue(): void
     {
-        $values = ['3', '5', '7'];
+        $values = [3, 5, 7];
 
         $expected = [];
         foreach ($values as $i => $value) {

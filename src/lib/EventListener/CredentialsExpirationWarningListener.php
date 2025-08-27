@@ -25,7 +25,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final readonly class CredentialsExpirationWarningListener implements EventSubscriberInterface
 {
     /**
-     * @param string[][] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
     public function __construct(
         private NotificationHandlerInterface $notificationHandler,

@@ -30,7 +30,7 @@ class AdminExceptionListener implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     /**
-     * @param array<mixed> $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      * @param \Psr\Log\LogLevel::* $logLevel
      */
     public function __construct(
@@ -71,7 +71,7 @@ class AdminExceptionListener implements LoggerAwareInterface
         $this->notificationHandler->error(/** @Ignore */
             $this->getNotificationMessage($exception)
         );
-        $this->logger->log($this->logLevel, $exception->getMessage(), [
+        $this->logger?->log($this->logLevel, $exception->getMessage(), [
             'exception' => $exception,
         ]);
 

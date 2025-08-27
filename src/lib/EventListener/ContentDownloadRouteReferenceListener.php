@@ -15,7 +15,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Ensures that download urls generated in ezplatform-admin-ui are in the scope of admin siteaccess.
+ * Ensures that download urls generated in ibexa/admin-ui are in the scope of admin siteaccess.
  *
  * @internal for internal use by AdminUI
  */
@@ -24,7 +24,7 @@ final readonly class ContentDownloadRouteReferenceListener implements EventSubsc
     public const string CONTENT_DOWNLOAD_ROUTE_NAME = 'ibexa.content.download';
 
     /**
-     * @param string[][] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
     public function __construct(private array $siteAccessGroups)
     {

@@ -26,7 +26,7 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
     private const string TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
     /**
-     * @param string[][] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
     public function __construct(
         private array $siteAccessGroups,

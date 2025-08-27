@@ -73,7 +73,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
 
             $ast = $parser->parse();
         } catch (Exception $e) {
-            $this->logger->error(sprintf(
+            $this->logger?->error(sprintf(
                 'Unable to parse file %s: %s in line %d column %d',
                 $file->getRealPath(),
                 $e->getMessage(),
@@ -158,7 +158,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
             if (!($idNode instanceof Node\StringLiteral)) {
                 $position = $idNode->getLocation()->getStart();
 
-                $this->logger->error(sprintf(
+                $this->logger?->error(sprintf(
                     'Could not extract id, expected string literal but got %s (in %s on line %d column %d).',
                     $idNode->getType(),
                     $file->getRealPath(),
@@ -194,7 +194,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
             if (!($domainNode instanceof Node\StringLiteral)) {
                 $position = $domainNode->getLocation()->getStart();
 
-                $this->logger->error(sprintf(
+                $this->logger?->error(sprintf(
                     'Could not extract domain, expected string literal but got %s (in %s on line %d column %d).',
                     $domainNode->getType(),
                     $file->getRealPath(),
@@ -230,15 +230,8 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         return null;
     }
 
-    /**
-     * Returns true if file is supported by extractor.
-     *
-     * @param \SplFileInfo $file
-     *
-     * @return bool
-     */
     private function supports(SplFileInfo $file): bool
     {
-        return '.js' === substr($file->getRealPath(), -3) && '.min.js' !== substr($file->getRealPath(), -7);
+        return str_ends_with($file->getRealPath(), '.js') && !str_ends_with($file->getRealPath(), '.min.js');
     }
 }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -57,8 +58,10 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
                 $values[] = $this->getObjectStateLabel(
                     $this->objectStateService->loadObjectState($stateId)
                 );
-            } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find an Object state with ID %s', $stateId));
+            } catch (NotFoundException) {
+                $this->logger?->error(
+                    sprintf('Could not map the Limitation value: could not find an Object state with ID %s', $stateId)
+                );
             }
         }
 

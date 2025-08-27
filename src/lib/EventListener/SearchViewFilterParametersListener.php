@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final readonly class SearchViewFilterParametersListener implements EventSubscriberInterface
 {
     /**
-     * @param string[][] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
     public function __construct(
         private FormFactoryInterface $formFactory,

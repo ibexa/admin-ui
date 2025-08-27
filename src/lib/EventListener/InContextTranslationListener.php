@@ -23,7 +23,7 @@ final readonly class InContextTranslationListener implements EventSubscriberInte
     private const string ACHOLI_LANG = 'ach-UG';
 
     /**
-     * @param string[][] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
     public function __construct(
         private array $siteAccessGroups,

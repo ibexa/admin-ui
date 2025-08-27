@@ -21,7 +21,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final readonly class RequestLocaleListener implements EventSubscriberInterface
 {
     /**
-     * @param string[][] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      * @param string[] $availableTranslations
      */
     public function __construct(
