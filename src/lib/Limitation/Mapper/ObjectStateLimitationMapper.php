@@ -19,15 +19,12 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
+final class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
-    private ObjectStateService $objectStateService;
-
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(private readonly ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
         $this->logger = new NullLogger();
     }
 
@@ -56,7 +53,7 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         foreach ($limitation->limitationValues as $stateId) {
             try {
                 $values[] = $this->getObjectStateLabel(
-                    $this->objectStateService->loadObjectState($stateId)
+                    $this->objectStateService->loadObjectState((int)$stateId)
                 );
             } catch (NotFoundException) {
                 $this->logger?->error(

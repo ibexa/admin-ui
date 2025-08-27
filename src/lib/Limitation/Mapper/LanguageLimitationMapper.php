@@ -18,15 +18,12 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
+final class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
-    private LanguageService $languageService;
-
-    public function __construct(LanguageService $languageService)
+    public function __construct(private readonly LanguageService $languageService)
     {
-        $this->languageService = $languageService;
         $this->logger = new NullLogger();
     }
 
@@ -37,7 +34,7 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
     {
         $choices = [];
         foreach ($this->languageService->loadLanguages() as $language) {
-            $choices[$language->languageCode] = $language->name;
+            $choices[$language->getLanguageCode()] = $language->getName();
         }
 
         return $choices;

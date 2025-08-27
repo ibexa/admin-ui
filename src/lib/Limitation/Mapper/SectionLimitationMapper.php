@@ -18,15 +18,12 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class SectionLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
+final class SectionLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
-    private SectionService $sectionService;
-
-    public function __construct(SectionService $sectionService)
+    public function __construct(private readonly SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
         $this->logger = new NullLogger();
     }
 
@@ -37,7 +34,7 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
     {
         $choices = [];
         foreach ($this->sectionService->loadSections() as $section) {
-            $choices[$section->id] = $section->name;
+            $choices[$section->getId()] = $section->getName();
         }
 
         return $choices;
@@ -51,7 +48,7 @@ class SectionLimitationMapper extends MultipleSelectionBasedMapper implements Li
         $values = [];
         foreach ($limitation->limitationValues as $sectionId) {
             try {
-                $values[] = $this->sectionService->loadSection($sectionId);
+                $values[] = $this->sectionService->loadSection((int)$sectionId);
             } catch (NotFoundException) {
                 $this->logger?->error(
                     sprintf('Could not map the Limitation value: could not find a Section with ID %s', $sectionId)

@@ -55,7 +55,7 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         $values = [];
         foreach ($limitation->limitationValues as $contentTypeId) {
             try {
-                $values[] = $this->contentTypeService->loadContentType($contentTypeId);
+                $values[] = $this->contentTypeService->loadContentType((int)$contentTypeId);
             } catch (NotFoundException) {
                 $this->logger?->error(
                     sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId)
