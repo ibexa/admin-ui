@@ -58,6 +58,7 @@
     &__type-content {
         width: 100%;
         font-size: $ibexa-text-font-size-medium;
+        cursor: default;
 
         p {
             margin-bottom: 0;
@@ -130,7 +131,7 @@
         .description__text {
             width: 100%;
             margin-bottom: 0;
-            max-width: 50ch;
+            max-width: calculateRem(350px);
             float: left;
 
             + .description__read-more {
@@ -247,21 +248,21 @@
         max-width: 100%;
         overflow: hidden;
 
-        .type__text {
-            white-space: nowrap;
+        .type__text,
+        .description__title {
+            flex-shrink: 0;
         }
-
         .ibexa-notifications-modal__description {
             display: flex;
             max-width: 100%;
         }
-
         .description__text {
             flex: 1;
             min-width: 0;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            max-width: 25vw;
         }
     }
 

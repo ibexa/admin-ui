@@ -5,21 +5,15 @@
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
     const SELECTOR_MODAL_RESULTS = '.ibexa-notifications-modal__results .ibexa-scrollable-wrapper';
     const SELECTOR_MODAL_TITLE = '.ibexa-side-panel__header';
-    const SELECTOR_DESC_TEXT = '.description__text';
     const SELECTOR_LIST = '.ibexa-list--notifications';
-    const CLASS_ELLIPSIS = 'description__text--ellipsis';
-    const CLASS_PAGINATION_LINK = 'page-link';
     const CLASS_MODAL_LOADING = 'ibexa-notifications-modal--loading';
     const INTERVAL = 30000;
     const panel = doc.querySelector('.ibexa-notifications-modal');
     const { showErrorNotification, showWarningNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse, getTextFromResponse } = ibexa.helpers.request;
     const handleNotificationClickRequest = (notification, response) => {
-        if (response.status === 'success') {
+        if (response.status === 'success' && response.redirect) {
             notification.classList.add('ibexa-notifications-modal__item--read');
-        }
-
-        if (response.redirect) {
             global.location = response.redirect;
         }
     };
@@ -31,21 +25,6 @@
         });
 
         fetch(request).then(getJsonFromResponse).then(handleNotificationClickRequest.bind(null, notification)).catch(showErrorNotification);
-    };
-    const handleTableClick = (event) => {
-        if (event.target.classList.contains('description__read-more')) {
-            event.target.closest(SELECTOR_MODAL_ITEM).querySelector(SELECTOR_DESC_TEXT).classList.remove(CLASS_ELLIPSIS);
-
-            return;
-        }
-
-        const notification = event.target.closest(SELECTOR_MODAL_ITEM);
-
-        if (!notification) {
-            return;
-        }
-
-        handleNotificationClick(notification);
     };
 
     const getNotificationsStatus = () => {
@@ -249,6 +228,7 @@
 
                     menuInstance.closeMenu();
                     notification.remove();
+                    getNotificationsStatus();
                 } else {
                     showErrorNotification(message);
                 }
@@ -305,27 +285,14 @@
         fetch(request).then(getTextFromResponse).then(showNotificationPage).catch(showErrorNotification);
     };
     const handleModalResultsClick = (event) => {
-        const isPaginationBtn = event.target.classList.contains(CLASS_PAGINATION_LINK);
         const isActionBtn = event.target.closest('.ibexa-notifications-modal__actions');
+        const notification = event.target.closest(SELECTOR_MODAL_ITEM);
 
-        if (isActionBtn) {
+        if (isActionBtn || !notification) {
             return;
         }
 
-        if (isPaginationBtn) {
-            handleNotificationsPageChange(event);
-
-            return;
-        }
-
-        handleTableClick(event);
-    };
-    const handleNotificationsPageChange = (event) => {
-        event.preventDefault();
-
-        const notificationsPageLink = event.target.href;
-
-        fetchNotificationPage(notificationsPageLink);
+        handleNotificationClick(notification);
     };
 
     if (!panel) {

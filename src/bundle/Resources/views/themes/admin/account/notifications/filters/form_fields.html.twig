@@ -42,6 +42,9 @@
                         'data-seconds': 0,
                     }
                 }) }}
+                <div class="ibexa-form-error">
+                    {{ form_errors(form.children.min) }}
+                </div>
             </div>
 
             <div class="form-group">
@@ -53,6 +56,9 @@
                         'data-seconds': 0,
                     }
                 }) }}
+                <div class="ibexa-form-error">
+                    {{ form_errors(form.children.max) }}
+                </div>
             </div>
         {% endblock %}
     {% endembed %}

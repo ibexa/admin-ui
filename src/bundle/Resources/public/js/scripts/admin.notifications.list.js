@@ -167,7 +167,7 @@
         deleteBtn.disabled = !isAnythingSelected;
         markAsReadBtn.disabled =
             !isAnythingSelected ||
-            !checkedNotifications.every(
+            !checkedNotifications.some(
                 (checkbox) =>
                     checkbox.closest('.ibexa-table__row').querySelector('.ibexa-notification-view-all__notice-dot').dataset.isRead ===
                     'false',

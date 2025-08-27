@@ -15,3 +15,13 @@
         {{ 'notification.trashed'|trans|desc('Sent to Trash')}}
     </span>
 {% endblock %}
+
+{% block message %}
+    {% block content %}
+        <p class="description__title">
+            {{ 'notification.title'|trans|desc('Title:') }}
+            <span class="description__title-item"><strong>{{ title }}</strong></span>
+        </p>
+        <p class="description__text">{{ 'notification.trashed.info'|trans({}, 'ibexa_notifications')|desc('moved to Trash')}}</p>
+    {% endblock %}
+{% endblock %}

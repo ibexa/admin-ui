@@ -136,6 +136,11 @@
         <target state="new">Sent to Trash</target>
         <note>key: notification.trashed</note>
       </trans-unit>
+      <trans-unit id="d643e1117bad8f0bac7d8b158f54e2109ea1f482" resname="notification.trashed.info">
+        <source>moved to Trash</source>
+        <target state="new">moved to Trash</target>
+        <note>key: notification.trashed.info</note>
+      </trans-unit>
       <trans-unit id="f5bf4310647081193250ff28773cf5f4880a0fe2" resname="notification.unread">
         <source>Unread</source>
         <target state="new">Unread</target>

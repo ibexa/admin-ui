@@ -68,7 +68,7 @@
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notifications-modal__type-content' } %}
             {% block content %}
                 <strong>{{ notification_type }}</strong>
-                {{ message }}
+                <div class="ibexa-notifications-modal__description">{{ message }}</div>
                 <div class="ibexa-notifications-modal__item--date">
                     {{ notification.created|ibexa_short_datetime }} 
                 </div>
