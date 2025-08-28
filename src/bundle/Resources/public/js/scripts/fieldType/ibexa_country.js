@@ -5,6 +5,10 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
     class IbexaCountryValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'IbexaCountryValidator';
+        }
+
         /**
          * Validates the country field value
          *
