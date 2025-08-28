@@ -32,8 +32,8 @@
         <note>key: on_the_fly.cancel</note>
       </trans-unit>
       <trans-unit id="d466f97702d045f02d8b55379a9c6ea5270ecfef" resname="on_the_fly.confirm">
-        <source>Save and close</source>
-        <target state="new">Save and close</target>
+        <source>Publish</source>
+        <target state="new">Publish</target>
         <note>key: on_the_fly.confirm</note>
       </trans-unit>
     </body>
