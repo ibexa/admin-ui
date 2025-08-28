@@ -13,16 +13,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 /**
  * @todo add validation
  */
-class LocationSwapData
+final class LocationSwapData
 {
-    protected ?Location $currentLocation;
-
-    protected ?Location $newLocation;
-
-    public function __construct(?Location $currentLocation = null, ?Location $newLocation = null)
-    {
-        $this->currentLocation = $currentLocation;
-        $this->newLocation = $newLocation;
+    public function __construct(
+        private ?Location $currentLocation = null,
+        private ?Location $newLocation = null
+    ) {
     }
 
     public function getCurrentLocation(): ?Location

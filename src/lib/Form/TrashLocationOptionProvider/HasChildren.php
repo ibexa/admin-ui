@@ -11,20 +11,17 @@ namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 use Ibexa\AdminUi\Specification\Location\HasChildren as HasChildrenSpec;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class HasChildren implements TrashLocationOptionProvider
+final readonly class HasChildren implements TrashLocationOptionProvider
 {
-    private LocationService $locationService;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(LocationService $locationService, TranslatorInterface $translator)
-    {
-        $this->locationService = $locationService;
-        $this->translator = $translator;
+    public function __construct(
+        private LocationService $locationService,
+        private TranslatorInterface $translator
+    ) {
     }
 
     public function supports(Location $location): bool

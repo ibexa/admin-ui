@@ -10,33 +10,20 @@ namespace Ibexa\AdminUi\Form\Data;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
-class PolicyData
+final class PolicyData
 {
-    /** @var string */
-    private $module;
-
-    /** @var string */
-    private $function;
-
-    /** @var array */
-    private $limitations;
-
     /**
-     * PolicyData constructor.
-     *
-     * @param string $module
-     * @param string $function
-     * @param array $limitations
+     * @param array<string, mixed> $limitations
      */
-    public function __construct($module = null, $function = null, array $limitations = [])
-    {
-        $this->module = $module;
-        $this->function = $function;
-        $this->limitations = $limitations;
+    public function __construct(
+        private ?string $module = null,
+        private ?string $function = null,
+        private array $limitations = []
+    ) {
     }
 
     /**
-     * @return array
+     * @return array<string, string|null>
      */
     public function getModuleFunction(): array
     {
@@ -46,17 +33,26 @@ class PolicyData
         ];
     }
 
+    /**
+     * @param array<string, string|null> $moduleFunction
+     */
     public function setModuleFunction(array $moduleFunction): void
     {
         $this->module = $moduleFunction['module'];
         $this->function = $moduleFunction['function'];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getLimitations(): array
     {
         return $this->limitations;
     }
 
+    /**
+     * @param array<string, mixed> $limitations
+     */
     public function setLimitations(array $limitations): void
     {
         $this->limitations = $limitations;
@@ -77,7 +73,7 @@ class PolicyData
         $data = new self();
         $data->module = $policy->module;
         $data->function = $policy->function;
-        $data->limitations = $policy->limitations;
+        $data->limitations = iterator_to_array($policy->getLimitations());
 
         return $data;
     }

@@ -10,14 +10,11 @@ namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 
 final class URLWildcardListData
 {
-    /** @var string|null */
-    public $searchQuery;
+    public ?string $searchQuery;
 
-    /** @var bool|null */
-    public $type;
+    public ?bool $type;
 
-    /** @var int */
-    public $limit;
+    public int $limit;
 
     public function getSearchQuery(): ?string
     {

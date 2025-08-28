@@ -9,17 +9,15 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CanHaveDrafts implements TrashLocationOptionProvider
+final readonly class CanHaveDrafts implements TrashLocationOptionProvider
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function supports(Location $location): bool

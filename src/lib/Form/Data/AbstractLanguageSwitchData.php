@@ -12,11 +12,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 abstract class AbstractLanguageSwitchData
 {
-    private ?Language $language;
-
-    public function __construct(?Language $language = null)
+    public function __construct(private ?Language $language = null)
     {
-        $this->language = $language;
     }
 
     public function getLanguage(): ?Language

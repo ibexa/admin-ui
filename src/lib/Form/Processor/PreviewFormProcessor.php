@@ -29,37 +29,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Listens for and processes RepositoryForm events.
  */
-class PreviewFormProcessor implements EventSubscriberInterface
+final readonly class PreviewFormProcessor implements EventSubscriberInterface
 {
-    private ContentService $contentService;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private LocationService $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(
-        ContentService $contentService,
-        UrlGeneratorInterface $urlGenerator,
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        LocationService $locationService
+        private ContentService $contentService,
+        private UrlGeneratorInterface $urlGenerator,
+        private TranslatableNotificationHandlerInterface $notificationHandler,
+        private LocationService $locationService
     ) {
-        $this->contentService = $contentService;
-        $this->urlGenerator = $urlGenerator;
-        $this->notificationHandler = $notificationHandler;
-        $this->locationService = $locationService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -68,8 +47,6 @@ class PreviewFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
-     *
      * @throws \InvalidArgumentException
      */
     public function processPreview(FormActionEvent $event): void
@@ -81,15 +58,15 @@ class PreviewFormProcessor implements EventSubscriberInterface
         $referrerLocation = $event->getOption('referrerLocation');
 
         try {
-            $contentDraft = $this->saveDraft($data, $languageCode, []);
+            $contentDraft = $this->saveDraft($data, $languageCode);
             $contentLocation = $this->resolveLocation($contentDraft, $referrerLocation, $data);
             $url = $this->urlGenerator->generate('ibexa.content.preview', [
-                'locationId' => null !== $contentLocation ? $contentLocation->id : null,
-                'contentId' => $contentDraft->id,
-                'versionNo' => $contentDraft->getVersionInfo()->versionNo,
+                'locationId' => $contentLocation?->getId(),
+                'contentId' => $contentDraft->getId(),
+                'versionNo' => $contentDraft->getVersionInfo()->getVersionNo(),
                 'languageCode' => $languageCode,
             ]);
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->notificationHandler->error(
                 /** @Desc("Cannot save content draft.") */
                 'error.preview',
@@ -116,8 +93,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
      */
     private function saveDraft(
         ContentCreateData|ContentStruct|ContentUpdateData $data,
-        string $languageCode,
-        ?array $fieldIdentifiersToValidate
+        string $languageCode
     ): Content {
         $mainLanguageCode = $this->resolveMainLanguageCode($data);
         foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
@@ -129,12 +105,12 @@ class PreviewFormProcessor implements EventSubscriberInterface
         }
 
         if ($data->isNew()) {
-            $contentDraft = $this->contentService->createContent($data, $data->getLocationStructs(), $fieldIdentifiersToValidate);
+            $contentDraft = $this->contentService->createContent($data, $data->getLocationStructs(), []);
         } else {
             $contentDraft = $this->contentService->updateContent(
                 $data->getContentDraft()->getVersionInfo(),
                 $data,
-                $fieldIdentifiersToValidate
+                []
             );
         }
 
@@ -153,7 +129,7 @@ class PreviewFormProcessor implements EventSubscriberInterface
         return $data->isNew() && $data instanceof ContentCreateData
             ? $this->urlGenerator->generate('ibexa.content.create.proxy', [
                 'parentLocationId' => $data->getLocationStructs()[0]->parentLocationId,
-                'contentTypeIdentifier' => $data->contentType->identifier,
+                'contentTypeIdentifier' => $data->contentType->getIdentifier(),
                 'languageCode' => $languageCode,
             ])
             : $this->urlGenerator->generate('ibexa.content.draft.edit', [
@@ -180,20 +156,26 @@ class PreviewFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $referrerLocation
-     * @param \Ibexa\ContentForms\Data\NewnessCheckable $data
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    private function resolveLocation(Content $content, ?Location $referrerLocation, NewnessCheckable $data): ?Location
-    {
-        if ($data->isNew() || (!$content->getContentInfo()->published && null === $content->getContentInfo()->getMainLocationId())) {
+    private function resolveLocation(
+        Content $content,
+        ?Location $referrerLocation,
+        NewnessCheckable $data
+    ): ?Location {
+        if (
+            $data->isNew()
+            || (!$content->getContentInfo()->isPublished() && null === $content->getContentInfo()->getMainLocationId())
+        ) {
             return null; // no location exists until new content is published
         }
 
-        return $referrerLocation ?? $this->locationService->loadLocation(
-            $content->getContentInfo()->getMainLocationId()
-        );
+        $mainLocationId = $content->getContentInfo()->getMainLocationId();
+        if ($mainLocationId === null) {
+            return null;
+        }
+
+        return $referrerLocation ?? $this->locationService->loadLocation($mainLocationId);
     }
 }

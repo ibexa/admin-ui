@@ -10,20 +10,15 @@ namespace Ibexa\AdminUi\Form\Data\Bookmark;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class BookmarkRemoveData
+final class BookmarkRemoveData
 {
-    /**
-     * @var array<int, false>
-     */
-    #[Assert\NotBlank]
-    public array $bookmarks;
-
     /**
      * @param array<int, false> $bookmarks
      */
-    public function __construct(array $bookmarks = [])
-    {
-        $this->bookmarks = $bookmarks;
+    public function __construct(
+        #[Assert\NotBlank]
+        private array $bookmarks = []
+    ) {
     }
 
     /**

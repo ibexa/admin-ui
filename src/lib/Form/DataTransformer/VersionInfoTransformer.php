@@ -19,19 +19,16 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Translates Content's ID to domain specific VersionInfo object.
  */
-final class VersionInfoTransformer implements DataTransformerInterface
+final readonly class VersionInfoTransformer implements DataTransformerInterface
 {
-    private ContentService $contentService;
-
-    public function __construct(ContentService $contentService)
+    public function __construct(private ContentService $contentService)
     {
-        $this->contentService = $contentService;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $value
+     * @phpstan-return array{content_info: \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo, version_no: int}|null
      */
-    public function transform($value): ?array
+    public function transform(mixed $value): ?array
     {
         if (null === $value) {
             return null;
@@ -45,16 +42,13 @@ final class VersionInfoTransformer implements DataTransformerInterface
 
         return [
             'content_info' => $value->getContentInfo(),
-            'version_no' => $value->versionNo,
+            'version_no' => $value->getVersionNo(),
         ];
     }
 
-    /**
-     * @param array|null $value
-     */
-    public function reverseTransform($value): ?VersionInfo
+    public function reverseTransform(mixed $value): ?VersionInfo
     {
-        if (null === $value || !is_array($value)) {
+        if (!is_array($value)) {
             return null;
         }
 

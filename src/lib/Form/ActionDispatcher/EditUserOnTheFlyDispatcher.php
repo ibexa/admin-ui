@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\ActionDispatcher;
 use Ibexa\ContentForms\Form\ActionDispatcher\ContentDispatcher;
 use Ibexa\Contracts\AdminUi\Event\UserOnTheFlyEvents;
 
-class EditUserOnTheFlyDispatcher extends ContentDispatcher
+final class EditUserOnTheFlyDispatcher extends ContentDispatcher
 {
     protected function getActionEventBaseName(): string
     {

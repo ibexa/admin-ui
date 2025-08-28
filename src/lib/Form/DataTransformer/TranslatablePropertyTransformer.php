@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
@@ -16,16 +17,10 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<array<string, TPropertyType>, TPropertyType>
  */
-class TranslatablePropertyTransformer implements DataTransformerInterface
+final readonly class TranslatablePropertyTransformer implements DataTransformerInterface
 {
-    /**
-     * Current language code (e.g. eng-GB).
-     */
-    private string $languageCode;
-
-    public function __construct(string $languageCode)
+    public function __construct(private string $languageCode)
     {
-        $this->languageCode = $languageCode;
     }
 
     public function transform(mixed $value): mixed

@@ -127,10 +127,16 @@ final class ContentTypeController extends Controller
     }
 
     /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     *
+     * @return \Ibexa\AdminUi\View\ContentTypeCreateView
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function addAction(ContentTypeGroup $group): RedirectResponse|ContentTypeCreateView
+    public function addAction(ContentTypeGroup $group): ContentTypeCreateView
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
         $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
@@ -664,7 +670,7 @@ final class ContentTypeController extends Controller
             'action' => $this->generateUrl('ibexa.content_type.update', [
                 'contentTypeGroupId' => $contentTypeGroup->id,
                 'contentTypeId' => $contentTypeDraft->id,
-                'fromLanguageCode' => $baseLanguage ? $baseLanguage->getLanguageCode() : null,
+                'fromLanguageCode' => $baseLanguage?->getLanguageCode(),
                 'toLanguageCode' => $language->getLanguageCode(),
             ]),
             'languageCode' => $language->getLanguageCode(),

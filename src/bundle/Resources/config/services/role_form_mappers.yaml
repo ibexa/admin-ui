@@ -187,7 +187,6 @@ services:
         arguments:
             $locationService: "@ibexa.api.service.location"
             $searchService: "@ibexa.api.service.search"
-            $permissionResolver: '@Ibexa\Contracts\Core\Repository\PermissionResolver'
             $repository: '@ibexa.api.repository'
         calls:
             - [setFormTemplate, ['%ibexa.content_forms.limitation.udw.template%']]

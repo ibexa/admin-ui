@@ -9,22 +9,20 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data;
 
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\Content\ContentUpdateStruct;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentTranslationData extends ContentUpdateStruct implements NewnessCheckable
 {
-    /**
-     * @var \Ibexa\Contracts\ContentForms\Data\Content\FieldData[]
-     */
+    /** @var \Ibexa\Contracts\ContentForms\Data\Content\FieldData[] */
     #[Assert\Valid]
-    protected $fieldsData;
+    protected array $fieldsData = [];
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
-    protected $content;
+    protected Content $content;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
-    protected $contentType;
+    protected ContentType $contentType;
 
     public function addFieldData(FieldData $fieldData): void
     {

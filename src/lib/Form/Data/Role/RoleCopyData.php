@@ -10,19 +10,15 @@ namespace Ibexa\AdminUi\Form\Data\Role;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
-class RoleCopyData
+final class RoleCopyData
 {
-    private Role $copiedRole;
-
-    private ?string $newIdentifier;
-
-    public function __construct(Role $role, ?string $identifier = null)
-    {
-        $this->copiedRole = $role;
-        $this->newIdentifier = $identifier;
+    public function __construct(
+        private Role $copiedRole,
+        private ?string $newIdentifier = null
+    ) {
     }
 
-    public function getCopiedRole(): ?Role
+    public function getCopiedRole(): Role
     {
         return $this->copiedRole;
     }

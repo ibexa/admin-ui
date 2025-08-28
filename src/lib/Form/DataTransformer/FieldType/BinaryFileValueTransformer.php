@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -15,7 +16,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * {@inheritdoc}
  */
-class BinaryFileValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
+final class BinaryFileValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     public function transform(mixed $value): array
     {
@@ -31,13 +32,6 @@ class BinaryFileValueTransformer extends AbstractBinaryBaseTransformer implement
 
     public function reverseTransform(mixed $value): Value
     {
-        /** @var \Ibexa\Core\FieldType\BinaryFile\Value $valueObject */
-        $valueObject = $this->getReverseTransformedValue($value);
-
-        if ($this->fieldType->isEmptyValue($valueObject)) {
-            return $valueObject;
-        }
-
-        return $valueObject;
+        return $this->getReverseTransformedValue($value);
     }
 }

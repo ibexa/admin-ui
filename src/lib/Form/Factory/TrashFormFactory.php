@@ -20,13 +20,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
 
-class TrashFormFactory
+final readonly class TrashFormFactory
 {
-    private FormFactoryInterface $formFactory;
-
-    public function __construct(FormFactoryInterface $formFactory)
+    public function __construct(private FormFactoryInterface $formFactory)
     {
-        $this->formFactory = $formFactory;
     }
 
     public function restoreTrashItem(
@@ -35,7 +32,7 @@ class TrashFormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(TrashItemRestoreType::class);
 
-        return $this->formFactory->createNamed($name, TrashItemRestoreType::class, $data);
+        return $this->formFactory->createNamed($name ?? '', TrashItemRestoreType::class, $data);
     }
 
     /**
@@ -47,7 +44,7 @@ class TrashFormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(TrashItemDeleteType::class);
 
-        return $this->formFactory->createNamed($name, TrashItemDeleteType::class, $data);
+        return $this->formFactory->createNamed($name ?? '', TrashItemDeleteType::class, $data);
     }
 
     public function emptyTrash(
@@ -56,7 +53,7 @@ class TrashFormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(TrashEmptyType::class);
 
-        return $this->formFactory->createNamed($name, TrashEmptyType::class, $data);
+        return $this->formFactory->createNamed($name ?? '', TrashEmptyType::class, $data);
     }
 
     public function searchTrash(
@@ -65,6 +62,6 @@ class TrashFormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(TrashSearchType::class);
 
-        return $this->formFactory->createNamed($name, TrashSearchType::class, $data);
+        return $this->formFactory->createNamed($name ?? '', TrashSearchType::class, $data);
     }
 }

@@ -12,22 +12,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
-class ContentObjectStateUpdateData
+final class ContentObjectStateUpdateData
 {
-    private ?ContentInfo $contentInfo;
-
-    private ?ObjectStateGroup $objectStateGroup;
-
-    private ?ObjectState $objectState;
-
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        ?ObjectStateGroup $objectStateGroup = null,
-        ?ObjectState $objectState = null
+        private ?ContentInfo $contentInfo = null,
+        private ?ObjectStateGroup $objectStateGroup = null,
+        private ?ObjectState $objectState = null
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->objectStateGroup = $objectStateGroup;
-        $this->objectState = $objectState;
     }
 
     public function getContentInfo(): ?ContentInfo

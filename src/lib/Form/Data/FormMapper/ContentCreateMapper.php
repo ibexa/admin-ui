@@ -12,38 +12,41 @@ use Ibexa\ContentForms\Data\Content\ContentCreateData;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form data mapper for content create without a draft.
  */
-class ContentCreateMapper implements FormDataMapperInterface
+final readonly class ContentCreateMapper implements FormDataMapperInterface
 {
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentType
-     * @param array $params
-     *
-     * @return \Ibexa\ContentForms\Data\Content\ContentCreateData
+     * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject $contentType, array $params = []): ContentCreateData
+    public function mapToFormData(ValueObject|ContentTypeDraft $contentType, array $params = []): ContentCreateData
     {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $params = $resolver->resolve($params);
 
-        $data = new ContentCreateData(['contentType' => $contentType, 'mainLanguageCode' => $params['mainLanguageCode']]);
+        $data = new ContentCreateData([
+            'contentType' => $contentType,
+            'mainLanguageCode' => $params['mainLanguageCode'],
+        ]);
+
         $data->addLocationStruct($params['parentLocation']);
-        foreach ($contentType->fieldDefinitions as $fieldDef) {
+        foreach ($contentType->getFieldDefinitions() as $fieldDef) {
             $data->addFieldData(new FieldData([
                 'fieldDefinition' => $fieldDef,
                 'field' => new Field([
-                    'fieldDefIdentifier' => $fieldDef->identifier,
+                    'fieldDefIdentifier' => $fieldDef->getIdentifier(),
                     'languageCode' => $params['mainLanguageCode'],
                 ]),
-                'value' => $fieldDef->defaultValue,
+                'value' => $fieldDef->getDefaultValue(),
             ]));
         }
 
@@ -54,6 +57,6 @@ class ContentCreateMapper implements FormDataMapperInterface
     {
         $optionsResolver
             ->setRequired(['mainLanguageCode', 'parentLocation'])
-            ->setAllowedTypes('parentLocation', '\\Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\LocationCreateStruct');
+            ->setAllowedTypes('parentLocation', LocationCreateStruct::class);
     }
 }

@@ -11,19 +11,19 @@ namespace Ibexa\AdminUi\Form\Data\FormMapper;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentTranslationMapper implements FormDataMapperInterface
+final readonly class ContentTranslationMapper implements FormDataMapperInterface
 {
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update
      * struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\ValueObject $content
-     * @param array $params
+     * @param array<string, mixed> $params
      *
      * @return \Ibexa\AdminUi\Form\Data\ContentTranslationData
      *
@@ -34,7 +34,7 @@ class ContentTranslationMapper implements FormDataMapperInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function mapToFormData(ValueObject $content, array $params = []): ContentTranslationData
+    public function mapToFormData(ValueObject|Content $content, array $params = []): ContentTranslationData
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -45,25 +45,25 @@ class ContentTranslationMapper implements FormDataMapperInterface
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'];
-        $baseLanguageCode = $baseLanguage ? $baseLanguage->languageCode : null;
+        $baseLanguageCode = $baseLanguage?->getLanguageCode();
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $params['contentType'];
 
         $data = new ContentTranslationData(['content' => $content, 'contentType' => $contentType]);
-        $data->initialLanguageCode = $language->languageCode;
+        $data->initialLanguageCode = $language->getLanguageCode();
 
         foreach ($content->getFieldsByLanguage() as $field) {
-            $fieldDef = $contentType->getFieldDefinition($field->fieldDefIdentifier);
+            $fieldDef = $contentType->getFieldDefinition($field->getFieldDefinitionIdentifier());
             $fieldValue = null !== $baseLanguageCode
-                ? $content->getFieldValue($fieldDef->identifier, $baseLanguageCode)
-                : $fieldDef->defaultValue;
+                ? $content->getFieldValue($fieldDef?->getIdentifier(), $baseLanguageCode)
+                : $fieldDef?->getDefaultValue();
             $data->addFieldData(new FieldData([
                 'fieldDefinition' => $fieldDef,
                 'field' => $field,
-                'value' => $fieldDef->isTranslatable
+                'value' => $fieldDef?->isTranslatable()
                     ? $fieldValue
-                    : $field->value,
+                    : $field->getValue(),
             ]));
         }
 
@@ -71,8 +71,6 @@ class ContentTranslationMapper implements FormDataMapperInterface
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */

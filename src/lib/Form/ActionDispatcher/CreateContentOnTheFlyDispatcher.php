@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\ActionDispatcher;
 use Ibexa\ContentForms\Form\ActionDispatcher\ContentDispatcher;
 use Ibexa\Contracts\AdminUi\Event\ContentOnTheFlyEvents;
 
-class CreateContentOnTheFlyDispatcher extends ContentDispatcher
+final class CreateContentOnTheFlyDispatcher extends ContentDispatcher
 {
     protected function getActionEventBaseName(): string
     {

@@ -10,13 +10,10 @@ namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
-class ContentTypeGroupDeleteData
+final class ContentTypeGroupDeleteData
 {
-    private ?ContentTypeGroup $contentTypeGroup;
-
-    public function __construct(?ContentTypeGroup $contentTypeGroup = null)
+    public function __construct(private ?ContentTypeGroup $contentTypeGroup = null)
     {
-        $this->contentTypeGroup = $contentTypeGroup;
     }
 
     public function getContentTypeGroup(): ?ContentTypeGroup

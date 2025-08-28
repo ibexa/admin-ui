@@ -13,7 +13,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class RoleAssignmentCreateData implements TranslationContainerInterface
+final class RoleAssignmentCreateData implements TranslationContainerInterface
 {
     public const string LIMITATION_TYPE_NONE = 'none';
     public const string LIMITATION_TYPE_SECTION = 'section';

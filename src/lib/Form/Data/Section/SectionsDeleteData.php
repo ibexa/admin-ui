@@ -11,15 +11,12 @@ namespace Ibexa\AdminUi\Form\Data\Section;
 /**
  * @todo Add validation
  */
-class SectionsDeleteData
+final class SectionsDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null */
-    protected ?array $sections;
-
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
      */
-    public function __construct(?array $sections = [])
+    public function __construct(private ?array $sections = [])
     {
         $this->sections = $sections;
     }
