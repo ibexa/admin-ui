@@ -19,7 +19,7 @@ const ActionButton = ({ disabled, onClick, label = null, title = null, type }) =
 
     return (
         <button type="button" className={className} title={title} onClick={handleClick} disabled={disabled}>
-            <Icon name={type} extraClasses="ibexa-icon--small" /> {label}
+            <Icon name={type} extraClasses="ibexa-icon--small-medium" /> {label}
         </button>
     );
 };

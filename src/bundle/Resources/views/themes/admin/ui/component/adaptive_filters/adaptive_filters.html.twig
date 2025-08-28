@@ -74,7 +74,7 @@
 
 {% macro collapse_btn(attr, expand_label, collapse_label) %}
     <button {{ html.attributes(attr) }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('caret-next') }}"></use>
         </svg>
         <span class="ibexa-btn__label ibexa-btn__label--more">
@@ -121,7 +121,7 @@
                             type="button"
                             class="btn ibexa-btn ibexa-btn--ghost ibexa-adaptive-filters__clear-btn"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small">
+                            <svg class="ibexa-icon ibexa-icon--small-medium">
                                 <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
                             </svg>
                             <span class="ibexa-btn__label">

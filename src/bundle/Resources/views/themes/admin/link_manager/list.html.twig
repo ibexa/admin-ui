@@ -27,7 +27,7 @@
             {% set col_raw %}
                 <a href="{{ view_url }}">{{ url.url|u.truncate(50) }}</a>
                 <a href="{{ url.url }}" target="_blank">
-                    <svg class="ibexa-icon ibexa-icon--small">
+                    <svg class="ibexa-icon ibexa-icon--small-medium">
                         <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
                     </svg>
                 </a>
@@ -50,7 +50,7 @@
                         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
                         title="{{ 'url.action.edit'|trans|desc('Edit') }}"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
                             <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                         </svg>
                     </a>

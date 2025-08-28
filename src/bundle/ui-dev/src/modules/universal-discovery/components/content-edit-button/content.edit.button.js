@@ -119,7 +119,7 @@ const ContentEditButton = ({ version, location, isDisabled, label = null }) => {
                 data-tooltip-container-selector=".c-udw-tab"
                 type="button"
             >
-                <Icon name="edit" extraClasses="ibexa-icon--small" />
+                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
                 {label}
             </button>
             {renderTranslationSelector()}

@@ -110,7 +110,7 @@ const Popup = ({
                 aria-label={closeBtnLabel}
                 onClick={hidePopup}
             >
-                <Icon name="discard" extraClasses="ibexa-icon--small" />
+                <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     };
