@@ -16,18 +16,12 @@ use Ibexa\Contracts\Core\Repository\Exceptions\Exception as APIException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class AutosaveProcessor implements EventSubscriberInterface
+final readonly class AutosaveProcessor implements EventSubscriberInterface
 {
-    private AutosaveServiceInterface $autosaveService;
-
-    private ContentFormProcessor $innerContentFormProcessor;
-
     public function __construct(
-        AutosaveServiceInterface $autosaveService,
-        ContentFormProcessor $innerContentFormProcessor
+        private AutosaveServiceInterface $autosaveService,
+        private ContentFormProcessor $innerContentFormProcessor
     ) {
-        $this->autosaveService = $autosaveService;
-        $this->innerContentFormProcessor = $innerContentFormProcessor;
     }
 
     public static function getSubscribedEvents(): array

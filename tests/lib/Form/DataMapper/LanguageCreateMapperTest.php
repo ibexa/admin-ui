@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,7 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class LanguageCreateMapperTest extends TestCase
+final class LanguageCreateMapperTest extends TestCase
 {
     private LanguageCreateMapper $mapper;
 
@@ -32,7 +33,7 @@ class LanguageCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testMap(array $properties): void
     {
@@ -44,7 +45,7 @@ class LanguageCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testReverseMap(array $properties): void
     {
@@ -95,7 +96,7 @@ class LanguageCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData
      */

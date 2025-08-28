@@ -14,57 +14,41 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @todo add validation
  */
-class SectionUpdateData
+final class SectionUpdateData
 {
-    protected ?Section $section;
-
     #[Assert\NotBlank]
     #[Assert\Regex(pattern: '/^[[:alnum:]_]+$/', message: 'ez.section.identifier.format')]
-    protected ?string $identifier;
+    private ?string $identifier;
 
     #[Assert\NotBlank]
-    protected ?string $name;
+    private ?string $name;
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
-    public function __construct(?Section $section = null)
+    public function __construct(protected ?Section $section = null)
     {
-        $this->section = $section;
-
         if (null !== $section) {
             $this->identifier = $section->identifier;
             $this->name = $section->name;
         }
     }
 
-    /**
-     * @return string|null
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string|null $identifier
-     */
     public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     */
     public function setName(?string $name): void
     {
         $this->name = $name;

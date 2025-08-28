@@ -16,23 +16,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between comma separated string of UserGroups's ID and an array of domain specific UserGroup objects.
  */
-class UserGroupCollectionTransformer implements DataTransformerInterface
+final readonly class UserGroupCollectionTransformer implements DataTransformerInterface
 {
-    protected UserService $userService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
     /**
-     * @param array|null $value
-     *
-     * @return string|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function transform(mixed $value): ?string
@@ -45,11 +35,8 @@ class UserGroupCollectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param string|null $value
+     * @return array<mixed>
      *
-     * @return array
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */

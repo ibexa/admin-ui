@@ -15,40 +15,26 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * Translates content type's identifier to domain specific ContentType object.
  */
-class ContentTypeTransformer implements DataTransformerInterface
+final readonly class ContentTypeTransformer implements DataTransformerInterface
 {
-    protected ContentTypeService $contentTypeService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     */
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $value
-     *
-     * @return string|null
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $value
      */
     public function transform(mixed $value): ?string
     {
-        return null !== $value
-            ? $value->identifier
-            : null;
+        return $value?->getIdentifier();
     }
 
     /**
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function reverseTransform(mixed $value): ?ContentType
     {
-        return null !== $value && !empty($value)
+        return !empty($value)
             ? $this->contentTypeService->loadContentTypeByIdentifier($value)
             : null;
     }

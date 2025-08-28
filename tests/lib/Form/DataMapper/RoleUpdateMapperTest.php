@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,9 +16,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class RoleUpdateMapperTest extends TestCase
+final class RoleUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper */
     private RoleUpdateMapper $mapper;
 
     protected function setUp(): void
@@ -33,7 +33,7 @@ class RoleUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testMap(array $properties): void
     {
@@ -45,7 +45,7 @@ class RoleUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testReverseMap(array $properties): void
     {
@@ -70,6 +70,9 @@ class RoleUpdateMapperTest extends TestCase
         $this->mapper->reverseMap(new LanguageCreateData());
     }
 
+    /**
+     * @return array<string, array<array<string, mixed>>>
+     */
     public function dataProvider(): array
     {
         return [
@@ -78,7 +81,7 @@ class RoleUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
      */
@@ -88,13 +91,12 @@ class RoleUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData
      */
     private function createData(array $properties): RoleUpdateData
     {
-        return (new RoleUpdateData())
-            ->setIdentifier($properties['identifier']);
+        return (new RoleUpdateData())->setIdentifier($properties['identifier']);
     }
 }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -12,7 +13,6 @@ use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
@@ -30,39 +30,21 @@ use Symfony\Component\Form\FormInterface;
  */
 class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
-    protected LocationService $locationService;
-
-    protected SearchService $searchService;
-
-    /**
-     * Form template to use.
-     *
-     * @var string
-     */
-    private $template;
-
-    private PermissionResolver $permissionResolver;
-
-    private Repository $repository;
+    private string $template;
 
     public function __construct(
-        LocationService $locationService,
-        SearchService $searchService,
-        PermissionResolver $permissionResolver,
-        Repository $repository
+        protected readonly LocationService $locationService,
+        protected readonly SearchService $searchService,
+        protected readonly Repository $repository
     ) {
-        $this->locationService = $locationService;
-        $this->searchService = $searchService;
-        $this->permissionResolver = $permissionResolver;
-        $this->repository = $repository;
     }
 
-    public function setFormTemplate($template): void
+    public function setFormTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    public function getFormTemplate()
+    public function getFormTemplate(): string
     {
         return $this->template;
     }
@@ -81,7 +63,6 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
                 ->addModelTransformer(
                     new UDWBasedValueModelTransformer(
                         $this->locationService,
-                        $this->permissionResolver,
                         $this->repository
                     )
                 )
@@ -90,7 +71,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         );
     }
 
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
     }
 
@@ -102,7 +83,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         $values = [];
 
         foreach ($limitation->limitationValues as $id) {
-            $location = $this->locationService->loadLocation($id);
+            $location = $this->locationService->loadLocation((int)$id);
 
             $query = new LocationQuery([
                 'filter' => new Ancestor($location->getPathString()),

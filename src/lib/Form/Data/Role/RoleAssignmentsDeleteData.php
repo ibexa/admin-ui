@@ -13,41 +13,29 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 /**
  * @todo Add validation
  */
-class RoleAssignmentsDeleteData
+final class RoleAssignmentsDeleteData
 {
-    protected ?Role $role;
-
-    /** @var array|null */
-    protected $roleAssignments;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
-     * @param array|null $roleAssignments
+     * @param array<int, mixed>|null $roleAssignments
      */
-    public function __construct(?Role $role = null, array $roleAssignments = [])
-    {
-        $this->role = $role;
-        $this->roleAssignments = $roleAssignments;
+    public function __construct(
+        private ?Role $role = null,
+        private ?array $roleAssignments = []
+    ) {
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
-     */
     public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
-     */
     public function setRole(?Role $role): void
     {
         $this->role = $role;
     }
 
     /**
-     * @return array|null
+     * @return array<int, mixed>|null
      */
     public function getRoleAssignments(): ?array
     {
@@ -55,7 +43,7 @@ class RoleAssignmentsDeleteData
     }
 
     /**
-     * @param array|null $roleAssignments
+     * @param array<int, mixed>|null $roleAssignments
      */
     public function setRoleAssignments(?array $roleAssignments): void
     {

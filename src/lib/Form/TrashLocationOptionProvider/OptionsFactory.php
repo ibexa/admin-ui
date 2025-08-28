@@ -11,14 +11,13 @@ namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\FormInterface;
 
-final class OptionsFactory
+final readonly class OptionsFactory
 {
-    /** @var \Ibexa\AdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider[] */
-    private iterable $providers;
-
-    public function __construct(iterable $providers)
+    /**
+     * @param iterable<\Ibexa\AdminUi\Form\TrashLocationOptionProvider\TrashLocationOptionProvider> $providers
+     */
+    public function __construct(private iterable $providers)
     {
-        $this->providers = $providers;
     }
 
     public function addOptions(FormInterface $form, ?Location $location = null): void

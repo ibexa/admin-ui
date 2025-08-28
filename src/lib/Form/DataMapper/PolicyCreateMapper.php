@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataMapper;
 
@@ -16,21 +17,20 @@ use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
 /**
  * Maps between PolicyCreateStruct and LanguageCreateData objects.
  */
-class PolicyCreateMapper implements DataMapperInterface
+final readonly class PolicyCreateMapper implements DataMapperInterface
 {
     /**
      * Maps given PolicyCreateStruct object to a PolicyCreateData object.
      *
-     * @param \Ibexa\Core\Repository\Values\User\PolicyCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function map(ValueObject $value): PolicyCreateData
+    public function map(ValueObject|PolicyCreateStruct $value): PolicyCreateData
     {
         if (!$value instanceof PolicyCreateStruct) {
-            throw new InvalidArgumentException('value', 'must be an instance of ' . PolicyCreateStruct::class);
+            throw new InvalidArgumentException(
+                'value',
+                'must be an instance of ' . PolicyCreateStruct::class
+            );
         }
 
         $data = new PolicyCreateData();
@@ -42,16 +42,7 @@ class PolicyCreateMapper implements DataMapperInterface
         return $data;
     }
 
-    /**
-     * Maps given PolicyCreateData object to a PolicyCreateStruct object.
-     *
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData $data
-     *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyCreateStruct
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     */
-    public function reverseMap($data): PolicyCreateStruct
+    public function reverseMap(mixed $data): PolicyCreateStruct
     {
         if (!$data instanceof PolicyCreateData) {
             throw new InvalidArgumentException('data', 'must be an instance of ' . PolicyCreateData::class);
@@ -63,9 +54,11 @@ class PolicyCreateMapper implements DataMapperInterface
         ]);
 
         foreach ($data->getLimitations() as $limitation) {
-            if (!empty($limitation->limitationValues)) {
-                $policyCreateStruct->addLimitation($limitation);
+            if (empty($limitation->limitationValues)) {
+                continue;
             }
+
+            $policyCreateStruct->addLimitation($limitation);
         }
 
         return $policyCreateStruct;

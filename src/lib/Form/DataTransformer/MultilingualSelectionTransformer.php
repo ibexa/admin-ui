@@ -16,16 +16,12 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<TValue, array<string, TValue>>
  */
-class MultilingualSelectionTransformer implements DataTransformerInterface
+final readonly class MultilingualSelectionTransformer implements DataTransformerInterface
 {
-    protected string $languageCode;
-
-    private FieldDefinitionData $data;
-
-    public function __construct(string $languageCode, FieldDefinitionData $data)
-    {
-        $this->languageCode = $languageCode;
-        $this->data = $data;
+    public function __construct(
+        private string $languageCode,
+        private FieldDefinitionData $data
+    ) {
     }
 
     public function transform(mixed $value): mixed

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataMapper;
 
@@ -16,21 +17,20 @@ use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
 /**
  * Maps between RoleCreateStruct and RoleCreateData objects.
  */
-class RoleCreateMapper implements DataMapperInterface
+final readonly class RoleCreateMapper implements DataMapperInterface
 {
     /**
      * Maps given RoleCreateStruct object to a RoleCreateData object.
      *
-     * @param \Ibexa\Core\Repository\Values\User\RoleCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleCreateData
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function map(ValueObject $value): RoleCreateData
+    public function map(ValueObject|RoleCreateStruct $value): RoleCreateData
     {
         if (!$value instanceof RoleCreateStruct) {
-            throw new InvalidArgumentException('value', 'must be an instance of ' . RoleCreateStruct::class);
+            throw new InvalidArgumentException(
+                'value',
+                'must be an instance of ' . RoleCreateStruct::class
+            );
         }
 
         $data = new RoleCreateData();
@@ -41,18 +41,15 @@ class RoleCreateMapper implements DataMapperInterface
     }
 
     /**
-     * Maps given RoleCreateData object to a RoleCreateStruct object.
-     *
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCreateData $data
-     *
-     * @return \Ibexa\Core\Repository\Values\User\RoleCreateStruct
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function reverseMap($data): RoleCreateStruct
+    public function reverseMap(mixed $data): RoleCreateStruct
     {
         if (!$data instanceof RoleCreateData) {
-            throw new InvalidArgumentException('data', 'must be an instance of ' . RoleCreateData::class);
+            throw new InvalidArgumentException(
+                'data',
+                'must be an instance of ' . RoleCreateData::class
+            );
         }
 
         return new RoleCreateStruct([

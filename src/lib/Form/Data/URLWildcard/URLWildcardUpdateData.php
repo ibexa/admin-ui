@@ -10,28 +10,22 @@ namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 
-class URLWildcardUpdateData extends URLWildcardData
+final class URLWildcardUpdateData extends URLWildcardData
 {
-    private ?URLWildcard $urlWildcard;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard
-     */
-    public function __construct(?URLWildcard $urlWildcard = null)
+    public function __construct(private ?URLWildcard $urlWildcard = null)
     {
-        if ($urlWildcard instanceof URLWildcard) {
-            parent::__construct($urlWildcard);
-            $this->urlWildcard = $urlWildcard;
+        if ($this->urlWildcard === null) {
+            return;
         }
+
+        parent::__construct($urlWildcard);
     }
 
-    /** @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
     public function getUrlWildcard(): ?URLWildcard
     {
         return $this->urlWildcard;
     }
 
-    /** @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard */
     public function setUrlWildcard(?URLWildcard $urlWildcard): void
     {
         $this->urlWildcard = $urlWildcard;

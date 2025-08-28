@@ -4,10 +4,10 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
-use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem as APITrashItem;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
@@ -15,30 +15,17 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 /**
  * @todo This class cannot be a part of Form/ namespace, it should be moved to UI/Value.
  */
-class TrashItemData
+final class TrashItemData
 {
-    protected TrashItem $location;
-
-    protected ?ContentType $contentType;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    protected array $ancestors;
-
-    private ?User $creator;
-
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $ancestors
      */
     public function __construct(
-        APITrashItem $location,
-        ?ContentType $contentType = null,
-        array $ancestors = [],
-        ?User $creator = null
+        private APITrashItem $location,
+        private ?ContentType $contentType = null,
+        private array $ancestors = [],
+        private readonly ?User $creator = null
     ) {
-        $this->location = $location;
-        $this->contentType = $contentType;
-        $this->ancestors = $ancestors;
-        $this->creator = $creator;
     }
 
     public function getLocation(): APITrashItem
@@ -56,7 +43,7 @@ class TrashItemData
         return $this->contentType;
     }
 
-    public function setContentType(ContentType $contentType): void
+    public function setContentType(?ContentType $contentType): void
     {
         $this->contentType = $contentType;
     }
@@ -81,7 +68,11 @@ class TrashItemData
     {
         $lastAncestor = end($this->ancestors);
 
-        return $lastAncestor !== false && $this->location->path !== array_merge($lastAncestor->path, [(string)$this->location->id]);
+        return $lastAncestor !== false
+            && $this->location->path !== array_merge(
+                $lastAncestor->path,
+                [(string)$this->location->id]
+            );
     }
 
     public function getCreator(): ?User

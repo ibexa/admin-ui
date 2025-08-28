@@ -66,7 +66,7 @@ final class ContentDraftController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentRemoveData $data): RedirectResponse {
-                foreach (array_keys($data->getVersions()) as $version) {
+                foreach (array_keys($data->getVersions() ?? []) as $version) {
                     $versionId = VersionId::fromString($version);
 
                     $this->contentService->deleteVersion(

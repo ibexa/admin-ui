@@ -17,26 +17,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ContentMainLocationUpdateData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
-    #[Assert\NotBlank]
-    public $contentInfo;
-
-    /**
-     * @todo add more validation constraints
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
-     */
-    #[Assert\NotBlank]
-    public $location;
-
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        ?Location $location = null
+        #[Assert\NotBlank]
+        public ?ContentInfo $contentInfo = null,
+        #[Assert\NotBlank]
+        public ?Location $location = null
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->location = $location;
     }
 
     public function getContentInfo(): ?ContentInfo
@@ -54,7 +40,7 @@ class ContentMainLocationUpdateData
         return $this->location;
     }
 
-    public function setLocation(Location $location): void
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }

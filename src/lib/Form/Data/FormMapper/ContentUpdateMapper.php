@@ -11,21 +11,19 @@ namespace Ibexa\AdminUi\Form\Data\FormMapper;
 use Ibexa\ContentForms\Data\Content\ContentUpdateData;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentUpdateMapper implements FormDataMapperInterface
+final readonly class ContentUpdateMapper implements FormDataMapperInterface
 {
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentDraft
-     * @param array $params
-     *
-     * @return \Ibexa\ContentForms\Data\Content\ContentUpdateData
+     * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject $contentDraft, array $params = []): ContentUpdateData
+    public function mapToFormData(ValueObject|Content $repositoryValueObject, array $params = []): ContentUpdateData
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -33,16 +31,16 @@ class ContentUpdateMapper implements FormDataMapperInterface
         $params = $optionsResolver->resolve($params);
         $languageCode = $params['languageCode'];
 
-        $data = new ContentUpdateData(['contentDraft' => $contentDraft]);
+        $data = new ContentUpdateData(['contentDraft' => $repositoryValueObject]);
         $data->initialLanguageCode = $languageCode;
 
-        $fields = $contentDraft->getFieldsByLanguage($languageCode);
-        foreach ($params['contentType']->fieldDefinitions as $fieldDef) {
-            $field = $fields[$fieldDef->identifier];
+        $fields = $repositoryValueObject->getFieldsByLanguage($languageCode);
+        foreach ($params['contentType']->getFieldDefinitions() as $fieldDef) {
+            $field = $fields[$fieldDef->getIdentifier()];
             $data->addFieldData(new FieldData([
                 'fieldDefinition' => $fieldDef,
                 'field' => $field,
-                'value' => $field->value,
+                'value' => $field->getValue(),
             ]));
         }
 

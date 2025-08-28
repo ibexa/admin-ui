@@ -15,15 +15,11 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\DateTimeInterface, int>
  */
-class DateTimePickerTransformer implements DataTransformerInterface
+final readonly class DateTimePickerTransformer implements DataTransformerInterface
 {
     public function transform(mixed $value): ?int
     {
-        if (null === $value) {
-            return null;
-        }
-
-        return $value->getTimestamp();
+        return $value?->getTimestamp();
     }
 
     public function reverseTransform(mixed $value): ?DateTimeInterface
@@ -32,6 +28,6 @@ class DateTimePickerTransformer implements DataTransformerInterface
             return null;
         }
 
-        return DateTime::createFromFormat('U', (string)$value);
+        return DateTime::createFromFormat('U', (string)$value) ?: null;
     }
 }

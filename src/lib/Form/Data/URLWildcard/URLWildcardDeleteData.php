@@ -10,12 +10,11 @@ namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 
 final class URLWildcardDeleteData
 {
-    /** @var bool[]|null */
-    private ?array $urlWildcardsChoices;
-
-    public function __construct(?array $urlWildcardsChoices = [])
+    /**
+     * @param bool[]|null $urlWildcardsChoices
+     */
+    public function __construct(private ?array $urlWildcardsChoices = [])
     {
-        $this->urlWildcardsChoices = $urlWildcardsChoices;
     }
 
     /**

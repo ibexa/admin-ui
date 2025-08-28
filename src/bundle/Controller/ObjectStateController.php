@@ -143,6 +143,10 @@ final class ObjectStateController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data): void {
                 $objectState = $data->getObjectState();
+                if ($objectState === null) {
+                    return;
+                }
+
                 $this->objectStateService->deleteObjectState($objectState);
 
                 $this->notificationHandler->success(

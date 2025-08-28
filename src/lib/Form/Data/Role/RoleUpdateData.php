@@ -10,15 +10,12 @@ namespace Ibexa\AdminUi\Form\Data\Role;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
-class RoleUpdateData
+final class RoleUpdateData
 {
-    private ?Role $role;
-
     private ?string $identifier = null;
 
-    public function __construct(?Role $role = null)
+    public function __construct(private ?Role $role = null)
     {
-        $this->role = $role;
         if ($role !== null) {
             $this->identifier = $role->identifier;
         }
@@ -29,7 +26,7 @@ class RoleUpdateData
         return $this->role;
     }
 
-    public function setRole(Role $role): self
+    public function setRole(?Role $role): self
     {
         $this->role = $role;
 
@@ -41,7 +38,7 @@ class RoleUpdateData
         return $this->identifier;
     }
 
-    public function setIdentifier(string $identifier): self
+    public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
 

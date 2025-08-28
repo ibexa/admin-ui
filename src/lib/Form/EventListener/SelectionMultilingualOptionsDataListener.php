@@ -10,21 +10,12 @@ namespace Ibexa\AdminUi\Form\EventListener;
 
 use Symfony\Component\Form\FormEvent;
 
-class SelectionMultilingualOptionsDataListener
+final readonly class SelectionMultilingualOptionsDataListener
 {
-    protected string $languageCode;
-
-    /**
-     * @param string $languageCode
-     */
-    public function __construct(string $languageCode)
+    public function __construct(private string $languageCode)
     {
-        $this->languageCode = $languageCode;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormEvent $event
-     */
     public function setLanguageOptions(FormEvent $event): void
     {
         $data = $event->getData();

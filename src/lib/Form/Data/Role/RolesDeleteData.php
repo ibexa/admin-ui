@@ -8,30 +8,27 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Role;
 
-class RolesDeleteData
+final class RolesDeleteData
 {
-    protected array $roles;
-
     /**
-     * @param array|null $roles
+     * @param array<int, mixed>|null $roles
      */
-    public function __construct(array $roles = [])
+    public function __construct(private ?array $roles = [])
     {
-        $this->roles = $roles;
     }
 
     /**
-     * @return array
+     * @return array<int, mixed>|null
      */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
         return $this->roles;
     }
 
     /**
-     * @param array $roles
+     * @param array<int, mixed>|null $roles
      */
-    public function setRoles(array $roles): void
+    public function setRoles(?array $roles): void
     {
         $this->roles = $roles;
     }

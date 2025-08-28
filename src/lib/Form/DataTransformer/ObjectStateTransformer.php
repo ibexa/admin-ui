@@ -17,16 +17,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Translates ObjectState's ID to domain specific ObjectState object.
  */
-class ObjectStateTransformer implements DataTransformerInterface
+final readonly class ObjectStateTransformer implements DataTransformerInterface
 {
-    protected ObjectStateService $objectStateService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     */
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(private ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
     }
 
     public function transform(mixed $value): ?int

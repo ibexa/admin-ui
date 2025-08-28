@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -17,7 +18,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Core\FieldType\Media\Value, TMediaProperties>
  */
-class MediaValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
+final class MediaValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
      * @phpstan-return TMediaProperties
@@ -30,7 +31,7 @@ class MediaValueTransformer extends AbstractBinaryBaseTransformer implements Dat
 
         /** @phpstan-var TMediaProperties */
         return array_merge(
-            $this->getDefaultProperties() ?? [],
+            $this->getDefaultProperties(),
             [
                 'hasController' => $value->hasController,
                 'loop' => $value->loop,

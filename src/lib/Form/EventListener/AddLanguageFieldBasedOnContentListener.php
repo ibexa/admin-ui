@@ -15,25 +15,15 @@ use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 
-class AddLanguageFieldBasedOnContentListener
+final readonly class AddLanguageFieldBasedOnContentListener
 {
-    private LanguageService $languageService;
-
-    private ContentService $contentService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
-    public function __construct(ContentService $contentService, LanguageService $languageService)
-    {
-        $this->contentService = $contentService;
-        $this->languageService = $languageService;
+    public function __construct(
+        private ContentService $contentService,
+        private LanguageService $languageService
+    ) {
     }
 
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -47,7 +37,7 @@ class AddLanguageFieldBasedOnContentListener
         }
         $contentInfo = $location->getContentInfo();
         $versionInfo = $this->contentService->loadVersionInfo($contentInfo);
-        $contentLanguages = $versionInfo->languageCodes;
+        $contentLanguages = $versionInfo->getLanguageCodes();
 
         $form = $event->getForm();
 
@@ -64,11 +54,9 @@ class AddLanguageFieldBasedOnContentListener
     }
 
     /**
-     * @param array $contentLanguages
-     *
-     * @return callable
+     * @param string[] $contentLanguages
      */
-    protected function getCallableFilter(array $contentLanguages): callable
+    private function getCallableFilter(array $contentLanguages): callable
     {
         return function () use ($contentLanguages): array {
             return $this->filterLanguages($contentLanguages);
@@ -76,14 +64,14 @@ class AddLanguageFieldBasedOnContentListener
     }
 
     /**
-     * @param array $contentLanguages
+     * @param string[] $contentLanguages
      *
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
-    protected function filterLanguages(array $contentLanguages): array
+    private function filterLanguages(array $contentLanguages): array
     {
         return array_filter(
-            $this->languageService->loadLanguages(),
+            iterator_to_array($this->languageService->loadLanguages()),
             static function (Language $language) use ($contentLanguages): bool {
                 return in_array($language->languageCode, $contentLanguages, true);
             }

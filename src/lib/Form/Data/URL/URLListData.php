@@ -12,15 +12,9 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 final class URLListData extends ValueObject
 {
-    public ?string $searchQuery;
-
-    public ?bool $status;
-
     public function __construct(
-        ?string $searchQuery = null,
-        ?bool $status = null,
+        public readonly ?string $searchQuery = null,
+        public readonly ?bool $status = null,
     ) {
-        $this->searchQuery = $searchQuery;
-        $this->status = $status;
     }
 }

@@ -12,22 +12,17 @@ use Ibexa\AdminUi\Specification\Content\ContentHaveAssetRelation;
 use Ibexa\AdminUi\Specification\Content\ContentHaveUniqueRelation;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class HasAssetRelation implements TrashLocationOptionProvider
+final readonly class HasAssetRelation implements TrashLocationOptionProvider
 {
-    private ContentService $contentService;
-
-    private TranslatorInterface $translator;
-
     public function __construct(
-        ContentService $contentService,
-        TranslatorInterface $translator
+        private ContentService $contentService,
+        private TranslatorInterface $translator
     ) {
-        $this->contentService = $contentService;
-        $this->translator = $translator;
     }
 
     public function supports(Location $location): bool

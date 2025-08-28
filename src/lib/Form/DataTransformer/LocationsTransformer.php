@@ -17,26 +17,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between a Location's ID and a domain specific Location object.
  */
-class LocationsTransformer implements DataTransformerInterface
+final readonly class LocationsTransformer implements DataTransformerInterface
 {
-    protected LocationService $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
+    public function __construct(private LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
-    /**
-     * Transforms a domain specific Location objects into a Location's ID comma separated string.
-     *
-     * @param mixed $value
-     *
-     * @return string|null
-     */
-    public function transform($value): ?string
+    public function transform(mixed $value): ?string
     {
         /** TODO add sanity check is array of Location object? */
         if (!is_array($value) || empty($value)) {
@@ -47,15 +34,11 @@ class LocationsTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a Location's ID string into a domain specific Location objects.
-     *
-     * @param mixed $value
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function reverseTransform($value): ?array
+    public function reverseTransform(mixed $value): array
     {
         if (empty($value)) {
             return [];

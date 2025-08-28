@@ -17,32 +17,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class ContentEditNotificationFormProcessor implements EventSubscriberInterface
+final readonly class ContentEditNotificationFormProcessor implements EventSubscriberInterface
 {
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private RequestStack $requestStack;
-
-    private array $siteAccessGroups;
-
     /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param array $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        RequestStack $requestStack,
-        array $siteAccessGroups
+        private TranslatableNotificationHandlerInterface $notificationHandler,
+        private RequestStack $requestStack,
+        private array $siteAccessGroups
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->requestStack = $requestStack;
-        $this->siteAccessGroups = $siteAccessGroups;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -52,15 +38,19 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function addPublishMessage(FormActionEvent $event): void
     {
-        if (!$this->isAdminSiteAccess($this->requestStack->getCurrentRequest())) {
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        if ($currentRequest === null) {
             return;
         }
+
+        if (!$this->isAdminSiteAccess($currentRequest)) {
+            return;
+        }
+
         $this->notificationHandler->success(
             /** @Desc("Content published.") */
             'content.published.success',
@@ -70,15 +60,19 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function addSaveDraftMessage(FormActionEvent $event): void
     {
-        if (!$this->isAdminSiteAccess($this->requestStack->getCurrentRequest())) {
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        if ($currentRequest === null) {
             return;
         }
+
+        if (!$this->isAdminSiteAccess($currentRequest)) {
+            return;
+        }
+
         $this->notificationHandler->success(
             /** @Desc("Content draft saved.") */
             'content.draft_saved.success',
@@ -88,14 +82,12 @@ class ContentEditNotificationFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    protected function isAdminSiteAccess(Request $request): bool
+    private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }

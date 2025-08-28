@@ -10,16 +10,14 @@ namespace Ibexa\AdminUi\Form\Data\Policy;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
-class PolicyUpdateData
+final class PolicyUpdateData
 {
-    /** @var string */
     private ?string $module = null;
 
-    /** @var string */
     private ?string $function = null;
 
-    /** @var array */
-    private $limitations;
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
+    private array $limitations = [];
 
     public function __construct(?Policy $policy = null)
     {
@@ -29,51 +27,39 @@ class PolicyUpdateData
 
         $this->module = $policy->module;
         $this->function = $policy->function;
-        $this->limitations = $policy->limitations;
+        $this->limitations = iterator_to_array($policy->getLimitations());
     }
 
-    /**
-     * @return string
-     */
     public function getModule(): ?string
     {
         return $this->module;
     }
 
-    /**
-     * @param string $module
-     */
-    public function setModule(string $module): void
+    public function setModule(?string $module): void
     {
         $this->module = $module;
     }
 
-    /**
-     * @return string
-     */
     public function getFunction(): ?string
     {
         return $this->function;
     }
 
-    /**
-     * @param string $function
-     */
-    public function setFunction(string $function): void
+    public function setFunction(?string $function): void
     {
         $this->function = $function;
     }
 
     /**
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
-    public function getLimitations(): ?array
+    public function getLimitations(): array
     {
         return $this->limitations;
     }
 
     /**
-     * @param array $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      */
     public function setLimitations(array $limitations): void
     {
@@ -81,7 +67,7 @@ class PolicyUpdateData
     }
 
     /**
-     * @param array $policy
+     * @param array<string, string|null> $policy
      */
     public function setPolicy(array $policy): void
     {
@@ -90,9 +76,9 @@ class PolicyUpdateData
     }
 
     /**
-     * @return array
+     * @return array<string, string|null>
      */
-    public function getPolicy(): ?array
+    public function getPolicy(): array
     {
         return [
             'module' => $this->getModule(),

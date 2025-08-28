@@ -12,38 +12,27 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class TranslationDeleteData
 {
-    protected ?ContentInfo $contentInfo;
-
-    protected array $languageCodes;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param array|null $languageCodes
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|false[] $languageCodes
      */
-    public function __construct(?ContentInfo $contentInfo = null, array $languageCodes = [])
-    {
-        $this->contentInfo = $contentInfo;
-        $this->languageCodes = $languageCodes;
+    public function __construct(
+        protected ?ContentInfo $contentInfo = null,
+        protected array $languageCodes = []
+    ) {
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     */
     public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
 
     /**
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|false[]
      */
     public function getLanguageCodes(): array
     {
@@ -51,7 +40,7 @@ class TranslationDeleteData
     }
 
     /**
-     * @param array $languageCodes
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|false[] $languageCodes
      */
     public function setLanguageCodes(array $languageCodes): void
     {

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -15,22 +16,17 @@ use Symfony\Component\Form\DataTransformerInterface;
  * Generic data transformer for FieldTypes values.
  * Uses FieldType::toHash() / FieldType::fromHash().
  */
-class FieldValueTransformer implements DataTransformerInterface
+final readonly class FieldValueTransformer implements DataTransformerInterface
 {
-    private FieldType $fieldType;
-
-    public function __construct(FieldType $fieldType)
+    public function __construct(private FieldType $fieldType)
     {
-        $this->fieldType = $fieldType;
     }
 
     /**
      * Transforms a FieldType Value into a hash using `FieldTpe::toHash()`.
      * This hash is compatible with `reverseTransform()`.
      *
-     * @param mixed $value
-     *
-     * @return array|null the value's hash, or null if $value was not a FieldType Value
+     * @return array<mixed>|null the value's hash, or null if $value was not a FieldType Value
      */
     public function transform(mixed $value): ?array
     {
@@ -44,10 +40,6 @@ class FieldValueTransformer implements DataTransformerInterface
     /**
      * Transforms a hash into a FieldType Value using `FieldType::fromHash()`.
      * The FieldValue is compatible with `transform()`.
-     *
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\FieldType\Value
      */
     public function reverseTransform(mixed $value): ?Value
     {
