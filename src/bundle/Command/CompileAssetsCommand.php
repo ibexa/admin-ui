@@ -36,11 +36,17 @@ final class CompileAssetsCommand extends Command
     {
         $this
             ->addOption(
+                'watch',
+                'w',
+                InputOption::VALUE_NONE,
+                'Watch mode rebuilds on file change'
+            )
+            ->addOption(
                 'timeout',
                 't',
                 InputOption::VALUE_REQUIRED,
-                'Timeout in seconds',
-                $this->timeout
+                "Timeout in seconds (default timeout is {$this->timeout}s when this option isn't used and not in watch mode)",
+                null
             )
             ->addOption(
                 'config-name',
@@ -61,10 +67,16 @@ final class CompileAssetsCommand extends Command
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
+        $watch = $input->getOption('watch');
         $timeout = $input->getOption('timeout');
 
-        if (!is_numeric($timeout)) {
-            throw new InvalidArgumentException('Timeout value has to be an integer.');
+        if (null !== $timeout) {
+            if ($watch) {
+                throw new InvalidArgumentException('Watch mode can\'t be used with a timeout.');
+            }
+            if (!is_numeric($timeout)) {
+                throw new InvalidArgumentException('Timeout value has to be an integer.');
+            }
         }
     }
 
@@ -75,7 +87,8 @@ final class CompileAssetsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $timeout = (float)$input->getOption('timeout');
+        $watch = $input->getOption('watch');
+        $timeout = $watch ? null : (float)($input->getOption('timeout') ?? $this->timeout);
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
         $frontendConfigsName = $input->getOption('frontend-configs-name');
@@ -86,6 +99,10 @@ final class CompileAssetsCommand extends Command
         $encoreEnv = $env === 'prod' ? 'prod' : 'dev';
         $yarnBaseEncoreCommand = "yarn encore {$encoreEnv}";
         $yarnEncoreCommand = $yarnBaseEncoreCommand;
+
+        if ($watch) {
+            $yarnEncoreCommand = "{$yarnBaseEncoreCommand} --watch";
+        }
 
         if (!empty($configName)) {
             $yarnEncoreCommand = "{$yarnBaseEncoreCommand} --config-name {$configName}";
