@@ -36,13 +36,14 @@
     {% endblock %}
 {% endset %}
 
-{% set popup_items = [] %}
-    {% set popup_items = popup_items|merge([{
-        label: notification.isPending == 0 ? 'notification.mark_as_unread'|trans|desc('Mark as unread') : 'notification.mark_as_read'|trans|desc('Mark as read'),
-        action_attr: { 
-            class: 'ibexa-notifications-modal--mark-as ibexa-notifications-modal--mark-as-' ~ (notification.isPending == 0 ? 'unread' : 'read'), 
-            'data-notification-id': notification.id },
-    }]) %}
+{% set popup_items = additional_popup|default([]) %}
+
+{% set popup_items = popup_items|merge([{
+    label: notification.isPending == 0 ? 'notification.mark_as_unread'|trans|desc('Mark as unread') : 'notification.mark_as_read'|trans|desc('Mark as read'),
+    action_attr: { 
+        class: 'ibexa-notifications-modal--mark-as ibexa-notifications-modal--mark-as-' ~ (notification.isPending == 0 ? 'unread' : 'read'), 
+        'data-notification-id': notification.id },
+}]) %}
 
 {% set popup_items = popup_items|merge([{
     label: 'notification.delete'|trans|desc('Delete'),

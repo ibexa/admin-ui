@@ -16,6 +16,11 @@
     </span>
 {% endblock %}
 
+{% set btn_tooltip = 'notification.trashed.go_to_trash'|trans({}, 'ibexa_notifications')|desc('Go to Trash') %}
+{% block btn_show_content %}
+    {{ parent() }}
+{% endblock %}
+
 {% block message %}
     {% block content %}
         <p class="description__title">
