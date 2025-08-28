@@ -16,34 +16,17 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
-class PreviewUnavailableTwigComponent implements ComponentInterface
+final readonly class PreviewUnavailableTwigComponent implements ComponentInterface
 {
-    private Environment $twig;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private SiteaccessResolverInterface $siteaccessResolver;
-
-    private LocationService $locationService;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver $siteaccessResolver
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(
-        Environment $twig,
-        SiteaccessResolverInterface $siteaccessResolver,
-        LocationService $locationService
+        private Environment $twig,
+        private SiteaccessResolverInterface $siteaccessResolver,
+        private LocationService $locationService
     ) {
-        $this->twig = $twig;
-        $this->siteaccessResolver = $siteaccessResolver;
-        $this->locationService = $locationService;
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return string
+     * @param array<mixed> $parameters
      */
     public function render(array $parameters = []): string
     {
@@ -56,9 +39,17 @@ class PreviewUnavailableTwigComponent implements ComponentInterface
         $versionNo = $content->getVersionInfo()->versionNo;
 
         // nonpublished content should use parent location instead because location doesn't exist yet
-        if (!$content->contentInfo->published && null === $content->contentInfo->mainLocationId) {
-            $parentLocations = $this->locationService->loadParentLocationsForDraftContent($content->getVersionInfo());
+        $contentInfo = $content->getContentInfo();
+        if (!$contentInfo->isPublished() && null === $contentInfo->getMainLocationId()) {
+            $parentLocations = $this->locationService->loadParentLocationsForDraftContent(
+                $content->getVersionInfo()
+            );
+
             $location = reset($parentLocations);
+            if ($location === false) {
+                return '';
+            }
+
             $versionNo = null;
         }
 
@@ -68,7 +59,7 @@ class PreviewUnavailableTwigComponent implements ComponentInterface
                 $versionNo,
                 $language->languageCode
             );
-        } catch (UnauthorizedException $e) {
+        } catch (UnauthorizedException) {
             $siteaccesses = [];
         }
 

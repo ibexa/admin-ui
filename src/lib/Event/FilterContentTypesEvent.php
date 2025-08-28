@@ -15,16 +15,12 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 final class FilterContentTypesEvent extends Event
 {
-    /** @phpstan-var array<string, array<TContentTypeData>> */
-    private array $contentTypeGroups;
-
     /**
      * @phpstan-param array<string, array<TContentTypeData>> $contentTypeGroups
      */
     public function __construct(
-        array $contentTypeGroups
+        private array $contentTypeGroups
     ) {
-        $this->contentTypeGroups = $contentTypeGroups;
     }
 
     /**

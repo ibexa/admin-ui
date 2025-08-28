@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -21,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * FormMapper for ibexa_author FieldType.
  */
-class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValueFormMapperInterface
+final class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValueFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {

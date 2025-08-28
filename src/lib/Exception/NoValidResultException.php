@@ -11,15 +11,11 @@ namespace Ibexa\AdminUi\Exception;
 use Exception;
 use Throwable;
 
-class NoValidResultException extends Exception
+final class NoValidResultException extends Exception
 {
-    /**
-     * @param string $message
-     * @param int $code
-     */
     public function __construct(
-        $message = 'No valid result from strategy',
-        $code = 0,
+        string $message = 'No valid result from strategy',
+        int $code = 0,
         ?Throwable $previous = null
     ) {
         parent::__construct($message, $code, $previous);

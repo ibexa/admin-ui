@@ -162,8 +162,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             ]);
 
         $content
-            ->method('__get')
-            ->with('contentInfo')
+            ->method('getContentInfo')
             ->willReturn($contentInfo);
 
         $contentService = $this->createMock(ContentService::class);
@@ -255,6 +254,9 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->dispatch($translateEvent, ContentProxyTranslateEvent::class);
     }
 
+    /**
+     * @param \Ibexa\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefs
+     */
     private function getContentType(array $fieldDefs = []): ContentType
     {
         return new ContentType([
@@ -262,8 +264,10 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         ]);
     }
 
-    private function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
-    {
+    private function getFieldDefinition(
+        string $identifier = 'identifier',
+        bool $isTranslatable = false
+    ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $identifier,
             'defaultValue' => $this->createMock(Value::class),

@@ -15,12 +15,9 @@ use Ibexa\TwigComponents\Component\Registry as TwigComponentsRegistry;
  * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Registry} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\Registry} instead
  */
-class Registry
+readonly class Registry
 {
-    /**
-     * @var string[]
-     */
-    private const COMPONENTS_WHITELIST =
+    private const array COMPONENTS_WHITELIST =
         [
             'action-configuration-tabs',
             'attribute-definition-block',
@@ -80,13 +77,10 @@ class Registry
             'user-profile-blocks',
         ];
 
-    private const GROUP_PREFIX = 'admin-ui-';
+    private const string GROUP_PREFIX = 'admin-ui-';
 
-    protected TwigComponentsRegistry $inner;
-
-    public function __construct(TwigComponentsRegistry $inner)
+    public function __construct(protected TwigComponentsRegistry $inner)
     {
-        $this->inner = $inner;
     }
 
     public function addComponent(string $group, string $serviceId, ComponentInterface $component): void

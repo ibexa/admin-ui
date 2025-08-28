@@ -18,37 +18,19 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class RequestLocaleListener implements EventSubscriberInterface
+final readonly class RequestLocaleListener implements EventSubscriberInterface
 {
-    private array $siteAccessGroups;
-
-    private array $availableTranslations;
-
-    private TranslatorInterface $translator;
-
-    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
-
-    private ConfigResolverInterface $configResolver;
-
     /**
-     * @param array $siteAccessGroups
-     * @param array $availableTranslations
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
+     * @param array<string, string[]> $siteAccessGroups
+     * @param string[] $availableTranslations
      */
     public function __construct(
-        array $siteAccessGroups,
-        array $availableTranslations,
-        TranslatorInterface $translator,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        ConfigResolverInterface $configResolver
+        private array $siteAccessGroups,
+        private array $availableTranslations,
+        private TranslatorInterface $translator,
+        private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->siteAccessGroups = $siteAccessGroups;
-        $this->availableTranslations = $availableTranslations;
-        $this->translator = $translator;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->configResolver = $configResolver;
     }
 
     /**
@@ -62,8 +44,6 @@ class RequestLocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function onKernelRequest(RequestEvent $event): void
@@ -74,13 +54,16 @@ class RequestLocaleListener implements EventSubscriberInterface
             return;
         }
 
-        $additionalTranslations = $this->configResolver->getParameter('user_preferences.additional_translations');
+        $additionalTranslations = $this->configResolver->getParameter(
+            'user_preferences.additional_translations'
+        );
+
         $preferableLocales = $this->userLanguagePreferenceProvider->getPreferredLocales($request);
         $locale = null;
 
         foreach ($preferableLocales as $preferableLocale) {
-            if (\in_array($preferableLocale, $this->availableTranslations, true)
-                || \in_array($preferableLocale, $additionalTranslations, true)
+            if (in_array($preferableLocale, $this->availableTranslations, true)
+                || in_array($preferableLocale, $additionalTranslations, true)
             ) {
                 $locale = $preferableLocale;
                 break;
@@ -95,14 +78,12 @@ class RequestLocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    protected function isAdminSiteAccess(Request $request): bool
+    private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }

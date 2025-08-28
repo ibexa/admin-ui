@@ -32,36 +32,19 @@ use Symfony\Component\Form\FormInterface;
 /**
  * @todo It should use ViewEvents::FILTER_VIEW_PARAMETERS event instead.
  */
-class SetViewParametersListener implements EventSubscriberInterface
+readonly class SetViewParametersListener implements EventSubscriberInterface
 {
-    protected LocationService $locationService;
-
-    protected UserService $userService;
-
-    private Repository $repository;
-
-    private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        LocationService $locationService,
-        UserService $userService,
-        Repository $repository,
-        ConfigResolverInterface $configResolver,
-        GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
+        protected LocationService $locationService,
+        protected UserService $userService,
+        private Repository $repository,
+        private ConfigResolverInterface $configResolver,
+        private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
     ) {
-        $this->locationService = $locationService;
-        $this->userService = $userService;
-        $this->repository = $repository;
-        $this->configResolver = $configResolver;
-        $this->groupedContentFormFieldsProvider = $groupedContentFormFieldsProvider;
     }
 
     /**
      * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array The event names to listen to
      */
     public static function getSubscribedEvents(): array
     {
@@ -77,8 +60,6 @@ class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
-     *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -94,8 +75,13 @@ class SetViewParametersListener implements EventSubscriberInterface
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contentView->getParameter('content');
-        $location = $contentView->hasParameter('location') ? $contentView->getParameter('location') : null;
-        $isPublished = null !== $content->contentInfo->mainLocationId && $content->contentInfo->published;
+        $location = $contentView->hasParameter('location')
+            ? $contentView->getParameter('location')
+            : null;
+
+        $isPublished =
+            null !== $content->getContentInfo()->getMainLocationId()
+            && $content->getContentInfo()->isPublished();
 
         $contentView->addParameters([
             'parent_location' => $this->resolveParentLocation($content, $location, $isPublished),
@@ -104,19 +90,16 @@ class SetViewParametersListener implements EventSubscriberInterface
 
         if (!$isPublished) {
             $contentView->addParameters([
-                'parent_locations' => $this->locationService->loadParentLocationsForDraftContent($content->versionInfo),
+                'parent_locations' => $this->locationService->loadParentLocationsForDraftContent(
+                    $content->getVersionInfo()
+                ),
             ]);
         }
 
-        $contentInfo = $content->versionInfo->contentInfo;
-
-        $this->processCreator($contentInfo, $contentView);
+        $this->processCreator($content->getContentInfo(), $contentView);
     }
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
-     *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -131,8 +114,10 @@ class SetViewParametersListener implements EventSubscriberInterface
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $contentView->getContent();
+        $contentInfo = $content->getContentInfo();
         $location = $contentView->getLocation();
-        $isPublished = null !== $content->contentInfo->mainLocationId && $content->contentInfo->published;
+
+        $isPublished = null !== $contentInfo->getMainLocationId() && $contentInfo->isPublished();
 
         $contentView->addParameters([
             'parent_location' => $this->resolveParentLocation($content, $location, $isPublished),
@@ -141,18 +126,17 @@ class SetViewParametersListener implements EventSubscriberInterface
 
         if (!$isPublished) {
             $contentView->addParameters([
-                'parent_locations' => $this->locationService->loadParentLocationsForDraftContent($content->versionInfo),
+                'parent_locations' => $this->locationService->loadParentLocationsForDraftContent(
+                    $content->getVersionInfo()
+                ),
             ]);
         }
 
-        $contentInfo = $content->versionInfo->contentInfo;
+        $contentInfo = $content->getVersionInfo()->getContentInfo();
 
         $this->processCreator($contentInfo, $contentView);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
-     */
     public function setUserUpdateViewTemplateParameters(PreContentViewEvent $event): void
     {
         $contentView = $event->getContentView();
@@ -163,18 +147,14 @@ class SetViewParametersListener implements EventSubscriberInterface
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\User $user */
         $user = $contentView->getParameter('user');
-        $contentInfo = $user->versionInfo->contentInfo;
+        $contentInfo = $user->getContentInfo();
 
         $this->processCreator($contentInfo, $contentView);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent $event
-     */
     public function setContentCreateViewTemplateParameters(PreContentViewEvent $event): void
     {
         $contentView = $event->getContentView();
-
         if (!$contentView instanceof ContentCreateView) {
             return;
         }
@@ -200,15 +180,11 @@ class SetViewParametersListener implements EventSubscriberInterface
         $view->setParameters($parameters);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\Core\MVC\Symfony\View\View $contentView
-     */
     private function processCreator(ContentInfo $contentInfo, View $contentView): void
     {
         try {
             $creator = $this->userService->loadUser($contentInfo->ownerId);
-        } catch (NotFoundException $exception) {
+        } catch (NotFoundException) {
             $creator = null;
         }
 
@@ -218,13 +194,6 @@ class SetViewParametersListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param bool $isPublished
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
-     *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -234,7 +203,9 @@ class SetViewParametersListener implements EventSubscriberInterface
         if (!$isPublished) {
             $parentLocations = $this->repository->sudo(
                 static function (Repository $repository) use ($content): iterable {
-                    return $repository->getLocationService()->loadParentLocationsForDraftContent($content->getVersionInfo());
+                    return $repository->getLocationService()->loadParentLocationsForDraftContent(
+                        $content->getVersionInfo()
+                    );
                 }
             );
 

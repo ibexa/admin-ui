@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
@@ -13,25 +14,13 @@ use Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent;
 use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * {@inheritdoc}
- */
-class ContentTranslateViewFilterParametersListener implements EventSubscriberInterface
+readonly class ContentTranslateViewFilterParametersListener implements EventSubscriberInterface
 {
-    protected ContentTypeService $contentTypeService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     */
     public function __construct(
-        ContentTypeService $contentTypeService
+        protected ContentTypeService $contentTypeService
     ) {
-        $this->contentTypeService = $contentTypeService;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -39,11 +28,6 @@ class ContentTranslateViewFilterParametersListener implements EventSubscriberInt
         ];
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewParametersEvent $event
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     */
     public function onFilterViewParameters(FilterViewParametersEvent $event): void
     {
         $view = $event->getView();

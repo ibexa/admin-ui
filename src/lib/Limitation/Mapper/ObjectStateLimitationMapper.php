@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -18,15 +19,12 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
+final class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
-    private ObjectStateService $objectStateService;
-
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(private readonly ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
         $this->logger = new NullLogger();
     }
 
@@ -55,10 +53,12 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         foreach ($limitation->limitationValues as $stateId) {
             try {
                 $values[] = $this->getObjectStateLabel(
-                    $this->objectStateService->loadObjectState($stateId)
+                    $this->objectStateService->loadObjectState((int)$stateId)
                 );
-            } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find an Object state with ID %s', $stateId));
+            } catch (NotFoundException) {
+                $this->logger?->error(
+                    sprintf('Could not map the Limitation value: could not find an Object state with ID %s', $stateId)
+                );
             }
         }
 

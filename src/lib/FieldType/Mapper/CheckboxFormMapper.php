@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -17,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * FormMapper for ibexa_boolean FieldType.
  */
-class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $fieldDefinition): void
     {

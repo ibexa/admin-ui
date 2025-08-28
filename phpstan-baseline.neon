@@ -1423,72 +1423,6 @@ parameters:
 			path: src/lib/Behat/Page/TrashPage.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Content\\PreviewUnavailableTwigComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Content/PreviewUnavailableTwigComponent.php
-
-		-
-			message: '#^Parameter \#1 \$location of method Ibexa\\AdminUi\\Siteaccess\\NonAdminSiteaccessResolver\:\:getSiteAccessesListForLocation\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Component/Content/PreviewUnavailableTwigComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Event\\RenderGroupEvent\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderGroupEvent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Event\\RenderGroupEvent\:\:getComponents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderGroupEvent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Event\\RenderGroupEvent\:\:getParameters\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderGroupEvent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Event\\RenderGroupEvent\:\:setComponents\(\) has parameter \$components with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderGroupEvent.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Event\\RenderGroupEvent\:\:\$parameters type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderGroupEvent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Event\\RenderSingleEvent\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderSingleEvent.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\Event\\RenderSingleEvent\:\:\$parameters type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Event/RenderSingleEvent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\LinkComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/LinkComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:renderGroup\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:renderGroup\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -1499,66 +1433,6 @@ parameters:
 			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\Renderer\\DefaultRenderer\:\:renderSingle\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/Renderer/DefaultRenderer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\ScriptComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/ScriptComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:composeTabParameters\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:composeTabParameters\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TabsComponent\:\:dispatchTabPreRenderEvent\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\TabsComponent\:\:\$parameters type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TabsComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TwigComponent\:\:__construct\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TwigComponent.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Component\\TwigComponent\:\:render\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TwigComponent.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Component\\TwigComponent\:\:\$parameters type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Component/TwigComponent.php
 
 		-
 			message: '#^Offset ''meta'' might not exist on array\{position\: int, meta\?\: bool\}\.$#'
@@ -1573,50 +1447,8 @@ parameters:
 			path: src/lib/EventListener/AddNewTranslationFieldDefinition.php
 
 		-
-			message: '#^Cannot call method log\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
+			message: '#^Cannot call method isTranslatable\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null\.$#'
 			identifier: method.nonObject
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\AdminExceptionListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: '#^PHPDoc tag @param references unknown parameter\: \$kernelRootDir$#'
-			identifier: parameter.notFound
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\AdminExceptionListener\:\:\$siteAccessGroups type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\ContentDownloadRouteReferenceListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/ContentDownloadRouteReferenceListener.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\ContentDownloadRouteReferenceListener\:\:\$siteAccessGroups type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/ContentDownloadRouteReferenceListener.php
-
-		-
-			message: '#^Cannot access property \$isTranslatable on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/EventListener/ContentProxyCreateDraftListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\ContentProxyCreateDraftListener\:\:getTranslatedContentFields\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/EventListener/ContentProxyCreateDraftListener.php
 
@@ -1627,92 +1459,20 @@ parameters:
 			path: src/lib/EventListener/ContentProxyCreateDraftListener.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\ContentTranslateViewFilterParametersListener\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/ContentTranslateViewFilterParametersListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\CredentialsExpirationWarningListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/CredentialsExpirationWarningListener.php
-
-		-
 			message: '#^Parameter \#1 \$passwordExpiresAt of method Ibexa\\AdminUi\\EventListener\\CredentialsExpirationWarningListener\:\:generateNotification\(\) expects DateTimeInterface, DateTimeImmutable\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/EventListener/CredentialsExpirationWarningListener.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\CredentialsExpiredListener\:\:\$siteAccessGroups \(array\<array\<string\>\>\) does not accept array\<string\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/EventListener/CredentialsExpiredListener.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface\:\:setLocale\(\)\.$#'
 			identifier: method.notFound
 			count: 1
 			path: src/lib/EventListener/InContextTranslationListener.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\InContextTranslationListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/InContextTranslationListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\MenuPermissionsListener\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/MenuPermissionsListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\RequestAttributesListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestAttributesListener.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\RequestAttributesListener\:\:\$siteAccessGroups type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestAttributesListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\RequestListener\:\:__construct\(\) has parameter \$groupsBySiteAccess with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\RequestListener\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestListener.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\RequestListener\:\:\$groupsBySiteAccess type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestListener.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface\:\:setLocale\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\RequestLocaleListener\:\:__construct\(\) has parameter \$availableTranslations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\RequestLocaleListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/EventListener/RequestLocaleListener.php
 
@@ -1723,38 +1483,8 @@ parameters:
 			path: src/lib/EventListener/RequestLocaleListener.php
 
 		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\RequestLocaleListener\:\:\$availableTranslations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\EventListener\\RequestLocaleListener\:\:\$siteAccessGroups type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/RequestLocaleListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\SearchViewFilterParametersListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/SearchViewFilterParametersListener.php
-
-		-
-			message: '#^Parameter \#1 \$request of method Ibexa\\AdminUi\\EventListener\\SearchViewFilterParametersListener\:\:isAdminSiteAccess\(\) expects Symfony\\Component\\HttpFoundation\\Request, Symfony\\Component\\HttpFoundation\\Request\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/EventListener/SearchViewFilterParametersListener.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:getIgnoredContentFields\(\) has parameter \$fieldsData with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/EventListener/SetViewParametersListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\SetViewParametersListener\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/EventListener/SetViewParametersListener.php
 
@@ -1763,18 +1493,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: src/lib/EventListener/SetViewParametersListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Exception\\ContentTypeIconNotFoundException\:\:__construct\(\) has parameter \$code with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Exception/ContentTypeIconNotFoundException.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Exception\\ContentTypeIconNotFoundException\:\:__construct\(\) has parameter \$contentType with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Exception/ContentTypeIconNotFoundException.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Exception\\ValueMapperNotFoundException\:\:__construct\(\) has parameter \$code with no type specified\.$#'
@@ -1795,7 +1513,7 @@ parameters:
 			path: src/lib/FieldType/FieldDefinitionFormMapperInterface.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\FieldType\\FieldTypeDefinitionFormMapperDispatcher\:\:map\(\) has parameter \$fieldForm with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
+			message: '#^Method Ibexa\\AdminUi\\FieldType\\FieldTypeDefinitionFormMapperDispatcher\:\:map\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/FieldType/FieldTypeDefinitionFormMapperDispatcher.php
@@ -1817,12 +1535,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/FieldType/Mapper/AuthorFormMapper.php
-
-		-
-			message: '#^Constructor of class Ibexa\\AdminUi\\FieldType\\Mapper\\BinaryFileFormMapper has an unused parameter \$fieldTypeService\.$#'
-			identifier: constructor.unusedParameter
-			count: 1
-			path: src/lib/FieldType/Mapper/BinaryFileFormMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\FieldType\\Mapper\\BinaryFileFormMapper\:\:mapFieldDefinitionForm\(\) has parameter \$fieldDefinitionForm with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
@@ -1877,12 +1589,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/FieldType/Mapper/IntegerFormMapper.php
-
-		-
-			message: '#^Constructor of class Ibexa\\AdminUi\\FieldType\\Mapper\\MediaFormMapper has an unused parameter \$fieldTypeService\.$#'
-			identifier: constructor.unusedParameter
-			count: 1
-			path: src/lib/FieldType/Mapper/MediaFormMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\FieldType\\Mapper\\MediaFormMapper\:\:mapFieldDefinitionForm\(\) has parameter \$fieldDefinitionForm with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
@@ -5197,22 +4903,10 @@ parameters:
 			path: src/lib/Limitation/Mapper/ChangeOwnerLimitationMapper.php
 
 		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/ContentTypeLimitationMapper.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\GroupLimitationMapper\:\:getSelectionChoices\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Limitation/Mapper/GroupLimitationMapper.php
-
-		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/LanguageLimitationMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\MemberOfLimitationMapper\:\:getSelectionChoices\(\) return type has no value type specified in iterable type array\.$#'
@@ -5281,12 +4975,6 @@ parameters:
 			path: src/lib/Limitation/Mapper/ObjectStateLimitationMapper.php
 
 		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/ObjectStateLimitationMapper.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\OwnerLimitationMapper\:\:getSelectionChoices\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -5303,12 +4991,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Limitation/Mapper/RoleLimitationMapper.php
-
-		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/SectionLimitationMapper.php
 
 		-
 			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
@@ -6370,12 +6052,6 @@ parameters:
 			message: '#^Call to an undefined method Peast\\Syntax\\Node\\Expression\:\:getValue\(\)\.$#'
 			identifier: method.notFound
 			count: 2
-			path: src/lib/Translation/Extractor/JavaScriptFileVisitor.php
-
-		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 3
 			path: src/lib/Translation/Extractor/JavaScriptFileVisitor.php
 
 		-
@@ -7703,18 +7379,6 @@ parameters:
 			identifier: phpDoc.parseError
 			count: 1
 			path: tests/lib/Config/AdminUiForms/ContentTypeFieldTypesResolverTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\EventListener\\ContentProxyCreateDraftListenerTest\:\:getContentType\(\) has parameter \$fieldDefs with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/EventListener/ContentProxyCreateDraftListenerTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\EventListener\\SetViewParametersListenerTest\:\:createFieldMock\(\) should return Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Field&PHPUnit\\Framework\\MockObject\\MockObject but returns PHPUnit\\Framework\\MockObject\\MockObject&Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: return.type
-			count: 1
-			path: tests/lib/EventListener/SetViewParametersListenerTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\Data\\AbstractFormDataValidationTestCase\:\:getForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'

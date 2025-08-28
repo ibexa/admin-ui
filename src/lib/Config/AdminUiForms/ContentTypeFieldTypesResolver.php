@@ -14,13 +14,10 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 /**
  * @internal
  */
-final class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolverInterface
+final readonly class ContentTypeFieldTypesResolver implements ContentTypeFieldTypesResolverInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     /**

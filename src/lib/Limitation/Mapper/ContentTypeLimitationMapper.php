@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -37,7 +38,9 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         $contentTypeChoices = [];
         foreach ($this->contentTypeService->loadContentTypeGroups() as $group) {
             foreach ($this->contentTypeService->loadContentTypes($group) as $contentType) {
-                $contentTypeChoices[$contentType->id] = $contentType->getName($contentType->mainLanguageCode);
+                $contentTypeChoices[$contentType->id] = $contentType->getName(
+                    $contentType->mainLanguageCode
+                );
             }
         }
 
@@ -52,9 +55,11 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         $values = [];
         foreach ($limitation->limitationValues as $contentTypeId) {
             try {
-                $values[] = $this->contentTypeService->loadContentType($contentTypeId);
-            } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId));
+                $values[] = $this->contentTypeService->loadContentType((int)$contentTypeId);
+            } catch (NotFoundException) {
+                $this->logger?->error(
+                    sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId)
+                );
             }
         }
 

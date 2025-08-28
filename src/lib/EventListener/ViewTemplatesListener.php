@@ -18,13 +18,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Sets the templates used by the user controller.
  */
-class ViewTemplatesListener implements EventSubscriberInterface
+final readonly class ViewTemplatesListener implements EventSubscriberInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     public static function getSubscribedEvents(): array
@@ -35,6 +32,8 @@ class ViewTemplatesListener implements EventSubscriberInterface
     /**
      * If the event's view has a defined template, sets the view's template identifier,
      * and the 'page_layout' parameter.
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function setViewTemplates(PreContentViewEvent $event): void
     {

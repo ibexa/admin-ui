@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -19,26 +20,16 @@ use Symfony\Component\Mime\MimeTypesInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
 
-class ImageFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class ImageFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var array<string> */
-    private array $allowedMimeTypes;
-
-    private MaxUploadSize $maxUploadSize;
-
-    private MimeTypesInterface $mimeTypes;
-
     /**
      * @param string[] $allowedMimeTypes
      */
     public function __construct(
-        array $allowedMimeTypes,
-        MaxUploadSize $maxUploadSize,
-        MimeTypesInterface $mimeTypes
+        private array $allowedMimeTypes,
+        private MaxUploadSize $maxUploadSize,
+        private MimeTypesInterface $mimeTypes
     ) {
-        $this->allowedMimeTypes = $allowedMimeTypes;
-        $this->maxUploadSize = $maxUploadSize;
-        $this->mimeTypes = $mimeTypes;
     }
 
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
