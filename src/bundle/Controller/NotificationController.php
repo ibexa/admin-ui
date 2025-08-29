@@ -28,6 +28,7 @@ use Ibexa\Core\Notification\Renderer\Registry;
 use InvalidArgumentException;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,10 +112,7 @@ final class NotificationController extends Controller
         $searchForm = $this->createForm(SearchType::class);
         $searchForm->handleRequest($request);
 
-        $query = new NotificationQuery();
-        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-            $query = $this->buildQuery($searchForm->getData());
-        }
+        $query = $this->getNotificationQuery($request, $searchForm);
 
         $pagerfanta = new Pagerfanta(
             new NotificationAdapter($this->notificationService, $query)
@@ -122,15 +120,9 @@ final class NotificationController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        $notifications = [];
-        foreach ($pagerfanta->getCurrentPageResults() as $notification) {
-            if ($this->registry->hasRenderer($notification->type)) {
-                $notifications[] = $this->registry->getRenderer($notification->type)->render($notification);
-            }
-        }
+        $notifications = $this->renderNotifications($pagerfanta);
 
-        $formData = $this->createNotificationSelectionData($pagerfanta);
-        $deleteForm = $this->formFactory->deleteNotification($formData);
+        $deleteForm = $this->formFactory->deleteNotification($this->createNotificationSelectionData($pagerfanta));
 
         $template = $request->attributes->get('template', '@ibexadesign/account/notifications/list.html.twig');
 
@@ -141,6 +133,47 @@ final class NotificationController extends Controller
             'search_form' => $searchForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ]);
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormInterface<SearchQueryData|null> $searchForm
+     */
+    private function getNotificationQuery(Request $request, FormInterface $searchForm): NotificationQuery
+    {
+        $session = $request->getSession();
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $data = $searchForm->getData();
+            $session->set('notifications_filters', $data);
+
+            return $this->buildQuery($data);
+        }
+
+        $data = $session->get('notifications_filters');
+        if ($data !== null) {
+            $searchForm->setData($data);
+
+            return $this->buildQuery($data);
+        }
+
+        return new NotificationQuery();
+    }
+
+    /**
+     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $pagerfanta
+     *
+     * @return string[]
+     */
+    private function renderNotifications(Pagerfanta $pagerfanta): array
+    {
+        $result = [];
+        foreach ($pagerfanta->getCurrentPageResults() as $notification) {
+            if ($this->registry->hasRenderer($notification->type)) {
+                $result[] = $this->registry->getRenderer($notification->type)->render($notification);
+            }
+        }
+
+        return $result;
     }
 
     private function buildQuery(?SearchQueryData $data): NotificationQuery
@@ -202,15 +235,25 @@ final class NotificationController extends Controller
     public function markNotificationAsReadAction(Request $request, int $notificationId): JsonResponse
     {
         return $this->handleJsonErrors(function () use ($notificationId) {
-            $notification = $this->notificationService->getNotification($notificationId);
-
-            $this->notificationService->markNotificationAsRead($notification);
+            $this->notificationService->markUserNotificationsAsRead([$notificationId]);
 
             return new JsonResponse([
                 'status' => 'success',
-                'redirect' => $this->getNotificationRedirectUrl($notification),
             ]);
         });
+    }
+
+    public function redirectToNotificationTargetAction(int $notificationId): Response
+    {
+        $notification = $this->notificationService->getNotification($notificationId);
+
+        $url = $this->getNotificationRedirectUrl($notification);
+
+        if ($url !== null) {
+            return $this->redirect($url);
+        }
+
+        return $this->redirectToRoute('ibexa.notifications.render.all');
     }
 
     private function getNotificationRedirectUrl(Notification $notification): ?string
@@ -219,9 +262,13 @@ final class NotificationController extends Controller
             return $this->registry->getRenderer($notification->type)->generateUrl($notification);
         }
 
-        $content = $this->contentService->loadContentInfo($notification->data['content_id']);
-        if ($content->isTrashed()) {
-            return $this->generateUrl('ibexa.trash.list');
+        try {
+            $content = $this->contentService->loadContentInfo($notification->data['content_id']);
+            if ($content->isTrashed()) {
+                return $this->generateUrl('ibexa.trash.list');
+            }
+        } catch (NotFoundException $e) {
+            return null;
         }
 
         return null;
