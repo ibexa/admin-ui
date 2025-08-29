@@ -19,13 +19,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  *
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\Role, int>
  */
-class RoleTransformer implements DataTransformerInterface
+final readonly class RoleTransformer implements DataTransformerInterface
 {
-    protected RoleService $roleService;
-
-    public function __construct(RoleService $roleService)
+    public function __construct(private RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
     /**

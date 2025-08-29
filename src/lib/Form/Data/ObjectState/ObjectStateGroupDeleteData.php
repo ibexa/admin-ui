@@ -10,30 +10,18 @@ namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
-class ObjectStateGroupDeleteData
+final class ObjectStateGroupDeleteData
 {
-    private ?ObjectStateGroup $objectStateGroup;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup|null $objectStateGroup
-     */
-    public function __construct(?ObjectStateGroup $objectStateGroup = null)
+    public function __construct(private ?ObjectStateGroup $objectStateGroup = null)
     {
-        $this->objectStateGroup = $objectStateGroup;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
-     */
-    public function getObjectStateGroup(): ObjectStateGroup
+    public function getObjectStateGroup(): ?ObjectStateGroup
     {
         return $this->objectStateGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     */
-    public function setObjectStateGroup(ObjectStateGroup $objectStateGroup): void
+    public function setObjectStateGroup(?ObjectStateGroup $objectStateGroup): void
     {
         $this->objectStateGroup = $objectStateGroup;
     }

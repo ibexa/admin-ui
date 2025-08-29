@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -20,7 +21,7 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
 {
     public function filterLimitationValues(Limitation $limitation): void
     {
-        if (!is_array($limitation->limitationValues)) {
+        if ($limitation->limitationValues === null) {
             return;
         }
 
@@ -48,7 +49,7 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
 
             try {
                 $this->locationService->loadLocation($locationId);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 // Skip generating limitation value as Location doesn't exist at this point
                 continue;
             }

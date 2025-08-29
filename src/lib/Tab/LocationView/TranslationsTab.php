@@ -32,7 +32,7 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-translations';
 
     protected DatasetFactory $datasetFactory;
 
@@ -118,7 +118,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 
         $mainTranslationUpdateForm = $this->createMainLanguageUpdateForm(
             $content,
-            $versionInfo->contentInfo->mainLanguageCode
+            $versionInfo->getContentInfo()->getMainLanguageCode()
         );
 
         $languagesCodes = array_column($this->languageService->loadLanguages(), 'languageCode');

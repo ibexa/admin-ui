@@ -4,24 +4,22 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Language;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LanguageUpdateData
+final class LanguageUpdateData
 {
-    private ?Language $language;
-
     #[Assert\NotBlank]
     private ?string $name = null;
 
     private bool $enabled = false;
 
-    public function __construct(?Language $language = null)
+    public function __construct(private ?Language $language = null)
     {
-        $this->language = $language;
         if ($language !== null) {
             $this->name = $language->name;
             $this->enabled = $language->enabled;

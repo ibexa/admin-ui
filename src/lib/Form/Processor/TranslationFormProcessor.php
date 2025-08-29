@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor;
 
@@ -18,19 +19,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Listens for and processes RepositoryForm events: publish, remove draft, save draft...
  */
-class TranslationFormProcessor implements EventSubscriberInterface
+final readonly class TranslationFormProcessor implements EventSubscriberInterface
 {
-    private ContentService $contentService;
-
     public function __construct(
-        ContentService $contentService
+        private ContentService $contentService
     ) {
-        $this->contentService = $contentService;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -42,14 +37,10 @@ class TranslationFormProcessor implements EventSubscriberInterface
      * Creates content draft based in data submitted by the user and injects ContentUpdateData to the event.
      *
      * This step is required to achieve compatibility with other FormProcessors.
-     *
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
      */
     public function createContentDraft(FormActionEvent $event): void
     {
-        /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData $data */
         $data = $event->getData();
-
         if (!$data instanceof ContentTranslationData) {
             return;
         }
@@ -59,7 +50,7 @@ class TranslationFormProcessor implements EventSubscriberInterface
             $mainLanguageCode = $contentDraft->getVersionInfo()->getContentInfo()->getMainLanguageCode();
 
             return $mainLanguageCode === $data->initialLanguageCode
-                || ($mainLanguageCode !== $data->initialLanguageCode && $fieldData->getFieldDefinition()->isTranslatable());
+                || $fieldData->getFieldDefinition()->isTranslatable();
         });
         $contentUpdateData = new ContentUpdateData([
             'initialLanguageCode' => $data->initialLanguageCode,

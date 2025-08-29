@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -21,30 +20,20 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  *
  * Needed to display the form field correctly and transform it back to an appropriate value object.
  */
-class UDWBasedValueModelTransformer implements DataTransformerInterface
+final readonly class UDWBasedValueModelTransformer implements DataTransformerInterface
 {
-    private LocationService $locationService;
-
-    private PermissionResolver $permissionResolver;
-
-    private Repository $repository;
-
     public function __construct(
-        LocationService $locationService,
-        PermissionResolver $permissionResolver,
-        Repository $repository
+        private LocationService $locationService,
+        private Repository $repository
     ) {
-        $this->locationService = $locationService;
-        $this->permissionResolver = $permissionResolver;
-        $this->repository = $repository;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
+     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Location|null>
      */
-    public function transform($value): ?array
+    public function transform(mixed $value): ?array
     {
         if (!is_array($value)) {
             return null;
@@ -60,7 +49,7 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
         try {
             // Sudo is necessary as skipping non-accessible Locations
             // will prevent an administrator from editing policies
-            return $this->permissionResolver->sudo(
+            return $this->repository->sudo(
                 function () use ($locationId): Location {
                     return $this->locationService->loadLocation($locationId);
                 },

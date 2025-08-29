@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
@@ -19,26 +20,21 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-class ContentTypeFormProcessor implements EventSubscriberInterface
+final class ContentTypeFormProcessor implements EventSubscriberInterface
 {
-    private ContentTypeService $contentTypeService;
-
-    private RouterInterface $router;
-
-    /**
-     * @var array
-     */
-    private $options;
+    /** @var array<string, mixed> */
+    private array $options;
 
     private ?FieldsGroupsList $groupsList = null;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(
-        ContentTypeService $contentTypeService,
-        RouterInterface $router,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly RouterInterface $router,
         array $options = []
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->router = $router;
         $this->setOptions($options);
     }
 
@@ -76,7 +72,11 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $contentTypeData = $event->getData();
         $contentTypeDraft = $contentTypeData->contentTypeDraft;
         foreach ($contentTypeData->getFlatFieldDefinitionsData() as $fieldDefData) {
-            $this->contentTypeService->updateFieldDefinition($contentTypeDraft, $fieldDefData->fieldDefinition, $fieldDefData);
+            $this->contentTypeService->updateFieldDefinition(
+                $contentTypeDraft,
+                $fieldDefData->fieldDefinition,
+                $fieldDefData
+            );
         }
 
         // Update enabled FieldDefinitions and remove disabled.
@@ -111,8 +111,8 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
 
         $maxFieldPos = 0;
-        foreach ($contentTypeDraft->fieldDefinitions as $existingFieldDef) {
-            if ($existingFieldDef->position > $maxFieldPos) {
+        foreach ($contentTypeDraft->getFieldDefinitions() as $existingFieldDef) {
+            if ($existingFieldDef->getPosition() > $maxFieldPos) {
                 $maxFieldPos = $existingFieldDef->position;
             }
         }
@@ -145,11 +145,19 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         /** @var \Symfony\Component\Form\FormInterface $fieldDefForm */
         foreach ($event->getForm()->get('fieldDefinitionsData') as $fieldDefForm) {
             if ($fieldDefForm->get('selected')->getData() === true) {
-                $this->contentTypeService->removeFieldDefinition($contentTypeDraft, $fieldDefForm->getData()->fieldDefinition);
+                $this->contentTypeService->removeFieldDefinition(
+                    $contentTypeDraft,
+                    $fieldDefForm->getData()->fieldDefinition
+                );
             }
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function processPublishContentType(FormActionEvent $event): void
     {
         $contentTypeDraft = $event->getData()->contentTypeDraft;
@@ -161,6 +169,12 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function processPublishAndEditContentType(FormActionEvent $event): void
     {
         $eventData = $event->getData();
@@ -185,15 +199,6 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
     }
 
-    /**
-     * Resolves unique field definition identifier.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
-     * @param int $startIndex
-     * @param string $fieldTypeIdentifier
-     *
-     * @return string
-     */
     private function resolveNewFieldDefinitionIdentifier(
         ContentTypeDraft $contentTypeDraft,
         int $startIndex,
@@ -202,7 +207,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         $fieldDefinitionIdentifiers = $contentTypeDraft
             ->getFieldDefinitions()
             ->map(static function (FieldDefinition $fieldDefinition): string {
-                return $fieldDefinition->identifier;
+                return $fieldDefinition->getIdentifier();
             });
 
         do {

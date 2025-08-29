@@ -75,7 +75,6 @@ final class SelectionUpdateMapperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'data\' is invalid: must be an instance of ' . SectionUpdateData::class);
 
-        /** @phpstan-ignore argument.type */
         $this->mapper->reverseMap(new LanguageCreateData());
     }
 

@@ -19,18 +19,12 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  *
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\User, int>
  */
-class UserTransformer implements DataTransformerInterface
+final readonly class UserTransformer implements DataTransformerInterface
 {
-    protected UserService $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
-    /**
-     * Transforms a domain specific User object into a Users's ID.
-     */
     public function transform(mixed $value): ?int
     {
         if (null === $value) {
@@ -40,9 +34,6 @@ class UserTransformer implements DataTransformerInterface
         return $value->getId();
     }
 
-    /**
-     * Transforms a Users's ID integer into a domain specific User object.
-     */
     public function reverseTransform(mixed $value): ?User
     {
         if (empty($value)) {

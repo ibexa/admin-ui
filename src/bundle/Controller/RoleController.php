@@ -257,7 +257,7 @@ final class RoleController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (RolesDeleteData $data): RedirectResponse {
-                foreach ($data->getRoles() as $roleId => $selected) {
+                foreach ($data->getRoles() ?? [] as $roleId => $selected) {
                     $role = $this->roleService->loadRole($roleId);
                     $this->roleService->deleteRole($role);
 

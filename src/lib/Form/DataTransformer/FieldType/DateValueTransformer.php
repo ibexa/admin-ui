@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -14,13 +15,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * DataTransformer for Date\Value.
  */
-class DateValueTransformer implements DataTransformerInterface
+final readonly class DateValueTransformer implements DataTransformerInterface
 {
     /**
-     * @param mixed $value
-     *
-     * @return int|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function transform(mixed $value): ?int
@@ -44,8 +41,6 @@ class DateValueTransformer implements DataTransformerInterface
 
     /**
      * @param int|mixed $value
-     *
-     * @return \Ibexa\Core\FieldType\Date\Value|null
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException

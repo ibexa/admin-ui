@@ -12,31 +12,19 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class TranslationRemoveData
+final class TranslationRemoveData
 {
-    #[Assert\NotBlank]
-    private ?ContentType $contentType;
-
-    #[Assert\NotBlank]
-    private ?ContentTypeGroup $contentTypeGroup;
-
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
-     */
-    #[Assert\NotBlank]
-    private array $languageCodes;
-
-    /**
-     * @param array $languageCodes
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageCodes
      */
     public function __construct(
-        ?ContentType $contentType = null,
-        ?ContentTypeGroup $contentTypeGroup = null,
-        array $languageCodes = []
+        #[Assert\NotBlank]
+        private ?ContentType $contentType = null,
+        #[Assert\NotBlank]
+        private ?ContentTypeGroup $contentTypeGroup = null,
+        #[Assert\NotBlank]
+        private array $languageCodes = []
     ) {
-        $this->contentType = $contentType;
-        $this->contentTypeGroup = $contentTypeGroup;
-        $this->languageCodes = $languageCodes;
     }
 
     public function getContentType(): ?ContentType
@@ -44,7 +32,7 @@ class TranslationRemoveData
         return $this->contentType;
     }
 
-    public function setContentType(ContentType $contentType): self
+    public function setContentType(?ContentType $contentType): self
     {
         $this->contentType = $contentType;
 
@@ -56,7 +44,7 @@ class TranslationRemoveData
         return $this->contentTypeGroup;
     }
 
-    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup): self
+    public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): self
     {
         $this->contentTypeGroup = $contentTypeGroup;
 

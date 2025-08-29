@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -15,14 +16,14 @@ use Symfony\Component\Form\DataTransformerInterface;
  *
  * {@inheritdoc}
  */
-class ImageValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
+final class ImageValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \Ibexa\Core\FieldType\Image\Value $value
+     * @param \Ibexa\Core\FieldType\Image\Value|null $value
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function transform(mixed $value): ?array
+    public function transform(mixed $value): array
     {
         if (null === $value) {
             $value = $this->fieldType->getEmptyValue();
@@ -35,13 +36,11 @@ class ImageValueTransformer extends AbstractBinaryBaseTransformer implements Dat
     }
 
     /**
-     * @param array $value
-     *
-     * @return \Ibexa\Core\FieldType\Image\Value
+     * @param array<string, mixed> $value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function reverseTransform(mixed $value): ?Value
+    public function reverseTransform(mixed $value): Value
     {
         /** @var \Ibexa\Core\FieldType\Image\Value $valueObject */
         $valueObject = $this->getReverseTransformedValue($value);

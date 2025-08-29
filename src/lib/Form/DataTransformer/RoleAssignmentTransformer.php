@@ -19,16 +19,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  *
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment, int>
  */
-class RoleAssignmentTransformer implements DataTransformerInterface
+final readonly class RoleAssignmentTransformer implements DataTransformerInterface
 {
-    protected RoleService $roleService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
-    public function __construct(RoleService $roleService)
+    public function __construct(private RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
     /**
@@ -44,12 +38,6 @@ class RoleAssignmentTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a Role Assignment's ID into a domain specific RoleAssignment object.
-     *
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */

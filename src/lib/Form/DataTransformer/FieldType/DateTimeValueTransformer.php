@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -14,13 +15,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * DataTransformer for DateAndTime\Value.
  */
-class DateTimeValueTransformer implements DataTransformerInterface
+final readonly class DateTimeValueTransformer implements DataTransformerInterface
 {
     /**
-     * @param mixed $value
-     *
-     * @return int|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
     public function transform(mixed $value): ?int
@@ -43,11 +40,8 @@ class DateTimeValueTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param mixed $value
-     *
-     * @return \Ibexa\Core\FieldType\DateAndTime\Value|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentValue
      */
     public function reverseTransform(mixed $value): ?Value
     {

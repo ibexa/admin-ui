@@ -62,7 +62,13 @@ class DateIntervalToArrayTransformerTest extends TestCase
     {
         $transformer = new DateIntervalToArrayTransformer();
         $expectedValue = new DateInterval(array_keys($valueAsArray)[0]);
-        self::assertEquals($expectedValue, $transformer->reverseTransform($valueAsArray[array_keys($valueAsArray)[0]]));
+
+        self::assertEquals(
+            $expectedValue,
+            $transformer->reverseTransform(
+                $valueAsArray[array_keys($valueAsArray)[0]]
+            )
+        );
     }
 
     public function testTransformNull(): void

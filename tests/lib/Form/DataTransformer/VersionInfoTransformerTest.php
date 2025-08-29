@@ -23,8 +23,8 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class VersionInfoTransformerTest extends TestCase
 {
-    private const EXAMPLE_CONTENT_ID = 123456;
-    private const EXAMPLE_VERSION_NO = 7;
+    private const int EXAMPLE_CONTENT_ID = 123456;
+    private const int EXAMPLE_VERSION_NO = 7;
 
     private ContentService&MockObject $contentService;
 
@@ -253,11 +253,7 @@ final class VersionInfoTransformerTest extends TestCase
     private function createVersionInfoMock(ContentInfo $contentInfo, int $versionNo): VersionInfo
     {
         $versionInfo = $this->createMock(VersionInfo::class);
-        $versionInfo
-            ->method('__get')
-            ->willReturnMap([
-                ['versionNo', $versionNo],
-            ]);
+        $versionInfo->method('getVersionNo')->willReturn($versionNo);
         $versionInfo->method('getContentInfo')->willReturn($contentInfo);
 
         return $versionInfo;

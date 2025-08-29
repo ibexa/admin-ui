@@ -17,29 +17,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class UserOnTheFlyProcessor implements EventSubscriberInterface
+final readonly class UserOnTheFlyProcessor implements EventSubscriberInterface
 {
-    private UserService $userService;
-
-    private Environment $twig;
-
-    private UserUpdateFormProcessor $innerUserUpdateFormProcessor;
-
     public function __construct(
-        UserService $userService,
-        Environment $twig,
-        UserUpdateFormProcessor $innerUserUpdateFormProcessor
+        private UserService $userService,
+        private Environment $twig,
+        private UserUpdateFormProcessor $innerUserUpdateFormProcessor
     ) {
-        $this->userService = $userService;
-        $this->twig = $twig;
-        $this->innerUserUpdateFormProcessor = $innerUserUpdateFormProcessor;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array The event names to listen to
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -65,7 +51,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         $event->setResponse(
             new Response(
                 $this->twig->render('@ibexadesign/ui/on_the_fly/user_create_response.html.twig', [
-                    'locationId' => $user->contentInfo->mainLocationId,
+                    'locationId' => $user->getContentInfo()->getMainLocationId(),
                 ])
             )
         );
@@ -88,14 +74,10 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         );
     }
 
-    /**
-     * @param \Ibexa\ContentForms\Data\User\UserCreateData $data
-     * @param string $languageCode
-     */
     private function setContentFields(UserCreateData $data, string $languageCode): void
     {
-        foreach ($data->fieldsData as $fieldDefIdentifier => $fieldData) {
-            $data->setField($fieldDefIdentifier, $fieldData->value, $languageCode);
+        foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
+            $data->setField($fieldDefIdentifier, $fieldData->getValue(), $languageCode);
         }
     }
 }

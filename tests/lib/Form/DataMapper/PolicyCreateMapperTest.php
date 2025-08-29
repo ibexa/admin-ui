@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,9 +16,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Core\Repository\Values\User\PolicyCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class PolicyCreateMapperTest extends TestCase
+final class PolicyCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper */
     private PolicyCreateMapper $mapper;
 
     protected function setUp(): void
@@ -33,7 +33,7 @@ class PolicyCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testMap(array $properties): void
     {
@@ -45,7 +45,7 @@ class PolicyCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testReverseMap(array $properties): void
     {
@@ -70,6 +70,9 @@ class PolicyCreateMapperTest extends TestCase
         $this->mapper->reverseMap(new PolicyUpdateData());
     }
 
+    /**
+     * @return array<string, array<array<string, string>>>
+     */
     public function dataProvider(): array
     {
         return [
@@ -78,7 +81,7 @@ class PolicyCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Core\Repository\Values\User\PolicyCreateStruct
      */
@@ -88,7 +91,7 @@ class PolicyCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData
      */

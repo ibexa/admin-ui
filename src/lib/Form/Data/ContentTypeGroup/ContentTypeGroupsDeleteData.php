@@ -13,19 +13,15 @@ namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
  */
 class ContentTypeGroupsDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null */
-    protected $contentTypeGroups;
-
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
      */
-    public function __construct(array $contentTypeGroups = [])
+    public function __construct(protected ?array $contentTypeGroups = [])
     {
-        $this->contentTypeGroups = $contentTypeGroups;
     }
 
     /**
-     * @return array|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null
      */
     public function getContentTypeGroups(): ?array
     {
@@ -33,7 +29,7 @@ class ContentTypeGroupsDeleteData
     }
 
     /**
-     * @param array|null $contentTypeGroups
+     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[]|null $contentTypeGroups
      */
     public function setContentTypeGroups(?array $contentTypeGroups): void
     {

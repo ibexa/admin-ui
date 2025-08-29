@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
@@ -12,9 +13,8 @@ use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 
-class ContentTranslationDataTest extends TestCase
+final class ContentTranslationDataTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData */
     private ContentTranslationData $contentTranslationData;
 
     protected function setUp(): void
@@ -24,7 +24,7 @@ class ContentTranslationDataTest extends TestCase
 
     public function testAddFieldData(): void
     {
-        self::assertNull($this->contentTranslationData->fieldsData);
+        self::assertEmpty($this->contentTranslationData->fieldsData);
 
         $this->contentTranslationData->addFieldData(new FieldData([
             'fieldDefinition' => $this->getFieldDefinition(),
@@ -45,11 +45,6 @@ class ContentTranslationDataTest extends TestCase
         self::assertCount(2, $this->contentTranslationData->fieldsData);
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return \Ibexa\Core\Repository\Values\ContentType\FieldDefinition
-     */
     private function getFieldDefinition(string $identifier = 'identifier'): FieldDefinition
     {
         return new FieldDefinition([

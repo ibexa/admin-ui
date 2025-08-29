@@ -13,29 +13,17 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class TranslationAddData
+final class TranslationAddData
 {
-    #[Assert\NotBlank]
-    private ?ContentType $contentType;
-
-    #[Assert\NotBlank]
-    private ?ContentTypeGroup $contentTypeGroup;
-
-    #[Assert\NotBlank]
-    private ?Language $language;
-
-    private ?Language $baseLanguage;
-
     public function __construct(
-        ?ContentType $contentType = null,
-        ?ContentTypeGroup $contentTypeGroup = null,
-        ?Language $language = null,
-        ?Language $baseLanguage = null
+        #[Assert\NotBlank]
+        private ?ContentType $contentType = null,
+        #[Assert\NotBlank]
+        private ?ContentTypeGroup $contentTypeGroup = null,
+        #[Assert\NotBlank]
+        private ?Language $language = null,
+        private ?Language $baseLanguage = null
     ) {
-        $this->contentType = $contentType;
-        $this->contentTypeGroup = $contentTypeGroup;
-        $this->language = $language;
-        $this->baseLanguage = $baseLanguage;
     }
 
     public function getContentType(): ?ContentType
@@ -43,7 +31,7 @@ class TranslationAddData
         return $this->contentType;
     }
 
-    public function setContentType(ContentType $contentType): self
+    public function setContentType(?ContentType $contentType): self
     {
         $this->contentType = $contentType;
 
@@ -55,7 +43,7 @@ class TranslationAddData
         return $this->contentTypeGroup;
     }
 
-    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup): self
+    public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): self
     {
         $this->contentTypeGroup = $contentTypeGroup;
 
@@ -67,7 +55,7 @@ class TranslationAddData
         return $this->language;
     }
 
-    public function setLanguage(Language $language): self
+    public function setLanguage(?Language $language): self
     {
         $this->language = $language;
 
@@ -79,7 +67,7 @@ class TranslationAddData
         return $this->baseLanguage;
     }
 
-    public function setBaseLanguage(Language $baseLanguage): self
+    public function setBaseLanguage(?Language $baseLanguage): self
     {
         $this->baseLanguage = $baseLanguage;
 

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,9 +16,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class RoleCreateMapperTest extends TestCase
+final class RoleCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCreateMapper */
     private RoleCreateMapper $mapper;
 
     protected function setUp(): void
@@ -70,6 +70,9 @@ class RoleCreateMapperTest extends TestCase
         $this->mapper->reverseMap(new LanguageCreateData());
     }
 
+    /**
+     * @return array<string, array{array<string, mixed>}>
+     */
     public function dataProvider(): array
     {
         return [
@@ -78,9 +81,7 @@ class RoleCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
-     *
-     * @return \Ibexa\Core\Repository\Values\User\RoleCreateStruct
+     * @param array<string, mixed> $properties
      */
     private function createStruct(array $properties): RoleCreateStruct
     {
@@ -88,13 +89,10 @@ class RoleCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleCreateData
+     * @param array<string, mixed> $properties
      */
     private function createData(array $properties): RoleCreateData
     {
-        return (new RoleCreateData())
-            ->setIdentifier($properties['identifier']);
+        return (new RoleCreateData())->setIdentifier($properties['identifier']);
     }
 }

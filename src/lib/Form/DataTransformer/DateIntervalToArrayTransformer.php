@@ -4,30 +4,32 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use DateInterval;
+use Exception;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Data transformer from PHP DateInterval to array for form inputs.
  */
-class DateIntervalToArrayTransformer implements DataTransformerInterface
+final readonly class DateIntervalToArrayTransformer implements DataTransformerInterface
 {
     /**
      * Transforms a date interval into an array of date interval elements.
      *
-     * @param \DateInterval $dateInterval date interval
+     * @param \DateInterval|null $value date interval
      *
-     * @return array date interval elements
+     * @return array<string, string> date interval elements
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException If the given value is not an instance of DateInterval
      */
-    public function transform(mixed $dateInterval): array
+    public function transform(mixed $value): array
     {
-        if ($dateInterval === null) {
+        if ($value === null) {
             return [
                 'year' => '0',
                 'month' => '0',
@@ -38,26 +40,18 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
             ];
         }
 
-        if (!$dateInterval instanceof DateInterval) {
-            throw new TransformationFailedException('Expected a DateInterval.');
-        }
-
-        $result = [
-            'year' => $dateInterval->format('%y'),
-            'month' => $dateInterval->format('%m'),
-            'day' => $dateInterval->format('%d'),
-            'hour' => $dateInterval->format('%h'),
-            'minute' => $dateInterval->format('%i'),
-            'second' => $dateInterval->format('%s'),
+        return [
+            'year' => $value->format('%y'),
+            'month' => $value->format('%m'),
+            'day' => $value->format('%d'),
+            'hour' => $value->format('%h'),
+            'minute' => $value->format('%i'),
+            'second' => $value->format('%s'),
         ];
-
-        return $result;
     }
 
     /**
      * Transforms an array of date interval elements into a date interval.
-     *
-     * @param mixed $value date interval elements
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an array,
      *                                       or if the value could not be transformed
@@ -101,7 +95,7 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
         }
 
         if (!empty($value['month']) && !empty($value['day']) && !empty($value['year']) &&
-            false === checkdate($value['month'], $value['day'], $value['year'])) {
+            false === checkdate((int)$value['month'], (int)$value['day'], (int)$value['year'])) {
             throw new TransformationFailedException('This is an invalid date');
         }
 
@@ -129,7 +123,7 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
                     empty($value['second']) ? '0' : $value['second']
                 )
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
         }
 
