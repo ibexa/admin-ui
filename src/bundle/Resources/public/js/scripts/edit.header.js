@@ -12,7 +12,7 @@
     const headerBottomRowNode = headerNode.querySelector('.ibexa-edit-header__row--bottom');
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
-    const { controlZIndex } = ibexa.helpers.modal;
+    const { controlManyZIndexes } = ibexa.helpers.modal;
     const fitEllipsizedTitle = () => {
         const titleNode = headerBottomRowNode.querySelector('.ibexa-edit-header__name--ellipsized');
         const firstMenuEntryNode = headerNode.querySelector('.ibexa-context-menu .ibexa-context-menu__item');
@@ -49,5 +49,5 @@
     };
 
     contentNode.addEventListener('scroll', fitHeader, false);
-    controlZIndex(headerNode);
+    controlManyZIndexes([{ container: headerNode }, { container: headerBottomRowNode }], headerNode);
 })(window, window.document, window.ibexa);
