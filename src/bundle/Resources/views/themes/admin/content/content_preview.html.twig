@@ -65,9 +65,7 @@
     {% block content %}
         <div class="ibexa-preview">
             <div class="ibexa-preview__iframe ibexa-preview__iframe--desktop">
-                <iframe src="{{ url('ibexa.version.preview', {
-                    'contentId': content.id, 'versionNo': version_no, 'language': language_code, 'siteAccessName': preselected_site_access
-                }) }}" frameborder="0"></iframe>
+                <iframe src="{{ preview_url }}" frameborder="0"></iframe>
             </div>
         </div>
     {% endblock %}

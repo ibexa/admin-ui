@@ -18,7 +18,7 @@ use Ibexa\AdminUi\Form\DataMapper\MainTranslationUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
-use Ibexa\AdminUi\Form\Type\Preview\SiteAccessChoiceType;
+use Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
@@ -28,10 +28,12 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Event\ContentEditEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolverInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -96,6 +98,10 @@ class ContentController extends Controller
 
     private FormFactoryInterface $baseFormFactory;
 
+    private VersionPreviewUrlResolverInterface $previewUrlResolver;
+
+    private LanguageService $languageService;
+
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
         ContentService $contentService,
@@ -111,7 +117,9 @@ class ContentController extends Controller
         ConfigResolverInterface $configResolver,
         SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         EventDispatcherInterface $eventDispatcher,
-        FormFactoryInterface $baseFormFactory
+        FormFactoryInterface $baseFormFactory,
+        VersionPreviewUrlResolverInterface $previewUrlResolver,
+        LanguageService $languageService
     ) {
         $this->notificationHandler = $notificationHandler;
         $this->contentService = $contentService;
@@ -128,6 +136,8 @@ class ContentController extends Controller
         $this->siteAccessNameGenerator = $siteAccessNameGenerator;
         $this->eventDispatcher = $eventDispatcher;
         $this->baseFormFactory = $baseFormFactory;
+        $this->previewUrlResolver = $previewUrlResolver;
+        $this->languageService = $languageService;
     }
 
     /**
@@ -391,7 +401,6 @@ class ContentController extends Controller
         }
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation($location, $versionNo, $languageCode);
-
         if (empty($siteAccesses)) {
             throw new BadStateException(
                 'siteaccess',
@@ -410,24 +419,32 @@ class ContentController extends Controller
             $preselectedSiteAccess = reset($siteAccessesList);
         }
 
-        $urlValue = $this->generateUrl(
-            'ibexa.version.preview',
-            [
-                'contentId' => $content->id,
-                'versionNo' => $versionNo ?? $content->getVersionInfo()->versionNo,
-                'language' => $languageCode,
-                'siteAccessName' => $preselectedSiteAccess,
-            ]
+        $versionInfo = $this->contentService->loadVersionInfo($content->contentInfo, $versionNo);
+        $language = $this->languageService->loadLanguage($languageCode);
+
+        // TODO: Optimize to avoid loop
+        $preselectedSiteAccessObject = null;
+        foreach ($siteAccesses as $siteAccess) {
+            if ($siteAccess->name === $preselectedSiteAccess) {
+                $preselectedSiteAccessObject = $siteAccess;
+                break;
+            }
+        }
+
+        $previewUrl = $this->previewUrlResolver->resolveUrl(
+            $versionInfo,
+            $location,
+            $language,
+            $preselectedSiteAccessObject
         );
 
         $siteAccessSelector = $this->baseFormFactory->create(
-            SiteAccessChoiceType::class,
-            $urlValue,
+            VersionPreviewUrlChoiceType::class,
+            $previewUrl,
             [
                 'location' => $location,
-                'content' => $content,
-                'versionNo' => $versionNo ?? $content->getVersionInfo()->versionNo,
-                'languageCode' => $languageCode,
+                'version_info' => $versionInfo,
+                'language' => $language,
             ]
         );
 
@@ -440,6 +457,7 @@ class ContentController extends Controller
             'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
             'preselected_site_access' => $preselectedSiteAccess,
             'referrer' => $referrer ?? 'content_draft_edit',
+            'preview_url' => $previewUrl,
         ]);
     }
 
