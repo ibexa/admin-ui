@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Contracts\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolverInterface:
+        alias: Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver
+
+    Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver: ~
+
+
