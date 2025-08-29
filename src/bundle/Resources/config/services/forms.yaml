@@ -293,6 +293,10 @@ services:
 
     Ibexa\AdminUi\Form\Type\Search\TrashSearchType: ~
 
+    Ibexa\AdminUi\Form\Type\Notification\SearchType: ~
+
+    Ibexa\AdminUi\Form\Type\Notification\NotificationTypeChoiceType: ~
+
     Ibexa\AdminUi\Form\Type\Section\SectionChoiceType: ~
 
     Ibexa\AdminUi\Form\Type\Section\SectionContentAssignType: ~

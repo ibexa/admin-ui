@@ -1,4 +1,4 @@
-{% extends '@ibexadesign/account/notifications/list_item.html.twig' %}
+{% extends template_to_extend %}
 
 {% trans_default_domain 'ibexa_notifications' %}
 
@@ -14,4 +14,19 @@
     <span class="type__text">
         {{ 'notification.trashed'|trans|desc('Sent to Trash')}}
     </span>
+{% endblock %}
+
+{% set btn_tooltip = 'notification.trashed.go_to_trash'|trans({}, 'ibexa_notifications')|desc('Go to Trash') %}
+{% block btn_show_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block message %}
+    {% block content %}
+        <p class="description__title">
+            {{ 'notification.title'|trans|desc('Title:') }}
+            <span class="description__title-item"><strong>{{ title }}</strong></span>
+        </p>
+        <p class="description__text">{{ 'notification.trashed.info'|trans({}, 'ibexa_notifications')|desc('moved to Trash')}}</p>
+    {% endblock %}
 {% endblock %}
