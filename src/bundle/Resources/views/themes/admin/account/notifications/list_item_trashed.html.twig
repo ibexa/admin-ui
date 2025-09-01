@@ -23,10 +23,10 @@
 
 {% block message %}
     {% block content %}
-        <p class="description__title">
+        <p class="description__text{% if title|length > 40 %} description__text--ellipsis{% endif %}" title="{{ title }}">
             {{ 'notification.title'|trans|desc('Title:') }}
-            <span class="description__title-item"><strong>{{ title }}</strong></span>
+            <strong>{{ title }}</strong>
         </p>
-        <p class="description__text">{{ 'notification.trashed.info'|trans({}, 'ibexa_notifications')|desc('moved to Trash')}}</p>
+        <p>{{ 'notification.trashed.info'|trans({}, 'ibexa_notifications')|desc('moved to Trash')}}</p>
     {% endblock %}
 {% endblock %}

@@ -149,28 +149,7 @@
             .then(getJsonFromResponse)
             .then((notificationsInfo) => {
                 markAllAsReadBtn.disabled = notificationsInfo.pending === 0;
-                getNotificationsStatusErrorShowed = false;
-            })
-            .catch(onGetNotificationsStatusFailure);
-    };
-    const onGetNotificationsStatusFailure = (error) => {
-        if (lastFailedCountFetchNotificationNode && doc.contains(lastFailedCountFetchNotificationNode)) {
-            return;
-        }
-
-        if (!getNotificationsStatusErrorShowed) {
-            const message = Translator.trans(
-                /* @Desc("Cannot update notifications") */ 'notifications.modal.message.error',
-                { error: error.message },
-                'ibexa_notifications',
-            );
-
-            showWarningNotification(message, (notificationNode) => {
-                lastFailedCountFetchNotificationNode = notificationNode;
             });
-        }
-
-        getNotificationsStatusErrorShowed = true;
     };
     const init = () => {
         getNotificationsStatus();

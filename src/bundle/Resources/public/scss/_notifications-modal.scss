@@ -74,13 +74,15 @@
             display: flex;
         }
 
-        .description__text {
-            font-size: $ibexa-text-font-size-medium;
-
+        .description__title {
             &--permanently-deleted {
                 color: $ibexa-color-danger-500;
                 font-size: $ibexa-text-font-size-medium;
             }
+        }
+
+        .description__text {
+            font-size: $ibexa-text-font-size-medium;
         }
     }
 
