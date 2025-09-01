@@ -75,7 +75,6 @@
 
         modalFooter.textContent = ` (${notificationsCount})`;
         modalTitle.dataset.notificationsTotal = `(${notificationsCount})`;
-        markAllAsReadBtn.disabled = notificationsCount === 0;
 
         if (notificationsCount < 10) {
             panel.querySelector('.ibexa-notifications-modal__count').textContent = `(${notificationsCount})`;
@@ -93,6 +92,7 @@
         const notificationsTable = panel.querySelector(SELECTOR_LIST);
         const notificationsTotal = notificationsInfo.total;
         const notificationsTotalOld = parseInt(notificationsTable.dataset.notificationsTotal, 10);
+        markAllAsReadBtn.disabled = notificationsInfo.pending === 0;
 
         if (notificationsTotal !== notificationsTotalOld) {
             notificationsTable.dataset.notificationsTotal = notificationsTotal;

@@ -102,6 +102,8 @@
                             noticeDot.setAttribute('data-is-read', (!isRead).toString());
                         });
                         notificationRow.querySelector('.ibexa-notification-view-all__read').innerHTML = statusText;
+                        getNotificationsStatus();
+                        toggleActionButtonState();
 
                         return;
                     }
@@ -132,7 +134,46 @@
 
         handleNotificationClick(notification, isToggle);
     };
+    const getNotificationsStatus = () => {
+        const notificationsTable = doc.querySelector('.ibexa-table--notifications');
+        const notificationsStatusLink = notificationsTable.dataset.notificationsCount;
+        const request = new Request(notificationsStatusLink, {
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        });
+
+        return fetch(request)
+            .then(getJsonFromResponse)
+            .then((notificationsInfo) => {
+                markAllAsReadBtn.disabled = notificationsInfo.pending === 0;
+                getNotificationsStatusErrorShowed = false;
+            })
+            .catch(onGetNotificationsStatusFailure);
+    };
+    const onGetNotificationsStatusFailure = (error) => {
+        if (lastFailedCountFetchNotificationNode && doc.contains(lastFailedCountFetchNotificationNode)) {
+            return;
+        }
+
+        if (!getNotificationsStatusErrorShowed) {
+            const message = Translator.trans(
+                /* @Desc("Cannot update notifications") */ 'notifications.modal.message.error',
+                { error: error.message },
+                'ibexa_notifications',
+            );
+
+            showWarningNotification(message, (notificationNode) => {
+                lastFailedCountFetchNotificationNode = notificationNode;
+            });
+        }
+
+        getNotificationsStatusErrorShowed = true;
+    };
     const init = () => {
+        getNotificationsStatus();
         doc.querySelector('.ibexa-notifications-modal').dataset.closeReload = 'true';
 
         doc.querySelectorAll(SELECTOR_MODAL_ITEM).forEach((item) => {
