@@ -16,29 +16,14 @@ final class URLWildcardListData
 
     public int $limit;
 
-    public function getSearchQuery(): ?string
-    {
-        return $this->searchQuery;
-    }
-
     public function setSearchQuery(?string $searchQuery): void
     {
         $this->searchQuery = $searchQuery;
     }
 
-    public function getType(): ?bool
-    {
-        return $this->type;
-    }
-
     public function setType(?bool $type): void
     {
         $this->type = $type;
-    }
-
-    public function getLimit(): int
-    {
-        return $this->limit;
     }
 
     public function setLimit(int $limit): void

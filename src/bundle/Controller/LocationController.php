@@ -74,7 +74,7 @@ final class LocationController extends Controller
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
-                if (!$newParentLocation->getContent()->getContentType()->isContainer()) {
+                if (!$newParentLocation?->getContent()->getContentType()->isContainer()) {
                     throw new InvalidArgumentException(
                         '$newParentLocation',
                         'Cannot move the Location to a parent that is not a container'
@@ -87,15 +87,15 @@ final class LocationController extends Controller
                     /** @Desc("'%name%' moved to '%location%'") */
                     'location.move.success',
                     [
-                        '%name%' => $location->getContentInfo()->getName(),
+                        '%name%' => $location?->getContentInfo()->getName(),
                         '%location%' => $newParentLocation->getContentInfo()->getName(),
                     ],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $location->getContentId(),
-                    'locationId' => $location->getId(),
+                    'contentId' => $location?->getContentId(),
+                    'locationId' => $location?->getId(),
                 ]));
             });
 
@@ -105,8 +105,8 @@ final class LocationController extends Controller
         }
 
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $location->getContentId(),
-            'locationId' => $location->getId(),
+            'contentId' => $location?->getContentId(),
+            'locationId' => $location?->getId(),
         ]);
     }
 
@@ -134,7 +134,7 @@ final class LocationController extends Controller
 
                 $newParentLocation = $data->getNewParentLocation();
 
-                if (!$newParentLocation->getContent()->getContentType()->isContainer()) {
+                if (!$newParentLocation?->getContent()->getContentType()?->isContainer()) {
                     throw new InvalidArgumentException(
                         '$newParentLocation',
                         'Cannot copy the Location to a parent that is not a container'
@@ -145,8 +145,16 @@ final class LocationController extends Controller
                     $newParentLocation->getId()
                 );
 
+                $contentInfo = $location?->getContentInfo();
+                if ($contentInfo === null) {
+                    throw new InvalidArgumentException(
+                        '$location',
+                        'Location must have a ContentInfo'
+                    );
+                }
+
                 $copiedContent = $this->contentService->copyContent(
-                    $location->getContentInfo(),
+                    $contentInfo,
                     $locationCreateStruct
                 );
 
@@ -157,7 +165,10 @@ final class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("'%name%' copied to '%location%'") */
                     'location.copy.success',
-                    ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
+                    [
+                        '%name%' => $contentInfo->getName(),
+                        '%location%' => $newParentLocation->getContentInfo()->getName(),
+                    ],
                     'ibexa_location'
                 );
 
@@ -208,7 +219,7 @@ final class LocationController extends Controller
                         'location.copy_subtree.success',
                         [
                             '%name%' => $location->getContentInfo()->getName(),
-                            '%location%' => $newParentLocation->getContentInfo()->getName(),
+                            '%location%' => $newParentLocation?->getContentInfo()->getName(),
                         ],
                         'ibexa_location'
                     );
@@ -240,9 +251,9 @@ final class LocationController extends Controller
                 $newLocation = $data->getNewLocation();
 
                 $childCount = $this->locationService->getLocationChildCount($currentLocation);
-                $contentType = $newLocation->getContent()->getContentType();
+                $contentType = $newLocation?->getContent()->getContentType();
 
-                if (!$contentType->isContainer() && $childCount) {
+                if (!$contentType?->isContainer() && $childCount) {
                     throw new \InvalidArgumentException(
                         'Cannot swap a Location that has sub-items with a Location that is not a container'
                     );
@@ -253,15 +264,15 @@ final class LocationController extends Controller
                     /** @Desc("Location '%name%' swapped with Location '%location%'") */
                     'location.swap.success',
                     [
-                        '%name%' => $currentLocation->getContentInfo()->getName(),
-                        '%location%' => $newLocation->getContentInfo()->getName(),
+                        '%name%' => $currentLocation?->getContentInfo()->getName(),
+                        '%location%' => $newLocation?->getContentInfo()->getName(),
                     ],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $currentLocation->getContentId(),
-                    'locationId' => $newLocation->getId(),
+                    'contentId' => $currentLocation?->getContentId(),
+                    'locationId' => $newLocation?->getId(),
                     '_fragment' => LocationsTab::URI_FRAGMENT,
                 ]));
             });
@@ -272,8 +283,8 @@ final class LocationController extends Controller
         }
 
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $location->getContentId(),
-            'locationId' => $location->getId(),
+            'contentId' => $location?->getContentId(),
+            'locationId' => $location?->getId(),
             '_fragment' => LocationsTab::URI_FRAGMENT,
         ]);
     }
@@ -307,8 +318,12 @@ final class LocationController extends Controller
         return $this->redirectToRoute('ibexa.trash.list');
     }
 
-    private function trashRelatedAsset(ContentInfo $contentInfo): void
+    private function trashRelatedAsset(?ContentInfo $contentInfo): void
     {
+        if ($contentInfo === null) {
+            return;
+        }
+
         $content = $this->contentService->loadContentByContentInfo($contentInfo);
         $relations = $this->contentService->loadRelationList(
             $content->getVersionInfo(),
@@ -346,7 +361,7 @@ final class LocationController extends Controller
             if (isset($trashOptions[HasUniqueAssetRelation::TRASH_ASSETS])
                 && HasUniqueAssetRelation::RADIO_SELECT_TRASH_WITH_ASSETS === $trashOptions[HasUniqueAssetRelation::TRASH_ASSETS]
             ) {
-                $this->trashRelatedAsset($location->getContentInfo());
+                $this->trashRelatedAsset($location?->getContentInfo());
             }
             $this->trashService->trash($location);
             $this->repository->commit();
@@ -359,7 +374,7 @@ final class LocationController extends Controller
             $this->translator->trans(
                 /** @Desc("Location '%name%' moved to Trash.") */
                 'location.trash.success',
-                ['%name%' => $location->getContentInfo()->getName()],
+                ['%name%' => $location?->getContentInfo()->getName()],
                 'ibexa_location'
             )
         );
@@ -379,23 +394,23 @@ final class LocationController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentLocationRemoveData $data): RedirectResponse {
-                $contentInfo = $data->getContentInfo();
+                $contentInfo = $data->contentInfo;
 
-                foreach ($data->getLocations() as $locationId => $selected) {
+                foreach ($data->selectedLocations as $locationId => $selected) {
                     $location = $this->locationService->loadLocation($locationId);
                     $this->trashService->trash($location);
 
                     $this->notificationHandler->success(
                         /** @Desc("Location '%name%' removed.") */
                         'location.delete.success',
-                        ['%name%' => $location->getContentInfo()->getName()],
+                        ['%name%' => $location?->getContentInfo()->getName()],
                         'ibexa_location'
                     );
                 }
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->getId(),
-                    'locationId' => $contentInfo->getMainLocationId(),
+                    'contentId' => $contentInfo?->getId(),
+                    'locationId' => $contentInfo?->getMainLocationId(),
                     '_fragment' => LocationsTab::URI_FRAGMENT,
                 ]));
             });
@@ -447,8 +462,8 @@ final class LocationController extends Controller
                     $redirectUrl = $referer ?: $this->generateUrl(
                         'ibexa.content.view',
                         [
-                            'contentId' => $contentInfo->getId(),
-                            'locationId' => $contentInfo->getMainLocationId(),
+                            'contentId' => $contentInfo?->getId(),
+                            'locationId' => $contentInfo?->getMainLocationId(),
                             '_fragment' => LocationsTab::URI_FRAGMENT,
                         ],
                     );
@@ -539,13 +554,13 @@ final class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("Location '%name%' updated.") */
                     'location.update.success',
-                    ['%name%' => $location->getContentInfo()->getName()],
+                    ['%name%' => $location?->getContentInfo()->getName()],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $location->getContentId(),
-                    'locationId' => $location->getContentInfo()->getMainLocationId(),
+                    'contentId' => $location?->getContentId(),
+                    'locationId' => $location?->getContentInfo()->getMainLocationId(),
                     '_fragment' => DetailsTab::URI_FRAGMENT,
                 ]));
             });
@@ -580,7 +595,7 @@ final class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("Subtree assigned to Section '%name%'") */
                     'location.assign_section.success',
-                    ['%name%' => $section->getName()],
+                    ['%name%' => $section?->getName()],
                     'ibexa_location'
                 );
 

@@ -24,22 +24,9 @@ class ContentLocationRemoveData
     ) {
     }
 
-    public function getContentInfo(): ?ContentInfo
-    {
-        return $this->contentInfo;
-    }
-
     public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
-    }
-
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
-     */
-    public function getLocations(): array
-    {
-        return $this->selectedLocations;
     }
 
     /**

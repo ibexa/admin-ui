@@ -132,7 +132,7 @@ final class ContentTypeController extends Controller
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function addAction(ContentTypeGroup $group): ContentTypeCreateView
+    public function addAction(ContentTypeGroup $group): RedirectResponse|ContentTypeCreateView
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
         $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
@@ -150,7 +150,7 @@ final class ContentTypeController extends Controller
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
-        } catch (NotFoundException $e) {
+        } catch (Exception) {
             $this->notificationHandler->error(
                 /** @Desc("Cannot create content type. Could not find language with identifier '%languageCode%'") */
                 'content_type.add.missing_language',

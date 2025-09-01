@@ -57,7 +57,7 @@ final readonly class ContentMainLocationUpdateMapper implements DataMapperInterf
     public function reverseMap(mixed $data): ContentMetadataUpdateStruct
     {
         return new ContentMetadataUpdateStruct([
-            'mainLocationId' => $data->getLocation()?->getId(),
+            'mainLocationId' => $data->location?->getId(),
         ]);
     }
 }

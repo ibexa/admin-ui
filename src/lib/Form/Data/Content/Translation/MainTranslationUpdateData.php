@@ -21,19 +21,9 @@ class MainTranslationUpdateData
     ) {
     }
 
-    public function getContent(): ?Content
-    {
-        return $this->content;
-    }
-
     public function setContent(?Content $contentInfo = null): void
     {
         $this->content = $contentInfo;
-    }
-
-    public function getLanguageCode(): ?string
-    {
-        return $this->languageCode;
     }
 
     public function setLanguageCode(?string $languageCode = null): void

@@ -19,12 +19,6 @@ final class TrashEmptyData
     {
     }
 
-    #[Assert\IsTrue]
-    public function getEmptyTrash(): bool
-    {
-        return $this->emptyTrash;
-    }
-
     public function setEmptyTrash(bool $emptyTrash): void
     {
         $this->emptyTrash = $emptyTrash;

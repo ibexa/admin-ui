@@ -26,7 +26,7 @@ final class SectionUpdateData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
      */
-    public function __construct(protected ?Section $section = null)
+    public function __construct(private ?Section $section = null)
     {
         if (null !== $section) {
             $this->identifier = $section->identifier;

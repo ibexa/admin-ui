@@ -33,9 +33,9 @@ use Twig\Environment;
 
 class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 {
-    private const PAGINATION_PARAM_NAME = 'url-wildcards-page';
+    private const string PAGINATION_PARAM_NAME = 'url-wildcards-page';
 
-    public const URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
+    public const string URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
 
     protected PermissionResolver $permissionResolver;
 
@@ -134,7 +134,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
             )
         );
 
-        $urlWildcardLists->setMaxPerPage($data->getLimit());
+        $urlWildcardLists->setMaxPerPage($data->limit);
         $urlWildcardLists->setCurrentPage(min($page, $urlWildcardLists->getNbPages()));
 
         $urlWildcards = $urlWildcardLists->getCurrentPageResults();

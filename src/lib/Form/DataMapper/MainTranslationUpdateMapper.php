@@ -40,8 +40,8 @@ final readonly class MainTranslationUpdateMapper implements DataMapperInterface
     public function reverseMap(mixed $data): ContentMetadataUpdateStruct
     {
         return new ContentMetadataUpdateStruct([
-            'mainLanguageCode' => $data->getLanguageCode(),
-            'name' => $data->getContent()?->getName($data->getLanguageCode()),
+            'mainLanguageCode' => $data->languageCode,
+            'name' => $data->content?->getName($data->languageCode),
         ]);
     }
 }

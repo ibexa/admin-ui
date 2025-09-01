@@ -18,7 +18,7 @@ final class PolicyDeleteData
 
     private ?string $function = null;
 
-    /** @var array|\Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
     private array $limitations;
 
     public function __construct(?Policy $policy = null)
