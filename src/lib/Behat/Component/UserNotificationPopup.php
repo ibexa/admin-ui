@@ -54,9 +54,9 @@ class UserNotificationPopup extends Component
         return [
             new VisibleCSSLocator('notificationsPopupTitle', '.ibexa-side-panel__header'),
             new VisibleCSSLocator('notificationItem', '.ibexa-notifications-modal__item'),
-            new VisibleCSSLocator('notificationType', '.ibexa-notifications-modal__type-content > strong > span'),
-            new VisibleCSSLocator('notificationDescriptionTitle', '.ibexa-notifications-modal__type-content > p.description__title'),
-            new VisibleCSSLocator('notificationDescriptionText', '.ibexa-notifications-modal__type-content > p.description__text'),
+            new VisibleCSSLocator('notificationType', '.ibexa-notifications-modal__type-content .type__text'),
+            new VisibleCSSLocator('notificationDescriptionTitle', '.ibexa-notifications-modal__description .description__title'),
+            new VisibleCSSLocator('notificationDescriptionText', '.ibexa-notifications-modal__type-content .description__text'),
         ];
     }
 }
