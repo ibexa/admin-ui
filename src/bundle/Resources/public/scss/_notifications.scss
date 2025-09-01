@@ -9,6 +9,7 @@
 .ibexa-notification-list {
     display: flex;
     align-items: stretch;
+    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info-600, 0.1);
     margin-bottom: calculateRem(48px);
 
     &__container {
@@ -58,7 +59,7 @@
 
     &__filters-wrapper {
         width: calculateRem(400px);
-        border-radius: 0 $ibexa-border-radius $ibexa-border-radius 0;
+        border-radius: 0 $ibexa-border-radius $ibexa-border-radius-small 0;
         border: calculateRem(1px) solid $ibexa-color-light;
         background-color: $ibexa-color-white;
         transition: width $ibexa-admin-transition-duration $ibexa-admin-transition;

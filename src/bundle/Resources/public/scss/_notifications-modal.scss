@@ -131,6 +131,7 @@
         .description__text {
             width: 100%;
             margin-bottom: 0;
+            text-overflow: ellipsis;
             max-width: calculateRem(350px);
 
             + .description__read-more {
