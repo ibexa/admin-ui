@@ -17,10 +17,8 @@ use Ibexa\AdminUi\Pagination\Pagerfanta\NotificationAdapter;
 use Ibexa\Bundle\AdminUi\Form\Data\SearchQueryData;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\NotificationService;
-use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -52,8 +50,6 @@ final class NotificationController extends Controller
 
     private TranslatableNotificationHandlerInterface $notificationHandler;
 
-    private ContentService $contentService;
-
     public function __construct(
         NotificationService $notificationService,
         Registry $registry,
@@ -61,8 +57,7 @@ final class NotificationController extends Controller
         ConfigResolverInterface $configResolver,
         FormFactory $formFactory,
         SubmitHandler $submitHandler,
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ContentService $contentService
+        TranslatableNotificationHandlerInterface $notificationHandler
     ) {
         $this->notificationService = $notificationService;
         $this->registry = $registry;
@@ -71,7 +66,6 @@ final class NotificationController extends Controller
         $this->formFactory = $formFactory;
         $this->submitHandler = $submitHandler;
         $this->notificationHandler = $notificationHandler;
-        $this->contentService = $contentService;
     }
 
     /**
@@ -235,43 +229,22 @@ final class NotificationController extends Controller
     public function markNotificationAsReadAction(Request $request, int $notificationId): JsonResponse
     {
         return $this->handleJsonErrors(function () use ($notificationId) {
-            $this->notificationService->markUserNotificationsAsRead([$notificationId]);
+            $notification = $this->notificationService->getNotification($notificationId);
 
-            return new JsonResponse([
-                'status' => 'success',
-            ]);
-        });
-    }
+            $this->notificationService->markNotificationAsRead($notification);
 
-    public function redirectToNotificationTargetAction(int $notificationId): Response
-    {
-        $notification = $this->notificationService->getNotification($notificationId);
+            $data = ['status' => 'success'];
 
-        $url = $this->getNotificationRedirectUrl($notification);
+            if ($this->registry->hasRenderer($notification->type)) {
+                $url = $this->registry->getRenderer($notification->type)->generateUrl($notification);
 
-        if ($url !== null) {
-            return $this->redirect($url);
-        }
-
-        return $this->redirectToRoute('ibexa.notifications.render.all');
-    }
-
-    private function getNotificationRedirectUrl(Notification $notification): ?string
-    {
-        if ($this->registry->hasRenderer($notification->type)) {
-            return $this->registry->getRenderer($notification->type)->generateUrl($notification);
-        }
-
-        try {
-            $content = $this->contentService->loadContentInfo($notification->data['content_id']);
-            if ($content->isTrashed()) {
-                return $this->generateUrl('ibexa.trash.list');
+                if ($url) {
+                    $data['redirect'] = $url;
+                }
             }
-        } catch (NotFoundException $e) {
-            return null;
-        }
 
-        return null;
+            return new JsonResponse($data);
+        });
     }
 
     public function markNotificationsAsReadAction(Request $request): JsonResponse
