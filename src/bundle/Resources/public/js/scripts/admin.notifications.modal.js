@@ -12,8 +12,11 @@
     const { showErrorNotification, showWarningNotification } = ibexa.helpers.notification;
     const { getJsonFromResponse, getTextFromResponse } = ibexa.helpers.request;
     const handleNotificationClickRequest = (notification, response) => {
-        if (response.status === 'success' && response.redirect) {
+        if (response.status === 'success') {
             notification.classList.add('ibexa-notifications-modal__item--read');
+        }
+
+        if (response.redirect) {
             global.location = response.redirect;
         }
     };

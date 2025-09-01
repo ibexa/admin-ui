@@ -50,8 +50,8 @@
     {{ form_start(search_form, {
         attr: { class: 'ibexa-list-search-form' }
     }) }}
-        <div class="ibexa-notification-list">
-            <section class="ibexa-notification-list__data-grid-wrapper ibexa-container">
+        <div class="ibexa-notification-list ibexa-container">
+            <section class="ibexa-notification-list__data-grid-wrapper">
                 {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
                     headline: custom_results_headline ?? results_headline(pager.getNbResults()),
                     head_cols: [
