@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -18,13 +19,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentTypeCreateType extends AbstractType
 {
-    private ContentTypeService $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
     public function getName(): string
@@ -53,7 +54,7 @@ class ContentTypeCreateType extends AbstractType
                     function ($contentTypeGroupId, ExecutionContextInterface $context): void {
                         try {
                             $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
-                        } catch (NotFoundException $e) {
+                        } catch (NotFoundException) {
                             $context
                                 ->buildViolation('content_type.error.content_type_group.not_found')
                                 ->setParameter('%id%', $contentTypeGroupId)
@@ -62,6 +63,10 @@ class ContentTypeCreateType extends AbstractType
                     }
                 ),
             ])
-            ->add('create', SubmitType::class, ['label' => /** @Desc("Create a content type") */ 'content_type.create']);
+            ->add(
+                'create',
+                SubmitType::class,
+                ['label' => /** @Desc("Create a content type") */ 'content_type.create']
+            );
     }
 }

@@ -17,13 +17,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData>
+ */
 class ContentMainLocationUpdateType extends AbstractType
 {
-    protected LocationService $locationService;
-
-    public function __construct(LocationService $locationService)
+    public function __construct(protected readonly LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

@@ -15,7 +15,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrashItemDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Trash\TrashItemDeleteData>
+ */
+final class TrashItemDeleteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

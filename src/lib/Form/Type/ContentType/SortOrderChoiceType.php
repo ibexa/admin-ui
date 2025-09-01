@@ -17,14 +17,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form type for sort order selection.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
-class SortOrderChoiceType extends AbstractType
+final class SortOrderChoiceType extends AbstractType
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -35,7 +34,7 @@ class SortOrderChoiceType extends AbstractType
         ]);
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -43,7 +42,7 @@ class SortOrderChoiceType extends AbstractType
     /**
      * Generate sort order options available to choose.
      *
-     * @return array
+     * @return array<string, int>
      */
     private function getSortOrderChoices(): array
     {
@@ -58,7 +57,7 @@ class SortOrderChoiceType extends AbstractType
     /**
      * Get available sort order values.
      *
-     * @return array
+     * @return array<string, int>
      */
     private function getSortOrder(): array
     {

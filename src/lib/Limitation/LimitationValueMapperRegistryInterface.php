@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation;
 
@@ -17,33 +18,16 @@ interface LimitationValueMapperRegistryInterface
      *
      * @return LimitationValueMapperInterface[]
      */
-    public function getMappers();
+    public function getMappers(): array;
 
     /**
      * Returns mapper corresponding to given Limitation Type.
      *
      * @throws \Ibexa\AdminUi\Exception\ValueMapperNotFoundException if no mapper exists for $limitationType
-     *
-     * @param string $limitationType
-     *
-     * @return LimitationValueMapperInterface
      */
-    public function getMapper($limitationType);
+    public function getMapper(string $limitationType): LimitationValueMapperInterface;
 
-    /**
-     * Checks if a mapper exists for given Limitation Type.
-     *
-     * @param string $limitationType
-     *
-     * @return bool
-     */
-    public function hasMapper($limitationType);
+    public function hasMapper(string $limitationType): bool;
 
-    /**
-     * Register mapper.
-     *
-     * @param LimitationValueMapperInterface $mapper
-     * @param string $limitationType limitation identifier the mapper is meant for
-     */
-    public function addMapper(LimitationValueMapperInterface $mapper, $limitationType);
+    public function addMapper(LimitationValueMapperInterface $mapper, string $limitationType): void;
 }

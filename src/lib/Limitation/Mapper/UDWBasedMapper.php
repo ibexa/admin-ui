@@ -49,6 +49,9 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         return $this->template;
     }
 
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
     public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $form->add(

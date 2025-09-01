@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\ContentType\Translation;
 use Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData;
 use Ibexa\AdminUi\Form\Type\Content\ContentTypeType;
 use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -18,6 +19,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData>
+ */
 class TranslationRemoveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

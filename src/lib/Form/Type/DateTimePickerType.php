@@ -16,9 +16,12 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class DateTimePickerType extends AbstractType
 {
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return IntegerType::class;
     }

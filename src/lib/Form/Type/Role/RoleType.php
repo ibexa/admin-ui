@@ -14,13 +14,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class RoleType extends AbstractType
 {
-    protected RoleService $roleService;
-
-    public function __construct(RoleService $roleService)
+    public function __construct(protected readonly RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -28,7 +28,7 @@ class RoleType extends AbstractType
         $builder->addViewTransformer(new RoleTransformer($this->roleService));
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

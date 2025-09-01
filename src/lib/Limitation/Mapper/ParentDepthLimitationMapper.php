@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -15,14 +16,8 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /**
-     * @var int The maximum possible depth to use in a limitation
-     */
-    private $maxDepth;
-
-    public function __construct($maxDepth)
+    public function __construct(private readonly int $maxDepth)
     {
-        $this->maxDepth = $maxDepth;
     }
 
     /**
@@ -38,7 +33,10 @@ class ParentDepthLimitationMapper extends MultipleSelectionBasedMapper implement
         return $choices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         return $limitation->limitationValues;
     }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -19,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for ContentType update.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentTypeData>
  */
 class ContentTypeUpdateType extends AbstractType
 {
@@ -47,7 +50,6 @@ class ContentTypeUpdateType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $hasFieldDefinition = count($options['data']->fieldDefinitionsData) > 0;
         $isTranslation = $options['mainLanguageCode'] !== $options['languageCode'];
 
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);

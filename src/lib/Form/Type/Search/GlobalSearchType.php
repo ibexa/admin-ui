@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\Bundle\Search\Form\Data\SearchData>
+ */
 final class GlobalSearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

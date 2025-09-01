@@ -9,27 +9,19 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
-use function in_array;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
-class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
+final readonly class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
 {
-    private LanguageChoiceLoader $languageChoiceLoader;
-
-    /** @var string[] */
-    private array $restrictedLanguagesCodes;
-
     /**
-     * @param array<string> $restrictedLanguagesCodes
+     * @param string[] $restrictedLanguagesCodes
      */
     public function __construct(
-        LanguageChoiceLoader $languageChoiceLoader,
-        array $restrictedLanguagesCodes
+        private LanguageChoiceLoader $languageChoiceLoader,
+        private array $restrictedLanguagesCodes
     ) {
-        $this->languageChoiceLoader = $languageChoiceLoader;
-        $this->restrictedLanguagesCodes = $restrictedLanguagesCodes;
     }
 
     public function loadChoiceList(?callable $value = null): ChoiceListInterface
@@ -41,7 +33,7 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
         }
 
         $languages = array_filter($languages, function (Language $language): bool {
-            return in_array($language->languageCode, $this->restrictedLanguagesCodes, true);
+            return in_array($language->getLanguageCode(), $this->restrictedLanguagesCodes, true);
         });
 
         return new ArrayChoiceList($languages, $value);

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Search;
 
@@ -18,17 +19,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @internal
+ *
+ * @extends \Symfony\Component\Form\AbstractType<array<string, mixed>>
  */
 final class SearchType extends AbstractType
 {
-    private TranslatorInterface $translator;
-
-    private AbstractType $baseType;
-
-    public function __construct(AbstractType $baseType, TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-        $this->baseType = $baseType;
+    public function __construct(
+        private readonly AbstractType $baseType,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     /**
@@ -79,6 +78,8 @@ final class SearchType extends AbstractType
     /**
      * Generate time periods options available to choose.
      *
+     * @return array<string, string>
+     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
     private function getTimePeriodChoices(): array
@@ -93,6 +94,8 @@ final class SearchType extends AbstractType
 
     /**
      * Returns available time periods values.
+     *
+     * @return array<string, string>
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */

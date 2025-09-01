@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -14,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentTypeDeleteType extends AbstractType
 {
     public function getName(): string
@@ -38,6 +42,10 @@ class ContentTypeDeleteType extends AbstractType
     {
         $builder
             ->add('contentTypeId', HiddenType::class)
-            ->add('delete', SubmitType::class, ['label' => /** @Desc("Delete") */ 'content_type.delete']);
+            ->add(
+                'delete',
+                SubmitType::class,
+                ['label' => /** @Desc("Delete") */ 'content_type.delete']
+            );
     }
 }

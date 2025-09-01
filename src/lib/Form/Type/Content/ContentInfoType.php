@@ -14,13 +14,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentInfoType extends AbstractType
 {
-    protected ContentService $contentService;
-
-    public function __construct(ContentService $contentService)
+    public function __construct(protected readonly ContentService $contentService)
     {
-        $this->contentService = $contentService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -28,7 +28,7 @@ class ContentInfoType extends AbstractType
         $builder->addViewTransformer(new ContentInfoTransformer($this->contentService));
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

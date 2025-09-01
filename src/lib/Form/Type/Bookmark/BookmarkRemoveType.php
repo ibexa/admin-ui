@@ -14,7 +14,10 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BookmarkRemoveType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class BookmarkRemoveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

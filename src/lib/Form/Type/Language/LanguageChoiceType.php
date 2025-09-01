@@ -17,9 +17,6 @@ use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader;
  */
 class LanguageChoiceType extends AbstractLanguageChoiceType
 {
-    /**
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
-     */
     public function __construct(LanguageChoiceLoader $languageChoiceLoader)
     {
         parent::__construct($languageChoiceLoader);

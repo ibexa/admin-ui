@@ -13,22 +13,24 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PolicyChoiceType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class PolicyChoiceType extends AbstractType
 {
-    public const MESSAGE_DOMAIN = 'forms';
-    public const MESSAGE_ID_PREFIX = 'role.policy.';
-    public const ALL_MODULES = 'all_modules';
-    public const ALL_FUNCTIONS = 'all_functions';
-    public const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
+    public const string MESSAGE_ID_PREFIX = 'role.policy.';
+    public const string ALL_MODULES = 'all_modules';
+    public const string ALL_FUNCTIONS = 'all_functions';
+    public const string ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
 
+    /** @var array<string, array<string, string>> */
     private array $policyChoices;
 
     /**
-     * @param array $policyMap
+     * @param array<string, string[]> $policyMap
      */
-    public function __construct(TranslatorInterface $translator, array $policyMap)
+    public function __construct(array $policyMap)
     {
         $this->policyChoices = $this->buildPolicyChoicesFromMap($policyMap);
     }
@@ -76,7 +78,7 @@ class PolicyChoiceType extends AbstractType
         ]);
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -86,9 +88,9 @@ class PolicyChoiceType extends AbstractType
      * Key is the translation key based on "module" name.
      * Value is a hash with translation key based on "module" and "function as a key and "<module>|<function"> as a value.
      *
-     * @param array $policyMap
+     * @param array<string, string[]> $policyMap
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     private function buildPolicyChoicesFromMap(array $policyMap): array
     {

@@ -13,16 +13,13 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 abstract class AbstractLanguageChoiceType extends AbstractType
 {
-    private ChoiceLoaderInterface $languageChoiceLoader;
-
-    /**
-     * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader
-     */
-    public function __construct(ChoiceLoaderInterface $languageChoiceLoader)
+    public function __construct(private readonly ChoiceLoaderInterface $languageChoiceLoader)
     {
-        $this->languageChoiceLoader = $languageChoiceLoader;
     }
 
     public function getParent(): string

@@ -22,22 +22,16 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 final class SiteAccessChoiceType extends AbstractType
 {
-    private SiteaccessResolverInterface $siteAccessResolver;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
-    private UrlGeneratorInterface $urlGenerator;
-
     public function __construct(
-        SiteaccessResolverInterface $siteAccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        UrlGeneratorInterface $urlGenerator
+        private readonly SiteaccessResolverInterface $siteAccessResolver,
+        private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {
-        $this->siteAccessResolver = $siteAccessResolver;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -81,7 +75,7 @@ final class SiteAccessChoiceType extends AbstractType
         $resolver->setAllowedTypes('languageCode', 'string');
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

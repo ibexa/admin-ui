@@ -203,7 +203,7 @@ class FormFactory
     }
 
     /**
-     * @phpstan-return \Symfony\Component\Form\FormInterface<ContentTypeGroupUpdateData>
+     * @phpstan-return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null>
      */
     public function updateContentTypeGroup(
         ContentTypeGroup $group,
@@ -216,7 +216,7 @@ class FormFactory
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData>
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null>
      */
     public function deleteContentTypeGroup(
         ContentTypeGroup $group,

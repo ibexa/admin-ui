@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Location;
 use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
 use Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -23,20 +24,17 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Webmozart\Assert\Assert;
 
-class LocationTrashType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Location\LocationTrashData>
+ */
+final class LocationTrashType extends AbstractType
 {
-    public const CONFIRM_SEND_TO_TRASH = 'confirm_send_to_trash';
-
-    private OptionsFactory $trashTypeStrategy;
-
-    private TranslatorInterface $translator;
+    public const string CONFIRM_SEND_TO_TRASH = 'confirm_send_to_trash';
 
     public function __construct(
-        OptionsFactory $trashTypeStrategy,
-        TranslatorInterface $translator
+        private readonly OptionsFactory $trashTypeStrategy,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->trashTypeStrategy = $trashTypeStrategy;
-        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -74,6 +72,10 @@ class LocationTrashType extends AbstractType
 
         $builder->get('location')->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm()->getParent();
+            if ($form === null) {
+                return;
+            }
+
             $this->trashTypeStrategy->addOptions(
                 $form->get('trash_options'),
                 $event->getForm()->getData()

@@ -16,23 +16,17 @@ use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
+final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
-    private ContentTypeChoiceLoader $contentTypeChoiceLoader;
-
-    private EventDispatcherInterface $eventDispatcher;
-
     /** @var array<int> */
     private array $restrictedContentTypesIds;
 
     private ?Location $targetLocation = null;
 
     public function __construct(
-        ContentTypeChoiceLoader $contentTypeChoiceLoader,
-        EventDispatcherInterface $eventDispatcher
+        private readonly ContentTypeChoiceLoader $contentTypeChoiceLoader,
+        private readonly EventDispatcherInterface $eventDispatcher
     ) {
-        $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -74,7 +68,7 @@ class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterface
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter($contentTypes, function (ContentType $contentType): bool {
-                return \in_array($contentType->id, $this->restrictedContentTypesIds, true);
+                return in_array($contentType->id, $this->restrictedContentTypesIds, true);
             });
         }
 

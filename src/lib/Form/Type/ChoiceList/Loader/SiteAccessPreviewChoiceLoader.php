@@ -12,28 +12,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
 {
-    private SiteAccessChoiceLoader $siteAccessChoiceLoader;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private int $contentId;
-
-    private string $languageCode;
-
-    private int $versionNo;
-
     public function __construct(
-        SiteAccessChoiceLoader $siteAccessChoiceLoader,
-        UrlGeneratorInterface $urlGenerator,
-        int $contentId,
-        string $languageCode,
-        int $versionNo
+        private readonly SiteAccessChoiceLoader $siteAccessChoiceLoader,
+        private readonly UrlGeneratorInterface $urlGenerator,
+        private readonly int $contentId,
+        private readonly string $languageCode,
+        private readonly int $versionNo
     ) {
-        $this->siteAccessChoiceLoader = $siteAccessChoiceLoader;
-        $this->urlGenerator = $urlGenerator;
-        $this->contentId = $contentId;
-        $this->languageCode = $languageCode;
-        $this->versionNo = $versionNo;
     }
 
     /**

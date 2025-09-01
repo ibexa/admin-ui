@@ -17,24 +17,22 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 
-class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
+final class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
 {
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
         ContentTypeService $contentTypeService,
         UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($contentTypeService, $userLanguagePreferenceProvider);
-
-        $this->configResolver = $configResolver;
-    }
+   }
 
     public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $contentTypesGroups = $this->getChoiceList();
-        $userContentTypeIdentifier = $this->configResolver->getParameter('user_content_type_identifier');
+        $userContentTypeIdentifier = $this->configResolver->getParameter(
+            'user_content_type_identifier'
+        );
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter(

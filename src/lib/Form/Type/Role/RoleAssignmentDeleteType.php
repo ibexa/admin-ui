@@ -9,12 +9,16 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Role;
 
 use Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RoleAssignmentDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Role\RoleAssignmentDeleteData>
+ */
+final class RoleAssignmentDeleteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

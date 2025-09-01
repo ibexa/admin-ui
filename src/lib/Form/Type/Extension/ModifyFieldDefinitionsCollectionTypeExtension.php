@@ -20,24 +20,21 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeExtension
 {
-    private string $fieldTypeIdentifier;
-
-    /** @var array<string, mixed> */
-    private array $modifiedOptions;
-
     /**
-     * @param string $fieldTypeIdentifier
      * @param array<string, mixed> $modifiedOptions
      */
-    public function __construct(string $fieldTypeIdentifier, array $modifiedOptions)
-    {
-        $this->fieldTypeIdentifier = $fieldTypeIdentifier;
-        $this->modifiedOptions = $modifiedOptions;
+    public function __construct(
+        private readonly string $fieldTypeIdentifier,
+        private readonly array $modifiedOptions
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $subscriber = new ModifyFieldDefinitionFieldsSubscriber($this->fieldTypeIdentifier, $this->modifiedOptions);
+        $subscriber = new ModifyFieldDefinitionFieldsSubscriber(
+            $this->fieldTypeIdentifier,
+            $this->modifiedOptions
+        );
 
         foreach ($builder->all() as $fieldTypeGroup) {
             $fieldTypeGroup->addEventSubscriber($subscriber);

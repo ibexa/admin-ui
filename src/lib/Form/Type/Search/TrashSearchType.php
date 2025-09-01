@@ -24,28 +24,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Search\TrashSearchData>
+ */
 class TrashSearchType extends AbstractType
 {
-    private TranslatorInterface $translator;
-
-    private PermissionResolver $permissionResolver;
-
-    private DatePeriodChoiceLoader $datePeriodChoiceLoader;
-
-    private SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader;
-
     public function __construct(
-        TranslatorInterface $translator,
-        PermissionResolver $permissionResolver,
-        DatePeriodChoiceLoader $datePeriodChoiceLoader,
-        SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader
+        private readonly PermissionResolver $permissionResolver,
+        private readonly DatePeriodChoiceLoader $datePeriodChoiceLoader,
+        private readonly SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader
     ) {
-        $this->translator = $translator;
-        $this->permissionResolver = $permissionResolver;
-        $this->datePeriodChoiceLoader = $datePeriodChoiceLoader;
-        $this->searchContentTypeChoiceLoader = $searchContentTypeChoiceLoader;
     }
 
     /**

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Role;
 
@@ -18,16 +19,15 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\Contracts\Core\Repository\Values\User\Limitation>
+ */
 class LimitationType extends AbstractType
 {
-    private LimitationFormMapperRegistryInterface $limitationFormMapperRegistry;
-
-    private LimitationFormMapperInterface $nullMapper;
-
-    public function __construct(LimitationFormMapperRegistryInterface $limitationFormMapperRegistry, LimitationFormMapperInterface $nullMapper)
-    {
-        $this->limitationFormMapperRegistry = $limitationFormMapperRegistry;
-        $this->nullMapper = $nullMapper;
+    public function __construct(
+        private readonly LimitationFormMapperRegistryInterface $limitationFormMapperRegistry,
+        private readonly LimitationFormMapperInterface $nullMapper
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -70,7 +70,7 @@ class LimitationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => '\\Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation',
+            'data_class' => Limitation::class,
             'translation_domain' => 'ibexa_content_forms_policies',
         ]);
     }

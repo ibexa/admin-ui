@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Section;
 
@@ -13,13 +14,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SectionCreateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Section\SectionCreateData>
+ */
+final class SectionCreateType extends AbstractType
 {
-    protected SectionType $sectionType;
-
-    public function __construct(SectionType $sectionType)
+    public function __construct(private readonly SectionType $sectionType)
     {
-        $this->sectionType = $sectionType;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

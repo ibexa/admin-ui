@@ -14,21 +14,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ObjectStateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class ObjectStateType extends AbstractType
 {
-    protected ObjectStateService $objectStateService;
-
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(private readonly ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new ObjectStateTransformer($this->objectStateService));
+        $builder->addModelTransformer(
+            new ObjectStateTransformer($this->objectStateService)
+        );
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

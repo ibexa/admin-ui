@@ -17,14 +17,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form type for sort field selection.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
-class SortFieldChoiceType extends AbstractType
+final class SortFieldChoiceType extends AbstractType
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -35,7 +34,7 @@ class SortFieldChoiceType extends AbstractType
         ]);
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -43,7 +42,7 @@ class SortFieldChoiceType extends AbstractType
     /**
      * Generate sort field options available to choose.
      *
-     * @return array
+     * @return array<string, int>
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
@@ -60,7 +59,7 @@ class SortFieldChoiceType extends AbstractType
     /**
      * Returns available sort field values.
      *
-     * @return array
+     * @return array<string, int>
      */
     private function getSortField(): array
     {

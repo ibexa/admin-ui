@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -16,17 +17,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form type for field type selection.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<array<string, mixed>>
  */
-class FieldTypeChoiceType extends AbstractType
+final class FieldTypeChoiceType extends AbstractType
 {
-    private FieldTypeRegistry $fieldTypeRegistry;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(FieldTypeRegistry $fieldTypeRegistry, TranslatorInterface $translator)
-    {
-        $this->fieldTypeRegistry = $fieldTypeRegistry;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly FieldTypeRegistry $fieldTypeRegistry,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     public function getBlockPrefix(): string
@@ -46,7 +45,7 @@ class FieldTypeChoiceType extends AbstractType
         return $this->getBlockPrefix();
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -54,7 +53,7 @@ class FieldTypeChoiceType extends AbstractType
     /**
      * Returns a hash, with fieldType identifiers as keys and human readable names as values.
      *
-     * @return array
+     * @return array<string, string>
      */
     private function getFieldTypeChoices(): array
     {
@@ -70,10 +69,6 @@ class FieldTypeChoiceType extends AbstractType
 
     /**
      * Generate a human readable name for field type identifier.
-     *
-     * @param string $fieldTypeIdentifier
-     *
-     * @return string
      */
     private function getFieldTypeLabel(string $fieldTypeIdentifier): string
     {

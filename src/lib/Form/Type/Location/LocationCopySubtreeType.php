@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Location;
 use Ibexa\AdminUi\Form\Data\Location\LocationCopySubtreeData;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LocationCopySubtreeType extends AbstractLocationCopyType
+final class LocationCopySubtreeType extends AbstractLocationCopyType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {

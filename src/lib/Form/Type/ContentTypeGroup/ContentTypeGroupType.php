@@ -14,21 +14,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentTypeGroupType extends AbstractType
 {
-    protected ContentTypeService $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(protected readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new ContentTypeGroupTransformer($this->contentTypeService));
+        $builder->addModelTransformer(
+            new ContentTypeGroupTransformer($this->contentTypeService)
+        );
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\UniversalDiscoveryWidget;
 
@@ -19,8 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UniversalDiscoveryWidgetType extends AbstractType
 {
-    public const TAB_BROWSE = 'browse';
-    public const TAB_SEARCH = 'search';
+    public const string TAB_BROWSE = 'browse';
+    public const string TAB_SEARCH = 'search';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -88,10 +89,13 @@ class UniversalDiscoveryWidgetType extends AbstractType
         return 'ezsystems_ezplatform_type_udw';
     }
 
+    /**
+     * @return DataTransformerInterface<mixed, mixed>
+     */
     private function getDataTransformer(): DataTransformerInterface
     {
         return new CallbackTransformer(
-            static function ($value): ?array {
+            static function (mixed $value): ?array {
                 if (null === $value) {
                     return null;
                 }

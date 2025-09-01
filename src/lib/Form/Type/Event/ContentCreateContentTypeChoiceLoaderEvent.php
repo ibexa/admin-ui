@@ -13,20 +13,15 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class ContentCreateContentTypeChoiceLoaderEvent extends Event
 {
-    public const RESOLVE_CONTENT_TYPES = 'admin_ui.content_create.content_type_resolve';
-
-    /** @var array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> */
-    private array $contentTypeGroups;
-
-    private ?Location $targetLocation;
+    public const string RESOLVE_CONTENT_TYPES = 'admin_ui.content_create.content_type_resolve';
 
     /**
      * @param array<string, array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>> $contentTypeGroups
      */
-    public function __construct(array $contentTypeGroups, ?Location $targetLocation)
-    {
-        $this->contentTypeGroups = $contentTypeGroups;
-        $this->targetLocation = $targetLocation;
+    public function __construct(
+        private array $contentTypeGroups,
+        private readonly ?Location $targetLocation
+    ) {
     }
 
     /**

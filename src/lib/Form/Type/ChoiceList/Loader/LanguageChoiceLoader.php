@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
+final class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
 {
     public function getChoiceList(): array
     {
@@ -16,7 +16,7 @@ class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
         $enabledLanguages = [];
 
         foreach ($languages as $language) {
-            if ($language->enabled) {
+            if ($language->isEnabled()) {
                 $enabledLanguages[] = $language;
             }
         }
