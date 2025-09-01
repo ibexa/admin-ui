@@ -23,4 +23,10 @@ final class TrashEmptyData
     {
         $this->emptyTrash = $emptyTrash;
     }
+
+    #[Assert\IsTrue]
+    public function getEmptyTrash(): bool
+    {
+        return $this->emptyTrash;
+    }
 }

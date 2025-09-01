@@ -26,8 +26,18 @@ class MainTranslationUpdateData
         $this->content = $contentInfo;
     }
 
+    public function getContent(): ?Content
+    {
+        return $this->content;
+    }
+
     public function setLanguageCode(?string $languageCode = null): void
     {
         $this->languageCode = $languageCode;
+    }
+
+    public function getLanguageCode(): ?string
+    {
+        return $this->languageCode;
     }
 }

@@ -13,8 +13,8 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 final class URLListData extends ValueObject
 {
     public function __construct(
-        public readonly ?string $searchQuery = null,
-        public readonly ?bool $status = null,
+        public ?string $searchQuery = null,
+        public ?bool $status = null,
     ) {
     }
 }

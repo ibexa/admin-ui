@@ -29,11 +29,24 @@ class ContentLocationRemoveData
         $this->contentInfo = $contentInfo;
     }
 
+    public function getContentInfo(): ?ContentInfo
+    {
+        return $this->contentInfo;
+    }
+
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
     public function setLocations(array $locations): void
     {
         $this->selectedLocations = $locations;
+    }
+
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     */
+    public function getLocations(): array
+    {
+        return $this->selectedLocations;
     }
 }
