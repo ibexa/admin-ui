@@ -18,15 +18,12 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<Location[], string>
  */
-class UDWBasedValueViewTransformer implements DataTransformerInterface
+final readonly class UDWBasedValueViewTransformer implements DataTransformerInterface
 {
     public const string DELIMITER = ',';
 
-    private LocationService $locationService;
-
-    public function __construct(LocationService $locationService)
+    public function __construct(private LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     public function transform(mixed $value): ?string

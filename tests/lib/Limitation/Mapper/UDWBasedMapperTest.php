@@ -10,7 +10,6 @@ namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -26,7 +25,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper
  */
-class UDWBasedMapperTest extends TestCase
+final class UDWBasedMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
     {
@@ -51,7 +50,6 @@ class UDWBasedMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
-        $permissionResolverMock = $this->createMock(PermissionResolver::class);
         $repositoryMock = $this->createMock(Repository::class);
 
         foreach ($values as $i => $id) {
@@ -80,7 +78,6 @@ class UDWBasedMapperTest extends TestCase
         $mapper = new UDWBasedMapper(
             $locationServiceMock,
             $searchServiceMock,
-            $permissionResolverMock,
             $repositoryMock
         );
         $result = $mapper->mapLimitationValue(new SubtreeLimitation([

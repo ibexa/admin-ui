@@ -14,19 +14,12 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * Form data mapper for user updating.
- */
-class UserUpdateMapper
+final readonly class UserUpdateMapper
 {
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     * @param array $params
-     *
-     * @return \Ibexa\ContentForms\Data\User\UserUpdateData
+     * @param array<string, mixed> $params
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
@@ -47,13 +40,16 @@ class UserUpdateMapper
             'contentType' => $contentType,
         ]);
 
-        $fields = $user->getFieldsByLanguage($params['languageCode']);
-        foreach ($contentType->fieldDefinitions as $fieldDef) {
-            $field = $fields[$fieldDef->identifier];
+        $fields = iterator_to_array(
+            $user->getFieldsByLanguage($params['languageCode'])
+        );
+
+        foreach ($contentType->getFieldDefinitions() as $fieldDef) {
+            $field = $fields[$fieldDef->getIdentifier()];
             $data->addFieldData(new FieldData([
                 'fieldDefinition' => $fieldDef,
                 'field' => $field,
-                'value' => $field->value,
+                'value' => $field->getValue(),
             ]));
         }
 

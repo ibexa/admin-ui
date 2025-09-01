@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\SubtreeLimitationMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -22,7 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use PHPUnit\Framework\TestCase;
 
-class SubtreeLimitationMapperTest extends TestCase
+final class SubtreeLimitationMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
     {
@@ -47,7 +47,6 @@ class SubtreeLimitationMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
-        $permissionResolverMock = $this->createMock(PermissionResolver::class);
         $repositoryMock = $this->createMock(Repository::class);
 
         foreach ($values as $i => $pathString) {
@@ -66,7 +65,6 @@ class SubtreeLimitationMapperTest extends TestCase
         $mapper = new SubtreeLimitationMapper(
             $locationServiceMock,
             $searchServiceMock,
-            $permissionResolverMock,
             $repositoryMock
         );
         $result = $mapper->mapLimitationValue(new SubtreeLimitation([

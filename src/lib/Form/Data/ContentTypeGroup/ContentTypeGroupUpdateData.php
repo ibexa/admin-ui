@@ -10,11 +10,10 @@ namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
-class ContentTypeGroupUpdateData
+final class ContentTypeGroupUpdateData
 {
     private ?ContentTypeGroup $contentTypeGroup;
 
-    /** @var string */
     private string $identifier;
 
     public function __construct(?ContentTypeGroup $contentTypeGroup = null)

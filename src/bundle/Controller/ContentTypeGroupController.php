@@ -62,7 +62,10 @@ final class ContentTypeGroupController extends Controller
         );
 
         foreach ($contentTypeGroupList as $contentTypeGroup) {
-            $contentTypesCount = count($this->contentTypeService->loadContentTypes($contentTypeGroup));
+            $contentTypesCount = count(
+                iterator_to_array($this->contentTypeService->loadContentTypes($contentTypeGroup))
+            );
+
             $deletableContentTypeGroup[$contentTypeGroup->id] = !(bool)$contentTypesCount;
             $count[$contentTypeGroup->id] = $contentTypesCount;
         }
@@ -197,7 +200,7 @@ final class ContentTypeGroupController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentTypeGroupsDeleteData $data): void {
-                foreach ($data->getContentTypeGroups() as $contentTypeGroupId => $selected) {
+                foreach ($data->getContentTypeGroups() ?? [] as $contentTypeGroupId => $selected) {
                     $group = $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                     $this->contentTypeService->deleteContentTypeGroup($group);
 

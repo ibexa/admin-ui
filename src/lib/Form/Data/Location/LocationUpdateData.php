@@ -15,75 +15,45 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationUpdateData
 {
-    protected ?Location $location;
+    protected ?int $sortField;
 
-    /** @var string|null */
-    protected $sortField;
+    protected ?int $sortOrder;
 
-    /** @var string|null */
-    protected $sortOrder;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     */
-    public function __construct(?Location $location = null)
+    public function __construct(protected ?Location $location = null)
     {
-        $this->location = $location;
         $this->sortField = $location->sortField ?? null;
         $this->sortOrder = $location->sortOrder ?? null;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     */
     public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 
-    /**
-     * @param int|null $sortField
-     *
-     * @return LocationUpdateData
-     */
-    public function setSortField(int $sortField): self
+    public function setSortField(?int $sortField): self
     {
         $this->sortField = $sortField;
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getSortField(): ?int
     {
         return $this->sortField;
     }
 
-    /**
-     * @param int|null $sortOrder
-     *
-     * @return LocationUpdateData
-     */
-    public function setSortOrder(int $sortOrder): self
+    public function setSortOrder(?int $sortOrder): self
     {
         $this->sortOrder = $sortOrder;
 
         return $this;
     }
 
-    /**
-     * @return int|null
-     */
     public function getSortOrder(): ?int
     {
         return $this->sortOrder;

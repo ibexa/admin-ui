@@ -13,36 +13,20 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @todo add validation
  */
-class TrashEmptyData
+final class TrashEmptyData
 {
-    /**
-     * @var bool
-     */
-    #[Assert\IsTrue]
-    public $emptyTrash;
+    public function __construct(#[Assert\IsTrue] public bool $emptyTrash = false)
+    {
+    }
 
-    /**
-     * @param bool $emptyTrash
-     */
-    public function __construct(bool $emptyTrash = false)
+    public function setEmptyTrash(bool $emptyTrash): void
     {
         $this->emptyTrash = $emptyTrash;
     }
 
-    /**
-     * @return bool
-     */
     #[Assert\IsTrue]
     public function getEmptyTrash(): bool
     {
         return $this->emptyTrash;
-    }
-
-    /**
-     * @param bool $emptyTrash
-     */
-    public function setEmptyTrash(bool $emptyTrash): void
-    {
-        $this->emptyTrash = $emptyTrash;
     }
 }

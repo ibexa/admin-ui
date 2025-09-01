@@ -12,46 +12,23 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
-class TrashSearchData
+final class TrashSearchData
 {
-    private ?int $limit;
-
-    private ?int $page;
-
-    private ?Section $section;
-
-    private ?ContentType $contentType;
-
-    private ?array $trashedInterval;
-
-    private ?string $trashed;
-
-    private ?User $creator;
-
-    private ?array $sort;
-
-    private ?string $contentName;
-
+    /**
+     * @param array<mixed>|null $trashedInterval
+     * @param array<mixed>|null $sort
+     */
     public function __construct(
-        ?int $limit = 10,
-        ?int $page = 1,
-        ?Section $section = null,
-        ?ContentType $contentType = null,
-        ?string $trashed = null,
-        ?array $trashedInterval = [],
-        ?User $creator = null,
-        ?string $contentName = null,
-        ?array $sort = ['field' => 'trashed', 'direction' => 0]
+        private ?int $limit = 10,
+        private ?int $page = 1,
+        private ?Section $section = null,
+        private ?ContentType $contentType = null,
+        private ?string $trashed = null,
+        private ?array $trashedInterval = [],
+        private ?User $creator = null,
+        private ?string $contentName = null,
+        private ?array $sort = ['field' => 'trashed', 'direction' => 0]
     ) {
-        $this->limit = $limit;
-        $this->page = $page;
-        $this->section = $section;
-        $this->contentType = $contentType;
-        $this->trashed = $trashed;
-        $this->trashedInterval = $trashedInterval;
-        $this->creator = $creator;
-        $this->contentName = $contentName;
-        $this->sort = $sort;
     }
 
     public function getTrashed(): ?string
@@ -104,11 +81,17 @@ class TrashSearchData
         $this->contentType = $contentType;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     public function getTrashedInterval(): ?array
     {
         return $this->trashedInterval;
     }
 
+    /**
+     * @param array<mixed>|null $trashedInterval
+     */
     public function setTrashedInterval(?array $trashedInterval): void
     {
         $this->trashedInterval = $trashedInterval;
@@ -134,11 +117,17 @@ class TrashSearchData
         $this->contentName = $contentName;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     public function getSort(): ?array
     {
         return $this->sort;
     }
 
+    /**
+     * @param array<mixed>|null $sort
+     */
     public function setSort(?array $sort): void
     {
         $this->sort = $sort;

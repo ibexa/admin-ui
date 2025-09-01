@@ -10,17 +10,14 @@ namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
-class ObjectStateGroupUpdateData
+final class ObjectStateGroupUpdateData
 {
-    private ?ObjectStateGroup $objectStateGroup;
-
     private ?string $identifier = null;
 
     private ?string $name = null;
 
-    public function __construct(?ObjectStateGroup $objectStateGroup = null)
+    public function __construct(private ?ObjectStateGroup $objectStateGroup = null)
     {
-        $this->objectStateGroup = $objectStateGroup;
         if ($objectStateGroup instanceof ObjectStateGroup) {
             $this->name = $objectStateGroup->getName();
             $this->identifier = $objectStateGroup->identifier;

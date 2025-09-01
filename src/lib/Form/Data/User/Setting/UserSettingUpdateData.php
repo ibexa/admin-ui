@@ -10,50 +10,30 @@ namespace Ibexa\AdminUi\Form\Data\User\Setting;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class UserSettingUpdateData
+final class UserSettingUpdateData
 {
-    #[Assert\NotBlank]
-    private ?string $identifier;
-
-    private ?string $value;
-
-    /**
-     * @param string $identifier
-     * @param string $value
-     */
-    public function __construct(?string $identifier = null, ?string $value = null)
-    {
-        $this->identifier = $identifier;
-        $this->value = $value;
+    public function __construct(
+        #[Assert\NotBlank]
+        private ?string $identifier = null,
+        private ?string $value = null
+    ) {
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier): void
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): ?string
     {
         return $this->value;
     }
 
-    /**
-     * @param string $value
-     */
     public function setValue(?string $value): void
     {
         $this->value = $value;

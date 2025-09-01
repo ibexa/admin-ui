@@ -12,16 +12,16 @@ use Ibexa\Core\FieldType\ImageAsset\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
+final class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
      * @param \Ibexa\Core\FieldType\ImageAsset\Value|null $value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      *
-     * @return array|null
+     * @return array<string, mixed>|null
      */
-    public function transform($value): ?array
+    public function transform(mixed $value): ?array
     {
         if ($value === null) {
             return null;
@@ -43,13 +43,11 @@ class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implement
     }
 
     /**
-     * @param array|null $value
+     * @param array<string, mixed>|null $value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     *
-     * @return \Ibexa\Core\FieldType\ImageAsset\Value|null
      */
-    public function reverseTransform($value): ?Value
+    public function reverseTransform(mixed $value): ?Value
     {
         if ($value === null) {
             return null;

@@ -12,25 +12,15 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class ContentLocationAddData
 {
-    protected ?ContentInfo $contentInfo;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    protected array $newLocations;
-
     /**
-     * @param array $newLocations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $newLocations
      */
     public function __construct(
-        ?ContentInfo $currentLocation = null,
-        array $newLocations = []
+        protected ?ContentInfo $contentInfo = null,
+        protected array $newLocations = []
     ) {
-        $this->contentInfo = $currentLocation;
-        $this->newLocations = $newLocations;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;

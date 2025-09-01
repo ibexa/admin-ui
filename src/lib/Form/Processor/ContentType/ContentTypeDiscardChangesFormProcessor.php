@@ -17,22 +17,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Listens for and processes RepositoryForm events.
  */
-class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
+final readonly class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    /**
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     */
     public function __construct(
-        UrlGeneratorInterface $urlGenerator
+        private UrlGeneratorInterface $urlGenerator
     ) {
-        $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -46,11 +37,9 @@ class ContentTypeDiscardChangesFormProcessor implements EventSubscriberInterface
         $data = $event->getData();
         $contentTypeDraft = $data->contentTypeDraft;
 
-        if (null === $contentTypeDraft || empty($contentTypeDraft->getContentTypeGroups())) {
+        if (empty($contentTypeDraft->getContentTypeGroups())) {
             return;
         }
-
-        /** @var $contentTypeGroup */
         $contentTypeGroup = $contentTypeDraft->getContentTypeGroups()[0];
 
         $event->setResponse(

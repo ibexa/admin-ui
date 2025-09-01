@@ -14,18 +14,10 @@ namespace Ibexa\AdminUi\Form\Data\ContentType;
 class ContentTypesDeleteData
 {
     /**
-     * A map of content type id to false value.
-     *
-     * @var array<int, false>
-     */
-    protected array $contentTypes;
-
-    /**
      * @param array<int, false> $contentTypes
      */
-    public function __construct(array $contentTypes = [])
+    public function __construct(protected array $contentTypes = [])
     {
-        $this->contentTypes = $contentTypes;
     }
 
     /**

@@ -13,12 +13,6 @@ parameters:
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: '#^Call to an undefined method Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\MainTranslationUpdateData\:\:getContentInfo\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
 			message: '#^Cannot access property \$isHidden on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
 			identifier: property.nonObject
 			count: 4
@@ -127,12 +121,6 @@ parameters:
 			path: src/bundle/Controller/ContentDraftController.php
 
 		-
-			message: '#^Parameter \#1 \$array of function array_keys expects array, array\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentDraftController.php
-
-		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentEditController\:\:proxyTranslateAction\(\) should return Symfony\\Component\\HttpFoundation\\Response but returns Symfony\\Component\\HttpFoundation\\Response\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -211,18 +199,6 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Dead catch \- Ibexa\\Contracts\\Core\\Repository\\Exceptions\\NotFoundException is never thrown in the try block\.$#'
-			identifier: catch.neverThrown
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:addAction\(\) never returns Symfony\\Component\\HttpFoundation\\RedirectResponse so it can be removed from the return type\.$#'
-			identifier: return.unusedType
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: '#^Parameter \#1 \$contentType of method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:tryToCreateContentTypeDraft\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null given\.$#'
 			identifier: argument.type
 			count: 2
@@ -230,18 +206,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$contentType of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:copyContentType\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ContentType\\ContentTypesDeleteData\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
@@ -257,12 +221,6 @@ parameters:
 			identifier: variable.undefined
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\|null\.$#'
@@ -296,24 +254,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$identifier of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:newContentTypeGroupCreateStruct\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
-
-		-
-			message: '#^Parameter \#1 \$value of function count expects array\|Countable, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeGroupController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
@@ -361,12 +301,6 @@ parameters:
 			path: src/bundle/Controller/FieldDefinitionController.php
 
 		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
 			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -391,18 +325,6 @@ parameters:
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/LanguageController.php
-
-		-
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: varTag.nativeType
 			count: 1
@@ -411,48 +333,6 @@ parameters:
 		-
 			message: '#^Cannot access property \$parentLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
 			identifier: property.nonObject
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getContent\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getContentId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getContentInfo\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: method.nonObject
-			count: 12
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: method.nonObject
-			count: 3
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getMainLocationId\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: src/bundle/Controller/LocationController.php
-
-		-
-			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: method.nonObject
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 
@@ -505,12 +385,6 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
-			message: '#^Parameter \#2 \$newParentLocation of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:moveSubtree\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
 			message: '#^Parameter \#2 \$section of method Ibexa\\Contracts\\Core\\Repository\\SectionService\:\:assignSectionToSubtree\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -519,6 +393,12 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$targetParentLocation of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:copySubtree\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null given\.$#'
 			identifier: argument.type
+			count: 1
+			path: src/bundle/Controller/LocationController.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
 			path: src/bundle/Controller/LocationController.php
 
@@ -571,24 +451,6 @@ parameters:
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ContentObjectStateUpdateData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStatesDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
 			message: '#^Parameter \#2 \$objectStateGroup of method Ibexa\\Contracts\\Core\\Repository\\ObjectStateService\:\:setContentState\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup, Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -617,12 +479,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: src/bundle/Controller/ObjectStateController.php
-
-		-
-			message: '#^Argument of an invalid type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\>\|null supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\|null\.$#'
@@ -655,18 +511,6 @@ parameters:
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupsDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
-
-		-
 			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroupCreateStruct\:\:\$names \(array\<string\>\) does not accept array\<string\|null\>\.$#'
 			identifier: assign.propertyType
 			count: 1
@@ -691,7 +535,7 @@ parameters:
 			path: src/bundle/Controller/PolicyController.php
 
 		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
+			message: '#^Argument of an invalid type array\<int, mixed\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
 			path: src/bundle/Controller/PolicyController.php
@@ -709,7 +553,7 @@ parameters:
 			path: src/bundle/Controller/PolicyController.php
 
 		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
+			message: '#^Argument of an invalid type array\<int, mixed\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
 			path: src/bundle/Controller/RoleAssignmentController.php
@@ -736,12 +580,6 @@ parameters:
 			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
 			identifier: varTag.nativeType
 			count: 2
-			path: src/bundle/Controller/RoleController.php
-
-		-
-			message: '#^Parameter \#1 \$role of method Ibexa\\Contracts\\Core\\Repository\\RoleService\:\:copyRole\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role, Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role\|null given\.$#'
-			identifier: argument.type
-			count: 1
 			path: src/bundle/Controller/RoleController.php
 
 		-
@@ -782,12 +620,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$section of method Ibexa\\Contracts\\Core\\Repository\\SectionService\:\:deleteSection\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/SectionController.php
-
-		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\Section\\SectionsDeleteData\)\: void given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/SectionController.php
@@ -853,19 +685,7 @@ parameters:
 			path: src/bundle/Controller/URLWildcardController.php
 
 		-
-			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\URLWildcard\\URLWildcardDeleteData\)\: void given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/URLWildcardController.php
-
-		-
 			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\URLWildcardStruct\:\:\$destinationUrl \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/bundle/Controller/URLWildcardController.php
-
-		-
-			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\URLWildcardStruct\:\:\$forward \(bool\) does not accept bool\|null\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: src/bundle/Controller/URLWildcardController.php
@@ -937,7 +757,7 @@ parameters:
 			path: src/bundle/Controller/UserOnTheFlyController.php
 
 		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
+			message: '#^Argument of an invalid type array\<int, mixed\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
 			path: src/bundle/Controller/VersionController.php
@@ -1639,170 +1459,14 @@ parameters:
 			path: src/lib/FieldType/Mapper/UserAccountFormMapper.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\CustomUrl\\CustomUrlRemoveData\:\:__construct\(\) has parameter \$urlAliases with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\ContentTypeData\:\:\$isNew on left side of \?\? is not nullable nor uninitialized\.$#'
+			identifier: nullCoalesce.initializedProperty
 			count: 1
-			path: src/lib/Form/Data/Content/CustomUrl/CustomUrlRemoveData.php
+			path: src/lib/Form/Data/ContentTypeData.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\CustomUrl\\CustomUrlRemoveData\:\:getUrlAliases\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/CustomUrl/CustomUrlRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\CustomUrl\\CustomUrlRemoveData\:\:setUrlAliases\(\) has parameter \$urlAliases with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/CustomUrl/CustomUrlRemoveData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Content\\CustomUrl\\CustomUrlRemoveData\:\:\$urlAliases type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/CustomUrl/CustomUrlRemoveData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$location with type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null is not subtype of native type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Content/Draft/ContentEditData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Draft\\ContentRemoveData\:\:__construct\(\) has parameter \$versions with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Draft/ContentRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Draft\\ContentRemoveData\:\:getVersions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Draft/ContentRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Draft\\ContentRemoveData\:\:setVersions\(\) has parameter \$versions with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Draft/ContentRemoveData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Content\\Draft\\ContentRemoveData\:\:\$versions type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Draft/ContentRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentLocationAddData\:\:__construct\(\) has parameter \$newLocations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Location/ContentLocationAddData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentLocationRemoveData\:\:__construct\(\) has parameter \$selectedLocations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Location/ContentLocationRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentLocationRemoveData\:\:getLocations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Location/ContentLocationRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentLocationRemoveData\:\:setLocations\(\) has parameter \$locations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Location/ContentLocationRemoveData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentLocationRemoveData\:\:\$locations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Location/ContentLocationRemoveData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentMainLocationUpdateData\:\:\$location \(Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\) does not accept Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/Content/Location/ContentMainLocationUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\TranslationDeleteData\:\:__construct\(\) has parameter \$languageCodes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Translation/TranslationDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\TranslationDeleteData\:\:getLanguageCodes\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Translation/TranslationDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\TranslationDeleteData\:\:setLanguageCodes\(\) has parameter \$languageCodes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Translation/TranslationDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$languageCodes with type array\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Content/Translation/TranslationDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\TranslationDeleteData\:\:\$languageCodes type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Content/Translation/TranslationDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentType\\Translation\\TranslationRemoveData\:\:__construct\(\) has parameter \$languageCodes with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentType/Translation/TranslationRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\:\:getContentTypeGroups\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentTypeGroup/ContentTypeGroupsDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroup\\ContentTypeGroupsDeleteData\:\:setContentTypeGroups\(\) has parameter \$contentTypeGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/ContentTypeGroup/ContentTypeGroupsDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$contentTypeGroups with type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\>\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/ContentTypeGroup/ContentTypeGroupsDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\ContentTypeGroupData\:\:\$identifier \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/ContentTypeGroupData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FieldDefinitionData\:\:getFieldTypeIdentifier\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Data/FieldDefinitionData.php
-
-		-
-			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:\$fieldDefinitions\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentCreateMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FormMapper\\ContentCreateMapper\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getFieldDefinitions\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/lib/Form/Data/FormMapper/ContentCreateMapper.php
 
@@ -1815,30 +1479,6 @@ parameters:
 		-
 			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getFieldsByLanguage\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentTranslationMapper.php
-
-		-
-			message: '#^Cannot access property \$defaultValue on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentTranslationMapper.php
-
-		-
-			message: '#^Cannot access property \$identifier on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentTranslationMapper.php
-
-		-
-			message: '#^Cannot access property \$isTranslatable on Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentTranslationMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FormMapper\\ContentTranslationMapper\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Data/FormMapper/ContentTranslationMapper.php
 
@@ -1933,12 +1573,6 @@ parameters:
 			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FormMapper\\ContentTypeDraftMapper\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentTypeDraftMapper.php
-
-		-
 			message: '#^Right side of && is always true\.$#'
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
@@ -1957,511 +1591,7 @@ parameters:
 			path: src/lib/Form/Data/FormMapper/ContentUpdateMapper.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FormMapper\\ContentUpdateMapper\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/FormMapper/ContentUpdateMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FormMapper\\UserCreateMapper\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/FormMapper/UserCreateMapper.php
-
-		-
-			message: '#^Cannot access offset string on iterable\<string, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Field\>\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/lib/Form/Data/FormMapper/UserUpdateMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\FormMapper\\UserUpdateMapper\:\:mapToFormData\(\) has parameter \$params with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/FormMapper/UserUpdateMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:getLanguages\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Language/LanguagesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:setLanguages\(\) has parameter \$languages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Language/LanguagesDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$languages with type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\>\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Language/LanguagesDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Language\\LanguagesDeleteData\:\:\$languages type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Language/LanguagesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Location\\LocationTrashData\:\:__construct\(\) has parameter \$trashOptions with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Location/LocationTrashData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Location\\LocationTrashData\:\:getTrashOptions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Location/LocationTrashData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Location\\LocationTrashData\:\:setTrashOptions\(\) has parameter \$trashOptions with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Location/LocationTrashData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Location\\LocationTrashData\:\:\$trashOptions type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Location/LocationTrashData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Location\\LocationUpdateData\:\:getSortField\(\) should return int\|null but returns string\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Location\\LocationUpdateData\:\:getSortOrder\(\) should return int\|null but returns string\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$sortField with type int\|null is not subtype of native type int\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$sortOrder with type int\|null is not subtype of native type int\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Location\\LocationUpdateData\:\:\$sortField \(string\|null\) does not accept int\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Location\\LocationUpdateData\:\:\$sortField \(string\|null\) does not accept int\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Location\\LocationUpdateData\:\:\$sortOrder \(string\|null\) does not accept int\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Location\\LocationUpdateData\:\:\$sortOrder \(string\|null\) does not accept int\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/Location/LocationUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateDeleteData\:\:getObjectState\(\) should return Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState but returns Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Form/Data/ObjectState/ObjectStateDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupDeleteData\:\:getObjectStateGroup\(\) should return Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup but returns Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Form/Data/ObjectState/ObjectStateGroupDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PoliciesDeleteData\:\:__construct\(\) has parameter \$policies with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PoliciesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PoliciesDeleteData\:\:getPolicies\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PoliciesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PoliciesDeleteData\:\:setPolicies\(\) has parameter \$policies with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PoliciesDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$policies with type array\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Policy/PoliciesDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Policy\\PoliciesDeleteData\:\:\$policies type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PoliciesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:getLimitations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyCreateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:getPolicy\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyCreateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:setLimitations\(\) has parameter \$limitations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyCreateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:setPolicy\(\) has parameter \$policy with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyCreateData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:\$limitations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyCreateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyDeleteData\:\:getLimitations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyDeleteData\:\:getPolicy\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyDeleteData\:\:setLimitations\(\) has parameter \$limitations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyDeleteData\:\:setPolicy\(\) has parameter \$policy with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyDeleteData\:\:\$limitations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyUpdateData\:\:getLimitations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyUpdateData\:\:getPolicy\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyUpdateData\:\:setLimitations\(\) has parameter \$limitations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyUpdateData\:\:setPolicy\(\) has parameter \$policy with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyUpdateData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyUpdateData\:\:\$limitations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Policy/PolicyUpdateData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:__construct\(\) has parameter \$limitations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:getLimitations\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:getModuleFunction\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:setLimitations\(\) has parameter \$limitations with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:setModuleFunction\(\) has parameter \$moduleFunction with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:\$function \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:\$limitations type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\PolicyData\:\:\$module \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/PolicyData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Role\\RoleAssignmentsDeleteData\:\:__construct\(\) has parameter \$roleAssignments with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentsDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Role\\RoleAssignmentsDeleteData\:\:getRoleAssignments\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentsDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Role\\RoleAssignmentsDeleteData\:\:setRoleAssignments\(\) has parameter \$roleAssignments with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentsDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$roleAssignments with type array\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentsDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Role\\RoleAssignmentsDeleteData\:\:\$roleAssignments type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RoleAssignmentsDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Role\\RolesDeleteData\:\:__construct\(\) has parameter \$roles with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RolesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Role\\RolesDeleteData\:\:getRoles\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RolesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Role\\RolesDeleteData\:\:setRoles\(\) has parameter \$roles with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RolesDeleteData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$roles with type array\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Role/RolesDeleteData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Role\\RolesDeleteData\:\:\$roles type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Role/RolesDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\RoleData\:\:setIdentifier\(\) has parameter \$identifier with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: src/lib/Form/Data/RoleData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\RoleData\:\:\$identifier \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: src/lib/Form/Data/RoleData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:__construct\(\) has parameter \$sort with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:__construct\(\) has parameter \$trashedInterval with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:getSort\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:getTrashedInterval\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:setSort\(\) has parameter \$sort with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:setTrashedInterval\(\) has parameter \$trashedInterval with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:\$sort type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Search\\TrashSearchData\:\:\$trashedInterval type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Search/TrashSearchData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\URLWildcard\\URLWildcardDeleteData\:\:__construct\(\) has parameter \$urlWildcardsChoices with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/URLWildcard/URLWildcardDeleteData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Version\\VersionRemoveData\:\:__construct\(\) has parameter \$versions with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Version/VersionRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Version\\VersionRemoveData\:\:getVersions\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Version/VersionRemoveData.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Data\\Version\\VersionRemoveData\:\:setVersions\(\) has parameter \$versions with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Version/VersionRemoveData.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$versions with type array\|null is not subtype of native type array\.$#'
-			identifier: parameter.phpDocType
-			count: 1
-			path: src/lib/Form/Data/Version/VersionRemoveData.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\Version\\VersionRemoveData\:\:\$versions type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Data/Version/VersionRemoveData.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/DataMapper/ContentMainLocationUpdateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentMainLocationUpdateData and Ibexa\\AdminUi\\Form\\Data\\Content\\Location\\ContentMainLocationUpdateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/ContentMainLocationUpdateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData and Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/LanguageCreateMapper.php
-
-		-
-			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Form/DataMapper/MainTranslationUpdateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\MainTranslationUpdateData and Ibexa\\AdminUi\\Form\\Data\\Content\\Translation\\MainTranslationUpdateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/MainTranslationUpdateMapper.php
-
-		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: src/lib/Form/DataMapper/PolicyCreateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData and Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/PolicyCreateMapper.php
-
-		-
-			message: '#^Parameter \#1 \$limitation of method Ibexa\\Core\\Repository\\Values\\User\\PolicyCreateStruct\:\:addLimitation\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation, object given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/DataMapper/PolicyCreateMapper.php
-
-		-
-			message: '#^Parameter \#1 \$limitations of method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:setLimitations\(\) expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\> given\.$#'
+			message: '#^Parameter \#1 \$limitations of method Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData\:\:setLimitations\(\) expects array\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Form/DataMapper/PolicyCreateMapper.php
@@ -2479,20 +1609,8 @@ parameters:
 			path: src/lib/Form/DataMapper/PolicyUpdateMapper.php
 
 		-
-			message: '#^Argument of an invalid type array\|null supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: src/lib/Form/DataMapper/PolicyUpdateMapper.php
-
-		-
 			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getLimitations\(\)\.$#'
 			identifier: method.notFound
-			count: 1
-			path: src/lib/Form/DataMapper/PolicyUpdateMapper.php
-
-		-
-			message: '#^Parameter \#1 \$limitation of method Ibexa\\Core\\Repository\\Values\\User\\PolicyUpdateStruct\:\:addLimitation\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation, object given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/lib/Form/DataMapper/PolicyUpdateMapper.php
 
@@ -2503,56 +1621,14 @@ parameters:
 			path: src/lib/Form/DataMapper/RoleCopyMapper.php
 
 		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Role\\RoleCopyData and Ibexa\\AdminUi\\Form\\Data\\Role\\RoleCopyData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/RoleCopyMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Role\\RoleCreateData and Ibexa\\AdminUi\\Form\\Data\\Role\\RoleCreateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/RoleCreateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Role\\RoleUpdateData and Ibexa\\AdminUi\\Form\\Data\\Role\\RoleUpdateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/RoleUpdateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Section\\SectionCreateData and Ibexa\\AdminUi\\Form\\Data\\Section\\SectionCreateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/SectionCreateMapper.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\Section\\SectionUpdateData and Ibexa\\AdminUi\\Form\\Data\\Section\\SectionUpdateData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataMapper/SectionUpdateMapper.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ContentInfoTransformer.php
 
 		-
-			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataTransformer/ContentInfoTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/ContentTransformer.php
-
-		-
-			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
 			count: 1
 			path: src/lib/Form/DataTransformer/ContentTransformer.php
 
@@ -2569,32 +1645,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/ContentTypeTransformer.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between null and Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataTransformer/ContentTypeTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalToArrayTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalToArrayTransformer.php
-
-		-
-			message: '#^Instanceof between DateInterval and DateInterval will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalToArrayTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalToArrayTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalToArrayTransformer.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between DateInterval and null will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
 			count: 1
 			path: src/lib/Form/DataTransformer/DateIntervalToArrayTransformer.php
 
@@ -2605,54 +1657,6 @@ parameters:
 			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:transform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateTimePickerTransformer\:\:reverseTransform\(\) should return DateTimeInterface\|null but returns DateTime\|false\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Form/DataTransformer/DateTimePickerTransformer.php
-
-		-
-			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/AbstractBinaryBaseTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\AbstractBinaryBaseTransformer\:\:getDefaultProperties\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/AbstractBinaryBaseTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\AbstractBinaryBaseTransformer\:\:getReverseTransformedValue\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/AbstractBinaryBaseTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\AbstractBinaryBaseTransformer\:\:getReverseTransformedValue\(\) should return Ibexa\\Core\\FieldType\\Value but returns object\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/AbstractBinaryBaseTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\BinaryFileValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
@@ -2661,12 +1665,6 @@ parameters:
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\BinaryFileValueTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/BinaryFileValueTransformer.php
-
-		-
-			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, array\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/BinaryFileValueTransformer.php
 
@@ -2701,13 +1699,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/FieldValueTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\FieldValueTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/FieldValueTransformer.php
-
-		-
-			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			message: '#^Call to function is_array\(\) with array\<string, mixed\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
@@ -2725,50 +1717,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageAssetValueTransformer\:\:reverseTransform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageAssetValueTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
-
-		-
-			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, array\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageValueTransformer\:\:reverseTransform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageValueTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
-
-		-
-			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, array\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between null and Ibexa\\Core\\FieldType\\Image\\Value will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
 
@@ -2797,20 +1747,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/TimeValueTransformer.php
 
 		-
-			message: '#^Call to function is_string\(\) with non\-falsy\-string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/LanguageTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/LanguageTransformer.php
-
-		-
-			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
 			count: 1
 			path: src/lib/Form/DataTransformer/LanguageTransformer.php
 
@@ -2851,20 +1789,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/ObjectStateTransformer.php
 
 		-
-			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/PolicyTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\PolicyTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/PolicyTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\PolicyTransformer\:\:reverseTransform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/DataTransformer/PolicyTransformer.php
 
@@ -2881,38 +1807,14 @@ parameters:
 			path: src/lib/Form/DataTransformer/SectionsTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\SectionsTransformer\:\:reverseTransform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/SectionsTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\TrashItemTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/TrashItemTransformer.php
 
 		-
-			message: '#^PHPDoc tag @return with type mixed is not subtype of native type int\|null\.$#'
-			identifier: return.phpDocType
-			count: 1
-			path: src/lib/Form/DataTransformer/TrashItemTransformer.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\PermissionResolver\:\:sudo\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/lib/Form/DataTransformer/UDWBasedValueModelTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UDWBasedValueModelTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/UDWBasedValueModelTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UDWBasedValueModelTransformer\:\:transform\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\>\|null but returns array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\>\.$#'
-			identifier: return.type
 			count: 1
 			path: src/lib/Form/DataTransformer/UDWBasedValueModelTransformer.php
 
@@ -2923,26 +1825,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/UDWBasedValueModelTransformer.php
 
 		-
-			message: '#^Call to function is_string\(\) with non\-falsy\-string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UserCollectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UserCollectionTransformer\:\:reverseTransform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UserCollectionTransformer\:\:transform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
 
@@ -2953,26 +1837,8 @@ parameters:
 			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
 
 		-
-			message: '#^Call to function is_string\(\) with non\-falsy\-string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UserGroupCollectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UserGroupCollectionTransformer\:\:reverseTransform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UserGroupCollectionTransformer\:\:transform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
 
@@ -2983,58 +1849,10 @@ parameters:
 			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
 
 		-
-			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Form/DataTransformer/VersionInfoTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\VersionInfoTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/VersionInfoTransformer.php
-
-		-
-			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataTransformer/VersionInfoTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\VersionInfoTransformer\:\:reverseTransform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/VersionInfoTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\VersionInfoTransformer\:\:transform\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/DataTransformer/VersionInfoTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\EventListener\\AddLanguageFieldBasedOnContentListener\:\:filterLanguages\(\) has parameter \$contentLanguages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\EventListener\\AddLanguageFieldBasedOnContentListener\:\:filterLanguages\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\EventListener\\AddLanguageFieldBasedOnContentListener\:\:getCallableFilter\(\) has parameter \$contentLanguages with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
-
-		-
-			message: '#^Parameter \#1 \$array of function array_filter expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/EventListener/AddLanguageFieldBasedOnContentListener.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\ContentTypeFormFactory\:\:addContentTypeTranslation\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
@@ -3043,20 +1861,8 @@ parameters:
 			path: src/lib/Form/Factory/ContentTypeFormFactory.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\ContentTypeFormFactory\:\:contentTypeCopy\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Factory/ContentTypeFormFactory.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\ContentTypeFormFactory\:\:contentTypeCopy\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Factory/ContentTypeFormFactory.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\ContentTypeFormFactory\:\:contentTypeEdit\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Factory/ContentTypeFormFactory.php
 
@@ -3077,48 +1883,6 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: src/lib/Form/Factory/ContentTypeFormFactory.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getObjectStateGroup\(\) on Ibexa\\AdminUi\\Form\\Data\\ObjectState\\ObjectStateGroupDeleteData\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getRole\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\RoleAssignment\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getRoleLimitation\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\RoleAssignment\|null\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getSection\(\) on Ibexa\\AdminUi\\Form\\Data\\Section\\SectionDeleteData\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
 
 		-
 			message: '#^Cannot call method getSection\(\) on Ibexa\\AdminUi\\Form\\Data\\Section\\SectionUpdateData\|null\.$#'
@@ -3147,12 +1911,6 @@ parameters:
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:assignContentSectionForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:contentEdit\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
@@ -3223,12 +1981,6 @@ parameters:
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createSearchForm\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createSearchForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -3253,20 +2005,8 @@ parameters:
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createUrlEditForm\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createUrlEditForm\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:createUrlListForm\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
@@ -3481,18 +2221,6 @@ parameters:
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
-			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 42
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:\$translator is never read, only written\.$#'
-			identifier: property.onlyWritten
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\TrashFormFactory\:\:deleteTrashItem\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -3517,78 +2245,6 @@ parameters:
 			path: src/lib/Form/Factory/TrashFormFactory.php
 
 		-
-			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 4
-			path: src/lib/Form/Factory/TrashFormFactory.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\Content\\ContentOnTheFlyProcessor\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/Content/ContentOnTheFlyProcessor.php
-
-		-
-			message: '#^Cannot call method getData\(\) on Symfony\\Component\\Form\\FormInterface\<mixed\>\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Form/Processor/Content/UrlRedirectProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\Content\\UrlRedirectProcessor\:\:__construct\(\) has parameter \$siteaccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/Content/UrlRedirectProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\Content\\UrlRedirectProcessor\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/Content/UrlRedirectProcessor.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Processor\\Content\\UrlRedirectProcessor\:\:\$siteaccessGroups type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/Content/UrlRedirectProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\ContentEditNotificationFormProcessor\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/ContentEditNotificationFormProcessor.php
-
-		-
-			message: '#^Parameter \#1 \$request of method Ibexa\\AdminUi\\Form\\Processor\\ContentEditNotificationFormProcessor\:\:isAdminSiteAccess\(\) expects Symfony\\Component\\HttpFoundation\\Request, Symfony\\Component\\HttpFoundation\\Request\|null given\.$#'
-			identifier: argument.type
-			count: 2
-			path: src/lib/Form/Processor/ContentEditNotificationFormProcessor.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Processor\\ContentEditNotificationFormProcessor\:\:\$siteAccessGroups type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/ContentEditNotificationFormProcessor.php
-
-		-
-			message: '#^PHPDoc tag @var has invalid value \(\$contentTypeGroup\)\: Unexpected token "\$contentTypeGroup", expected type at offset 9 on line 1$#'
-			identifier: phpDoc.parseError
-			count: 1
-			path: src/lib/Form/Processor/ContentType/ContentTypeDiscardChangesFormProcessor.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between null and Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeDraft will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: src/lib/Form/Processor/ContentType/ContentTypeDiscardChangesFormProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\ContentType\\ContentTypeFormProcessor\:\:__construct\(\) has parameter \$options with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/ContentType/ContentTypeFormProcessor.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\ContentType\\ContentTypeFormProcessor\:\:setOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3597,12 +2253,6 @@ parameters:
 		-
 			message: '#^PHPDoc tag @var for variable \$fieldDefForm contains generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Processor/ContentType/ContentTypeFormProcessor.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Form\\Processor\\ContentType\\ContentTypeFormProcessor\:\:\$options type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Processor/ContentType/ContentTypeFormProcessor.php
 
@@ -3637,19 +2287,7 @@ parameters:
 			path: src/lib/Form/Processor/PreviewFormProcessor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\PreviewFormProcessor\:\:saveDraft\(\) has parameter \$fieldIdentifiersToValidate with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/PreviewFormProcessor.php
-
-		-
 			message: '#^Parameter \#1 \$contentCreateStruct of method Ibexa\\Contracts\\Core\\Repository\\ContentService\:\:createContent\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentCreateStruct, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentStruct given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/Processor/PreviewFormProcessor.php
-
-		-
-			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Form/Processor/PreviewFormProcessor.php
@@ -3671,30 +2309,6 @@ parameters:
 			identifier: property.protected
 			count: 1
 			path: src/lib/Form/Processor/TranslationFormProcessor.php
-
-		-
-			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\ContentTranslationData and Ibexa\\AdminUi\\Form\\Data\\ContentTranslationData will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/Processor/TranslationFormProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\TranslationFormProcessor\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/TranslationFormProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Processor\\User\\UserOnTheFlyProcessor\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/Processor/User/UserOnTheFlyProcessor.php
-
-		-
-			message: '#^Instanceof between Symfony\\Component\\HttpFoundation\\JsonResponse and Symfony\\Component\\HttpFoundation\\JsonResponse will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/SubmitHandler.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
@@ -3743,12 +2357,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/TrashLocationOptionProvider/HasUniqueAssetRelation.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\TrashLocationOptionProvider\\OptionsFactory\:\:__construct\(\) has parameter \$providers with no value type specified in iterable type iterable\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Form/TrashLocationOptionProvider/OptionsFactory.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\TrashLocationOptionProvider\\OptionsFactory\:\:addOptions\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
@@ -4453,12 +3061,6 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
 
 		-
-			message: '#^Parameter \#1 \$existingLimitations of method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyCreateWithLimitationType\:\:generateLimitationList\(\) expects array\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\>, array\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
-
-		-
 			message: '#^Parameter \#1 \$module of method Ibexa\\Contracts\\Core\\Repository\\RoleService\:\:getLimitationTypesByModuleFunction\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -4497,12 +3099,6 @@ parameters:
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyUpdateType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
-
-		-
-			message: '#^Parameter \#1 \$existingLimitations of method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyUpdateType\:\:generateLimitationList\(\) expects array\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Limitation\>, array\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
 
@@ -4993,26 +3589,8 @@ parameters:
 			path: src/lib/Limitation/Mapper/RoleLimitationMapper.php
 
 		-
-			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Limitation/Mapper/SubtreeLimitationMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\UDWBasedMapper\:\:filterLimitationValues\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Limitation/Mapper/UDWBasedMapper.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\UDWBasedMapper\:\:mapLimitationForm\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Limitation/Mapper/UDWBasedMapper.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\UDWBasedMapper\:\:setFormTemplate\(\) has parameter \$template with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Limitation/Mapper/UDWBasedMapper.php
 
@@ -7495,66 +6073,6 @@ parameters:
 			path: tests/lib/Form/Data/Section/SectionUpdateDataValidationTest.php
 
 		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\LanguageCreateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/LanguageCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\LanguageCreateMapperTest\:\:testMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/LanguageCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\LanguageCreateMapperTest\:\:testReverseMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/LanguageCreateMapperTest.php
-
-		-
-			message: '#^Parameter \#1 \$data of method Ibexa\\AdminUi\\Form\\DataMapper\\LanguageCreateMapper\:\:reverseMap\(\) expects Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData, Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageDeleteData given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataMapper/LanguageCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\PolicyCreateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/PolicyCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\PolicyCreateMapperTest\:\:createStruct\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/PolicyCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\PolicyCreateMapperTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/PolicyCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\PolicyCreateMapperTest\:\:testMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/PolicyCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\PolicyCreateMapperTest\:\:testReverseMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/PolicyCreateMapperTest.php
-
-		-
-			message: '#^Parameter \#1 \$data of method Ibexa\\AdminUi\\Form\\DataMapper\\PolicyCreateMapper\:\:reverseMap\(\) expects Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyCreateData, Ibexa\\AdminUi\\Form\\Data\\Policy\\PolicyUpdateData given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataMapper/PolicyCreateMapperTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\PolicyUpdateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -7603,24 +6121,6 @@ parameters:
 			path: tests/lib/Form/DataMapper/PolicyUpdateMapperTest.php
 
 		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleCreateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleCreateMapperTest\:\:createStruct\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleCreateMapperTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleCreateMapperTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleCreateMapperTest\:\:testMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -7631,48 +6131,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: tests/lib/Form/DataMapper/RoleCreateMapperTest.php
-
-		-
-			message: '#^Parameter \#1 \$data of method Ibexa\\AdminUi\\Form\\DataMapper\\RoleCreateMapper\:\:reverseMap\(\) expects Ibexa\\AdminUi\\Form\\Data\\Role\\RoleCreateData, Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleCreateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleUpdateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleUpdateMapperTest\:\:createStruct\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleUpdateMapperTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleUpdateMapperTest\:\:testMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleUpdateMapperTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\RoleUpdateMapperTest\:\:testReverseMap\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleUpdateMapperTest.php
-
-		-
-			message: '#^Parameter \#1 \$data of method Ibexa\\AdminUi\\Form\\DataMapper\\RoleUpdateMapper\:\:reverseMap\(\) expects Ibexa\\AdminUi\\Form\\Data\\Role\\RoleUpdateData, Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataMapper/RoleUpdateMapperTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataMapper\\SelectionCreateMapperTest\:\:createData\(\) has parameter \$properties with no value type specified in iterable type array\.$#'
@@ -7705,22 +6163,10 @@ parameters:
 			path: tests/lib/Form/DataMapper/SelectionCreateMapperTest.php
 
 		-
-			message: '#^Parameter \#1 \$data of method Ibexa\\AdminUi\\Form\\DataMapper\\SectionCreateMapper\:\:reverseMap\(\) expects Ibexa\\AdminUi\\Form\\Data\\Section\\SectionCreateData, Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataMapper/SelectionCreateMapperTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataTransformer\\ContentTypeGroupTransformerTest\:\:dataProviderForTransformWithValidInput\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: tests/lib/Form/DataTransformer/ContentTypeGroupTransformerTest.php
-
-		-
-			message: '#^Parameter \#1 \$dateInterval of method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalToArrayTransformer\:\:transform\(\) expects DateInterval, null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/lib/Form/DataTransformer/DateIntervalToArrayTransformerTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataTransformer\\TranslatablePropertyTransformerTest\:\:testTransform\(\) has parameter \$inputValue with no value type specified in iterable type array\.$#'

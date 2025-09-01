@@ -14,60 +14,39 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContentLocationRemoveData
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
-    #[Assert\NotBlank]
-    public $contentInfo;
-
-    /**
-     * @todo add more validation constraints
-     *
-     * @var array
-     */
-    #[Assert\NotBlank]
-    public $locations;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param array $selectedLocations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $selectedLocations
      */
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        array $selectedLocations = []
+        #[Assert\NotBlank]
+        public ?ContentInfo $contentInfo = null,
+        #[Assert\NotBlank]
+        public array $selectedLocations = []
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->locations = $selectedLocations;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
+    public function setContentInfo(?ContentInfo $contentInfo): void
+    {
+        $this->contentInfo = $contentInfo;
+    }
+
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     */
-    public function setContentInfo(?ContentInfo $contentInfo): void
-    {
-        $this->contentInfo = $contentInfo;
-    }
-
-    /**
-     * @return array
-     */
-    public function getLocations(): array
-    {
-        return $this->locations;
-    }
-
-    /**
-     * @param array $locations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
     public function setLocations(array $locations): void
     {
-        $this->locations = $locations;
+        $this->selectedLocations = $locations;
+    }
+
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     */
+    public function getLocations(): array
+    {
+        return $this->selectedLocations;
     }
 }

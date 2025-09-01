@@ -13,59 +13,31 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class MainTranslationUpdateData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
-     */
-    #[Assert\NotBlank]
-    public $content;
-
-    /**
-     * @var string|null
-     */
-    #[Assert\NotBlank]
-    public $languageCode;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $content
-     * @param string|null $languageCode
-     */
     public function __construct(
-        ?Content $content = null,
-        ?string $languageCode = null
+        #[Assert\NotBlank]
+        public ?Content $content = null,
+        #[Assert\NotBlank]
+        public ?string $languageCode = null
     ) {
-        $this->content = $content;
-        $this->languageCode = $languageCode;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
-     */
-    public function getContent(): ?Content
-    {
-        return $this->content;
-    }
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $contentInfo
-     */
     public function setContent(?Content $contentInfo = null): void
     {
         $this->content = $contentInfo;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getLanguageCode(): ?string
+    public function getContent(): ?Content
     {
-        return $this->languageCode;
+        return $this->content;
     }
 
-    /**
-     * @param string|null $languageCode
-     */
     public function setLanguageCode(?string $languageCode = null): void
     {
         $this->languageCode = $languageCode;
+    }
+
+    public function getLanguageCode(): ?string
+    {
+        return $this->languageCode;
     }
 }

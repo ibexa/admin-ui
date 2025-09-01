@@ -248,7 +248,7 @@ final class ContentController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentMainLocationUpdateData $data): RedirectResponse {
-                $contentInfo = $data->getContentInfo();
+                $contentInfo = $data->contentInfo;
 
                 $contentMetadataUpdateStruct = $this->contentMainLocationUpdateMapper->reverseMap($data);
 
@@ -375,7 +375,7 @@ final class ContentController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (MainTranslationUpdateData $data): RedirectResponse {
-                $content = $data->getContent();
+                $content = $data->content;
                 $contentInfo = $content->getContentInfo();
                 $mapper = new MainTranslationUpdateMapper();
                 $contentMetadataUpdateStruct = $mapper->reverseMap($data);
@@ -399,11 +399,11 @@ final class ContentController extends Controller
         }
         /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data */
         $data = $form->getData();
-        $contentInfo = $data->getContentInfo();
+        $contentInfo = $data->content;
         if (null !== $contentInfo) {
             return new RedirectResponse($this->generateUrl('ibexa.content.view', [
                 'contentId' => $contentInfo->getId(),
-                'locationId' => $contentInfo->getMainLocationId(),
+                'locationId' => $contentInfo->getContentInfo()->getMainLocationId(),
                 '_fragment' => 'ibexa-tab-location-view-translations',
             ]));
         }
