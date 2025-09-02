@@ -82,3 +82,21 @@ Feature: Trash management
     Then success notification that "Restored content under Location 'Files'." appears
     And there is no "Folder" "RestoreFromTrashNewLocation" on Trash list
     And there exists Content view Page for "Media/Files/RestoreFromTrashNewLocation"
+
+    @test_trash
+    Scenario: Element in trash can be found by search
+        Given a "folder" Content item named "TrashTest" exists in root
+            | name      | short_name |
+            | TrashTest | TrashTest  |
+        And I create "folder" Content items in "TrashTest" in "eng-GB"
+            | name             | short_name    |
+            | TrashSearch1 | TrashSearch1 |
+            | TrashSearch2 | TrashSearch2 |
+#    And I create "folder" Content items in "TrashTest" in "eng-GB"
+#      | name             | short_name    |
+#      | TrashSearch2 | TrashSearch2 |
+        And I send "TrashTest/TrashSearch1" to the Trash
+        And I send "TrashTest/TrashSearch2" to the Trash
+        And I open "Trash" page in admin SiteAccess
+        Then I search for a "TrashSearch1" content item in Trash
+        And there is a "Folder" "TrashSearch1" on Trash list
