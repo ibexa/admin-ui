@@ -60,7 +60,7 @@ const SimpleDropdown = ({
     const renderCaretIcon = () => {
         const iconName = isExpanded ? 'caret-up' : 'caret-down';
 
-        return <Icon name={iconName} extraClasses="ibexa-icon--tiny-small c-simple-dropdown__expand-icon" />;
+        return <Icon name={iconName} extraClasses="ibexa-icon--small c-simple-dropdown__expand-icon" />;
     };
     const renderSelectedLabel = () => {
         if (!selectedOption && !!selectedItemLabel) {
