@@ -111,7 +111,9 @@ final class NotificationController extends Controller
         $pagerfanta = new Pagerfanta(
             new NotificationAdapter($this->notificationService, $query)
         );
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.notification_limit'));
+
+        $limit = $this->configResolver->getParameter('pagination.notification_limit');
+        $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         $notifications = $this->renderNotifications($pagerfanta);
@@ -122,6 +124,7 @@ final class NotificationController extends Controller
 
         return $this->render($template, [
             'notifications' => $notifications,
+            'sidebarNotifications' => $this->renderNotificationList($this->notificationService->loadNotifications(0, $limit)->items),
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
             'search_form' => $searchForm->createView(),
@@ -151,6 +154,23 @@ final class NotificationController extends Controller
         }
 
         return new NotificationQuery();
+    }
+
+    /**
+     * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $notifications
+     *
+     * @return string[]
+     */
+    private function renderNotificationList(iterable $notifications): array
+    {
+        $result = [];
+        foreach ($notifications as $notification) {
+            if ($this->registry->hasRenderer($notification->type)) {
+                $result[] = $this->registry->getRenderer($notification->type)->render($notification);
+            }
+        }
+
+        return $result;
     }
 
     /**
