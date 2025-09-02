@@ -104,4 +104,12 @@ class TrashContext implements Context
     {
         Assert::assertFalse($this->trashPage->hasElement($itemType, $itemName));
     }
+
+    /**
+     * @Then I search for a :contentItem content item in Trash
+     */
+    public function iSearchForContentInTrash(string $contentItem): void
+    {
+        $this->trashPage->searchByText($contentItem);
+    }
 }

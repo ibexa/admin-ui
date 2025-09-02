@@ -84,6 +84,12 @@ class TrashPage extends Page
         $this->table->getTableRow($parameters)->select();
     }
 
+    public function searchByText($searchQuery)
+    {
+        $this->trashSearch->submitSearchText($searchQuery);
+        $this->trashSearch->confirm();
+    }
+
     public function restoreSelectedItems()
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
