@@ -118,7 +118,7 @@ export default class ViewColumnsTogglerComponent extends Component {
     renderCaretIcon() {
         const iconName = this.state.isOpen ? 'caret-up' : 'caret-down';
 
-        return <Icon name={iconName} extraClasses="ibexa-icon--tiny-small c-simple-dropdown__expand-icon" />;
+        return <Icon name={iconName} extraClasses="ibexa-icon--small c-simple-dropdown__expand-icon" />;
     }
 
     renderToggler() {
