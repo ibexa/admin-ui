@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
 declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component;
@@ -30,7 +34,7 @@ class TrashSearch extends Component
         [
         new VisibleCSSLocator('mainSearchBox', '.ibexa-adaptive-filters--inside-container'),
         new VisibleCSSLocator('mainSearchBoxInput', '#trash_search_content_name'),
-        new VisibleCSSLocator('mainSearchBoxConfirmButton', '.ibexa-input-text-wrapper__action-btn--search.ibexa-selenium-transition-ended'),
+        new VisibleCSSLocator('mainSearchBoxConfirmButton', '.ibexa-adaptive-filters__static-left .ibexa-input-text-wrapper--type-text .ibexa-input-text-wrapper__action-btn--search'),
             ];
     }
 }
