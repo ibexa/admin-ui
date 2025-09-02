@@ -26,11 +26,11 @@ final class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
     public function __construct(
         private readonly LanguageService $languageService,
         private readonly PermissionResolver $permissionResolver,
-        private readonly ?ContentInfo $contentInfo,
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
         private readonly array $languageCodes,
         private readonly LocationService $locationService,
-        private readonly ?Location $location
+        private readonly ?ContentInfo $contentInfo = null,
+        private readonly ?Location $location = null
     ) {
     }
 

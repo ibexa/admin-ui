@@ -234,10 +234,10 @@ final class ContentViewController extends Controller
                 'choice_loader' => new ContentEditTranslationChoiceLoader(
                     $this->languageService,
                     $this->permissionResolver,
-                    $contentInfo,
                     $this->lookupLimitationsTransformer,
                     $languageCodes,
                     $this->locationService,
+                    $contentInfo,
                     $location
                 ),
             ]

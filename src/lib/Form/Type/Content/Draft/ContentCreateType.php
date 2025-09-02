@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Content\Draft;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
@@ -21,18 +22,19 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData>
+ */
 class ContentCreateType extends AbstractType
 {
     public function __construct(
         protected readonly LanguageService $languageService,
         private readonly ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
-        /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader */
-        private readonly ChoiceLoaderInterface $languageChoiceLoader,
+        private readonly LanguageChoiceLoader $languageChoiceLoader,
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
         private readonly LimitationResolverInterface $limitationResolver
     ) {

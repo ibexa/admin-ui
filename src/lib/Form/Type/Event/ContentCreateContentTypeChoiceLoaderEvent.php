@@ -20,7 +20,7 @@ final class ContentCreateContentTypeChoiceLoaderEvent extends Event
      */
     public function __construct(
         private array $contentTypeGroups,
-        private readonly ?Location $targetLocation
+        private readonly ?Location $targetLocation = null
     ) {
     }
 
