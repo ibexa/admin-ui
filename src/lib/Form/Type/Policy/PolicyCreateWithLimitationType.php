@@ -52,10 +52,16 @@ class PolicyCreateWithLimitationType extends AbstractType
             $form = $event->getForm();
 
             if ($data instanceof PolicyCreateData) {
+                $module = $data->getModule();
+                $function = $data->getFunction();
+                if ($module === null || $function === null) {
+                    return;
+                }
+
                 $availableLimitationTypes = iterator_to_array(
                     $this->roleService->getLimitationTypesByModuleFunction(
-                        $data->getModule() ?? '',
-                        $data->getFunction() ?? ''
+                        $module,
+                        $function
                     )
                 );
 

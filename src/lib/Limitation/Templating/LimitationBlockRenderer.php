@@ -77,7 +77,11 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
         }
 
         foreach ($this->getLimitationValueResources() as &$template) {
-            $template = $this->twig->load($template);
+            if (is_string($template)) {
+                // Load the template if it is necessary
+                $template = $this->twig->load($template);
+            }
+
             if ($template->hasBlock($blockName)) {
                 return $template;
             }
@@ -123,7 +127,7 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
     }
 
     /**
-     * @return string[]
+     * @return mixed[]
      */
     private function getLimitationValueResources(): array
     {
