@@ -116,7 +116,7 @@ final class NotificationController extends Controller
         $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        $notifications = $this->renderNotifications($pagerfanta);
+        $notifications = $this->renderNotificationsPage($pagerfanta);
 
         $deleteForm = $this->formFactory->deleteNotification($this->createNotificationSelectionData($pagerfanta));
 
@@ -124,7 +124,7 @@ final class NotificationController extends Controller
 
         return $this->render($template, [
             'notifications' => $notifications,
-            'sidebarNotifications' => $this->renderNotificationList($this->notificationService->loadNotifications(0, $limit)->items),
+            'sidebarNotifications' => $this->renderNotifications($this->notificationService->loadNotifications(0, $limit)->items),
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
             'search_form' => $searchForm->createView(),
@@ -157,11 +157,13 @@ final class NotificationController extends Controller
     }
 
     /**
+     * Renders notifications from any iterable source or Pagerfanta page.
+     *
      * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $notifications
      *
      * @return string[]
      */
-    private function renderNotificationList(iterable $notifications): array
+    private function renderNotifications(iterable $notifications): array
     {
         $result = [];
         foreach ($notifications as $notification) {
@@ -174,20 +176,15 @@ final class NotificationController extends Controller
     }
 
     /**
+     * Renders current page of Pagerfanta notifications.
+     *
      * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $pagerfanta
      *
      * @return string[]
      */
-    private function renderNotifications(Pagerfanta $pagerfanta): array
+    private function renderNotificationsPage(Pagerfanta $pagerfanta): array
     {
-        $result = [];
-        foreach ($pagerfanta->getCurrentPageResults() as $notification) {
-            if ($this->registry->hasRenderer($notification->type)) {
-                $result[] = $this->registry->getRenderer($notification->type)->render($notification);
-            }
-        }
-
-        return $result;
+        return $this->renderNotifications($pagerfanta->getCurrentPageResults());
     }
 
     private function buildQuery(?SearchQueryData $data): NotificationQuery
