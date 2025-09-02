@@ -19,7 +19,7 @@
             <h2 class="ibexa-notifications-modal__empty-text">{{ 'notifications.list.empty'|trans|desc('You don\'t have any notifications.') }}</h2>
         </div>
         {% else %}
-            {% for notification in notifications %}
+            {% for notification in sidebarNotifications %}
                 {{ notification|raw }}
             {% endfor %}
         {% endif %}
