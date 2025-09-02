@@ -1,11 +1,13 @@
 .ibexa-notifications-modal {
     cursor: auto;
+
     &__footer {
         display: flex;
         justify-content: flex-end;
         padding: calculateRem(8px);
         background-color: $ibexa-color-white;
     }
+
     &__results {
         max-height: calc(100vh - #{calculateRem(200px)});
         overflow-y: auto;
@@ -47,6 +49,7 @@
     &__type {
         .type__icon {
             @include type-icon;
+
             margin-left: calculateRem(16px);
         }
 
@@ -58,7 +61,7 @@
     &__type-content {
         width: 100%;
         font-size: $ibexa-text-font-size-medium;
-        cursor: default;
+        cursor: pointer;
 
         p {
             margin-bottom: 0;

@@ -92,6 +92,7 @@
         const notificationsTable = panel.querySelector(SELECTOR_LIST);
         const notificationsTotal = notificationsInfo.total;
         const notificationsTotalOld = parseInt(notificationsTable.dataset.notificationsTotal, 10);
+
         markAllAsReadBtn.disabled = notificationsInfo.pending === 0;
 
         if (notificationsTotal !== notificationsTotalOld) {
@@ -157,6 +158,7 @@
                         {},
                         'ibexa_notifications',
                     );
+
                     menuInstance.closeMenu();
                     notification.classList.add('ibexa-notifications-modal__item--read');
                     currentTarget.classList.remove('ibexa-notifications-modal--mark-as-read');
