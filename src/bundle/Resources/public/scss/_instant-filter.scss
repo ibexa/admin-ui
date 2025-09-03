@@ -61,8 +61,6 @@
                     fill: $ibexa-color-black;
                     position: absolute;
                     left: calculateRem(20px);
-                    width: calculateRem(16px);
-                    height: calculateRem(16px);
                 }
 
                 &:hover {
@@ -82,7 +80,7 @@
             }
 
             &__group-item-label-icon {
-                height: calculateRem(16px);
+                height: calculateRem(20px);
             }
         }
     }
