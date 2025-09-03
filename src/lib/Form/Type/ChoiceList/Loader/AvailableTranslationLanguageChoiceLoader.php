@@ -11,20 +11,15 @@ namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
-class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
+final class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
 {
-    protected LanguageService $languageService;
-
-    /** @var string[] */
-    protected array $languageCodes;
-
     /**
      * @param string[] $languageCodes
      */
-    public function __construct(LanguageService $languageService, array $languageCodes)
-    {
-        $this->languageService = $languageService;
-        $this->languageCodes = $languageCodes;
+    public function __construct(
+        private readonly LanguageService $languageService,
+        private readonly array $languageCodes
+    ) {
     }
 
     /**
@@ -35,7 +30,8 @@ class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
         return array_filter(
             iterator_to_array($this->languageService->loadLanguages()),
             function (Language $language): bool {
-                return $language->enabled && !in_array($language->languageCode, $this->languageCodes, true);
+                return $language->isEnabled()
+                    && !in_array($language->getLanguageCode(), $this->languageCodes, true);
             }
         );
     }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -17,13 +18,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getSelectionChoices(): array
     {
         // 2: "Session" is not supported yet, see OwnerLimitationType
@@ -36,6 +37,9 @@ class OwnerLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function mapLimitationValue(Limitation $limitation): array
     {
         return [

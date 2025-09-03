@@ -18,23 +18,15 @@ use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class UserChoiceType extends AbstractType
 {
-    private Repository $repository;
-
-    /**
-     * UserGroupChoiceType constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     */
-    public function __construct(Repository $repository)
+    public function __construct(private readonly Repository $repository)
     {
-        $this->repository = $repository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -46,17 +38,12 @@ class UserChoiceType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
     /**
-     * Get users list.
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
      */
     protected function getUsers(): array
@@ -74,7 +61,7 @@ class UserChoiceType extends AbstractType
                 $results = $repository->getSearchService()->findContent($query);
                 foreach ($results->searchHits as $hit) {
                     $users[] = $repository->sudo(static function (Repository $repository) use ($hit): User {
-                        return $repository->getUserService()->loadUser($hit->valueObject->id);
+                        return $repository->getUserService()->loadUser($hit->valueObject->getId());
                     });
                 }
 

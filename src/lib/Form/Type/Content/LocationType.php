@@ -16,13 +16,13 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class LocationType extends AbstractType
 {
-    protected LocationService $locationService;
-
-    public function __construct(LocationService $locationService)
+    public function __construct(protected LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -41,7 +41,7 @@ class LocationType extends AbstractType
         $resolver->setAllowedTypes('multiple', 'boolean');
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

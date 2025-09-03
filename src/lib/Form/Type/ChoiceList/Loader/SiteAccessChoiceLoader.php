@@ -15,26 +15,14 @@ use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
-class SiteAccessChoiceLoader implements ChoiceLoaderInterface
+final readonly class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 {
-    private SiteaccessResolverInterface $nonAdminSiteAccessResolver;
-
-    private ?Location $location;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
-    private ?string $languageCode;
-
     public function __construct(
-        SiteaccessResolverInterface $nonAdminSiteAccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        ?Location $location = null,
-        ?string $languageCode = null
+        private SiteaccessResolverInterface $nonAdminSiteAccessResolver,
+        private SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
+        private ?Location $location = null,
+        private ?string $languageCode = null
     ) {
-        $this->nonAdminSiteAccessResolver = $nonAdminSiteAccessResolver;
-        $this->location = $location;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
-        $this->languageCode = $languageCode;
     }
 
     /**

@@ -14,20 +14,21 @@ use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData>
+ */
 class ContentTypeEditType extends AbstractType
 {
-    protected LanguageService $languageService;
-
     public function __construct(
-        LanguageService $languageService
+        protected readonly LanguageService $languageService
     ) {
-        $this->languageService = $languageService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

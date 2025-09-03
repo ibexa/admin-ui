@@ -15,24 +15,22 @@ use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\Content\VersionInfoType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData>
+ */
 class ContentEditType extends AbstractType
 {
-    protected LanguageService $languageService;
-
-    private LanguageChoiceLoader $languageChoiceLoader;
-
     public function __construct(
-        LanguageService $languageService,
-        LanguageChoiceLoader $languageChoiceLoader
+        protected readonly LanguageService $languageService,
+        private readonly LanguageChoiceLoader $languageChoiceLoader
     ) {
-        $this->languageService = $languageService;
-        $this->languageChoiceLoader = $languageChoiceLoader;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -81,6 +79,11 @@ class ContentEditType extends AbstractType
             ->setAllowedTypes('language_codes', ['bool', 'array']);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     *
+     * @return array<string, mixed>
+     */
     private function getLanguageOptions(array $options): array
     {
         $languageOptions = [

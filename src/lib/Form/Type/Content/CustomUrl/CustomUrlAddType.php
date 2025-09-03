@@ -27,35 +27,19 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CustomUrlAddType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class CustomUrlAddType extends AbstractType
 {
-    private LanguageService $languageService;
-
-    private AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener;
-
-    private BuildPathFromRootListener $buildPathFromRootListener;
-
-    private DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private SiteaccessResolverInterface $nonAdminSiteaccessResolver;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
     public function __construct(
-        LanguageService $languageService,
-        AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener,
-        BuildPathFromRootListener $buildPathFromRootListener,
-        DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
-        SiteaccessResolverInterface $nonAdminSiteaccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator
+        private readonly LanguageService $languageService,
+        private readonly AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener,
+        private readonly BuildPathFromRootListener $buildPathFromRootListener,
+        private readonly DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
+        private readonly SiteaccessResolverInterface $nonAdminSiteaccessResolver,
+        private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator
     ) {
-        $this->languageService = $languageService;
-        $this->addLanguageFieldBasedOnContentListener = $addLanguageFieldBasedOnContentListener;
-        $this->buildPathFromRootListener = $buildPathFromRootListener;
-        $this->checkboxIfRootLocationListener = $checkboxIfRootLocationListener;
-        $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

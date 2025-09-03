@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
@@ -11,7 +12,7 @@ use Ibexa\AdminUi\Limitation\Mapper\NullLimitationMapper;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use PHPUnit\Framework\TestCase;
 
-class NullLimitationMapperTest extends TestCase
+final class NullLimitationMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
     {
@@ -22,7 +23,7 @@ class NullLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]);
 
-        $mapper = new NullLimitationMapper(null);
+        $mapper = new NullLimitationMapper('foo_template.html.twig');
         $result = $mapper->mapLimitationValue($limitation);
 
         self::assertEquals($values, $result);

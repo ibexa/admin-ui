@@ -16,20 +16,15 @@ use Symfony\Component\Form\FormEvents;
 /**
  * Modifies CT editing form by rebuilding field definition list with custom options on given field type.
  */
-final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInterface
+final readonly class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInterface
 {
-    private string $fieldTypeIdentifier;
-
-    /** @var array<string, mixed> */
-    private array $modifiedOptions;
-
     /**
      * @param array<string, mixed> $modifiedOptions
      */
-    public function __construct(string $fieldTypeIdentifier, array $modifiedOptions)
-    {
-        $this->fieldTypeIdentifier = $fieldTypeIdentifier;
-        $this->modifiedOptions = $modifiedOptions;
+    public function __construct(
+        private string $fieldTypeIdentifier,
+        private array $modifiedOptions
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -50,7 +45,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
         }
 
         foreach ($data as $fieldTypeIdentifier => $fieldTypeData) {
-            if ($this->fieldTypeIdentifier !== $fieldTypeData->fieldDefinition->fieldTypeIdentifier) {
+            if ($this->fieldTypeIdentifier !== $fieldTypeData->getFieldTypeIdentifier()) {
                 continue;
             }
 

@@ -16,22 +16,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form Type allowing to select ContentType.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
 class ContentTypeChoiceType extends AbstractType
 {
-    protected ContentTypeService $contentTypeService;
-
-    private ContentTypeChoiceLoader $contentTypeChoiceLoader;
-
     public function __construct(
-        ContentTypeService $contentTypeService,
-        ContentTypeChoiceLoader $contentTypeChoiceLoader
+        protected readonly ContentTypeService $contentTypeService,
+        private readonly ContentTypeChoiceLoader $contentTypeChoiceLoader
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

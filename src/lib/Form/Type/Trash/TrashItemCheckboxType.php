@@ -16,19 +16,20 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrashItemCheckboxType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class TrashItemCheckboxType extends AbstractType
 {
-    /* @var TrashService */
-    private TrashService $trashService;
-
-    public function __construct(TrashService $trashService)
+    public function __construct(private readonly TrashService $trashService)
     {
-        $this->trashService = $trashService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new TrashItemTransformer($this->trashService));
+        $builder->addModelTransformer(
+            new TrashItemTransformer($this->trashService)
+        );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

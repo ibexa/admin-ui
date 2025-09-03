@@ -13,13 +13,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SectionChoiceType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class SectionChoiceType extends AbstractType
 {
-    private SectionService $sectionService;
-
-    public function __construct(SectionService $sectionService)
+    public function __construct(private readonly SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -31,7 +31,7 @@ class SectionChoiceType extends AbstractType
         ]);
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

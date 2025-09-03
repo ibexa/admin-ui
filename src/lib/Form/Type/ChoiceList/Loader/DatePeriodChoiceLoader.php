@@ -11,13 +11,10 @@ namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class DatePeriodChoiceLoader extends BaseChoiceLoader
+final class DatePeriodChoiceLoader extends BaseChoiceLoader
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     /**

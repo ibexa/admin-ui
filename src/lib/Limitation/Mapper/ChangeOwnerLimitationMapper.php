@@ -22,14 +22,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface, TranslationContainerInterface
 {
-    private TranslatorInterface $translator;
-
     private ?string $formTemplate = null;
 
     public function __construct(
-        TranslatorInterface $translator
+        private readonly TranslatorInterface $translator
     ) {
-        $this->translator = $translator;
     }
 
     /**
@@ -40,6 +37,9 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return $limitation->limitationValues;
     }
 
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
     public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $options = [
@@ -58,12 +58,8 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return $this->formTemplate;
     }
 
-    /**
-     * @return int[]
-     */
-    public function filterLimitationValues(Limitation $limitation): array
+    public function filterLimitationValues(Limitation $limitation): void
     {
-        return $limitation->limitationValues;
     }
 
     /**

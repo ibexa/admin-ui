@@ -16,14 +16,10 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
 {
-    private LanguageService $languageService;
-
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(LanguageService $languageService, ConfigResolverInterface $configResolver)
-    {
-        $this->languageService = $languageService;
-        $this->configResolver = $configResolver;
+    public function __construct(
+        private readonly LanguageService $languageService,
+        private readonly ConfigResolverInterface $configResolver
+    ) {
     }
 
     /**
@@ -80,7 +76,7 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
         $languagesAssoc = [];
 
         foreach ($languages as $language) {
-            $languagesAssoc[$language->languageCode] = $language;
+            $languagesAssoc[$language->getLanguageCode()] = $language;
         }
 
         $orderedLanguages = [];

@@ -14,16 +14,16 @@ use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState>
+ */
 class ObjectStateChoiceType extends AbstractType
 {
-    protected ObjectStateService $objectStateService;
-
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(protected readonly ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -36,7 +36,9 @@ class ObjectStateChoiceType extends AbstractType
                     $objectStates = [];
                     $objectStateGroups = $this->objectStateService->loadObjectStateGroups();
                     foreach ($objectStateGroups as $objectStateGroup) {
-                        $objectStates[$objectStateGroup->identifier] = $this->objectStateService->loadObjectStates($objectStateGroup);
+                        $objectStates[$objectStateGroup->identifier] = $this->objectStateService->loadObjectStates(
+                            $objectStateGroup
+                        );
                     }
 
                     return $objectStates;

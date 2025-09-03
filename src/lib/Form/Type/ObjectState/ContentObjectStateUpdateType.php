@@ -22,16 +22,15 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData>
+ */
 class ContentObjectStateUpdateType extends AbstractType
 {
-    protected ObjectStateService $objectStateService;
-
-    private PermissionResolver $permissionResolver;
-
-    public function __construct(ObjectStateService $objectStateService, PermissionResolver $permissionResolver)
-    {
-        $this->objectStateService = $objectStateService;
-        $this->permissionResolver = $permissionResolver;
+    public function __construct(
+        protected readonly ObjectStateService $objectStateService,
+        private readonly PermissionResolver $permissionResolver
+    ) {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -66,8 +65,13 @@ class ContentObjectStateUpdateType extends AbstractType
                     'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo): array {
                         return array_filter(
                             iterator_to_array($this->objectStateService->loadObjectStates($objectStateGroup)),
-                            function (ObjectState $objectState) use ($contentInfo) {
-                                return $this->permissionResolver->canUser('state', 'assign', $contentInfo, [$objectState]);
+                            function (ObjectState $objectState) use ($contentInfo): bool {
+                                return $this->permissionResolver->canUser(
+                                    'state',
+                                    'assign',
+                                    $contentInfo,
+                                    [$objectState]
+                                );
                             }
                         );
                     }),

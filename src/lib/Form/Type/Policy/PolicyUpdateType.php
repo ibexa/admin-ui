@@ -20,13 +20,13 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PolicyUpdateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData>
+ */
+final class PolicyUpdateType extends AbstractType
 {
-    private RoleService $roleService;
-
-    public function __construct(RoleService $roleService)
+    public function __construct(private readonly RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -46,7 +46,7 @@ class PolicyUpdateType extends AbstractType
                 SubmitType::class
             );
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $data = $event->getData();
             $form = $event->getForm();
 

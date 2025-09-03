@@ -18,11 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionType extends AbstractType
 {
-    protected SectionService $sectionService;
-
-    public function __construct(SectionService $sectionService)
+    public function __construct(protected readonly SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -41,7 +38,7 @@ class SectionType extends AbstractType
         $resolver->setAllowedTypes('multiple', 'boolean');
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

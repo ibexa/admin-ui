@@ -20,13 +20,13 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData>
+ */
 class PolicyCreateWithLimitationType extends AbstractType
 {
-    private RoleService $roleService;
-
-    public function __construct(RoleService $roleService)
+    public function __construct(private readonly RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -47,14 +47,22 @@ class PolicyCreateWithLimitationType extends AbstractType
                 ['label' => /** @Desc("Create") */ 'policy_create.save']
             );
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $data = $event->getData();
             $form = $event->getForm();
 
             if ($data instanceof PolicyCreateData) {
-                $availableLimitationTypes = $this->roleService->getLimitationTypesByModuleFunction(
-                    $data->getModule(),
-                    $data->getFunction()
+                $module = $data->getModule();
+                $function = $data->getFunction();
+                if ($module === null || $function === null) {
+                    return;
+                }
+
+                $availableLimitationTypes = iterator_to_array(
+                    $this->roleService->getLimitationTypesByModuleFunction(
+                        $module,
+                        $function
+                    )
                 );
 
                 $form->add('limitations', CollectionType::class, [

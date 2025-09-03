@@ -17,16 +17,10 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ContentTypeChoiceLoader implements ChoiceLoaderInterface
 {
-    protected ContentTypeService $contentTypeService;
-
-    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
-
     public function __construct(
-        ContentTypeService $contentTypeService,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+        protected ContentTypeService $contentTypeService,
+        private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
     }
 
     /**

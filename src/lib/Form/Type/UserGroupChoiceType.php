@@ -16,27 +16,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserGroupChoiceType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class UserGroupChoiceType extends AbstractType
 {
-    private Repository $repository;
-
-    private SearchService $searchService;
-
-    private UserService $userService;
-
     public function __construct(
-        Repository $repository,
-        SearchService $searchService,
-        UserService $userService
+        private readonly Repository $repository,
+        private readonly SearchService $searchService,
+        private readonly UserService $userService
     ) {
-        $this->repository = $repository;
-        $this->searchService = $searchService;
-        $this->userService = $userService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -50,10 +41,7 @@ class UserGroupChoiceType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

@@ -28,7 +28,10 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
         // UDW returns an array of location IDs. If we haven't used UDW, the value is as stored: an array of path strings.
         foreach ($limitation->limitationValues as $key => $limitationValue) {
             if (preg_match('/\A\d+\z/', (string)$limitationValue) === 1) {
-                $limitation->limitationValues[$key] = $this->locationService->loadLocation($limitationValue)->pathString;
+                $limitation->limitationValues[$key] = $this
+                    ->locationService
+                    ->loadLocation($limitationValue)
+                    ->getPathString();
             }
         }
     }

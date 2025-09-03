@@ -14,21 +14,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class UserGroupCollectionType extends AbstractType
 {
-    protected UserService $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(protected readonly UserService $userService)
     {
-        $this->userService = $userService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addViewTransformer(new UserGroupCollectionTransformer($this->userService));
+        $builder->addViewTransformer(
+            new UserGroupCollectionTransformer($this->userService)
+        );
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }

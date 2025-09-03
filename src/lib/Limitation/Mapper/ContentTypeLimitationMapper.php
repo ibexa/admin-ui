@@ -22,11 +22,8 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
 {
     use LoggerAwareTrait;
 
-    private ContentTypeService $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
         $this->logger = new NullLogger();
     }
 

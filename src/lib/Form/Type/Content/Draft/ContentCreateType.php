@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Content\Draft;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader;
+use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
@@ -19,40 +20,27 @@ use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData>
+ */
 class ContentCreateType extends AbstractType
 {
-    protected LanguageService $languageService;
-
-    private ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader;
-
-    private ChoiceLoaderInterface $languageChoiceLoader;
-
-    private LookupLimitationsTransformer $lookupLimitationsTransformer;
-
-    private LimitationResolverInterface $limitationResolver;
-
     public function __construct(
-        LanguageService $languageService,
-        ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
-        ChoiceLoaderInterface $languageChoiceLoader,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        LimitationResolverInterface $limitationResolver
+        protected readonly LanguageService $languageService,
+        private readonly ContentCreateContentTypeChoiceLoader $contentCreateContentTypeChoiceLoader,
+        private readonly LanguageChoiceLoader $languageChoiceLoader,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly LimitationResolverInterface $limitationResolver
     ) {
-        $this->languageService = $languageService;
-        $this->contentCreateContentTypeChoiceLoader = $contentCreateContentTypeChoiceLoader;
-        $this->languageChoiceLoader = $languageChoiceLoader;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->limitationResolver = $limitationResolver;
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -95,7 +83,10 @@ class ContentCreateType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new ContentCreateLanguageChoiceLoader($this->languageChoiceLoader, $restrictedLanguageCodes),
+                    'choice_loader' => new ContentCreateLanguageChoiceLoader(
+                        $this->languageChoiceLoader,
+                        $restrictedLanguageCodes
+                    ),
                 ]
             )
             ->add(
@@ -118,10 +109,11 @@ class ContentCreateType extends AbstractType
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     *
+     * @return array<string, array<int|string>>
      */
     private function getLimitationValuesForLocation(Location $location): array
     {

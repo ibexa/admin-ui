@@ -41,6 +41,7 @@ readonly class SubmitHandler implements UserActionsSubmitHandler
      * Handles form errors (NotificationHandler:warning).
      * Handles business logic exceptions (NotificationHandler:error).
      *
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      * @param callable $handler
      */
     public function handle(FormInterface $form, callable $handler): ?Response
@@ -116,7 +117,7 @@ readonly class SubmitHandler implements UserActionsSubmitHandler
             }
         } else {
             $errors = [];
-            foreach ($form->getErrors(true, true) as $formError) {
+            foreach ($form->getErrors(true) as $formError) {
                 $errors[] = $formError->getMessage();
             }
 

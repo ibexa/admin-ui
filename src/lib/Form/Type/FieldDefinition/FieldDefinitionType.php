@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\FieldDefinition;
 
@@ -29,32 +30,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for FieldDefinition update.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\FieldDefinitionData>
  */
 class FieldDefinitionType extends AbstractType
 {
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
-
-    private FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher;
-
-    private FieldTypeService $fieldTypeService;
-
     private ?FieldsGroupsList $groupsList = null;
 
-    private ThumbnailStrategy $thumbnailStrategy;
-
     public function __construct(
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
-        FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher,
-        FieldTypeService $fieldTypeService,
-        ThumbnailStrategy $thumbnailStrategy
+        private readonly ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        private readonly FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher,
+        private readonly FieldTypeService $fieldTypeService,
+        private readonly ThumbnailStrategy $thumbnailStrategy
     ) {
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
-        $this->fieldTypeMapperDispatcher = $fieldTypeMapperDispatcher;
-        $this->fieldTypeService = $fieldTypeService;
-        $this->thumbnailStrategy = $thumbnailStrategy;
     }
 
-    public function setGroupsList(FieldsGroupsList $groupsList): void
+    public function setGroupsList(?FieldsGroupsList $groupsList): void
     {
         $this->groupsList = $groupsList;
     }
@@ -136,6 +127,7 @@ class FieldDefinitionType extends AbstractType
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
             $fieldType = $this->fieldTypeService->getFieldType($fieldTypeIdentifier);
             $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
+
             if (
                 in_array(
                     $fieldTypeIdentifier,

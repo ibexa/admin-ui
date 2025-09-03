@@ -11,12 +11,16 @@ namespace Ibexa\AdminUi\Form\Type\Content\Location;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData;
 use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentLocationAddType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData>
+ */
+final class ContentLocationAddType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

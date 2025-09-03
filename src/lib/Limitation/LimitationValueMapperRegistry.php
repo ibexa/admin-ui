@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation;
 
@@ -12,29 +13,24 @@ use Ibexa\AdminUi\Exception\ValueMapperNotFoundException;
 /**
  * Registry for Limitation value mappers.
  */
-class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInterface
+final class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInterface
 {
     /**
-     * @var LimitationValueMapperInterface[]
+     * @param array<string, \Ibexa\AdminUi\Limitation\LimitationValueMapperInterface> $limitationValueMappers
      */
-    private array $limitationValueMappers;
-
-    /**
-     * LimitationValueMapperRegistry constructor.
-     *
-     * @param LimitationValueMapperInterface[] $limitationValueMappers
-     */
-    public function __construct(array $limitationValueMappers = [])
+    public function __construct(private array $limitationValueMappers = [])
     {
-        $this->limitationValueMappers = $limitationValueMappers;
     }
 
-    public function getMappers()
+    /**
+     * @return array<string, \Ibexa\AdminUi\Limitation\LimitationValueMapperInterface>
+     */
+    public function getMappers(): array
     {
         return $this->limitationValueMappers;
     }
 
-    public function getMapper($limitationType)
+    public function getMapper(string $limitationType): LimitationValueMapperInterface
     {
         if (!$this->hasMapper($limitationType)) {
             throw new ValueMapperNotFoundException($limitationType);
@@ -43,12 +39,12 @@ class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInte
         return $this->limitationValueMappers[$limitationType];
     }
 
-    public function hasMapper($limitationType): bool
+    public function hasMapper(string $limitationType): bool
     {
         return isset($this->limitationValueMappers[$limitationType]);
     }
 
-    public function addMapper(LimitationValueMapperInterface $mapper, $limitationType): void
+    public function addMapper(LimitationValueMapperInterface $mapper, string $limitationType): void
     {
         $this->limitationValueMappers[$limitationType] = $mapper;
     }
