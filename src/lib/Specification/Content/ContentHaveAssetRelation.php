@@ -14,32 +14,28 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class ContentHaveAssetRelation extends AbstractSpecification
+final class ContentHaveAssetRelation extends AbstractSpecification
 {
-    private ContentService $contentService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
-    public function __construct(ContentService $contentService)
+    public function __construct(private readonly ContentService $contentService)
     {
-        $this->contentService = $contentService;
     }
 
     /**
-     * @param $item
-     *
-     * @return bool
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         if (!$item instanceof Content) {
-            throw new InvalidArgumentException($item, sprintf('Must be an instance of %s', Content::class));
+            throw new InvalidArgumentException(
+                $item,
+                sprintf('Must be an instance of %s', Content::class)
+            );
         }
 
-        return $this->contentService->countRelations($item->versionInfo, RelationType::ASSET) > 0;
+        return $this->contentService->countRelations(
+            $item->getVersionInfo(),
+            RelationType::ASSET
+        ) > 0;
     }
 }

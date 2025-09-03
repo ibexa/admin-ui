@@ -17,20 +17,18 @@ use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
 final class LookupLimitationsTransformer
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult $lookupLimitations
-     *
-     * @return array
+     * @return array<mixed>
      */
     public function getFlattenedLimitationsValues(LookupLimitationResult $lookupLimitations): array
     {
         $limitationsValues = [];
 
-        foreach ($lookupLimitations->roleLimitations as $roleLimitation) {
+        foreach ($lookupLimitations->getRoleLimitations() as $roleLimitation) {
             $limitationsValues[] = $roleLimitation->limitationValues;
         }
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\LookupPolicyLimitations $lookupPolicyLimitation */
-        foreach ($lookupLimitations->lookupPolicyLimitations as $lookupPolicyLimitation) {
+        foreach ($lookupLimitations->getLookupPolicyLimitations() as $lookupPolicyLimitation) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation */
             foreach ($lookupPolicyLimitation->limitations as $limitation) {
                 $limitationsValues[] = $limitation->limitationValues;
@@ -41,10 +39,9 @@ final class LookupLimitationsTransformer
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult $lookupLimitations
      * @param string[] $limitationsIdentifiers
      *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
@@ -61,16 +58,16 @@ final class LookupLimitationsTransformer
             $groupedLimitationsValues[$limitationsIdentifier] = [];
         }
 
-        foreach ($lookupLimitations->roleLimitations as $roleLimitation) {
-            if (\in_array($roleLimitation->getIdentifier(), $limitationsIdentifiers, true)) {
+        foreach ($lookupLimitations->getRoleLimitations() as $roleLimitation) {
+            if (in_array($roleLimitation->getIdentifier(), $limitationsIdentifiers, true)) {
                 $groupedLimitationsValues[$roleLimitation->getIdentifier()][] = $roleLimitation->limitationValues;
             }
         }
 
-        foreach ($lookupLimitations->lookupPolicyLimitations as $lookupPolicyLimitation) {
+        foreach ($lookupLimitations->getLookupPolicyLimitations() as $lookupPolicyLimitation) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation */
             foreach ($lookupPolicyLimitation->limitations as $limitation) {
-                if (\in_array($limitation->getIdentifier(), $limitationsIdentifiers, true)) {
+                if (in_array($limitation->getIdentifier(), $limitationsIdentifiers, true)) {
                     $groupedLimitationsValues[$limitation->getIdentifier()][] = $limitation->limitationValues;
                 }
             }

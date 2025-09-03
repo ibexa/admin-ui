@@ -12,43 +12,27 @@ use Ibexa\AdminUi\Exception\NoValidResultException;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
-class NotificationTwigStrategy
+final class NotificationTwigStrategy
 {
-    private Repository $repository;
-
-    private ContentService $contentService;
-
     private ?string $defaultTemplate = null;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
     public function __construct(
-        Repository $repository,
-        ContentService $contentService
+        private readonly Repository $repository,
+        private readonly ContentService $contentService
     ) {
-        $this->repository = $repository;
-        $this->contentService = $contentService;
     }
 
-    /**
-     * @param string $defaultTemplate
-     */
     public function setDefault(string $defaultTemplate): void
     {
         $this->defaultTemplate = $defaultTemplate;
     }
 
     /**
-     * @param mixed $contentId
-     *
-     * @return string
-     *
      * @throws \Ibexa\AdminUi\Exception\NoValidResultException
      */
-    public function decide($contentId): string
+    public function decide(mixed $contentId): string
     {
         $contentId = (int)$contentId;
 
@@ -70,7 +54,7 @@ class NotificationTwigStrategy
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         try {
             $this->repository->sudo(
-                function () use ($contentId) {
+                function () use ($contentId): ContentInfo {
                     return $this->contentService->loadContentInfo($contentId);
                 }
             );
@@ -85,7 +69,7 @@ class NotificationTwigStrategy
     {
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         $contentInfo = $this->repository->sudo(
-            function () use ($contentId) {
+            function () use ($contentId): ContentInfo {
                 return $this->contentService->loadContentInfo($contentId);
             }
         );

@@ -13,25 +13,18 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class LocationHasChildrenValidator extends ConstraintValidator
+final class LocationHasChildrenValidator extends ConstraintValidator
 {
-    private LocationService $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
+    public function __construct(private readonly LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint): void
+    public function validate(mixed $location, Constraint $constraint): void
     {
         if (null === $location) {
             $this->context->addViolation($constraint->message);

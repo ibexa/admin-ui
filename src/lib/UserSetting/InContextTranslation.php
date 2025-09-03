@@ -16,17 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class InContextTranslation implements ValueDefinitionInterface, FormMapperInterface
+final readonly class InContextTranslation implements ValueDefinitionInterface, FormMapperInterface
 {
-    public const ENABLED_OPTION = 'enabled';
-    public const DISABLED_OPTION = 'disabled';
-
-    private TranslatorInterface $translator;
+    public const string ENABLED_OPTION = 'enabled';
+    public const string DISABLED_OPTION = 'disabled';
 
     public function __construct(
-        TranslatorInterface $translator
+        private TranslatorInterface $translator
     ) {
-        $this->translator = $translator;
     }
 
     public function getName(): string

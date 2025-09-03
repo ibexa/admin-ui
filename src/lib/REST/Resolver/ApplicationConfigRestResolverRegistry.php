@@ -11,17 +11,13 @@ namespace Ibexa\AdminUi\REST\Resolver;
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface;
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverRegistryInterface;
 
-final class ApplicationConfigRestResolverRegistry implements ApplicationConfigRestResolverRegistryInterface
+final readonly class ApplicationConfigRestResolverRegistry implements ApplicationConfigRestResolverRegistryInterface
 {
-    /** @var iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface> */
-    private iterable $resolvers;
-
     /**
      * @param iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface> $resolvers
      */
-    public function __construct(iterable $resolvers)
+    public function __construct(private iterable $resolvers)
     {
-        $this->resolvers = $resolvers;
     }
 
     public function hasResolver(

@@ -12,27 +12,34 @@ use Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface;
 use Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface;
 use Symfony\Component\EventDispatcher as SymfonyEventDispatcher;
 
-class EventDispatcher implements EventDispatcherInterface
+readonly class EventDispatcher implements EventDispatcherInterface
 {
-    protected SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher;
-
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
-    public function __construct(SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher)
+    public function __construct(protected SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
     }
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface $event
-     */
     public function dispatch(UiActionEventInterface $event): void
     {
         $action = $event->getName();
 
-        $this->eventDispatcher->dispatch($event, EventDispatcherInterface::EVENT_NAME_PREFIX);
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', EventDispatcherInterface::EVENT_NAME_PREFIX, $action));
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s.%s', EventDispatcherInterface::EVENT_NAME_PREFIX, $action, $event->getType()));
+        $this->eventDispatcher->dispatch(
+            $event,
+            EventDispatcherInterface::EVENT_NAME_PREFIX
+        );
+
+        $this->eventDispatcher->dispatch(
+            $event,
+            sprintf('%s.%s', EventDispatcherInterface::EVENT_NAME_PREFIX, $action)
+        );
+
+        $this->eventDispatcher->dispatch(
+            $event,
+            sprintf(
+                '%s.%s.%s',
+                EventDispatcherInterface::EVENT_NAME_PREFIX,
+                $action,
+                $event->getType()
+            )
+        );
     }
 }

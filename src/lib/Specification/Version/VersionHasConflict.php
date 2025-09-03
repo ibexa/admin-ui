@@ -11,37 +11,23 @@ namespace Ibexa\AdminUi\Specification\Version;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class VersionHasConflict extends AbstractSpecification
+final class VersionHasConflict extends AbstractSpecification
 {
-    private ContentService $contentService;
-
-    private string $languageCode;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param string $languageCode
-     */
-    public function __construct(ContentService $contentService, string $languageCode)
-    {
-        $this->contentService = $contentService;
-        $this->languageCode = $languageCode;
+    public function __construct(
+        private readonly ContentService $contentService,
+        private readonly string $languageCode
+    ) {
     }
 
     /**
-     * Checks if $content has version conflict.
-     *
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     *
-     * @return bool
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function isSatisfiedBy($versionInfo): bool
+    public function isSatisfiedBy(mixed $versionInfo): bool
     {
         $versions = $this->contentService->loadVersions($versionInfo->getContentInfo());
 
         foreach ($versions as $checkedVersionInfo) {
-            if ($checkedVersionInfo->versionNo > $versionInfo->versionNo
+            if ($checkedVersionInfo->getVersionNo() > $versionInfo->getVersionNo()
                 && $checkedVersionInfo->isPublished()
                 && $checkedVersionInfo->initialLanguageCode === $this->languageCode
             ) {

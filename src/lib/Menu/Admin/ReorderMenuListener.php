@@ -12,19 +12,17 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Menu\MainMenuBuilder;
 use Knp\Menu\Util\MenuManipulator;
 
-class ReorderMenuListener
+final readonly class ReorderMenuListener
 {
-    /**
-     * @param \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent $event
-     */
     public function moveAdminToLast(ConfigureMenuEvent $event): void
     {
         $menu = $event->getMenu();
-
-        if (!$menu->getChild(MainMenuBuilder::ITEM_ADMIN)) {
+        $adminChild = $menu->getChild(MainMenuBuilder::ITEM_ADMIN);
+        if (!$adminChild) {
             return;
         }
+
         $manipulator = new MenuManipulator();
-        $manipulator->moveToLastPosition($menu[MainMenuBuilder::ITEM_ADMIN]);
+        $manipulator->moveToLastPosition($adminChild);
     }
 }

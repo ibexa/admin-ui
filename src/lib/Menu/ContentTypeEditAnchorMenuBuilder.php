@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
@@ -20,21 +21,17 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__GLOBAL_PROPERTIES = 'content_type_edit__anchor_menu__global_properties';
-    public const ITEM__FIELD_DEFINITIONS = 'content_type_edit__anchor_menu__field_definitions';
+    public const string ITEM__GLOBAL_PROPERTIES = 'content_type_edit__anchor_menu__global_properties';
+    public const string ITEM__FIELD_DEFINITIONS = 'content_type_edit__anchor_menu__field_definitions';
 
-    private const ITEM_ORDER_SPAN = 10;
-
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+    private const int ITEM_ORDER_SPAN = 10;
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver
+        private readonly ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
     }
 
     protected function getConfigureEventName(): string
@@ -90,16 +87,15 @@ final class ContentTypeEditAnchorMenuBuilder extends AbstractBuilder implements 
     private function getMetaFieldItems(ContentTypeDraft $contentType): array
     {
         $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
-
         $items = [];
 
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
-            if (!in_array($fieldDefinition->fieldTypeIdentifier, $metaFieldTypeIdentifiers, true)) {
+            if (!in_array($fieldDefinition->getFieldTypeIdentifier(), $metaFieldTypeIdentifiers, true)) {
                 continue;
             }
 
-            $fieldDefIdentifier = $fieldDefinition->identifier;
-            $order = $fieldDefinition->position + self::ITEM_ORDER_SPAN;
+            $fieldDefIdentifier = $fieldDefinition->getIdentifier();
+            $order = $fieldDefinition->getPosition() + self::ITEM_ORDER_SPAN;
             $items[$fieldDefIdentifier] = $this->createMetaMenuItem($fieldDefIdentifier, $fieldDefinition, $order);
         }
 

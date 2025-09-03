@@ -20,9 +20,9 @@ use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class PermissionCheckerTest extends TestCase
+final class PermissionCheckerTest extends TestCase
 {
-    private const USER_ID = 14;
+    private const int USER_ID = 14;
 
     private PermissionResolver&MockObject $permissionResolver;
 
@@ -46,6 +46,9 @@ class PermissionCheckerTest extends TestCase
     }
 
     /**
+     * @param array<array{limitation: ?Limitation, policies: Policy[]}> $hasAccess
+     * @param array<int> $expectedRestrictions
+     *
      * @dataProvider restrictionsProvider
      */
     public function testGetRestrictions(array $hasAccess, string $class, array $expectedRestrictions): void
@@ -55,6 +58,9 @@ class PermissionCheckerTest extends TestCase
         self::assertEquals($expectedRestrictions, $actual);
     }
 
+    /**
+     * @return array<string, array{0: array<array{limitation: ?Limitation, policies: Policy[]}>, 1: string, 2: array<int>}>
+     */
     public function restrictionsProvider(): array
     {
         return [
@@ -172,8 +178,6 @@ class PermissionCheckerTest extends TestCase
     }
 
     /**
-     * @param int $id
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     private function generateUser(int $id): User

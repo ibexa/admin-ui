@@ -14,23 +14,22 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 final class IsFocusModeEnabled extends AbstractSpecification
 {
-    private string $enabled;
-
-    public function __construct(string $enabled)
+    public function __construct(private readonly string $enabled)
     {
-        $this->enabled = $enabled;
     }
 
     /**
      * @param string $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         return $this->enabled === $item;
     }
 
     public static function fromUserSettings(UserSettingService $userService): self
     {
-        return new self($userService->getUserSetting(FocusMode::IDENTIFIER)->value);
+        return new self(
+            $userService->getUserSetting(FocusMode::IDENTIFIER)->getValue()
+        );
     }
 }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data\FormMapper;
 
@@ -24,6 +25,7 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinitionCollection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -33,21 +35,17 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 final class ContentTypeDraftMapperTest extends TestCase
 {
-    private const TAB_FIELD_DEF_IDENTIFIER = 'ibexa_string';
+    private const string TAB_FIELD_DEF_IDENTIFIER = 'ibexa_string';
 
     private FormDataMapperInterface $contentTypeDraftMapper;
 
-    /** @var \Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
+    private ContentTypeFieldTypesResolverInterface&MockObject $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
-    private ContentTypeService $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private EventDispatcherInterface $eventDispatcher;
+    private EventDispatcherInterface&MockObject $eventDispatcher;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList|\PHPUnit\Framework\MockObject\MockObject */
-    private FieldsGroupsList $fieldsGroupsList;
+    private FieldsGroupsList&MockObject $fieldsGroupsList;
 
     protected function setUp(): void
     {
@@ -206,6 +204,9 @@ final class ContentTypeDraftMapperTest extends TestCase
         ]);
     }
 
+    /**
+     * @return \Ibexa\AdminUi\Form\Data\FieldDefinitionData[]
+     */
     private function createFieldDefinitionsData(
         FieldDefinitionCollectionInterface $fieldDefinitionCollection,
         ContentTypeData $contentTypeData
@@ -231,18 +232,18 @@ final class ContentTypeDraftMapperTest extends TestCase
             'enabled' => $enabled,
             'fieldDefinition' => $fieldDefinition,
             'contentTypeData' => $contentTypeData,
-            'identifier' => $fieldDefinition->identifier,
+            'identifier' => $fieldDefinition->getIdentifier(),
             'names' => $fieldDefinition->getNames(),
             'descriptions' => $fieldDefinition->getDescriptions(),
-            'fieldGroup' => $fieldDefinition->fieldGroup,
-            'position' => $fieldDefinition->position,
-            'isTranslatable' => $fieldDefinition->isTranslatable,
-            'isRequired' => $fieldDefinition->isRequired,
-            'isInfoCollector' => $fieldDefinition->isInfoCollector,
-            'validatorConfiguration' => $fieldDefinition->validatorConfiguration,
-            'fieldSettings' => $fieldDefinition->fieldSettings,
-            'defaultValue' => $fieldDefinition->defaultValue,
-            'isSearchable' => $fieldDefinition->isSearchable,
+            'fieldGroup' => $fieldDefinition->getFieldGroup(),
+            'position' => $fieldDefinition->getPosition(),
+            'isTranslatable' => $fieldDefinition->isTranslatable(),
+            'isRequired' => $fieldDefinition->isRequired(),
+            'isInfoCollector' => $fieldDefinition->isInfoCollector(),
+            'validatorConfiguration' => $fieldDefinition->getValidatorConfiguration(),
+            'fieldSettings' => $fieldDefinition->getFieldSettings(),
+            'defaultValue' => $fieldDefinition->getDefaultValue(),
+            'isSearchable' => $fieldDefinition->isSearchable(),
         ]);
     }
 
@@ -296,18 +297,18 @@ final class ContentTypeDraftMapperTest extends TestCase
                     $fieldDefinitionData = $event->getFieldDefinitionData();
                     $fieldDefinition = $event->getFieldDefinition();
 
-                    $fieldDefinitionData->identifier = $fieldDefinition->identifier;
+                    $fieldDefinitionData->identifier = $fieldDefinition->getIdentifier();
                     $fieldDefinitionData->names = $fieldDefinition->getNames();
                     $fieldDefinitionData->descriptions = $fieldDefinition->getDescriptions();
-                    $fieldDefinitionData->fieldGroup = $fieldDefinition->fieldGroup;
-                    $fieldDefinitionData->position = $fieldDefinition->position;
-                    $fieldDefinitionData->isTranslatable = $fieldDefinition->isTranslatable;
-                    $fieldDefinitionData->isRequired = $fieldDefinition->isRequired;
-                    $fieldDefinitionData->isInfoCollector = $fieldDefinition->isInfoCollector;
+                    $fieldDefinitionData->fieldGroup = $fieldDefinition->getFieldGroup();
+                    $fieldDefinitionData->position = $fieldDefinition->getPosition();
+                    $fieldDefinitionData->isTranslatable = $fieldDefinition->isTranslatable();
+                    $fieldDefinitionData->isRequired = $fieldDefinition->isRequired();
+                    $fieldDefinitionData->isInfoCollector = $fieldDefinition->isInfoCollector();
                     $fieldDefinitionData->validatorConfiguration = $fieldDefinition->getValidatorConfiguration();
                     $fieldDefinitionData->fieldSettings = $fieldDefinition->getFieldSettings();
-                    $fieldDefinitionData->defaultValue = $fieldDefinition->defaultValue;
-                    $fieldDefinitionData->isSearchable = $fieldDefinition->isSearchable;
+                    $fieldDefinitionData->defaultValue = $fieldDefinition->getDefaultValue();
+                    $fieldDefinitionData->isSearchable = $fieldDefinition->isSearchable();
 
                     $event->setFieldDefinitionData($fieldDefinitionData);
 

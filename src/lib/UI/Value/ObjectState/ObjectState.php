@@ -16,19 +16,15 @@ use Ibexa\Core\Repository\Values\ObjectState\ObjectState as CoreObjectState;
  */
 class ObjectState extends CoreObjectState
 {
-    /**
-     * User can assign.
-     *
-     * @var bool
-     */
-    protected $userCanAssign;
+    protected bool $userCanAssign;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function __construct(APIObjectState $objectState, array $properties = [])
-    {
+    public function __construct(
+        readonly APIObjectState $objectState,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($objectState) + $properties);
     }
 }

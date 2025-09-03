@@ -12,10 +12,6 @@ interface SiteaccessPreviewVoterInterface
 {
     /**
      * Votes whether the Content item can be previewed in given siteaccess.
-     *
-     * @param \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext $context
-     *
-     * @return bool
      */
     public function vote(SiteaccessPreviewVoterContext $context): bool;
 }

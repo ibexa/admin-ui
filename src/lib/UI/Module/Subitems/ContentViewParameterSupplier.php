@@ -23,7 +23,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\Query\QueryFactoryInterface;
-use Ibexa\Rest\Output\Generator\Json;
 use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
 use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
 use Ibexa\Rest\Server\Values\ContentTypeInfoList;
@@ -34,58 +33,22 @@ use Ibexa\User\UserSetting\UserSettingService;
 /**
  * @internal
  */
-class ContentViewParameterSupplier
+final readonly class ContentViewParameterSupplier
 {
-    private Visitor $outputVisitor;
-
-    private Json $outputGenerator;
-
-    private ContentTypeInfoListValueObjectVisitor $contentTypeInfoListValueObjectVisitor;
-
-    private SubitemsListValueObjectVisitor $subitemsListValueObjectVisitor;
-
-    private LocationService $locationService;
-
-    private ContentService $contentService;
-
-    private ContentTypeService $contentTypeService;
-
-    private PermissionResolver $permissionResolver;
-
-    private ContentTypeMappings $contentTypeMappings;
-
-    private UserSettingService $userSettingService;
-
-    private QueryFactoryInterface $queryFactory;
-
-    private SearchService $searchService;
-
     public function __construct(
-        Visitor $outputVisitor,
-        JsonOutputGenerator $outputGenerator,
-        ContentTypeInfoListValueObjectVisitor $contentTypeInfoListValueObjectVisitor,
-        SubitemsListValueObjectVisitor $subitemsListValueObjectVisitor,
-        LocationService $locationService,
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        PermissionResolver $permissionResolver,
-        ContentTypeMappings $contentTypeMappings,
-        UserSettingService $userSettingService,
-        QueryFactoryInterface $queryFactory,
-        SearchService $searchService
+        private Visitor $outputVisitor,
+        private JsonOutputGenerator $outputGenerator,
+        private ContentTypeInfoListValueObjectVisitor $contentTypeInfoListValueObjectVisitor,
+        private SubitemsListValueObjectVisitor $subitemsListValueObjectVisitor,
+        private LocationService $locationService,
+        private ContentService $contentService,
+        private ContentTypeService $contentTypeService,
+        private PermissionResolver $permissionResolver,
+        private ContentTypeMappings $contentTypeMappings,
+        private UserSettingService $userSettingService,
+        private QueryFactoryInterface $queryFactory,
+        private SearchService $searchService
     ) {
-        $this->outputVisitor = $outputVisitor;
-        $this->outputGenerator = $outputGenerator;
-        $this->contentTypeInfoListValueObjectVisitor = $contentTypeInfoListValueObjectVisitor;
-        $this->subitemsListValueObjectVisitor = $subitemsListValueObjectVisitor;
-        $this->locationService = $locationService;
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->permissionResolver = $permissionResolver;
-        $this->contentTypeMappings = $contentTypeMappings;
-        $this->userSettingService = $userSettingService;
-        $this->queryFactory = $queryFactory;
-        $this->searchService = $searchService;
     }
 
     /**
@@ -96,8 +59,6 @@ class ContentViewParameterSupplier
      * This is not so elegant but to preload data in Subitems module
      * we are using the same data structure it would use while
      * fetching data from the REST.
-     *
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -110,7 +71,7 @@ class ContentViewParameterSupplier
         $contentTypes = [];
         $subitemsRows = [];
         $location = $view->getLocation();
-        $subitemsLimit = (int)$this->userSettingService->getUserSetting('subitems_limit')->value;
+        $subitemsLimit = (int)$this->userSettingService->getUserSetting('subitems_limit')->getValue();
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $locationChildrenQuery */
         $locationChildrenQuery = $this->queryFactory->create('Children', ['location' => $location]);
@@ -123,8 +84,8 @@ class ContentViewParameterSupplier
             $locationChild = $searchHit->valueObject;
             $contentType = $locationChild->getContent()->getContentType();
 
-            if (!isset($contentTypes[$contentType->identifier])) {
-                $contentTypes[$contentType->identifier] = $contentType;
+            if (!isset($contentTypes[$contentType->getIdentifier()])) {
+                $contentTypes[$contentType->getIdentifier()] = $contentType;
             }
 
             $subitemsRows[] = $this->createSubitemsRow($locationChild, $contentType);
@@ -140,20 +101,13 @@ class ContentViewParameterSupplier
             'subitems_module' => [
                 'items' => $subitemsListJson,
                 'content_type_info_list' => $contentTypeInfoListJson,
-                'content_create_permissions_for_mfu' => $this->getContentCreatePermissionsForMFU($view->getLocation(), $view->getContent()),
+                'content_create_permissions_for_mfu' => $location === null
+                    ? []
+                    : $this->getContentCreatePermissionsForMFU($location, $view->getContent()),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Ibexa\Rest\Server\Values\RestContent
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
     private function createRestContent(
         Location $location,
         ContentType $contentType
@@ -167,11 +121,6 @@ class ContentViewParameterSupplier
         );
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Ibexa\Rest\Server\Values\RestLocation
-     */
     private function createRestLocation(Location $location): RestLocation
     {
         return new RestLocation(
@@ -180,15 +129,6 @@ class ContentViewParameterSupplier
         );
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
     private function createSubitemsRow(
         Location $location,
         ContentType $contentType
@@ -199,39 +139,34 @@ class ContentViewParameterSupplier
         return new SubitemsRow($restLocation, $restContent);
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $subitemsList
-     *
-     * @return string
-     */
     private function visitSubitemsList(SubitemsList $subitemsList): string
     {
         $this->outputGenerator->reset();
         $this->outputGenerator->startDocument($subitemsList);
-        $this->subitemsListValueObjectVisitor->visit($this->outputVisitor, $this->outputGenerator, $subitemsList);
+        $this->subitemsListValueObjectVisitor->visit(
+            $this->outputVisitor,
+            $this->outputGenerator,
+            $subitemsList
+        );
 
         return $this->outputGenerator->endDocument($subitemsList);
     }
 
-    /**
-     * @param \Ibexa\Rest\Server\Values\ContentTypeInfoList $contentTypeInfoList
-     *
-     * @return string
-     */
     private function visitContentTypeInfoList(ContentTypeInfoList $contentTypeInfoList): string
     {
         $this->outputGenerator->reset();
         $this->outputGenerator->startDocument($contentTypeInfoList);
-        $this->contentTypeInfoListValueObjectVisitor->visit($this->outputVisitor, $this->outputGenerator, $contentTypeInfoList);
+        $this->contentTypeInfoListValueObjectVisitor->visit(
+            $this->outputVisitor,
+            $this->outputGenerator,
+            $contentTypeInfoList
+        );
 
         return $this->outputGenerator->endDocument($contentTypeInfoList);
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     *
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -251,13 +186,22 @@ class ContentViewParameterSupplier
                 $createPermissionsInMfu[$contentTypeIdentifier] = $hasAccess;
             }
         } else {
-            $locationCreateStruct = $this->locationService->newLocationCreateStruct($location->id);
+            $locationCreateStruct = $this->locationService->newLocationCreateStruct($location->getId());
             foreach ($contentTypeIdentifiers as $contentTypeIdentifier) {
                 // TODO: Change to `contentTypeService->loadContentTypeList($restrictedContentTypesIds)` after #2444 will be merged
                 $contentType = $this->contentTypeService->loadContentTypeByIdentifier($contentTypeIdentifier);
-                $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $content->versionInfo->initialLanguageCode);
-                $contentCreateStruct->sectionId = $location->contentInfo->sectionId;
-                $createPermissionsInMfu[$contentTypeIdentifier] = $this->permissionResolver->canUser('content', 'create', $contentCreateStruct, [$locationCreateStruct]);
+                $contentCreateStruct = $this->contentService->newContentCreateStruct(
+                    $contentType,
+                    $content->getVersionInfo()->getInitialLanguage()->getLanguageCode()
+                );
+
+                $contentCreateStruct->sectionId = $location->getContentInfo()->getSectionId();
+                $createPermissionsInMfu[$contentTypeIdentifier] = $this->permissionResolver->canUser(
+                    'content',
+                    'create',
+                    $contentCreateStruct,
+                    [$locationCreateStruct]
+                );
             }
         }
 

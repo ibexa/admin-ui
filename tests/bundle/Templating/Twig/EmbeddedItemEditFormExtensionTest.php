@@ -21,7 +21,7 @@ use Twig\Test\IntegrationTestCase;
  */
 final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
 {
-    private const FORM_ACTION = '/admin/content/edit';
+    private const string FORM_ACTION = '/admin/content/edit';
 
     protected function getExtensions(): array
     {
@@ -64,6 +64,9 @@ final class EmbeddedItemEditFormExtensionTest extends IntegrationTestCase
         return __DIR__ . '/_fixtures/render_embedded_item_edit_form/';
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<mixed>
+     */
     private function createEditForm(): FormInterface
     {
         $editForm = $this->createMock(FormInterface::class);

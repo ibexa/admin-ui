@@ -32,15 +32,11 @@ use Twig\Node\Node as TwigNode;
  */
 class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
-    private FileSourceFactory $fileSourceFactory;
-
     private NodeTraverser $traverser;
 
     private ?MessageCatalogue $catalogue = null;
 
     private ?SplFileInfo $file = null;
-
-    private DocParser $docParser;
 
     private LoggerInterface $logger;
 
@@ -49,7 +45,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     /**
      * Methods and "domain" parameter offset to extract from PHP code.
      *
-     * @var array method => position of the "domain" parameter
+     * @var array<string, int> method => position of the "domain" parameter
      */
     protected array $methodsToExtractFrom = [
         'success' => 2,
@@ -58,10 +54,10 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         'error' => 2,
     ];
 
-    public function __construct(DocParser $docParser, FileSourceFactory $fileSourceFactory)
-    {
-        $this->docParser = $docParser;
-        $this->fileSourceFactory = $fileSourceFactory;
+    public function __construct(
+        private readonly DocParser $docParser,
+        private readonly FileSourceFactory $fileSourceFactory
+    ) {
         $this->traverser = new NodeTraverser();
         $this->traverser->addVisitor($this);
         $this->logger = new NullLogger();
@@ -142,8 +138,8 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
 
         if ($this->catalogue !== null) {
             $message = new Message($id, $domain);
-            $message->setDesc($desc);
-            $message->setMeaning($meaning);
+            $message->setDesc($desc ?? '');
+            $message->setMeaning($meaning ?? '');
             if ($this->file !== null) {
                 $message->addSource($this->fileSourceFactory->create($this->file, $node->getLine()));
             }

@@ -18,17 +18,15 @@ use Ibexa\Contracts\Rest\Output\Visitor;
  */
 final class ApplicationConfigVisitor extends ValueObjectVisitor
 {
-    private ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry;
-
-    public function __construct(ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry)
-    {
-        $this->applicationConfigRestGeneratorRegistry = $applicationConfigRestGeneratorRegistry;
+    public function __construct(
+        private readonly ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry
+    ) {
     }
 
     /**
      * @param \Ibexa\AdminUi\REST\Value\ApplicationConfig $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement('ApplicationConfig');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ApplicationConfig'));

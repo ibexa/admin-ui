@@ -12,36 +12,30 @@ use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class ContentTypeIsUser extends AbstractSpecification
+final class ContentTypeIsUser extends AbstractSpecification
 {
-    private const IBEXA_USER_FIELD_TYPE_IDENTIFIER = 'ibexa_user';
-
-    private array $userContentTypeIdentifier;
+    private const string IBEXA_USER_FIELD_TYPE_IDENTIFIER = 'ibexa_user';
 
     /**
-     * @param array $userContentTypeIdentifier
+     * @param string[] $userContentTypeIdentifiers
      */
-    public function __construct(array $userContentTypeIdentifier)
+    public function __construct(private readonly array $userContentTypeIdentifiers)
     {
-        $this->userContentTypeIdentifier = $userContentTypeIdentifier;
     }
 
     /**
-     * Checks if $contentType is an existing User content.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return bool
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function isSatisfiedBy($contentType): bool
+    public function isSatisfiedBy(mixed $contentType): bool
     {
         if (!$contentType instanceof ContentType) {
-            throw new InvalidArgumentException('$contentType', sprintf('Must be an instance of %s', ContentType::class));
+            throw new InvalidArgumentException(
+                '$contentType',
+                sprintf('Must be an instance of %s', ContentType::class)
+            );
         }
 
-        if (in_array($contentType->identifier, $this->userContentTypeIdentifier, true)) {
+        if (in_array($contentType->getIdentifier(), $this->userContentTypeIdentifiers, true)) {
             return true;
         }
 

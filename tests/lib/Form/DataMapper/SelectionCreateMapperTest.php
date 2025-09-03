@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,9 +16,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class SelectionCreateMapperTest extends TestCase
+final class SelectionCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
     private SectionCreateMapper $mapper;
 
     protected function setUp(): void
@@ -33,7 +33,7 @@ class SelectionCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testMap(array $properties): void
     {
@@ -45,7 +45,7 @@ class SelectionCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testReverseMap(array $properties): void
     {
@@ -70,6 +70,9 @@ class SelectionCreateMapperTest extends TestCase
         $this->mapper->reverseMap(new LanguageCreateData());
     }
 
+    /**
+     * @return array<string, list<array<string, string|null>>>
+     */
     public function dataProvider(): array
     {
         return [
@@ -81,7 +84,7 @@ class SelectionCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
      */
@@ -91,7 +94,7 @@ class SelectionCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
      */

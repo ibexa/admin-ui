@@ -11,39 +11,27 @@ namespace Ibexa\AdminUi\Specification\Content;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class ContentDraftHasConflict extends AbstractSpecification
+final class ContentDraftHasConflict extends AbstractSpecification
 {
-    private ContentService $contentService;
-
-    private string $languageCode;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param string $languageCode
-     */
-    public function __construct(ContentService $contentService, string $languageCode)
-    {
-        $this->contentService = $contentService;
-        $this->languageCode = $languageCode;
+    public function __construct(
+        private readonly ContentService $contentService,
+        private readonly string $languageCode
+    ) {
     }
 
     /**
      * Checks if Content has draft conflict.
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return bool
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function isSatisfiedBy($contentInfo): bool
+    public function isSatisfiedBy(mixed $contentInfo): bool
     {
         $versions = $this->contentService->loadVersions($contentInfo);
 
         foreach ($versions as $checkedVersionInfo) {
             if ($checkedVersionInfo->isDraft()
-                && $checkedVersionInfo->versionNo > $contentInfo->currentVersionNo
-                && $checkedVersionInfo->initialLanguageCode === $this->languageCode
+                && $checkedVersionInfo->getVersionNo() > $contentInfo->currentVersionNo
+                && $checkedVersionInfo->getInitialLanguage()->getLanguageCode() === $this->languageCode
             ) {
                 return true;
             }

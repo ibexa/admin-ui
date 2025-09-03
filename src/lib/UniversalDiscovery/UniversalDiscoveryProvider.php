@@ -22,26 +22,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\Rest\Server\Values\Version;
 
 class UniversalDiscoveryProvider implements Provider
 {
-    private const COLUMNS_NUMBER = 4;
-
-    private LocationService $locationService;
-
-    private ContentTypeService $contentTypeService;
-
-    private SearchService $searchService;
-
-    private BookmarkService $bookmarkService;
-
-    private ContentService $contentService;
-
-    private LookupLimitationsTransformer $lookupLimitationsTransformer;
-
-    private LocationPathQueryType $locationPathQueryType;
+    private const int COLUMNS_NUMBER = 4;
 
     /** @var array<string, class-string> */
     private array $sortClauseClassMap = [
@@ -55,26 +42,16 @@ class UniversalDiscoveryProvider implements Provider
         Query::SORT_DESC,
     ];
 
-    private LimitationResolverInterface $limitationResolver;
-
     public function __construct(
-        LocationService $locationService,
-        ContentTypeService $contentTypeService,
-        SearchService $searchService,
-        BookmarkService $bookmarkService,
-        ContentService $contentService,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        LocationPathQueryType $locationPathQueryType,
-        LimitationResolverInterface $limitationResolver
+        private readonly LocationService $locationService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly SearchService $searchService,
+        private readonly BookmarkService $bookmarkService,
+        private readonly ContentService $contentService,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly LocationPathQueryType $locationPathQueryType,
+        private readonly LimitationResolverInterface $limitationResolver
     ) {
-        $this->locationService = $locationService;
-        $this->contentTypeService = $contentTypeService;
-        $this->searchService = $searchService;
-        $this->bookmarkService = $bookmarkService;
-        $this->contentService = $contentService;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->locationPathQueryType = $locationPathQueryType;
-        $this->limitationResolver = $limitationResolver;
     }
 
     public function getColumns(
@@ -142,7 +119,7 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            static function (SearchHit $searchHit) {
+            static function (SearchHit $searchHit): ValueObject {
                 return $searchHit->valueObject;
             },
             $searchResult->searchHits
@@ -272,7 +249,9 @@ class UniversalDiscoveryProvider implements Provider
 
         $location = $this->locationService->loadLocation($locationId);
         $content = $this->contentService->loadContentByContentInfo($location->getContentInfo());
-        $contentType = $this->contentTypeService->loadContentType($location->getContentInfo()->contentTypeId);
+        $contentType = $this->contentTypeService->loadContentType(
+            $location->getContentInfo()->getContentType()->id
+        );
 
         return [
             'location' => $location,
@@ -304,7 +283,9 @@ class UniversalDiscoveryProvider implements Provider
 
         $location = $this->locationService->loadLocation($locationId);
         $content = $this->contentService->loadContentByContentInfo($location->getContentInfo());
-        $contentType = $this->contentTypeService->loadContentType($location->getContentInfo()->contentTypeId);
+        $contentType = $this->contentTypeService->loadContentType(
+            $location->getContentInfo()->getContentType()->id
+        );
 
         $locations = $this->getSubitemLocations($locationId, $offset, $limit, $sortClause);
         $versions = $this->getSubitemContents($locationId, $offset, $limit, $sortClause);
@@ -332,6 +313,11 @@ class UniversalDiscoveryProvider implements Provider
         return new $sortClauseClass($sortOrder);
     }
 
+    /**
+     * @param int[] $locationPath
+     *
+     * @return int[]
+     */
     private function getRelativeLocationPath(int $locationId, array $locationPath): array
     {
         $locationIds = array_values($locationPath);
@@ -346,14 +332,19 @@ class UniversalDiscoveryProvider implements Provider
         return array_slice($locationIds, $index);
     }
 
+    /**
+     * @param mixed[] $locations
+     *
+     * @return mixed[]
+     */
     private function moveSelectedLocationOnTop(
         Location $location,
         array $locations,
         bool $isLastColumnLocationId
     ): array {
-        $index = array_search($location->id, array_map(
+        $index = array_search($location->getId(), array_map(
             static function (RestLocation $location): int {
-                return $location->location->id;
+                return $location->location->getId();
             },
             $locations
         ), true);

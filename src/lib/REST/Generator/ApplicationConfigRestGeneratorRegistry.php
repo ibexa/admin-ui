@@ -12,17 +12,13 @@ use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface;
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface;
 use RuntimeException;
 
-final class ApplicationConfigRestGeneratorRegistry implements ApplicationConfigRestGeneratorRegistryInterface
+final readonly class ApplicationConfigRestGeneratorRegistry implements ApplicationConfigRestGeneratorRegistryInterface
 {
-    /** @var iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface> */
-    private iterable $generators;
-
     /**
      * @param iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface> $generators
      */
-    public function __construct(iterable $generators)
+    public function __construct(private iterable $generators)
     {
-        $this->generators = $generators;
     }
 
     public function hasGenerator(

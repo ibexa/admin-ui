@@ -4,21 +4,20 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-class SectionCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class SectionCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__CREATE = 'section_create__sidebar_right__create';
-    public const ITEM__CANCEL = 'section_create__sidebar_right__cancel';
+    public const string ITEM__CREATE = 'section_create__sidebar_right__create';
+    public const string ITEM__CANCEL = 'section_create__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {
@@ -26,10 +25,8 @@ class SectionCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface

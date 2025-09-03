@@ -11,20 +11,20 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
-final class Locations implements ProviderInterface
+final readonly class Locations implements ProviderInterface
 {
-    private const MEDIA_IDENTIFIER = 'media';
-    private const CONTENT_STRUCTURE_IDENTIFIER = 'contentStructure';
-    private const USERS_IDENTIFIER = 'users';
-
-    private ConfigResolverInterface $configResolver;
+    private const string MEDIA_IDENTIFIER = 'media';
+    private const string CONTENT_STRUCTURE_IDENTIFIER = 'contentStructure';
+    private const string USERS_IDENTIFIER = 'users';
 
     public function __construct(
-        ConfigResolverInterface $configResolver
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->configResolver = $configResolver;
     }
 
+    /**
+     * @return array<string, int>
+     */
     public function getConfig(): array
     {
         return [

@@ -10,18 +10,16 @@ namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-class LimitationMock extends Limitation
+final class LimitationMock extends Limitation
 {
-    /** @var string */
-    private $identifier;
-
-    public function __construct($identifier, array $limitationValues)
+    /**
+     * @param array<mixed> $limitationValues
+     */
+    public function __construct(private readonly string $identifier, array $limitationValues)
     {
         parent::__construct([
             'limitationValues' => $limitationValues,
         ]);
-
-        $this->identifier = $identifier;
     }
 
     public function getIdentifier(): string

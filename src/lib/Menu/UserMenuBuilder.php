@@ -24,42 +24,29 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class UserMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM_LOGOUT = 'user__content';
-    public const ITEM_VIEW_PROFILE = 'user___view_profile';
-    public const ITEM_USER_SETTINGS = 'user__settings';
-    public const ITEM_BOOKMARK = 'user__bookmark';
-    public const ITEM_NOTIFICATION = 'menu.notification';
-
-    private TokenStorageInterface $tokenStorage;
-
-    private UserProfileConfigurationInterface $userProfileConfiguration;
+    public const string ITEM_LOGOUT = 'user__content';
+    public const string ITEM_VIEW_PROFILE = 'user___view_profile';
+    public const string ITEM_USER_SETTINGS = 'user__settings';
+    public const string ITEM_NOTIFICATION = 'menu.notification';
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        TokenStorageInterface $tokenStorage,
-        UserProfileConfigurationInterface $userProfileConfiguration
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly UserProfileConfigurationInterface $userProfileConfiguration
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->tokenStorage = $tokenStorage;
-        $this->userProfileConfiguration = $userProfileConfiguration;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::USER_MENU;
     }
 
     /**
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @param array<string, mixed> $options
      *
      * @throws \InvalidArgumentException
      */

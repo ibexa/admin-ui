@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class UserQueryType extends AbstractQueryType
 {
-    private const USER_SEARCH_PHRASE_PATTERN = '/[^\p{L}0-9@._-]/u';
+    private const string USER_SEARCH_PHRASE_PATTERN = '/[^\p{L}0-9@._-]/u';
 
     protected function configureOptions(OptionsResolver $resolver): void
     {
@@ -37,7 +37,7 @@ final class UserQueryType extends AbstractQueryType
     }
 
     /**
-     * @param array<mixed> $parameters
+     * @param array<string, mixed> $parameters
      */
     protected function doGetQuery(array $parameters): Query
     {
@@ -47,7 +47,7 @@ final class UserQueryType extends AbstractQueryType
     }
 
     /**
-     * @param array<mixed> $parameters
+     * @param array<string, mixed> $parameters
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */

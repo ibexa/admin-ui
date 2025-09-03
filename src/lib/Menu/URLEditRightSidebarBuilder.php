@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
@@ -13,10 +14,10 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class URLEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__SAVE_AND_CLOSE = 'url_edit__sidebar_right__save_and_close';
-    public const ITEM__CANCEL = 'url_edit__sidebar_right__cancel';
+    public const string ITEM__SAVE_AND_CLOSE = 'url_edit__sidebar_right__save_and_close';
+    public const string ITEM__CANCEL = 'url_edit__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {

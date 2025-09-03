@@ -10,29 +10,23 @@ namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__SAVE_AND_CLOSE = 'object_state_edit__sidebar_right__save_and_close';
-    public const ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
+    public const string ITEM__SAVE_AND_CLOSE = 'object_state_edit__sidebar_right__save_and_close';
+    public const string ITEM__CANCEL = 'object_state_edit__sidebar_right__cancel';
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::OBJECT_STATE_EDIT_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface

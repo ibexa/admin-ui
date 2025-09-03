@@ -15,17 +15,16 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class AdminSiteaccessPreviewVoterTest extends TestCase
+final class AdminSiteaccessPreviewVoterTest extends TestCase
 {
-    private const LANGUAGE_CODE = 'eng-GB';
+    private const string LANGUAGE_CODE = 'eng-GB';
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
-    private ConfigResolverInterface $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface&\PHPUnit\Framework\MockObject\MockObject */
-    private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
+    private RepositoryConfigurationProviderInterface&MockObject $repositoryConfigurationProvider;
 
     private AdminSiteaccessPreviewVoter $adminSiteaccessPreviewVoter;
 
@@ -167,6 +166,9 @@ class AdminSiteaccessPreviewVoterTest extends TestCase
             ->willReturn(5);
     }
 
+    /**
+     * @return array<int, array{0: \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterContext}>
+     */
     public function dataProviderForSiteaccessPreviewVoterContext(): array
     {
         $languageCode = self::LANGUAGE_CODE;

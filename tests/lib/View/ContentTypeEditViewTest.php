@@ -35,8 +35,8 @@ final class ContentTypeEditViewTest extends TestCase
             'edit.html.twig',
             $contentTypeGroup,
             $contentTypeDraft,
-            $language,
-            $form
+            $form,
+            $language
         );
 
         self::assertEquals(

@@ -38,6 +38,9 @@ final class IconPathResolverTest extends TestCase
         self::assertEquals($expectedPath, $iconPathResolver->resolve($icon, $set));
     }
 
+    /**
+     * @return array<array{string, ?string, string}>
+     */
     public function resolveDataProvider(): array
     {
         return [
@@ -59,6 +62,9 @@ final class IconPathResolverTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getDefaultConfig(): array
     {
         return [
@@ -70,6 +76,9 @@ final class IconPathResolverTest extends TestCase
         ];
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function getConfigResolverMock(array $config): ConfigResolverInterface&MockObject
     {
         $configResolver = $this->createMock(ConfigResolverInterface::class);
@@ -81,6 +90,9 @@ final class IconPathResolverTest extends TestCase
         return $configResolver;
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function getPackagesMock(array $config): Packages&MockObject
     {
         $packages = $this->createMock(Packages::class);

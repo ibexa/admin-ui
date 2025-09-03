@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\UI\Service;
 
 final class ContentTypeIconResolver extends IconResolver
 {
-    private const PARAM_NAME_FORMAT = 'content_type.%s';
+    private const string PARAM_NAME_FORMAT = 'content_type.%s';
 
     /**
      * Returns path to content type icon.

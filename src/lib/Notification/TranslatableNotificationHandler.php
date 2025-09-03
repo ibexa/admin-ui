@@ -11,20 +11,15 @@ namespace Ibexa\AdminUi\Notification;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\User\ExceptionHandler\ActionResultHandler;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class TranslatableNotificationHandler implements TranslatableNotificationHandlerInterface, ActionResultHandler
+final readonly class TranslatableNotificationHandler implements TranslatableNotificationHandlerInterface, ActionResultHandler
 {
-    private NotificationHandlerInterface $notificationHandler;
-
-    private TranslatorInterface $translator;
-
     public function __construct(
-        NotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator
+        private NotificationHandlerInterface $notificationHandler,
+        private TranslatorInterface $translator
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->translator = $translator;
     }
 
     public function info(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void

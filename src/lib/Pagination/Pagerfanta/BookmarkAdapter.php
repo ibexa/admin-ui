@@ -15,20 +15,12 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Location\Bookmark>
  */
-class BookmarkAdapter implements AdapterInterface
+final readonly class BookmarkAdapter implements AdapterInterface
 {
-    private BookmarkService $bookmarkService;
-
-    private DatasetFactory $datasetFactory;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     */
-    public function __construct(BookmarkService $bookmarkService, DatasetFactory $datasetFactory)
-    {
-        $this->bookmarkService = $bookmarkService;
-        $this->datasetFactory = $datasetFactory;
+    public function __construct(
+        private BookmarkService $bookmarkService,
+        private DatasetFactory $datasetFactory
+    ) {
     }
 
     /**

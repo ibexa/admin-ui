@@ -24,7 +24,7 @@ abstract class AbstractTabVisibilityTestCase extends TestCase
     final public function testTabVisibilityInGivenUserMode(string $userMode, array $parameters, bool $expectedResult): void
     {
         $userSetting = $this->createMock(UserSetting::class);
-        $userSetting->method('__get')->with('value')->willReturn($userMode);
+        $userSetting->method('getValue')->willReturn($userMode);
 
         $userSettingService = $this->createMock(UserSettingService::class);
         $userSettingService->method('getUserSetting')->with(FocusMode::IDENTIFIER)->willReturn($userSetting);

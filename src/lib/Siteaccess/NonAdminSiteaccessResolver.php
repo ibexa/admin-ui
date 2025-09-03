@@ -14,22 +14,17 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 /**
- * Decorator for SiteaccessResolverInterface filtering out all non admin siteaccesses.
+ * Decorator for SiteaccessResolverInterface filtering out all non admin SiteAccesses.
  */
-class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
+readonly class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
 {
-    private SiteaccessResolver $siteaccessResolver;
-
-    /** @var string[] */
-    private array $siteAccessGroups;
-
     /**
-     * @param string[] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(SiteaccessResolver $siteaccessResolver, array $siteAccessGroups)
-    {
-        $this->siteaccessResolver = $siteaccessResolver;
-        $this->siteAccessGroups = $siteAccessGroups;
+    public function __construct(
+        private SiteaccessResolver $siteaccessResolver,
+        private array $siteAccessGroups
+    ) {
     }
 
     /**

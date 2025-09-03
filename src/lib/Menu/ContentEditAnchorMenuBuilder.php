@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
@@ -18,23 +19,19 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ContentEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__CONTENT = 'content_edit__anchor_menu__content';
-    public const ITEM__META = 'content_edit__anchor_menu__meta';
+    public const string ITEM__CONTENT = 'content_edit__anchor_menu__content';
+    public const string ITEM__META = 'content_edit__anchor_menu__meta';
 
-    private const ITEM_ORDER_SPAN = 10;
-
-    private ConfigResolverInterface $configResolver;
+    private const int ITEM_ORDER_SPAN = 10;
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->configResolver = $configResolver;
     }
 
     protected function getConfigureEventName(): string
@@ -122,7 +119,10 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
      */
     private function getMetaFieldItems(ContentType $contentType): array
     {
-        $fieldTypeSettings = $this->configResolver->getParameter('admin_ui_forms.content_edit.fieldtypes');
+        $fieldTypeSettings = $this->configResolver->getParameter(
+            'admin_ui_forms.content_edit.fieldtypes'
+        );
+
         $metaFieldTypeIdentifiers = array_keys(array_filter(
             $fieldTypeSettings,
             static fn (array $config): bool => true === $config['meta']
@@ -131,16 +131,16 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
         $metaFieldGroups = $this->configResolver->getParameter(
             'admin_ui_forms.content_edit.meta_field_groups_list'
         );
-        $metaFieldDefinitionCollection = $contentType->fieldDefinitions->filter(
-            static fn (FieldDefinition $field): bool => in_array($field->fieldGroup, $metaFieldGroups, true),
+        $metaFieldDefinitionCollection = $contentType->getFieldDefinitions()->filter(
+            static fn (FieldDefinition $field): bool => in_array($field->getFieldGroup(), $metaFieldGroups, true),
         );
 
         $items = [];
         $order = 0;
         foreach ($metaFieldDefinitionCollection as $fieldDefinition) {
             $order += self::ITEM_ORDER_SPAN;
-            $items[$fieldDefinition->identifier] = $this->createSecondLevelItem(
-                $fieldDefinition->identifier,
+            $items[$fieldDefinition->getIdentifier()] = $this->createSecondLevelItem(
+                $fieldDefinition->getIdentifier(),
                 $fieldDefinition,
                 $order
             );
@@ -153,7 +153,7 @@ class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Translatio
 
             $fieldDefinitions = $contentType->getFieldDefinitionsOfType($metaFieldTypeIdentifier);
             foreach ($fieldDefinitions as $fieldDefinition) {
-                $fieldDefIdentifier = $fieldDefinition->identifier;
+                $fieldDefIdentifier = $fieldDefinition->getIdentifier();
                 $order += self::ITEM_ORDER_SPAN;
                 $items[$fieldDefIdentifier] ??= $this->createSecondLevelItem(
                     $fieldDefIdentifier,

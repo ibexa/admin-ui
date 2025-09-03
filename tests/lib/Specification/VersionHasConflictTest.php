@@ -12,9 +12,10 @@ use Ibexa\AdminUi\Specification\Version\VersionHasConflict;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class VersionHasConflictTest extends TestCase
+final class VersionHasConflictTest extends TestCase
 {
     public function testVersionWithStatusDraft(): void
     {
@@ -23,7 +24,7 @@ class VersionHasConflictTest extends TestCase
         $contentServiceMock
             ->method('loadVersions')
             ->willReturn([
-                $this->createVersionInfo(false),
+                $this->createVersionInfo(),
                 $this->createVersionInfo(false, 2),
                 $this->createVersionInfo(false, 3),
                 $this->createVersionInfo(true, 4),
@@ -31,24 +32,27 @@ class VersionHasConflictTest extends TestCase
 
         $versionHasConflict = new VersionHasConflict($contentServiceMock, 'eng-GB');
 
-        self::assertFalse($versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 5)));
+        self::assertFalse(
+            $versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 5))
+        );
     }
 
     public function testVersionWithStatusDraftAndVersionConflict(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject $contentServiceMock */
         $contentServiceMock = $this->createMock(ContentService::class);
         $contentServiceMock
             ->method('loadVersions')
             ->willReturn([
-                $this->createVersionInfo(false),
+                $this->createVersionInfo(),
                 $this->createVersionInfo(false, 3),
                 $this->createVersionInfo(true, 4),
             ]);
 
         $versionHasConflict = new VersionHasConflict($contentServiceMock, 'eng-GB');
 
-        self::assertTrue($versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 2)));
+        self::assertTrue(
+            $versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 2))
+        );
     }
 
     public function testVersionWithStatusDraftAndVersionConflictWithAnotherLanguageCode(): void
@@ -64,19 +68,12 @@ class VersionHasConflictTest extends TestCase
 
         $versionHasConflict = new VersionHasConflict($contentServiceMock, 'eng-GB');
 
-        self::assertFalse($versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 2, 'eng-GB')));
+        self::assertFalse(
+            $versionHasConflict->isSatisfiedBy($this->createVersionInfo(false, 2))
+        );
     }
 
-    /**
-     * Returns VersionInfo.
-     *
-     * @param bool $isPublished
-     * @param int $versionNo
-     * @param string $languageCode
-     *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
-     */
-    private function createVersionInfo(bool $isPublished = false, int $versionNo = 1, string $languageCode = 'eng-GB'): VersionInfo
+    private function createVersionInfo(bool $isPublished = false, int $versionNo = 1, string $languageCode = 'eng-GB'): MockObject&VersionInfo
     {
         $contentInfo = $this->createMock(ContentInfo::class);
 
@@ -87,8 +84,12 @@ class VersionHasConflictTest extends TestCase
             true,
             true,
             true,
-            ['isPublished', '__get', 'getContentInfo']
+            ['getVersionNo', 'isPublished', '__get', 'getContentInfo']
         );
+
+        $versionInfo
+            ->method('getVersionNo')
+            ->willReturn($versionNo);
 
         $versionInfo
             ->method('isPublished')
@@ -96,12 +97,8 @@ class VersionHasConflictTest extends TestCase
 
         $versionInfo
             ->method('__get')
-            ->willReturnMap(
-                [
-                    ['initialLanguageCode', $languageCode],
-                    ['versionNo', $versionNo],
-                ]
-            );
+            ->with('initialLanguageCode')
+            ->willReturn($languageCode);
 
         $versionInfo
             ->method('getContentInfo')

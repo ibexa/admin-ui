@@ -18,7 +18,6 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
@@ -39,14 +38,20 @@ final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
     protected function createTabForVisibilityInGivenUserModeTest(UserSettingService $userSettingService): TabInterface
     {
         $permissionResolver = $this->createMock(PermissionResolver::class);
-        $permissionResolver->method('canUser')->with('content', 'versionread', $this->getExampleContent())->willReturn(true);
+        $permissionResolver
+            ->method('canUser')
+            ->with(
+                'content',
+                'versionread',
+                $this->getExampleContent()
+            )
+            ->willReturn(true);
 
         return new VersionsTab(
             $this->createMock(Environment::class),
             $this->createMock(TranslatorInterface::class),
             $this->createMock(DatasetFactory::class),
             $this->createMock(FormFactory::class),
-            $this->createMock(UrlGeneratorInterface::class),
             $permissionResolver,
             $this->createMock(UserService::class),
             $userSettingService,

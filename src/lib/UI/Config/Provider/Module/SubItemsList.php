@@ -14,20 +14,14 @@ use Ibexa\User\UserSetting\UserSettingService;
 /**
  * Provides information about current setting for sub-items list.
  */
-class SubItemsList implements ProviderInterface
+final readonly class SubItemsList implements ProviderInterface
 {
-    private UserSettingService $userSettingService;
-
-    /**
-     * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService
-     */
-    public function __construct(UserSettingService $userSettingService)
+    public function __construct(private UserSettingService $userSettingService)
     {
-        $this->userSettingService = $userSettingService;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -35,7 +29,10 @@ class SubItemsList implements ProviderInterface
     public function getConfig(): array
     {
         return [
-            'limit' => (int)$this->userSettingService->getUserSetting('subitems_limit')->value,
+            'limit' => (int)$this
+                ->userSettingService
+                ->getUserSetting('subitems_limit')
+                ->getValue(),
         ];
     }
 }

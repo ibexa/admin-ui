@@ -21,17 +21,15 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Core\Repository;
 use Ibexa\Core\Repository\SearchService;
+use InvalidArgumentException;
+use RuntimeException;
 
-class RoleService
+readonly class RoleService
 {
-    private Repository\RoleService $roleService;
-
-    private SearchService $searchService;
-
-    public function __construct(Repository\RoleService $roleService, SearchService $searchService)
-    {
-        $this->roleService = $roleService;
-        $this->searchService = $searchService;
+    public function __construct(
+        private Repository\RoleService $roleService,
+        private SearchService $searchService
+    ) {
     }
 
     public function getRole(int $id): Role
@@ -49,8 +47,13 @@ class RoleService
 
     public function createRole(RoleData $data): Role
     {
+        $identifier = $data->getIdentifier();
+        if ($identifier === null) {
+            throw new InvalidArgumentException('Role identifier cannot be null');
+        }
+
         $roleCreateStruct = $this->roleService->newRoleCreateStruct(
-            $data->getIdentifier()
+            $identifier
         );
 
         $role = $this->roleService->createRole($roleCreateStruct);
@@ -62,7 +65,7 @@ class RoleService
     public function updateRole(Role $role, RoleData $data): Role
     {
         $roleUpdateStruct = $this->roleService->newRoleUpdateStruct();
-        $roleUpdateStruct->identifier = $data->getIdentifier();
+        $roleUpdateStruct->identifier = $data->getIdentifier() ?? $role->identifier;
 
         $draft = $this->roleService->createRoleDraft($role);
         $this->roleService->updateRoleDraft($draft, $roleUpdateStruct);
@@ -89,9 +92,15 @@ class RoleService
 
     public function createPolicy(Role $role, PolicyData $data): Role
     {
+        $module = $data->getModule();
+        $function = $data->getFunction();
+        if ($module === null || $function === null) {
+            throw new InvalidArgumentException('Policy module and function cannot be null.');
+        }
+
         $policyCreateStruct = $this->roleService->newPolicyCreateStruct(
-            $data->getModule(),
-            $data->getFunction()
+            $module,
+            $function
         );
 
         $draft = $this->roleService->createRoleDraft($role);
@@ -113,7 +122,7 @@ class RoleService
             }
         }
 
-        throw new \RuntimeException("Policy {$policy->id} not found.");
+        throw new RuntimeException("Policy {$policy->id} not found.");
     }
 
     public function updatePolicy(Role $role, Policy $policy, PolicyData $data): Role
@@ -135,7 +144,7 @@ class RoleService
             }
         }
 
-        throw new \RuntimeException("Policy {$policy->id} not found.");
+        throw new RuntimeException("Policy {$policy->id} not found.");
     }
 
     /**
@@ -200,8 +209,22 @@ class RoleService
         }
     }
 
-    private function doAssignLimitation(Role $role, ?array $users = null, ?array $groups = null, ?RoleLimitation $limitation = null): void
-    {
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[]|null $users
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]|null $groups
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
+    private function doAssignLimitation(
+        Role $role,
+        ?array $users = null,
+        ?array $groups = null,
+        ?RoleLimitation $limitation = null
+    ): void {
         if (null !== $users) {
             foreach ($users as $user) {
                 $this->roleService->assignRoleToUser($role, $user, $limitation);

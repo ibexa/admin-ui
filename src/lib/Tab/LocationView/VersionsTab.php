@@ -27,115 +27,70 @@ use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const FORM_REMOVE_DRAFT = 'version_remove_draft';
-    public const FORM_REMOVE_ARCHIVED = 'version_remove_archived';
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-versions';
+    public const string FORM_REMOVE_DRAFT = 'version_remove_draft';
+    public const string FORM_REMOVE_ARCHIVED = 'version_remove_archived';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-versions';
 
-    protected DatasetFactory $datasetFactory;
-
-    protected FormFactory $formFactory;
-
-    protected UrlGeneratorInterface $urlGenerator;
-
-    protected PermissionResolver $permissionResolver;
-
-    private UserService $userService;
-
-    private UserSettingService $userSettingService;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        DatasetFactory $datasetFactory,
-        FormFactory $formFactory,
-        UrlGeneratorInterface $urlGenerator,
-        PermissionResolver $permissionResolver,
-        UserService $userService,
-        UserSettingService $userSettingService,
+        private readonly DatasetFactory $datasetFactory,
+        private readonly FormFactory $formFactory,
+        private readonly PermissionResolver $permissionResolver,
+        protected readonly UserService $userService,
+        protected readonly UserSettingService $userSettingService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
-        $this->urlGenerator = $urlGenerator;
-        $this->permissionResolver = $permissionResolver;
-        $this->userService = $userService;
-        $this->userSettingService = $userSettingService;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'versions';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("Versions") */
         return $this->translator->trans('tab.name.versions', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 300;
     }
 
     /**
-     * Get information about tab presence.
-     *
-     * @param array $parameters
-     *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
-        $isFocusModeOff = IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
+        $isFocusModeOff = IsFocusModeEnabled
+            ::fromUserSettings($this->userSettingService)
+            ->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
+
         if ($isFocusModeOff) {
-            return $this->permissionResolver->canUser('content', 'versionread', $parameters['content']);
+            return $this->permissionResolver->canUser(
+                'content',
+                'versionread',
+                $parameters['content']
+            );
         }
 
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/versions/tab.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
@@ -155,9 +110,11 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
         );
 
         $draftPagerfanta->setMaxPerPage($draftPaginationParams['limit']);
-        $draftPagerfanta->setCurrentPage(min($draftPaginationParams['page'], $draftPagerfanta->getNbPages()));
+        $draftPagerfanta->setCurrentPage(
+            min($draftPaginationParams['page'], $draftPagerfanta->getNbPages())
+        );
 
-        /** @var \Ibexa\AdminUi\UI\Value\Content\VersionInfo[] $policies */
+        /** @var \Ibexa\AdminUi\UI\Value\Content\VersionInfo[] $draftVersions */
         $draftVersions = iterator_to_array($draftPagerfanta->getCurrentPageResults());
 
         $archivedVersions = $versionsDataset->getArchivedVersions();
@@ -195,7 +152,7 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versions
      *
-     * @return array
+     * @return mixed[]
      */
     private function getVersionNumbers(array $versions): array
     {
@@ -205,14 +162,13 @@ class VersionsTab extends AbstractEventDispatchingTab implements OrderedTabInter
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param array $versions
-     * @param bool $isDraftForm
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @param mixed[] $versions
      */
-    private function createVersionRemoveForm(Location $location, array $versions, bool $isDraftForm): FormInterface
-    {
+    private function createVersionRemoveForm(
+        Location $location,
+        array $versions,
+        bool $isDraftForm
+    ): FormInterface {
         $contentInfo = $location->getContentInfo();
         $data = new VersionRemoveData($contentInfo, $this->getVersionNumbers($versions));
 

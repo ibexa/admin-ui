@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
@@ -14,16 +15,12 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard>
  */
-final class URLWildcardAdapter implements AdapterInterface
+final readonly class URLWildcardAdapter implements AdapterInterface
 {
-    private URLWildcardService $urlWildcardService;
-
-    private URLWildcardQuery $query;
-
-    public function __construct(URLWildcardQuery $query, URLWildcardService $urlWildcardService)
-    {
-        $this->query = $query;
-        $this->urlWildcardService = $urlWildcardService;
+    public function __construct(
+        private URLWildcardQuery $query,
+        private URLWildcardService $urlWildcardService
+    ) {
     }
 
     /**

@@ -15,20 +15,14 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class UserProfileFieldGroupsProvider implements FieldsGroupsList, TranslationContainerInterface
+final readonly class UserProfileFieldGroupsProvider implements FieldsGroupsList, TranslationContainerInterface
 {
-    private const FIELD_GROUPS = ['about', 'contact'];
-
-    private FieldsGroupsList $innerService;
-
-    private TranslatorInterface $translator;
+    private const array FIELD_GROUPS = ['about', 'contact'];
 
     public function __construct(
-        FieldsGroupsList $innerService,
-        TranslatorInterface $translator
+        private FieldsGroupsList $innerService,
+        private TranslatorInterface $translator
     ) {
-        $this->innerService = $innerService;
-        $this->translator = $translator;
     }
 
     /**

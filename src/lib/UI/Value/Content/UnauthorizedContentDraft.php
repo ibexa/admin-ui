@@ -10,29 +10,17 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem;
 
-class UnauthorizedContentDraft implements ContentDraftInterface
+final readonly class UnauthorizedContentDraft implements ContentDraftInterface
 {
-    private UnauthorizedContentDraftListItem $unauthorizedContentDraft;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem $unauthorizedContentDraft
-     */
-    public function __construct(UnauthorizedContentDraftListItem $unauthorizedContentDraft)
+    public function __construct(private UnauthorizedContentDraftListItem $unauthorizedContentDraft)
     {
-        $this->unauthorizedContentDraft = $unauthorizedContentDraft;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem
-     */
     public function getUnauthorizedContentDraft(): UnauthorizedContentDraftListItem
     {
         return $this->unauthorizedContentDraft;
     }
 
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool
     {
         return false;

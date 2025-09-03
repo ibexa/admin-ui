@@ -12,18 +12,12 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Symfony\Component\Routing\RouterInterface;
 
-final class CurrentBackOfficePath implements ProviderInterface
+final readonly class CurrentBackOfficePath implements ProviderInterface
 {
-    private RouterInterface $router;
-
-    private Repository $repository;
-
     public function __construct(
-        RouterInterface $router,
-        Repository $repository
+        private RouterInterface $router,
+        private Repository $repository
     ) {
-        $this->router = $router;
-        $this->repository = $repository;
     }
 
     public function getConfig(): string

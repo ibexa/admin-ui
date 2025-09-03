@@ -16,20 +16,8 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
-class PoliciesDataset
+final class PoliciesDataset
 {
-    private RoleService $roleService;
-
-    private UserService $userService;
-
-    protected ValueFactory $valueFactory;
-
-    /** @var string[] */
-    private array $userContentTypeIdentifier;
-
-    /** @var string[] */
-    private array $userGroupContentTypeIdentifier;
-
     /** @var \Ibexa\AdminUi\UI\Value\User\Policy[]|null */
     private ?array $data = null;
 
@@ -38,17 +26,12 @@ class PoliciesDataset
      * @param string[] $userGroupContentTypeIdentifier
      */
     public function __construct(
-        RoleService $roleService,
-        UserService $userService,
-        ValueFactory $valueFactory,
-        array $userContentTypeIdentifier,
-        array $userGroupContentTypeIdentifier
+        private readonly RoleService $roleService,
+        private readonly UserService $userService,
+        private readonly ValueFactory $valueFactory,
+        private readonly array $userContentTypeIdentifier,
+        private readonly array $userGroupContentTypeIdentifier
     ) {
-        $this->roleService = $roleService;
-        $this->userService = $userService;
-        $this->valueFactory = $valueFactory;
-        $this->userContentTypeIdentifier = $userContentTypeIdentifier;
-        $this->userGroupContentTypeIdentifier = $userGroupContentTypeIdentifier;
     }
 
     /**
@@ -64,12 +47,12 @@ class PoliciesDataset
         $contentType = $content->getContentType();
 
         if ((new ContentTypeIsUser($this->userContentTypeIdentifier))->isSatisfiedBy($contentType)) {
-            $user = $this->userService->loadUser($content->id);
+            $user = $this->userService->loadUser($content->getId());
             $roleAssignments = $this->roleService->getRoleAssignmentsForUser($user, true);
         }
 
         if ((new ContentTypeIsUserGroup($this->userGroupContentTypeIdentifier))->isSatisfiedBy($contentType)) {
-            $userGroup = $this->userService->loadUserGroup($content->id);
+            $userGroup = $this->userService->loadUserGroup($content->getId());
             $roleAssignments = $this->roleService->getRoleAssignmentsForUserGroup($userGroup);
         }
 
@@ -81,7 +64,7 @@ class PoliciesDataset
                 function (Policy $policy) use ($roleAssignment) {
                     return $this->valueFactory->createPolicy($policy, $roleAssignment);
                 },
-                $roleAssignment->getRole()->getPolicies()
+                iterator_to_array($roleAssignment->getRole()->getPolicies())
             );
         }
 
