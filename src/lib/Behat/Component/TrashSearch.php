@@ -13,15 +13,14 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Ibexa\Behat\Browser\Routing\Router;
 
 class TrashSearch extends Component
 {
     private IbexaDropdown $ibexaDropdown;
 
-    public function __construct(Session $session, Router $router, IbexaDropdown $ibexaDropdown)
+    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
     {
-        parent::__construct($session, $router);
+        parent::__construct($session);
         $this->ibexaDropdown = $ibexaDropdown;
     }
 
