@@ -11,56 +11,30 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
-class ContentDraft implements ContentDraftInterface
+readonly class ContentDraft implements ContentDraftInterface
 {
-    private VersionInfo $versionInfo;
-
-    private VersionId $versionId;
-
-    private ContentType $contentType;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId $versionId
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     */
     public function __construct(
-        VersionInfo $versionInfo,
-        VersionId $versionId,
-        ContentType $contentType
+        private VersionInfo $versionInfo,
+        private VersionId $versionId,
+        private ContentType $contentType
     ) {
-        $this->versionInfo = $versionInfo;
-        $this->versionId = $versionId;
-        $this->contentType = $contentType;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
-     */
     public function getVersionInfo(): VersionInfo
     {
         return $this->versionInfo;
     }
 
-    /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId
-     */
     public function getVersionId(): VersionId
     {
         return $this->versionId;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
-     */
     public function getContentType(): ContentType
     {
         return $this->contentType;
     }
 
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool
     {
         return true;

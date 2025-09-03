@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Validator for default value from FieldDefinitionData.
  */
-class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
+final class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
 {
     public function validate(mixed $value, Constraint $constraint): void
     {

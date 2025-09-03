@@ -15,27 +15,20 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
+final class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
 {
-    private LocationService $locationService;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        LocationService $locationService,
-        ConfigResolverInterface $configResolver
+        private readonly LocationService $locationService,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->locationService = $locationService;
-        $this->configResolver = $configResolver;
     }
 
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint): void
+    public function validate(mixed $location, Constraint $constraint): void
     {
         if (null === $location) {
             return;
@@ -45,6 +38,7 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
             $this->configResolver->getParameter('subtree_operations.copy_subtree.limit'),
             $this->locationService
         );
+
         try {
             if (!$isWithinCopySubtreeLimit->isSatisfiedBy($location)) {
                 $this

@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
-class CustomUrlAddDataTest extends TestCase
+final class CustomUrlAddDataTest extends TestCase
 {
     public function testConstruct(): void
     {

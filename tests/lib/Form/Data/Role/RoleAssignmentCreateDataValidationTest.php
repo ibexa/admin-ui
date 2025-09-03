@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data\Role;
 
@@ -104,7 +105,7 @@ final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValid
     }
 
     /**
-     * @return array<string, \Symfony\Component\Form\FormTypeInterface>
+     * @return array<string, \Symfony\Component\Form\FormTypeInterface<mixed>>
      */
     protected function getTypes(): array
     {
@@ -126,8 +127,14 @@ final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValid
         ];
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData>
+     */
     protected function getForm(): FormInterface
     {
-        return $this->factory->create(RoleAssignmentCreateType::class, new RoleAssignmentCreateData());
+        return $this->factory->create(
+            RoleAssignmentCreateType::class,
+            new RoleAssignmentCreateData()
+        );
     }
 }

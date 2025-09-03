@@ -16,16 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * BulkOperationResponse value object visitor.
  */
-class BulkOperationResponse extends ValueObjectVisitor
+final class BulkOperationResponse extends ValueObjectVisitor
 {
     /**
      * Visit struct returned by controllers.
      *
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
      * @param \Ibexa\AdminUi\REST\Value\BulkOperationResponse $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement('BulkOperationResponse');
         $visitor->setHeader('Content-Type', $generator->getMediaType('BulkOperationResponse'));
@@ -35,20 +33,15 @@ class BulkOperationResponse extends ValueObjectVisitor
 
         foreach ($data->operations as $operationId => $operation) {
             $generator->startObjectElement($operationId, 'OperationResponse');
-
-            $generator->startValueElement('statusCode', $operation->statusCode);
-            $generator->endValueElement('statusCode');
-
+            $generator->valueElement('statusCode', $operation->statusCode);
             $generator->startHashElement('headers');
 
             foreach ($operation->headers as $name => $header) {
-                $generator->startValueElement($name, $header[0]);
-                $generator->endValueElement($name);
+                $generator->valueElement($name, $header[0]);
             }
             $generator->endHashElement('headers');
 
-            $generator->startValueElement('content', $operation->content);
-            $generator->endValueElement('content');
+            $generator->valueElement('content', $operation->content);
 
             $generator->endObjectElement($operationId);
         }

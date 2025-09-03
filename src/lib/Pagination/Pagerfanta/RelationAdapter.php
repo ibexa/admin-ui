@@ -16,22 +16,13 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\RelationInterface>
  */
-final class RelationAdapter implements AdapterInterface
+final readonly class RelationAdapter implements AdapterInterface
 {
-    private ContentService $contentService;
-
-    private DatasetFactory $datasetFactory;
-
-    private Content $content;
-
     public function __construct(
-        ContentService $contentService,
-        DatasetFactory $datasetFactory,
-        Content $content
+        private ContentService $contentService,
+        private DatasetFactory $datasetFactory,
+        private Content $content
     ) {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
-        $this->content = $content;
     }
 
     /**
@@ -41,7 +32,9 @@ final class RelationAdapter implements AdapterInterface
     public function getNbResults(): int
     {
         /** @phpstan-var int<0, max> */
-        return $this->contentService->countRelations($this->content->getVersionInfo());
+        return $this->contentService->countRelations(
+            $this->content->getVersionInfo()
+        );
     }
 
     /**

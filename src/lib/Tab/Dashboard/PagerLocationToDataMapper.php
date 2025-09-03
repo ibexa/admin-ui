@@ -17,22 +17,13 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 use Pagerfanta\Pagerfanta;
 
-final class PagerLocationToDataMapper
+final readonly class PagerLocationToDataMapper
 {
-    private UserService $userService;
-
-    private LocationResolver $locationResolver;
-
-    private LanguageService $languageService;
-
     public function __construct(
-        UserService $userService,
-        LocationResolver $locationResolver,
-        LanguageService $languageService
+        private UserService $userService,
+        private LocationResolver $locationResolver,
+        private LanguageService $languageService
     ) {
-        $this->userService = $userService;
-        $this->locationResolver = $locationResolver;
-        $this->languageService = $languageService;
     }
 
     /**
@@ -69,10 +60,10 @@ final class PagerLocationToDataMapper
 
             $data[] = [
                 'contentTypeId' => $contentInfo->contentTypeId,
-                'contentId' => $contentInfo->id,
-                'name' => $contentInfo->name,
+                'contentId' => $contentInfo->getId(),
+                'name' => $contentInfo->getName(),
                 'type' => $contentType->getName(),
-                'language' => $contentInfo->mainLanguageCode,
+                'language' => $contentInfo->getMainLanguageCode(),
                 'available_enabled_translations' => $versionInfo !== null ? $this->getAvailableTranslations($versionInfo) : [],
                 'contributor' => $versionInfo !== null ? $this->getVersionContributor($versionInfo) : null,
                 'content_type' => $contentType,
@@ -87,8 +78,8 @@ final class PagerLocationToDataMapper
     private function getVersionContributor(VersionInfo $versionInfo): ?User
     {
         try {
-            return $this->userService->loadUser($versionInfo->creatorId);
-        } catch (NotFoundException $e) {
+            return $this->userService->loadUser($versionInfo->getCreator()->getId());
+        } catch (NotFoundException) {
             return null;
         }
     }
@@ -100,13 +91,13 @@ final class PagerLocationToDataMapper
         VersionInfo $versionInfo
     ): array {
         $availableTranslationsLanguages = $this->languageService->loadLanguageListByCode(
-            $versionInfo->languageCodes
+            $versionInfo->getLanguageCodes()
         );
 
         return array_filter(
             $availableTranslationsLanguages,
             static function (Language $language): bool {
-                return $language->enabled;
+                return $language->isEnabled();
             }
         );
     }

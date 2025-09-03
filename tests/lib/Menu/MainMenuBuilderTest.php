@@ -24,7 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class MainMenuBuilerTest extends TestCase
+final class MainMenuBuilderTest extends TestCase
 {
     private MenuItemFactoryInterface&MockObject $factory;
 
@@ -210,6 +210,9 @@ class MainMenuBuilerTest extends TestCase
         $this->assertMenuHasAllItems($children);
     }
 
+    /**
+     * @param array<string, mixed> $menu
+     */
     private function assertMenuHasAllItems(array $menu): void
     {
         self::assertArrayHasKey(MainMenuBuilder::ITEM_CONTENT, $menu);

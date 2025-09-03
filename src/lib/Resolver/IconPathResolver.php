@@ -20,19 +20,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class IconPathResolver implements IconPathResolverInterface, EventSubscriberInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    private Packages $packages;
-
-    /** @var string[] */
+    /** @var string[]|string[][] */
     private array $iconCache;
 
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        Packages $packages
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly Packages $packages
     ) {
-        $this->configResolver = $configResolver;
-        $this->packages = $packages;
         $this->iconCache = [];
     }
 

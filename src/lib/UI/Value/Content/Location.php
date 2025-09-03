@@ -17,72 +17,34 @@ use Ibexa\Core\Repository\Values\Content\Location as CoreLocation;
  */
 class Location extends CoreLocation
 {
-    /**
-     * Child count.
-     *
-     * @var int
-     */
-    protected $childCount;
+    protected int $childCount;
+
+    protected bool $main;
+
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    protected array $pathLocations;
+
+    protected bool $userCanManage;
+
+    protected bool $userCanRemove;
+
+    protected bool $userCanEdit;
 
     /**
-     * Is main location.
-     *
-     * @var bool
+     * @param array<string, mixed> $properties
      */
-    protected $main;
-
-    /**
-     * Path locations.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
-     */
-    protected $pathLocations;
-
-    /**
-     * User can manage.
-     *
-     * @var bool
-     */
-    protected $userCanManage;
-
-    /**
-     * User can remove.
-     *
-     * @var bool
-     */
-    protected $userCanRemove;
-
-    /**
-     * User can edit.
-     *
-     * @var bool
-     */
-    protected $userCanEdit;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param array $properties
-     */
-    public function __construct(APILocation $location, array $properties = [])
-    {
+    public function __construct(
+        readonly APILocation $location,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($location) + $properties);
     }
 
-    /**
-     * Can delete location.
-     *
-     * @return bool
-     */
     public function canDelete(): bool
     {
         return !$this->main && $this->userCanManage && $this->userCanRemove;
     }
 
-    /**
-     * Can edit location.
-     *
-     * @return bool
-     */
     public function canEdit(): bool
     {
         return $this->userCanEdit;

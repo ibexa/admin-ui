@@ -48,30 +48,17 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
  *     nameSchemaIdentifiers: array<string>
  * }
  */
-final class DamWidget implements ProviderInterface
+final readonly class DamWidget implements ProviderInterface
 {
-    /** @phpstan-var TConfig */
-    private array $config;
-
-    private ContentTypeService $contentTypeService;
-
-    private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
-
-    private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor;
-
     /**
      * @phpstan-param TConfig $config
      */
     public function __construct(
-        array $config,
-        ContentTypeService $contentTypeService,
-        RepositoryConfigurationProviderInterface $repositoryConfigurationProvider,
-        SchemaIdentifierExtractorInterface $schemaIdentifierExtractor
+        private array $config,
+        private ContentTypeService $contentTypeService,
+        private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider,
+        private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor
     ) {
-        $this->config = $config;
-        $this->contentTypeService = $contentTypeService;
-        $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
-        $this->schemaIdentifierExtractor = $schemaIdentifierExtractor;
     }
 
     /**

@@ -19,11 +19,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @see \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface
  */
-class OrderedTabSubscriber implements EventSubscriberInterface
+final readonly class OrderedTabSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -31,9 +28,6 @@ class OrderedTabSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
-     */
     public function onTabGroupPreRender(TabGroupEvent $tabGroupEvent): void
     {
         $tabGroup = $tabGroupEvent->getData();
@@ -48,7 +42,7 @@ class OrderedTabSubscriber implements EventSubscriberInterface
     /**
      * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
      *
-     * @return array
+     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
      */
     private function reorderTabs(array $tabs): array
     {
@@ -65,12 +59,6 @@ class OrderedTabSubscriber implements EventSubscriberInterface
         return array_merge($orderedTabs, $tabs);
     }
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface $tab1
-     * @param \Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface $tab2
-     *
-     * @return int
-     */
     private function sortTabs(OrderedTabInterface $tab1, OrderedTabInterface $tab2): int
     {
         return $tab1->getOrder() <=> $tab2->getOrder();

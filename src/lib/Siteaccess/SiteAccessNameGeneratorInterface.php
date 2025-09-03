@@ -12,5 +12,5 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 interface SiteAccessNameGeneratorInterface
 {
-    public function generate(SiteAccess $siteAccessIdentifier): string;
+    public function generate(SiteAccess $siteAccess): string;
 }

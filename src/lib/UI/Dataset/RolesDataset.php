@@ -17,18 +17,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class RolesDataset
 {
-    private RoleService $roleService;
-
-    private UserService $userService;
-
-    protected ValueFactory $valueFactory;
-
-    /** @var string[] */
-    private array $userContentTypeIdentifier;
-
-    /** @var string[] */
-    private array $userGroupContentTypeIdentifier;
-
     /** @var \Ibexa\AdminUi\UI\Value\User\Role[]|null */
     private ?array $data = null;
 
@@ -37,21 +25,15 @@ class RolesDataset
      * @param string[] $userGroupContentTypeIdentifier
      */
     public function __construct(
-        RoleService $roleService,
-        UserService $userService,
-        ValueFactory $valueFactory,
-        array $userContentTypeIdentifier,
-        array $userGroupContentTypeIdentifier
+        private readonly RoleService $roleService,
+        private readonly UserService $userService,
+        protected readonly ValueFactory $valueFactory,
+        private readonly array $userContentTypeIdentifier,
+        private readonly array $userGroupContentTypeIdentifier
     ) {
-        $this->roleService = $roleService;
-        $this->userService = $userService;
-        $this->valueFactory = $valueFactory;
-        $this->userContentTypeIdentifier = $userContentTypeIdentifier;
-        $this->userGroupContentTypeIdentifier = $userGroupContentTypeIdentifier;
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -64,18 +46,18 @@ class RolesDataset
 
         // @todo $content should just have been instance of User or UserGroup direclty so we don't need to re-load data
         if ((new ContentTypeIsUser($this->userContentTypeIdentifier))->isSatisfiedBy($contentType)) {
-            $user = $this->userService->loadUser($content->id);
+            $user = $this->userService->loadUser($content->getId());
             $roleAssignment = $this->roleService->getRoleAssignmentsForUser($user, true);
         }
 
         if ((new ContentTypeIsUserGroup($this->userGroupContentTypeIdentifier))->isSatisfiedBy($contentType)) {
-            $userGroup = $this->userService->loadUserGroup($content->id);
+            $userGroup = $this->userService->loadUserGroup($content->getId());
             $roleAssignment = $this->roleService->getRoleAssignmentsForUserGroup($userGroup);
         }
 
         $this->data = array_map(
             [$this->valueFactory, 'createRole'],
-            $roleAssignment
+            iterator_to_array($roleAssignment)
         );
 
         return $this;

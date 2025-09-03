@@ -32,6 +32,9 @@ final class LocationPathQueryType extends OptionsResolverBasedQueryType
         ;
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     protected function doGetQuery(array $parameters): Query
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
@@ -39,7 +42,7 @@ final class LocationPathQueryType extends OptionsResolverBasedQueryType
         /** @var int $rootLocationId */
         $rootLocationId = $parameters['rootLocationId'];
 
-        $filter = $location->id === $rootLocationId
+        $filter = $location->getId() === $rootLocationId
             ? new Query\Criterion\ParentLocationId($rootLocationId)
             : new Query\Criterion\LocationId($this->getParentLocationPath($location));
 
@@ -49,9 +52,12 @@ final class LocationPathQueryType extends OptionsResolverBasedQueryType
         ]);
     }
 
+    /**
+     * @return int[]
+     */
     private function getParentLocationPath(Location $location): array
     {
-        $parentPath = array_slice($location->path, 0, -1);
+        $parentPath = array_slice($location->getPath(), 0, -1);
 
         return array_map('intval', $parentPath);
     }

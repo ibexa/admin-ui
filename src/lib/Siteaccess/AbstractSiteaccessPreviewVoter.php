@@ -13,21 +13,12 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterInterface
 {
-    protected ConfigResolverInterface $configResolver;
-
-    protected RepositoryConfigurationProviderInterface $repositoryConfigurationProvider;
-
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        RepositoryConfigurationProviderInterface $repositoryConfigurationProvider
+        protected readonly ConfigResolverInterface $configResolver,
+        protected readonly RepositoryConfigurationProviderInterface $repositoryConfigurationProvider
     ) {
-        $this->configResolver = $configResolver;
-        $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function vote(SiteaccessPreviewVoterContext $context): bool
     {
         $siteAccess = $context->getSiteaccess();
@@ -67,8 +58,6 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
     }
 
     /**
-     * @param string $siteaccess
-     *
      * @return int[]
      */
     abstract protected function getRootLocationIds(string $siteaccess): array;

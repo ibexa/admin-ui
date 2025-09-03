@@ -20,61 +20,47 @@ class Relation extends CoreRelation implements RelationInterface
     /**
      * Field definition name for the relation.
      * This will either come from destinationContentInfo OR sourceContentInfo depending upon if reverse relation or normal relation.
-     *
-     * @var string
      */
-    protected $relationFieldDefinitionName;
+    protected string $relationFieldDefinitionName;
 
     /**
      * The content type name for the relation.
      * This will either come from destinationContentInfo OR sourceContentInfo depending upon if reverse relation or normal relation.
-     *
-     * @var string
      */
-    protected $relationContentTypeName;
+    protected string $relationContentTypeName;
 
     /**
      * Main location for the relation.
      * This will either come from destinationContentInfo OR sourceContentInfo depending upon if reverse relation or normal relation.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
-    protected $relationLocation;
+    protected Location $relationLocation;
 
     /**
      * The name for the relation.
      * This will either come from destinationContentInfo OR sourceContentInfo depending upon if reverse relation or normal relation.
-     *
-     * @var string
      */
-    protected $relationName;
+    protected string $relationName;
 
     /**
      * Source location for the relation.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
-    protected $resolvedSourceLocation;
+    protected Location $resolvedSourceLocation;
 
     /**
      * Destination location for the relation.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
      */
-    protected $resolvedDestinationLocation;
+    protected Location $resolvedDestinationLocation;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function __construct(APIRelation $relation, array $properties = [])
-    {
+    public function __construct(
+        readonly APIRelation $relation,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($relation) + $properties);
     }
 
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool
     {
         return true;

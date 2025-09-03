@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionField
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -25,6 +26,7 @@ use Symfony\Component\Form\FormInterface;
 final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 {
     private const string FIELD_TYPE_IDENTIFIER = 'foo';
+
     private const array MODIFIED_OPTIONS = [
         'disable_identifier_field' => true,
         'disable_required_field' => true,
@@ -34,10 +36,10 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 
     private ModifyFieldDefinitionFieldsSubscriber $modifyFieldDefinitionFieldsSubscriber;
 
-    /** @var \Symfony\Component\Form\FormInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private FormInterface $form;
+    /** @var \Symfony\Component\Form\FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject */
+    private FormInterface&MockObject $form;
 
-    private FormBuilderInterface $formBuilder;
+    private FormBuilderInterface&MockObject $formBuilder;
 
     protected function setUp(): void
     {
@@ -139,7 +141,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     }
 
     /**
-     * @param array<string, scalar|bool> $options
+     * @param array<string, mixed> $options
      */
     private function mockFormBuilderGetOptions(array $options): void
     {
@@ -159,7 +161,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     }
 
     /**
-     * @param array<string, scalar|bool> $options
+     * @param array<string, mixed> $options
      */
     private function mockFormAdd(string $identifier, array $options): void
     {

@@ -14,7 +14,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
-class ContentTypeIconResolverTest extends TestCase
+final class ContentTypeIconResolverTest extends TestCase
 {
     private ConfigResolverInterface&MockObject $configResolver;
 
@@ -34,6 +34,8 @@ class ContentTypeIconResolverTest extends TestCase
     }
 
     /**
+     * @param array<string, array{thumbnail: ?string}> $config
+     *
      * @dataProvider dataProviderForGetContentTypeIcon
      */
     public function testGetContentTypeIcon(array $config, string $identifier, string $expected): void
@@ -66,6 +68,9 @@ class ContentTypeIconResolverTest extends TestCase
         self::assertEquals($expected, $this->contentTypeIconResolver->getContentTypeIcon($identifier));
     }
 
+    /**
+     * @return array<array{0: array<string, array{thumbnail: ?string}>, 1: string, 2: string}>
+     */
     public function dataProviderForGetContentTypeIcon(): array
     {
         return [

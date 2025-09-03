@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Menu\MenuItemFactory;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -22,6 +21,7 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\User\User;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -29,16 +29,18 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class BaseActionMenuBuilderTest extends TestCase
 {
-    protected const ROUTE_VERSION_HAS_NO_CONFLICT = 'ibexa.version.has_no_conflict';
-    protected const ROUTE_CONTENT_EDIT_DRAFT = '/content/edit/draft/%d/%d/%s';
-    protected const ROUTE_USER_UPDATE = '/user/update/%d/%d/%s';
-    protected const IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
-    protected const EDIT_ACTION_ITEM_EXTRAS = [
+    protected const string ROUTE_VERSION_HAS_NO_CONFLICT = 'ibexa.version.has_no_conflict';
+    protected const string ROUTE_CONTENT_EDIT_DRAFT = '/content/edit/draft/%d/%d/%s';
+    protected const string ROUTE_USER_UPDATE = '/user/update/%d/%d/%s';
+    protected const string IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
+
+    protected const array EDIT_ACTION_ITEM_EXTRAS = [
         'icon' => 'edit',
         'orderNumber' => 200,
         'translation_domain' => 'ibexa_action_menu',
     ];
-    protected const EDIT_ACTION_ITEM_ATTRIBUTES = [
+
+    protected const array EDIT_ACTION_ITEM_ATTRIBUTES = [
         'class' => self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS,
         'data-content-id' => 1,
         'data-language-code' => 'eng-GB',
@@ -47,20 +49,15 @@ abstract class BaseActionMenuBuilderTest extends TestCase
 
     protected MenuItemFactoryInterface $menuItemFactory;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject */
-    protected EventDispatcherInterface $eventDispatcher;
+    protected MockObject&EventDispatcherInterface $eventDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService&\PHPUnit\Framework\MockObject\MockObject */
-    protected ContentService $contentService;
+    protected MockObject&ContentService $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface&\PHPUnit\Framework\MockObject\MockObject */
-    protected TranslatorInterface $translator;
+    protected MockObject&TranslatorInterface $translator;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject */
-    protected UrlGeneratorInterface $urlGenerator;
+    protected MockObject&UrlGeneratorInterface $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
-    protected UserService $userService;
+    protected MockObject&UserService $userService;
 
     protected function setUp(): void
     {
@@ -68,9 +65,9 @@ abstract class BaseActionMenuBuilderTest extends TestCase
 
         $this->menuItemFactory = new MenuItemFactory(
             new MenuFactory(),
-            $this->createMock(PermissionResolver::class),
             $this->createMock(LocationService::class)
         );
+
         $this->eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->contentService = $this->createMock(ContentService::class);
         $this->translator = $this->createMock(TranslatorInterface::class);

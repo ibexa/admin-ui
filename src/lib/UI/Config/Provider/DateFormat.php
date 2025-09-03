@@ -12,44 +12,34 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer;
 use Ibexa\User\UserSetting\UserSettingService;
 
-class DateFormat implements ProviderInterface
+final readonly class DateFormat implements ProviderInterface
 {
-    protected UserSettingService $userSettingService;
-
-    protected DateTimeFormatSerializer $dateTimeFormatSerializer;
-
-    /**
-     * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService
-     * @param \Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer $dateTimeFormatSerializer
-     */
-    public function __construct(UserSettingService $userSettingService, DateTimeFormatSerializer $dateTimeFormatSerializer)
-    {
-        $this->userSettingService = $userSettingService;
-        $this->dateTimeFormatSerializer = $dateTimeFormatSerializer;
+    public function __construct(
+        private UserSettingService $userSettingService,
+        private DateTimeFormatSerializer $dateTimeFormatSerializer
+    ) {
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @return array
+     * @return array<string, string|null>
      */
     public function getConfig(): array
     {
         $fullDateTimeFormat = $this->dateTimeFormatSerializer->deserialize(
-            $this->userSettingService->getUserSetting('full_datetime_format')->value
+            $this->userSettingService->getUserSetting('full_datetime_format')->getValue()
         );
 
         $shortDateTimeFormat = $this->dateTimeFormatSerializer->deserialize(
-            $this->userSettingService->getUserSetting('short_datetime_format')->value
+            $this->userSettingService->getUserSetting('short_datetime_format')->getValue()
         );
 
         return [
-            'fullDateTime' => (string)$fullDateTimeFormat,
-            'fullDate' => $fullDateTimeFormat->getDateFormat(),
-            'fullTime' => $fullDateTimeFormat->getTimeFormat(),
-            'shortDateTime' => (string)$shortDateTimeFormat,
-            'shortDate' => $shortDateTimeFormat->getDateFormat(),
-            'shortTime' => $shortDateTimeFormat->getTimeFormat(),
+            'fullDateTime' => $fullDateTimeFormat === null ? '' : (string)$fullDateTimeFormat,
+            'fullDate' => $fullDateTimeFormat === null ? '' : $fullDateTimeFormat->getDateFormat(),
+            'fullTime' => $fullDateTimeFormat === null ? '' : $fullDateTimeFormat->getTimeFormat(),
+            'shortDateTime' => $shortDateTimeFormat === null ? '' : (string)$shortDateTimeFormat,
+            'shortDate' => $shortDateTimeFormat === null ? '' : $shortDateTimeFormat->getDateFormat(),
+            'shortTime' => $shortDateTimeFormat === null ? '' : $shortDateTimeFormat->getTimeFormat(),
         ];
     }
 }

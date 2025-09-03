@@ -10,22 +10,16 @@ namespace Ibexa\AdminUi\Util;
 
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 
-class FieldDefinitionGroupsUtil
+final readonly class FieldDefinitionGroupsUtil
 {
-    private FieldsGroupsList $fieldsGroupsListHelper;
-
-    /**
-     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
-     */
-    public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
+    public function __construct(private FieldsGroupsList $fieldsGroupsListHelper)
     {
-        $this->fieldsGroupsListHelper = $fieldsGroupsListHelper;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
      *
-     * @return array
+     * @return mixed[]
      */
     public function groupFieldDefinitions(iterable $fieldDefinitions): array
     {
@@ -34,7 +28,7 @@ class FieldDefinitionGroupsUtil
 
         $fieldDefinitionsByGroup = [];
         foreach ($fieldDefinitions as $fieldDefinition) {
-            $groupId = $fieldDefinition->fieldGroup ?: $defaultGroup;
+            $groupId = $fieldDefinition->getFieldGroup() ?: $defaultGroup;
 
             $fieldDefinitionsByGroup[$groupId]['name'] = $fieldDefinitionsByGroup[$groupId]['name']
                 ?? $fieldsGroups[$groupId]

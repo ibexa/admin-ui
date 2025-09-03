@@ -35,7 +35,6 @@ class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
      * @throws \Twig\Error\Error
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function renderView(array $parameters): string
     {

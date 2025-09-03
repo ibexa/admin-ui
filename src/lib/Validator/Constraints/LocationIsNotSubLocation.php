@@ -12,7 +12,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints\AbstractComparison;
 
-class LocationIsNotSubLocation extends AbstractComparison implements TranslationContainerInterface
+final class LocationIsNotSubLocation extends AbstractComparison implements TranslationContainerInterface
 {
     public string $message = 'ezplatform.copy_subtree.is_sub_location';
 

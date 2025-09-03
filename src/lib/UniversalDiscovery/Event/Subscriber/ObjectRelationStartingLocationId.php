@@ -11,11 +11,8 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ObjectRelationStartingLocationId implements EventSubscriberInterface
+final readonly class ObjectRelationStartingLocationId implements EventSubscriberInterface
 {
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -23,9 +20,6 @@ class ObjectRelationStartingLocationId implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         $configName = $event->getConfigName();

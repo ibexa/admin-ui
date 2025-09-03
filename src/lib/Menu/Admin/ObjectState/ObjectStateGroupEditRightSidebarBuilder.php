@@ -10,15 +10,14 @@ namespace Ibexa\AdminUi\Menu\Admin\ObjectState;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-class ObjectStateGroupEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class ObjectStateGroupEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    public const ITEM__SAVE_AND_CLOSE = 'object_state_group_edit__sidebar_right__save_and_close';
-    public const ITEM__CANCEL = 'object_state_group_edit__sidebar_right__cancel';
+    public const string ITEM__SAVE_AND_CLOSE = 'object_state_group_edit__sidebar_right__save_and_close';
+    public const string ITEM__CANCEL = 'object_state_group_edit__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {
@@ -26,10 +25,8 @@ class ObjectStateGroupEditRightSidebarBuilder extends AbstractBuilder implements
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface

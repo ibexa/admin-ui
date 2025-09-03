@@ -16,41 +16,28 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 class Aggregator
 {
-    /** @var \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] ApplicationConfigProviders, indexed by namespace string */
-    protected $providers;
-
     /**
-     * Aggregator constructor.
-     *
      * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] $providers
      */
-    public function __construct(array $providers = [])
+    public function __construct(private array $providers = [])
     {
-        $this->providers = $providers;
     }
 
-    /**
-     * Adds an Provider to the aggregator.
-     *
-     * @param string $key
-     * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface $provider
-     */
     public function addProvider(string $key, ProviderInterface $provider): void
     {
         $this->providers[$key] = $provider;
     }
 
     /**
-     * @param string $key
-     *
-     * @return \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
     public function removeProvider(string $key): ProviderInterface
     {
         if (!isset($this->providers[$key])) {
-            throw new InvalidArgumentException('key', sprintf('Provider under key "%s" not found', $key));
+            throw new InvalidArgumentException(
+                'key',
+                sprintf('Provider under key "%s" not found', $key)
+            );
         }
 
         return $this->providers[$key];
@@ -73,7 +60,7 @@ class Aggregator
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {

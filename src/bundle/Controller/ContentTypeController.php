@@ -469,8 +469,8 @@ final class ContentTypeController extends Controller
             '@ibexadesign/content_type/edit.html.twig',
             $group,
             $contentTypeDraft,
-            $baseLanguage ?? $language,
-            $form
+            $form,
+            $baseLanguage ?? $language
         );
         $view->addParameters([
             'field_type_toolbar' => $this->fieldTypeToolbarFactory->create(),
@@ -667,15 +667,15 @@ final class ContentTypeController extends Controller
                 'contentTypeGroupId' => $contentTypeGroup->id,
                 'contentTypeId' => $contentTypeDraft->id,
                 'fromLanguageCode' => $baseLanguage?->getLanguageCode(),
-                'toLanguageCode' => $language->getLanguageCode(),
+                'toLanguageCode' => $language?->getLanguageCode(),
             ]),
-            'languageCode' => $language->getLanguageCode(),
+            'languageCode' => $language?->getLanguageCode(),
             'mainLanguageCode' => $contentTypeDraft->mainLanguageCode,
         ]);
     }
 
     /**
-     * @return FormInterface<mixed>
+     * @return \Symfony\Component\Form\FormInterface<mixed>
      */
     protected function createDeleteForm(ContentTypeGroup $group, ContentType $contentType): FormInterface
     {

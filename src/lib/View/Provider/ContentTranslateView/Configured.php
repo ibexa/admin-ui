@@ -19,24 +19,17 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  */
 class Configured implements ViewProvider
 {
-    protected MatcherFactoryInterface $matcherFactory;
-
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface $matcherFactory
-     */
-    public function __construct(MatcherFactoryInterface $matcherFactory)
+    public function __construct(protected readonly MatcherFactoryInterface $matcherFactory)
     {
-        $this->matcherFactory = $matcherFactory;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
-    public function getView(View $view)
+    public function getView(View $view): ?ContentTranslateView
     {
-        if (($configHash = $this->matcherFactory->match($view)) === null) {
+        $configHash = $this->matcherFactory->match($view);
+        if ($configHash === null) {
             return null;
         }
 
@@ -44,11 +37,7 @@ class Configured implements ViewProvider
     }
 
     /**
-     * Builds a ContentTranslateView object from $viewConfig.
-     *
-     * @param array $viewConfig
-     *
-     * @return \Ibexa\AdminUi\View\ContentTranslateView
+     * @param array<string, mixed> $viewConfig
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */

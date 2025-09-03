@@ -12,13 +12,13 @@ use Ibexa\AdminUi\Form\DataTransformer\LanguageTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class LanguageTransformerTest extends TestCase
+final class LanguageTransformerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService&\PHPUnit\Framework\MockObject\MockObject */
-    private LanguageService $languageService;
+    private LanguageService&MockObject $languageService;
 
     protected function setUp(): void
     {

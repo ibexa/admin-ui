@@ -17,23 +17,17 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class Autosave implements ValueDefinitionInterface, FormMapperInterface
+final readonly class Autosave implements ValueDefinitionInterface, FormMapperInterface
 {
-    public const IDENTIFIER = 'autosave';
+    public const string IDENTIFIER = 'autosave';
 
-    public const ENABLED_OPTION = 'enabled';
-    public const DISABLED_OPTION = 'disabled';
-
-    private TranslatorInterface $translator;
-
-    private ConfigResolverInterface $configResolver;
+    public const string ENABLED_OPTION = 'enabled';
+    public const string DISABLED_OPTION = 'disabled';
 
     public function __construct(
-        TranslatorInterface $translator,
-        ConfigResolverInterface $configResolver
+        private TranslatorInterface $translator,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->translator = $translator;
-        $this->configResolver = $configResolver;
     }
 
     public function getName(): string
@@ -63,7 +57,9 @@ class Autosave implements ValueDefinitionInterface, FormMapperInterface
 
     public function getDefaultValue(): string
     {
-        return $this->configResolver->getParameter('autosave.enabled') == false ? self::DISABLED_OPTION : self::ENABLED_OPTION;
+        return $this->configResolver->getParameter('autosave.enabled') === false
+            ? self::DISABLED_OPTION
+            : self::ENABLED_OPTION;
     }
 
     public function mapFieldForm(

@@ -35,35 +35,19 @@ use Twig\Environment;
 
 class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-details';
-
-    private SectionService $sectionService;
-
-    private DatasetFactory $datasetFactory;
-
-    private FormFactoryInterface $formFactory;
-
-    private PermissionResolver $permissionResolver;
-
-    private UserSettingService $userSettingService;
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-details';
 
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        SectionService $sectionService,
-        DatasetFactory $datasetFactory,
-        FormFactoryInterface $formFactory,
-        PermissionResolver $permissionResolver,
-        UserSettingService $userSettingService,
+        private readonly SectionService $sectionService,
+        private readonly DatasetFactory $datasetFactory,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly UserSettingService $userSettingService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->sectionService = $sectionService;
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
-        $this->permissionResolver = $permissionResolver;
-        $this->userSettingService = $userSettingService;
     }
 
     public function getIdentifier(): string
@@ -84,20 +68,16 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function evaluate(array $parameters): bool
     {
-        return IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
+        return IsFocusModeEnabled
+            ::fromUserSettings($this->userSettingService)
+            ->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/details.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
@@ -122,6 +102,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return array_replace($contextParameters, $viewParameters->getArrayCopy());
     }
 
+    /**
+     * @param \ArrayObject<string, mixed> $parameters
+     */
     private function supplySortFieldClauseMap(ArrayObject $parameters): void
     {
         $parameters['sort_field_clause_map'] = [
@@ -137,6 +120,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         ];
     }
 
+    /**
+     * @param \ArrayObject<string, mixed> $parameters
+     */
     private function supplyObjectStateParameters(ArrayObject $parameters, ContentInfo $contentInfo): void
     {
         $objectStatesDataset = $this->datasetFactory->objectStates();
@@ -150,7 +136,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
         if ($canAssignObjectState) {
             foreach ($objectStatesDataset->getObjectStates() as $objectState) {
-                $objectStateGroup = $objectState->objectStateGroup;
+                $objectStateGroup = $objectState->getObjectStateGroup();
                 $objectStateUpdateForm = $this->formFactory->create(
                     ContentObjectStateUpdateType::class,
                     new ContentObjectStateUpdateData(
@@ -168,8 +154,6 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     /**
      * Specifies if the User has access to assigning a given Object State to Content Info.
      *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function canUserAssignObjectState(): bool
@@ -177,6 +161,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return $this->permissionResolver->hasAccess('state', 'assign') !== false;
     }
 
+    /**
+     * @param \ArrayObject<string, mixed> $parameters
+     */
     private function supplySectionParameters(ArrayObject $parameters, ContentInfo $contentInfo, Location $location): void
     {
         $canSeeSection = $this->permissionResolver->canUser('section', 'view', $contentInfo);
@@ -186,7 +173,7 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         $parameters['form_assign_section'] = null;
 
         if ($canSeeSection) {
-            $section = $this->sectionService->loadSection($contentInfo->sectionId);
+            $section = $this->sectionService->loadSection($contentInfo->getSectionId());
             $parameters['section'] = $section;
 
             $canAssignSection = $this->permissionResolver->hasAccess('section', 'assign');
@@ -204,6 +191,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         }
     }
 
+    /**
+     * @param \ArrayObject<string, mixed> $parameters
+     */
     private function supplyFormLocationUpdate(ArrayObject $parameters, Location $location): void
     {
         $parameters['form_location_update'] = $this->formFactory->create(
@@ -212,6 +202,9 @@ class DetailsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         )->createView();
     }
 
+    /**
+     * @param \ArrayObject<string, mixed> $parameters
+     */
     private function supplyTranslations(ArrayObject $parameters, VersionInfo $versionInfo): void
     {
         $translationsDataset = $this->datasetFactory->translations();

@@ -14,13 +14,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 /**
  * Checks if given content is an existing User content.
  */
-class ContentIsUser implements ContentSpecification
+final readonly class ContentIsUser implements ContentSpecification
 {
-    private UserService $userService;
-
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
     public function isSatisfiedBy(Content $content): bool

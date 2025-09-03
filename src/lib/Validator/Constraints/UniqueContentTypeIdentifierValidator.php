@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -16,13 +17,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Will check if ContentType identifier is not already used in the content repository.
  */
-class UniqueContentTypeIdentifierValidator extends ConstraintValidator
+final class UniqueContentTypeIdentifierValidator extends ConstraintValidator
 {
-    private ContentTypeService $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
     /**
@@ -33,14 +31,17 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
      *
      * @api
      */
-    public function validate($value, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof ContentTypeData || $value->identifier === null) {
             return;
         }
 
         try {
-            $contentType = $this->contentTypeService->loadContentTypeByIdentifier($value->identifier);
+            $contentType = $this->contentTypeService->loadContentTypeByIdentifier(
+                $value->identifier
+            );
+
             // It's of course OK to edit a draft of an existing ContentType :-)
             if ($contentType->id === $value->contentTypeDraft->id) {
                 return;
@@ -50,7 +51,7 @@ class UniqueContentTypeIdentifierValidator extends ConstraintValidator
                 ->atPath('identifier')
                 ->setParameter('%identifier%', $value->identifier)
                 ->addViolation();
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }

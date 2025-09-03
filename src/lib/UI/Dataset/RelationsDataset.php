@@ -16,26 +16,18 @@ use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\RelationListIt
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
 
-class RelationsDataset
+final class RelationsDataset
 {
-    protected ContentService $contentService;
-
-    protected ValueFactory $valueFactory;
+    /** @var UIValue\Content\Relation[] */
+    private array $relations;
 
     /** @var UIValue\Content\Relation[] */
-    protected $relations;
+    private array $reverseRelations;
 
-    /** @var UIValue\Content\Relation[] */
-    protected $reverseRelations;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
-    public function __construct(ContentService $contentService, ValueFactory $valueFactory)
-    {
-        $this->contentService = $contentService;
-        $this->valueFactory = $valueFactory;
+    public function __construct(
+        private readonly ContentService $contentService,
+        private readonly ValueFactory $valueFactory
+    ) {
         $this->relations = [];
         $this->reverseRelations = [];
     }

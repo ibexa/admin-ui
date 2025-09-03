@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
@@ -14,22 +15,12 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo>
  */
-class URLUsagesAdapter implements AdapterInterface
+final readonly class URLUsagesAdapter implements AdapterInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\URLService
-     */
-    private URLService $urlService;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\URL\URL
-     */
-    private URL $url;
-
-    public function __construct(URL $url, URLService $urlService)
-    {
-        $this->urlService = $urlService;
-        $this->url = $url;
+    public function __construct(
+        private URL $url,
+        private URLService $urlService
+    ) {
     }
 
     public function getNbResults(): int

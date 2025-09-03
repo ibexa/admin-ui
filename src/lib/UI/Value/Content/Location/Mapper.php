@@ -11,14 +11,11 @@ namespace Ibexa\AdminUi\UI\Value\Content\Location;
 use Ibexa\AdminUi\UI\Value;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 
-final class Mapper
+final readonly class Mapper
 {
-    private ValueFactory $valueFactory;
-
     public function __construct(
-        ValueFactory $valueFactory
+        private ValueFactory $valueFactory
     ) {
-        $this->valueFactory = $valueFactory;
     }
 
     /**

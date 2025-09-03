@@ -15,19 +15,13 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment>
  */
-final class RoleAssignmentsSearchAdapter implements AdapterInterface
+final readonly class RoleAssignmentsSearchAdapter implements AdapterInterface
 {
-    private RoleService $roleService;
-
-    private Role $role;
-
-    private ?int $assignmentsCount;
-
-    public function __construct(RoleService $roleService, Role $role, ?int $assignmentsCount = null)
-    {
-        $this->roleService = $roleService;
-        $this->role = $role;
-        $this->assignmentsCount = $assignmentsCount;
+    public function __construct(
+        private RoleService $roleService,
+        private Role $role,
+        private ?int $assignmentsCount = null
+    ) {
     }
 
     /**

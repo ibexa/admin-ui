@@ -20,7 +20,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class ContentTypeGroupTransformerTest extends TestCase
 {
-    private const EXAMPLE_CONTENT_TYPE_GROUP_ID = 1;
+    private const int EXAMPLE_CONTENT_TYPE_GROUP_ID = 1;
 
     private ContentTypeService&MockObject $contentService;
 
@@ -40,6 +40,9 @@ final class ContentTypeGroupTransformerTest extends TestCase
         self::assertEquals($expected, $this->transformer->transform($value));
     }
 
+    /**
+     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null, int|null}>
+     */
     public function dataProviderForTransformWithValidInput(): array
     {
         $contentTypeGroup = new ContentTypeGroup([

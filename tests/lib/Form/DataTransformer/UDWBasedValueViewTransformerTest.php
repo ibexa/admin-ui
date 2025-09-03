@@ -16,7 +16,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class UDWBasedValueViewTransformerTest extends TestCase
+final class UDWBasedValueViewTransformerTest extends TestCase
 {
     private LocationService&MockObject $locationService;
 
@@ -31,6 +31,8 @@ class UDWBasedValueViewTransformerTest extends TestCase
     }
 
     /**
+     * @param mixed[] $given
+     *
      * @dataProvider dataProviderForTransform
      */
     public function testTransform(?array $given, ?string $expected): void
@@ -38,6 +40,9 @@ class UDWBasedValueViewTransformerTest extends TestCase
         self::assertEquals($expected, $this->transformer->transform($given));
     }
 
+    /**
+     * @return array<array{0: ?array<Location>, 1: ?string}>
+     */
     public function dataProviderForTransform(): array
     {
         return [
@@ -54,6 +59,8 @@ class UDWBasedValueViewTransformerTest extends TestCase
     }
 
     /**
+     * @param mixed[] $expected
+     *
      * @dataProvider dataProviderForReverseTransform
      */
     public function testReverseTransform(?string $given, ?array $expected): void
@@ -67,6 +74,9 @@ class UDWBasedValueViewTransformerTest extends TestCase
         self::assertEquals($expected, $this->transformer->reverseTransform($given));
     }
 
+    /**
+     * @return array<array{0: ?string, 1: ?array<\Ibexa\Contracts\Core\Repository\Values\Content\Location>}>
+     */
     public function dataProviderForReverseTransform(): array
     {
         return [
@@ -95,7 +105,7 @@ class UDWBasedValueViewTransformerTest extends TestCase
         $this->transformer->reverseTransform('54,56,58');
     }
 
-    private function createLocation($id): Location
+    private function createLocation(int $id): Location
     {
         $location = $this->createMock(Location::class);
         $location

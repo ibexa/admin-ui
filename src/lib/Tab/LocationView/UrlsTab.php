@@ -31,88 +31,43 @@ use Twig\Environment;
 
 class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-urls';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-urls';
 
-    protected URLAliasService $urlAliasService;
-
-    protected FormFactory $formFactory;
-
-    protected DatasetFactory $datasetFactory;
-
-    protected LocationService $locationService;
-
-    protected PermissionResolver $permissionResolver;
-
-    private TranslationHelper $translationHelper;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $urlAliasService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        URLAliasService $urlAliasService,
-        FormFactory $formFactory,
-        DatasetFactory $datasetFactory,
-        LocationService $locationService,
-        PermissionResolver $permissionResolver,
+        protected readonly URLAliasService $urlAliasService,
+        protected readonly FormFactory $formFactory,
+        protected readonly DatasetFactory $datasetFactory,
+        protected readonly LocationService $locationService,
+        protected readonly PermissionResolver $permissionResolver,
         EventDispatcherInterface $eventDispatcher,
-        TranslationHelper $translationHelper
+        private readonly TranslationHelper $translationHelper
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->urlAliasService = $urlAliasService;
-        $this->formFactory = $formFactory;
-        $this->datasetFactory = $datasetFactory;
-        $this->locationService = $locationService;
-        $this->permissionResolver = $permissionResolver;
-        $this->translationHelper = $translationHelper;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'urls';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("URL") */
         return $this->translator->trans('tab.name.urls', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 400;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/urls.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
@@ -136,7 +91,9 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 
         $systemUrlPagerfanta = new Pagerfanta(
             new ArrayAdapter(
-                iterator_to_array($this->urlAliasService->listLocationAliases($location, false, null, true))
+                iterator_to_array(
+                    $this->urlAliasService->listLocationAliases($location, false, null, true)
+                )
             )
         );
 
@@ -172,17 +129,13 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
                     $parentLocation->getContent()
                 );
             }
-        } catch (UnauthorizedException $exception) {
+        } catch (UnauthorizedException) {
+            // do nothing
         }
 
         return array_replace($contextParameters, $viewParameters);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     private function createCustomUrlAddForm(Location $location): FormInterface
     {
         $customUrlAddData = new CustomUrlAddData($location);
@@ -191,22 +144,21 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param array $customUrlAliases
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias[] $customUrlAliases
      */
-    private function createCustomUrlRemoveForm(Location $location, array $customUrlAliases): FormInterface
-    {
+    private function createCustomUrlRemoveForm(
+        Location $location,
+        array $customUrlAliases
+    ): FormInterface {
         $customUrlRemoveData = new CustomUrlRemoveData($location, $this->getChoices($customUrlAliases));
 
         return $this->formFactory->removeCustomUrl($customUrlRemoveData);
     }
 
     /**
-     * @param array $customUrlAliases
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias[] $customUrlAliases
      *
-     * @return array
+     * @return mixed[]
      */
     private function getChoices(array $customUrlAliases): array
     {

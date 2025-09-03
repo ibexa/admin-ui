@@ -20,8 +20,7 @@ class FormUiActionMappingDispatcher
     protected FormUiActionMapperInterface $defaultMapper;
 
     /**
-     * @param \Traversable $mappers
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
+     * @param \Traversable<\Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface> $mappers
      */
     public function __construct(
         Traversable $mappers,
@@ -47,30 +46,21 @@ class FormUiActionMappingDispatcher
         $this->mappers = $mappers;
     }
 
-    /**
-     * @return \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface
-     */
     public function getDefaultMapper(): FormUiActionMapperInterface
     {
         return $this->defaultMapper;
     }
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
-     */
     public function setDefaultMapper(FormUiActionMapperInterface $defaultMapper): void
     {
         $this->defaultMapper = $defaultMapper;
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
-     *
-     * @return \Ibexa\AdminUi\UI\Action\UiActionEvent
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
     public function dispatch(FormInterface $form): UiActionEvent
     {
-        /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] $mappers */
         foreach ($this->mappers as $mapper) {
             if ($mapper === $this->defaultMapper) {
                 continue;
