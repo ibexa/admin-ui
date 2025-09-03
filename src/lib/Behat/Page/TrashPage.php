@@ -96,6 +96,26 @@ class TrashPage extends Page
         $this->trashSearch->confirm();
     }
 
+    public function confirmSearch(): void
+    {
+        $this->trashSearch->confirm();
+    }
+
+    public function filterByContentType(string $contentType): void
+    {
+        $this->trashSearch->filterByContentType($contentType);
+    }
+
+    public function filterBySection(string $section): void
+    {
+        $this->trashSearch->filterBySection($section);
+    }
+
+    public function filterByContentItemCreator(string $contentItemCreator): void
+    {
+        $this->trashSearch->filterByContentItemCreator($contentItemCreator);
+    }
+
     public function restoreSelectedItems()
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
