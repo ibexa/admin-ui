@@ -40,7 +40,7 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     /**
      * Returns value choices to display, as expected by the "choices" option from Choice field.
      *
-     * @return array<int, string>
+     * @return array<array-key, int|string>
      */
     abstract protected function getSelectionChoices(): array;
 
