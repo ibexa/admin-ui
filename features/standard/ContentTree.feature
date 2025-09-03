@@ -2,11 +2,8 @@
 
 Feature: Content tree basic operations
   Scenario: Content tree can be displayed
-#    Given I am logged as admin
-    Given I open Login page in admin SiteAccess
-    And I log in as admin with password publish
-    And I should be on Dashboard page
-    When I go to "Content structure" in Content tab
+    Given I am logged as admin
+    When I'm on Content view Page for "root"
     Then I verify Content tree visibility
 
   Scenario: It is possible to display items on Content tree
