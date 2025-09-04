@@ -26,12 +26,12 @@
             <input type="checkbox" name="dropdown-checkbox" class="ibexa-input ibexa-input--checkbox" {% if is_selected %}checked{% endif %} />
         {% endif %}
         {% if icon is defined and icon != '' %}
-            <svg class="ibexa-icon ibexa-icon--small {{ icon_class|default('') }}">
+            <svg class="ibexa-icon ibexa-icon--small-medium {{ icon_class|default('') }}">
                 <use xlink:href="{{ ibexa_icon_path(icon) }}"></use>
             </svg>
         {% endif %}
         {% if choice.icon is defined %}
-            <svg class="ibexa-icon ibexa-icon--small">
+            <svg class="ibexa-icon ibexa-icon--small-medium">
                 <use xlink:href="{{ ibexa_icon_path(choice.icon) }}"></use>
             </svg>
         {% endif %}

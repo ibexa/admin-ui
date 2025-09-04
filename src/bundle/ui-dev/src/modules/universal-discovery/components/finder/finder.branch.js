@@ -94,7 +94,7 @@ const FinderBranch = ({ locationData, itemsPerPage = 50 }) => {
         return (
             <div className="c-finder-branch__info-wrapper">
                 <span className="c-finder-branch__icon-wrapper">
-                    <Icon extraClasses="ibexa-icon--small" customPath={iconPath} />
+                    <Icon extraClasses="ibexa-icon--small-medium" customPath={iconPath} />
                 </span>
                 <span className="c-finder-branch__name">{contentName}</span>
             </div>

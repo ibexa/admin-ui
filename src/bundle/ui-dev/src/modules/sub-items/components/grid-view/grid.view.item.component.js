@@ -35,7 +35,7 @@ const GridViewItemComponent = ({ item, generateLink }) => {
                     {contentInfo.ContentInfo.name}
                 </div>
                 <div className="ibexa-grid-view-item__detail-a">
-                    <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />
+                    <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />
                     {contentTypeName}
                 </div>
             </div>

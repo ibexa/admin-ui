@@ -27,7 +27,7 @@
                 {% endset %}
 
                 {% set col_icon %}
-                    <svg class="ibexa-icon ibexa-icon--small">
+                    <svg class="ibexa-icon ibexa-icon--small-medium">
                         <use xlink:href="{{ ibexa_content_type_icon(bookmark.contentType.identifier) }}"></use>
                     </svg>
                 {% endset %}
@@ -61,7 +61,7 @@
                             data-content-id="{{ bookmark.contentInfo.id }}"
                             data-language-code="{{ bookmark.contentInfo.mainLanguageCode }}"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
                                 <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                             </svg>
                         </button>

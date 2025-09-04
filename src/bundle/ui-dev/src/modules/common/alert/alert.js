@@ -44,7 +44,7 @@ const Alert = ({
 
     return (
         <div className={className} role="alert">
-            <Icon name={iconName} customPath={iconPath} extraClasses="ibexa-icon--small ibexa-alert__icon" />
+            <Icon name={iconName} customPath={iconPath} extraClasses="ibexa-icon--small-medium ibexa-alert__icon" />
             <div className={contentClassName}>
                 {title && <div className="ibexa-alert__title">{title}</div>}
                 {subtitle && <div className="ibexa-alert__subtitle">{subtitle}</div>}

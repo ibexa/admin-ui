@@ -180,7 +180,7 @@ export default class TableViewItemComponent extends PureComponent {
 
         return (
             <span className="c-table-view-item__icon-with-name-wrapper">
-                <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />
+                <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />
                 <a {...linkAttrs}>{contentName}</a>
             </span>
         );
@@ -224,14 +224,14 @@ export default class TableViewItemComponent extends PureComponent {
                         className="btn ibexa-btn ibexa-btn--primary ibexa-btn--no-text ibexa-btn--small c-table-view-item__btn c-table-view-item__btn--submit"
                         onClick={this.handleSubmit}
                     >
-                        <Icon name="checkmark" extraClasses="ibexa-icon--small" />
+                        <Icon name="checkmark" extraClasses="ibexa-icon--small-medium" />
                     </button>
                     <button
                         type="button"
                         className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text ibexa-btn--small"
                         onClick={this.handleCancel}
                     >
-                        <Icon name="discard" extraClasses="ibexa-icon--small" />
+                        <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
                     </button>
                 </div>
             </div>

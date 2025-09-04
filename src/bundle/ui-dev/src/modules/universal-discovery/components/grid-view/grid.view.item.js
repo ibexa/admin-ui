@@ -93,7 +93,7 @@ const GridViewItem = ({ location, version = {} }) => {
             <div className="ibexa-grid-view-item__footer">
                 <div className="ibexa-grid-view-item__title" title={location.ContentInfo.Content.TranslatedName}>
                     {location.ContentInfo.Content.TranslatedName}
-                    {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small ibexa-grid-view-item__hidden-icon" />}
+                    {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium ibexa-grid-view-item__hidden-icon" />}
                 </div>
             </div>
             {renderToggleSelection()}

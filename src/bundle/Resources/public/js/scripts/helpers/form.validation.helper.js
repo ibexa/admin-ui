@@ -2,7 +2,7 @@ import { getTranslator } from './context.helper';
 import { getIconPath } from './icon.helper';
 
 const formatErrorLine = (errorMessage) => {
-    const errorIcon = `<svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
+    const errorIcon = `<svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
         <use xlink:href="${getIconPath('notice')}"></use>
     </svg>`;
     const container = document.createElement('em');

@@ -47,7 +47,9 @@ const SimpleDropdown = ({
 
         return (
             <li key={item.value} className={itemClass} onClick={() => onOptionClickWrapper(item)}>
-                {item.iconName && <Icon name={item.iconName} extraClasses="c-simple-dropdown__list-item-type-icon ibexa-icon--small" />}
+                {item.iconName && (
+                    <Icon name={item.iconName} extraClasses="c-simple-dropdown__list-item-type-icon ibexa-icon--small-medium" />
+                )}
                 <span>{item.label ?? item.getLabel()}</span>
                 {isItemSelected && (
                     <div className="c-simple-dropdown__list-item-checkmark">
@@ -60,7 +62,7 @@ const SimpleDropdown = ({
     const renderCaretIcon = () => {
         const iconName = isExpanded ? 'caret-up' : 'caret-down';
 
-        return <Icon name={iconName} extraClasses="ibexa-icon--tiny-small c-simple-dropdown__expand-icon" />;
+        return <Icon name={iconName} extraClasses="ibexa-icon--small c-simple-dropdown__expand-icon" />;
     };
     const renderSelectedLabel = () => {
         if (!selectedOption && !!selectedItemLabel) {
@@ -78,7 +80,7 @@ const SimpleDropdown = ({
             return null;
         }
 
-        return <Icon name={selectedOption.iconName} extraClasses="ibexa-icon--small c-simple-dropdown__selected-item-type-icon" />;
+        return <Icon name={selectedOption.iconName} extraClasses="ibexa-icon--small-medium c-simple-dropdown__selected-item-type-icon" />;
     };
     const renderSelectedItem = () => {
         return (
