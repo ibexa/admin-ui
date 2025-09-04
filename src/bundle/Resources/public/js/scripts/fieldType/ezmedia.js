@@ -5,6 +5,7 @@
     const SELECTOR_INFO_WRAPPER = '.ibexa-field-edit-preview__info';
     const SELECTOR_MEDIA_WRAPPER = '.ibexa-field-edit-preview__media-wrapper';
     const SELECTOR_INPUT_FILE = 'input[type="file"]';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label-wrapper .ibexa-field-edit__label';
     const CLASS_MEDIA_WRAPPER_LOADING = 'ibexa-field-edit-preview__media-wrapper--loading';
 
     class EzMediaValidator extends ibexa.BaseFileFieldValidator {
@@ -23,7 +24,7 @@
             const isEmpty = isNaN(value);
             const isInteger = Number.isInteger(value);
             const isError = (isEmpty && isRequired) || (!isEmpty && !isInteger);
-            const label = input.closest(SELECTOR_INFO_WRAPPER).querySelector('.ibexa-field-edit-preview__label').innerHTML;
+            const label = input.closest(SELECTOR_INFO_WRAPPER).querySelector('.ibexa-field-edit-preview__label').innerText;
             const result = { isError };
 
             if (isEmpty) {
@@ -133,6 +134,8 @@
         const validator = new EzMediaValidator({
             classInvalid: 'is-invalid',
             fieldContainer,
+            fieldSelector: SELECTOR_FIELD,
+            labelSelector: SELECTOR_LABEL,
             eventsMap: [
                 {
                     isValueValidator: false,
@@ -140,6 +143,7 @@
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
                     errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
+                    invalidStateSelectors: [SELECTOR_LABEL],
                 },
                 {
                     isValueValidator: false,
@@ -147,18 +151,21 @@
                     eventName: 'ibexa-invalid-file-type',
                     callback: 'showFileTypeError',
                     errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
+                    invalidStateSelectors: [SELECTOR_LABEL],
                 },
                 {
                     selector: '.ibexa-field-edit-preview__dimensions .form-control',
                     eventName: 'blur',
                     callback: 'validateDimensions',
                     errorNodeSelectors: [`${SELECTOR_INFO_WRAPPER} .ibexa-form-error`],
+                    invalidStateSelectors: [SELECTOR_LABEL],
                 },
                 {
                     selector: SELECTOR_INPUT_FILE,
                     eventName: 'change',
                     callback: 'validateInput',
                     errorNodeSelectors: ['.ibexa-field-edit--ezmedia .ibexa-form-error'],
+                    invalidStateSelectors: [SELECTOR_LABEL],
                 },
             ],
         });
