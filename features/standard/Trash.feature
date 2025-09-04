@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript @setup
+ @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript @setup
 Feature: Trash management
   As an administrator
   In order to manage content on my site
@@ -7,6 +7,7 @@ Feature: Trash management
   Background:
     Given I am logged as admin
 
+  @IbexaOSS
   Scenario: Trash can be emptied
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -20,6 +21,7 @@ Feature: Trash management
     When I empty the trash
     Then trash is empty
 
+  @IbexaOSS
   Scenario: Content can be moved to trash
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -33,6 +35,7 @@ Feature: Trash management
     And I open "Trash" page in admin SiteAccess
     And there is a "Folder" "FolderToTrashManually" on Trash list
 
+  @IbexaOSS
   Scenario: Element in trash can be deleted
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -49,6 +52,7 @@ Feature: Trash management
     Then success notification that "Deleted selected item(s) from Trash." appears
     And there is no "Folder" "DeleteFromTrash" on Trash list
 
+  @IbexaOSS
   Scenario: Element in trash can be restored
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -66,6 +70,7 @@ Feature: Trash management
     And there is no "Folder" "RestoreFromTrash" on Trash list
     And there exists Content view Page for "TrashTest/RestoreFromTrash"
 
+  @IbexaOSS
   Scenario: Element in trash can be restored under new location
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -83,6 +88,7 @@ Feature: Trash management
     And there is no "Folder" "RestoreFromTrashNewLocation" on Trash list
     And there exists Content view Page for "Media/Files/RestoreFromTrashNewLocation"
 
+  @IbexaOSS
   Scenario: Element in trash can be found by search
     Given a "folder" Content item named "TrashTest" exists in root
         | name      | short_name |
@@ -97,6 +103,7 @@ Feature: Trash management
     Then I search for a "TrashSearch1" content item in Trash
     And there is a "Folder" "TrashSearch1" on Trash list
 
+  @IbexaOSS
   Scenario: Element in trash can be found by search and filtered by content type
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -110,6 +117,7 @@ Feature: Trash management
     And I confirm search in Trash
     And there is a "Article" "TrashSearch3" on Trash list
 
+  @IbexaOSS
   Scenario: Element in trash can be found by search and filtered by section
     Given I create "folder" Content items in "Media/Files" in "eng-GB"
       | name        | short_name    |
