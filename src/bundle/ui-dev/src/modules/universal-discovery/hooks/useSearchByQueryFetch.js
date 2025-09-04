@@ -75,7 +75,7 @@ export const useSearchByQueryFetch = () => {
                 query.SectionIdentifierCriterion = sectionIdentifier;
             }
 
-            if (subtreePathString) {
+            if (subtreePathString && !isBookmarked) {
                 query.SubtreeCriterion = subtreePathString;
             }
 
