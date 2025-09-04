@@ -727,12 +727,6 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
-			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/NotificationController.php
-
-		-
 			message: '#^Argument of an invalid type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -7237,12 +7231,6 @@ parameters:
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
-			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
 			message: '#^Cannot access property \$id on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role\|null\.$#'
 			identifier: property.nonObject
 			count: 2
@@ -7282,18 +7270,6 @@ parameters:
 			message: '#^Cannot call method getRoleLimitation\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\User\\RoleAssignment\|null\.$#'
 			identifier: method.nonObject
 			count: 2
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getSection\(\) on Ibexa\\AdminUi\\Form\\Data\\Section\\SectionDeleteData\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Cannot call method getSection\(\) on Ibexa\\AdminUi\\Form\\Data\\Section\\SectionUpdateData\|null\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-
@@ -7666,12 +7642,6 @@ parameters:
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\FormFactory\:\:updateVisibilityLocation\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
-			path: src/lib/Form/Factory/FormFactory.php
-
-		-
-			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Form\\FormFactoryInterface\:\:createNamed\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 42
 			path: src/lib/Form/Factory/FormFactory.php
 
 		-

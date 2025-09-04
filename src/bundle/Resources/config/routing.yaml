@@ -912,6 +912,15 @@ ibexa.notifications.render.page:
     requirements:
         page: '\d+'
 
+ibexa.notifications.render.all:
+    path: /notifications/render/all/{page}
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\AllNotificationsController::renderAllNotificationsPageAction'
+        page: 1
+    methods: [ GET, POST ]
+    requirements:
+        page: '\d+'
+
 ibexa.notifications.count:
     path: /notifications/count
     defaults:
@@ -920,9 +929,47 @@ ibexa.notifications.count:
 
 ibexa.notifications.mark_as_read:
     path: /notification/read/{notificationId}
+    options:
+        expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsReadAction'
     methods: [GET]
+    requirements:
+        notificationId: '\d+'
+
+ibexa.notifications.mark_multiple_as_read:
+    path: /notifications/read
+    options:
+        expose: true
+    controller:
+        'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationsAsReadAction'
+    methods: [POST]
+
+ibexa.notifications.mark_all_as_read:
+    path: /notifications/read-all
+    options:
+        expose: true
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markAllNotificationsAsReadAction'
+    methods: [GET]
+
+ibexa.notifications.mark_as_unread:
+    path: /notification/unread/{notificationId}
+    options:
+        expose: true
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::markNotificationAsUnreadAction'
+    methods: [GET]
+    requirements:
+        notificationId: '\d+'
+
+ibexa.notifications.delete:
+    path: /notification/delete/{notificationId}
+    options:
+        expose: true
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationAction'
+    methods: [POST]
     requirements:
         notificationId: '\d+'
 
@@ -932,6 +979,12 @@ ibexa.asset.upload_image:
         expose: true
     defaults:
         _controller: 'Ibexa\Bundle\AdminUi\Controller\AssetController::uploadImageAction'
+    methods: [POST]
+
+ibexa.notifications.delete_multiple:
+    path: /notification/delete-multiple
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::deleteNotificationsAction'
     methods: [POST]
 
 #
@@ -963,7 +1016,6 @@ ibexa.permission.limitation.language.content_read:
     methods: [GET]
     requirements:
         contentInfoId: \d+
-
 
 ### Focus Mode
 

@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -17,19 +18,18 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class NotificationAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\NotificationService */
-    private $notificationService;
+    private NotificationService $notificationService;
 
-    /** @var int */
-    private $nbResults;
+    private NotificationQuery $query;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\NotificationService $notificationService
-     */
+    private int $nbResults;
+
     public function __construct(
-        NotificationService $notificationService
+        NotificationService $notificationService,
+        NotificationQuery $query
     ) {
         $this->notificationService = $notificationService;
+        $this->query = $query;
     }
 
     /**
@@ -39,11 +39,15 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getNbResults(): int
     {
-        if ($this->nbResults !== null) {
+        if (isset($this->nbResults)) {
             return $this->nbResults;
         }
 
-        return $this->nbResults = $this->notificationService->getNotificationCount();
+        $query = clone $this->query;
+        $query->setOffset(0);
+        $query->setLimit(0);
+
+        return $this->nbResults = $this->notificationService->getNotificationCount($query);
     }
 
     /**
@@ -56,11 +60,12 @@ class NotificationAdapter implements AdapterInterface
      */
     public function getSlice($offset, $length): NotificationList
     {
-        $notifications = $this->notificationService->loadNotifications($offset, $length);
+        $query = clone $this->query;
+        $query->setOffset($offset);
+        $query->setLimit($length);
+        $notifications = $this->notificationService->findNotifications($query);
 
-        if (null === $this->nbResults) {
-            $this->nbResults = $notifications->totalCount;
-        }
+        $this->nbResults ??= $notifications->totalCount;
 
         return $notifications;
     }
