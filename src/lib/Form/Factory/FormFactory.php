@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Factory;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Bookmark\BookmarkRemoveData;
 use Ibexa\AdminUi\Form\Data\Content\ContentVisibilityUpdateData;
 use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
@@ -36,6 +37,7 @@ use Ibexa\AdminUi\Form\Data\Location\LocationSwapData;
 use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateData;
 use Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData;
+use Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData;
 use Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupsDeleteData;
@@ -92,6 +94,7 @@ use Ibexa\AdminUi\Form\Type\Location\LocationSwapType;
 use Ibexa\AdminUi\Form\Type\Location\LocationTrashType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateType;
 use Ibexa\AdminUi\Form\Type\Location\LocationUpdateVisibilityType;
+use Ibexa\AdminUi\Form\Type\Notification\NotificationSelectionType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupDeleteType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateGroupsDeleteType;
@@ -127,7 +130,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
-use InvalidArgumentException;
+use function is_string;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
@@ -150,6 +153,14 @@ class FormFactory
         array $options = []
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentEditType::class);
+
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         $data = $data ?? new ContentEditData();
 
         if (empty($options['language_codes']) && null !== $data->getVersionInfo()) {
@@ -157,7 +168,7 @@ class FormFactory
         }
 
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             ContentEditType::class,
             $data,
             $options
@@ -174,7 +185,14 @@ class FormFactory
         $data = $data ?? new ContentCreateData();
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentCreateType::class);
 
-        return $this->formFactory->createNamed($name ?? '', ContentCreateType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, ContentCreateType::class, $data);
     }
 
     /**
@@ -186,7 +204,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypesDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', ContentTypesDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, ContentTypesDeleteType::class, $data);
     }
 
     public function createContentTypeGroup(
@@ -195,8 +220,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupCreateType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             ContentTypeGroupCreateType::class,
             $data ?? new ContentTypeGroupCreateData()
         );
@@ -237,8 +269,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentTypeGroupsDeleteType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             ContentTypeGroupsDeleteType::class,
             $data
         );
@@ -281,7 +320,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(VersionRemoveType::class);
 
-        return $this->formFactory->createNamed($name ?? '', VersionRemoveType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, VersionRemoveType::class, $data);
     }
 
     public function addLocation(
@@ -290,7 +336,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationAddType::class);
 
-        return $this->formFactory->createNamed($name ?? '', ContentLocationAddType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, ContentLocationAddType::class, $data);
     }
 
     public function removeLocation(
@@ -299,7 +352,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentLocationRemoveType::class);
 
-        return $this->formFactory->createNamed($name ?? '', ContentLocationRemoveType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, ContentLocationRemoveType::class, $data);
     }
 
     public function swapLocation(
@@ -308,7 +368,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationSwapType::class);
 
-        return $this->formFactory->createNamed($name ?? '', LocationSwapType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LocationSwapType::class, $data);
     }
 
     /**
@@ -319,10 +386,18 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentMainLocationUpdateType::class);
+
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         $data = $data ?? new ContentMainLocationUpdateData();
 
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             ContentMainLocationUpdateType::class,
             $data
         );
@@ -333,9 +408,17 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationTrashType::class);
+
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         $data = $data ?? new LocationTrashData();
 
-        return $this->formFactory->createNamed($name ?? '', LocationTrashType::class, $data);
+        return $this->formFactory->createNamed($name, LocationTrashType::class, $data);
     }
 
     public function moveLocation(
@@ -344,7 +427,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationMoveType::class);
 
-        return $this->formFactory->createNamed($name ?? '', LocationMoveType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LocationMoveType::class, $data);
     }
 
     public function copyLocation(
@@ -353,7 +443,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopyType::class);
 
-        return $this->formFactory->createNamed($name ?? '', LocationCopyType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LocationCopyType::class, $data);
     }
 
     /**
@@ -365,7 +462,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateVisibilityData::class);
 
-        return $this->formFactory->createNamed($name ?? '', LocationUpdateVisibilityType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LocationUpdateVisibilityType::class, $data);
     }
 
     /**
@@ -376,9 +480,17 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentVisibilityUpdateType::class);
+
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         $data = $data ?? new ContentVisibilityUpdateData();
 
-        return $this->formFactory->createNamed($name ?? '', ContentVisibilityUpdateType::class, $data);
+        return $this->formFactory->createNamed($name, ContentVisibilityUpdateType::class, $data);
     }
 
     public function updateLocation(
@@ -387,7 +499,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationUpdateType::class);
 
-        return $this->formFactory->createNamed($name ?? '', LocationUpdateType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LocationUpdateType::class, $data);
     }
 
     public function assignContentSectionForm(
@@ -396,7 +515,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionContentAssignType::class);
 
-        return $this->formFactory->createNamed($name ?? '', SectionContentAssignType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, SectionContentAssignType::class, $data);
     }
 
     public function deleteSection(
@@ -404,7 +530,10 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         if ($name === null && $data === null) {
-            throw new InvalidArgumentException('Either $name or $data must be provided.');
+            throw new InvalidArgumentException(
+                'name',
+                'Either $name or $data must be provided.'
+            );
         }
         $name = $name ?: sprintf('delete-section-%d', $data?->getSection()?->id);
 
@@ -420,7 +549,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionsDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', SectionsDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, SectionsDeleteType::class, $data);
     }
 
     public function createSection(
@@ -429,8 +565,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SectionCreateType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             SectionCreateType::class,
             $data ?? new SectionCreateData()
         );
@@ -441,7 +584,10 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         if ($name === null && $data === null) {
-            throw new InvalidArgumentException('Either $name or $data must be provided.');
+            throw new InvalidArgumentException(
+                'name',
+                'Either $name or $data must be provided.'
+            );
         }
 
         $name = $name ?: sprintf('update-section-%d', $data->getSection()?->getId());
@@ -455,8 +601,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguageCreateType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             LanguageCreateType::class,
             $data ?? new LanguageCreateData()
         );
@@ -490,7 +643,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LanguagesDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', LanguagesDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LanguagesDeleteType::class, $data);
     }
 
     public function createRole(
@@ -499,7 +659,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleCreateType::class);
 
-        return $this->formFactory->createNamed($name ?? '', RoleCreateType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, RoleCreateType::class, $data);
     }
 
     public function updateRole(
@@ -538,8 +705,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentCreateType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             RoleAssignmentCreateType::class,
             $data ?? new RoleAssignmentCreateData()
         );
@@ -554,9 +728,10 @@ class FormFactory
             ? $data->getRoleAssignment()->getRoleLimitation()->getIdentifier()
             : 'none';
 
-        $name = $name ?: sprintf('delete-role-assignment-%s', md5(
-            implode('/', [$role, $limitation])
-        ));
+        $name = $name ?: sprintf(
+            'delete-role-assignment-%s',
+            hash('sha256', implode('/', [$role, $limitation]))
+        );
 
         return $this->formFactory->createNamed($name, RoleAssignmentDeleteType::class, $data);
     }
@@ -567,7 +742,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(RoleAssignmentsDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', RoleAssignmentsDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, RoleAssignmentsDeleteType::class, $data);
     }
 
     public function createPolicy(
@@ -576,7 +758,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyCreateType::class);
 
-        return $this->formFactory->createNamed($name ?? '', PolicyCreateType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, PolicyCreateType::class, $data);
     }
 
     public function createPolicyWithLimitation(
@@ -585,14 +774,24 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(PolicyCreateWithLimitationType::class);
 
-        return $this->formFactory->createNamed($name ?? '', PolicyCreateWithLimitationType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, PolicyCreateWithLimitationType::class, $data);
     }
 
     public function updatePolicy(
         PolicyUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-policy-%s', md5(implode('/', $data->getPolicy())));
+        $name = $name ?: sprintf(
+            'update-policy-%s',
+            hash('sha256', implode('/', $data->getPolicy()))
+        );
 
         return $this->formFactory->createNamed($name, PolicyUpdateType::class, $data);
     }
@@ -601,7 +800,10 @@ class FormFactory
         PolicyDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-policy-%s', md5(implode('/', $data->getPolicy())));
+        $name = $name ?: sprintf(
+            'delete-policy-%s',
+            hash('sha256', implode('/', $data->getPolicy()))
+        );
 
         return $this->formFactory->createNamed($name, PolicyDeleteType::class, $data);
     }
@@ -615,7 +817,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(PoliciesDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', PoliciesDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, PoliciesDeleteType::class, $data);
     }
 
     /**
@@ -628,7 +837,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
 
-        return $this->formFactory->createNamed($name ?? '', SearchType::class, $data, $options);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, SearchType::class, $data, $options);
     }
 
     /**
@@ -641,7 +857,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
 
-        return $this->formFactory->createNamed($name ?? '', URLListType::class, $data, $options);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, URLListType::class, $data, $options);
     }
 
     /**
@@ -654,7 +877,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(SearchData::class);
 
-        return $this->formFactory->createNamed($name ?? '', URLEditType::class, $data, $options);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, URLEditType::class, $data, $options);
     }
 
     public function deleteUser(
@@ -663,7 +893,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(UserDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', UserDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, UserDeleteType::class, $data);
     }
 
     public function addCustomUrl(
@@ -672,8 +909,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlAddType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             CustomUrlAddType::class,
             $data ?? new CustomUrlAddData()
         );
@@ -685,8 +929,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(CustomUrlRemoveType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             CustomUrlRemoveType::class,
             $data ?? new CustomUrlRemoveData()
         );
@@ -698,8 +949,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupCreateType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             ObjectStateGroupCreateType::class,
             $data ?? new ObjectStateGroupCreateData()
         );
@@ -710,7 +968,10 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         if ($name === null && $data === null) {
-            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+            throw new InvalidArgumentException(
+                'name',
+                'Either $name or $data must be provided.'
+            );
         }
         $name = $name ?: sprintf('delete-object-state-group-%d', $data?->getObjectStateGroup()?->id);
 
@@ -726,7 +987,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ObjectStateGroupsDeleteType::class);
 
-        return $this->formFactory->createNamed($name ?? '', ObjectStateGroupsDeleteType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, ObjectStateGroupsDeleteType::class, $data);
     }
 
     /**
@@ -748,7 +1016,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(LocationCopySubtreeType::class);
 
-        return $this->formFactory->createNamed($name ?? '', LocationCopySubtreeType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, LocationCopySubtreeType::class, $data);
     }
 
     public function removeBookmark(
@@ -757,7 +1032,14 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(BookmarkRemoveType::class);
 
-        return $this->formFactory->createNamed($name ?? '', BookmarkRemoveType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, BookmarkRemoveType::class, $data);
     }
 
     public function editUser(
@@ -765,12 +1047,20 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(UserEditType::class);
+
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         $data = $data ?? new UserEditData();
         $options = null !== $data->getVersionInfo()
             ? ['language_codes' => $data->getVersionInfo()->getLanguageCodes()]
             : [];
 
-        return $this->formFactory->createNamed($name ?? '', UserEditType::class, $data, $options);
+        return $this->formFactory->createNamed($name, UserEditType::class, $data, $options);
     }
 
     public function removeContentDraft(
@@ -779,7 +1069,37 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(ContentRemoveType::class);
 
-        return $this->formFactory->createNamed($name ?? '', ContentRemoveType::class, $data);
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed($name, ContentRemoveType::class, $data);
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
+     */
+    public function deleteNotification(
+        NotificationSelectionData $data = null,
+        ?string $name = null
+    ): FormInterface {
+        $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
+
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
+        return $this->formFactory->createNamed(
+            $name,
+            NotificationSelectionType::class,
+            $data
+        );
     }
 
     /**
@@ -791,8 +1111,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             URLWildcardType::class,
             $data ?? new URLWildcardData()
         );
@@ -807,8 +1134,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardUpdateType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             URLWildcardUpdateType::class,
             $data ?? new URLWildcardUpdateData()
         );
@@ -823,8 +1157,15 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(URLWildcardDeleteType::class);
 
+        if (!is_string($name) || $name === '') {
+            throw new InvalidArgumentException(
+                'name',
+                'The form name must be a non-empty string.'
+            );
+        }
+
         return $this->formFactory->createNamed(
-            $name ?? '',
+            $name,
             URLWildcardDeleteType::class,
             $data ?? new URLWildcardDeleteData()
         );

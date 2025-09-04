@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\Type\Extension;
 
 use Ibexa\AdminUi\Form\Type\ContentType\FieldDefinitionsCollectionType;
 use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber;
+use Ibexa\Contracts\Core\Specification\SpecificationInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -22,10 +23,13 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
 {
     /**
      * @param array<string, mixed> $modifiedOptions
+     * @param array<string> $fieldIdentifiers
      */
     public function __construct(
         private readonly string $fieldTypeIdentifier,
-        private readonly array $modifiedOptions
+        private readonly array $modifiedOptions,
+        private array $fieldIdentifiers = [],
+        private ?SpecificationInterface $contentTypeSpecification = null
     ) {
     }
 
@@ -33,7 +37,9 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
     {
         $subscriber = new ModifyFieldDefinitionFieldsSubscriber(
             $this->fieldTypeIdentifier,
-            $this->modifiedOptions
+            $this->modifiedOptions,
+            $this->fieldIdentifiers,
+            $this->contentTypeSpecification
         );
 
         foreach ($builder->all() as $fieldTypeGroup) {

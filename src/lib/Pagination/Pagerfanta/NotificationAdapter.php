@@ -9,6 +9,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\NotificationService;
 use Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -16,8 +17,6 @@ use Pagerfanta\Adapter\AdapterInterface;
  */
 class NotificationAdapter implements AdapterInterface
 {
-    private NotificationService $notificationService;
-
     /** @phpstan-var int<0, max> */
     private int $nbResults;
 
@@ -25,23 +24,32 @@ class NotificationAdapter implements AdapterInterface
      * @param \Ibexa\Contracts\Core\Repository\NotificationService $notificationService
      */
     public function __construct(
-        NotificationService $notificationService
+        private NotificationService $notificationService,
+        private NotificationQuery $query
     ) {
-        $this->notificationService = $notificationService;
     }
 
     public function getNbResults(): int
     {
-        return $this->nbResults ?? ($this->nbResults = $this->notificationService->getNotificationCount());
+        if (isset($this->nbResults)) {
+            return $this->nbResults;
+        }
+
+        $query = clone $this->query;
+        $query->setOffset(0);
+        $query->setLimit(0);
+
+        return $this->nbResults = $this->notificationService->getNotificationCount($query);
     }
 
     public function getSlice(int $offset, int $length): NotificationList
     {
-        $notifications = $this->notificationService->loadNotifications($offset, $length);
+        $query = clone $this->query;
+        $query->setOffset($offset);
+        $query->setLimit($length);
+        $notifications = $this->notificationService->findNotifications($query);
 
-        if (!isset($this->nbResults)) {
-            $this->nbResults = $notifications->totalCount;
-        }
+        $this->nbResults ??= $notifications->totalCount;
 
         return $notifications;
     }

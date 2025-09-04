@@ -403,12 +403,6 @@ parameters:
 			path: src/bundle/Controller/LocationController.php
 
 		-
-			message: '#^Parameter \#1 \$content of class Symfony\\Component\\HttpFoundation\\Response constructor expects string\|null, string\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/NotificationController.php
-
-		-
 			message: '#^Argument of an invalid type array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1

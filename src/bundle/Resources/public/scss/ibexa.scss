@@ -1,4 +1,8 @@
 @use 'fonts';
+@use 'custom';
+@use 'functions/calculate.rem';
+@use 'animations';
+@use 'mixins';
 @use 'general';
 @use 'adaptive-filters';
 @use 'backdrop';
@@ -77,12 +81,14 @@
 @use 'dashboard';
 @use 'picker';
 @use 'notifications-modal';
+@use 'side-panel';
 @use 'admin-section-view';
 @use 'content-tree';
 @use 'flatpickr';
 @use 'trash-search-form';
 @use 'inputs';
 @use 'links';
+@use 'footer';
 @use 'embedded-item-actions';
 @use 'popup-menu';
 @use 'multilevel-popup-menu';
@@ -102,6 +108,7 @@
 @use 'grid-view';
 @use 'grid-view-item';
 @use 'list-search';
+@use 'list-filters';
 @use 'search-links-form';
 @use 'custom-url-form';
 @use 'details';
