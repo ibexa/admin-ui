@@ -34,7 +34,7 @@ const controlManyZIndexes = (items, listenerContainer) => {
     );
 
     listenerContainer.addEventListener(
-        'hidden.bs.modal',
+        'hide.bs.modal',
         () => {
             items.forEach(({ container }) => {
                 container.style.zIndex = containersInitialZIndexes.get(container);
