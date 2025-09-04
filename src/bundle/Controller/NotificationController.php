@@ -104,8 +104,8 @@ final class NotificationController extends Controller
             'sidebarNotifications' => $this->renderNotifications($this->notificationService->loadNotifications(0, $limit)->items),
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
-            'search_form' => $searchForm,
-            'delete_form' => $deleteForm,
+            'search_form' => $searchForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ]);
     }
 
