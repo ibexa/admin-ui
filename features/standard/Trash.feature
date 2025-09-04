@@ -128,89 +128,20 @@ Feature: Trash management
     And I confirm search in Trash
     And there is a "Folder" "TrashSearch4" on Trash list
 
+    @test_search5
   Scenario: Element in trash can be found by search and filtered by content item creator
-    Given I execute a migration
-    """
-    - type: user
-      mode: create
-      metadata:
-        login: trash_admin
-        email: trash_admin@link.invalid
-        password: Passw0rd-42
-        enabled: true
-        mainLanguage: eng-GB
-        contentType: user
-      groups:
-        - 9b47a45624b023b1a76c73b74d704acf
-      fields:
-        - fieldDefIdentifier: first_name
-          languageCode: eng-GB
-          value: TrashAdmin
-        - fieldDefIdentifier: last_name
-          languageCode: eng-GB
-          value: User
-        - fieldDefIdentifier: signature
-          languageCode: eng-GB
-          value: null
-        - fieldDefIdentifier: image
-          languageCode: eng-GB
-          value: null
-      references:
-        -
-          name: test_user_id
-          type: user_id
-    - type: content
-      mode: create
-      metadata:
-        contentType: article
-        mainTranslation: eng-GB
-        creatorId: reference:test_user_id
-        alwaysAvailable: false
-      location:
-        parentLocationId: 2
-        hidden: false
-        sortField: 1
-        sortOrder: 1
-        priority: 0
-      fields:
-        - fieldDefIdentifier: title
-          languageCode: eng-GB
-          value:  "trash_article"
-        - fieldDefIdentifier: short_title
-          languageCode: eng-GB
-          value: "test_trash_article"
-        - fieldDefIdentifier: author
-          languageCode: eng-GB
-          value:
-            - id: '1'
-              name: 'Administrator User'
-              email: admin@link.invalid
-        - fieldDefIdentifier: intro
-          languageCode: eng-GB
-          value:
-            xml: |
-              <?xml version="1.0" encoding="UTF-8"?>
-              <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ezxhtml="http://ibexa.co/xmlns/dxp/docbook/xhtml" xmlns:ezcustom="http://ibexa.co/xmlns/dxp/docbook/custom" version="5.0-variant ezpublish-1.0"><para>This is an example intro</para></section>
-        - fieldDefIdentifier: body
-          languageCode: eng-GB
-          value:
-            xml: |
-              <?xml version="1.0" encoding="UTF-8"?>
-              <section xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ezxhtml="http://ibexa.co/xmlns/dxp/docbook/xhtml" xmlns:ezcustom="http://ibexa.co/xmlns/dxp/docbook/custom" version="5.0-variant ezpublish-1.0"><para>This is the main article content</para></section>
-        - fieldDefIdentifier: enable_comments
-          languageCode: eng-GB
-          value: false
-        - fieldDefIdentifier: image
-          languageCode: eng-GB
-          value:
-            destinationContentId: null
-      references:
-        -
-          name: activity_article_id
-          type: content_id
-    """
-    And I send "root/test_trash_article" to the Trash
+    Given I create a user "Trash" with last name "Admin" in group "Administrators users"
+    And I log out of back office
+    And I open Login page in admin SiteAccess
+    And I log in as "Trash Admin" with password "Passw0rd-42"
+    And I start creating a new content "Article"
+    And I set content fields
+      | label       | value              |
+      | Title       | TrashSearch5 |
+      | Short title | TrashSearch5 |
+    And I perform the "Publish" actio
+    And I send "root/TrashSearch5" to the Trash
     And I open "Trash" page in admin SiteAccess
-    Then I filter search by "TrashAdmin User" content item creator
+    When I filter search by "TrashAdmin User" content item creator
     And I confirm search in Trash
-    And there is a "Article" "test_trash_article" on Trash list
+    Then there is a "Article" "TrashSearch5" on Trash list
