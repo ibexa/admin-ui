@@ -24,8 +24,8 @@ use Symfony\Component\Form\FormInterface;
  */
 final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 {
-    private const FIELD_TYPE_IDENTIFIER = 'foo';
-    private const MODIFIED_OPTIONS = [
+    private const string FIELD_TYPE_IDENTIFIER = 'foo';
+    private const array MODIFIED_OPTIONS = [
         'disable_identifier_field' => true,
         'disable_required_field' => true,
         'disable_translatable_field' => true,
@@ -44,8 +44,9 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
         $this->form = $this->createMock(FormInterface::class);
         $this->formBuilder = $this->createMock(FormBuilderInterface::class);
         $this->modifyFieldDefinitionFieldsSubscriber = new ModifyFieldDefinitionFieldsSubscriber(
-            self::FIELD_TYPE_IDENTIFIER,
-            self::MODIFIED_OPTIONS
+            self::MODIFIED_OPTIONS,
+            [],
+            self::FIELD_TYPE_IDENTIFIER
         );
     }
 
@@ -78,6 +79,9 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
         $this->modifyFieldDefinitionFieldsSubscriber->onPostSetData($event);
     }
 
+    /**
+     * @return array<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>
+     */
     private function getFormData(string $identifier): array
     {
         $contentTypeDraftMock = $this->createMock(ContentTypeDraft::class);

@@ -5065,12 +5065,6 @@ parameters:
 			path: tests/lib/Form/Type/Extension/EventSubscriber/ModifyFieldDefinitionFieldsSubscriberTest.php
 
 		-
-			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\Type\\Extension\\EventSubscriber\\ModifyFieldDefinitionFieldsSubscriberTest\:\:getFormData\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: tests/lib/Form/Type/Extension/EventSubscriber/ModifyFieldDefinitionFieldsSubscriberTest.php
-
-		-
 			message: '#^Parameter \#1 \$options of method Ibexa\\Tests\\AdminUi\\Form\\Type\\Extension\\EventSubscriber\\ModifyFieldDefinitionFieldsSubscriberTest\:\:mockFormBuilderGetOptions\(\) expects array\<string, bool\|float\|int\|string\>, array\<string, string\|true\|null\> given\.$#'
 			identifier: argument.type
 			count: 1

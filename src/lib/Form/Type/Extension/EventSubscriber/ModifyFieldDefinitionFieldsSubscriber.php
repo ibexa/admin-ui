@@ -27,9 +27,9 @@ final readonly class ModifyFieldDefinitionFieldsSubscriber implements EventSubsc
      * @param array<string> $fieldIdentifiers
      */
     public function __construct(
-        private string $fieldTypeIdentifier,
         private array $modifiedOptions,
         private array $fieldIdentifiers = [],
+        private ?string $fieldTypeIdentifier = null,
         private ?SpecificationInterface $contentTypeSpecification = null
     ) {
     }
