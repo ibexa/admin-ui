@@ -104,4 +104,44 @@ class TrashContext implements Context
     {
         Assert::assertFalse($this->trashPage->hasElement($itemType, $itemName));
     }
+
+    /**
+     * @Then I search for a :contentItem content item in Trash
+     */
+    public function iSearchForContentInTrash(string $contentItem): void
+    {
+        $this->trashPage->searchByText($contentItem);
+    }
+
+    /**
+     * @Then I confirm search in Trash
+     */
+    public function iConfirmSearchInTrash(): void
+    {
+        $this->trashPage->confirmSearch();
+    }
+
+    /**
+     * @Then I filter search by :contentType content type
+     */
+    public function iFilterSearchByContentType(string $contentType): void
+    {
+        $this->trashPage->filterByContentType($contentType);
+    }
+
+    /**
+     * @Then I filter search by :section section
+     */
+    public function iFilterSearchBySection(string $section): void
+    {
+        $this->trashPage->filterBySection($section);
+    }
+
+    /**
+     * @Then I filter search by :contentItemCreator content item creator
+     */
+    public function iFilterSearchByContentItemCreator(string $contentItemCreator): void
+    {
+        $this->trashPage->filterByContentItemCreator($contentItemCreator);
+    }
 }
