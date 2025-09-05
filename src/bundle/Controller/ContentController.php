@@ -44,6 +44,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -102,6 +103,8 @@ class ContentController extends Controller
 
     private LanguageService $languageService;
 
+    private SiteAccessServiceInterface $siteAccessService;
+
     public function __construct(
         TranslatableNotificationHandlerInterface $notificationHandler,
         ContentService $contentService,
@@ -119,7 +122,8 @@ class ContentController extends Controller
         EventDispatcherInterface $eventDispatcher,
         FormFactoryInterface $baseFormFactory,
         VersionPreviewUrlResolverInterface $previewUrlResolver,
-        LanguageService $languageService
+        LanguageService $languageService,
+        SiteAccessServiceInterface $siteAccessService
     ) {
         $this->notificationHandler = $notificationHandler;
         $this->contentService = $contentService;
@@ -138,6 +142,7 @@ class ContentController extends Controller
         $this->baseFormFactory = $baseFormFactory;
         $this->previewUrlResolver = $previewUrlResolver;
         $this->languageService = $languageService;
+        $this->siteAccessService = $siteAccessService;
     }
 
     /**
@@ -396,7 +401,7 @@ class ContentController extends Controller
             $versionNo = null;
         }
 
-        if (null === $location) {
+        if (!$location instanceof Location) {
             $location = $this->locationService->loadLocation($content->contentInfo->mainLocationId);
         }
 
@@ -413,29 +418,19 @@ class ContentController extends Controller
             $siteAccessesList[$siteAccess->name] = $this->siteAccessNameGenerator->generate($siteAccess);
         }
 
-        $preselectedSiteAccess = $request->query->get('preselectedSiteAccess', reset($siteAccessesList));
-
-        if (!array_key_exists($preselectedSiteAccess, $siteAccessesList)) {
-            $preselectedSiteAccess = reset($siteAccessesList);
+        $preselectedSiteAccessName = $request->query->get('preselectedSiteAccessName', reset($siteAccessesList));
+        if (!array_key_exists($preselectedSiteAccessName, $siteAccessesList)) {
+            $preselectedSiteAccessName = reset($siteAccessesList);
         }
 
         $versionInfo = $this->contentService->loadVersionInfo($content->contentInfo, $versionNo);
         $language = $this->languageService->loadLanguage($languageCode);
 
-        // TODO: Optimize to avoid loop
-        $preselectedSiteAccessObject = null;
-        foreach ($siteAccesses as $siteAccess) {
-            if ($siteAccess->name === $preselectedSiteAccess) {
-                $preselectedSiteAccessObject = $siteAccess;
-                break;
-            }
-        }
-
         $previewUrl = $this->previewUrlResolver->resolveUrl(
             $versionInfo,
             $location,
             $language,
-            $preselectedSiteAccessObject
+            $this->siteAccessService->get($preselectedSiteAccessName)
         );
 
         $siteAccessSelector = $this->baseFormFactory->create(
@@ -455,7 +450,7 @@ class ContentController extends Controller
             'siteaccesses' => $siteAccessesList,
             'site_access_form' => $siteAccessSelector->createView(),
             'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
-            'preselected_site_access' => $preselectedSiteAccess,
+            'preselected_site_access' => $preselectedSiteAccessName,
             'referrer' => $referrer ?? 'content_draft_edit',
             'preview_url' => $previewUrl,
         ]);

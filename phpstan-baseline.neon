@@ -199,12 +199,6 @@ parameters:
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: '#^Parameter \#1 \$location of method Ibexa\\AdminUi\\Siteaccess\\SiteaccessResolverInterface\:\:getSiteAccessesListForLocation\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
 			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
 			count: 1

@@ -26,6 +26,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * This form type provides a choice field for selecting a site access to preview a specific content version.
+ *
+ * @phpstan-extends \Symfony\Component\Form\AbstractType<string>
  */
 final class VersionPreviewUrlChoiceType extends AbstractType
 {
