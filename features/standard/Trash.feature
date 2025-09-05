@@ -100,8 +100,8 @@ Feature: Trash management
     And I send "TrashTest/TrashSearch1" to the Trash
     And I send "TrashTest/TrashSearch2" to the Trash
     And I open "Trash" page in admin SiteAccess
-    Then I search for a "TrashSearch1" content item in Trash
-    And there is a "Folder" "TrashSearch1" on Trash list
+    When I search for a "TrashSearch1" content item in Trash
+    Then there is a "Folder" "TrashSearch1" on Trash list
 
   @IbexaOSS
   Scenario: Element in trash can be found by search and filtered by content type
@@ -113,9 +113,9 @@ Feature: Trash management
       | TrashSearch3 | TrashSearch3 |
     And I send "TrashTest/TrashSearch3" to the Trash
     And I open "Trash" page in admin SiteAccess
-    Then I filter search by "Article" content type
+    When I filter search by "Article" content type
     And I confirm search in Trash
-    And there is a "Article" "TrashSearch3" on Trash list
+    Then there is a "Article" "TrashSearch3" on Trash list
 
   @IbexaOSS
   Scenario: Element in trash can be found by search and filtered by section
@@ -124,9 +124,9 @@ Feature: Trash management
       | TrashSearch4 | TrashSearch4 |
     And I send "Media/Files/TrashSearch4" to the Trash
     And I open "Trash" page in admin SiteAccess
-    Then I filter search by "Media" section
+    When I filter search by "Media" section
     And I confirm search in Trash
-    And there is a "Folder" "TrashSearch4" on Trash list
+    Then there is a "Folder" "TrashSearch4" on Trash list
 
   Scenario: Element in trash can be found by search and filtered by content item creator
     Given I create a user "TrashAdmin" with last name "Admin" in group "Administrator users"
@@ -142,7 +142,7 @@ Feature: Trash management
       | Name        | TrashSearch5 |
       | Description | TrashSearch5 |
     And I perform the "Publish" action
-      And I'm on Content view Page for root
+    And I'm on Content view Page for root
     And I send "TrashTest/TrashSearch5" to the Trash
     And I open "Trash" page in admin SiteAccess
     When I filter search by "TrashAdmin Admin" content item creator
