@@ -1,4 +1,4 @@
- @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript @setup
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
 Feature: Trash management
   As an administrator
   In order to manage content on my site
@@ -7,7 +7,6 @@ Feature: Trash management
   Background:
     Given I am logged as admin
 
-  @IbexaOSS
   Scenario: Trash can be emptied
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -21,7 +20,6 @@ Feature: Trash management
     When I empty the trash
     Then trash is empty
 
-  @IbexaOSS
   Scenario: Content can be moved to trash
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -35,7 +33,6 @@ Feature: Trash management
     And I open "Trash" page in admin SiteAccess
     And there is a "Folder" "FolderToTrashManually" on Trash list
 
-  @IbexaOSS
   Scenario: Element in trash can be deleted
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -52,7 +49,6 @@ Feature: Trash management
     Then success notification that "Deleted selected item(s) from Trash." appears
     And there is no "Folder" "DeleteFromTrash" on Trash list
 
-  @IbexaOSS
   Scenario: Element in trash can be restored
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -70,7 +66,6 @@ Feature: Trash management
     And there is no "Folder" "RestoreFromTrash" on Trash list
     And there exists Content view Page for "TrashTest/RestoreFromTrash"
 
-  @IbexaOSS
   Scenario: Element in trash can be restored under new location
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
@@ -88,13 +83,12 @@ Feature: Trash management
     And there is no "Folder" "RestoreFromTrashNewLocation" on Trash list
     And there exists Content view Page for "Media/Files/RestoreFromTrashNewLocation"
 
-  @IbexaOSS
   Scenario: Element in trash can be found by search
     Given a "folder" Content item named "TrashTest" exists in root
         | name      | short_name |
         | TrashTest | TrashTest  |
     And I create "folder" Content items in "TrashTest" in "eng-GB"
-        | name             | short_name    |
+        | name         | short_name   |
         | TrashSearch1 | TrashSearch1 |
         | TrashSearch2 | TrashSearch2 |
     And I send "TrashTest/TrashSearch1" to the Trash
@@ -103,13 +97,12 @@ Feature: Trash management
     Then I search for a "TrashSearch1" content item in Trash
     And there is a "Folder" "TrashSearch1" on Trash list
 
-  @IbexaOSS
   Scenario: Element in trash can be found by search and filtered by content type
     Given a "folder" Content item named "TrashTest" exists in root
       | name      | short_name |
       | TrashTest | TrashTest  |
     And I create "article" Content items in "TrashTest" in "eng-GB"
-      | title        | short_title    |
+      | title        | short_title  |
       | TrashSearch3 | TrashSearch3 |
     And I send "TrashTest/TrashSearch3" to the Trash
     And I open "Trash" page in admin SiteAccess
@@ -117,10 +110,9 @@ Feature: Trash management
     And I confirm search in Trash
     And there is a "Article" "TrashSearch3" on Trash list
 
-  @IbexaOSS
   Scenario: Element in trash can be found by search and filtered by section
     Given I create "folder" Content items in "Media/Files" in "eng-GB"
-      | name        | short_name    |
+      | name         | short_name   |
       | TrashSearch4 | TrashSearch4 |
     And I send "Media/Files/TrashSearch4" to the Trash
     And I open "Trash" page in admin SiteAccess
@@ -128,20 +120,23 @@ Feature: Trash management
     And I confirm search in Trash
     And there is a "Folder" "TrashSearch4" on Trash list
 
-    @test_search5
   Scenario: Element in trash can be found by search and filtered by content item creator
-    Given I create a user "Trash" with last name "Admin" in group "Administrators users"
-    And I log out of back office
+    Given I create a user "TrashAdmin" with last name "Admin" in group "Administrator users"
+    And a "folder" Content item named "TrashTest" exists in root
+        | name      | short_name |
+        | TrashTest | TrashTest  |
     And I open Login page in admin SiteAccess
-    And I log in as "Trash Admin" with password "Passw0rd-42"
-    And I start creating a new content "Article"
+    And I log in as "TrashAdmin" with password "Passw0rd-42"
+    And I'm on Content view Page for TrashTest
+    And I start creating a new content "Folder"
     And I set content fields
-      | label       | value              |
-      | Title       | TrashSearch5 |
-      | Short title | TrashSearch5 |
-    And I perform the "Publish" actio
-    And I send "root/TrashSearch5" to the Trash
+      | label        | value       |
+      | Name        | TrashSearch5 |
+      | Description | TrashSearch5 |
+    And I perform the "Publish" action
+      And I'm on Content view Page for root
+    And I send "TrashTest/TrashSearch5" to the Trash
     And I open "Trash" page in admin SiteAccess
-    When I filter search by "TrashAdmin User" content item creator
+    When I filter search by "TrashAdmin Admin" content item creator
     And I confirm search in Trash
-    Then there is a "Article" "TrashSearch5" on Trash list
+    Then there is a "Folder" "TrashSearch5" on Trash list
