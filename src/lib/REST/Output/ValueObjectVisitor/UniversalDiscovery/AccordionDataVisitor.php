@@ -22,7 +22,7 @@ final class AccordionDataVisitor extends AbstractLocationDataVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\UniversalDiscovery\AccordionData $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement('AccordionData');
 

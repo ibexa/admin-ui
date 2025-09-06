@@ -23,31 +23,23 @@ use Psr\Log\NullLogger;
 use SplFileInfo;
 use Twig\Node\Node as TwigNode;
 
-class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterface
+final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public const TRANSLATOR_OBJECT = 'Translator';
-    public const TRANSLATOR_TRANS_METHOD = 'trans';
-    public const TRANSLATOR_TRANS_CHOICE_METHOD = 'transChoice';
+    public const string TRANSLATOR_OBJECT = 'Translator';
+    public const string TRANSLATOR_TRANS_METHOD = 'trans';
+    public const string TRANSLATOR_TRANS_CHOICE_METHOD = 'transChoice';
 
-    public const ID_ARG = 0;
-    public const TRANS_DOMAIN_ARG = 2;
-    public const TRANS_CHOICE_DOMAIN_ARG = 3;
+    public const int ID_ARG = 0;
+    public const int TRANS_DOMAIN_ARG = 2;
+    public const int TRANS_CHOICE_DOMAIN_ARG = 3;
 
     private DocParser $docParser;
 
-    private string $defaultDomain;
-
-    /**
-     * JavaScriptFileVisitor constructor.
-     *
-     * @param string $defaultDomain
-     */
-    public function __construct(string $defaultDomain = 'messages')
+    public function __construct(private readonly string $defaultDomain = 'messages')
     {
         $this->logger = new NullLogger();
-        $this->defaultDomain = $defaultDomain;
 
         $this->docParser = new DocParser();
         $this->docParser->setIgnoreNotImportedAnnotations(true);
@@ -115,15 +107,6 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     {
     }
 
-    /**
-     * Returns true if node is a method call.
-     *
-     * @param \Peast\Syntax\Node\Node $node
-     * @param string $objectName
-     * @param string $methodName
-     *
-     * @return bool
-     */
     private function isMethodCall(Node\Node $node, string $objectName, string $methodName): bool
     {
         if ($node instanceof Node\CallExpression) {
@@ -145,10 +128,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     /**
      * Extracts a message domain from the translator call.
      *
-     * @param \SplFileInfo $file
      * @param \Peast\Syntax\Node\Expression[] $arguments
-     *
-     * @return string|null
      */
     private function extractId(SplFileInfo $file, array $arguments): ?string
     {
@@ -176,11 +156,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     /**
      * Extracts a message domain from the translator call.
      *
-     * @param \SplFileInfo $file
      * @param \Peast\Syntax\Node\Expression[] $arguments
-     * @param string $methodName
-     *
-     * @return string|null
      */
     private function extractDomain(SplFileInfo $file, array $arguments, string $methodName): ?string
     {
@@ -213,8 +189,6 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
      * Extracts a message description from the translator call.
      *
      * @param \Peast\Syntax\Node\Expression[] $arguments
-     *
-     * @return string|null
      */
     private function extractDesc(array $arguments): ?string
     {

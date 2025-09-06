@@ -21,34 +21,28 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
-class PermissionChecker implements PermissionCheckerInterface
+final readonly class PermissionChecker implements PermissionCheckerInterface
 {
-    private const USER_GROUPS_LIMIT = 25;
-
-    private PermissionResolver $permissionResolver;
-
-    private UserService $userService;
+    private const int USER_GROUPS_LIMIT = 25;
 
     public function __construct(
-        PermissionResolver $permissionResolver,
-        UserService $userService
+        private PermissionResolver $permissionResolver,
+        private UserService $userService
     ) {
-        $this->permissionResolver = $permissionResolver;
-        $this->userService = $userService;
     }
 
     /**
-     * @param $hasAccess
+     * @param mixed[] $hasAccess
      * @param string $class
      *
-     * @return array
+     * @return mixed[]
      */
     public function getRestrictions(array $hasAccess, string $class): array
     {
         $restrictions = [];
         $oneOfPoliciesHasNoLimitation = false;
 
-        foreach ($this->flattenArrayOfLimitationsForCurrentUser($hasAccess) as $policy => $limitations) {
+        foreach ($this->flattenArrayOfLimitationsForCurrentUser($hasAccess) as $limitations) {
             $policyHasLimitation = false;
             foreach ($limitations as $limitation) {
                 if ($limitation instanceof $class) {
@@ -69,78 +63,61 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param array|bool $hasAccess
-     *
-     * @return bool
+     * @param array<mixed>|bool $hasAccess
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function canCreateInLocation(Location $location, $hasAccess): bool
+    public function canCreateInLocation(Location $location, array|bool $hasAccess): bool
     {
-        if (\is_bool($hasAccess)) {
+        if (is_bool($hasAccess)) {
             return $hasAccess;
         }
         $restrictedLocations = $this->getRestrictions($hasAccess, LocationLimitation::class);
-        $canCreateInLocation = empty($restrictedLocations)
-            ? true
-            : \in_array($location->id, array_map('intval', $restrictedLocations), true);
+        $canCreateInLocation = empty($restrictedLocations) || in_array($location->getId(), array_map('intval', $restrictedLocations), true);
 
         if (false === $canCreateInLocation) {
             return false;
         }
 
         $restrictedParentContentTypes = $this->getRestrictions($hasAccess, ParentContentTypeLimitation::class);
-        $canCreateInParentContentType = empty($restrictedParentContentTypes)
-            ? true
-            : \in_array($location->contentInfo->contentTypeId, array_map('intval', $restrictedParentContentTypes), true);
+        $canCreateInParentContentType = empty($restrictedParentContentTypes) || in_array($location->getContentInfo()->contentTypeId, array_map('intval', $restrictedParentContentTypes), true);
 
         if (false === $canCreateInParentContentType) {
             return false;
         }
 
         $restrictedParentDepths = $this->getRestrictions($hasAccess, ParentDepthLimitation::class);
-        $canCreateInParentDepth = empty($restrictedParentDepths)
-            ? true
-            : \in_array($location->depth, array_map('intval', $restrictedParentDepths), true);
+        $canCreateInParentDepth = empty($restrictedParentDepths) || in_array($location->getDepth(), array_map('intval', $restrictedParentDepths), true);
 
         if (false === $canCreateInParentDepth) {
             return false;
         }
 
         $restrictedParentOwner = $this->getRestrictions($hasAccess, ParentOwnerLimitation::class);
-        $canCreateInParentOwner = empty($restrictedParentOwner)
-            ? true
-            : $location->contentInfo->ownerId === $this->permissionResolver->getCurrentUserReference()->getUserId();
+        $canCreateInParentOwner = empty($restrictedParentOwner) || $location->getContentInfo()->ownerId === $this->permissionResolver->getCurrentUserReference()->getUserId();
 
         if (false === $canCreateInParentOwner) {
             return false;
         }
 
         $restrictedSections = $this->getRestrictions($hasAccess, SectionLimitation::class);
-        $canCreateInSection = empty($restrictedSections)
-            ? true
-            : \in_array($location->contentInfo->sectionId, array_map('intval', $restrictedSections), true);
+        $canCreateInSection = empty($restrictedSections) || in_array($location->getContentInfo()->getSectionId(), array_map('intval', $restrictedSections), true);
 
         if (false === $canCreateInSection) {
             return false;
         }
 
         $restrictedParentUserGroups = $this->getRestrictions($hasAccess, ParentUserGroupLimitation::class);
-        $canCreateInParentUserGroup = empty($restrictedParentUserGroups)
-            ? true
-            : $this->hasSameParentUserGroup($location);
+        $canCreateInParentUserGroup = empty($restrictedParentUserGroups) || $this->hasSameParentUserGroup($location);
 
         if (false === $canCreateInParentUserGroup) {
             return false;
         }
 
         $restrictedSubtrees = $this->getRestrictions($hasAccess, SubtreeLimitation::class);
-        $canCreateInSubtree = empty($restrictedSubtrees)
-            ? true
-            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
-                return strpos($location->pathString, $restrictedSubtree) === 0;
+        $canCreateInSubtree = empty($restrictedSubtrees) || !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
+                return str_starts_with($location->getPathString(), $restrictedSubtree);
             }));
 
         if (false === $canCreateInSubtree) {
@@ -154,14 +131,12 @@ class PermissionChecker implements PermissionCheckerInterface
      * This method should only be used for very specific use cases. It should be used in a content cases
      * where assignment limitations are not relevant.
      *
-     * @param array $hasAccess
+     * @param mixed[] $hasAccess
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function flattenArrayOfLimitationsForCurrentUser(array $hasAccess): array
     {
-        $currentUserId = $this->permissionResolver->getCurrentUserReference()->getUserId();
-
         $limitations = [];
         foreach ($hasAccess as $permissionSet) {
             /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy */
@@ -182,10 +157,6 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -195,7 +166,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $currentUser = $this->userService->loadUser($currentUserId);
         $currentUserGroups = $this->loadAllUserGroupsIdsOfUser($currentUser);
 
-        $locationOwnerId = $location->contentInfo->ownerId;
+        $locationOwnerId = $location->getContentInfo()->ownerId;
         $locationOwner = $this->userService->loadUser($locationOwnerId);
         $locationOwnerGroups = $this->loadAllUserGroupsIdsOfUser($locationOwner);
 
@@ -203,8 +174,6 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
-     *
      * @return int[]
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -217,10 +186,10 @@ class PermissionChecker implements PermissionCheckerInterface
         do {
             $userGroups = $this->userService->loadUserGroupsOfUser($user, $offset, self::USER_GROUPS_LIMIT);
             foreach ($userGroups as $userGroup) {
-                $allUserGroups[] = $userGroup->contentInfo->id;
+                $allUserGroups[] = $userGroup->getContentInfo()->getId();
             }
             $offset += self::USER_GROUPS_LIMIT;
-        } while (\count($userGroups) === self::USER_GROUPS_LIMIT);
+        } while (count($userGroups) === self::USER_GROUPS_LIMIT);
 
         return $allUserGroups;
     }

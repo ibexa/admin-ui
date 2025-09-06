@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,9 +16,8 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation
 use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class PolicyUpdateMapperTest extends TestCase
+final class PolicyUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
     private PolicyUpdateMapper $mapper;
 
     protected function setUp(): void
@@ -35,7 +35,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testMap(array $properties): void
     {
@@ -47,7 +47,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testReverseMap(array $properties): void
     {
@@ -64,6 +64,9 @@ class PolicyUpdateMapperTest extends TestCase
         $this->mapper->map(new LocationCreateStruct());
     }
 
+    /**
+     * @return array<string, array<int, array<string, \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation>>>
+     */
     public function dataProvider(): array
     {
         return [
@@ -72,7 +75,7 @@ class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
      */
@@ -85,7 +88,7 @@ class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
      */

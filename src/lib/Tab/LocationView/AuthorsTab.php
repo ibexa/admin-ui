@@ -22,19 +22,15 @@ use Twig\Environment;
 
 class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-authors';
-
-    private UserService $userService;
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-authors';
 
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        UserService $userService,
+        private readonly UserService $userService,
         EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->userService = $userService;
     }
 
     public function getIdentifier(): string
@@ -53,17 +49,11 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return 650;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/authors.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
@@ -105,8 +95,10 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
     {
         $parameters['creator'] = null;
-        if ((new UserExists($this->userService))->isSatisfiedBy($contentInfo->ownerId)) {
-            $parameters['creator'] = $this->userService->loadUser($contentInfo->ownerId);
+        $ownerId = $contentInfo->getOwner()->getUserId();
+
+        if ((new UserExists($this->userService))->isSatisfiedBy($ownerId)) {
+            $parameters['creator'] = $this->userService->loadUser($ownerId);
         }
     }
 }

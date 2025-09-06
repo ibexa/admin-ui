@@ -4,13 +4,14 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use Ibexa\AdminUi\Form\DataTransformer\TranslatablePropertyTransformer;
 use PHPUnit\Framework\TestCase;
 
-class TranslatablePropertyTransformerTest extends TestCase
+final class TranslatablePropertyTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformInvalidValueProvider
@@ -36,6 +37,8 @@ class TranslatablePropertyTransformerTest extends TestCase
     }
 
     /**
+     * @param array<string, string> $inputValue
+     *
      * @dataProvider transformValueProvider
      */
     public function testTransform(array $inputValue, string $languageCode, string $expected): void

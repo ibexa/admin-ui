@@ -15,20 +15,12 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface>
  */
-final class ContentDraftAdapter implements AdapterInterface
+final readonly class ContentDraftAdapter implements AdapterInterface
 {
-    private ContentService $contentService;
-
-    private DatasetFactory $datasetFactory;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     */
-    public function __construct(ContentService $contentService, DatasetFactory $datasetFactory)
-    {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
+    public function __construct(
+        private ContentService $contentService,
+        private DatasetFactory $datasetFactory
+    ) {
     }
 
     /**

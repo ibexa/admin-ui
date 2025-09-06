@@ -13,18 +13,17 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class IsContentStructureRoot extends AbstractSpecification
 {
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private readonly ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
-        return $item->getId() === (int)$this->configResolver->getParameter('location_ids.content_structure');
+        return $item->getId() === (int)$this->configResolver->getParameter(
+            'location_ids.content_structure'
+        );
     }
 }

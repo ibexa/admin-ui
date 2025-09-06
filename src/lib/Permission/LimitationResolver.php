@@ -23,34 +23,16 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 /**
  * @internal
  */
-final class LimitationResolver implements LimitationResolverInterface
+final readonly class LimitationResolver implements LimitationResolverInterface
 {
-    private ContentService $contentService;
-
-    private ContentTypeService $contentTypeService;
-
-    private LanguageService $languageService;
-
-    private LocationService $locationService;
-
-    private LookupLimitationsTransformer $lookupLimitationsTransformer;
-
-    private PermissionResolver $permissionResolver;
-
     public function __construct(
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        LanguageService $languageService,
-        LocationService $locationService,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        PermissionResolver $permissionResolver
+        private ContentService $contentService,
+        private ContentTypeService $contentTypeService,
+        private LanguageService $languageService,
+        private LocationService $locationService,
+        private LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private PermissionResolver $permissionResolver
     ) {
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->languageService = $languageService;
-        $this->locationService = $locationService;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->permissionResolver = $permissionResolver;
     }
 
     public function getContentCreateLimitations(Location $parentLocation): LookupLimitationResult
@@ -59,7 +41,7 @@ final class LimitationResolver implements LimitationResolverInterface
         $contentType = $contentInfo->getContentType();
         $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $contentInfo->getMainLanguageCode());
         $contentCreateStruct->sectionId = $contentInfo->getSectionId();
-        $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
+        $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->getId());
 
         $versionBuilder = new VersionBuilder();
         $versionBuilder->translateToAnyLanguageOf($this->getActiveLanguageCodes());

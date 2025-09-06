@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Tab\Event;
 use Ibexa\AdminUi\Tab\TabGroup;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class TabGroupEvent extends Event
+final class TabGroupEvent extends Event
 {
     private TabGroup $data;
 

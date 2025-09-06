@@ -22,15 +22,11 @@ use Ibexa\Rest\Value;
  */
 final class LocationListData extends Value
 {
-    /** @phpstan-var LocationList */
-    private array $locationList;
-
     /**
      * @phpstan-param LocationList $locationList
      */
-    public function __construct(array $locationList)
+    public function __construct(private readonly array $locationList)
     {
-        $this->locationList = $locationList;
     }
 
     /**

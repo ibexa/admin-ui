@@ -13,28 +13,13 @@ use Ibexa\Rest\Value;
 
 final class RequestQuery extends Value
 {
-    private int $locationId;
-
-    private int $offset;
-
-    private int $limit;
-
-    private SortClause $sortClause;
-
-    private int $rootLocationId;
-
     public function __construct(
-        int $locationId,
-        int $offset,
-        int $limit,
-        SortClause $sortClause,
-        int $rootLocationId
+        private readonly int $locationId,
+        private readonly int $offset,
+        private readonly int $limit,
+        private readonly SortClause $sortClause,
+        private readonly int $rootLocationId
     ) {
-        $this->locationId = $locationId;
-        $this->offset = $offset;
-        $this->limit = $limit;
-        $this->sortClause = $sortClause;
-        $this->rootLocationId = $rootLocationId;
     }
 
     public function getLocationId(): int

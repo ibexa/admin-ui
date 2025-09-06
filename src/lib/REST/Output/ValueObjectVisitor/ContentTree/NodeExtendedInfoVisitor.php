@@ -18,12 +18,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class NodeExtendedInfoVisitor extends ValueObjectVisitor
 {
-    public const MAIN_ELEMENT = 'ContentTreeNodeExtendedInfo';
+    public const string MAIN_ELEMENT = 'ContentTreeNodeExtendedInfo';
 
     /**
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement(self::MAIN_ELEMENT);
         $visitor->setHeader('Content-Type', $generator->getMediaType(self::MAIN_ELEMENT));

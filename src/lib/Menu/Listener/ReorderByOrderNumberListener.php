@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Menu\Listener;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Knp\Menu\ItemInterface;
 
-final class ReorderByOrderNumberListener
+final readonly class ReorderByOrderNumberListener
 {
     public function reorderMenuItems(ConfigureMenuEvent $event): void
     {

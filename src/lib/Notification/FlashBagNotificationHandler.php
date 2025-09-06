@@ -12,14 +12,14 @@ use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
-final class FlashBagNotificationHandler implements NotificationHandlerInterface
+final readonly class FlashBagNotificationHandler implements NotificationHandlerInterface
 {
-    private const TYPE_INFO = 'info';
-    private const TYPE_SUCCESS = 'success';
-    private const TYPE_WARNING = 'warning';
-    private const TYPE_ERROR = 'error';
+    private const string TYPE_INFO = 'info';
+    private const string TYPE_SUCCESS = 'success';
+    private const string TYPE_WARNING = 'warning';
+    private const string TYPE_ERROR = 'error';
 
-    public function __construct(private readonly RequestStack $requestStack)
+    public function __construct(private RequestStack $requestStack)
     {
     }
 

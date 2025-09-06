@@ -12,15 +12,11 @@ use Ibexa\Rest\Value;
 
 final class ApplicationConfig extends Value
 {
-    /** @var array<string, mixed> */
-    private array $config;
-
     /**
      * @param array<string, mixed> $config
      */
-    public function __construct(array $config)
+    public function __construct(private readonly array $config)
     {
-        $this->config = $config;
     }
 
     /**

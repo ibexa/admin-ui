@@ -50,8 +50,14 @@ final class MyDraftsTabTest extends TestCase
             $configResolverMock
         );
 
-        $configResolverMock->method('getParameter')->with('pagination.content_draft_limit')->willReturn(10);
-        $requestStackMock->method('getCurrentRequest')->willReturn(new Request());
+        $configResolverMock
+            ->method('getParameter')
+            ->with('pagination.content_draft_limit')
+            ->willReturn(10);
+
+        $requestStackMock
+            ->method('getCurrentRequest')
+            ->willReturn(new Request());
 
         self::assertSame(
             // see $templateMock

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Processor;
 
@@ -33,7 +34,7 @@ use Symfony\Component\Routing\RouterInterface;
  */
 final class ContentTypeFormProcessorTest extends TestCase
 {
-    private const EXAMPLE_CONTENT_TYPE_ID = 1;
+    private const int EXAMPLE_CONTENT_TYPE_ID = 1;
 
     private ContentTypeService&MockObject $contentTypeService;
 
@@ -356,6 +357,9 @@ final class ContentTypeFormProcessorTest extends TestCase
         ]);
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject
+     */
     private function mockFieldDefinitionForm(FieldDefinition $fieldDefinition, bool $isSelected): FormInterface & MockObject
     {
         $fieldDefinitionForm = $this->createMock(FormInterface::class);

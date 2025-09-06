@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Will check if field settings for FieldDefinition are valid.
  */
-class FieldSettingsValidator extends FieldTypeValidator
+final class FieldSettingsValidator extends FieldTypeValidator
 {
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -26,10 +27,14 @@ class FieldSettingsValidator extends FieldTypeValidator
         }
 
         $fieldType = $this->fieldTypeService->getFieldType($value->getFieldTypeIdentifier());
-        $this->processValidationErrors(iterator_to_array($fieldType->validateFieldSettings($value->fieldSettings)));
+        $this->processValidationErrors(
+            iterator_to_array(
+                $fieldType->validateFieldSettings($value->fieldSettings)
+            )
+        );
     }
 
-    protected function generatePropertyPath($errorIndex, $errorTarget): string
+    protected function generatePropertyPath(int $errorIndex, ?string $errorTarget): string
     {
         return 'fieldSettings' . $errorTarget;
     }

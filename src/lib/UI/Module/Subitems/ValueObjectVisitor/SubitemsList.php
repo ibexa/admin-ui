@@ -12,14 +12,12 @@ use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 use Ibexa\Contracts\Rest\Output\Visitor;
 
-class SubitemsList extends ValueObjectVisitor
+final class SubitemsList extends ValueObjectVisitor
 {
     /**
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
      * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement('SubitemsList');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SubitemsList'));
@@ -31,10 +29,7 @@ class SubitemsList extends ValueObjectVisitor
             $visitor->visitValueObject($subitemsRow);
         }
         $generator->endList('SubitemsRow');
-
-        $generator->startValueElement('ChildrenCount', $data->childrenCount);
-        $generator->endValueElement('ChildrenCount');
-
+        $generator->valueElement('ChildrenCount', $data->childrenCount);
         $generator->endObjectElement('SubitemsList');
     }
 }

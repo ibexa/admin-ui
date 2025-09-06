@@ -16,47 +16,27 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
  */
 class Language extends APILanguage
 {
-    /**
-     * Is main language.
-     *
-     * @var bool
-     */
-    protected $main;
+    protected bool $main;
+
+    protected bool $userCanRemove;
+
+    protected bool $userCanEdit = false;
 
     /**
-     * User can remove.
-     *
-     * @var bool
+     * @param array<string, mixed> $properties
      */
-    protected $userCanRemove;
-
-    /**
-     * @var bool
-     */
-    protected $userCanEdit = false;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param array $properties
-     */
-    public function __construct(APILanguage $language, array $properties = [])
-    {
+    public function __construct(
+        readonly APILanguage $language,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($language) + $properties);
     }
 
-    /**
-     * Can delete translation.
-     *
-     * @return bool
-     */
     public function canDelete(): bool
     {
         return !$this->main && $this->userCanRemove;
     }
 
-    /**
-     * @return bool
-     */
     public function canEdit(): bool
     {
         return $this->userCanEdit;

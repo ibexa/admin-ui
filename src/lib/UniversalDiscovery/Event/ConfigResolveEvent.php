@@ -12,35 +12,28 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ConfigResolveEvent extends Event
 {
-    public const NAME = 'udw.resolve.config';
+    public const string NAME = 'udw.resolve.config';
 
-    /** @var string */
-    protected $configName;
+    protected string $configName;
 
-    /** @var array */
-    protected $config = [];
+    /** @var array<string, mixed> */
+    protected array $config = [];
 
-    /** @var array */
-    protected $context = [];
+    /** @var array<mixed> */
+    protected array $context = [];
 
-    /**
-     * @return string
-     */
     public function getConfigName(): string
     {
         return $this->configName;
     }
 
-    /**
-     * @param string $configName
-     */
     public function setConfigName(string $configName): void
     {
         $this->configName = $configName;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
@@ -48,7 +41,7 @@ class ConfigResolveEvent extends Event
     }
 
     /**
-     * @param array $config
+     * @param array<string, mixed> $config
      */
     public function setConfig(array $config): void
     {
@@ -56,7 +49,7 @@ class ConfigResolveEvent extends Event
     }
 
     /**
-     * @return array
+     * @return array<mixed>
      */
     public function getContext(): array
     {
@@ -64,7 +57,7 @@ class ConfigResolveEvent extends Event
     }
 
     /**
-     * @param array $context
+     * @param array<mixed> $context
      */
     public function setContext(array $context): void
     {

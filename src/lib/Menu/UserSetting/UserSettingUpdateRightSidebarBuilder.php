@@ -10,24 +10,14 @@ namespace Ibexa\AdminUi\Menu\UserSetting;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__SAVE = 'user_setting_update__sidebar_right__save';
-    public const ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
-
-    public function __construct(
-        MenuItemFactoryInterface $factory,
-        EventDispatcherInterface $eventDispatcher,
-    ) {
-        parent::__construct($factory, $eventDispatcher);
-    }
+    public const string ITEM__SAVE = 'user_setting_update__sidebar_right__save';
+    public const string ITEM__CANCEL = 'user_setting_update__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {
@@ -35,7 +25,7 @@ class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder implements Tr
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
      * @throws \InvalidArgumentException
      */

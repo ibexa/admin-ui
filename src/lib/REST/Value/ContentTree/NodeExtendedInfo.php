@@ -25,29 +25,17 @@ use Ibexa\Rest\Value as RestValue;
  */
 final class NodeExtendedInfo extends RestValue
 {
-    /** @phpstan-var TPermissionRestrictions|null */
-    private ?array $permissions;
-
-    /** @var array<int, string> */
-    private array $previewableTranslations;
-
-    /** @var array<int, string> */
-    private array $translations;
-
     /**
      * @phpstan-param TPermissionRestrictions|null $permissions
      *
-     * @param array<int, string> $previewableTranslation
+     * @param array<int, string> $previewableTranslations
      * @param array<int, string> $translations
      */
     public function __construct(
-        ?array $permissions = null,
-        array $previewableTranslation = [],
-        array $translations = []
+        private readonly ?array $permissions = null,
+        private readonly array $previewableTranslations = [],
+        private readonly array $translations = []
     ) {
-        $this->permissions = $permissions;
-        $this->previewableTranslations = $previewableTranslation;
-        $this->translations = $translations;
     }
 
     /**

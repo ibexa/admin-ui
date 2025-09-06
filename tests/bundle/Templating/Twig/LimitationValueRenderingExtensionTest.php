@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
@@ -21,7 +22,7 @@ use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 
-class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
+final class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 {
     public function getExtensions(?Environment $twig = null): array
     {
@@ -36,13 +37,13 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
         ];
     }
 
-    private function createLimitationValueMapperRegistryMock(): MockObject
+    private function createLimitationValueMapperRegistryMock(): MockObject&LimitationValueMapperRegistryInterface
     {
         $mapperMock = $this->createMock(LimitationValueMapperInterface::class);
         $mapperMock
             ->expects(self::atLeastOnce())
             ->method('mapLimitationValue')
-            ->willReturnCallback(static function (Limitation $limitation) {
+            ->willReturnCallback(static function (Limitation $limitation): array {
                 return $limitation->limitationValues;
             });
 
@@ -55,7 +56,10 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
         return $registryMock;
     }
 
-    public function getLimitation($identifier, array $values): LimitationMock
+    /**
+     * @param array<string, mixed> $values
+     */
+    public function getLimitation(string $identifier, array $values): LimitationMock
     {
         return new LimitationMock($identifier, $values);
     }
@@ -115,7 +119,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     $message = $e->getMessage();
                     self::assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $message)));
                     $last = substr($message, \strlen($message) - 1);
-                    self::assertTrue('.' === $last || '?' === $last, $message, 'Exception message must end with a dot or a question mark.');
+                    self::assertTrue('.' === $last || '?' === $last, $message);
 
                     return;
                 }

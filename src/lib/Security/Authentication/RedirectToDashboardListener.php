@@ -13,20 +13,16 @@ use Ibexa\Core\MVC\Symfony\Security\Authentication\DetermineTargetUrlEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-final class RedirectToDashboardListener implements EventSubscriberInterface
+final readonly class RedirectToDashboardListener implements EventSubscriberInterface
 {
     use TargetPathTrait;
-
-    /** @var array<string, array<int, string>> */
-    private array $siteAccessGroups;
 
     /**
      * @param array<string, array<int, string>> $siteAccessGroups
      */
     public function __construct(
-        array $siteAccessGroups
+        private array $siteAccessGroups
     ) {
-        $this->siteAccessGroups = $siteAccessGroups;
     }
 
     public static function getSubscribedEvents(): array

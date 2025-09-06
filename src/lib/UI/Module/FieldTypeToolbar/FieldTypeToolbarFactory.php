@@ -18,22 +18,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @internal
  */
-final class FieldTypeToolbarFactory
+final readonly class FieldTypeToolbarFactory
 {
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
-
-    private FieldTypeRegistry $fieldTypeRegistry;
-
-    private TranslatorInterface $translator;
-
     public function __construct(
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
-        FieldTypeRegistry $fieldTypeRegistry,
-        TranslatorInterface $translator
+        private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        private FieldTypeRegistry $fieldTypeRegistry,
+        private TranslatorInterface $translator
     ) {
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
-        $this->fieldTypeRegistry = $fieldTypeRegistry;
-        $this->translator = $translator;
     }
 
     public function create(): FieldTypeToolbar

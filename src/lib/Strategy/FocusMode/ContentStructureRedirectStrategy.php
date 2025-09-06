@@ -16,22 +16,13 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * @internal
  */
-final class ContentStructureRedirectStrategy implements RedirectStrategyInterface
+final readonly class ContentStructureRedirectStrategy implements RedirectStrategyInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    private LocationService $locationService;
-
-    private RouterInterface $router;
-
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        LocationService $locationService,
-        RouterInterface $router
+        private ConfigResolverInterface $configResolver,
+        private LocationService $locationService,
+        private RouterInterface $router
     ) {
-        $this->configResolver = $configResolver;
-        $this->locationService = $locationService;
-        $this->router = $router;
     }
 
     /**
@@ -59,7 +50,7 @@ final class ContentStructureRedirectStrategy implements RedirectStrategyInterfac
     {
         $locationId = $this->configResolver->getParameter('location_ids.content_structure');
         $location = $this->locationService->loadLocation($locationId);
-        $contentId = $location->getContentInfo()->id;
+        $contentId = $location->getContentInfo()->getId();
 
         return $this->router->generate('ibexa.content.view', [
             'locationId' => $locationId,

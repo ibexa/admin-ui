@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
@@ -13,22 +14,8 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 /**
  * Class responsible for generating PlatformUI configuration for Multi File Upload functionality.
  */
-class ContentTypeMappings implements ProviderInterface
+final readonly class ContentTypeMappings implements ProviderInterface
 {
-    private ContentTypeService $contentTypeService;
-
-    /** @var array<string, mixed> */
-    protected array $locationMappings = [];
-
-    /** @var array<string, mixed> */
-    protected array $defaultMappings = [];
-
-    /** @var array<string, mixed> */
-    protected array $fallbackContentType = [];
-
-    /** @var numeric */
-    protected $maxFileSize = 0;
-
     /**
      * @param array<string, mixed> $locationMappings
      * @param array<string, mixed> $defaultMappings
@@ -36,17 +23,12 @@ class ContentTypeMappings implements ProviderInterface
      * @param numeric $maxFileSize
      */
     public function __construct(
-        ContentTypeService $contentTypeService,
-        array $locationMappings,
-        array $defaultMappings,
-        array $fallbackContentType,
-        $maxFileSize
+        private ContentTypeService $contentTypeService,
+        private array $locationMappings,
+        private array $defaultMappings,
+        private array $fallbackContentType,
+        private mixed $maxFileSize
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->locationMappings = $locationMappings;
-        $this->defaultMappings = $defaultMappings;
-        $this->fallbackContentType = $fallbackContentType;
-        $this->maxFileSize = $maxFileSize;
     }
 
     /**

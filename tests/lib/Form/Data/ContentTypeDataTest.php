@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Data;
 
@@ -14,7 +15,7 @@ use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use PHPUnit\Framework\TestCase;
 
-class ContentTypeDataTest extends TestCase
+final class ContentTypeDataTest extends TestCase
 {
     public function testContentTypeDraft(): void
     {

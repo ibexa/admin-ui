@@ -10,30 +10,23 @@ namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
-    public const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
+    public const string ITEM__UPDATE = 'user_password_change__sidebar_right__update';
+    public const string ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::USER_PASSWORD_CHANGE_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface

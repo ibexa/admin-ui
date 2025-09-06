@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final class UniversalDiscoveryRequestValidatorBuilder
+final readonly class UniversalDiscoveryRequestValidatorBuilder
 {
     private ContextualValidatorInterface $validator;
 

@@ -15,26 +15,16 @@ use Symfony\Component\Form\FormInterface;
 
 final class ContentTypeCreateView extends BaseView
 {
-    private ContentTypeGroup $contentTypeGroup;
-
-    private ContentTypeDraft $contentTypeDraft;
-
-    private FormInterface $form;
-
     /**
-     * @param string|\Closure $templateIdentifier Valid path to the template. Can also be a closure.
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
     public function __construct(
-        $template,
-        ContentTypeGroup $contentTypeGroup,
-        ContentTypeDraft $contentTypeDraft,
-        FormInterface $form
+        string|\Closure $template,
+        private ContentTypeGroup $contentTypeGroup,
+        private ContentTypeDraft $contentTypeDraft,
+        private FormInterface $form
     ) {
         parent::__construct($template);
-
-        $this->contentTypeGroup = $contentTypeGroup;
-        $this->contentTypeDraft = $contentTypeDraft;
-        $this->form = $form;
     }
 
     public function getContentTypeGroup(): ContentTypeGroup
@@ -57,11 +47,17 @@ final class ContentTypeCreateView extends BaseView
         $this->contentTypeDraft = $contentTypeDraft;
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<mixed>
+     */
     public function getForm(): FormInterface
     {
         return $this->form;
     }
 
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
     public function setForm(FormInterface $form): void
     {
         $this->form = $form;
@@ -75,7 +71,7 @@ final class ContentTypeCreateView extends BaseView
         return [
             'content_type_group' => $this->contentTypeGroup,
             'content_type' => $this->contentTypeDraft,
-            'form' => $this->form ? $this->form->createView() : null,
+            'form' => $this->form->createView(),
         ];
     }
 }

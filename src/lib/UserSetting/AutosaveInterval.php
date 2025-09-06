@@ -16,20 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
+final readonly class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
 {
-    public const IDENTIFIER = 'autosave_interval';
-
-    private TranslatorInterface $translator;
-
-    private ConfigResolverInterface $configResolver;
+    public const string IDENTIFIER = 'autosave_interval';
 
     public function __construct(
-        TranslatorInterface $translator,
-        ConfigResolverInterface $configResolver
+        private TranslatorInterface $translator,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->translator = $translator;
-        $this->configResolver = $configResolver;
     }
 
     public function getName(): string

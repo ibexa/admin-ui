@@ -15,8 +15,6 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 class ContentTranslateSuccessView extends BaseView
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      */
     public function __construct(Response $response)
@@ -24,6 +22,8 @@ class ContentTranslateSuccessView extends BaseView
         parent::__construct('@ibexadesign/ui/no_content.html.twig');
 
         $this->setResponse($response);
-        $this->setControllerReference(new ControllerReference('Ibexa\Bundle\AdminUi\Controller\ContentEditController::translationSuccessAction'));
+        $this->setControllerReference(
+            new ControllerReference('Ibexa\Bundle\AdminUi\Controller\ContentEditController::translationSuccessAction')
+        );
     }
 }

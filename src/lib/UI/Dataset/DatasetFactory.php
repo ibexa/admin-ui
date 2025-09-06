@@ -28,53 +28,20 @@ class DatasetFactory implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    protected ContentService $contentService;
-
-    private ContentTypeService $contentTypeService;
-
-    protected LanguageService $languageService;
-
-    protected ObjectStateService $objectStateService;
-
-    protected ValueFactory $valueFactory;
-
-    protected LocationService $locationService;
-
-    private URLAliasService $urlAliasService;
-
-    private RoleService $roleService;
-
-    private UserService $userService;
-
-    private BookmarkService $bookmarkService;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        LanguageService $languageService,
-        LocationService $locationService,
-        ObjectStateService $objectStateService,
-        URLAliasService $urlAliasService,
-        RoleService $roleService,
-        UserService $userService,
-        BookmarkService $bookmarkService,
-        ValueFactory $valueFactory,
-        ConfigResolverInterface $configResolver,
+        private readonly ContentService $contentService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly LanguageService $languageService,
+        private readonly LocationService $locationService,
+        private readonly ObjectStateService $objectStateService,
+        private readonly URLAliasService $urlAliasService,
+        private readonly RoleService $roleService,
+        private readonly UserService $userService,
+        private readonly BookmarkService $bookmarkService,
+        private readonly ValueFactory $valueFactory,
+        private readonly ConfigResolverInterface $configResolver,
         ?LoggerInterface $logger = null
     ) {
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->languageService = $languageService;
-        $this->locationService = $locationService;
-        $this->objectStateService = $objectStateService;
-        $this->urlAliasService = $urlAliasService;
-        $this->roleService = $roleService;
-        $this->userService = $userService;
-        $this->bookmarkService = $bookmarkService;
-        $this->valueFactory = $valueFactory;
-        $this->configResolver = $configResolver;
         $this->logger = $logger ?? new NullLogger();
     }
 

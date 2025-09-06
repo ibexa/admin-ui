@@ -8,33 +8,22 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
+use Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\SearchService;
-use Ibexa\Core\QueryType\QueryType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
 abstract class AbstractContentTab extends AbstractTab implements OrderedTabInterface
 {
-    protected PagerLocationToDataMapper $pagerLocationToDataMapper;
-
-    protected SearchService $searchService;
-
-    /** @var \Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType */
-    protected QueryType $contentLocationSubtreeQueryType;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        PagerLocationToDataMapper $pagerLocationToDataMapper,
-        SearchService $searchService,
-        QueryType $contentLocationSubtreeQueryType
+        protected readonly PagerLocationToDataMapper $pagerLocationToDataMapper,
+        protected readonly SearchService $searchService,
+        protected readonly ContentLocationSubtreeQueryType $contentLocationSubtreeQueryType
     ) {
         parent::__construct($twig, $translator);
-
-        $this->pagerLocationToDataMapper = $pagerLocationToDataMapper;
-        $this->searchService = $searchService;
-        $this->contentLocationSubtreeQueryType = $contentLocationSubtreeQueryType;
     }
 }

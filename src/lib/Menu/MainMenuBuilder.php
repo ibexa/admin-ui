@@ -30,32 +30,32 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
     /* Main Menu / Dashboard */
-    public const ITEM_DASHBOARD = 'main__dashboard';
+    public const string ITEM_DASHBOARD = 'main__dashboard';
 
     /* Main Menu / Drafts */
-    public const ITEM_DRAFTS = 'main__drafts';
+    public const string ITEM_DRAFTS = 'main__drafts';
 
     /* Main Menu / Content */
-    public const ITEM_CONTENT = 'main__content';
-    public const ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
-    public const ITEM_CONTENT__CONTENT_STRUCTURE = 'main__content__content_structure';
-    public const ITEM_CONTENT__MEDIA = 'main__content__media';
+    public const string ITEM_CONTENT = 'main__content';
+    public const string ITEM_CONTENT_GROUP_SETTINGS = 'main__content__group_settings';
+    public const string ITEM_CONTENT__CONTENT_STRUCTURE = 'main__content__content_structure';
+    public const string ITEM_CONTENT__MEDIA = 'main__content__media';
 
     /* Main Menu / Admin */
-    public const ITEM_ADMIN__SECTIONS = 'main__admin__sections';
-    public const ITEM_ADMIN__ROLES = 'main__admin__roles';
-    public const ITEM_ADMIN__LANGUAGES = 'main__admin__languages';
-    public const ITEM_ADMIN__CONTENT_TYPES = 'main__admin__content_types';
-    public const ITEM_ADMIN__USERS = 'main__admin__users';
-    public const ITEM_ADMIN__OBJECT_STATES = 'main__admin__object_states';
-    public const ITEM_ADMIN__URL_MANAGEMENT = 'main__admin__url_management';
+    public const string ITEM_ADMIN__SECTIONS = 'main__admin__sections';
+    public const string ITEM_ADMIN__ROLES = 'main__admin__roles';
+    public const string ITEM_ADMIN__LANGUAGES = 'main__admin__languages';
+    public const string ITEM_ADMIN__CONTENT_TYPES = 'main__admin__content_types';
+    public const string ITEM_ADMIN__USERS = 'main__admin__users';
+    public const string ITEM_ADMIN__OBJECT_STATES = 'main__admin__object_states';
+    public const string ITEM_ADMIN__URL_MANAGEMENT = 'main__admin__url_management';
 
     /* Main Menu / Bottom items */
-    public const ITEM_ADMIN = 'main__admin';
-    public const ITEM_BOOKMARKS = 'main__bookmarks';
-    public const ITEM_TRASH = 'main__trash';
+    public const string ITEM_ADMIN = 'main__admin';
+    public const string ITEM_BOOKMARKS = 'main__bookmarks';
+    public const string ITEM_TRASH = 'main__trash';
 
-    public const ITEM_ADMIN_OPTIONS = [
+    public const array ITEM_ADMIN_OPTIONS = [
         self::ITEM_ADMIN__SECTIONS => [
             'route' => 'ibexa.section.list',
             'extras' => [
@@ -136,34 +136,15 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         ],
     ];
 
-    private ConfigResolverInterface $configResolver;
-
-    private PermissionResolver $permissionResolver;
-
-    private TokenStorageInterface $tokenStorage;
-
-    private UserSettingService $userSettingService;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     */
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        ConfigResolverInterface $configResolver,
-        PermissionResolver $permissionResolver,
-        TokenStorageInterface $tokenStorage,
-        UserSettingService $userSettingService
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly UserSettingService $userSettingService
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->configResolver = $configResolver;
-        $this->permissionResolver = $permissionResolver;
-        $this->tokenStorage = $tokenStorage;
-        $this->userSettingService = $userSettingService;
     }
 
     protected function getConfigureEventName(): string
@@ -172,9 +153,7 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @param array<string, mixed> $options
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -271,8 +250,6 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function addContentMenuItems(ItemInterface $menu): void
@@ -342,8 +319,6 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function addAdminMenuItems(ItemInterface $menu): void
@@ -383,9 +358,6 @@ class MainMenuBuilder extends AbstractBuilder implements TranslationContainerInt
         );
     }
 
-    /**
-     * @return array
-     */
     public static function getTranslationMessages(): array
     {
         return [

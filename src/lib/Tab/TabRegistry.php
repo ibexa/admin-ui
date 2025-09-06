@@ -9,15 +9,14 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab;
 
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use InvalidArgumentException;
 
 class TabRegistry
 {
-    /** @var TabGroup[] */
-    protected $tabGroups;
+    /** @var \Ibexa\AdminUi\Tab\TabGroup[] */
+    private array $tabGroups = [];
 
     /**
-     * @param string $group
-     *
      * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
      */
     public function getTabsByGroupName(string $group): array
@@ -25,30 +24,23 @@ class TabRegistry
         return $this->getTabGroup($group)->getTabs();
     }
 
-    /**
-     * @param string $group
-     *
-     * @return TabGroup
-     */
     public function getTabGroup(string $group): TabGroup
     {
         if (!isset($this->tabGroups[$group])) {
-            throw new \InvalidArgumentException(sprintf('Could not find the requested group named "%s". Did you tag the service?', $group));
+            throw new InvalidArgumentException(
+                sprintf('Could not find the requested group named "%s". Did you tag the service?', $group)
+            );
         }
 
         return $this->tabGroups[$group];
     }
 
-    /**
-     * @param string $name
-     * @param string $group
-     *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
-     */
     public function getTabFromGroup(string $name, string $group): TabInterface
     {
         if (!isset($this->tabGroups[$group])) {
-            throw new \InvalidArgumentException(sprintf('Could not find the requested group named "%s". Did you tag the service?', $group));
+            throw new InvalidArgumentException(
+                sprintf('Could not find the requested group named "%s". Did you tag the service?', $group)
+            );
         }
 
         foreach ($this->tabGroups[$group]->getTabs() as $tab) {
@@ -57,21 +49,16 @@ class TabRegistry
             }
         }
 
-        throw new \InvalidArgumentException(sprintf('Could not find the requested tab "%s" from group "%s". Did you tag the service?', $name, $group));
+        throw new InvalidArgumentException(
+            sprintf('Could not find the requested tab "%s" from group "%s". Did you tag the service?', $name, $group)
+        );
     }
 
-    /**
-     * @param TabGroup $group
-     */
     public function addTabGroup(TabGroup $group): void
     {
         $this->tabGroups[$group->getIdentifier()] = $group;
     }
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $tab
-     * @param string $group
-     */
     public function addTab(TabInterface $tab, string $group): void
     {
         if (!isset($this->tabGroups[$group])) {

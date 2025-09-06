@@ -10,12 +10,12 @@ namespace Ibexa\AdminUi\Specification\Location;
 
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class IsRoot extends AbstractSpecification
+final class IsRoot extends AbstractSpecification
 {
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         return 1 === $item->getDepth();
     }

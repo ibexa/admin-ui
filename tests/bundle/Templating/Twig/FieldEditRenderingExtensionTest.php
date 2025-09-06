@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
@@ -15,7 +16,7 @@ use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use Twig\Environment;
 
-class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
+final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 {
     private const int EXAMPLE_FIELD_DEFINITION_ID = 1;
 
@@ -54,6 +55,9 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return __DIR__ . '/_fixtures/field_edit_rendering_functions/';
     }
 
+    /**
+     * @param array<string, mixed> $settings
+     */
     public function getFieldDefinitionData(
         string $typeIdentifier,
         int $id = self::EXAMPLE_FIELD_DEFINITION_ID,
@@ -76,9 +80,9 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
      * @param string $file
      * @param string $message
      * @param string $condition
-     * @param array $templates
+     * @param array<mixed> $templates
      * @param string $exception
-     * @param array $outputs
+     * @param array<mixed> $outputs
      * @param string $deprecation
      */
     public function testLegacyIntegration(

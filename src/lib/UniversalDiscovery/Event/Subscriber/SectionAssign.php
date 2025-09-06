@@ -15,35 +15,23 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class SectionAssign implements EventSubscriberInterface
+final readonly class SectionAssign implements EventSubscriberInterface
 {
+    /** @var string[] */
     private array $restrictedContentTypes;
 
-    private PermissionCheckerInterface $permissionChecker;
-
-    private ContentTypeService $contentTypeService;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function __construct(
         PermissionResolver $permissionResolver,
-        PermissionCheckerInterface $permissionChecker,
-        ContentTypeService $contentTypeService
+        private PermissionCheckerInterface $permissionChecker,
+        private ContentTypeService $contentTypeService
     ) {
-        $this->permissionChecker = $permissionChecker;
-        $this->contentTypeService = $contentTypeService;
         $hasAccess = $permissionResolver->hasAccess('section', 'assign');
         $this->restrictedContentTypes = is_array($hasAccess) ? $this->getRestrictedContentTypes($hasAccess) : [];
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -51,9 +39,6 @@ class SectionAssign implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         $configName = $event->getConfigName();
@@ -77,9 +62,9 @@ class SectionAssign implements EventSubscriberInterface
     }
 
     /**
-     * @param array $hasAccess
+     * @param array<mixed> $hasAccess
      *
-     * @return array
+     * @return string[]
      */
     private function getRestrictedContentTypes(array $hasAccess): array
     {
@@ -91,15 +76,12 @@ class SectionAssign implements EventSubscriberInterface
         $restrictedContentTypesIdentifiers = [];
         $restrictedContentTypes = $this->contentTypeService->loadContentTypeList($restrictedContentTypesIds);
         foreach ($restrictedContentTypes as $restrictedContentType) {
-            $restrictedContentTypesIdentifiers[] = $restrictedContentType->identifier;
+            $restrictedContentTypesIdentifiers[] = $restrictedContentType->getIdentifier();
         }
 
         return $restrictedContentTypesIdentifiers;
     }
 
-    /**
-     * @return bool
-     */
     private function hasContentTypeRestrictions(): bool
     {
         return !empty($this->restrictedContentTypes);

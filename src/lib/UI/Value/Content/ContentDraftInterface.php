@@ -10,8 +10,5 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 interface ContentDraftInterface
 {
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool;
 }

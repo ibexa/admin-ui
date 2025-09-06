@@ -11,10 +11,10 @@ namespace Ibexa\AdminUi\REST\Resolver;
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
-final class UserConfigRestResolver implements ApplicationConfigRestResolverInterface
+final readonly class UserConfigRestResolver implements ApplicationConfigRestResolverInterface
 {
-    private const NAMESPACE = 'user';
-    private const PARAMETER = 'user';
+    public const string NAMESPACE = 'user';
+    public const string PARAMETER = 'user';
 
     public function resolve(array $config): ?ValueObject
     {

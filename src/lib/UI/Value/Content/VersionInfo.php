@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UI\Value\Content;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
 
 /**
@@ -17,35 +18,23 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
  */
 class VersionInfo extends CoreVersionInfo
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
-    protected $author;
+    protected User $author;
+
+    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
+    protected array $translations;
+
+    protected bool $userCanRemove;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @param array<string, mixed> $properties
      */
-    protected $translations;
-
-    /**
-     * User can remove.
-     *
-     * @var bool
-     */
-    protected $userCanRemove;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     * @param array $properties
-     */
-    public function __construct(APIVersionInfo $versionInfo, array $properties = [])
-    {
+    public function __construct(
+        readonly APIVersionInfo $versionInfo,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($versionInfo) + $properties);
     }
 
-    /**
-     * Can delete version.
-     *
-     * @return bool
-     */
     public function canDelete(): bool
     {
         return $this->userCanRemove;

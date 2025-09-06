@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
@@ -28,36 +29,15 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  *      isHidden: bool,
  *  }
  */
-class ContentTypes implements ProviderInterface
+final readonly class ContentTypes implements ProviderInterface
 {
-    private ContentTypeService $contentTypeService;
-
-    private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider;
-
-    private ContentTypeIconResolver $contentTypeIconResolver;
-
-    private UrlGeneratorInterface $urlGenerator;
-
-    private EventDispatcherInterface $eventDispatcher;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     */
     public function __construct(
-        ContentTypeService $contentTypeService,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        ContentTypeIconResolver $contentTypeIconResolver,
-        UrlGeneratorInterface $urlGenerator,
-        EventDispatcherInterface $eventDispatcher
+        private ContentTypeService $contentTypeService,
+        private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
+        private ContentTypeIconResolver $contentTypeIconResolver,
+        private UrlGeneratorInterface $urlGenerator,
+        private EventDispatcherInterface $eventDispatcher
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->contentTypeIconResolver = $contentTypeIconResolver;
-        $this->urlGenerator = $urlGenerator;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -81,10 +61,10 @@ class ContentTypes implements ProviderInterface
         $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($eventContentTypeGroups));
 
         foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes(
+            $contentTypes = iterator_to_array($this->contentTypeService->loadContentTypes(
                 $contentTypeGroup,
                 $preferredLanguages
-            );
+            ));
 
             usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
                 return strnatcasecmp($contentType1->getName(), $contentType2->getName());
@@ -111,10 +91,10 @@ class ContentTypes implements ProviderInterface
     {
         return [
             'id' => $contentType->id,
-            'identifier' => $contentType->identifier,
+            'identifier' => $contentType->getIdentifier(),
             'name' => $contentType->getName(),
             'isContainer' => $contentType->isContainer(),
-            'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->identifier),
+            'thumbnail' => $this->contentTypeIconResolver->getContentTypeIcon($contentType->getIdentifier()),
             'href' => $this->urlGenerator->generate('ibexa.rest.load_content_type', [
                 'contentTypeId' => $contentType->id,
             ]),

@@ -11,13 +11,10 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
-final class UserProfile implements ProviderInterface
+final readonly class UserProfile implements ProviderInterface
 {
-    private UserProfileConfigurationInterface $configuration;
-
-    public function __construct(UserProfileConfigurationInterface $configuration)
+    public function __construct(private UserProfileConfigurationInterface $configuration)
     {
-        $this->configuration = $configuration;
     }
 
     /**

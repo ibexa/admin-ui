@@ -15,24 +15,18 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 /**
  * @internal
  */
-class IsWithinCopySubtreeLimit extends AbstractSpecification
+final class IsWithinCopySubtreeLimit extends AbstractSpecification
 {
-    private int $copyLimit;
-
-    private LocationService $locationService;
-
     public function __construct(
-        int $copyLimit,
-        LocationService $locationService
+        private readonly int $copyLimit,
+        private readonly LocationService $locationService
     ) {
-        $this->copyLimit = $copyLimit;
-        $this->locationService = $locationService;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         if ($this->copyLimit === -1) {
             return true;

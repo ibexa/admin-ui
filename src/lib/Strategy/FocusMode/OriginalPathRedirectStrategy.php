@@ -13,7 +13,7 @@ use Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface;
 /**
  * @internal
  */
-final class OriginalPathRedirectStrategy implements RedirectStrategyInterface
+final readonly class OriginalPathRedirectStrategy implements RedirectStrategyInterface
 {
     /**
      * @param array<string, string> $routeData

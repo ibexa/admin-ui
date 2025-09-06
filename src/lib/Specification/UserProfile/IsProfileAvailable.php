@@ -13,21 +13,19 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class IsProfileAvailable extends AbstractSpecification
 {
-    private UserProfileConfigurationInterface $userProfileConfiguration;
-
-    public function __construct(UserProfileConfigurationInterface $userProfileConfiguration)
-    {
-        $this->userProfileConfiguration = $userProfileConfiguration;
+    public function __construct(
+        private readonly UserProfileConfigurationInterface $userProfileConfiguration
+    ) {
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\User $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         if ($this->userProfileConfiguration->isEnabled()) {
             return in_array(
-                $item->getContentType()->identifier,
+                $item->getContentType()->getIdentifier(),
                 $this->userProfileConfiguration->getContentTypes(),
                 true
             );

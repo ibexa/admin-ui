@@ -14,15 +14,15 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 /**
  * @internal
  */
-final class IconPaths implements ProviderInterface
+final readonly class IconPaths implements ProviderInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfig(): array
     {
         return [

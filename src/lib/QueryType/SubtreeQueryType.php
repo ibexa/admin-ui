@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
@@ -16,21 +17,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class SubtreeQueryType extends OptionsResolverBasedQueryType implements QueryType
 {
-    protected const OWNED_OPTION_NAME = 'owned';
-    protected const SUBTREE_OPTION_NAME = 'subtree';
-
-    protected ConfigResolverInterface $configResolver;
-
-    private PermissionResolver $permissionResolver;
+    protected const string OWNED_OPTION_NAME = 'owned';
+    protected const string SUBTREE_OPTION_NAME = 'subtree';
 
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        PermissionResolver $permissionResolver
+        protected readonly ConfigResolverInterface $configResolver,
+        private readonly PermissionResolver $permissionResolver
     ) {
-        $this->configResolver = $configResolver;
-        $this->permissionResolver = $permissionResolver;
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function doGetQuery(array $parameters): Query
     {
         $subtreeCriterion = new Query\Criterion\Subtree($parameters[SubtreeQueryType::SUBTREE_OPTION_NAME]);
@@ -60,13 +58,13 @@ abstract class SubtreeQueryType extends OptionsResolverBasedQueryType implements
         ]);
     }
 
-    protected function configureOptions(OptionsResolver $resolver): void
+    protected function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefined([self::SUBTREE_OPTION_NAME, self::OWNED_OPTION_NAME]);
-        $resolver->setAllowedTypes(self::SUBTREE_OPTION_NAME, 'string');
-        $resolver->setAllowedTypes(self::OWNED_OPTION_NAME, 'bool');
-        $resolver->setDefault(self::SUBTREE_OPTION_NAME, $this->getSubtreePathFromConfiguration());
-        $resolver->setDefault(self::OWNED_OPTION_NAME, false);
+        $optionsResolver->setDefined([self::SUBTREE_OPTION_NAME, self::OWNED_OPTION_NAME]);
+        $optionsResolver->setAllowedTypes(self::SUBTREE_OPTION_NAME, 'string');
+        $optionsResolver->setAllowedTypes(self::OWNED_OPTION_NAME, 'bool');
+        $optionsResolver->setDefault(self::SUBTREE_OPTION_NAME, $this->getSubtreePathFromConfiguration());
+        $optionsResolver->setDefault(self::OWNED_OPTION_NAME, false);
     }
 
     abstract protected function getSubtreePathFromConfiguration(): string;

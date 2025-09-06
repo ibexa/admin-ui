@@ -18,10 +18,10 @@ use Knp\Menu\ItemInterface;
 
 final class VersionListActionMenuBuilder extends AbstractActionBuilder implements TranslationContainerInterface
 {
-    public const ITEM_EDIT_DRAFT = 'version_list__action__content_edit';
-    public const ITEM_RESTORE_VERSION = 'version_list__action__restore_version';
+    public const string ITEM_EDIT_DRAFT = 'version_list__action__content_edit';
+    public const string ITEM_RESTORE_VERSION = 'version_list__action__restore_version';
 
-    private const ICON_ARCHIVE_RESTORE = 'archive-restore';
+    private const string ICON_ARCHIVE_RESTORE = 'archive-restore';
 
     protected function getConfigureEventName(): string
     {

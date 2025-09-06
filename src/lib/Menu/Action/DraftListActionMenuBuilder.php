@@ -18,7 +18,7 @@ use Knp\Menu\ItemInterface;
 
 final class DraftListActionMenuBuilder extends AbstractActionBuilder implements TranslationContainerInterface
 {
-    public const ITEM_EDIT_DRAFT = 'draft_list__action__content_edit';
+    public const string ITEM_EDIT_DRAFT = 'draft_list__action__content_edit';
 
     protected function getConfigureEventName(): string
     {

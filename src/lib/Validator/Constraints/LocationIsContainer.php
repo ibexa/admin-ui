@@ -12,7 +12,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraint;
 
-class LocationIsContainer extends Constraint implements TranslationContainerInterface
+final class LocationIsContainer extends Constraint implements TranslationContainerInterface
 {
     public string $message = 'ezplatform.copy_subtree.is_not_container';
 

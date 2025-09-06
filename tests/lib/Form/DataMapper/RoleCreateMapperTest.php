@@ -33,7 +33,7 @@ final class RoleCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testMap(array $properties): void
     {
@@ -45,7 +45,7 @@ final class RoleCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
     public function testReverseMap(array $properties): void
     {

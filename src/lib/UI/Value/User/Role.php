@@ -14,49 +14,30 @@ use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 
 class Role extends RoleAssignment
 {
-    /**
-     * the limitation of this role assignment.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
-     */
-    protected $limitation;
+    protected ?APIRoleLimitation $limitation;
 
-    /**
-     * the role which is assigned to the user.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\Role
-     */
-    protected $role;
+    protected APIRole $role;
 
-    /**
-     * Returns the limitation of the user role assignment.
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation|null
-     */
     public function getRoleLimitation(): ?APIRoleLimitation
     {
         return $this->limitation;
     }
 
-    /**
-     * Returns the role to which the user is assigned to.
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
-     */
     public function getRole(): APIRole
     {
         return $this->role;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function __construct(RoleAssignment $roleAssignment, array $properties = [])
-    {
+    public function __construct(
+        readonly RoleAssignment $roleAssignment,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($roleAssignment) + $properties);
 
-        $this->role = $roleAssignment->role;
-        $this->limitation = $roleAssignment->limitation;
+        $this->role = $roleAssignment->getRole();
+        $this->limitation = $roleAssignment->getRoleLimitation();
     }
 }

@@ -15,10 +15,10 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  *
  * @see \Ibexa\Contracts\Rest\Output\ValueObjectVisitor::serializeSortField
  */
-class SortFieldMappings implements ProviderInterface
+final readonly class SortFieldMappings implements ProviderInterface
 {
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getConfig(): array
     {
