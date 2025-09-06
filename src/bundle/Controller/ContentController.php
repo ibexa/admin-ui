@@ -423,7 +423,7 @@ class ContentController extends Controller
             $preselectedSiteAccessName = reset($siteAccessesList);
         }
 
-        $versionInfo = $this->contentService->loadVersionInfo($content->contentInfo, $versionNo);
+        $versionInfo = $this->contentService->loadVersionInfo($content->getContentInfo(), $versionNo);
         $language = $this->languageService->loadLanguage($languageCode);
 
         $previewUrl = $this->previewUrlResolver->resolveUrl(

@@ -19,11 +19,14 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * @covers \Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver
+ */
 final class VersionPreviewUrlResolverTest extends TestCase
 {
     private const EXAMPLE_PREVIEW_URL = 'https://example.org/preview/url';
-    public const EXAMPLE_CONTNET_ID = 42;
-    public const EXAMPLE_VERSION_NO = 7;
+    private const EXAMPLE_CONTENT_ID = 42;
+    private const EXAMPLE_VERSION_NO = 7;
 
     public function testResolvesPreviewUrlSuccessfully(): void
     {
@@ -42,7 +45,7 @@ final class VersionPreviewUrlResolverTest extends TestCase
         $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
         $eventDispatcher->method('dispatch')
             ->with($event)
-            ->willReturnCallback(static function (ResolveVersionPreviewUrlEvent $event) {
+            ->willReturnCallback(static function (ResolveVersionPreviewUrlEvent $event): ResolveVersionPreviewUrlEvent {
                 // Set preview URL as if an event listener did it
                 $event->setPreviewUrl(self::EXAMPLE_PREVIEW_URL);
 
@@ -63,7 +66,7 @@ final class VersionPreviewUrlResolverTest extends TestCase
         $siteAccess = $this->createMock(SiteAccess::class);
 
         $contentInfo = $this->createMock(ContentInfo::class);
-        $contentInfo->method('getId')->willReturn(self::EXAMPLE_CONTNET_ID);
+        $contentInfo->method('getId')->willReturn(self::EXAMPLE_CONTENT_ID);
 
         $versionInfo->method('getContentInfo')->willReturn($contentInfo);
         $versionInfo->method('getVersionNo')->willReturn(self::EXAMPLE_VERSION_NO);
@@ -81,7 +84,9 @@ final class VersionPreviewUrlResolverTest extends TestCase
         $resolver = new VersionPreviewUrlResolver($eventDispatcher);
 
         $this->expectException(UnresolvedPreviewUrlException::class);
-        $this->expectExceptionMessage('Preview URL for content id = 42 and version no = 7 could not be resolved.');
+        $this->expectExceptionMessage(
+            'Preview URL for content id = 42 and version no = 7 could not be resolved.'
+        );
 
         $resolver->resolveUrl($versionInfo, $location, $language, $siteAccess);
     }

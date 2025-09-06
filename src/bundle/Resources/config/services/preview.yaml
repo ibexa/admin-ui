@@ -8,5 +8,3 @@ services:
         alias: Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver
 
     Ibexa\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolver: ~
-
-

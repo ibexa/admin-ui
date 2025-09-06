@@ -18,6 +18,9 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @covers \Ibexa\AdminUi\EventListener\SystemVersionPreviewUrlSubscriber
+ */
 final class SystemVersionPreviewUrlSubscriberTest extends TestCase
 {
     private const EXAMPLE_PREVIEW_URL = '/example';
