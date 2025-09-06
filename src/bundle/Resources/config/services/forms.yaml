@@ -419,4 +419,9 @@ services:
             $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
             $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
 
+    Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType:
+        arguments:
+            $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
+            $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
+
     Ibexa\AdminUi\Form\Type\LanguageSwitchType: ~

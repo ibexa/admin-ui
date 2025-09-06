@@ -10,6 +10,9 @@ namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @deprecated Deprecated since 4.6.24/5.0.2 and will be removed in 6.0. Use `\Ibexa\AdminUi\Form\Type\ChoiceList\Loader\VersionPreviewUrlChoiceLoader` instead.
+ */
 final class SiteAccessPreviewChoiceLoader extends BaseChoiceLoader
 {
     public function __construct(

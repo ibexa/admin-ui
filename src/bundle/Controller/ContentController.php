@@ -19,7 +19,7 @@ use Ibexa\AdminUi\Form\DataMapper\MainTranslationUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Content\Translation\MainTranslationUpdateType;
-use Ibexa\AdminUi\Form\Type\Preview\SiteAccessChoiceType;
+use Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
@@ -29,9 +29,11 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Event\ContentEditEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolverInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -42,6 +44,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Ibexa\Core\Helper\TranslationHelper;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -67,7 +70,10 @@ final class ContentController extends Controller
         private readonly ConfigResolverInterface $configResolver,
         private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly FormFactoryInterface $baseFormFactory
+        private readonly FormFactoryInterface $baseFormFactory,
+        private readonly VersionPreviewUrlResolverInterface $previewUrlResolver,
+        private readonly LanguageService $languageService,
+        private readonly SiteAccessServiceInterface $siteAccessService
     ) {
     }
 
@@ -309,14 +315,13 @@ final class ContentController extends Controller
             $versionNo = null;
         }
 
-        if (null === $location) {
+        if (!$location instanceof Location) {
             $location = $this->locationService->loadLocation(
                 $content->getContentInfo()->getMainLocationId()
             );
         }
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation($location, $versionNo, $languageCode);
-
         if (empty($siteAccesses)) {
             throw new BadStateException(
                 'siteaccess',
@@ -329,30 +334,28 @@ final class ContentController extends Controller
             $siteAccessesList[$siteAccess->name] = $this->siteAccessNameGenerator->generate($siteAccess);
         }
 
-        $preselectedSiteAccess = $request->query->get('preselectedSiteAccess', reset($siteAccessesList));
-
-        if (!array_key_exists($preselectedSiteAccess, $siteAccessesList)) {
-            $preselectedSiteAccess = reset($siteAccessesList);
+        $preselectedSiteAccessName = $request->query->get('preselectedSiteAccessName', reset($siteAccessesList));
+        if (!array_key_exists($preselectedSiteAccessName, $siteAccessesList)) {
+            $preselectedSiteAccessName = reset($siteAccessesList);
         }
 
-        $urlValue = $this->generateUrl(
-            'ibexa.version.preview',
-            [
-                'contentId' => $content->getId(),
-                'versionNo' => $versionNo ?? $content->getVersionInfo()->getVersionNo(),
-                'language' => $languageCode,
-                'siteAccessName' => $preselectedSiteAccess,
-            ]
+        $versionInfo = $this->contentService->loadVersionInfo($content->getContentInfo(), $versionNo);
+        $language = $this->languageService->loadLanguage($languageCode);
+
+        $previewUrl = $this->previewUrlResolver->resolveUrl(
+            $versionInfo,
+            $location,
+            $language,
+            $this->siteAccessService->get($preselectedSiteAccessName)
         );
 
         $siteAccessSelector = $this->baseFormFactory->create(
-            SiteAccessChoiceType::class,
-            $urlValue,
+            VersionPreviewUrlChoiceType::class,
+            $previewUrl,
             [
                 'location' => $location,
-                'content' => $content,
-                'versionNo' => $versionNo ?? $content->getVersionInfo()->getVersionNo(),
-                'languageCode' => $languageCode,
+                'version_info' => $versionInfo,
+                'language' => $language,
             ]
         );
 
@@ -363,8 +366,9 @@ final class ContentController extends Controller
             'siteaccesses' => $siteAccessesList,
             'site_access_form' => $siteAccessSelector,
             'version_no' => $versionNo ?? $content->getVersionInfo()->getVersionNo(),
-            'preselected_site_access' => $preselectedSiteAccess,
+            'preselected_site_access' => $preselectedSiteAccessName,
             'referrer' => $referrer ?? 'content_draft_edit',
+            'preview_url' => $previewUrl,
         ]);
     }
 

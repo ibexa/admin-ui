@@ -23,7 +23,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * @extends \Symfony\Component\Form\AbstractType<mixed>
+ * @deprecated Deprecated since 4.6.24/5.0.2 and will be removed in 6.0. Use `\Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType` instead.
+ *
+ * @phpstan-extends \Symfony\Component\Form\AbstractType<mixed>
  */
 final class SiteAccessChoiceType extends AbstractType
 {
