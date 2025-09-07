@@ -11,6 +11,9 @@
     const EVENT_CUSTOM = 'validateInput';
 
     class EzObjectRelationListValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzObjectRelationListValidator';
+        }
         /**
          * Validates the input
          *

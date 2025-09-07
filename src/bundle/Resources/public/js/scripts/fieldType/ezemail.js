@@ -3,6 +3,9 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
     class EzEmailValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzEmailValidator';
+        }
         /**
          * Validates the input
          *

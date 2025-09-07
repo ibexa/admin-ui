@@ -6,6 +6,10 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
     class EzDateValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzDateValidator';
+        }
+
         /**
          * Validates the input
          *

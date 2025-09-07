@@ -20,6 +20,9 @@
     const maps = [];
 
     class EzGMapLocationValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzGMapLocationValidator';
+        }
         /**
          * Validates latitude/longitude input value
          *
