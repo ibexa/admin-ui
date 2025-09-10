@@ -26,6 +26,7 @@
         'time',
         'url',
     ];
+    const { escapeHTML } = ibexa.helpers.text;
     const form = doc.querySelector('.ibexa-form-validate');
     const submitBtns = form.querySelectorAll('[type="submit"]:not([formnovalidate])');
     const menuButtonsToValidate = doc.querySelectorAll('button[data-validate]');
@@ -150,7 +151,7 @@
         const setAutosaveTooltipContent = () => {
             const statusMsgFromNode = autosaveNode.querySelector(`.ibexa-autosave__status--${currentAutosaveStatus}`).innerText;
             const tooltipContent = isAutosaveSimple
-                ? statusMsgFromNode
+                ? escapeHTML(statusMsgFromNode)
                 : Translator.trans(
                       /*@Desc("You can turn autosave off in your user settings")*/ 'content.autosave.turn_off.message',
                       {},
