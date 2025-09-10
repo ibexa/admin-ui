@@ -16,7 +16,6 @@
         ~ (is_small ? ' ibexa-input--small')
         ~ (form.vars.errors|default(false) ? ' is-invalid')
     )|trim,
-    readonly: 'readonly',
     type: 'text',
     placeholder: input_attr.placeholder|default(' '),
     disabled: is_disabled,
