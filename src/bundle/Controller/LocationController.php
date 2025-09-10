@@ -158,9 +158,14 @@ final class LocationController extends Controller
                     $locationCreateStruct
                 );
 
-                $newLocation = $this->locationService->loadLocation(
-                    $copiedContent->getContentInfo()->getMainLocationId()
-                );
+                $mainLocationId = $copiedContent->getContentInfo()->getMainLocationId();
+                if ($mainLocationId === null) {
+                    throw new InvalidArgumentException(
+                        'mainLocationId',
+                        'Copied content does not have a main location'
+                    );
+                }
+                $newLocation = $this->locationService->loadLocation($mainLocationId);
 
                 $this->notificationHandler->success(
                     /** @Desc("'%name%' copied to '%location%'") */

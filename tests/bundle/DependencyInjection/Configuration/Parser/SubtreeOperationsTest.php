@@ -23,7 +23,7 @@ final class SubtreeOperationsTest extends TestCase
     private ContextualizerInterface $contextualizer;
 
     /**
-     * @return array<string, array{int}>
+     * @return iterable<string, array{int}>
      */
     public function getExpectedCopySubtreeLimit(): iterable
     {

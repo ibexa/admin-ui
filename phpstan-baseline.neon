@@ -369,7 +369,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: src/bundle/Controller/LocationController.php
 
 		-
@@ -4089,6 +4089,12 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$versionInfo of class Ibexa\\AdminUi\\UI\\Value\\Content\\ContentDraft constructor expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo\|null given\.$#'
 			identifier: argument.type
+			count: 1
+			path: src/lib/UI/Value/ValueFactory.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: src/lib/UI/Value/ValueFactory.php
 
