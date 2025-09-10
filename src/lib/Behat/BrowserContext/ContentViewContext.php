@@ -168,4 +168,13 @@ final class ContentViewContext implements Context
     {
         $this->contentViewPage->sendToTrash();
     }
+
+    /**
+     * @Then I should see alert :alert appears
+     */
+    public function iShouldSeeAlertAppears(string $alertMessage): void
+    {
+        $this->contentViewPage->verifyIsLoaded();
+        $this->contentViewPage->verifyMessage($alertMessage);
+    }
 }
