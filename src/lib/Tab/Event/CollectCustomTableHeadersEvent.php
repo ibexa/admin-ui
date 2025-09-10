@@ -14,7 +14,6 @@ class CollectCustomTableHeadersEvent extends Event
 {
     private string $tableIdentifier;
 
-
     /** @var array<int, array<string, string|bool>> */
     private array $headers;
 

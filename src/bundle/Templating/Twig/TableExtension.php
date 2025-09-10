@@ -31,7 +31,6 @@ final class TableExtension extends AbstractExtension
         ];
     }
 
-
     /**
      * @param array<int, array<string, string|bool>> $existingHeaders
      *
