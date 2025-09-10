@@ -15,7 +15,7 @@
     {% block body_content %}
         {% macro info_text(message, modifier = '') %}
             <div class="ibexa-custom-url-from__info-text{{ modifier ? ' ibexa-custom-url-from__info-text--' ~ modifier : '' }}">
-                <svg class="ibexa-icon ibexa-icon--small ibexa-custom-url-from__info-text--icon">
+                <svg class="ibexa-icon ibexa-icon--small">
                     <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
                 </svg>
                 {{ message }}
