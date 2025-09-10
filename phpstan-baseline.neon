@@ -583,12 +583,6 @@ parameters:
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
-			message: '#^Cannot access offset 0 on iterable\<int, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Relation\>\.$#'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: src/bundle/Controller/LocationController.php
-
-		-
 			message: '#^Cannot access property \$contentId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
 			identifier: property.nonObject
 			count: 3
@@ -13153,12 +13147,6 @@ parameters:
 			path: src/lib/UI/Dataset/VersionsDataset.php
 
 		-
-			message: '#^Parameter \#2 \$array of function array_map expects array, iterable\<int, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/UI/Dataset/VersionsDataset.php
-
-		-
 			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\PermissionResolver\:\:sudo\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -13425,6 +13413,12 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$versionInfo of class Ibexa\\AdminUi\\UI\\Value\\Content\\ContentDraft constructor expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo\|null given\.$#'
 			identifier: argument.type
+			count: 1
+			path: src/lib/UI/Value/ValueFactory.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: src/lib/UI/Value/ValueFactory.php
 
