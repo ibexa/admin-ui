@@ -93,3 +93,26 @@ Scenario: Content can be copied
     And I should be on Content view Page for "Media/FolderToSubtreeCopy"
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToSubtreeCopy" "Folder" on Subitems list
+
+  Scenario: Content can be hidden now
+    Given I'm on Content view Page for root
+    When I start creating a new content "Article"
+    And I set content fields
+      | label       | value                |
+      | Title       | Test Article to hide |
+      | Short title | Test Article to hide |
+      | Intro       | TestArticleIntro     |
+    And I perform the "Publish" action
+    Then success notification that "Content published." appears
+    And I should be on Content view Page for "Test Article to hide"
+    When I perform the "Hide" action
+    And I perform the "Confirm" action
+    And I should be on Content view Page for "Test Article to hide"
+    Then I should see alert "This Content item or its Location is hidden." appears
+
+  Scenario: Hidden content can be reveal
+    Given I'm on Content view Page for root
+    And I navigate to content "Test Article to hide" of type "Article" in root
+    When I perform the "Reveal" action
+    And I should be on Content view Page for "Test Article to hide"
+    Then success notification that "Content item 'Test Article to hide' revealed." appears
