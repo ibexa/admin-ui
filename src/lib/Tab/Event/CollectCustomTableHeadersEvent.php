@@ -14,8 +14,13 @@ class CollectCustomTableHeadersEvent extends Event
 {
     private string $tableIdentifier;
 
+
+    /** @var array<int, array<string, string|bool>> */
     private array $headers;
 
+    /**
+     * @param array<int, array<string, string|bool>> $headers
+     */
     public function __construct(string $tableIdentifier, array $headers)
     {
         $this->tableIdentifier = $tableIdentifier;
@@ -27,16 +32,25 @@ class CollectCustomTableHeadersEvent extends Event
         return $this->tableIdentifier;
     }
 
+    /**
+     * @return array<int, array<string, string|bool>>
+     */
     public function getHeaders(): array
     {
         return $this->headers;
     }
 
+    /**
+     * @param array<string, string|bool> $column
+     */
     public function addHeader(array $column): void
     {
         $this->headers[] = $column;
     }
 
+    /**
+     * @param array<string, string|bool> $header
+     */
     public function addHeaderAt(int $index, array $header): void
     {
         array_splice($this->headers, $index, 0, [$header]);

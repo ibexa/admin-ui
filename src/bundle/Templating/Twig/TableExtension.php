@@ -31,6 +31,12 @@ final class TableExtension extends AbstractExtension
         ];
     }
 
+
+    /**
+     * @param array<int, array<string, string|bool>> $existingHeaders
+     *
+     * @return array<int, array<string, string|bool>>
+     */
     public function addCustomHeaders(string $tableIdentifier, array $existingHeaders): array
     {
         $event = new CollectCustomTableHeadersEvent($tableIdentifier, $existingHeaders);
@@ -39,6 +45,12 @@ final class TableExtension extends AbstractExtension
         return $event->getHeaders();
     }
 
+    /**
+     * @param array<int, array<string, string|bool>> $existingColumns
+     * @param mixed $row
+     *
+     * @return array<int, array<string, string|bool>>
+     */
     public function addCustomColumns(string $tableIdentifier, array $existingColumns, $row): array
     {
         $event = new CollectCustomTableColumnsEvent($tableIdentifier, $existingColumns, $row);
