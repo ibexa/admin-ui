@@ -17,6 +17,7 @@
     &__info-text {
         font-size: $ibexa-text-font-size-small;
         color: $ibexa-color-dark-400;
+        margin-top: calculateRem(6px);
 
         &--checked {
             display: none;
@@ -30,6 +31,11 @@
             .ibexa-toggle--is-checked + .ibexa-custom-url-from__info-text--checked + & {
                 display: none;
             }
+        }
+
+        svg {
+            fill: currentColor;
+            margin-top: calculateRem(-3px);
         }
     }
 
