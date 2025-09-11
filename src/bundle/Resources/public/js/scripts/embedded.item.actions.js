@@ -96,15 +96,10 @@
 
         editEmbeddedItemForm.submit();
     };
-    const generateGoToActionItem = ({ contentId, locationId, productCode }) => {
-        let safeLanguageCode;
-        try {
-            safeLanguageCode = new Intl.Locale(previewLanguageCode).toString();
-        } catch (e) {
-            console.error('Invalid languageCode:', previewLanguageCode, e);
-            console.warn(`Unsupported languageCode '${previewLanguageCode}' - using fallback 'eng-GB'.`);
-            safeLanguageCode = ibexa.adminUiConfig.languages.priority[0] ?? 'eng-GB';
-        }
+    const generateGoToActionItem = ({ contentId, locationId, productCode, languages, mainLanguageCode }) => {
+        const safeLanguageCode = languages.some((lang) => lang.languageCode === previewLanguageCode)
+            ? previewLanguageCode
+            : (mainLanguageCode ?? 'eng-GB');
 
         const href = productCode
             ? Routing.generate('ibexa.product_catalog.product.view', {
@@ -175,8 +170,8 @@
             ...editAction,
         };
     };
-    const generateMenuTreeItems = ({ contentId, locationId, productCode, languages }) => {
-        const goToItem = generateGoToActionItem({ contentId, locationId, productCode });
+    const generateMenuTreeItems = ({ contentId, locationId, productCode, languages, mainLanguageCode }) => {
+        const goToItem = generateGoToActionItem({ contentId, locationId, productCode, languages, mainLanguageCode });
         const editItem = generateEditActionItem({ contentId, locationId, productCode, languages });
 
         return {
@@ -237,7 +232,14 @@
                   callbackFunc: hideLoader.bind(null, { menuLoader }),
               })
             : languages;
-        const menuItems = generateMenuTreeItems({ contentId, locationId, productCode, languages: languagesData });
+        const contentData = await loadContentData(contentId);
+        const menuItems = generateMenuTreeItems({
+            contentId,
+            locationId,
+            productCode,
+            languages: languagesData,
+            mainLanguageCode: contentData.Content.mainLanguageCode,
+        });
         const menuInstance = new ibexa.core.MultilevelPopupMenu({
             container,
             triggerElement,
