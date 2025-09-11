@@ -12,30 +12,17 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
-class LocationsDataset
+final class LocationsDataset
 {
-    protected LocationService $locationService;
-
-    protected ValueFactory $valueFactory;
-
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    protected $data;
+    private array $data;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
-    public function __construct(LocationService $locationService, ValueFactory $valueFactory)
-    {
-        $this->locationService = $locationService;
-        $this->valueFactory = $valueFactory;
+    public function __construct(
+        private readonly LocationService $locationService,
+        private readonly ValueFactory $valueFactory
+    ) {
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return LocationsDataset
-     */
     public function load(ContentInfo $contentInfo): self
     {
         $this->data = array_map(
@@ -52,7 +39,7 @@ class LocationsDataset
      *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
-    protected function prioritizeMainLocation(array $locations): array
+    private function prioritizeMainLocation(array $locations): array
     {
         foreach ($locations as $key => $location) {
             if ($location->main) {

@@ -15,62 +15,39 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class UiActionEvent extends Event implements UiActionEventInterface
 {
-    protected string $name;
-
-    protected string $type;
-
-    protected FormInterface $form;
-
-    protected ?Response $response;
-
     /**
-     * @param string $name
-     * @param string $type
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param \Symfony\Component\HttpFoundation\Response|null $response
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
-    public function __construct(string $name, string $type, FormInterface $form, ?Response $response)
-    {
-        $this->name = $name;
-        $this->type = $type;
-        $this->form = $form;
-        $this->response = $response;
+    public function __construct(
+        protected string $name,
+        protected string $type,
+        protected FormInterface $form,
+        protected ?Response $response
+    ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setType(string $type): void
     {
         $this->type = $type;
     }
 
     /**
-     * {@inheritdoc}
+     * @return \Symfony\Component\Form\FormInterface<mixed>
      */
     public function getForm(): FormInterface
     {
@@ -78,24 +55,18 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
     public function setForm(FormInterface $form): void
     {
         $this->form = $form;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResponse(): ?Response
     {
         return $this->response;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setResponse(?Response $response): void
     {
         $this->response = $response;

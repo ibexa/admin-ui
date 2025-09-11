@@ -10,16 +10,12 @@ namespace Ibexa\AdminUi\REST\Value;
 
 use Ibexa\Rest\Value as RestValue;
 
-class BulkOperationResponse extends RestValue
+final class BulkOperationResponse extends RestValue
 {
-    /** @var \Ibexa\AdminUi\REST\Value\OperationResponse[] */
-    public $operations;
-
     /**
      * @param \Ibexa\AdminUi\REST\Value\OperationResponse[] $operations
      */
-    public function __construct($operations)
+    public function __construct(public readonly array $operations)
     {
-        $this->operations = $operations;
     }
 }

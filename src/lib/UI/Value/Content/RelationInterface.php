@@ -10,8 +10,5 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 interface RelationInterface
 {
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool;
 }

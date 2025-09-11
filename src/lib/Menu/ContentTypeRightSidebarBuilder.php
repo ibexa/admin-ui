@@ -16,51 +16,31 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * KnpMenuBundle Menu Builder service implementation for AdminUI content type View contextual sidebar menu.
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class ContentTypeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class ContentTypeRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__EDIT = 'content_type__sidebar_right__edit';
+    public const string ITEM__EDIT = 'content_type__sidebar_right__edit';
 
-    private PermissionResolver $permissionResolver;
-
-    private TranslatorInterface $translator;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     */
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        PermissionResolver $permissionResolver,
-        TranslatorInterface $translator
+        private readonly PermissionResolver $permissionResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->permissionResolver = $permissionResolver;
-        $this->translator = $translator;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::CONTENT_TYPE_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @param array<string, mixed> $options
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException

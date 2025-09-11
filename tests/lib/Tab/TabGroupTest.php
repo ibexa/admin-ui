@@ -12,7 +12,7 @@ use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use PHPUnit\Framework\TestCase;
 
-class TabGroupTest extends TestCase
+final class TabGroupTest extends TestCase
 {
     public function testAddTab(): void
     {

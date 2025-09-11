@@ -11,24 +11,16 @@ namespace Ibexa\AdminUi\Specification\Location;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class HasChildren extends AbstractSpecification
+final class HasChildren extends AbstractSpecification
 {
-    private LocationService $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
+    public function __construct(private readonly LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
-     *
-     * @return bool
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         $childCount = $this->locationService->getLocationChildCount($item);
 

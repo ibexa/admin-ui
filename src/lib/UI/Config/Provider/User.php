@@ -4,11 +4,11 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Core\Repository\Values\User\User as ApiUser;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
@@ -18,28 +18,17 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Provides information about current user with resolved profile picture.
  */
-class User implements ProviderInterface
+final readonly class User implements ProviderInterface
 {
-    private TokenStorageInterface $tokenStorage;
-
-    private ContentTypeService $contentTypeService;
-
-    /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     */
     public function __construct(
-        TokenStorageInterface $tokenStorage,
-        ContentTypeService $contentTypeService
+        private TokenStorageInterface $tokenStorage
     ) {
-        $this->tokenStorage = $tokenStorage;
-        $this->contentTypeService = $contentTypeService;
     }
 
     /**
      * Returns configuration structure compatible with PlatformUI.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
@@ -62,18 +51,20 @@ class User implements ProviderInterface
 
     /**
      * Returns first occurrence of an `ibexa_image` fieldtype.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|null
      */
     private function resolveProfilePictureField(ApiUser $user): ?Field
     {
         $contentType = $user->getContentType();
         foreach ($user->getFields() as $field) {
-            $fieldDef = $contentType->getFieldDefinition($field->fieldDefIdentifier);
+            $fieldDefinition = $contentType->getFieldDefinition(
+                $field->getFieldDefinitionIdentifier()
+            );
 
-            if ('ibexa_image' === $fieldDef->fieldTypeIdentifier) {
+            if ($fieldDefinition === null) {
+                continue;
+            }
+
+            if ('ibexa_image' === $fieldDefinition->getFieldTypeIdentifier()) {
                 return $field;
             }
         }

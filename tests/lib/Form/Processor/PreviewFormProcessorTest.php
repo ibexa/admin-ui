@@ -30,7 +30,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class PreviewFormProcessorTest extends TestCase
+final class PreviewFormProcessorTest extends TestCase
 {
     private ContentService&MockObject $contentService;
 
@@ -185,6 +185,8 @@ class PreviewFormProcessorTest extends TestCase
 
     /**
      * @param \Symfony\Component\Form\FormConfigInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject $config
+     *
+     * @return \Symfony\Component\Form\FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject
      */
     private function generateFormMock(FormConfigInterface&MockObject $config): FormInterface&MockObject
     {

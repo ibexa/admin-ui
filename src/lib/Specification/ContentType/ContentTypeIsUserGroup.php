@@ -12,16 +12,13 @@ use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class ContentTypeIsUserGroup extends AbstractSpecification
+final class ContentTypeIsUserGroup extends AbstractSpecification
 {
-    private array $userGroupContentTypeIdentifier;
-
     /**
-     * @param array $userGroupContentTypeIdentifier
+     * @param string[] $userGroupContentTypeIdentifiers
      */
-    public function __construct(array $userGroupContentTypeIdentifier)
+    public function __construct(private readonly array $userGroupContentTypeIdentifiers)
     {
-        $this->userGroupContentTypeIdentifier = $userGroupContentTypeIdentifier;
     }
 
     /**
@@ -29,16 +26,21 @@ class ContentTypeIsUserGroup extends AbstractSpecification
      *
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
      *
-     * @return bool
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function isSatisfiedBy($contentType): bool
+    public function isSatisfiedBy(mixed $contentType): bool
     {
         if (!$contentType instanceof ContentType) {
-            throw new InvalidArgumentException($contentType, sprintf('Must be an instance of %s', ContentType::class));
+            throw new InvalidArgumentException(
+                $contentType,
+                sprintf('Must be an instance of %s', ContentType::class)
+            );
         }
 
-        return in_array($contentType->identifier, $this->userGroupContentTypeIdentifier, true);
+        return in_array(
+            $contentType->getIdentifier(),
+            $this->userGroupContentTypeIdentifiers,
+            true
+        );
     }
 }

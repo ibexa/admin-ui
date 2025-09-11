@@ -14,29 +14,25 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 /**
  * Provides information about notifications.
  */
-class Notifications implements ProviderInterface
+final readonly class Notifications implements ProviderInterface
 {
-    public const NOTIFICATION_TYPES = ['error', 'warning', 'info', 'success'];
+    public const array NOTIFICATION_TYPES = ['error', 'warning', 'info', 'success'];
 
-    private ConfigResolverInterface $configResolver;
-
-    /**
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     */
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
         $config = [];
         foreach (self::NOTIFICATION_TYPES as $type) {
             $config[$type] = [
-                'timeout' => $this->configResolver->getParameter(sprintf('notifications.%s.timeout', $type)),
+                'timeout' => $this->configResolver->getParameter(
+                    sprintf('notifications.%s.timeout', $type)
+                ),
             ];
         }
 

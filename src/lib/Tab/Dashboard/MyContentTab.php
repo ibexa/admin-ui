@@ -39,7 +39,6 @@ class MyContentTab extends AbstractContentTab implements OrderedTabInterface
      */
     public function renderView(array $parameters): string
     {
-        /** @todo Handle pagination */
         $page = 1;
         $limit = 10;
 

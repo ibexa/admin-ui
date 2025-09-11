@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
@@ -15,17 +16,14 @@ use Pagerfanta\Adapter\AdapterInterface;
 /**
  * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification>
  */
-class NotificationAdapter implements AdapterInterface
+final class NotificationAdapter implements AdapterInterface
 {
     /** @phpstan-var int<0, max> */
     private int $nbResults;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\NotificationService $notificationService
-     */
     public function __construct(
-        private NotificationService $notificationService,
-        private NotificationQuery $query
+        private readonly NotificationService $notificationService,
+        private readonly NotificationQuery $query
     ) {
     }
 

@@ -14,36 +14,24 @@ use JMS\TranslationBundle\Annotation\Desc;
 
 class ViewTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-details';
+    public const string URI_FRAGMENT = 'ibexa-tab-content-type-view-details';
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'view';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("View") */
         return $this->translator->trans('tab.name.view', [], 'ibexa_content_type');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 100;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content_type/tab/view.html.twig';

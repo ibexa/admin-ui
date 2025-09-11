@@ -22,6 +22,9 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
      */
     abstract public static function getDataForTestFormSubmitValidation(): iterable;
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<mixed>
+     */
     abstract protected function getForm(): FormInterface;
 
     /**
@@ -49,6 +52,8 @@ abstract class AbstractFormDataValidationTestCase extends TypeTestCase
     }
 
     /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     *
      * @return \Ibexa\Tests\AdminUi\Form\Data\FormErrorDataTestWrapper[]
      */
     private function mapFormErrors(FormInterface $form): array

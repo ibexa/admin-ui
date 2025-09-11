@@ -14,6 +14,8 @@ interface PermissionCheckerInterface
 {
     /**
      * @param array<mixed> $hasAccess
+     *
+     * @return array<mixed>
      */
     public function getRestrictions(array $hasAccess, string $class): array;
 

@@ -14,7 +14,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType as APIContent
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use PHPUnit\Framework\TestCase;
 
-class ContentTypeIsUserTest extends TestCase
+final class ContentTypeIsUserTest extends TestCase
 {
     /**
      * @covers \Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser::isSatisfiedBy
@@ -39,7 +39,9 @@ class ContentTypeIsUserTest extends TestCase
             $customUserContentType,
         ]);
 
-        self::assertTrue($specification->isSatisfiedBy($this->createContentType($customUserContentType)));
+        self::assertTrue(
+            $specification->isSatisfiedBy($this->createContentType($customUserContentType))
+        );
     }
 
     /**
@@ -72,26 +74,19 @@ class ContentTypeIsUserTest extends TestCase
     }
 
     /**
-     * Creates content type mock with given identifier and field definitions.
-     *
-     * @param string $identifier
-     * @param array $fieldsType
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+     * @param string[] $fieldsTypes
      */
-    private function createContentType(string $identifier, array $fieldsType = []): APIContentType
+    private function createContentType(string $identifier, array $fieldsTypes = []): APIContentType
     {
         $contentType = $this->createMock(ContentType::class);
         $contentType
-            ->method('__get')
-            ->willReturnMap([
-                ['identifier', $identifier],
-            ]);
+            ->method('getIdentifier')
+            ->willReturn($identifier);
 
         $contentType
             ->method('hasFieldDefinitionOfType')
-            ->willReturnCallback(static function (string $fieldTypeIdentifier) use ($fieldsType): bool {
-                return in_array($fieldTypeIdentifier, $fieldsType);
+            ->willReturnCallback(static function (string $fieldTypeIdentifier) use ($fieldsTypes): bool {
+                return in_array($fieldTypeIdentifier, $fieldsTypes);
             });
 
         return $contentType;

@@ -40,14 +40,12 @@ class Operation extends BaseParser
             throw new Exceptions\Parser("Missing or invalid 'content' element for BulkOperation.");
         }
 
-        $operation = new OperationValue(
+        return new OperationValue(
             $data['uri'],
             $data['method'],
             $data['parameters'] ?? [],
             $data['headers'] ?? [],
             $data['content'] ?? ''
         );
-
-        return $operation;
     }
 }

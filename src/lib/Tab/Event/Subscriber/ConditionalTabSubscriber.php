@@ -20,13 +20,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @see \Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface
  */
-class ConditionalTabSubscriber implements EventSubscriberInterface
+final readonly class ConditionalTabSubscriber implements EventSubscriberInterface
 {
-    private TabService $tabService;
-
-    public function __construct(TabService $tabService)
+    public function __construct(private TabService $tabService)
     {
-        $this->tabService = $tabService;
     }
 
     public static function getSubscribedEvents(): array
@@ -43,7 +40,7 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         $parameters = $tabGroupEvent->getParameters();
         try {
             $tabs = $this->tabService->getTabGroup($tabGroupIdentifier)->getTabs();
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $tabs = [];
         }
 

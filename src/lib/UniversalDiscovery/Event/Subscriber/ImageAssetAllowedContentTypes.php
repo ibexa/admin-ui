@@ -12,13 +12,10 @@ use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class ImageAssetAllowedContentTypes implements EventSubscriberInterface
+final readonly class ImageAssetAllowedContentTypes implements EventSubscriberInterface
 {
-    private AssetMapper $assetMapper;
-
-    public function __construct(AssetMapper $assetMapper)
+    public function __construct(private AssetMapper $assetMapper)
     {
-        $this->assetMapper = $assetMapper;
     }
 
     public static function getSubscribedEvents(): array

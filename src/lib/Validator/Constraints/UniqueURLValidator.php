@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -13,18 +14,10 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class UniqueURLValidator extends ConstraintValidator
+final class UniqueURLValidator extends ConstraintValidator
 {
-    private URLService $urlService;
-
-    /**
-     * UniqueURLValidator constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
-     */
-    public function __construct(URLService $urlService)
+    public function __construct(private readonly URLService $urlService)
     {
-        $this->urlService = $urlService;
     }
 
     public function validate(mixed $value, Constraint $constraint): void
@@ -44,7 +37,7 @@ class UniqueURLValidator extends ConstraintValidator
                 ->atPath('url')
                 ->setParameter('%url%', $value->url)
                 ->addViolation();
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             // Do nothing
         }
     }

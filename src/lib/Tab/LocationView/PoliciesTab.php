@@ -26,40 +26,25 @@ use Twig\Environment;
 
 class PoliciesTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-policies';
-
-    protected DatasetFactory $datasetFactory;
-
-    protected PermissionResolver $permissionResolver;
-
-    protected ConfigResolverInterface $configResolver;
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-policies';
 
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        DatasetFactory $datasetFactory,
-        PermissionResolver $permissionResolver,
+        protected readonly DatasetFactory $datasetFactory,
+        protected readonly PermissionResolver $permissionResolver,
         EventDispatcherInterface $eventDispatcher,
-        ConfigResolverInterface $configResolver
+        protected readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->datasetFactory = $datasetFactory;
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'policies';
     }
 
     /**
-     * @return string
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
     public function getName(): string
@@ -68,21 +53,12 @@ class PoliciesTab extends AbstractEventDispatchingTab implements OrderedTabInter
         return $this->translator->trans('tab.name.policies', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 900;
     }
 
     /**
-     * Get information about tab presence.
-     *
-     * @param array $parameters
-     *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -95,24 +71,22 @@ class PoliciesTab extends AbstractEventDispatchingTab implements OrderedTabInter
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
         $contentType = $parameters['contentType'];
 
-        $isUser = new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier'));
-        $isUserGroup = new ContentTypeIsUserGroup($this->configResolver->getParameter('user_group_content_type_identifier'));
-        $isUserOrUserGroup = (new OrSpecification($isUser, $isUserGroup))->isSatisfiedBy($contentType);
+        $isUser = new ContentTypeIsUser(
+            $this->configResolver->getParameter('user_content_type_identifier')
+        );
 
-        return $isUserOrUserGroup;
+        $isUserGroup = new ContentTypeIsUserGroup(
+            $this->configResolver->getParameter('user_group_content_type_identifier')
+        );
+
+        return (new OrSpecification($isUser, $isUserGroup))->isSatisfiedBy($contentType);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/policies/tab.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */

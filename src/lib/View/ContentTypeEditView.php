@@ -16,31 +16,17 @@ use Symfony\Component\Form\FormInterface;
 
 final class ContentTypeEditView extends BaseView
 {
-    private ContentTypeGroup $contentTypeGroup;
-
-    private ContentTypeDraft $contentTypeDraft;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
-    private ?Language $language = null;
-
-    private FormInterface $form;
-
     /**
-     * @param string|\Closure $templateIdentifier Valid path to the template. Can also be a closure.
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      */
     public function __construct(
-        $template,
-        ContentTypeGroup $contentTypeGroup,
-        ContentTypeDraft $contentTypeDraft,
-        Language $language,
-        FormInterface $form
+        string|\Closure $template,
+        private ContentTypeGroup $contentTypeGroup,
+        private ContentTypeDraft $contentTypeDraft,
+        private FormInterface $form,
+        private ?Language $language = null
     ) {
         parent::__construct($template);
-
-        $this->contentTypeGroup = $contentTypeGroup;
-        $this->contentTypeDraft = $contentTypeDraft;
-        $this->language = $language;
-        $this->form = $form;
     }
 
     public function getContentTypeGroup(): ContentTypeGroup
@@ -73,11 +59,17 @@ final class ContentTypeEditView extends BaseView
         $this->language = $language;
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<mixed>
+     */
     public function getForm(): FormInterface
     {
         return $this->form;
     }
 
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
     public function setForm(FormInterface $form): void
     {
         $this->form = $form;
@@ -91,8 +83,8 @@ final class ContentTypeEditView extends BaseView
         return [
             'content_type_group' => $this->contentTypeGroup,
             'content_type' => $this->contentTypeDraft,
-            'form' => $this->form ? $this->form->createView() : null,
-            'language_code' => $this->language !== null ? $this->language->languageCode : null,
+            'form' => $this->form->createView(),
+            'language_code' => $this->language?->languageCode,
         ];
     }
 }

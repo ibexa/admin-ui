@@ -69,7 +69,7 @@ final class IsProfileAvailableTest extends TestCase
     private function createUser(string $contentTypeIdentifier): User
     {
         $contentType = $this->createMock(ContentType::class);
-        $contentType->method('__get')->with('identifier')->willReturn($contentTypeIdentifier);
+        $contentType->method('getIdentifier')->willReturn($contentTypeIdentifier);
 
         $user = $this->createMock(User::class);
         $user->method('getContentType')->willReturn($contentType);

@@ -4,61 +4,42 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
+use Exception;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 
-class MenuItemFactory implements MenuItemFactoryInterface
+readonly class MenuItemFactory implements MenuItemFactoryInterface
 {
-    protected FactoryInterface $factory;
-
-    private PermissionResolver $permissionResolver;
-
-    private LocationService $locationService;
-
-    /**
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(
-        FactoryInterface $factory,
-        PermissionResolver $permissionResolver,
-        LocationService $locationService
+        protected FactoryInterface $factory,
+        private LocationService $locationService
     ) {
-        $this->factory = $factory;
-        $this->permissionResolver = $permissionResolver;
-        $this->locationService = $locationService;
     }
 
     /**
      * Creates Location menu item only when user has content:read permission.
      *
-     * @param string $name
-     * @param int $locationId
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface|null
+     * @param array<string, mixed> $options
      */
     public function createLocationMenuItem(string $name, int $locationId, array $options = []): ?ItemInterface
     {
         try {
             $location = $this->locationService->loadLocation($locationId);
             $contentInfo = $location->getContentInfo();
-            $canRead = $this->permissionResolver->canUser('content', 'read', $contentInfo);
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return null;
         }
 
         $defaults = [
             'route' => 'ibexa.content.view',
             'routeParameters' => [
-                'contentId' => $contentInfo->id,
+                'contentId' => $contentInfo->getId(),
                 'locationId' => $locationId,
             ],
         ];
@@ -66,7 +47,7 @@ class MenuItemFactory implements MenuItemFactoryInterface
         return $this->createItem($name, array_merge_recursive($defaults, $options));
     }
 
-    public function createItem($name, array $options = []): ItemInterface
+    public function createItem(string $name, array $options = []): ItemInterface
     {
         if (empty($options['extras']['translation_domain'])) {
             $options['extras']['translation_domain'] = 'ibexa_menu';

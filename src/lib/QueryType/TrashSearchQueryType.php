@@ -20,7 +20,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TrashSearchQueryType extends OptionsResolverBasedQueryType
 {
-    public const FORM_FIELD_SORT_MAP = [
+    public const array FORM_FIELD_SORT_MAP = [
         'name' => SortClause\ContentName::class,
         'trashed' => SortClause\Trash\DateTrashed::class,
         'content_type' => SortClause\Trash\ContentTypeName::class,
@@ -28,6 +28,9 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
         'creator' => SortClause\Trash\UserLogin::class,
     ];
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     protected function doGetQuery(array $parameters): Query
     {
         /** @var \Ibexa\AdminUi\Form\Data\Search\TrashSearchData $searchData */
@@ -63,7 +66,7 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
         $criteria = [];
 
         if ($searchData->getSection() instanceof Section) {
-            $criteria[] = new Criterion\SectionId($searchData->getSection()->id);
+            $criteria[] = new Criterion\SectionId($searchData->getSection()->getId());
         }
 
         if ($searchData->getContentType() instanceof ContentType) {

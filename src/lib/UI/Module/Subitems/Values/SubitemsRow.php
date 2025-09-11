@@ -12,21 +12,11 @@ use Ibexa\Rest\Server\Values\RestContent;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\Rest\Value as RestValue;
 
-class SubitemsRow extends RestValue
+final class SubitemsRow extends RestValue
 {
-    /** @var \Ibexa\Rest\Server\Values\RestLocation */
-    public $restLocation;
-
-    /** @var \Ibexa\Rest\Server\Values\RestContent */
-    public $restContent;
-
-    /**
-     * @param \Ibexa\Rest\Server\Values\RestLocation $restLocation
-     * @param \Ibexa\Rest\Server\Values\RestContent $restContent
-     */
-    public function __construct(RestLocation $restLocation, RestContent $restContent)
-    {
-        $this->restLocation = $restLocation;
-        $this->restContent = $restContent;
+    public function __construct(
+        public readonly RestLocation $restLocation,
+        public readonly RestContent $restContent
+    ) {
     }
 }

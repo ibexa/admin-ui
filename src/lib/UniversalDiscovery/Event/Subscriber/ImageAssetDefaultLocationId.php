@@ -12,21 +12,12 @@ use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\Core\FieldType\ImageAsset\AssetMapper;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ImageAssetDefaultLocationId implements EventSubscriberInterface
+final readonly class ImageAssetDefaultLocationId implements EventSubscriberInterface
 {
-    private AssetMapper $assetMapper;
-
-    /**
-     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $assetMapper
-     */
-    public function __construct(AssetMapper $assetMapper)
+    public function __construct(private AssetMapper $assetMapper)
     {
-        $this->assetMapper = $assetMapper;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -34,9 +25,6 @@ class ImageAssetDefaultLocationId implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         if ($event->getConfigName() !== 'image_asset') {

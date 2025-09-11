@@ -17,7 +17,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class ContentInfoTransformerTest extends TestCase
 {
-    private const EXAMPLE_CONTENT_ID = 123456;
+    private const int EXAMPLE_CONTENT_ID = 123456;
 
     private ContentInfoTransformer $contentInfoTransformer;
 

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
@@ -15,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * @phpstan-type TDataIntervalArray array{year: string, month: string, day: string, hour: string, minute: string, second: string}
  * @phpstan-type TDataIntervalPair array<string, TDataIntervalArray>
  */
-class DateIntervalToArrayTransformerTest extends TestCase
+final class DateIntervalToArrayTransformerTest extends TestCase
 {
     /**
      * @phpstan-return list<array{TDataIntervalPair}>

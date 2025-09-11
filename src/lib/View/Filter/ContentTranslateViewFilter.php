@@ -29,35 +29,13 @@ use Symfony\Component\Form\FormInterface;
  */
 class ContentTranslateViewFilter implements EventSubscriberInterface
 {
-    private ContentService $contentService;
-
-    private LanguageService $languageService;
-
-    private ContentTypeService $contentTypeService;
-
-    private FormFactoryInterface $formFactory;
-
-    private UserLanguagePreferenceProviderInterface $languagePreferenceProvider;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
-     */
     public function __construct(
-        ContentService $contentService,
-        LanguageService $languageService,
-        ContentTypeService $contentTypeService,
-        FormFactoryInterface $formFactory,
-        UserLanguagePreferenceProviderInterface $languagePreferenceProvider
+        private readonly ContentService $contentService,
+        private readonly LanguageService $languageService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly UserLanguagePreferenceProviderInterface $languagePreferenceProvider
     ) {
-        $this->contentService = $contentService;
-        $this->languageService = $languageService;
-        $this->contentTypeService = $contentTypeService;
-        $this->formFactory = $formFactory;
-        $this->languagePreferenceProvider = $languagePreferenceProvider;
     }
 
     public static function getSubscribedEvents(): array
@@ -66,8 +44,6 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
      * @throws \Symfony\Component\OptionsResolver\Exception\NoSuchOptionException
@@ -117,13 +93,6 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $toLanguage
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $fromLanguage
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Ibexa\AdminUi\Form\Data\ContentTranslationData
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
      * @throws \Symfony\Component\OptionsResolver\Exception\NoSuchOptionException
@@ -150,11 +119,7 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\ContentTranslationData $contentUpdate
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $toLanguage
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<mixed>
      */
     private function resolveContentTranslateForm(
         ContentTranslationData $contentUpdate,
@@ -165,8 +130,8 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
             ContentEditType::class,
             $contentUpdate,
             [
-                'languageCode' => $toLanguage->languageCode,
-                'mainLanguageCode' => $content->contentInfo->mainLanguageCode,
+                'languageCode' => $toLanguage->getLanguageCode(),
+                'mainLanguageCode' => $content->getContentInfo()->getMainLanguageCode(),
                 'content' => $content,
                 'contentUpdateStruct' => $contentUpdate,
                 'drafts_enabled' => true,

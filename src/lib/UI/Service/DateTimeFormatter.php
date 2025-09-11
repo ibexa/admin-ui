@@ -15,13 +15,10 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class DateTimeFormatter implements DateTimeFormatterInterface, TranslationContainerInterface
+final readonly class DateTimeFormatter implements DateTimeFormatterInterface, TranslationContainerInterface
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
     public function formatDiff(DateTimeInterface $from, DateTimeInterface $to): string
@@ -47,14 +44,6 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
         return $this->getEmptyDiffMessage();
     }
 
-    /**
-     * @param  int $count  The diff count
-     * @param  bool $invert Whether to invert the count
-     * @param  string $unit   The unit must be either year, month, day, hour,
-     *                         minute or second
-     *
-     * @return string
-     */
     private function getDiffMessage(int $count, bool $invert, string $unit): string
     {
         $id = sprintf('diff.%s.%s', $invert ? 'ago' : 'in', $unit);

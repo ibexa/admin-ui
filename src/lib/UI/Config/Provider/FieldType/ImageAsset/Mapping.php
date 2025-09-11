@@ -14,20 +14,14 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 /**
  * Provide information about ImageAsset Field Type mappings.
  */
-class Mapping implements ProviderInterface
+final readonly class Mapping implements ProviderInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    /**
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     */
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {

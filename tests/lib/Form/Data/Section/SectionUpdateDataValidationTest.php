@@ -20,7 +20,7 @@ use Symfony\Component\Form\FormInterface;
 final class SectionUpdateDataValidationTest extends AbstractSectionMutationDataValidationTestCase
 {
     /**
-     * @return array<string, \Symfony\Component\Form\FormTypeInterface>
+     * @return array<string, \Symfony\Component\Form\FormTypeInterface<mixed>>
      */
     protected function getTypes(): array
     {

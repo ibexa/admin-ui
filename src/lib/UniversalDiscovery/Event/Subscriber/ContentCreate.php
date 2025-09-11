@@ -17,39 +17,27 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ContentCreate implements EventSubscriberInterface
+final readonly class ContentCreate implements EventSubscriberInterface
 {
+    /** @var string[] */
     private array $restrictedContentTypesIdentifiers;
 
+    /** @var string[] */
     private array $restrictedLanguagesCodes;
 
-    private PermissionCheckerInterface $permissionChecker;
-
-    private ContentTypeService $contentTypeService;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function __construct(
         PermissionResolver $permissionResolver,
-        PermissionCheckerInterface $permissionChecker,
-        ContentTypeService $contentTypeService
+        private PermissionCheckerInterface $permissionChecker,
+        private ContentTypeService $contentTypeService
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->permissionChecker = $permissionChecker;
-
         $hasAccess = $permissionResolver->hasAccess('content', 'create');
         $this->restrictedContentTypesIdentifiers = $this->getRestrictedContentTypesIdentifiers($hasAccess);
         $this->restrictedLanguagesCodes = $this->getRestrictedLanguagesCodes($hasAccess);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -57,9 +45,6 @@ class ContentCreate implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         if ($event->getConfigName() !== 'create') {
@@ -80,45 +65,47 @@ class ContentCreate implements EventSubscriberInterface
     }
 
     /**
-     * @param array|bool $hasAccess
+     * @param array<mixed>|bool $hasAccess
      *
-     * @return array
+     * @return array<mixed>
      */
-    private function getRestrictedContentTypesIdentifiers($hasAccess): array
+    private function getRestrictedContentTypesIdentifiers(array|bool $hasAccess): array
     {
         if (!\is_array($hasAccess)) {
             return [];
         }
 
-        $restrictedContentTypesIds = $this->permissionChecker->getRestrictions($hasAccess, ContentTypeLimitation::class);
+        $restrictedContentTypesIds = $this->permissionChecker->getRestrictions(
+            $hasAccess,
+            ContentTypeLimitation::class
+        );
 
         if (empty($restrictedContentTypesIds)) {
             return [];
         }
 
-        $restrictedContentTypes = $this->contentTypeService->loadContentTypeList($restrictedContentTypesIds);
+        $restrictedContentTypes = $this->contentTypeService->loadContentTypeList(
+            $restrictedContentTypesIds
+        );
 
         return array_values(array_map(static function (ContentType $contentType): string {
-            return $contentType->identifier;
+            return $contentType->getIdentifier();
         }, (array)$restrictedContentTypes));
     }
 
-    /**
-     * @return bool
-     */
     private function hasContentTypeRestrictions(): bool
     {
         return !empty($this->restrictedContentTypesIdentifiers);
     }
 
     /**
-     * @param $hasAccess
+     * @param array<mixed>|bool $hasAccess
      *
      * @return string[]
      */
-    private function getRestrictedLanguagesCodes($hasAccess): array
+    private function getRestrictedLanguagesCodes(array|bool $hasAccess): array
     {
-        if (!\is_array($hasAccess)) {
+        if (!is_array($hasAccess)) {
             return [];
         }
 
@@ -131,9 +118,6 @@ class ContentCreate implements EventSubscriberInterface
         return $restrictedLanguagesCodes;
     }
 
-    /**
-     * @return bool
-     */
     private function hasLanguagesRestrictions(): bool
     {
         return !empty($this->restrictedLanguagesCodes);

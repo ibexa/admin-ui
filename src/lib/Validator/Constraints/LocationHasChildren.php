@@ -12,7 +12,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraint;
 
-class LocationHasChildren extends Constraint implements TranslationContainerInterface
+final class LocationHasChildren extends Constraint implements TranslationContainerInterface
 {
     public string $message = 'ezplatform.trash.location_has_no_children';
 

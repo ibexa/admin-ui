@@ -17,23 +17,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReadAllowedContentTypes implements EventSubscriberInterface
 {
-    private PermissionResolver $permissionResolver;
-
-    private PermissionCheckerInterface $permissionChecker;
-
-    private ContentTypeService $contentTypeService;
-
     /** @var string[]|null */
     private ?array $allowedContentTypesIdentifiers = null;
 
     public function __construct(
-        PermissionResolver $permissionResolver,
-        PermissionCheckerInterface $permissionChecker,
-        ContentTypeService $contentTypeService
+        private readonly PermissionResolver $permissionResolver,
+        private readonly PermissionCheckerInterface $permissionChecker,
+        private readonly ContentTypeService $contentTypeService
     ) {
-        $this->permissionResolver = $permissionResolver;
-        $this->permissionChecker = $permissionChecker;
-        $this->contentTypeService = $contentTypeService;
     }
 
     /**
@@ -42,7 +33,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
     private function getAllowedContentTypesIdentifiers(array $contentTypesAllowedViaConfig): ?array
     {
         $access = $this->permissionResolver->hasAccess('content', 'read');
-        if (!\is_array($access)) {
+        if (!is_array($access)) {
             return $access ? ($contentTypesAllowedViaConfig ?: null) : [null];
         }
 
@@ -72,6 +63,9 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         $config = $event->getConfig();

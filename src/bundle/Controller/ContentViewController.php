@@ -225,7 +225,7 @@ final class ContentViewController extends Controller
         ?Language $language = null,
         ?Location $location = null
     ): FormInterface {
-        $languageCodes = $versionInfo->getLanguageCodes() ?? [];
+        $languageCodes = $versionInfo === null ? [] : $versionInfo->getLanguageCodes();
 
         return $this->formFactory->contentEdit(
             new ContentEditData($contentInfo, null, $language, $location),

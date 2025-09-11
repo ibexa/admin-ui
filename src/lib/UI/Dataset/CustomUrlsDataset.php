@@ -15,32 +15,18 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Psr\Log\LoggerInterface;
 
-class CustomUrlsDataset
+final class CustomUrlsDataset
 {
-    private URLAliasService $urlAliasService;
-
-    private ValueFactory $valueFactory;
-
     /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
     private ?array $data = null;
 
-    private LoggerInterface $logger;
-
     public function __construct(
-        URLAliasService $urlAliasService,
-        ValueFactory $valueFactory,
-        LoggerInterface $logger
+        private readonly URLAliasService $urlAliasService,
+        private readonly ValueFactory $valueFactory,
+        private readonly LoggerInterface $logger
     ) {
-        $this->urlAliasService = $urlAliasService;
-        $this->valueFactory = $valueFactory;
-        $this->logger = $logger;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
-     */
     public function load(Location $location): self
     {
         try {
@@ -54,7 +40,7 @@ class CustomUrlsDataset
             $this->logger->warning(
                 sprintf(
                     'At least one custom alias belonging to location %d is broken. Fix it by using the ibexa:urls:regenerate-aliases command.',
-                    $location->id
+                    $location->getId()
                 ),
                 ['exception' => $e]
             );
@@ -65,7 +51,7 @@ class CustomUrlsDataset
             function (URLAlias $urlAlias) {
                 return $this->valueFactory->createUrlAlias($urlAlias);
             },
-            $customUrlAliases
+            iterator_to_array($customUrlAliases)
         );
 
         return $this;

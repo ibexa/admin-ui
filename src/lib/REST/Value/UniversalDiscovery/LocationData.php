@@ -30,34 +30,17 @@ use Ibexa\Rest\Value;
  */
 final class LocationData extends Value
 {
-    /** @phpstan-var SubItems */
-    private array $subItems;
-
-    private ?Location $location;
-
-    private ?bool $isBookmarked;
-
-    /** @phpstan-var PermissionRestrictions|null */
-    private ?array $permissions;
-
-    private ?Version $version;
-
     /**
      * @phpstan-param SubItems $subItems
      * @phpstan-param PermissionRestrictions|null $permissions
      */
     public function __construct(
-        array $subItems,
-        ?Location $location = null,
-        ?bool $isBookmarked = null,
-        ?array $permissions = null,
-        ?Version $version = null
+        private readonly array $subItems,
+        private readonly ?Location $location = null,
+        private readonly ?bool $isBookmarked = null,
+        private readonly ?array $permissions = null,
+        private readonly ?Version $version = null
     ) {
-        $this->subItems = $subItems;
-        $this->location = $location;
-        $this->isBookmarked = $isBookmarked;
-        $this->permissions = $permissions;
-        $this->version = $version;
     }
 
     /**

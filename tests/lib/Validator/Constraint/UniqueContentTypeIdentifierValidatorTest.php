@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
@@ -49,6 +50,7 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
             ->expects(self::never())
             ->method('buildViolation');
 
+        /** @phpstan-ignore-next-line  */
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
     }
 

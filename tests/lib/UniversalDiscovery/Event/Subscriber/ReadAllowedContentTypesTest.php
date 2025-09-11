@@ -20,12 +20,12 @@ use PHPUnit\Framework\TestCase;
 
 final class ReadAllowedContentTypesTest extends TestCase
 {
-    private const EXAMPLE_LIMITATIONS = [/* Some limitations */];
+    private const array EXAMPLE_LIMITATIONS = [/* Some limitations */];
 
-    private const SUPPORTED_CONFIG_NAMES = ['richtext_embed', 'richtext_embed_image'];
+    private const array SUPPORTED_CONFIG_NAMES = ['richtext_embed', 'richtext_embed_image'];
 
-    private const ALLOWED_CONTENT_TYPES_IDS = [2, 4];
-    private const ALLOWED_CONTENT_TYPES = ['article', 'folder'];
+    private const array ALLOWED_CONTENT_TYPES_IDS = [2, 4];
+    private const array ALLOWED_CONTENT_TYPES = ['article', 'folder'];
 
     private PermissionResolver&MockObject $permissionResolver;
 
@@ -109,6 +109,9 @@ final class ReadAllowedContentTypesTest extends TestCase
         ]);
     }
 
+    /**
+     * @param array<string, mixed>|null $expectedConfiguration
+     */
     private function assertConfigurationResolvingResult(?array $expectedConfiguration): void
     {
         foreach (self::SUPPORTED_CONFIG_NAMES as $configName) {
@@ -131,6 +134,11 @@ final class ReadAllowedContentTypesTest extends TestCase
         return $event;
     }
 
+    /**
+     * @param string[] $identifiers
+     *
+     * @return array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType&\PHPUnit\Framework\MockObject\MockObject>
+     */
     private function createContentTypeListMock(array $identifiers): array
     {
         return array_map(function (string $identifier): ContentType&MockObject {

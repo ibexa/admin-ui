@@ -27,9 +27,8 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 
 final class ContentTranslationMapperTest extends TestCase
 {
-    public const LANGUAGE_CODE = 'cyb-CY';
+    public const string LANGUAGE_CODE = 'cyb-CY';
 
-    /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper */
     private ContentTranslationMapper $mapper;
 
     protected function setUp(): void
@@ -38,6 +37,8 @@ final class ContentTranslationMapperTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @dataProvider paramsProvider
      */
     public function testMapToFormData(Content $content, array $params, ContentTranslationData $expectedData): void
@@ -47,6 +48,17 @@ final class ContentTranslationMapperTest extends TestCase
         self::assertEquals($expectedData, $actualData);
     }
 
+    /**
+     * @return array<string, array{
+     *     \Ibexa\Core\Repository\Values\Content\Content,
+     *     array{
+     *       language: \Ibexa\Contracts\Core\Repository\Values\Content\Language,
+     *       contentType: ApiContentType,
+     *       baseLanguage: \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     *     },
+     *     \Ibexa\AdminUi\Form\Data\ContentTranslationData
+     * }>
+     */
     public function paramsProvider(): array
     {
         $language = new Language(['languageCode' => self::LANGUAGE_CODE]);
@@ -145,6 +157,9 @@ final class ContentTranslationMapperTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     * @param array<string, mixed> $exception
+     *
      * @dataProvider wrongParamsProvider
      */
     public function testMapToFormDataWithoutRequiredParameter(Content $content, array $params, array $exception): void
@@ -155,6 +170,13 @@ final class ContentTranslationMapperTest extends TestCase
         $this->mapper->mapToFormData($content, $params);
     }
 
+    /**
+     * @return array<string, array{
+     *     \Ibexa\Core\Repository\Values\Content\Content,
+     *     array<string, mixed>,
+     *     array{class: class-string<\Throwable>, message: string}
+     * }>
+     */
     public function wrongParamsProvider(): array
     {
         return [
@@ -219,6 +241,9 @@ final class ContentTranslationMapperTest extends TestCase
         ];
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
+     */
     private function getCompleteContent(array $fields = []): Content
     {
         return new Content([
@@ -229,7 +254,7 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getField(string $fieldDefIdentifier = 'identifier', $languageCode = self::LANGUAGE_CODE, $value = 'string_value'): Field
+    private function getField(string $fieldDefIdentifier = 'identifier', string $languageCode = self::LANGUAGE_CODE): Field
     {
         return new Field([
             'fieldDefIdentifier' => $fieldDefIdentifier,
@@ -238,6 +263,9 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
+    /**
+     * @param array<\Ibexa\Core\Repository\Values\ContentType\FieldDefinition> $fieldDefs
+     */
     private function getContentType(array $fieldDefs = []): ContentType
     {
         return new ContentType([
