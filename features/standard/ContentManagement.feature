@@ -1,4 +1,4 @@
-@IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
+@javascript
 Feature: Content items creation
   As an administrator
   In order to manage content to my site
@@ -7,7 +7,7 @@ Feature: Content items creation
 Background:
       Given I am logged as admin
 
-@IbexaOSS
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content moving can be cancelled
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -21,7 +21,7 @@ Scenario: Content moving can be cancelled
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCancelMove"
 
-@IbexaOSS
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content can be moved
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -38,7 +38,7 @@ Scenario: Content can be moved
     And I'm on Content view Page for "ContentManagement"
     And there's no "FolderToMove" "Folder" on Subitems list
 
-@IbexaOSS
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content copying can be cancelled
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -52,7 +52,7 @@ Scenario: Content copying can be cancelled
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCopyCancel"
 
-@IbexaOSS
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content can be copied
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -69,7 +69,7 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToCopy" "Folder" on Subitems list
 
-  @IbexaOSS
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Subtree copying can be cancelled
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -83,7 +83,7 @@ Scenario: Content can be copied
     And I close the UDW window
     Then I should be on Content view Page for "ContentManagement/FolderToSubtreeCopyCancel"
 
-  @IbexaOSS
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Subtree can be copied
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -100,7 +100,7 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToSubtreeCopy" "Folder" on Subitems list
 
-  @IbexaOSS
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Content can be hidden now
     Given I'm on Content view Page for root
     When I start creating a new content "Article"
@@ -116,6 +116,7 @@ Scenario: Content can be copied
     And I should be on Content view Page for "Test Article to hide"
     Then I should see alert "This Content item or its Location is hidden." appears
 
+  @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Content can be hidden now
     Given I'm on Content view Page for root
     When I start creating a new content "Article"
@@ -132,7 +133,7 @@ Scenario: Content can be copied
     And I should be on Content view Page for "Test Article to hide"
     Then I should see alert "This Content item or its Location is hidden." appears
 
-  @IbexaOSS
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Hidden content can be reveal
     Given I'm on Content view Page for root
     And I navigate to content "Test Article to hide" of type "Article" in root
