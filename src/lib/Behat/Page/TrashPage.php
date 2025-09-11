@@ -96,11 +96,6 @@ class TrashPage extends Page
         $this->trashSearch->confirmSearch();
     }
 
-    public function confirmSearch(): void
-    {
-        $this->trashSearch->confirmSearch();
-    }
-
     public function filterByContentType(string $contentType): void
     {
         $this->trashSearch->filterByContentType($contentType);
