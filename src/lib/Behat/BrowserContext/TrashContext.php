@@ -114,14 +114,6 @@ class TrashContext implements Context
     }
 
     /**
-     * @When I confirm search in Trash
-     */
-    public function iConfirmSearchInTrash(): void
-    {
-        $this->trashPage->confirmSearch();
-    }
-
-    /**
      * @When I filter search by :contentType content type
      */
     public function iFilterSearchByContentType(string $contentType): void
