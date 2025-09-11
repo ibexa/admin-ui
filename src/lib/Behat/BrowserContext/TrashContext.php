@@ -106,7 +106,7 @@ class TrashContext implements Context
     }
 
     /**
-     * @Then I search for a :contentItem content item in Trash
+     * @When I search for a :contentItem content item in Trash
      */
     public function iSearchForContentInTrash(string $contentItem): void
     {
@@ -114,7 +114,7 @@ class TrashContext implements Context
     }
 
     /**
-     * @Then I confirm search in Trash
+     * @When I confirm search in Trash
      */
     public function iConfirmSearchInTrash(): void
     {
@@ -122,7 +122,7 @@ class TrashContext implements Context
     }
 
     /**
-     * @Then I filter search by :contentType content type
+     * @When I filter search by :contentType content type
      */
     public function iFilterSearchByContentType(string $contentType): void
     {
@@ -130,7 +130,7 @@ class TrashContext implements Context
     }
 
     /**
-     * @Then I filter search by :section section
+     * @When I filter search by :section section
      */
     public function iFilterSearchBySection(string $section): void
     {
@@ -138,7 +138,7 @@ class TrashContext implements Context
     }
 
     /**
-     * @Then I filter search by :contentItemCreator content item creator
+     * @When I filter search by :contentItemCreator content item creator
      */
     public function iFilterSearchByContentItemCreator(string $contentItemCreator): void
     {

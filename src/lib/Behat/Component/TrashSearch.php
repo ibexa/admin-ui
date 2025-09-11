@@ -29,7 +29,7 @@ class TrashSearch extends Component
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('mainSearchBoxInput'))->setValue($searchQuery);
     }
 
-    public function confirm(): void
+    public function confirmSearch(): void
     {
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('mainSearchBoxConfirmButton'))->click();
     }
