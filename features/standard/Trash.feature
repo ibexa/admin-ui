@@ -114,7 +114,6 @@ Feature: Trash management
     And I send "TrashTest/TrashSearch3" to the Trash
     And I open "Trash" page in admin SiteAccess
     When I filter search by "Article" content type
-    And I confirm search in Trash
     Then there is a "Article" "TrashSearch3" on Trash list
 
   @IbexaOSS
@@ -125,7 +124,6 @@ Feature: Trash management
     And I send "Media/Files/TrashSearch4" to the Trash
     And I open "Trash" page in admin SiteAccess
     When I filter search by "Media" section
-    And I confirm search in Trash
     Then there is a "Folder" "TrashSearch4" on Trash list
 
   Scenario: Element in trash can be found by search and filtered by content item creator
@@ -146,5 +144,4 @@ Feature: Trash management
     And I send "TrashTest/TrashSearch5" to the Trash
     And I open "Trash" page in admin SiteAccess
     When I filter search by "TrashAdmin Admin" content item creator
-    And I confirm search in Trash
     Then there is a "Folder" "TrashSearch5" on Trash list

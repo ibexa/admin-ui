@@ -93,12 +93,12 @@ class TrashPage extends Page
     public function searchByText(string $searchQuery): void
     {
         $this->trashSearch->submitSearchText($searchQuery);
-        $this->trashSearch->confirm();
+        $this->trashSearch->confirmSearch();
     }
 
     public function confirmSearch(): void
     {
-        $this->trashSearch->confirm();
+        $this->trashSearch->confirmSearch();
     }
 
     public function filterByContentType(string $contentType): void
