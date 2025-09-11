@@ -103,7 +103,7 @@
         } catch (e) {
             console.error('Invalid languageCode:', previewLanguageCode, e);
             console.warn(`Unsupported languageCode '${previewLanguageCode}' - using fallback 'eng-GB'.`);
-            safeLanguageCode = 'eng-GB';
+            safeLanguageCode = ibexa.adminUiConfig.languages.priority[0] ?? 'eng-GB';
         }
 
         const href = productCode
