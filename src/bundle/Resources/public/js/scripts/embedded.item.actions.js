@@ -97,15 +97,24 @@
         editEmbeddedItemForm.submit();
     };
     const generateGoToActionItem = ({ contentId, locationId, productCode }) => {
+        let safeLanguageCode;
+        try {
+            safeLanguageCode = new Intl.Locale(previewLanguageCode).toString();
+        } catch (e) {
+            console.error('Invalid languageCode:', previewLanguageCode, e);
+            console.warn(`Unsupported languageCode '${previewLanguageCode}' - using fallback 'eng-GB'.`);
+            safeLanguageCode = 'eng-GB';
+        }
+
         const href = productCode
             ? Routing.generate('ibexa.product_catalog.product.view', {
                   productCode,
-                  languageCode: previewLanguageCode,
+                  languageCode: safeLanguageCode,
               })
             : Routing.generate('ibexa.content.translation.view', {
                   contentId,
                   locationId,
-                  languageCode: previewLanguageCode,
+                  languageCode: safeLanguageCode,
               });
 
         return {
