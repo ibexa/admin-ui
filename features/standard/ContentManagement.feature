@@ -100,7 +100,7 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToSubtreeCopy" "Folder" on Subitems list
 
-  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @IbexaOSS
   Scenario: Content can be hidden now
     Given I'm on Content view Page for root
     When I start creating a new content "Article"
