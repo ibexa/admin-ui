@@ -99,7 +99,7 @@
     const generateGoToActionItem = ({ contentId, locationId, productCode, languages, mainLanguageCode }) => {
         const safeLanguageCode = languages.some((lang) => lang.languageCode === previewLanguageCode)
             ? previewLanguageCode
-            : (mainLanguageCode ?? 'eng-GB');
+            : mainLanguageCode;
 
         const href = productCode
             ? Routing.generate('ibexa.product_catalog.product.view', {
@@ -238,7 +238,7 @@
             locationId,
             productCode,
             languages: languagesData,
-            mainLanguageCode: contentData.Content.mainLanguageCode,
+            mainLanguageCode: contentData?.Content?.mainLanguageCode ?? 'eng-GB',
         });
         const menuInstance = new ibexa.core.MultilevelPopupMenu({
             container,
