@@ -100,7 +100,7 @@ final class TrashPage extends Page
         $this->trashSearch->filterByContentItemCreator($contentItemCreator);
     }
 
-    public function restoreSelectedItems()
+    public function restoreSelectedItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
     }
