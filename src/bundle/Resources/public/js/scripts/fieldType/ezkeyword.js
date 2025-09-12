@@ -5,6 +5,9 @@
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
     class EzKeywordValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzKeywordValidator';
+        }
         /**
          * Validates the keywords input
          *

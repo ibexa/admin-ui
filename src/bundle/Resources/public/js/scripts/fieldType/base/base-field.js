@@ -13,6 +13,10 @@
             return this.fieldContainer ? this.fieldContainer : fallback;
         }
 
+        getValidatorName() {
+            return 'BaseFieldValidator';
+        }
+
         /**
          * Attaches event to elements found with a selector provided by field config
          *
