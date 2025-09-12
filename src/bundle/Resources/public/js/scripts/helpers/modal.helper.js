@@ -18,6 +18,7 @@ const controlManyZIndexes = (items, listenerContainer) => {
         listenersAbortController.abort();
         listenerContainer.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-detached'));
     };
+    items = items.filter((item) => item.container);
 
     items.forEach(({ container }) => {
         containersInitialZIndexes.set(container, container.style.zIndex);
