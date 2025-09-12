@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
+use Ibexa\AdminUi\Behat\Component\TrashSearch;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -23,6 +24,9 @@ final class TrashPage extends Page
 {
     private TableInterface $table;
 
+    /** @var \Ibexa\AdminUi\Behat\Component\TrashSearch */
+    private TrashSearch $trashSearch;
+
     public function __construct(
         readonly Session $session,
         readonly Router $router,
@@ -30,10 +34,12 @@ final class TrashPage extends Page
         private readonly Dialog $dialog,
         private readonly ContentActionsMenu $contentActionsMenu,
         readonly TableBuilder $tableBuilder
+        TrashSearch $trashSearch
     ) {
         parent::__construct($session, $router);
 
         $this->table = $tableBuilder->newTable()->build();
+        $this->trashSearch = $trashSearch;
     }
 
     public function hasElement(string $itemType, string $itemName): bool
@@ -73,7 +79,32 @@ final class TrashPage extends Page
         $this->table->getTableRow($parameters)->select();
     }
 
+<<<<<<< HEAD
     public function restoreSelectedItems(): void
+=======
+    public function searchByText(string $searchQuery): void
+    {
+        $this->trashSearch->submitSearchText($searchQuery);
+        $this->trashSearch->confirmSearch();
+    }
+
+    public function filterByContentType(string $contentType): void
+    {
+        $this->trashSearch->filterByContentType($contentType);
+    }
+
+    public function filterBySection(string $section): void
+    {
+        $this->trashSearch->filterBySection($section);
+    }
+
+    public function filterByContentItemCreator(string $contentItemCreator): void
+    {
+        $this->trashSearch->filterByContentItemCreator($contentItemCreator);
+    }
+
+    public function restoreSelectedItems()
+>>>>>>> 4.6
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
     }
