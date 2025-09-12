@@ -170,7 +170,7 @@ final class ContentViewContext implements Context
     }
 
     /**
-     * @Then I should see alert :alert appears
+     * @Then I should see the alert :alertMessage appear
      */
     public function iShouldSeeAlertAppears(string $alertMessage): void
     {

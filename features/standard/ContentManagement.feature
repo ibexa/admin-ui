@@ -101,42 +101,35 @@ Scenario: Content can be copied
     And there's a "FolderToSubtreeCopy" "Folder" on Subitems list
 
   @IbexaOSS
-  Scenario: Content can be hidden now
-    Given I'm on Content view Page for root
-    When I start creating a new content "Article"
-    And I set content fields
-      | label       | value                |
-      | Title       | Test Article to hide |
-      | Short title | Test Article to hide |
-      | Intro       | TestArticleIntro     |
-    And I perform the "Publish" action
-    Then success notification that "Content published." appears
-    And I should be on Content view Page for "Test Article to hide"
+  Scenario: Content item can be hidden
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    Given a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
+      | title             | short_title       | intro            |
+      | TestArticleToHide | TestArticleToHide | TestArticleIntro |
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
     When I perform the "Hide" action
-    And I should be on Content view Page for "Test Article to hide"
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
     Then I should see alert "This Content item or its Location is hidden." appears
 
   @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Content can be hidden now
-    Given I'm on Content view Page for root
-    When I start creating a new content "Article"
-    And I set content fields
-      | label       | value                |
-      | Title       | Test Article to hide |
-      | Short title | Test Article to hide |
-      | Intro       | TestArticleIntro     |
-    And I perform the "Publish" action
-    Then success notification that "Content published." appears
-    And I should be on Content view Page for "Test Article to hide"
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    Given a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
+      | title             | short_title       | intro            |
+      | TestArticleToHide | TestArticleToHide | TestArticleIntro |
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
     When I perform the "Hide" action
     And I perform the "Confirm" action
-    And I should be on Content view Page for "Test Article to hide"
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
     Then I should see alert "This Content item or its Location is hidden." appears
 
   @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
-  Scenario: Hidden content can be reveal
-    Given I'm on Content view Page for root
-    And I navigate to content "Test Article to hide" of type "Article" in root
+  Scenario: Hidden content item can be revealed
+    Given I'm on Content view Page for "ContentManagement/TestArticleToHide"
     When I perform the "Reveal" action
-    And I should be on Content view Page for "Test Article to hide"
-    Then success notification that "Content item 'Test Article to hide' revealed." appears
+    And I should be on Content view Page for "ContentManagement/TestArticleToHide"
+    Then success notification that "Content item 'TestArticleToHide' revealed." appears
