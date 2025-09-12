@@ -33,7 +33,7 @@ final class TrashPage extends Page
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly Dialog $dialog,
         private readonly ContentActionsMenu $contentActionsMenu,
-        readonly TableBuilder $tableBuilder
+        readonly TableBuilder $tableBuilder,
         TrashSearch $trashSearch
     ) {
         parent::__construct($session, $router);
@@ -79,9 +79,6 @@ final class TrashPage extends Page
         $this->table->getTableRow($parameters)->select();
     }
 
-<<<<<<< HEAD
-    public function restoreSelectedItems(): void
-=======
     public function searchByText(string $searchQuery): void
     {
         $this->trashSearch->submitSearchText($searchQuery);
@@ -104,7 +101,6 @@ final class TrashPage extends Page
     }
 
     public function restoreSelectedItems()
->>>>>>> 4.6
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
     }
