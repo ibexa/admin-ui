@@ -110,7 +110,7 @@ const Filters = ({ search }) => {
 
         return (
             <button
-                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary"
+                className="ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--secondary ibexa-btn--small"
                 type="button"
                 onClick={() => setIsNestedUdwOpened(true)}
             >
@@ -158,7 +158,7 @@ const Filters = ({ search }) => {
                         onChange={updateSelectedLanguage}
                         value={selectedLanguage}
                         options={languageOptions}
-                        extraClasses="c-udw-dropdown"
+                        extraClasses="ibexa-dropdown--small c-udw-dropdown"
                     />
                 </FiltersRow>
                 <ContentTypeSelector />
@@ -169,7 +169,7 @@ const Filters = ({ search }) => {
                         onChange={updateSection}
                         value={selectedSection}
                         options={sectionOptions}
-                        extraClasses="c-udw-dropdown"
+                        extraClasses="ibexa-dropdown--small c-udw-dropdown"
                     />
                 </FiltersRow>
                 <FiltersRow title={subtreeLabel}>
