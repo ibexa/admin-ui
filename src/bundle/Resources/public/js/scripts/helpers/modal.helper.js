@@ -18,16 +18,16 @@ const controlManyZIndexes = (items, listenerContainer) => {
         listenersAbortController.abort();
         listenerContainer.dispatchEvent(new CustomEvent('ibexa-control-z-index:events-detached'));
     };
-    items = items.filter((item) => item.container);
+    const filteredItems = items.filter((item) => item.container);
 
-    items.forEach(({ container }) => {
+    filteredItems.forEach(({ container }) => {
         containersInitialZIndexes.set(container, container.style.zIndex);
     });
 
     listenerContainer.addEventListener(
         'show.bs.modal',
         () => {
-            items.forEach(({ container, zIndex = 'initial' }) => {
+            filteredItems.forEach(({ container, zIndex = 'initial' }) => {
                 container.style.zIndex = zIndex;
             });
         },
@@ -37,7 +37,7 @@ const controlManyZIndexes = (items, listenerContainer) => {
     listenerContainer.addEventListener(
         'hide.bs.modal',
         () => {
-            items.forEach(({ container }) => {
+            filteredItems.forEach(({ container }) => {
                 container.style.zIndex = containersInitialZIndexes.get(container);
             });
         },
