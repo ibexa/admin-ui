@@ -59,6 +59,7 @@ class DashboardPage extends Page
 
     public function isDraftOnList(string $draftName): bool
     {
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('table'))->mouseOver();
         return $this->table->hasElement(['Name' => $draftName]);
     }
 
