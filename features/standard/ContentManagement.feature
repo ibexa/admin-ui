@@ -111,7 +111,7 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement/TestArticleToHide"
     When I perform the "Hide" action
     And I'm on Content view Page for "ContentManagement/TestArticleToHide"
-    Then I should see alert "This Content item or its Location is hidden." appears
+    Then I should see the alert "This Content item or its Location is hidden." appear
 
   @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Content can be hidden now
@@ -125,7 +125,7 @@ Scenario: Content can be copied
     When I perform the "Hide" action
     And I perform the "Confirm" action
     And I'm on Content view Page for "ContentManagement/TestArticleToHide"
-    Then I should see alert "This Content item or its Location is hidden." appears
+    Then I should see the alert "This Content item or its Location is hidden." appear
 
   @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Hidden content item can be revealed
