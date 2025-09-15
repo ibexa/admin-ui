@@ -41,6 +41,7 @@ imports:
     - { resource: services/icons.yaml }
     - { resource: services/role_form_mappers.yaml }
     - { resource: services/security.yaml }
+    - { resource: services/notifier.yaml }
 
 services:
     _defaults:
