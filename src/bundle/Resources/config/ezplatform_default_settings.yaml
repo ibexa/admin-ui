@@ -68,6 +68,8 @@ parameters:
     ibexa.site_access.config.admin_group.user_registration.templates.confirmation: "@@ibexadesign/account/register/register_confirmation.html.twig"
     ibexa.site_access.config.admin_group.user_edit.templates.update: '@@ibexadesign/user/edit.html.twig'
     ibexa.site_access.config.admin_group.user_edit.templates.create: '@@ibexadesign/user/create.html.twig'
+    ibexa.site_access.config.admin_group.user_invitation.templates.mail: "@@ibexadesign/user/invitation/mail.html.twig"
+
 
     # Content Tree Module
     ibexa.site_access.config.admin_group.content_tree_module.load_more_limit: 30
