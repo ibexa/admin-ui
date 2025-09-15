@@ -1,6 +1,6 @@
 {% extends '@ibexadesign/ui/mail/base_mail_template.html.twig' %}
 
-{% trans_default_domain 'ibexa_admin_ui' %}
+{% trans_default_domain 'ibexa_forgot_password' %}
 
 {%- block subject -%}
     {{ 'forgot_user_password.mail.reset_your_password'|trans|desc('Reset your password') }}
@@ -24,4 +24,3 @@
 {%- block mail_footer_content -%}
     {{ 'forgot_user_password.mail.message_footer'|trans()|desc('If you did not request a password reset, please ignore this email, and your password will remain the same.') }}
 {%- endblock mail_footer_content -%}
-
