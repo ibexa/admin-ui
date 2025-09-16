@@ -68,7 +68,7 @@ final class UserInvitation implements InvitationSender
             'invite_hash' => $invitation->getHash(),
             'siteaccess' => $invitation->getSiteAccessIdentifier(),
             'invitation' => $invitation,
-            'header_path' => $embeddedHeader,
+            'header_img_path' => $embeddedHeader,
             'btn_primary_left_side' => $embeddedBtnPrimaryLeftSide,
             'btn_primary_right_side' => $embeddedBtnPrimaryRightSide,
         ]);
