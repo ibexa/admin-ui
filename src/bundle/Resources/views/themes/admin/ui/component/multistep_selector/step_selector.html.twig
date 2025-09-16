@@ -1,0 +1,37 @@
+{% set source %}
+    <select name="selector-{{ id }}" class="ibexa-input ibexa-input--select" multiple>
+    </select>
+{% endset %}
+<div class="ibexa-multistep-selector__step ibexa-multistep-selector__step--{{ id }}" data-step-id="{{ id }}">
+    <template class="ibexa-multistep-selector__dropdown-template">
+        {% include '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+            source,
+            choices: [],
+            is_dynamic: true,
+            multiple: true,
+            class: 'ibexa-dropdown--' ~ id,
+        } only %}
+    </template>
+    <label class="ibexa-label form-label">
+        {{ label }}
+    </label>
+    <div class="ibexa-multistep-selector__dropdown-initial">
+        {% embed '@ibexadesign/ui/component/dropdown/dropdown.html.twig' with {
+            source,
+            choices: [],
+            is_disabled: true,
+            class: 'ibexa-dropdown--' ~ id,
+        } %}
+            {% block selection_info_content %}
+                <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
+                    {{ 'multistep_selector.step.dropdown.placeholder'|trans|desc('Select') }}
+                </li>
+                <li class="ibexa-dropdown__selected-item ibexa-dropdown__loader-wrapper" hidden>
+                    <div class="ibexa-dropdown__loader"></div>
+                </li>
+            {% endblock %}
+        {% endembed %}
+    </div>
+    <div class="ibexa-multistep-selector__dropdown">
+    </div>
+</div>
