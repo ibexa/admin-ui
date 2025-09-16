@@ -1,19 +1,26 @@
-{%- block from -%}
-{%- endblock from -%}
+{% extends '@ibexadesign/ui/mail/base_mail_template.html.twig' %}
+
+{% trans_default_domain 'ibexa_forgot_password' %}
 
 {%- block subject -%}
-    {{ 'ezplatform.forgot_user_password.reset_your_password'|trans|desc('Reset your password') }}
+    {{ 'forgot_user_password.mail.reset_your_password'|trans|desc('Reset your password') }}
 {%- endblock subject -%}
 
-{%- block body -%}
-    <p>
-        {{ 'ezplatform.forgot_user_password.message'|trans({ '%reset_password%': url('ibexa.user.reset_password', {'hashKey': hash_key}) })|raw
-        |desc('Hi,
-        <br /><br />
-        We have received a request to reset the password for your Ibexa DXP account. Click “reset password” below to choose a new password:
-        <br /><br />
-        <a href="%reset_password%">Reset password</a>
-        <br /><br />
-        If you did not request a password reset, please ignore this email, and your password will remain the same.') }}
-    </p>
-{%- endblock body -%}
+{%- block mail_message_title_content -%}
+    {{ 'forgot_user_password.mail.message_title'|trans()|desc('Hello,') }}
+{%- endblock mail_message_title_content -%}
+
+{%- block mail_message_content %}
+    {{ 'forgot_user_password.mail.message'|trans()|desc('We have received a request to reset the password for your account. Click "reset password" below to choose a new password:') }}
+{%- endblock mail_message_content %}
+
+{%- block mail_actions_content -%}
+    {% include '@ibexadesign/ui/mail/components/action_btn.html.twig' with {
+        url: url('ibexa.user.reset_password', { 'hashKey': hash_key }),
+        label: 'forgot_user_password.mail.reset_password'|trans()|desc('Reset password')
+    } only %}
+{%- endblock mail_actions_content -%}
+
+{%- block mail_footer_content -%}
+    {{ 'forgot_user_password.mail.message_footer'|trans()|desc('If you did not request a password reset, please ignore this email, and your password will remain the same.') }}
+{%- endblock mail_footer_content -%}
