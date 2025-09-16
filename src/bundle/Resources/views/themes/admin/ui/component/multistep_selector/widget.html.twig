@@ -1,0 +1,17 @@
+<div class="ibexa-multistep-selector ibexa-multistep-selector--{{ id }}">
+    <h3>{{ title }}</h3>
+
+    {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
+        type: 'info',
+        title: info,
+    } only %}
+
+    <div class="ibexa-multistep-selector__steps">
+        {% for step in steps %}
+            {% include '@ibexadesign/ui/component/multistep_selector/step_selector.html.twig' with {
+                id: step.id,
+                label: step.label,
+            } %}
+        {% endfor %}
+    </div>
+</div>
