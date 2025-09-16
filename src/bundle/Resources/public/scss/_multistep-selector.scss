@@ -1,0 +1,32 @@
+.ibexa-multistep-selector {
+    margin-top: calculateRem(24px);
+
+    .ibexa-alert {
+        margin: calculateRem(24px) 0;
+    }
+
+    .ibexa-dropdown {
+        &__loader-wrapper {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        &__loader {
+            @include spinner(calculateRem(24px), calculateRem(3px), $ibexa-color-primary);
+        }
+    }
+
+    &__steps {
+        display: flex;
+        gap: calculateRem(16px);
+    }
+
+    &__step {
+        flex-grow: 1;
+    }
+
+    & + & {
+        margin-top: calculateRem(40px);
+    }
+}

@@ -68,45 +68,59 @@
             })|e('html_attr') }}"
             data-placeholder-template="{{ placeholder_list_item|e('html_attr') }}"
         >
-            {% if no_items %}
-                {% if not is_dynamic %}
-                    {{ placeholder_list_item }}
-                {% endif %}
-            {% else %}
-                {% if value is empty %}
-                    {% if not multiple %}
-                        {% if placeholder is defined and placeholder is not none %}
-                            {% set default_label = 'dropdown.placeholder.all'|trans()|desc('All') %}
-
-                            {% include selected_item_template_path with {
-                                value: '',
-                                label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
-                            } %}
-                        {% else %}
-                            {% set first_choice = choices_flat|first %}
-
-                            {% include selected_item_template_path with {
-                                value: first_choice.value,
-                                label: _self.get_translated_label(first_choice.label, translation_domain),
-                                icon: first_choice.icon is defined ? first_choice.icon,
-                            } %}
-                        {% endif %}
+            {% block selection_info_content %}
+                {% if no_items %}
+                    {% if not is_dynamic %}
+                        {{ placeholder_list_item }}
                     {% endif %}
                 {% else %}
-                    {% for choice in choices_flat %}
-                        {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
-                            {% set label = selected_item_label is defined
-                                ? selected_item_label
-                                : _self.get_translated_label(choice.label, translation_domain)
-                            %}
+                    {% if value is empty %}
+                        {% if not multiple %}
+                            {% if placeholder is defined and placeholder is not none %}
+                                {% set default_label = 'dropdown.placeholder.all'|trans()|desc('All') %}
 
-                            {% include selected_item_template_path with {
-                                label,
-                                value: choice.value,
-                                icon: choice.icon is defined ? choice.icon,
-                            } %}
+                                {% include selected_item_template_path with {
+                                    value: '',
+                                    label: _self.get_translated_label(placeholder, translation_domain)|trim|default(default_label),
+                                } %}
+                            {% else %}
+                                {% set first_choice = choices_flat|first %}
+
+                                {% include selected_item_template_path with {
+                                    value: first_choice.value,
+                                    label: _self.get_translated_label(first_choice.label, translation_domain),
+                                    icon: first_choice.icon is defined ? first_choice.icon,
+                                } %}
+                            {% endif %}
                         {% endif %}
-                    {% endfor %}
+                    {% else %}
+                        {% for choice in choices_flat %}
+                            {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
+                                {% set label = selected_item_label is defined
+                                    ? selected_item_label
+                                    : _self.get_translated_label(choice.label, translation_domain)
+                                %}
+
+                                {% include selected_item_template_path with {
+                                    label,
+                                    value: choice.value,
+                                    icon: choice.icon is defined ? choice.icon,
+                                } %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if multiple %}
+                        <li
+                            class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder"
+                            {% if value is empty %}hidden{% endif %}
+                        >
+                            {% if placeholder is defined and placeholder is not none %}
+                                {{ _self.get_translated_label(placeholder, translation_domain )}}
+                            {% else %}
+                                {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
+                            {% endif %}
+                        </li>
+                    {% endif %}
                 {% endif %}
                 {% if multiple %}
                     <li
@@ -122,7 +136,7 @@
                         </span>
                     </li>
                 {% endif %}
-            {% endif %}
+            {% endblock selection_info_content %}
 
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-overflow-number" hidden></li>
         </ul>
