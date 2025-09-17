@@ -105,7 +105,7 @@ Scenario: Content can be copied
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
       | ContentManagement | ContentManagement |
-    Given a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
+    And a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
       | title             | short_title       | intro            |
       | TestArticleToHide | TestArticleToHide | TestArticleIntro |
     And I'm on Content view Page for "ContentManagement/TestArticleToHide"
@@ -114,11 +114,11 @@ Scenario: Content can be copied
     Then I should see the alert "This Content item or its Location is hidden." appear
 
   @IbexaHeadless @IbexaExperience @IbexaCommerce
-  Scenario: Content can be hidden now
+  Scenario: Content item can be hidden
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
       | ContentManagement | ContentManagement |
-    Given a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
+    And a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
       | title             | short_title       | intro            |
       | TestArticleToHide | TestArticleToHide | TestArticleIntro |
     And I'm on Content view Page for "ContentManagement/TestArticleToHide"
