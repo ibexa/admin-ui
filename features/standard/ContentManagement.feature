@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
+@javascript
 Feature: Content items creation
   As an administrator
   In order to manage content to my site
@@ -7,6 +7,7 @@ Feature: Content items creation
 Background:
       Given I am logged as admin
 
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content moving can be cancelled
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -20,6 +21,7 @@ Scenario: Content moving can be cancelled
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCancelMove"
 
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content can be moved
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -36,6 +38,7 @@ Scenario: Content can be moved
     And I'm on Content view Page for "ContentManagement"
     And there's no "FolderToMove" "Folder" on Subitems list
 
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content copying can be cancelled
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -49,6 +52,7 @@ Scenario: Content copying can be cancelled
     And I close the UDW window
   Then I should be on Content view Page for "ContentManagement/FolderToCopyCancel"
 
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
 Scenario: Content can be copied
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -65,6 +69,7 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToCopy" "Folder" on Subitems list
 
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Subtree copying can be cancelled
   Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -78,6 +83,7 @@ Scenario: Content can be copied
     And I close the UDW window
     Then I should be on Content view Page for "ContentManagement/FolderToSubtreeCopyCancel"
 
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Subtree can be copied
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -93,3 +99,37 @@ Scenario: Content can be copied
     And I should be on Content view Page for "Media/FolderToSubtreeCopy"
     And I'm on Content view Page for "ContentManagement"
     And there's a "FolderToSubtreeCopy" "Folder" on Subitems list
+
+  @IbexaOSS
+  Scenario: Content item can be hidden
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    And a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
+      | title             | short_title       | intro            |
+      | TestArticleToHide | TestArticleToHide | TestArticleIntro |
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
+    When I perform the "Hide" action
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
+    Then I should see the alert "This Content item or its Location is hidden." appear
+
+  @IbexaHeadless @IbexaExperience @IbexaCommerce
+  Scenario: Content item can be hidden
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    And a "article" Content item named "TestArticleToHide" exists in "ContentManagement"
+      | title             | short_title       | intro            |
+      | TestArticleToHide | TestArticleToHide | TestArticleIntro |
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
+    When I perform the "Hide" action
+    And I perform the "Confirm" action
+    And I'm on Content view Page for "ContentManagement/TestArticleToHide"
+    Then I should see the alert "This Content item or its Location is hidden." appear
+
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+  Scenario: Hidden content item can be revealed
+    Given I'm on Content view Page for "ContentManagement/TestArticleToHide"
+    When I perform the "Reveal" action
+    And I should be on Content view Page for "ContentManagement/TestArticleToHide"
+    Then success notification that "Content item 'TestArticleToHide' revealed." appears
