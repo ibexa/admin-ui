@@ -24,7 +24,11 @@ class UserNotificationPopup extends Component
                 continue;
             }
 
-            $description = $notification->find($this->getLocator('notificationDescription'))->getText();
+            $notificationTitle = $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('notificationDescriptionTitle'))->getText();
+            $notificationText = $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('notificationDescriptionText'))->getText();
+
+            $description = sprintf('%s %s', $notificationTitle, $notificationText);
+
             if ($description !== $expectedDescription) {
                 continue;
             }
@@ -48,10 +52,11 @@ class UserNotificationPopup extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('notificationsPopupTitle', '#view-notifications .modal-title'),
+            new VisibleCSSLocator('notificationsPopupTitle', '.ibexa-side-panel__header'),
             new VisibleCSSLocator('notificationItem', '.ibexa-notifications-modal__item'),
-            new VisibleCSSLocator('notificationType', '.ibexa-notifications-modal__type'),
-            new VisibleCSSLocator('notificationDescription', '.ibexa-notifications-modal__description'),
+            new VisibleCSSLocator('notificationType', '.ibexa-notifications-modal__type-content .type__text'),
+            new VisibleCSSLocator('notificationDescriptionTitle', '.ibexa-notifications-modal__description .description__title'),
+            new VisibleCSSLocator('notificationDescriptionText', '.ibexa-notifications-modal__type-content .description__text'),
         ];
     }
 }

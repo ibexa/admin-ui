@@ -1,0 +1,65 @@
+{% extends '@ibexadesign/ui/form_fields.html.twig' %}
+
+{% trans_default_domain 'ibexa_notifications' %}
+
+{% block notification_type_choice_row %}
+    {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
+        target_id: form.vars.id|slug,
+        extra_class: 'ibexa-list-filters__item--type',
+        label: 'ibexa.notifications.search_form.label.type'|trans|desc('Type'),
+    } %}
+        {% block content %}
+            {{ form_widget(form) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock notification_type_choice_row %}
+
+{% block notification_status_choice_row %}
+    {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
+        target_id: form.vars.id|slug,
+        extra_class: 'ibexa-list-filters__item--statuses',
+        label: 'ibexa.notifications.search_form.label.status'|trans|desc('Status'),
+    } %}
+        {% block content %}
+            {{ form_widget(form) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock notification_status_choice_row %}
+
+{% block notification_created_range_row %}
+    {% embed '@ibexadesign/account/notifications/filters/filter_item.html.twig' with {
+        target_id: form.vars.id|slug,
+        extra_class: 'ibexa-list-filters__item--date-time',
+        label: 'ibexa.notifications.search_form.label.date_and_time'|trans|desc('Date and Time'),
+    } %}
+        {% block content %}
+            <div class="form-group">
+                <label class="ibexa-label form-label">
+                    {{ 'ibexa.notifications.search_form.label.from'|trans|desc('From') }}
+                </label>
+                {{ form_widget(form.children.min, {
+                    attr: {
+                        'data-seconds': 0,
+                    }
+                }) }}
+                <div class="ibexa-form-error">
+                    {{ form_errors(form.children.min) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="ibexa-label form-label">
+                    {{ 'ibexa.notifications.search_form.label.to'|trans|desc('To') }}
+                </label>
+                {{ form_widget(form.children.max, {
+                    attr: {
+                        'data-seconds': 0,
+                    }
+                }) }}
+                <div class="ibexa-form-error">
+                    {{ form_errors(form.children.max) }}
+                </div>
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock notification_created_range_row %}

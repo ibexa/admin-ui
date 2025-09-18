@@ -26,6 +26,7 @@ imports:
     - { resource: services/user_settings.yaml }
     - { resource: services/rest.yaml }
     - { resource: services/permissions.yaml }
+    - { resource: services/preview.yaml }
     - { resource: services/forms.yaml }
     - { resource: services/strategies.yaml }
     - { resource: services/query_types.yaml }

@@ -1,0 +1,156 @@
+{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
+
+{% trans_default_domain 'ibexa_notifications' %}
+
+{% set is_read = notification.isPending == 0 %}
+
+{% if wrapper_class_list is not defined %}
+    {% set wrapper_class_list = 'ibexa-notifications-modal__item' ~ (is_read ? ' ibexa-notifications-modal__item--read') %}
+{% endif %}
+
+{% set icon %}
+    {% block icon %}
+        <span class="type__icon">
+            <svg class="ibexa-icon">
+                <use xlink:href="{{ ibexa_icon_path('warning') }}"></use>
+            </svg>
+        </span>
+    {% endblock %}
+{% endset %}
+
+{% set date %}
+    {% block date %}
+        <span class="ibexa-notification-view-all__date description__text">{{ notification.created|ibexa_short_datetime }}</span>
+    {% endblock %}
+{% endset %}
+
+{% set notification_type %}
+    {% block notification_type %}
+        <span class="type__text"></span>
+    {% endblock %}
+{% endset %}
+
+{% set message %}
+    {% block message %}
+        <p class="description__text">{{ message }}</p>
+    {% endblock %}
+{% endset %}
+
+{% set status %}
+    <div class="ibexa-notification-view-all ibexa-notification-view-all__status">
+        <span class="ibexa-notification-view-all__notice-dot ibexa-notification-view-all__notice-dot--small" data-is-read="{{ is_read ? 'true' : 'false' }}"></span>
+        <span class="ibexa-notification-view-all__read description__text">
+            {{is_read ? 'notification.read'|trans|desc('Read') : 'notification.unread'|trans|desc('Unread')}}
+        </span>
+    </div>
+{% endset %}
+
+{% set btn_show_content %}
+    {% block btn_show_content %}
+        {% set is_disabled = btn_disabled|default(false) %}
+        {% set defaultTooltip = 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') %}
+
+        <button 
+            title="{{ btn_tooltip|default(defaultTooltip) }}" 
+            type="button" 
+            class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small ibexa-notification-view-all__show"
+            {% if is_disabled %} disabled {% endif %}
+        >
+            <svg class="ibexa-icon ibexa-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
+            </svg>
+        </button>
+    {% endblock %}
+{% endset %}
+
+{% set icon_mail_open %}
+        <svg class="ibexa-icon ibexa-icon--small">
+            <use xlink:href="{{ ibexa_icon_path('mail-open') }}"></use>
+        </svg>
+{% endset %}
+
+{% set icon_mail %}
+    <svg class="ibexa-icon ibexa-icon--small">
+        <use xlink:href="{{ ibexa_icon_path('mail') }}"></use>
+    </svg>
+{% endset %}
+
+{% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
+    class: wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes),
+    attr: {
+        'data-notification-id': notification.id,
+        'data-notification-read': path('ibexa.notifications.mark_as_read', { 'notificationId': notification.id }),
+        'data-notification-unread': path('ibexa.notifications.mark_as_unread', { 'notificationId': notification.id }),
+    }
+} %}
+    {% block body_row_cells %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-table__cell--has-checkbox' } %}
+            {% block content %}
+                <div class="form-check">
+                    <input
+                        data-notification-id="{{ notification.id }}"
+                        data-form-checkbox-id="notification_selection_notifications_{{ notification.id}}"
+                        type="checkbox"
+                        class="ibexa-input ibexa-input--checkbox ibexa-notification-list__mark-row-checkbox form-check-input"
+                    />
+                </div>
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-notification-view-all__cell-wrapper' } %}
+            {% block content %}
+                <div class="ibexa-notification-view-all">
+                    <div class="ibexa-notification-view-all__status-icon">
+                        <span class="ibexa-notification-view-all__notice-dot" data-is-read="{{ is_read ? 'true' : 'false' }}"></span>
+                        <div class="ibexa-notifications-modal__type">{{ icon }}</div>
+                    </div>
+                    <div class="ibexa-notification-view-all__details">
+                        {{ notification_type }}
+                        {{ message }}
+                    </div>
+                </div>
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                {{ status }}
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                {{ date }}
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                {{ btn_show_content }}
+            {% endblock %}
+        {% endembed %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+            {% block content %}
+                <button 
+                    title="{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}" 
+                    type="button" 
+                    class="
+                        btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small 
+                        ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open 
+                        {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}
+                    "
+                >
+                    {{ icon_mail_open }}
+                </button>
+                <button 
+                    title="{{ 'notification.mark_as_unread'|trans({}, 'ibexa_notifications')|desc('Mark as unread') }}" 
+                    type="button" 
+                    class="
+                        btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small 
+                        ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed 
+                        {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}
+                    "
+                >
+                    {{ icon_mail }}
+                </button>
+            {% endblock %}
+        {% endembed %}
+    {% endblock %}
+{% endembed %}
+

@@ -293,6 +293,10 @@ services:
 
     Ibexa\AdminUi\Form\Type\Search\TrashSearchType: ~
 
+    Ibexa\AdminUi\Form\Type\Notification\SearchType: ~
+
+    Ibexa\AdminUi\Form\Type\Notification\NotificationTypeChoiceType: ~
+
     Ibexa\AdminUi\Form\Type\Section\SectionChoiceType: ~
 
     Ibexa\AdminUi\Form\Type\Section\SectionContentAssignType: ~
@@ -416,6 +420,11 @@ services:
             $innerGroupedContentFormFieldsProvider: '@Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface'
 
     Ibexa\AdminUi\Form\Type\Preview\SiteAccessChoiceType:
+        arguments:
+            $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
+            $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
+
+    Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType:
         arguments:
             $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
             $siteAccessNameGenerator: '@Ibexa\AdminUi\Siteaccess\SiteAccessNameGenerator'
