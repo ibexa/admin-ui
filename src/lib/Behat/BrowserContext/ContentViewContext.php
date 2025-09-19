@@ -168,4 +168,23 @@ final class ContentViewContext implements Context
     {
         $this->contentViewPage->sendToTrash();
     }
+
+    /**
+     * @When I create a new redirect Url Alias called :path in :languageName language
+     */
+    public function iCreateNewRedirectUrlAlias(string $path, string $languageName): void
+    {
+        $this->contentViewPage->createNewUrlAlias($path, $languageName, true);
+    }
+
+    /**
+     * @Then there should be a :path Url Alias on the list with :type type
+     */
+    public function verifyUrlAliasExists(string $path, string $type): void
+    {
+        Assert::assertTrue(
+            $this->contentViewPage->isUrlAliasOnTheList($path, $type),
+            sprintf('Url alias "%s" with type "%s" not found', $path, $type)
+        );
+    }
 }
