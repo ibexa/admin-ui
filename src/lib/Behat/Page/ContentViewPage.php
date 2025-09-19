@@ -304,7 +304,7 @@ class ContentViewPage extends Page
         return $this->getHTMLPage()->find($this->getLocator('isBookmarked'))->isVisible();
     }
 
-    public function createNewDirectUrlAlias(string $path, string $languageName, bool $isRedirecting): void
+    public function createNewUrlAlias(string $path, string $languageName, bool $isRedirecting): void
     {
         $this->getHTMLPage()->find($this->getLocator('addUrlAliasButton'))->click();
         $this->createUrlAliasForm->createNewUrlAlias($path, $languageName, $isRedirecting);

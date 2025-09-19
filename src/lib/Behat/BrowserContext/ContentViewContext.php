@@ -170,11 +170,11 @@ final class ContentViewContext implements Context
     }
 
     /**
-     * @When I create a new direct Url Alias called :path in :languageName language
+     * @When I create a new redirect Url Alias called :path in :languageName language
      */
-    public function iCreateNewUrlAlias(string $path, string $languageName): void
+    public function iCreateNewRedirectUrlAlias(string $path, string $languageName): void
     {
-        $this->contentViewPage->createNewDirectUrlAlias($path, $languageName, false);
+        $this->contentViewPage->createNewUrlAlias($path, $languageName, true);
     }
 
     /**
