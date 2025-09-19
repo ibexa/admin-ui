@@ -13417,12 +13417,6 @@ parameters:
 			path: src/lib/UI/Value/ValueFactory.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 1
-			path: src/lib/UI/Value/ValueFactory.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\UniversalDiscovery\\ConfigResolver\:\:getConfig\(\) has parameter \$context with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
