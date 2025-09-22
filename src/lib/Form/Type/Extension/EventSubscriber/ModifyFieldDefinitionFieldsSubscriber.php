@@ -101,11 +101,11 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
     private function getContentTypeDraft(array $data): ?ContentTypeDraft
     {
         $firstField = reset($data);
-        if ($firstField instanceof FieldDefinitionData && isset($firstField->contentTypeData)) {
-            return $firstField->contentTypeData->contentTypeDraft ?? null;
+        if (!$firstField instanceof FieldDefinitionData) {
+            return null;
         }
 
-        return null;
+        return $firstField->contentTypeData->contentTypeDraft;
     }
 
     private function acceptsFieldDefinition(FieldDefinitionData $field, string $identifier): bool
