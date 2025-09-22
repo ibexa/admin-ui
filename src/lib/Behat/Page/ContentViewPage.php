@@ -273,6 +273,7 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('ibexaDropdownPreview', '.ibexa-raw-content-title__language-form .ibexa-dropdown__selection-info'),
             new VisibleCSSLocator('moreTab', '.ibexa-tabs__tab--more'),
             new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
+            new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
         ];
     }
 
@@ -322,5 +323,10 @@ class ContentViewPage extends Page
         return $repository->getLocationService()
             ->loadLocation((int) $urlAlias->destination)
             ->getContent();
+    }
+
+    public function verifyMessage(string $expectedMessage): void
+    {
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('alertTitle'))->assert()->textEquals($expectedMessage);
     }
 }
