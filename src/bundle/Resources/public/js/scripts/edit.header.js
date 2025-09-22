@@ -47,7 +47,12 @@
             headerBottomRowNode.style.width = '100%';
         }
     };
+    const items = [{ container: headerNode }];
+
+    if (headerBottomRowNode) {
+        items.push({ container: headerBottomRowNode });
+    }
 
     contentNode.addEventListener('scroll', fitHeader, false);
-    controlManyZIndexes([{ container: headerNode }, { container: headerBottomRowNode }], headerNode);
+    controlManyZIndexes(items, headerNode);
 })(window, window.document, window.ibexa);
