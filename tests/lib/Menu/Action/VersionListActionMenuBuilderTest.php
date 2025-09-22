@@ -104,7 +104,10 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             self::EDIT_ACTION_ITEM_EXTRAS,
             array_merge(
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
-                ['data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB']
+                [
+                    'data-tooltip-use-modal-container' => true,
+                    'data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB'
+                ]
             ),
         ];
 
@@ -118,7 +121,10 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             self::EDIT_ACTION_ITEM_EXTRAS,
             array_merge(
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
-                ['data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB/5']
+                [
+                    'data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB/5',
+                    'data-tooltip-use-modal-container' => true,
+                ]
             ),
         ];
 
@@ -130,7 +136,10 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             self::ITEM_EDIT_DRAFT,
             '/content/edit/draft/1/1/eng-GB',
             self::EDIT_ACTION_ITEM_EXTRAS,
-            ['class' => self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS],
+            [
+                'class' => self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS,
+                'data-tooltip-use-modal-container' => true,
+            ],
         ];
 
         yield 'Restore version action item' => [
@@ -166,7 +175,10 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             self::EDIT_ACTION_ITEM_EXTRAS,
             array_merge(
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
-                ['data-content-draft-edit-url' => '/user/update/1/1/eng-GB']
+                [
+                    'data-tooltip-use-modal-container' => true,
+                    'data-content-draft-edit-url' => '/user/update/1/1/eng-GB'
+                ]
             )
         );
     }
