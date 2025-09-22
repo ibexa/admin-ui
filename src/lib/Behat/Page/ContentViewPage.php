@@ -320,7 +320,7 @@ class ContentViewPage extends Page
         Assert::assertEquals(URLAlias::LOCATION, $urlAlias->type);
 
         return $repository->getLocationService()
-            ->loadLocation($urlAlias->destination)
+            ->loadLocation((int) $urlAlias->destination)
             ->getContent();
     }
 }
