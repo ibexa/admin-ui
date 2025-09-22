@@ -106,7 +106,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
                 [
                     'data-tooltip-use-modal-container' => true,
-                    'data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB'
+                    'data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB',
                 ]
             ),
         ];
@@ -177,7 +177,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
                 [
                     'data-tooltip-use-modal-container' => true,
-                    'data-content-draft-edit-url' => '/user/update/1/1/eng-GB'
+                    'data-content-draft-edit-url' => '/user/update/1/1/eng-GB',
                 ]
             )
         );
