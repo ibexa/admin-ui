@@ -99,7 +99,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
         bool $isDraftConflict = false
     ): ItemInterface {
         $parameters['attributes']['class'] = self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS;
-        $parameters['attributes']['data-tooltip-use-modal-container'] = true;
+        $parameters['attributes']['data-tooltip-container-selector'] = '.ibexa-modal';
 
         if ($isDraftConflict) {
             return $this->createDraftEditLinkAction($versionInfo, self::ITEM_EDIT_DRAFT, $parameters, $locationId);

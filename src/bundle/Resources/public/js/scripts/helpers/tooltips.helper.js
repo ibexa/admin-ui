@@ -124,14 +124,14 @@ const isTitleEllipsized = (node) => {
     return textHeight > nodeHeight;
 };
 const getContainer = (tooltipNode) => {
-    const { tooltipUseModalContainer, tooltipContainerSelector } = tooltipNode.dataset;
-    const modalContainer = tooltipNode.closest('.ibexa-modal');
+    const { tooltipContainerSelector } = tooltipNode.dataset;
+    const container = tooltipNode.closest(tooltipContainerSelector);
 
-    if (modalContainer && tooltipUseModalContainer) {
-        return modalContainer;
+    if (container) {
+        return container;
     }
 
-    return tooltipContainerSelector ? tooltipNode.closest(tooltipContainerSelector) : 'body';
+    return 'body';
 };
 const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
     const { delayShow, delayHide } = tooltipNode.dataset;

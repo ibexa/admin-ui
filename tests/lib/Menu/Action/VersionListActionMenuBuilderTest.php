@@ -105,7 +105,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             array_merge(
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
                 [
-                    'data-tooltip-use-modal-container' => true,
+                    'data-tooltip-container-selector' => '.ibexa-modal',
                     'data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB',
                 ]
             ),
@@ -123,7 +123,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
                 [
                     'data-content-draft-edit-url' => '/content/edit/draft/1/1/eng-GB/5',
-                    'data-tooltip-use-modal-container' => true,
+                    'data-tooltip-container-selector' => '.ibexa-modal',
                 ]
             ),
         ];
@@ -138,7 +138,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             self::EDIT_ACTION_ITEM_EXTRAS,
             [
                 'class' => self::IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS,
-                'data-tooltip-use-modal-container' => true,
+                'data-tooltip-container-selector' => '.ibexa-modal',
             ],
         ];
 
@@ -176,7 +176,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             array_merge(
                 self::EDIT_ACTION_ITEM_ATTRIBUTES,
                 [
-                    'data-tooltip-use-modal-container' => true,
+                    'data-tooltip-container-selector' => '.ibexa-modal',
                     'data-content-draft-edit-url' => '/user/update/1/1/eng-GB',
                 ]
             )
