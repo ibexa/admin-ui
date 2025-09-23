@@ -127,11 +127,7 @@ const getContainer = (tooltipNode) => {
     const { tooltipContainerSelector } = tooltipNode.dataset;
     const container = tooltipNode.closest(tooltipContainerSelector);
 
-    if (container) {
-        return container;
-    }
-
-    return 'body';
+    return container ?? doc.body;
 };
 const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
     const { delayShow, delayHide } = tooltipNode.dataset;
