@@ -151,5 +151,3 @@ services:
             $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
-
-    Ibexa\AdminUi\Permission\Mapper\UsersWithPermissionInfoMapper: ~
