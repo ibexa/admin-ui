@@ -4,7 +4,7 @@
         '.ibexa-side-panel .ibexa-btn--close, .ibexa-side-panel .ibexa-side-panel__btn--cancel',
     );
     const sidePanelTriggers = [...doc.querySelectorAll('.ibexa-side-panel-trigger')];
-    const panelBackdrops = new Map(); // Mapa przechowująca powiązania panel -> backdrop
+    const panelBackdrops = new Map();
     const defaultBackdrop = new ibexa.core.Backdrop();
     const removeBackdrop = (sidePanel) => {
         const backdrop = panelBackdrops.get(sidePanel) || defaultBackdrop;

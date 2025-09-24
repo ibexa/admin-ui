@@ -14,7 +14,6 @@
             registeredActionButtons = registeredActionButtons.filter((btn) => btn.name !== name);
             recalculateButtonsLayout();
         };
-
         const recalculateButtonsLayout = () => {
             const sortedButtons = registeredActionButtons.sort((a, b) => a.priority - b.priority);
             const buttonsToRender = sortedButtons.filter((el) => {
@@ -39,9 +38,11 @@
                 selector.style.zIndex = buttonConfig.zIndex || 1040;
 
                 const bottomPosition = `${index === 0 ? 2 : (index + 1) * 3.2}rem`;
+
                 selector.style.bottom = bottomPosition;
             });
         };
+
         return {
             registerButton,
             unregisterButton,
@@ -49,6 +50,5 @@
         };
     })();
 
-    window.ibexa = window.ibexa || {};
     global.ibexa.adminUiConfig.quickActionManager = QuickActionManager;
 })(window);
