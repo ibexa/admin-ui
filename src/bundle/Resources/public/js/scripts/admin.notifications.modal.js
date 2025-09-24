@@ -227,9 +227,7 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    const notification = doc.querySelector(
-                        `.ibexa-notifications-modal__item[data-notification-id="${selectedNotificationId}"]`,
-                    );
+                    const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${selectedNotificationId}"]`);
 
                     notification.remove();
                     getNotificationsStatus();
@@ -245,7 +243,7 @@
         const attachListener = (node, callback) => node.addEventListener('click', callback, false);
         const markAsButtons = doc.querySelectorAll('.ibexa-notifications-modal--mark-as');
         const deleteButtons = doc.querySelectorAll('.ibexa-notifications-open-modal-button');
-        const deleteButton = doc.querySelector('.ibexa-notifications-modal--delete--confirm');
+        const confirmDeleteButton = doc.querySelector('.ibexa-notifications-modal--delete--confirm');
 
         const setNotificationId = ({ currentTarget }) => {
             selectedNotificationId = currentTarget.dataset.notificationId;
@@ -259,8 +257,8 @@
             attachListener(deleteButton, setNotificationId);
         });
 
-        if (deleteButton) {
-            deleteButton.addEventListener('click', deleteNotification);
+        if (confirmDeleteButton) {
+            confirmDeleteButton.addEventListener('click', deleteNotification);
         }
     };
     const showNotificationPage = (pageHtml) => {
