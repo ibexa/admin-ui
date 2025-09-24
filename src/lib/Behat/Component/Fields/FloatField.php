@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class FloatField extends FieldTypeComponent
+final class FloatField extends FieldTypeComponent
 {
     public function specifyLocators(): array
     {
@@ -21,6 +21,6 @@ class FloatField extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezfloat';
+        return 'ibexa_float';
     }
 }

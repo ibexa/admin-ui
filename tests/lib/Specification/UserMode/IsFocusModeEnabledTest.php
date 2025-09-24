@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 final class IsFocusModeEnabledTest extends TestCase
 {
     /**
-     * @dataProvider dataProviderForIsSatisfiedBy
+     * @dataProvider dataProviderForTestIsSatisfiedBy
      */
     public function testIsSatisfiedBy(string $userMode, string $value, bool $expectedResult): void
     {
@@ -28,15 +28,20 @@ final class IsFocusModeEnabledTest extends TestCase
     }
 
     /**
-     * @dataProvider dataProviderForIsSatisfiedBy
+     * @dataProvider dataProviderForTestIsSatisfiedBy
      */
     public function testFromUserSetting(string $userMode, string $value, bool $expectedResult): void
     {
         $userSetting = $this->createMock(UserSetting::class);
-        $userSetting->method('__get')->with('value')->willReturn($userMode);
+        $userSetting
+            ->method('getValue')
+            ->willReturn($userMode);
 
         $userSettingService = $this->createMock(UserSettingService::class);
-        $userSettingService->method('getUserSetting')->with(FocusMode::IDENTIFIER)->willReturn($userSetting);
+        $userSettingService
+            ->method('getUserSetting')
+            ->with(FocusMode::IDENTIFIER)
+            ->willReturn($userSetting);
 
         self::assertEquals(
             $expectedResult,
@@ -47,7 +52,7 @@ final class IsFocusModeEnabledTest extends TestCase
     /**
      * @return iterable<array{string, string, bool}>
      */
-    public function dataProviderForIsSatisfiedBy(): iterable
+    public function dataProviderForTestIsSatisfiedBy(): iterable
     {
         yield [FocusMode::FOCUS_MODE_ON, FocusMode::FOCUS_MODE_ON, true];
         yield [FocusMode::FOCUS_MODE_ON, FocusMode::FOCUS_MODE_OFF, false];

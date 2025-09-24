@@ -12,14 +12,10 @@ use Ibexa\Rest\Value as RestValue;
 
 final class FieldDefinitionDelete extends RestValue
 {
-    /** @var string[] */
-    public $fieldDefinitionIdentifiers;
-
     /**
      * @param string[] $fieldDefinitionIdentifiers
      */
-    public function __construct(array $fieldDefinitionIdentifiers = [])
+    public function __construct(public readonly array $fieldDefinitionIdentifiers = [])
     {
-        $this->fieldDefinitionIdentifiers = $fieldDefinitionIdentifiers;
     }
 }

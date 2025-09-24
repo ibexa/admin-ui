@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const TableBodyCell = ({ extraClasses, children, hasCheckbox, hasActionBtns, hasIcon, isCloseLeft, isCenterContent }) => {
+const TableBodyCell = ({
+    extraClasses = '',
+    children = null,
+    hasCheckbox = false,
+    hasActionBtns = false,
+    hasIcon = false,
+    isCloseLeft = false,
+    isCenterContent = false,
+}) => {
     const className = createCssClassNames({
         'ibexa-table__cell': true,
         'ibexa-table__cell--has-checkbox': hasCheckbox,
@@ -32,16 +40,6 @@ TableBodyCell.propTypes = {
     hasIcon: PropTypes.bool,
     isCloseLeft: PropTypes.bool,
     isCenterContent: PropTypes.bool,
-};
-
-TableBodyCell.defaultProps = {
-    extraClasses: '',
-    children: null,
-    hasCheckbox: false,
-    hasActionBtns: false,
-    hasIcon: false,
-    isCloseLeft: false,
-    isCenterContent: false,
 };
 
 export default TableBodyCell;

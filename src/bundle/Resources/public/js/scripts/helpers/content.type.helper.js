@@ -38,7 +38,7 @@ const getContentTypeDataMapByHref = () => {
 /**
  * Returns an URL to a content type icon
  *
- * @function getContentTypeIcon
+ * @function getContentTypeIconUrl
  * @param {String} contentTypeIdentifier
  * @returns {String|null} url to icon
  */
@@ -117,6 +117,14 @@ const getContentTypeDataByHref = (contentTypeHref) => {
     return contentTypesDataMapByHref[contentTypeHref];
 };
 
+const checkIsContainer = (contentTypeIdentifier) => {
+    if (!contentTypesDataMap) {
+        contentTypesDataMap = createContentTypeDataMap();
+    }
+
+    return contentTypesDataMap[contentTypeIdentifier]?.isContainer ?? false;
+};
+
 export {
     createContentTypeDataMapByHref,
     getContentTypeDataMapByHref,
@@ -127,4 +135,5 @@ export {
     getContentTypeDataByHref,
     getContentTypeNameByHref,
     getContentTypeIdentifierByHref,
+    checkIsContainer,
 };

@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class AddLocation implements EventSubscriberInterface
+final readonly class AddLocation implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
     {
@@ -32,5 +32,3 @@ final class AddLocation implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(AddLocation::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\AddLocation');

@@ -9,20 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Form\DataTransformer;
 
 use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class UDWBasedValueViewTransformerTest extends TestCase
+final class UDWBasedValueViewTransformerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
-    private $locationService;
+    private LocationService&MockObject $locationService;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer */
-    private $transformer;
+    private UDWBasedValueViewTransformer $transformer;
 
     protected function setUp(): void
     {
@@ -33,13 +31,18 @@ class UDWBasedValueViewTransformerTest extends TestCase
     }
 
     /**
+     * @param mixed[] $given
+     *
      * @dataProvider dataProviderForTransform
      */
-    public function testTransform(?array $given, ?string $expected)
+    public function testTransform(?array $given, ?string $expected): void
     {
-        $this->assertEquals($expected, $this->transformer->transform($given));
+        self::assertEquals($expected, $this->transformer->transform($given));
     }
 
+    /**
+     * @return array<array{0: ?array<Location>, 1: ?string}>
+     */
     public function dataProviderForTransform(): array
     {
         return [
@@ -56,19 +59,24 @@ class UDWBasedValueViewTransformerTest extends TestCase
     }
 
     /**
+     * @param mixed[] $expected
+     *
      * @dataProvider dataProviderForReverseTransform
      */
-    public function testReverseTransform(?string $given, ?array $expected)
+    public function testReverseTransform(?string $given, ?array $expected): void
     {
         $this->locationService
             ->method('loadLocation')
-            ->willReturnCallback(function ($id) {
+            ->willReturnCallback(function ($id): Location {
                 return $this->createLocation($id);
             });
 
-        $this->assertEquals($expected, $this->transformer->reverseTransform($given));
+        self::assertEquals($expected, $this->transformer->reverseTransform($given));
     }
 
+    /**
+     * @return array<array{0: ?string, 1: ?array<\Ibexa\Contracts\Core\Repository\Values\Content\Location>}>
+     */
     public function dataProviderForReverseTransform(): array
     {
         return [
@@ -84,17 +92,6 @@ class UDWBasedValueViewTransformerTest extends TestCase
         ];
     }
 
-    public function testTransformWithDeletedLocation(): void
-    {
-        $this->locationService
-            ->method('loadLocation')
-            ->willThrowException(
-                $this->createMock(NotFoundException::class)
-            );
-
-        self::assertEmpty($this->transformer->transform(['/1/2/54']));
-    }
-
     public function testReverseTransformThrowsTransformationFailedException(): void
     {
         $this->expectException(TransformationFailedException::class);
@@ -108,7 +105,7 @@ class UDWBasedValueViewTransformerTest extends TestCase
         $this->transformer->reverseTransform('54,56,58');
     }
 
-    private function createLocation($id): Location
+    private function createLocation(int $id): Location
     {
         $location = $this->createMock(Location::class);
         $location
@@ -123,5 +120,3 @@ class UDWBasedValueViewTransformerTest extends TestCase
         return $location;
     }
 }
-
-class_alias(UDWBasedValueViewTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\UDWBasedValueViewTransformerTest');

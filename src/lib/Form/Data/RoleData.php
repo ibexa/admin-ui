@@ -10,19 +10,10 @@ namespace Ibexa\AdminUi\Form\Data;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
-class RoleData
+final class RoleData
 {
-    /** @var string */
-    private $identifier;
-
-    /**
-     * RoleData constructor.
-     *
-     * @param string $identifier
-     */
-    public function __construct($identifier = null)
+    public function __construct(private ?string $identifier = null)
     {
-        $this->identifier = $identifier;
     }
 
     public function getIdentifier(): ?string
@@ -30,7 +21,7 @@ class RoleData
         return $this->identifier;
     }
 
-    public function setIdentifier($identifier)
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -40,5 +31,3 @@ class RoleData
         return new self($role->identifier);
     }
 }
-
-class_alias(RoleData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\RoleData');

@@ -1,0 +1,7 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-upload-list {
+    flex-grow: 1;
+    overflow: auto;
+    margin: calculateRem(16px) 0;
+}

@@ -11,15 +11,11 @@ namespace Ibexa\AdminUi\UI\Value\Content\Location;
 use Ibexa\AdminUi\UI\Value;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 
-final class Mapper
+final readonly class Mapper
 {
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
-
     public function __construct(
-        ValueFactory $valueFactory
+        private ValueFactory $valueFactory
     ) {
-        $this->valueFactory = $valueFactory;
     }
 
     /**
@@ -54,5 +50,3 @@ final class Mapper
         return $locations;
     }
 }
-
-class_alias(Mapper::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\Location\Mapper');

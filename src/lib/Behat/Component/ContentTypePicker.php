@@ -13,16 +13,15 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class ContentTypePicker extends Component
+final class ContentTypePicker extends Component
 {
-    private IbexaDropdown $ibexaDropdown;
+    public const int MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT = 10;
 
-    public const MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT = 10;
-
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
-        $this->ibexaDropdown = $ibexaDropdown;
     }
 
     public function select(string $contentTypeName): void
@@ -31,7 +30,7 @@ class ContentTypePicker extends Component
         if ($countBeforeFiltering > self::MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT) {
             $this->getHTMLPage()->find($this->getLocator('filterInput'))->clear();
             $this->getHTMLPage()->find($this->getLocator('filterInput'))->setValue($contentTypeName);
-            $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering) {
+            $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering): bool {
                 return $this->getDisplayedItemsCount() < $countBeforeFiltering;
             }, 'The number of displayed content types did not decrease after filtering.');
         }

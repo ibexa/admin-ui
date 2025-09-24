@@ -25,16 +25,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class FieldDefinitionController extends RestController
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
-
-    public function __construct(ContentTypeService $contentTypeService, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->contentTypeService = $contentTypeService;
-        $this->urlGenerator = $urlGenerator;
+    public function __construct(
+        private readonly ContentTypeService $contentTypeService,
+        private readonly UrlGeneratorInterface $urlGenerator
+    ) {
     }
 
     public function addFieldDefinitionAction(
@@ -54,7 +48,7 @@ final class FieldDefinitionController extends RestController
 
         $fieldDefinitionCreateStruct = $this->contentTypeService->newFieldDefinitionCreateStruct(
             uniqid('field_'),
-            $input->fieldTypeIdentifier
+            $input->fieldTypeIdentifier ?? ''
         );
 
         $fieldDefinitionCreateStruct->fieldGroup = $input->fieldGroupIdentifier;
@@ -76,8 +70,8 @@ final class FieldDefinitionController extends RestController
                     'fieldDefinitionIdentifier' => $fieldDefinitionCreateStruct->identifier,
                     'contentTypeGroupId' => $group->id,
                     'contentTypeId' => $contentTypeDraft->id,
-                    'toLanguageCode' => $language->languageCode,
-                    'fromLanguageCode' => $baseLanguage ? $baseLanguage->languageCode : null,
+                    'toLanguageCode' => $language->getLanguageCode(),
+                    'fromLanguageCode' => $baseLanguage?->getLanguageCode(),
                 ]
             )
         );
@@ -99,13 +93,13 @@ final class FieldDefinitionController extends RestController
         $this->repository->beginTransaction();
         try {
             foreach ($input->fieldDefinitionIdentifiers as $identifier) {
-                if (!$contentTypeDraft->fieldDefinitions->has($identifier)) {
+                if (!$contentTypeDraft->getFieldDefinitions()->has($identifier)) {
                     throw new Exceptions\NotFoundException("No field definition with $identifier found");
                 }
 
                 $this->contentTypeService->removeFieldDefinition(
                     $contentTypeDraft,
-                    $contentTypeDraft->fieldDefinitions->get($identifier)
+                    $contentTypeDraft->getFieldDefinitions()->get($identifier)
                 );
             }
 
@@ -161,8 +155,8 @@ final class FieldDefinitionController extends RestController
 
     private function getNextFieldPosition(ContentType $contentType): int
     {
-        if (!$contentType->fieldDefinitions->isEmpty()) {
-            return $contentType->fieldDefinitions->last()->position + 1;
+        if (!$contentType->getFieldDefinitions()->isEmpty()) {
+            return $contentType->getFieldDefinitions()->last()->getPosition() + 1;
         }
 
         return 0;

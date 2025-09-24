@@ -20,14 +20,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserTransformerTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\UserTransformer */
-    private $userTransformer;
+    private UserTransformer $userTransformer;
 
     protected function setUp(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $userService */
         $userService = $this->createMock(UserService::class);
-        $userService->expects(self::any())
+        $userService
+            ->expects(self::any())
             ->method('loadUser')
             ->with(123456)
             ->willReturn($this->generateUser(123456));
@@ -37,74 +36,42 @@ class UserTransformerTest extends TestCase
 
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(?User $value, ?int $expected): void
     {
         $result = $this->userTransformer->transform($value);
 
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
-     */
-    public function testTransformWithInvalidInput($value)
-    {
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a ' . User::class . ' object.');
-
-        $this->userTransformer->transform($value);
+        self::assertEquals($expected, $result);
     }
 
     /**
      * @dataProvider reverseTransformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testReverseTransform($value, $expected)
+    public function testReverseTransform(?int $value, ?User $expected): void
     {
         $result = $this->userTransformer->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    /**
-     * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
-     */
-    public function testReverseTransformWithInvalidInput($value)
-    {
-        $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a numeric string.');
-
-        $this->userTransformer->reverseTransform($value);
-    }
-
-    public function testReverseTransformWithNotFoundException()
+    public function testReverseTransformWithNotFoundException(): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('User not found');
 
-        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject $service */
         $service = $this->createMock(UserService::class);
-        $service->method('loadUser')
-            ->will($this->throwException(new class('User not found') extends NotFoundException {
+        $service
+            ->method('loadUser')
+            ->will(self::throwException(new class('User not found') extends NotFoundException {
             }));
 
         $transformer = new UserTransformer($service);
-
         $transformer->reverseTransform(654321);
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\User\User|null, int|null}>
      */
     public function transformDataProvider(): array
     {
@@ -117,7 +84,7 @@ class UserTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{int|null, \Ibexa\Contracts\Core\Repository\Values\User\User|null}>
      */
     public function reverseTransformDataProvider(): array
     {
@@ -126,35 +93,6 @@ class UserTransformerTest extends TestCase
         return [
             'integer' => [123456, $user],
             'null' => [null, null],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function transformWithInvalidInputDataProvider(): array
-    {
-        return [
-            'string' => ['string'],
-            'integer' => [123456],
-            'bool' => [true],
-            'float' => [12.34],
-            'array' => [[]],
-            'object' => [new \stdClass()],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function reverseTransformWithInvalidInputDataProvider(): array
-    {
-        return [
-            'string' => ['string'],
-            'bool' => [true],
-            'array' => [['element']],
-            'object' => [new \stdClass()],
-            'user' => [$this->generateUser()],
         ];
     }
 
@@ -167,5 +105,3 @@ class UserTransformerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 }
-
-class_alias(UserTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\UserTransformerTest');

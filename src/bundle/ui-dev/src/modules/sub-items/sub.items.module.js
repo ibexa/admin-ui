@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { showWarningNotification, showSuccessNotification } from '@ibexa-admin-ui-helpers/notification.helper';
 import ViewColumnsTogglerComponent from './components/view-columns-toggler/view.columns.toggler';
 import ViewSwitcherComponent from './components/view-switcher/view.switcher.component.js';
 import SubItemsListComponent from './components/sub-items-list/sub.items.list.component.js';
@@ -46,20 +47,24 @@ const DEFAULT_COLUMNS_VISIBILITY = {
     'object-remote-id': false,
 };
 export const columnsLabels = {
-    name: Translator.trans(/*@Desc("Name")*/ 'items_table.columns.name', {}, 'ibexa_sub_items'),
-    modified: Translator.trans(/*@Desc("Modified")*/ 'items_table.columns.modified', {}, 'ibexa_sub_items'),
-    'content-type': Translator.trans(/*@Desc("Content type")*/ 'items_table.columns.content_type', {}, 'ibexa_sub_items'),
-    priority: Translator.trans(/*@Desc("Priority")*/ 'items_table.columns.priority', {}, 'ibexa_sub_items'),
-    translations: Translator.trans(/*@Desc("Translations")*/ 'items_table.columns.translations', {}, 'ibexa_sub_items'),
-    visibility: Translator.trans(/*@Desc("Visibility")*/ 'items_table.columns.visibility', {}, 'ibexa_sub_items'),
-    creator: Translator.trans(/*@Desc("Creator")*/ 'items_table.columns.creator', {}, 'ibexa_sub_items'),
-    contributor: Translator.trans(/*@Desc("Contributor")*/ 'items_table.columns.contributor', {}, 'ibexa_sub_items'),
-    published: Translator.trans(/*@Desc("Published")*/ 'items_table.columns.pubished', {}, 'ibexa_sub_items'),
-    section: Translator.trans(/*@Desc("Section")*/ 'items_table.columns.section', {}, 'ibexa_sub_items'),
-    'location-id': Translator.trans(/*@Desc("Location ID")*/ 'items_table.columns.location_id', {}, 'ibexa_sub_items'),
-    'location-remote-id': Translator.trans(/*@Desc("Location remote ID")*/ 'items_table.columns.location_remote_id', {}, 'ibexa_sub_items'),
-    'object-id': Translator.trans(/*@Desc("Object ID")*/ 'items_table.columns.object_id', {}, 'ibexa_sub_items'),
-    'object-remote-id': Translator.trans(/*@Desc("Object remote ID")*/ 'items_table.columns.object_remote_id', {}, 'ibexa_sub_items'),
+    name: Translator.trans(/* @Desc("Name") */ 'items_table.columns.name', {}, 'ibexa_sub_items'),
+    modified: Translator.trans(/* @Desc("Modified") */ 'items_table.columns.modified', {}, 'ibexa_sub_items'),
+    'content-type': Translator.trans(/* @Desc("Content type") */ 'items_table.columns.content_type', {}, 'ibexa_sub_items'),
+    priority: Translator.trans(/* @Desc("Priority") */ 'items_table.columns.priority', {}, 'ibexa_sub_items'),
+    translations: Translator.trans(/* @Desc("Translations") */ 'items_table.columns.translations', {}, 'ibexa_sub_items'),
+    visibility: Translator.trans(/* @Desc("Visibility") */ 'items_table.columns.visibility', {}, 'ibexa_sub_items'),
+    creator: Translator.trans(/* @Desc("Creator") */ 'items_table.columns.creator', {}, 'ibexa_sub_items'),
+    contributor: Translator.trans(/* @Desc("Contributor") */ 'items_table.columns.contributor', {}, 'ibexa_sub_items'),
+    published: Translator.trans(/* @Desc("Published") */ 'items_table.columns.pubished', {}, 'ibexa_sub_items'),
+    section: Translator.trans(/* @Desc("Section") */ 'items_table.columns.section', {}, 'ibexa_sub_items'),
+    'location-id': Translator.trans(/* @Desc("Location ID") */ 'items_table.columns.location_id', {}, 'ibexa_sub_items'),
+    'location-remote-id': Translator.trans(
+        /* @Desc("Location remote ID") */ 'items_table.columns.location_remote_id',
+        {},
+        'ibexa_sub_items',
+    ),
+    'object-id': Translator.trans(/* @Desc("Object ID") */ 'items_table.columns.object_id', {}, 'ibexa_sub_items'),
+    'object-remote-id': Translator.trans(/* @Desc("Object remote ID") */ 'items_table.columns.object_remote_id', {}, 'ibexa_sub_items'),
 };
 
 export default class SubItemsModule extends Component {
@@ -114,7 +119,6 @@ export default class SubItemsModule extends Component {
         this.state = {
             activeView: props.activeView,
             activePageItems: null,
-            pages: [],
             selectedItems: new Map(),
             totalCount: props.totalCount,
             offset: props.offset,
@@ -157,7 +161,7 @@ export default class SubItemsModule extends Component {
         containerResizeObserver.observe(this._refMainContainerWrapper.current);
 
         if (!this.state.activePageItems) {
-            this.loadPage(0);
+            this.loadPage();
         }
 
         this.adaptHeaderActions();
@@ -187,7 +191,7 @@ export default class SubItemsModule extends Component {
         const shouldLoadPage = !activePageItems;
 
         if (shouldLoadPage && (this.requestParamsHaveChanged(activePageIndex) || isUpdate)) {
-            this.loadPage(activePageIndex);
+            this.loadPage();
         }
 
         ibexa.helpers.tooltips.parse();
@@ -197,7 +201,7 @@ export default class SubItemsModule extends Component {
         const { queryParams } = this.state;
 
         return (
-            queryParams.cursor !== this.calculateCursor(activePageIndex) ||
+            queryParams.activePageIndex !== activePageIndex ||
             queryParams.sortClause !== this.state.sortClause ||
             queryParams.sortOrder !== this.state.sortOrder
         );
@@ -249,37 +253,27 @@ export default class SubItemsModule extends Component {
      * @method loadPage
      * @memberof SubItemsModule
      */
-    loadPage(pageIndex) {
-        const { limit: itemsPerPage, parentLocationId: locationId, loadLocation, restInfo } = this.props;
-        const { sortClause, sortOrder } = this.state;
-        const cursor = this.calculateCursor(pageIndex);
-        const queryConfig = { locationId, limit: itemsPerPage, sortClause, sortOrder, cursor };
+    loadPage() {
+        const { limit, loadLocation, parentLocationId: locationId } = this.props;
+        const { activePageIndex, offset, sortClause, sortOrder } = this.state;
 
         this.setState({
             queryParams: {
                 sortClause,
                 sortOrder,
-                cursor,
+                activePageIndex,
             },
             isUpdate: false,
         });
 
-        loadLocation(restInfo, queryConfig, (response) => {
-            const { totalCount, pages, edges } = response.data._repository.location.children;
-            const activePageItems = edges.map((edge) => edge.node);
+        loadLocation({ locationId, offset, limit, sortClause, sortOrder }, (response) => {
+            const { totalCount, SubItemList } = response.SubItems;
 
             this.setState(() => ({
-                activePageItems,
+                activePageItems: SubItemList,
                 totalCount,
-                pages,
             }));
         });
-    }
-
-    calculateCursor(pageIndex) {
-        const page = this.state.pages.find(({ number }) => number === pageIndex + 1);
-
-        return page ? page.cursor : null;
     }
 
     updateTotalCountState(totalCount) {
@@ -320,7 +314,7 @@ export default class SubItemsModule extends Component {
      * @memberof SubItemsModule
      */
     handleItemPriorityUpdate(data) {
-        this.props.updateLocationPriority({ ...data, ...this.props.restInfo }, this.afterPriorityUpdated);
+        this.props.updateLocationPriority(data, this.afterPriorityUpdated);
     }
 
     /**
@@ -460,21 +454,19 @@ export default class SubItemsModule extends Component {
     bulkMove(location) {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const itemsToMove = [...selectedItems.values()];
 
-        bulkMoveLocations(restInfo, itemsToMove, location._href, this.afterBulkMove.bind(this, location));
+        bulkMoveLocations(itemsToMove, location._href, this.afterBulkMove.bind(this, location));
     }
 
     bulkAdd(location) {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const itemsToAddLocationFor = [...selectedItems.values()];
 
-        bulkAddLocations(restInfo, itemsToAddLocationFor, location._href, this.afterBulkAddLocation.bind(this, location));
+        bulkAddLocations(itemsToAddLocationFor, location._href, this.afterBulkAddLocation.bind(this, location));
     }
 
     afterBulkMove(location, movedItems, notMovedItems) {
@@ -493,13 +485,13 @@ export default class SubItemsModule extends Component {
 
         if (notMovedItems.length) {
             const modalTableTitle = Translator.trans(
-                /*@Desc("%itemsCount% Content items cannot be moved")*/
+                /* @Desc("%itemsCount% Content items cannot be moved") */
                 'bulk_move.error.modal.table_title',
                 { itemsCount: notMovedItems.length },
                 'ibexa_sub_items',
             );
             const notificationMessage = Translator.trans(
-                /*@Desc("%notMovedCount% of the %totalCount% selected item(s) could not be moved because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_move.error.message',
+                /* @Desc("%notMovedCount% of the %totalCount% selected item(s) could not be moved because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.") */ 'bulk_move.error.message',
                 {
                     notMovedCount: notMovedItems.length,
                     totalCount: movedItems.length + notMovedItems.length,
@@ -508,7 +500,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /* @Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>") */
                     'bulk_action.error.more_info',
                     {},
                     'ibexa_sub_items',
@@ -520,14 +512,14 @@ export default class SubItemsModule extends Component {
 
         if (movedItems.length) {
             const message = Translator.trans(
-                /*@Desc("Content item(s) sent to {{ locationLink }}")*/
+                /* @Desc("Content item(s) sent to {{ locationLink }}") */
                 'bulk_move.success.message',
                 {},
                 'ibexa_sub_items',
             );
             const rawPlaceholdersMap = {
                 locationLink: Translator.trans(
-                    /*@Desc("<u><a href='%locationHref%'>%locationName%</a></u>")*/
+                    /* @Desc("<u><a href='%locationHref%'>%locationName%</a></u>") */
                     'bulk_action.success.link_to_location',
                     {
                         locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.Name),
@@ -537,7 +529,7 @@ export default class SubItemsModule extends Component {
                 ),
             };
 
-            window.ibexa.helpers.notification.showSuccessNotification(message, () => {}, rawPlaceholdersMap);
+            showSuccessNotification(message, () => {}, rawPlaceholdersMap);
         }
     }
 
@@ -551,13 +543,13 @@ export default class SubItemsModule extends Component {
 
         if (failedItems.length) {
             const modalTableTitle = Translator.trans(
-                /*@Desc("%itemsCount% Content item(s) cannot be hidden")*/
+                /* @Desc("%itemsCount% Content item(s) cannot be hidden") */
                 'bulk_hide.error.modal.table_title',
                 { itemsCount: failedItems.length },
                 'ibexa_sub_items',
             );
             const notificationMessage = Translator.trans(
-                /*@Desc("%failedCount% of the %totalCount% selected item(s) could not be hidden because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.")*/
+                /* @Desc("%failedCount% of the %totalCount% selected item(s) could not be hidden because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.") */
                 'bulk_hide.error.message',
                 {
                     failedCount: failedItems.length,
@@ -567,7 +559,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /* @Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>") */
                     'bulk_action.error.more_info',
                     {},
                     'ibexa_sub_items',
@@ -579,13 +571,13 @@ export default class SubItemsModule extends Component {
 
         if (successItems.length) {
             const message = Translator.trans(
-                /*@Desc("Location(s) hidden.")*/
+                /* @Desc("Location(s) hidden.") */
                 'bulk_hide.success.message',
                 {},
                 'ibexa_sub_items',
             );
 
-            window.ibexa.helpers.notification.showSuccessNotification(message);
+            showSuccessNotification(message);
         }
     }
 
@@ -599,13 +591,13 @@ export default class SubItemsModule extends Component {
 
         if (failedItems.length) {
             const modalTableTitle = Translator.trans(
-                /*@Desc("%itemsCount% Location(s) cannot be revealed")*/
+                /* @Desc("%itemsCount% Location(s) cannot be revealed") */
                 'bulk_unhide.error.modal.table_title',
                 { itemsCount: failedItems.length },
                 'ibexa_sub_items',
             );
             const notificationMessage = Translator.trans(
-                /*@Desc("%failedCount% of the %totalCount% selected Location(s) could not be revealed because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.")*/
+                /* @Desc("%failedCount% of the %totalCount% selected Location(s) could not be revealed because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.") */
                 'bulk_unhide.error.message',
                 {
                     failedCount: failedItems.length,
@@ -615,7 +607,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /* @Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>") */
                     'bulk_action.error.more_info',
                     {},
                     'ibexa_sub_items',
@@ -627,13 +619,13 @@ export default class SubItemsModule extends Component {
 
         if (successItems.length) {
             const message = Translator.trans(
-                /*@Desc("The selected location(s) have been revealed.")*/
+                /* @Desc("The selected location(s) have been revealed.") */
                 'bulk_unhide.success.message',
                 {},
                 'ibexa_sub_items',
             );
 
-            window.ibexa.helpers.notification.showSuccessNotification(message);
+            showSuccessNotification(message);
         }
     }
 
@@ -647,13 +639,13 @@ export default class SubItemsModule extends Component {
 
         if (failedItems.length) {
             const modalTableTitle = Translator.trans(
-                /*@Desc("%itemsCount% Location(s) cannot be added")*/
+                /* @Desc("%itemsCount% Location(s) cannot be added") */
                 'bulk_add_location.error.modal.table_title',
                 { itemsCount: failedItems.length },
                 'ibexa_sub_items',
             );
             const notificationMessage = Translator.trans(
-                /*@Desc("%failedCount% of the %totalCount% selected Locations(s) could not be added because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.")*/
+                /* @Desc("%failedCount% of the %totalCount% selected Locations(s) could not be added because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator to obtain permissions.") */
                 'bulk_add_location.error.message',
                 {
                     failedCount: failedItems.length,
@@ -663,7 +655,7 @@ export default class SubItemsModule extends Component {
             );
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /* @Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>") */
                     'bulk_action.error.more_info',
                     {},
                     'ibexa_sub_items',
@@ -675,14 +667,14 @@ export default class SubItemsModule extends Component {
 
         if (successItems.length) {
             const message = Translator.trans(
-                /*@Desc("Location(s) added to {{ locationLink }}.")*/
+                /* @Desc("Location(s) added to {{ locationLink }}.") */
                 'bulk_add_location.success.message',
                 {},
                 'ibexa_sub_items',
             );
             const rawPlaceholdersMap = {
                 locationLink: Translator.trans(
-                    /*@Desc("<u><a href='%locationHref%'>%locationName%</a></u>")*/
+                    /* @Desc("<u><a href='%locationHref%'>%locationName%</a></u>") */
                     'bulk_action.success.link_to_location',
                     {
                         locationName: ibexa.helpers.text.escapeHTML(location.ContentInfo.Content.TranslatedName),
@@ -729,7 +721,7 @@ export default class SubItemsModule extends Component {
         const { selectedItems } = this.state;
         const selectedItemsLocationsIds = [...selectedItems.values()].map(({ id }) => id);
         const excludedLocations = [parentLocationId, ...selectedItemsLocationsIds];
-        const title = Translator.trans(/*@Desc("Choose Location")*/ 'udw.choose_location.title', {}, 'ibexa_sub_items');
+        const title = Translator.trans(/* @Desc("Choose Location") */ 'udw.choose_location.title', {}, 'ibexa_sub_items');
         const udwConfig = actionFlow === ACTION_FLOW_MOVE ? udwConfigBulkMoveItems : udwConfigBulkAddLocation;
         const udwProps = {
             title,
@@ -760,36 +752,33 @@ export default class SubItemsModule extends Component {
     bulkDelete() {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const itemsToDelete = [...selectedItems.values()];
 
-        bulkDeleteItems(restInfo, itemsToDelete, this.afterBulkDelete);
+        bulkDeleteItems(itemsToDelete, this.afterBulkDelete);
     }
 
     bulkHide() {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const items = [...selectedItems.values()];
 
-        bulkHideLocations(restInfo, items, this.afterBulkHide);
+        bulkHideLocations(items, this.afterBulkHide);
     }
 
     bulkUnhide() {
         this.toggleBulkOperationStatusState(true);
 
-        const { restInfo } = this.props;
         const { selectedItems } = this.state;
         const items = [...selectedItems.values()];
 
-        bulkUnhideLocations(restInfo, items, this.afterBulkUnhide);
+        bulkUnhideLocations(items, this.afterBulkUnhide);
     }
 
     afterBulkDelete(deletedItems, notDeletedItems) {
         const { totalCount } = this.state;
-        const isUser = ({ content }) => window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
+        const isUser = ({ contentType }) => this.adminUiConfig.userContentTypes.includes(contentType.ContentType.identifier);
 
         this.setState({
             isUpdate: true,
@@ -803,13 +792,13 @@ export default class SubItemsModule extends Component {
         this.toggleBulkOperationStatusState(false);
 
         if (notDeletedItems.length) {
-            const hadUserContentItemFailed = notDeletedItems.some(isUser);
-            const hadNonUserContentItemFailed = notDeletedItems.some((item) => !isUser(item));
             let modalTableTitle = null;
             let message = null;
+            const hadUserContentItemFailed = notDeletedItems.some(isUser);
+            const hadNonUserContentItemFailed = notDeletedItems.some((item) => !isUser(item));
             const rawPlaceholdersMap = {
                 moreInformationLink: Translator.trans(
-                    /*@Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>")*/
+                    /* @Desc("<u><a class='ibexa-notification-btn ibexa-notification-btn--show-modal'>Click here for more information.</a></u><br>") */
                     'bulk_action.error.more_info',
                     {},
                     'ibexa_sub_items',
@@ -818,14 +807,14 @@ export default class SubItemsModule extends Component {
 
             if (hadUserContentItemFailed && hadNonUserContentItemFailed) {
                 modalTableTitle = Translator.trans(
-                    /*@Desc("%itemsCount% Content item(s) cannot be deleted or sent to Trash")*/ 'bulk_delete.error.modal.table_title.users_with_nonusers',
+                    /* @Desc("%itemsCount% Content item(s) cannot be deleted or sent to Trash") */ 'bulk_delete.error.modal.table_title.users_with_nonusers',
                     {
                         itemsCount: notDeletedItems.length,
                     },
                     'ibexa_sub_items',
                 );
                 message = Translator.trans(
-                    /*@Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be deleted or sent to Trash because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_delete.error.message.users_with_nonusers',
+                    /* @Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be deleted or sent to Trash because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.") */ 'bulk_delete.error.message.users_with_nonusers',
                     {
                         notDeletedCount: notDeletedItems.length,
                         totalCount: deletedItems.length + notDeletedItems.length,
@@ -834,14 +823,14 @@ export default class SubItemsModule extends Component {
                 );
             } else if (hadUserContentItemFailed) {
                 modalTableTitle = Translator.trans(
-                    /*@Desc("%itemsCount% User(s) cannot be deleted")*/ 'bulk_delete.error.modal.table_title.users',
+                    /* @Desc("%itemsCount% User(s) cannot be deleted") */ 'bulk_delete.error.modal.table_title.users',
                     {
                         itemsCount: notDeletedItems.length,
                     },
                     'ibexa_sub_items',
                 );
                 message = Translator.trans(
-                    /*@Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be deleted because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_delete.error.message.users',
+                    /* @Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be deleted because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.") */ 'bulk_delete.error.message.users',
                     {
                         notDeletedCount: notDeletedItems.length,
                         totalCount: deletedItems.length + notDeletedItems.length,
@@ -850,14 +839,14 @@ export default class SubItemsModule extends Component {
                 );
             } else {
                 modalTableTitle = Translator.trans(
-                    /*@Desc("%itemsCount% Content item(s) cannot be sent to Trash")*/ 'bulk_delete.error.modal.table_title.nonusers',
+                    /* @Desc("%itemsCount% Content item(s) cannot be sent to Trash") */ 'bulk_delete.error.modal.table_title.nonusers',
                     {
                         itemsCount: notDeletedItems.length,
                     },
                     'ibexa_sub_items',
                 );
                 message = Translator.trans(
-                    /*@Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be sent to Trash because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.")*/ 'bulk_delete.error.message.nonusers',
+                    /* @Desc("%notDeletedCount% of the %totalCount% selected item(s) could not be sent to Trash because you do not have proper user permissions. {{ moreInformationLink }} Contact your Administrator.") */ 'bulk_delete.error.message.nonusers',
                     {
                         notDeletedCount: notDeletedItems.length,
                         totalCount: deletedItems.length + notDeletedItems.length,
@@ -874,15 +863,15 @@ export default class SubItemsModule extends Component {
 
             if (anyUserContentItemDeleted && anyNonUserContentItemDeleted) {
                 message = Translator.trans(
-                    /*@Desc("Content item(s) sent to Trash. User(s) deleted.")*/ 'bulk_delete.success.message.users_with_nonusers',
+                    /* @Desc("Content item(s) sent to Trash. User(s) deleted.") */ 'bulk_delete.success.message.users_with_nonusers',
                     {},
                     'ibexa_sub_items',
                 );
             } else if (anyUserContentItemDeleted) {
-                message = Translator.trans(/*@Desc("User(s) deleted.")*/ 'bulk_delete.success.message.users', {}, 'ibexa_sub_items');
+                message = Translator.trans(/* @Desc("User(s) deleted.") */ 'bulk_delete.success.message.users', {}, 'ibexa_sub_items');
             } else {
                 message = Translator.trans(
-                    /*@Desc("Content item(s) sent to Trash.")*/ 'bulk_delete.success.message.nonusers',
+                    /* @Desc("Content item(s) sent to Trash.") */ 'bulk_delete.success.message.nonusers',
                     {},
                     'ibexa_sub_items',
                 );
@@ -948,12 +937,12 @@ export default class SubItemsModule extends Component {
      * @param {Object} rawPlaceholdersMap
      */
     handleBulkOperationFailedNotification(failedItems, modalTableTitle, notificationMessage, rawPlaceholdersMap) {
-        const failedItemsData = failedItems.map(({ content }) => ({
-            contentTypeName: content._info.contentType.name,
-            contentName: content._name,
+        const failedItemsData = failedItems.map(({ contentInfo, contentType }) => ({
+            contentTypeName: contentType.ContentType.name,
+            contentName: contentInfo.ContentInfo.name,
         }));
 
-        window.ibexa.helpers.notification.showWarningNotification(
+        showWarningNotification(
             notificationMessage,
             (notificationNode) => {
                 const showModalBtn = notificationNode.querySelector('.ibexa-notification-btn--show-modal');
@@ -977,10 +966,10 @@ export default class SubItemsModule extends Component {
         let confirmLabel = '';
 
         if (!isUserContentItemSelected && isNonUserContentItemSelected) {
-            confirmLabel = Translator.trans(/*@Desc("Send to trash")*/ 'bulk_delete.popup.confirm.nonusers', {}, 'ibexa_sub_items');
+            confirmLabel = Translator.trans(/* @Desc("Send to trash") */ 'bulk_delete.popup.confirm.nonusers', {}, 'ibexa_sub_items');
         } else {
             confirmLabel = Translator.trans(
-                /*@Desc("Delete")*/ 'bulk_delete.popup.confirm.users_and_users_with_nonusers',
+                /* @Desc("Delete") */ 'bulk_delete.popup.confirm.users_and_users_with_nonusers',
                 {},
                 'ibexa_sub_items',
             );
@@ -991,7 +980,7 @@ export default class SubItemsModule extends Component {
             className: 'ibexa-btn--primary ibexa-btn--trigger',
         };
         const cancelBtnAttrs = {
-            label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
+            label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
             className: 'ibexa-btn--secondary',
             'data-bs-dismiss': 'modal',
         };
@@ -1001,12 +990,12 @@ export default class SubItemsModule extends Component {
 
     getHideConfirmationPopupFooter() {
         const confirmBtnAttrs = {
-            label: Translator.trans(/*@Desc("Hide")*/ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
+            label: Translator.trans(/* @Desc("Hide") */ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkHidePopupConfirm,
             className: 'ibexa-btn--primary ibexa-btn--trigger',
         };
         const cancelBtnAttrs = {
-            label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
+            label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
             className: 'ibexa-btn--secondary',
             'data-bs-dismiss': 'modal',
         };
@@ -1016,12 +1005,12 @@ export default class SubItemsModule extends Component {
 
     getUnhideConfirmationPopupFooter() {
         const confirmBtnAttrs = {
-            label: Translator.trans(/*@Desc("Reveal")*/ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
+            label: Translator.trans(/* @Desc("Reveal") */ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkUnhidePopupConfirm,
             className: 'ibexa-btn--primary ibexa-btn--trigger',
         };
         const cancelBtnAttrs = {
-            label: Translator.trans(/*@Desc("Cancel")*/ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
+            label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
             className: 'ibexa-btn--secondary',
             'data-bs-dismiss': 'modal',
         };
@@ -1034,12 +1023,12 @@ export default class SubItemsModule extends Component {
         let isUserContentItemSelected = false;
         let isNonUserContentItemSelected = false;
 
-        for (const [, { content }] of selectedItems) {
+        for (const [, { contentType }] of selectedItems) {
             if (isUserContentItemSelected && isNonUserContentItemSelected) {
                 break;
             }
 
-            const isUserContentItem = window.ibexa.adminUiConfig.userContentTypes.includes(content._info.contentType.identifier);
+            const isUserContentItem = this.adminUiConfig.userContentTypes.includes(contentType.ContentType.identifier);
 
             if (isUserContentItem) {
                 isUserContentItemSelected = true;
@@ -1062,17 +1051,17 @@ export default class SubItemsModule extends Component {
         }
 
         const confirmationMessageUsers = Translator.trans(
-            /*@Desc("Are you sure you want to delete the selected user(s)?")*/ 'bulk_delete.popup.message.users',
+            /* @Desc("Are you sure you want to delete the selected user(s)?") */ 'bulk_delete.popup.message.users',
             {},
             'ibexa_sub_items',
         );
         const confirmationMessageNonUsers = Translator.trans(
-            /*@Desc("Are you sure you want to send the selected Content item(s) to Trash?")*/ 'bulk_delete.popup.message.nonusers',
+            /* @Desc("Are you sure you want to send the selected Content item(s) to Trash?") */ 'bulk_delete.popup.message.nonusers',
             {},
             'ibexa_sub_items',
         );
         const confirmationMessageUsersAndNonUsers = Translator.trans(
-            /*@Desc("Are you sure you want to delete the selected user(s) and send the other selected Content item(s) to Trash?")*/ 'bulk_delete.popup.message.users_with_nonusers',
+            /* @Desc("Are you sure you want to delete the selected user(s) and send the other selected Content item(s) to Trash?") */ 'bulk_delete.popup.message.users_with_nonusers',
             {},
             'ibexa_sub_items',
         );
@@ -1110,7 +1099,7 @@ export default class SubItemsModule extends Component {
         }
 
         const confirmationMessage = Translator.trans(
-            /*@Desc("Are you sure you want to hide the selected Location(s)?")*/
+            /* @Desc("Are you sure you want to hide the selected Location(s)?") */
             'bulk_hide.popup.message',
             {},
             'ibexa_sub_items',
@@ -1138,7 +1127,7 @@ export default class SubItemsModule extends Component {
         }
 
         const confirmationMessage = Translator.trans(
-            /*@Desc("Are you sure you want to reveal the selected Location(s)?")*/
+            /* @Desc("Are you sure you want to reveal the selected Location(s)?") */
             'bulk_unhide.popup.message',
             {},
             'ibexa_sub_items',
@@ -1159,9 +1148,12 @@ export default class SubItemsModule extends Component {
     }
 
     changePage(pageIndex) {
+        const { limit: itemsPerPage } = this.props;
+
         this.updateListViewHeight();
         this.setState(() => ({
             activePageIndex: pageIndex,
+            offset: pageIndex * itemsPerPage,
             activePageItems: null,
         }));
     }
@@ -1237,30 +1229,40 @@ export default class SubItemsModule extends Component {
 
     renderActionBtnWrapper(btn, extraClasses = '', extraProps = {}) {
         return (
-            <div className={`ibexa-adaptive-items__item ${extraClasses}`} {...extraProps}>
+            <div className={`ibexa-adaptive-items__item ${extraClasses}`} {...extraProps} key={extraProps.key}>
                 {btn}
             </div>
         );
     }
 
     renderBulkMoveBtn(disabled) {
-        const label = Translator.trans(/*@Desc("Move")*/ 'move_btn.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Move") */ 'move_btn.label', {}, 'ibexa_sub_items');
 
-        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />);
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />,
+            '',
+            { key: 'bulk-move-btn' },
+        );
     }
 
     renderBulkAddLocationBtn(disabled) {
-        const label = Translator.trans(/*@Desc("Add Locations")*/ 'add_locations_btn.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Add Locations") */ 'add_locations_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
             <ActionButton disabled={disabled} onClick={this.onAddLocationsBtnClick} label={label} type="create-location" />,
+            '',
+            { key: 'bulk-add-locations-btn' },
         );
     }
 
     renderBulkHideBtn(disabled) {
         const label = Translator.trans(/*@Desc("Hide Location")*/ 'hide_locations_btn.label', {}, 'ibexa_sub_items');
 
-        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />);
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onHideBtnClick} label={label} type="hide" />,
+            '',
+            { key: 'bulk-hide-btn' },
+        );
     }
 
     renderBulkUnhideBtn(disabled) {
@@ -1268,13 +1270,19 @@ export default class SubItemsModule extends Component {
 
         return this.renderActionBtnWrapper(
             <ActionButton disabled={disabled} onClick={this.onUnhideBtnClick} label={label} type="reveal" />,
+            '',
+            { key: 'bulk-unhide-btn' },
         );
     }
 
     renderBulkDeleteBtn(disabled) {
-        const label = Translator.trans(/*@Desc("Delete")*/ 'trash_btn.label', {}, 'ibexa_sub_items');
+        const label = Translator.trans(/* @Desc("Delete") */ 'trash_btn.label', {}, 'ibexa_sub_items');
 
-        return this.renderActionBtnWrapper(<ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />);
+        return this.renderActionBtnWrapper(
+            <ActionButton disabled={disabled} onClick={this.onDeleteBtnClick} label={label} type="trash" />,
+            '',
+            { key: 'bulk-delete-btn' },
+        );
     }
 
     renderSpinner() {
@@ -1441,7 +1449,7 @@ export default class SubItemsModule extends Component {
             this.renderActionBtnWrapper(
                 <ActionButton disabled={false} onClick={this.showMorePanel} type="options" />,
                 'ibexa-adaptive-items__item--selector',
-                { ref: this._refAdaptiveItemMoreBtn },
+                { ref: this._refAdaptiveItemMoreBtn, key: 'more-btn' },
             ),
             ReactDOM.createPortal(
                 <div className={panelClasses} ref={this._refAdaptiveItemMorePanel}>
@@ -1486,7 +1494,7 @@ export default class SubItemsModule extends Component {
     }
 
     render() {
-        const listTitle = Translator.trans(/*@Desc("Sub-items")*/ 'items_list.title', {}, 'ibexa_sub_items');
+        const listTitle = Translator.trans(/* @Desc("Sub-items") */ 'items_list.title', {}, 'ibexa_sub_items');
         const { selectedItems, activeView, totalCount, isDuringBulkOperation, activePageItems, subItemsWidth, columnsVisibility } =
             this.state;
         const nothingSelected = !selectedItems.size;

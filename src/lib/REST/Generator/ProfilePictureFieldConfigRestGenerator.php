@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Field;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\Visitor;
 
-final class ProfilePictureFieldConfigRestGenerator implements ApplicationConfigRestGeneratorInterface
+final readonly class ProfilePictureFieldConfigRestGenerator implements ApplicationConfigRestGeneratorInterface
 {
-    private const NAMESPACE = 'user';
-    private const PARAMETER = 'profile_picture_field';
+    private const string NAMESPACE = 'user';
+    private const string PARAMETER = 'profile_picture_field';
 
     public function supportsNamespace(string $namespace): bool
     {
@@ -28,7 +28,7 @@ final class ProfilePictureFieldConfigRestGenerator implements ApplicationConfigR
         return self::PARAMETER === $parameterName;
     }
 
-    public function generate($parameter, Generator $generator, Visitor $visitor): void
+    public function generate(mixed $parameter, Generator $generator, Visitor $visitor): void
     {
         if ($parameter instanceof Field) {
             $generator->startHashElement(self::PARAMETER);

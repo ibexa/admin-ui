@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../helpers/css.class.names';
 
-const TableBody = ({ extraClasses, children }) => {
+const TableBody = ({ extraClasses = '', children = null }) => {
     const className = createCssClassNames({
         'ibexa-table__body': true,
         [extraClasses]: true,
@@ -15,11 +15,6 @@ const TableBody = ({ extraClasses, children }) => {
 TableBody.propTypes = {
     extraClasses: PropTypes.string,
     children: PropTypes.element,
-};
-
-TableBody.defaultProps = {
-    extraClasses: '',
-    children: null,
 };
 
 export default TableBody;

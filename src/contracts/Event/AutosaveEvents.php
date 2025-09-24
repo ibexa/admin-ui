@@ -10,8 +10,5 @@ namespace Ibexa\Contracts\AdminUi\Event;
 
 final class AutosaveEvents
 {
-    /** @var string */
-    public const CONTENT_AUTOSAVE = 'content.edit.autosave';
+    public const string CONTENT_AUTOSAVE = 'content.edit.autosave';
 }
-
-class_alias(AutosaveEvents::class, 'EzSystems\EzPlatformAdminUi\Event\AutosaveEvents');

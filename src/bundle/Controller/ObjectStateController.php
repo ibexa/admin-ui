@@ -29,52 +29,22 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
-use Symfony\Component\Form\Button;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ObjectStateController extends Controller
+final class ObjectStateController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    private $objectStateService;
-
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ObjectStateService $objectStateService,
-        FormFactoryInterface $formFactory,
-        SubmitHandler $submitHandler,
-        PermissionResolver $permissionResolver,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ObjectStateService $objectStateService,
+        private readonly FormFactoryInterface $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->objectStateService = $objectStateService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(ObjectStateGroup $objectStateGroup): Response
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $objectStates */
@@ -86,7 +56,6 @@ class ObjectStateController extends Controller
         );
 
         $unusedObjectStates = [];
-
         foreach ($objectStates as $state) {
             $unusedObjectStates[$state->id] = empty($this->objectStateService->getContentCount($state));
         }
@@ -96,15 +65,10 @@ class ObjectStateController extends Controller
             'object_state_group' => $objectStateGroup,
             'object_states' => $objectStates,
             'unused_object_states' => $unusedObjectStates,
-            'form_states_delete' => $deleteObjectStatesForm->createView(),
+            'form_states_delete' => $deleteObjectStatesForm,
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(ObjectState $objectState): Response
     {
         $deleteForm = $this->formFactory->create(
@@ -120,12 +84,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request, ObjectStateGroup $objectStateGroup): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -142,9 +100,9 @@ class ObjectStateController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup, $form): Response {
+                function (ObjectStateCreateData $data) use ($defaultLanguageCode, $objectStateGroup): Response {
                     $createStruct = $this->objectStateService->newObjectStateCreateStruct(
-                        $data->getIdentifier()
+                        $data->getIdentifier() ?? ''
                     );
                     $createStruct->defaultLanguageCode = $defaultLanguageCode;
                     $createStruct->names = [$defaultLanguageCode => $data->getName()];
@@ -156,14 +114,6 @@ class ObjectStateController extends Controller
                         ['%name%' => $data->getName()],
                         'ibexa_object_state'
                     );
-
-                    if ($form->getClickedButton() instanceof Button
-                        && $form->getClickedButton()->getName() === ObjectStateCreateType::BTN_CREATE_AND_EDIT
-                    ) {
-                        return $this->redirectToRoute('ibexa.object_state.state.update', [
-                            'objectStateId' => $objectState->id,
-                        ]);
-                    }
 
                     return $this->redirectToRoute('ibexa.object_state.state.view', [
                         'objectStateId' => $objectState->id,
@@ -177,16 +127,10 @@ class ObjectStateController extends Controller
 
         return $this->render('@ibexadesign/object_state/add.html.twig', [
             'object_state_group' => $objectStateGroup,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, ObjectState $objectState): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -197,8 +141,12 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data): void {
                 $objectState = $data->getObjectState();
+                if ($objectState === null) {
+                    return;
+                }
+
                 $this->objectStateService->deleteObjectState($objectState);
 
                 $this->notificationHandler->success(
@@ -219,14 +167,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * Handles removing object state groups based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param int $objectStateGroupId
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request, int $objectStateGroupId): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -237,7 +177,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStatesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStatesDeleteData $data): void {
                 foreach ($data->getObjectStates() as $objectStateId => $selected) {
                     $objectState = $this->objectStateService->loadObjectState($objectStateId);
                     $this->objectStateService->deleteObjectState($objectState);
@@ -261,12 +201,6 @@ class ObjectStateController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState $objectState
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, ObjectState $objectState): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
@@ -278,7 +212,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateUpdateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ObjectStateUpdateData $data): Response {
                 $objectState = $data->getObjectState();
                 $updateStruct = $this->objectStateService->newObjectStateUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();
@@ -293,14 +227,6 @@ class ObjectStateController extends Controller
                     'ibexa_object_state'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ObjectStateUpdateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.object_state.state.update', [
-                        'objectStateId' => $objectState->id,
-                    ]);
-                }
-
                 return $this->redirectToRoute('ibexa.object_state.state.view', [
                     'objectStateId' => $objectState->id,
                 ]);
@@ -314,17 +240,11 @@ class ObjectStateController extends Controller
         return $this->render('@ibexadesign/object_state/edit.html.twig', [
             'object_state_group' => $objectState->getObjectStateGroup(),
             'object_state' => $objectState,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function updateContentStateAction(
@@ -347,7 +267,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentObjectStateUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentObjectStateUpdateData $data): void {
                 $contentInfo = $data->getContentInfo();
                 $objectStateGroup = $data->getObjectStateGroup();
                 $objectState = $data->getObjectState();
@@ -367,16 +287,16 @@ class ObjectStateController extends Controller
         }
 
         return $this->redirectToRoute('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => 'ibexa-tab-location-view-details',
         ]);
     }
 
     /**
-     * @param array $states
+     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $states
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getObjectStatesIds(array $states): array
     {
@@ -385,5 +305,3 @@ class ObjectStateController extends Controller
         return array_combine($statesIds, array_fill_keys($statesIds, false));
     }
 }
-
-class_alias(ObjectStateController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ObjectStateController');

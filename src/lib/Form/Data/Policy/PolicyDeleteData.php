@@ -10,19 +10,16 @@ namespace Ibexa\AdminUi\Form\Data\Policy;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 
-class PolicyDeleteData
+final class PolicyDeleteData
 {
-    /** @var int */
-    private $id;
+    private ?int $id = null;
 
-    /** @var string */
-    private $module;
+    private ?string $module = null;
 
-    /** @var string */
-    private $function;
+    private ?string $function = null;
 
-    /** @var array */
-    private $limitations;
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
+    private array $limitations;
 
     public function __construct(?Policy $policy = null)
     {
@@ -30,62 +27,50 @@ class PolicyDeleteData
             $this->id = $policy->id;
             $this->module = $policy->module;
             $this->function = $policy->function;
-            $this->limitations = $policy->limitations;
+            $this->limitations = iterator_to_array($policy->getLimitations());
         }
     }
 
-    /**
-     * @return string
-     */
     public function getModule(): ?string
     {
         return $this->module;
     }
 
-    /**
-     * @param string $module
-     */
-    public function setModule(string $module)
+    public function setModule(?string $module): void
     {
         $this->module = $module;
     }
 
-    /**
-     * @return string
-     */
     public function getFunction(): ?string
     {
         return $this->function;
     }
 
-    /**
-     * @param string $function
-     */
-    public function setFunction(string $function)
+    public function setFunction(?string $function): void
     {
         $this->function = $function;
     }
 
     /**
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
-    public function getLimitations(): ?array
+    public function getLimitations(): array
     {
         return $this->limitations;
     }
 
     /**
-     * @param array $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      */
-    public function setLimitations(array $limitations)
+    public function setLimitations(array $limitations): void
     {
         $this->limitations = $limitations;
     }
 
     /**
-     * @param array $policy
+     * @param array<string, mixed> $policy
      */
-    public function setPolicy(array $policy)
+    public function setPolicy(array $policy): void
     {
         $this->setModule($policy['module']);
         $this->setFunction($policy['function']);
@@ -96,9 +81,9 @@ class PolicyDeleteData
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
-    public function getPolicy(): ?array
+    public function getPolicy(): array
     {
         return [
             'id' => $this->getId(),
@@ -107,21 +92,13 @@ class PolicyDeleteData
         ];
     }
 
-    /**
-     * @return int
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
 }
-
-class_alias(PolicyDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyDeleteData');

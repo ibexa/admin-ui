@@ -11,6 +11,7 @@ namespace Ibexa\Tests\AdminUi\Config\AdminUiForms;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolver;
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,12 +19,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class ContentTypeFieldTypesResolverTest extends TestCase
 {
-    private const PARAM_NAME = 'admin_ui_forms.content_type_edit.field_types';
+    private const string PARAM_NAME = 'admin_ui_forms.content_type_edit.field_types';
 
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private ConfigResolverInterface $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
     protected function setUp(): void
     {
@@ -60,7 +60,7 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
      * @param array<string, array{
      *     'meta': bool,
      *     'position': int,
-     *  }>
+     *  }> $expectedMetaFieldTypes
      * $expectedMetaFieldTypes
      */
     public function testGetMetaFieldTypes(
@@ -222,6 +222,12 @@ final class ContentTypeFieldTypesResolverTest extends TestCase
             ->willReturn($hasParameter);
     }
 
+    /**
+     * @param array<string, array{
+     *     'meta'?: bool,
+     *     'position'?: int,
+     *  }> $configuredFieldTypes
+     */
     private function mockConfigResolverGetParameter(bool $hasParameter, array $configuredFieldTypes): void
     {
         if ($hasParameter) {

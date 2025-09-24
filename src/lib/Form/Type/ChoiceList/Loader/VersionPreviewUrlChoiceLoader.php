@@ -16,32 +16,14 @@ use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 
 final class VersionPreviewUrlChoiceLoader extends BaseChoiceLoader
 {
-    private SiteAccessServiceInterface $siteAccessService;
-
-    private VersionPreviewUrlResolverInterface $previewUrlResolver;
-
-    private SiteAccessChoiceLoader $siteAccessChoiceLoader;
-
-    private VersionInfo $versionInfo;
-
-    private Location $location;
-
-    private Language $language;
-
     public function __construct(
-        SiteAccessServiceInterface $siteAccessService,
-        VersionPreviewUrlResolverInterface $previewUrlResolver,
-        SiteAccessChoiceLoader $siteAccessChoiceLoader,
-        VersionInfo $versionInfo,
-        Location $location,
-        Language $language
+        private readonly SiteAccessServiceInterface $siteAccessService,
+        private readonly VersionPreviewUrlResolverInterface $previewUrlResolver,
+        private readonly SiteAccessChoiceLoader $siteAccessChoiceLoader,
+        private readonly VersionInfo $versionInfo,
+        private readonly Location $location,
+        private readonly Language $language
     ) {
-        $this->siteAccessService = $siteAccessService;
-        $this->previewUrlResolver = $previewUrlResolver;
-        $this->siteAccessChoiceLoader = $siteAccessChoiceLoader;
-        $this->versionInfo = $versionInfo;
-        $this->location = $location;
-        $this->language = $language;
     }
 
     /**

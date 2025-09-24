@@ -12,49 +12,31 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
-class ContentObjectStateUpdateData
+final class ContentObjectStateUpdateData
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
-     */
-    private $contentInfo;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
-     */
-    private $objectStateGroup;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState
-     */
-    private $objectState;
-
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        ?ObjectStateGroup $objectStateGroup = null,
-        ?ObjectState $objectState = null
+        private ?ContentInfo $contentInfo = null,
+        private ?ObjectStateGroup $objectStateGroup = null,
+        private ?ObjectState $objectState = null
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->objectStateGroup = $objectStateGroup;
-        $this->objectState = $objectState;
     }
 
-    public function getContentInfo(): ContentInfo
+    public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
-    public function setContentInfo(ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
 
-    public function getObjectStateGroup(): ObjectStateGroup
+    public function getObjectStateGroup(): ?ObjectStateGroup
     {
         return $this->objectStateGroup;
     }
 
-    public function setObjectStateGroup(ObjectStateGroup $objectStateGroup)
+    public function setObjectStateGroup(?ObjectStateGroup $objectStateGroup): void
     {
         $this->objectStateGroup = $objectStateGroup;
     }
@@ -64,10 +46,8 @@ class ContentObjectStateUpdateData
         return $this->objectState;
     }
 
-    public function setObjectState(ObjectState $objectState)
+    public function setObjectState(?ObjectState $objectState): void
     {
         $this->objectState = $objectState;
     }
 }
-
-class_alias(ContentObjectStateUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData');

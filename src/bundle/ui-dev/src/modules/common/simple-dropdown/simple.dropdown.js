@@ -4,7 +4,15 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 import Icon from '../icon/icon';
 
-const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, isDisabled, selectedItemLabel, isSwitcher }) => {
+const SimpleDropdown = ({
+    options,
+    selectedOption,
+    extraClasses = '',
+    onOptionClick,
+    isDisabled = false,
+    selectedItemLabel = '',
+    isSwitcher = false,
+}) => {
     const containerRef = useRef();
     const [isExpanded, setIsExpanded] = useState(false);
     const dropdownClass = createCssClassNames({
@@ -39,7 +47,9 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
 
         return (
             <li key={item.value} className={itemClass} onClick={() => onOptionClickWrapper(item)}>
-                {item.iconName && <Icon name={item.iconName} extraClasses="c-simple-dropdown__list-item-type-icon ibexa-icon--small" />}
+                {item.iconName && (
+                    <Icon name={item.iconName} extraClasses="c-simple-dropdown__list-item-type-icon ibexa-icon--small-medium" />
+                )}
                 <span>{item.label ?? item.getLabel()}</span>
                 {isItemSelected && (
                     <div className="c-simple-dropdown__list-item-checkmark">
@@ -52,7 +62,7 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
     const renderCaretIcon = () => {
         const iconName = isExpanded ? 'caret-up' : 'caret-down';
 
-        return <Icon name={iconName} extraClasses="ibexa-icon--tiny-small c-simple-dropdown__expand-icon" />;
+        return <Icon name={iconName} extraClasses="ibexa-icon--small c-simple-dropdown__expand-icon" />;
     };
     const renderSelectedLabel = () => {
         if (!selectedOption && !!selectedItemLabel) {
@@ -61,7 +71,7 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
 
         return (
             <span className="c-simple-dropdown__selected-item-label">
-                {selectedItemLabel.length ? selectedItemLabel : selectedOption.label ?? selectedOption.getLabel()}
+                {selectedItemLabel.length ? selectedItemLabel : (selectedOption.label ?? selectedOption.getLabel())}
             </span>
         );
     };
@@ -70,7 +80,7 @@ const SimpleDropdown = ({ options, selectedOption, extraClasses, onOptionClick, 
             return null;
         }
 
-        return <Icon name={selectedOption.iconName} extraClasses="ibexa-icon--small c-simple-dropdown__selected-item-type-icon" />;
+        return <Icon name={selectedOption.iconName} extraClasses="ibexa-icon--small-medium c-simple-dropdown__selected-item-type-icon" />;
     };
     const renderSelectedItem = () => {
         return (
@@ -120,13 +130,6 @@ SimpleDropdown.propTypes = {
     isDisabled: PropTypes.bool,
     selectedItemLabel: PropTypes.string,
     isSwitcher: PropTypes.bool,
-};
-
-SimpleDropdown.defaultProps = {
-    isDisabled: false,
-    extraClasses: '',
-    selectedItemLabel: '',
-    isSwitcher: false,
 };
 
 export default SimpleDropdown;

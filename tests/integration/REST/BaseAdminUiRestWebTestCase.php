@@ -103,7 +103,7 @@ abstract class BaseAdminUiRestWebTestCase extends BaseRestWebTestCase
     {
         $symfonyUser = $this->createMock(UserInterface::class);
         $symfonyUser->method('getRoles')->willReturn(['ROLE_USER']);
-        $symfonyUser->method('getUsername')->willReturn($ibexaUser->login);
+        $symfonyUser->method('getUserIdentifier')->willReturn($ibexaUser->login);
 
         return new UserWrapped($symfonyUser, $ibexaUser);
     }

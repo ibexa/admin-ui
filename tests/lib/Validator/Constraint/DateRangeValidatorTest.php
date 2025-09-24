@@ -14,6 +14,9 @@ use Ibexa\AdminUi\Validator\Constraints\DateRangeConstraint;
 use Ibexa\AdminUi\Validator\Constraints\DateRangeConstraintValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
+/**
+ * @extends \Symfony\Component\Validator\Test\ConstraintValidatorTestCase<DateRangeConstraintValidator>
+ */
 final class DateRangeValidatorTest extends ConstraintValidatorTestCase
 {
     protected function createValidator(): DateRangeConstraintValidator

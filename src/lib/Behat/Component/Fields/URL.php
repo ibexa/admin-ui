@@ -12,7 +12,7 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class URL extends FieldTypeComponent
+final class URL extends FieldTypeComponent
 {
     public function setValue(array $parameters): void
     {
@@ -34,7 +34,7 @@ class URL extends FieldTypeComponent
         return [
             'url' => $this->getSpecificFieldValue('url'),
             'text' => $this->getSpecificFieldValue('text'),
-            ];
+        ];
     }
 
     public function getSpecificFieldValue(string $fieldName): string
@@ -46,17 +46,17 @@ class URL extends FieldTypeComponent
         return $this->getHTMLPage()->find($fieldSelector)->getValue();
     }
 
-    public function verifyValueInEditView(array $value): void
+    public function verifyValueInEditView(array $values): void
     {
         Assert::assertEquals(
-            $value['url'],
+            $values['url'],
             $this->getValue()['url'],
-            sprintf('Field %s has wrong value', $value['label'])
+            sprintf('Field %s has wrong value', $values['label'])
         );
         Assert::assertEquals(
-            $value['text'],
+            $values['text'],
             $this->getValue()['text'],
-            sprintf('Field %s has wrong value', $value['label'])
+            sprintf('Field %s has wrong value', $values['label'])
         );
     }
 
@@ -82,13 +82,13 @@ class URL extends FieldTypeComponent
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('url', '#ezplatform_content_forms_content_edit_fieldsData_ezurl_value_link'),
-            new VisibleCSSLocator('text', '#ezplatform_content_forms_content_edit_fieldsData_ezurl_value_text'),
+            new VisibleCSSLocator('url', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_url_value_link'),
+            new VisibleCSSLocator('text', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_url_value_text'),
         ];
     }
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezurl';
+        return 'ibexa_url';
     }
 }

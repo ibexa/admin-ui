@@ -8,21 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Content\Draft;
 
-class ContentRemoveData
+final class ContentRemoveData
 {
-    /** @var array|null */
-    private $versions;
-
     /**
-     * @param array|null $versions
+     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId[]|false[]|null $versions
      */
-    public function __construct(?array $versions = null)
+    public function __construct(private ?array $versions = null)
     {
-        $this->versions = $versions;
     }
 
     /**
-     * @return array|null
+     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId[]|false[]|null
      */
     public function getVersions(): ?array
     {
@@ -30,9 +26,7 @@ class ContentRemoveData
     }
 
     /**
-     * @param array|null $versions
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
+     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId[]|false[]|null $versions
      */
     public function setVersions(?array $versions): self
     {
@@ -41,5 +35,3 @@ class ContentRemoveData
         return $this;
     }
 }
-
-class_alias(ContentRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentRemoveData');

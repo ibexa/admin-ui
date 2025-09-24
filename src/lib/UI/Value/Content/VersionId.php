@@ -8,43 +8,24 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\Content;
 
-class VersionId
+final readonly class VersionId
 {
-    /** @var int */
-    private $contentId;
-
-    /** @var int */
-    private $versionNo;
-
-    /**
-     * @param int $contentId
-     * @param int $versionNo
-     */
-    public function __construct(int $contentId, int $versionNo)
-    {
-        $this->contentId = $contentId;
-        $this->versionNo = $versionNo;
+    public function __construct(
+        private int $contentId,
+        private int $versionNo
+    ) {
     }
 
-    /**
-     * @return int
-     */
     public function getContentId(): int
     {
         return $this->contentId;
     }
 
-    /**
-     * @return int
-     */
     public function getVersionNo(): int
     {
         return $this->versionNo;
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return implode(':', [
@@ -53,11 +34,6 @@ class VersionId
         ]);
     }
 
-    /**
-     * @param string $id
-     *
-     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId
-     */
     public static function fromString(string $id): self
     {
         list($contentId, $versionNo) = explode(':', $id);
@@ -65,5 +41,3 @@ class VersionId
         return new self((int) $contentId, (int) $versionNo);
     }
 }
-
-class_alias(VersionId::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\VersionId');

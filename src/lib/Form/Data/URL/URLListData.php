@@ -10,19 +10,11 @@ namespace Ibexa\AdminUi\Form\Data\URL;
 
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
-class URLListData extends ValueObject
+final class URLListData extends ValueObject
 {
-    /** @var string|null */
-    public $searchQuery;
-
-    /** @var bool|null */
-    public $status;
-
-    /** @var int */
-    public $page = 1;
-
-    /** @var int */
-    public $limit = 10;
+    public function __construct(
+        public ?string $searchQuery = null,
+        public ?bool $status = null,
+    ) {
+    }
 }
-
-class_alias(URLListData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URL\URLListData');

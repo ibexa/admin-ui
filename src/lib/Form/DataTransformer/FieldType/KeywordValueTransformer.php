@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -13,9 +14,9 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * DataTransformer for Keyword\Value.
  */
-class KeywordValueTransformer implements DataTransformerInterface
+final readonly class KeywordValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!$value instanceof Value) {
             return null;
@@ -24,7 +25,7 @@ class KeywordValueTransformer implements DataTransformerInterface
         return implode(', ', $value->values);
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
         if (empty($value)) {
             return null;
@@ -33,5 +34,3 @@ class KeywordValueTransformer implements DataTransformerInterface
         return new Value($value);
     }
 }
-
-class_alias(KeywordValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\KeywordValueTransformer');

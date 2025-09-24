@@ -17,13 +17,13 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\AbstractLanguageSwitchData>
+ */
 final class LanguageSwitchType extends AbstractType
 {
-    private LanguageService $languageService;
-
-    public function __construct(LanguageService $languageService)
+    public function __construct(private readonly LanguageService $languageService)
     {
-        $this->languageService = $languageService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

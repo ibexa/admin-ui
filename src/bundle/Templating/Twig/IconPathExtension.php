@@ -9,17 +9,15 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface;
+use Twig\DeprecatedCallableInfo;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 final class IconPathExtension extends AbstractExtension
 {
-    /** @var \Ibexa\Contracts\AdminUi\Resolver\IconPathResolverInterface */
-    private $iconPathResolver;
-
-    public function __construct(IconPathResolverInterface $iconPathResolver)
-    {
-        $this->iconPathResolver = $iconPathResolver;
+    public function __construct(
+        private readonly IconPathResolverInterface $iconPathResolver
+    ) {
     }
 
     public function getFunctions(): array
@@ -27,16 +25,15 @@ final class IconPathExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'ez_icon_path',
-                [$this, 'getIconPath'],
+                $this->getIconPath(...),
                 [
                     'is_safe' => ['html'],
-                    'deprecated' => true,
-                    'alternative' => 'ibexa_icon_path',
+                    'deprecation_info' => new DeprecatedCallableInfo('ibexa/admin-ui', '4.6', 'ibexa_icon_path'),
                 ],
             ),
             new TwigFunction(
                 'ibexa_icon_path',
-                [$this, 'getIconPath'],
+                $this->getIconPath(...),
                 [
                     'is_safe' => ['html'],
                 ]
@@ -49,5 +46,3 @@ final class IconPathExtension extends AbstractExtension
         return $this->iconPathResolver->resolve($icon, $set);
     }
 }
-
-class_alias(IconPathExtension::class, 'Ibexa\Platform\Bundle\Assets\Twig\Extension\IconSetExtension');

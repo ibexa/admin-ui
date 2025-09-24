@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
@@ -11,7 +12,6 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
@@ -22,71 +22,43 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * KnpMenuBundle Menu Builder service implementation for AdminUI Content Edit contextual sidebar menu.
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class ContentCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class ContentCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__PUBLISH = 'content_create__sidebar_right__publish';
-    public const ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
-    public const ITEM__SAVE_DRAFT_AND_CLOSE = 'content_create__sidebar_right__save_draft_and_close';
-    public const ITEM__PREVIEW = 'content_create__sidebar_right__preview';
-    public const ITEM__CANCEL = 'content_create__sidebar_right__cancel';
+    public const string ITEM__PUBLISH = 'content_create__sidebar_right__publish';
+    public const string ITEM__SAVE_DRAFT = 'content_create__sidebar_right__save_draft';
+    public const string ITEM__SAVE_DRAFT_AND_CLOSE = 'content_create__sidebar_right__save_draft_and_close';
+    public const string ITEM__PREVIEW = 'content_create__sidebar_right__preview';
+    public const string ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 
-    public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
-    public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    public const string BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
+    public const array BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        PermissionResolver $permissionResolver,
-        ContentService $contentService,
-        LocationService $locationService,
-        ContentTypeService $contentTypeService,
-        TranslatorInterface $translator
+        private readonly PermissionResolver $permissionResolver,
+        private readonly ContentService $contentService,
+        private readonly LocationService $locationService
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->permissionResolver = $permissionResolver;
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->contentTypeService = $contentTypeService;
-        $this->translator = $translator;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::CONTENT_CREATE_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
-     *
-     * @return \Knp\Menu\ItemInterface
+     * @param array<string, mixed> $options
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function createStructure(array $options): ItemInterface
     {
@@ -101,10 +73,10 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         $menu = $this->factory->createItem('root');
 
         $contentCreateStruct = $this->createContentCreateStruct($parentLocation, $contentType, $language);
-        $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
+        $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->getId());
 
         $canPublish = $this->permissionResolver->canUser('content', 'publish', $contentCreateStruct, [$locationCreateStruct]);
-        $canCreate = $this->permissionResolver->canUser('content', 'create', $contentCreateStruct, [$locationCreateStruct]) && $parentContentType->isContainer;
+        $canCreate = $this->permissionResolver->canUser('content', 'create', $contentCreateStruct, [$locationCreateStruct]) && $parentContentType->isContainer();
         $canPreview = $this->permissionResolver->canUser('content', 'versionread', $contentCreateStruct, [$locationCreateStruct]);
 
         $publishAttributes = [
@@ -204,20 +176,18 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
         ];
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct
-     */
-    private function createContentCreateStruct(Location $location, ContentType $contentType, Language $language): ContentCreateStruct
-    {
-        $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $language->languageCode);
-        $contentCreateStruct->sectionId = $location->contentInfo->sectionId;
+    private function createContentCreateStruct(
+        Location $location,
+        ContentType $contentType,
+        Language $language
+    ): ContentCreateStruct {
+        $contentCreateStruct = $this->contentService->newContentCreateStruct(
+            $contentType,
+            $language->getLanguageCode()
+        );
+
+        $contentCreateStruct->sectionId = $location->getContentInfo()->getSectionId();
 
         return $contentCreateStruct;
     }
 }
-
-class_alias(ContentCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentCreateRightSidebarBuilder');

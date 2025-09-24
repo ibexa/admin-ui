@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
@@ -14,7 +15,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use PHPUnit\Framework\TestCase;
 
-class SiteAccessLimitationMapperTest extends TestCase
+final class SiteAccessLimitationMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
     {
@@ -55,5 +56,3 @@ class SiteAccessLimitationMapperTest extends TestCase
         self::assertEquals(array_values($siteAccessList), $result);
     }
 }
-
-class_alias(SiteAccessLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\SiteAccessLimitationMapperTest');

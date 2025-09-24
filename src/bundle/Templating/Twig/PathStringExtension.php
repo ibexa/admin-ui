@@ -12,33 +12,22 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class PathStringExtension extends AbstractExtension
+final class PathStringExtension extends AbstractExtension
 {
-    private $locationService;
-
     public function __construct(
-        LocationService $locationService
+        private readonly LocationService $locationService
     ) {
-        $this->locationService = $locationService;
     }
 
     /**
-     * @return array
+     * @return \Twig\TwigFunction[]
      */
     public function getFunctions(): array
     {
         return [
             new TwigFunction(
-                'ez_path_to_locations',
-                [$this, 'getLocationList'],
-                [
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_path_to_locations',
-                ]
-            ),
-            new TwigFunction(
                 'ibexa_path_to_locations',
-                [$this, 'getLocationList']
+                $this->getLocationList(...)
             ),
         ];
     }
@@ -52,10 +41,14 @@ class PathStringExtension extends AbstractExtension
             'intval',
             explode('/', trim($pathString, '/'))
         );
+
         array_shift($locationIds);
 
-        return $this->locationService->loadLocationList($locationIds);
+        $locations = $this->locationService->loadLocationList($locationIds);
+        if (!is_array($locations)) {
+            $locations = iterator_to_array($locations);
+        }
+
+        return $locations;
     }
 }
-
-class_alias(PathStringExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\PathStringExtension');

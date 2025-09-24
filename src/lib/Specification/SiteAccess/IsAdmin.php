@@ -9,38 +9,35 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\SiteAccess;
 
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
-use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
-class IsAdmin extends AbstractSpecification
+final class IsAdmin extends AbstractSpecification
 {
-    /** @var array */
-    private $siteAccessGroups;
-
     /**
-     * @param array $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(array $siteAccessGroups)
+    public function __construct(private readonly array $siteAccessGroups)
     {
-        $this->siteAccessGroups = $siteAccessGroups;
     }
 
     /**
-     * @param $item
-     *
-     * @return bool
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         if (!$item instanceof SiteAccess) {
-            throw new InvalidArgumentException($item, sprintf('Must be an instance of %s', SiteAccess::class));
+            throw new InvalidArgumentException(
+                '$item',
+                sprintf('Must be an instance of %s', SiteAccess::class)
+            );
         }
 
-        return in_array($item->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
+        return in_array(
+            $item->name,
+            $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME],
+            true
+        );
     }
 }
-
-class_alias(IsAdmin::class, 'EzSystems\EzPlatformAdminUi\Specification\SiteAccess\IsAdmin');

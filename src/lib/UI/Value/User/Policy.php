@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UI\Value\User;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Policy as  APIPolicy;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 
 class Policy extends APIPolicy
 {
@@ -17,21 +18,17 @@ class Policy extends APIPolicy
      *
      * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
-    protected $limitations = [];
+    protected iterable $limitations;
+
+    protected RoleAssignment $roleAssignment;
 
     /**
-     * RoleAssignment to which policy belongs.
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment
+     * @param array<string, mixed> $properties
      */
-    protected $role_assignment;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
-     * @param array $properties
-     */
-    public function __construct(APIPolicy $policy, array $properties = [])
-    {
+    public function __construct(
+        readonly APIPolicy $policy,
+        readonly array $properties = []
+    ) {
         parent::__construct(get_object_vars($policy) + $properties);
 
         $this->limitations = $policy->getLimitations();
@@ -45,5 +42,3 @@ class Policy extends APIPolicy
         return $this->limitations;
     }
 }
-
-class_alias(Policy::class, 'EzSystems\EzPlatformAdminUi\UI\Value\User\Policy');

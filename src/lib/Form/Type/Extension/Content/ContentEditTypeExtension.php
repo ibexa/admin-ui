@@ -16,16 +16,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 
-/**
- * Extends Content Edit form with additional fields.
- */
 class ContentEditTypeExtension extends AbstractTypeExtension
 {
     /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
+     * @param array<string, mixed> $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('preview', SubmitType::class, [
             'label' => /** @Desc("Preview") */ 'preview',
@@ -50,5 +46,3 @@ class ContentEditTypeExtension extends AbstractTypeExtension
         return [ContentEditType::class];
     }
 }
-
-class_alias(ContentEditTypeExtension::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Extension\Content\ContentEditTypeExtension');

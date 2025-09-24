@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -16,9 +17,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezdate FieldType.
+ * FormMapper for ibexa_date FieldType.
  */
-class DateFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class DateFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -30,21 +31,21 @@ class DateFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'choices' => [
                         /** @Desc("Empty") */
-                        'field_definition.ezdate.default_type_empty' => Type::DEFAULT_EMPTY,
+                        'field_definition.ibexa_date.default_type_empty' => Type::DEFAULT_EMPTY,
                         /** @Desc("Current date") */
-                        'field_definition.ezdate.default_type_current' => Type::DEFAULT_CURRENT_DATE,
+                        'field_definition.ibexa_date.default_type_current' => Type::DEFAULT_CURRENT_DATE,
                     ],
                     'expanded' => true,
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultType]',
-                    'label' => /** @Desc("Default value") */ 'field_definition.ezdate.default_type',
+                    'label' => /** @Desc("Default value") */ 'field_definition.ibexa_date.default_type',
                     'translation_domain' => 'ibexa_content_type',
                     'disabled' => $isTranslation,
                 ]
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -52,5 +53,3 @@ class DateFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(DateFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\DateFormMapper');

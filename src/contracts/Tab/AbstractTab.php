@@ -17,17 +17,9 @@ use Twig\Environment;
  */
 abstract class AbstractTab implements TabInterface
 {
-    /** @var \Twig\Environment */
-    protected $twig;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    protected $translator;
-
-    public function __construct(Environment $twig, TranslatorInterface $translator)
-    {
-        $this->twig = $twig;
-        $this->translator = $translator;
+    public function __construct(
+        protected Environment $twig,
+        protected TranslatorInterface $translator
+    ) {
     }
 }
-
-class_alias(AbstractTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractTab');

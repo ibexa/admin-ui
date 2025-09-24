@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\Form\DataMapper;
 
@@ -14,23 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
  */
 interface DataMapperInterface
 {
-    /**
-     * Maps Struct object to Data object.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $value
-     *
-     * @return mixed
-     */
-    public function map(ValueObject $value);
+    public function map(ValueObject $value): mixed;
 
-    /**
-     * Maps Data object to Struct object.
-     *
-     * @param mixed $data
-     *
-     * @return mixed
-     */
-    public function reverseMap($data);
+    public function reverseMap(mixed $data): mixed;
 }
-
-class_alias(DataMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\DataMapperInterface');

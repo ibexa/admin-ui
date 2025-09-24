@@ -14,20 +14,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<array{content_info: mixed, version_no: mixed}>
+ */
 class VersionInfoType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
-    public function __construct(ContentService $contentService)
+    public function __construct(protected readonly ContentService $contentService)
     {
-        $this->contentService = $contentService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -43,5 +39,3 @@ class VersionInfoType extends AbstractType
             ->addViewTransformer(new VersionInfoTransformer($this->contentService));
     }
 }
-
-class_alias(VersionInfoType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\VersionInfoType');

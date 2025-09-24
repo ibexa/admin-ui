@@ -1,0 +1,77 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-popup-menu {
+    display: flex;
+    flex-direction: column;
+    gap: calculateRem(1px);
+    padding: calculateRem(8px) 0;
+    background: $ibexa-color-white;
+    border: calculateRem(1px) solid $ibexa-color-light;
+    border-radius: $ibexa-border-radius;
+    box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(67px) 0 rgba($ibexa-color-info, 0.2);
+    position: fixed;
+    z-index: 1060;
+
+    &--hidden {
+        visibility: hidden;
+    }
+
+    &__search {
+        margin-bottom: calculateRem(4px);
+        padding: 0 calculateRem(8px);
+
+        &--hidden {
+            display: none;
+        }
+    }
+
+    &__search-input {
+        border-radius: $ibexa-border-radius;
+    }
+
+    &__groups {
+        max-height: calculateRem(390px);
+        overflow-y: auto;
+    }
+
+    &__group:not(:last-child) {
+        &::after {
+            content: '';
+            border-top: calculateRem(1px) solid $ibexa-color-light;
+            display: flex;
+            width: calc(100% - calculateRem(16px));
+            margin: calculateRem(1px) calculateRem(8px) 0;
+        }
+    }
+
+    &__item {
+        display: flex;
+        align-items: center;
+        min-width: calculateRem(150px);
+        padding: 0 calculateRem(8px);
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    }
+
+    &__item-content {
+        position: relative;
+        display: flex;
+        align-items: baseline;
+        width: 100%;
+        cursor: pointer;
+        padding: calculateRem(9px);
+        color: $ibexa-color-dark;
+        font-size: $ibexa-text-font-size-medium;
+        text-align: left;
+        text-decoration: none;
+        border: none;
+        border-radius: $ibexa-border-radius;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        &:hover {
+            background-color: $ibexa-color-light-300;
+            color: $ibexa-color-black;
+            text-decoration: none;
+        }
+    }
+}

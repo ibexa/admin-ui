@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -14,14 +15,9 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationContainerInterface
+final class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationContainerInterface
 {
-    /**
-     * %identifier% placeholder is passed.
-     *
-     * @var string
-     */
-    public $message = 'ez.field_definition.identifier.unique';
+    public string $message = 'ez.field_definition.identifier.unique';
 
     /**
      * @return array<\JMS\TranslationBundle\Model\Message>
@@ -34,10 +30,8 @@ class UniqueFieldDefinitionIdentifier extends Constraint implements TranslationC
         ];
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifier::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifier');

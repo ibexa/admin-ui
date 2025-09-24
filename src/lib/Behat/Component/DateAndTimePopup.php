@@ -11,17 +11,18 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Behat\Mink\Session;
 use DateTimeInterface;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class DateAndTimePopup extends Component
+final class DateAndTimePopup extends Component
 {
-    private const DATETIME_FORMAT = 'd/m/Y';
+    private const string DATETIME_FORMAT = 'd/m/Y';
 
-    private const SETTING_SCRIPT_FORMAT = "document.querySelector('%s %s')._flatpickr.setDate('%s', true, '%s')";
+    private const string SETTING_SCRIPT_FORMAT = "document.querySelector('%s %s')._flatpickr.setDate('%s', true, '%s')";
 
-    private const CALENDAR_CONTAINER_CLASSES_SCRIPT = "document.querySelector('%s %s')._flatpickr.calendarContainer.attributes.class.textContent";
+    private const string CALENDAR_CONTAINER_CLASSES_SCRIPT = "document.querySelector('%s %s')._flatpickr.calendarContainer.attributes.class.textContent";
 
-    private const ADD_CALLBACK_TO_DATEPICKER_SCRIPT_FORMAT = 'var fi = document.querySelector(\'%s .flatpickr-input\');
+    private const string ADD_CALLBACK_TO_DATEPICKER_SCRIPT_FORMAT = 'var fi = document.querySelector(\'%s .flatpickr-input\');
                 const onChangeOld = fi._flatpickr.config.onChange;
                 const onChangeNew = (dates, dateString, flatpickInstance) => {
                 flatpickInstance.input.classList.add("date-set");
@@ -34,12 +35,12 @@ class DateAndTimePopup extends Component
                 fi._flatpickr.config.onChange = onChangeNew;
             }';
 
-    /** @var \Ibexa\Behat\Browser\Locator\VisibleCSSLocator */
-    private $parentLocator;
+    private CSSLocator $parentLocator;
 
     public function __construct(Session $session)
     {
         parent::__construct($session);
+
         $this->parentLocator = VisibleCSSLocator::empty();
     }
 
@@ -76,7 +77,10 @@ class DateAndTimePopup extends Component
             $this->getLocator('flatpickrSelector')->getSelector()
         );
 
-        $isTimeOnly = strpos($this->getSession()->evaluateScript($calendarContainerClassesScript), 'noCalendar') !== false;
+        $isTimeOnly = str_contains(
+            $this->getSession()->evaluateScript($calendarContainerClassesScript),
+            'noCalendar'
+        );
 
         if (!$isTimeOnly) {
             // get current date as it's not possible to set time without setting date
@@ -102,14 +106,18 @@ class DateAndTimePopup extends Component
         $this->getSession()->getDriver()->executeScript($timeScript);
     }
 
-    public function setParentLocator(VisibleCSSLocator $locator)
+    public function setParentLocator(VisibleCSSLocator $locator): void
     {
         $this->parentLocator = $locator;
     }
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('flatpickrSelector'))->assert()->isVisible();
+        $this->getHTMLPage()
+            ->find($this->parentLocator)
+            ->find($this->getLocator('flatpickrSelector'))
+            ->assert()
+            ->isVisible();
     }
 
     protected function specifyLocators(): array

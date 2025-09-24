@@ -15,28 +15,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class ContentOnTheFlyProcessor implements EventSubscriberInterface
+final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterface
 {
-    /** @var \Twig\Environment */
-    private $twig;
-
-    /** @var \Ibexa\ContentForms\Form\Processor\ContentFormProcessor */
-    private $innerContentFormProcessor;
-
     public function __construct(
-        Environment $twig,
-        ContentFormProcessor $innerContentFormProcessor
+        private Environment $twig,
+        private ContentFormProcessor $innerContentFormProcessor
     ) {
-        $this->twig = $twig;
-        $this->innerContentFormProcessor = $innerContentFormProcessor;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array The event names to listen to
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             ContentOnTheFlyEvents::CONTENT_CREATE_PUBLISH => ['processCreatePublish', 10],
@@ -45,8 +32,6 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
-     *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
@@ -56,7 +41,7 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function processCreatePublish(FormActionEvent $event)
+    public function processCreatePublish(FormActionEvent $event): void
     {
         // Rely on Content Form Processor from ContentForms to avoid unncessary code duplication
         $this->innerContentFormProcessor->processPublish($event);
@@ -64,7 +49,9 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $event->getPayload('content');
         $referrerLocation = $event->getOption('referrerLocation');
-        $locationId = $referrerLocation ? $referrerLocation->id : $content->contentInfo->mainLocationId;
+        $locationId = $referrerLocation
+            ? $referrerLocation->id
+            : $content->getContentInfo()->getMainLocationId();
 
         // We only need to change the response so it's compatible with UDW
         $event->setResponse(
@@ -84,7 +71,9 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
         $content = $event->getPayload('content');
         $referrerLocation = $event->getOption('referrerLocation');
-        $locationId = $referrerLocation ? $referrerLocation->id : $content->contentInfo->mainLocationId;
+        $locationId = $referrerLocation
+            ? $referrerLocation->id
+            : $content->getContentInfo()->getMainLocationId();
 
         // We only need to change the response so it's compatible with UDW
         $event->setResponse(
@@ -96,5 +85,3 @@ class ContentOnTheFlyProcessor implements EventSubscriberInterface
         );
     }
 }
-
-class_alias(ContentOnTheFlyProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\ContentOnTheFlyProcessor');

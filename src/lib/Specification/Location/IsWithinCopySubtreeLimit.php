@@ -8,33 +8,25 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
-use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 /**
  * @internal
  */
-class IsWithinCopySubtreeLimit extends AbstractSpecification
+final class IsWithinCopySubtreeLimit extends AbstractSpecification
 {
-    /** @var int */
-    private $copyLimit;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
     public function __construct(
-        int $copyLimit,
-        LocationService $locationService
+        private readonly int $copyLimit,
+        private readonly LocationService $locationService
     ) {
-        $this->copyLimit = $copyLimit;
-        $this->locationService = $locationService;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         if ($this->copyLimit === -1) {
             return true;
@@ -52,5 +44,3 @@ class IsWithinCopySubtreeLimit extends AbstractSpecification
         return $location->getContentInfo()->getContentType()->isContainer();
     }
 }
-
-class_alias(IsWithinCopySubtreeLimit::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsWithinCopySubtreeLimit');

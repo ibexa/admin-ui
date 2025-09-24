@@ -20,18 +20,11 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
 
-class ContentTypeFormFactory
+final readonly class ContentTypeFormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
-
-    /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     */
     public function __construct(
-        FormFactoryInterface $formFactory
+        private FormFactoryInterface $formFactory
     ) {
-        $this->formFactory = $formFactory;
     }
 
     public function addContentTypeTranslation(
@@ -53,7 +46,7 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      */
     public function contentTypeEdit(
         ?ContentTypeEditData $data = null,
@@ -66,7 +59,7 @@ class ContentTypeFormFactory
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
      * @return \Symfony\Component\Form\FormInterface
      */
@@ -80,5 +73,3 @@ class ContentTypeFormFactory
         return $this->formFactory->createNamed($name, ContentTypeCopyType::class, $data, $options);
     }
 }
-
-class_alias(ContentTypeFormFactory::class, 'EzSystems\EzPlatformAdminUi\Form\Factory\ContentTypeFormFactory');

@@ -8,45 +8,29 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
-class ObjectStateGroupCreateData
+final class ObjectStateGroupCreateData
 {
-    /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
-    /** @var string */
-    private $name;
+    private ?string $name = null;
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 }
-
-class_alias(ObjectStateGroupCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData');

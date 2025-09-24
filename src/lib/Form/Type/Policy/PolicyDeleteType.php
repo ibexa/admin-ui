@@ -15,12 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PolicyDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Policy\PolicyDeleteData>
+ */
+final class PolicyDeleteType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -35,10 +35,7 @@ class PolicyDeleteType extends AbstractType
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'translation_domain' => 'ibexa_content_forms_role',
@@ -46,5 +43,3 @@ class PolicyDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(PolicyDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyDeleteType');

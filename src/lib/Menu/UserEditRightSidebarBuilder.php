@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -19,27 +19,19 @@ use Knp\Menu\ItemInterface;
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class UserEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class UserEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__UPDATE = 'user_edit__sidebar_right__update';
-    public const ITEM__CANCEL = 'user_edit__sidebar_right__cancel';
+    public const string ITEM__UPDATE = 'user_edit__sidebar_right__update';
+    public const string ITEM__CANCEL = 'user_edit__sidebar_right__cancel';
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::USER_EDIT_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @return \Knp\Menu\ItemInterface
-     *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
@@ -82,5 +74,3 @@ class UserEditRightSidebarBuilder extends AbstractBuilder implements Translation
         ];
     }
 }
-
-class_alias(UserEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\UserEditRightSidebarBuilder');

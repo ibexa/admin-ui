@@ -16,9 +16,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData>
+ */
 class LocationUpdateVisibilityType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -39,7 +42,7 @@ class LocationUpdateVisibilityType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => LocationUpdateVisibilityData::class,
@@ -47,5 +50,3 @@ class LocationUpdateVisibilityType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationUpdateVisibilityType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateVisibilityType');

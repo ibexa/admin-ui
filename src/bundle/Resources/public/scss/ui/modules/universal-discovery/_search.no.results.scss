@@ -1,9 +1,0 @@
-.c-search-no-results {
-    grid-area: results;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: calculateRem(50px);
-
-    @import '../../../mixins/search-form-no-results';
-}

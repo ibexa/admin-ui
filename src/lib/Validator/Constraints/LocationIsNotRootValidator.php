@@ -12,15 +12,14 @@ use Ibexa\AdminUi\Specification\Location\IsRoot;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class LocationIsNotRootValidator extends ConstraintValidator
+final class LocationIsNotRootValidator extends ConstraintValidator
 {
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
      * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
+    public function validate(mixed $location, Constraint $constraint): void
     {
         if (null === $location) {
             $this->context->addViolation($constraint->message);
@@ -34,5 +33,3 @@ class LocationIsNotRootValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(LocationIsNotRootValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\LocationIsNotRootValidator');

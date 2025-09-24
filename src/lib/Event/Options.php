@@ -13,26 +13,24 @@ use Ibexa\Contracts\Core\Repository\Exceptions\OutOfBoundsException;
 
 final class Options implements MutableOptionsBag
 {
-    /** @var array */
-    private $options;
-
-    public function __construct(array $options = [])
+    /**
+     * @param array<string, mixed> $options
+     */
+    public function __construct(private array $options = [])
     {
-        $this->options = $options;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function all(): array
     {
         return $this->options;
     }
 
-    public function get(
-        string $key,
-        $default = null
-    ) {
-        return $this->has($key)
-            ? $this->options[$key]
-            : $default;
+    public function get(string $key, mixed $default = null): mixed
+    {
+        return $this->options[$key] ?? $default;
     }
 
     public function has(string $key): bool
@@ -40,7 +38,7 @@ final class Options implements MutableOptionsBag
         return isset($this->options[$key]);
     }
 
-    public function set(string $key, $value): void
+    public function set(string $key, mixed $value): void
     {
         $this->options[$key] = $value;
     }
@@ -56,5 +54,3 @@ final class Options implements MutableOptionsBag
         unset($this->options[$key]);
     }
 }
-
-class_alias(Options::class, 'EzSystems\EzPlatformAdminUi\Event\Options');

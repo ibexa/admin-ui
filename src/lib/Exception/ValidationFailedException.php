@@ -14,16 +14,12 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 final class ValidationFailedException extends InvalidArgumentException
 {
-    private ConstraintViolationListInterface $errors;
-
     public function __construct(
         string $argumentName,
-        ConstraintViolationListInterface $errors,
+        private readonly ConstraintViolationListInterface $errors,
         ?Exception $previous = null
     ) {
         parent::__construct($this->createMessage($argumentName, $errors), 0, $previous);
-
-        $this->errors = $errors;
     }
 
     public function getErrors(): ConstraintViolationListInterface

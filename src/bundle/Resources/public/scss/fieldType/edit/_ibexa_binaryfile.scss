@@ -1,0 +1,52 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+
+.ibexa-field-edit--ibexa_binaryfile {
+    &.is-invalid {
+        .ibexa-data-source {
+            @include area-invalid();
+        }
+    }
+
+    &.ibexa-field-edit--with-preview {
+        .ibexa-field-edit-preview {
+            &__file-icon {
+                flex: 0 0 calculateRem(32px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            &__visual {
+                grid-template-rows: auto;
+            }
+
+            &__media-wrapper {
+                justify-content: start;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: calculateRem(24px);
+            }
+
+            &__file-name-wrapper,
+            &__file-size-wrapper {
+                display: inline-block;
+                font-size: calculateRem(16px);
+                margin-right: calculateRem(40px);
+
+                .ibexa-label {
+                    margin-bottom: 0;
+                }
+            }
+
+            &__file-name-wrapper {
+                max-width: calculateRem(500px);
+            }
+
+            &__file-size-wrapper {
+                max-width: calculateRem(150px);
+            }
+        }
+    }
+}

@@ -18,7 +18,15 @@ import {
 } from '../../universal.discovery.module';
 import SelectedItemsPanel from '../selected-items/selected.items.panel';
 
-const Tab = ({ children, actionsDisabledMap, isRightSidebarHidden }) => {
+const Tab = ({
+    children,
+    actionsDisabledMap = {
+        'content-create-button': false,
+        'sort-switcher': false,
+        'view-switcher': false,
+    },
+    isRightSidebarHidden = false,
+}) => {
     const topBarRef = useRef();
     const bottomBarRef = useRef();
     const [contentHeight, setContentHeight] = useState('100%');
@@ -88,15 +96,6 @@ Tab.propTypes = {
     children: PropTypes.any.isRequired,
     actionsDisabledMap: PropTypes.object,
     isRightSidebarHidden: PropTypes.bool,
-};
-
-Tab.defaultProps = {
-    actionsDisabledMap: {
-        'content-create-button': false,
-        'sort-switcher': false,
-        'view-switcher': false,
-    },
-    isRightSidebarHidden: false,
 };
 
 export default Tab;

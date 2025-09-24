@@ -67,7 +67,7 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
                 value={inputValue}
             />
             <button className={searchBtnClassName} type="button" onClick={handleSearchBtnClick}>
-                <Icon name="search" extraClasses="ibexa-icon--small" />
+                <Icon name="search" extraClasses="ibexa-icon--small-medium" />
             </button>
         </div>
     );

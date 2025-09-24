@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\Type\Policy;
 
 use Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData;
 use Ibexa\AdminUi\Form\Type\Role\RoleType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,9 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PoliciesDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Policy\PoliciesDeleteData>
+ */
+final class PoliciesDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('role', RoleType::class)
@@ -36,7 +40,7 @@ class PoliciesDeleteType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => PoliciesDeleteData::class,
@@ -44,5 +48,3 @@ class PoliciesDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(PoliciesDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PoliciesDeleteType');

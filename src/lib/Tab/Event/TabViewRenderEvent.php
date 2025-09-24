@@ -10,55 +10,35 @@ namespace Ibexa\AdminUi\Tab\Event;
 
 use Symfony\Contracts\EventDispatcher\Event;
 
-class TabViewRenderEvent extends Event
+final class TabViewRenderEvent extends Event
 {
-    /** @var string */
-    private $tabIdentifier;
-
-    /** @var string */
-    private $template;
-
-    /** @var array */
-    private $parameters;
-
     /**
-     * @param string $tabIdentifier
-     * @param string $template
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
-    public function __construct(string $tabIdentifier, string $template, array $parameters = [])
-    {
-        $this->tabIdentifier = $tabIdentifier;
-        $this->template = $template;
-        $this->parameters = $parameters;
+    public function __construct(
+        private readonly string $tabIdentifier,
+        private string $template,
+        private array $parameters = []
+    ) {
     }
 
-    /**
-     * @return string
-     */
     public function getTabIdentifier(): string
     {
         return $this->tabIdentifier;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplate(): string
     {
         return $this->template;
     }
 
-    /**
-     * @param string $template
-     */
     public function setTemplate(string $template): void
     {
         $this->template = $template;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getParameters(): array
     {
@@ -66,12 +46,10 @@ class TabViewRenderEvent extends Event
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
     public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
     }
 }
-
-class_alias(TabViewRenderEvent::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabViewRenderEvent');

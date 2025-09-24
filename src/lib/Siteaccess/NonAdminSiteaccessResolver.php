@@ -14,34 +14,17 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 
 /**
- * Decorator for SiteaccessResolverInterface filtering out all non admin siteaccesses.
+ * Decorator for SiteaccessResolverInterface filtering out all non admin SiteAccesses.
  */
-class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
+readonly class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolver */
-    private $siteaccessResolver;
-
-    /** @var string[] */
-    private $siteAccessGroups;
-
     /**
-     * @param string[] $siteAccessGroups
+     * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(SiteaccessResolver $siteaccessResolver, array $siteAccessGroups)
-    {
-        $this->siteaccessResolver = $siteaccessResolver;
-        $this->siteAccessGroups = $siteAccessGroups;
-    }
-
-    public function getSiteaccessesForLocation(
-        Location $location,
-        ?int $versionNo = null,
-        ?string $languageCode = null
-    ): array {
-        return array_column(
-            $this->getSiteAccessesListForLocation($location, $versionNo, $languageCode),
-            'name'
-        );
+    public function __construct(
+        private SiteaccessResolver $siteaccessResolver,
+        private array $siteAccessGroups
+    ) {
     }
 
     /**
@@ -74,18 +57,8 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
         );
     }
 
-    public function getSiteaccesses(): array
-    {
-        return array_column(
-            $this->getSiteAccessesList(),
-            'name'
-        );
-    }
-
     private function isAdminSiteAccess(SiteAccess $siteAccess): bool
     {
         return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($siteAccess);
     }
 }
-
-class_alias(NonAdminSiteaccessResolver::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\NonAdminSiteaccessResolver');

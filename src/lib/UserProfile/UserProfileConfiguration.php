@@ -10,13 +10,10 @@ namespace Ibexa\AdminUi\UserProfile;
 
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
-final class UserProfileConfiguration implements UserProfileConfigurationInterface
+final readonly class UserProfileConfiguration implements UserProfileConfigurationInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     public function isEnabled(): bool

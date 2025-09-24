@@ -13,13 +13,13 @@ import { SelectedItemsContext } from '../../universal.discovery.module';
 
 import { REMOVE_SELECTED_ITEMS } from '../../hooks/useSelectedItemsReducer';
 
-const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraContent }) => {
+const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraContent = null }) => {
     const adminUiConfig = getAdminUiConfig();
     const Translator = getTranslator();
     const refSelectedLocationsItem = useRef(null);
     const { dispatchSelectedItemsAction } = useContext(SelectedItemsContext);
     const removeItemLabel = Translator.trans(
-        /*@Desc("Clear selection")*/ 'selected_items_panel.item.remove_item',
+        /* @Desc("Clear selection") */ 'selected_items_panel.item.remove_item',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -46,7 +46,7 @@ const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraC
         >
             <div className="c-selected-items-panel-item__main-content">
                 <div className="c-selected-items-panel-item__image-wrapper">
-                    <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
+                    <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small-medium" />
                 </div>
                 <div className="c-selected-items-panel-item__info">
                     <span className="c-selected-items-panel-item__info-name">{name}</span>
@@ -83,10 +83,6 @@ SelectedItemsPanelItem.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.node.isRequired,
     extraContent: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-};
-
-SelectedItemsPanelItem.defaultProps = {
-    extraContent: null,
 };
 
 export default SelectedItemsPanelItem;

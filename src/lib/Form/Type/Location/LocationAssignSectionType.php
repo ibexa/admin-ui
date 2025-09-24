@@ -11,12 +11,16 @@ namespace Ibexa\AdminUi\Form\Type\Location;
 use Ibexa\AdminUi\Form\Data\Location\LocationAssignSubtreeData;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LocationAssignSectionType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Location\LocationAssignSubtreeData>
+ */
+final class LocationAssignSectionType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -45,5 +49,3 @@ class LocationAssignSectionType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationAssignSectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationAssignSectionType');

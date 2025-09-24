@@ -18,21 +18,18 @@ class SectionsTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(mixed $value, ?string $expected): void
     {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionsTransformer($service);
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    public function testReverseTransformWithIds()
+    public function testReverseTransformWithIds(): void
     {
         $service = $this->createMock(SectionService::class);
         $service->expects(self::exactly(2))
@@ -45,15 +42,13 @@ class SectionsTransformerTest extends TestCase
         $transformer = new SectionsTransformer($service);
         $result = $transformer->reverseTransform('123456,456789');
 
-        $this->assertEquals([new APISection(['id' => 123456]), new APISection(['id' => 456789])], $result);
+        self::assertEquals([new APISection(['id' => 123456]), new APISection(['id' => 456789])], $result);
     }
 
     /**
      * @dataProvider reverseTransformWithEmptyDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithEmpty($value)
+    public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(SectionService::class);
         $service->expects(self::never())
@@ -62,15 +57,13 @@ class SectionsTransformerTest extends TestCase
         $transformer = new SectionsTransformer($service);
         $result = $transformer->reverseTransform($value);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
@@ -82,16 +75,16 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\Content\Section[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {
-        $location_1 = new APISection(['id' => 123456]);
-        $location_2 = new APISection(['id' => 456789]);
+        $sectionA = new APISection(['id' => 123456]);
+        $sectionB = new APISection(['id' => 456789]);
 
         return [
-            'with_array_of_ids' => [[$location_1, $location_2], '123456,456789'],
-            'with_array_of_id' => [[$location_1], '123456'],
+            'with_array_of_ids' => [[$sectionA, $sectionB], '123456,456789'],
+            'with_array_of_id' => [[$sectionA], '123456'],
             'null' => [null, null],
             'string' => ['string', null],
             'empty_array' => [[], null],
@@ -99,7 +92,7 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
@@ -113,7 +106,7 @@ class SectionsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithEmptyDataProvider(): array
     {
@@ -128,5 +121,3 @@ class SectionsTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(SectionsTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\SectionsTransformerTest');

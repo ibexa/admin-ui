@@ -14,12 +14,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class URLWildcardAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|\PHPUnit\Framework\MockObject\MockObject */
-    private $urlWildcardService;
+    private URLWildcardService&MockObject $urlWildcardService;
 
     protected function setUp(): void
     {
@@ -36,9 +36,9 @@ final class URLWildcardAdapterTest extends TestCase
         ]);
 
         $this->urlWildcardService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUrlWildcards')
-            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $searchResults) {
+            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals(0, $q->offset);
@@ -49,7 +49,7 @@ final class URLWildcardAdapterTest extends TestCase
 
         $adapter = new URLWildcardAdapter($query, $this->urlWildcardService);
 
-        $this->assertEquals($searchResults->totalCount, $adapter->getNbResults());
+        self::assertEquals($searchResults->totalCount, $adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -64,9 +64,9 @@ final class URLWildcardAdapterTest extends TestCase
         ]);
 
         $this->urlWildcardService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUrlWildcards')
-            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $limit, $offset, $searchResults) {
+            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals($limit, $q->limit);
@@ -77,7 +77,7 @@ final class URLWildcardAdapterTest extends TestCase
 
         $adapter = new URLWildcardAdapter($query, $this->urlWildcardService);
 
-        $this->assertEquals($searchResults->items, $adapter->getSlice($offset, $limit));
+        self::assertEquals($searchResults->items, $adapter->getSlice($offset, $limit));
     }
 
     /**
@@ -113,5 +113,3 @@ final class URLWildcardAdapterTest extends TestCase
         return $query;
     }
 }
-
-class_alias(URLWildcardAdapterTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Pagination\Pagerfanta\URLWildcardAdapterTest');

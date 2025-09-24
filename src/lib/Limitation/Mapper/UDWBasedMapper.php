@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -12,7 +13,6 @@ use Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer;
 use Ibexa\AdminUi\Limitation\LimitationFormMapperInterface;
 use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
@@ -30,52 +30,29 @@ use Symfony\Component\Form\FormInterface;
  */
 class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\LocationService
-     */
-    protected $locationService;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\SearchService
-     */
-    protected $searchService;
-
-    /**
-     * Form template to use.
-     *
-     * @var string
-     */
-    private $template;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private string $template;
 
     public function __construct(
-        LocationService $locationService,
-        SearchService $searchService,
-        PermissionResolver $permissionResolver,
-        Repository $repository
+        protected readonly LocationService $locationService,
+        protected readonly SearchService $searchService,
+        protected readonly Repository $repository
     ) {
-        $this->locationService = $locationService;
-        $this->searchService = $searchService;
-        $this->permissionResolver = $permissionResolver;
-        $this->repository = $repository;
     }
 
-    public function setFormTemplate($template)
+    public function setFormTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    public function getFormTemplate()
+    public function getFormTemplate(): string
     {
         return $this->template;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $form->add(
             // Creating from FormBuilder as we need to add a DataTransformer.
@@ -89,7 +66,6 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
                 ->addModelTransformer(
                     new UDWBasedValueModelTransformer(
                         $this->locationService,
-                        $this->permissionResolver,
                         $this->repository
                     )
                 )
@@ -98,19 +74,22 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         );
     }
 
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @phpstan-return list<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]>
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 
         foreach ($limitation->limitationValues as $id) {
-            $location = $this->locationService->loadLocation($id);
+            $location = $this->locationService->loadLocation((int)$id);
 
             $query = new LocationQuery([
-                'filter' => new Ancestor($location->pathString),
+                'filter' => new Ancestor($location->getPathString()),
                 'sortClauses' => [new Path()],
             ]);
 
@@ -135,5 +114,3 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         ];
     }
 }
-
-class_alias(UDWBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\UDWBasedMapper');

@@ -1,3 +1,5 @@
+import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
+
 (function (global, doc, ibexa) {
     const { escapeHTML } = ibexa.helpers.text;
     const { dangerouslyAppend } = ibexa.helpers.dom;
@@ -8,7 +10,7 @@
             this.container = config.container || config.fieldContainer.querySelector('.ibexa-tag-view-select');
 
             if (!this.container) {
-                throw new Error("Field Container doesn't exist!"); // eslint-disable-line quotes
+                throw new Error("Field Container doesn't exist!"); // eslint-disable-line @stylistic/quotes
             }
 
             this.listContainer = this.container.querySelector('.ibexa-tag-view-select__selected-list');
@@ -28,7 +30,7 @@
             this.adjustButtonLabel = this.adjustButtonLabel.bind(this);
             this.toggleEmptyListState = this.toggleEmptyListState.bind(this);
 
-            ibexa.helpers.ellipsis.middle.parseAll();
+            middleEllipsisHelper.parse();
             this.attachDeleteEvents();
 
             this.disabledObserver = new MutationObserver((mutationsList) => {
@@ -88,7 +90,7 @@
             });
 
             this.inputField.dispatchEvent(new Event('change'));
-            ibexa.helpers.ellipsis.middle.parseAll();
+            middleEllipsisHelper.parse();
             this.toggleDeleteButtons();
             this.adjustButtonLabel();
             this.toggleEmptyListState();

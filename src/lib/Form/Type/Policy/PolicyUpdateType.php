@@ -20,27 +20,16 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PolicyUpdateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData>
+ */
+final class PolicyUpdateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
-
-    /**
-     * PolicyLimitationsType constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
-    public function __construct(RoleService $roleService)
+    public function __construct(private readonly RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -53,17 +42,11 @@ class PolicyUpdateType extends AbstractType
                 ]
             )
             ->add(
-                self::BTN_SAVE,
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'policy_update.save']
-            )
-            ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save and close") */ 'policy_update.save_and_close']
+                SubmitType::class
             );
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $data = $event->getData();
             $form = $event->getForm();
 
@@ -86,10 +69,7 @@ class PolicyUpdateType extends AbstractType
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'translation_domain' => 'ibexa_content_forms_role',
@@ -126,5 +106,3 @@ class PolicyUpdateType extends AbstractType
         return $limitations;
     }
 }
-
-class_alias(PolicyUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyUpdateType');

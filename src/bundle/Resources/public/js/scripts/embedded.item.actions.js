@@ -113,14 +113,14 @@
               });
 
         return {
-            label: Translator.trans(/*@Desc("Go to content")*/ 'embedded_items.action.go_to_label', {}, 'ibexa_content'),
+            label: Translator.trans(/* @Desc("Go to content") */ 'embedded_items.action.go_to_label', {}, 'ibexa_content'),
             href,
         };
     };
     const generateEditActionItem = ({ contentId, locationId, productCode, languages }) => {
         if (languages.length > 1) {
             return {
-                label: Translator.trans(/*@Desc("Edit")*/ 'embedded_items.action.edit', {}, 'ibexa_content'),
+                label: Translator.trans(/* @Desc("Edit") */ 'embedded_items.action.edit', {}, 'ibexa_content'),
                 branch: {
                     hasSearch: languages.length >= MIN_ITEMS_NUMBER_TO_SHOW_SEARCH,
                     groups: [
@@ -166,7 +166,7 @@
               };
 
         return {
-            label: Translator.trans(/*@Desc("Edit")*/ 'embedded_items.action.edit', {}, 'ibexa_content'),
+            label: Translator.trans(/* @Desc("Edit") */ 'embedded_items.action.edit', {}, 'ibexa_content'),
             ...editAction,
         };
     };

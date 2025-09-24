@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -16,43 +17,35 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form type for field type selection.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<array<string, mixed>>
  */
-class FieldTypeChoiceType extends AbstractType
+final class FieldTypeChoiceType extends AbstractType
 {
-    /**
-     * @var \Ibexa\Core\FieldType\FieldTypeRegistry
-     */
-    private $fieldTypeRegistry;
-
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(FieldTypeRegistry $fieldTypeRegistry, TranslatorInterface $translator)
-    {
-        $this->fieldTypeRegistry = $fieldTypeRegistry;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly FieldTypeRegistry $fieldTypeRegistry,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezplatform_content_forms_contenttype_field_type_choice';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => $this->getFieldTypeChoices(),
         ]);
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -60,9 +53,9 @@ class FieldTypeChoiceType extends AbstractType
     /**
      * Returns a hash, with fieldType identifiers as keys and human readable names as values.
      *
-     * @return array
+     * @return array<string, string>
      */
-    private function getFieldTypeChoices()
+    private function getFieldTypeChoices(): array
     {
         $choices = [];
         foreach ($this->fieldTypeRegistry->getConcreteFieldTypesIdentifiers() as $fieldTypeIdentifier) {
@@ -76,12 +69,8 @@ class FieldTypeChoiceType extends AbstractType
 
     /**
      * Generate a human readable name for field type identifier.
-     *
-     * @param string $fieldTypeIdentifier
-     *
-     * @return string
      */
-    private function getFieldTypeLabel($fieldTypeIdentifier)
+    private function getFieldTypeLabel(string $fieldTypeIdentifier): string
     {
         return $this->translator->trans(/** @Ignore */
             $fieldTypeIdentifier . '.name',
@@ -90,5 +79,3 @@ class FieldTypeChoiceType extends AbstractType
         );
     }
 }
-
-class_alias(FieldTypeChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\FieldTypeChoiceType');

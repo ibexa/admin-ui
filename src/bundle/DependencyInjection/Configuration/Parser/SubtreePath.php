@@ -17,7 +17,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          subtree_paths:
@@ -25,12 +25,12 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              media: '/1/43/'
  * ```
  */
-class SubtreePath extends AbstractParser
+final class SubtreePath extends AbstractParser
 {
-    public const CONTENT_SUBTREE_PATH = 'subtree_paths.content';
-    public const MEDIA_SUBTREE_PATH = 'subtree_paths.media';
+    public const string CONTENT_SUBTREE_PATH = 'subtree_paths.content';
+    public const string MEDIA_SUBTREE_PATH = 'subtree_paths.media';
 
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('subtree_paths')
@@ -49,8 +49,14 @@ class SubtreePath extends AbstractParser
             ->end();
     }
 
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    /**
+     * @param array<string, mixed> $scopeSettings
+     */
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['subtree_paths'])) {
             return;
         }
@@ -74,5 +80,3 @@ class SubtreePath extends AbstractParser
         }
     }
 }
-
-class_alias(SubtreePath::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\SubtreePath');

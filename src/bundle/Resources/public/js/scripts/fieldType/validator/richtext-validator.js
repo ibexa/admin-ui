@@ -33,7 +33,7 @@ class RichTextValidator extends ibexa.BaseFieldValidator {
                 result.errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
             } else {
                 result.errorMessage = Translator.trans(
-                    /*@Desc("This value should not be blank.")*/ 'error.required.field_not_blank',
+                    /* @Desc("This value should not be blank.") */ 'error.required.field_not_blank',
                     {},
                     'forms',
                 );

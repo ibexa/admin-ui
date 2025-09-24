@@ -1,0 +1,88 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+
+.ibexa-field-edit--ibexa_object_relation,
+.ibexa-field-edit--ibexa_object_relation_list {
+    &.is-invalid {
+        .ibexa-data-source {
+            @include area-invalid();
+
+            .ibexa-table-header__headline {
+                color: $ibexa-color-danger;
+            }
+        }
+    }
+
+    .ibexa-data-source {
+        border: calculateRem(1px) solid $ibexa-color-dark-200;
+        border-radius: $ibexa-border-radius;
+        padding: calculateRem(24px);
+    }
+
+    .ibexa-relations {
+        &__cta {
+            width: 100%;
+        }
+
+        &__info-text {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: $ibexa-text-font-size-medium;
+        }
+
+        &__info-sub-text {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: $ibexa-text-font-size-small;
+            color: $ibexa-color-dark-400;
+        }
+
+        &__helper-text {
+            margin: 0;
+            width: 100%;
+            font-size: calculateRem(14px);
+        }
+
+        &__cta-btn {
+            margin-bottom: calculateRem(16px);
+        }
+
+        &__order-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        &__order-input {
+            width: 7ch;
+            margin-bottom: 0;
+        }
+
+        &__table-action--remove-item {
+            padding: calculateRem(4px);
+        }
+
+        &__actions-cell {
+            display: flex;
+            gap: calculateRem(4px);
+            justify-content: right;
+            align-items: center;
+            padding-right: 0;
+        }
+    }
+
+    .btn {
+        .ibexa-icon {
+            margin-right: calculateRem(4px);
+        }
+    }
+
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-relations__helper-text,
+        .ibexa-relations__info-text,
+        .ibexa-relations__info-sub-text,
+        .ibexa-table__cell {
+            color: $ibexa-color-dark-300;
+        }
+    }
+}

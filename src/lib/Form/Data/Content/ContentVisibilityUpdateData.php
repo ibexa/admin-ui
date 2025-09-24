@@ -11,27 +11,13 @@ namespace Ibexa\AdminUi\Form\Data\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
-class ContentVisibilityUpdateData
+final class ContentVisibilityUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    private $contentInfo;
-
-    /** @var bool|null */
-    private $visible;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
-    private $location;
-
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        ?Location $location = null,
-        ?bool $visible = null
+        private ?ContentInfo $contentInfo = null,
+        private ?Location $location = null,
+        private ?bool $visible = null
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->visible = $visible;
-        $this->location = $location;
     }
 
     public function getContentInfo(): ?ContentInfo
@@ -39,23 +25,17 @@ class ContentVisibilityUpdateData
         return $this->contentInfo;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getVisible(): ?bool
     {
         return $this->visible;
     }
 
-    public function setContentInfo(ContentInfo $contentInfo): void
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
 
-    /**
-     * @param bool $visible
-     */
-    public function setVisible(bool $visible): void
+    public function setVisible(?bool $visible): void
     {
         $this->visible = $visible;
     }
@@ -70,5 +50,3 @@ class ContentVisibilityUpdateData
         $this->location = $location;
     }
 }
-
-class_alias(ContentVisibilityUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\ContentVisibilityUpdateData');

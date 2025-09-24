@@ -62,7 +62,7 @@
     }
 } %}
     {% block body_row_cells %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: '' } %}
             {% block content %}
                 <div>
                     <span class="ibexa-notifications-modal__notice-dot"></span>
@@ -79,7 +79,7 @@
                 </div>
             {% endblock %}
         {% endembed %}
-        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
+        {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: '' } %}
             {% block content %}
                 <div class="ibexa-notifications-modal__actions">
                     <button class="btn ibexa-btn ibexa-btn--ghost" id="ibexa-notifications-modal-popup-trigger-{{ notification.id }}">

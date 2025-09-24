@@ -4,32 +4,26 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Language;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LanguageUpdateData
+final class LanguageUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
-    private $language;
+    #[Assert\NotBlank]
+    private ?string $name = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     */
-    private $name;
+    private bool $enabled = false;
 
-    /** @var bool */
-    private $enabled;
-
-    public function __construct(?Language $language = null)
+    public function __construct(private ?Language $language = null)
     {
-        $this->language = $language;
-        $this->name = $language->name;
-        $this->enabled = $language->enabled;
+        if ($language !== null) {
+            $this->name = $language->name;
+            $this->enabled = $language->enabled;
+        }
     }
 
     public function getLanguage(): ?Language
@@ -37,7 +31,7 @@ class LanguageUpdateData
         return $this->language;
     }
 
-    public function setLanguage(Language $language)
+    public function setLanguage(?Language $language): void
     {
         $this->language = $language;
     }
@@ -47,7 +41,7 @@ class LanguageUpdateData
         return $this->name;
     }
 
-    public function setName(string $name)
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -57,10 +51,8 @@ class LanguageUpdateData
         return $this->enabled;
     }
 
-    public function setEnabled(bool $enabled)
+    public function setEnabled(bool $enabled): void
     {
         $this->enabled = $enabled;
     }
 }
-
-class_alias(LanguageUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageUpdateData');

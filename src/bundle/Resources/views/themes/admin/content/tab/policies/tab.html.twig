@@ -7,8 +7,8 @@
         {% set body_row_cols = [] %}
 
         {% set col_raw %}
-            <a href="{{ path('ibexa.role.view', { roleId: policy.role_assignment.role.id}) }}">
-                {{ policy.role_assignment.role.identifier }}
+            <a href="{{ path('ibexa.role.view', { roleId: policy.roleAssignment.role.id}) }}">
+                {{ policy.roleAssignment.role.identifier }}
             </a>
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
@@ -17,10 +17,10 @@
         }]) %}
 
         {% set col_raw %}
-            {%- if policy.role_assignment.usergroup is defined -%}
-                {{ ibexa_content_name( policy.role_assignment.usergroup ) }}
+            {%- if policy.roleAssignment.usergroup is defined -%}
+                {{ ibexa_content_name( policy.roleAssignment.usergroup ) }}
             {%- else -%}
-                {{ ibexa_content_name( policy.role_assignment.user ) }}
+                {{ ibexa_content_name( policy.roleAssignment.user ) }}
             {%- endif -%}
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{

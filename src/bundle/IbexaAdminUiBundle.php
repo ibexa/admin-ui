@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi;
 
@@ -17,16 +18,14 @@ use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class IbexaAdminUiBundle extends Bundle
+final class IbexaAdminUiBundle extends Bundle
 {
-    public const ADMIN_GROUP_NAME = 'admin_group';
+    public const string ADMIN_GROUP_NAME = 'admin_group';
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Symfony\Component\DependencyInjection\Exception\LogicException
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         /** @var \Ibexa\Bundle\Core\DependencyInjection\IbexaCoreExtension $core */
         $core = $container->getExtension('ibexa');
@@ -39,10 +38,7 @@ class IbexaAdminUiBundle extends Bundle
         $this->addCompilerPasses($container);
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    private function addCompilerPasses(ContainerBuilder $container)
+    private function addCompilerPasses(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new TabPass());
         $container->addCompilerPass(new UiConfigProviderPass());
@@ -79,5 +75,3 @@ class IbexaAdminUiBundle extends Bundle
         ];
     }
 }
-
-class_alias(IbexaAdminUiBundle::class, 'EzSystems\EzPlatformAdminUiBundle\EzPlatformAdminUiBundle');

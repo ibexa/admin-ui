@@ -27,7 +27,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier  |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Test Section" Section page
       And Content items list in is empty for Section
       And Section has proper attributes
@@ -84,7 +84,7 @@ Feature: Sections management
       And I set fields
         | label | value               |
         | Name  | Test Section edited |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Test Section edited" Section page
       And notification that "Section" "Test Section edited" is updated appears
 
@@ -107,7 +107,7 @@ Feature: Sections management
       And I set fields
         | label | value                |
         | Name  | Test Section edited2 |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     Then I should be on "Test Section edited2" Section page
       And notification that "Section" "Test Section edited2" is updated appears
 
@@ -119,13 +119,20 @@ Feature: Sections management
 
   @javascript
   Scenario: Content item can be reassigned to section from the Sections details
-    Given I open "Media" Section page in admin SiteAccess
-    When I start assigning to "Media" Section
-      And I select content "Media/TestSection" through UDW
-      And I confirm the selection in UDW
-    Then success notification that "1 Content items assigned to 'Media'" appears
-    Then I should be on "Media" Section page
-    And content items list in section "Media" contains items
+    Given I open "Sections" page in admin SiteAccess
+    And I create a new Section
+    And I set fields
+      | label      | value                       |
+      | Name       | TestSectionAssign           |
+      | Identifier | TestSectionAssignIdentifier |
+    And I perform the "Save" action
+    And I open "TestSectionAssign" Section page in admin SiteAccess
+    When I start assigning to "TestSectionAssign" Section
+    And I select content "Media/TestSection" through UDW
+    And I confirm the selection in UDW
+    Then success notification that "1 Content items assigned to 'TestSectionAssign'" appears
+    And I should be on "TestSectionAssign" Section page
+    And content items list in section "TestSectionAssign" contains items
       | Name        | content type | Path  |
       | TestSection | Folder       | Media |
     And I open "Test Section edited2" Section page in admin SiteAccess
@@ -147,7 +154,7 @@ Feature: Sections management
         | label      | value                  |
         | Name       | Test Section           |
         | Identifier | TestSectionIdentifier2 |
-      And I perform the "Save and close" action
+      And I perform the "Save" action
     And notification that "Section" "Test Section" is created appears
     When I delete the section
     Then notification that "Section" "Test Section" is removed appears

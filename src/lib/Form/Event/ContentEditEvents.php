@@ -8,12 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Event;
 
-final class ContentEditEvents
+final readonly class ContentEditEvents
 {
     /**
      * Triggered when requesting a content preview.
      */
-    public const CONTENT_PREVIEW = 'content.edit.preview';
+    public const string CONTENT_PREVIEW = 'content.edit.preview';
 }
-
-class_alias(ContentEditEvents::class, 'EzSystems\EzPlatformAdminUi\Form\Event\ContentEditEvents');

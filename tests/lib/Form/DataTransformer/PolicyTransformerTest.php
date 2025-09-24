@@ -16,25 +16,20 @@ class PolicyTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(mixed $value, ?string $expected): void
     {
         $transformer = new PolicyTransformer();
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
      * @dataProvider transformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testTransformWithInvalidInput($value)
+    public function testTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a valid array of data.');
@@ -47,24 +42,20 @@ class PolicyTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformDataProvider
      *
-     * @param $value
-     * @param $expected
+     * @phpstan-param array{id: int, module: string, function: string}|null $expected
      */
-    public function testReverseTransform($value, $expected)
+    public function testReverseTransform(?string $value, ?array $expected): void
     {
         $transformer = new PolicyTransformer();
         $result = $transformer->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
-     * @param $expectedMessage
      */
-    public function testReverseTransformWithInvalidInput($value, $expectedMessage)
+    public function testReverseTransformWithInvalidInput(mixed $value, string $expectedMessage): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedMessage);
@@ -75,18 +66,21 @@ class PolicyTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed, string|null}>
      */
     public function transformDataProvider(): array
     {
         return [
-            'policy' => [['id' => 123456, 'module' => 'module_name', 'function' => 'some_function'], '123456:module_name:some_function'],
+            'policy' => [
+                ['id' => 123456, 'module' => 'module_name', 'function' => 'some_function'],
+                '123456:module_name:some_function',
+            ],
             'null' => [null, null],
         ];
     }
 
     /**
-     * @return array
+     * @return array<string, array{string|null, array{id: int, module: string, function: string}|null}>
      */
     public function reverseTransformDataProvider(): array
     {
@@ -97,7 +91,7 @@ class PolicyTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function transformWithInvalidInputDataProvider(): array
     {
@@ -116,7 +110,7 @@ class PolicyTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed, string}>
      */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
@@ -135,5 +129,3 @@ class PolicyTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(PolicyTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\PolicyTransformerTest');

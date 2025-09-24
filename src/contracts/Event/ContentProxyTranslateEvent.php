@@ -17,36 +17,18 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentProxyTranslateEvent extends Event
 {
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
-    private $response;
+    private ?Response $response = null;
 
-    /** @var int */
-    private $contentId;
-
-    /** @var string|null */
-    private $fromLanguageCode;
-
-    /** @var string */
-    private $toLanguageCode;
-
-    /** @var \Ibexa\AdminUi\Event\Options */
-    private $options;
-
-    /** @var int|null */
-    private $locationId;
+    private Options $options;
 
     public function __construct(
-        int $contentId,
-        ?string $fromLanguageCode,
-        string $toLanguageCode,
+        private readonly int $contentId,
+        private readonly ?string $fromLanguageCode,
+        private readonly string $toLanguageCode,
         ?Options $options = null,
-        ?int $locationId = null
+        private readonly ?int $locationId = null
     ) {
-        $this->contentId = $contentId;
-        $this->fromLanguageCode = $fromLanguageCode;
-        $this->toLanguageCode = $toLanguageCode;
         $this->options = $options ?? new Options();
-        $this->locationId = $locationId;
     }
 
     public function getContentId(): int
@@ -89,5 +71,3 @@ class ContentProxyTranslateEvent extends Event
         return isset($this->response);
     }
 }
-
-class_alias(ContentProxyTranslateEvent::class, 'EzSystems\EzPlatformAdminUi\Event\ContentProxyTranslateEvent');

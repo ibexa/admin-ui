@@ -14,28 +14,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class RoleAssignmentType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    protected $roleService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
-    public function __construct(RoleService $roleService)
+    public function __construct(protected readonly RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(new RoleAssignmentTransformer($this->roleService));
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return HiddenType::class;
     }
 }
-
-class_alias(RoleAssignmentType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentType');

@@ -20,21 +20,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * @see \Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface
  */
-class ConditionalTabSubscriber implements EventSubscriberInterface
+final readonly class ConditionalTabSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var \Ibexa\AdminUi\UI\Service\TabService
-     */
-    private $tabService;
-
-    public function __construct(TabService $tabService)
+    public function __construct(private TabService $tabService)
     {
-        $this->tabService = $tabService;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -42,17 +33,14 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\Tab\Event\TabGroupEvent $tabGroupEvent
-     */
-    public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent)
+    public function onTabGroupInitialize(TabGroupEvent $tabGroupEvent): void
     {
         $tabGroup = $tabGroupEvent->getData();
         $tabGroupIdentifier = $tabGroupEvent->getData()->getIdentifier();
         $parameters = $tabGroupEvent->getParameters();
         try {
             $tabs = $this->tabService->getTabGroup($tabGroupIdentifier)->getTabs();
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $tabs = [];
         }
 
@@ -65,5 +53,3 @@ class ConditionalTabSubscriber implements EventSubscriberInterface
         $tabGroupEvent->setData($tabGroup);
     }
 }
-
-class_alias(ConditionalTabSubscriber::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\Subscriber\ConditionalTabSubscriber');

@@ -10,36 +10,33 @@ namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class HasReverseRelations implements TrashLocationOptionProvider
+final readonly class HasReverseRelations implements TrashLocationOptionProvider
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
     public function __construct(
-        ContentService $contentService,
-        TranslatorInterface $translator
+        private ContentService $contentService,
+        private TranslatorInterface $translator
     ) {
-        $this->contentService = $contentService;
-        $this->translator = $translator;
     }
 
     public function supports(Location $location): bool
     {
-        $reverseRelationsCount = $this->contentService->countReverseRelations($location->contentInfo);
+        $reverseRelationsCount = $this->contentService->countReverseRelations(
+            $location->getContentInfo()
+        );
 
         return $reverseRelationsCount > 0;
     }
 
     public function addOptions(FormInterface $form, Location $location): void
     {
-        $reverseRelationsCount = $this->contentService->countReverseRelations($location->contentInfo);
+        $reverseRelationsCount = $this->contentService->countReverseRelations(
+            $location->getContentInfo()
+        );
 
         $translatorParameters = [
             '%content%' => $location->getContent()->getName(),
@@ -58,5 +55,3 @@ final class HasReverseRelations implements TrashLocationOptionProvider
             ]);
     }
 }
-
-class_alias(HasReverseRelations::class, 'EzSystems\EzPlatformAdminUi\Form\TrashLocationOptionProvider\HasReverseRelations');

@@ -21,6 +21,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -31,45 +32,21 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData>
+ */
 class TranslationAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $langaugeService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
-     */
     public function __construct(
-        LanguageService $langaugeService,
-        ContentService $contentService,
-        LocationService $locationService,
-        PermissionResolver $permissionResolver,
-        LookupLimitationsTransformer $lookupLimitationsTransformer
+        protected readonly LanguageService $languageService,
+        protected readonly ContentService $contentService,
+        protected readonly LocationService $locationService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer
     ) {
-        $this->languageService = $langaugeService;
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->permissionResolver = $permissionResolver;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -88,7 +65,7 @@ class TranslationAddType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TranslationAddData::class,
@@ -99,15 +76,12 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on default form data.
      *
-     * @param \Symfony\Component\Form\FormEvent $event
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
      * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSetData(FormEvent $event)
+    public function onPreSetData(FormEvent $event): void
     {
         $contentInfo = null;
         $contentLanguages = [];
@@ -127,15 +101,12 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on submitted form data.
      *
-     * @param \Symfony\Component\Form\FormEvent $event
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
      * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSubmit(FormEvent $event)
+    public function onPreSubmit(FormEvent $event): void
     {
         $contentInfo = null;
         $contentLanguages = [];
@@ -146,14 +117,14 @@ class TranslationAddType extends AbstractType
         if (isset($data['location'])) {
             try {
                 $location = $this->locationService->loadLocation((int)$data['location']);
-            } catch (NotFoundException $e) {
-                $location = null;
+            } catch (NotFoundException) {
+                // do nothing, location will remain null
             }
 
             if (null !== $location) {
                 $contentInfo = $location->getContentInfo();
                 $versionInfo = $this->contentService->loadVersionInfo($contentInfo);
-                $contentLanguages = $versionInfo->languageCodes;
+                $contentLanguages = $versionInfo->getLanguageCodes();
             }
         }
 
@@ -161,11 +132,7 @@ class TranslationAddType extends AbstractType
     }
 
     /**
-     * Loads system languages with filtering applied.
-     *
-     * @param callable $filter
-     *
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function loadLanguages(callable $filter): array
     {
@@ -178,13 +145,7 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields to the $form. Language options are composed based on content language.
      *
-     * @param \Symfony\Component\Form\FormInterface $form
      * @param string[] $contentLanguages
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function addLanguageFields(
         FormInterface $form,
@@ -192,7 +153,10 @@ class TranslationAddType extends AbstractType
         ?ContentInfo $contentInfo,
         ?Location $location = null
     ): void {
-        $languagesCodes = array_column($this->languageService->loadLanguages(), 'languageCode');
+        $languagesCodes = array_column(
+            iterator_to_array($this->languageService->loadLanguages()),
+            'languageCode'
+        );
 
         $limitationLanguageCodes = [];
         if (null !== $contentInfo) {
@@ -204,8 +168,8 @@ class TranslationAddType extends AbstractType
                     (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf($languagesCodes)->build(),
                     $this->locationService->loadLocation(
                         $location !== null
-                            ? $location->id
-                            : $contentInfo->mainLocationId
+                            ? $location->getId()
+                            : $contentInfo->getMainLocationId()
                     ),
                 ],
                 [Limitation::LANGUAGE]
@@ -223,12 +187,12 @@ class TranslationAddType extends AbstractType
                     'placeholder' => false,
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages, $limitationLanguageCodes) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages, $limitationLanguageCodes): array {
                         return $this->loadLanguages(
-                            static function (Language $language) use ($contentLanguages, $limitationLanguageCodes) {
-                                return $language->enabled
-                                    && !in_array($language->languageCode, $contentLanguages, true)
-                                    && (empty($limitationLanguageCodes) || in_array($language->languageCode, $limitationLanguageCodes, true));
+                            static function (Language $language) use ($contentLanguages, $limitationLanguageCodes): bool {
+                                return $language->isEnabled()
+                                    && !in_array($language->getLanguageCode(), $contentLanguages, true)
+                                    && (empty($limitationLanguageCodes) || in_array($language->getLanguageCode(), $limitationLanguageCodes, true));
                             }
                         );
                     }),
@@ -245,10 +209,10 @@ class TranslationAddType extends AbstractType
                     'placeholder' => /** @Desc("No language") */ 'translation.base_language.no_language',
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages): array {
                         return $this->loadLanguages(
-                            static function (Language $language) use ($contentLanguages) {
-                                return $language->enabled && in_array($language->languageCode, $contentLanguages, true);
+                            static function (Language $language) use ($contentLanguages): bool {
+                                return $language->isEnabled() && in_array($language->getLanguageCode(), $contentLanguages, true);
                             }
                         );
                     }),
@@ -259,5 +223,3 @@ class TranslationAddType extends AbstractType
             );
     }
 }
-
-class_alias(TranslationAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationAddType');

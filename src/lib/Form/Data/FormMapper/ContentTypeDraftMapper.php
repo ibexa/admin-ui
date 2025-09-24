@@ -16,47 +16,28 @@ use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentTypeDraftMapper implements FormDataMapperInterface
+final readonly class ContentTypeDraftMapper implements FormDataMapperInterface
 {
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
-
-    private ContentTypeService $contentTypeService;
-
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    private $eventDispatcher;
-
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    private $fieldsGroupsList;
-
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
-        ContentTypeService $contentTypeService,
-        EventDispatcherInterface $eventDispatcher,
-        FieldsGroupsList $fieldsGroupsList
+        private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        private ContentTypeService $contentTypeService,
+        private EventDispatcherInterface $eventDispatcher,
+        private FieldsGroupsList $fieldsGroupsList
     ) {
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
-        $this->contentTypeService = $contentTypeService;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->fieldsGroupsList = $fieldsGroupsList;
     }
 
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentTypeDraft
-     * @param array $params
-     *
-     * @return \Ibexa\AdminUi\Form\Data\ContentTypeData
+     * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject $contentTypeDraft, array $params = [])
+    public function mapToFormData(ValueObject|ContentTypeDraft $contentTypeDraft, array $params = []): ContentTypeData
     {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
@@ -76,7 +57,7 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
         $contentTypeData->remoteId = $contentTypeDraft->remoteId;
         $contentTypeData->urlAliasSchema = $contentTypeDraft->urlAliasSchema;
         $contentTypeData->nameSchema = $contentTypeDraft->nameSchema;
-        $contentTypeData->isContainer = $contentTypeDraft->isContainer;
+        $contentTypeData->isContainer = $contentTypeDraft->isContainer();
         $contentTypeData->mainLanguageCode = $contentTypeDraft->mainLanguageCode;
         $contentTypeData->defaultSortField = $contentTypeDraft->defaultSortField;
         $contentTypeData->defaultSortOrder = $contentTypeDraft->defaultSortOrder;
@@ -95,16 +76,16 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
 
         try {
             $contentType = $this->contentTypeService->loadContentType($contentTypeDraft->id);
-        } catch (NotFoundException $exception) {
+        } catch (NotFoundException) {
             $contentType = null;
         }
 
         foreach ($contentTypeDraft->fieldDefinitions as $fieldDef) {
-            $isMetaFieldType = in_array($fieldDef->fieldTypeIdentifier, $metaFieldTypeIdentifiers, true);
+            $isMetaFieldType = in_array($fieldDef->getFieldTypeIdentifier(), $metaFieldTypeIdentifiers, true);
 
             $enabled = $isMetaFieldType
                 && null !== $contentType
-                && $contentType->hasFieldDefinition($fieldDef->identifier);
+                && $contentType->hasFieldDefinition($fieldDef->getIdentifier());
 
             $fieldDefinitionData = new FieldDefinitionData([
                 'fieldDefinition' => $fieldDef,
@@ -136,12 +117,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    private function configureOptions(OptionsResolver $optionsResolver)
+    private function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver
             ->setDefined(['language'])
@@ -150,5 +129,3 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
             ->setAllowedTypes('language', Language::class);
     }
 }
-
-class_alias(ContentTypeDraftMapper::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\ContentTypeDraftMapper');

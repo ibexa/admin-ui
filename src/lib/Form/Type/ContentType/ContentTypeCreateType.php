@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -18,29 +19,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentTypeCreateType extends AbstractType
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
-     */
-    private $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezplatform_content_forms_contenttype_create';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -48,15 +46,15 @@ class ContentTypeCreateType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('contentTypeGroupId', HiddenType::class, [
                 'constraints' => new Callback(
-                    function ($contentTypeGroupId, ExecutionContextInterface $context) {
+                    function ($contentTypeGroupId, ExecutionContextInterface $context): void {
                         try {
                             $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
-                        } catch (NotFoundException $e) {
+                        } catch (NotFoundException) {
                             $context
                                 ->buildViolation('content_type.error.content_type_group.not_found')
                                 ->setParameter('%id%', $contentTypeGroupId)
@@ -65,8 +63,10 @@ class ContentTypeCreateType extends AbstractType
                     }
                 ),
             ])
-            ->add('create', SubmitType::class, ['label' => /** @Desc("Create a content type") */ 'content_type.create']);
+            ->add(
+                'create',
+                SubmitType::class,
+                ['label' => /** @Desc("Create a content type") */ 'content_type.create']
+            );
     }
 }
-
-class_alias(ContentTypeCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeCreateType');

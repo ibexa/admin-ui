@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -17,21 +18,16 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
-    private $siteAccessService;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessKeyGeneratorInterface */
-    private $siteAccessKeyGenerator;
-
     public function __construct(
-        SiteAccessServiceInterface $siteAccessService,
-        SiteAccessKeyGeneratorInterface $siteAccessKeyGenerator
+        private readonly SiteAccessServiceInterface $siteAccessService,
+        private readonly SiteAccessKeyGeneratorInterface $siteAccessKeyGenerator
     ) {
-        $this->siteAccessService = $siteAccessService;
-        $this->siteAccessKeyGenerator = $siteAccessKeyGenerator;
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $siteAccesses = [];
         foreach ($this->siteAccessService->getAll() as $sa) {
@@ -41,11 +37,19 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         return $siteAccesses;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
         foreach ($this->siteAccessService->getAll() as $sa) {
-            if (in_array($this->siteAccessKeyGenerator->generate($sa->name), $limitation->limitationValues)) {
+            if (
+                in_array(
+                    $this->siteAccessKeyGenerator->generate($sa->name),
+                    $limitation->limitationValues
+                )
+            ) {
                 $values[] = $sa->name;
             }
         }
@@ -63,5 +67,3 @@ class SiteAccessLimitationMapper extends MultipleSelectionBasedMapper implements
         ];
     }
 }
-
-class_alias(SiteAccessLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SiteAccessLimitationMapper');

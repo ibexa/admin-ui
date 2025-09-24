@@ -18,11 +18,14 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardListData>
+ */
 final class URLWildcardListType extends AbstractType implements TranslationContainerInterface
 {
-    private const TYPE_DIRECT = 'url_wildcard.type.direct';
-    private const TYPE_FORWARD = 'url_wildcard.type.forward';
-    private const PLACEHOLDER = 'url_wildcard.type.all';
+    private const string TYPE_DIRECT = 'url_wildcard.type.direct';
+    private const string TYPE_FORWARD = 'url_wildcard.type.forward';
+    private const string PLACEHOLDER = 'url_wildcard.type.all';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

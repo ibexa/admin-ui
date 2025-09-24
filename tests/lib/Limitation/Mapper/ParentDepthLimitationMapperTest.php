@@ -13,15 +13,13 @@ use PHPUnit\Framework\TestCase;
 
 class ParentDepthLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $mapper = new ParentDepthLimitationMapper(1024);
         $result = $mapper->mapLimitationValue(new ParentDepthLimitation([
             'limitationValues' => [256],
         ]));
 
-        $this->assertEquals([256], $result);
+        self::assertEquals([256], $result);
     }
 }
-
-class_alias(ParentDepthLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\ParentDepthLimitationMapperTest');

@@ -1,0 +1,17 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/edit-language-selector' as *;
+
+.c-language-selector {
+    .ibexa-instant-filter {
+        &__item {
+            .form-check-label {
+                @include edit-language-item;
+            }
+
+            .ibexa-input[type='radio'] {
+                display: none;
+            }
+        }
+    }
+}

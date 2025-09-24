@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class TextBlock extends FieldTypeComponent
+final class TextBlock extends FieldTypeComponent
 {
     public function specifyLocators(): array
     {
@@ -21,6 +21,6 @@ class TextBlock extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'eztext';
+        return 'ibexa_text';
     }
 }

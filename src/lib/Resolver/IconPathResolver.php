@@ -20,24 +20,20 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final class IconPathResolver implements IconPathResolverInterface, EventSubscriberInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    private Packages $packages;
-
-    /** @var string[] */
+    /** @var string[]|string[][] */
     private array $iconCache;
 
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        Packages $packages
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly Packages $packages
     ) {
-        $this->configResolver = $configResolver;
-        $this->packages = $packages;
         $this->iconCache = [];
     }
 
     public function resolve(string $icon, ?string $set = null): string
     {
+        $icon = $this->resolveIconAlias($icon);
+
         if (isset($this->iconCache[$set][$icon])) {
             return $this->iconCache[$set][$icon];
         }
@@ -62,6 +58,15 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
     {
         $this->iconCache = [];
     }
-}
 
-class_alias(IconPathResolver::class, 'Ibexa\Platform\Assets\Resolver\IconPathResolver');
+    private function resolveIconAlias(string $icon): string
+    {
+        $iconAliases = [];
+
+        if ($this->configResolver->hasParameter('assets.icon_aliases')) {
+            $iconAliases = $this->configResolver->getParameter('assets.icon_aliases');
+        }
+
+        return $iconAliases[$icon] ?? $icon;
+    }
+}

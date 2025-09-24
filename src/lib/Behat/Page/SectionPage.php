@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -19,34 +20,30 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
 
-class SectionPage extends Page
+final class SectionPage extends Page
 {
-    /** @var string */
-    private $expectedSectionName;
+    private ?string $expectedSectionName = null;
 
-    /** @var int */
-    private $expectedSectionId;
+    private int $expectedSectionId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
-    private $contentItemsTable;
+    private TableInterface $contentItemsTable;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
+    /**
+     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
+     */
     public function __construct(
-        Session $session,
-        Router $router,
-        TableBuilder $tableBuilder,
-        Dialog $dialog,
-        Repository $repository
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog,
+        private readonly Repository $repository
     ) {
         parent::__construct($session, $router);
-        $this->contentItemsTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentItemsTable'))->build();
-        $this->dialog = $dialog;
-        $this->repository = $repository;
+
+        $this->contentItemsTable = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('contentItemsTable'))
+            ->build();
     }
 
     public function isContentListEmpty(): bool
@@ -54,6 +51,9 @@ class SectionPage extends Page
         return $this->contentItemsTable->isEmpty();
     }
 
+    /**
+     * @param array<string, string> $sectionProperties
+     */
     public function hasProperties(array $sectionProperties): bool
     {
         foreach ($sectionProperties as $label => $value) {
@@ -71,12 +71,15 @@ class SectionPage extends Page
         return true;
     }
 
+    /**
+     * @param array<string, mixed> $elementData
+     */
     public function hasAssignedItem(array $elementData): bool
     {
         return $this->contentItemsTable->hasElement($elementData);
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -84,7 +87,7 @@ class SectionPage extends Page
             ->click();
     }
 
-    public function assignContentItems()
+    public function assignContentItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('assignButton'))->click();
     }
@@ -94,12 +97,13 @@ class SectionPage extends Page
         return !$this->contentItemsTable->isEmpty();
     }
 
-    public function delete()
+    public function delete(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
             ->getByCriterion(new ElementTextCriterion('Delete'))
             ->click();
+
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
@@ -116,7 +120,7 @@ class SectionPage extends Page
     {
         $this->expectedSectionName = $sectionName;
 
-        $sections = $this->repository->sudo(static function (Repository $repository) {
+        $sections = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getSectionService()->loadSections();
         });
 

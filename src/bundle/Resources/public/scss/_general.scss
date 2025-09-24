@@ -1,3 +1,7 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/drag-and-drop' as *;
+
 html {
     min-height: 100vh;
     width: 100%;
@@ -61,7 +65,7 @@ img {
         background 0.3s $ibexa-admin-transition;
 }
 
-.ezrichtext-field {
+.ibexa_richtext-field {
     display: inline-block;
     width: 100%;
 

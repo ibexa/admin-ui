@@ -1,4 +1,6 @@
-(function (global, doc, ibexa, React, ReactDOM) {
+import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/middle.ellipsis';
+
+(function (global, doc, ibexa, React, ReactDOMClient) {
     const SELECTOR_RESET_STARTING_LOCATION_BTN = '.ibexa-tag__remove-btn';
     const defaultLocationContainers = doc.querySelectorAll('.ibexa-default-location');
     const udwContainer = doc.getElementById('react-udw');
@@ -11,7 +13,7 @@
 
         const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
 
-        ibexa.helpers.ellipsis.middle.parseAll();
+        middleEllipsisHelper.parse();
 
         deleteBtn.addEventListener('click', resetStartingLocation, false);
     };
@@ -38,7 +40,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(null, event.currentTarget),
@@ -99,6 +101,6 @@
     defaultLocationContainers.forEach((defaultLocationContainer) => {
         attachEvents(defaultLocationContainer);
         toggleDisabledState(defaultLocationContainer);
-        ibexa.helpers.ellipsis.middle.parseAll();
+        middleEllipsisHelper.parse();
     });
-})(window, window.document, window.ibexa, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient);

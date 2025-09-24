@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Service;
 
@@ -13,42 +14,33 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Service for loading path information.
  *
  * @internal
  */
-class PathService
+final readonly class PathService
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
-
-    public function __construct(SearchService $searchService)
+    public function __construct(private SearchService $searchService)
     {
-        $this->searchService = $searchService;
     }
 
     /**
-     * Load path locations.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
-    public function loadPathLocations(Location $location)
+    public function loadPathLocations(Location $location): array
     {
         $locationQuery = new LocationQuery([
-            'filter' => new Ancestor($location->pathString),
+            'filter' => new Ancestor($location->getPathString()),
             'sortClauses' => [new Path()],
         ]);
 
         $searchResult = $this->searchService->findLocations($locationQuery);
 
-        return array_map(static function (SearchHit $searchHit) {
+        return array_map(static function (SearchHit $searchHit): ValueObject {
             return $searchHit->valueObject;
         }, $searchResult->searchHits);
     }
 }
-
-class_alias(PathService::class, 'EzSystems\EzPlatformAdminUi\UI\Service\PathService');

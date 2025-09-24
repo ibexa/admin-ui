@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Permission;
 
-use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\PermissionChecker;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -18,23 +17,18 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content as CoreContent;
 use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class PermissionCheckerTest extends TestCase
+final class PermissionCheckerTest extends TestCase
 {
-    private const USER_ID = 14;
+    private const int USER_ID = 14;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
-    private $permissionResolver;
+    private PermissionResolver&MockObject $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
-    private $userService;
+    private UserService&MockObject $userService;
 
-    /** @var \Ibexa\AdminUi\Permission\LimitationResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
-    private LimitationResolverInterface $permissionLimitationResolver;
-
-    /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
-    private $permissionChecker;
+    private PermissionChecker $permissionChecker;
 
     public function setUp(): void
     {
@@ -43,26 +37,30 @@ class PermissionCheckerTest extends TestCase
             ->method('getCurrentUserReference')
             ->willReturn($this->generateUser(self::USER_ID));
 
-        $this->permissionLimitationResolver = $this->createMock(LimitationResolverInterface::class);
         $this->userService = $this->createMock(UserService::class);
 
         $this->permissionChecker = new PermissionChecker(
             $this->permissionResolver,
-            $this->permissionLimitationResolver,
             $this->userService,
         );
     }
 
     /**
+     * @param array<array{limitation: ?Limitation, policies: Policy[]}> $hasAccess
+     * @param array<int> $expectedRestrictions
+     *
      * @dataProvider restrictionsProvider
      */
     public function testGetRestrictions(array $hasAccess, string $class, array $expectedRestrictions): void
     {
         $actual = $this->permissionChecker->getRestrictions($hasAccess, $class);
 
-        $this->assertEquals($expectedRestrictions, $actual);
+        self::assertEquals($expectedRestrictions, $actual);
     }
 
+    /**
+     * @return array<string, array{0: array<array{limitation: ?Limitation, policies: Policy[]}>, 1: string, 2: array<int>}>
+     */
     public function restrictionsProvider(): array
     {
         return [
@@ -168,20 +166,18 @@ class PermissionCheckerTest extends TestCase
             ],
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [44],
             $this->permissionChecker->getRestrictions($hasAccessA, Limitation\SectionLimitation::class)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [2, 3],
             $this->permissionChecker->getRestrictions($hasAccessB, Limitation\ContentTypeLimitation::class)
         );
     }
 
     /**
-     * @param int $id
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\User
      */
     private function generateUser(int $id): User
@@ -193,5 +189,3 @@ class PermissionCheckerTest extends TestCase
         return new CoreUser(['content' => $content]);
     }
 }
-
-class_alias(PermissionCheckerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Permission\PermissionCheckerTest');
