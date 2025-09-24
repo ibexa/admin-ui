@@ -11,10 +11,9 @@ use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-final class CreateUrlAliasForm extends Component
+final class CreateUrlAliasModal extends Component
 {
     use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
-
     private IbexaDropdown $ibexaDropdown;
 
     public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
@@ -28,12 +27,17 @@ final class CreateUrlAliasForm extends Component
         $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Create a new URL alias');
     }
 
-    public function createNewUrlAlias(string $path, string $languageName, bool $isRedirecting): void
+    public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
         $this->getHTMLPage()->find($this->getLocator('pathInput'))->setValue($path);
         $this->getHTMLPage()->find($this->getLocator('languageDropdown'))->click();
         $this->ibexaDropdown->verifyIsLoaded();
         $this->ibexaDropdown->selectOption($languageName);
+        $redirectToggleState = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
+        //$this->setInteractiveBreakpoint(get_defined_vars());
+        if ($redirect !== $redirectToggleState->hasClass('ibexa-toggle--is-checked')) {
+               $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
+           }
         $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
@@ -44,6 +48,7 @@ final class CreateUrlAliasForm extends Component
             new VisibleCSSLocator('createButton', '#custom_url_add_add'),
             new VisibleCSSLocator('pathInput', '#custom_url_add_path'),
             new VisibleCSSLocator('languageDropdown', '.ibexa-custom-url-from__item .ibexa-dropdown__selection-info'),
+            new VisibleCSSLocator('redirectToggle', '.ibexa-custom-url-from__item .ibexa-toggle'),
         ];
     }
 }

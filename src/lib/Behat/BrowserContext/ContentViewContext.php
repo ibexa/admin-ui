@@ -170,11 +170,12 @@ final class ContentViewContext implements Context
     }
 
     /**
-     * @When I create a new redirect Url Alias called :path in :languageName language
+     * @When I create a new Url Alias called :path in :languageName language with redirect :redirect
      */
-    public function iCreateNewRedirectUrlAlias(string $path, string $languageName): void
+    public function iCreateNewUrlAlias(string $path, string $languageName, string $redirect_string): void
     {
-        $this->contentViewPage->createNewUrlAlias($path, $languageName, true);
+        $redirect = filter_var($redirect_string, FILTER_VALIDATE_BOOLEAN);
+        $this->contentViewPage->createNewUrlAlias($path, $languageName, $redirect);
     }
 
     /**

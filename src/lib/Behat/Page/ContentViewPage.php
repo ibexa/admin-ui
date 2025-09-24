@@ -13,7 +13,7 @@ use Ibexa\AdminUi\Behat\Component\Breadcrumb;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
-use Ibexa\AdminUi\Behat\Component\CreateUrlAliasForm;
+use Ibexa\AdminUi\Behat\Component\CreateUrlAliasModal;
 use Ibexa\AdminUi\Behat\Component\DeleteContentDialog;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\IbexaDropdown;
@@ -36,6 +36,7 @@ use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page
 {
+    use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
     /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu Element representing the right menu */
     private $contentActionsMenu;
 
@@ -87,7 +88,7 @@ class ContentViewPage extends Page
 
     private DeleteContentDialog $deleteContentDialog;
 
-    private CreateUrlAliasForm $createUrlAliasForm;
+    private CreateUrlAliasModal $createUrlAliasModal;
 
     private TableBuilder $tableBuilder;
 
@@ -108,7 +109,7 @@ class ContentViewPage extends Page
         IbexaDropdown $ibexaDropdown,
         UpperMenu $upperMenu,
         DeleteContentDialog $deleteContentDialog,
-        CreateUrlAliasForm $createUrlAliasForm,
+        CreateUrlAliasModal $createUrlAliasModal,
         TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
@@ -126,7 +127,7 @@ class ContentViewPage extends Page
         $this->ibexaDropdown = $ibexaDropdown;
         $this->upperMenu = $upperMenu;
         $this->deleteContentDialog = $deleteContentDialog;
-        $this->createUrlAliasForm = $createUrlAliasForm;
+        $this->CreateUrlAliasModal = $createUrlAliasModal;
         $this->tableBuilder = $tableBuilder;
     }
 
@@ -304,10 +305,11 @@ class ContentViewPage extends Page
         return $this->getHTMLPage()->find($this->getLocator('isBookmarked'))->isVisible();
     }
 
-    public function createNewUrlAlias(string $path, string $languageName, bool $isRedirecting): void
+    public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
         $this->getHTMLPage()->find($this->getLocator('addUrlAliasButton'))->click();
-        $this->createUrlAliasForm->createNewUrlAlias($path, $languageName, $isRedirecting);
+      //  $this->setInteractiveBreakpoint(get_defined_vars());
+        $this->CreateUrlAliasModal->createNewUrlAlias($path, $languageName, $redirect);
     }
 
     public function isUrlAliasOnTheList(string $path, string $type): bool

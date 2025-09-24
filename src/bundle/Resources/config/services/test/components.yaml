@@ -60,7 +60,7 @@ services:
 
   Ibexa\AdminUi\Behat\Component\DeleteContentDialog: ~
 
-  Ibexa\AdminUi\Behat\Component\CreateUrlAliasForm: ~
+  Ibexa\AdminUi\Behat\Component\CreateUrlAliasModal: ~
 
   Ibexa\AdminUi\Behat\Component\TrashSearch: ~
 
