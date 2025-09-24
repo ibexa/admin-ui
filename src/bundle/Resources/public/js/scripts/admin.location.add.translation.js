@@ -10,6 +10,6 @@
     doc.querySelectorAll('.ibexa-translation__language-wrapper--language').forEach((select) => {
         toggleBtnDisabledState(select);
 
-        select.addEventListener('change', toggleBtnDisabledState, false);
+        select.addEventListener('change', ({ target }) => toggleBtnDisabledState(target), false);
     });
 })(window, window.document);
