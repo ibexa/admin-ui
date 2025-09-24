@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Ibexa\AdminUi\Notifier\PasswordReset:
+        decorates: Ibexa\Contracts\User\PasswordReset\Notifier
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+
+    Ibexa\AdminUi\Notifier\UserInvitation:
+        decorates: Ibexa\Contracts\User\Invitation\InvitationSender
+        arguments:
+            $projectDir: '%kernel.project_dir%'
