@@ -1,6 +1,5 @@
 (function (global, doc, ibexa) {
     const SCROLL_POSITION_TO_FIT = 50;
-    const HEADER_RIGHT_MARGIN = 50;
     const MIN_HEIGHT_DIFF_FOR_FITTING_HEADER = 150;
     const headerNode = doc.querySelector('.ibexa-edit-header');
     const contentNode = doc.querySelector('.ibexa-edit-content');
@@ -9,24 +8,10 @@
         return;
     }
 
-    const headerBottomRowNode = headerNode.querySelector('.ibexa-edit-header__row--bottom');
+    const detailsContainer = headerNode.querySelector('.ibexa-edit-header__container--details');
     const { height: expandedHeaderHeight } = headerNode.getBoundingClientRect();
     const scrolledContent = doc.querySelector('.ibexa-edit-content > :first-child');
     const { controlManyZIndexes } = ibexa.helpers.modal;
-    const fitEllipsizedTitle = () => {
-        const titleNode = headerBottomRowNode.querySelector('.ibexa-edit-header__name--ellipsized');
-        const firstMenuEntryNode = headerNode.querySelector('.ibexa-context-menu .ibexa-context-menu__item');
-        const { left: titleNodeLeft, width: titleNodeWidth } = titleNode.getBoundingClientRect();
-        const { left: firstMenuEntryNodeLeft } = firstMenuEntryNode.getBoundingClientRect();
-        const bottomRowNodeWidthNew = firstMenuEntryNodeLeft - titleNodeLeft;
-        const titleNodeWidthNew = bottomRowNodeWidthNew - HEADER_RIGHT_MARGIN;
-
-        headerBottomRowNode.style.width = `${bottomRowNodeWidthNew}px`;
-
-        if (titleNodeWidth > titleNodeWidthNew) {
-            titleNode.style.width = `${titleNodeWidthNew}px`;
-        }
-    };
     const fitHeader = (event) => {
         const { height: formHeight } = scrolledContent.getBoundingClientRect();
         const contentHeightWithExpandedHeader = formHeight + expandedHeaderHeight;
@@ -40,17 +25,16 @@
         const shouldHeaderBeSlim = scrollTop > SCROLL_POSITION_TO_FIT;
 
         headerNode.classList.toggle('ibexa-edit-header--slim', shouldHeaderBeSlim);
-
-        if (shouldHeaderBeSlim) {
-            fitEllipsizedTitle();
-        } else {
-            headerBottomRowNode.style.width = '100%';
-        }
+        doc.body.dispatchEvent(
+            new CustomEvent('ibexa:edit-content-change-header-size', {
+                detail: { isHeaderSlim: shouldHeaderBeSlim },
+            }),
+        );
     };
     const items = [{ container: headerNode }];
 
-    if (headerBottomRowNode) {
-        items.push({ container: headerBottomRowNode });
+    if (detailsContainer) {
+        items.push({ container: detailsContainer });
     }
 
     contentNode.addEventListener('scroll', fitHeader, false);
