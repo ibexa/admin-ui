@@ -12,16 +12,30 @@
 } %}
     {% block tbody %}
         {% if pager.count is same as(0) %}
-        <div class="ibexa-notifications-modal__empty">
-            <img
-                src="{{ empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg')) }}"
-            />
-            <h2 class="ibexa-notifications-modal__empty-text">{{ 'notifications.list.empty'|trans|desc('You don\'t have any notifications.') }}</h2>
-        </div>
+            <div class="ibexa-notifications-modal__empty">
+                <img
+                        src="{{ empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg')) }}"
+                />
+                <h2 class="ibexa-notifications-modal__empty-text">{{ 'notifications.list.empty'|trans|desc('You don\'t have any notifications.') }}</h2>
+            </div>
         {% else %}
             {% for notification in sidebarNotifications %}
                 {{ notification|raw }}
             {% endfor %}
         {% endif %}
+
+        {% embed '@ibexadesign/ui/modal/delete_confirmation.html.twig' with {
+            id: 'delete-notification-modal',
+            message: 'notification.modal.delete.confirm_message'|trans|desc('Are you sure you want to delete this notification?'),
+        } %}
+
+            {% trans_default_domain 'ibexa_product_catalog' %}
+
+            {% block confirm_button %}
+                <button class="btn ibexa-btn ibexa-btn--primary ibexa-notifications-modal--delete--confirm" data-bs-dismiss="modal">
+                    {{ 'modal.delete'|trans|desc('Delete') }}
+                </button>
+            {% endblock %}
+        {% endembed %}
     {% endblock %}
 {% endembed %}
