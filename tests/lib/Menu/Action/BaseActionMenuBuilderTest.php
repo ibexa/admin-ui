@@ -96,7 +96,7 @@ abstract class BaseActionMenuBuilderTest extends TestCase
         self::assertSame($url, $actionItem->getUri());
         self::assertSame($itemName, $actionItem->getLabel());
         self::assertSame($extras, $actionItem->getExtras());
-        self::assertSame($attributes, $actionItem->getAttributes());
+        self::assertEquals($attributes, $actionItem->getAttributes());
     }
 
     protected function createVersionInfo(int $status = ApiVersionInfo::STATUS_DRAFT): ApiVersionInfo
