@@ -227,7 +227,9 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${selectedNotificationId}"]`);
+                    const notification = doc.querySelector(
+                        `.ibexa-notifications-modal__item[data-notification-id="${selectedNotificationId}"]`,
+                    );
 
                     notification.remove();
                     getNotificationsStatus();
