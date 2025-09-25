@@ -168,6 +168,15 @@ final class ContentViewContext implements Context
     {
         $this->contentViewPage->sendToTrash();
     }
+  
+    /**
+     * @Then I should see the alert :alertMessage appear
+     */
+    public function iShouldSeeAlertAppears(string $alertMessage): void
+    {
+        $this->contentViewPage->verifyIsLoaded();
+        $this->contentViewPage->verifyMessage($alertMessage);
+    }
 
     /**
      * @When I create a new Url Alias called :path in :languageName language with redirect :redirect
@@ -187,5 +196,5 @@ final class ContentViewContext implements Context
             $this->contentViewPage->isUrlAliasOnTheList($path, $type),
             sprintf('Url alias "%s" with type "%s" not found', $path, $type)
         );
-    }
+
 }

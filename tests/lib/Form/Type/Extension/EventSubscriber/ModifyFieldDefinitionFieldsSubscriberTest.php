@@ -8,9 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\Type\Extension\EventSubscriber;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionFieldsSubscriber;
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -78,6 +80,10 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 
     private function getFormData(string $identifier): array
     {
+        $contentTypeDraftMock = $this->createMock(ContentTypeDraft::class);
+        $contentTypeDataMock = $this->createMock(ContentTypeData::class);
+        $contentTypeDataMock->contentTypeDraft = $contentTypeDraftMock;
+
         return [
             $identifier => new FieldDefinitionData(
                 [
@@ -91,6 +97,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
                             'fieldTypeIdentifier' => self::FIELD_TYPE_IDENTIFIER,
                         ]
                     ),
+                    'contentTypeData' => $contentTypeDataMock,
                 ]
             ),
         ];
