@@ -14,7 +14,7 @@
         {% if pager.count is same as(0) %}
             <div class="ibexa-notifications-modal__empty">
                 <img
-                        src="{{ empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg')) }}"
+                    src="{{ empty_image|default(asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg')) }}"
                 />
                 <h2 class="ibexa-notifications-modal__empty-text">{{ 'notifications.list.empty'|trans|desc('You don\'t have any notifications.') }}</h2>
             </div>
