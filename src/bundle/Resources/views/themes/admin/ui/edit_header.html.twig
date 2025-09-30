@@ -38,12 +38,7 @@
         </div>
         <div class="ibexa-edit-header__container ibexa-edit-header__container--details">
             <div class="ibexa-edit-header__title-section">
-                <h1 class="ibexa-edit-header__title">
-                    {{ include('@ibexadesign/ui/component/middle_ellipsis/middle_ellipsis.html.twig', {
-                        name: title,
-                    }) }}
-                </h1>
-
+                <h1 class="ibexa-edit-header__title">{{ title }}</h1>
                 <div class="ibexa-edit-header__after-title">
                     {% block after_title %}{% endblock %}
                 </div>
