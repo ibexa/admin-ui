@@ -246,7 +246,6 @@
         const markAsButtons = doc.querySelectorAll('.ibexa-notifications-modal--mark-as');
         const deleteButtons = doc.querySelectorAll('.ibexa-notifications-open-modal-button');
         const confirmDeleteButton = doc.querySelector('.ibexa-notifications-modal--delete--confirm');
-
         const setNotificationId = ({ currentTarget }) => {
             selectedNotificationId = currentTarget.dataset.notificationId;
         };
