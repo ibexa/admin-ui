@@ -16,13 +16,6 @@ jobs:
         php:
           - '8.0'
     steps:
-      - uses: actions/create-github-app-token@v2
-        id: generate_token
-        with:
-            app-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
-            private-key: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-            owner: ${{ github.repository_owner }}
-                    
       - uses: actions/checkout@v4
 
       - name: Setup PHP Action
@@ -54,13 +47,6 @@ jobs:
           - '8.1'
 
     steps:
-      - uses: actions/create-github-app-token@v2
-        id: generate_token
-        with:
-            app-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
-            private-key: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
-            owner: ${{ github.repository_owner }}
-
       - uses: actions/checkout@v4
 
       - name: Setup PHP Action
