@@ -177,4 +177,38 @@ final class ContentViewContext implements Context
         $this->contentViewPage->verifyIsLoaded();
         $this->contentViewPage->verifyMessage($alertMessage);
     }
+
+    /**
+     * @Given I select hide :hideOption for field options
+     */
+    public function iSelectForFieldOptions(string $hideOption): void
+    {
+        $this->contentViewPage->verifyIsLoaded();
+        $this->contentViewPage->selectHideOption($hideOption);
+    }
+
+    /**
+     * @Then I should see the alert contains :alertMessage appear
+     */
+    public function iShouldSeeTheAlertContainsAppear(string $alertMessage): void
+    {
+        $this->contentViewPage->verifyIsLoaded();
+        $this->contentViewPage->verifyMessageContains($alertMessage);
+    }
+
+    /**
+     * @When I run the scheduled jobs
+     */
+    public function iRunTheScheduledJobs(): void
+    {
+        $this->contentViewPage->runScheduledJobs();
+    }
+
+    /**
+     * @When I clear the behat cache directory
+     */
+    public function iClearTheBehatCacheDirectory(): void
+    {
+        $this->contentViewPage->clearBehatCacheDirectory();
+    }
 }
