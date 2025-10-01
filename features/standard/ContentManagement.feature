@@ -133,3 +133,21 @@ Scenario: Content can be copied
     When I perform the "Reveal" action
     And I should be on Content view Page for "ContentManagement/TestArticleToHide"
     Then success notification that "Content item 'TestArticleToHide' revealed." appears
+
+  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+  Scenario: Content can be hidden later
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    And a "article" Content item named "TestArticleToHideLater" exists in "ContentManagement"
+      | title                  | short_title            | intro            |
+      | TestArticleToHideLater | TestArticleToHideLater | TestArticleIntro |
+    And I'm on Content view Page for "ContentManagement/TestArticleToHideLater"
+    When I perform the "Hide" action
+    And I select hide "later" for field options
+    And I perform the "Confirm" action
+    And I should be on Content view Page for "ContentManagement/TestArticleToHideLater"
+    Then I should see the alert contains "This Content item will be hidden and won't be publicly available after" appear
+    When I run the scheduled jobs
+    And I clear the behat cache directory
+    Then I should see the alert "This Content item or its Location is hidden." appear

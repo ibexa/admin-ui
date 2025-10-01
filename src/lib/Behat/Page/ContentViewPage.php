@@ -24,6 +24,7 @@ use Ibexa\AdminUi\Behat\Component\TranslationDialog;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -33,6 +34,8 @@ use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ContentViewPage extends Page
 {
@@ -337,6 +340,7 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('addUrlAliasButton', '#ibexa-tab-location-view-urls [data-bs-target="#ibexa-modal--custom-url-alias"]'),
             new VisibleCSSLocator('customUrlAliasesTable', '#ibexa-tab-location-view-urls .ibexa-table'),
             new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
+            new VisibleCSSLocator('selectHideMode', '.form-check .ibexa-input--radio'),
         ];
     }
 
@@ -383,5 +387,36 @@ class ContentViewPage extends Page
     public function verifyMessage(string $expectedMessage): void
     {
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('alertTitle'))->assert()->textEquals($expectedMessage);
+    }
+
+    public function selectHideOption(string $viewMode): void
+    {
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('selectHideMode'))
+            ->getByCriterion(new ElementAttributeCriterion('value', $viewMode))->click();
+    }
+
+    public function verifyMessageContains(string $alertMessage): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('alertTitle'))->assert()->textContains($alertMessage);
+    }
+
+    public function runScheduledJobs(): void
+    {
+        shell_exec('bin/console ibexa:scheduled:run');
+    }
+
+    public function clearBehatCacheDirectory(): void
+    {
+        $filesystem = new Filesystem();
+        $cacheDir = getcwd() . \DIRECTORY_SEPARATOR . 'var' . \DIRECTORY_SEPARATOR . 'cache';
+
+        try {
+            $filesystem->remove($cacheDir);
+            $this->getHTMLPage()->setTimeout(5);
+            $this->getSession()->reload();
+        } catch (IOExceptionInterface $exception) {
+            throw new \Exception('Error while clearing cache: ' . $exception->getMessage());
+        }
     }
 }
