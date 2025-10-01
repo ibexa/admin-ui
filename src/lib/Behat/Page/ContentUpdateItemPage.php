@@ -105,7 +105,7 @@ class ContentUpdateItemPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title .ibexa-middle-ellipsis__name--start .ibexa-middle-ellipsis__name-ellipsized'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
             new VisibleCSSLocator('formElement', 'form.ibexa-form, .ibexa-edit-content'),
             new VisibleCSSLocator('nthField', 'div.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('nthFieldWithSection', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
