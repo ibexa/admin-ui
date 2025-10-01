@@ -220,7 +220,7 @@
         <div class="ibexa-quick-action-menu">
             {% if not is_back_to_top_disabled|default(false) %}
                 {% block back_to_top %}
-                    <div class="ibexa-back-to-top{{ is_back_to_top_disabled|default(false) ? ' ibexa-back-to-top--hidden' : '' }}">
+                    <div class="ibexa-back-to-top">
                         <button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
                             <span class="ibexa-back-to-top__title">
                                 {{ 'back.to.top'|trans|desc('Go to top') }}
