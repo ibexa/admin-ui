@@ -18,6 +18,7 @@ use Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeUpdateType;
+use Ibexa\AdminUi\Pagination\Pagerfanta\ContentTypeListAdapter;
 use Ibexa\AdminUi\Service\MetaFieldType\MetaFieldDefinitionServiceInterface;
 use Ibexa\AdminUi\Tab\ContentType\TranslationsTab;
 use Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory;
@@ -36,10 +37,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\Query\ContentTypeQuery;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\Query\Criterion\ContentTypeGroupId;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\Query\SortClause\Name;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
-use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -132,24 +135,23 @@ class ContentTypeController extends Controller
     public function listAction(ContentTypeGroup $group, string $routeName, int $page): Response
     {
         $deletableTypes = [];
-        $contentTypes = $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'));
-
-        usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
-            return strnatcasecmp($contentType1->getName(), $contentType2->getName());
-        });
+        $languages = $this->configResolver->getParameter('languages');
+        $limit = $this->configResolver->getParameter('pagination.content_type_limit');
+        $query = new ContentTypeQuery(new ContentTypeGroupId($group->id), [new Name()]);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($contentTypes)
+            new ContentTypeListAdapter($this->contentTypeService, $languages, $query)
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_limit'));
+        $pagerfanta->setMaxPerPage($limit);
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
         $types = $pagerfanta->getCurrentPageResults();
 
         $deleteContentTypesForm = $this->formFactory->deleteContentTypes(
-            new ContentTypesDeleteData($this->getContentTypesNumbers($types))
+            new ContentTypesDeleteData($this->getContentTypesNumbers(
+                \Ibexa\PolyfillPhp82\iterator_to_array($types)
+            ))
         );
 
         foreach ($types as $type) {
@@ -157,7 +159,7 @@ class ContentTypeController extends Controller
         }
 
         $copyData = new ContentTypeCopyData(null, $group);
-        $contentTypeCopyForm = $this->contentTypeFormFactory->contentTypeCopy($copyData, null)->createView();
+        $contentTypeCopyForm = $this->contentTypeFormFactory->contentTypeCopy($copyData)->createView();
 
         return $this->render('@ibexadesign/content_type/list.html.twig', [
             'content_type_group' => $group,
