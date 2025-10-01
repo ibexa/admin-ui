@@ -1,4 +1,4 @@
-(function (global, doc) {
+(function (global, doc, ibexa) {
     const backToTopBtn = doc.querySelector('.ibexa-back-to-top__btn');
     const backToTop = doc.querySelector('.ibexa-back-to-top');
     const backToTopAnchor = doc.querySelector('.ibexa-back-to-top-anchor');
@@ -15,7 +15,6 @@
 
         return backToTopBtn.classList.contains('ibexa-back-to-top__btn--visible');
     };
-
     const backToTopBtnTitle = backToTopBtn.querySelector('.ibexa-back-to-top__title');
     let currentBackToTopAnchorHeight = backToTopAnchor.offsetHeight;
     const setBackToTopBtnTextVisibility = (container) => {
@@ -28,7 +27,7 @@
 
         if (!backToTopBtn.classList.contains('ibexa-back-to-top__btn--visible') && shouldBeVisible) {
             backToTopBtn.classList.add('ibexa-back-to-top__btn--visible');
-            global.ibexa.adminUiConfig.quickActionManager.recalculateButtonsLayout();
+            ibexa.quickAction.recalculateButtonsLayout();
         }
 
         backToTopBtn.classList.toggle('ibexa-btn--no-text', !isTitleVisible);
@@ -56,13 +55,13 @@
         setBackToTopBtnTextVisibility(backToTopScrollContainer);
     });
     const config = {
-        name: 'back-to-top',
+        id: 'back-to-top',
         zIndex: 10,
-        selector: backToTop,
+        container: backToTop,
         priority: 100,
         checkVisibility: checkIsVisible,
     };
 
-    global.ibexa.adminUiConfig.quickActionManager.registerButton(config);
+    ibexa.quickAction.registerButton(config);
     resizeObserver.observe(backToTopAnchor);
-})(window, window.document);
+})(window, window.document, window.ibexa);

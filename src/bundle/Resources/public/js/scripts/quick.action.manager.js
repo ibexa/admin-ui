@@ -1,54 +1,49 @@
 (function (global) {
-    let registeredActionButtons = [];
+    let actionButtonConfigs = [];
 
-    const QuickActionManager = (() => {
-        const registerButton = (config) => {
-            if (!config || !config.selector || registeredActionButtons.some((btn) => btn.name === config.name)) {
-                return;
+    const registerButton = (config) => {
+        if (!config || !config.container || actionButtonConfigs.some((btn) => btn.id === config.id)) {
+            return;
+        }
+
+        actionButtonConfigs = [...actionButtonConfigs, config].sort((a, b) => a.priority - b.priority);
+        recalculateButtonsLayout();
+    };
+    const unregisterButton = (id) => {
+        actionButtonConfigs = actionButtonConfigs.filter((btn) => btn.id !== id);
+        recalculateButtonsLayout();
+    };
+    const recalculateButtonsLayout = () => {
+        const buttonsToRender = actionButtonConfigs.filter((btn) => {
+            if (typeof btn.checkVisibility === 'function') {
+                const isVisible = btn.checkVisibility();
+
+                return isVisible;
             }
 
-            registeredActionButtons = [...registeredActionButtons, config];
-            recalculateButtonsLayout();
-        };
-        const unregisterButton = (name) => {
-            registeredActionButtons = registeredActionButtons.filter((btn) => btn.name !== name);
-            recalculateButtonsLayout();
-        };
-        const recalculateButtonsLayout = () => {
-            const sortedButtons = registeredActionButtons.sort((a, b) => a.priority - b.priority);
-            const buttonsToRender = sortedButtons.filter((el) => {
-                if (el.checkVisibility && typeof el.checkVisibility === 'function') {
-                    const isVisible = el.checkVisibility();
+            return false;
+        });
 
-                    return isVisible;
-                }
+        buttonsToRender.forEach((buttonConfig, index) => {
+            const { container } = buttonConfig;
 
-                return false;
-            });
+            if (!container.style.transition) {
+                container.style.transition = 'all 0.3s ease-in-out';
+            }
 
-            buttonsToRender.forEach((buttonConfig, index) => {
-                const { selector } = buttonConfig;
+            container.style.position = 'fixed';
+            container.style.right = '2rem';
+            container.style.zIndex = buttonConfig.zIndex || 1040;
 
-                if (!selector.style.transition) {
-                    selector.style.transition = 'all 0.3s ease-in-out';
-                }
+            const bottomPosition = `${index === 0 ? 2 : index * 3.8 + 2 + index * 0.5}rem`;
 
-                selector.style.position = 'fixed';
-                selector.style.right = '2rem';
-                selector.style.zIndex = buttonConfig.zIndex || 1040;
+            container.style.bottom = bottomPosition;
+        });
+    };
 
-                const bottomPosition = `${index === 0 ? 2 : (index + 1) * 3.2}rem`;
-
-                selector.style.bottom = bottomPosition;
-            });
-        };
-
-        return {
-            registerButton,
-            unregisterButton,
-            recalculateButtonsLayout,
-        };
-    })();
-
-    global.ibexa.adminUiConfig.quickActionManager = QuickActionManager;
+    global.ibexa.quickAction = {
+        registerButton,
+        unregisterButton,
+        recalculateButtonsLayout,
+    };
 })(window);
