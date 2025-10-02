@@ -134,7 +134,7 @@ Scenario: Content can be copied
     And I should be on Content view Page for "ContentManagement/TestArticleToHide"
     Then success notification that "Content item 'TestArticleToHide' revealed." appears
 
-  @IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @IbexaHeadless @IbexaExperience @IbexaCommerce
   Scenario: Content can be hidden later
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
