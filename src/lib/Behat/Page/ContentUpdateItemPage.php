@@ -105,7 +105,7 @@ class ContentUpdateItemPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__name--full'),
+            new VisibleCSSLocator('pageTitle', '.ibexa-edit-header__title'),
             new VisibleCSSLocator('formElement', 'form.ibexa-form, .ibexa-edit-content'),
             new VisibleCSSLocator('nthField', 'div.ibexa-field-edit:nth-of-type(%s)'),
             new VisibleCSSLocator('nthFieldWithSection', '[data-id="%s"] div.ibexa-field-edit:nth-of-type(%s)'),
@@ -114,9 +114,9 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('fieldOfType', '.ibexa-field-edit--%s'),
             new VisibleCSSLocator('navigationTabs', '.ibexa-anchor-navigation-menu__sections-item-btn'),
             new VisibleCSSLocator('navigationGroups', 'li.nav-item'),
-            new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status-on'),
-            new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status-saved'),
-            new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status-off'),
+            new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status--on'),
+            new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status--saved'),
+            new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status--off'),
             new VisibleCSSLocator('section', '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label'),
             new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label'),
         ];
