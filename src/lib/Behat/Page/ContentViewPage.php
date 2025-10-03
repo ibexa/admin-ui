@@ -126,7 +126,7 @@ class ContentViewPage extends Page
         $this->ibexaDropdown = $ibexaDropdown;
         $this->upperMenu = $upperMenu;
         $this->deleteContentDialog = $deleteContentDialog;
-        $this->CreateUrlAliasModal = $createUrlAliasModal;
+        $this->createUrlAliasModal = $createUrlAliasModal;
         $this->tableBuilder = $tableBuilder;
     }
 
@@ -307,7 +307,7 @@ class ContentViewPage extends Page
     public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
         $this->getHTMLPage()->find($this->getLocator('addUrlAliasButton'))->click();
-        $this->CreateUrlAliasModal->createNewUrlAlias($path, $languageName, $redirect);
+        $this->createUrlAliasModal->createNewUrlAlias($path, $languageName, $redirect);
     }
 
     public function isUrlAliasOnTheList(string $path, string $type): bool
