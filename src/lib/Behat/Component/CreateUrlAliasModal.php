@@ -13,7 +13,6 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class CreateUrlAliasModal extends Component
 {
-    use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
     private IbexaDropdown $ibexaDropdown;
 
     public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
@@ -34,10 +33,9 @@ final class CreateUrlAliasModal extends Component
         $this->ibexaDropdown->verifyIsLoaded();
         $this->ibexaDropdown->selectOption($languageName);
         $redirectToggleState = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
-        //$this->setInteractiveBreakpoint(get_defined_vars());
         if ($redirect !== $redirectToggleState->hasClass('ibexa-toggle--is-checked')) {
-               $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
-           }
+            $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
+        }
         $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 

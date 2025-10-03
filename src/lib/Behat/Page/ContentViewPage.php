@@ -36,7 +36,6 @@ use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page
 {
-    use \Ibexa\Behat\Core\Debug\InteractiveDebuggerTrait;
     /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu Element representing the right menu */
     private $contentActionsMenu;
 
@@ -308,7 +307,6 @@ class ContentViewPage extends Page
     public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
         $this->getHTMLPage()->find($this->getLocator('addUrlAliasButton'))->click();
-      //  $this->setInteractiveBreakpoint(get_defined_vars());
         $this->CreateUrlAliasModal->createNewUrlAlias($path, $languageName, $redirect);
     }
 
