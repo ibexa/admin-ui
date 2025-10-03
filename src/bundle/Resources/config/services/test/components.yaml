@@ -61,3 +61,5 @@ services:
   Ibexa\AdminUi\Behat\Component\DeleteContentDialog: ~
 
   Ibexa\AdminUi\Behat\Component\TrashSearch: ~
+
+  Ibexa\AdminUi\Behat\Component\CancelContentDialog: ~

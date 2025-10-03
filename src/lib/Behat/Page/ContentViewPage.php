@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
+use Ibexa\AdminUi\Behat\Component\CancelContentDialog;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
@@ -88,6 +89,8 @@ class ContentViewPage extends Page
 
     private DeleteContentDialog $deleteContentDialog;
 
+    private ?CancelContentDialog $cancelContentDialog;
+
     public function __construct(
         Session $session,
         Router $router,
@@ -104,7 +107,8 @@ class ContentViewPage extends Page
         UniversalDiscoveryWidget $universalDiscoveryWidget,
         IbexaDropdown $ibexaDropdown,
         UpperMenu $upperMenu,
-        DeleteContentDialog $deleteContentDialog
+        DeleteContentDialog $deleteContentDialog,
+        ?CancelContentDialog $cancelContentDialog = null
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
@@ -121,6 +125,7 @@ class ContentViewPage extends Page
         $this->ibexaDropdown = $ibexaDropdown;
         $this->upperMenu = $upperMenu;
         $this->deleteContentDialog = $deleteContentDialog;
+        $this->cancelContentDialog = $cancelContentDialog;
     }
 
     public function startCreatingContent(string $contentTypeName, ?string $language = null)
@@ -313,6 +318,7 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
             new VisibleCSSLocator('selectHideMode', '.form-check .ibexa-input--radio'),
+            new VisibleCSSLocator('cancelScheduleButton', '.ibexa-btn--schedule-hide-cancel'),
         ];
     }
 
@@ -389,6 +395,15 @@ class ContentViewPage extends Page
             $this->getSession()->reload();
         } catch (IOExceptionInterface $exception) {
             throw new \Exception('Error while clearing cache: ' . $exception->getMessage());
+        }
+    }
+
+    public function cancelScheduledHiding(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('cancelScheduleButton'))->click();
+        $this->dialog->verifyIsLoaded();
+        if ($this->cancelContentDialog !== null) {
+            $this->cancelContentDialog->confirmCanceling('Cancel scheduled hiding');
         }
     }
 }

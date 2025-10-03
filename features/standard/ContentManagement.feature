@@ -151,3 +151,20 @@ Scenario: Content can be copied
     When I run the scheduled jobs
     And I clear the behat cache directory
     Then I should see the alert "This Content item or its Location is hidden." appear
+
+  @IbexaHeadless @IbexaExperience @IbexaCommerce
+  Scenario: Content hide later can be cancelled
+    Given a "folder" Content item named "ContentManagement" exists in root
+      | name              | short_name        |
+      | ContentManagement | ContentManagement |
+    And a "article" Content item named "TestArticleToHideLater" exists in "ContentManagement"
+      | title                        | short_title                  | intro            |
+      | TestArticleToCancelHideLater | TestArticleToCancelHideLater | TestArticleIntro |
+    And I'm on Content view Page for "ContentManagement/TestArticleToCancelHideLater"
+    When I perform the "Hide" action
+    And I select hide "later" for field options
+    And I perform the "Confirm" action
+    And I should be on Content view Page for "ContentManagement/TestArticleToCancelHideLater"
+    Then I should see the alert contains "This Content item will be hidden and won't be publicly available after" appear
+    When I cancel scheduled hiding of the content item
+    Then I should see the alert "Canceled scheduled hiding of Content item 'TestArticleToCancelHideLater'." appear
