@@ -196,5 +196,6 @@ final class ContentViewContext implements Context
             $this->contentViewPage->isUrlAliasOnTheList($path, $type),
             sprintf('Url alias "%s" with type "%s" not found', $path, $type)
         );
+    }
 
 }
