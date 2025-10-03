@@ -231,4 +231,12 @@ final class ContentViewContext implements Context
     {
         $this->contentViewPage->clearBehatCacheDirectory();
     }
+
+    /**
+     * @When I cancel scheduled hiding of the content item
+     */
+    public function iCancelScheduledHidingOfTheContentItem(): void
+    {
+        $this->contentViewPage->cancelScheduledHiding();
+    }
 }
