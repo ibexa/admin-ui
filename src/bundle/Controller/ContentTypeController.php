@@ -150,7 +150,7 @@ class ContentTypeController extends Controller
 
         $deleteContentTypesForm = $this->formFactory->deleteContentTypes(
             new ContentTypesDeleteData($this->getContentTypesNumbers(
-                iteratorToArray($types)
+                iterator_to_array($types)
             ))
         );
 
