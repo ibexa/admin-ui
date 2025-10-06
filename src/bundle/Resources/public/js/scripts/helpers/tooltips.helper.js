@@ -123,6 +123,12 @@ const isTitleEllipsized = (node) => {
 
     return textHeight > nodeHeight;
 };
+const getContainer = (tooltipNode) => {
+    const { tooltipContainerSelector } = tooltipNode.dataset;
+    const container = tooltipNode.closest(tooltipContainerSelector);
+
+    return container ?? doc.body;
+};
 const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
     const { delayShow, delayHide } = tooltipNode.dataset;
     const delay = {
@@ -134,9 +140,7 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
     const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
     const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover';
     const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
-    const container = tooltipNode.dataset.tooltipContainerSelector
-        ? tooltipNode.closest(tooltipNode.dataset.tooltipContainerSelector)
-        : 'body';
+    const container = getContainer(tooltipNode);
     const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
 
     new bootstrap.Tooltip(tooltipNode, {

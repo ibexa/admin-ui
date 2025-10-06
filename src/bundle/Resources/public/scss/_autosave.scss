@@ -21,22 +21,22 @@
     $states: 'error', 'off', 'on', 'saved', 'saving';
 
     @each $state in $states {
-        &__icon-#{$state} {
+        &__icon--#{$state} {
             margin-right: calculateRem(8px);
         }
 
-        &__status-#{$state} {
+        &__status--#{$state} {
             white-space: nowrap;
         }
 
-        &__icon-#{$state},
-        &__status-#{$state} {
+        &__icon--#{$state},
+        &__status--#{$state} {
             display: none;
         }
 
         &--#{$state} {
-            .ibexa-autosave__icon-#{$state},
-            .ibexa-autosave__status-#{$state} {
+            .ibexa-autosave__icon--#{$state},
+            .ibexa-autosave__status--#{$state} {
                 display: initial;
             }
         }
@@ -45,8 +45,20 @@
     &--error {
         color: $ibexa-color-danger;
 
-        .ibexa-autosave__icon-error {
+        .ibexa-autosave__icon--error {
             fill: $ibexa-color-danger;
+        }
+    }
+
+    &--simple {
+        .ibexa-autosave {
+            &__status {
+                display: none;
+            }
+
+            &__icon {
+                margin: 0;
+            }
         }
     }
 }
