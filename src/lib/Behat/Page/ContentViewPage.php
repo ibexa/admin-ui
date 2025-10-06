@@ -112,6 +112,7 @@ class ContentViewPage extends Page
         TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
+
         $this->contentActionsMenu = $contentActionsMenu;
         $this->subItemList = $subItemList;
         $this->contentTypePicker = $contentTypePicker;
@@ -312,7 +313,11 @@ class ContentViewPage extends Page
 
     public function isUrlAliasOnTheList(string $path, string $type): bool
     {
-        $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($this->getLocator('customUrlAliasesTable'))->build();
+
+        /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
+        $locator = $this->getLocator('customUrlAliasesTable');
+        $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($locator)->build();
+    //    $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($this->getLocator('customUrlAliasesTable'))->build();
 
         return $customUrlAliasesTable->hasElement(['URL' => $path, 'Type' => $type]);
     }
