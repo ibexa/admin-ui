@@ -313,7 +313,6 @@ class ContentViewPage extends Page
 
     public function isUrlAliasOnTheList(string $path, string $type): bool
     {
-
         /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
         $locator = $this->getLocator('customUrlAliasesTable');
         $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($locator)->build();
