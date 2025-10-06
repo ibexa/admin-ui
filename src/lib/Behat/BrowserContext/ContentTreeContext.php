@@ -17,7 +17,8 @@ final class ContentTreeContext implements Context
 
     public function __construct(
         ContentTree $contentTree
-    ) {
+    )
+    {
         $this->contentTree = $contentTree;
     }
 
@@ -27,5 +28,14 @@ final class ContentTreeContext implements Context
     public function iAmOnContentTree(): void
     {
         $this->contentTree->verifyIsLoaded();
+    }
+
+    /**
+     * @Then Content item :itemPath exists in Content tree
+     */
+    public function contentItemExistsInContentTree(string $itemPath): void
+    {
+        $this->contentTree->verifyIsLoaded();
+        $this->contentTree->verifyItemExists($itemPath);
     }
 }
