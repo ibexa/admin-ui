@@ -42,7 +42,6 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\Query\Criterion\ContentTy
 use Ibexa\Contracts\Core\Repository\Values\ContentType\Query\SortClause\Name;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
-use function Ibexa\PolyfillPhp82\iterator_to_array as iteratorToArray;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
