@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ContentTypeListAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService&\PHPUnit\Framework\MockObject\MockObject */
     private ContentTypeService $contentTypeService;
 
     protected function setUp(): void
