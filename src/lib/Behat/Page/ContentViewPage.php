@@ -317,7 +317,6 @@ class ContentViewPage extends Page
         /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
         $locator = $this->getLocator('customUrlAliasesTable');
         $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($locator)->build();
-    //    $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($this->getLocator('customUrlAliasesTable'))->build();
 
         return $customUrlAliasesTable->hasElement(['URL' => $path, 'Type' => $type]);
     }
