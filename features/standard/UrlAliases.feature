@@ -1,4 +1,4 @@
-@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript @test
+@IbexaOSS @IbexaHeadless @IbexaExperience @IbexaCommerce @javascript
 Feature: UrlAliases
 
   Background:
