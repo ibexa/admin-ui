@@ -37,7 +37,7 @@ final class ContentTypeListAdapterTest extends TestCase
         $this->contentTypeService
             ->expects(self::once())
             ->method('findContentTypes')
-            ->with($this->isInstanceOf(ContentTypeQuery::class), $languages)
+            ->with(self::isInstanceOf(ContentTypeQuery::class), $languages)
             ->willReturn($searchResults);
 
         $adapter = new ContentTypeListAdapter($this->contentTypeService, $languages);
