@@ -319,12 +319,6 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: '#^Parameter \#1 \$contentType of method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:tryToCreateContentTypeDraft\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null given\.$#'
 			identifier: argument.type
 			count: 2
@@ -332,12 +326,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$contentType of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:copyContentType\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Parameter \#1 \$contentTypes of method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:getContentTypesNumbers\(\) expects array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\>, iterable\<\(int\|string\), mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
@@ -351,12 +339,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$handler of method Ibexa\\AdminUi\\Form\\SubmitHandler\:\:handle\(\) expects callable\(mixed\)\: \(Symfony\\Component\\HttpFoundation\\Response\|null\), Closure\(Ibexa\\AdminUi\\Form\\Data\\ContentType\\ContentTypesDeleteData\)\: void given\.$#'
 			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: '#^Variable \$contentTypeGroupList in PHPDoc tag @var does not match assigned variable \$types\.$#'
-			identifier: varTag.differentVariable
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
 
