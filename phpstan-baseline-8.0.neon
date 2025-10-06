@@ -11,21 +11,6 @@ parameters:
 			path: src/bundle/Controller/ContentDraftController.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function usort expects TArray of array\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\>, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Parameter \\#1 \\$string1 of function strnatcasecmp expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Parameter \\#2 \\$string2 of function strnatcasecmp expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, iterable\\<Ibexa\\\\Contracts\\\\Core\\\\Repository\\\\Values\\\\ContentType\\\\ContentType\\> given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
