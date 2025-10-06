@@ -168,7 +168,7 @@ final class ContentViewContext implements Context
     {
         $this->contentViewPage->sendToTrash();
     }
-  
+
     /**
      * @Then I should see the alert :alertMessage appear
      */
@@ -197,5 +197,4 @@ final class ContentViewContext implements Context
             sprintf('Url alias "%s" with type "%s" not found', $path, $type)
         );
     }
-
 }
