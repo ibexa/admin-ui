@@ -1,3 +1,5 @@
+import { controlZIndex } from './helpers/modal.helper';
+
 (function (global, doc, ibexa, Translator, Routing) {
     let currentPageLink = null;
     let getNotificationsStatusErrorShowed = false;
@@ -247,6 +249,9 @@
         const deleteButtons = doc.querySelectorAll('.ibexa-notifications-open-modal-button');
         const confirmDeleteButton = doc.querySelector('.ibexa-notifications-modal--delete--confirm');
         const setNotificationId = ({ currentTarget }) => {
+			 const deleteModal = doc.querySelector('.modal-backdrop.fade.show');
+				controlZIndex(deleteModal)
+
             selectedNotificationId = currentTarget.dataset.notificationId;
         };
 
