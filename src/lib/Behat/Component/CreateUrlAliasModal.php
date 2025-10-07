@@ -23,7 +23,7 @@ final class CreateUrlAliasModal extends Component
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('title'))->assert()->textEquals('Create a new URL alias');
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('title'))->assert()->textEquals('Create a new URL alias');
     }
 
     public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
