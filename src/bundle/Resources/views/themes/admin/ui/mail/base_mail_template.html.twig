@@ -1,109 +1,114 @@
-{%- block subject -%}{%- endblock subject -%}
 {%- block from -%}{%- endblock from -%}
 
-{% block DOCTYPE %}
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-{% endblock %}
+{%- block body -%}
+    {% block template_DOCTYPE %}
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    {% endblock %}
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-    {%- block head -%}
-        <head>
-            <!--[if mso]>
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <![endif]-->
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <meta name="color-scheme" content="light dark">
-            <meta name="supported-color-schemes" content="light dark">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300&display=swap" rel="stylesheet">
-            <title>{%- block head_title -%}Ibexa DXP{%- endblock head_title -%}</title>
-        </head>
-    {%- endblock head -%}
-    {%- block body -%}
-        <body style="margin: 0; padding: 0; background: #ffffff">
-            <table
-                align="center"
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-                role="presentation"
-                width="585"
-                style="border: 1px solid #e0e0e8;"
-            >
-                <tbody>
-                    {%- block mail_header -%}
-                        {% set content %}
-                            {%- block mail_header_content  -%}
-                                {% if header_img_path is defined %}
-                                    <img
-                                        style="width: 585px; height: 100px;"
-                                        src="{{ header_img_path }}"
-                                        alt="{%- block mail_header_alt_text -%}Ibexa DXP{%- endblock mail_header_alt_text -%}"
-                                    />
-                                {% else %}
-                                    <h2 style="display: tabel-cell; padding: 32px 48px; margin: 0;">
-                                        {% block mail_header_alternative_img_content %}Ibexa DXP{% endblock mail_header_alternative_img_content %}
-                                    </h2>
-                                {% endif %}
-                            {%- endblock mail_header_content -%}
-                        {% endset %}
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+        {%- block template_head -%}
+            <head>
+                <!--[if mso]>
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <![endif]-->
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <meta name="color-scheme" content="light dark">
+                <meta name="supported-color-schemes" content="light dark">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>{%- block subject -%}{%- endblock subject -%}</title>
+            </head>
+        {%- endblock template_head -%}
+        {%- block template_body -%}
+            <body style="padding: 0; background-color: #ffffff; color: #131c26;">
+                <table
+                    align="center"
+                    border="0"
+                    cellpadding="0"
+                    cellspacing="0"
+                    role="presentation"
+                    width="585"
+                    style="border: 1px solid #e0e0e8;"
+                >
+                    <tbody>
+                        {%- block mail_header -%}
+                            {% set content %}
+                                {%- block mail_header_content  -%}
+                                    {% if header_img_path is defined %}
+                                        <img
+                                            style="width: 585px; height: 100px;"
+                                            src="{{ header_img_path }}"
+                                            alt="{%- block mail_header_alt_text -%}Ibexa DXP{%- endblock mail_header_alt_text -%}"
+                                        />
+                                    {% else %}
+                                        {% set content %}
+                                            {% block mail_header_alternative_img_content %}Ibexa DXP{% endblock mail_header_alternative_img_content %}
+                                        {% endset %}
 
-                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                            content,
-                            style: 'padding: 0;'
-                        } only %}
-                    {%- endblock mail_header -%}
+                                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                            content,
+                                            style: 'padding: 32px 48px; font-size: 32px;'
+                                        } only %}
+                                    {% endif %}
+                                {%- endblock mail_header_content -%}
+                            {% endset %}
 
-                    {%- block mail_message_title -%}
-                        {% set content %}
-                            {%- block mail_message_title_content -%}{%- endblock mail_message_title_content -%}
-                        {% endset %}
+                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                content,
+                                style: 'padding: 0;'
+                            } only %}
+                        {%- endblock mail_header -%}
 
-                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                            content,
-                            style: not header_img_path is defined ? 'padding-top: 16px;'
-                        } only %}
-                    {%- endblock mail_message_title -%}
+                        {%- block mail_message_title -%}
+                            {% set content %}
+                                {%- block mail_message_title_content -%}{%- endblock mail_message_title_content -%}
+                            {% endset %}
 
-                    {%- block mail_message -%}
-                        {% set content %}
-                            {%- block mail_message_content -%}{%- endblock mail_message_content -%}
-                        {% endset %}
+                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                content,
+                                style: not header_img_path is defined ? 'padding-top: 16px;'
+                            } only %}
+                        {%- endblock mail_message_title -%}
 
-                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                            content,
-                            style: 'padding-bottom: 32px; line-height: 28px;'
-                        } only %}
-                    {%- endblock mail_message -%}
+                        {%- block mail_message -%}
+                            {% set content %}
+                                {%- block mail_message_content -%}{%- endblock mail_message_content -%}
+                            {% endset %}
 
-                    {%- block mail_actions -%}
-                        {% set content %}
-                            {%- block mail_actions_content -%}{%- endblock mail_actions_content -%}
-                        {% endset %}
+                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                content,
+                                style: 'padding-bottom: 32px;'
+                            } only %}
+                        {%- endblock mail_message -%}
 
-                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
-                            content,
-                            style: 'padding-bottom: 48px;'
-                        } only %}
-                    {%- endblock mail_actions -%}
+                        {%- block mail_actions -%}
+                            {% set content %}
+                                {%- block mail_actions_content -%}{%- endblock mail_actions_content -%}
+                            {% endset %}
 
-                    {%- block mail_footer -%}
-                        {% set line %}
-                            <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 1px; background: #e0e0e0;">
-                                <tr>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        {% endset %}
-                        {% set content %}
-                            {%- block mail_footer_content -%}{%- endblock mail_footer_content -%}
-                        {% endset %}
+                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with {
+                                content,
+                                style: 'padding-bottom: 48px;'
+                            } only %}
+                        {%- endblock mail_actions -%}
 
-                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content: line } only %}
-                        {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
-                    {%- endblock mail_footer -%}
-                </tbody>
-            </table>
-        </body>
-    {%- endblock -%}
-</html>
+                        {%- block mail_footer -%}
+                            {% set line %}
+                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 1px; background-color: #e0e0e0;">
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            {% endset %}
+                            {% set content %}
+                                {%- block mail_footer_content -%}{%- endblock mail_footer_content -%}
+                            {% endset %}
+
+                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content: line } only %}
+                            {% include '@ibexadesign/ui/mail/components/row.html.twig' with { content } only %}
+                        {%- endblock mail_footer -%}
+                    </tbody>
+                </table>
+            </body>
+        {%- endblock template_body -%}
+    </html>
+{%- endblock body -%}
