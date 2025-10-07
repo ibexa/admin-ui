@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
+use Ibexa\AdminUi\Behat\Component\CancelContentDialog;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
@@ -22,6 +23,7 @@ use Ibexa\AdminUi\Behat\Component\TranslationDialog;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -31,6 +33,8 @@ use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use PHPUnit\Framework\Assert;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class ContentViewPage extends Page
 {
@@ -85,6 +89,8 @@ class ContentViewPage extends Page
 
     private DeleteContentDialog $deleteContentDialog;
 
+    private ?CancelContentDialog $cancelContentDialog;
+
     public function __construct(
         Session $session,
         Router $router,
@@ -101,7 +107,8 @@ class ContentViewPage extends Page
         UniversalDiscoveryWidget $universalDiscoveryWidget,
         IbexaDropdown $ibexaDropdown,
         UpperMenu $upperMenu,
-        DeleteContentDialog $deleteContentDialog
+        DeleteContentDialog $deleteContentDialog,
+        ?CancelContentDialog $cancelContentDialog = null
     ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
@@ -118,6 +125,7 @@ class ContentViewPage extends Page
         $this->ibexaDropdown = $ibexaDropdown;
         $this->upperMenu = $upperMenu;
         $this->deleteContentDialog = $deleteContentDialog;
+        $this->cancelContentDialog = $cancelContentDialog;
     }
 
     public function startCreatingContent(string $contentTypeName, ?string $language = null)
@@ -309,6 +317,8 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('moreTab', '.ibexa-tabs__tab--more'),
             new VisibleCSSLocator('popupMenuItem', '.ibexa-popup-menu__item .ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
+            new VisibleCSSLocator('selectHideMode', '.form-check .ibexa-input--radio'),
+            new VisibleCSSLocator('cancelScheduleButton', '.ibexa-btn--schedule-hide-cancel'),
         ];
     }
 
@@ -355,5 +365,45 @@ class ContentViewPage extends Page
     public function verifyMessage(string $expectedMessage): void
     {
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('alertTitle'))->assert()->textEquals($expectedMessage);
+    }
+
+    public function selectHideOption(string $viewMode): void
+    {
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('selectHideMode'))
+            ->getByCriterion(new ElementAttributeCriterion('value', $viewMode))->click();
+    }
+
+    public function verifyMessageContains(string $alertMessage): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('alertTitle'))->assert()->textContains($alertMessage);
+    }
+
+    public function runScheduledJobs(): void
+    {
+        shell_exec('bin/console ibexa:scheduled:run');
+    }
+
+    public function clearBehatCacheDirectory(): void
+    {
+        $filesystem = new Filesystem();
+        $cacheDir = getcwd() . \DIRECTORY_SEPARATOR . 'var' . \DIRECTORY_SEPARATOR . 'cache';
+
+        try {
+            $filesystem->remove($cacheDir);
+            $this->getHTMLPage()->setTimeout(5);
+            $this->getSession()->reload();
+        } catch (IOExceptionInterface $exception) {
+            throw new \Exception('Error while clearing cache: ' . $exception->getMessage());
+        }
+    }
+
+    public function cancelScheduledHiding(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('cancelScheduleButton'))->click();
+        $this->dialog->verifyIsLoaded();
+        if ($this->cancelContentDialog !== null) {
+            $this->cancelContentDialog->confirmCanceling('Cancel scheduled hiding');
+        }
     }
 }
