@@ -1,4 +1,5 @@
 (function (global) {
+    const ACTION_BTN_VERTICAL_SPACING = 4.3;
     let actionButtonConfigs = [];
 
     const registerButton = (config) => {
@@ -35,7 +36,7 @@
             container.style.right = '2rem';
             container.style.zIndex = buttonConfig.zIndex || 1040;
 
-            const bottomPosition = `${index === 0 ? 2 : index * 3.8 + 2 + index * 0.5}rem`;
+            const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + 2}rem`;
 
             container.style.bottom = bottomPosition;
         });
