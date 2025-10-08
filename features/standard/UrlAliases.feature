@@ -10,7 +10,7 @@ Feature: UrlAliases
         | UrlAliases | UrlAliases |
       And I'm on Content view Page for "UrlAliases"
       And I switch to "URL" tab in Content structure
-      When I create a new Url Alias called "RedirectUrlAlias" in "English (United Kingdom)" language with redirect "true"
+      When I create a new Url Alias called "RedirectUrlAlias" in "English (United Kingdom)" language with redirect value set to "true"
       Then there should be a "/redirecturlalias" Url Alias on the list with "Redirect" type
 
   Scenario: Create a direct Url Alias
@@ -19,5 +19,5 @@ Feature: UrlAliases
       | UrlAliases | UrlAliases |
     And I'm on Content view Page for "UrlAliases"
     And I switch to "URL" tab in Content structure
-    When I create a new Url Alias called "DirectUrlAlias" in "English (United Kingdom)" language with redirect "false"
+    When I create a new Url Alias called "DirectUrlAlias" in "English (United Kingdom)" language with redirect value set to "false"
     Then there should be a "/directurlalias" Url Alias on the list with "Direct" type

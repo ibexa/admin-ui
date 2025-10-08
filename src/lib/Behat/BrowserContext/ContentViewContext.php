@@ -179,7 +179,7 @@ final class ContentViewContext implements Context
     }
 
     /**
-     * @When I create a new Url Alias called :path in :languageName language with redirect :redirect
+     * @When I create a new Url Alias called :path in :languageName language with redirect value set to :redirect
      */
     public function iCreateNewUrlAlias(string $path, string $languageName, string $redirect_string): void
     {
