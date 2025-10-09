@@ -166,4 +166,24 @@ final readonly class ContentViewContext implements Context
         $this->contentViewPage->verifyIsLoaded();
         $this->contentViewPage->verifyMessage($alertMessage);
     }
+
+    /**
+     * @When I create a new Url Alias called :path in :languageName language with redirect value set to :redirect
+     */
+    public function iCreateNewUrlAlias(string $path, string $languageName, string $redirect_string): void
+    {
+        $redirect = filter_var($redirect_string, FILTER_VALIDATE_BOOLEAN);
+        $this->contentViewPage->createNewUrlAlias($path, $languageName, $redirect);
+    }
+
+    /**
+     * @Then there should be a :path Url Alias on the list with :type type
+     */
+    public function verifyUrlAliasExists(string $path, string $type): void
+    {
+        Assert::assertTrue(
+            $this->contentViewPage->isUrlAliasOnTheList($path, $type),
+            sprintf('Url alias "%s" with type "%s" not found', $path, $type)
+        );
+    }
 }
