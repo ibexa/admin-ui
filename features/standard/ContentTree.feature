@@ -30,5 +30,5 @@ Feature: Content tree basic operations
       | Short title | arttest         |
       | Intro       | TestArticleIntro|
     And I perform the "Publish" action
-    And I should be on Content view Page for "root/art1/arttest"
-    Then Content item "root/art1" exists in Content tree
+    And I'm on Content view Page for "root/art1/arttest"
+    Then Content item "root/art1/arttest" exists in Content tree
