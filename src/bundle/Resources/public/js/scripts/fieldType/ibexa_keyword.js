@@ -86,7 +86,7 @@
             acceptKeys: ['Enter', ','],
         });
         const updateKeywords = updateValue.bind(this, keywordInput);
-        const taggifyInput = taggifyContainer.querySelector('.taggify__input');
+        const taggifyInput = taggifyContainer.querySelector('.ibexa-taggify__input');
 
         if (keywordInput.required) {
             taggifyInput.setAttribute('required', true);
