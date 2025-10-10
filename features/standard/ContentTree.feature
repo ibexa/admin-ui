@@ -13,7 +13,7 @@ Feature: Content tree basic operations
       | Article2    | art2          | root       | eng-GB   |
       | Article3    | art3          | root       | eng-GB   |
     And I am logged as admin
-    And I'm on Content view Page for "root/art1"
+    When I'm on Content view Page for "root/art1"
     Then Content item "root/art1" exists in Content tree
 
   Scenario: New Content item can be created under chosen nested node

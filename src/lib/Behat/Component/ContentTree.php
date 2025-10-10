@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class ContentTree extends Component
+final class ContentTree extends Component
 {
     public function verifyIsLoaded(): void
     {
@@ -38,7 +38,7 @@ class ContentTree extends Component
             new VisibleCSSLocator('treeItem', '.c-tb-list-item-single__label'),
             new VisibleCSSLocator('treeElement', '.ibexa-content-tree-container__root .c-tb-list-item-single__element'),
             new VisibleCSSLocator('search', '.c-tb-search .ibexa-input'),
-            new VisibleCSSLocator('contextInTree', '.c-tb-list-item-single__link'),
+            new VisibleCSSLocator('contentItemInTree', '.c-tb-list-item-single__link'),
         ];
     }
 }
