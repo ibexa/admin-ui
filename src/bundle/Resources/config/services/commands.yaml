@@ -1,6 +1,8 @@
 parameters:
     ibexa.admin_ui.command.compile_assets_timeout.default: !php/const Ibexa\Bundle\AdminUi\Command\CompileAssetsCommand::COMMAND_DEFAULT_TIMEOUT
     ibexa.admin_ui.command.compile_assets_timeout: '%env(default:ibexa.admin_ui.command.compile_assets_timeout.default:COMPOSER_PROCESS_TIMEOUT)%'
+    ibexa.admin_ui.command.prepare_ds_assets_timeout.default: !php/const Ibexa\Bundle\AdminUi\Command\PrepareDSAssetsCommand::COMMAND_DEFAULT_TIMEOUT
+    ibexa.admin_ui.command.prepare_ds_assets_timeout: '%env(default:ibexa.admin_ui.command.prepare_ds_assets_timeout.default:COMPOSER_PROCESS_TIMEOUT)%'
 
 services:
     _defaults:
@@ -11,5 +13,11 @@ services:
     Ibexa\Bundle\AdminUi\Command\CompileAssetsCommand:
         arguments:
             $timeout: '%ibexa.admin_ui.command.compile_assets_timeout%'
+        tags:
+            - { name: console.command }
+
+    Ibexa\Bundle\AdminUi\Command\PrepareDSAssetsCommand:
+        arguments:
+            $timeout: '%ibexa.admin_ui.command.prepare_ds_assets_timeout%'
         tags:
             - { name: console.command }
