@@ -16,7 +16,7 @@ final class ContentTreeContext implements Context
 {
     private ContentTree $contentTree;
 
-    public function __construct(
+    public function __construct(ContentTree $contentTree)
         ContentTree $contentTree
     )
     {
