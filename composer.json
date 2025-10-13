@@ -50,7 +50,7 @@
         "ibexa/core": "~4.6.0@dev",
         "ibexa/content-forms": "~4.6.0@dev",
         "ibexa/design-engine": "~4.6.0@dev",
-        "ibexa/user": "~4.6.0@dev",
+        "ibexa/user": "dev-IBX-9667-Updated-emails-template as 4.6.x-dev",
         "ibexa/fieldtype-richtext": "~4.6.0@dev",
         "ibexa/rest": "~4.6.0@dev",
         "ibexa/polyfill-php82": "^1.0",
