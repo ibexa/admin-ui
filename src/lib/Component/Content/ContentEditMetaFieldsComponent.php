@@ -15,26 +15,18 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Twig\Environment;
 
-class ContentEditMetaFieldsComponent implements ComponentInterface
+final readonly class ContentEditMetaFieldsComponent implements ComponentInterface
 {
-    private const NO_CONTENT = '';
-
-    private Environment $twig;
-
-    private ConfigResolverInterface $configResolver;
+    private const string NO_CONTENT = '';
 
     public function __construct(
-        Environment $twig,
-        ConfigResolverInterface $configResolver
+        private Environment $twig,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->twig = $twig;
-        $this->configResolver = $configResolver;
     }
 
     /**
      * @param array<string, mixed> $parameters
-     *
-     * @return string
      */
     public function render(array $parameters = []): string
     {
@@ -84,8 +76,8 @@ class ContentEditMetaFieldsComponent implements ComponentInterface
             'admin_ui_forms.content_edit.meta_field_groups_list'
         );
 
-        return $contentType->fieldDefinitions->filter(
-            static fn (FieldDefinition $field): bool => in_array($field->fieldGroup, $metaFieldGroups, true),
+        return $contentType->getFieldDefinitions()->filter(
+            static fn (FieldDefinition $field): bool => in_array($field->getFieldGroup(), $metaFieldGroups, true),
         );
     }
 

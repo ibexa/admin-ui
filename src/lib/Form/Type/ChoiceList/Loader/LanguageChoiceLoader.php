@@ -8,18 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
-class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
+final class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getChoiceList(): array
     {
         $languages = parent::getChoiceList();
         $enabledLanguages = [];
 
         foreach ($languages as $language) {
-            if ($language->enabled) {
+            if ($language->isEnabled()) {
                 $enabledLanguages[] = $language;
             }
         }
@@ -27,5 +24,3 @@ class LanguageChoiceLoader extends ConfiguredLanguagesChoiceLoader
         return $enabledLanguages;
     }
 }
-
-class_alias(LanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader');

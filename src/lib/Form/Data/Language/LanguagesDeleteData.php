@@ -13,32 +13,26 @@ namespace Ibexa\AdminUi\Form\Data\Language;
  */
 class LanguagesDeleteData
 {
-    /** @var array|null */
-    protected $languages;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|null $languages
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
      */
-    public function __construct(array $languages = [])
+    public function __construct(protected array $languages = [])
     {
-        $this->languages = $languages;
     }
 
     /**
-     * @return array|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
-    public function getLanguages(): ?array
+    public function getLanguages(): array
     {
         return $this->languages;
     }
 
     /**
-     * @param array|null $languages
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
      */
-    public function setLanguages(?array $languages)
+    public function setLanguages(array $languages): void
     {
         $this->languages = $languages;
     }
 }
-
-class_alias(LanguagesDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguagesDeleteData');

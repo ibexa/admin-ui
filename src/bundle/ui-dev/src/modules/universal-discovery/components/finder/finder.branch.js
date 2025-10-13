@@ -20,7 +20,7 @@ import {
 const CLASS_IS_BRANCH_RESIZING = 'ibexa-is-branch-resizing';
 const SCROLL_OFFSET = 200;
 
-const FinderBranch = ({ locationData, itemsPerPage }) => {
+const FinderBranch = ({ locationData, itemsPerPage = 50 }) => {
     const [offset, setOffset] = useState(0);
     const [branchWidth, setBranchWidth] = useState(0);
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
@@ -94,7 +94,7 @@ const FinderBranch = ({ locationData, itemsPerPage }) => {
         return (
             <div className="c-finder-branch__info-wrapper">
                 <span className="c-finder-branch__icon-wrapper">
-                    <Icon extraClasses="ibexa-icon--small" customPath={iconPath} />
+                    <Icon extraClasses="ibexa-icon--small-medium" customPath={iconPath} />
                 </span>
                 <span className="c-finder-branch__name">{contentName}</span>
             </div>
@@ -174,10 +174,6 @@ FinderBranch.propTypes = {
         collapsed: PropTypes.bool,
     }).isRequired,
     itemsPerPage: PropTypes.number,
-};
-
-FinderBranch.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default FinderBranch;

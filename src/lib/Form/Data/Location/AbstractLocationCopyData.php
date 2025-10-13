@@ -12,16 +12,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 abstract class AbstractLocationCopyData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $newParentLocation;
-
-    public function __construct(?Location $location = null, ?Location $newParentLocation = null)
-    {
-        $this->location = $location;
-        $this->newParentLocation = $newParentLocation;
+    public function __construct(
+        protected ?Location $location = null,
+        protected ?Location $newParentLocation = null
+    ) {
     }
 
     public function getLocation(): ?Location
@@ -29,7 +23,7 @@ abstract class AbstractLocationCopyData
         return $this->location;
     }
 
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -39,10 +33,8 @@ abstract class AbstractLocationCopyData
         return $this->newParentLocation;
     }
 
-    public function setNewParentLocation(?Location $newParentLocation)
+    public function setNewParentLocation(?Location $newParentLocation): void
     {
         $this->newParentLocation = $newParentLocation;
     }
 }
-
-class_alias(AbstractLocationCopyData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\AbstractLocationCopyData');

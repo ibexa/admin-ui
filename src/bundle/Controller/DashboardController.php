@@ -14,42 +14,24 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Symfony\Component\HttpFoundation\Response;
 
-class DashboardController extends Controller
+final class DashboardController extends Controller
 {
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /**
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     */
     public function __construct(
-        FormFactory $formFactory,
-        PermissionResolver $permissionResolver
+        private readonly FormFactory $formFactory,
+        private readonly PermissionResolver $permissionResolver
     ) {
-        $this->formFactory = $formFactory;
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function dashboardAction(): Response
     {
-        $editForm = $this->formFactory->contentEdit(
-            new ContentEditData()
-        );
+        $editForm = $this->formFactory->contentEdit(new ContentEditData());
 
         return $this->render('@ibexadesign/ui/dashboard/dashboard.html.twig', [
-            'form_edit' => $editForm->createView(),
+            'form_edit' => $editForm,
             'can_create_content' => $this->permissionResolver->hasAccess('content', 'create'),
         ]);
     }
 }
-
-class_alias(DashboardController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\DashboardController');

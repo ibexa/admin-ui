@@ -14,64 +14,39 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContentLocationRemoveData
 {
     /**
-     * @Assert\NotBlank()
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
-    public $contentInfo;
-
-    /**
-     * @todo add more validation constraints
-     *
-     * @Assert\NotBlank()
-     *
-     * @var array
-     */
-    public $locations;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param array $selectedLocations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $selectedLocations
      */
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        array $selectedLocations = []
+        #[Assert\NotBlank]
+        public ?ContentInfo $contentInfo = null,
+        #[Assert\NotBlank]
+        public array $selectedLocations = []
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->locations = $selectedLocations;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
+    public function setContentInfo(?ContentInfo $contentInfo): void
+    {
+        $this->contentInfo = $contentInfo;
+    }
+
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
      */
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setLocations(array $locations): void
     {
-        $this->contentInfo = $contentInfo;
+        $this->selectedLocations = $locations;
     }
 
     /**
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
      */
     public function getLocations(): array
     {
-        return $this->locations;
-    }
-
-    /**
-     * @param array $locations
-     */
-    public function setLocations(array $locations)
-    {
-        $this->locations = $locations;
+        return $this->selectedLocations;
     }
 }
-
-class_alias(ContentLocationRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationRemoveData');

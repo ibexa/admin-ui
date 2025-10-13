@@ -14,27 +14,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class ContentTransformer implements DataTransformerInterface
+final readonly class ContentTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
-    public function __construct(ContentService $contentService)
+    public function __construct(private ContentService $contentService)
     {
-        $this->contentService = $contentService;
     }
 
-    /**
-     * Transforms a domain specific Content object into a Content's ID.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $value
-     *
-     * @return int|null
-     */
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -44,7 +30,7 @@ class ContentTransformer implements DataTransformerInterface
             throw new TransformationFailedException('Expected a ' . Content::class . ' object.');
         }
 
-        return $value->id;
+        return $value->getId();
     }
 
     /**
@@ -52,11 +38,9 @@ class ContentTransformer implements DataTransformerInterface
      *
      * @param string|null $value
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function reverseTransform($value): ?Content
+    public function reverseTransform(mixed $value): ?Content
     {
         if (empty($value)) {
             return null;
@@ -73,5 +57,3 @@ class ContentTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ContentTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentTransformer');

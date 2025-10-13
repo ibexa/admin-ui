@@ -14,7 +14,7 @@ import {
     ContentTypesMapContext,
 } from '../..//universal.discovery.module';
 
-const ContentEditButton = ({ version, location, isDisabled, label }) => {
+const ContentEditButton = ({ version, location, isDisabled, label = null }) => {
     const Routing = getRouting();
     const adminUiConfig = getAdminUiConfig();
     const restInfo = useContext(RestInfoContext);
@@ -119,7 +119,7 @@ const ContentEditButton = ({ version, location, isDisabled, label }) => {
                 data-tooltip-container-selector=".c-udw-tab"
                 type="button"
             >
-                <Icon name="edit" extraClasses="ibexa-icon--small" />
+                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
                 {label}
             </button>
             {renderTranslationSelector()}
@@ -132,10 +132,6 @@ ContentEditButton.propTypes = {
     version: PropTypes.object.isRequired,
     isDisabled: PropTypes.bool.isRequired,
     label: PropTypes.node,
-};
-
-ContentEditButton.defaultProps = {
-    label: null,
 };
 
 export default ContentEditButton;

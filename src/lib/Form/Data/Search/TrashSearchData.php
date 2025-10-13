@@ -12,54 +12,23 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
-class TrashSearchData
+final class TrashSearchData
 {
-    /** @var int|null */
-    private $limit;
-
-    /** @var int|null */
-    private $page;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
-    private $section;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
-    private $contentType;
-
-    /** @var array|null */
-    private $trashedInterval;
-
-    /** @var string|null */
-    private $trashed;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null */
-    private $creator;
-
-    /** @var array|null */
-    private $sort;
-
-    private ?string $contentName;
-
+    /**
+     * @param array<mixed>|null $trashedInterval
+     * @param array<mixed>|null $sort
+     */
     public function __construct(
-        ?int $limit = 10,
-        ?int $page = 1,
-        ?Section $section = null,
-        ?ContentType $contentType = null,
-        ?string $trashed = null,
-        ?array $trashedInterval = [],
-        ?User $creator = null,
-        ?string $contentName = null,
-        ?array $sort = ['field' => 'trashed', 'direction' => 0]
+        private ?int $limit = 10,
+        private ?int $page = 1,
+        private ?Section $section = null,
+        private ?ContentType $contentType = null,
+        private ?string $trashed = null,
+        private ?array $trashedInterval = [],
+        private ?User $creator = null,
+        private ?string $contentName = null,
+        private ?array $sort = ['field' => 'trashed', 'direction' => 0]
     ) {
-        $this->limit = $limit;
-        $this->page = $page;
-        $this->section = $section;
-        $this->contentType = $contentType;
-        $this->trashed = $trashed;
-        $this->trashedInterval = $trashedInterval;
-        $this->creator = $creator;
-        $this->contentName = $contentName;
-        $this->sort = $sort;
     }
 
     public function getTrashed(): ?string
@@ -112,11 +81,17 @@ class TrashSearchData
         $this->contentType = $contentType;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     public function getTrashedInterval(): ?array
     {
         return $this->trashedInterval;
     }
 
+    /**
+     * @param array<mixed>|null $trashedInterval
+     */
     public function setTrashedInterval(?array $trashedInterval): void
     {
         $this->trashedInterval = $trashedInterval;
@@ -142,11 +117,17 @@ class TrashSearchData
         $this->contentName = $contentName;
     }
 
+    /**
+     * @return array<mixed>|null
+     */
     public function getSort(): ?array
     {
         return $this->sort;
     }
 
+    /**
+     * @param array<mixed>|null $sort
+     */
     public function setSort(?array $sort): void
     {
         $this->sort = $sort;
@@ -168,5 +149,3 @@ class TrashSearchData
             !empty($trashed);
     }
 }
-
-class_alias(TrashSearchData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Search\TrashSearchData');

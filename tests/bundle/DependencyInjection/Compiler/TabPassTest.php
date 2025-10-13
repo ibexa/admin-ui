@@ -31,7 +31,7 @@ class TabPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new TabPass());
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $taggedServiceId = 'collected_service';
         $collectedService = new Definition();
@@ -53,5 +53,3 @@ class TabPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
-
-class_alias(TabPassTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Compiler\TabPassTest');

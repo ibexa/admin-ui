@@ -37,7 +37,7 @@ class Selection extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezselection';
+        return 'ibexa_selection';
     }
 
     public function specifyLocators(): array

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\Content;
 
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
@@ -16,14 +17,12 @@ use Ibexa\AdminUi\REST\Value\ContentTree\Root;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
-use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Rest\Message;
@@ -33,40 +32,19 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @phpstan-import-type TPermissionRestrictions from \Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo
  */
-class ContentTreeController extends RestController
+final class ContentTreeController extends RestController
 {
-    private const ROOT_LOCATION_ID = 1;
-
-    private LocationService $locationService;
-
-    private PermissionCheckerInterface $permissionChecker;
-
-    private LookupLimitationsTransformer $lookupLimitationsTransformer;
-
-    private NodeFactory $contentTreeNodeFactory;
-
-    private PermissionResolver $permissionResolver;
-
-    private ConfigResolverInterface $configResolver;
-
-    private SiteaccessResolverInterface $siteaccessResolver;
+    private const int ROOT_LOCATION_ID = 1;
 
     public function __construct(
-        LocationService $locationService,
-        PermissionCheckerInterface $permissionChecker,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        NodeFactory $contentTreeNodeFactory,
-        PermissionResolver $permissionResolver,
-        ConfigResolverInterface $configResolver,
-        SiteaccessResolverInterface $siteaccessResolver
+        private readonly LocationService $locationService,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly NodeFactory $contentTreeNodeFactory,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly SiteaccessResolverInterface $siteaccessResolver,
+        private readonly LimitationResolverInterface $limitationResolver
     ) {
-        $this->locationService = $locationService;
-        $this->permissionChecker = $permissionChecker;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->contentTreeNodeFactory = $contentTreeNodeFactory;
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
-        $this->siteaccessResolver = $siteaccessResolver;
     }
 
     /**
@@ -79,7 +57,7 @@ class ContentTreeController extends RestController
         int $parentLocationId,
         int $limit,
         int $offset,
-        ?Criterion $filter
+        ?Query\CriterionInterface $filter
     ): Node {
         $location = $this->locationService->loadLocation($parentLocationId);
         $loadSubtreeRequestNode = new LoadSubtreeRequestNode($parentLocationId, $limit, $offset);
@@ -99,10 +77,6 @@ class ContentTreeController extends RestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Ibexa\AdminUi\REST\Value\ContentTree\Root
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -188,7 +162,7 @@ class ContentTreeController extends RestController
 
         $content = $location->getContent();
         $versionInfo = $content->getVersionInfo();
-        $translations = $versionInfo->languageCodes;
+        $translations = $versionInfo->getLanguageCodes();
         $previewableTranslations = array_filter(
             $translations,
             fn (string $languageCode): bool => $this->isPreviewable($location, $content, $languageCode)
@@ -206,8 +180,8 @@ class ContentTreeController extends RestController
      */
     private function getLocationPermissionRestrictions(Location $location): array
     {
-        $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
-        $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
+        $lookupCreateLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
+        $lookupUpdateLimitationsResult = $this->limitationResolver->getContentUpdateLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,
@@ -249,8 +223,9 @@ class ContentTreeController extends RestController
     {
         $content = $location->getContent();
         $contentType = $content->getContentType();
-        $contentIsUser = (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
-            ->isSatisfiedBy($contentType);
+        $contentIsUser = (new ContentTypeIsUser(
+            $this->configResolver->getParameter('user_content_type_identifier')
+        ))->isSatisfiedBy($contentType);
 
         $translations = $content->getVersionInfo()->getLanguageCodes();
         $target = (new Target\Version())->deleteTranslations($translations);
@@ -340,5 +315,3 @@ class ContentTreeController extends RestController
         );
     }
 }
-
-class_alias(ContentTreeController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\ContentTreeController');

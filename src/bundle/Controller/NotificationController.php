@@ -31,41 +31,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
 
 final class NotificationController extends Controller
 {
-    protected NotificationService $notificationService;
-
-    protected Registry $registry;
-
-    protected TranslatorInterface $translator;
-
-    private ConfigResolverInterface $configResolver;
-
-    private FormFactory $formFactory;
-
-    private SubmitHandler $submitHandler;
-
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
     public function __construct(
-        NotificationService $notificationService,
-        Registry $registry,
-        TranslatorInterface $translator,
-        ConfigResolverInterface $configResolver,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        TranslatableNotificationHandlerInterface $notificationHandler
+        private readonly NotificationService $notificationService,
+        private readonly Registry $registry,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler
     ) {
-        $this->notificationService = $notificationService;
-        $this->registry = $registry;
-        $this->translator = $translator;
-        $this->configResolver = $configResolver;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->notificationHandler = $notificationHandler;
     }
 
     /**
@@ -80,7 +57,7 @@ final class NotificationController extends Controller
                 'status' => 'failed',
                 'error' => $exception->getMessage(),
             ], 404);
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return new JsonResponse([
                 'status' => 'failed',
                 'error' => 'Unexpected error occurred.',
@@ -88,7 +65,7 @@ final class NotificationController extends Controller
         }
     }
 
-    public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
+    public function getNotificationsAction(int $offset, int $limit): JsonResponse
     {
         return $this->handleJsonErrors(function () use ($offset, $limit) {
             $notificationList = $this->notificationService->loadNotifications($offset, $limit);
@@ -127,8 +104,8 @@ final class NotificationController extends Controller
             'sidebarNotifications' => $this->renderNotifications($this->notificationService->loadNotifications(0, $limit)->items),
             'notifications_count_interval' => $this->configResolver->getParameter('notification_count.interval'),
             'pager' => $pagerfanta,
-            'search_form' => $searchForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'search_form' => $searchForm,
+            'delete_form' => $deleteForm,
         ]);
     }
 
@@ -240,10 +217,10 @@ final class NotificationController extends Controller
 
     /**
      * We're not able to establish two-way stream (it requires additional
-     * server service for websocket connection), so * we need a way to mark notification
+     * server service for websocket connection), so we need a way to mark notification
      * as read. AJAX call is fine.
      */
-    public function markNotificationAsReadAction(Request $request, int $notificationId): JsonResponse
+    public function markNotificationAsReadAction(int $notificationId): JsonResponse
     {
         return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
@@ -282,7 +259,7 @@ final class NotificationController extends Controller
         });
     }
 
-    public function markAllNotificationsAsReadAction(Request $request): JsonResponse
+    public function markAllNotificationsAsReadAction(): JsonResponse
     {
         return $this->handleJsonErrors(function () {
             $this->notificationService->markUserNotificationsAsRead();
@@ -291,7 +268,7 @@ final class NotificationController extends Controller
         });
     }
 
-    public function markNotificationAsUnreadAction(Request $request, int $notificationId): JsonResponse
+    public function markNotificationAsUnreadAction(int $notificationId): JsonResponse
     {
         return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
@@ -302,7 +279,7 @@ final class NotificationController extends Controller
         });
     }
 
-    public function deleteNotificationAction(Request $request, int $notificationId): JsonResponse
+    public function deleteNotificationAction(int $notificationId): JsonResponse
     {
         return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
@@ -353,5 +330,3 @@ final class NotificationController extends Controller
         return $this->redirectToRoute('ibexa.notifications.render.all');
     }
 }
-
-class_alias(NotificationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\NotificationController');

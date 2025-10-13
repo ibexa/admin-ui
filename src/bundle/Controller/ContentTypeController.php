@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Exception;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeCopyData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData;
 use Ibexa\AdminUi\Form\Data\ContentType\ContentTypesDeleteData;
@@ -47,106 +48,58 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ContentTypeController extends Controller
+final class ContentTypeController extends Controller
 {
-    private const PRIMARY_UPDATE_ACTION = 'publishContentType';
-
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
-    private $contentTypeActionDispatcher;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
-    private $contentTypeFormFactory;
-
-    /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTypeDraftMapper */
-    private $contentTypeDraftMapper;
-
-    /**
-     * @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface
-     */
-    private $configResolver;
-
-    /** @var \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\FieldTypeToolbarFactory */
-    private $fieldTypeToolbarFactory;
-
-    private MetaFieldDefinitionServiceInterface $metaFieldDefinitionService;
+    private const string PRIMARY_UPDATE_ACTION = 'publishContentType';
 
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator,
-        ContentTypeService $contentTypeService,
-        ActionDispatcherInterface $contentTypeActionDispatcher,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        UserService $userService,
-        LanguageService $languageService,
-        ContentTypeFormFactory $contentTypeFormFactory,
-        ContentTypeDraftMapper $contentTypeDraftMapper,
-        ConfigResolverInterface $configResolver,
-        FieldTypeToolbarFactory $fieldTypeToolbarFactory,
-        MetaFieldDefinitionServiceInterface $metaFieldDefinitionService
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly TranslatorInterface $translator,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly ActionDispatcherInterface $contentTypeActionDispatcher,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly UserService $userService,
+        private readonly LanguageService $languageService,
+        private readonly ContentTypeFormFactory $contentTypeFormFactory,
+        private readonly ContentTypeDraftMapper $contentTypeDraftMapper,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly FieldTypeToolbarFactory $fieldTypeToolbarFactory,
+        private readonly MetaFieldDefinitionServiceInterface $metaFieldDefinitionService
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->translator = $translator;
-        $this->contentTypeService = $contentTypeService;
-        $this->contentTypeActionDispatcher = $contentTypeActionDispatcher;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->userService = $userService;
-        $this->languageService = $languageService;
-        $this->contentTypeFormFactory = $contentTypeFormFactory;
-        $this->contentTypeDraftMapper = $contentTypeDraftMapper;
-        $this->configResolver = $configResolver;
-        $this->fieldTypeToolbarFactory = $fieldTypeToolbarFactory;
-        $this->metaFieldDefinitionService = $metaFieldDefinitionService;
     }
 
     /**
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
      */
     public function listAction(ContentTypeGroup $group, string $routeName, int $page): Response
     {
         $deletableTypes = [];
-        $contentTypes = $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'));
+        $contentTypes = iterator_to_array(
+            $this->contentTypeService->loadContentTypes(
+                $group,
+                $this->configResolver->getParameter('languages')
+            )
+        );
 
-        usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
-            return strnatcasecmp($contentType1->getName(), $contentType2->getName());
+        usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
+            return strnatcasecmp($contentType1->getName() ?? '', $contentType2->getName() ?? '');
         });
 
         $pagerfanta = new Pagerfanta(
             new ArrayAdapter($contentTypes)
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.content_type_limit')
+        );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
-        $types = $pagerfanta->getCurrentPageResults();
+        $types = iterator_to_array($pagerfanta->getCurrentPageResults());
 
         $deleteContentTypesForm = $this->formFactory->deleteContentTypes(
             new ContentTypesDeleteData($this->getContentTypesNumbers($types))
@@ -157,13 +110,13 @@ class ContentTypeController extends Controller
         }
 
         $copyData = new ContentTypeCopyData(null, $group);
-        $contentTypeCopyForm = $this->contentTypeFormFactory->contentTypeCopy($copyData, null)->createView();
+        $contentTypeCopyForm = $this->contentTypeFormFactory->contentTypeCopy($copyData)->createView();
 
         return $this->render('@ibexadesign/content_type/list.html.twig', [
             'content_type_group' => $group,
             'pager' => $pagerfanta,
             'deletable' => $deletableTypes,
-            'form_content_types_delete' => $deleteContentTypesForm->createView(),
+            'form_content_types_delete' => $deleteContentTypesForm,
             'group' => $group,
             'route_name' => $routeName,
             'can_create' => $this->isGranted(new Attribute('class', 'create')),
@@ -174,18 +127,19 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeCreateView
-     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function addAction(ContentTypeGroup $group)
+    public function addAction(ContentTypeGroup $group): RedirectResponse|ContentTypeCreateView
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
         $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
 
-        $createStruct = $this->contentTypeService->newContentTypeCreateStruct('__new__' . md5((string)microtime(true)));
+        $createStruct = $this->contentTypeService->newContentTypeCreateStruct(
+            '__new__' . md5((string)microtime(true))
+        );
         $createStruct->mainLanguageCode = $mainLanguageCode;
         $createStruct->names = [$mainLanguageCode => 'New content type'];
 
@@ -196,7 +150,7 @@ class ContentTypeController extends Controller
 
         try {
             $contentTypeDraft = $this->contentTypeService->createContentType($createStruct, [$group]);
-        } catch (NotFoundException $e) {
+        } catch (Exception) {
             $this->notificationHandler->error(
                 /** @Desc("Cannot create content type. Could not find language with identifier '%languageCode%'") */
                 'content_type.add.missing_language',
@@ -232,7 +186,7 @@ class ContentTypeController extends Controller
         $contentTypeGroup = $data->getContentTypeGroup();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationAddData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationAddData $data): RedirectResponse {
                 $contentType = $data->getContentType();
                 $language = $data->getLanguage();
                 $baseLanguage = $data->getBaseLanguage();
@@ -240,7 +194,7 @@ class ContentTypeController extends Controller
 
                 try {
                     $contentTypeDraft = $this->tryToCreateContentTypeDraft($contentType);
-                } catch (BadStateException $e) {
+                } catch (BadStateException) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
                         /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
@@ -258,8 +212,8 @@ class ContentTypeController extends Controller
                 return new RedirectResponse($this->generateUrl('ibexa.content_type.update', [
                     'contentTypeId' => $contentTypeDraft->id,
                     'contentTypeGroupId' => $contentTypeGroup->id,
-                    'fromLanguageCode' => null !== $baseLanguage ? $baseLanguage->languageCode : null,
-                    'toLanguageCode' => $language->languageCode,
+                    'fromLanguageCode' => $baseLanguage?->getLanguageCode(),
+                    'toLanguageCode' => $language->getLanguageCode(),
                 ]));
             });
 
@@ -287,13 +241,13 @@ class ContentTypeController extends Controller
         $contentTypeGroup = $data->getContentTypeGroup();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationRemoveData $data): RedirectResponse {
                 $contentType = $data->getContentType();
                 $languageCodes = $data->getLanguageCodes();
                 $contentTypeGroup = $data->getContentTypeGroup();
                 try {
                     $contentTypeDraft = $this->tryToCreateContentTypeDraft($contentType);
-                } catch (BadStateException $e) {
+                } catch (BadStateException) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
                         /** @Desc("Draft of content type '%name%' already exists and is locked by '%userContentName%'") */
@@ -308,7 +262,10 @@ class ContentTypeController extends Controller
                     ]);
                 }
                 foreach ($languageCodes as $languageCode => $isChecked) {
-                    $newContentTypeDraft = $this->contentTypeService->removeContentTypeTranslation($contentTypeDraft, $languageCode);
+                    $newContentTypeDraft = $this->contentTypeService->removeContentTypeTranslation(
+                        $contentTypeDraft,
+                        $languageCode
+                    );
                 }
                 $this->contentTypeService->publishContentTypeDraft($newContentTypeDraft);
 
@@ -339,7 +296,7 @@ class ContentTypeController extends Controller
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
         try {
             $contentTypeDraft = $this->contentTypeService->loadContentTypeDraft($contentType->id, true);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             $contentTypeDraft = $this->contentTypeService->createContentTypeDraft($contentType);
         }
 
@@ -369,7 +326,7 @@ class ContentTypeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft): RedirectResponse {
                 $contentTypeGroup = $data->getContentTypeGroup();
                 $language = $data->getLanguage();
 
@@ -391,9 +348,6 @@ class ContentTypeController extends Controller
         ]);
     }
 
-    /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
     public function copyAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
@@ -407,31 +361,34 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeCopyData $data) use ($contentTypeService, $notificationHandler) {
-                $contentType = $data->getContentType();
+            $result = $this->submitHandler->handle(
+                $form,
+                function (ContentTypeCopyData $data) use ($contentTypeService, $notificationHandler): RedirectResponse {
+                    $contentType = $data->getContentType();
 
-                try {
-                    $contentTypeService->copyContentType($contentType);
+                    try {
+                        $contentTypeService->copyContentType($contentType);
 
-                    $notificationHandler->success(
-                        /** @Desc("Content type '%name%' copied.") */
-                        'content_type.copy.success',
-                        ['%name%' => $contentType->getName()],
-                        'ibexa_content_type'
-                    );
-                } catch (UnauthorizedException $exception) {
-                    $notificationHandler->error(
-                        /** @Desc("Content type '%name%' cannot be copied.") */
-                        'content_type.copy.error',
-                        ['%name%' => $contentType->getName()],
-                        'ibexa_content_type'
-                    );
+                        $notificationHandler->success(
+                            /** @Desc("Content type '%name%' copied.") */
+                            'content_type.copy.success',
+                            ['%name%' => $contentType->getName()],
+                            'ibexa_content_type'
+                        );
+                    } catch (UnauthorizedException) {
+                        $notificationHandler->error(
+                            /** @Desc("Content type '%name%' cannot be copied.") */
+                            'content_type.copy.error',
+                            ['%name%' => $contentType->getName()],
+                            'ibexa_content_type'
+                        );
+                    }
+
+                    return $this->redirectToRoute('ibexa.content_type_group.view', [
+                        'contentTypeGroupId' => $data->getContentTypeGroup()->id,
+                    ]);
                 }
-
-                return $this->redirectToRoute('ibexa.content_type_group.view', [
-                    'contentTypeGroupId' => $data->getContentTypeGroup()->id,
-                ]);
-            });
+            );
 
             if ($result instanceof Response) {
                 return $result;
@@ -444,8 +401,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response|\Ibexa\AdminUi\View\ContentTypeEditView
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function updateAction(
@@ -454,7 +409,7 @@ class ContentTypeController extends Controller
         ContentTypeDraft $contentTypeDraft,
         ?Language $language = null,
         ?Language $baseLanguage = null
-    ) {
+    ): Response|ContentTypeEditView {
         if (!$language) {
             $language = $this->getDefaultLanguage($contentTypeDraft);
         }
@@ -469,7 +424,7 @@ class ContentTypeController extends Controller
                 $contentTypeDraft,
                 $language,
                 $baseLanguage
-            ) {
+            ): Response {
                 $action = $form->getClickedButton() ? $form->getClickedButton()->getName() : self::PRIMARY_UPDATE_ACTION;
                 $this->contentTypeActionDispatcher->dispatchFormAction(
                     $form,
@@ -493,7 +448,7 @@ class ContentTypeController extends Controller
                     return $this->redirectToRoute('ibexa.content_type.view', [
                         'contentTypeGroupId' => $group->id,
                         'contentTypeId' => $contentTypeDraft->id,
-                        'languageCode' => $language->languageCode,
+                        'languageCode' => $language->getLanguageCode(),
                     ]);
                 }
 
@@ -501,7 +456,7 @@ class ContentTypeController extends Controller
                     'contentTypeGroupId' => $group->id,
                     'contentTypeId' => $contentTypeDraft->id,
                     'toLanguageCode' => $language->languageCode,
-                    'fromLanguageCode' => $baseLanguage ? $baseLanguage->languageCode : null,
+                    'fromLanguageCode' => $baseLanguage ? $baseLanguage->getLanguageCode() : null,
                 ]);
             });
 
@@ -514,8 +469,8 @@ class ContentTypeController extends Controller
             '@ibexadesign/content_type/edit.html.twig',
             $group,
             $contentTypeDraft,
-            $baseLanguage ?? $language,
-            $form
+            $form,
+            $baseLanguage ?? $language
         );
         $view->addParameters([
             'field_type_toolbar' => $this->fieldTypeToolbarFactory->create(),
@@ -553,10 +508,10 @@ class ContentTypeController extends Controller
             }
 
             return $this->render('@ibexadesign/content_type/part/field_definition_form.html.twig', [
-                'form' => $fieldDefinitionsGroupForm[$fieldDefinitionIdentifier]->createView(),
+                'form' => $fieldDefinitionsGroupForm[$fieldDefinitionIdentifier],
                 'content_type_group' => $group,
                 'content_type' => $contentTypeDraft,
-                'language_code' => $baseLanguage ? $baseLanguage->languageCode : $language->languageCode,
+                'language_code' => $baseLanguage ? $baseLanguage->getLanguageCode() : $language->getLanguageCode(),
                 'is_translation' => $contentTypeDraftData->mainLanguageCode !== $contentTypeDraftData->languageCode,
             ]);
         }
@@ -574,7 +529,7 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function () use ($contentType) {
+            $result = $this->submitHandler->handle($form, function () use ($contentType): void {
                 $this->contentTypeService->deleteContentType($contentType);
 
                 $this->notificationHandler->success(
@@ -596,8 +551,6 @@ class ContentTypeController extends Controller
     }
 
     /**
-     * Handles removing content types based on submitted form.
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \InvalidArgumentException
@@ -611,7 +564,7 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentTypesDeleteData $data): void {
                 foreach ($data->getContentTypes() as $contentTypeId => $selected) {
                     $contentType = $this->contentTypeService->loadContentType($contentTypeId);
 
@@ -631,7 +584,10 @@ class ContentTypeController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content_type_group.view', ['contentTypeGroupId' => $group->id]));
+        return $this->redirectToRoute(
+            'ibexa.content_type_group.view',
+            ['contentTypeGroupId' => $group->id]
+        );
     }
 
     /**
@@ -655,8 +611,8 @@ class ContentTypeController extends Controller
         }
 
         $fieldDefinitionsByGroup = [];
-        foreach ($contentType->fieldDefinitions as $fieldDefinition) {
-            $fieldDefinitionsByGroup[$fieldDefinition->fieldGroup ?: 'content'][] = $fieldDefinition;
+        foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
+            $fieldDefinitionsByGroup[$fieldDefinition->getFieldGroup() ?: 'content'][] = $fieldDefinition;
         }
         $languages = [];
         foreach ($contentType->languageCodes as $languageCode) {
@@ -683,10 +639,13 @@ class ContentTypeController extends Controller
             'field_definitions_by_group' => $fieldDefinitionsByGroup,
             'can_update' => $canUpdate,
             'languages' => $languages,
-            'form_content_type_edit' => $contentTypeEdit->createView(),
+            'form_content_type_edit' => $contentTypeEdit,
         ]);
     }
 
+    /**
+     * @return FormInterface<mixed>
+     */
     public function createUpdateForm(
         ContentTypeGroup $contentTypeGroup,
         ContentTypeDraft $contentTypeDraft,
@@ -707,14 +666,17 @@ class ContentTypeController extends Controller
             'action' => $this->generateUrl('ibexa.content_type.update', [
                 'contentTypeGroupId' => $contentTypeGroup->id,
                 'contentTypeId' => $contentTypeDraft->id,
-                'fromLanguageCode' => $baseLanguage ? $baseLanguage->languageCode : null,
-                'toLanguageCode' => $language->languageCode,
+                'fromLanguageCode' => $baseLanguage?->getLanguageCode(),
+                'toLanguageCode' => $language?->getLanguageCode(),
             ]),
-            'languageCode' => $language->languageCode,
+            'languageCode' => $language?->getLanguageCode(),
             'mainLanguageCode' => $contentTypeDraft->mainLanguageCode,
         ]);
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<mixed>
+     */
     protected function createDeleteForm(ContentTypeGroup $group, ContentType $contentType): FormInterface
     {
         $formBuilder = $this->createFormBuilder(null, [
@@ -731,7 +693,7 @@ class ContentTypeController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes
      *
-     * @return array
+     * @return array<int, false>
      */
     private function getContentTypesNumbers(array $contentTypes): array
     {
@@ -749,7 +711,7 @@ class ContentTypeController extends Controller
             $user = $this->userService->loadUser($userId);
 
             return $user->getName();
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return $this->translator->trans(
                 /** @Desc("another user") */
                 'content_type.user_name.can_not_be_fetched',
@@ -786,11 +748,10 @@ class ContentTypeController extends Controller
         try {
             $contentTypeDraft = $this->contentTypeService->loadContentTypeDraft($contentType->id);
             $this->contentTypeService->deleteContentType($contentTypeDraft);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
+            //do nothing
         } finally {
             return $this->contentTypeService->createContentTypeDraft($contentType);
         }
     }
 }
-
-class_alias(ContentTypeController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentTypeController');

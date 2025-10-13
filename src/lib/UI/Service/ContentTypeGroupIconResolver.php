@@ -15,7 +15,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
  */
 final class ContentTypeGroupIconResolver extends IconResolver
 {
-    private const PARAM_NAME_FORMAT = 'content_type_group.%s';
+    private const string PARAM_NAME_FORMAT = 'content_type_group.%s';
 
     /**
      * Returns path to content type group icon.

@@ -6,245 +6,245 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="540d6bae1cf130f98f00799d4ef1c6f6b5752907" resname="ezboolean.no">
+      <trans-unit id="c97850be27678f08aa5e3abbeff3900dba7f3618" resname="ibexa_boolean.no">
         <source>No</source>
         <target state="new">No</target>
-        <note>key: ezboolean.no</note>
+        <note>key: ibexa_boolean.no</note>
       </trans-unit>
-      <trans-unit id="dfb5fd4a5dec38539847d92bb5e8417c5b82b96a" resname="ezboolean.yes">
+      <trans-unit id="b010f3664dbac0b6e64b4cab1b2fba8bd6cf654d" resname="ibexa_boolean.yes">
         <source>Yes</source>
         <target state="new">Yes</target>
-        <note>key: ezboolean.yes</note>
+        <note>key: ibexa_boolean.yes</note>
       </trans-unit>
-      <trans-unit id="a871dec7f18c06b9061bc2aae9af1aafe1ad1600" resname="ezdatetime.useseconds.enabled">
+      <trans-unit id="138a6fa00b6eb817a425be19af038521d8917227" resname="ibexa_datetime.useseconds.enabled">
         <source>`The date format is based on your user preferences and does not include seconds even if the Field allows it`</source>
         <target state="new">`The date format is based on your user preferences and does not include seconds even if the Field allows it`</target>
-        <note>key: ezdatetime.useseconds.enabled</note>
+        <note>key: ibexa_datetime.useseconds.enabled</note>
       </trans-unit>
-      <trans-unit id="bf1525899659fa5ea6c18aa4bf63d596fecbf97e" resname="ezgmaplocation.address">
+      <trans-unit id="16cab64040777bb3b449038824a4cc457e422775" resname="ibexa_gmap_location.address">
         <source>Address</source>
         <target state="new">Address</target>
-        <note>key: ezgmaplocation.address</note>
+        <note>key: ibexa_gmap_location.address</note>
       </trans-unit>
-      <trans-unit id="706821bf7c10bf965680842f9e0b0bad3ab737ed" resname="ezgmaplocation.latitude">
+      <trans-unit id="fe40327c61fdc2ee40d48933378aec3987f4e296" resname="ibexa_gmap_location.latitude">
         <source>Latitude</source>
         <target state="new">Latitude</target>
-        <note>key: ezgmaplocation.latitude</note>
+        <note>key: ibexa_gmap_location.latitude</note>
       </trans-unit>
-      <trans-unit id="38022a4ef42d878eb38c71537fdc4c72b5fbb989" resname="ezgmaplocation.location_properties">
+      <trans-unit id="43f6c371ee4aaf59a10adc379607e13ac8202642" resname="ibexa_gmap_location.location_properties">
         <source>Location properties</source>
         <target state="new">Location properties</target>
-        <note>key: ezgmaplocation.location_properties</note>
+        <note>key: ibexa_gmap_location.location_properties</note>
       </trans-unit>
-      <trans-unit id="ba4a253dc02df12654dabc50ef81b428ee888bcf" resname="ezgmaplocation.longitude">
+      <trans-unit id="04678478637e6cc730693422c71eb7e3b80e6e0b" resname="ibexa_gmap_location.longitude">
         <source>Longitude</source>
         <target state="new">Longitude</target>
-        <note>key: ezgmaplocation.longitude</note>
+        <note>key: ibexa_gmap_location.longitude</note>
       </trans-unit>
-      <trans-unit id="504719a5dc2e1c7d5c59a159e3d96e767d6b8ae2" resname="ezimage.alternative_text">
+      <trans-unit id="364edca774b595b4c09aadda5cf3b3f8ec258efd" resname="ibexa_image.alternative_text">
         <source>Alternative text</source>
         <target state="new">Alternative text</target>
-        <note>key: ezimage.alternative_text</note>
+        <note>key: ibexa_image.alternative_text</note>
       </trans-unit>
-      <trans-unit id="80978f6269fb07d09667395cd32f6ebd6281ff25" resname="ezimage.file_name">
+      <trans-unit id="97977cf8a592b2bebcc6b946d9d46b88bace17d7" resname="ibexa_image.file_name">
         <source>File name</source>
         <target state="new">File name</target>
-        <note>key: ezimage.file_name</note>
+        <note>key: ibexa_image.file_name</note>
       </trans-unit>
-      <trans-unit id="d21adcec4365478ce3f618a65ae4ddfdbb94e457" resname="ezimage.image_file_properties">
+      <trans-unit id="a4a3a32d2d3f96ec0769f68c82f11206a04f64b0" resname="ibexa_image.image_file_properties">
         <source>Image file properties</source>
         <target state="new">Image file properties</target>
-        <note>key: ezimage.image_file_properties</note>
+        <note>key: ibexa_image.image_file_properties</note>
       </trans-unit>
-      <trans-unit id="504042c3fda41a357db1614358fd3c8dc94e301f" resname="ezimage.master_dimensions">
+      <trans-unit id="188570c2399106e1b748b39b7c5eba35b09250f2" resname="ibexa_image.master_dimensions">
         <source>Master dimensions</source>
         <target state="new">Master dimensions</target>
-        <note>key: ezimage.master_dimensions</note>
+        <note>key: ibexa_image.master_dimensions</note>
       </trans-unit>
-      <trans-unit id="55cfda30a4255cffac54e4c644dc6033720c28f6" resname="ezimage.ratio">
+      <trans-unit id="96a278f9b64f78bf5f39a6ccc8422cb038bdff0e" resname="ibexa_image.ratio">
         <source>Ratio</source>
         <target state="new">Ratio</target>
-        <note>key: ezimage.ratio</note>
+        <note>key: ibexa_image.ratio</note>
       </trans-unit>
-      <trans-unit id="ac1f7c0bca124e29b9e6b09eaa0bb58334c62327" resname="ezimage.size">
+      <trans-unit id="66cb495e5ffe6c7f2fed0ff00bb6bd7c80094d6f" resname="ibexa_image.size">
         <source>Size</source>
         <target state="new">Size</target>
-        <note>key: ezimage.size</note>
+        <note>key: ibexa_image.size</note>
       </trans-unit>
-      <trans-unit id="d34002f3e81ae0592b02f40872388e0adea41279" resname="ezimage.width_and_height">
+      <trans-unit id="2eeb0f98321c479f39edd5b8970ba27d7dedcef7" resname="ibexa_image.width_and_height">
         <source>Width: %width%px height: %height%px</source>
         <target state="new">Width: %width%px height: %height%px</target>
-        <note>key: ezimage.width_and_height</note>
+        <note>key: ibexa_image.width_and_height</note>
       </trans-unit>
-      <trans-unit id="85038ddf9e38bbf3da26c38adff609012d65a53a" resname="ezimageasset.alternative_text">
+      <trans-unit id="263e051e355a5871ae5399635e478ebb4220bd97" resname="ibexa_image_asset.alternative_text">
         <source>Alternative text</source>
         <target state="new">Alternative text</target>
-        <note>key: ezimageasset.alternative_text</note>
+        <note>key: ibexa_image_asset.alternative_text</note>
       </trans-unit>
-      <trans-unit id="6ccdfa3f93ea5a6c0c17a7a9f6fe8fac4d5b6926" resname="ezimageasset.file_name">
+      <trans-unit id="a3360b33dbb5dd4f9c01b9ac07de6e0dba28cb5f" resname="ibexa_image_asset.file_name">
         <source>File name</source>
         <target state="new">File name</target>
-        <note>key: ezimageasset.file_name</note>
+        <note>key: ibexa_image_asset.file_name</note>
       </trans-unit>
-      <trans-unit id="776e01f9a87ec54ddd743494a906d859643aca68" resname="ezimageasset.image_file_properties">
+      <trans-unit id="dd9b010029e69a1f5674fb1234ccfaf4807a1ec2" resname="ibexa_image_asset.image_file_properties">
         <source>Image file properties</source>
         <target state="new">Image file properties</target>
-        <note>key: ezimageasset.image_file_properties</note>
+        <note>key: ibexa_image_asset.image_file_properties</note>
       </trans-unit>
-      <trans-unit id="dd0de6b207b703b96d015f309ffa8d53d32f64bf" resname="ezimageasset.master_dimensions">
+      <trans-unit id="2515501ca03e42c59e0642827046353e0c2ee7be" resname="ibexa_image_asset.master_dimensions">
         <source>Master dimensions</source>
         <target state="new">Master dimensions</target>
-        <note>key: ezimageasset.master_dimensions</note>
+        <note>key: ibexa_image_asset.master_dimensions</note>
       </trans-unit>
-      <trans-unit id="c63a925d645b5365654bfaa2e5ac129280388bc0" resname="ezimageasset.not_available">
+      <trans-unit id="ba862f9efb9e5a8d48f4322d85e1f481c3466a50" resname="ibexa_image_asset.not_available">
         <source>Image asset is not available (related content has been deleted or you have insufficient permissions)</source>
         <target state="new">Image asset is not available (related content has been deleted or you have insufficient permissions)</target>
-        <note>key: ezimageasset.not_available</note>
+        <note>key: ibexa_image_asset.not_available</note>
       </trans-unit>
-      <trans-unit id="9d8611731543740ff64e9e1a69f9c18812301879" resname="ezimageasset.ratio">
+      <trans-unit id="2cd192c1f5c3bb8aadae507afcfd78ad92d347ee" resname="ibexa_image_asset.ratio">
         <source>Ratio</source>
         <target state="new">Ratio</target>
-        <note>key: ezimageasset.ratio</note>
+        <note>key: ibexa_image_asset.ratio</note>
       </trans-unit>
-      <trans-unit id="b79e2f923b29d82c28e5eaff5475d2edee6d7826" resname="ezimageasset.size">
+      <trans-unit id="21f10eb763093a4741e6ee42166f8e7903b14b28" resname="ibexa_image_asset.size">
         <source>Size</source>
         <target state="new">Size</target>
-        <note>key: ezimageasset.size</note>
+        <note>key: ibexa_image_asset.size</note>
       </trans-unit>
-      <trans-unit id="06c54d9e5476af34defb52323b7b1ebacce6a38c" resname="ezimageasset.width_and_height">
+      <trans-unit id="39369b77f343592d30fff0db935a27ed4563bc7b" resname="ibexa_image_asset.width_and_height">
         <source>Width: %width%px height: %height%px</source>
         <target state="new">Width: %width%px height: %height%px</target>
-        <note>key: ezimageasset.width_and_height</note>
+        <note>key: ibexa_image_asset.width_and_height</note>
       </trans-unit>
-      <trans-unit id="e371d4573dda857ef4a58cebd2420f87992b8864" resname="ezmedia.auto_play">
+      <trans-unit id="05b6713cf62a629f6a5b34300e23bec5b5471e36" resname="ibexa_media.auto_play">
         <source>Autoplay</source>
         <target state="new">Autoplay</target>
-        <note>key: ezmedia.auto_play</note>
+        <note>key: ibexa_media.auto_play</note>
       </trans-unit>
-      <trans-unit id="84c1e46564bf281d22c3b554a0af412a8bbbdacc" resname="ezmedia.browser_does_not_support_html5_video">
+      <trans-unit id="c6ce08ac635a4327fe69d01661e0ae71ad80eee6" resname="ibexa_media.browser_does_not_support_html5_video">
         <source>Your browser does not support HTML5 video</source>
         <target state="new">Your browser does not support HTML5 video</target>
-        <note>key: ezmedia.browser_does_not_support_html5_video</note>
+        <note>key: ibexa_media.browser_does_not_support_html5_video</note>
       </trans-unit>
-      <trans-unit id="8f298e16cc3766b185e4e45db13e4f84f03f5d89" resname="ezmedia.display_controls">
+      <trans-unit id="8199bae4bf503237d1c059e19850ecaede8e3ad8" resname="ibexa_media.display_controls">
         <source>Display controls</source>
         <target state="new">Display controls</target>
-        <note>key: ezmedia.display_controls</note>
+        <note>key: ibexa_media.display_controls</note>
       </trans-unit>
-      <trans-unit id="0a8b2fdd1d0a69bd12d066f8f7f8b517df9974bf" resname="ezmedia.file_name">
+      <trans-unit id="de7d7aa86064409d39b0c33ffc45e61d798b23d5" resname="ibexa_media.file_name">
         <source>File name</source>
         <target state="new">File name</target>
-        <note>key: ezmedia.file_name</note>
+        <note>key: ibexa_media.file_name</note>
       </trans-unit>
-      <trans-unit id="5031ab8e376bd36df793ef5f7b8ce51d1c785be3" resname="ezmedia.loop">
+      <trans-unit id="be717c48f3e80b262438d8d324c5a55d2ed92a3c" resname="ibexa_media.loop">
         <source>Loop</source>
         <target state="new">Loop</target>
-        <note>key: ezmedia.loop</note>
+        <note>key: ibexa_media.loop</note>
       </trans-unit>
-      <trans-unit id="c351fa9d7e7c134199f7f49e0cd010dedafb4e13" resname="ezmedia.no">
+      <trans-unit id="6001bce322a629c92cd5d8903137ce6d03df795e" resname="ibexa_media.no">
         <source>No</source>
         <target state="new">No</target>
-        <note>key: ezmedia.no</note>
+        <note>key: ibexa_media.no</note>
       </trans-unit>
-      <trans-unit id="099406392256d6e1816e54f4898f09b9ae005ffa" resname="ezmedia.size">
+      <trans-unit id="5f5c57fd025baad1c36b7ed91bf653bf29e6efaa" resname="ibexa_media.size">
         <source>Size</source>
         <target state="new">Size</target>
-        <note>key: ezmedia.size</note>
+        <note>key: ibexa_media.size</note>
       </trans-unit>
-      <trans-unit id="75c0855b33b165884b37017870852e662de3ea73" resname="ezmedia.type">
+      <trans-unit id="8e9577dcaf3070e1ec1a5217a2f8610576a5bc20" resname="ibexa_media.type">
         <source>Type</source>
         <target state="new">Type</target>
-        <note>key: ezmedia.type</note>
+        <note>key: ibexa_media.type</note>
       </trans-unit>
-      <trans-unit id="207f2af6642a19b3e2ee254f82bd71ae2351d6f0" resname="ezmedia.video_file_properties">
+      <trans-unit id="1fb2b7626c54b4d59392878d8ae7730c70f8bed4" resname="ibexa_media.video_file_properties">
         <source>Video file properties</source>
         <target state="new">Video file properties</target>
-        <note>key: ezmedia.video_file_properties</note>
+        <note>key: ibexa_media.video_file_properties</note>
       </trans-unit>
-      <trans-unit id="2f9f973623d548ff2cac08afcd1de234bd2493c8" resname="ezmedia.yes">
+      <trans-unit id="8160bf24cfb4043f3d3410d2e3e02491bd6d9b17" resname="ibexa_media.yes">
         <source>Yes</source>
         <target state="new">Yes</target>
-        <note>key: ezmedia.yes</note>
+        <note>key: ibexa_media.yes</note>
       </trans-unit>
-      <trans-unit id="df17c526bb1674b64ac8a4cd4eda1af9e0c5e7e5" resname="ezobjectrelation.content_type">
+      <trans-unit id="1cb97b17597d97beba0a2f861d650bec493c6290" resname="ibexa_object_relation.content_type">
         <source>Content type</source>
         <target state="new">Content type</target>
-        <note>key: ezobjectrelation.content_type</note>
+        <note>key: ibexa_object_relation.content_type</note>
       </trans-unit>
-      <trans-unit id="feb25b24199466f077038c5e6e38209deae21471" resname="ezobjectrelation.name">
+      <trans-unit id="680b747f8dfea9a58c4f1b4240b52c973dcf2184" resname="ibexa_object_relation.name">
         <source>Name</source>
         <target state="new">Name</target>
-        <note>key: ezobjectrelation.name</note>
+        <note>key: ibexa_object_relation.name</note>
       </trans-unit>
-      <trans-unit id="bd321e94e97034129cf78323f54e93c782250971" resname="ezobjectrelation.single_relation">
+      <trans-unit id="49b12dd3288097840c4aa3690d4568c7e8511bfe" resname="ibexa_object_relation.single_relation">
         <source>Single relation</source>
         <target state="new">Single relation</target>
-        <note>key: ezobjectrelation.single_relation</note>
+        <note>key: ibexa_object_relation.single_relation</note>
       </trans-unit>
-      <trans-unit id="6e9daae620a603c0ae30c9f97f7c1963f51f261a" resname="ezobjectrelation.version_created">
+      <trans-unit id="fc543345baa4b04462bd0b2318a7a92914778538" resname="ibexa_object_relation.version_created">
         <source>Version created</source>
         <target state="new">Version created</target>
-        <note>key: ezobjectrelation.version_created</note>
+        <note>key: ibexa_object_relation.version_created</note>
       </trans-unit>
-      <trans-unit id="61c7580e3e4d4547527322089f577eca2ff1ea5b" resname="ezobjectrelationlist.content_type">
+      <trans-unit id="c07aeb78471fdfa98686563a83bb873a9e802a9e" resname="ibexa_object_relation_list.content_type">
         <source>Content type</source>
         <target state="new">Content type</target>
-        <note>key: ezobjectrelationlist.content_type</note>
+        <note>key: ibexa_object_relation_list.content_type</note>
       </trans-unit>
-      <trans-unit id="07ffe77032c4f0b4f8c64f7c40218274e805491f" resname="ezobjectrelationlist.created">
+      <trans-unit id="f7f46f22866e4925a533de745683531579e9a18f" resname="ibexa_object_relation_list.created">
         <source>Created</source>
         <target state="new">Created</target>
-        <note>key: ezobjectrelationlist.created</note>
+        <note>key: ibexa_object_relation_list.created</note>
       </trans-unit>
-      <trans-unit id="ac6f4439a9d7e655920f9789346d6c928182127e" resname="ezobjectrelationlist.multiple_relations">
+      <trans-unit id="35fa3362123f55dc3b34db00794cb9c7a765d652" resname="ibexa_object_relation_list.multiple_relations">
         <source>Multiple relations</source>
         <target state="new">Multiple relations</target>
-        <note>key: ezobjectrelationlist.multiple_relations</note>
+        <note>key: ibexa_object_relation_list.multiple_relations</note>
       </trans-unit>
-      <trans-unit id="44d2ac9ae83f6b73fa8f61fad66a77d76d2159f0" resname="ezobjectrelationlist.name">
+      <trans-unit id="b86639bd93e51b2fb224d8f9d712b7a75f06a1d7" resname="ibexa_object_relation_list.name">
         <source>Name</source>
         <target state="new">Name</target>
-        <note>key: ezobjectrelationlist.name</note>
+        <note>key: ibexa_object_relation_list.name</note>
       </trans-unit>
-      <trans-unit id="eb451c657d2bd24b90aaea1619ba0ffb33ba52cc" resname="ezuser.email">
+      <trans-unit id="404ad3a83f4ab0277a6f20715eca5b205023acb2" resname="ibexa_user.email">
         <source>Email</source>
         <target state="new">Email</target>
-        <note>key: ezuser.email</note>
+        <note>key: ibexa_user.email</note>
       </trans-unit>
-      <trans-unit id="09acf9d3220515cf63f284525c54ed3f88b7a396" resname="ezuser.enabled">
+      <trans-unit id="7cb761f90d880dd81af980e826bf7e0c7bf3b0a9" resname="ibexa_user.enabled">
         <source>Enabled</source>
         <target state="new">Enabled</target>
-        <note>key: ezuser.enabled</note>
+        <note>key: ibexa_user.enabled</note>
       </trans-unit>
-      <trans-unit id="26b99946e7309fcdd54dd12a959fee7d666b82f9" resname="ezuser.no">
+      <trans-unit id="1fb902c0b54f11b0e77950b8f686e5739bb942cf" resname="ibexa_user.no">
         <source>No</source>
         <target state="new">No</target>
-        <note>key: ezuser.no</note>
+        <note>key: ibexa_user.no</note>
       </trans-unit>
-      <trans-unit id="7db7e702a32f5265b8ea0db196b4a41ea5ea6988" resname="ezuser.password_already_expired">
+      <trans-unit id="a013046878ef26b0dfd2fa1989b089535cfb94fa" resname="ibexa_user.password_already_expired">
         <source>Password has expired</source>
         <target state="new">Password has expired</target>
-        <note>key: ezuser.password_already_expired</note>
+        <note>key: ibexa_user.password_already_expired</note>
       </trans-unit>
-      <trans-unit id="dbfe48152c3022f68affdb8798eaa36f07dcb147" resname="ezuser.password_expires_in">
+      <trans-unit id="2ef5c3ce5ff6c7af3ba8555d9c8d3dc201a47174" resname="ibexa_user.password_expires_in">
         <source><![CDATA[Current password <b>expires in %count% days</b>]]></source>
         <target state="new"><![CDATA[Current password <b>expires in %count% days</b>]]></target>
-        <note>key: ezuser.password_expires_in</note>
+        <note>key: ibexa_user.password_expires_in</note>
       </trans-unit>
-      <trans-unit id="7771c9e2b90e9636e8fbb858cf7e5204ada687e9" resname="ezuser.password_expires_today">
+      <trans-unit id="e9cb64d0969c2c0a9a9e28530eab5155a5eb48ee" resname="ibexa_user.password_expires_today">
         <source><![CDATA[Current password <b>expires today</b>]]></source>
         <target state="new"><![CDATA[Current password <b>expires today</b>]]></target>
-        <note>key: ezuser.password_expires_today</note>
+        <note>key: ibexa_user.password_expires_today</note>
       </trans-unit>
-      <trans-unit id="fc4b6b718b2cee2f8a91703c070fd69756d5c4cd" resname="ezuser.username">
+      <trans-unit id="f38cb8aae1d6e25fcc0f4dabe9fe40964c432e95" resname="ibexa_user.username">
         <source>Username</source>
         <target state="new">Username</target>
-        <note>key: ezuser.username</note>
+        <note>key: ibexa_user.username</note>
       </trans-unit>
-      <trans-unit id="0e86a412baba94a10cf9d1b03332c9f8f1d5e1bb" resname="ezuser.yes">
+      <trans-unit id="d721694059cd1f4f70d70bfa2ca4a4ab4493c234" resname="ibexa_user.yes">
         <source>Yes</source>
         <target state="new">Yes</target>
-        <note>key: ezuser.yes</note>
+        <note>key: ibexa_user.yes</note>
       </trans-unit>
     </body>
   </file>

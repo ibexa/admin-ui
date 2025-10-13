@@ -21,62 +21,34 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
+    public const string URI_FRAGMENT = 'ibexa-tab-content-type-view-translations';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory */
-    protected $formFactory;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\AdminUi\Form\Factory\ContentTypeFormFactory $formFactory
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
         EventDispatcherInterface $eventDispatcher,
-        DatasetFactory $datasetFactory,
-        ContentTypeFormFactory $formFactory
+        protected readonly DatasetFactory $datasetFactory,
+        protected readonly ContentTypeFormFactory $formFactory
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'translations';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("Translations") */
         return $this->translator->trans('tab.name.translations', [], 'ibexa_content_type');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 200;
     }
 
-    /**
-     * @return string
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content_type/tab/translations.html.twig';
@@ -124,5 +96,3 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return array_replace($contextParameters, $viewParameters);
     }
 }
-
-class_alias(TranslationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\ContentType\TranslationsTab');

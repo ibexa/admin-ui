@@ -14,32 +14,17 @@ use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
-class ObjectStatesDataset
+final class ObjectStatesDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
-
     /** @var UIValue\ObjectState\ObjectState[] */
-    protected $data;
+    private array $data;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
-    public function __construct(ObjectStateService $objectStateService, ValueFactory $valueFactory)
-    {
-        $this->objectStateService = $objectStateService;
-        $this->valueFactory = $valueFactory;
+    public function __construct(
+        private readonly ObjectStateService $objectStateService,
+        private readonly ValueFactory $valueFactory
+    ) {
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return ObjectStatesDataset
-     */
     public function load(ContentInfo $contentInfo): self
     {
         $data = array_map(
@@ -51,7 +36,7 @@ class ObjectStatesDataset
 
                 return $this->valueFactory->createObjectState($contentInfo, $objectStateGroup);
             },
-            $this->objectStateService->loadObjectStateGroups()
+            iterator_to_array($this->objectStateService->loadObjectStateGroups())
         );
 
         // Get rid of empty Object State Groups
@@ -68,5 +53,3 @@ class ObjectStatesDataset
         return $this->data;
     }
 }
-
-class_alias(ObjectStatesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ObjectStatesDataset');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
@@ -12,7 +13,6 @@ use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -22,69 +22,45 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * KnpMenuBundle Menu Builder service implementation for AdminUI Content Edit contextual sidebar menu.
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class ContentEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class ContentEditRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__PUBLISH = 'content_edit__sidebar_right__publish';
-    public const ITEM__SAVE_DRAFT = 'content_edit__sidebar_right__save_draft';
-    public const ITEM__SAVE_DRAFT_AND_CLOSE = 'content_edit__sidebar_right__save_draft_and_close';
-    public const ITEM__PREVIEW = 'content_edit__sidebar_right__preview';
-    public const ITEM__CANCEL = 'content_edit__sidebar_right__cancel';
+    public const string ITEM__PUBLISH = 'content_edit__sidebar_right__publish';
+    public const string ITEM__SAVE_DRAFT = 'content_edit__sidebar_right__save_draft';
+    public const string ITEM__SAVE_DRAFT_AND_CLOSE = 'content_edit__sidebar_right__save_draft_and_close';
+    public const string ITEM__PREVIEW = 'content_edit__sidebar_right__preview';
+    public const string ITEM__CANCEL = 'content_edit__sidebar_right__cancel';
 
-    public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
-    public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
-
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $siteaccessResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    public const string BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
+    public const array BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        SiteaccessResolverInterface $siteaccessResolver,
-        PermissionResolver $permissionResolver,
-        LocationService $locationService,
-        TranslatorInterface $translator
+        private readonly SiteaccessResolverInterface $siteaccessResolver,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LocationService $locationService
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->siteaccessResolver = $siteaccessResolver;
-        $this->permissionResolver = $permissionResolver;
-        $this->locationService = $locationService;
-        $this->translator = $translator;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::CONTENT_EDIT_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
      * @return \Knp\Menu\ItemInterface
      *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
-     * @throws \InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
@@ -100,7 +76,10 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
         $parentLocation = $options['parent_location'];
 
-        $target = (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf([$language->languageCode])->build();
+        $target = (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf(
+            [$language->getLanguageCode()]
+        )->build();
+
         $canPublish = $this->permissionResolver->canUser('content', 'publish', $content, [$target]);
         $canEdit = $this->permissionResolver->canUser('content', 'edit', $content, [$target]);
         $canDelete = $this->permissionResolver->canUser('content', 'versionremove', $content);
@@ -201,13 +180,6 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
-     *
-     * @return \Knp\Menu\ItemInterface
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -217,10 +189,13 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         Language $language,
         Location $parentLocation
     ): ItemInterface {
-        $versionNo = $content->getVersionInfo()->versionNo;
+        $versionNo = $content->getVersionInfo()->getVersionNo();
 
         // nonpublished content should use parent location instead because location doesn't exist yet
-        if (!$content->contentInfo->published && null === $content->contentInfo->mainLocationId) {
+        if (
+            !$content->getContentInfo()->isPublished()
+            && null === $content->getContentInfo()->getMainLocationId()
+        ) {
             $location = $parentLocation;
             $versionNo = null;
         }
@@ -228,14 +203,14 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
             $location,
             $versionNo,
-            $language->languageCode
+            $language->getLanguageCode()
         );
 
         $canPreview = $this->permissionResolver->canUser(
             'content',
             'versionread',
             $content,
-            [$location ?? $this->locationService->newLocationCreateStruct($parentLocation->id)]
+            [$location ?? $this->locationService->newLocationCreateStruct($parentLocation->getId())]
         );
 
         $previewAttributes = [
@@ -256,5 +231,3 @@ class ContentEditRightSidebarBuilder extends AbstractBuilder implements Translat
         );
     }
 }
-
-class_alias(ContentEditRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentEditRightSidebarBuilder');

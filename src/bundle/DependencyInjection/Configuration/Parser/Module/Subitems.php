@@ -17,21 +17,16 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          subitems_module:
  *              limit: 10
  * ```
  */
-class Subitems extends AbstractParser
+final class Subitems extends AbstractParser
 {
-    /**
-     * Adds semantic configuration definition.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
-     */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('subitems_module')
@@ -43,10 +38,13 @@ class Subitems extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['subitems_module'])) {
             return;
         }
@@ -64,5 +62,3 @@ class Subitems extends AbstractParser
         );
     }
 }
-
-class_alias(Subitems::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\Subitems');

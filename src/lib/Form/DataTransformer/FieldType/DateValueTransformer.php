@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -14,16 +15,12 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * DataTransformer for Date\Value.
  */
-class DateValueTransformer implements DataTransformerInterface
+final readonly class DateValueTransformer implements DataTransformerInterface
 {
     /**
-     * @param mixed $value
-     *
-     * @return int|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -45,12 +42,10 @@ class DateValueTransformer implements DataTransformerInterface
     /**
      * @param int|mixed $value
      *
-     * @return \Ibexa\Core\FieldType\Date\Value|null
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
         if (empty($value)) {
             return null;
@@ -65,5 +60,3 @@ class DateValueTransformer implements DataTransformerInterface
         return Value::fromTimestamp($value);
     }
 }
-
-class_alias(DateValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\DateValueTransformer');

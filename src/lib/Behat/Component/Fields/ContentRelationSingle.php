@@ -10,22 +10,24 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class ContentRelationSingle extends FieldTypeComponent
+final class ContentRelationSingle extends FieldTypeComponent
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableBuilder */
-    private $tableBuilder;
+    public function __construct(
+        readonly Session $session,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly TableBuilder $tableBuilder
+    ) {
+        parent::__construct($session);
+    }
 
     public function specifyLocators(): array
     {
@@ -37,13 +39,6 @@ class ContentRelationSingle extends FieldTypeComponent
         ];
     }
 
-    public function __construct(Session $session, UniversalDiscoveryWidget $universalDiscoveryWidget, TableBuilder $tableBuilder)
-    {
-        parent::__construct($session);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->tableBuilder = $tableBuilder;
-    }
-
     public function setValue(array $parameters): void
     {
         if (!$this->isRelationEmpty()) {
@@ -53,8 +48,8 @@ class ContentRelationSingle extends FieldTypeComponent
         }
 
         $buttonLocator = CSSLocatorBuilder::base($this->parentLocator)
-                    ->withDescendant($this->getLocator('selectContent'))
-                    ->build();
+            ->withDescendant($this->getLocator('selectContent'))
+            ->build();
 
         $this->getHTMLPage()
             ->setTimeout(5)
@@ -68,7 +63,9 @@ class ContentRelationSingle extends FieldTypeComponent
 
     public function getValue(): array
     {
-        $names = $this->table->getColumnValues(['Name']);
+        /** @var \Ibexa\AdminUi\Behat\Component\Table\Table $table */
+        $table = $this->table;
+        $names = $table->getColumnValues(['Name']);
 
         return [$names[0]['Name']];
     }
@@ -76,6 +73,7 @@ class ContentRelationSingle extends FieldTypeComponent
     public function setParentLocator(VisibleCSSLocator $locator): void
     {
         parent::setParentLocator($locator);
+
         $this->table = $this->tableBuilder
             ->newTable()
             ->withParentLocator($this->parentLocator)
@@ -109,6 +107,6 @@ class ContentRelationSingle extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezobjectrelation';
+        return 'ibexa_object_relation';
     }
 }

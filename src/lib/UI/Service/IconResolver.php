@@ -13,17 +13,13 @@ use Symfony\Component\Asset\Packages;
 
 abstract class IconResolver
 {
-    protected const DEFAULT_IDENTIFIER = 'default-config';
-    protected const ICON_KEY = 'thumbnail';
+    protected const string DEFAULT_IDENTIFIER = 'default-config';
+    protected const string ICON_KEY = 'thumbnail';
 
-    private ConfigResolverInterface $configResolver;
-
-    protected Packages $packages;
-
-    public function __construct(ConfigResolverInterface $configResolver, Packages $packages)
-    {
-        $this->configResolver = $configResolver;
-        $this->packages = $packages;
+    public function __construct(
+        private readonly ConfigResolverInterface $configResolver,
+        protected readonly Packages $packages
+    ) {
     }
 
     protected function getIcon(string $format, string $identifier): string

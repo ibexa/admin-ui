@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -19,9 +20,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezauthor FieldType.
+ * FormMapper for ibexa_author FieldType.
  */
-class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValueFormMapperInterface
+final class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValueFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -33,23 +34,23 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                 [
                     'choices' => [
                         /** @Desc("Empty") */
-                        'field_definition.ezauthor.default_user_empty' => Type::DEFAULT_VALUE_EMPTY,
+                        'field_definition.ibexa_author.default_user_empty' => Type::DEFAULT_VALUE_EMPTY,
                         /** @Desc("Current User") */
-                        'field_definition.ezauthor.default_user_current' => Type::DEFAULT_CURRENT_USER,
+                        'field_definition.ibexa_author.default_user_current' => Type::DEFAULT_CURRENT_USER,
                     ],
                     'expanded' => true,
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultAuthor]',
-                    'label' => /** @Desc("Default value") */ 'field_definition.ezauthor.default_author',
+                    'label' => /** @Desc("Default value") */ 'field_definition.ibexa_author.default_author',
                     'translation_domain' => 'ibexa_content_type',
                     'disabled' => $isTranslation,
                 ]
             );
     }
 
-    public function mapFieldValueForm(FormInterface $fieldForm, FieldData $data)
+    public function mapFieldValueForm(FormInterface $fieldForm, FieldData $data): void
     {
-        $fieldDefinition = $data->fieldDefinition;
+        $fieldDefinition = $data->getFieldDefinition();
         $fieldSettings = $fieldDefinition->getFieldSettings();
         $formConfig = $fieldForm->getConfig();
 
@@ -58,7 +59,7 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
                 $formConfig->getFormFactory()->createBuilder()
                     ->create('value', AuthorFieldType::class, [
                         'default_author' => $fieldSettings['defaultAuthor'],
-                        'required' => $fieldDefinition->isRequired,
+                        'required' => $fieldDefinition->isRequired(),
                         'label' => $fieldDefinition->getName(),
                     ])
                     ->setAutoInitialize(false)
@@ -77,5 +78,3 @@ class AuthorFormMapper implements FieldDefinitionFormMapperInterface, FieldValue
             ]);
     }
 }
-
-class_alias(AuthorFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\AuthorFormMapper');

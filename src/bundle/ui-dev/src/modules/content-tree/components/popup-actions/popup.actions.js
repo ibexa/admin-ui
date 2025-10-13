@@ -72,7 +72,7 @@ const PopupActions = ({ listRef, options }) => {
     return (
         <>
             <div className="c-popup-actions" ref={containerRef} onClick={toggleExpanded}>
-                <Icon name="options" extraClasses="ibexa-icon--small" />
+                <Icon name="options" extraClasses="ibexa-icon--small-medium" />
             </div>
             {isExpanded && ReactDOM.createPortal(renderItemsList(), listRef.current)}
         </>

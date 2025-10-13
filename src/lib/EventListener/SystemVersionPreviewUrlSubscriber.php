@@ -14,11 +14,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class SystemVersionPreviewUrlSubscriber implements EventSubscriberInterface
 {
-    private UrlGeneratorInterface $urlGenerator;
-
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     public static function getSubscribedEvents(): array

@@ -1,104 +1,135 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import About from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/about.svg';
-import AboutInfo from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/about-info.svg';
-import Approved from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/approved.svg';
-import Article from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/article.svg';
-import Back from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/back.svg';
-import Blog from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog.svg';
-import BlogPost from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/blog_post.svg';
-import CaretDown from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/caret-down.svg';
-import CaretUp from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/caret-up.svg';
-import CircleClose from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/circle-close.svg';
-import Create from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/create.svg';
-import Checkmark from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/checkmark.svg';
-import ContentTree from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/content-tree.svg';
-import Date from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/date.svg';
-import Discard from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/discard.svg';
-import Drag from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/drag.svg';
-import Download from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/download.svg';
-import Duplicate from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/duplicate.svg';
-import Edit from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/edit.svg';
-import ExpandLeft from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/expand-left.svg';
-import Fields from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/fields.svg';
-import File from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/file.svg';
-import Filters from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/filters.svg';
-import Folder from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/folder.svg';
-import Form from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/form.svg';
-import Gallery from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/gallery.svg';
-import Image from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/image.svg';
-import LandingPage from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/landing_page.svg';
-import Notice from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/notice.svg';
-import Options from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/options.svg';
-import Place from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/place.svg';
-import Product from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/product.svg';
-import QaForm from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/qa-form.svg';
-import Search from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/search.svg';
-import Spinner from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/spinner.svg';
-import SystemInformation from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/system-information.svg';
-import Trash from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/trash.svg';
-import Video from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/video.svg';
-import View from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view.svg';
-import ViewGrid from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view-grid.svg';
-import ViewList from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/view-list.svg';
-import User from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/user.svg';
-import UserGroup from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/user_group.svg';
-import Upload from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/upload.svg';
-import UploadImage from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/upload-image.svg';
-import Warning from '@ibexa-admin-ui/src/bundle/Resources/public/img/icons/warning.svg';
+import Add from '@ids-assets/img/icons/add.svg';
+import AlertError from '@ids-assets/img/icons/alert-error.svg';
+import AlertWarning from '@ids-assets/img/icons/alert-warning.svg';
+import AppBlog from '@ids-assets/img/icons/app-blog.svg';
+import ArrowChevronDown from '@ids-assets/img/icons/arrow-chevron-down.svg';
+import ArrowChevronUp from '@ids-assets/img/icons/arrow-chevron-up.svg';
+import ArrowExpandLeft from '@ids-assets/img/icons/arrow-expand-left.svg';
+import ArrowLeft from '@ids-assets/img/icons/arrow-left.svg';
+import ArrowRotate from '@ids-assets/img/icons/arrow-rotate.svg';
+import Calendar from '@ids-assets/img/icons/calendar.svg';
+import CheckCircle from '@ids-assets/img/icons/check-circle.svg';
+import ContentTree from '@ids-assets/img/icons/content-tree.svg';
+import Discard from '@ids-assets/img/icons/discard.svg';
+import DiscardCircle from '@ids-assets/img/icons/discard-circle.svg';
+import Download from '@ids-assets/img/icons/download.svg';
+import Drag from '@ids-assets/img/icons/drag.svg';
+import Duplicate from '@ids-assets/img/icons/duplicate.svg';
+import Edit from '@ids-assets/img/icons/edit.svg';
+import File from '@ids-assets/img/icons/file.svg';
+import FileText from '@ids-assets/img/icons/file-text.svg';
+import Filters from '@ids-assets/img/icons/filters.svg';
+import Folder from '@ids-assets/img/icons/folder.svg';
+import FormCheck from '@ids-assets/img/icons/form-check.svg';
+import FormCheckSquare from '@ids-assets/img/icons/form-check-square.svg';
+import FormInput from '@ids-assets/img/icons/form-input.svg';
+import Help from '@ids-assets/img/icons/help.svg';
+import Image from '@ids-assets/img/icons/image.svg';
+import ImageGallery from '@ids-assets/img/icons/image-gallery.svg';
+import ImageUpload from '@ids-assets/img/icons/image-upload.svg';
+import InfoCircle from '@ids-assets/img/icons/info-circle.svg';
+import InfoSquare from '@ids-assets/img/icons/info-square.svg';
+import LayoutNavbar from '@ids-assets/img/icons/layout-navbar.svg';
+import More from '@ids-assets/img/icons/more.svg';
+import NoteBlog from '@ids-assets/img/icons/note-blog.svg';
+import PinLocation from '@ids-assets/img/icons/pin-location.svg';
+import Product from '@ids-assets/img/icons/product.svg';
+import QaFormCheck from '@ids-assets/img/icons/qa-form-check.svg';
+import Search from '@ids-assets/img/icons/search.svg';
+import Trash from '@ids-assets/img/icons/trash.svg';
+import Upload from '@ids-assets/img/icons/upload.svg';
+import User from '@ids-assets/img/icons/user.svg';
+import UserGroup from '@ids-assets/img/icons/user-group.svg';
+import VideoPlay from '@ids-assets/img/icons/video-play.svg';
+import ViewGrid from '@ids-assets/img/icons/view-grid.svg';
+import ViewList from '@ids-assets/img/icons/view-list.svg';
+import Visibility from '@ids-assets/img/icons/visibility.svg';
 
-const iconsMap = {
-    about: About,
-    'about-info': AboutInfo,
-    approved: Approved,
-    article: Article,
-    back: Back,
-    blog: Blog,
-    blog_post: BlogPost,
-    'caret-down': CaretDown,
-    'caret-up': CaretUp,
-    'circle-close': CircleClose,
-    create: Create,
-    checkmark: Checkmark,
-    'content-tree': ContentTree,
-    date: Date,
-    discard: Discard,
-    drag: Drag,
-    download: Download,
-    duplicate: Duplicate,
-    'expand-left': ExpandLeft,
-    edit: Edit,
-    file: File,
-    filters: Filters,
-    fields: Fields,
-    folder: Folder,
-    form: Form,
-    gallery: Gallery,
-    image: Image,
-    landing_page: LandingPage,
-    notice: Notice,
-    options: Options,
-    place: Place,
-    product: Product,
-    'qa-form': QaForm,
-    search: Search,
-    spinner: Spinner,
-    'system-information': SystemInformation,
-    trash: Trash,
-    video: Video,
-    view: View,
-    'view-grid': ViewGrid,
-    'view-list': ViewList,
-    user: User,
-    user_group: UserGroup,
-    upload: Upload,
-    'upload-image': UploadImage,
-    warning: Warning,
+const bcIconsMap = {
+    about: InfoSquare,
+    'about-info': Help,
+    approved: CheckCircle,
+    article: FileText,
+    back: ArrowLeft,
+    blog_post: NoteBlog,
+    blog: AppBlog,
+    'caret-down': ArrowChevronDown,
+    'caret-up': ArrowChevronUp,
+    checkmark: FormCheck,
+    'circle-close': DiscardCircle,
+    create: Add,
+    date: Calendar,
+    'expand-left': ArrowExpandLeft,
+    fields: FormInput,
+    form: FormCheckSquare,
+    gallery: ImageGallery,
+    landing_page: LayoutNavbar,
+    notice: AlertError,
+    options: More,
+    place: PinLocation,
+    'qa-form': QaFormCheck,
+    spinner: ArrowRotate,
+    'system-information': InfoCircle,
+    'upload-image': ImageUpload,
+    video: VideoPlay,
+    view: Visibility,
+    warning: AlertWarning,
 };
 
-const IncludedIcon = (props) => {
-    const { name, cssClass, defaultIconName } = props;
+const iconsMap = {
+    ...bcIconsMap,
+    add: Add,
+    'alert-error': AlertError,
+    'alert-warning': AlertWarning,
+    'app-blog': AppBlog,
+    'arrow-chevron-down': ArrowChevronDown,
+    'arrow-chevron-up': ArrowChevronUp,
+    'arrow-expand-left': ArrowExpandLeft,
+    'arrow-left': ArrowLeft,
+    'arrow-rotate': ArrowRotate,
+    calendar: Calendar,
+    'check-circle': CheckCircle,
+    'content-tree': ContentTree,
+    discard: Discard,
+    'discard-circle': DiscardCircle,
+    download: Download,
+    drag: Drag,
+    duplicate: Duplicate,
+    edit: Edit,
+    file: File,
+    'file-text': FileText,
+    filters: Filters,
+    folder: Folder,
+    'form-check-square': FormCheckSquare,
+    'form-check': FormCheck,
+    'form-input': FormInput,
+    help: Help,
+    image: Image,
+    'image-gallery': ImageGallery,
+    'image-upload': ImageUpload,
+    'info-circle': InfoCircle,
+    'info-square': InfoSquare,
+    'layout-navbar': LayoutNavbar,
+    more: More,
+    'note-blog': NoteBlog,
+    'pin-location': PinLocation,
+    product: Product,
+    'qa-form-check': QaFormCheck,
+    search: Search,
+    trash: Trash,
+    upload: Upload,
+    user_group: UserGroup,
+    user: User,
+    'video-play': VideoPlay,
+    'view-grid': ViewGrid,
+    'view-list': ViewList,
+    visibility: Visibility,
+};
+
+const IncludedIcon = ({ name = 'help', cssClass = '', defaultIconName = 'help' }) => {
     const IconComponent = iconsMap[name] ?? iconsMap[defaultIconName];
 
     return <IconComponent className={cssClass} />;
@@ -108,12 +139,6 @@ IncludedIcon.propTypes = {
     cssClass: PropTypes.string,
     name: PropTypes.string,
     defaultIconName: PropTypes.string,
-};
-
-IncludedIcon.defaultProps = {
-    cssClass: '',
-    name: 'about-info',
-    defaultIconName: 'about-info',
 };
 
 export default IncludedIcon;

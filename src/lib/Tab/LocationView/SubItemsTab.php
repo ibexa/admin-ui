@@ -14,7 +14,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 
 class SubItemsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-sub-items';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-sub-items';
 
     public function getIdentifier(): string
     {

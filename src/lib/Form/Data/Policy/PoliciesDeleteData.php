@@ -13,42 +13,29 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 /**
  * @todo Add validation
  */
-class PoliciesDeleteData
+final class PoliciesDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role|null */
-    protected $role;
-
-    /** @var array|null */
-    protected $policies;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
-     * @param array|null $policies
+     * @param array<int, mixed>|null $policies
      */
-    public function __construct(?Role $role = null, array $policies = [])
-    {
-        $this->role = $role;
-        $this->policies = $policies;
+    public function __construct(
+        private ?Role $role = null,
+        private ?array $policies = []
+    ) {
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role|null
-     */
     public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
-     */
-    public function setRole(?Role $role)
+    public function setRole(?Role $role): void
     {
         $this->role = $role;
     }
 
     /**
-     * @return array|null
+     * @return array<int, mixed>|null
      */
     public function getPolicies(): ?array
     {
@@ -56,12 +43,10 @@ class PoliciesDeleteData
     }
 
     /**
-     * @param array|null $policies
+     * @param array<int, mixed>|null $policies
      */
-    public function setPolicies(?array $policies)
+    public function setPolicies(?array $policies): void
     {
         $this->policies = $policies;
     }
 }
-
-class_alias(PoliciesDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PoliciesDeleteData');

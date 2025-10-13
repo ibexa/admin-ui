@@ -20,41 +20,18 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 
-abstract class AbstractPagerContentToDataMapper
+abstract readonly class AbstractPagerContentToDataMapper
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
-
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    protected $translationHelper;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
     public function __construct(
-        ContentTypeService $contentTypeService,
-        UserService $userService,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        TranslationHelper $translationHelper,
-        LanguageService $languageService
+        private ContentTypeService $contentTypeService,
+        private UserService $userService,
+        private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
+        protected TranslationHelper $translationHelper,
+        private LanguageService $languageService
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->userService = $userService;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->translationHelper = $translationHelper;
-        $this->languageService = $languageService;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param bool $filterDisabled
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     protected function getAvailableTranslations(
@@ -62,7 +39,7 @@ abstract class AbstractPagerContentToDataMapper
         bool $filterDisabled = false
     ): iterable {
         $availableTranslationsLanguages = $this->languageService->loadLanguageListByCode(
-            $content->versionInfo->languageCodes
+            $content->getVersionInfo()->getLanguageCodes()
         );
 
         if (false === $filterDisabled) {
@@ -70,39 +47,29 @@ abstract class AbstractPagerContentToDataMapper
         }
 
         return array_filter(
-            $availableTranslationsLanguages,
-            (static function (Language $language): bool {
-                return $language->enabled;
-            })
+            iterator_to_array($availableTranslationsLanguages),
+            static function (Language $language): bool {
+                return $language->isEnabled();
+            }
         );
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     *
-     * @return bool
-     */
     protected function isContentIsUser(Content $content): bool
     {
         return (new ContentIsUser($this->userService))->isSatisfiedBy($content);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User|null
-     */
     protected function getVersionContributor(VersionInfo $versionInfo): ?User
     {
         try {
             return $this->userService->loadUser($versionInfo->creatorId);
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             return null;
         }
     }
 
     /**
-     * @param array $data
+     * @param array<int, mixed> $data
      * @param int[] $contentTypeIds
      */
     protected function setTranslatedContentTypesNames(array &$data, array $contentTypeIds): void
@@ -124,5 +91,3 @@ abstract class AbstractPagerContentToDataMapper
         }
     }
 }
-
-class_alias(AbstractPagerContentToDataMapper::class, 'EzSystems\EzPlatformAdminUi\Pagination\Mapper\AbstractPagerContentToDataMapper');

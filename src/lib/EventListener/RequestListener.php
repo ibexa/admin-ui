@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
@@ -14,17 +15,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class RequestListener implements EventSubscriberInterface
+final readonly class RequestListener implements EventSubscriberInterface
 {
-    /** @var array */
-    private $groupsBySiteAccess;
-
     /**
-     * @param $groupsBySiteAccess
+     * @param array<mixed> $groupsBySiteAccess
      */
-    public function __construct(array $groupsBySiteAccess)
+    public function __construct(private array $groupsBySiteAccess)
     {
-        $this->groupsBySiteAccess = $groupsBySiteAccess;
     }
 
     /**
@@ -43,7 +40,7 @@ class RequestListener implements EventSubscriberInterface
      *  * array('eventName' => array('methodName', $priority))
      *  * array('eventName' => array(array('methodName1', $priority), array('methodName2')))
      *
-     * @return array The event names to listen to
+     * Returns the event names to listen to
      */
     public static function getSubscribedEvents(): array
     {
@@ -52,9 +49,9 @@ class RequestListener implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelRequest(RequestEvent $event)
+    public function onKernelRequest(RequestEvent $event): void
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+        if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType()) {
             return;
         }
 
@@ -78,5 +75,3 @@ class RequestListener implements EventSubscriberInterface
         throw new NotFoundHttpException('The route is not allowed in the current SiteAccess');
     }
 }
-
-class_alias(RequestListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestListener');

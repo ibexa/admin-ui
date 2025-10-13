@@ -14,28 +14,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentTypeType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     */
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(protected readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addViewTransformer(new ContentTypeTransformer($this->contentTypeService));
+        $builder->addViewTransformer(
+            new ContentTypeTransformer($this->contentTypeService)
+        );
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return TextType::class;
     }
 }
-
-class_alias(ContentTypeType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentTypeType');

@@ -23,96 +23,69 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AssetController extends Controller
+final class AssetController extends Controller
 {
-    public const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
+    public const string CSRF_TOKEN_HEADER = 'X-CSRF-Token';
 
-    public const LANGUAGE_CODE_KEY = 'languageCode';
-    public const FILE_KEY = 'file';
+    public const string LANGUAGE_CODE_KEY = 'languageCode';
+    public const string FILE_KEY = 'file';
 
-    /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
-    private $validator;
-
-    /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface */
-    private $csrfTokenManager;
-
-    /** @var \Ibexa\Core\FieldType\ImageAsset\AssetMapper */
-    private $imageAssetMapper;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /**
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
-     * @param \Ibexa\Core\FieldType\ImageAsset\AssetMapper $imageAssetMapper
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     */
     public function __construct(
-        ValidatorInterface $validator,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        ImageAssetMapper $imageAssetMapper,
-        TranslatorInterface $translator
+        private readonly ValidatorInterface $validator,
+        private readonly CsrfTokenManagerInterface $csrfTokenManager,
+        private readonly ImageAssetMapper $imageAssetMapper,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->validator = $validator;
-        $this->csrfTokenManager = $csrfTokenManager;
-        $this->imageAssetMapper = $imageAssetMapper;
-        $this->translator = $translator;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
-     */
     public function uploadImageAction(Request $request): Response
     {
-        if ($this->isValidCsrfToken($request)) {
-            $data = new ImageAssetUploadData(
-                $request->files->get(self::FILE_KEY),
-                $request->request->get(self::LANGUAGE_CODE_KEY)
-            );
-
-            $errors = $this->validator->validate($data);
-            if ($errors->count() === 0) {
-                try {
-                    $file = $data->getFile();
-
-                    $content = $this->imageAssetMapper->createAsset(
-                        $file->getClientOriginalName(),
-                        new ImageValue([
-                            'path' => $file->getRealPath(),
-                            'fileSize' => $file->getSize(),
-                            'fileName' => $file->getClientOriginalName(),
-                            'alternativeText' => $file->getClientOriginalName(),
-                        ]),
-                        $data->getLanguageCode()
-                    );
-
-                    return new JsonResponse([
-                        'destinationContent' => [
-                            'id' => $content->contentInfo->id,
-                            'name' => $content->getName(),
-                            'locationId' => $content->contentInfo->mainLocationId,
-                        ],
-                        'value' => $this->imageAssetMapper->getAssetValue($content),
-                    ]);
-                } catch (Exception $e) {
-                    return $this->createGenericErrorResponse($e->getMessage());
-                }
-            } else {
-                return $this->createInvalidInputResponse($errors);
-            }
+        if (!$this->isValidCsrfToken($request)) {
+            return $this->createInvalidCsrfResponse();
         }
 
-        return $this->createInvalidCsrfResponse();
+        $data = new ImageAssetUploadData(
+            $request->files->get(self::FILE_KEY),
+            $request->request->get(self::LANGUAGE_CODE_KEY)
+        );
+
+        $errors = $this->validator->validate($data);
+        if ($errors->count() === 0) {
+            try {
+                $file = $data->getFile();
+                if ($file === null) {
+                    throw new Exception('File is missing in the request.');
+                }
+
+                $content = $this->imageAssetMapper->createAsset(
+                    $file->getClientOriginalName(),
+                    new ImageValue([
+                        'inputUri' => $file->getRealPath(),
+                        'fileSize' => $file->getSize(),
+                        'fileName' => $file->getClientOriginalName(),
+                        'alternativeText' => $file->getClientOriginalName(),
+                    ]),
+                    $data->getLanguageCode() ?? ''
+                );
+
+                $contentInfo = $content->getContentInfo();
+
+                return new JsonResponse([
+                    'destinationContent' => [
+                        'id' => $contentInfo->getId(),
+                        'name' => $content->getName(),
+                        'locationId' => $contentInfo->getMainLocationId(),
+                    ],
+                    'value' => $this->imageAssetMapper->getAssetValue($content),
+                ]);
+            } catch (Exception $e) {
+                return $this->createGenericErrorResponse($e->getMessage());
+            }
+        } else {
+            return $this->createInvalidInputResponse($errors);
+        }
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     private function createInvalidCsrfResponse(): JsonResponse
     {
         $errorMessage = $this->translator->trans(
@@ -125,11 +98,6 @@ class AssetController extends Controller
         return $this->createGenericErrorResponse($errorMessage);
     }
 
-    /**
-     * @param \Symfony\Component\Validator\ConstraintViolationListInterface $errors
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     private function createInvalidInputResponse(ConstraintViolationListInterface $errors): JsonResponse
     {
         $errorMessages = [];
@@ -140,11 +108,6 @@ class AssetController extends Controller
         return $this->createGenericErrorResponse(implode(', ', $errorMessages));
     }
 
-    /**
-     * @param string $errorMessage
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
     private function createGenericErrorResponse(string $errorMessage): JsonResponse
     {
         return new JsonResponse(
@@ -157,11 +120,6 @@ class AssetController extends Controller
         );
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
-     */
     private function isValidCsrfToken(Request $request): bool
     {
         $csrfTokenValue = $request->headers->get(self::CSRF_TOKEN_HEADER);
@@ -171,5 +129,3 @@ class AssetController extends Controller
         );
     }
 }
-
-class_alias(AssetController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\AssetController');

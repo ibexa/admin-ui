@@ -14,18 +14,12 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between a Policy's ID and a domain specific object.
  */
-class PolicyTransformer implements DataTransformerInterface
+final readonly class PolicyTransformer implements DataTransformerInterface
 {
     /**
-     * Transforms a domain specific Policy object into a Policy string.
-     *
-     * @param mixed $value
-     *
-     * @return string|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value): ?string
+    public function transform(mixed $value): ?string
     {
         if (null === $value) {
             return null;
@@ -39,15 +33,11 @@ class PolicyTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a Policy string into a domain specific Policy array.
-     *
-     * @param string|null $value
-     *
-     * @return array|null
+     * @return array<string, mixed>|null
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function reverseTransform($value): ?array
+    public function reverseTransform(mixed $value): ?array
     {
         if (null === $value) {
             return null;
@@ -70,5 +60,3 @@ class PolicyTransformer implements DataTransformerInterface
         ];
     }
 }
-
-class_alias(PolicyTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\PolicyTransformer');

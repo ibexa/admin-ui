@@ -1,2 +1,158 @@
-@import 'custom';
-@import './public/bundles/ibexaadminuiassets/vendors/bootstrap/scss/bootstrap.scss';
+@use 'sass:string';
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/bootstrap/scss/bootstrap.scss' with (
+    // boostrap variables
+    $white: $ibexa-color-white,
+    $gray-100: $ibexa-color-light-300,
+    $gray-200: $ibexa-color-light-300,
+    $gray-300: $ibexa-color-light-200,
+    $gray-400: $ibexa-color-light-200,
+    $gray-500: $ibexa-color-light-500,
+    $gray-600: $ibexa-color-light-500,
+    $gray-700: $ibexa-color-light,
+    $gray-800: $ibexa-color-light,
+    $gray-900: $ibexa-color-dark-300,
+    $black: $ibexa-color-black,
+    $grays: (
+        100: $ibexa-color-light-300,
+        200: $ibexa-color-light-300,
+        300: $ibexa-color-light-200,
+        400: $ibexa-color-light-200,
+        500: $ibexa-color-light-500,
+        600: $ibexa-color-light-500,
+        700: $ibexa-color-light,
+        800: $ibexa-color-light,
+        900: $ibexa-color-dark-300
+    ),
+    $blue: $ibexa-color-primary,
+    $red: $ibexa-color-primary,
+    $orange: $ibexa-color-primary,
+    $yellow: $ibexa-color-warning,
+    $green: $ibexa-color-success,
+    $teal: $ibexa-color-white,
+    $pink: #e83e8c,
+    $indigo: #6610f2,
+    $purple: #6f42c1,
+    $cyan: #17a2b8,
+    $colors: (
+        'blue': $ibexa-color-primary,
+        'red': $ibexa-color-primary,
+        'orange': $ibexa-color-primary,
+        'yellow': $ibexa-color-warning,
+        'green': $ibexa-color-success,
+        'teal': $ibexa-color-white,
+        'white': $ibexa-color-white,
+        'gray': $ibexa-color-dark-300,
+        'gray-dark': #e83e8c,
+        'indigo': #6610f2,
+        'purple': #6f42c1,
+        'pink': #e83e8c,
+        'cyan': #17a2b8
+    ),
+    $theme-colors: (
+        primary: $ibexa-color-primary,
+        secondary: $ibexa-color-dark-400,
+        success: $ibexa-color-success,
+        warning: $ibexa-color-warning,
+        danger: $ibexa-color-danger,
+        light: $ibexa-color-light-200,
+        dark: $ibexa-color-dark,
+        info: #17a2b8
+    ),
+    // Typography
+    $small-font-size: calculateRem(14px),
+    $h1-font-size: calculateRem(28px),
+    $h2-font-size: calculateRem(22px),
+    $h3-font-size: calculateRem(18px),
+    $h4-font-size: calculateRem(16px),
+    $h5-font-size: calculateRem(14px),
+    $h6-font-size: calculateRem(12px),
+    $headings-font-weight: 700,
+    $headings-font-family: $ibexa-font-family-headings,
+    $text-muted: $ibexa-color-dark-400,
+    // Fonts
+    $font-family-sans-serif: $ibexa-font-family,
+    // Tables
+    $table-bg: $ibexa-color-white,
+    $table-border-width: 0,
+    $table-border-color: $ibexa-color-light-600,
+    $table-hover-bg: $ibexa-color-light-300,
+    // Breadcrumbs
+    $breadcrumb-font-size: calculateRem(12px),
+    $breadcrumb-padding-y: 0,
+    $breadcrumb-padding-x: 0,
+    $breadcrumb-bg: transparent,
+    $breadcrumb-divider: string.quote('>'),
+    // Links
+    $link-decoration: underline,
+    $link-color: $ibexa-color-dark,
+    $link-hover-decoration: underline,
+    $link-hover-color: $ibexa-color-primary,
+    // Body
+    $body-bg: $ibexa-color-white,
+    $body-color: $ibexa-color-dark,
+    // Pagination
+    $pagination-color: $ibexa-color-dark,
+    $pagination-bg: $ibexa-color-white,
+    $pagination-border-width: calculateRem(1px),
+    $pagination-border-color: transparent,
+    $pagination-padding-y: 0,
+    $pagination-padding-x: 0,
+    $pagination-focus-color: $ibexa-color-dark,
+    $pagination-focus-bg: transparent,
+    $pagination-active-color: $ibexa-color-dark,
+    $pagination-active-bg: $ibexa-color-light-300,
+    $pagination-active-border-color: transparent,
+    $pagination-hover-bg: transparent,
+    $pagination-hover-color: $ibexa-color-dark,
+    $pagination-hover-border-color: $ibexa-color-dark,
+    $pagination-disabled-color: $ibexa-color-dark-200,
+    $pagination-disabled-bg: transparent,
+    $pagination-disabled-border-color: transparent,
+    // Modals
+    $modal-header-padding-y: calculateRem(26px),
+    $modal-header-padding-x: 0,
+    $modal-header-border-width: calculateRem(1px),
+    $modal-header-border-color: $ibexa-color-light-500,
+    $modal-content-border-width: 0,
+    $modal-content-border-radius: $ibexa-border-radius,
+    $modal-inner-padding: calculateRem(24px),
+    $modal-footer-border-width: 0,
+    $zindex-modal-backdrop: $ibexa-backdrop-zindex,
+    $zindex-modal: $ibexa-modal-zindex,
+    //Popover
+    $zindex-popover: $ibexa-popover-zindex,
+    //Components
+    $border-radius: $ibexa-border-radius,
+    //Offcanvas
+    $offcanvas-padding-y: calculateRem(24px),
+    $offcanvas-padding-x: 0,
+    //Cards
+    $card-spacer-x: 0,
+    //Grid
+    $container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1470px),
+    //Inputs
+    $input-bg: transparent,
+    $input-color: $ibexa-color-dark,
+    $input-border-color: $ibexa-color-dark-300,
+    $input-box-shadow: none,
+    $input-focus-bg: transparent,
+    $input-focus-border-color: $ibexa-color-primary,
+    $input-focus-color: $ibexa-color-dark-300,
+    $input-focus-box-shadow: 0 0 calculateRem(2px) 0 rgba($ibexa-color-primary, 0.75),
+    //Buttons
+    $btn-line-height: calculateRem(16px),
+    $btn-font-size: calculateRem(15px),
+    $btn-padding-y: calculateRem(11px),
+    $btn-padding-x: calculateRem(16px),
+    $btn-border-width: 0,
+    $btn-focus-box-shadow: none,
+    //Accordion
+    $accordion-border-width: 0,
+    $accordion-border-radius: 0,
+    $accordion-button-padding-y: calculateRem(8px),
+    $accordion-button-padding-x: calculateRem(12px),
+    $accordion-button-active-bg: $ibexa-color-white,
+    $accordion-button-active-color: $ibexa-color-dark
+);

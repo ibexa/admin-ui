@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataMapper;
 
@@ -16,39 +17,35 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 /**
  * Maps between SectionCreateStruct and SectionCreateData objects.
  */
-class SectionCreateMapper implements DataMapperInterface
+final readonly class SectionCreateMapper implements DataMapperInterface
 {
     /**
      * Maps given SectionCreateStruct object to a SectionCreateData object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function map(ValueObject $value): SectionCreateData
+    public function map(ValueObject|SectionCreateStruct $value): SectionCreateData
     {
         if (!$value instanceof SectionCreateStruct) {
-            throw new InvalidArgumentException('value', 'must be an instance of ' . SectionCreateStruct::class);
+            throw new InvalidArgumentException(
+                'value',
+                'must be an instance of ' . SectionCreateStruct::class
+            );
         }
 
         return new SectionCreateData($value->identifier, $value->name);
     }
 
     /**
-     * Maps given SectionCreateData object to a SectionCreateStruct object.
-     *
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionCreateData $data
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function reverseMap($data): SectionCreateStruct
+    public function reverseMap(mixed $data): SectionCreateStruct
     {
         if (!$data instanceof SectionCreateData) {
-            throw new InvalidArgumentException('data', 'must be an instance of ' . SectionCreateData::class);
+            throw new InvalidArgumentException(
+                'data',
+                'must be an instance of ' . SectionCreateData::class
+            );
         }
 
         return new SectionCreateStruct([
@@ -57,5 +54,3 @@ class SectionCreateMapper implements DataMapperInterface
         ]);
     }
 }
-
-class_alias(SectionCreateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\SectionCreateMapper');

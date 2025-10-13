@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../common/icon/icon';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
-const ActionButton = (props) => {
-    const { disabled, onClick, label, title, type } = props;
+const ActionButton = ({ disabled, onClick, label = null, title = null, type }) => {
     const handleClick = () => {
         if (!disabled) {
             onClick();
@@ -20,7 +19,7 @@ const ActionButton = (props) => {
 
     return (
         <button type="button" className={className} title={title} onClick={handleClick} disabled={disabled}>
-            <Icon name={type} extraClasses="ibexa-icon--small" /> {label}
+            <Icon name={type} extraClasses="ibexa-icon--small-medium" /> {label}
         </button>
     );
 };
@@ -31,11 +30,6 @@ ActionButton.propTypes = {
     disabled: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
-};
-
-ActionButton.defaultProps = {
-    label: null,
-    title: null,
 };
 
 export default ActionButton;

@@ -7,7 +7,6 @@
 {% block header_admin %}
     {% set role_edit_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu.role_edit.sidebar_right', [], {
         role,
-        save_id: form.save.vars.id,
         save_and_close_id: form.save_and_close.vars.id,
     }) %}
 
@@ -27,7 +26,6 @@
                 </div>
             </div>
         </section>
-        {{ form_widget(form.save, { attr: { hidden: 'hidden' }}) }}
         {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' }}) }}
     {{ form_end(form) }}
 {% endblock %}

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -21,37 +22,41 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
-     */
-    private $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
         $this->logger = new NullLogger();
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $contentTypeChoices = [];
         foreach ($this->contentTypeService->loadContentTypeGroups() as $group) {
             foreach ($this->contentTypeService->loadContentTypes($group) as $contentType) {
-                $contentTypeChoices[$contentType->id] = $contentType->getName($contentType->mainLanguageCode);
+                $contentTypeChoices[$contentType->id] = $contentType->getName(
+                    $contentType->mainLanguageCode
+                );
             }
         }
 
         return $contentTypeChoices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
         foreach ($limitation->limitationValues as $contentTypeId) {
             try {
-                $values[] = $this->contentTypeService->loadContentType($contentTypeId);
-            } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId));
+                $values[] = $this->contentTypeService->loadContentType((int)$contentTypeId);
+            } catch (NotFoundException) {
+                $this->logger?->error(
+                    sprintf('Could not map the Limitation value: could not find a content type with ID %s', $contentTypeId)
+                );
             }
         }
 
@@ -76,5 +81,3 @@ class ContentTypeLimitationMapper extends MultipleSelectionBasedMapper implement
         ];
     }
 }
-
-class_alias(ContentTypeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ContentTypeLimitationMapper');

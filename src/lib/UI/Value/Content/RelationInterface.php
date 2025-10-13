@@ -10,10 +10,5 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 interface RelationInterface
 {
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool;
 }
-
-class_alias(RelationInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\RelationInterface');

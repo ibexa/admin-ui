@@ -78,14 +78,14 @@ const FinderLeaf = ({ location }) => {
             <span className="c-finder-leaf__name">
                 <span className="c-finder-leaf__icon-wrapper">
                     <Icon
-                        extraClasses="ibexa-icon--small ibexa-icon--base-dark"
+                        extraClasses="ibexa-icon--small-medium ibexa-icon--base-dark"
                         customPath={contentTypesMap[location.ContentInfo.Content.ContentType._href].thumbnail}
                     />
                 </span>
                 <span title={location.ContentInfo.Content.TranslatedName} data-tooltip-container-selector=".c-udw-tab">
                     {location.ContentInfo.Content.TranslatedName}
                 </span>
-                {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small c-finder-leaf__hidden-icon" />}
+                {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium c-finder-leaf__hidden-icon" />}
             </span>
         </div>
     );

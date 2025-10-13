@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\BrowserContext;
 
@@ -12,18 +13,12 @@ use Ibexa\AdminUi\Behat\Page\BookmarksPage;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use PHPUnit\Framework\Assert;
 
-class BookmarkContext implements Context
+final readonly class BookmarkContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
-    private $contentViewPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\BookmarksPage */
-    private $bookmarksPage;
-
-    public function __construct(ContentViewPage $contentViewPage, BookmarksPage $bookmarksPage)
-    {
-        $this->contentViewPage = $contentViewPage;
-        $this->bookmarksPage = $bookmarksPage;
+    public function __construct(
+        private ContentViewPage $contentViewPage,
+        private BookmarksPage $bookmarksPage
+    ) {
     }
 
     /**

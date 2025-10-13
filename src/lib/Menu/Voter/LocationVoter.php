@@ -14,15 +14,12 @@ use Knp\Menu\ItemInterface;
 use Knp\Menu\Matcher\Voter\VoterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class LocationVoter implements VoterInterface
+final readonly class LocationVoter implements VoterInterface
 {
-    private const CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
+    private const string CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
 
-    private RequestStack $requestStack;
-
-    public function __construct(RequestStack $requestStack)
+    public function __construct(private RequestStack $requestStack)
     {
-        $this->requestStack = $requestStack;
     }
 
     public function matchItem(ItemInterface $item): ?bool
@@ -36,7 +33,7 @@ class LocationVoter implements VoterInterface
             }
 
             $request = $this->requestStack->getCurrentRequest();
-            $contentView = $request ? $request->attributes->get('view') : null;
+            $contentView = $request?->attributes->get('view');
             $location = $contentView instanceof ContentView ? $contentView->getLocation() : null;
 
             if (!$location instanceof Location) {
@@ -51,5 +48,3 @@ class LocationVoter implements VoterInterface
         return null;
     }
 }
-
-class_alias(LocationVoter::class, 'EzSystems\EzPlatformAdminUi\Menu\Voter\LocationVoter');

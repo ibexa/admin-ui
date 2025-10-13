@@ -10,7 +10,7 @@
             {% block header_content %}
                 {% if is_draggable|default(false) %}
                     <button type="button" class="btn ibexa-btn ibexa-btn--no-text ibexa-collapse__draggable-btn">
-                        <svg class="ibexa-icon ibexa-icon--small">
+                        <svg class="ibexa-icon ibexa-icon--small-medium">
                             <use xlink:href="{{ ibexa_icon_path("drag") }}"></use>
                         </svg>
                     </button>
@@ -28,7 +28,7 @@
                 {% if extra_actions is defined %}
                     {% for action in extra_actions %}
                         <button type="button" class="ibexa-collapse__extra-action-button btn ibexa-btn ibexa-btn--no-text {{ action.button_class|default('') }}">
-                            <svg class="ibexa-icon ibexa-icon--{{ action.icon_size|default('small') }}">
+                            <svg class="ibexa-icon ibexa-icon--{{ action.icon_size|default('small-medium') }}">
                                 <use xlink:href="{{ ibexa_icon_path(action.icon_name) }}"></use>
                             </svg>
                         </button>

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
@@ -12,38 +13,20 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Pagerfanta adapter for Ibexa content search.
- * Will return results as SearchHit objects.
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\TrashItem>
  */
-class TrashItemAdapter implements AdapterInterface
+final class TrashItemAdapter implements AdapterInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Query
-     */
-    private $query;
+    /** @phpstan-var int<0, max> */
+    private int $nbResults;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService
-     */
-    private $trashService;
-
-    /**
-     * @var int
-     */
-    private $nbResults;
-
-    public function __construct(Query $query, TrashService $trashService)
-    {
-        $this->query = $query;
-        $this->trashService = $trashService;
+    public function __construct(
+        private readonly Query $query,
+        private readonly TrashService $trashService
+    ) {
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
         if (isset($this->nbResults)) {
             return $this->nbResults;
@@ -52,18 +35,13 @@ class TrashItemAdapter implements AdapterInterface
         $countQuery = clone $this->query;
         $countQuery->limit = 0;
 
-        return $this->nbResults = $this->trashService->findTrashItems($countQuery)->count;
+        return $this->nbResults = $this->trashService->findTrashItems($countQuery)->totalCount;
     }
 
     /**
-     * Returns a slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject[]
      */
-    public function getSlice($offset, $length): array
+    public function getSlice(int $offset, int $length): array
     {
         $query = clone $this->query;
         $query->offset = $offset;
@@ -72,12 +50,10 @@ class TrashItemAdapter implements AdapterInterface
 
         $trashItems = $this->trashService->findTrashItems($query);
 
-        if (null === $this->nbResults && null !== $trashItems->count) {
-            $this->nbResults = $trashItems->count;
+        if (!isset($this->nbResults)) {
+            $this->nbResults = $trashItems->totalCount;
         }
 
         return $trashItems->items;
     }
 }
-
-class_alias(TrashItemAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\TrashItemAdapter');

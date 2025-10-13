@@ -13,11 +13,14 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
 interface Provider
 {
-    public const ROOT_LOCATION_ID = 1;
+    public const int ROOT_LOCATION_ID = 1;
 
-    public const SORT_CLAUSE_DATE_PUBLISHED = 'DatePublished';
-    public const SORT_CLAUSE_CONTENT_NAME = 'ContentName';
+    public const string SORT_CLAUSE_DATE_PUBLISHED = 'DatePublished';
+    public const string SORT_CLAUSE_CONTENT_NAME = 'ContentName';
 
+    /**
+     * @return array<int, mixed>
+     */
     public function getColumns(
         int $locationId,
         int $limit,
@@ -26,13 +29,22 @@ interface Provider
         int $rootLocationId = self::ROOT_LOCATION_ID
     ): array;
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     */
     public function getBreadcrumbLocations(
         int $locationId,
         int $rootLocationId = self::ROOT_LOCATION_ID
     ): array;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getLocationPermissionRestrictions(Location $location): array;
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[]
+     */
     public function getSubitemContents(
         int $locationId,
         int $offset,
@@ -40,6 +52,9 @@ interface Provider
         Query\SortClause $sortClause
     ): array;
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     */
     public function getSubitemLocations(
         int $locationId,
         int $offset,
@@ -47,6 +62,9 @@ interface Provider
         Query\SortClause $sortClause
     ): array;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getLocationData(
         int $locationId,
         int $offset,
@@ -54,6 +72,9 @@ interface Provider
         Query\SortClause $sortClause
     ): array;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getLocationGridViewData(
         int $locationId,
         int $offset,
@@ -61,14 +82,26 @@ interface Provider
         Query\SortClause $sortClause
     ): array;
 
-    public function getLocations(array $locationIds): array;
-
     /**
-     * @deprecated 4.6.0 Will be removed in 5.0.
+     * @param list<string> $locationIds
+     *
+     * @return array<array{
+     *     location: \Ibexa\Contracts\Core\Repository\Values\Content\Location,
+     *     permissions: array{
+     *       create: array{
+     *         hasAccess: bool,
+     *         restrictedContentTypeIds: array<int>,
+     *         restrictedLanguageCodes: array<string>
+     *       },
+     *       edit: array{
+     *         hasAccess: bool,
+     *         restrictedContentTypeIds: array<int>,
+     *         restrictedLanguageCodes: array<string>
+     *       }
+     *     }
+     * }>
      */
-    public function getRestFormat($valueObject): array;
+    public function getLocations(array $locationIds): array;
 
     public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause;
 }
-
-class_alias(Provider::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Provider');

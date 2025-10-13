@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component\Table;
 
@@ -14,30 +15,17 @@ use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 
-class TableBuilder
+final class TableBuilder
 {
-    /** @var \Behat\Mink\Session */
-    private $session;
+    private LocatorCollection $locators;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableRowFactory */
-    private $tableRowFactory;
+    private ?bool $buildInProgress = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Pagination */
-    private $pagination;
-
-    /** @var \Ibexa\Behat\Browser\Locator\LocatorCollection */
-    private $locators;
-
-    /**
-     * @var bool
-     */
-    private $buildInProgress;
-
-    public function __construct(Session $session, TableRowFactory $tableRowFactory, Pagination $pagination)
-    {
-        $this->session = $session;
-        $this->tableRowFactory = $tableRowFactory;
-        $this->pagination = $pagination;
+    public function __construct(
+        private readonly Session $session,
+        private readonly TableRowFactory $tableRowFactory,
+        private readonly Pagination $pagination
+    ) {
         $this->locators = new LocatorCollection([]);
     }
 

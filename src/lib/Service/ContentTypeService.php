@@ -13,41 +13,23 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Core\Repository;
-use Symfony\Component\Form\FormFactoryInterface;
 
-class ContentTypeService
+readonly class ContentTypeService
 {
-    /** @var Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
-
-    /** @var array */
-    private $prioritizedLanguages;
-
     /**
-     * ContentTypeGroupService constructor.
-     *
-     * @param Repository\ContentTypeService $contentTypeService
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param array $prioritizedLanguages
+     * @param string[] $prioritizedLanguages
      */
     public function __construct(
-        Repository\ContentTypeService $contentTypeService,
-        FormFactoryInterface $formFactory,
-        array $prioritizedLanguages
+        private Repository\ContentTypeService $contentTypeService,
+        private array $prioritizedLanguages
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->formFactory = $formFactory;
-        $this->prioritizedLanguages = $prioritizedLanguages;
     }
 
     public function getContentType(int $id): ContentType
     {
         try {
             return $this->contentTypeService->loadContentTypeDraft($id);
-        } catch (NotFoundException $ex) {
+        } catch (NotFoundException) {
             return $this->contentTypeService->loadContentType($id, $this->prioritizedLanguages);
         }
     }
@@ -56,16 +38,22 @@ class ContentTypeService
     {
         try {
             return $this->contentTypeService->loadContentTypeDraft($id);
-        } catch (NotFoundException $ex) {
+        } catch (NotFoundException) {
             return $this->contentTypeService->createContentTypeDraft(
                 $this->contentTypeService->loadContentType($id, $this->prioritizedLanguages)
             );
         }
     }
 
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]
+     */
     public function getContentTypes(ContentTypeGroup $group): array
     {
-        return $this->contentTypeService->loadContentTypes($group, $this->prioritizedLanguages);
+        return $this->contentTypeService->loadContentTypes(
+            $group,
+            $this->prioritizedLanguages
+        );
     }
 
     public function createContentType(ContentTypeGroup $group): ContentType
@@ -82,7 +70,7 @@ class ContentTypeService
         return $this->contentTypeService->createContentType($createStruct, [$group]);
     }
 
-    public function deleteContentType(ContentType $contentType)
+    public function deleteContentType(ContentType $contentType): void
     {
         $this->contentTypeService->deleteContentType($contentType);
     }
@@ -90,12 +78,8 @@ class ContentTypeService
     /**
      * Return the highest prioritized language that $contentType is translated to.
      * If there is no translation for a prioritized language, return $contentType's main language.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType Content type (or content type draft)
-     *
-     * @return string Language code
      */
-    public function getPrioritizedLanguage(ContentType $contentType)
+    public function getPrioritizedLanguage(ContentType $contentType): string
     {
         foreach ($this->prioritizedLanguages as $prioritizedLanguage) {
             if (isset($contentType->names[$prioritizedLanguage])) {
@@ -106,5 +90,3 @@ class ContentTypeService
         return $contentType->mainLanguageCode;
     }
 }
-
-class_alias(ContentTypeService::class, 'EzSystems\EzPlatformAdminUi\Service\ContentTypeService');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -18,9 +19,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezdatetime FieldType.
+ * FormMapper for ibexa_datetime FieldType.
  */
-class DateTimeFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class DateTimeFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -29,33 +30,33 @@ class DateTimeFormMapper implements FieldDefinitionFormMapperInterface
             ->add('useSeconds', CheckboxType::class, [
                 'required' => false,
                 'property_path' => 'fieldSettings[useSeconds]',
-                'label' => /** @Desc("Use seconds") */ 'field_definition.ezdatetime.use_seconds',
+                'label' => /** @Desc("Use seconds") */ 'field_definition.ibexa_datetime.use_seconds',
                 'disabled' => $isTranslation,
             ])
             ->add('defaultType', ChoiceType::class, [
                 'choices' => [
                     /** @Desc("Empty") */
-                    'field_definition.ezdatetime.default_type_empty' => Type::DEFAULT_EMPTY,
+                    'field_definition.ibexa_datetime.default_type_empty' => Type::DEFAULT_EMPTY,
                     /** @Desc("Current datetime") */
-                    'field_definition.ezdatetime.default_type_current' => Type::DEFAULT_CURRENT_DATE,
+                    'field_definition.ibexa_datetime.default_type_current' => Type::DEFAULT_CURRENT_DATE,
                     /** @Desc("Adjusted current datetime") */
-                    'field_definition.ezdatetime.default_type_adjusted' => Type::DEFAULT_CURRENT_DATE_ADJUSTED,
+                    'field_definition.ibexa_datetime.default_type_adjusted' => Type::DEFAULT_CURRENT_DATE_ADJUSTED,
                 ],
                 'expanded' => true,
                 'required' => true,
                 'property_path' => 'fieldSettings[defaultType]',
-                'label' => /** @Desc("Default value") */ 'field_definition.ezdatetime.default_type',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_datetime.default_type',
                 'disabled' => $isTranslation,
             ])
             ->add('dateInterval', DateTimeIntervalType::class, [
                 'required' => false,
                 'property_path' => 'fieldSettings[dateInterval]',
-                'label' => /** @Desc("Current date and time adjusted by") */ 'field_definition.ezdatetime.date_interval',
+                'label' => /** @Desc("Current date and time adjusted by") */ 'field_definition.ibexa_datetime.date_interval',
                 'disabled' => $isTranslation,
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -63,5 +64,3 @@ class DateTimeFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(DateTimeFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\DateTimeFormMapper');

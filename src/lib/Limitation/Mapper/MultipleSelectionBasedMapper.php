@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -18,14 +19,12 @@ use Symfony\Component\Form\FormInterface;
  */
 abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInterface
 {
-    /**
-     * Form template to use.
-     *
-     * @var string
-     */
-    private $template;
+    private string $template;
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $options = $this->getChoiceFieldOptions() + [
             'multiple' => true,
@@ -41,33 +40,31 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
     /**
      * Returns value choices to display, as expected by the "choices" option from Choice field.
      *
-     * @return array
+     * @return array<array-key, int|string>
      */
-    abstract protected function getSelectionChoices();
+    abstract protected function getSelectionChoices(): array;
 
     /**
      * Returns custom options.
      *
-     * @return array
+     * @return array<mixed>
      */
-    protected function getChoiceFieldOptions()
+    protected function getChoiceFieldOptions(): array
     {
         return [];
     }
 
-    public function setFormTemplate($template)
+    public function setFormTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    public function getFormTemplate()
+    public function getFormTemplate(): string
     {
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
     }
 }
-
-class_alias(MultipleSelectionBasedMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\MultipleSelectionBasedMapper');

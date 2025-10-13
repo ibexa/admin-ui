@@ -22,32 +22,23 @@ use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 final class FocusModeController extends Controller
 {
-    private const RETURN_PATH_PARAM = 'returnPath';
-
-    private EventDispatcherInterface $eventDispatcher;
-
-    private UserSettingService $userSettingService;
-
-    private UrlMatcherInterface $urlMatcher;
-
-    /** @var iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> */
-    private iterable $redirectStrategies;
+    private const string RETURN_PATH_PARAM = 'returnPath';
 
     /**
      * @param iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> $redirectStrategies
      */
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        UserSettingService $userSettingService,
-        UrlMatcherInterface $urlMatcher,
-        iterable $redirectStrategies
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly UserSettingService $userSettingService,
+        private readonly UrlMatcherInterface $urlMatcher,
+        private readonly iterable $redirectStrategies
     ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->userSettingService = $userSettingService;
-        $this->urlMatcher = $urlMatcher;
-        $this->redirectStrategies = $redirectStrategies;
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     public function changeAction(Request $request, ?string $returnPath): Response
     {
         $data = new FocusModeChangeData();
@@ -76,7 +67,9 @@ final class FocusModeController extends Controller
                 $data->isEnabled() ? FocusMode::FOCUS_MODE_ON : FocusMode::FOCUS_MODE_OFF
             );
 
-            $this->eventDispatcher->dispatch(new FocusModeChangedEvent($data->isEnabled()));
+            $this->eventDispatcher->dispatch(
+                new FocusModeChangedEvent($data->isEnabled() ?? false)
+            );
 
             return $this->createRedirectToReturnPath($request);
         }
@@ -84,7 +77,7 @@ final class FocusModeController extends Controller
         return $this->render(
             '@ibexadesign/ui/focus_mode_form.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }

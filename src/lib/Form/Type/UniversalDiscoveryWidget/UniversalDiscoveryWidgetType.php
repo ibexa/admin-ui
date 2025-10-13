@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\UniversalDiscoveryWidget;
 
@@ -19,10 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UniversalDiscoveryWidgetType extends AbstractType
 {
-    public const TAB_BROWSE = 'browse';
-    public const TAB_SEARCH = 'search';
+    public const string TAB_BROWSE = 'browse';
+    public const string TAB_SEARCH = 'search';
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('location', LocationType::class, [
@@ -37,7 +38,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
             ->addModelTransformer($this->getDataTransformer());
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options): void
     {
         $selectContentButtonView = $view->offsetGet('select_content');
 
@@ -64,7 +65,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
         $selectContentButtonView->vars['attr']['class'] = trim($selectContentButtonView->vars['attr']['class'] . ' ibexa-btn--open-udw');
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
@@ -83,18 +84,18 @@ class UniversalDiscoveryWidgetType extends AbstractType
         $resolver->setAllowedTypes('initial_location_id', ['int', 'null']);
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezsystems_ezplatform_type_udw';
     }
 
     /**
-     * @return \Symfony\Component\Form\DataTransformerInterface
+     * @return DataTransformerInterface<mixed, mixed>
      */
     private function getDataTransformer(): DataTransformerInterface
     {
         return new CallbackTransformer(
-            static function ($value) {
+            static function (mixed $value): ?array {
                 if (null === $value) {
                     return null;
                 }
@@ -113,5 +114,3 @@ class UniversalDiscoveryWidgetType extends AbstractType
         );
     }
 }
-
-class_alias(UniversalDiscoveryWidgetType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\UniversalDiscoveryWidget\UniversalDiscoveryWidgetType');

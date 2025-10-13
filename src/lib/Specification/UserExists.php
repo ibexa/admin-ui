@@ -11,36 +11,20 @@ namespace Ibexa\AdminUi\Specification;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\UserService;
 
-class UserExists implements UserSpecification
+final readonly class UserExists implements UserSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
-    /**
-     * Checks if $userId is an existing User id.
-     *
-     * @param mixed $userId
-     *
-     * @return bool
-     */
-    public function isSatisfiedBy($userId): bool
+    public function isSatisfiedBy(mixed $userId): bool
     {
         try {
-            $this->userService->loadUser($userId);
+            $this->userService->loadUser((int)$userId);
 
             return true;
-        } catch (NotFoundException $e) {
+        } catch (NotFoundException) {
             return false;
         }
     }
 }
-
-class_alias(UserExists::class, 'EzSystems\EzPlatformAdminUi\Specification\UserExists');

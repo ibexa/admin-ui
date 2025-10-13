@@ -20,42 +20,28 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Rebuilds specific field definitions in the Content Type editing form with custom options for a given field type and set of field identifiers.
  */
-final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInterface
+final readonly class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInterface
 {
-    private ?string $fieldTypeIdentifier;
-
-    /** @var string[] */
-    private array $fieldIdentifiers;
-
-    /** @var array<string, mixed> */
-    private array $modifiedOptions;
-
-    private ?SpecificationInterface $contentTypeSpecification;
-
     /**
      * @param array<string, mixed> $modifiedOptions
      * @param array<string> $fieldIdentifiers
      */
     public function __construct(
-        ?string $fieldTypeIdentifier,
-        array $modifiedOptions,
-        array $fieldIdentifiers = [],
-        ?SpecificationInterface $contentTypeSpecification = null
+        private array $modifiedOptions,
+        private array $fieldIdentifiers = [],
+        private ?string $fieldTypeIdentifier = null,
+        private ?SpecificationInterface $contentTypeSpecification = null
     ) {
-        $this->fieldTypeIdentifier = $fieldTypeIdentifier;
-        $this->modifiedOptions = $modifiedOptions;
-        $this->fieldIdentifiers = $fieldIdentifiers;
-        $this->contentTypeSpecification = $contentTypeSpecification;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            FormEvents::PRE_SET_DATA => ['onPreSetData'],
+            FormEvents::POST_SET_DATA => ['onPostSetData'],
         ];
     }
 
-    public function onPreSetData(FormEvent $event): void
+    public function onPostSetData(FormEvent $event): void
     {
         /** @var array<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>|null $data */
         $data = $event->getData();

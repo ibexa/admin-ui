@@ -13,27 +13,28 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Pagerfanta\Adapter\AdapterInterface;
 
-final class RelationAdapter implements AdapterInterface
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\RelationInterface>
+ */
+final readonly class RelationAdapter implements AdapterInterface
 {
-    private ContentService $contentService;
-
-    private DatasetFactory $datasetFactory;
-
-    private Content $content;
-
     public function __construct(
-        ContentService $contentService,
-        DatasetFactory $datasetFactory,
-        Content $content
+        private ContentService $contentService,
+        private DatasetFactory $datasetFactory,
+        private Content $content
     ) {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
-        $this->content = $content;
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     public function getNbResults(): int
     {
-        return $this->contentService->countRelations($this->content->getVersionInfo());
+        /** @phpstan-var int<0, max> */
+        return $this->contentService->countRelations(
+            $this->content->getVersionInfo()
+        );
     }
 
     /**
@@ -41,7 +42,7 @@ final class RelationAdapter implements AdapterInterface
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function getSlice($offset, $length): array
+    public function getSlice(int $offset, int $length): array
     {
         return $this->datasetFactory
             ->relationList()

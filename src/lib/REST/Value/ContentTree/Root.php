@@ -10,18 +10,12 @@ namespace Ibexa\AdminUi\REST\Value\ContentTree;
 
 use Ibexa\Rest\Value as RestValue;
 
-class Root extends RestValue
+final class Root extends RestValue
 {
-    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\Node[] */
-    public $elements;
-
     /**
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node[] $elements
      */
-    public function __construct(array $elements = [])
+    public function __construct(public array $elements = [])
     {
-        $this->elements = $elements;
     }
 }
-
-class_alias(Root::class, 'EzSystems\EzPlatformAdminUi\REST\Value\ContentTree\Root');

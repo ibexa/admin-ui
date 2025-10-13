@@ -15,7 +15,7 @@ import {
     ContentTypesMapContext,
 } from '../../universal.discovery.module';
 
-const ContentCreateButton = ({ isDisabled }) => {
+const ContentCreateButton = ({ isDisabled = false }) => {
     const Translator = getTranslator();
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
@@ -24,7 +24,7 @@ const ContentCreateButton = ({ isDisabled }) => {
     const [multiple, multipleItemsLimit] = useContext(MultipleConfigContext);
     const { hidden, allowedLocations } = useContext(ContentOnTheFlyConfigContext);
     const contentTypesMap = useContext(ContentTypesMapContext);
-    const createLabel = Translator.trans(/*@Desc("Create")*/ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
+    const createLabel = Translator.trans(/* @Desc("Create") */ 'create_content.create', {}, 'ibexa_universal_discovery_widget');
     const toggleContentCreateVisibility = () => {
         hideAllTooltips();
         setCreateContentVisible((prevState) => !prevState);
@@ -58,7 +58,7 @@ const ContentCreateButton = ({ isDisabled }) => {
                 onClick={toggleContentCreateVisibility}
                 type="button"
             >
-                <Icon name="create" extraClasses="ibexa-icon--small" />
+                <Icon name="create" extraClasses="ibexa-icon--small-medium" />
                 <span className="ibexa-btn__label">{createLabel}</span>
             </button>
         </div>
@@ -67,10 +67,6 @@ const ContentCreateButton = ({ isDisabled }) => {
 
 ContentCreateButton.propTypes = {
     isDisabled: PropTypes.bool,
-};
-
-ContentCreateButton.defaultProps = {
-    isDisabled: false,
 };
 
 export const ContentCreateButtonMenuItem = {

@@ -10,32 +10,21 @@ namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
-class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
+final readonly class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
-    private $languageChoiceLoader;
-
-    /** @var string[] */
-    private $restrictedLanguagesCodes;
-
     /**
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
-     * @param array $restrictedLanguagesCodes
+     * @param string[] $restrictedLanguagesCodes
      */
     public function __construct(
-        LanguageChoiceLoader $languageChoiceLoader,
-        array $restrictedLanguagesCodes
+        private LanguageChoiceLoader $languageChoiceLoader,
+        private array $restrictedLanguagesCodes
     ) {
-        $this->languageChoiceLoader = $languageChoiceLoader;
-        $this->restrictedLanguagesCodes = $restrictedLanguagesCodes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoiceList($value = null)
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $languages = $this->languageChoiceLoader->getChoiceList();
 
@@ -43,17 +32,17 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
             return new ArrayChoiceList($languages, $value);
         }
 
-        $languages = array_filter($languages, function (Language $language) {
-            return \in_array($language->languageCode, $this->restrictedLanguagesCodes, true);
+        $languages = array_filter($languages, function (Language $language): bool {
+            return in_array($language->getLanguageCode(), $this->restrictedLanguagesCodes, true);
         });
 
         return new ArrayChoiceList($languages, $value);
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function loadChoicesForValues(array $values, $value = null)
+    public function loadChoicesForValues(array $values, ?callable $value = null): array
     {
         // Optimize
         $values = array_filter($values);
@@ -65,9 +54,9 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string[]
      */
-    public function loadValuesForChoices(array $choices, $value = null)
+    public function loadValuesForChoices(array $choices, ?callable $value = null): array
     {
         // Optimize
         $choices = array_filter($choices);
@@ -83,5 +72,3 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getValuesForChoices($choices);
     }
 }
-
-class_alias(ContentCreateLanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentCreateLanguageChoiceLoader');

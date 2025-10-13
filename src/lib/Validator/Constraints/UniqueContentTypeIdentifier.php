@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -14,14 +15,9 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class UniqueContentTypeIdentifier extends Constraint implements TranslationContainerInterface
+final class UniqueContentTypeIdentifier extends Constraint implements TranslationContainerInterface
 {
-    /**
-     * %identifier% placeholder is passed.
-     *
-     * @var string
-     */
-    public $message = 'ez.content_type.identifier.unique';
+    public string $message = 'ez.content_type.identifier.unique';
 
     /**
      * @return array<\JMS\TranslationBundle\Model\Message>
@@ -34,15 +30,13 @@ class UniqueContentTypeIdentifier extends Constraint implements TranslationConta
         ];
     }
 
-    public function validatedBy()
+    public function validatedBy(): string
     {
         return 'ezplatform.content_forms.validator.unique_content_type_identifier';
     }
 
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }
 }
-
-class_alias(UniqueContentTypeIdentifier::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueContentTypeIdentifier');

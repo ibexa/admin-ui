@@ -11,32 +11,25 @@ namespace Ibexa\AdminUi\Tab\Event;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class TabEvent extends Event
+final class TabEvent extends Event
 {
-    /** @var \Ibexa\Contracts\AdminUi\Tab\TabInterface */
-    private $data;
+    private TabInterface $data;
 
-    /** @var array */
-    private $parameters;
+    /** @var array<string, mixed> */
+    private array $parameters = [];
 
-    /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
-     */
     public function getData(): TabInterface
     {
         return $this->data;
     }
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $data
-     */
-    public function setData(TabInterface $data)
+    public function setData(TabInterface $data): void
     {
         $this->data = $data;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getParameters(): array
     {
@@ -44,12 +37,10 @@ class TabEvent extends Event
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
     public function setParameters(array $parameters): void
     {
         $this->parameters = $parameters;
     }
 }
-
-class_alias(TabEvent::class, 'EzSystems\EzPlatformAdminUi\Tab\Event\TabEvent');

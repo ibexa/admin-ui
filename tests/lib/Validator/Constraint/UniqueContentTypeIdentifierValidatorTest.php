@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
@@ -16,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Base\Exceptions\NotFoundException;
 use Ibexa\Core\Repository\Values\ContentType\ContentType as APIContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft as APIContentTypeDraft;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -23,20 +25,11 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 final class UniqueContentTypeIdentifierValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $contentTypeService;
+    private ContentTypeService&MockObject $contentTypeService;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueContentTypeIdentifierValidator
-     */
-    private $validator;
+    private UniqueContentTypeIdentifierValidator $validator;
 
     protected function setUp(): void
     {
@@ -51,12 +44,13 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
     {
         $value = new stdClass();
         $this->contentTypeService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadContentTypeByIdentifier');
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
+        /** @phpstan-ignore-next-line  */
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
     }
 
@@ -68,10 +62,10 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
         ]);
 
         $this->contentTypeService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadContentTypeByIdentifier');
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -86,12 +80,12 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
         ]);
 
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeByIdentifier')
             ->with($identifier)
             ->willThrowException(new NotFoundException('foo', 'bar'));
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -113,12 +107,12 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
             ->setConstructorArgs([['id' => $contentTypeId]])
             ->getMockForAbstractClass();
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeByIdentifier')
             ->with($identifier)
             ->willReturn($returnedContentType);
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueContentTypeIdentifier());
@@ -141,27 +135,27 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
             ->setConstructorArgs([['id' => 123]])
             ->getMockForAbstractClass();
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeByIdentifier')
             ->with($identifier)
             ->willReturn($returnedContentType);
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->with($constraint->message)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('atPath')
             ->with('identifier')
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setParameter')
             ->with('%identifier%', $identifier)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate($value, $constraint);
@@ -176,5 +170,3 @@ final class UniqueContentTypeIdentifierValidatorTest extends TestCase
         ]);
     }
 }
-
-class_alias(UniqueContentTypeIdentifierValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueContentTypeIdentifierValidatorTest');

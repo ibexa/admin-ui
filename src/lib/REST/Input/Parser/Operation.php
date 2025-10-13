@@ -16,14 +16,9 @@ use Ibexa\Rest\Input\BaseParser;
 class Operation extends BaseParser
 {
     /**
-     * Parse input structure.
-     *
-     * @param array $data
-     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
-     *
-     * @return \Ibexa\AdminUi\REST\Value\Operation
+     * @param array{uri?: string|mixed, method?: string|mixed, headers?: array|mixed, parameters?: array|mixed, content?: string|mixed} $data
      */
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher)
+    public function parse(array $data, ParsingDispatcher $parsingDispatcher): OperationValue
     {
         if (!array_key_exists('uri', $data) || !is_string($data['uri'])) {
             throw new Exceptions\Parser("Missing or invalid 'uri' element for BulkOperation.");
@@ -45,16 +40,12 @@ class Operation extends BaseParser
             throw new Exceptions\Parser("Missing or invalid 'content' element for BulkOperation.");
         }
 
-        $operation = new OperationValue(
+        return new OperationValue(
             $data['uri'],
             $data['method'],
             $data['parameters'] ?? [],
             $data['headers'] ?? [],
             $data['content'] ?? ''
         );
-
-        return $operation;
     }
 }
-
-class_alias(Operation::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\Operation');

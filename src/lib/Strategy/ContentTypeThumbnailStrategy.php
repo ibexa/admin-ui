@@ -15,35 +15,34 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Thumbnail;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
-final class ContentTypeThumbnailStrategy implements ThumbnailStrategy
+final readonly class ContentTypeThumbnailStrategy implements ThumbnailStrategy
 {
-    private const THUMBNAIL_MIME_TYPE = 'image/svg+xml';
-
-    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
-    private $contentTypeIconResolver;
+    private const string THUMBNAIL_MIME_TYPE = 'image/svg+xml';
 
     public function __construct(
-        ContentTypeIconResolver $contentTypeIconResolver
+        private ContentTypeIconResolver $contentTypeIconResolver
     ) {
-        $this->contentTypeIconResolver = $contentTypeIconResolver;
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
+     */
     public function getThumbnail(
         ContentType $contentType,
         array $fields,
         ?VersionInfo $versionInfo = null
     ): ?Thumbnail {
         try {
-            $contentTypeIcon = $this->contentTypeIconResolver->getContentTypeIcon($contentType->getIdentifier());
+            $contentTypeIcon = $this->contentTypeIconResolver->getContentTypeIcon(
+                $contentType->getIdentifier()
+            );
 
             return new Thumbnail([
                 'resource' => $contentTypeIcon,
                 'mimeType' => self::THUMBNAIL_MIME_TYPE,
             ]);
-        } catch (ContentTypeIconNotFoundException $exception) {
+        } catch (ContentTypeIconNotFoundException) {
             return null;
         }
     }
 }
-
-class_alias(ContentTypeThumbnailStrategy::class, 'EzSystems\EzPlatformAdminUi\Strategy\ContentTypeThumbnailStrategy');

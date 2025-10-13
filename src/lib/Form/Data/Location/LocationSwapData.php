@@ -13,18 +13,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 /**
  * @todo add validation
  */
-class LocationSwapData
+final class LocationSwapData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $currentLocation;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $newLocation;
-
-    public function __construct(?Location $currentLocation = null, ?Location $newLocation = null)
-    {
-        $this->currentLocation = $currentLocation;
-        $this->newLocation = $newLocation;
+    public function __construct(
+        private ?Location $currentLocation = null,
+        private ?Location $newLocation = null
+    ) {
     }
 
     public function getCurrentLocation(): ?Location
@@ -32,7 +26,7 @@ class LocationSwapData
         return $this->currentLocation;
     }
 
-    public function setCurrentLocation(?Location $currentLocation)
+    public function setCurrentLocation(?Location $currentLocation): void
     {
         $this->currentLocation = $currentLocation;
     }
@@ -42,10 +36,8 @@ class LocationSwapData
         return $this->newLocation;
     }
 
-    public function setNewLocation(?Location $newLocation)
+    public function setNewLocation(?Location $newLocation): void
     {
         $this->newLocation = $newLocation;
     }
 }
-
-class_alias(LocationSwapData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationSwapData');

@@ -13,46 +13,47 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PolicyChoiceType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class PolicyChoiceType extends AbstractType
 {
-    public const MESSAGE_DOMAIN = 'forms';
-    public const MESSAGE_ID_PREFIX = 'role.policy.';
-    public const ALL_MODULES = 'all_modules';
-    public const ALL_FUNCTIONS = 'all_functions';
-    public const ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
+    public const string MESSAGE_ID_PREFIX = 'role.policy.';
+    public const string ALL_MODULES = 'all_modules';
+    public const string ALL_FUNCTIONS = 'all_functions';
+    public const string ALL_MODULES_ALL_FUNCTIONS = 'all_modules_all_functions';
 
-    /** @var array */
-    private $policyChoices;
+    /** @var array<string, array<string, string>> */
+    private array $policyChoices;
 
     /**
-     * PolicyChoiceType constructor.
-     *
-     * @param array $policyMap
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param array<string, string[]> $policyMap
      */
-    public function __construct(TranslatorInterface $translator, array $policyMap)
+    public function __construct(array $policyMap)
     {
         $this->policyChoices = $this->buildPolicyChoicesFromMap($policyMap);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new class() implements DataTransformerInterface {
-            public function transform($value)
+            /**
+             * @param array{module: string, function: string}|null $value
+             */
+            public function transform(mixed $value): ?string
             {
-                if ($value) {
+                if (is_array($value)) {
                     return $value['module'] . '|' . $value['function'];
                 }
 
                 return null;
             }
 
-            public function reverseTransform($value)
+            /**
+             * @return array{module: ?string, function: ?string}
+             */
+            public function reverseTransform(mixed $value): array
             {
                 $module = null;
                 $function = null;
@@ -69,10 +70,7 @@ class PolicyChoiceType extends AbstractType
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'translation_domain' => 'forms',
@@ -80,10 +78,7 @@ class PolicyChoiceType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -93,9 +88,9 @@ class PolicyChoiceType extends AbstractType
      * Key is the translation key based on "module" name.
      * Value is a hash with translation key based on "module" and "function as a key and "<module>|<function"> as a value.
      *
-     * @param array $policyMap
+     * @param array<string, string[]> $policyMap
      *
-     * @return array
+     * @return array<string, array<string, string>>
      */
     private function buildPolicyChoicesFromMap(array $policyMap): array
     {
@@ -121,5 +116,3 @@ class PolicyChoiceType extends AbstractType
         return $policyChoices;
     }
 }
-
-class_alias(PolicyChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Policy\PolicyChoiceType');

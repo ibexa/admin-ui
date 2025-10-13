@@ -37,79 +37,34 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TrashController extends Controller
+final class TrashController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
-    private $trashService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\TrashFormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $uiPathService;
-
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var \Ibexa\AdminUi\QueryType\TrashSearchQueryType */
-    private $trashSearchQueryType;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        TrashService $trashService,
-        ContentTypeService $contentTypeService,
-        UiPathService $uiPathService,
-        TrashFormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        ConfigResolverInterface $configResolver,
-        TrashSearchQueryType $trashSearchQueryType,
-        UserService $userService
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly TrashService $trashService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly UiPathService $uiPathService,
+        private readonly TrashFormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly TrashSearchQueryType $trashSearchQueryType,
+        private readonly UserService $userService
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->trashService = $trashService;
-        $this->contentTypeService = $contentTypeService;
-        $this->uiPathService = $uiPathService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->configResolver = $configResolver;
-        $this->trashSearchQueryType = $trashSearchQueryType;
-        $this->userService = $userService;
     }
 
     public function performAccessCheck(): void
     {
         parent::performAccessCheck();
+
         $this->denyAccessUnlessGranted(new Attribute('content', 'restore'));
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \LogicException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
      * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
      * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
@@ -120,7 +75,7 @@ class TrashController extends Controller
 
         $searchForm->handleRequest($request);
 
-        $requestedPage = $request->query->get($searchFormName)['page'] ?? null;
+        $requestedPage = $request->query->all($searchFormName)['page'] ?? null;
         $page = empty($requestedPage) ? 1 : (int)$requestedPage;
         $trashItemsList = [];
 
@@ -133,7 +88,9 @@ class TrashController extends Controller
             )
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.trash_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.trash_limit')
+        );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $item */
@@ -149,11 +106,11 @@ class TrashController extends Controller
         }
 
         $trashItemRestoreForm = $this->formFactory->restoreTrashItem(
-            new TrashItemRestoreData($pagerfanta->getCurrentPageResults(), null)
+            new TrashItemRestoreData(iterator_to_array($pagerfanta->getCurrentPageResults()), null)
         );
 
         $trashItemDeleteForm = $this->formFactory->deleteTrashItem(
-            new TrashItemDeleteData($pagerfanta->getCurrentPageResults())
+            new TrashItemDeleteData(iterator_to_array($pagerfanta->getCurrentPageResults()))
         );
 
         $trashEmptyForm = $this->formFactory->emptyTrash(
@@ -167,19 +124,15 @@ class TrashController extends Controller
             'can_view_section' => $this->isGranted(new Attribute('section', 'view')),
             'trash_items' => $trashItemsList,
             'pager' => $pagerfanta,
-            'form_trash_item_restore' => $trashItemRestoreForm->createView(),
-            'form_trash_item_delete' => $trashItemDeleteForm->createView(),
-            'form_trash_empty' => $trashEmptyForm->createView(),
-            'form_search' => $searchForm->createView(),
+            'form_trash_item_restore' => $trashItemRestoreForm,
+            'form_trash_item_delete' => $trashItemDeleteForm,
+            'form_trash_empty' => $trashEmptyForm,
+            'form_search' => $searchForm,
             'user_content_type_identifier' => $this->configResolver->getParameter('user_content_type_identifier'),
         ]);
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \LogicException
      * @throws \InvalidArgumentException
@@ -187,7 +140,7 @@ class TrashController extends Controller
     public function emptyAction(Request $request): Response
     {
         if (!$this->isGranted(new Attribute('content', 'cleantrash'))) {
-            return $this->redirect($this->generateUrl('ibexa.trash.list'));
+            return $this->redirectToRoute('ibexa.trash.list');
         }
 
         $form = $this->formFactory->emptyTrash(
@@ -196,7 +149,7 @@ class TrashController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function () {
+            $result = $this->submitHandler->handle($form, function (): RedirectResponse {
                 $this->trashService->emptyTrash();
 
                 $this->notificationHandler->success(
@@ -214,14 +167,10 @@ class TrashController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.trash.list'));
+        return $this->redirectToRoute('ibexa.trash.list');
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \LogicException
      * @throws \InvalidArgumentException
@@ -238,7 +187,7 @@ class TrashController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (TrashItemRestoreData $data) use ($request) {
+                function (TrashItemRestoreData $data) use ($request): RedirectResponse {
                     $newParentLocation = $data->getLocation();
 
                     foreach ($data->getTrashItems() as $trashItem) {
@@ -256,7 +205,7 @@ class TrashController extends Controller
                         $this->notificationHandler->success(
                             /** @Desc("Restored content under Location '%location%'.") */
                             'trash.restore_new_location.success',
-                            ['%location%' => $newParentLocation->getContentInfo()->name],
+                            ['%location%' => $newParentLocation->getContentInfo()->getName()],
                             'ibexa_trash'
                         );
                     }
@@ -274,10 +223,6 @@ class TrashController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \LogicException
@@ -295,7 +240,7 @@ class TrashController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle(
                 $form,
-                function (TrashItemDeleteData $data) use ($request) {
+                function (TrashItemDeleteData $data) use ($request): RedirectResponse {
                     foreach ($data->getTrashItems() as $trashItem) {
                         $this->trashService->deleteTrashItem($trashItem);
                     }
@@ -324,9 +269,7 @@ class TrashController extends Controller
         $trashSearchParams = $request->get('trash_search');
         $params = $trashSearchParams ? ['trash_search' => $trashSearchParams] : [];
 
-        return $this->redirect(
-            $this->generateUrl('ibexa.trash.list', $params)
-        );
+        return $this->redirectToRoute('ibexa.trash.list', $params);
     }
 
     /**
@@ -334,14 +277,14 @@ class TrashController extends Controller
      */
     private function getCreatorFromTrashItem(TrashItem $trashItem): ?User
     {
-        $ownerId = $trashItem->getContentInfo()->ownerId;
+        $ownerId = $trashItem->getContentInfo()->getOwner()->getUserId();
 
         if (false === (new UserExists($this->userService))->isSatisfiedBy($ownerId)) {
             return null;
         }
 
-        return $this->userService->loadUser($trashItem->getContentInfo()->ownerId);
+        return $this->userService->loadUser(
+            $trashItem->getContentInfo()->getOwner()->getUserId()
+        );
     }
 }
-
-class_alias(TrashController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\TrashController');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Section;
 
@@ -13,37 +14,24 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SectionCreateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Section\SectionCreateData>
+ */
+final class SectionCreateType extends AbstractType
 {
-    public const BTN_CREATE_AND_EDIT = 'create_and_edit';
-
-    /** @var SectionType */
-    protected $sectionType;
-
-    /**
-     * @param SectionType $sectionType
-     */
-    public function __construct(SectionType $sectionType)
+    public function __construct(private readonly SectionType $sectionType)
     {
-        $this->sectionType = $sectionType;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $this->sectionType->buildForm($builder, $options);
 
         $builder
-            ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Create") */
-                    'section_create_form.create',
-            ])
-            ->add(self::BTN_CREATE_AND_EDIT, SubmitType::class, [
-                'label' => /** @Desc("Save and edit") */
-                    'section_create_form.create_and_edit',
-            ]);
+            ->add('create', SubmitType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $this->sectionType->configureOptions($resolver);
 
@@ -53,5 +41,3 @@ class SectionCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(SectionCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionCreateType');

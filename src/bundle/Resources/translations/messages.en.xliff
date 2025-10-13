@@ -116,26 +116,6 @@
         <target state="new">words</target>
         <note>key: character_counter.words</note>
       </trans-unit>
-      <trans-unit id="21e7545fc420d95a59a713437d9dc28d85d82ceb" resname="content.details.content_id">
-        <source>Content ID: %contentId%</source>
-        <target state="new">Content ID: %contentId%</target>
-        <note>key: content.details.content_id</note>
-      </trans-unit>
-      <trans-unit id="fbf8f503b8af11a779316ffa7e12085401212748" resname="content.details.created_by">
-        <source>Created by %name%</source>
-        <target state="new">Created by %name%</target>
-        <note>key: content.details.created_by</note>
-      </trans-unit>
-      <trans-unit id="b703ce905c39239f607ffa395acf83d2dd6046f0" resname="content.details.location_id">
-        <source>Location ID: %locationId%</source>
-        <target state="new">Location ID: %locationId%</target>
-        <note>key: content.details.location_id</note>
-      </trans-unit>
-      <trans-unit id="fc543140fe88431b31013a20fbceef4ecf9e7430" resname="content.details.parent_location_id">
-        <source>Parent Location ID: %locationId%</source>
-        <target state="new">Parent Location ID: %locationId%</target>
-        <note>key: content.details.parent_location_id</note>
-      </trans-unit>
       <trans-unit id="e136be672df8eb27dc4eb2f1ce0650096090bf81" resname="content.hidden.message">
         <source>You don't have permissions to view this Content item (contentID: %contentId%).</source>
         <target state="new">You don't have permissions to view this Content item (contentID: %contentId%).</target>
@@ -301,51 +281,6 @@
         <target state="new">Something went wrong. Try to refresh the page or contact your administrator.</target>
         <note>key: error.request.default_msg</note>
       </trans-unit>
-      <trans-unit id="2c7f89a37db43b829ff76f40565020c5bd4c2dae" resname="ezauthor.Email">
-        <source>Email</source>
-        <target state="new">Email</target>
-        <note>key: ezauthor.Email</note>
-      </trans-unit>
-      <trans-unit id="86a1d081394a7faba471dc5eaa4b1c112e9ff03a" resname="ezauthor.action.add">
-        <source>Add</source>
-        <target state="new">Add</target>
-        <note>key: ezauthor.action.add</note>
-      </trans-unit>
-      <trans-unit id="3a0389d073f00ef9a968a5cdc60e2794b434b381" resname="ezauthor.action.delete">
-        <source>Delete</source>
-        <target state="new">Delete</target>
-        <note>key: ezauthor.action.delete</note>
-      </trans-unit>
-      <trans-unit id="06a34ac23ac86f7c4368380203e3dd4d91489fa0" resname="ezauthor.name">
-        <source>Name</source>
-        <target state="new">Name</target>
-        <note>key: ezauthor.name</note>
-      </trans-unit>
-      <trans-unit id="9a8153d976ff4a6805e00fa7945d153f01bc61a8" resname="ezobjectrelationlist.cta.limit.multi">
-        <source>Set up a Relation with one or several Items</source>
-        <target state="new">Set up a Relation with one or several Items</target>
-        <note>key: ezobjectrelationlist.cta.limit.multi</note>
-      </trans-unit>
-      <trans-unit id="6589b9cece0e96f6430a994e1b4e9db1ee5f8139" resname="ezobjectrelationlist.cta.limit.single">
-        <source>Set up a relation with one Content item</source>
-        <target state="new">Set up a relation with one Content item</target>
-        <note>key: ezobjectrelationlist.cta.limit.single</note>
-      </trans-unit>
-      <trans-unit id="e3d3887285c9d2ee774741a92bbfe53708143bc6" resname="ezobjectrelationlist.cta.limit.sub_text">
-        <source>Relations max. %limit%</source>
-        <target state="new">Relations max. %limit%</target>
-        <note>key: ezobjectrelationlist.cta.limit.sub_text</note>
-      </trans-unit>
-      <trans-unit id="df33d5cc8c00514b2c50d4949b872cc3cd99284c" resname="ezobjectrelationlist.cta.select">
-        <source>Select Item</source>
-        <target state="new">Select Item</target>
-        <note>key: ezobjectrelationlist.cta.select</note>
-      </trans-unit>
-      <trans-unit id="85874e8811087f9c2169915345cdf71d5243182e" resname="ezobjectrelationlist.delete_selected_relations">
-        <source>Delete</source>
-        <target state="new">Delete</target>
-        <note>key: ezobjectrelationlist.delete_selected_relations</note>
-      </trans-unit>
       <trans-unit id="8c3f0606ebb870dd8113cca42da7510414c5a0a8" resname="ezplatform.forgot_password.reset_your_password.reason.migration">
         <source>Your password has expired, change it.</source>
         <target state="new">Your password has expired, change it.</target>
@@ -418,26 +353,6 @@
         <target state="new">Show</target>
         <note>key: fieldview.toggler.show</note>
       </trans-unit>
-      <trans-unit id="b469507c15ca085ba9753f60ab835f68cda9c725" resname="footer.copyright">
-        <source><![CDATA[Copyright &copy; %year% Ibexa. All right reserved]]></source>
-        <target state="new"><![CDATA[Copyright &copy; %year% Ibexa. All right reserved]]></target>
-        <note>key: footer.copyright</note>
-      </trans-unit>
-      <trans-unit id="9108451fc15edd434efe02a84ea849c334073272" resname="footer.ibexa_documentation">
-        <source>Documentation</source>
-        <target state="new">Documentation</target>
-        <note>key: footer.ibexa_documentation</note>
-      </trans-unit>
-      <trans-unit id="98ec0f718367b011625843a7ebdd12e8185c53ce" resname="footer.ibexa_dxp">
-        <source>Ibexa DXP</source>
-        <target state="new">Ibexa DXP</target>
-        <note>key: footer.ibexa_dxp</note>
-      </trans-unit>
-      <trans-unit id="d62f840248f2507f4299133fe259bc4c091f31a8" resname="footer.ibexa_support">
-        <source>Support</source>
-        <target state="new">Support</target>
-        <note>key: footer.ibexa_support</note>
-      </trans-unit>
       <trans-unit id="5cf420af18fd4a8d856fd30bc13aea5039369f9b" resname="form.cancel">
         <source>Cancel</source>
         <target state="new">Cancel</target>
@@ -457,6 +372,51 @@
         <source>We’ve sent to your email account a link to reset your password.</source>
         <target state="new">We’ve sent to your email account a link to reset your password.</target>
         <note>key: ibexa.forgot_user_password.success.alert</note>
+      </trans-unit>
+      <trans-unit id="a806cedb66ffc2616efb687174a31441d15d6b29" resname="ibexa_author.Email">
+        <source>Email</source>
+        <target state="new">Email</target>
+        <note>key: ibexa_author.Email</note>
+      </trans-unit>
+      <trans-unit id="264f6c8e00f4005d34056c638fed015e48517fda" resname="ibexa_author.action.add">
+        <source>Add</source>
+        <target state="new">Add</target>
+        <note>key: ibexa_author.action.add</note>
+      </trans-unit>
+      <trans-unit id="87f23152f82e932e1bdbc4c32b3e89bbca0868da" resname="ibexa_author.action.delete">
+        <source>Delete</source>
+        <target state="new">Delete</target>
+        <note>key: ibexa_author.action.delete</note>
+      </trans-unit>
+      <trans-unit id="4ebf975167e11d223757e94939c78fd401d26613" resname="ibexa_author.name">
+        <source>Name</source>
+        <target state="new">Name</target>
+        <note>key: ibexa_author.name</note>
+      </trans-unit>
+      <trans-unit id="599a4e82a1f7e8220dc4f792e1541cd3f0963dac" resname="ibexa_object_relation_list.cta.limit.multi">
+        <source>Set up a Relation with one or several Items</source>
+        <target state="new">Set up a Relation with one or several Items</target>
+        <note>key: ibexa_object_relation_list.cta.limit.multi</note>
+      </trans-unit>
+      <trans-unit id="6d0307dff338a04caa6609cda50563d0235c4582" resname="ibexa_object_relation_list.cta.limit.single">
+        <source>Set up a relation with one Content item</source>
+        <target state="new">Set up a relation with one Content item</target>
+        <note>key: ibexa_object_relation_list.cta.limit.single</note>
+      </trans-unit>
+      <trans-unit id="c4ebf2f9d5db544a700f472f8061bf4cb91f342c" resname="ibexa_object_relation_list.cta.limit.sub_text">
+        <source>Relations max. %limit%</source>
+        <target state="new">Relations max. %limit%</target>
+        <note>key: ibexa_object_relation_list.cta.limit.sub_text</note>
+      </trans-unit>
+      <trans-unit id="3c14f3a86f3e09277eef236d4d4cf2e7eaa77675" resname="ibexa_object_relation_list.cta.select">
+        <source>Select Item</source>
+        <target state="new">Select Item</target>
+        <note>key: ibexa_object_relation_list.cta.select</note>
+      </trans-unit>
+      <trans-unit id="2f9291ba83cfdb0c55ef1c69b705a9409feb46c8" resname="ibexa_object_relation_list.delete_selected_relations">
+        <source>Delete</source>
+        <target state="new">Delete</target>
+        <note>key: ibexa_object_relation_list.delete_selected_relations</note>
       </trans-unit>
       <trans-unit id="ed391233ecfa73eeaf4884c184b6b07e30d8f8fa" resname="ibexa.notifications.search_form.label.from">
         <source>From</source>

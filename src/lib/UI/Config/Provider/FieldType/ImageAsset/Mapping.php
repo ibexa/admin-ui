@@ -14,25 +14,18 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 /**
  * Provide information about ImageAsset Field Type mappings.
  */
-class Mapping implements ProviderInterface
+final readonly class Mapping implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /**
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     */
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getConfig(): array
     {
-        $mappings = $this->configResolver->getParameter('fieldtypes.ezimageasset.mappings');
+        $mappings = $this->configResolver->getParameter('fieldtypes.ibexa_image_asset.mappings');
 
         return [
             'contentTypeIdentifier' => $mappings['content_type_identifier'],
@@ -42,5 +35,3 @@ class Mapping implements ProviderInterface
         ];
     }
 }
-
-class_alias(Mapping::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\FieldType\ImageAsset\Mapping');

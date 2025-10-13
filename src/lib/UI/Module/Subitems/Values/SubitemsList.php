@@ -10,23 +10,14 @@ namespace Ibexa\AdminUi\UI\Module\Subitems\Values;
 
 use Ibexa\Rest\Value as RestValue;
 
-class SubitemsList extends RestValue
+final class SubitemsList extends RestValue
 {
-    /** @var SubitemsRow[] */
-    public $subitemRows;
-
-    /** @var int */
-    public $childrenCount;
-
     /**
-     * @param SubitemsRow[] $subitemRows
-     * @param int $childrenCount
+     * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow[] $subitemRows
      */
-    public function __construct(array $subitemRows, int $childrenCount)
-    {
-        $this->subitemRows = $subitemRows;
-        $this->childrenCount = $childrenCount;
+    public function __construct(
+        public readonly array $subitemRows,
+        public readonly int $childrenCount
+    ) {
     }
 }
-
-class_alias(SubitemsList::class, 'EzSystems\EzPlatformAdminUi\UI\Module\Subitems\Values\SubitemsList');

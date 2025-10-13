@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Table;
 
 use Behat\Mink\Session;
+use Exception;
 use Ibexa\AdminUi\Behat\Component\Pagination;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\ElementInterface;
@@ -21,29 +22,21 @@ use PHPUnit\Framework\Assert;
 
 final class Table extends Component implements TableInterface
 {
-    private const MAX_PAGE_COUNT = 10;
+    private const int MAX_PAGE_COUNT = 10;
 
-    /** @var TableRowFactory */
-    protected $tableFactory;
+    private ?ElementInterface $parentElement = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Pagination */
-    private $pagination;
-
-    private $parentElement;
-
-    /** @var bool */
-    private $isParentElementSet;
+    private bool $isParentElementSet;
 
     public function __construct(
         Session $session,
-        TableRowFactory $tableFactory,
-        Pagination $pagination,
+        private readonly TableRowFactory $tableFactory,
+        private readonly Pagination $pagination,
         LocatorCollection $locators
     ) {
         parent::__construct($session);
-        $this->pagination = $pagination;
+
         $this->isParentElementSet = false;
-        $this->tableFactory = $tableFactory;
         $this->locators = $locators;
     }
 
@@ -87,6 +80,11 @@ final class Table extends Component implements TableInterface
         return false;
     }
 
+    /**
+     * @param string[] $columnNames
+     *
+     * @return array<int, array<string, string>>
+     */
     public function getColumnValues(array $columnNames): array
     {
         if ($this->isEmpty()) {
@@ -96,7 +94,7 @@ final class Table extends Component implements TableInterface
         $allHeaders = $this->parentElement->findAll($this->getLocator('columnHeader'))
             ->mapBy(new ElementTextMapper());
 
-        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($columnNames) {
+        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($columnNames): bool {
             return in_array($header, $columnNames, true);
         });
 
@@ -134,7 +132,7 @@ final class Table extends Component implements TableInterface
     public function getTableRow(array $elementData): TableRow
     {
         if ($this->isEmpty()) {
-            throw new \Exception(
+            throw new Exception(
                 sprintf(
                     'Table row with given data was not found! Keys: %s, Values: %s',
                     implode(',', array_keys($elementData)),
@@ -161,7 +159,7 @@ final class Table extends Component implements TableInterface
             $cellLocators[] = $this->getTableCellLocator($headerPosition, $header);
         }
 
-        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator) {
+        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator): bool {
             return '' !== $locator->getIdentifier();
         });
 
@@ -169,7 +167,7 @@ final class Table extends Component implements TableInterface
             return $this->tableFactory->createRow($rowElement, new LocatorCollection($filteredCellLocators));
         }
 
-        throw new \Exception(
+        throw new Exception(
             sprintf(
                 'Table row with given data was not found! Keys: %s, Values: %s',
                 implode(',', array_keys($elementData)),
@@ -200,7 +198,7 @@ final class Table extends Component implements TableInterface
             $cellLocators[] = $this->getTableCellLocator($headerPosition, $header);
         }
 
-        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator) {
+        $filteredCellLocators = array_filter($cellLocators, static function (LocatorInterface $locator): bool {
             return '' !== $locator->getIdentifier();
         });
 
@@ -211,7 +209,7 @@ final class Table extends Component implements TableInterface
     {
     }
 
-    private function setParentElement()
+    private function setParentElement(): void
     {
         if ($this->isParentElementSet) {
             return;
@@ -235,11 +233,12 @@ final class Table extends Component implements TableInterface
     }
 
     /**
-     * @param array $elementData
+     * @param string[] $searchedHeaders
+     * @param string[] $allHeaders
      */
     private function getHeaderPositions(array $searchedHeaders, array $allHeaders): array
     {
-        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($searchedHeaders) {
+        $foundHeaders = array_filter($allHeaders, static function (string $header) use ($searchedHeaders): bool {
             return in_array($header, $searchedHeaders, true);
         });
 
@@ -252,6 +251,10 @@ final class Table extends Component implements TableInterface
         return $foundHeaders;
     }
 
+    /**
+     * @param string[] $foundHeaders
+     * @param array<string, string> $elementData
+     */
     private function getMatchingTableRow(array $foundHeaders, array $elementData): ?ElementInterface
     {
         foreach ($this->parentElement->setTimeout(3)->findAll($this->getLocator('row')) as $row) {

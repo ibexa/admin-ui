@@ -10,12 +10,7 @@ namespace Ibexa\Contracts\AdminUi\UI\Action;
 
 interface EventDispatcherInterface
 {
-    public const EVENT_NAME_PREFIX = 'ezplatform.admin_ui.action';
+    public const string EVENT_NAME_PREFIX = 'ibexa.admin_ui.action';
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\UiActionEventInterface $event
-     */
     public function dispatch(UiActionEventInterface $event): void;
 }
-
-class_alias(EventDispatcherInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Action\EventDispatcherInterface');

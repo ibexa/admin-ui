@@ -18,9 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Location\LocationUpdateData>
+ */
 class LocationUpdateType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -46,7 +49,7 @@ class LocationUpdateType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => LocationUpdateData::class,
@@ -54,5 +57,3 @@ class LocationUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationUpdateType');
