@@ -5,7 +5,7 @@ services:
         public: true
 
     Ibexa\AdminUi\Notifier\PasswordReset:
-        decorates: Ibexa\Contracts\User\PasswordReset\Notifier
+        decorates: Ibexa\Contracts\User\PasswordReset\NotifierInterface
         arguments:
             $projectDir: '%kernel.project_dir%'
 
