@@ -11,31 +11,50 @@ namespace Ibexa\AdminUi\Notifier;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\User\Invitation\Invitation;
 use Ibexa\Contracts\User\Invitation\InvitationSender;
+use InvalidArgumentException;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Swift_Image;
 use Swift_Mailer;
 use Swift_Message;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Environment;
 
-final class UserInvitation implements InvitationSender
+final class UserInvitation implements InvitationSender, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private Environment $twig;
 
     private ConfigResolverInterface $configResolver;
 
     private Swift_Mailer $mailer;
 
-    private string $projectDir;
+    private KernelInterface $kernel;
 
     public function __construct(
         Environment $twig,
         ConfigResolverInterface $configResolver,
         Swift_Mailer $mailer,
-        string $projectDir
+        KernelInterface $kernel
     ) {
         $this->twig = $twig;
         $this->configResolver = $configResolver;
         $this->mailer = $mailer;
-        $this->projectDir = $projectDir;
+        $this->kernel = $kernel;
+    }
+
+    private function locateMailImage(string $imageName): string
+    {
+        try {
+            return $this->kernel->locateResource('@IbexaAdminUiBundle/Resources/public/img/mail/' . $imageName);
+        } catch (InvalidArgumentException $e) {
+            if ($this->logger) {
+                $this->logger->error('Failed to locate mail image: ' . $imageName, ['exception' => $e]);
+            }
+
+            return '#';
+        }
     }
 
     public function sendInvitation(Invitation $invitation): void
@@ -59,10 +78,9 @@ final class UserInvitation implements InvitationSender
             ->setSubject($subject)
             ->setTo($invitation->getEmail());
 
-        $mailImagesDir = $this->projectDir . '/public/bundles/ibexaadminui/img/mail/';
-        $embeddedHeader = $message->embed(Swift_Image::fromPath($mailImagesDir . 'header.jpg'));
-        $embeddedBtnPrimaryLeftSide = $message->embed(Swift_Image::fromPath($mailImagesDir . 'btn_primary_left_side.jpg'));
-        $embeddedBtnPrimaryRightSide = $message->embed(Swift_Image::fromPath($mailImagesDir . 'btn_primary_right_side.jpg'));
+        $embeddedHeader = $message->embed(Swift_Image::fromPath($this->locateMailImage('header.jpg')));
+        $embeddedBtnPrimaryLeftSide = $message->embed(Swift_Image::fromPath($this->locateMailImage('btn_primary_left_side.jpg')));
+        $embeddedBtnPrimaryRightSide = $message->embed(Swift_Image::fromPath($this->locateMailImage('btn_primary_right_side.jpg')));
 
         $body = $template->renderBlock('body', [
             'invite_hash' => $invitation->getHash(),
