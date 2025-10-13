@@ -79,16 +79,12 @@ final class UserInvitation implements InvitationSender, LoggerAwareInterface
             ->setTo($invitation->getEmail());
 
         $embeddedHeader = $message->embed(Swift_Image::fromPath($this->locateMailImage('header.jpg')));
-        $embeddedBtnPrimaryLeftSide = $message->embed(Swift_Image::fromPath($this->locateMailImage('btn_primary_left_side.jpg')));
-        $embeddedBtnPrimaryRightSide = $message->embed(Swift_Image::fromPath($this->locateMailImage('btn_primary_right_side.jpg')));
 
         $body = $template->renderBlock('body', [
             'invite_hash' => $invitation->getHash(),
             'siteaccess' => $invitation->getSiteAccessIdentifier(),
             'invitation' => $invitation,
             'header_img_path' => $embeddedHeader,
-            'btn_primary_left_side' => $embeddedBtnPrimaryLeftSide,
-            'btn_primary_right_side' => $embeddedBtnPrimaryRightSide,
         ]);
 
         $message->setBody($body, 'text/html');
