@@ -96,6 +96,11 @@
         <target state="new">Mark as unread</target>
         <note>key: notification.mark_as_unread</note>
       </trans-unit>
+      <trans-unit id="1b5f287ab1b01d5f0402378d633e8924aad59c98" resname="notification.modal.delete.confirm_message">
+        <source>Are you sure you want to delete this notification?</source>
+        <target state="new">Are you sure you want to delete this notification?</target>
+        <note>key: notification.modal.delete.confirm_message</note>
+      </trans-unit>
       <trans-unit id="5b03625b8de51d296ad7f4bc980e631c964185d8" resname="notification.no_longer_available">
         <source>The Content item is no longer available</source>
         <target state="new">The Content item is no longer available</target>
