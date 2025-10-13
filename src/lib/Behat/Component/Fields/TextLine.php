@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class TextLine extends FieldTypeComponent
+final class TextLine extends FieldTypeComponent
 {
     public function setValue(array $parameters): void
     {
@@ -32,6 +32,6 @@ class TextLine extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezstring';
+        return 'ibexa_string';
     }
 }

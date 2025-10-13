@@ -19,7 +19,7 @@ trait NewnessChecker
      */
     public function isNew(): bool
     {
-        return strpos($this->getIdentifierValue(), '__new__') === 0;
+        return str_starts_with($this->getIdentifierValue(), '__new__');
     }
 
     /**
@@ -27,5 +27,3 @@ trait NewnessChecker
      */
     abstract protected function getIdentifierValue(): string;
 }
-
-class_alias(NewnessChecker::class, 'EzSystems\EzPlatformAdminUi\Form\Data\NewnessChecker');

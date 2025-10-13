@@ -12,23 +12,21 @@ use PHPUnit\Framework\TestCase;
 
 class UniqueContentTypeIdentifierTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $constraint = new UniqueContentTypeIdentifier();
         self::assertSame('ez.content_type.identifier.unique', $constraint->message);
     }
 
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
         $constraint = new UniqueContentTypeIdentifier();
         self::assertSame('ezplatform.content_forms.validator.unique_content_type_identifier', $constraint->validatedBy());
     }
 
-    public function testGetTargets()
+    public function testGetTargets(): void
     {
         $constraint = new UniqueContentTypeIdentifier();
         self::assertSame(UniqueContentTypeIdentifier::CLASS_CONSTRAINT, $constraint->getTargets());
     }
 }
-
-class_alias(UniqueContentTypeIdentifierTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueContentTypeIdentifierTest');

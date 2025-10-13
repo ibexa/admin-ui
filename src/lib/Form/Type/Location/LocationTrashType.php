@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Location;
 use Ibexa\AdminUi\Form\Data\Location\LocationTrashData;
 use Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory;
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -21,26 +22,22 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Webmozart\Assert\Assert;
 
-class LocationTrashType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Location\LocationTrashData>
+ */
+final class LocationTrashType extends AbstractType
 {
-    public const CONFIRM_SEND_TO_TRASH = 'confirm_send_to_trash';
-
-    /** @var \Ibexa\AdminUi\Form\TrashLocationOptionProvider\OptionsFactory */
-    private $trashTypeStrategy;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    public const string CONFIRM_SEND_TO_TRASH = 'confirm_send_to_trash';
 
     public function __construct(
-        OptionsFactory $trashTypeStrategy,
-        TranslatorInterface $translator
+        private readonly OptionsFactory $trashTypeStrategy,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->trashTypeStrategy = $trashTypeStrategy;
-        $this->translator = $translator;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -59,20 +56,26 @@ class LocationTrashType extends AbstractType
                 ['label' => /** @Desc("Send to trash") */ 'location_trash_form.trash']
             );
 
-        $builder->get('trash_options')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->get('trash_options')->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
+            $parentForm = $form->getParent();
+            Assert::notNull($parentForm, 'LocationTrashType: missing parent context for trash_options');
             $this->trashTypeStrategy->addOptions(
                 $form,
-                $form->getParent()->getData()->getLocation()
+                $parentForm->getData()->getLocation()
             );
 
-            if (!empty($form->getParent()->get('trash_options')->all())) {
-                $this->addConfirmCheckbox($form->getParent());
+            if (!empty($form->all())) {
+                $this->addConfirmCheckbox($parentForm);
             }
         });
 
-        $builder->get('location')->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->get('location')->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm()->getParent();
+            if ($form === null) {
+                return;
+            }
+
             $this->trashTypeStrategy->addOptions(
                 $form->get('trash_options'),
                 $event->getForm()->getData()
@@ -103,7 +106,7 @@ class LocationTrashType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => LocationTrashData::class,
@@ -111,5 +114,3 @@ class LocationTrashType extends AbstractType
         ]);
     }
 }
-
-class_alias(LocationTrashType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Location\LocationTrashType');

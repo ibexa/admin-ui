@@ -17,33 +17,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class UserOnTheFlyProcessor implements EventSubscriberInterface
+final readonly class UserOnTheFlyProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Twig\Environment */
-    private $twig;
-
-    /** @var \Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor */
-    private $innerUserUpdateFormProcessor;
-
     public function __construct(
-        UserService $userService,
-        Environment $twig,
-        UserUpdateFormProcessor $innerUserUpdateFormProcessor
+        private UserService $userService,
+        private Environment $twig,
+        private UserUpdateFormProcessor $innerUserUpdateFormProcessor
     ) {
-        $this->userService = $userService;
-        $this->twig = $twig;
-        $this->innerUserUpdateFormProcessor = $innerUserUpdateFormProcessor;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array The event names to listen to
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UserOnTheFlyEvents::USER_CREATE_PUBLISH => ['processCreate', 10],
@@ -51,7 +34,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         ];
     }
 
-    public function processCreate(FormActionEvent $event)
+    public function processCreate(FormActionEvent $event): void
     {
         $data = $event->getData();
 
@@ -68,7 +51,7 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         $event->setResponse(
             new Response(
                 $this->twig->render('@ibexadesign/ui/on_the_fly/user_create_response.html.twig', [
-                    'locationId' => $user->contentInfo->mainLocationId,
+                    'locationId' => $user->getContentInfo()->getMainLocationId(),
                 ])
             )
         );
@@ -91,16 +74,10 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
         );
     }
 
-    /**
-     * @param \Ibexa\ContentForms\Data\User\UserCreateData $data
-     * @param string $languageCode
-     */
     private function setContentFields(UserCreateData $data, string $languageCode): void
     {
-        foreach ($data->fieldsData as $fieldDefIdentifier => $fieldData) {
-            $data->setField($fieldDefIdentifier, $fieldData->value, $languageCode);
+        foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
+            $data->setField($fieldDefIdentifier, $fieldData->getValue(), $languageCode);
         }
     }
 }
-
-class_alias(UserOnTheFlyProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\User\UserOnTheFlyProcessor');

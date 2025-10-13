@@ -10,25 +10,19 @@ namespace Ibexa\AdminUi\Form\Data\Bookmark;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class BookmarkRemoveData
+final class BookmarkRemoveData
 {
     /**
-     * @Assert\NotBlank()
-     *
-     * @var array
+     * @param array<int, false> $bookmarks
      */
-    public $bookmarks;
-
-    /**
-     * @param array $bookmarks
-     */
-    public function __construct(array $bookmarks = [])
-    {
-        $this->bookmarks = $bookmarks;
+    public function __construct(
+        #[Assert\NotBlank]
+        private array $bookmarks = []
+    ) {
     }
 
     /**
-     * @return array
+     * @return array<int, false>
      */
     public function getBookmarks(): array
     {
@@ -36,12 +30,10 @@ class BookmarkRemoveData
     }
 
     /**
-     * @param array $bookmarks
+     * @param array<int, false> $bookmarks
      */
     public function setBookmarks(array $bookmarks): void
     {
         $this->bookmarks = $bookmarks;
     }
 }
-
-class_alias(BookmarkRemoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Bookmark\BookmarkRemoveData');

@@ -17,11 +17,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardData>
+ */
 final class URLWildcardType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -40,9 +40,6 @@ final class URLWildcardType extends AbstractType
             ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -51,5 +48,3 @@ final class URLWildcardType extends AbstractType
         ]);
     }
 }
-
-class_alias(URLWildcardType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardType');

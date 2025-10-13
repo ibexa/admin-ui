@@ -1,3 +1,5 @@
+import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+
 (function (global, doc, ibexa, Chart) {
     const IBEXA_WHITE = '#fff';
     const IBEXA_COLOR_BASE = '#e0e0e8';
@@ -32,10 +34,12 @@
 
     class BaseChart {
         constructor(data, options = {}, plugins = []) {
+            const { backOfficeLanguage } = getAdminUiConfig();
+
             this.setData(data);
             this.setOptions(options);
             this.setPlugins(plugins);
-            this.lang = document.documentElement.lang.replace('_', '-'); // TODO: Get this config from settings
+            this.lang = backOfficeLanguage;
         }
 
         setData(data) {

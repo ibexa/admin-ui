@@ -14,15 +14,13 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class TabPass implements CompilerPassInterface
+final readonly class TabPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public const TAG_TAB = 'ibexa.admin_ui.tab';
+    public const string TAG_TAB = 'ibexa.admin_ui.tab';
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException When a service is abstract
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
      */
@@ -49,5 +47,3 @@ class TabPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(TabPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\TabPass');

@@ -17,37 +17,23 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
-class TabsComponent implements ComponentInterface
+readonly class TabsComponent implements ComponentInterface
 {
-    /** @var \Twig\Environment */
-    protected $twig;
-
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
-    protected $eventDispatcher;
-
-    /** @var string */
-    protected $template;
-
-    /** @var string */
-    protected $groupIdentifier;
-
-    /** @var array */
-    protected $parameters;
-
+    /**
+     * @param array<mixed> $parameters
+     */
     public function __construct(
-        Environment $twig,
-        EventDispatcherInterface $eventDispatcher,
-        string $template,
-        string $groupIdentifier,
-        array $parameters = []
+        protected Environment $twig,
+        protected EventDispatcherInterface $eventDispatcher,
+        protected string $template,
+        protected string $groupIdentifier,
+        protected array $parameters = []
     ) {
-        $this->twig = $twig;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->template = $template;
-        $this->groupIdentifier = $groupIdentifier;
-        $this->parameters = $parameters;
     }
 
+    /**
+     * @param array<mixed> $parameters
+     */
     public function render(array $parameters = []): string
     {
         $tabGroup = new TabGroup($this->groupIdentifier);
@@ -73,6 +59,9 @@ class TabsComponent implements ComponentInterface
         );
     }
 
+    /**
+     * @param array<mixed> $parameters
+     */
     private function dispatchTabPreRenderEvent(TabInterface $tab, array $parameters): TabEvent
     {
         $tabEvent = new TabEvent();
@@ -84,6 +73,11 @@ class TabsComponent implements ComponentInterface
         return $tabEvent;
     }
 
+    /**
+     * @param array<mixed> $parameters
+     *
+     * @return array{name: string, view: string, identifier: string}
+     */
     private function composeTabParameters(TabInterface $tab, array $parameters): array
     {
         return [
@@ -93,5 +87,3 @@ class TabsComponent implements ComponentInterface
         ];
     }
 }
-
-class_alias(TabsComponent::class, 'EzSystems\EzPlatformAdminUi\Component\TabsComponent');

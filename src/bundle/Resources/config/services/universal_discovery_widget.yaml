@@ -21,8 +21,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    Ibexa\AdminUi\UniversalDiscovery\UniversalDiscoveryProvider:
-        arguments:
-            $visitor: '@ibexa.rest.output.visitor.json'
+    Ibexa\AdminUi\UniversalDiscovery\UniversalDiscoveryProvider: ~
 
     Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider: '@Ibexa\AdminUi\UniversalDiscovery\UniversalDiscoveryProvider'

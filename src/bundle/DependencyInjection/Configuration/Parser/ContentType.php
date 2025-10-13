@@ -28,26 +28,33 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *                thumbnail: '/assets/images/poll.svg'
  * ```
  */
-class ContentType extends AbstractParser
+final class ContentType extends AbstractParser
 {
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['content_type'])) {
             return;
         }
 
         foreach ($scopeSettings['content_type'] as $identifier => $config) {
-            $contextualizer->setContextualParameter("content_type.$identifier", $currentScope, $config);
+            $contextualizer->setContextualParameter(
+                "content_type.$identifier",
+                $currentScope,
+                $config
+            );
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('content_type')
@@ -60,5 +67,3 @@ class ContentType extends AbstractParser
             ->end();
     }
 }
-
-class_alias(ContentType::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\ContentType');

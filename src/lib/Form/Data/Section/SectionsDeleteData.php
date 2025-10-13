@@ -11,21 +11,18 @@ namespace Ibexa\AdminUi\Form\Data\Section;
 /**
  * @todo Add validation
  */
-class SectionsDeleteData
+final class SectionsDeleteData
 {
-    /** @var array|null */
-    protected $sections;
-
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
      */
-    public function __construct(array $sections = [])
+    public function __construct(private ?array $sections = [])
     {
         $this->sections = $sections;
     }
 
     /**
-     * @return array|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
      */
     public function getSections(): ?array
     {
@@ -33,12 +30,10 @@ class SectionsDeleteData
     }
 
     /**
-     * @param array|null $sections
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
      */
-    public function setSections(?array $sections)
+    public function setSections(?array $sections): void
     {
         $this->sections = $sections;
     }
 }
-
-class_alias(SectionsDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionsDeleteData');

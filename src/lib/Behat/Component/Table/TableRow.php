@@ -17,19 +17,14 @@ use Ibexa\Behat\Browser\Locator\LocatorCollection;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class TableRow extends Component
+final class TableRow extends Component
 {
-    /** @var \Ibexa\Behat\Browser\Element\ElementInterface */
-    private $element;
-
-    /** @var \Ibexa\Behat\Browser\Locator\LocatorCollection */
-    private $locatorCollection;
-
-    public function __construct(Session $session, ElementInterface $element, LocatorCollection $locatorCollection)
-    {
+    public function __construct(
+        Session $session,
+        private readonly ElementInterface $element,
+        private readonly LocatorCollection $locatorCollection
+    ) {
         parent::__construct($session);
-        $this->element = $element;
-        $this->locatorCollection = $locatorCollection;
     }
 
     public function goToItem(): void
@@ -85,7 +80,7 @@ class TableRow extends Component
     {
     }
 
-    public function click(LocatorInterface $locator)
+    public function click(LocatorInterface $locator): void
     {
         $this->element->find($locator)->click();
     }

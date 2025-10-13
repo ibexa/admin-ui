@@ -128,7 +128,7 @@ final class ContentTypeSuggestionsListenerTest extends TestCase
         $eventDispatcher->addSubscriber($this->createDefaultListener());
         $eventDispatcher->dispatch($event, ContentCreateContentTypeChoiceLoaderEvent::RESOLVE_CONTENT_TYPES);
 
-        $this->assertEquals([
+        self::assertEquals([
             'content_type_suggestions' => [$article, $folder],
             'content_type_group_content' => [$article, $folder],
             'content_type_group_media' => [$image],
@@ -177,6 +177,6 @@ final class ContentTypeSuggestionsListenerTest extends TestCase
 
     private function expectSuggestionsAreNotComputed(): void
     {
-        $this->searchService->expects($this->never())->method('findLocations');
+        $this->searchService->expects(self::never())->method('findLocations');
     }
 }

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation;
 
@@ -25,30 +26,19 @@ interface LimitationFormMapperInterface
      * - Add a "limitationValues" form field
      * - OR add field(s) that map to "limitationValues" property from $data.
      *
-     * @param \Symfony\Component\Form\FormInterface $form form for current Limitation
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form form for current Limitation
      * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data underlying data for current Limitation form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data);
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void;
 
     /**
      * Returns the Twig template to use to render the limitation form.
-     *
-     * @return string
      */
-    public function getFormTemplate();
+    public function getFormTemplate(): ?string;
 
     /**
      * This method will be called when FormEvents::SUBMIT is called.
      * It gives the opportunity to filter/manipulate limitation values.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
      */
-    public function filterLimitationValues(Limitation $limitation);
+    public function filterLimitationValues(Limitation $limitation): void;
 }
-
-class_alias(
-    LimitationFormMapperInterface::class,
-    \EzSystems\RepositoryForms\Limitation\LimitationFormMapperInterface::class
-);
-
-class_alias(LimitationFormMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Limitation\LimitationFormMapperInterface');

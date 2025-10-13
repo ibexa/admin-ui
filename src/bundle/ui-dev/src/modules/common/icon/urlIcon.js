@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
 
-const UrlIcon = (props) => {
-    const linkHref = props.customPath ?? getIconPath(props.name);
+const UrlIcon = ({ cssClass = '', name = null, customPath = null }) => {
+    const linkHref = customPath && customPath !== '' ? customPath : getIconPath(name);
 
     return (
-        <svg className={props.cssClass}>
+        <svg className={cssClass}>
             <use xlinkHref={linkHref} />
         </svg>
     );
@@ -17,12 +17,6 @@ UrlIcon.propTypes = {
     cssClass: PropTypes.string,
     name: PropTypes.string,
     customPath: PropTypes.string,
-};
-
-UrlIcon.defaultProps = {
-    customPath: null,
-    name: null,
-    cssClass: '',
 };
 
 export default UrlIcon;

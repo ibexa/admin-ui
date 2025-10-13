@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -18,16 +19,19 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationContainerInterface
 {
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
-        if (!is_array($limitation->limitationValues)) {
+        if ($limitation->limitationValues === null) {
             return;
         }
 
         // UDW returns an array of location IDs. If we haven't used UDW, the value is as stored: an array of path strings.
         foreach ($limitation->limitationValues as $key => $limitationValue) {
-            if (preg_match('/\A\d+\z/', $limitationValue) === 1) {
-                $limitation->limitationValues[$key] = $this->locationService->loadLocation($limitationValue)->pathString;
+            if (preg_match('/\A\d+\z/', (string)$limitationValue) === 1) {
+                $limitation->limitationValues[$key] = $this
+                    ->locationService
+                    ->loadLocation($limitationValue)
+                    ->getPathString();
             }
         }
     }
@@ -35,8 +39,10 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     *
+     * @phpstan-return list<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]>
      */
-    public function mapLimitationValue(Limitation $limitation)
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 
@@ -46,7 +52,7 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
 
             try {
                 $this->locationService->loadLocation($locationId);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 // Skip generating limitation value as Location doesn't exist at this point
                 continue;
             }
@@ -77,5 +83,3 @@ class SubtreeLimitationMapper extends UDWBasedMapper implements TranslationConta
         ];
     }
 }
-
-class_alias(SubtreeLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\SubtreeLimitationMapper');

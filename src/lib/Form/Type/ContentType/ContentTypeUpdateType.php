@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\ContentType;
 
@@ -19,20 +20,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form type for ContentType update.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentTypeData>
  */
 class ContentTypeUpdateType extends AbstractType
 {
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezplatform_content_forms_contenttype_update';
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -45,9 +48,8 @@ class ContentTypeUpdateType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $hasFieldDefinition = count($options['data']->fieldDefinitionsData) > 0;
         $isTranslation = $options['mainLanguageCode'] !== $options['languageCode'];
 
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);
@@ -122,5 +124,3 @@ class ContentTypeUpdateType extends AbstractType
         ;
     }
 }
-
-class_alias(ContentTypeUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeUpdateType');

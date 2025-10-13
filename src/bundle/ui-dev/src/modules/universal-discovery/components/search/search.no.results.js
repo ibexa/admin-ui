@@ -15,31 +15,31 @@ const SearchNoResults = ({ searchText, noResultsHints: noResultsHintsCustom, ext
     });
     const noResultsLabel = searchText
         ? Translator.trans(
-              /*@Desc("No results found for %query%")*/ 'search.no_results',
+              /* @Desc("No results found for %query%") */ 'search.no_results',
               { query: searchText },
               'ibexa_universal_discovery_widget',
           )
-        : Translator.trans(/*@Desc("No results found")*/ 'search.no_results_without_query', {}, 'ibexa_universal_discovery_widget');
+        : Translator.trans(/* @Desc("No results found") */ 'search.no_results_without_query', {}, 'ibexa_universal_discovery_widget');
     const noResultsHints = noResultsHintsCustom
         ? noResultsHintsCustom
         : [
               Translator.trans(
-                  /*@Desc("Check the spelling of keywords.")*/ 'search.no_results.hint.check_spelling',
+                  /* @Desc("Check the spelling of keywords.") */ 'search.no_results.hint.check_spelling',
                   {},
                   'ibexa_universal_discovery_widget',
               ),
               Translator.trans(
-                  /*@Desc("Try more general keywords.")*/ 'search.no_results.hint.more_general',
+                  /* @Desc("Try more general keywords.") */ 'search.no_results.hint.more_general',
                   {},
                   'ibexa_universal_discovery_widget',
               ),
               Translator.trans(
-                  /*@Desc("Try different keywords.")*/ 'search.no_results.hint.different_kewords',
+                  /* @Desc("Try different keywords.") */ 'search.no_results.hint.different_kewords',
                   {},
                   'ibexa_universal_discovery_widget',
               ),
               Translator.trans(
-                  /*@Desc("Try fewer keywords. Reducing keywords results in more matches.")*/ 'search.no_results.hint.fewer_keywords',
+                  /* @Desc("Try fewer keywords. Reducing keywords results in more matches.") */ 'search.no_results.hint.fewer_keywords',
                   {},
                   'ibexa_universal_discovery_widget',
               ),

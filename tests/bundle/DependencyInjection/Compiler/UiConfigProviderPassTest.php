@@ -31,7 +31,7 @@ class UiConfigProviderPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new UiConfigProviderPass());
     }
 
-    public function testProcess()
+    public function testProcess(): void
     {
         $taggedServiceId = 'collected_service';
         $collectedService = new Definition();
@@ -69,5 +69,3 @@ class UiConfigProviderPassTest extends AbstractCompilerPassTestCase
         );
     }
 }
-
-class_alias(UiConfigProviderPassTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\DependencyInjection\Compiler\UiConfigProviderPassTest');

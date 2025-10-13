@@ -17,26 +17,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class ReadAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
     /** @var string[]|null */
-    private $allowedContentTypesIdentifiers = null;
+    private ?array $allowedContentTypesIdentifiers = null;
 
     public function __construct(
-        PermissionResolver $permissionResolver,
-        PermissionCheckerInterface $permissionChecker,
-        ContentTypeService $contentTypeService
+        private readonly PermissionResolver $permissionResolver,
+        private readonly PermissionCheckerInterface $permissionChecker,
+        private readonly ContentTypeService $contentTypeService
     ) {
-        $this->permissionResolver = $permissionResolver;
-        $this->permissionChecker = $permissionChecker;
-        $this->contentTypeService = $contentTypeService;
     }
 
     /**
@@ -45,7 +33,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
     private function getAllowedContentTypesIdentifiers(array $contentTypesAllowedViaConfig): ?array
     {
         $access = $this->permissionResolver->hasAccess('content', 'read');
-        if (!\is_array($access)) {
+        if (!is_array($access)) {
             return $access ? ($contentTypesAllowedViaConfig ?: null) : [null];
         }
 
@@ -75,6 +63,9 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         $config = $event->getConfig();
@@ -88,5 +79,3 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ReadAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes');

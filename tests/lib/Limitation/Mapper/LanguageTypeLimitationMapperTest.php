@@ -12,19 +12,17 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\LanguageLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 class LanguageTypeLimitationMapperTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
-    private $languageService;
+    private LanguageService&MockObject $languageService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\LanguageLimitationMapper */
-    private $mapper;
+    private LanguageLimitationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -35,7 +33,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
         $this->mapper->setLogger($this->logger);
     }
 
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['en_GB', 'en_US', 'pl_PL'];
 
@@ -47,7 +45,7 @@ class LanguageTypeLimitationMapperTest extends TestCase
 
         foreach ($values as $i => $value) {
             $this->languageService
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadLanguage')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -57,21 +55,21 @@ class LanguageTypeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    public function testMapLimitationValueWithNotExistingContentType()
+    public function testMapLimitationValueWithNotExistingContentType(): void
     {
         $values = ['foo'];
 
         $this->languageService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLanguage')
             ->with($values[0])
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a language with code foo');
 
@@ -79,8 +77,6 @@ class LanguageTypeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
-
-class_alias(LanguageTypeLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\LanguageTypeLimitationMapperTest');

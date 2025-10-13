@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, flatpickr, React, ReactDOM) {
+(function (global, doc, ibexa, flatpickr, React, ReactDOMClient) {
     const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
     const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
     const { getInstance } = ibexa.helpers.objectInstances;
@@ -296,7 +296,7 @@
 
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: confirmSubtreeUDW.bind(this),
@@ -345,4 +345,4 @@
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
-})(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOM);
+})(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOMClient);

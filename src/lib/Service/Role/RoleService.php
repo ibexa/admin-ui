@@ -20,25 +20,16 @@ use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Core\Repository;
+use Ibexa\Core\Repository\SearchService;
+use InvalidArgumentException;
+use RuntimeException;
 
-class RoleService
+readonly class RoleService
 {
-    /** @var Repository\RoleService */
-    private $roleService;
-
-    /** @var Repository\SearchService */
-    private $searchService;
-
-    /**
-     * RoleService constructor.
-     *
-     * @param Repository\RoleService $roleService
-     * @param Repository\SearchService $searchService
-     */
-    public function __construct(Repository\RoleService $roleService, Repository\SearchService $searchService)
-    {
-        $this->roleService = $roleService;
-        $this->searchService = $searchService;
+    public function __construct(
+        private Repository\RoleService $roleService,
+        private SearchService $searchService
+    ) {
     }
 
     public function getRole(int $id): Role
@@ -46,15 +37,23 @@ class RoleService
         return $this->roleService->loadRole($id);
     }
 
-    public function getRoles()
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role[]
+     */
+    public function getRoles(): iterable
     {
         return $this->roleService->loadRoles();
     }
 
     public function createRole(RoleData $data): Role
     {
+        $identifier = $data->getIdentifier();
+        if ($identifier === null) {
+            throw new InvalidArgumentException('Role identifier cannot be null');
+        }
+
         $roleCreateStruct = $this->roleService->newRoleCreateStruct(
-            $data->getIdentifier()
+            $identifier
         );
 
         $role = $this->roleService->createRole($roleCreateStruct);
@@ -66,7 +65,7 @@ class RoleService
     public function updateRole(Role $role, RoleData $data): Role
     {
         $roleUpdateStruct = $this->roleService->newRoleUpdateStruct();
-        $roleUpdateStruct->identifier = $data->getIdentifier();
+        $roleUpdateStruct->identifier = $data->getIdentifier() ?? $role->identifier;
 
         $draft = $this->roleService->createRoleDraft($role);
         $this->roleService->updateRoleDraft($draft, $roleUpdateStruct);
@@ -75,12 +74,12 @@ class RoleService
         return $draft;
     }
 
-    public function deleteRole(Role $role)
+    public function deleteRole(Role $role): void
     {
         $this->roleService->deleteRole($role);
     }
 
-    public function getPolicy(Role $role, int $policyId)
+    public function getPolicy(Role $role, int $policyId): ?Policy
     {
         foreach ($role->getPolicies() as $policy) {
             if ($policy->id === $policyId) {
@@ -93,9 +92,15 @@ class RoleService
 
     public function createPolicy(Role $role, PolicyData $data): Role
     {
+        $module = $data->getModule();
+        $function = $data->getFunction();
+        if ($module === null || $function === null) {
+            throw new InvalidArgumentException('Policy module and function cannot be null.');
+        }
+
         $policyCreateStruct = $this->roleService->newPolicyCreateStruct(
-            $data->getModule(),
-            $data->getFunction()
+            $module,
+            $function
         );
 
         $draft = $this->roleService->createRoleDraft($role);
@@ -105,7 +110,7 @@ class RoleService
         return $draft;
     }
 
-    public function deletePolicy(Role $role, Policy $policy)
+    public function deletePolicy(Role $role, Policy $policy): void
     {
         $draft = $this->roleService->createRoleDraft($role);
         foreach ($draft->getPolicies() as $policyDraft) {
@@ -117,7 +122,7 @@ class RoleService
             }
         }
 
-        throw new \RuntimeException("Policy {$policy->id} not found.");
+        throw new RuntimeException("Policy {$policy->id} not found.");
     }
 
     public function updatePolicy(Role $role, Policy $policy, PolicyData $data): Role
@@ -139,10 +144,13 @@ class RoleService
             }
         }
 
-        throw new \RuntimeException("Policy {$policy->id} not found.");
+        throw new RuntimeException("Policy {$policy->id} not found.");
     }
 
-    public function getRoleAssignments(Role $role)
+    /**
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[]
+     */
+    public function getRoleAssignments(Role $role): iterable
     {
         return $this->roleService->getRoleAssignments($role);
     }
@@ -152,12 +160,12 @@ class RoleService
         return $this->roleService->loadRoleAssignment($roleAssignmentId);
     }
 
-    public function removeRoleAssignment(RoleAssignment $roleAssignment)
+    public function removeRoleAssignment(RoleAssignment $roleAssignment): void
     {
         $this->roleService->removeRoleAssignment($roleAssignment);
     }
 
-    public function assignRole(Role $role, RoleAssignmentData $data)
+    public function assignRole(Role $role, RoleAssignmentData $data): void
     {
         $users = $data->getUsers();
         $groups = $data->getGroups();
@@ -201,8 +209,22 @@ class RoleService
         }
     }
 
-    private function doAssignLimitation(Role $role, ?array $users = null, ?array $groups = null, ?RoleLimitation $limitation = null)
-    {
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[]|null $users
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]|null $groups
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
+    private function doAssignLimitation(
+        Role $role,
+        ?array $users = null,
+        ?array $groups = null,
+        ?RoleLimitation $limitation = null
+    ): void {
         if (null !== $users) {
             foreach ($users as $user) {
                 $this->roleService->assignRoleToUser($role, $user, $limitation);
@@ -216,5 +238,3 @@ class RoleService
         }
     }
 }
-
-class_alias(RoleService::class, 'EzSystems\EzPlatformAdminUi\Service\Role\RoleService');

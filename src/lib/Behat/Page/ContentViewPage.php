@@ -36,102 +36,38 @@ use PHPUnit\Framework\Assert;
 
 class ContentViewPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu Element representing the right menu */
-    private $contentActionsMenu;
+    private ?string $locationPath = null;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\SubItemsList */
-    private $subItemList;
+    private string $expectedContentType;
 
-    /** @var string */
-    private $locationPath;
+    private ?string $expectedContentName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentTypePicker */
-    private $contentTypePicker;
-
-    /** @var string */
-    private $expectedContentType;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\LanguagePicker */
-    private $languagePicker;
-
-    /** @var string */
-    private $expectedContentName;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\TranslationDialog */
-    private $translationDialog;
-
-    private $route;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Breadcrumb */
-    private $breadcrumb;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview */
-    private $contentItemAdminPreview;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
-    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser; */
-    private $argumentParser;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
-    private $ibexaDropdown;
-
-    private UpperMenu $upperMenu;
-
-    private DeleteContentDialog $deleteContentDialog;
-
-    private CreateUrlAliasModal $createUrlAliasModal;
-
-    private TableBuilder $tableBuilder;
+    private ?string $route = null;
 
     public function __construct(
-        Session $session,
-        Router $router,
-        ContentActionsMenu $contentActionsMenu,
-        SubItemsList $subItemList,
-        ContentTypePicker $contentTypePicker,
-        LanguagePicker $languagePicker,
-        Dialog $dialog,
-        TranslationDialog $translationDialog,
-        Repository $repository,
-        Breadcrumb $breadcrumb,
-        ContentItemAdminPreview $contentItemAdminPreview,
-        ArgumentParser $argumentParser,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
-        IbexaDropdown $ibexaDropdown,
-        UpperMenu $upperMenu,
-        DeleteContentDialog $deleteContentDialog,
-        CreateUrlAliasModal $createUrlAliasModal,
-        TableBuilder $tableBuilder
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentActionsMenu $contentActionsMenu,
+        private readonly SubItemsList $subItemList,
+        private readonly ContentTypePicker $contentTypePicker,
+        private readonly LanguagePicker $languagePicker,
+        private readonly Dialog $dialog,
+        private readonly TranslationDialog $translationDialog,
+        private readonly Repository $repository,
+        private readonly Breadcrumb $breadcrumb,
+        private readonly ContentItemAdminPreview $contentItemAdminPreview,
+        private readonly ArgumentParser $argumentParser,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly IbexaDropdown $ibexaDropdown,
+        private readonly UpperMenu $upperMenu,
+        private readonly DeleteContentDialog $deleteContentDialog,
+        private readonly CreateUrlAliasModal $createUrlAliasModal,
+        private readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
-
-        $this->contentActionsMenu = $contentActionsMenu;
-        $this->subItemList = $subItemList;
-        $this->contentTypePicker = $contentTypePicker;
-        $this->languagePicker = $languagePicker;
-        $this->dialog = $dialog;
-        $this->translationDialog = $translationDialog;
-        $this->breadcrumb = $breadcrumb;
-        $this->contentItemAdminPreview = $contentItemAdminPreview;
-        $this->repository = $repository;
-        $this->argumentParser = $argumentParser;
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->ibexaDropdown = $ibexaDropdown;
-        $this->upperMenu = $upperMenu;
-        $this->deleteContentDialog = $deleteContentDialog;
-        $this->createUrlAliasModal = $createUrlAliasModal;
-        $this->tableBuilder = $tableBuilder;
     }
 
-    public function startCreatingContent(string $contentTypeName, ?string $language = null)
+    public function startCreatingContent(string $contentTypeName, ?string $language = null): void
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
@@ -142,7 +78,7 @@ class ContentViewPage extends Page
         $this->contentTypePicker->confirm();
     }
 
-    public function startCreatingUser(string $contentTypeName)
+    public function startCreatingUser(string $contentTypeName): void
     {
         $this->contentActionsMenu->clickButton('Create user');
         $this->contentTypePicker->verifyIsLoaded();
@@ -226,9 +162,15 @@ class ContentViewPage extends Page
         }
     }
 
-    public function setExpectedLocationPath(string $locationPath)
+    public function setExpectedLocationPath(string $locationPath): void
     {
-        [$this->expectedContentType, $this->expectedContentName, $contentId, $contentMainLocationId] = $this->getContentData($this->argumentParser->parseUrl($locationPath));
+        [
+            $this->expectedContentType,
+            $this->expectedContentName,
+            $contentId,
+            $contentMainLocationId
+        ] = $this->getContentData($this->argumentParser->parseUrl($locationPath));
+
         $this->route = sprintf('/view/content/%s/full/1/%s', $contentId, $contentMainLocationId);
         $this->locationPath = $locationPath;
         $this->subItemList->shouldHaveGridViewEnabled($this->hasGridViewEnabledByDefault());
@@ -238,8 +180,9 @@ class ContentViewPage extends Page
     {
         $this->getHTMLPage()->find($this->getLocator('mainContainer'))->assert()->isVisible();
         $this->contentActionsMenu->verifyIsLoaded();
+
         Assert::assertStringContainsString(
-            $this->expectedContentName,
+            $this->expectedContentName ?? '',
             $this->breadcrumb->getBreadcrumb(),
             'Breadcrumb shows invalid path'
         );
@@ -260,18 +203,27 @@ class ContentViewPage extends Page
         return 'Content view';
     }
 
-    public function editContent(?string $language)
+    public function editContent(?string $language): void
     {
         $this->contentActionsMenu->clickButton('Edit');
 
-        if ($this->languagePicker->isVisible()) {
-            $availableLanguages = $this->languagePicker->getLanguages();
-            Assert::assertGreaterThan(1, count($availableLanguages));
-            Assert::assertContains($language, $availableLanguages);
+        if (!$this->languagePicker->isVisible()) {
+            return;
+        }
+
+        $availableLanguages = $this->languagePicker->getLanguages();
+
+        Assert::assertGreaterThan(1, count($availableLanguages));
+        Assert::assertContains($language, $availableLanguages);
+
+        if ($language !== null) {
             $this->languagePicker->chooseLanguage($language);
         }
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function isChildElementPresent(array $parameters): bool
     {
         $this->switchToTab('Sub-items');
@@ -279,7 +231,7 @@ class ContentViewPage extends Page
         return $this->subItemList->isElementInTable($parameters);
     }
 
-    public function sendToTrash()
+    public function sendToTrash(): void
     {
         $this->contentActionsMenu->clickButton('Send to trash');
         $this->dialog->verifyIsLoaded();
@@ -287,8 +239,14 @@ class ContentViewPage extends Page
         $this->dialog->confirm();
     }
 
-    public function verifyFieldHasValues(string $fieldLabel, array $expectedFieldValues, ?string $fieldTypeIdentifier)
-    {
+    /**
+     * @param array<string> $expectedFieldValues
+     */
+    public function verifyFieldHasValues(
+        string $fieldLabel,
+        array $expectedFieldValues,
+        ?string $fieldTypeIdentifier
+    ): void {
         $this->contentItemAdminPreview->verifyFieldHasValues($fieldLabel, $expectedFieldValues, $fieldTypeIdentifier);
     }
 
@@ -342,7 +300,7 @@ class ContentViewPage extends Page
 
     protected function getRoute(): string
     {
-        return $this->route;
+        return $this->route ?? '';
     }
 
     private function hasGridViewEnabledByDefault(): bool
@@ -350,33 +308,41 @@ class ContentViewPage extends Page
         return 'Media' === $this->expectedContentName;
     }
 
+    /**
+     * @return array<mixed>
+     */
     private function getContentData(string $locationPath): array
     {
-        return $this->repository->sudo(function (Repository $repository) use ($locationPath) {
+        return $this->repository->sudo(function (Repository $repository) use ($locationPath): array {
             $content = $this->loadContent($repository, $locationPath);
 
             return [
                 $content->getContentType()->getName(),
                 $content->getName(),
-                $content->id,
-                $content->contentInfo->getMainLocation()->id,
+                $content->getId(),
+                $content->getContentInfo()->getMainLocationId(),
             ];
         });
     }
 
     private function loadContent(Repository $repository, string $locationPath): Content
     {
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($repository, $locationPath) {
-            $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
+        $this->getHTMLPage()
+            ->setTimeout(3)
+            ->waitUntil(
+                static function () use ($repository, $locationPath): bool {
+                    $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
 
-            return URLAlias::LOCATION === $urlAlias->type;
-        }, sprintf('URLAlias: %s not found in 3 seconds', $locationPath));
+                    return URLAlias::LOCATION === $urlAlias->type;
+                },
+                sprintf('URLAlias: %s not found in 3 seconds', $locationPath)
+            );
 
         $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
         Assert::assertEquals(URLAlias::LOCATION, $urlAlias->type);
 
         return $repository->getLocationService()
-            ->loadLocation($urlAlias->destination)
+            ->loadLocation((int) $urlAlias->destination)
             ->getContent();
     }
 

@@ -8,19 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Specification\Location;
 
-use Ibexa\AdminUi\Specification\AbstractSpecification;
+use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
-class IsContainer extends AbstractSpecification
+final class IsContainer extends AbstractSpecification
 {
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
-     *
-     * @return bool
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
-        return $item->getContent()->getContentType()->isContainer;
+        return $item->getContent()->getContentType()->isContainer();
     }
 }
-
-class_alias(IsContainer::class, 'EzSystems\EzPlatformAdminUi\Specification\Location\IsContainer');

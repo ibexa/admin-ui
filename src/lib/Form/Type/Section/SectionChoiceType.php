@@ -13,25 +13,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SectionChoiceType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class SectionChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
-
-    /**
-     * SectionChoiceType constructor.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     */
-    public function __construct(SectionService $sectionService)
+    public function __construct(private readonly SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => $this->sectionService->loadSections(),
@@ -40,13 +31,8 @@ class SectionChoiceType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 }
-
-class_alias(SectionChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Section\SectionChoiceType');

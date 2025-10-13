@@ -18,13 +18,13 @@ const Dropdown = ({
     value,
     options,
     onChange,
-    small,
-    single,
-    disabled,
-    placeholder,
-    extraClasses,
-    renderSelectedItem,
-    minSearchItems,
+    small = false,
+    single = false,
+    disabled = false,
+    placeholder = null,
+    extraClasses = '',
+    renderSelectedItem = (item) => item?.label,
+    minSearchItems = MIN_SEARCH_ITEMS_DEFAULT,
 }) => {
     const Translator = getTranslator();
     const containerRef = useRef();
@@ -116,7 +116,7 @@ const Dropdown = ({
         setItemsListStyles(itemsStyles);
     };
     const renderItemsList = () => {
-        const searchPlaceholder = Translator.trans(/*@Desc("Search...")*/ 'dropdown.placeholder', {}, 'ibexa_universal_discovery_widget');
+        const searchPlaceholder = Translator.trans(/* @Desc("Search...") */ 'dropdown.placeholder', {}, 'ibexa_universal_discovery_widget');
         const itemsContainerClass = createCssClassNames({
             'ibexa-dropdown__items': true,
             'ibexa-dropdown__items--search-hidden': options.length < minSearchItems,
@@ -147,7 +147,7 @@ const Dropdown = ({
                                 className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
                                 tabIndex="-1"
                             >
-                                <Icon name="search" extraClasses="ibexa-icon--small" />
+                                <Icon name="search" extraClasses="ibexa-icon--small-medium" />
                             </button>
                         </div>
                     </div>
@@ -280,16 +280,6 @@ Dropdown.propTypes = {
     extraClasses: PropTypes.string,
     renderSelectedItem: PropTypes.func,
     minSearchItems: PropTypes.number,
-};
-
-Dropdown.defaultProps = {
-    small: false,
-    single: false,
-    disabled: false,
-    placeholder: null,
-    extraClasses: '',
-    renderSelectedItem: (item) => item?.label,
-    minSearchItems: MIN_SEARCH_ITEMS_DEFAULT,
 };
 
 export default Dropdown;

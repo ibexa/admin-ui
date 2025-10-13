@@ -13,21 +13,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @todo add validation
  */
-class TrashItemDeleteData
+final class TrashItemDeleteData
 {
-    /**
-     * @Assert\NotBlank()
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
-     */
-    public $trashItems;
-
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
      */
-    public function __construct(array $trashItems = [])
-    {
-        $this->trashItems = $trashItems;
+    public function __construct(
+        #[Assert\NotBlank]
+        private array $trashItems = []
+    ) {
     }
 
     /**
@@ -46,5 +40,3 @@ class TrashItemDeleteData
         $this->trashItems = $trashItems;
     }
 }
-
-class_alias(TrashItemDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Trash\TrashItemDeleteData');

@@ -14,13 +14,12 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BookmarkRemoveType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class BookmarkRemoveType extends AbstractType
 {
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -40,5 +39,3 @@ class BookmarkRemoveType extends AbstractType
             );
     }
 }
-
-class_alias(BookmarkRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Bookmark\BookmarkRemoveType');

@@ -14,14 +14,11 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class LimitationValueRenderingExtension extends AbstractExtension
+final class LimitationValueRenderingExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer */
-    private $limitationRenderer;
-
-    public function __construct(LimitationBlockRendererInterface $limitationRenderer)
-    {
-        $this->limitationRenderer = $limitationRenderer;
+    public function __construct(
+        private readonly LimitationBlockRendererInterface $limitationRenderer
+    ) {
     }
 
     /**
@@ -29,21 +26,11 @@ class LimitationValueRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []) {
+        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []): string {
             return $this->limitationRenderer->renderLimitationValue($limitation, $params);
         };
 
         return [
-            new TwigFunction(
-                'ez_render_limitation_value',
-                $limitationValueCallable,
-                [
-                    'is_safe' => ['html'],
-                    'needs_environment' => true,
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_render_limitation_value',
-                ]
-            ),
             new TwigFunction(
                 'ibexa_render_limitation_value',
                 $limitationValueCallable,
@@ -52,5 +39,3 @@ class LimitationValueRenderingExtension extends AbstractExtension
         ];
     }
 }
-
-class_alias(LimitationValueRenderingExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\LimitationValueRenderingExtension');

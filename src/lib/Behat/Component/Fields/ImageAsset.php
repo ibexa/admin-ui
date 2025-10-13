@@ -17,26 +17,18 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class ImageAsset extends Image
+final class ImageAsset extends Image
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
-    private $notification;
+    private const string IMAGE_ASSET_NOTIFICATION_MESSAGE = 'The image has been published and can now be reused';
 
     public function __construct(
         Session $session,
         FileUploadHelper $fileUploadHelper,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
-        Notification $notification
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly Notification $notification
     ) {
         parent::__construct($session, $fileUploadHelper);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->notification = $notification;
     }
-
-    private const IMAGE_ASSET_NOTIFICATION_MESSAGE = 'The image has been published and can now be reused';
 
     public function setValue(array $parameters): void
     {
@@ -84,6 +76,6 @@ class ImageAsset extends Image
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezimageasset';
+        return 'ibexa_image_asset';
     }
 }

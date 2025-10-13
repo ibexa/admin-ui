@@ -12,8 +12,6 @@ services:
 
   Ibexa\AdminUi\Behat\BrowserContext\SystemInfoContext: ~
 
-  Ibexa\AdminUi\Behat\BrowserContext\AdministrationContext: ~
-
   Ibexa\AdminUi\Behat\BrowserContext\DashboardContext: ~
 
   Ibexa\AdminUi\Behat\BrowserContext\ContentActionsMenuContext: ~

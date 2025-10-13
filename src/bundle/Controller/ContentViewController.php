@@ -28,7 +28,6 @@ use Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier as SubitemsCon
 use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
-use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -48,113 +47,30 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ContentViewController extends Controller
+final class ContentViewController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $pathService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier */
-    private $subitemsContentViewParameterSupplier;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
-
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $sfFormFactory;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\AdminUi\UI\Service\PathService $pathService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Symfony\Component\Form\FormFactoryInterface $sfFormFactory
-     * @param \Ibexa\AdminUi\UI\Module\Subitems\ContentViewParameterSupplier $subitemsContentViewParameterSupplier
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
-     */
     public function __construct(
-        ContentTypeService $contentTypeService,
-        LanguageService $languageService,
-        PathService $pathService,
-        FormFactory $formFactory,
-        FormFactoryInterface $sfFormFactory,
-        SubitemsContentViewParameterSupplier $subitemsContentViewParameterSupplier,
-        UserService $userService,
-        BookmarkService $bookmarkService,
-        ContentService $contentService,
-        LocationService $locationService,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        ConfigResolverInterface $configResolver,
-        Repository $repository,
-        PermissionResolver $permissionResolver,
-        LookupLimitationsTransformer $lookupLimitationsTransformer
+        private readonly ContentTypeService $contentTypeService,
+        private readonly LanguageService $languageService,
+        private readonly PathService $pathService,
+        private readonly FormFactory $formFactory,
+        private readonly FormFactoryInterface $sfFormFactory,
+        private readonly SubitemsContentViewParameterSupplier $subitemsContentViewParameterSupplier,
+        private readonly UserService $userService,
+        private readonly BookmarkService $bookmarkService,
+        private readonly LocationService $locationService,
+        private readonly UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly Repository $repository,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->languageService = $languageService;
-        $this->pathService = $pathService;
-        $this->formFactory = $formFactory;
-        $this->sfFormFactory = $sfFormFactory;
-        $this->subitemsContentViewParameterSupplier = $subitemsContentViewParameterSupplier;
-        $this->userService = $userService;
-        $this->bookmarkService = $bookmarkService;
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->configResolver = $configResolver;
-        $this->permissionResolver = $permissionResolver;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->repository = $repository;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     *
-     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function locationViewAction(Request $request, ContentView $view): ContentView
@@ -192,10 +108,6 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     *
-     * @return \Ibexa\Core\MVC\Symfony\View\ContentView
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function embedViewAction(ContentView $view): ContentView
@@ -210,37 +122,30 @@ class ContentViewController extends Controller
         return $view;
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     */
     private function supplyPathLocations(ContentView $view): void
     {
         $location = $view->getLocation();
+        if ($location === null) {
+            return;
+        }
+
         $pathLocations = $this->pathService->loadPathLocations($location);
         $view->addParameters(['path_locations' => $pathLocations]);
     }
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function supplyContentType(ContentView $view): void
     {
         $contentType = $this->contentTypeService->loadContentType(
-            $view->getContent()->contentInfo->contentTypeId,
+            $view->getContent()->getContentInfo()->contentTypeId,
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
+
         $view->addParameters(['content_type' => $contentType]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
     private function supplyContentActionForms(ContentView $view): void
     {
         $location = $view->getLocation();
@@ -273,7 +178,7 @@ class ContentViewController extends Controller
             new ContentVisibilityUpdateData(
                 $location->getContentInfo(),
                 $location,
-                $location->getContentInfo()->isHidden
+                $location->getContentInfo()->isHidden()
             )
         );
 
@@ -282,7 +187,7 @@ class ContentViewController extends Controller
         );
 
         $contentEditType = $this->createContentEditForm(
-            $content->contentInfo,
+            $content->getContentInfo(),
             $versionInfo,
             null,
             $location
@@ -301,10 +206,10 @@ class ContentViewController extends Controller
 
         if ((new ContentIsUser($this->userService))->isSatisfiedBy($content)) {
             $userDeleteType = $this->formFactory->deleteUser(
-                new UserDeleteData($content->contentInfo)
+                new UserDeleteData($content->getContentInfo()),
             );
             $userEditType = $this->formFactory->editUser(
-                new UserEditData($content->contentInfo, $versionInfo, null, $location)
+                new UserEditData($content->getContentInfo(), $versionInfo, null, $location)
             );
 
             $view->addParameters([
@@ -314,21 +219,13 @@ class ContentViewController extends Controller
         }
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
-     */
     private function createContentEditForm(
         ?ContentInfo $contentInfo = null,
         ?VersionInfo $versionInfo = null,
         ?Language $language = null,
         ?Location $location = null
     ): FormInterface {
-        $languageCodes = $versionInfo->languageCodes ?? [];
+        $languageCodes = $versionInfo === null ? [] : $versionInfo->getLanguageCodes();
 
         return $this->formFactory->contentEdit(
             new ContentEditData($contentInfo, null, $language, $location),
@@ -337,29 +234,25 @@ class ContentViewController extends Controller
                 'choice_loader' => new ContentEditTranslationChoiceLoader(
                     $this->languageService,
                     $this->permissionResolver,
-                    $contentInfo,
                     $this->lookupLimitationsTransformer,
                     $languageCodes,
                     $this->locationService,
+                    $contentInfo,
                     $location
                 ),
             ]
         );
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     private function supplyDraftPagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'draft_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['version_draft'] ?? 1,
+                'page' => (int) ($page['version_draft'] ?? 1),
                 'pages_map' => $page,
                 'limit' => $this->configResolver->getParameter('pagination.version_draft_limit'),
             ],
@@ -374,107 +267,94 @@ class ContentViewController extends Controller
             'relation_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['relation'] ?? 1,
+                'page' => (int) ($page['relation'] ?? 1),
                 'pages_map' => $page,
                 'limit' => $this->configResolver->getParameter('pagination.relation_limit'),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     private function supplyReverseRelationPagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'reverse_relation_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['reverse_relation'] ?? 1,
+                'page' => (int) ($page['reverse_relation'] ?? 1),
                 'pages_map' => $page,
-                'limit' => $this->configResolver->getParameter('pagination.reverse_relation_limit'),
+                'limit' => $this->configResolver->getParameter(
+                    'pagination.reverse_relation_limit'
+                ),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     private function supplyCustomUrlPagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'custom_urls_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['custom_url'] ?? 1,
-                'limit' => $this->configResolver->getParameter('pagination.content_custom_url_limit'),
+                'page' => (int) ($page['custom_url'] ?? 1),
+                'limit' => $this->configResolver->getParameter(
+                    'pagination.content_custom_url_limit'
+                ),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     private function supplySystemUrlPagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'system_urls_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['system_url'] ?? 1,
-                'limit' => $this->configResolver->getParameter('pagination.content_system_url_limit'),
+                'page' => (int) ($page['system_url'] ?? 1),
+                'limit' => $this->configResolver->getParameter(
+                    'pagination.content_system_url_limit'
+                ),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     private function supplyRolePagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'roles_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['role'] ?? 1,
-                'limit' => $this->configResolver->getParameter('pagination.content_role_limit'),
+                'page' => (int) ($page['role'] ?? 1),
+                'limit' => $this->configResolver->getParameter(
+                    'pagination.content_role_limit'
+                ),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     */
     private function supplyPolicyPagination(ContentView $view, Request $request): void
     {
-        $page = $request->query->get('page');
+        $page = $request->query->all('page');
 
         $view->addParameters([
             'policies_pagination_params' => [
                 'route_name' => $request->get('_route'),
                 'route_params' => $request->get('_route_params'),
-                'page' => $page['policy'] ?? 1,
-                'limit' => $this->configResolver->getParameter('pagination.content_policy_limit'),
+                'page' => (int) ($page['policy'] ?? 1),
+                'limit' => $this->configResolver->getParameter(
+                    'pagination.content_policy_limit'
+                ),
             ],
         ]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     */
     private function supplyContentTreeParameters(ContentView $view): void
     {
         $view->addParameters([
@@ -483,10 +363,6 @@ class ContentViewController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     *
-     * @return int
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function resolveTreeRootLocationId(?Location $location): int
@@ -495,55 +371,52 @@ class ContentViewController extends Controller
             return $this->configResolver->getParameter('content_tree_module.tree_root_location_id');
         }
 
-        $contextualContentTreeRootLocationIds = $this->configResolver->getParameter('content_tree_module.contextual_tree_root_location_ids');
+        $contextualContentTreeRootLocationIds = $this->configResolver->getParameter(
+            'content_tree_module.contextual_tree_root_location_ids'
+        );
+
         $possibleContentTreeRoots = array_intersect($location->path, $contextualContentTreeRootLocationIds);
-        if (\is_array($this->permissionResolver->hasAccess('content', 'read'))) {
+        if (is_array($this->permissionResolver->hasAccess('content', 'read'))) {
             $accessibleLocations = $this->locationService->loadLocationList($possibleContentTreeRoots);
             $possibleContentTreeRoots = array_column($accessibleLocations, 'id');
         }
 
         if (empty($possibleContentTreeRoots)) {
             // if a user has no access to any tree root than current location id is set
-            return $location->id;
+            return $location->getId();
         }
 
         // use the outermost ancestor
         return (int)reset($possibleContentTreeRoots);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData
-     */
     private function getContentCreateData(?Location $location): ContentCreateData
     {
-        $languages = $this->languageService->loadLanguages();
-        $language = 1 === \count($languages)
+        $languages = iterator_to_array($this->languageService->loadLanguages());
+        $language = 1 === count($languages)
             ? array_shift($languages)
             : null;
 
         return new ContentCreateData(null, $location, $language);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     */
     private function supplyIsLocationBookmarked(ContentView $view): void
     {
-        $locationIsBookmarked = $view->getLocation() ? $this->bookmarkService->isBookmarked($view->getLocation()) : false;
+        $locationIsBookmarked = $view->getLocation() && $this->bookmarkService->isBookmarked($view->getLocation());
 
         $view->addParameters(['location_is_bookmarked' => $locationIsBookmarked]);
     }
 
-    /**
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
-     */
     private function supplyContentReverseRelations(ContentView $view): void
     {
-        $contentInfo = $view->getLocation()->getContentInfo();
+        $location = $view->getLocation();
+        if ($location === null) {
+            return;
+        }
 
-        $hasReverseRelations = $this->permissionResolver->sudo(
+        $contentInfo = $location->getContentInfo();
+
+        $hasReverseRelations = $this->repository->sudo(
             static function (Repository $repository) use ($contentInfo): bool {
                 return $repository->getContentService()->countReverseRelations($contentInfo) > 0;
             },
@@ -560,7 +433,11 @@ class ContentViewController extends Controller
             $view->getContent()->getVersionInfo()->getContentInfo()->contentTypeId,
             $this->userLanguagePreferenceProvider->getPreferredLanguages()
         );
-        $userGroupContentTypeIdentifier = $this->configResolver->getParameter('user_group_content_type_identifier');
+
+        $userGroupContentTypeIdentifier = $this->configResolver->getParameter(
+            'user_group_content_type_identifier'
+        );
+
         $contentIsUserGroup = (new ContentTypeIsUserGroup($userGroupContentTypeIdentifier))
             ->isSatisfiedBy($contentType);
 
@@ -596,5 +473,3 @@ class ContentViewController extends Controller
         );
     }
 }
-
-class_alias(ContentViewController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentViewController');

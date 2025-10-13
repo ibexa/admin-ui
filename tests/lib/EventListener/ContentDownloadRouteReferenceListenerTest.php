@@ -45,7 +45,7 @@ final class ContentDownloadRouteReferenceListenerTest extends TestCase
         $listener = new ContentDownloadRouteReferenceListener(self::EXAMPLE_SITEACCESS_GROUPS);
         $listener->onRouteReferenceGeneration($event);
 
-        $this->assertEquals($expectedRouteReference, $event->getRouteReference());
+        self::assertEquals($expectedRouteReference, $event->getRouteReference());
     }
 
     public function testOnRouteReferenceGenerationSkipNonAdminSiteAccesses(): void
@@ -67,7 +67,7 @@ final class ContentDownloadRouteReferenceListenerTest extends TestCase
         $listener = new ContentDownloadRouteReferenceListener(self::EXAMPLE_SITEACCESS_GROUPS);
         $listener->onRouteReferenceGeneration($event);
 
-        $this->assertEquals($expectedRouteReference, $event->getRouteReference());
+        self::assertEquals($expectedRouteReference, $event->getRouteReference());
     }
 
     public function testOnRouteReferenceGenerationForcesAdminSiteAccess(): void
@@ -90,7 +90,7 @@ final class ContentDownloadRouteReferenceListenerTest extends TestCase
         $listener = new ContentDownloadRouteReferenceListener(self::EXAMPLE_SITEACCESS_GROUPS);
         $listener->onRouteReferenceGeneration($event);
 
-        $this->assertEquals(
+        self::assertEquals(
             new RouteReference(
                 ContentDownloadRouteReferenceListener::CONTENT_DOWNLOAD_ROUTE_NAME,
                 [
@@ -104,5 +104,3 @@ final class ContentDownloadRouteReferenceListenerTest extends TestCase
         );
     }
 }
-
-class_alias(ContentDownloadRouteReferenceListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\ContentDownloadRouteReferenceListenerTest');

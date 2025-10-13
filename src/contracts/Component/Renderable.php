@@ -17,5 +17,3 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 interface Renderable extends ComponentInterface
 {
 }
-
-class_alias(Renderable::class, 'EzSystems\EzPlatformAdminUi\Component\Renderable');

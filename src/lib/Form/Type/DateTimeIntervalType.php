@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type;
 
@@ -14,29 +15,26 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Form type for ContentType update.
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
 class DateTimeIntervalType extends AbstractType
 {
-    public function getParent()
+    public function getParent(): string
     {
         return FormType::class;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
 
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'datetimeinterval';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->addViewTransformer(new DateIntervalToArrayTransformer())
@@ -48,5 +46,3 @@ class DateTimeIntervalType extends AbstractType
             ->add('second', IntegerType::class);
     }
 }
-
-class_alias(DateTimeIntervalType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\DateTimeIntervalType');

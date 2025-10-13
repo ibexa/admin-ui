@@ -33,7 +33,6 @@ class EveryoneContentTab extends AbstractContentTab implements OrderedTabInterfa
 
     public function renderView(array $parameters): string
     {
-        /** @todo Handle pagination */
         $page = 1;
         $limit = 10;
 
@@ -51,5 +50,3 @@ class EveryoneContentTab extends AbstractContentTab implements OrderedTabInterfa
         ]);
     }
 }
-
-class_alias(EveryoneContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\EveryoneContentTab');

@@ -20,20 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class LanguageLimitationController extends Controller
 {
-    private ContentService $contentService;
-
-    private LimitationResolverInterface $limitationResolver;
-
-    private LocationService $locationService;
-
     public function __construct(
-        ContentService $contentService,
-        LimitationResolverInterface $limitationResolver,
-        LocationService $locationService
+        private readonly ContentService $contentService,
+        private readonly LimitationResolverInterface $limitationResolver,
+        private readonly LocationService $locationService
     ) {
-        $this->contentService = $contentService;
-        $this->limitationResolver = $limitationResolver;
-        $this->locationService = $locationService;
     }
 
     public function loadLanguageLimitationsForContentCreateAction(Location $location): Response
@@ -45,7 +36,7 @@ final class LanguageLimitationController extends Controller
             $contentInfo->getMainLanguageCode()
         );
         $contentCreateStruct->sectionId = $contentInfo->getSectionId();
-        $locationCreateStruct = $this->locationService->newLocationCreateStruct($location->id);
+        $locationCreateStruct = $this->locationService->newLocationCreateStruct($location->getId());
 
         return new JsonResponse(
             $this->limitationResolver->getLanguageLimitations(

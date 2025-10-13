@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -13,17 +14,26 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * DataTransformer for Author\Value.
+ *
+ * @phpstan-type TAuthorProperties = array{id: ?int, name: string, email: string}
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Core\FieldType\Author\Value, TAuthorProperties[]>
  */
-class AuthorValueTransformer implements DataTransformerInterface
+final readonly class AuthorValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    /**
+     * @phpstan-return TAuthorProperties[]
+     */
+    public function transform(mixed $value): array
     {
-        if (is_array($value)) {
-            return $value;
-        }
-
         if (!$value instanceof Value || $value->authors->count() == 0) {
-            return [[]];
+            return [
+                [
+                    'id' => null,
+                    'name' => '',
+                    'email' => '',
+                ],
+            ];
         }
 
         $authors = [];
@@ -38,9 +48,9 @@ class AuthorValueTransformer implements DataTransformerInterface
         return $authors;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
-        if ($value === null || !is_array($value)) {
+        if ($value === null) {
             return null;
         }
 
@@ -52,5 +62,3 @@ class AuthorValueTransformer implements DataTransformerInterface
         return new Value($authors);
     }
 }
-
-class_alias(AuthorValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\AuthorValueTransformer');

@@ -14,28 +14,16 @@ use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class TrashItemTransformer implements DataTransformerInterface
+final readonly class TrashItemTransformer implements DataTransformerInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\TrashService
-     */
-    private $trashService;
-
-    public function __construct(TrashService $trashService)
+    public function __construct(private TrashService $trashService)
     {
-        $this->trashService = $trashService;
     }
 
     /**
-     * Transforms a domain specific Trash Item object into a Trash Item's identifier.
-     *
-     * @param mixed $value
-     *
-     * @return mixed|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -49,16 +37,10 @@ class TrashItemTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a Trash Item's ID into a domain specific Trash Item object.
-     *
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function reverseTransform($value): ?TrashItem
+    public function reverseTransform(mixed $value): ?TrashItem
     {
         if (empty($value)) {
             return null;
@@ -75,5 +57,3 @@ class TrashItemTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(TrashItemTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\TrashItemTransformer');

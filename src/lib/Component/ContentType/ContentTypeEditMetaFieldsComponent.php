@@ -12,20 +12,14 @@ use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
-final class ContentTypeEditMetaFieldsComponent implements ComponentInterface
+final readonly class ContentTypeEditMetaFieldsComponent implements ComponentInterface
 {
-    private const NO_CONTENT = '';
-
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
-
-    private Environment $twig;
+    private const string NO_CONTENT = '';
 
     public function __construct(
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
-        Environment $twig
+        private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        private Environment $twig
     ) {
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
-        $this->twig = $twig;
     }
 
     /**

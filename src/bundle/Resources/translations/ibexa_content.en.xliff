@@ -81,11 +81,6 @@
         <target state="new">Saving</target>
         <note>key: content_edit.autosave.status_saving.message</note>
       </trans-unit>
-      <trans-unit id="750bead6705b295c7b7d66c27b2768c1b9329ed5" resname="editing_details">
-        <source>Location: %location%</source>
-        <target state="new">Location: %location%</target>
-        <note>key: editing_details</note>
-      </trans-unit>
       <trans-unit id="f7854a70e37ed1a89ba0b4aa7937c586661ef300" resname="embedded_items.action.edit">
         <source>Edit</source>
         <target state="new">Edit</target>
@@ -110,6 +105,16 @@
         <source>Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</source>
         <target state="new">Sending '%content%' and its %children_count% Content item(s) to Trash will also send the sub-items of this Location to Trash.</target>
         <note>key: trash_container.modal.message_main</note>
+      </trans-unit>
+      <trans-unit id="7725a66429a424d678f7bd9a382abbb92c4cf473" resname="user.delete.error.failed">
+        <source>Deleting user failed.</source>
+        <target state="new">Deleting user failed.</target>
+        <note>key: user.delete.error.failed</note>
+      </trans-unit>
+      <trans-unit id="cc496766defa1426a0fb8680576b6af042b38705" resname="user.delete.error.no_main_location">
+        <source>Deleting user failed. User has no main location.</source>
+        <target state="new">Deleting user failed. User has no main location.</target>
+        <note>key: user.delete.error.no_main_location</note>
       </trans-unit>
       <trans-unit id="4492a79e25635e7612f98971e02b4d0e6a408394" resname="user.delete.success">
         <source>User with login '%login%' deleted.</source>

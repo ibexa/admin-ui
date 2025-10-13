@@ -12,11 +12,8 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class FocusModeChangedEvent extends Event
 {
-    private bool $enabled;
-
-    public function __construct(bool $enabled)
+    public function __construct(private readonly bool $enabled)
     {
-        $this->enabled = $enabled;
     }
 
     public function isEnabled(): bool

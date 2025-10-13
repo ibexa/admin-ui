@@ -18,69 +18,31 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
  */
 class ContentEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    protected $contentInfo;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
-    protected $versionInfo;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
-    protected $language;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     */
     public function __construct(
-        ?ContentInfo $contentInfo = null,
-        ?VersionInfo $versionInfo = null,
-        ?Language $language = null,
-        ?Location $location = null
+        protected ?ContentInfo $contentInfo = null,
+        protected ?VersionInfo $versionInfo = null,
+        protected ?Language $language = null,
+        protected ?Location $location = null
     ) {
-        $this->contentInfo = $contentInfo;
-        $this->versionInfo = $versionInfo;
-        $this->language = $language;
-        $this->location = $location;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     *
-     * @return self
-     */
-    public function setLocation(Location $location): self
+    public function setLocation(?Location $location): self
     {
         $this->location = $location;
 
         return $this;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     *
-     * @return self
-     */
     public function setContentInfo(?ContentInfo $contentInfo): self
     {
         $this->contentInfo = $contentInfo;
@@ -88,19 +50,11 @@ class ContentEditData
         return $this;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
-     */
     public function getVersionInfo(): ?VersionInfo
     {
         return $this->versionInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
-     *
-     * @return self
-     */
     public function setVersionInfo(?VersionInfo $versionInfo): self
     {
         $this->versionInfo = $versionInfo;
@@ -108,19 +62,11 @@ class ContentEditData
         return $this;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
     public function getLanguage(): ?Language
     {
         return $this->language;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
-     *
-     * @return self
-     */
     public function setLanguage(?Language $language): self
     {
         $this->language = $language;
@@ -128,5 +74,3 @@ class ContentEditData
         return $this;
     }
 }
-
-class_alias(ContentEditData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Draft\ContentEditData');

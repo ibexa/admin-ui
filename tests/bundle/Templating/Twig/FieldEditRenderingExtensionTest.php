@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\Bundle\AdminUi\Templating\Twig;
 
@@ -15,8 +16,10 @@ use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use Twig\Environment;
 
-class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
+final class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 {
+    private const int EXAMPLE_FIELD_DEFINITION_ID = 1;
+
     /**
      * @return \Twig\Extension\ExtensionInterface[]
      */
@@ -47,13 +50,19 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return [new FieldEditRenderingExtension($fieldBlockRenderer)];
     }
 
-    public function getFixturesDir(): string
+    protected static function getFixturesDirectory(): string
     {
         return __DIR__ . '/_fixtures/field_edit_rendering_functions/';
     }
 
-    public function getFieldDefinitionData($typeIdentifier, $id = null, $settings = []): FieldDefinitionData
-    {
+    /**
+     * @param array<string, mixed> $settings
+     */
+    public function getFieldDefinitionData(
+        string $typeIdentifier,
+        int $id = self::EXAMPLE_FIELD_DEFINITION_ID,
+        array $settings = []
+    ): FieldDefinitionData {
         return new FieldDefinitionData([
             'fieldDefinition' => new FieldDefinition([
                 'id' => $id,
@@ -71,9 +80,9 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
      * @param string $file
      * @param string $message
      * @param string $condition
-     * @param array $templates
+     * @param array<mixed> $templates
      * @param string $exception
-     * @param array $outputs
+     * @param array<mixed> $outputs
      * @param string $deprecation
      */
     public function testLegacyIntegration(
@@ -94,5 +103,3 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return 'templates/' . $tpl;
     }
 }
-
-class_alias(FieldEditRenderingExtensionTest::class, 'EzSystems\EzPlatformAdminUiBundle\Tests\Templating\Twig\FieldEditRenderingExtensionTest');

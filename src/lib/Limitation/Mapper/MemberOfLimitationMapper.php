@@ -25,26 +25,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    private UserService $userService;
-
-    private Repository $repository;
-
-    private ContentService $contentService;
-
-    private TranslatorInterface $translator;
-
     public function __construct(
-        UserService $userService,
-        Repository $repository,
-        ContentService $contentService,
-        TranslatorInterface $translator
+        private readonly UserService $userService,
+        private readonly Repository $repository,
+        private readonly ContentService $contentService,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->userService = $userService;
-        $this->repository = $repository;
-        $this->contentService = $contentService;
-        $this->translator = $translator;
     }
 
+    /**
+     * @return array<int, string|null>
+     */
     protected function getSelectionChoices(): array
     {
         $userGroups = $this->loadUserGroups();
@@ -52,7 +43,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
         $choices[MemberOfLimitationType::SELF_USER_GROUP] = $this->getSelfUserGroupLabel();
 
         foreach ($userGroups as $userGroup) {
-            $choices[$userGroup->id] = $userGroup->getName();
+            $choices[$userGroup->getId()] = $userGroup->getName();
         }
 
         return $choices;
@@ -85,7 +76,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
 
             $groups = [];
             foreach ($results as $result) {
-                $groups[] = $this->userService->loadUserGroup($result->id);
+                $groups[] = $this->userService->loadUserGroup($result->getId());
             }
 
             return $groups;

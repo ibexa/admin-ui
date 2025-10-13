@@ -126,32 +126,25 @@ use Ibexa\AdminUi\Form\Type\User\UserDeleteType;
 use Ibexa\AdminUi\Form\Type\User\UserEditType;
 use Ibexa\AdminUi\Form\Type\Version\VersionRemoveType;
 use Ibexa\Bundle\Search\Form\Data\SearchData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use function is_string;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FormFactory
 {
-    private FormFactoryInterface $formFactory;
-
-    protected UrlGeneratorInterface $urlGenerator;
-
-    private TranslatorInterface $translator;
-
     public function __construct(
-        FormFactoryInterface $formFactory,
-        UrlGeneratorInterface $urlGenerator,
-        TranslatorInterface $translator
+        private readonly FormFactoryInterface $formFactory
     ) {
-        $this->formFactory = $formFactory;
-        $this->urlGenerator = $urlGenerator;
-        $this->translator = $translator;
     }
 
     /**
+     * @param array<string, mixed> $options
+     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function contentEdit(
@@ -171,7 +164,7 @@ class FormFactory
         $data = $data ?? new ContentEditData();
 
         if (empty($options['language_codes']) && null !== $data->getVersionInfo()) {
-            $options['language_codes'] = $data->getVersionInfo()->languageCodes;
+            $options['language_codes'] = $data->getVersionInfo()->getLanguageCodes();
         }
 
         return $this->formFactory->createNamed(
@@ -241,26 +234,28 @@ class FormFactory
         );
     }
 
+    /**
+     * @phpstan-return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData|null>
+     */
     public function updateContentTypeGroup(
+        ContentTypeGroup $group,
         ?ContentTypeGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        if ($name === null && $data === null) {
-            throw new \InvalidArgumentException('Either $name or $data must be provided.');
-        }
-        $name = $name ?: sprintf('update-content-type-group-%d', $data->getContentTypeGroup()->id);
+        $name = $name ?: sprintf('update-content-type-group-%d', $group->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupUpdateType::class, $data);
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupDeleteData|null>
+     */
     public function deleteContentTypeGroup(
+        ContentTypeGroup $group,
         ?ContentTypeGroupDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        if ($name === null && $data === null) {
-            throw new \InvalidArgumentException('Either $name or $data must be provided.');
-        }
-        $name = $name ?: sprintf('delete-content-type-group-%d', $data->getContentTypeGroup()->id);
+        $name = $name ?: sprintf('delete-content-type-group-%d', $group->id);
 
         return $this->formFactory->createNamed($name, ContentTypeGroupDeleteType::class, $data);
     }
@@ -281,7 +276,11 @@ class FormFactory
             );
         }
 
-        return $this->formFactory->createNamed($name, ContentTypeGroupsDeleteType::class, $data);
+        return $this->formFactory->createNamed(
+            $name,
+            ContentTypeGroupsDeleteType::class,
+            $data
+        );
     }
 
     /**
@@ -291,9 +290,13 @@ class FormFactory
         ?TranslationAddData $data = null,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('add-translation');
+        $name = $name ?: 'add-translation';
 
-        return $this->formFactory->createNamed($name, TranslationAddType::class, $data ?? new TranslationAddData());
+        return $this->formFactory->createNamed(
+            $name,
+            TranslationAddType::class,
+            $data ?? new TranslationAddData()
+        );
     }
 
     /**
@@ -526,17 +529,13 @@ class FormFactory
         ?SectionDeleteData $data = null,
         ?string $name = null
     ): FormInterface {
-        if ($name !== null) {
-            return $this->formFactory->createNamed($name, SectionDeleteType::class, $data);
-        }
-
-        if ($data === null || $data->getSection() === null) {
-            throw new \InvalidArgumentException(
-                'SectionDeleteData with Section must be provided when $name is not set.'
+        if ($name === null && $data === null) {
+            throw new InvalidArgumentException(
+                'name',
+                'Either $name or $data must be provided.'
             );
         }
-
-        $name = sprintf('delete-section-%d', $data->getSection()->id);
+        $name = $name ?: sprintf('delete-section-%d', $data?->getSection()?->id);
 
         return $this->formFactory->createNamed($name, SectionDeleteType::class, $data);
     }
@@ -584,17 +583,14 @@ class FormFactory
         ?SectionUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        if ($name !== null) {
-            return $this->formFactory->createNamed($name, SectionUpdateType::class, $data);
-        }
-
-        if ($data === null || $data->getSection() === null) {
-            throw new \InvalidArgumentException(
-                'SectionUpdateData with Section must be provided when $name is not set.'
+        if ($name === null && $data === null) {
+            throw new InvalidArgumentException(
+                'name',
+                'Either $name or $data must be provided.'
             );
         }
 
-        $name = sprintf('update-section-%d', $data->getSection()->id);
+        $name = $name ?: sprintf('update-section-%d', $data->getSection()?->getId());
 
         return $this->formFactory->createNamed($name, SectionUpdateType::class, $data);
     }
@@ -623,22 +619,17 @@ class FormFactory
         LanguageUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-language-%d', $data->getLanguage()->id);
+        $name = $name ?: sprintf('update-language-%d', $data->getLanguage()?->getId());
 
         return $this->formFactory->createNamed($name, LanguageUpdateType::class, $data);
     }
 
     public function deleteLanguage(
+        APILanguage $language,
         LanguageDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        if ($name === null) {
-            $language = $data->getLanguage();
-            if ($language === null) {
-                throw new \InvalidArgumentException('Language is not provided in LanguageDeleteData.');
-            }
-            $name = sprintf('delete-language-%d', $language->id);
-        }
+        $name = $name ?: sprintf('delete-language-%d', $language->getId());
 
         return $this->formFactory->createNamed($name, LanguageDeleteType::class, $data);
     }
@@ -682,7 +673,7 @@ class FormFactory
         RoleUpdateData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('update-role-%d', $data->getRole()->id);
+        $name = $name ?: sprintf('update-role-%d', $data->getRole()?->id);
 
         return $this->formFactory->createNamed($name, RoleUpdateType::class, $data);
     }
@@ -691,7 +682,7 @@ class FormFactory
         RoleDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $name = $name ?: sprintf('delete-role-%d', $data->getRole()->id);
+        $name = $name ?: sprintf('delete-role-%d', $data->getRole()?->id);
 
         return $this->formFactory->createNamed($name, RoleDeleteType::class, $data);
     }
@@ -732,8 +723,8 @@ class FormFactory
         RoleAssignmentDeleteData $data,
         ?string $name = null
     ): FormInterface {
-        $role = $data->getRoleAssignment()->getRole()->id;
-        $limitation = !empty($data->getRoleAssignment()->getRoleLimitation())
+        $role = $data->getRoleAssignment()?->getRole()?->id;
+        $limitation = $data->getRoleAssignment()?->getRoleLimitation() instanceof RoleLimitation
             ? $data->getRoleAssignment()->getRoleLimitation()->getIdentifier()
             : 'none';
 
@@ -799,7 +790,7 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: sprintf(
             'update-policy-%s',
-            hash('sha256', implode('/', $data->getPolicy() ?? []))
+            hash('sha256', implode('/', $data->getPolicy()))
         );
 
         return $this->formFactory->createNamed($name, PolicyUpdateType::class, $data);
@@ -811,7 +802,7 @@ class FormFactory
     ): FormInterface {
         $name = $name ?: sprintf(
             'delete-policy-%s',
-            hash('sha256', implode('/', $data->getPolicy() ?? []))
+            hash('sha256', implode('/', $data->getPolicy()))
         );
 
         return $this->formFactory->createNamed($name, PolicyDeleteType::class, $data);
@@ -836,6 +827,9 @@ class FormFactory
         return $this->formFactory->createNamed($name, PoliciesDeleteType::class, $data);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function createSearchForm(
         ?SearchData $data = null,
         ?string $name = null,
@@ -853,6 +847,9 @@ class FormFactory
         return $this->formFactory->createNamed($name, SearchType::class, $data, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function createUrlListForm(
         ?URLListData $data = null,
         ?string $name = null,
@@ -870,6 +867,9 @@ class FormFactory
         return $this->formFactory->createNamed($name, URLListType::class, $data, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function createUrlEditForm(
         ?URLUpdateData $data = null,
         ?string $name = null,
@@ -916,7 +916,11 @@ class FormFactory
             );
         }
 
-        return $this->formFactory->createNamed($name, CustomUrlAddType::class, $data ?? new CustomUrlAddData());
+        return $this->formFactory->createNamed(
+            $name,
+            CustomUrlAddType::class,
+            $data ?? new CustomUrlAddData()
+        );
     }
 
     public function removeCustomUrl(
@@ -932,7 +936,11 @@ class FormFactory
             );
         }
 
-        return $this->formFactory->createNamed($name, CustomUrlRemoveType::class, $data ?? new CustomUrlRemoveData());
+        return $this->formFactory->createNamed(
+            $name,
+            CustomUrlRemoveType::class,
+            $data ?? new CustomUrlRemoveData()
+        );
     }
 
     public function createObjectStateGroup(
@@ -960,9 +968,12 @@ class FormFactory
         ?string $name = null
     ): FormInterface {
         if ($name === null && $data === null) {
-            throw new \InvalidArgumentException('Either $name or $data must be provided.');
+            throw new InvalidArgumentException(
+                'name',
+                'Either $name or $data must be provided.'
+            );
         }
-        $name = $name ?: sprintf('delete-object-state-group-%d', $data->getObjectStateGroup()->id);
+        $name = $name ?: sprintf('delete-object-state-group-%d', $data?->getObjectStateGroup()?->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupDeleteType::class, $data);
     }
@@ -986,14 +997,15 @@ class FormFactory
         return $this->formFactory->createNamed($name, ObjectStateGroupsDeleteType::class, $data);
     }
 
+    /**
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupUpdateData>
+     */
     public function updateObjectStateGroup(
+        ObjectStateGroup $group,
         ?ObjectStateGroupUpdateData $data = null,
         ?string $name = null
     ): FormInterface {
-        if ($name === null && $data === null) {
-            throw new \InvalidArgumentException('Either $name or $data must be provided.');
-        }
-        $name = $name ?: sprintf('update-object-state-group-%d', $data->getObjectStateGroup()->id);
+        $name = $name ?: sprintf('update-object-state-group-%d', $group->id);
 
         return $this->formFactory->createNamed($name, ObjectStateGroupUpdateType::class, $data);
     }
@@ -1045,7 +1057,7 @@ class FormFactory
 
         $data = $data ?? new UserEditData();
         $options = null !== $data->getVersionInfo()
-            ? ['language_codes' => $data->getVersionInfo()->languageCodes]
+            ? ['language_codes' => $data->getVersionInfo()->getLanguageCodes()]
             : [];
 
         return $this->formFactory->createNamed($name, UserEditType::class, $data, $options);
@@ -1071,7 +1083,7 @@ class FormFactory
      * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
      */
     public function deleteNotification(
-        NotificationSelectionData $data = null,
+        ?NotificationSelectionData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
@@ -1159,5 +1171,3 @@ class FormFactory
         );
     }
 }
-
-class_alias(FormFactory::class, 'EzSystems\EzPlatformAdminUi\Form\Factory\FormFactory');

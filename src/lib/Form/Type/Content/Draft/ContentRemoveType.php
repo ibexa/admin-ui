@@ -16,11 +16,11 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentRemoveType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData>
+ */
+final class ContentRemoveType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -43,9 +43,6 @@ class ContentRemoveType extends AbstractType
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -53,5 +50,3 @@ class ContentRemoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentRemoveType');

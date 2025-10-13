@@ -126,3 +126,18 @@ ibexa.rest.image.download:
     methods: GET
     requirements:
         contentIdList: '^\d+(,\d+)*$'
+
+#
+# Subitems
+#
+ibexa.rest.location.subitems:
+    path: /location/subitems/{locationId}/{limit}/{offset}
+    methods: ['GET']
+    options:
+        expose: true
+    requirements:
+        parentLocationId: \d+
+    controller: Ibexa\Bundle\AdminUi\Controller\Location\LoadSubItemsController::loadAction
+    defaults:
+        limit: 10
+        offset: 0

@@ -16,22 +16,14 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
+final readonly class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
 {
-    public const IDENTIFIER = 'autosave_interval';
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    public const string IDENTIFIER = 'autosave_interval';
 
     public function __construct(
-        TranslatorInterface $translator,
-        ConfigResolverInterface $configResolver
+        private TranslatorInterface $translator,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->translator = $translator;
-        $this->configResolver = $configResolver;
     }
 
     public function getName(): string
@@ -89,5 +81,3 @@ class AutosaveInterval implements ValueDefinitionInterface, FormMapperInterface
         );
     }
 }
-
-class_alias(AutosaveInterval::class, 'EzSystems\EzPlatformAdminUi\UserSetting\AutosaveInterval');

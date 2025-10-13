@@ -13,6 +13,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\DateRangeData>
+ */
 final class DateRangeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

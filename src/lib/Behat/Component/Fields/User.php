@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
@@ -13,11 +14,11 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class User extends FieldTypeComponent
+final class User extends FieldTypeComponent
 {
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezuser';
+        return 'ibexa_user';
     }
 
     public function setValue(array $parameters): void
@@ -47,6 +48,9 @@ class User extends FieldTypeComponent
         return $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator($fieldName))->getValue();
     }
 
+    /**
+     * @param array<string, string> $value
+     */
     public function verifyValue(array $value): void
     {
         Assert::assertEquals(
@@ -90,7 +94,7 @@ class User extends FieldTypeComponent
         ];
     }
 
-    private function setEnabledField(bool $enabled)
+    private function setEnabledField(bool $enabled): void
     {
         $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabled'))->getText() === 'On';
         if ($isCurrentlyEnabled !== $enabled) {

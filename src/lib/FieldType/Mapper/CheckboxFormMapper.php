@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -15,9 +16,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezboolean FieldType.
+ * FormMapper for ibexa_boolean FieldType.
  */
-class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $fieldDefinition): void
     {
@@ -28,7 +29,7 @@ class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
             ->createBuilder()
             ->create('defaultValue', CheckboxFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezboolean.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_boolean.default_value',
                 'disabled' => $isTranslation,
             ])
             ->setAutoInitialize(false)
@@ -37,7 +38,7 @@ class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
         $fieldDefinitionForm->add($defaultValueForm);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -45,5 +46,3 @@ class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(CheckboxFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\CheckboxFormMapper');

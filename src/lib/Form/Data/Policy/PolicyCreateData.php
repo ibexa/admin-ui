@@ -8,51 +8,33 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Policy;
 
-class PolicyCreateData
+final class PolicyCreateData
 {
-    /** @var string */
-    private $module;
+    private ?string $module = null;
 
-    /** @var string */
-    private $function;
+    private ?string $function = null;
 
-    /** @var array */
-    private $limitations = [];
+    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
+    private array $limitations = [];
 
-    /**
-     * @return string
-     */
     public function getModule(): ?string
     {
         return $this->module;
     }
 
-    /**
-     * @param string $module
-     *
-     * @return PolicyCreateData
-     */
-    public function setModule(string $module): self
+    public function setModule(?string $module): self
     {
         $this->module = $module;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getFunction(): ?string
     {
         return $this->function;
     }
 
-    /**
-     * @param string $function
-     *
-     * @return PolicyCreateData
-     */
-    public function setFunction(string $function): self
+    public function setFunction(?string $function): self
     {
         $this->function = $function;
 
@@ -60,9 +42,7 @@ class PolicyCreateData
     }
 
     /**
-     * @param array $policy
-     *
-     * @return PolicyCreateData
+     * @param array<string, string|null> $policy
      */
     public function setPolicy(array $policy): self
     {
@@ -73,9 +53,9 @@ class PolicyCreateData
     }
 
     /**
-     * @return array
+     * @return array<string, string|null>
      */
-    public function getPolicy(): ?array
+    public function getPolicy(): array
     {
         return [
             'module' => $this->getModule(),
@@ -84,20 +64,18 @@ class PolicyCreateData
     }
 
     /**
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
      */
-    public function getLimitations(): ?array
+    public function getLimitations(): array
     {
         return $this->limitations;
     }
 
     /**
-     * @param array $limitations
+     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
      */
-    public function setLimitations(array $limitations)
+    public function setLimitations(array $limitations): void
     {
         $this->limitations = $limitations;
     }
 }
-
-class_alias(PolicyCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Policy\PolicyCreateData');

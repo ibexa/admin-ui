@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -15,32 +16,29 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\FormInterface;
 
-class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
+final readonly class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /**
-     * @var string
-     */
-    private $template;
-
-    public function __construct($template)
-    {
-        $this->template = $template;
-    }
-
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    public function __construct(private string $template)
     {
     }
 
-    public function getFormTemplate()
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
+    {
+    }
+
+    public function getFormTemplate(): string
     {
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         return $limitation->limitationValues;
     }
@@ -55,5 +53,3 @@ class NullLimitationMapper implements LimitationFormMapperInterface, LimitationV
         ];
     }
 }
-
-class_alias(NullLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\NullLimitationMapper');

@@ -63,8 +63,8 @@
             items: details_items,
         } only %}
 
-        {{ render( controller('Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateController::listAction', {
-            objectStateGroupId: object_state_group.id,
+        {{ render(controller('Ibexa\\Bundle\\AdminUi\\Controller\\ObjectStateController::listAction', {
+            objectStateGroup: object_state_group,
         })) }}
     </section>
 {% endblock %}

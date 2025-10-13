@@ -2,7 +2,7 @@
 <html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8" />
-        <meta name="CSRF-Token" content="{{ csrf_token('authenticate') }}" />
+        <meta name="CSRF-Token" content="{{ csrf_token(ibexa_get_rest_csrf_token_intention()) }}" />
         <meta name="SiteAccess" content="{{ app.request.get('siteaccess').name }}" />
         <meta name="UserId" content="{{ ibexa_admin_ui_config.user.user.id|default() }}" />
         <script>
@@ -17,7 +17,7 @@
             }
         </script>
         <script>
-            window.ibexa = window.eZ = {
+            window.ibexa = {
                 addConfig: (path, value, shouldMerge = false) => {
                     const keys = path.split('.');
                     const lastIndex = keys.length - 1;
@@ -103,11 +103,10 @@
         {{ ibexa_twig_component_group('admin-ui-stylesheet-head') }}
         {{ ibexa_twig_component_group('admin-ui-script-head') }}
 
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react/umd/react.production.min.js') }}"></script>
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/react-dom/umd/react-dom.production.min.js') }}"></script>
+        {{ encore_entry_script_tags('ibexa-admin-ui-react-load-js', null, 'react') }}
+        {{ encore_entry_script_tags('ibexa-admin-ui-react-dom-load-js', null, 'react-dom') }}
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('bundles/ibexaadminuiassets/vendors/create-react-class/create-react-class.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/prop-types/prop-types.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/flatpickr/dist/flatpickr.min.js') }}"></script>
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/moment/min/moment-with-locales.min.js') }}"></script>

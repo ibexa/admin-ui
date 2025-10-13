@@ -16,40 +16,19 @@ use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 /**
  * Provides information about languages.
  */
-class Languages implements ProviderInterface
+final readonly class Languages implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var string[] */
-    private $siteAccesses;
-
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
-    private $siteAccessService;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param string[]
+     * @param string[] $siteAccesses
      */
     public function __construct(
-        LanguageService $languageService,
-        ConfigResolverInterface $configResolver,
-        SiteAccessServiceInterface $siteAccessService,
-        array $siteAccesses
+        private LanguageService $languageService,
+        private ConfigResolverInterface $configResolver,
+        private SiteAccessServiceInterface $siteAccessService,
+        private array $siteAccesses
     ) {
-        $this->languageService = $languageService;
-        $this->configResolver = $configResolver;
-        $this->siteAccessService = $siteAccessService;
-        $this->siteAccesses = $siteAccesses;
     }
 
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return [
@@ -59,18 +38,18 @@ class Languages implements ProviderInterface
     }
 
     /**
-     * @return array
+     * @return array<string, array{name: string, id: int, languageCode: string, enabled: bool}>
      */
-    protected function getLanguagesMap(): array
+    private function getLanguagesMap(): array
     {
         $languagesMap = [];
 
         foreach ($this->languageService->loadLanguages() as $language) {
-            $languagesMap[$language->languageCode] = [
-                'name' => $language->name,
-                'id' => $language->id,
-                'languageCode' => $language->languageCode,
-                'enabled' => $language->enabled,
+            $languagesMap[$language->getLanguageCode()] = [
+                'name' => $language->getName(),
+                'id' => $language->getId(),
+                'languageCode' => $language->getLanguageCode(),
+                'enabled' => $language->isEnabled(),
             ];
         }
 
@@ -84,14 +63,19 @@ class Languages implements ProviderInterface
      * Next: fallback languages of siteaccesses.
      * Last: languages defined but not used in siteaccesses.
      *
-     * @param array $languagesMap data from call to getLanguagesMap()
+     * @param array<string, array{name: string, id: int, languageCode: string, enabled: bool}> $languagesMap data from call to getLanguagesMap()
      *
-     * @return array
+     * @return array<mixed>
      */
-    protected function getLanguagesPriority(array $languagesMap): array
+    private function getLanguagesPriority(array $languagesMap): array
     {
         $priority = [];
-        $siteAccessName = $this->siteAccessService->getCurrent()->name;
+        $siteAccess = $this->siteAccessService->getCurrent();
+        if ($siteAccess === null) {
+            return $this->siteAccesses;
+        }
+
+        $siteAccessName = $siteAccess->name;
         $siteAccesses = array_unique(array_merge([$siteAccessName], $this->siteAccesses));
 
         foreach ($siteAccesses as $siteAccess) {
@@ -101,7 +85,7 @@ class Languages implements ProviderInterface
 
         $languageCodes = array_unique($priority);
 
-        $languages = array_filter(array_values($languageCodes), static function ($languageCode) use ($languagesMap) {
+        $languages = array_filter(array_values($languageCodes), static function ($languageCode) use ($languagesMap): bool {
             // Get only Languages defined and enabled in Admin
             return isset($languagesMap[$languageCode]) && $languagesMap[$languageCode]['enabled'];
         });
@@ -112,5 +96,3 @@ class Languages implements ProviderInterface
         return array_merge($languages, $unused);
     }
 }
-
-class_alias(Languages::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Languages');

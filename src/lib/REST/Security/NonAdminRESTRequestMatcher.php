@@ -12,14 +12,13 @@ use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 
-final class NonAdminRESTRequestMatcher implements RequestMatcherInterface
+final readonly class NonAdminRESTRequestMatcher implements RequestMatcherInterface
 {
-    /** @var string[][] */
-    private $siteAccessGroups;
-
-    public function __construct(array $siteAccessGroups)
+    /**
+     * @param string[][] $siteAccessGroups
+     */
+    public function __construct(private array $siteAccessGroups)
     {
-        $this->siteAccessGroups = $siteAccessGroups;
     }
 
     public function matches(Request $request): bool
@@ -31,8 +30,8 @@ final class NonAdminRESTRequestMatcher implements RequestMatcherInterface
 
     private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }
-
-class_alias(NonAdminRESTRequestMatcher::class, 'EzSystems\EzPlatformAdminUi\REST\Security\NonAdminRESTRequestMatcher');

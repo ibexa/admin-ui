@@ -15,10 +15,5 @@ namespace Ibexa\Contracts\AdminUi\Tab;
  */
 interface OrderedTabInterface
 {
-    /**
-     * Get the order of this tab.
-     */
     public function getOrder(): int;
 }
-
-class_alias(OrderedTabInterface::class, 'EzSystems\EzPlatformAdminUi\Tab\OrderedTabInterface');

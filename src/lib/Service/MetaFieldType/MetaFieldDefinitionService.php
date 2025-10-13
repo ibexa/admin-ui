@@ -26,38 +26,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * @internal
  */
-final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInterface
+final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInterface
 {
-    private ConfigResolverInterface $configResolver;
-
-    private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
-
-    private ContentTypeService $contentTypeService;
-
-    private FieldsGroupsList $fieldsGroupsList;
-
-    private LanguageService $languageService;
-
-    private LocaleConverterInterface $localeConverter;
-
-    private TranslatorInterface $translator;
-
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
-        ContentTypeService $contentTypeService,
-        FieldsGroupsList $fieldsGroupsList,
-        LanguageService $languageService,
-        LocaleConverterInterface $localeConverter,
-        TranslatorInterface $translator
+        private ConfigResolverInterface $configResolver,
+        private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
+        private ContentTypeService $contentTypeService,
+        private FieldsGroupsList $fieldsGroupsList,
+        private LanguageService $languageService,
+        private LocaleConverterInterface $localeConverter,
+        private TranslatorInterface $translator
     ) {
-        $this->configResolver = $configResolver;
-        $this->contentTypeFieldTypesResolver = $contentTypeFieldTypesResolver;
-        $this->contentTypeService = $contentTypeService;
-        $this->fieldsGroupsList = $fieldsGroupsList;
-        $this->languageService = $languageService;
-        $this->localeConverter = $localeConverter;
-        $this->translator = $translator;
     }
 
     public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
@@ -127,8 +106,8 @@ final class MetaFieldDefinitionService implements MetaFieldDefinitionServiceInte
     ): bool {
         foreach ($contentType->fieldDefinitions as $fieldDefinition) {
             if (
-                $fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier
-                && $fieldDefinition->fieldGroup === $fieldTypeGroup
+                $fieldDefinition->getFieldTypeIdentifier() === $fieldTypeIdentifier
+                && $fieldDefinition->getFieldGroup() === $fieldTypeGroup
             ) {
                 return true;
             }

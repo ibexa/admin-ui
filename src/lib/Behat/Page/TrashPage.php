@@ -12,6 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\TrashSearch;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -19,36 +20,24 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use PHPUnit\Framework\Assert;
 
-class TrashPage extends Page
+final class TrashPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    public $dialog;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
-    private $contentActionsMenu;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
     /** @var \Ibexa\AdminUi\Behat\Component\TrashSearch */
     private TrashSearch $trashSearch;
 
     public function __construct(
-        Session $session,
-        Router $router,
-        UniversalDiscoveryWidget $universalDiscoveryWidget,
-        Dialog $dialog,
-        ContentActionsMenu $contentActionsMenu,
-        TableBuilder $tableBuilder,
+        readonly Session $session,
+        readonly Router $router,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly Dialog $dialog,
+        private readonly ContentActionsMenu $contentActionsMenu,
+        readonly TableBuilder $tableBuilder,
         TrashSearch $trashSearch
     ) {
         parent::__construct($session, $router);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->dialog = $dialog;
-        $this->contentActionsMenu = $contentActionsMenu;
+
         $this->table = $tableBuilder->newTable()->build();
         $this->trashSearch = $trashSearch;
     }
@@ -63,7 +52,7 @@ class TrashPage extends Page
         return $this->table->isEmpty();
     }
 
-    public function restoreSelectedNewLocation(string $pathToContent)
+    public function restoreSelectedNewLocation(string $pathToContent): void
     {
         $this->getHTMLPage()->find($this->getLocator('restoreUnderNewLocationButton'))->click();
         $this->universalDiscoveryWidget->verifyIsLoaded();
@@ -71,21 +60,21 @@ class TrashPage extends Page
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function emptyTrash()
+    public function emptyTrash(): void
     {
         $this->contentActionsMenu->clickButton('Empty Trash');
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
 
-    public function deleteSelectedItems()
+    public function deleteSelectedItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('trashButton'))->click();
         $this->dialog->verifyIsLoaded();
         $this->dialog->confirm();
     }
 
-    public function select(array $parameters)
+    public function select(array $parameters): void
     {
         $this->table->getTableRow($parameters)->select();
     }
@@ -111,7 +100,7 @@ class TrashPage extends Page
         $this->trashSearch->filterByContentItemCreator($contentItemCreator);
     }
 
-    public function restoreSelectedItems()
+    public function restoreSelectedItems(): void
     {
         $this->getHTMLPage()->find($this->getLocator('restoreButton'))->click();
     }

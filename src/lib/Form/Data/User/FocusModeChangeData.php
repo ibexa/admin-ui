@@ -10,11 +10,8 @@ namespace Ibexa\AdminUi\Form\Data\User;
 
 final class FocusModeChangeData
 {
-    private ?bool $enabled;
-
-    public function __construct(?bool $data = null)
+    public function __construct(private ?bool $enabled = null)
     {
-        $this->enabled = $data;
     }
 
     public function isEnabled(): ?bool

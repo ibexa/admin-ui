@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CountryFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class CountryFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -27,7 +28,7 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[isMultiple]',
-                    'label' => /** @Desc("Multiple choice") */ 'field_definition.ezcountry.is_multiple',
+                    'label' => /** @Desc("Multiple choice") */ 'field_definition.ibexa_country.is_multiple',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -41,7 +42,7 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
                             'multiple' => true,
                             'expanded' => false,
                             'required' => false,
-                            'label' => /** @Desc("Default country") */ 'field_definition.ezcountry.default_value',
+                            'label' => /** @Desc("Default country") */ 'field_definition.ibexa_country.default_value',
                             'disabled' => $isTranslation,
                         ]
                     )
@@ -53,7 +54,7 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
     /**
      * Fake method to set the translation domain for the extractor.
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -61,5 +62,3 @@ class CountryFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(CountryFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\CountryFormMapper');

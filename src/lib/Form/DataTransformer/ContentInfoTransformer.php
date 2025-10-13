@@ -17,20 +17,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between a Content's ID and a domain specific ContentInfo object.
  */
-final class ContentInfoTransformer implements DataTransformerInterface
+final readonly class ContentInfoTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    public function __construct(ContentService $contentService)
+    public function __construct(private ContentService $contentService)
     {
-        $this->contentService = $contentService;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $value
-     */
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -40,13 +33,13 @@ final class ContentInfoTransformer implements DataTransformerInterface
             throw new TransformationFailedException('Expected a ' . ContentInfo::class . ' object.');
         }
 
-        return $value->id;
+        return $value->getId();
     }
 
     /**
      * @param int|string|null $value
      */
-    public function reverseTransform($value): ?ContentInfo
+    public function reverseTransform(mixed $value): ?ContentInfo
     {
         if (empty($value)) {
             return null;
@@ -63,5 +56,3 @@ final class ContentInfoTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ContentInfoTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentInfoTransformer');

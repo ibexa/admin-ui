@@ -14,28 +14,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class ContentTypeGroupType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     */
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(protected readonly ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new ContentTypeGroupTransformer($this->contentTypeService));
+        $builder->addModelTransformer(
+            new ContentTypeGroupTransformer($this->contentTypeService)
+        );
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return HiddenType::class;
     }
 }
-
-class_alias(ContentTypeGroupType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType');

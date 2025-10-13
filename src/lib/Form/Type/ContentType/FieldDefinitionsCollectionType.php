@@ -16,17 +16,16 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<array<string, mixed>>
+ */
 final class FieldDefinitionsCollectionType extends AbstractType
 {
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
-    private $fieldsGroupsList;
-
     /**
-     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsList
      */
-    public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
+    public function __construct(private readonly FieldsGroupsList $fieldsGroupsList)
     {
-        $this->fieldsGroupsList = $fieldsGroupsListHelper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

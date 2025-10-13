@@ -9,7 +9,16 @@ import PopupMenuGroup from './popup.menu.group';
 
 const MIN_ITEMS_LIST_HEIGHT = 150;
 
-const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, referenceElement, scrollContainer, onClose }) => {
+const PopupMenu = ({
+    extraClasses = '',
+    footer = null,
+    items = [],
+    onItemClick = () => {},
+    positionOffset = () => ({ x: 0, y: 0 }),
+    referenceElement,
+    scrollContainer = getRootDOMElement(),
+    onClose = () => {},
+}) => {
     const containerRef = useRef();
     const [isRendered, setIsRendered] = useState(false);
     const [itemsListStyles, setItemsListStyles] = useState({
@@ -106,16 +115,6 @@ PopupMenu.propTypes = {
     onItemClick: PropTypes.func,
     positionOffset: PropTypes.func,
     scrollContainer: PropTypes.node,
-};
-
-PopupMenu.defaultProps = {
-    extraClasses: '',
-    footer: null,
-    items: [],
-    onClose: () => {},
-    onItemClick: () => {},
-    positionOffset: () => ({ x: 0, y: 0 }),
-    scrollContainer: getRootDOMElement(),
 };
 
 export default PopupMenu;

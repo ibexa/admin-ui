@@ -20,20 +20,11 @@ final class ContentEditEvent extends Event
 {
     private ?Response $response = null;
 
-    private Content $content;
-
-    private VersionInfo $versionInfo;
-
-    private string $languageCode;
-
     public function __construct(
-        Content $content,
-        VersionInfo $versionInfo,
-        string $languageCode
+        private readonly Content $content,
+        private readonly VersionInfo $versionInfo,
+        private readonly string $languageCode
     ) {
-        $this->content = $content;
-        $this->versionInfo = $versionInfo;
-        $this->languageCode = $languageCode;
     }
 
     public function getContent(): Content

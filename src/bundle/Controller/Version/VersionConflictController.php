@@ -14,31 +14,17 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Symfony\Component\HttpFoundation\Response;
 
-class VersionConflictController extends Controller
+final class VersionConflictController extends Controller
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentService
-     */
-    private $contentService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
-    public function __construct(ContentService $contentService)
-    {
-        $this->contentService = $contentService;
+    public function __construct(
+        private readonly ContentService $contentService
+    ) {
     }
 
     /**
      * Checks if Version has conflict with another published Version.
      *
      * If Version has no conflict, return empty Response. If it has conflict return HTML with content of modal.
-     *
-     * @param int $contentId
-     * @param int $versionNo
-     * @param string $languageCode
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -59,5 +45,3 @@ class VersionConflictController extends Controller
         return new Response();
     }
 }
-
-class_alias(VersionConflictController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Version\VersionConflictController');

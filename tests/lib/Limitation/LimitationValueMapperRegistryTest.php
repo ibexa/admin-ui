@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class LimitationValueMapperRegistryTest extends TestCase
 {
-    public function testGetMappers()
+    public function testGetMappers(): void
     {
         $foo = $this->createMock(LimitationValueMapperInterface::class);
         $bar = $this->createMock(LimitationValueMapperInterface::class);
@@ -26,12 +26,12 @@ class LimitationValueMapperRegistryTest extends TestCase
 
         $result = $registry->getMappers();
 
-        $this->assertCount(2, $result);
-        $this->assertContains($foo, $result);
-        $this->assertContains($bar, $result);
+        self::assertCount(2, $result);
+        self::assertContains($foo, $result);
+        self::assertContains($bar, $result);
     }
 
-    public function testGetMapper()
+    public function testGetMapper(): void
     {
         $foo = $this->createMock(LimitationValueMapperInterface::class);
 
@@ -39,10 +39,10 @@ class LimitationValueMapperRegistryTest extends TestCase
             'foo' => $foo,
         ]);
 
-        $this->assertEquals($foo, $registry->getMapper('foo'));
+        self::assertEquals($foo, $registry->getMapper('foo'));
     }
 
-    public function testGetNonExistingMapper()
+    public function testGetNonExistingMapper(): void
     {
         $this->expectException(ValueMapperNotFoundException::class);
 
@@ -53,25 +53,23 @@ class LimitationValueMapperRegistryTest extends TestCase
         $registry->getMapper('bar');
     }
 
-    public function testAddMapper()
+    public function testAddMapper(): void
     {
         $foo = $this->createMock(LimitationValueMapperInterface::class);
 
         $registry = new LimitationValueMapperRegistry();
         $registry->addMapper($foo, 'foo');
 
-        $this->assertTrue($registry->hasMapper('foo'));
+        self::assertTrue($registry->hasMapper('foo'));
     }
 
-    public function testHasMapper()
+    public function testHasMapper(): void
     {
         $registry = new LimitationValueMapperRegistry([
             'foo' => $this->createMock(LimitationValueMapperInterface::class),
         ]);
 
-        $this->assertTrue($registry->hasMapper('foo'));
-        $this->assertFalse($registry->hasMapper('bar'));
+        self::assertTrue($registry->hasMapper('foo'));
+        self::assertFalse($registry->hasMapper('bar'));
     }
 }
-
-class_alias(LimitationValueMapperRegistryTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\LimitationValueMapperRegistryTest');

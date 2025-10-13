@@ -8,30 +8,19 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Role;
 
-class RoleCreateData
+final class RoleCreateData
 {
-    /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return RoleCreateData
-     */
-    public function setIdentifier(string $identifier): self
+    public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
 
         return $this;
     }
 }
-
-class_alias(RoleCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleCreateData');

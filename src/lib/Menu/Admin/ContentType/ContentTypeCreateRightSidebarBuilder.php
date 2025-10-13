@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
@@ -16,12 +17,11 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
  *
  * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
  */
-class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSidebarBuilder implements TranslationContainerInterface
+final class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSidebarBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__SAVE = 'content_type_create__sidebar_right__save';
-    public const ITEM__PUBLISH_AND_EDIT = 'content_type_create__sidebar_right__publish_and_edit';
-    public const ITEM__CANCEL = 'content_type_create__sidebar_right__cancel';
+    public const string ITEM__SAVE = 'content_type_create__sidebar_right__save';
+    public const string ITEM__PUBLISH_AND_EDIT = 'content_type_create__sidebar_right__publish_and_edit';
+    public const string ITEM__CANCEL = 'content_type_create__sidebar_right__cancel';
 
     protected function getConfigureEventName(): string
     {
@@ -55,5 +55,3 @@ class ContentTypeCreateRightSidebarBuilder extends AbstractContentTypeRightSideb
         return self::ITEM__CANCEL;
     }
 }
-
-class_alias(ContentTypeCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\ContentType\ContentTypeCreateRightSidebarBuilder');

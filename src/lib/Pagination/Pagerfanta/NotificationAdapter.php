@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
@@ -13,30 +14,19 @@ use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
- * Pagerfanta adapter for Ibexa content search.
- * Will return results as notification list.
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification>
  */
-class NotificationAdapter implements AdapterInterface
+final class NotificationAdapter implements AdapterInterface
 {
-    private NotificationService $notificationService;
-
-    private NotificationQuery $query;
-
+    /** @phpstan-var int<0, max> */
     private int $nbResults;
 
     public function __construct(
-        NotificationService $notificationService,
-        NotificationQuery $query
+        private readonly NotificationService $notificationService,
+        private readonly NotificationQuery $query
     ) {
-        $this->notificationService = $notificationService;
-        $this->query = $query;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
     public function getNbResults(): int
     {
         if (isset($this->nbResults)) {
@@ -50,15 +40,7 @@ class NotificationAdapter implements AdapterInterface
         return $this->nbResults = $this->notificationService->getNotificationCount($query);
     }
 
-    /**
-     * Returns a slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList
-     */
-    public function getSlice($offset, $length): NotificationList
+    public function getSlice(int $offset, int $length): NotificationList
     {
         $query = clone $this->query;
         $query->setOffset($offset);
@@ -70,5 +52,3 @@ class NotificationAdapter implements AdapterInterface
         return $notifications;
     }
 }
-
-class_alias(NotificationAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\NotificationAdapter');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -16,20 +17,20 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezfloat FieldType.
+ * FormMapper for ibexa_float FieldType.
  */
-class FloatFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class FloatFormMapper implements FieldDefinitionFormMapperInterface
 {
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $fieldDefinition): void
+    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
-        $isTranslation = $fieldDefinition->contentTypeData->languageCode !== $fieldDefinition->contentTypeData->mainLanguageCode;
+        $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $defaultValueForm = $fieldDefinitionForm
             ->getConfig()
             ->getFormFactory()
             ->createBuilder()
             ->create('defaultValue', FloatFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezfloat.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_float.default_value',
                 'disabled' => $isTranslation,
             ])
             ->setAutoInitialize(false)
@@ -42,7 +43,7 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[FloatValueValidator][minFloatValue]',
-                    'label' => /** @Desc("Minimum value") */ 'field_definition.ezfloat.min_value',
+                    'label' => /** @Desc("Minimum value") */ 'field_definition.ibexa_float.min_value',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -52,14 +53,14 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'validatorConfiguration[FloatValueValidator][maxFloatValue]',
-                    'label' => /** @Desc("Maximum value") */ 'field_definition.ezfloat.max_value',
+                    'label' => /** @Desc("Maximum value") */ 'field_definition.ibexa_float.max_value',
                     'disabled' => $isTranslation,
                 ]
             )
             ->add($defaultValueForm);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -67,5 +68,3 @@ class FloatFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(FloatFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\FloatFormMapper');

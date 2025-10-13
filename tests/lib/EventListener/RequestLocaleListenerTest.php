@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RequestLocaleListenerTest extends TestCase
 {
@@ -28,20 +29,15 @@ class RequestLocaleListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    /** @var \Symfony\Component\HttpFoundation\Request */
-    private $request;
+    private Request&MockObject $request;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\HttpKernelInterface */
-    private $httpKernel;
+    private HttpKernelInterface&MockObject $httpKernel;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
+    private TranslatorInterface&MockObject $translator;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
+    private UserLanguagePreferenceProviderInterface&MockObject $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
     protected function setUp(): void
     {
@@ -79,7 +75,7 @@ class RequestLocaleListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $requestLocaleListener = new RequestLocaleListener(
@@ -121,19 +117,19 @@ class RequestLocaleListenerTest extends TestCase
     public function testLocaleIsSet(): void
     {
         $this->translator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
 
         $this->request
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
 
         $event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->userLanguagePreferenceProvider
@@ -154,19 +150,19 @@ class RequestLocaleListenerTest extends TestCase
     public function testLocaleIsSetWithoutAvailableTranslation(): void
     {
         $this->translator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
 
         $this->request
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('en_US');
 
         $event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $this->userLanguagePreferenceProvider
@@ -194,7 +190,7 @@ class RequestLocaleListenerTest extends TestCase
             $this->configResolver
         );
 
-        $this->assertSame([KernelEvents::REQUEST => ['onKernelRequest', 6]], $requestLocaleListener::getSubscribedEvents());
+        self::assertSame([KernelEvents::REQUEST => ['onKernelRequest', 6]], $requestLocaleListener::getSubscribedEvents());
     }
 
     public function testNonSiteaccessInRequest(): void
@@ -207,7 +203,7 @@ class RequestLocaleListenerTest extends TestCase
         $event = new RequestEvent(
             $this->httpKernel,
             $this->request,
-            HttpKernelInterface::MASTER_REQUEST
+            HttpKernelInterface::MAIN_REQUEST
         );
 
         $requestLocaleListener = new RequestLocaleListener(
@@ -230,7 +226,7 @@ class RequestLocaleListenerTest extends TestCase
     {
         $translator = $this->createMock(Translator::class);
         $translator
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setLocale');
 
         return $translator;
@@ -246,11 +242,9 @@ class RequestLocaleListenerTest extends TestCase
             ->setMethods(['getSession', 'hasSession', 'setLocale'])
             ->getMock();
         $request
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setLocale');
 
         return $request;
     }
 }
-
-class_alias(RequestLocaleListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\RequestLocaleListenerTest');

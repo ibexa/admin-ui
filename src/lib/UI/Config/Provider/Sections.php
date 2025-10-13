@@ -14,17 +14,16 @@ use Ibexa\Contracts\Core\Repository\SectionService;
 /**
  * Provides information about sections.
  */
-class Sections implements ProviderInterface
+final readonly class Sections implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
-
     public function __construct(
-        SectionService $sectionService
+        private SectionService $sectionService
     ) {
-        $this->sectionService = $sectionService;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getConfig(): array
     {
         $sections = $this->sectionService->loadSections();
@@ -32,11 +31,9 @@ class Sections implements ProviderInterface
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section $section */
         foreach ($sections as $section) {
-            $config[$section->identifier] = $section->name;
+            $config[$section->getIdentifier()] = $section->getName();
         }
 
         return $config;
     }
 }
-
-class_alias(Sections::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Sections');

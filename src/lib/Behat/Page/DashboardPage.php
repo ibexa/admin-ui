@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -18,32 +19,50 @@ use Ibexa\Behat\Browser\Routing\Router;
 
 class DashboardPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    protected $table;
+    protected TableInterface $table;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder
+    ) {
         parent::__construct($session, $router);
-        $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('table'))->build();
+
+        $this->table = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('table'))
+            ->build();
     }
 
-    public function switchTab(string $tableName, string $tabName)
+    public function switchTab(string $tableName, string $tabName): void
     {
         if ($this->getActiveTabName($tableName) == $tabName) {
             return;
-        } else {
-            $this->getHTMLPage()
-            ->findAll($this->getLocator('tableSelector'))->getByCriterion(new ChildElementTextCriterion($this->getLocator('tableTitle'), $tableName))
-            ->findAll($this->getLocator('tableTab'))->getByCriterion(new ElementTextCriterion($tabName))
-            ->click()
-            ;
         }
+
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('tableSelector'))
+            ->getByCriterion(
+                new ChildElementTextCriterion(
+                    $this->getLocator('tableTitle'),
+                    $tableName
+                )
+            )
+            ->findAll($this->getLocator('tableTab'))
+            ->getByCriterion(new ElementTextCriterion($tabName))
+            ->click();
     }
 
     public function getActiveTabName(string $tableName): string
     {
         return $this->getHTMLPage()
-            ->findAll($this->getLocator('tableSelector'))->getByCriterion(new ChildElementTextCriterion($this->getLocator('tableTitle'), $tableName))
+            ->findAll($this->getLocator('tableSelector'))
+            ->getByCriterion(
+                new ChildElementTextCriterion(
+                    $this->getLocator('tableTitle'),
+                    $tableName
+                )
+            )
             ->find($this->getLocator('activeTabLink'))->getText();
     }
 
@@ -52,7 +71,7 @@ class DashboardPage extends Page
         return $this->table->isEmpty();
     }
 
-    public function editDraft(string $contentDraftName)
+    public function editDraft(string $contentDraftName): void
     {
         $this->table->getTableRow(['Name' => $contentDraftName])->edit();
     }
@@ -66,8 +85,14 @@ class DashboardPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('My dashboard');
-        $this->getHTMLPage()->findAll($this->getLocator('tableTitle'))
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('pageTitle'))
+            ->assert()
+            ->textEquals('My dashboard');
+
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('tableTitle'))
             ->getByCriterion(new ElementTextCriterion('My content'))
             ->assert()->isVisible();
     }

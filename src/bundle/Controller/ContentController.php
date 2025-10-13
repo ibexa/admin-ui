@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -31,7 +32,6 @@ use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterfac
 use Ibexa\Contracts\AdminUi\PreviewUrlResolver\VersionPreviewUrlResolverInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -53,109 +53,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-class ContentController extends Controller
+final class ContentController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper */
-    private $contentMainLocationUpdateMapper;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface */
-    private $siteaccessResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
-
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface */
-    private $siteAccessNameGenerator;
-
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
-    private $eventDispatcher;
-
-    private FormFactoryInterface $baseFormFactory;
-
-    private VersionPreviewUrlResolverInterface $previewUrlResolver;
-
-    private LanguageService $languageService;
-
-    private SiteAccessServiceInterface $siteAccessService;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ContentService $contentService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ContentMainLocationUpdateMapper $contentMetadataUpdateMapper,
-        SiteaccessResolverInterface $siteaccessResolver,
-        LocationService $locationService,
-        UserService $userService,
-        PermissionResolver $permissionResolver,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        TranslationHelper $translationHelper,
-        ConfigResolverInterface $configResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        EventDispatcherInterface $eventDispatcher,
-        FormFactoryInterface $baseFormFactory,
-        VersionPreviewUrlResolverInterface $previewUrlResolver,
-        LanguageService $languageService,
-        SiteAccessServiceInterface $siteAccessService
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ContentService $contentService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ContentMainLocationUpdateMapper $contentMainLocationUpdateMapper,
+        private readonly SiteaccessResolverInterface $siteaccessResolver,
+        private readonly LocationService $locationService,
+        private readonly UserService $userService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly TranslationHelper $translationHelper,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly FormFactoryInterface $baseFormFactory,
+        private readonly VersionPreviewUrlResolverInterface $previewUrlResolver,
+        private readonly LanguageService $languageService,
+        private readonly SiteAccessServiceInterface $siteAccessService
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->contentService = $contentService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->contentMainLocationUpdateMapper = $contentMetadataUpdateMapper;
-        $this->siteaccessResolver = $siteaccessResolver;
-        $this->locationService = $locationService;
-        $this->userService = $userService;
-        $this->permissionResolver = $permissionResolver;
-        $this->translationHelper = $translationHelper;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->configResolver = $configResolver;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->baseFormFactory = $baseFormFactory;
-        $this->previewUrlResolver = $previewUrlResolver;
-        $this->languageService = $languageService;
-        $this->siteAccessService = $siteAccessService;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws ApiException\ContentValidationException
-     * @throws ApiException\ContentFieldValidationException
      */
     public function createAction(Request $request): Response
     {
@@ -164,23 +88,33 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentCreateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentCreateData $data): RedirectResponse {
                 $contentType = $data->getContentType();
+                if ($contentType === null) {
+                    throw new BadStateException(
+                        '$contentType',
+                        'Content type is not set'
+                    );
+                }
+
                 $language = $data->getLanguage();
                 $parentLocation = $data->getParentLocation();
 
-                if ((new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))->isSatisfiedBy($contentType)) {
+                if (
+                    (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
+                    ->isSatisfiedBy($contentType)
+                ) {
                     return $this->redirectToRoute('ibexa.user.create', [
-                        'contentTypeIdentifier' => $contentType->identifier,
-                        'language' => $language->languageCode,
-                        'parentLocationId' => $parentLocation->id,
+                        'contentTypeIdentifier' => $contentType->getIdentifier(),
+                        'language' => $language->getLanguageCode(),
+                        'parentLocationId' => $parentLocation->getId(),
                     ]);
                 }
 
                 return $this->redirectToRoute('ibexa.content.create.proxy', [
-                    'contentTypeIdentifier' => $contentType->identifier,
-                    'languageCode' => $language->languageCode,
-                    'parentLocationId' => $parentLocation->id,
+                    'contentTypeIdentifier' => $contentType->getIdentifier(),
+                    'languageCode' => $language->getLanguageCode(),
+                    'parentLocationId' => $parentLocation->getId(),
                 ]);
             });
 
@@ -189,7 +123,7 @@ class ContentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.dashboard'));
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 
     public function proxyCreateAction(
@@ -213,19 +147,14 @@ class ContentController extends Controller
 
         // Fallback to "nodraft"
         return $this->redirectToRoute('ibexa.content.create_no_draft', [
-            'contentTypeIdentifier' => $contentType->identifier,
+            'contentTypeIdentifier' => $contentType->getIdentifier(),
             'language' => $languageCode,
             'parentLocationId' => $parentLocationId,
         ]);
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function editAction(Request $request): Response
@@ -242,20 +171,20 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentEditData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentEditData $data): Response {
                 $contentInfo = $data->getContentInfo();
                 $language = $data->getLanguage();
                 $location = $data->getLocation();
 
-                $content = $this->contentService->loadContent($contentInfo->id);
+                $content = $this->contentService->loadContent($contentInfo->getId());
                 $versionInfo = $data->getVersionInfo() ?? $content->getVersionInfo();
-                $versionNo = $versionInfo->versionNo;
+                $versionNo = $versionInfo->getVersionNo();
 
                 if ((new ContentIsUser($this->userService))->isSatisfiedBy($content)) {
                     return $this->redirectToRoute('ibexa.user.update', [
-                        'contentId' => $contentInfo->id,
+                        'contentId' => $contentInfo->getId(),
                         'versionNo' => $versionNo,
-                        'language' => $language->languageCode,
+                        'language' => $language->getLanguageCode(),
                     ]);
                 }
 
@@ -264,7 +193,7 @@ class ContentController extends Controller
                     new ContentEditEvent(
                         $content,
                         $versionInfo,
-                        $language->languageCode
+                        $language->getLanguageCode()
                     )
                 );
 
@@ -274,7 +203,7 @@ class ContentController extends Controller
 
                 if (!$versionInfo->isDraft()) {
                     $contentDraft = $this->contentService->createContentDraft($contentInfo, $versionInfo, null, $language);
-                    $versionNo = $contentDraft->getVersionInfo()->versionNo;
+                    $versionNo = $contentDraft->getVersionInfo()->getVersionNo();
 
                     $this->notificationHandler->success(
                         /** @Desc("Created a new draft for '%name%'.") */
@@ -285,12 +214,12 @@ class ContentController extends Controller
                 }
 
                 return $this->redirectToRoute('ibexa.content.draft.edit', [
-                    'contentId' => $contentInfo->id,
+                    'contentId' => $contentInfo->getId(),
                     'versionNo' => $versionNo,
-                    'language' => $language->languageCode,
+                    'language' => $language->getLanguageCode(),
                     'locationId' => null !== $location
-                        ? $location->id
-                        : $contentInfo->mainLocationId,
+                        ? $location->getId()
+                        : $contentInfo->getMainLocationId(),
                 ]);
             });
 
@@ -305,8 +234,8 @@ class ContentController extends Controller
 
         if (null !== $contentInfo) {
             return $this->redirectToRoute('ibexa.content.view', [
-                'contentId' => $contentInfo->id,
-                'locationId' => $contentInfo->mainLocationId,
+                'contentId' => $contentInfo->getId(),
+                'locationId' => $contentInfo->getMainLocationId(),
             ]);
         }
 
@@ -314,15 +243,8 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function updateMainLocationAction(Request $request): Response
@@ -331,8 +253,8 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentMainLocationUpdateData $data) {
-                $contentInfo = $data->getContentInfo();
+            $result = $this->submitHandler->handle($form, function (ContentMainLocationUpdateData $data): RedirectResponse {
+                $contentInfo = $data->contentInfo;
 
                 $contentMetadataUpdateStruct = $this->contentMainLocationUpdateMapper->reverseMap($data);
 
@@ -346,8 +268,8 @@ class ContentController extends Controller
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
+                    'contentId' => $contentInfo->getId(),
+                    'locationId' => $contentInfo->getMainLocationId(),
                     '_fragment' => 'ibexa-tab-location-view-locations',
                 ]));
             });
@@ -363,8 +285,8 @@ class ContentController extends Controller
 
         if (null !== $contentInfo) {
             return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                'contentId' => $contentInfo->id,
-                'locationId' => $contentInfo->mainLocationId,
+                'contentId' => $contentInfo->getId(),
+                'locationId' => $contentInfo->getMainLocationId(),
                 '_fragment' => 'ibexa-tab-location-view-locations',
             ]));
         }
@@ -372,14 +294,6 @@ class ContentController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param string|null $languageCode
-     * @param int|null $versionNo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function previewAction(
         Request $request,
         Content $content,
@@ -390,19 +304,21 @@ class ContentController extends Controller
         $referrer = $request->query->get('referrer');
 
         if (null === $languageCode) {
-            $languageCode = $content->contentInfo->mainLanguageCode;
+            $languageCode = $content->getContentInfo()->getMainLanguageCode();
         }
 
         // nonpublished content should use parent location instead because location doesn't exist yet
-        if (!$content->contentInfo->published && null === $content->contentInfo->mainLocationId) {
-            $versionInfo = $this->contentService->loadVersionInfo($content->contentInfo, $versionNo);
+        if (!$content->getContentInfo()->isPublished() && null === $content->getContentInfo()->getMainLocationId()) {
+            $versionInfo = $this->contentService->loadVersionInfo($content->getContentInfo(), $versionNo);
             $parentLocations = $this->locationService->loadParentLocationsForDraftContent($versionInfo);
             $location = reset($parentLocations);
             $versionNo = null;
         }
 
         if (!$location instanceof Location) {
-            $location = $this->locationService->loadLocation($content->contentInfo->mainLocationId);
+            $location = $this->locationService->loadLocation(
+                $content->getContentInfo()->getMainLocationId()
+            );
         }
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation($location, $versionNo, $languageCode);
@@ -448,28 +364,23 @@ class ContentController extends Controller
             'content' => $content,
             'language_code' => $languageCode,
             'siteaccesses' => $siteAccessesList,
-            'site_access_form' => $siteAccessSelector->createView(),
-            'version_no' => $versionNo ?? $content->getVersionInfo()->versionNo,
+            'site_access_form' => $siteAccessSelector,
+            'version_no' => $versionNo ?? $content->getVersionInfo()->getVersionNo(),
             'preselected_site_access' => $preselectedSiteAccessName,
             'referrer' => $referrer ?? 'content_draft_edit',
             'preview_url' => $previewUrl,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateMainTranslationAction(Request $request): Response
     {
         $form = $this->createForm(MainTranslationUpdateType::class, new MainTranslationUpdateData());
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (MainTranslationUpdateData $data) {
-                $content = $data->getContent();
-                $contentInfo = $content->contentInfo;
+            $result = $this->submitHandler->handle($form, function (MainTranslationUpdateData $data): RedirectResponse {
+                $content = $data->content;
+                $contentInfo = $content->getContentInfo();
                 $mapper = new MainTranslationUpdateMapper();
                 $contentMetadataUpdateStruct = $mapper->reverseMap($data);
                 $this->contentService->updateContentMetadata($contentInfo, $contentMetadataUpdateStruct);
@@ -481,8 +392,8 @@ class ContentController extends Controller
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
+                    'contentId' => $contentInfo->getId(),
+                    'locationId' => $contentInfo->getMainLocationId(),
                     '_fragment' => 'ibexa-tab-location-view-translations',
                 ]));
             });
@@ -492,11 +403,11 @@ class ContentController extends Controller
         }
         /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data */
         $data = $form->getData();
-        $contentInfo = $data->getContentInfo();
+        $contentInfo = $data->content;
         if (null !== $contentInfo) {
             return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                'contentId' => $contentInfo->id,
-                'locationId' => $contentInfo->mainLocationId,
+                'contentId' => $contentInfo->getId(),
+                'locationId' => $contentInfo->getContentInfo()->getMainLocationId(),
                 '_fragment' => 'ibexa-tab-location-view-translations',
             ]));
         }
@@ -504,11 +415,6 @@ class ContentController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateVisibilityAction(Request $request): Response
     {
         $formName = $request->query->get('formName');
@@ -517,7 +423,7 @@ class ContentController extends Controller
         $result = null;
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentVisibilityUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentVisibilityUpdateData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
                 $contentName = $this->translationHelper->getTranslatedContentNameByContentInfo($contentInfo);
                 $desiredVisibility = $data->getVisible();
@@ -571,11 +477,6 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param string|null $languageCode
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -624,7 +525,7 @@ class ContentController extends Controller
     {
         try {
             $content = $this->contentService->loadContent($contentId);
-        } catch (UnauthorizedException $exception) {
+        } catch (UnauthorizedException) {
             return $this->render('@ibexadesign/content/relation_unauthorized.html.twig', [
                 'contentId' => $contentId,
             ]);
@@ -636,5 +537,3 @@ class ContentController extends Controller
         ]);
     }
 }
-
-class_alias(ContentController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentController');

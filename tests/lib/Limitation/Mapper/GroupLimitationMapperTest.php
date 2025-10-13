@@ -14,13 +14,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class GroupLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $expected = ['policy.limitation.group.self'];
 
         $translatorMock = $this->createMock(TranslatorInterface::class);
         $translatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('trans')
             ->willReturnArgument(0);
 
@@ -29,8 +29,6 @@ class GroupLimitationMapperTest extends TestCase
             'limitationValues' => [1],
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }
-
-class_alias(GroupLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\GroupLimitationMapperTest');

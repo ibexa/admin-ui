@@ -17,17 +17,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between a Section's ID and a domain specific object.
  */
-final class SectionTransformer implements DataTransformerInterface
+final readonly class SectionTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
-
-    public function __construct(SectionService $sectionService)
+    public function __construct(private SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
     }
 
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -40,7 +36,7 @@ final class SectionTransformer implements DataTransformerInterface
         return $value->id;
     }
 
-    public function reverseTransform($value): ?APISection
+    public function reverseTransform(mixed $value): ?APISection
     {
         if (empty($value)) {
             return null;
@@ -57,5 +53,3 @@ final class SectionTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(SectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\SectionTransformer');

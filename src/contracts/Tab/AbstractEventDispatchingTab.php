@@ -21,17 +21,12 @@ use Twig\Environment;
  */
 abstract class AbstractEventDispatchingTab extends AbstractTab
 {
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    protected $eventDispatcher;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        EventDispatcherInterface $eventDispatcher
+        protected readonly EventDispatcherInterface $eventDispatcher
     ) {
         parent::__construct($twig, $translator);
-
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function renderView(array $parameters): string
@@ -58,5 +53,3 @@ abstract class AbstractEventDispatchingTab extends AbstractTab
      */
     abstract public function getTemplateParameters(array $contextParameters = []): array;
 }
-
-class_alias(AbstractEventDispatchingTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractEventDispatchingTab');

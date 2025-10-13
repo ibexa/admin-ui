@@ -11,15 +11,15 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
-class Autosave implements ProviderInterface
+final readonly class Autosave implements ProviderInterface
 {
-    private AutosaveServiceInterface $autosaveService;
-
-    public function __construct(AutosaveServiceInterface $autosaveService)
+    public function __construct(private AutosaveServiceInterface $autosaveService)
     {
-        $this->autosaveService = $autosaveService;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfig(): array
     {
         return [
@@ -28,5 +28,3 @@ class Autosave implements ProviderInterface
         ];
     }
 }
-
-class_alias(Autosave::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Autosave');

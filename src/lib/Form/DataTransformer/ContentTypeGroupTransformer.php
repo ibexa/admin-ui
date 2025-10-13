@@ -17,17 +17,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Translates ContentTypeGroup's ID to domain specific ContentTypeGroup object.
  */
-final class ContentTypeGroupTransformer implements DataTransformerInterface
+final readonly class ContentTypeGroupTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    public function __construct(ContentTypeService $contentTypeService)
+    public function __construct(private ContentTypeService $contentTypeService)
     {
-        $this->contentTypeService = $contentTypeService;
     }
 
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -57,5 +53,3 @@ final class ContentTypeGroupTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ContentTypeGroupTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ContentTypeGroupTransformer');

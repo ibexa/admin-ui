@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
@@ -21,5 +22,3 @@ final class ContentSubtreeQueryType extends SubtreeQueryType
         return $this->configResolver->getParameter(SubtreePath::CONTENT_SUBTREE_PATH);
     }
 }
-
-class_alias(ContentSubtreeQueryType::class, 'EzSystems\EzPlatformAdminUi\QueryType\ContentSubtreeQueryType');

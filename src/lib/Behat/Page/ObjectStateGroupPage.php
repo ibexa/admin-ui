@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -19,29 +20,27 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
 
-class ObjectStateGroupPage extends Page
+final class ObjectStateGroupPage extends Page
 {
-    /** @var string */
-    protected $expectedObjectStateGroupName;
+    protected string $expectedObjectStateGroupName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private TableInterface $objectStates;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $objectStates;
+    private mixed $expectedObjectStateGroupId;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
-    /** @var mixed */
-    private $expectedObjectStateGroupId;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog,
+        private readonly Repository $repository
+    ) {
         parent::__construct($session, $router);
-        $this->dialog = $dialog;
-        $this->objectStates = $tableBuilder->newTable()->withParentLocator($this->getLocator('objectStatesTable'))->build();
-        $this->repository = $repository;
+
+        $this->objectStates = $tableBuilder
+            ->newTable()
+            ->withParentLocator($this->getLocator('objectStatesTable'))
+            ->build();
     }
 
     public function editObjectState(string $itemName): void
@@ -59,7 +58,7 @@ class ObjectStateGroupPage extends Page
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
-        $objectStateGroups = $this->repository->sudo(function () {
+        $objectStateGroups = $this->repository->sudo(function (): iterable {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });
 
@@ -75,13 +74,13 @@ class ObjectStateGroupPage extends Page
         return count($this->objectStates->getColumnValues(['Object state name'])) > 0;
     }
 
-    public function hasAttribute($label, $value): bool
+    public function hasAttribute(string $label, string $value): bool
     {
         return $this->getHTMLPage()
-                    ->findAll($this->getLocator('objectStateGroupAttribute'))
-                    ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
-                    ->find($this->getLocator('value'))
-                    ->getText() === $value;
+            ->findAll($this->getLocator('objectStateGroupAttribute'))
+            ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))
+            ->find($this->getLocator('value'))
+            ->getText() === $value;
     }
 
     public function hasObjectState(string $objectStateName): bool
@@ -89,7 +88,7 @@ class ObjectStateGroupPage extends Page
         return $this->objectStates->hasElement(['Object state name' => $objectStateName]);
     }
 
-    public function deleteObjectState(string $objectStateName)
+    public function deleteObjectState(string $objectStateName): void
     {
         $this->objectStates->getTableRow(['Object state name' => $objectStateName])->select();
         $this->getHTMLPage()->find($this->getLocator('deleteButton'))->click();
@@ -97,7 +96,7 @@ class ObjectStateGroupPage extends Page
         $this->dialog->confirm();
     }
 
-    public function edit()
+    public function edit(): void
     {
         $this->getHTMLPage()
             ->findAll($this->getLocator('button'))

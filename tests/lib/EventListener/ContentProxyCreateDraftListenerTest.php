@@ -84,7 +84,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $content = $this->createMock(Content::class);
         $content
             ->method('__get')
-            ->will($this->returnCallback(static function ($argument) use ($contentInfo) {
+            ->will(self::returnCallback(static function ($argument) use ($contentInfo): ?ContentInfo {
                 if ($argument === 'contentInfo') {
                     return $contentInfo;
                 }
@@ -129,7 +129,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
         $eventDispatcher->dispatch($createEvent);
 
-        $this->assertEquals(new RedirectResponse('redirect_on_the_fly_test_url'), $createEvent->getResponse());
+        self::assertEquals(new RedirectResponse('redirect_on_the_fly_test_url'), $createEvent->getResponse());
         self::assertInstanceOf(
             Content::class,
             $createEvent->getOptions()->get('contentDraft')
@@ -162,8 +162,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             ]);
 
         $content
-            ->method('__get')
-            ->with('contentInfo')
+            ->method('getContentInfo')
             ->willReturn($contentInfo);
 
         $contentService = $this->createMock(ContentService::class);
@@ -206,7 +205,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
         $eventDispatcher->dispatch($translateEvent, ContentProxyTranslateEvent::class);
 
-        $this->assertEquals(new RedirectResponse('redirect_test_url'), $translateEvent->getResponse());
+        self::assertEquals(new RedirectResponse('redirect_test_url'), $translateEvent->getResponse());
     }
 
     public function testAutosaveDisabled(): void
@@ -216,17 +215,17 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
         $contentService = $this->createMock(ContentService::class);
         $contentService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('createContent');
 
         $createEvent = $this->createMock(ContentProxyCreateEvent::class);
         $createEvent
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setResponse');
 
         $createOnTheFlyEvent = $this->createMock(ContentProxyCreateEvent::class);
         $createOnTheFlyEvent
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setResponse');
 
         $createOnTheFlyEvent
@@ -237,7 +236,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
 
         $translateEvent = $this->createMock(ContentProxyTranslateEvent::class);
         $translateEvent
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setResponse');
 
         $eventDispatcher = new EventDispatcher();
@@ -255,6 +254,9 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         $eventDispatcher->dispatch($translateEvent, ContentProxyTranslateEvent::class);
     }
 
+    /**
+     * @param \Ibexa\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefs
+     */
     private function getContentType(array $fieldDefs = []): ContentType
     {
         return new ContentType([
@@ -262,8 +264,10 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         ]);
     }
 
-    private function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
-    {
+    private function getFieldDefinition(
+        string $identifier = 'identifier',
+        bool $isTranslatable = false
+    ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $identifier,
             'defaultValue' => $this->createMock(Value::class),
@@ -271,5 +275,3 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
         ]);
     }
 }
-
-class_alias(ContentProxyCreateDraftListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\ContentProxyCreateDraftListenerTest');

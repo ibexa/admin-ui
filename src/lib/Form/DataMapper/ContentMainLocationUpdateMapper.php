@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataMapper;
 
@@ -17,28 +18,26 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 /**
  * Maps between ContentMetadataUpdateStruct and ContentMetadataUpdateData objects.
  */
-class ContentMainLocationUpdateMapper implements DataMapperInterface
+final readonly class ContentMainLocationUpdateMapper implements DataMapperInterface
 {
-    private LocationService $locationService;
-
-    public function __construct(LocationService $locationService)
+    public function __construct(private LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     /**
      * Maps given ContentMetadataUpdateStruct object to a ContentMainLocationUpdateData object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
-    public function map(ValueObject $value): ContentMainLocationUpdateData
+    public function map(ValueObject|ContentMetadataUpdateStruct $value): ContentMainLocationUpdateData
     {
         if (!$value instanceof ContentMetadataUpdateStruct) {
-            throw new InvalidArgumentException('value', 'must be an instance of ' . ContentMetadataUpdateStruct::class);
+            throw new InvalidArgumentException(
+                'value',
+                'must be an instance of ' . ContentMetadataUpdateStruct::class
+            );
         }
 
         $data = new ContentMainLocationUpdateData();
@@ -54,21 +53,11 @@ class ContentMainLocationUpdateMapper implements DataMapperInterface
      * Maps given ContentMainLocationUpdateData object to a ContentMetadataUpdateStruct object.
      *
      * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData $data
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    public function reverseMap($data): ContentMetadataUpdateStruct
+    public function reverseMap(mixed $data): ContentMetadataUpdateStruct
     {
-        if (!$data instanceof ContentMainLocationUpdateData) {
-            throw new InvalidArgumentException('data', 'must be an instance of ' . ContentMainLocationUpdateData::class);
-        }
-
         return new ContentMetadataUpdateStruct([
-            'mainLocationId' => $data->getLocation()->id,
+            'mainLocationId' => $data->location?->getId(),
         ]);
     }
 }
-
-class_alias(ContentMainLocationUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\ContentMainLocationUpdateMapper');
