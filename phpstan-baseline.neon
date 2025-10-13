@@ -6643,12 +6643,6 @@ parameters:
 			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:transform\(\) has parameter \$value with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -6877,12 +6871,6 @@ parameters:
 			path: src/lib/Form/DataTransformer/LanguageTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/lib/Form/DataTransformer/LanguageTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
@@ -7101,12 +7089,6 @@ parameters:
 		-
 			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\User\\User and Ibexa\\Contracts\\Core\\Repository\\Values\\User\\User will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
-			count: 1
-			path: src/lib/Form/DataTransformer/UserTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UserTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
 			count: 1
 			path: src/lib/Form/DataTransformer/UserTransformer.php
 
