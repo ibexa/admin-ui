@@ -33,19 +33,4 @@
             }
         }
     }
-
-    .flatpickr-current-month {
-        .flatpickr-monthDropdown-months,
-        .flatpickr-monthDropdown-months:hover {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-
-            padding-right: calculateRem(20px);
-            background-image: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-45 12 24)"><path d="M12 8 V24 M12 24 H28" stroke="%23131c26" stroke-width="2" fill="none"/></g></svg>');
-            background-repeat: no-repeat;
-            background-position: right;
-            background-size: calculateRem(16px) auto;
-            background-color: transparent;
-        }
-    }
 }
