@@ -27,8 +27,7 @@ jobs:
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaHeadless'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
-            test-setup-phase-3: '--profile=setup --suite=user-settings --mode=standard'
-            job-count: 3
+            job-count: 2
             timeout: 40
         secrets: inherit
     admin-ui-experience-commerce:
@@ -39,8 +38,7 @@ jobs:
             test-suite: '--profile=browser --suite=admin-ui-full --tags=@IbexaExperience,@IbexaCommerce'
             test-setup-phase-1: '--profile=setup --suite=personas --mode=standard'
             test-setup-phase-2: '--profile=setup --suite=content-translation --mode=standard'
-            test-setup-phase-3: '--profile=setup --suite=user-settings --mode=standard'
-            job-count: 3
+            job-count: 2
             timeout: 40
         secrets: inherit
     page-builder:
@@ -50,7 +48,5 @@ jobs:
             project-edition: 'experience'
             test-suite:  '--profile=browser --suite=personas'
             test-setup-phase-1: '--profile=setup --suite=personas --tags=@setup --mode=standard'
-            test-setup-phase-2: '--profile=setup --suite=user-settings --mode=standard'
-            job-count: 2
             timeout: 40
         secrets: inherit
