@@ -37,7 +37,7 @@ class UserSettingsPage extends Page
     public function verifyIsLoaded(): void
     {
         $pageHeaderText = $this->getHTMLPage()->find($this->getLocator('title'))->getText();
-        Assert::AssertContains($pageHeaderText, ['User settings', 'Content authoring']);
+        Assert::AssertContains($pageHeaderText, ['User settings', 'Content authoring', 'Browsing']);
     }
 
     public function switchTab(string $tabName): void
@@ -109,7 +109,7 @@ class UserSettingsPage extends Page
     public function disableHelpCenter(): void
     {
         $this->contentActionsMenu->verifyIsLoaded();
-        $this->getHTMLPage()->find($this->getLocator('autosaveDraftValueDropdown'))->click();
+        $this->getHTMLPage()->find($this->getLocator('helpCenterValueDropdown'))->click();
         $this->ibexaDropdown->selectOption('Disabled');
     }
 }
