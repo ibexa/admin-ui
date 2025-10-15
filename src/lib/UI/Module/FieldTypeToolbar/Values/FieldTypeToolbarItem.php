@@ -8,22 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values;
 
-final class FieldTypeToolbarItem
+final readonly class FieldTypeToolbarItem
 {
-    /** @var string */
-    private $identifier;
-
-    /** @var string */
-    private $name;
-
-    /** @var bool */
-    private $isSingular;
-
-    public function __construct(string $identifier, string $name, bool $isSingular = false)
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->isSingular = $isSingular;
+    public function __construct(
+        private string $identifier,
+        private string $name,
+        private bool $isSingular = false
+    ) {
     }
 
     public function getIdentifier(): string

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
-const Collapsible = ({ isInitiallyExpanded, title, children }) => {
+const Collapsible = ({ isInitiallyExpanded = false, title, children }) => {
     const [isExpanded, setIsExpanded] = useState(isInitiallyExpanded);
     const className = createCssClassNames({
         'c-collapsible': true,
@@ -31,10 +31,6 @@ Collapsible.propTypes = {
     title: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
     isInitiallyExpanded: PropTypes.bool,
-};
-
-Collapsible.defaultProps = {
-    isInitiallyExpanded: false,
 };
 
 export default Collapsible;

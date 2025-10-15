@@ -30,35 +30,15 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RoleAssignmentController extends Controller
+final class RoleAssignmentController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        RoleService $roleService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly RoleService $roleService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->roleService = $roleService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
     public function listAction(
@@ -77,7 +57,7 @@ class RoleAssignmentController extends Controller
 
         // If user has no permission to content/read than he should see empty table.
         try {
-            /** @var \eZ\Publish\API\Repository\Values\User\RoleAssignment[] $assignments */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $assignments */
             $assignments = $pagerfanta->getCurrentPageResults();
         } catch (UnauthorizedException $e) {
             $assignments = [];
@@ -89,19 +69,13 @@ class RoleAssignmentController extends Controller
 
         return $this->render('@ibexadesign/user/role_assignment/list.html.twig', [
             'role' => $role,
-            'form_role_assignments_delete' => $deleteRoleAssignmentsForm->createView(),
+            'form_role_assignments_delete' => $deleteRoleAssignmentsForm,
             'pager' => $pagerfanta,
             'route_name' => $routeName,
             'can_assign' => $this->isGranted(new Attribute('role', 'assign')),
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
@@ -109,7 +83,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentCreateData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentCreateData $data) use ($role): RedirectResponse {
                 foreach ($this->createLimitations($data) as $limitation) {
                     foreach ($data->getUsers() as $user) {
                         $this->roleService->assignRoleToUser($role, $user, $limitation);
@@ -139,17 +113,10 @@ class RoleAssignmentController extends Controller
 
         return $this->render('@ibexadesign/user/role_assignment/create.html.twig', [
             'role' => $role,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, Role $role, RoleAssignment $roleAssignment): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
@@ -159,7 +126,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentDeleteData $data) use ($role): RedirectResponse {
                 $roleAssignment = $data->getRoleAssignment();
                 $this->roleService->removeRoleAssignment($roleAssignment);
 
@@ -180,19 +147,11 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.role.view', [
+        return $this->redirectToRoute('ibexa.role.view', [
             'roleId' => $role->id,
-        ]));
+        ]);
     }
 
-    /**
-     * Handles removing role assignments based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request, Role $role): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
@@ -202,7 +161,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentsDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentsDeleteData $data) use ($role): RedirectResponse {
                 foreach ($data->getRoleAssignments() as $roleAssignmentId => $selected) {
                     $roleAssignment = $this->roleService->loadRoleAssignment($roleAssignmentId);
                     $this->roleService->removeRoleAssignment($roleAssignment);
@@ -226,15 +185,15 @@ class RoleAssignmentController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.role.view', [
+        return $this->redirectToRoute('ibexa.role.view', [
             'roleId' => $role->id,
-        ]));
+        ]);
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getRoleAssignmentsNumbers(array $roleAssignments): array
     {
@@ -244,8 +203,6 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData $data
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation[]
      */
     private function createLimitations(RoleAssignmentCreateData $data): array
@@ -278,5 +235,3 @@ class RoleAssignmentController extends Controller
         return $limitations;
     }
 }
-
-class_alias(RoleAssignmentController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\RoleAssignmentController');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
@@ -17,8 +18,6 @@ use Ibexa\ContentForms\Data\Mapper\UserUpdateMapper;
 use Ibexa\ContentForms\Form\Type\User\UserCreateType;
 use Ibexa\ContentForms\Form\Type\User\UserUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -31,66 +30,25 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Base\Exceptions\UnauthorizedException;
-use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\View\BaseView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class UserOnTheFlyController extends Controller
+final class UserOnTheFlyController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $userLanguagePreferenceProvider;
-
-    /** @var \Ibexa\AdminUi\Form\ActionDispatcher\CreateUserOnTheFlyDispatcher */
-    private $createUserActionDispatcher;
-
-    /** @var \Ibexa\AdminUi\Form\ActionDispatcher\EditUserOnTheFlyDispatcher */
-    private $editUserActionDispatcher;
-
     public function __construct(
-        ContentService $contentService,
-        LanguageService $languageService,
-        LocationService $locationService,
-        UserService $userService,
-        ContentTypeService $contentTypeService,
-        PermissionResolver $permissionResolver,
-        UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        CreateUserOnTheFlyDispatcher $createUserActionDispatcher,
-        EditUserOnTheFlyDispatcher $editUserActionDispatcher
+        private readonly LanguageService $languageService,
+        private readonly LocationService $locationService,
+        private readonly UserService $userService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly CreateUserOnTheFlyDispatcher $createUserActionDispatcher,
+        private readonly EditUserOnTheFlyDispatcher $editUserActionDispatcher
     ) {
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->languageService = $languageService;
-        $this->userService = $userService;
-        $this->contentTypeService = $contentTypeService;
-        $this->userLanguagePreferenceProvider = $userLanguagePreferenceProvider;
-        $this->createUserActionDispatcher = $createUserActionDispatcher;
-        $this->editUserActionDispatcher = $editUserActionDispatcher;
-        $this->permissionResolver = $permissionResolver;
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\View\BaseView|\Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -100,9 +58,9 @@ class UserOnTheFlyController extends Controller
         string $languageCode,
         ContentType $contentType,
         Location $parentLocation
-    ) {
+    ): BaseView|Response {
         $language = $this->languageService->loadLanguage($languageCode);
-        $parentGroup = $this->userService->loadUserGroup($parentLocation->contentId);
+        $parentGroup = $this->userService->loadUserGroup($parentLocation->getContentId());
 
         $data = (new UserCreateMapper())->mapToFormData($contentType, [$parentGroup], [
             'mainLanguageCode' => $language->languageCode,
@@ -110,6 +68,7 @@ class UserOnTheFlyController extends Controller
         $form = $this->createForm(UserCreateType::class, $data, [
             'languageCode' => $language->languageCode,
             'mainLanguageCode' => $language->languageCode,
+            'struct' => $data,
         ]);
 
         $form->handleRequest($request);
@@ -138,14 +97,16 @@ class UserOnTheFlyController extends Controller
 
         try {
             $userCreateStruct = $this->createContentCreateStruct($contentType, $languageCode);
-            $locationCreateStruct = $this->locationService->newLocationCreateStruct($parentLocation->id);
+            $locationCreateStruct = $this->locationService->newLocationCreateStruct(
+                $parentLocation->getId()
+            );
 
             if (!$this->permissionResolver->canUser('content', 'create', $userCreateStruct, [$locationCreateStruct])) {
                 throw new UnauthorizedException(
                     'content',
                     'create',
                     [
-                        'contentTypeIdentifier' => $contentType->identifier,
+                        'contentTypeIdentifier' => $contentType->getIdentifier(),
                         'parentLocationId' => $locationCreateStruct->parentLocationId,
                         'languageCode' => $languageCode,
                     ]
@@ -157,7 +118,7 @@ class UserOnTheFlyController extends Controller
                     'content',
                     'publish',
                     [
-                        'contentTypeIdentifier' => $contentType->identifier,
+                        'contentTypeIdentifier' => $contentType->getIdentifier(),
                         'parentLocationId' => $locationCreateStruct->parentLocationId,
                         'languageCode' => $languageCode,
                     ]
@@ -204,19 +165,23 @@ class UserOnTheFlyController extends Controller
             [
                 'location' => $location,
                 'languageCode' => $languageCode,
-                'mainLanguageCode' => $user->contentInfo->mainLanguageCode,
+                'mainLanguageCode' => $user->getContentInfo()->getMainLanguageCode(),
+                'struct' => $contentUpdate,
             ]
         );
 
         $form->handleRequest($request);
 
-        if (null === $location && $user->contentInfo->isPublished()) {
+        if (null === $location && $user->getContentInfo()->isPublished()) {
             // assume main location if no location was provided
-            $location = $user->contentInfo->getMainLocation();
+            $location = $user->getContentInfo()->getMainLocation();
         }
 
-        if (null !== $location && $location->contentId !== $user->id) {
-            throw new InvalidArgumentException('Location', 'The provided Location does not belong to the selected content');
+        if (null !== $location && $location->getContentId() !== $user->getUserId()) {
+            throw new InvalidArgumentException(
+                'Location',
+                'The provided Location does not belong to the selected content'
+            );
         }
 
         if ($form->isSubmitted() && $form->isValid() && null !== $form->getClickedButton()) {
@@ -230,7 +195,7 @@ class UserOnTheFlyController extends Controller
             if ($this->editUserActionDispatcher->getResponse()) {
                 $view = new EditContentOnTheFlySuccessView('@ibexadesign/ui/on_the_fly/user_edit_response.html.twig');
                 $view->addParameters([
-                    'locationId' => $location->id,
+                    'locationId' => $location->getId(),
                 ]);
 
                 return $view;
@@ -278,5 +243,3 @@ class UserOnTheFlyController extends Controller
         return $view;
     }
 }
-
-class_alias(UserOnTheFlyController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UserOnTheFlyController');

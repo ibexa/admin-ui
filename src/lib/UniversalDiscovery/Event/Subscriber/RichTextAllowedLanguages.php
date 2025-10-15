@@ -11,11 +11,8 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RichTextAllowedLanguages implements EventSubscriberInterface
+final readonly class RichTextAllowedLanguages implements EventSubscriberInterface
 {
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -23,9 +20,6 @@ class RichTextAllowedLanguages implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         if (!in_array($event->getConfigName(), ['richtext_embed', 'richtext_embed_image'])) {
@@ -44,5 +38,3 @@ class RichTextAllowedLanguages implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(RichTextAllowedLanguages::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\RichTextAllowedLanguages');

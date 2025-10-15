@@ -10,13 +10,11 @@ namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
-class ContentTypeGroupUpdateData
+final class ContentTypeGroupUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
-    private $contentTypeGroup;
+    private ?ContentTypeGroup $contentTypeGroup;
 
-    /** @var string */
-    private $identifier;
+    private string $identifier;
 
     public function __construct(?ContentTypeGroup $contentTypeGroup = null)
     {
@@ -26,37 +24,23 @@ class ContentTypeGroupUpdateData
         }
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup
-     */
-    public function getContentTypeGroup(): ContentTypeGroup
+    public function getContentTypeGroup(): ?ContentTypeGroup
     {
         return $this->contentTypeGroup;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
-     */
-    public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup)
+    public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {
         $this->contentTypeGroup = $contentTypeGroup;
     }
 }
-
-class_alias(ContentTypeGroupUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData');

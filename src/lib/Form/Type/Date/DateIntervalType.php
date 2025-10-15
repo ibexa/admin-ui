@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\Date;
 
@@ -13,9 +14,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateIntervalType as BaseDateInter
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class DateIntervalType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('date_interval', BaseDateIntervalType::class, [
@@ -35,5 +39,3 @@ class DateIntervalType extends AbstractType
             ->addModelTransformer(new DateIntervalTransformer());
     }
 }
-
-class_alias(DateIntervalType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Date\DateIntervalType');

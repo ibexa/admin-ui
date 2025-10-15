@@ -39,89 +39,36 @@ use Twig\Environment;
 
 class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-locations';
-    private const PAGINATION_PARAM_NAME = 'locations-tab-page';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-locations';
+    private const string PAGINATION_PARAM_NAME = 'locations-tab-page';
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
-
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
-
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\Content\Location\Mapper */
-    private $locationToUILocationMapper;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    private UserSettingService $userSettingService;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Ibexa\AdminUi\UI\Value\Content\Location\Mapper$locationToUILocationMapper
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        FormFactory $formFactory,
-        UrlGeneratorInterface $urlGenerator,
-        PermissionResolver $permissionResolver,
+        protected readonly FormFactory $formFactory,
+        protected readonly UrlGeneratorInterface $urlGenerator,
+        protected readonly PermissionResolver $permissionResolver,
         EventDispatcherInterface $eventDispatcher,
-        SearchService $searchService,
-        RequestStack $requestStack,
-        Mapper $locationToUILocationMapper,
-        ConfigResolverInterface $configResolver,
-        UserSettingService $userSettingService
+        private readonly SearchService $searchService,
+        private readonly RequestStack $requestStack,
+        private readonly Mapper $locationToUILocationMapper,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly UserSettingService $userSettingService
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->formFactory = $formFactory;
-        $this->urlGenerator = $urlGenerator;
-        $this->permissionResolver = $permissionResolver;
-        $this->requestStack = $requestStack;
-        $this->configResolver = $configResolver;
-        $this->searchService = $searchService;
-        $this->locationToUILocationMapper = $locationToUILocationMapper;
-        $this->userSettingService = $userSettingService;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'locations';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("Locations") */
         return $this->translator->trans('tab.name.locations', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 400;
@@ -129,20 +76,16 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
     public function evaluate(array $parameters): bool
     {
-        return IsFocusModeEnabled::fromUserSettings($this->userSettingService)->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
+        return IsFocusModeEnabled
+            ::fromUserSettings($this->userSettingService)
+            ->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/locations/tab.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
@@ -155,14 +98,16 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         $pagination = null;
         $defaultPaginationLimit = $this->configResolver->getParameter('pagination.location_limit');
 
-        if ($contentInfo->published) {
-            $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
+        $request = $this->requestStack->getCurrentRequest();
+
+        if ($request !== null && $contentInfo->isPublished()) {
+            $currentPage = $request->query->getInt(
                 self::PAGINATION_PARAM_NAME,
                 1
             );
 
             $locationQuery = new LocationQuery([
-                'filter' => new Query\Criterion\ContentId($contentInfo->id),
+                'filter' => new Query\Criterion\ContentId($contentInfo->getId()),
             ]);
 
             $pagination = new Pagerfanta(
@@ -188,6 +133,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
             'manage_locations',
             $location->getContentInfo()
         );
+
         // We grant access to choose a valid Location from UDW. Now it is not possible to filter locations
         // and show only those which user has access to
         $canCreate = false !== $this->permissionResolver->hasAccess('content', 'create');
@@ -196,9 +142,10 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
             'edit',
             $location->getContentInfo()
         );
+
         $canHide = [];
         foreach ($locations as $location) {
-            $canHide[$location->id] = $this->permissionResolver->canUser(
+            $canHide[$location->getId()] = $this->permissionResolver->canUser(
                 'content',
                 'hide',
                 $location->getContentInfo(),
@@ -226,9 +173,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData>
      */
     private function createLocationAddForm(Location $location): FormInterface
     {
@@ -238,22 +183,24 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
      * @param \Ibexa\AdminUi\UI\Value\Content\Location[] $contentLocations
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData>
      */
     private function createLocationRemoveForm(Location $location, array $contentLocations): FormInterface
     {
         return $this->formFactory->removeLocation(
-            new ContentLocationRemoveData($location->getContentInfo(), $this->getLocationChoices($contentLocations))
+            new ContentLocationRemoveData(
+                $location->getContentInfo(),
+                $this->getLocationChoices($contentLocations)
+            )
         );
     }
 
     /**
      * @param \Ibexa\AdminUi\UI\Value\Content\Location[] $locations
      *
-     * @return array
+     * @return mixed[]
      */
     private function getLocationChoices(array $locations): array
     {
@@ -263,9 +210,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Location\LocationSwapData>
      */
     protected function createLocationSwapForm(Location $location): FormInterface
     {
@@ -275,9 +220,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData>
      */
     protected function createLocationUpdateVisibilityForm(Location $location): FormInterface
     {
@@ -287,10 +230,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData>
      */
     protected function createLocationUpdateMainForm($contentInfo, Location $location): FormInterface
     {
@@ -299,5 +239,3 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         );
     }
 }
-
-class_alias(LocationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\LocationsTab');

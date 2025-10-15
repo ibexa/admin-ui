@@ -17,45 +17,17 @@ use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Browser\Page\PageRegistry;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 
-class NavigationContext implements Context
+final readonly class NavigationContext implements Context
 {
-    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser */
-    private $argumentParser;
-
-    /** @var \Ibexa\Behat\Browser\Page\PageRegistry[] */
-    private $pageRegistry;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
-    private $upperMenu;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\LeftMenu */
-    private $leftMenu;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Breadcrumb */
-    private $breadcrumb;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
-    private $contentViewPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage */
-    private $contentUpdateItemPage;
-
     public function __construct(
-        ArgumentParser $argumentParser,
-        UpperMenu $upperMenu,
-        LeftMenu $leftMenu,
-        Breadcrumb $breadcrumb,
-        ContentViewPage $contentViewPage,
-        PageRegistry $pageRegistry,
-        ContentUpdateItemPage $contentUpdateItemPage
+        private ArgumentParser $argumentParser,
+        private UpperMenu $upperMenu,
+        private LeftMenu $leftMenu,
+        private Breadcrumb $breadcrumb,
+        private ContentViewPage $contentViewPage,
+        private PageRegistry $pageRegistry,
+        private ContentUpdateItemPage $contentUpdateItemPage
     ) {
-        $this->argumentParser = $argumentParser;
-        $this->pageRegistry = $pageRegistry;
-        $this->upperMenu = $upperMenu;
-        $this->leftMenu = $leftMenu;
-        $this->breadcrumb = $breadcrumb;
-        $this->contentViewPage = $contentViewPage;
-        $this->contentUpdateItemPage = $contentUpdateItemPage;
     }
 
     /**
@@ -80,7 +52,7 @@ class NavigationContext implements Context
     /**
      * @Given I go to user settings
      */
-    public function iGoToUserSettings()
+    public function iGoToUserSettings(): void
     {
         $this->upperMenu->chooseFromUserDropdown('User settings');
     }
@@ -137,7 +109,7 @@ class NavigationContext implements Context
     /**
      * @Given I navigate to content :contentName of type :contentType in :path
      */
-    public function iNavigateToContent(string $contentName, string $contentType, ?string $path = null)
+    public function iNavigateToContent(string $contentName, string $contentType, ?string $path = null): void
     {
         $expectedContentPath = sprintf('%s/%s', $path, $contentName);
         $pathParts = explode('/', $expectedContentPath);
@@ -154,7 +126,7 @@ class NavigationContext implements Context
     /**
      * @Given I go to user notifications
      */
-    public function iGoToUserNotifications()
+    public function iGoToUserNotifications(): void
     {
         $this->upperMenu->openNotifications();
     }
@@ -162,7 +134,7 @@ class NavigationContext implements Context
     /**
      * @Given I log out of back office
      */
-    public function iLogOutOfBackOffice()
+    public function iLogOutOfBackOffice(): void
     {
         $this->upperMenu->chooseFromUserDropdown('Logout');
     }
@@ -171,7 +143,7 @@ class NavigationContext implements Context
      * @Given I'm on Content view Page for :path
      * @Given there exists Content view Page for :path
      */
-    public function iMOnContentViewPageFor(string $path)
+    public function iMOnContentViewPageFor(string $path): void
     {
         $path = $this->argumentParser->parseUrl($path);
         $this->contentViewPage->setExpectedLocationPath($path);
@@ -182,7 +154,7 @@ class NavigationContext implements Context
     /**
      * @Given I should be on Content view Page for :path
      */
-    public function iShouldBeOnContentViewPage(string $path)
+    public function iShouldBeOnContentViewPage(string $path): void
     {
         $path = $this->argumentParser->parseUrl($path);
         $this->contentViewPage->setExpectedLocationPath($path);
@@ -192,7 +164,7 @@ class NavigationContext implements Context
     /**
      * @Given I should be on Content update page for :contentItemName
      */
-    public function iShouldBeOnContentUpdatePageForItem(string $contentItemName = '')
+    public function iShouldBeOnContentUpdatePageForItem(string $contentItemName = ''): void
     {
         $this->contentUpdateItemPage->setExpectedPageTitle($contentItemName);
         $this->contentUpdateItemPage->verifyIsLoaded();

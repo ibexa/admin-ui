@@ -18,29 +18,18 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between a Location's ID and a domain specific object.
  */
-class LocationTransformer implements DataTransformerInterface
+final readonly class LocationTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
+    public function __construct(private LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
     /**
      * Transforms a domain specific Location object into a Location's identifier.
      *
-     * @param mixed $value
-     *
-     * @return int|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value): ?int
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -50,19 +39,15 @@ class LocationTransformer implements DataTransformerInterface
             throw new TransformationFailedException('Expected a ' . APILocation::class . ' object.');
         }
 
-        return $value->id;
+        return $value->getId();
     }
 
     /**
      * Transforms a Location's ID into a domain specific Location object.
      *
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function reverseTransform($value): ?APILocation
+    public function reverseTransform(mixed $value): ?APILocation
     {
         if (empty($value)) {
             return null;
@@ -75,5 +60,3 @@ class LocationTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(LocationTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\LocationTransformer');

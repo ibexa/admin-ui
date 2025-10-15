@@ -16,7 +16,7 @@ use Symfony\Component\Form\Util\StringUtil;
 /**
  * Generic Form to Ui Action mapper.
  */
-class FormUiActionMapper implements FormUiActionMapperInterface
+final readonly class FormUiActionMapper implements FormUiActionMapperInterface
 {
     public function map(FormInterface $form): UiActionEvent
     {
@@ -25,7 +25,7 @@ class FormUiActionMapper implements FormUiActionMapperInterface
             ? $form->getName()
             : StringUtil::fqcnToBlockPrefix(get_class($data));
 
-        return new UiActionEvent($name, UiActionEventInterface::TYPE_SUCCESS, $form, null);
+        return new UiActionEvent($name ?? '', UiActionEventInterface::TYPE_SUCCESS, $form, null);
     }
 
     public function supports(FormInterface $form): bool
@@ -33,5 +33,3 @@ class FormUiActionMapper implements FormUiActionMapperInterface
         return true;
     }
 }
-
-class_alias(FormUiActionMapper::class, 'EzSystems\EzPlatformAdminUi\UI\Action\FormUiActionMapper');

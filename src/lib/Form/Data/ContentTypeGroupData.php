@@ -12,20 +12,16 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupData
 {
-    /** @var string */
-    private $identifier;
-
-    public function __construct(?string $identifier = null)
+    public function __construct(private ?string $identifier = null)
     {
-        $this->identifier = $identifier;
     }
 
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -38,5 +34,3 @@ class ContentTypeGroupData
         return $data;
     }
 }
-
-class_alias(ContentTypeGroupData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroupData');

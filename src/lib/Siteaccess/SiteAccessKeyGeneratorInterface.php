@@ -12,5 +12,3 @@ interface SiteAccessKeyGeneratorInterface
 {
     public function generate(string $siteAccessIdentifier): string;
 }
-
-class_alias(SiteAccessKeyGeneratorInterface::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessKeyGeneratorInterface');

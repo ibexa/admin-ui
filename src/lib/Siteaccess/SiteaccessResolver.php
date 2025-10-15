@@ -14,57 +14,17 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 
-class SiteaccessResolver implements SiteaccessResolverInterface
+readonly class SiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterInterface[] */
-    private $siteAccessPreviewVoters;
-
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService */
-    private $siteAccessService;
-
-    private LocationService $locationService;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param iterable $siteaccessPreviewVoters
-     * @param array $siteAccesses
+     * @param iterable<\Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterInterface> $siteAccessPreviewVoters
      */
     public function __construct(
-        ContentService $contentService,
-        iterable $siteaccessPreviewVoters,
-        SiteAccessService $siteAccessService,
-        LocationService $locationService
+        private ContentService $contentService,
+        private iterable $siteAccessPreviewVoters,
+        private SiteAccessService $siteAccessService,
+        private LocationService $locationService
     ) {
-        $this->contentService = $contentService;
-        $this->siteAccessPreviewVoters = $siteaccessPreviewVoters;
-        $this->siteAccessService = $siteAccessService;
-        $this->locationService = $locationService;
-    }
-
-    /**
-     * @return array
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     */
-    public function getSiteaccessesForLocation(
-        Location $location,
-        ?int $versionNo = null,
-        ?string $languageCode = null
-    ): array {
-        @trigger_error(
-            sprintf(
-                'The "%s" method is deprecated since Ibexa DXP 4.5.0. Use "%s" instead.',
-                '\Ibexa\AdminUi\Siteaccess\SiteaccessResolver::getSiteaccessesForLocation',
-                '\Ibexa\AdminUi\Siteaccess\SiteaccessResolver::getSiteAccessesList'
-            ),
-            E_USER_DEPRECATED
-        );
-
-        return array_column($this->getSiteAccessesListForLocation($location, $versionNo, $languageCode), 'name');
     }
 
     /**
@@ -100,7 +60,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         $contentInfo = $versionInfo->getContentInfo();
 
         if ($versionInfo->isDraft()) {
-            // nonpublished content should use parent location instead because location doesn't exist yet
+            // non-published content should use parent location instead because location doesn't exist yet
             $eligibleLocations = $this->locationService->loadParentLocationsForDraftContent($versionInfo);
         } else {
             $eligibleLocations = $this->locationService->loadLocations($contentInfo);
@@ -112,7 +72,11 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         foreach ($eligibleLocations as $location) {
             foreach ($eligibleLanguages as $language) {
                 $siteAccesses = array_merge(
-                    $this->getSiteAccessesListForLocation($location, null, $language->languageCode),
+                    $this->getSiteAccessesListForLocation(
+                        $location,
+                        null,
+                        $language->getLanguageCode()
+                    ),
                     $siteAccesses
                 );
             }
@@ -121,18 +85,8 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         return array_unique($siteAccesses);
     }
 
-    public function getSiteaccesses(): array
-    {
-        return array_column(
-            $this->getSiteAccessesList(),
-            'name'
-        );
-    }
-
     public function getSiteAccessesList(): array
     {
         return iterator_to_array($this->siteAccessService->getAll());
     }
 }
-
-class_alias(SiteaccessResolver::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteaccessResolver');

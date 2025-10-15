@@ -8,13 +8,13 @@ const List = ({
     loadMoreSubitems,
     currentLocationId,
     path,
-    subitemsLoadLimit,
+    subitemsLoadLimit = null,
     subitemsLimit,
     treeMaxDepth,
     afterItemToggle,
-    indent,
-    isRoot,
-    onClickItem,
+    indent = 0,
+    isRoot = false,
+    onClickItem = () => {},
 }) => {
     const Translator = getTranslator();
     const Routing = getRouting();
@@ -24,7 +24,7 @@ const List = ({
     const renderNoSubitemMessage = () => {
         const [rootLocation] = items;
         const isRootLoaded = rootLocation;
-        const noSubitemsMessage = Translator.trans(/*@Desc("This Location has no sub-items")*/ 'no_subitems', {}, 'ibexa_content_tree');
+        const noSubitemsMessage = Translator.trans(/* @Desc("This Location has no sub-items") */ 'no_subitems', {}, 'ibexa_content_tree');
 
         if (!isRoot || !isRootLoaded || (rootLocation.subitems && rootLocation.subitems.length)) {
             return;
@@ -80,13 +80,6 @@ List.propTypes = {
     indent: PropTypes.number,
     isRoot: PropTypes.bool,
     onClickItem: PropTypes.func,
-};
-
-List.defaultProps = {
-    indent: 0,
-    isRoot: false,
-    onClickItem: () => {},
-    subitemsLoadLimit: null,
 };
 
 export default List;

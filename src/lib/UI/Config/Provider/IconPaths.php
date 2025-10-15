@@ -14,23 +14,21 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 /**
  * @internal
  */
-final class IconPaths implements ProviderInterface
+final readonly class IconPaths implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getConfig(): array
     {
         return [
             'iconSets' => $this->configResolver->getParameter('assets.icon_sets'),
             'defaultIconSet' => $this->configResolver->getParameter('assets.default_icon_set'),
+            'iconAliases' => $this->configResolver->getParameter('assets.icon_aliases'),
         ];
     }
 }
-
-class_alias(IconPaths::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\IconPaths');

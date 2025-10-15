@@ -68,7 +68,7 @@
                             </span>
                         </div>
                         <label class="ibexa-content-locations__visibility-toggler-label {{ not location.invisible ? 'ibexa-content-locations__visibility-toggler-label--hidden' }}">
-                            <svg class="ibexa-icon ibexa-icon--small ">
+                            <svg class="ibexa-icon ibexa-icon--small-medium">
                                 <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
                             </svg>
                             {{ 'tab.locations.hidden_content_or_superior'|trans|desc('Content or its ancestor is hidden') }}
@@ -153,7 +153,7 @@
         class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--udw-add"
         {{ not can_add ? 'disabled' }}
     >
-        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
             <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
         </svg>
         <span class="ibexa-btn__label">
@@ -170,7 +170,7 @@
         data-bs-toggle="modal"
         data-bs-target="#{{ modal_data_target }}"
     >
-        <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
             <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
         </svg>
         <span class="ibexa-btn__label">

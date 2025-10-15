@@ -349,7 +349,7 @@
             const groups = [...this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item-group')];
             const separator = this.itemsListContainer.querySelector('.ibexa-dropdown__separator');
             const emptyMessage = Translator.trans(
-                /*@Desc("No results found for &quot;%phrase%&quot;")*/ 'dropdown.no_results',
+                /* @Desc("No results found for &quot;%phrase%&quot;") */ 'dropdown.no_results',
                 { phrase: escapeHTML(searchedTerm) },
                 'ibexa_dropdown',
             );
@@ -486,11 +486,11 @@
             const selectedItems = this.getSelectedItems();
             const label = selectedItems.length
                 ? Translator.trans(
-                      /*@Desc("Clear (%selected_items_count%)")*/ 'dropdown.clear',
+                      /* @Desc("Clear (%selected_items_count%)") */ 'dropdown.clear',
                       { selected_items_count: selectedItems.length },
                       'ibexa_dropdown',
                   )
-                : Translator.trans(/*@Desc("Select All")*/ 'dropdown.select_all', {}, 'ibexa_dropdown');
+                : Translator.trans(/* @Desc("Select All") */ 'dropdown.select_all', {}, 'ibexa_dropdown');
 
             this.selectionTogglerBtn.innerHTML = label;
         }

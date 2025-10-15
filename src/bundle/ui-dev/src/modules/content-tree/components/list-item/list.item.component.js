@@ -61,7 +61,7 @@ class ListItem extends Component {
 
         if (currentDepth >= treeMaxDepth) {
             const notificationMessage = Translator.trans(
-                /*@Desc("Cannot load sub-items for this Location because you reached max tree depth.")*/ 'expand_item.limit.message',
+                /* @Desc("Cannot load sub-items for this Location because you reached max tree depth.") */ 'expand_item.limit.message',
                 {},
                 'ibexa_content_tree',
             );
@@ -124,7 +124,7 @@ class ListItem extends Component {
     renderIcon() {
         const { contentTypeIdentifier, locationId } = this.props;
         const iconAttrs = {
-            extraClasses: 'ibexa-icon--small ibexa-icon--dark',
+            extraClasses: 'ibexa-icon--small-medium ibexa-icon--dark',
         };
 
         if (!this.state.isLoading || this.props.subitems.length) {
@@ -155,13 +155,13 @@ class ListItem extends Component {
         }
 
         const { isLoading } = this.state;
-        const seeMoreLabel = Translator.trans(/*@Desc("See more")*/ 'see_more', {}, 'ibexa_content_tree');
-        const loadingMoreLabel = Translator.trans(/*@Desc("Loading more...")*/ 'loading_more', {}, 'ibexa_content_tree');
+        const seeMoreLabel = Translator.trans(/* @Desc("See more") */ 'see_more', {}, 'ibexa_content_tree');
+        const loadingMoreLabel = Translator.trans(/* @Desc("Loading more...") */ 'loading_more', {}, 'ibexa_content_tree');
         const btnLabel = isLoading ? loadingMoreLabel : seeMoreLabel;
         let loadingSpinner = null;
 
         if (isLoading) {
-            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small c-list-item__load-more-btn-spinner" />;
+            loadingSpinner = <Icon name="spinner" extraClasses="ibexa-spin ibexa-icon--small-medium c-list-item__load-more-btn-spinner" />;
         }
 
         return (
@@ -180,7 +180,7 @@ class ListItem extends Component {
             return null;
         }
 
-        const message = Translator.trans(/*@Desc("Loading limit reached")*/ 'show_more.limit_reached', {}, 'ibexa_content_tree');
+        const message = Translator.trans(/* @Desc("Loading limit reached") */ 'show_more.limit_reached', {}, 'ibexa_content_tree');
 
         return <div className="c-list-item__load-more-limit-info">{message}</div>;
     }
@@ -217,7 +217,7 @@ class ListItem extends Component {
                     {this.renderIcon()}
                     <span className="c-list-item__label-content" title={name}>
                         {name}
-                        {isInvisible && <Icon name="view-hide" extraClasses="ibexa-icon--small c-list-item__hidden-icon" />}
+                        {isInvisible && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium c-list-item__hidden-icon" />}
                     </span>
                 </a>
                 <div className="c-list-item__actions">

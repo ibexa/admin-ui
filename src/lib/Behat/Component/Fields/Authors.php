@@ -12,8 +12,11 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Authors extends FieldTypeComponent
+final class Authors extends FieldTypeComponent
 {
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function setValue(array $parameters): void
     {
         $name = $parameters['name'];
@@ -26,6 +29,9 @@ class Authors extends FieldTypeComponent
         $this->getHTMLPage()->find($emailSelector)->setValue($email);
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getValue(): array
     {
         $nameSelector = CSSLocatorBuilder::base($this->parentLocator)->withDescendant($this->getLocator('nameFieldInput'))->build();
@@ -37,25 +43,31 @@ class Authors extends FieldTypeComponent
         ];
     }
 
-    public function verifyValueInEditView(array $value): void
+    /**
+     * @param array<string, string> $values
+     */
+    public function verifyValueInEditView(array $values): void
     {
-        $expectedName = $value['name'];
-        $expectedEmail = $value['email'];
+        $expectedName = $values['name'];
+        $expectedEmail = $values['email'];
 
         $actualFieldValues = $this->getValue();
         Assert::assertEquals(
             $expectedName,
             $actualFieldValues['name'],
-            sprintf('Field %s has wrong value', $value['label'])
+            sprintf('Field %s has wrong value', $values['label'])
         );
 
         Assert::assertEquals(
             $expectedEmail,
             $actualFieldValues['email'],
-            sprintf('Field %s has wrong value', $value['label'])
+            sprintf('Field %s has wrong value', $values['label'])
         );
     }
 
+    /**
+     * @param array<string, mixed> $values
+     */
     public function verifyValueInItemView(array $values): void
     {
         Assert::assertEquals(
@@ -67,7 +79,7 @@ class Authors extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezauthor';
+        return 'ibexa_author';
     }
 
     public function specifyLocators(): array

@@ -39,12 +39,12 @@ const SelectedItemsPanel = () => {
         'c-selected-items-panel--expanded': isExpanded,
     });
     const expandLabel = Translator.trans(
-        /*@Desc("Expand sidebar")*/ 'selected_items.expand.sidebar',
+        /* @Desc("Expand sidebar") */ 'selected_items.expand.sidebar',
         {},
         'ibexa_universal_discovery_widget',
     );
     const collapseLabel = Translator.trans(
-        /*@Desc("Collapse sidebar")*/ 'selected_items.collapse.sidebar',
+        /* @Desc("Collapse sidebar") */ 'selected_items.collapse.sidebar',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -58,7 +58,7 @@ const SelectedItemsPanel = () => {
     };
     const renderSelectionCounter = () => {
         const selectedLabel = Translator.transChoice(
-            /*@Desc("{1}%count% selected item|[2,Inf]%count% selected items")*/ 'selected_items.selection_info',
+            /* @Desc("{1}%count% selected item|[2,Inf]%count% selected items") */ 'selected_items.selection_info',
             selectedItems.length,
             { count: selectedItems.length },
             'ibexa_universal_discovery_widget',
@@ -81,7 +81,7 @@ const SelectedItemsPanel = () => {
     };
     const renderActionBtns = () => {
         const removeLabel = Translator.transChoice(
-            /*@Desc("{1}Deselect|[2,Inf]Deselect all")*/ 'selected_items.deselect_all',
+            /* @Desc("{1}Deselect|[2,Inf]Deselect all") */ 'selected_items.deselect_all',
             selectedItems.length,
             {},
             'ibexa_universal_discovery_widget',

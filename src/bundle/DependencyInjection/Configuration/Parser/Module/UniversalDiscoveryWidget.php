@@ -15,14 +15,9 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 /**
  * Configuration parser for UDW module.
  */
-class UniversalDiscoveryWidget extends AbstractParser
+final class UniversalDiscoveryWidget extends AbstractParser
 {
-    /**
-     * Adds semantic configuration definition.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
-     */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('universal_discovery_widget_module')
@@ -38,10 +33,13 @@ class UniversalDiscoveryWidget extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['universal_discovery_widget_module'])) {
             return;
         }
@@ -55,5 +53,3 @@ class UniversalDiscoveryWidget extends AbstractParser
         );
     }
 }
-
-class_alias(UniversalDiscoveryWidget::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\UniversalDiscoveryWidget');

@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
 use Ibexa\Contracts\Core\Repository\FieldType;
 use Ibexa\Core\FieldType\Value;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Base transformer for binary file based field types.
@@ -18,31 +18,17 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 abstract class AbstractBinaryBaseTransformer
 {
-    /** @var \Ibexa\Contracts\Core\Repository\FieldType */
-    protected $fieldType;
-
-    /** @var \Ibexa\Core\FieldType\Value */
-    protected $initialValue;
-
-    /** @var string */
-    protected $valueClass;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\FieldType $fieldType
-     * @param \Ibexa\Core\FieldType\Value $initialValue
-     * @param string $valueClass
-     */
-    public function __construct(FieldType $fieldType, Value $initialValue, $valueClass)
-    {
-        $this->fieldType = $fieldType;
-        $this->initialValue = $initialValue;
-        $this->valueClass = $valueClass;
+    public function __construct(
+        protected FieldType $fieldType,
+        protected Value $initialValue,
+        protected string $valueClass
+    ) {
     }
 
     /**
-     * @return array|null
+     * @return array<string, false|null>
      */
-    public function getDefaultProperties()
+    public function getDefaultProperties(): array
     {
         return [
             'file' => null,
@@ -51,18 +37,12 @@ abstract class AbstractBinaryBaseTransformer
     }
 
     /**
-     * @param array $value
-     *
-     * @return \Ibexa\Core\FieldType\Value
+     * @param array<string, mixed> $value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function getReverseTransformedValue($value)
+    public function getReverseTransformedValue(array $value): mixed
     {
-        if (!is_array($value)) {
-            throw new TransformationFailedException(sprintf('Received %s instead of an array', gettype($value)));
-        }
-
         if ($value['remove']) {
             return $this->fieldType->getEmptyValue();
         }
@@ -81,5 +61,3 @@ abstract class AbstractBinaryBaseTransformer
         return new $this->valueClass($properties);
     }
 }
-
-class_alias(AbstractBinaryBaseTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\AbstractBinaryBaseTransformer');

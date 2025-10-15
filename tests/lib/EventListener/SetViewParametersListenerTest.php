@@ -24,6 +24,7 @@ use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\Repository\Values\Content as Core;
+use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -32,30 +33,20 @@ use Symfony\Component\Form\FormInterface;
 
 final class SetViewParametersListenerTest extends TestCase
 {
-    private const EXAMPLE_LOCATION_A_ID = 1;
-    private const EXAMPLE_LOCATION_B_ID = 2;
-    private const EXAMPLE_OWNER_ID = 14;
+    private const int EXAMPLE_LOCATION_A_ID = 1;
+    private const int EXAMPLE_LOCATION_B_ID = 2;
+    private const int EXAMPLE_OWNER_ID = 14;
+    private const int DEFAULT_PARENT_LOCATION_ID = 0;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent */
-    private $event;
+    private SetViewParametersListener $viewParametersListener;
 
-    /** @var \Ibexa\AdminUi\EventListener\SetViewParametersListener */
-    private $viewParametersListener;
+    private LocationService&MockObject $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
-    private $locationService;
+    private UserService&MockObject $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
-    private $userService;
+    private Repository&MockObject $repository;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
-    private $repository;
-
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
-    private ConfigResolverInterface $configResolver;
-
-    /** @var \Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $groupedContentFormFieldsProvider;
+    private GroupedContentFormFieldsProviderInterface&MockObject $groupedContentFormFieldsProvider;
 
     public function setUp(): void
     {
@@ -66,14 +57,12 @@ final class SetViewParametersListenerTest extends TestCase
         $contentView = new ContentEditView();
         $contentView->setParameters(['content' => $this->generateContent($versionInfo)]);
 
-        $this->event = new PreContentViewEvent($contentView);
-
         $this->locationService = $this->createMock(LocationService::class);
         $this->userService = $this->createMock(UserService::class);
         $this->repository = $this->createMock(Repository::class);
 
-        $this->configResolver = $this->createMock(ConfigResolverInterface::class);
-        $this->configResolver
+        $configResolver = $this->createMock(ConfigResolverInterface::class);
+        $configResolver
             ->method('getParameter')
             ->withConsecutive(
                 ['admin_ui_forms.content_edit.fieldtypes'],
@@ -94,7 +83,7 @@ final class SetViewParametersListenerTest extends TestCase
             $this->locationService,
             $this->userService,
             $this->repository,
-            $this->configResolver,
+            $configResolver,
             $this->groupedContentFormFieldsProvider
         );
     }
@@ -126,17 +115,14 @@ final class SetViewParametersListenerTest extends TestCase
             ->method('sudo')
             ->willReturn([$locationA]);
 
-        $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
+        $this->viewParametersListener->setContentEditViewTemplateParameters(
+            new PreContentViewEvent($contentView)
+        );
 
-        $this->assertSame($locations, $contentView->getParameter('parent_locations'));
+        self::assertSame($locations, $contentView->getParameter('parent_locations'));
     }
 
-    /**
-     * @param int|null $parentLocationId
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
-     */
-    private function generateLocation(?int $parentLocationId = null): API\Location
+    private function generateLocation(int $parentLocationId = self::DEFAULT_PARENT_LOCATION_ID): API\Location
     {
         return new Core\Location(['id' => 3, 'parentLocationId' => $parentLocationId]);
     }
@@ -173,10 +159,12 @@ final class SetViewParametersListenerTest extends TestCase
             ->method('sudo')
             ->willReturn($parentLocation);
 
-        $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
+        $this->viewParametersListener->setContentEditViewTemplateParameters(
+            new PreContentViewEvent($contentView)
+        );
 
-        $this->assertSame([], $contentView->getParameter('parent_locations'));
-        $this->assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
+        self::assertSame([], $contentView->getParameter('parent_locations'));
+        self::assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
     }
 
     public function testSetViewTemplateParametersWithoutContentEditViewInstance(): void
@@ -186,10 +174,8 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        $this->assertNull(
-            $this->viewParametersListener->setContentEditViewTemplateParameters(
-                new PreContentViewEvent($contentView)
-            )
+        $this->viewParametersListener->setContentEditViewTemplateParameters(
+            new PreContentViewEvent($contentView)
         );
     }
 
@@ -200,17 +186,14 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        $this->assertNull(
-            $this->viewParametersListener->setUserUpdateViewTemplateParameters(
-                new PreContentViewEvent($view)
-            )
+        $this->viewParametersListener->setUserUpdateViewTemplateParameters(
+            new PreContentViewEvent($view)
         );
     }
 
     public function testSetUserUpdateViewTemplateParameters(): void
     {
         $ownerId = 42;
-
         $user = $this->generateUser($ownerId);
 
         $userUpdateView = new UserUpdateView();
@@ -223,24 +206,26 @@ final class SetViewParametersListenerTest extends TestCase
             ->with($ownerId)
             ->willReturn($user);
 
-        $this->viewParametersListener->setUserUpdateViewTemplateParameters(new PreContentViewEvent($userUpdateView));
+        $this->viewParametersListener->setUserUpdateViewTemplateParameters(
+            new PreContentViewEvent($userUpdateView)
+        );
 
-        $this->assertSame($user, $userUpdateView->getParameter('creator'));
+        self::assertSame($user, $userUpdateView->getParameter('creator'));
     }
 
     public function testSetContentFieldsParameters(): void
     {
         $fields = [
             'name' => [
-                'type' => 'ezstring',
+                'type' => 'ibexa_string',
                 'group' => 'content',
             ],
             'short_name' => [
-                'type' => 'ezstring',
+                'type' => 'ibexa_string',
                 'group' => 'content',
             ],
             'description' => [
-                'type' => 'ezrichtext',
+                'type' => 'ibexa_richtext',
                 'group' => 'content',
             ],
             'tags' => [
@@ -248,7 +233,7 @@ final class SetViewParametersListenerTest extends TestCase
                 'group' => 'content',
             ],
             'metadata_field' => [
-                'type' => 'ezstring',
+                'type' => 'ibexa_string',
                 'group' => 'metadata',
             ],
         ];
@@ -288,8 +273,8 @@ final class SetViewParametersListenerTest extends TestCase
 
         $this->viewParametersListener->setContentFieldsParameters(new PreContentViewEvent($contentEditView));
 
-        $this->assertSame($ignoredContentFields, $contentEditView->getParameter('ignored_content_fields'));
-        $this->assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
+        self::assertSame($ignoredContentFields, $contentEditView->getParameter('ignored_content_fields'));
+        self::assertSame($groupedFields, $contentEditView->getParameter('grouped_fields'));
     }
 
     public function testSubscribedEvents(): void
@@ -310,68 +295,50 @@ final class SetViewParametersListenerTest extends TestCase
 
         $actualSubscribedEvents = $this->viewParametersListener::getSubscribedEvents();
 
-        $this->assertCount(count($actualSubscribedEvents), $expectedSubscribedEvents);
+        self::assertCount(count($actualSubscribedEvents), $expectedSubscribedEvents);
         foreach ($expectedSubscribedEvents as $key => $value) {
-            $this->assertArrayHasKey($key, $actualSubscribedEvents);
-            $this->assertSame($value, $actualSubscribedEvents[$key]);
+            self::assertArrayHasKey($key, $actualSubscribedEvents);
+            self::assertSame($value, $actualSubscribedEvents[$key]);
         }
     }
 
-    /**
-     * @param int $mainLocationId
-     * @param bool $published
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
-     */
     private function generateContentInfo(?int $mainLocationId = null, bool $published = false): API\ContentInfo
     {
         return new API\ContentInfo([
             'mainLocationId' => $mainLocationId,
             'ownerId' => self::EXAMPLE_OWNER_ID,
             'published' => $published,
+            'owner' => $this->generateUser(self::EXAMPLE_OWNER_ID),
+            'id' => self::EXAMPLE_OWNER_ID,
+            'status' => $published ? API\ContentInfo::STATUS_PUBLISHED : API\ContentInfo::STATUS_DRAFT,
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
-     */
     private function generateVersionInfo(API\ContentInfo $contentInfo): API\VersionInfo
     {
-        return new Core\VersionInfo(['contentInfo' => $contentInfo]);
+        return new VersionInfo(['contentInfo' => $contentInfo]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
-     */
-    private function generateContent(API\VersionInfo $versionInfo): API\Content
+    private function generateContent(API\VersionInfo|VersionInfo $versionInfo): API\Content
     {
         return new Core\Content(['versionInfo' => $versionInfo]);
     }
 
-    /**
-     * @param int $ownerId
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
-     */
     private function generateUser(int $ownerId): APIUser
     {
-        $contentInfo = new API\ContentInfo(['ownerId' => $ownerId]);
+        $contentInfo = new API\ContentInfo([
+            'ownerId' => $ownerId,
+            'id' => $ownerId,
+        ]);
 
-        $versionInfo = new Core\VersionInfo(['contentInfo' => $contentInfo]);
+        $versionInfo = new VersionInfo(['contentInfo' => $contentInfo]);
 
         $content = $this->generateContent($versionInfo);
 
         return new CoreUser(['content' => $content]);
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject
+    private function createFieldMock(string $identifier, string $type, string $fieldGroup = 'content'): MockObject|Field
     {
         $data = new FieldData([
             'field' => new Field([
@@ -392,5 +359,3 @@ final class SetViewParametersListenerTest extends TestCase
         return $field;
     }
 }
-
-class_alias(SetViewParametersListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\EventListener\SetViewParametersListenerTest');

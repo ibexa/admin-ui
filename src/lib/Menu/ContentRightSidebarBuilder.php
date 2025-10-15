@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Menu;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
@@ -19,7 +20,6 @@ use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -39,77 +39,42 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__CREATE = 'content__sidebar_right__create';
-    public const ITEM__PREVIEW = 'content__sidebar_right__preview';
-    public const ITEM__EDIT = 'content__sidebar_right__edit';
-    public const ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
-    public const ITEM__COPY = 'content__sidebar_right__copy';
-    public const ITEM__COPY_SUBTREE = 'content__sidebar_right__copy_subtree';
-    public const ITEM__MOVE = 'content__sidebar_right__move';
-    public const ITEM__DELETE = 'content__sidebar_right__delete';
-    public const ITEM__HIDE = 'content__sidebar_right__hide';
-    public const ITEM__REVEAL = 'content__sidebar_right__reveal';
-    public const ITEM__INVITE = 'content__sidebar_right__invite';
+    public const string ITEM__CREATE = 'content__sidebar_right__create';
+    public const string ITEM__PREVIEW = 'content__sidebar_right__preview';
+    public const string ITEM__EDIT = 'content__sidebar_right__edit';
+    public const string ITEM__SEND_TO_TRASH = 'content__sidebar_right__send_to_trash';
+    public const string ITEM__COPY = 'content__sidebar_right__copy';
+    public const string ITEM__COPY_SUBTREE = 'content__sidebar_right__copy_subtree';
+    public const string ITEM__MOVE = 'content__sidebar_right__move';
+    public const string ITEM__DELETE = 'content__sidebar_right__delete';
+    public const string ITEM__HIDE = 'content__sidebar_right__hide';
+    public const string ITEM__REVEAL = 'content__sidebar_right__reveal';
+    public const string ITEM__INVITE = 'content__sidebar_right__invite';
 
-    private const CREATE_USER_LABEL = 'sidebar_right.create_user';
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
-    private $udwConfigResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
-    private $udwExtension;
-
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
-
-    private SiteaccessResolverInterface  $siteaccessResolver;
+    private const string CREATE_USER_LABEL = 'sidebar_right.create_user';
 
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        PermissionResolver $permissionResolver,
-        ConfigResolver $udwConfigResolver,
-        ConfigResolverInterface $configResolver,
-        LocationService $locationService,
-        UniversalDiscoveryExtension $udwExtension,
-        PermissionCheckerInterface $permissionChecker,
-        SiteaccessResolverInterface $siteaccessResolver
+        private readonly PermissionResolver $permissionResolver,
+        private readonly ConfigResolver $udwConfigResolver,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly LocationService $locationService,
+        private readonly UniversalDiscoveryExtension $udwExtension,
+        private readonly SiteaccessResolverInterface $siteaccessResolver,
+        private readonly LimitationResolverInterface $limitationResolver
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
-        $this->udwConfigResolver = $udwConfigResolver;
-        $this->locationService = $locationService;
-        $this->udwExtension = $udwExtension;
-        $this->permissionChecker = $permissionChecker;
-        $this->siteaccessResolver = $siteaccessResolver;
     }
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::CONTENT_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @return \Knp\Menu\ItemInterface
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -126,8 +91,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $menu = $this->factory->createItem('root');
         $startingLocationId = $this->udwConfigResolver->getConfig('default')['starting_location_id'];
 
-        $lookupLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
-        $canCreate = $lookupLimitationsResult->hasAccess && $contentType->isContainer;
+        $lookupLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
+        $canCreate = $lookupLimitationsResult->hasAccess && $contentType->isContainer();
         $uwdConfig = $this->udwExtension->renderUniversalDiscoveryWidgetConfig('single_container');
         $canEdit = $this->permissionResolver->canUser(
             'content',
@@ -135,11 +100,11 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             $location->getContentInfo(),
             [
                 (new VersionBuilder())
-                    ->translateToAnyLanguageOf($content->getVersionInfo()->languageCodes)
+                    ->translateToAnyLanguageOf($content->getVersionInfo()->getLanguageCodes())
                     ->build(),
             ]
         );
-        $translations = $content->getVersionInfo()->languageCodes;
+        $translations = $content->getVersionInfo()->getLanguageCodes();
         $target = (new Target\Version())->deleteTranslations($translations);
         $canDelete = $this->permissionResolver->canUser(
             'content',
@@ -273,7 +238,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             );
         }
 
-        if ($content->getVersionInfo()->getContentInfo()->isHidden) {
+        if ($content->getVersionInfo()->getContentInfo()->isHidden()) {
             $this->addRevealMenuItem($menu, $canHide);
         } else {
             $this->addHideMenuItem($menu, $canHide);
@@ -337,11 +302,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         ];
     }
 
-    /**
-     * @param \Knp\Menu\ItemInterface $menu
-     * @param bool $contentIsUser
-     * @param bool $canEdit
-     */
     private function addEditMenuItem(ItemInterface $menu, bool $contentIsUser, bool $canEdit): void
     {
         $editAttributes = [
@@ -380,9 +340,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         }
     }
 
-    /**
-     * @param \Knp\Menu\ItemInterface $menu
-     */
     private function addRevealMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
@@ -403,9 +360,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         );
     }
 
-    /**
-     * @param \Knp\Menu\ItemInterface $menu
-     */
     private function addHideMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
@@ -480,7 +434,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         Content $content,
         array $options
     ): ItemInterface {
-        $versionNo = $content->getVersionInfo()->versionNo;
+        $versionNo = $content->getVersionInfo()->getVersionNo();
         $languageCode = $content->getDefaultLanguageCode();
 
         $siteAccesses = $this->siteaccessResolver->getSiteAccessesListForLocation(
@@ -500,10 +454,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
             $actionOptions = [
                 'route' => 'ibexa.content.preview',
                 'routeParameters' => [
-                    'contentId' => $content->contentInfo->getId(),
-                    'versionNo' => $content->getVersionInfo()->versionNo,
+                    'contentId' => $content->getContentInfo()->getId(),
+                    'versionNo' => $content->getVersionInfo()->getVersionNo(),
                     'languageCode' => $languageCode,
-                    'locationId' => $location->id,
+                    'locationId' => $location->getId(),
                     'referrer' => 'content_view',
                 ],
             ];
@@ -519,5 +473,3 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         );
     }
 }
-
-class_alias(ContentRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\ContentRightSidebarBuilder');

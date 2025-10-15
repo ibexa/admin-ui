@@ -22,7 +22,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
     const isDeselectionBlocked = checkIsDeselectionBlocked(location);
     const contentTypesMap = useContext(ContentTypesMapContext);
     const clearLabel = Translator.trans(
-        /*@Desc("Clear selection")*/ 'selected_locations.clear_selection',
+        /* @Desc("Clear selection") */ 'selected_locations.clear_selection',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -50,7 +50,7 @@ const SelectedLocationsItem = ({ location, permissions }) => {
             }}
         >
             <div className="c-selected-locations-item__image-wrapper">
-                <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small" />
+                <Thumbnail thumbnailData={thumbnailData} iconExtraClasses="ibexa-icon--small-medium" />
             </div>
             <div className="c-selected-locations-item__info">
                 <span className="c-selected-locations-item__info-name">{location.ContentInfo.Content.TranslatedName}</span>

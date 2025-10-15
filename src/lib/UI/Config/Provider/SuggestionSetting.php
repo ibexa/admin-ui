@@ -10,16 +10,12 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
-final class SuggestionSetting implements ProviderInterface
+final readonly class SuggestionSetting implements ProviderInterface
 {
-    private int $minQueryLength;
-
-    private int $resultLimit;
-
-    public function __construct(int $minQueryLength, int $resultLimit)
-    {
-        $this->minQueryLength = $minQueryLength;
-        $this->resultLimit = $resultLimit;
+    public function __construct(
+        private int $minQueryLength,
+        private int $resultLimit
+    ) {
     }
 
     /**

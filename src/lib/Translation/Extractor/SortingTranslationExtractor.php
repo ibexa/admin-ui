@@ -17,9 +17,14 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
 /**
  * Generates translation strings for sort options (field and order).
  */
-class SortingTranslationExtractor implements ExtractorInterface
+final class SortingTranslationExtractor implements ExtractorInterface
 {
-    private $defaultTranslations = [
+    /**
+     * Default translations for sort fields.
+     *
+     * @var array<int, string>
+     */
+    private array $defaultTranslations = [
         1 => 'Location path',
         2 => 'Publication date',
         3 => 'Modification date',
@@ -31,16 +36,16 @@ class SortingTranslationExtractor implements ExtractorInterface
         9 => 'Content name',
     ];
 
-    private $domain = 'ibexa_content_type';
+    private string $domain = 'ibexa_content_type';
 
-    public function extract()
+    public function extract(): MessageCatalogue
     {
-        $catalogue = new MessageCatalogue();
+        $catalog = new MessageCatalogue();
         $locationClass = new \ReflectionClass(Location::class);
 
         $sortConstants = array_filter(
             $locationClass->getConstants(),
-            static function ($value, $key) {
+            static function ($value, $key): bool {
                 return is_scalar($value) && strtolower(substr($key, 0, 11)) === 'sort_field_';
             },
             ARRAY_FILTER_USE_BOTH
@@ -50,7 +55,7 @@ class SortingTranslationExtractor implements ExtractorInterface
             if (!isset($this->defaultTranslations[$sortId])) {
                 continue;
             }
-            $catalogue->add(
+            $catalog->add(
                 $this->createMessage(
                     'content_type.sort_field.' . $sortId,
                     $this->defaultTranslations[$sortId],
@@ -59,10 +64,10 @@ class SortingTranslationExtractor implements ExtractorInterface
             );
         }
 
-        $catalogue->add($this->createMessage('content_type.sort_order.0', 'Descending', Location::class));
-        $catalogue->add($this->createMessage('content_type.sort_order.1', 'Ascending', Location::class));
+        $catalog->add($this->createMessage('content_type.sort_order.0', 'Descending', Location::class));
+        $catalog->add($this->createMessage('content_type.sort_order.1', 'Ascending', Location::class));
 
-        return $catalogue;
+        return $catalog;
     }
 
     private function createMessage(string $id, string $desc, string $source): Message
@@ -76,5 +81,3 @@ class SortingTranslationExtractor implements ExtractorInterface
         return $message;
     }
 }
-
-class_alias(SortingTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\SortingTranslationExtractor');

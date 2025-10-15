@@ -17,33 +17,27 @@ use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 
-class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
+final class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
         ContentTypeService $contentTypeService,
         UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($contentTypeService, $userLanguagePreferenceProvider);
+   }
 
-        $this->configResolver = $configResolver;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function loadChoiceList($value = null): ChoiceListInterface
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $contentTypesGroups = $this->getChoiceList();
-        $userContentTypeIdentifier = $this->configResolver->getParameter('user_content_type_identifier');
+        $userContentTypeIdentifier = $this->configResolver->getParameter(
+            'user_content_type_identifier'
+        );
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter(
                 $contentTypes,
-                static function (ContentType $contentType) use ($userContentTypeIdentifier) {
+                static function (ContentType $contentType) use ($userContentTypeIdentifier): bool {
                     $contentTypeIsUser = new ContentTypeIsUser($userContentTypeIdentifier);
 
                     return false === $contentTypeIsUser->isSatisfiedBy($contentType);
@@ -54,5 +48,3 @@ class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
         return new ArrayChoiceList($contentTypesGroups, $value);
     }
 }
-
-class_alias(SearchContentTypeChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader');

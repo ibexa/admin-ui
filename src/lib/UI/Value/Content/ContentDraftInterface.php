@@ -10,10 +10,5 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 interface ContentDraftInterface
 {
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool;
 }
-
-class_alias(ContentDraftInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\ContentDraftInterface');

@@ -10,19 +10,17 @@ namespace Ibexa\Tests\AdminUi\UI\Config\Service;
 
 use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
-class ContentTypeIconResolverTest extends TestCase
+final class ContentTypeIconResolverTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */
-    private $packages;
+    private Packages&MockObject $packages;
 
-    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
-    private $contentTypeIconResolver;
+    private ContentTypeIconResolver $contentTypeIconResolver;
 
     protected function setUp(): void
     {
@@ -36,21 +34,23 @@ class ContentTypeIconResolverTest extends TestCase
     }
 
     /**
+     * @param array<string, array{thumbnail: ?string}> $config
+     *
      * @dataProvider dataProviderForGetContentTypeIcon
      */
-    public function testGetContentTypeIcon(array $config, string $identifier, string $expected)
+    public function testGetContentTypeIcon(array $config, string $identifier, string $expected): void
     {
         $this->configResolver
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('hasParameter')
-            ->willReturnCallback(static function (string $key) use ($config) {
+            ->willReturnCallback(static function (string $key) use ($config): bool {
                 $key = explode('.', $key);
 
                 return isset($config[array_pop($key)]);
             });
 
         $this->configResolver
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getParameter')
             ->willReturnCallback(static function (string $key) use ($config) {
                 $key = explode('.', $key);
@@ -59,15 +59,18 @@ class ContentTypeIconResolverTest extends TestCase
             });
 
         $this->packages
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getUrl')
-            ->willReturnCallback(static function (string $uri) {
+            ->willReturnCallback(static function (string $uri): string {
                 return "https://cdn.example.com/$uri";
             });
 
-        $this->assertEquals($expected, $this->contentTypeIconResolver->getContentTypeIcon($identifier));
+        self::assertEquals($expected, $this->contentTypeIconResolver->getContentTypeIcon($identifier));
     }
 
+    /**
+     * @return array<array{0: array<string, array{thumbnail: ?string}>, 1: string, 2: string}>
+     */
     public function dataProviderForGetContentTypeIcon(): array
     {
         return [
@@ -119,5 +122,3 @@ class ContentTypeIconResolverTest extends TestCase
         ];
     }
 }
-
-class_alias(ContentTypeIconResolverTest::class, 'EzSystems\EzPlatformAdminUi\Tests\UI\Config\Service\ContentTypeIconResolverTest');

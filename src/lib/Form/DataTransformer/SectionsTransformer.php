@@ -10,33 +10,20 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
  * Transforms between a Sections ID and a domain specific object.
  */
-class SectionsTransformer implements DataTransformerInterface
+final readonly class SectionsTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    protected $sectionService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     */
-    public function __construct(SectionService $sectionService)
+    public function __construct(private SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
     }
 
-    /**
-     * Transforms a domain specific Section objects into a string with comma separated Sections identifiers.
-     *
-     * @param mixed $value
-     *
-     * @return string|null
-     */
-    public function transform($value): ?string
+    public function transform(mixed $value): ?string
     {
         /** TODO add sanity check is array of Location object? */
         if (!is_array($value) || empty($value)) {
@@ -47,15 +34,11 @@ class SectionsTransformer implements DataTransformerInterface
     }
 
     /**
-     * Transforms a string with comma separated Sections identifiers into a domain specific Section objects.
-     *
-     * @param mixed $value
-     *
-     * @return array|null
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function reverseTransform($value): ?array
+    public function reverseTransform(mixed $value): ?array
     {
         if (empty($value)) {
             return null;
@@ -68,7 +51,7 @@ class SectionsTransformer implements DataTransformerInterface
         $value = explode(',', $value);
 
         try {
-            return array_map(function (string $id) {
+            return array_map(function (string $id): Section {
                 return $this->sectionService->loadSection((int)$id);
             }, $value);
         } catch (NotFoundException $e) {
@@ -76,5 +59,3 @@ class SectionsTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(SectionsTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\SectionsTransformer');

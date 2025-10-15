@@ -13,34 +13,26 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class BaseTranslationLanguageChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /** @var string[] */
-    protected $languageCodes;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
      * @param string[] $languageCodes
      */
-    public function __construct(LanguageService $languageService, $languageCodes)
-    {
-        $this->languageService = $languageService;
-        $this->languageCodes = $languageCodes;
+    public function __construct(
+        protected LanguageService $languageService,
+        protected array $languageCodes
+    ) {
     }
 
     /**
-     * {@inheritdoc}
+     * \Ibexa\Contracts\Core\Repository\Values\Content\Language[].
      */
     public function getChoiceList(): array
     {
         return array_filter(
-            $this->languageService->loadLanguages(),
-            function (Language $language) {
-                return $language->enabled && in_array($language->languageCode, $this->languageCodes, true);
+            iterator_to_array($this->languageService->loadLanguages()),
+            function (Language $language): bool {
+                return $language->isEnabled()
+                    && in_array($language->getLanguageCode(), $this->languageCodes, true);
             }
         );
     }
 }
-
-class_alias(BaseTranslationLanguageChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\BaseTranslationLanguageChoiceLoader');

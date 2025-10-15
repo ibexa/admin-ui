@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -18,22 +19,19 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 
-class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
+final class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
     use LoggerAwareTrait;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\ObjectStateService
-     */
-    private $objectStateService;
-
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(private readonly ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
         $this->logger = new NullLogger();
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return mixed[]
+     */
+    protected function getSelectionChoices(): array
     {
         $choices = [];
         foreach ($this->objectStateService->loadObjectStateGroups() as $group) {
@@ -45,24 +43,29 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         return $choices;
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return mixed[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [];
 
         foreach ($limitation->limitationValues as $stateId) {
             try {
                 $values[] = $this->getObjectStateLabel(
-                    $this->objectStateService->loadObjectState($stateId)
+                    $this->objectStateService->loadObjectState((int)$stateId)
                 );
-            } catch (NotFoundException $e) {
-                $this->logger->error(sprintf('Could not map the Limitation value: could not find an Object state with ID %s', $stateId));
+            } catch (NotFoundException) {
+                $this->logger?->error(
+                    sprintf('Could not map the Limitation value: could not find an Object state with ID %s', $stateId)
+                );
             }
         }
 
         return $values;
     }
 
-    protected function getObjectStateLabel(ObjectState $state)
+    protected function getObjectStateLabel(ObjectState $state): string
     {
         $groupName = $state
             ->getObjectStateGroup()
@@ -87,5 +90,3 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
         ];
     }
 }
-
-class_alias(ObjectStateLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\ObjectStateLimitationMapper');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Type\URL;
 
@@ -15,30 +16,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * URL edit form.
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\URL\URLUpdateData>
  */
-class URLEditType extends AbstractType
+final class URLEditType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('url', TextType::class)
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'url.save',
-            ])
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'url.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => URLUpdateData::class,
@@ -46,21 +34,13 @@ class URLEditType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->getBlockPrefix();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'ezplatform_content_forms_url_edit';
     }
 }
-
-class_alias(URLEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URL\URLEditType');

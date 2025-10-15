@@ -13,15 +13,19 @@ use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\User\UserCollectionType;
 use Ibexa\AdminUi\Form\Type\User\UserGroupCollectionType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RoleAssignmentCreateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData>
+ */
+final class RoleAssignmentCreateType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -76,7 +80,7 @@ class RoleAssignmentCreateType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => RoleAssignmentCreateData::class,
@@ -84,5 +88,3 @@ class RoleAssignmentCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleAssignmentCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleAssignmentCreateType');

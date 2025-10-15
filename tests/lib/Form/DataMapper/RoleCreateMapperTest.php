@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,10 +16,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationCreateStruct;
 use Ibexa\Core\Repository\Values\User\RoleCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class RoleCreateMapperTest extends TestCase
+final class RoleCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCreateMapper */
-    private $mapper;
+    private RoleCreateMapper $mapper;
 
     protected function setUp(): void
     {
@@ -33,28 +33,28 @@ class RoleCreateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function testMap(array $properties)
+    public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function testReverseMap(array $properties)
+    public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
-    public function testMapWithWrongInstance()
+    public function testMapWithWrongInstance(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'value\' is invalid: must be an instance of ' . RoleCreateStruct::class);
@@ -62,7 +62,7 @@ class RoleCreateMapperTest extends TestCase
         $this->mapper->map(new LocationCreateStruct());
     }
 
-    public function testReverseMapWithWrongInstance()
+    public function testReverseMapWithWrongInstance(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'data\' is invalid: must be an instance of ' . RoleCreateData::class);
@@ -70,6 +70,9 @@ class RoleCreateMapperTest extends TestCase
         $this->mapper->reverseMap(new LanguageCreateData());
     }
 
+    /**
+     * @return array<string, array{array<string, mixed>}>
+     */
     public function dataProvider(): array
     {
         return [
@@ -78,9 +81,7 @@ class RoleCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
-     *
-     * @return \Ibexa\Core\Repository\Values\User\RoleCreateStruct
+     * @param array<string, mixed> $properties
      */
     private function createStruct(array $properties): RoleCreateStruct
     {
@@ -88,15 +89,10 @@ class RoleCreateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleCreateData
+     * @param array<string, mixed> $properties
      */
     private function createData(array $properties): RoleCreateData
     {
-        return (new RoleCreateData())
-            ->setIdentifier($properties['identifier']);
+        return (new RoleCreateData())->setIdentifier($properties['identifier']);
     }
 }
-
-class_alias(RoleCreateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\RoleCreateMapperTest');

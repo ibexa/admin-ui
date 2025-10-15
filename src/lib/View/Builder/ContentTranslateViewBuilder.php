@@ -26,51 +26,25 @@ use Ibexa\Core\MVC\Symfony\View\ParametersInjector;
  *
  * @internal
  */
-class ContentTranslateViewBuilder implements ViewBuilder
+readonly class ContentTranslateViewBuilder implements ViewBuilder
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
-    /** @var \Ibexa\Core\MVC\Symfony\View\Configurator */
-    private $viewConfigurator;
-
-    /** @var \Ibexa\Core\MVC\Symfony\View\ParametersInjector */
-    private $viewParametersInjector;
-
-    /** @var \Ibexa\ContentForms\Form\ActionDispatcher\ActionDispatcherInterface */
-    private $contentActionDispatcher;
-
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
-    private $languagePreferenceProvider;
-
     public function __construct(
-        Repository $repository,
-        Configurator $viewConfigurator,
-        ParametersInjector $viewParametersInjector,
-        ActionDispatcherInterface $contentActionDispatcher,
-        UserLanguagePreferenceProviderInterface $languagePreferenceProvider
+        private Repository $repository,
+        private Configurator $viewConfigurator,
+        private ParametersInjector $viewParametersInjector,
+        private ActionDispatcherInterface $contentActionDispatcher,
+        private UserLanguagePreferenceProviderInterface $languagePreferenceProvider
     ) {
-        $this->repository = $repository;
-        $this->viewConfigurator = $viewConfigurator;
-        $this->viewParametersInjector = $viewParametersInjector;
-        $this->contentActionDispatcher = $contentActionDispatcher;
-        $this->languagePreferenceProvider = $languagePreferenceProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function matches($argument)
+    public function matches($argument): bool
     {
         return 'Ibexa\Bundle\AdminUi\Controller\ContentEditController::translateAction' === $argument;
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
-     * @return \Ibexa\AdminUi\View\ContentTranslateSuccessView|\Ibexa\AdminUi\View\ContentTranslateView
-     *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
@@ -78,7 +52,7 @@ class ContentTranslateViewBuilder implements ViewBuilder
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function buildView(array $parameters)
+    public function buildView(array $parameters): ContentTranslateSuccessView|ContentTranslateView
     {
         $view = new ContentTranslateView();
 
@@ -86,24 +60,26 @@ class ContentTranslateViewBuilder implements ViewBuilder
         $toLanguage = $this->resolveToLanguage($parameters);
         $location = $this->resolveLocation($parameters, $fromLanguage);
         $content = $this->resolveContent($parameters, $location, $fromLanguage);
-        $contentInfo = $content->contentInfo;
+        $contentInfo = $content->getContentInfo();
         $contentType = $this->repository->getContentTypeService()->loadContentType(
             $content->getContentType()->id,
             $this->languagePreferenceProvider->getPreferredLanguages()
         );
-        /** @var \Symfony\Component\Form\FormInterface $form */
+
+        /** @var \Symfony\Component\Form\FormInterface<mixed> $form */
         $form = $parameters['form'];
 
         if (null === $location && $contentInfo->isPublished()) {
             // assume main location if no location was provided
-            $location = $this->loadLocation((int) $contentInfo->mainLocationId);
+            $location = $this->loadLocation((int) $contentInfo->getMainLocationId());
         }
 
-        if ($form->isSubmitted() && $form->isValid() && null !== $form->getClickedButton()) {
+        $clickedButton = $form->getClickedButton();
+        if ($form->isSubmitted() && $form->isValid() && null !== $clickedButton) {
             $this->contentActionDispatcher->dispatchFormAction(
                 $form,
                 $form->getData(),
-                $form->getClickedButton()->getName(),
+                $clickedButton->getName(),
                 ['referrerLocation' => $location]
             );
 
@@ -129,11 +105,7 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * Loads Content with id $contentId.
-     *
-     * @param array $languages
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
+     * @param array<int, string> $languages
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -144,11 +116,7 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * Loads a visible Location.
-     *
-     * @param array|null $languages
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @param array<int, string>|null $languages
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -169,9 +137,8 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function resolveFromLanguage(array $parameters): ?Language
@@ -188,7 +155,7 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
      * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -210,9 +177,8 @@ class ContentTranslateViewBuilder implements ViewBuilder
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -234,12 +200,12 @@ class ContentTranslateViewBuilder implements ViewBuilder
 
         return $this->loadContent(
             (int) $parameters['contentId'],
-            null !== $language ? [$language->languageCode] : []
+            null !== $language ? [$language->getLanguageCode()] : []
         );
     }
 
     /**
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -253,12 +219,10 @@ class ContentTranslateViewBuilder implements ViewBuilder
         if (isset($parameters['locationId'])) {
             return $this->loadLocation(
                 (int) $parameters['locationId'],
-                null !== $language ? [$language->languageCode] : null
+                null !== $language ? [$language->getLanguageCode()] : null
             );
         }
 
         return null;
     }
 }
-
-class_alias(ContentTranslateViewBuilder::class, 'EzSystems\EzPlatformAdminUi\View\Builder\ContentTranslateViewBuilder');

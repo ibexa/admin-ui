@@ -12,20 +12,19 @@ use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsP
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Form\FormInterface;
 
-final class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFieldsProviderInterface
+final readonly class GroupedNonMetaFormFieldsProvider implements GroupedContentFormFieldsProviderInterface
 {
-    private GroupedContentFormFieldsProviderInterface $innerGroupedContentFormFieldsProvider;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        GroupedContentFormFieldsProviderInterface $innerGroupedContentFormFieldsProvider,
-        ConfigResolverInterface $configResolver
+        private GroupedContentFormFieldsProviderInterface $innerGroupedContentFormFieldsProvider,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->innerGroupedContentFormFieldsProvider = $innerGroupedContentFormFieldsProvider;
-        $this->configResolver = $configResolver;
     }
 
+    /**
+     * @param array<string, \Symfony\Component\Form\FormInterface<mixed>> $fieldsDataForm
+     *
+     * @return array<string, array<int, string>>
+     */
     public function getGroupedFields(array $fieldsDataForm): array
     {
         $identifiers = $this->getMetaFields();

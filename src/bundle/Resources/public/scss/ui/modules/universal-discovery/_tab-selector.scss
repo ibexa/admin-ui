@@ -1,0 +1,5 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tab-selector' as *;
+
+.c-tab-selector {
+    @include tab-selector();
+}

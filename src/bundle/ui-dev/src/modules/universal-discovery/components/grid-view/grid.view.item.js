@@ -21,7 +21,7 @@ const isSelectionButtonClicked = (event) => {
     return event.target.closest('.c-udw-toggle-selection');
 };
 
-const GridViewItem = ({ location, version }) => {
+const GridViewItem = ({ location, version = {} }) => {
     const [, setGridActiveLocationId] = useContext(GridActiveLocationIdContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
     const [, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
@@ -93,7 +93,7 @@ const GridViewItem = ({ location, version }) => {
             <div className="ibexa-grid-view-item__footer">
                 <div className="ibexa-grid-view-item__title" title={location.ContentInfo.Content.TranslatedName}>
                     {location.ContentInfo.Content.TranslatedName}
-                    {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small ibexa-grid-view-item__hidden-icon" />}
+                    {location.hidden && <Icon name="view-hide" extraClasses="ibexa-icon--small-medium ibexa-grid-view-item__hidden-icon" />}
                 </div>
             </div>
             {renderToggleSelection()}
@@ -104,10 +104,6 @@ const GridViewItem = ({ location, version }) => {
 GridViewItem.propTypes = {
     location: PropTypes.object.isRequired,
     version: PropTypes.object,
-};
-
-GridViewItem.defaultProps = {
-    version: {},
 };
 
 export default GridViewItem;

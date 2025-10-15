@@ -18,21 +18,18 @@ class LocationsTransformerTest extends TestCase
 {
     /**
      * @dataProvider transformDataProvider
-     *
-     * @param $value
-     * @param $expected
      */
-    public function testTransform($value, $expected)
+    public function testTransform(mixed $value, ?string $expected): void
     {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationsTransformer($service);
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    public function testReverseTransformWithIds()
+    public function testReverseTransformWithIds(): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::exactly(2))
@@ -45,15 +42,13 @@ class LocationsTransformerTest extends TestCase
         $transformer = new LocationsTransformer($service);
         $result = $transformer->reverseTransform('123456,456789');
 
-        $this->assertEquals([new Location(['id' => 123456]), new Location(['id' => 456789])], $result);
+        self::assertEquals([new Location(['id' => 123456]), new Location(['id' => 456789])], $result);
     }
 
     /**
      * @dataProvider reverseTransformWithEmptyDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithEmpty($value)
+    public function testReverseTransformWithEmpty(mixed $value): void
     {
         $service = $this->createMock(LocationService::class);
         $service->expects(self::never())
@@ -62,15 +57,13 @@ class LocationsTransformerTest extends TestCase
         $transformer = new LocationsTransformer($service);
         $result = $transformer->reverseTransform($value);
 
-        $this->assertEmpty($result);
+        self::assertEmpty($result);
     }
 
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
-     *
-     * @param $value
      */
-    public function testReverseTransformWithInvalidInput($value)
+    public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a string.');
@@ -82,7 +75,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{\Ibexa\Core\Repository\Values\Content\Location[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {
@@ -99,7 +92,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithInvalidInputDataProvider(): array
     {
@@ -113,7 +106,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array<string, array{mixed}>
      */
     public function reverseTransformWithEmptyDataProvider(): array
     {
@@ -128,5 +121,3 @@ class LocationsTransformerTest extends TestCase
         ];
     }
 }
-
-class_alias(LocationsTransformerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataTransformer\LocationsTransformerTest');

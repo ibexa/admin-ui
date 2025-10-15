@@ -13,17 +13,13 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 abstract class AbstractLanguageChoiceType extends AbstractType
 {
-    /** @var \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface */
-    private $languageChoiceLoader;
-
-    /**
-     * @param \Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface $languageChoiceLoader
-     */
-    public function __construct(ChoiceLoaderInterface $languageChoiceLoader)
+    public function __construct(private readonly ChoiceLoaderInterface $languageChoiceLoader)
     {
-        $this->languageChoiceLoader = $languageChoiceLoader;
     }
 
     public function getParent(): string
@@ -42,5 +38,3 @@ abstract class AbstractLanguageChoiceType extends AbstractType
             ]);
     }
 }
-
-class_alias(AbstractLanguageChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\AbstractLanguageChoiceType');

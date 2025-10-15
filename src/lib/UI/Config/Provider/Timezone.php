@@ -11,24 +11,13 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\User\UserSetting\UserSettingService;
 
-class Timezone implements ProviderInterface
+final readonly class Timezone implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    protected $userSettingService;
-
-    /**
-     * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService
-     */
-    public function __construct(UserSettingService $userSettingService)
+    public function __construct(private UserSettingService $userSettingService)
     {
-        $this->userSettingService = $userSettingService;
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @return string
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -39,5 +28,3 @@ class Timezone implements ProviderInterface
         return $timezone->value;
     }
 }
-
-class_alias(Timezone::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\Timezone');

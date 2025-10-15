@@ -18,11 +18,9 @@ use Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper;
 use Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\Section\SectionCreateType;
-use Ibexa\AdminUi\Form\Type\Section\SectionUpdateType;
 use Ibexa\AdminUi\UI\Service\PathService;
-use Ibexa\Bundle\AdminUi\View\EzPagerfantaView;
-use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
+use Ibexa\Bundle\AdminUi\View\IbexaPagerfantaView;
+use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
@@ -38,108 +36,52 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use Ibexa\Core\Pagination\Pagerfanta\ContentSearchAdapter;
 use JMS\TranslationBundle\Annotation\Desc;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class SectionController extends Controller
+final class SectionController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionCreateMapper */
-    private $sectionCreateMapper;
-
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper */
-    private $sectionUpdateMapper;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\AdminUi\UI\Service\PathService */
-    private $pathService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator,
-        SectionService $sectionService,
-        SearchService $searchService,
-        FormFactory $formFactory,
-        SectionCreateMapper $sectionCreateMapper,
-        SectionUpdateMapper $sectionUpdateMapper,
-        SubmitHandler $submitHandler,
-        LocationService $locationService,
-        PathService $pathService,
-        PermissionResolver $permissionResolver,
-        PermissionCheckerInterface $permissionChecker,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly SectionService $sectionService,
+        private readonly SearchService $searchService,
+        private readonly FormFactory $formFactory,
+        private readonly SectionCreateMapper $sectionCreateMapper,
+        private readonly SectionUpdateMapper $sectionUpdateMapper,
+        private readonly SubmitHandler $submitHandler,
+        private readonly LocationService $locationService,
+        private readonly PathService $pathService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly PermissionCheckerInterface $permissionChecker,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->translator = $translator;
-        $this->sectionService = $sectionService;
-        $this->searchService = $searchService;
-        $this->formFactory = $formFactory;
-        $this->sectionCreateMapper = $sectionCreateMapper;
-        $this->sectionUpdateMapper = $sectionUpdateMapper;
-        $this->submitHandler = $submitHandler;
-        $this->locationService = $locationService;
-        $this->pathService = $pathService;
-        $this->permissionResolver = $permissionResolver;
-        $this->permissionChecker = $permissionChecker;
-        $this->configResolver = $configResolver;
     }
 
     public function performAccessCheck(): void
     {
         parent::performAccessCheck();
+
         $this->denyAccessUnlessGranted(new Attribute('section', 'view'));
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function listAction(Request $request): Response
     {
-        $page = $request->query->get('page') ?? 1;
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->sectionService->loadSections())
+            new ArrayAdapter(iterator_to_array($this->sectionService->loadSections()))
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.section_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.section_limit')
+        );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sectionList */
@@ -178,16 +120,11 @@ class SectionController extends Controller
             'content_count' => $contentCountBySectionId,
             'deletable' => $deletableSections,
             'assignable' => $assignableSections,
-            'form_sections_delete' => $deleteSectionsForm->createView(),
-            'form_section_content_assign' => $assignContentForms->createView(),
+            'form_sections_delete' => $deleteSectionsForm,
+            'form_section_content_assign' => $assignContentForms,
         ]);
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(Section $section): Response
     {
         $sectionDeleteForm = $this->formFactory->deleteSection(
@@ -203,14 +140,6 @@ class SectionController extends Controller
     }
 
     /**
-     * Fragment action which renders list of contents assigned to section.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
-     * @param int $page Current page
-     * @param int $limit Number of items per page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -233,24 +162,26 @@ class SectionController extends Controller
 
         $assignedContent = [];
         foreach ($pagerfanta as $content) {
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+            $mainLocationId = $content->getContentInfo()->getMainLocationId();
             $assignedContent[] = [
-                'id' => $content->id,
+                'id' => $content->getId(),
                 'name' => $content->getName(),
                 'type' => $content->getContentType()->getName(),
-                'path' => $this->pathService->loadPathLocations(
-                    $this->locationService->loadLocation($content->contentInfo->mainLocationId)
-                ),
+                'path' => $mainLocationId !== null ? $this->pathService->loadPathLocations(
+                    $this->locationService->loadLocation($mainLocationId)
+                ) : [],
             ];
         }
 
-        $routeGenerator = function ($page) use ($section) {
+        $routeGenerator = function ($page) use ($section): string {
             return $this->generateUrl('ibexa.section.view', [
                 'sectionId' => $section->id,
                 'page' => $page,
             ]);
         };
 
-        $pagination = (new EzPagerfantaView(new EzPagerfantaTemplate($this->translator)))->render($pagerfanta, $routeGenerator);
+        $pagination = (new IbexaPagerfantaView(new IbexaPagerfantaTemplate()))->render($pagerfanta, $routeGenerator);
 
         return $this->render('@ibexadesign/section/assigned_content.html.twig', [
             'section' => $section,
@@ -262,12 +193,6 @@ class SectionController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, Section $section): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
@@ -277,7 +202,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionDeleteData $data): RedirectResponse {
                 $section = $data->getSection();
 
                 $this->sectionService->deleteSection($section);
@@ -297,16 +222,9 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.section.list'));
+        return $this->redirectToRoute('ibexa.section.list');
     }
 
-    /**
-     * Handles removing sections based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
@@ -316,7 +234,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionsDeleteData $data): void {
                 foreach ($data->getSections() as $sectionId => $selected) {
                     $section = $this->sectionService->loadSection($sectionId);
                     $this->sectionService->deleteSection($section);
@@ -324,7 +242,7 @@ class SectionController extends Controller
                     $this->notificationHandler->success(
                         /** @Desc("Section '%name%' removed.") */
                         'section.delete.success',
-                        ['%name%' => $section->name],
+                        ['%name%' => $section->getName()],
                         'ibexa_section'
                     );
                 }
@@ -335,14 +253,11 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.section.list'));
+        return $this->redirectToRoute('ibexa.section.list');
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function assignContentAction(Request $request, Section $section): Response
     {
@@ -360,7 +275,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionContentAssignData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionContentAssignData $data): RedirectResponse {
                 $section = $data->getSection();
 
                 $contentInfos = array_column($data->getLocations(), 'contentInfo');
@@ -372,12 +287,12 @@ class SectionController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("%contentItemsCount% Content items assigned to '%name%'") */
                     'section.assign_content.success',
-                    ['%name%' => $section->name, '%contentItemsCount%' => \count($contentInfos)],
+                    ['%name%' => $section->getName(), '%contentItemsCount%' => \count($contentInfos)],
                     'ibexa_section'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
-                    'sectionId' => $section->id,
+                    'sectionId' => $section->getId(),
                 ]));
             });
 
@@ -386,16 +301,11 @@ class SectionController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.section.view', [
-            'sectionId' => $section->id,
-        ]));
+        return $this->redirectToRoute('ibexa.section.view', [
+            'sectionId' => $section->getId(),
+        ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
@@ -414,20 +324,12 @@ class SectionController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("Section '%name%' created.") */
                     'section.create.success',
-                    ['%name%' => $section->name],
+                    ['%name%' => $section->getName()],
                     'ibexa_section'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === SectionCreateType::BTN_CREATE_AND_EDIT
-                ) {
-                    return $this->redirectToRoute('ibexa.section.update', [
-                        'sectionId' => $section->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.section.view', [
-                    'sectionId' => $section->id,
+                    'sectionId' => $section->getId(),
                 ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
@@ -437,16 +339,10 @@ class SectionController extends Controller
         }
 
         return $this->render('@ibexadesign/section/create.html.twig', [
-            'form_section_create' => $form->createView(),
+            'form_section_create' => $form,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, Section $section): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
@@ -469,13 +365,9 @@ class SectionController extends Controller
                     'ibexa_section'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === SectionUpdateType::BTN_UPDATE
-                ) {
-                    return new RedirectResponse($this->generateUrl('ibexa.section.view', [
-                        'sectionId' => $section->id,
-                    ]));
-                }
+                return new RedirectResponse($this->generateUrl('ibexa.section.view', [
+                    'sectionId' => $section->id,
+                ]));
             } catch (Exception $e) {
                 $this->notificationHandler->error(/** @Ignore */
                     $e->getMessage()
@@ -485,14 +377,14 @@ class SectionController extends Controller
 
         return $this->render('@ibexadesign/section/update.html.twig', [
             'section' => $section,
-            'form_section_update' => $form->createView(),
+            'form_section_update' => $form,
         ]);
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getSectionsNumbers(array $sections): array
     {
@@ -502,30 +394,22 @@ class SectionController extends Controller
     }
 
     /**
-     * Specifies if the User has access to assigning a given Section to Content.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section $section
-     *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function canUserAssignSectionToSomeContent(Section $section): bool
     {
         $hasAccess = $this->permissionResolver->hasAccess('section', 'assign');
 
-        if (\is_bool($hasAccess)) {
+        if (is_bool($hasAccess)) {
             return $hasAccess;
         }
 
         $restrictedNewSections = $this->permissionChecker->getRestrictions($hasAccess, NewSectionLimitation::class);
         if (!empty($restrictedNewSections)) {
-            return \in_array($section->id, array_map('intval', $restrictedNewSections), true);
+            return in_array($section->getId(), array_map('intval', $restrictedNewSections), true);
         }
 
         // If a user has other limitation than NewSectionLimitation, then a decision will be taken later, based on selected Content.
         return true;
     }
 }
-
-class_alias(SectionController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\SectionController');

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeUpdateStruct;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -27,20 +28,17 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
     }
 
     /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
-    public $fieldDefinitionsData = [];
+    public array $fieldDefinitionsData = [];
 
     /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData[][] */
     public array $metaFieldDefinitionsData = [];
 
     /**
      * Language Code of currently edited contentTypeDraft.
-     *
-     * @var string|null
      */
-    public $languageCode = null;
+    public ?string $languageCode = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
-    protected $contentTypeDraft;
+    protected ContentTypeDraft $contentTypeDraft;
 
     private bool $isNew;
 
@@ -56,7 +54,7 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
 
     public function isNew(): bool
     {
-        return $this->isNew;
+        return $this->isNew ?? $this->isIdentifierNew();
     }
 
     protected function getIdentifierValue(): string
@@ -145,5 +143,3 @@ class ContentTypeData extends ContentTypeUpdateStruct implements NewnessCheckabl
         ];
     }
 }
-
-class_alias(ContentTypeData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeData');

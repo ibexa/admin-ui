@@ -11,43 +11,42 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Symfony\Component\Form\DataTransformerInterface;
 
-class MultilingualSelectionTransformer implements DataTransformerInterface
+/**
+ * @phpstan-template TValue array
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<TValue, array<string, TValue>>
+ */
+final readonly class MultilingualSelectionTransformer implements DataTransformerInterface
 {
-    /** @var string */
-    protected $languageCode;
-
-    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
-    private $data;
-
-    /**
-     * @param string $languageCode
-     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data
-     */
-    public function __construct(string $languageCode, FieldDefinitionData $data)
-    {
-        $this->languageCode = $languageCode;
-        $this->data = $data;
+    public function __construct(
+        private string $languageCode,
+        private FieldDefinitionData $data
+    ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function transform($value)
+    public function transform(mixed $value): mixed
     {
         return $value;
     }
 
     /**
-     * {@inheritdoc}
+     * @phpstan-return array<string, TValue>
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): array
     {
         if (!$value) {
-            return [$this->languageCode => []];
+            /** @phpstan-var array<string, TValue> */
+            return [
+                $this->languageCode => [],
+            ];
         }
 
-        return array_merge($this->data->fieldSettings['multilingualOptions'], [$this->languageCode => $value]);
+        /** @phpstan-var array<string, TValue> */
+        return array_merge(
+            $this->data->fieldSettings['multilingualOptions'],
+            [
+                $this->languageCode => $value,
+            ]
+        );
     }
 }
-
-class_alias(MultilingualSelectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\MultilingualSelectionTransformer');

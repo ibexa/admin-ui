@@ -95,7 +95,6 @@ export default class UploadListComponent extends Component {
         const { adminUiConfig, parentInfo, contentCreatePermissionsConfig, contentTypesMap, currentLanguage } = this.props;
         const attrs = {
             item,
-            key: item.id,
             adminUiConfig,
             parentInfo,
             contentCreatePermissionsConfig,
@@ -105,7 +104,7 @@ export default class UploadListComponent extends Component {
             ...customAttrs,
         };
 
-        return <UploadItemComponent {...attrs} />;
+        return <UploadItemComponent key={item.id} {...attrs} />;
     }
 
     render() {

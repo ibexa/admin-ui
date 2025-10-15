@@ -10,66 +10,38 @@ namespace Ibexa\AdminUi\Form\Data\Role;
 
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
-class RoleUpdateData
+final class RoleUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role */
-    private $role;
+    private ?string $identifier = null;
 
-    /** @var string */
-    private $identifier;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role|null $role
-     */
-    public function __construct(?Role $role = null)
+    public function __construct(private ?Role $role = null)
     {
-        if (null === $role) {
-            return;
+        if ($role !== null) {
+            $this->identifier = $role->identifier;
         }
-
-        $this->role = $role;
-        $this->identifier = $role->identifier;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role
-     */
     public function getRole(): ?Role
     {
         return $this->role;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     *
-     * @return RoleUpdateData
-     */
-    public function setRole(Role $role): self
+    public function setRole(?Role $role): self
     {
         $this->role = $role;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     *
-     * @return RoleUpdateData
-     */
-    public function setIdentifier(string $identifier): self
+    public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
 
         return $this;
     }
 }
-
-class_alias(RoleUpdateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Role\RoleUpdateData');

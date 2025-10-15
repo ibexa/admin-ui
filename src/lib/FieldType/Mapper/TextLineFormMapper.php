@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -16,9 +17,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for ezstring FieldType.
+ * FormMapper for ibexa_string FieldType.
  */
-class TextLineFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class TextLineFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -27,14 +28,14 @@ class TextLineFormMapper implements FieldDefinitionFormMapperInterface
             ->add('minLength', IntegerType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[StringLengthValidator][minStringLength]',
-                'label' => /** @Desc("Minimum length") */ 'field_definition.ezstring.min_length',
+                'label' => /** @Desc("Minimum length") */ 'field_definition.ibexa_string.min_length',
                 'attr' => ['min' => 0],
                 'disabled' => $isTranslation,
             ])
             ->add('maxLength', IntegerType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[StringLengthValidator][maxStringLength]',
-                'label' => /** @Desc("Maximum length") */ 'field_definition.ezstring.max_length',
+                'label' => /** @Desc("Maximum length") */ 'field_definition.ibexa_string.max_length',
                 'attr' => ['min' => 0],
                 'disabled' => $isTranslation,
             ])
@@ -43,7 +44,7 @@ class TextLineFormMapper implements FieldDefinitionFormMapperInterface
                     ->getConfig()->getFormFactory()->createBuilder()
                     ->create('defaultValue', TextLineFieldType::class, [
                         'required' => false,
-                        'label' => /** @Desc("Default value") */ 'field_definition.ezstring.default_value',
+                        'label' => /** @Desc("Default value") */ 'field_definition.ibexa_string.default_value',
                         'disabled' => $isTranslation,
                     ])
                     ->setAutoInitialize(false)
@@ -51,7 +52,7 @@ class TextLineFormMapper implements FieldDefinitionFormMapperInterface
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -59,5 +60,3 @@ class TextLineFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(TextLineFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\TextLineFormMapper');

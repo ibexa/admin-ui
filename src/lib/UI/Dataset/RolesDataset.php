@@ -11,71 +11,29 @@ namespace Ibexa\AdminUi\UI\Dataset;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
-use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class RolesDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    private $roleService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
-
-    /** @var array */
-    private $userContentTypeIdentifier;
-
-    /** @var array */
-    private $userGroupContentTypeIdentifier;
-
-    /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
-    private $data;
+    /** @var \Ibexa\AdminUi\UI\Value\User\Role[]|null */
+    private ?array $data = null;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     * @param array $userContentTypeIdentifier
-     * @param array $userGroupContentTypeIdentifier
+     * @param string[] $userContentTypeIdentifier
+     * @param string[] $userGroupContentTypeIdentifier
      */
     public function __construct(
-        RoleService $roleService,
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        UserService $userService,
-        ValueFactory $valueFactory,
-        array $userContentTypeIdentifier,
-        array $userGroupContentTypeIdentifier
+        private readonly RoleService $roleService,
+        private readonly UserService $userService,
+        protected readonly ValueFactory $valueFactory,
+        private readonly array $userContentTypeIdentifier,
+        private readonly array $userGroupContentTypeIdentifier
     ) {
-        $this->roleService = $roleService;
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->userService = $userService;
-        $this->valueFactory = $valueFactory;
-        $this->userContentTypeIdentifier = $userContentTypeIdentifier;
-        $this->userGroupContentTypeIdentifier = $userGroupContentTypeIdentifier;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\RolesDataset
-     *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
@@ -88,18 +46,18 @@ class RolesDataset
 
         // @todo $content should just have been instance of User or UserGroup direclty so we don't need to re-load data
         if ((new ContentTypeIsUser($this->userContentTypeIdentifier))->isSatisfiedBy($contentType)) {
-            $user = $this->userService->loadUser($content->id);
+            $user = $this->userService->loadUser($content->getId());
             $roleAssignment = $this->roleService->getRoleAssignmentsForUser($user, true);
         }
 
         if ((new ContentTypeIsUserGroup($this->userGroupContentTypeIdentifier))->isSatisfiedBy($contentType)) {
-            $userGroup = $this->userService->loadUserGroup($content->id);
+            $userGroup = $this->userService->loadUserGroup($content->getId());
             $roleAssignment = $this->roleService->getRoleAssignmentsForUserGroup($userGroup);
         }
 
         $this->data = array_map(
             [$this->valueFactory, 'createRole'],
-            $roleAssignment
+            iterator_to_array($roleAssignment)
         );
 
         return $this;
@@ -110,8 +68,6 @@ class RolesDataset
      */
     public function getRoles(): array
     {
-        return $this->data;
+        return $this->data ?? [];
     }
 }
-
-class_alias(RolesDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\RolesDataset');

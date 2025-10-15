@@ -12,19 +12,12 @@ use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class UserSelectionAllowedContentTypes implements EventSubscriberInterface
+final readonly class UserSelectionAllowedContentTypes implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -32,9 +25,6 @@ class UserSelectionAllowedContentTypes implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         $config = $event->getConfig();
@@ -43,10 +33,10 @@ class UserSelectionAllowedContentTypes implements EventSubscriberInterface
             return;
         }
 
-        $config['allowed_content_types'] = $this->configResolver->getParameter('user_content_type_identifier');
+        $config['allowed_content_types'] = $this->configResolver->getParameter(
+            'user_content_type_identifier'
+        );
 
         $event->setConfig($config);
     }
 }
-
-class_alias(UserSelectionAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\UserSelectionAllowedContentTypes');

@@ -25,78 +25,38 @@ use Twig\Environment;
 
 class MyDraftsTab extends AbstractTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    private const PAGINATION_PARAM_NAME = 'mydrafts-page';
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
-
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private const string PAGINATION_PARAM_NAME = 'mydrafts-page';
 
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        PermissionResolver $permissionResolver,
-        DatasetFactory $datasetFactory,
-        RequestStack $requestStack,
-        ConfigResolverInterface $configResolver
+        protected ContentService $contentService,
+        protected ContentTypeService $contentTypeService,
+        protected PermissionResolver $permissionResolver,
+        protected DatasetFactory $datasetFactory,
+        private RequestStack $requestStack,
+        private ConfigResolverInterface $configResolver
     ) {
         parent::__construct($twig, $translator);
-
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->permissionResolver = $permissionResolver;
-        $this->datasetFactory = $datasetFactory;
-        $this->requestStack = $requestStack;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIdentifier(): string
     {
         return 'my-drafts';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return /** @Desc("Drafts") */
             $this->translator->trans('tab.name.my_drafts', [], 'ibexa_dashboard');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getOrder(): int
     {
         return 100;
     }
 
     /**
-     * Get information about tab presence.
-     *
-     * @param array $parameters
-     *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
@@ -106,17 +66,18 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return string
-     *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
     public function renderView(array $parameters): string
     {
-        $currentPage = $this->requestStack->getCurrentRequest()->query->getInt(
+        $request = $this->requestStack->getCurrentRequest();
+        if (null === $request) {
+            return '';
+        }
+
+        $currentPage = $request->query->getInt(
             self::PAGINATION_PARAM_NAME,
             1
         );
@@ -137,5 +98,3 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
         ]);
     }
 }
-
-class_alias(MyDraftsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\Dashboard\MyDraftsTab');

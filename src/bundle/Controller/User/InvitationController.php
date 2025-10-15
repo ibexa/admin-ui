@@ -18,49 +18,24 @@ use Ibexa\Contracts\User\Invitation\InvitationSender;
 use Ibexa\Contracts\User\Invitation\InvitationService;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use JMS\TranslationBundle\Annotation\Desc;
+use RuntimeException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Twig\Environment;
 
-final class InvitationController
+final readonly class InvitationController
 {
-    private FormFactoryInterface $formFactory;
-
-    private UserService $userService;
-
-    private InvitationService $invitationService;
-
-    private InvitationSender $sender;
-
-    private Environment $twig;
-
-    private TranslatableNotificationHandlerInterface $notificationHandler;
-
-    private SiteAccessServiceInterface $siteAccessService;
-
-    private UrlGeneratorInterface $urlGenerator;
-
     public function __construct(
-        FormFactoryInterface $formFactory,
-        UserService $userService,
-        InvitationService $invitationService,
-        InvitationSender $sender,
-        Environment $twig,
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        SiteAccessServiceInterface $siteAccessService,
-        UrlGeneratorInterface $urlGenerator
+        private FormFactoryInterface $formFactory,
+        private UserService $userService,
+        private InvitationService $invitationService,
+        private InvitationSender $sender,
+        private TranslatableNotificationHandlerInterface $notificationHandler,
+        private SiteAccessServiceInterface $siteAccessService,
+        private UrlGeneratorInterface $urlGenerator
     ) {
-        $this->formFactory = $formFactory;
-        $this->invitationService = $invitationService;
-        $this->sender = $sender;
-        $this->twig = $twig;
-        $this->userService = $userService;
-        $this->notificationHandler = $notificationHandler;
-        $this->siteAccessService = $siteAccessService;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function sendInvitationsAction(int $userGroupId, Request $request): Response
@@ -72,6 +47,9 @@ final class InvitationController
         );
 
         $siteAccess = $this->siteAccessService->getCurrent();
+        if ($siteAccess === null) {
+            throw new RuntimeException('No SiteAccess found to send the invitation.');
+        }
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -88,7 +66,7 @@ final class InvitationController
                     $invitation = $this->invitationService->createInvitation($struct);
                     $this->sender->sendInvitation($invitation);
                     $atLeastOneWasSent = true;
-                } catch (InvitationAlreadyExistsException $exception) {
+                } catch (InvitationAlreadyExistsException) {
                     $this->notificationHandler->info(
                         /** @Desc("Invitation for %email% already exists") */
                         'ibexa.user.invitations.invitation_exist',
@@ -97,7 +75,7 @@ final class InvitationController
                         ],
                         'ibexa_user_invitation'
                     );
-                } catch (UserAlreadyExistsException $exception) {
+                } catch (UserAlreadyExistsException) {
                     $this->notificationHandler->info(
                         /** @Desc("User with %email% already exists") */
                         'ibexa.user.invitations.user_exist',
@@ -120,8 +98,8 @@ final class InvitationController
         }
 
         return new RedirectResponse($this->urlGenerator->generate('ibexa.content.view', [
-            'contentId' => $group->id,
-            'locationId' => $group->getVersionInfo()->getContentInfo()->mainLocationId,
+            'contentId' => $group->getId(),
+            'locationId' => $group->getVersionInfo()->getContentInfo()->getMainLocationId(),
         ]));
     }
 }

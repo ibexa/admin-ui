@@ -12,47 +12,27 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Pagerfanta\Adapter\AdapterInterface;
 
-final class ContentDraftAdapter implements AdapterInterface
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface>
+ */
+final readonly class ContentDraftAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     */
-    public function __construct(ContentService $contentService, DatasetFactory $datasetFactory)
-    {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
+    public function __construct(
+        private ContentService $contentService,
+        private DatasetFactory $datasetFactory
+    ) {
     }
 
     /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
+        /** @var int<0, max> */
         return $this->contentService->countContentDrafts();
     }
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->contentDraftList()
@@ -60,5 +40,3 @@ final class ContentDraftAdapter implements AdapterInterface
             ->getContentDrafts();
     }
 }
-
-class_alias(ContentDraftAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ContentDraftAdapter');

@@ -17,54 +17,22 @@ use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use JMS\TranslationBundle\Annotation\Desc;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class VersionDraftConflictController extends Controller
+final class VersionDraftConflictController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     */
     public function __construct(
-        LocationService $locationService,
-        ContentService $contentService,
-        DatasetFactory $datasetFactory,
-        UserService $userService,
-        TranslatorInterface $translator
+        private readonly LocationService $locationService,
+        private readonly ContentService $contentService,
+        private readonly DatasetFactory $datasetFactory,
+        private readonly UserService $userService,
+        private readonly TranslatorInterface $translator
     ) {
-        $this->locationService = $locationService;
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
-        $this->userService = $userService;
-        $this->translator = $translator;
     }
 
     /**
-     * @param int $contentId
-     * @param string $languageCode
-     * @param int|null $locationId
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -75,10 +43,12 @@ class VersionDraftConflictController extends Controller
         ?int $locationId = null
     ): Response {
         $content = $this->contentService->loadContent($contentId);
-        $contentInfo = $content->contentInfo;
+        $contentInfo = $content->getContentInfo();
 
         try {
-            $contentDraftHasConflict = (new ContentDraftHasConflict($this->contentService, $languageCode))->isSatisfiedBy($contentInfo);
+            $contentDraftHasConflict = (
+                new ContentDraftHasConflict($this->contentService, $languageCode)
+            )->isSatisfiedBy($contentInfo);
         } catch (UnauthorizedException $e) {
             $error = $this->translator->trans(
                 /** @Desc("Cannot check if the draft has conflicts with other drafts. %error%.") */
@@ -93,13 +63,25 @@ class VersionDraftConflictController extends Controller
         if ($contentDraftHasConflict) {
             $versionsDataset = $this->datasetFactory->versions();
             $versionsDataset->load($contentInfo);
-            $conflictedDrafts = $versionsDataset->getConflictedDraftVersions($contentInfo->currentVersionNo, $languageCode);
-            $locationId = $locationId ?? $contentInfo->mainLocationId;
+            $conflictedDrafts = $versionsDataset->getConflictedDraftVersions(
+                $contentInfo->currentVersionNo,
+                $languageCode
+            );
+
+            $locationId = $locationId ?? $contentInfo->getMainLocationId();
+            if ($locationId === null) {
+                throw new RuntimeException(
+                    'Location ID is required to load the version draft conflict modal.'
+                );
+            }
+
             try {
                 $location = $this->locationService->loadLocation($locationId);
-            } catch (UnauthorizedException $e) {
+            } catch (UnauthorizedException) {
                 // Will return list of locations user has *read* access to, or empty array if none
-                $availableLocations = $this->locationService->loadLocations($contentInfo);
+                $availableLocations = iterator_to_array(
+                    $this->locationService->loadLocations($contentInfo)
+                );
                 // will return null if array of availableLocations is empty
                 $location = array_shift($availableLocations);
             }
@@ -116,5 +98,3 @@ class VersionDraftConflictController extends Controller
         return new Response();
     }
 }
-
-class_alias(VersionDraftConflictController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\Content\VersionDraftConflictController');

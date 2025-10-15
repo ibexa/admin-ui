@@ -9,17 +9,19 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Role;
 
 use Ibexa\AdminUi\Form\Data\Role\RoleCreateData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RoleCreateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Role\RoleCreateData>
+ */
+final class RoleCreateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -28,18 +30,12 @@ class RoleCreateType extends AbstractType
                 ['label' => /** @Desc("Name") */ 'role_create.name']
             )
             ->add(
-                self::BTN_SAVE,
-                SubmitType::class,
-                ['label' => /** @Desc("Save") */ 'role_create.save']
-            )
-            ->add(
                 'save_and_close',
-                SubmitType::class,
-                ['label' => /** @Desc("Save and close") */ 'role_create.save_and_close']
+                SubmitType::class
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => RoleCreateData::class,
@@ -47,5 +43,3 @@ class RoleCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(RoleCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Role\RoleCreateType');

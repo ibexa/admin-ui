@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -16,9 +17,9 @@ use Symfony\Component\Validator\Constraint;
 /**
  * Validator for default value from FieldDefinitionData.
  */
-class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
+final class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
 {
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof FieldDefinitionData) {
             return;
@@ -35,7 +36,7 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
 
         $validationErrors = $fieldType->validateValue($fieldDefinition, $fieldValue);
 
-        $this->processValidationErrors($validationErrors);
+        $this->processValidationErrors(iterator_to_array($validationErrors));
     }
 
     protected function getFieldValue(FieldDefinitionData $value): ?Value
@@ -65,5 +66,3 @@ class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
         return 'defaultValue';
     }
 }
-
-class_alias(FieldDefinitionDefaultValueValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\FieldDefinitionDefaultValueValidator');

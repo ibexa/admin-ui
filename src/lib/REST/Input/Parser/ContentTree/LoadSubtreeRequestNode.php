@@ -58,5 +58,3 @@ class LoadSubtreeRequestNode extends BaseParser
         );
     }
 }
-
-class_alias(LoadSubtreeRequestNode::class, 'EzSystems\EzPlatformAdminUi\REST\Input\Parser\ContentTree\LoadSubtreeRequestNode');

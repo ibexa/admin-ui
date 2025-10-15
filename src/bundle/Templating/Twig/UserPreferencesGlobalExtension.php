@@ -19,31 +19,19 @@ use Twig\Extension\GlobalsInterface;
  */
 class UserPreferencesGlobalExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingArrayAccessor */
-    protected $userSettingArrayAccessor;
-
-    /**
-     * @param \Ibexa\User\UserSetting\UserSettingArrayAccessor $userSettingArrayAccessor
-     */
     public function __construct(
-        UserSettingArrayAccessor $userSettingArrayAccessor
+        private readonly UserSettingArrayAccessor $userSettingArrayAccessor
     ) {
-        $this->userSettingArrayAccessor = $userSettingArrayAccessor;
     }
 
     /**
-     * @return array
+     * @return array<string, \ArrayAccess<string, mixed>>
      */
     public function getGlobals(): array
     {
         // has to use \ArrayAccess object due to BC promise
-
         return [
-            /** @deprecated ez_user_settings is deprecated since 4.0, use ibexa_user_settings instead */
-            'ez_user_settings' => $this->userSettingArrayAccessor,
             'ibexa_user_settings' => $this->userSettingArrayAccessor,
         ];
     }
 }
-
-class_alias(UserPreferencesGlobalExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UserPreferencesGlobalExtension');

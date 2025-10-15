@@ -15,16 +15,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
  */
 class LocationMoveData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $location;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    protected $newParentLocation;
-
-    public function __construct(?Location $location = null, ?Location $newParentLocation = null)
-    {
-        $this->location = $location;
-        $this->newParentLocation = $newParentLocation;
+    public function __construct(
+        protected ?Location $location = null,
+        protected ?Location $newParentLocation = null
+    ) {
     }
 
     public function getLocation(): ?Location
@@ -32,7 +26,7 @@ class LocationMoveData
         return $this->location;
     }
 
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
@@ -42,10 +36,8 @@ class LocationMoveData
         return $this->newParentLocation;
     }
 
-    public function setNewParentLocation(?Location $newParentLocation)
+    public function setNewParentLocation(?Location $newParentLocation): void
     {
         $this->newParentLocation = $newParentLocation;
     }
 }
-
-class_alias(LocationMoveData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationMoveData');

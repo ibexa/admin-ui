@@ -11,41 +11,22 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
-class ScopeParameterBasedValue implements ProviderInterface
+readonly class ScopeParameterBasedValue implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
-
-    /** @var string */
-    protected $parameterName;
-
-    /** @var string|null */
-    protected $namespace;
-
-    /** @var string|null */
-    protected $scope;
-
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        string $parameterName,
-        ?string $namespace = null,
-        ?string $scope = null
+        protected ConfigResolverInterface $configResolver,
+        protected string $parameterName,
+        protected ?string $namespace = null,
+        protected ?string $scope = null
     ) {
-        $this->configResolver = $configResolver;
-        $this->parameterName = $parameterName;
-        $this->namespace = $namespace;
-        $this->scope = $scope;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return mixed
-     */
-    public function getConfig()
+    public function getConfig(): mixed
     {
-        return $this->configResolver->getParameter($this->parameterName, $this->namespace, $this->scope);
+        return $this->configResolver->getParameter(
+            $this->parameterName,
+            $this->namespace,
+            $this->scope
+        );
     }
 }
-
-class_alias(ScopeParameterBasedValue::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\ScopeParameterBasedValue');

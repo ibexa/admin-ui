@@ -35,7 +35,7 @@
                 {% do option.setRendered() %}
             </div>
         {% endfor %}
-        {% if form.trash_options is not empty %}
+        {% if form.confirm is defined %}
             <p>
                 {{ form_widget(form.confirm) }}
             </p>

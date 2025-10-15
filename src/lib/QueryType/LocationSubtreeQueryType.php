@@ -17,23 +17,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class LocationSubtreeQueryType extends OptionsResolverBasedQueryType
 {
-    protected const OWNED_OPTION_NAME = 'owned';
-    protected const SUBTREE_OPTION_NAME = 'subtree';
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
+    protected const string OWNED_OPTION_NAME = 'owned';
+    protected const string SUBTREE_OPTION_NAME = 'subtree';
 
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        PermissionResolver $permissionResolver
+        protected readonly ConfigResolverInterface $configResolver,
+        private readonly PermissionResolver $permissionResolver
     ) {
-        $this->configResolver = $configResolver;
-        $this->permissionResolver = $permissionResolver;
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function doGetQuery(array $parameters): LocationQuery
     {
         $subtreeCriterion = new Query\Criterion\Subtree($parameters[self::SUBTREE_OPTION_NAME]);

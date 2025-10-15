@@ -14,9 +14,7 @@ namespace Ibexa\Contracts\AdminUi\UI\Config;
 interface ProviderInterface
 {
     /**
-     * @return mixed Anything that is serializable via json_encode()
+     * @return mixed anything that is serializable via json_encode()
      */
-    public function getConfig();
+    public function getConfig(): mixed;
 }
-
-class_alias(ProviderInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Config\ProviderInterface');

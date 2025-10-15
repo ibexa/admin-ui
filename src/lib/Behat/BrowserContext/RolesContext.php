@@ -15,25 +15,13 @@ use Ibexa\AdminUi\Behat\Page\RolesPage;
 use Ibexa\AdminUi\Behat\Page\RoleUpdatePage;
 use PHPUnit\Framework\Assert;
 
-class RolesContext implements Context
+final readonly class RolesContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\RolesPage */
-    private $rolesPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\RolePage */
-    private $rolePage;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\RoleUpdatePage */
-    private $roleUpdatePage;
-
     public function __construct(
-        RolesPage $rolesPage,
-        RolePage $rolePage,
-        RoleUpdatePage $roleUpdatePage
+        private RolesPage $rolesPage,
+        private RolePage $rolePage,
+        private RoleUpdatePage $roleUpdatePage
     ) {
-        $this->rolePage = $rolePage;
-        $this->roleUpdatePage = $roleUpdatePage;
-        $this->rolesPage = $rolesPage;
     }
 
     /**
@@ -72,7 +60,9 @@ class RolesContext implements Context
     public function thereIsAPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
-        Assert::assertTrue($this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation));
+        Assert::assertTrue(
+            $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
+        );
     }
 
     /**
@@ -81,7 +71,9 @@ class RolesContext implements Context
     public function thereIsNoPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
-        Assert::assertFalse($this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation));
+        Assert::assertFalse(
+            $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
+        );
     }
 
     /**
@@ -156,7 +148,7 @@ class RolesContext implements Context
     /**
      * @Given there's no :roleName Role on Roles list
      */
-    public function thereSNoRoleOnRoleList(string $roleName)
+    public function thereSNoRoleOnRoleList(string $roleName): void
     {
         Assert::assertFalse($this->rolesPage->isRoleOnTheList($roleName));
     }
@@ -164,7 +156,7 @@ class RolesContext implements Context
     /**
      * @Given I delete Role :roleName
      */
-    public function deleteRoleNamed(string $roleName)
+    public function deleteRoleNamed(string $roleName): void
     {
         $this->rolesPage->deleteRole($roleName);
     }
@@ -172,7 +164,7 @@ class RolesContext implements Context
     /**
      * @Given there's a :roleName Role on Roles list
      */
-    public function thereARoleOnRoleList(string $roleName)
+    public function thereARoleOnRoleList(string $roleName): void
     {
         Assert::assertTrue($this->rolesPage->isRoleOnTheList($roleName));
     }
@@ -180,7 +172,7 @@ class RolesContext implements Context
     /**
      * @Then I should be on :roleName Role page
      */
-    public function iShouldBeOnRolePage(string $roleName)
+    public function iShouldBeOnRolePage(string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
         $this->rolePage->verifyIsLoaded();
@@ -189,7 +181,7 @@ class RolesContext implements Context
     /**
      * @Then Policies list is empty
      */
-    public function policiesListIsEmpty()
+    public function policiesListIsEmpty(): void
     {
         Assert::assertFalse($this->rolePage->hasPolicies());
     }
@@ -197,7 +189,7 @@ class RolesContext implements Context
     /**
      * @Then I start assigning to :roleName from Roles page
      */
-    public function startAssigning(string $roleName)
+    public function startAssigning(string $roleName): void
     {
         $this->rolesPage->startAssinging($roleName);
     }
@@ -205,7 +197,7 @@ class RolesContext implements Context
     /**
      * @Then Assignments list is empty
      */
-    public function assignmentslistIsEmpty()
+    public function assignmentsListIsEmpty(): void
     {
         Assert::assertFalse($this->rolePage->hasAssignments());
     }
@@ -213,7 +205,7 @@ class RolesContext implements Context
     /**
      * @Then I edit :roleName from Roles list
      */
-    public function editRoleFromRolesList(string $roleName)
+    public function editRoleFromRolesList(string $roleName): void
     {
         $this->rolesPage->editRole($roleName);
     }
@@ -221,7 +213,7 @@ class RolesContext implements Context
     /**
      * @Then I open :roleName Role page in admin SiteAccess
      */
-    public function openRolePage(string $roleName)
+    public function openRolePage(string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
         $this->rolePage->open('admin');
@@ -231,7 +223,7 @@ class RolesContext implements Context
     /**
      * @Then I start editing the policy :policyName :functionName
      */
-    public function editPolicy(string $policyName, string $functionName)
+    public function editPolicy(string $policyName, string $functionName): void
     {
         $this->rolePage->editPolicy($policyName, $functionName);
     }

@@ -50,13 +50,13 @@ export default class UploadPopupModule extends Component {
         const Translator = getTranslator();
         const hasAnyUploadedItems = !!this.props.uploadedItems.length;
         const hasAnyItemsToUpload = !!this.props.itemsToUpload.length;
-        const label = Translator.trans(/*@Desc("Upload")*/ 'upload_popup.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Upload") */ 'upload_popup.label', {}, 'ibexa_multi_file_upload');
         const confirmBtnLabel =
             !hasAnyUploadedItems && !hasAnyItemsToUpload
-                ? Translator.trans(/*@Desc("Close")*/ 'upload_popup.close_label', {}, 'ibexa_multi_file_upload')
-                : Translator.trans(/*@Desc("Confirm and close")*/ 'upload_popup.confirm_label', {}, 'ibexa_multi_file_upload');
+                ? Translator.trans(/* @Desc("Close") */ 'upload_popup.close_label', {}, 'ibexa_multi_file_upload')
+                : Translator.trans(/* @Desc("Confirm and close") */ 'upload_popup.confirm_label', {}, 'ibexa_multi_file_upload');
         const closeBtnLabel = Translator.trans(
-            /*@Desc("Cancel pending upload")*/ 'upload_popup.cancel_label',
+            /* @Desc("Cancel pending upload") */ 'upload_popup.cancel_label',
             {},
             'ibexa_multi_file_upload',
         );
@@ -88,7 +88,7 @@ export default class UploadPopupModule extends Component {
             visible,
             onConfirm,
             onClose,
-            title: Translator.trans(/*@Desc("Multi-file upload")*/ 'upload_popup.title', {}, 'ibexa_multi_file_upload'),
+            title: Translator.trans(/* @Desc("Multi-file upload") */ 'upload_popup.title', {}, 'ibexa_multi_file_upload'),
             confirmLabel: confirmBtnLabel,
             closeLabel: closeBtnLabel,
             confirmBtnAttrs: {

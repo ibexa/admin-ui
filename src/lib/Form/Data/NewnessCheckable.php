@@ -15,5 +15,3 @@ interface NewnessCheckable
      */
     public function isNew(): bool;
 }
-
-class_alias(NewnessCheckable::class, 'EzSystems\EzPlatformAdminUi\Form\Data\NewnessCheckable');

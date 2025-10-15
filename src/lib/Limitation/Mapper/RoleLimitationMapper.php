@@ -17,14 +17,14 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    private RoleService $roleService;
-
     public function __construct(
-        RoleService $roleService
+        private readonly RoleService $roleService
     ) {
-        $this->roleService = $roleService;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function getSelectionChoices(): array
     {
         $choices = [];

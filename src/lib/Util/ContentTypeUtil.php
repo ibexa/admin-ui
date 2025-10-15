@@ -10,18 +10,12 @@ namespace Ibexa\AdminUi\Util;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
-class ContentTypeUtil
+final readonly class ContentTypeUtil
 {
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     * @param string $fieldTypeIdentifier
-     *
-     * @return bool
-     */
     public function hasFieldType(ContentType $contentType, string $fieldTypeIdentifier): bool
     {
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier) {
+            if ($fieldDefinition->getFieldTypeIdentifier() === $fieldTypeIdentifier) {
                 return true;
             }
         }
@@ -30,16 +24,13 @@ class ContentTypeUtil
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     * @param string $fieldTypeIdentifier
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[]
      */
     public function findFieldDefinitions(ContentType $contentType, string $fieldTypeIdentifier): array
     {
         $fieldTypes = [];
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
-            if ($fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier) {
+            if ($fieldDefinition->getFieldTypeIdentifier() === $fieldTypeIdentifier) {
                 $fieldTypes[] = $fieldDefinition;
             }
         }
@@ -47,5 +38,3 @@ class ContentTypeUtil
         return $fieldTypes;
     }
 }
-
-class_alias(ContentTypeUtil::class, 'EzSystems\EzPlatformAdminUi\Util\ContentTypeUtil');

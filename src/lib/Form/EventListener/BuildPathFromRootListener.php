@@ -13,30 +13,16 @@ use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Form\FormEvent;
 
-class BuildPathFromRootListener
+final readonly class BuildPathFromRootListener
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    private $urlAliasService;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
-        LocationService $locationService,
-        URLAliasService $urlAliasService,
-        ConfigResolverInterface $configResolver
+        private LocationService $locationService,
+        private URLAliasService $urlAliasService,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->locationService = $locationService;
-        $this->urlAliasService = $urlAliasService;
-        $this->configResolver = $configResolver;
     }
 
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -64,6 +50,10 @@ class BuildPathFromRootListener
         }
     }
 
+    /**
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     */
     private function createPathBasedOnParentLocation(int $locationId, string $path): string
     {
         $parentLocation = $this->locationService->loadLocation($locationId);
@@ -72,5 +62,3 @@ class BuildPathFromRootListener
         return $urlAlias->path . '/' . $path;
     }
 }
-
-class_alias(BuildPathFromRootListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\BuildPathFromRootListener');

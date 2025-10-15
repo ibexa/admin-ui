@@ -4,42 +4,29 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu\Admin\Role;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
-use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
 
-/**
- * KnpMenuBundle Menu Builder service implementation for AdminUI Section Edit contextual sidebar menu.
- *
- * @see https://symfony.com/doc/current/bundles/KnpMenuBundle/menu_builder_service.html
- */
-class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
+final class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements TranslationContainerInterface
 {
-    /* Menu items */
-    public const ITEM__CREATE = 'policy_create__sidebar_right__create';
-    public const ITEM__CANCEL = 'policy_create__sidebar_right__cancel';
+    public const string ITEM__CREATE = 'policy_create__sidebar_right__create';
+    public const string ITEM__CANCEL = 'policy_create__sidebar_right__cancel';
 
-    /**
-     * @return string
-     */
     protected function getConfigureEventName(): string
     {
         return ConfigureMenuEvent::POLICY_CREATE_SIDEBAR_RIGHT;
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @return \Knp\Menu\ItemInterface
-     *
-     * @throws \InvalidArgumentException
-     * @throws ApiExceptions\BadStateException
      * @throws \InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
@@ -81,10 +68,8 @@ class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements Transla
     public static function getTranslationMessages(): array
     {
         return [
-            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save and close'),
+            (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Save'),
             (new Message(self::ITEM__CANCEL, 'ibexa_menu'))->setDesc('Discard'),
         ];
     }
 }
-
-class_alias(PolicyCreateRightSidebarBuilder::class, 'EzSystems\EzPlatformAdminUi\Menu\Admin\Role\PolicyCreateRightSidebarBuilder');

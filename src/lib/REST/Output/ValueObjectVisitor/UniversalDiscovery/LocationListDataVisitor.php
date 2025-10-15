@@ -16,7 +16,7 @@ final class LocationListDataVisitor extends AbstractLocationDataVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\UniversalDiscovery\LocationListData $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data): void
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement('LocationList');
         $generator->startList('locations');

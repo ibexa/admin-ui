@@ -14,33 +14,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class TranslationAddData
 {
-    /**
-     * @Assert\NotBlank()
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
-    protected $location;
-
-    /**
-     * @Assert\NotBlank()
-     *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
-    protected $language;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     */
-    protected $baseLanguage;
-
     public function __construct(
-        ?Location $location = null,
-        ?Language $language = null,
-        ?Language $baseLanguage = null
+        #[Assert\NotBlank]
+        protected ?Location $location = null,
+        #[Assert\NotBlank]
+        protected ?Language $language = null,
+        protected ?Language $baseLanguage = null
     ) {
-        $this->location = $location;
-        $this->language = $language;
-        $this->baseLanguage = $baseLanguage;
     }
 
     public function getLocation(): ?Location
@@ -48,7 +28,7 @@ class TranslationAddData
         return $this->location;
     }
 
-    public function setLocation(Location $location): self
+    public function setLocation(?Location $location): self
     {
         $this->location = $location;
 
@@ -60,7 +40,7 @@ class TranslationAddData
         return $this->language;
     }
 
-    public function setLanguage(Language $language): self
+    public function setLanguage(?Language $language): self
     {
         $this->language = $language;
 
@@ -72,12 +52,10 @@ class TranslationAddData
         return $this->baseLanguage;
     }
 
-    public function setBaseLanguage(Language $baseLanguage): self
+    public function setBaseLanguage(?Language $baseLanguage): self
     {
         $this->baseLanguage = $baseLanguage;
 
         return $this;
     }
 }
-
-class_alias(TranslationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Translation\TranslationAddData');

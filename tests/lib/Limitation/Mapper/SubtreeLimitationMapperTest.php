@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\SubtreeLimitationMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -22,9 +22,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use PHPUnit\Framework\TestCase;
 
-class SubtreeLimitationMapperTest extends TestCase
+final class SubtreeLimitationMapperTest extends TestCase
 {
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
         $values = ['/1/2/5/', '/1/2/7/', '/1/2/11/'];
         $expected = [
@@ -47,7 +47,6 @@ class SubtreeLimitationMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
-        $permissionResolverMock = $this->createMock(PermissionResolver::class);
         $repositoryMock = $this->createMock(Repository::class);
 
         foreach ($values as $i => $pathString) {
@@ -57,7 +56,7 @@ class SubtreeLimitationMapperTest extends TestCase
             ]);
 
             $searchServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('findLocations')
                 ->with($query)
                 ->willReturn($this->createSearchResultsMock($expected[$i]));
@@ -66,31 +65,36 @@ class SubtreeLimitationMapperTest extends TestCase
         $mapper = new SubtreeLimitationMapper(
             $locationServiceMock,
             $searchServiceMock,
-            $permissionResolverMock,
             $repositoryMock
         );
         $result = $mapper->mapLimitationValue(new SubtreeLimitation([
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    private function createSearchResultsMock($expected)
+    /**
+     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $expected
+     *
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<
+     *     \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * >
+     */
+    private function createSearchResultsMock(array $expected): SearchResult
     {
         $hits = [];
         foreach ($expected as $contentInfo) {
             $locationMock = $this->createMock(Location::class);
             $locationMock
-                ->expects($this->atLeastOnce())
+                ->expects(self::atLeastOnce())
                 ->method('getContentInfo')
                 ->willReturn($contentInfo);
 
             $hits[] = new SearchHit(['valueObject' => $locationMock]);
         }
 
+        /** @phpstan-var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Location> */
         return new SearchResult(['searchHits' => $hits]);
     }
 }
-
-class_alias(SubtreeLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\SubtreeLimitationMapperTest');

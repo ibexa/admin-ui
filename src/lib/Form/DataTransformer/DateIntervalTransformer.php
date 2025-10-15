@@ -16,16 +16,12 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Translates timestamp and DataInterval to domain specific timestamp date range.
  */
-class DateIntervalTransformer implements DataTransformerInterface
+final readonly class DateIntervalTransformer implements DataTransformerInterface
 {
     /**
-     * @param array|null $value
-     *
-     * @return array|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @param array<string, mixed>|null $value
      */
-    public function transform($value)
+    public function transform(mixed $value): null
     {
         return null;
     }
@@ -35,7 +31,7 @@ class DateIntervalTransformer implements DataTransformerInterface
      *
      * @return array<string, int>
      */
-    public function reverseTransform($value): array
+    public function reverseTransform(mixed $value): array
     {
         if (!is_array($value)) {
             return [];
@@ -70,5 +66,3 @@ class DateIntervalTransformer implements DataTransformerInterface
         return ['start_date' => $startDateTimestamp, 'end_date' => $endDateTimestamp];
     }
 }
-
-class_alias(DateIntervalTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\DateIntervalTransformer');

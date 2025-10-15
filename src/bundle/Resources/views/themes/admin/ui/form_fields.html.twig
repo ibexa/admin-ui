@@ -60,7 +60,7 @@
         {%- else -%}
             <div class="ibexa-instant-filter__group-item" data-identifier="{{ option.value }}">
                 <label class="ibexa-instant-filter__group-item-label-icon" for="{{ form[key].vars.id }}">
-                    <svg class="ibexa-icon ibexa-icon--small">
+                    <svg class="ibexa-icon ibexa-icon--small-medium">
                         <use xlink:href="{{ ibexa_content_type_icon(option.value) }}"></use>
                     </svg>
                 </label>
@@ -174,7 +174,7 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('restore') }}"></use>
         </svg>
         <span class="ibexa-btn__label">
@@ -196,7 +196,7 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('restore-parent') }}"></use>
         </svg>
         <span class="ibexa-btn__label">
@@ -235,7 +235,7 @@
         {%- endif -%}
     {%- endif -%}
     <button type="{{ type }}" {{ block('button_attributes') }}>
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path(icon|default('')) }}"></use>
         </svg>
         {%- if title -%}
@@ -280,7 +280,7 @@
         {% endblock %}
 
         {% block actions %}
-            {{ extra_actions_after|default(null)}}
+            {{ extra_actions_after|default(null) }}
         {% endblock %}
     {%- endembed -%}
 {%- endblock textarea_widget %}
@@ -374,7 +374,7 @@
         {%- set form_errors_attr = form_errors_attr|default({})|merge({class: (form_errors_attr.class|default('') ~ ' ibexa-form-error__row')|trim}) -%}
         {%- for error in errors -%}
             <em {% with { attr: form_errors_attr } %}{{ block('attributes') }}{% endwith %}>
-                <svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
+                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
                     <use xlink:href="{{ ibexa_icon_path('notice') }}"></use>
                 </svg>
                 {{ error.message }}
@@ -391,9 +391,6 @@
     {%- set type = type|default('text') -%}
     {%- set is_text_input = type == 'text' or type == 'number' or force_text|default(false) -%}
     {%- if is_text_input -%}
-        {# @deprecated extra_actions_after in attr will be removed in 5.0, used for BC in 4.6 #}
-        {%- set extra_actions_after_from_attr = attr.extra_actions_after|default(null) -%}
-        {%- set attr = attr|filter((value, key) => key != 'extra_actions_after') -%}
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
@@ -407,7 +404,7 @@
 
             {% block actions %}
                 {{ parent() }}
-                {{ extra_actions_after|default(extra_actions_after_from_attr)}}
+                {{ extra_actions_after|default(null) }}
             {% endblock %}
         {%- endembed -%}
     {%- else -%}
@@ -422,7 +419,7 @@
 
         <small id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
             {% if with_icon %}
-                <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
+                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-help__icon">
                     <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
                 </svg>
             {% endif %}
@@ -521,7 +518,7 @@
     {% trans_default_domain 'ibexa_admin_ui' %}
 
     {%- set title_icon -%}
-        <svg class="ibexa-icon ibexa-icon--small">
+        <svg class="ibexa-icon ibexa-icon--small-medium">
             <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
         </svg>
     {%- endset -%}
@@ -533,7 +530,7 @@
     <div class="ibexa-field-edit__distraction-free-mode">
         <div class="ibexa-field-edit__distraction-free-mode-notice-container">
             {% include '@ibexadesign/ui/component/alert/alert.html.twig' with {
-                type: 'complementary',
+                type: 'info',
                 title,
                 icon_path: ibexa_icon_path('system-information'),
                 show_close_btn: true

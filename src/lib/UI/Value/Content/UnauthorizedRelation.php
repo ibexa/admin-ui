@@ -10,34 +10,19 @@ namespace Ibexa\AdminUi\UI\Value\Content;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
 
-final class UnauthorizedRelation implements RelationInterface
+final readonly class UnauthorizedRelation implements RelationInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem */
-    private $unauthorizedRelation;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $unauthorizedContentDraft
-     */
-    public function __construct(UnauthorizedRelationListItem $unauthorizedRelation)
+    public function __construct(private UnauthorizedRelationListItem $unauthorizedRelation)
     {
-        $this->unauthorizedRelation = $unauthorizedRelation;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem
-     */
     public function getUnauthorizedRelation(): UnauthorizedRelationListItem
     {
         return $this->unauthorizedRelation;
     }
 
-    /**
-     * @return bool
-     */
     public function isAccessible(): bool
     {
         return false;
     }
 }
-
-class_alias(UnauthorizedRelation::class, 'EzSystems\EzPlatformAdminUi\UI\Value\Content\UnauthorizedRelation');

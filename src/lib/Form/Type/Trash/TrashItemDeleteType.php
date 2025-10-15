@@ -15,12 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrashItemDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Trash\TrashItemDeleteData>
+ */
+final class TrashItemDeleteType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('trash_items', CollectionType::class, [
             'entry_type' => TrashItemCheckboxType::class,
@@ -38,10 +38,7 @@ class TrashItemDeleteType extends AbstractType
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TrashItemDeleteData::class,
@@ -49,5 +46,3 @@ class TrashItemDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashItemDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashItemDeleteType');

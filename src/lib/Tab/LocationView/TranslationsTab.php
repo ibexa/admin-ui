@@ -32,49 +32,19 @@ use Twig\Environment;
 
 class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-translations';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
-
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
-
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        DatasetFactory $datasetFactory,
-        UrlGeneratorInterface $urlGenerator,
+        protected readonly DatasetFactory $datasetFactory,
+        protected readonly UrlGeneratorInterface $urlGenerator,
         EventDispatcherInterface $eventDispatcher,
-        FormFactoryInterface $formFactory,
-        PermissionResolver $permissionResolver,
-        LanguageService $languageService
+        private readonly FormFactoryInterface $formFactory,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LanguageService $languageService
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
-        $this->urlGenerator = $urlGenerator;
-        $this->permissionResolver = $permissionResolver;
-        $this->languageService = $languageService;
     }
 
     public function getIdentifier(): string
@@ -93,17 +63,11 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return 300;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/translations/tab.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
@@ -123,16 +87,22 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 
         $mainTranslationUpdateForm = $this->createMainLanguageUpdateForm(
             $content,
-            $versionInfo->contentInfo->mainLanguageCode
+            $versionInfo->getContentInfo()->getMainLanguageCode()
         );
 
-        $languagesCodes = array_column($this->languageService->loadLanguages(), 'languageCode');
+        $languagesCodes = array_column(
+            iterator_to_array($this->languageService->loadLanguages()),
+            'languageCode'
+        );
 
         $canTranslate = $this->permissionResolver->canUser(
             'content',
             'edit',
             $location->getContentInfo(),
-            [(new Target\Builder\VersionBuilder())->translateToAnyLanguageOf($languagesCodes)->build(), $location]
+            [
+                (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf($languagesCodes)->build(),
+                $location,
+            ]
         );
 
         $viewParameters = [
@@ -148,9 +118,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Translation\TranslationAddData>
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
@@ -158,14 +126,17 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     {
         $data = new TranslationAddData($location);
 
-        return $this->formFactory->createNamed('add-translation', TranslationAddType::class, $data);
+        return $this->formFactory->createNamed(
+            'add-translation',
+            TranslationAddType::class,
+            $data
+        );
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param array $languageCodes
+     * @param mixed[] $languageCodes
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData>
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
@@ -180,10 +151,9 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     * @param string $languageCode
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Symfony\Component\Form\FormInterface<
+     *   \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData
+     * >
      */
     private function createMainLanguageUpdateForm(Content $content, string $languageCode): FormInterface
     {
@@ -192,5 +162,3 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return $this->formFactory->create(MainTranslationUpdateType::class, $data);
     }
 }
-
-class_alias(TranslationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\TranslationsTab');

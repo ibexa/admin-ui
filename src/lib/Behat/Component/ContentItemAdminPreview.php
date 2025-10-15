@@ -17,16 +17,22 @@ use RuntimeException;
 
 class ContentItemAdminPreview extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] */
-    protected $fieldTypeComponents;
-
-    public function __construct(Session $session, iterable $fieldTypeComponents)
-    {
+    /**
+     * @param \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponentInterface[] $fieldTypeComponents
+     */
+    public function __construct(
+        Session $session,
+        protected iterable $fieldTypeComponents
+    ) {
         parent::__construct($session);
-        $this->fieldTypeComponents = $fieldTypeComponents;
     }
 
-    public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier)
+    /**
+     * @param array<string, mixed> $expectedValues
+     *
+     * @throws \RuntimeException
+     */
+    public function verifyFieldHasValues(string $fieldLabel, array $expectedValues, ?string $fieldTypeIdentifier): void
     {
         $fieldPosition = $this->getFieldPosition($fieldLabel);
         $nthFieldLocator = new VisibleCSSLocator('', sprintf($this->getLocator('nthFieldContainer')->getSelector(), $fieldPosition));
@@ -74,22 +80,22 @@ class ContentItemAdminPreview extends Component
         return $fieldPosition;
     }
 
-    protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator)
+    protected function detectFieldTypeIdentifier(CSSLocator $fieldValueLocator): string
     {
         $fieldClass = $this->getHTMLPage()
             ->find(CSSLocatorBuilder::base($fieldValueLocator)->withDescendant($this->getLocator('fieldValueContainer'))->build())
             ->getAttribute('class');
 
         if ('ibexa-scrollable-table-wrapper mb-0' === $fieldClass) {
-            return 'ezuser';
+            return 'ibexa_user';
         }
 
         if (false !== strpos($fieldClass, 'ibexa-table-header')) {
-            return 'ezmatrix';
+            return 'ibexa_matrix';
         }
 
         if ('' === $fieldClass) {
-            return 'ezboolean';
+            return 'ibexa_boolean';
         }
 
         $fieldTypeIdentifierRegex = '/ez|ibexa[a-z_]*-field/';

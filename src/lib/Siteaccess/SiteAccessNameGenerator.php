@@ -17,5 +17,3 @@ final class SiteAccessNameGenerator implements SiteAccessNameGeneratorInterface
         return $siteAccess->name;
     }
 }
-
-class_alias(SiteAccessNameGenerator::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\SiteAccessNameGenerator');

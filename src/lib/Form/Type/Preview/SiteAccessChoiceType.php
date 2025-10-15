@@ -24,23 +24,16 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @deprecated Deprecated since 4.6.24/5.0.2 and will be removed in 6.0. Use `\Ibexa\AdminUi\Form\Type\Preview\VersionPreviewUrlChoiceType` instead.
+ *
+ * @phpstan-extends \Symfony\Component\Form\AbstractType<mixed>
  */
 final class SiteAccessChoiceType extends AbstractType
 {
-    private SiteaccessResolverInterface $siteAccessResolver;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
-    private UrlGeneratorInterface $urlGenerator;
-
     public function __construct(
-        SiteaccessResolverInterface $siteAccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        UrlGeneratorInterface $urlGenerator
+        private readonly SiteaccessResolverInterface $siteAccessResolver,
+        private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
+        private readonly UrlGeneratorInterface $urlGenerator
     ) {
-        $this->siteAccessResolver = $siteAccessResolver;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
-        $this->urlGenerator = $urlGenerator;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -84,7 +77,7 @@ final class SiteAccessChoiceType extends AbstractType
         $resolver->setAllowedTypes('languageCode', 'string');
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }

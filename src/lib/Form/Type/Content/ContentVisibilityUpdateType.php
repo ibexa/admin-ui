@@ -14,12 +14,12 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentVisibilityUpdateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\ContentVisibilityUpdateData>
+ */
+final class ContentVisibilityUpdateType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -38,15 +38,10 @@ class ContentVisibilityUpdateType extends AbstractType
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ContentVisibilityUpdateData::class,
         ]);
     }
 }
-
-class_alias(ContentVisibilityUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\ContentVisibilityUpdateType');

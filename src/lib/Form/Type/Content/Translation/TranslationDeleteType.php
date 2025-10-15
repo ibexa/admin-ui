@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\Type\Content\Translation;
 
 use Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData;
 use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,9 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TranslationDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Translation\TranslationDeleteData>
+ */
+final class TranslationDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -47,7 +51,7 @@ class TranslationDeleteType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TranslationDeleteData::class,
@@ -55,5 +59,3 @@ class TranslationDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(TranslationDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Translation\TranslationDeleteType');

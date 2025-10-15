@@ -8,14 +8,14 @@ import { MultipleConfigContext } from '../../universal.discovery.module';
 import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 import { parse as parseTooltip } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 
-const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title, onPageChange, renderCustomHeader }) => {
+const ContentTable = ({ count, itemsPerPage, items, activePageIndex, title = '', onPageChange, renderCustomHeader = null }) => {
     const Translator = getTranslator();
     const [multiple] = useContext(MultipleConfigContext);
     const refContentTable = useRef(null);
-    const nameLabel = Translator.trans(/*@Desc("Name")*/ 'content_table.name', {}, 'ibexa_universal_discovery_widget');
-    const modifiedLabel = Translator.trans(/*@Desc("Modified")*/ 'content_table.modified', {}, 'ibexa_universal_discovery_widget');
+    const nameLabel = Translator.trans(/* @Desc("Name") */ 'content_table.name', {}, 'ibexa_universal_discovery_widget');
+    const modifiedLabel = Translator.trans(/* @Desc("Modified") */ 'content_table.modified', {}, 'ibexa_universal_discovery_widget');
     const contentTypeLabel = Translator.trans(
-        /*@Desc("Content type")*/ 'content_table.content_type',
+        /* @Desc("Content type") */ 'content_table.content_type',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -78,11 +78,6 @@ ContentTable.propTypes = {
     title: PropTypes.string,
     onPageChange: PropTypes.func.isRequired,
     renderCustomHeader: PropTypes.func,
-};
-
-ContentTable.defaultProps = {
-    title: '',
-    renderCustomHeader: null,
 };
 
 export default ContentTable;

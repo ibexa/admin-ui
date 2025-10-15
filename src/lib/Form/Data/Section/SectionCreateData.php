@@ -15,50 +15,22 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @todo add validation
  */
-class SectionCreateData implements TranslationContainerInterface
+final class SectionCreateData implements TranslationContainerInterface
 {
-    /**
-     * @var string|null
-     *
-     * @Assert\NotBlank()
-     *
-     * @Assert\Regex(
-     *     pattern="/^[[:alnum:]_]+$/",
-     *     message="ez.section.identifier.format"
-     * )
-     */
-    protected $identifier;
-
-    /**
-     * @var string|null
-     *
-     * @Assert\NotBlank()
-     */
-    protected $name;
-
-    /**
-     * @param string|null $identifier
-     * @param string|null $name
-     */
-    public function __construct(?string $identifier = null, ?string $name = null)
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
+    public function __construct(
+        #[Assert\NotBlank]
+        #[Assert\Regex(pattern: '/^[[:alnum:]_]+$/', message: 'ez.section.identifier.format')]
+        private ?string $identifier = null,
+        #[Assert\NotBlank]
+        private ?string $name = null
+    ) {
     }
 
-    /**
-     * @return string|null
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string|null $identifier
-     *
-     * @return SectionCreateData
-     */
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
@@ -66,19 +38,11 @@ class SectionCreateData implements TranslationContainerInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string|null $name
-     *
-     * @return SectionCreateData
-     */
     public function setName(?string $name): self
     {
         $this->name = $name;
@@ -94,5 +58,3 @@ class SectionCreateData implements TranslationContainerInterface
         ];
     }
 }
-
-class_alias(SectionCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Section\SectionCreateData');

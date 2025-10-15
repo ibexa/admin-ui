@@ -18,33 +18,19 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ContentProxyCreateEvent extends Event
 {
-    public const OPTION_CONTENT_DRAFT = 'contentDraft';
-    public const OPTION_IS_ON_THE_FLY = 'isOnTheFly';
+    public const string OPTION_CONTENT_DRAFT = 'contentDraft';
+    public const string OPTION_IS_ON_THE_FLY = 'isOnTheFly';
 
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
-    private $response;
+    private ?Response $response = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
-    private $contentType;
-
-    /** @var string */
-    private $languageCode;
-
-    /** @var int */
-    private $parentLocationId;
-
-    /** @var \Ibexa\AdminUi\Event\Options */
-    private $options;
+    private Options $options;
 
     public function __construct(
-        ContentType $contentType,
-        string $languageCode,
-        int $parentLocationId,
+        private readonly ContentType $contentType,
+        private readonly string $languageCode,
+        private readonly int $parentLocationId,
         ?Options $options = null
     ) {
-        $this->contentType = $contentType;
-        $this->languageCode = $languageCode;
-        $this->parentLocationId = $parentLocationId;
         $this->options = $options ?? new Options();
     }
 
@@ -83,5 +69,3 @@ class ContentProxyCreateEvent extends Event
         return !empty($this->response);
     }
 }
-
-class_alias(ContentProxyCreateEvent::class, 'EzSystems\EzPlatformAdminUi\Event\ContentProxyCreateEvent');

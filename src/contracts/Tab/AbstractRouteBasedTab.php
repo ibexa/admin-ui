@@ -18,22 +18,13 @@ use Twig\Environment;
  */
 abstract class AbstractRouteBasedTab extends AbstractTab
 {
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    protected $urlGenerator;
-
-    /** @var \Symfony\Bridge\Twig\Extension\HttpKernelRuntime */
-    private $httpKernelRuntime;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator,
-        HttpKernelRuntime $httpKernelRuntime
+        protected readonly UrlGeneratorInterface $urlGenerator,
+        private readonly HttpKernelRuntime $httpKernelRuntime
     ) {
         parent::__construct($twig, $translator);
-
-        $this->urlGenerator = $urlGenerator;
-        $this->httpKernelRuntime = $httpKernelRuntime;
     }
 
     public function renderView(array $parameters): string
@@ -62,5 +53,3 @@ abstract class AbstractRouteBasedTab extends AbstractTab
      */
     abstract public function getRouteParameters(array $parameters): array;
 }
-
-class_alias(AbstractRouteBasedTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractRouteBasedTab');

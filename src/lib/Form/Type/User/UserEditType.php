@@ -20,20 +20,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\User\UserEditData>
+ */
 class UserEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
-    public function __construct(LanguageService $languageService)
+    public function __construct(protected readonly LanguageService $languageService)
     {
-        $this->languageService = $languageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -63,7 +59,7 @@ class UserEditType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -75,9 +71,9 @@ class UserEditType extends AbstractType
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getLanguageOptions(array $options): array
     {
@@ -88,7 +84,7 @@ class UserEditType extends AbstractType
         ];
 
         if (is_array($options['language_codes'])) {
-            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options) {
+            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options): array {
                 return array_map([$this->languageService, 'loadLanguage'], $options['language_codes']);
             });
         }
@@ -96,5 +92,3 @@ class UserEditType extends AbstractType
         return $languageOptions;
     }
 }
-
-class_alias(UserEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\User\UserEditType');

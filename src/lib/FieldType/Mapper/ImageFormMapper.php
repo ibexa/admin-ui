@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -19,27 +20,16 @@ use Symfony\Component\Mime\MimeTypesInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
 
-class ImageFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class ImageFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var array<string> */
-    private array $allowedMimeTypes;
-
-    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
-    private $maxUploadSize;
-
-    private MimeTypesInterface $mimeTypes;
-
     /**
      * @param string[] $allowedMimeTypes
      */
     public function __construct(
-        array $allowedMimeTypes,
-        MaxUploadSize $maxUploadSize,
-        MimeTypesInterface $mimeTypes
+        private array $allowedMimeTypes,
+        private MaxUploadSize $maxUploadSize,
+        private MimeTypesInterface $mimeTypes
     ) {
-        $this->allowedMimeTypes = $allowedMimeTypes;
-        $this->maxUploadSize = $maxUploadSize;
-        $this->mimeTypes = $mimeTypes;
     }
 
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
@@ -53,7 +43,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
                     'multiple' => true,
                     'choices' => $this->getMimeTypesChoiceList(),
                     'property_path' => 'fieldSettings[mimeTypes]',
-                    'label' => /** @Desc("Image types") */ 'field_definition.ezimage.image_types',
+                    'label' => /** @Desc("Image types") */ 'field_definition.ibexa_image.image_types',
                 ]);
         }
 
@@ -61,7 +51,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
             ->add('maxSize', NumberType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[FileSizeValidator][maxFileSize]',
-                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ezimage.max_file_size',
+                'label' => /** @Desc("Maximum file size (MB)") */ 'field_definition.ibexa_image.max_file_size',
                 'constraints' => [
                     new Range([
                         'min' => 0,
@@ -78,7 +68,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
             ->add('isAlternativeTextRequired', CheckboxType::class, [
                 'required' => false,
                 'property_path' => 'validatorConfiguration[AlternativeTextValidator][required]',
-                'label' => /** @Desc("Alternative text is required") */ 'field_definition.ezimage.is_alternative_text_required',
+                'label' => /** @Desc("Alternative text is required") */ 'field_definition.ibexa_image.is_alternative_text_required',
                 'disabled' => $isTranslation,
             ]);
     }
@@ -88,7 +78,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
      *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -119,5 +109,3 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
         return $mimeTypeChoiceList;
     }
 }
-
-class_alias(ImageFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\ImageFormMapper');

@@ -13,58 +13,36 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 /**
  * @todo Add validation
  */
-class LocationUpdateVisibilityData
+final class LocationUpdateVisibilityData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
+    private ?bool $hidden;
 
-    /** @var bool|null */
-    private $hidden;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     */
-    public function __construct(?Location $location = null)
+    public function __construct(private ?Location $location = null)
     {
         if (null === $location) {
             return;
         }
 
-        $this->location = $location;
         $this->hidden = $location->hidden;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
-     */
     public function getLocation(): ?Location
     {
         return $this->location;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
-     */
-    public function setLocation(?Location $location)
+    public function setLocation(?Location $location): void
     {
         $this->location = $location;
     }
 
-    /**
-     * @return bool|null
-     */
     public function getHidden(): ?bool
     {
         return $this->hidden;
     }
 
-    /**
-     * @param bool|null $hidden
-     */
-    public function setHidden($hidden)
+    public function setHidden(?bool $hidden): void
     {
         $this->hidden = $hidden;
     }
 }
-
-class_alias(LocationUpdateVisibilityData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Location\LocationUpdateVisibilityData');

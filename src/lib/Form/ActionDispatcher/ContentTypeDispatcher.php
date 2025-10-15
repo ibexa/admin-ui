@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\ActionDispatcher;
 
@@ -11,17 +12,15 @@ use Ibexa\ContentForms\Form\ActionDispatcher\AbstractActionDispatcher;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentTypeDispatcher extends AbstractActionDispatcher
+final class ContentTypeDispatcher extends AbstractActionDispatcher
 {
-    protected function configureOptions(OptionsResolver $resolver)
+    protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('languageCode');
     }
 
-    protected function getActionEventBaseName()
+    protected function getActionEventBaseName(): string
     {
         return FormEvents::CONTENT_TYPE_UPDATE;
     }
 }
-
-class_alias(ContentTypeDispatcher::class, 'EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\ContentTypeDispatcher');

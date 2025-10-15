@@ -6,7 +6,7 @@ import { createCssClassNames } from '@ibexa-admin-ui/src/bundle/ui-dev/src/modul
 
 export const DraggableContext = createContext();
 
-const DraggableDialog = ({ children, referenceElement, positionOffset }) => {
+const DraggableDialog = ({ children = null, referenceElement, positionOffset = () => ({ x: 0, y: 0 }) }) => {
     const rootDOMElement = getRootDOMElement();
     const containerRef = useRef();
     const dragOffsetPosition = useRef({ x: 0, y: 0 });
@@ -147,11 +147,6 @@ DraggableDialog.propTypes = {
     referenceElement: PropTypes.node.isRequired,
     children: PropTypes.node,
     positionOffset: PropTypes.func,
-};
-
-DraggableDialog.defaultProps = {
-    children: null,
-    positionOffset: () => ({ x: 0, y: 0 }),
 };
 
 export default DraggableDialog;

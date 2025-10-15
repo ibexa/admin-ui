@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { showItem } from './popup.menu.helper';
 
-const PopupMenuItem = ({ item, filterText, onItemClick }) => {
+const PopupMenuItem = ({ item, filterText = '', onItemClick }) => {
     if (!showItem(item, filterText)) {
         return null;
     }
@@ -23,10 +23,6 @@ PopupMenuItem.propTypes = {
     }).isRequired,
     onItemClick: PropTypes.func.isRequired,
     filterText: PropTypes.string,
-};
-
-PopupMenuItem.defaultProps = {
-    filterText: '',
 };
 
 export default PopupMenuItem;

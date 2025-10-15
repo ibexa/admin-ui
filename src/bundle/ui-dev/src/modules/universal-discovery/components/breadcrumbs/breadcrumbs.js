@@ -71,7 +71,7 @@ const Breadcrumbs = () => {
                         const locationName =
                             locationId === SYSTEM_ROOT_LOCATION_ID
                                 ? Translator.trans(
-                                      /*@Desc("Root Location")*/ 'breadcrumbs.root_location',
+                                      /* @Desc("Root Location") */ 'breadcrumbs.root_location',
                                       {},
                                       'ibexa_universal_discovery_widget',
                                   )
@@ -126,7 +126,7 @@ const Breadcrumbs = () => {
                         const locationName =
                             locationId === SYSTEM_ROOT_LOCATION_ID
                                 ? Translator.trans(
-                                      /*@Desc("Root Location")*/ 'breadcrumbs.root_location',
+                                      /* @Desc("Root Location") */ 'breadcrumbs.root_location',
                                       {},
                                       'ibexa_universal_discovery_widget',
                                   )

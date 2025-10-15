@@ -14,33 +14,20 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ConfigResolver
 {
-    private const UDW_CONFIG_PARAM_NAME = 'universal_discovery_widget_module.configuration';
+    private const string UDW_CONFIG_PARAM_NAME = 'universal_discovery_widget_module.configuration';
 
-    public const DEFAULT_CONFIGURATION_KEY = '_default';
+    public const string DEFAULT_CONFIGURATION_KEY = '_default';
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-    protected $eventDispatcher;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
-
-    /**
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     */
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        EventDispatcherInterface $eventDispatcher
+        protected readonly ConfigResolverInterface $configResolver,
+        protected readonly EventDispatcherInterface $eventDispatcher
     ) {
-        $this->configResolver = $configResolver;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * @param string $configName
-     * @param array $context
+     * @param array<mixed> $context
      *
-     * @return array
+     * @return array<mixed>
      */
     public function getConfig(string $configName, array $context = []): array
     {
@@ -62,12 +49,11 @@ class ConfigResolver
     }
 
     /**
-     * @param array $default
-     * @param mixed $apply
+     * @param array<string, mixed> $default
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function mergeConfiguration(array $default, $apply): array
+    protected function mergeConfiguration(array $default, mixed $apply): array
     {
         foreach ($apply as $key => $item) {
             if (isset($default[$key]) && $this->isAssocArray($default[$key])) {
@@ -80,14 +66,7 @@ class ConfigResolver
         return $default;
     }
 
-    /**
-     * Checks if item is associative array type.
-     *
-     * @param mixed $item
-     *
-     * @return bool
-     */
-    private function isAssocArray($item): bool
+    private function isAssocArray(mixed $item): bool
     {
         if (!is_array($item)) {
             // Is not an array at all
@@ -108,9 +87,7 @@ class ConfigResolver
      *
      * It's intentionally not cached as a scope changes dynamically.
      *
-     * @param string $configName
-     *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getUDWConfiguration(string $configName): array
     {
@@ -121,5 +98,3 @@ class ConfigResolver
         return $udwConfiguration[$configName] ?? [];
     }
 }
-
-class_alias(ConfigResolver::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\ConfigResolver');

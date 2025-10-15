@@ -16,7 +16,10 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PasswordConstraintCheckboxType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class PasswordConstraintCheckboxType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -31,7 +34,7 @@ class PasswordConstraintCheckboxType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        $view->vars['label'] = 'field_definition.ezuser.' . $this->toSnakeCase($view->vars['name']);
+        $view->vars['label'] = 'field_definition.ibexa_user.' . $this->toSnakeCase($view->vars['name']);
     }
 
     /**
@@ -53,17 +56,10 @@ class PasswordConstraintCheckboxType extends AbstractType
         return CheckboxType::class;
     }
 
-    /**
-     * Converts given $string to the snake case.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
     private function toSnakeCase(string $string): string
     {
-        return strtolower(preg_replace('/[A-Z]/', '_\\0', lcfirst($string)));
+        return strtolower(
+            preg_replace('/[A-Z]/', '_\\0', lcfirst($string)) ?? ''
+        );
     }
 }
-
-class_alias(PasswordConstraintCheckboxType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\FieldDefinition\User\PasswordConstraintCheckboxType');

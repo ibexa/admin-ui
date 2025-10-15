@@ -14,16 +14,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class AbstractFormContextMenuBuilder extends AbstractBuilder
 {
-    private string $formName;
-
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
-        string $formName
+        private readonly string $formName
     ) {
         parent::__construct($factory, $eventDispatcher);
-
-        $this->formName = $formName;
     }
 
     /**

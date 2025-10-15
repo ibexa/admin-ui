@@ -10,22 +10,14 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\Notification;
-use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
 /** Context for actions on notifications */
-class NotificationContext implements Context
+final readonly class NotificationContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Notification */
-    private $notification;
-
-    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser */
-    private $argumentParser;
-
-    public function __construct(Notification $notification, ArgumentParser $argumentParser)
-    {
-        $this->notification = $notification;
-        $this->argumentParser = $argumentParser;
+    public function __construct(
+        private Notification $notification
+    ) {
     }
 
     /**

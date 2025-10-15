@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -19,7 +20,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SelectionFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class SelectionFormMapper implements FieldDefinitionFormMapperInterface
 {
     /**
      * Selection items can be added and removed, the collection field type is used for this.
@@ -38,14 +39,14 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $options = $fieldDefinitionForm->getConfig()->getOptions();
         $languageCode = $options['languageCode'];
-        $isMultilingual = isset($data->fieldDefinition->fieldSettings['multilingualOptions']);
+        $isMultilingual = isset($data->fieldDefinition->getFieldSettings()['multilingualOptions']);
         $dataPropertyPathName = $isMultilingual ? 'multilingualOptions' : 'options';
 
         $fieldDefinitionForm
             ->add('isMultiple', CheckboxType::class, [
                 'required' => false,
                 'property_path' => 'fieldSettings[isMultiple]',
-                'label' => /** @Desc("Multiple choice") */ 'field_definition.ezselection.is_multiple',
+                'label' => /** @Desc("Multiple choice") */ 'field_definition.ibexa_selection.is_multiple',
                 'disabled' => $isTranslation,
             ]);
 
@@ -61,7 +62,7 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
             'prototype_name' => '__number__',
             'required' => false,
             'property_path' => 'fieldSettings[' . $dataPropertyPathName . ']',
-            'label' => /** @Desc("Options") */ 'field_definition.ezselection.options',
+            'label' => /** @Desc("Options") */ 'field_definition.ibexa_selection.options',
         ]);
 
         if ($isMultilingual) {
@@ -89,7 +90,7 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
     /**
      * Fake method to set the translation domain for the extractor.
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -97,5 +98,3 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(SelectionFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\SelectionFormMapper');

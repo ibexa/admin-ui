@@ -12,47 +12,30 @@ use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class BookmarkAdapter implements AdapterInterface
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Location\Bookmark>
+ */
+final readonly class BookmarkAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     */
-    public function __construct(BookmarkService $bookmarkService, DatasetFactory $datasetFactory)
-    {
-        $this->bookmarkService = $bookmarkService;
-        $this->datasetFactory = $datasetFactory;
+    public function __construct(
+        private BookmarkService $bookmarkService,
+        private DatasetFactory $datasetFactory
+    ) {
     }
 
     /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getNbResults()
+    public function getNbResults(): int
     {
+        /** @var int<0, max> */
         return $this->bookmarkService->loadBookmarks()->totalCount;
     }
 
     /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->bookmarks()
@@ -60,5 +43,3 @@ class BookmarkAdapter implements AdapterInterface
             ->getBookmarks();
     }
 }
-
-class_alias(BookmarkAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\BookmarkAdapter');

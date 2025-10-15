@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
@@ -13,9 +14,9 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * DataTransformer for RelationList\Value in single select mode.
  */
-class RelationListValueTransformer implements DataTransformerInterface
+final readonly class RelationListValueTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!$value instanceof Value) {
             return null;
@@ -28,7 +29,7 @@ class RelationListValueTransformer implements DataTransformerInterface
         return implode(',', $value->destinationContentIds);
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Value
     {
         if ($value === null) {
             return null;
@@ -40,5 +41,3 @@ class RelationListValueTransformer implements DataTransformerInterface
         return new Value($destinationContentIds);
     }
 }
-
-class_alias(RelationListValueTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\FieldType\RelationListValueTransformer');

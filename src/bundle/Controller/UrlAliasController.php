@@ -15,40 +15,19 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Tab\LocationView\UrlsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UrlAliasController extends Controller
+final class UrlAliasController extends Controller
 {
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    protected $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    protected $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    protected $urlAliasService;
-
-    /**
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $urlAliasService
-     */
     public function __construct(
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        URLAliasService $urlAliasService
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly URLAliasService $urlAliasService
     ) {
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->urlAliasService = $urlAliasService;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request): Response
     {
         $form = $this->formFactory->addCustomUrl();
@@ -59,11 +38,11 @@ class UrlAliasController extends Controller
         $location = $data->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (CustomUrlAddData $data) {
+            $result = $this->submitHandler->handle($form, function (CustomUrlAddData $data): RedirectResponse {
                 $this->urlAliasService->createUrlAlias(
                     $data->getLocation(),
                     $data->getPath(),
-                    $data->getLanguage()->languageCode,
+                    $data->getLanguage()->getLanguageCode(),
                     $data->isRedirect()
                 );
 
@@ -82,11 +61,6 @@ class UrlAliasController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->removeCustomUrl();
@@ -95,7 +69,7 @@ class UrlAliasController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (CustomUrlRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (CustomUrlRemoveData $data): RedirectResponse {
                 $aliasToRemoveList = [];
                 foreach ($data->getUrlAliases() as $customUrlId => $selected) {
                     $aliasToRemoveList[] = $this->urlAliasService->load($customUrlId);
@@ -117,5 +91,3 @@ class UrlAliasController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 }
-
-class_alias(UrlAliasController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\UrlAliasController');
