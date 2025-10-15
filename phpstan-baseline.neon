@@ -25,6 +25,18 @@ parameters:
 			path: src/bundle/Command/CompileAssetsCommand.php
 
 		-
+			message: '#^Property Ibexa\\Bundle\\AdminUi\\Command\\CompileAssetsCommand\:\:\$defaultDescription has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/bundle/Command/CompileAssetsCommand.php
+
+		-
+			message: '#^Property Ibexa\\Bundle\\AdminUi\\Command\\CompileAssetsCommand\:\:\$defaultName has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: src/bundle/Command/CompileAssetsCommand.php
+
+		-
 			message: '#^Cannot call method getClientOriginalName\(\) on Symfony\\Component\\HttpFoundation\\File\\UploadedFile\|null\.$#'
 			identifier: method.nonObject
 			count: 3
@@ -73,7 +85,7 @@ parameters:
 			path: src/bundle/Controller/BookmarkController.php
 
 		-
-			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\|string given\.$#'
+			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\<1, max\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/BookmarkController.php
@@ -319,7 +331,13 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\> given\.$#'
+			message: '#^PHPDoc tag @throws with type Pagerfanta\\Exception\\LessThan1CurrentPageException\|Pagerfanta\\Exception\\LessThan1MaxPerPageException\|Pagerfanta\\Exception\\NotIntegerCurrentPageException\|Pagerfanta\\Exception\\NotIntegerMaxPerPageException\|Pagerfanta\\Exception\\OutOfRangeCurrentPageException\|Symfony\\Component\\OptionsResolver\\Exception\\InvalidOptionsException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
@@ -379,13 +397,13 @@ parameters:
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\> given\.$#'
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
-			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\|string given\.$#'
+			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\<1, max\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/ContentTypeGroupController.php
@@ -487,6 +505,18 @@ parameters:
 			path: src/bundle/Controller/ContentViewController.php
 
 		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\DownloadImageController\:\:loadImages\(\) return type with generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchResult does not specify its types\: TSearchHitValueObject$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/bundle/Controller/DownloadImageController.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\DownloadImageController\:\:processDownloading\(\) has parameter \$result with generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchResult but does not specify its types\: TSearchHitValueObject$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/bundle/Controller/DownloadImageController.php
+
+		-
 			message: '#^PHPDoc tag @throws has invalid value \(\\Ibexa\\Contracts\\Core\\Repository\\Exceptions\\InvalidArgumentException;\)\: Unexpected token ";", expected TOKEN_HORIZONTAL_WS at offset 134 on line 4$#'
 			identifier: phpDoc.parseError
 			count: 1
@@ -499,6 +529,12 @@ parameters:
 			path: src/bundle/Controller/DownloadImageController.php
 
 		-
+			message: '#^PHPDoc tag @var for variable \$image contains generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchHit but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/bundle/Controller/DownloadImageController.php
+
+		-
 			message: '#^Parameter \#2 \$fieldDefinition of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:updateFieldDefinition\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinition\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -507,12 +543,6 @@ parameters:
 		-
 			message: '#^Parameter \#2 \$fieldTypeIdentifier of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:newFieldDefinitionCreateStruct\(\) expects string, string\|null given\.$#'
 			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/FieldDefinitionController.php
-
-		-
-			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinitionCreateStruct\:\:\$fieldGroup \(string\) does not accept string\|null\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: src/bundle/Controller/FieldDefinitionController.php
 
@@ -535,13 +565,13 @@ parameters:
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\> given\.$#'
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\|string given\.$#'
+			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\<1, max\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
@@ -581,6 +611,18 @@ parameters:
 			identifier: property.protected
 			count: 1
 			path: src/bundle/Controller/LinkManagerController.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\:\:\$isContainer\.$#'
+			identifier: property.protected
+			count: 3
+			path: src/bundle/Controller/LocationController.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\ContentService\:\:loadRelations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/bundle/Controller/LocationController.php
 
 		-
 			message: '#^Cannot access property \$contentId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
@@ -675,7 +717,7 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: src/bundle/Controller/LocationController.php
 
 		-
@@ -841,7 +883,13 @@ parameters:
 			path: src/bundle/Controller/PolicyController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Policy\> given\.$#'
+			message: '#^PHPDoc tag @throws with type Ibexa\\Contracts\\Core\\Repository\\Exceptions\\BadStateException\|Pagerfanta\\Exception\\LessThan1CurrentPageException\|Pagerfanta\\Exception\\LessThan1MaxPerPageException\|Pagerfanta\\Exception\\NotIntegerCurrentPageException\|Pagerfanta\\Exception\\NotIntegerMaxPerPageException\|Pagerfanta\\Exception\\OutOfRangeCurrentPageException\|Symfony\\Component\\OptionsResolver\\Exception\\InvalidOptionsException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
+			count: 1
+			path: src/bundle/Controller/PolicyController.php
+
+		-
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Policy\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/PolicyController.php
@@ -925,7 +973,7 @@ parameters:
 			path: src/bundle/Controller/RoleController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role\> given\.$#'
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/RoleController.php
@@ -937,7 +985,7 @@ parameters:
 			path: src/bundle/Controller/RoleController.php
 
 		-
-			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\|string given\.$#'
+			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\<1, max\>\|string given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/RoleController.php
@@ -985,13 +1033,19 @@ parameters:
 			path: src/bundle/Controller/SectionController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\> given\.$#'
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/SectionController.php
 
 		-
-			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\|string given\.$#'
+			message: '#^Parameter \#1 \$currentPage of method Pagerfanta\\Pagerfanta\<mixed\>\:\:setCurrentPage\(\) expects int, int\<1, max\>\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/bundle/Controller/SectionController.php
+
+		-
+			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/SectionController.php
@@ -1059,6 +1113,12 @@ parameters:
 		-
 			message: '#^Offset ''page'' on string\|null on left side of \?\? does not exist\.$#'
 			identifier: nullCoalesce.offset
+			count: 1
+			path: src/bundle/Controller/TrashController.php
+
+		-
+			message: '#^PHPDoc tag @throws with type Ibexa\\Contracts\\Core\\Repository\\Exceptions\\NotFoundException\|LogicException\|Pagerfanta\\Exception\\NotIntegerCurrentPageException\|Pagerfanta\\Exception\\NotIntegerMaxPerPageException is not subtype of Throwable$#'
+			identifier: throws.notThrowable
 			count: 1
 			path: src/bundle/Controller/TrashController.php
 
@@ -1273,22 +1333,10 @@ parameters:
 			path: src/bundle/Controller/VersionController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\FieldTypeFormMapperDispatcherPass\:\:process\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Generator expects value type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\|null, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\LogicalAnd given\.$#'
+			identifier: generator.valueType
 			count: 1
-			path: src/bundle/DependencyInjection/Compiler/FieldTypeFormMapperDispatcherPass.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\LimitationFormMapperPass\:\:process\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/bundle/DependencyInjection/Compiler/LimitationFormMapperPass.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\LimitationValueMapperPass\:\:process\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/bundle/DependencyInjection/Compiler/LimitationValueMapperPass.php
+			path: src/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolver.php
 
 		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\Configuration\\Parser\\AdminUiForms\:\:addSemanticConfig\(\) has no return type specified\.$#'
@@ -1477,12 +1525,6 @@ parameters:
 			path: src/bundle/DependencyInjection/IbexaAdminUiExtension.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\IbexaAdminUiExtension\:\:prepend\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/bundle/DependencyInjection/IbexaAdminUiExtension.php
-
-		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\DependencyInjection\\IbexaAdminUiExtension\:\:prependAdminUiFormsConfiguration\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -1525,16 +1567,178 @@ parameters:
 			path: src/bundle/IbexaAdminUiBundle.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\IbexaAdminUiBundle\:\:build\(\) has no return type specified\.$#'
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentInfoParamConverter\:\:apply\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
-			path: src/bundle/IbexaAdminUiBundle.php
+			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentInfoParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
 
 		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentInfoParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentInfoParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentInfoParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeDraftParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeDraftParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeDraftParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeDraftParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeDraftParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeDraftParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeGroupParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeGroupParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeGroupParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeGroupParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeGroupParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeGroupParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
 
 		-
 			message: '#^Variable \$contentType might not be defined\.$#'
@@ -1549,10 +1753,58 @@ parameters:
 			path: src/bundle/ParamConverter/ContentTypeParamConverter.php
 
 		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
 			message: '#^Variable \$language might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
 			path: src/bundle/ParamConverter/LanguageParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ObjectStateGroupParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ObjectStateGroupParamConverter.php
 
 		-
 			message: '#^Negated boolean expression is always false\.$#'
@@ -1561,9 +1813,45 @@ parameters:
 			path: src/bundle/ParamConverter/ObjectStateGroupParamConverter.php
 
 		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ObjectStateGroupParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/bundle/ParamConverter/ObjectStateGroupParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ObjectStateGroupParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/bundle/ParamConverter/ObjectStateGroupParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ObjectStateParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/ObjectStateParamConverter.php
+
+		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1
+			path: src/bundle/ParamConverter/ObjectStateParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ObjectStateParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 2
+			path: src/bundle/ParamConverter/ObjectStateParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\ObjectStateParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 2
 			path: src/bundle/ParamConverter/ObjectStateParamConverter.php
 
 		-
@@ -1573,10 +1861,274 @@ parameters:
 			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
 
 		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyDraftParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyDraftParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1
 			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyDraftParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyDraftParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyDraftParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/PolicyParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/PolicyParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/PolicyParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleAssignmentParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleAssignmentParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/RoleAssignmentParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/RoleAssignmentParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleAssignmentParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleAssignmentParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/RoleParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/RoleParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/RoleParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/SectionParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/SectionParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/SectionParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/SectionParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/SectionParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/SectionParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/TranslationLanguageParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 3
+			path: src/bundle/ParamConverter/TranslationLanguageParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\TranslationLanguageParamConverter\:\:apply\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/TranslationLanguageParamConverter.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\ParamConverter\\TranslationLanguageParamConverter\:\:supports\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/ParamConverter/TranslationLanguageParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\TranslationLanguageParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/TranslationLanguageParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\TranslationLanguageParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/TranslationLanguageParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/URLWildcardParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/URLWildcardParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\URLWildcardParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/URLWildcardParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\URLWildcardParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/URLWildcardParamConverter.php
+
+		-
+			message: '#^Call to method getClass\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/VersionInfoParamConverter.php
+
+		-
+			message: '#^Call to method getName\(\) on an unknown class Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/VersionInfoParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverter\:\:apply\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/VersionInfoParamConverter.php
+
+		-
+			message: '#^Parameter \$configuration of method Ibexa\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverter\:\:supports\(\) has invalid type Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\ParamConverter\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/ParamConverter/VersionInfoParamConverter.php
 
 		-
 			message: '#^Method Ibexa\\Bundle\\AdminUi\\Templating\\Twig\\ComponentExtension\:\:renderComponent\(\) has no return type specified\.$#'
@@ -1699,10 +2251,40 @@ parameters:
 			path: src/bundle/Templating/Twig/UserPreferencesGlobalExtension.php
 
 		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\View\\EzPagerfantaView\:\:createDefaultTemplate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/View/EzPagerfantaView.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\View\\EzPagerfantaView\:\:getDefaultProximity\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/View/EzPagerfantaView.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\View\\EzPagerfantaView\:\:getName\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/bundle/View/EzPagerfantaView.php
+
+		-
 			message: '#^Property Ibexa\\Bundle\\AdminUi\\View\\EzPagerfantaView\:\:\$translator is never written, only read\.$#'
 			identifier: property.onlyRead
 			count: 1
 			path: src/bundle/View/EzPagerfantaView.php
+
+		-
+			message: '#^Instantiated class Ibexa\\Bundle\\AdminUi\\View\\Template\\IbexaPagerfantaTemplate not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/bundle/View/IbexaPagerfantaView.php
+
+		-
+			message: '#^Method Ibexa\\Bundle\\AdminUi\\View\\IbexaPagerfantaView\:\:createDefaultTemplate\(\) should return Pagerfanta\\View\\Template\\TemplateInterface but returns Ibexa\\Bundle\\AdminUi\\View\\Template\\IbexaPagerfantaTemplate\.$#'
+			identifier: return.type
+			count: 1
+			path: src/bundle/View/IbexaPagerfantaView.php
 
 		-
 			message: '#^Constructor of class Ibexa\\Bundle\\AdminUi\\View\\Template\\EzPagerfantaTemplate has an unused parameter \$translator\.$#'
@@ -1739,6 +2321,12 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/contracts/Controller/Controller.php
+
+		-
+			message: '#^Method Ibexa\\Contracts\\AdminUi\\Event\\FormActionEvent\:\:__construct\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/contracts/Event/FormActionEvent.php
 
 		-
 			message: '#^Method Ibexa\\Contracts\\AdminUi\\Event\\FormActionEvent\:\:__construct\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
@@ -3685,6 +4273,12 @@ parameters:
 			path: src/lib/Behat/Page/ContentViewPage.php
 
 		-
+			message: '#^Parameter \#1 \$locationId of method Ibexa\\Contracts\\Core\\Repository\\LocationService\:\:loadLocation\(\) expects int, int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Behat/Page/ContentViewPage.php
+
+		-
 			message: '#^Property Ibexa\\AdminUi\\Behat\\Page\\ContentViewPage\:\:\$argumentParser has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -4339,8 +4933,20 @@ parameters:
 			path: src/lib/Event/Options.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:all\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:get\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Event/Options.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:get\(\) has parameter \$default with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: src/lib/Event/Options.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Event\\Options\:\:set\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Event/Options.php
 
@@ -4349,6 +4955,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Event/Options.php
+
+		-
+			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\FieldDefinitionUpdateStruct\:\:\$names \(array\<string, string\>\|null\) does not accept array\<string, string\|null\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: src/lib/EventListener/AddNewTranslationFieldDefinition.php
 
 		-
 			message: '#^Cannot call method log\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
@@ -4417,6 +5029,18 @@ parameters:
 			path: src/lib/EventListener/ContentTranslateViewFilterParametersListener.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\EventListener\\ContentTypeSuggestionsListener\:\:getSuggestions\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\> but returns list\<bool\|float\|int\|object\|string\>\.$#'
+			identifier: return.type
+			count: 1
+			path: src/lib/EventListener/ContentTypeSuggestionsListener.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$aggregationResult contains generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\AggregationResult\\TermAggregationResult but does not specify its types\: TKey$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/EventListener/ContentTypeSuggestionsListener.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\CredentialsExpirationWarningListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -4471,6 +5095,12 @@ parameters:
 			path: src/lib/EventListener/RequestAttributesListener.php
 
 		-
+			message: '#^Access to undefined constant Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:MASTER_REQUEST\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: src/lib/EventListener/RequestListener.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\RequestListener\:\:__construct\(\) has parameter \$groupsBySiteAccess with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -4493,6 +5123,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/EventListener/RequestListener.php
+
+		-
+			message: '#^Access to undefined constant Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:MASTER_REQUEST\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: src/lib/EventListener/RequestLocaleListener.php
 
 		-
 			message: '#^Call to an undefined method Symfony\\Contracts\\Translation\\TranslatorInterface\:\:setLocale\(\)\.$#'
@@ -4579,6 +5215,12 @@ parameters:
 			path: src/lib/EventListener/UserPasswordChangeRightSidebarListener.php
 
 		-
+			message: '#^Access to protected property Ibexa\\ContentForms\\Data\\User\\UserUpdateData\:\:\$fieldsData\.$#'
+			identifier: property.protected
+			count: 2
+			path: src/lib/EventListener/UserProfileListener.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Exception\\ContentTypeIconNotFoundException\:\:__construct\(\) has parameter \$code with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -4625,6 +5267,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/FieldType/FieldTypeDefinitionFormMapperDispatcherInterface.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\ContentForms\\Data\\Content\\FieldData\:\:\$fieldDefinition\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/FieldType/Mapper/AuthorFormMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\FieldType\\Mapper\\AuthorFormMapper\:\:mapFieldDefinitionForm\(\) has parameter \$fieldDefinitionForm with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
@@ -4844,6 +5492,12 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\ActionDispatcher\\ContentTypeDispatcher\:\:configureOptions\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Form/ActionDispatcher/ContentTypeDispatcher.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\ActionDispatcher\\ContentTypeDispatcher\:\:getActionEventBaseName\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/ActionDispatcher/ContentTypeDispatcher.php
@@ -5069,6 +5723,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Data/Content/Translation/TranslationDeleteData.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\ContentForms\\Data\\Content\\FieldData\:\:\$fieldDefinition\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/Form/Data/ContentTranslationData.php
 
 		-
 			message: '#^Property Ibexa\\AdminUi\\Form\\Data\\ContentType\\ContentTypeCopyData\:\:\$contentType \(Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\) does not accept Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null\.$#'
@@ -5383,7 +6043,7 @@ parameters:
 			path: src/lib/Form/Data/FormMapper/UserCreateMapper.php
 
 		-
-			message: '#^Cannot access offset string on iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Field\>\.$#'
+			message: '#^Cannot access offset string on iterable\<string, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Field\>\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: src/lib/Form/Data/FormMapper/UserUpdateMapper.php
@@ -6445,6 +7105,18 @@ parameters:
 			path: src/lib/Form/DataMapper/LanguageCreateMapper.php
 
 		-
+			message: '#^Parameter \#1 \$languageCode of method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData\:\:setLanguageCode\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Form/DataMapper/LanguageCreateMapper.php
+
+		-
+			message: '#^Parameter \#1 \$name of method Ibexa\\AdminUi\\Form\\Data\\Language\\LanguageCreateData\:\:setName\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/lib/Form/DataMapper/LanguageCreateMapper.php
+
+		-
 			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Content\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -6639,12 +7311,6 @@ parameters:
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
 			count: 1
 			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
 
@@ -6877,12 +7543,6 @@ parameters:
 			path: src/lib/Form/DataTransformer/LanguageTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/lib/Form/DataTransformer/LanguageTransformer.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
 			count: 1
@@ -6903,6 +7563,12 @@ parameters:
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\MultilingualSelectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
 			identifier: missingType.generics
+			count: 1
+			path: src/lib/Form/DataTransformer/MultilingualSelectionTransformer.php
+
+		-
+			message: '#^Offset ''multilingualOptions'' might not exist on array\<string, mixed\>\|null\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
 			path: src/lib/Form/DataTransformer/MultilingualSelectionTransformer.php
 
@@ -7105,12 +7771,6 @@ parameters:
 			path: src/lib/Form/DataTransformer/UserTransformer.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\DataTransformer\\UserTransformer\:\:transform\(\) has Symfony\\Component\\Form\\Exception\\TransformationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
-			count: 1
-			path: src/lib/Form/DataTransformer/UserTransformer.php
-
-		-
 			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -7169,6 +7829,12 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/EventListener/DisableSiteRootCheckboxIfRootLocationListener.php
+
+		-
+			message: '#^Class Ibexa\\FieldTypeRichText\\Form\\Type\\RichTextType not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: src/lib/Form/Extension/RichTextTypeExtension.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Factory\\ContentTypeFormFactory\:\:addContentTypeTranslation\(\) return type with generic interface Symfony\\Component\\Form\\FormInterface does not specify its types\: TData$#'
@@ -7933,6 +8599,12 @@ parameters:
 			path: src/lib/Form/Processor/TranslationFormProcessor.php
 
 		-
+			message: '#^Access to protected property Ibexa\\Contracts\\ContentForms\\Data\\Content\\FieldData\:\:\$fieldDefinition\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/Form/Processor/TranslationFormProcessor.php
+
+		-
 			message: '#^Instanceof between Ibexa\\AdminUi\\Form\\Data\\ContentTranslationData and Ibexa\\AdminUi\\Form\\Data\\ContentTranslationData will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -7955,12 +8627,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Processor/User/UserOnTheFlyProcessor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Provider\\GroupedNonMetaFormFieldsProvider\:\:getGroupedFields\(\) has parameter \$fieldsDataForm with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
-			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Provider/GroupedNonMetaFormFieldsProvider.php
 
 		-
 			message: '#^Instanceof between Symfony\\Component\\HttpFoundation\\JsonResponse and Symfony\\Component\\HttpFoundation\\JsonResponse will always evaluate to true\.$#'
@@ -8083,6 +8749,12 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/BaseChoiceLoader.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\BaseChoiceLoader\:\:loadChoiceList\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/BaseChoiceLoader.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\BaseTranslationLanguageChoiceLoader\:\:getChoiceList\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8095,6 +8767,18 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/ConfiguredLanguagesChoiceLoader.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ConfiguredLanguagesChoiceLoader\:\:loadChoiceList\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ConfiguredLanguagesChoiceLoader.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentCreateContentTypeChoiceLoader\:\:loadChoiceList\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentCreateContentTypeChoiceLoader.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentCreateContentTypeChoiceLoader\:\:setRestrictedContentTypeIds\(\) has parameter \$restrictedContentTypeIds with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8103,6 +8787,12 @@ parameters:
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentCreateLanguageChoiceLoader\:\:__construct\(\) has parameter \$restrictedLanguagesCodes with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentCreateLanguageChoiceLoader.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentCreateLanguageChoiceLoader\:\:loadChoiceList\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentCreateLanguageChoiceLoader.php
 
@@ -8143,6 +8833,12 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentTypeChoiceLoader\:\:loadChoiceList\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/ContentTypeChoiceLoader.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\DatePeriodChoiceLoader\:\:getChoiceList\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8159,6 +8855,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Form/Type/ChoiceList/Loader/LanguageChoiceLoader.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\SiteAccessChoiceLoader\:\:loadChoiceList\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Form/Type/ChoiceList/Loader/SiteAccessChoiceLoader.php
 
 		-
 			message: '#^Property Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\SiteAccessChoiceLoader\:\:\$nonAdminSiteaccessResolver \(Ibexa\\AdminUi\\Siteaccess\\NonAdminSiteaccessResolver\) does not accept Ibexa\\AdminUi\\Siteaccess\\SiteaccessResolverInterface\.$#'
@@ -8222,12 +8924,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\ContentVisibilityUpdateType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/ContentVisibilityUpdateType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\ContentVisibilityUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Content/ContentVisibilityUpdateType.php
@@ -8311,12 +9007,6 @@ parameters:
 			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Draft\\ContentCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Draft\\ContentCreateType\:\:getLimitationValuesForLocation\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8336,12 +9026,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Draft\\ContentEditType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Draft/ContentEditType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Draft\\ContentEditType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Content/Draft/ContentEditType.php
@@ -8377,12 +9061,6 @@ parameters:
 			path: src/lib/Form/Type/Content/Location/ContentLocationAddType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Location\\ContentLocationAddType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Location/ContentLocationAddType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Content\\Location\\ContentLocationRemoveType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8390,12 +9068,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Location\\ContentLocationRemoveType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Location/ContentLocationRemoveType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Location\\ContentLocationRemoveType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Content/Location/ContentLocationRemoveType.php
@@ -8413,12 +9085,6 @@ parameters:
 			path: src/lib/Form/Type/Content/Location/ContentMainLocationUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Location\\ContentMainLocationUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Location/ContentMainLocationUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Content\\LocationType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8426,12 +9092,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\LocationType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/LocationType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\LocationType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Content/LocationType.php
@@ -8473,12 +9133,6 @@ parameters:
 			path: src/lib/Form/Type/Content/Translation/MainTranslationUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Translation\\MainTranslationUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/MainTranslationUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Content\\Translation\\TranslationAddType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8492,12 +9146,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Translation\\TranslationAddType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/TranslationAddType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Translation\\TranslationAddType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Content/Translation/TranslationAddType.php
@@ -8545,12 +9193,6 @@ parameters:
 			path: src/lib/Form/Type/Content/Translation/TranslationDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Content\\Translation\\TranslationDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Content/Translation/TranslationDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Content\\VersionInfoType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8569,20 +9211,8 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypeChoiceType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeChoiceType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeCopyType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeCopyType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeCopyType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeCopyType.php
 
@@ -8594,12 +9224,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeCreateType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeCreateType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeCreateType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeCreateType.php
@@ -8623,12 +9247,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypeDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeDeleteType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeDeleteType\:\:getName\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -8641,12 +9259,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypeEditType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeEditType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeEditType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeGroupDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8654,12 +9266,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeGroupDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeGroupDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeGroupDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeGroupDeleteType.php
@@ -8683,12 +9289,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypeGroupType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeGroupType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeGroupType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeGroupType\:\:getName\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -8702,12 +9302,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeUpdateType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypeUpdateType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypeUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentType/ContentTypeUpdateType.php
@@ -8731,12 +9325,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/ContentTypesDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\ContentTypesDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/ContentTypesDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentType\\FieldDefinitionsCollectionType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8751,12 +9339,6 @@ parameters:
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentType\\FieldTypeChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/ContentType/FieldTypeChoiceType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\FieldTypeChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentType/FieldTypeChoiceType.php
 
@@ -8779,12 +9361,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/SortFieldChoiceType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\SortFieldChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/SortFieldChoiceType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\SortFieldChoiceType\:\:getSortField\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8799,12 +9375,6 @@ parameters:
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentType\\SortOrderChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/ContentType/SortOrderChoiceType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\SortOrderChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentType/SortOrderChoiceType.php
 
@@ -8851,12 +9421,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\Translation\\TranslationAddType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/Translation/TranslationAddType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\Translation\\TranslationAddType\:\:loadLanguages\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -8899,12 +9463,6 @@ parameters:
 			path: src/lib/Form/Type/ContentType/Translation/TranslationRemoveType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentType\\Translation\\TranslationRemoveType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentType/Translation/TranslationRemoveType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupCreateType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8917,12 +9475,6 @@ parameters:
 			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupCreateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8930,12 +9482,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupDeleteType.php
@@ -8965,12 +9511,6 @@ parameters:
 			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupsDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -8978,12 +9518,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupsDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupsDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ContentTypeGroup\\ContentTypeGroupsDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ContentTypeGroup/ContentTypeGroupsDeleteType.php
@@ -9043,12 +9577,6 @@ parameters:
 			path: src/lib/Form/Type/DateTimePickerType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\DateTimePickerType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/DateTimePickerType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Embedded\\SectionType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9056,12 +9584,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Embedded\\SectionType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Embedded/SectionType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Embedded\\SectionType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Embedded/SectionType.php
@@ -9115,12 +9637,6 @@ parameters:
 			path: src/lib/Form/Type/FieldDefinition/FieldDefinitionType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\FieldDefinition\\FieldDefinitionType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/FieldDefinition/FieldDefinitionType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\FieldDefinition\\FieldDefinitionType\:\:getName\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -9163,12 +9679,6 @@ parameters:
 			path: src/lib/Form/Type/Language/LanguageCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Language\\LanguageCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageCreateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Language\\LanguageDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9176,12 +9686,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Language\\LanguageDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Language\\LanguageDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Language/LanguageDeleteType.php
@@ -9211,12 +9715,6 @@ parameters:
 			path: src/lib/Form/Type/Language/LanguageUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Language\\LanguageUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Language/LanguageUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Language\\LanguagesDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9224,12 +9722,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Language\\LanguagesDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Language/LanguagesDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Language\\LanguagesDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Language/LanguagesDeleteType.php
@@ -9253,28 +9745,10 @@ parameters:
 			path: src/lib/Form/Type/Location/AbstractLocationCopyType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\AbstractLocationCopyType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/AbstractLocationCopyType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Location\\LocationAssignSectionType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/Type/Location/LocationAssignSectionType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationCopySubtreeType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationCopySubtreeType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationCopyType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationCopyType.php
 
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Location\\LocationMoveType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
@@ -9289,12 +9763,6 @@ parameters:
 			path: src/lib/Form/Type/Location/LocationMoveType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationMoveType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationMoveType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Location\\LocationSwapType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9302,12 +9770,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationSwapType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationSwapType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationSwapType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Location/LocationSwapType.php
@@ -9343,12 +9805,6 @@ parameters:
 			path: src/lib/Form/Type/Location/LocationTrashType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationTrashType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationTrashType.php
-
-		-
 			message: '#^Parameter \#1 \$form of method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationTrashType\:\:addConfirmCheckbox\(\) expects Symfony\\Component\\Form\\FormInterface, Symfony\\Component\\Form\\FormInterface\|null given\.$#'
 			identifier: argument.type
 			count: 2
@@ -9367,12 +9823,6 @@ parameters:
 			path: src/lib/Form/Type/Location/LocationUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Location\\LocationUpdateVisibilityType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9380,12 +9830,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationUpdateVisibilityType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Location/LocationUpdateVisibilityType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Location\\LocationUpdateVisibilityType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Location/LocationUpdateVisibilityType.php
@@ -9409,20 +9853,8 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ContentObjectStateUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ContentObjectStateUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ContentObjectStateUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateChoiceType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ObjectState/ObjectStateChoiceType.php
 
@@ -9434,12 +9866,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateCreateType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateCreateType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateCreateType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ObjectState/ObjectStateCreateType.php
@@ -9457,12 +9883,6 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ObjectStateDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupCreateType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9475,12 +9895,6 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ObjectStateGroupCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupCreateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9488,12 +9902,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ObjectState/ObjectStateGroupDeleteType.php
@@ -9523,12 +9931,6 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ObjectStateGroupUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupsDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9536,12 +9938,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupsDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateGroupsDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateGroupsDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/ObjectState/ObjectStateGroupsDeleteType.php
@@ -9571,12 +9967,6 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ObjectStateUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStateUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStateUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStatesDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9589,12 +9979,6 @@ parameters:
 			path: src/lib/Form/Type/ObjectState/ObjectStatesDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\ObjectState\\ObjectStatesDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/ObjectState/ObjectStatesDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Policy\\PoliciesDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9602,12 +9986,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PoliciesDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Policy/PoliciesDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PoliciesDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Policy/PoliciesDeleteType.php
@@ -9649,12 +10027,6 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyChoiceType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyChoiceType.php
-
-		-
 			message: '#^Property Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyChoiceType\:\:\$policyChoices type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -9673,12 +10045,6 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyCreateType.php
-
-		-
 			message: '#^Anonymous function has an unused use \$options\.$#'
 			identifier: closure.unusedUse
 			count: 1
@@ -9692,12 +10058,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyCreateWithLimitationType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyCreateWithLimitationType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyCreateWithLimitationType.php
@@ -9739,12 +10099,6 @@ parameters:
 			path: src/lib/Form/Type/Policy/PolicyDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9770,12 +10124,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyUpdateType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Policy\\PolicyUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Policy/PolicyUpdateType.php
@@ -9841,12 +10189,6 @@ parameters:
 			path: src/lib/Form/Type/Role/LimitationType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\LimitationType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/LimitationType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\LimitationType\:\:getName\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -9865,12 +10207,6 @@ parameters:
 			path: src/lib/Form/Type/Role/RoleAssignmentCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleAssignmentCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentCreateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Role\\RoleAssignmentDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9878,12 +10214,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleAssignmentDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleAssignmentDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Role/RoleAssignmentDeleteType.php
@@ -9913,12 +10243,6 @@ parameters:
 			path: src/lib/Form/Type/Role/RoleAssignmentsDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleAssignmentsDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleAssignmentsDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Role\\RoleCopyType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9926,12 +10250,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleCopyType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleCopyType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleCopyType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Role/RoleCopyType.php
@@ -9949,12 +10267,6 @@ parameters:
 			path: src/lib/Form/Type/Role/RoleCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleCreateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Role\\RoleDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -9962,12 +10274,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Role/RoleDeleteType.php
@@ -9997,12 +10303,6 @@ parameters:
 			path: src/lib/Form/Type/Role/RoleUpdateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RoleUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RoleUpdateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Role\\RolesDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10015,12 +10315,6 @@ parameters:
 			path: src/lib/Form/Type/Role/RolesDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Role\\RolesDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Role/RolesDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\RoleAssignment\\RoleAssignmentType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10028,12 +10322,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\RoleAssignment\\RoleAssignmentType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/RoleAssignment/RoleAssignmentType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\RoleAssignment\\RoleAssignmentType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/RoleAssignment/RoleAssignmentType.php
@@ -10069,12 +10357,6 @@ parameters:
 			path: src/lib/Form/Type/Search/SearchType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Search\\SearchType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Search/SearchType.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Search\\SearchType\:\:getTimePeriodChoices\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -10105,12 +10387,6 @@ parameters:
 			path: src/lib/Form/Type/Search/TrashSearchType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Search\\TrashSearchType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Search/TrashSearchType.php
-
-		-
 			message: '#^Property Ibexa\\AdminUi\\Form\\Type\\Search\\TrashSearchType\:\:\$translator is never read, only written\.$#'
 			identifier: property.onlyWritten
 			count: 1
@@ -10123,12 +10399,6 @@ parameters:
 			path: src/lib/Form/Type/Section/SectionChoiceType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionChoiceType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Section\\SectionContentAssignType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10136,12 +10406,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionContentAssignType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionContentAssignType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionContentAssignType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Section/SectionContentAssignType.php
@@ -10159,12 +10423,6 @@ parameters:
 			path: src/lib/Form/Type/Section/SectionCreateType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionCreateType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionCreateType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Section\\SectionDeleteType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10172,12 +10430,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionDeleteType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionDeleteType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Section/SectionDeleteType.php
@@ -10195,12 +10447,6 @@ parameters:
 			path: src/lib/Form/Type/Section/SectionType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Section\\SectionUpdateType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10208,12 +10454,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionUpdateType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionUpdateType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionUpdateType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Section/SectionUpdateType.php
@@ -10231,20 +10471,8 @@ parameters:
 			path: src/lib/Form/Type/Section/SectionsDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Section\\SectionsDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Section/SectionsDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\SwitcherType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/SwitcherType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\SwitcherType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/SwitcherType.php
 
@@ -10262,12 +10490,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashEmptyType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashEmptyType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashEmptyType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Trash/TrashEmptyType.php
@@ -10291,12 +10513,6 @@ parameters:
 			path: src/lib/Form/Type/Trash/TrashItemCheckboxType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashItemCheckboxType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashItemCheckboxType.php
-
-		-
 			message: '#^Property Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashItemCheckboxType\:\:\$trashService has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -10315,12 +10531,6 @@ parameters:
 			path: src/lib/Form/Type/Trash/TrashItemDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashItemDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashItemDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashItemRestoreType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10333,12 +10543,6 @@ parameters:
 			path: src/lib/Form/Type/Trash/TrashItemRestoreType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Trash\\TrashItemRestoreType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Trash/TrashItemRestoreType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\URL\\URLEditType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10346,12 +10550,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\URL\\URLEditType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/URL/URLEditType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\URL\\URLEditType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/URL/URLEditType.php
@@ -10370,12 +10568,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\URL\\URLListType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/URL/URLListType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\URL\\URLListType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/URL/URLListType.php
@@ -10411,12 +10603,6 @@ parameters:
 			path: src/lib/Form/Type/URLWildcard/URLWildcardUpdateType.php
 
 		-
-			message: '#^Cannot access property \$vars on Symfony\\Component\\Form\\FormView\|null\.$#'
-			identifier: property.nonObject
-			count: 7
-			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\UniversalDiscoveryWidget\\UniversalDiscoveryWidgetType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10424,12 +10610,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\UniversalDiscoveryWidget\\UniversalDiscoveryWidgetType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\UniversalDiscoveryWidget\\UniversalDiscoveryWidgetType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
@@ -10477,12 +10657,6 @@ parameters:
 			path: src/lib/Form/Type/User/UserDeleteType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\User\\UserDeleteType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/User/UserDeleteType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\User\\UserEditType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10490,12 +10664,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\User\\UserEditType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/User/UserEditType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\User\\UserEditType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/User/UserEditType.php
@@ -10537,12 +10705,6 @@ parameters:
 			path: src/lib/Form/Type/User/UserInvitationType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\User\\UserInvitationType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/User/UserInvitationType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\User\\UserModeChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
@@ -10561,32 +10723,14 @@ parameters:
 			path: src/lib/Form/Type/User/UserType.php
 
 		-
-			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:\$id\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/lib/Form/Type/UserChoiceType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\UserChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/Type/UserChoiceType.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\UserChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/UserChoiceType.php
-
-		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\UserGroupChoiceType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
-			count: 1
-			path: src/lib/Form/Type/UserGroupChoiceType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\UserGroupChoiceType\:\:configureOptions\(\) has no return type specified\.$#'
-			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/UserGroupChoiceType.php
 
@@ -10598,12 +10742,6 @@ parameters:
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Version\\VersionRemoveType\:\:buildForm\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Form/Type/Version/VersionRemoveType.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\Version\\VersionRemoveType\:\:configureOptions\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Form/Type/Version/VersionRemoveType.php
@@ -10855,12 +10993,6 @@ parameters:
 			path: src/lib/Limitation/Mapper/SiteAccessLimitationMapper.php
 
 		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getContentInfo\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/lib/Limitation/Mapper/SubtreeLimitationMapper.php
-
-		-
 			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -10871,12 +11003,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Limitation/Mapper/SubtreeLimitationMapper.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getContentInfo\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/lib/Limitation/Mapper/UDWBasedMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\UDWBasedMapper\:\:filterLimitationValues\(\) has no return type specified\.$#'
@@ -10973,12 +11099,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Limitation/Templating/LimitationBlockRendererInterface.php
-
-		-
-			message: '#^Cannot access property \$vars on Symfony\\Component\\Form\\FormView\|null\.$#'
-			identifier: property.nonObject
-			count: 3
-			path: src/lib/Menu/Admin/ContentType/AbstractContentTypeRightSidebarBuilder.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\Admin\\ContentType\\AbstractContentTypeRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
@@ -11143,6 +11263,12 @@ parameters:
 			path: src/lib/Menu/ContentCreateRightSidebarBuilder.php
 
 		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\:\:\$isContainer\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/Menu/ContentCreateRightSidebarBuilder.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\ContentCreateRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -11177,6 +11303,12 @@ parameters:
 			identifier: property.onlyWritten
 			count: 1
 			path: src/lib/Menu/ContentEditRightSidebarBuilder.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\:\:\$isContainer\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/Menu/ContentRightSidebarBuilder.php
 
 		-
 			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\User\\LookupLimitationResult\:\:\$hasAccess\.$#'
@@ -11275,6 +11407,12 @@ parameters:
 			path: src/lib/Menu/SectionEditRightSidebarBuilder.php
 
 		-
+			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Trash\\SearchResult\:\:\$count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/lib/Menu/TrashRightSidebarBuilder.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Menu\\TrashRightSidebarBuilder\:\:createStructure\(\) has parameter \$options with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -11371,19 +11509,7 @@ parameters:
 			path: src/lib/Notification/FlashBagNotificationHandler.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:error\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Notification/TranslatableNotificationHandler.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:info\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Notification/TranslatableNotificationHandler.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Notification\\TranslatableNotificationHandler\:\:success\(\) has parameter \$parameters with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Notification/TranslatableNotificationHandler.php
@@ -11407,6 +11533,12 @@ parameters:
 			path: src/lib/Pagination/Mapper/AbstractPagerContentToDataMapper.php
 
 		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\BookmarkAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/BookmarkAdapter.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\BookmarkAdapter\:\:getSlice\(\) return type has no value type specified in iterable type Traversable\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -11423,6 +11555,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Pagination/Pagerfanta/BookmarkAdapter.php
+
+		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\ContentDraftAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/ContentDraftAdapter.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\ContentDraftAdapter\:\:getSlice\(\) never returns Traversable so it can be removed from the return type\.$#'
@@ -11449,6 +11587,30 @@ parameters:
 			path: src/lib/Pagination/Pagerfanta/ContentDraftAdapter.php
 
 		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\NotificationAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/NotificationAdapter.php
+
+		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\RelationAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/RelationAdapter.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\RelationAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/RelationAdapter.php
+
+		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\ReverseRelationAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/ReverseRelationAdapter.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\ReverseRelationAdapter\:\:getSlice\(\) never returns Traversable so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -11473,6 +11635,30 @@ parameters:
 			path: src/lib/Pagination/Pagerfanta/ReverseRelationAdapter.php
 
 		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\RoleAssignmentsSearchAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/RoleAssignmentsSearchAdapter.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\RoleAssignmentsSearchAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/RoleAssignmentsSearchAdapter.php
+
+		-
+			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Trash\\SearchResult\:\:\$count\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/TrashItemAdapter.php
+
+		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\TrashItemAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/TrashItemAdapter.php
+
+		-
 			message: '#^Property Ibexa\\AdminUi\\Pagination\\Pagerfanta\\TrashItemAdapter\:\:\$nbResults \(int\) in isset\(\) is not nullable\.$#'
 			identifier: isset.property
 			count: 1
@@ -11485,13 +11671,37 @@ parameters:
 			path: src/lib/Pagination/Pagerfanta/TrashItemAdapter.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLSearchAdapter\:\:getNbResults\(\) should return int but returns int\|null\.$#'
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLSearchAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/URLSearchAdapter.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLSearchAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\|null\.$#'
 			identifier: return.type
 			count: 1
 			path: src/lib/Pagination/Pagerfanta/URLSearchAdapter.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLWildcardAdapter\:\:getNbResults\(\) should return int but returns int\|null\.$#'
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLUsagesAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/URLUsagesAdapter.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLUsagesAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/URLUsagesAdapter.php
+
+		-
+			message: '#^Class Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLWildcardAdapter implements generic interface Pagerfanta\\Adapter\\AdapterInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/Pagination/Pagerfanta/URLWildcardAdapter.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Pagination\\Pagerfanta\\URLWildcardAdapter\:\:getNbResults\(\) should return int\<0, max\> but returns int\|null\.$#'
 			identifier: return.type
 			count: 1
 			path: src/lib/Pagination/Pagerfanta/URLWildcardAdapter.php
@@ -11611,6 +11821,12 @@ parameters:
 			path: src/lib/QueryType/TrashSearchQueryType.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\QueryType\\UserQueryType\:\:getQueryFilter\(\) should return Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion but returns Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\LogicalAnd\.$#'
+			identifier: return.type
+			count: 1
+			path: src/lib/QueryType/UserQueryType.php
+
+		-
 			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -11621,6 +11837,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/REST/Input/Parser/BulkOperation.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\REST\\Input\\Parser\\ContentTree\\LoadSubtreeRequest\:\:processCriteriaArray\(\) should return Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\|null but returns Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\CriterionInterface\.$#'
+			identifier: return.type
+			count: 1
+			path: src/lib/REST/Input/Parser/ContentTree/LoadSubtreeRequest.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\REST\\Input\\Parser\\Operation\:\:parse\(\) has parameter \$data with no value type specified in iterable type array\.$#'
@@ -11911,6 +12133,18 @@ parameters:
 			path: src/lib/Siteaccess/SiteaccessResolver.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\ContentService\:\:loadRelations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/lib/Specification/Content/ContentHaveAssetRelation.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\ContentService\:\:loadRelations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/lib/Specification/Content/ContentHaveUniqueRelation.php
+
+		-
 			message: '#^Instanceof between Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType and Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -11945,6 +12179,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Specification/ContentType/ContentTypeIsUserGroup.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\:\:\$isContainer\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/Specification/Location/IsContainer.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Specification\\SiteAccess\\IsAdmin\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
@@ -12325,13 +12565,13 @@ parameters:
 			path: src/lib/Tab/LocationView/UrlsTab.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\URLAlias\> given\.$#'
+			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array\<T\>, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\URLAlias\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Tab/LocationView/UrlsTab.php
 
 		-
-			message: '#^Parameter \#2 \$customUrlAliases of method Ibexa\\AdminUi\\Tab\\LocationView\\UrlsTab\:\:createCustomUrlRemoveForm\(\) expects array, iterable\<\(int\|string\), mixed\> given\.$#'
+			message: '#^Parameter \#2 \$customUrlAliases of method Ibexa\\AdminUi\\Tab\\LocationView\\UrlsTab\:\:createCustomUrlRemoveForm\(\) expects array, iterable\<\(int\|string\), Ibexa\\AdminUi\\UI\\Value\\Content\\UrlAlias\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Tab/LocationView/UrlsTab.php
@@ -12361,7 +12601,7 @@ parameters:
 			path: src/lib/Tab/LocationView/VersionsTab.php
 
 		-
-			message: '#^Parameter \#2 \$versions of method Ibexa\\AdminUi\\Tab\\LocationView\\VersionsTab\:\:createVersionRemoveForm\(\) expects array, iterable\<\(int\|string\), mixed\> given\.$#'
+			message: '#^Parameter \#2 \$versions of method Ibexa\\AdminUi\\Tab\\LocationView\\VersionsTab\:\:createVersionRemoveForm\(\) expects array, iterable\<\(int\|string\), Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\VersionInfo\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: src/lib/Tab/LocationView/VersionsTab.php
@@ -12571,13 +12811,13 @@ parameters:
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:enterNode\(\) should return int\|PhpParser\\Node\|null but empty return statement found\.$#'
+			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:enterNode\(\) should return array\<PhpParser\\Node\>\|int\|PhpParser\\Node\|null but empty return statement found\.$#'
 			identifier: return.empty
 			count: 4
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:enterNode\(\) should return int\|PhpParser\\Node\|null but return statement is missing\.$#'
+			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:enterNode\(\) should return array\<PhpParser\\Node\>\|int\|PhpParser\\Node\|null but return statement is missing\.$#'
 			identifier: return.missing
 			count: 1
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
@@ -12793,6 +13033,12 @@ parameters:
 			path: src/lib/UI/Config/Provider/Autosave.php
 
 		-
+			message: '#^Access to protected property Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\:\:\$isContainer\.$#'
+			identifier: property.protected
+			count: 1
+			path: src/lib/UI/Config/Provider/ContentTypes.php
+
+		-
 			message: '#^Offset ''dirname'' might not exist on array\{dirname\?\: string, basename\: string, extension\?\: string, filename\: string\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -12883,6 +13129,18 @@ parameters:
 			path: src/lib/UI/Config/Provider/Module/ContentTree.php
 
 		-
+			message: '#^Offset ''engine'' on array\{engine\: string, connection\: string\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: src/lib/UI/Config/Provider/Module/DamWidget.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and string will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: src/lib/UI/Config/Provider/Module/DamWidget.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\UI\\Config\\Provider\\Module\\SubItemsList\:\:getConfig\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -12959,6 +13217,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/lib/UI/Dataset/ContentDraftListDataset.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\ContentService\:\:loadContentDrafts\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/lib/UI/Dataset/ContentDraftsDataset.php
 
 		-
 			message: '#^Cannot access offset int on iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\>\.$#'
@@ -13075,6 +13339,12 @@ parameters:
 			path: src/lib/UI/Dataset/PoliciesDataset.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\ContentService\:\:loadRelations\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: src/lib/UI/Dataset/RelationsDataset.php
+
+		-
 			message: '#^PHPDoc tag @param references unknown parameter\: \$versionInfo$#'
 			identifier: parameter.notFound
 			count: 1
@@ -13153,6 +13423,12 @@ parameters:
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\UI\\Module\\ContentTree\\NodeFactory\:\:aggregationResultToArray\(\) has parameter \$aggregationResult with generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\AggregationResult\\TermAggregationResult but does not specify its types\: TKey$#'
+			identifier: missingType.generics
+			count: 1
+			path: src/lib/UI/Module/ContentTree/NodeFactory.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\UI\\Module\\ContentTree\\NodeFactory\:\:buildNode\(\) has parameter \$containerLocations with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -13165,8 +13441,14 @@ parameters:
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\UI\\Module\\ContentTree\\NodeFactory\:\:countSubitems\(\) should return int but returns int\|null\.$#'
+			message: '#^Method Ibexa\\AdminUi\\UI\\Module\\ContentTree\\NodeFactory\:\:countSubitems\(\) should return int but returns int\<0, max\>\|null\.$#'
 			identifier: return.type
+			count: 1
+			path: src/lib/UI/Module/ContentTree/NodeFactory.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\UI\\Module\\ContentTree\\NodeFactory\:\:findSubitems\(\) return type with generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchResult does not specify its types\: TSearchHitValueObject$#'
+			identifier: missingType.generics
 			count: 1
 			path: src/lib/UI/Module/ContentTree/NodeFactory.php
 
@@ -13249,28 +13531,10 @@ parameters:
 			path: src/lib/UI/Module/Subitems/ValueObjectVisitor/SubitemsList.php
 
 		-
-			message: '#^Parameter \#2 \$value of method Ibexa\\Contracts\\Rest\\Output\\Visitor\:\:setHeader\(\) expects string, false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/UI/Module/Subitems/ValueObjectVisitor/SubitemsList.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\UI\\Module\\Subitems\\ValueObjectVisitor\\SubitemsRow\:\:visit\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/UI/Module/Subitems/ValueObjectVisitor/SubitemsRow.php
-
-		-
-			message: '#^Parameter \#2 \$value of method Ibexa\\Contracts\\Rest\\Output\\Visitor\:\:setHeader\(\) expects string, false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/UI/Module/Subitems/ValueObjectVisitor/SubitemsRow.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UI\\Service\\PathService\:\:loadPathLocations\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> but returns array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/UI/Service/PathService.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\UI\\Service\\TabService\:\:getTabsFromGroup\(\) return type has no value type specified in iterable type array\.$#'
@@ -13759,14 +14023,20 @@ parameters:
 			path: src/lib/Util/FieldDefinitionGroupsUtil.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldDefinitionDefaultValue\:\:validatedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/FieldDefinitionDefaultValue.php
+
+		-
 			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\FieldDefinitionDefaultValue\:\:\$message has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: src/lib/Validator/Constraints/FieldDefinitionDefaultValue.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldDefinitionDefaultValueValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldDefinitionDefaultValueValidator\:\:validate\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Validator/Constraints/FieldDefinitionDefaultValueValidator.php
 
@@ -13777,14 +14047,26 @@ parameters:
 			path: src/lib/Validator/Constraints/FieldDefinitionDefaultValueValidator.php
 
 		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldSettings\:\:validatedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/FieldSettings.php
+
+		-
 			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\FieldSettings\:\:\$message has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
 			path: src/lib/Validator/Constraints/FieldSettings.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldSettingsValidator\:\:validate\(\) has no return type specified\.$#'
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldSettingsValidator\:\:generatePropertyPath\(\) has no return type specified\.$#'
 			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/FieldSettingsValidator.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\FieldSettingsValidator\:\:validate\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Validator/Constraints/FieldSettingsValidator.php
 
@@ -13813,12 +14095,6 @@ parameters:
 			path: src/lib/Validator/Constraints/LocationHasChildrenValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\LocationHasChildrenValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Validator/Constraints/LocationHasChildrenValidator.php
-
-		-
 			message: '#^Strict comparison using \=\=\= between null and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
@@ -13834,12 +14110,6 @@ parameters:
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 2
-			path: src/lib/Validator/Constraints/LocationHaveUniqueAssetRelationValidator.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\LocationHaveUniqueAssetRelationValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
 			path: src/lib/Validator/Constraints/LocationHaveUniqueAssetRelationValidator.php
 
 		-
@@ -13861,12 +14131,6 @@ parameters:
 			path: src/lib/Validator/Constraints/LocationIsContainerValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\LocationIsContainerValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Validator/Constraints/LocationIsContainerValidator.php
-
-		-
 			message: '#^Strict comparison using \=\=\= between null and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
@@ -13882,12 +14146,6 @@ parameters:
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 2
-			path: src/lib/Validator/Constraints/LocationIsNotRootValidator.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\LocationIsNotRootValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
 			path: src/lib/Validator/Constraints/LocationIsNotRootValidator.php
 
 		-
@@ -13915,16 +14173,16 @@ parameters:
 			path: src/lib/Validator/Constraints/LocationIsWithinCopySubtreeLimitValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\LocationIsWithinCopySubtreeLimitValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Validator/Constraints/LocationIsWithinCopySubtreeLimitValidator.php
-
-		-
 			message: '#^Strict comparison using \=\=\= between null and Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
 			path: src/lib/Validator/Constraints/LocationIsWithinCopySubtreeLimitValidator.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueContentTypeIdentifier\:\:validatedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/UniqueContentTypeIdentifier.php
 
 		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
@@ -13939,12 +14197,6 @@ parameters:
 			path: src/lib/Validator/Constraints/UniqueContentTypeIdentifierValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueContentTypeIdentifierValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Validator/Constraints/UniqueContentTypeIdentifierValidator.php
-
-		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
 			identifier: property.notFound
 			count: 1
@@ -13957,10 +14209,22 @@ parameters:
 			path: src/lib/Validator/Constraints/UniqueFieldDefinitionIdentifierValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueFieldDefinitionIdentifierValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Parameter \#2 \$value of method Symfony\\Component\\Validator\\Violation\\ConstraintViolationBuilderInterface\:\:setParameter\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
 			count: 1
 			path: src/lib/Validator/Constraints/UniqueFieldDefinitionIdentifierValidator.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueSectionIdentifier\:\:validatedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/UniqueSectionIdentifier.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueURL\:\:validatedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/UniqueURL.php
 
 		-
 			message: '#^Access to an undefined property Symfony\\Component\\Validator\\Constraint\:\:\$message\.$#'
@@ -13975,10 +14239,16 @@ parameters:
 			path: src/lib/Validator/Constraints/UniqueURLValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueURLValidator\:\:validate\(\) has no return type specified\.$#'
-			identifier: missingType.return
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\UniqueURLValidator\:\:validate\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: src/lib/Validator/Constraints/UniqueURLValidator.php
+
+		-
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\ValidatorConfiguration\:\:validatedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/lib/Validator/Constraints/ValidatorConfiguration.php
 
 		-
 			message: '#^Property Ibexa\\AdminUi\\Validator\\Constraints\\ValidatorConfiguration\:\:\$message has no type specified\.$#'
@@ -13993,7 +14263,7 @@ parameters:
 			path: src/lib/Validator/Constraints/ValidatorConfigurationValidator.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\ValidatorConfigurationValidator\:\:validate\(\) has no return type specified\.$#'
+			message: '#^Method Ibexa\\AdminUi\\Validator\\Constraints\\ValidatorConfigurationValidator\:\:generatePropertyPath\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: src/lib/Validator/Constraints/ValidatorConfigurationValidator.php
@@ -14251,6 +14521,42 @@ parameters:
 			path: src/lib/View/Provider/ContentTranslateView/Configured.php
 
 		-
+			message: '#^Call to method resolve\(\) on an unknown class Symfony\\Component\\HttpKernel\\Controller\\ArgumentValueResolverInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolverTest.php
+
+		-
+			message: '#^Call to method supports\(\) on an unknown class Symfony\\Component\\HttpKernel\\Controller\\ArgumentValueResolverInterface\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolverTest.php
+
+		-
+			message: '#^Generator expects value type array\{0\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion, 1\: Symfony\\Component\\HttpFoundation\\Request, 2\: Traversable\<mixed, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\>, 3\?\: array\<string, string\>\}, array\{Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\LogicalAnd, Symfony\\Component\\HttpFoundation\\Request, ArrayIterator\<\*NEVER\*, \*NEVER\*\>\} given\.$#'
+			identifier: generator.valueType
+			count: 2
+			path: tests/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolverTest.php
+
+		-
+			message: '#^Generator expects value type array\{0\: Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion, 1\: Symfony\\Component\\HttpFoundation\\Request, 2\: Traversable\<mixed, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\>, 3\?\: array\<string, string\>\}, array\{Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\LogicalAnd, Symfony\\Component\\HttpFoundation\\Request, ArrayIterator\<int, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\\ContentTypeIdentifier\>, array\{ContentTypeIdentifierCriterion\: ''folder''\}\} given\.$#'
+			identifier: generator.valueType
+			count: 1
+			path: tests/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolverTest.php
+
+		-
+			message: '#^Property Ibexa\\Tests\\Bundle\\AdminUi\\ControllerArgumentResolver\\ContentTreeChildrenQueryArgumentResolverTest\:\:\$resolver \(Symfony\\Component\\HttpKernel\\Controller\\ArgumentValueResolverInterface\) does not accept Ibexa\\Bundle\\AdminUi\\ControllerArgumentResolver\\ContentTreeChildrenQueryArgumentResolver\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolverTest.php
+
+		-
+			message: '#^Property Ibexa\\Tests\\Bundle\\AdminUi\\ControllerArgumentResolver\\ContentTreeChildrenQueryArgumentResolverTest\:\:\$resolver has unknown class Symfony\\Component\\HttpKernel\\Controller\\ArgumentValueResolverInterface as its type\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/bundle/ControllerArgumentResolver/ContentTreeChildrenQueryArgumentResolverTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\DependencyInjection\\Compiler\\FieldTypeFormMapperDispatcherPassTest\:\:tagsProvider\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -14281,10 +14587,64 @@ parameters:
 			path: tests/bundle/ParamConverter/AbstractParamConverterTest.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\AbstractParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/AbstractParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\AbstractParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/AbstractParamConverterTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\AbstractParamConverterTest\:\:testSupports\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: tests/bundle/ParamConverter/AbstractParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentParamConverterTest\:\:attributeProvider\(\) return type has no value type specified in iterable type array\.$#'
@@ -14317,6 +14677,48 @@ parameters:
 			path: tests/bundle/ParamConverter/ContentParamConverterTest.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeDraftParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -14333,6 +14735,60 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/bundle/ParamConverter/ContentTypeDraftParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeGroupParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
@@ -14357,6 +14813,60 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/bundle/ParamConverter/ContentTypeGroupParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\ContentTypeParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
@@ -14405,6 +14915,66 @@ parameters:
 			identifier: parameter.notFound
 			count: 1
 			path: tests/bundle/ParamConverter/ContentTypeParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:assertEquals\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 6
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 5
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\LanguageParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
@@ -14467,6 +15037,72 @@ parameters:
 			path: tests/bundle/ParamConverter/LanguageParamConverterTest.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:assertSame\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 4
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined static method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:once\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\PolicyParamConverterTest\:\:attributeProvider\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -14515,6 +15151,60 @@ parameters:
 			path: tests/bundle/ParamConverter/PolicyParamConverterTest.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleAssignmentParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -14537,6 +15227,60 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/bundle/ParamConverter/RoleAssignmentParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\RoleParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
@@ -14563,6 +15307,60 @@ parameters:
 			path: tests/bundle/ParamConverter/RoleParamConverterTest.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:expectException\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:expectExceptionMessage\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\SectionParamConverterTest\:\:dataProvider\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -14585,6 +15383,48 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/bundle/ParamConverter/SectionParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:assertFalse\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:assertInstanceOf\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:assertNull\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:assertTrue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:createConfiguration\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:createMock\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
+
+		-
+			message: '#^Call to an undefined method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:once\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/bundle/ParamConverter/VersionInfoParamConverterTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\ParamConverter\\VersionInfoParamConverterTest\:\:attributeProvider\(\) return type has no value type specified in iterable type array\.$#'
@@ -14677,48 +15517,6 @@ parameters:
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
 
 		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$condition with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$deprecation with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$exception with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$file with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$message with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$outputs with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
-			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:doIntegrationTest\(\) has parameter \$templates with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\Bundle\\AdminUi\\Templating\\Twig\\LimitationValueRenderingExtensionTest\:\:getLimitation\(\) has parameter \$identifier with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -14737,12 +15535,6 @@ parameters:
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
 
 		-
-			message: '#^Parameter \#1 \$name of method Twig\\Loader\\LoaderInterface\:\:getSourceContext\(\) expects string, int\|string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
-
-		-
 			message: '#^Parameter \#1 \$valueMapperRegistry of class Ibexa\\AdminUi\\Limitation\\Templating\\LimitationBlockRenderer constructor expects Ibexa\\AdminUi\\Limitation\\LimitationValueMapperRegistryInterface, PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 1
@@ -14755,10 +15547,34 @@ parameters:
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
 
 		-
+			message: '#^Parameter \#3 \$source of class Twig\\Error\\Error constructor expects Twig\\Source\|null, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
+
+		-
 			message: '#^Undefined variable\: \$ret$#'
 			identifier: variable.undefined
 			count: 1
 			path: tests/bundle/Templating/Twig/LimitationValueRenderingExtensionTest.php
+
+		-
+			message: '#^Class Swift_Mailer not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/integration/AdminUiIbexaTestKernel.php
+
+		-
+			message: '#^Generator expects value type Symfony\\Component\\HttpKernel\\Bundle\\BundleInterface, Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle given\.$#'
+			identifier: generator.valueType
+			count: 1
+			path: tests/integration/AdminUiIbexaTestKernel.php
+
+		-
+			message: '#^Instantiated class Sensio\\Bundle\\FrameworkExtraBundle\\SensioFrameworkExtraBundle not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/integration/AdminUiIbexaTestKernel.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Config\\AdminUiForms\\ContentTypeFieldTypesResolverTest\:\:mockConfigResolverGetParameter\(\) has parameter \$configuredFieldTypes with no value type specified in iterable type array\.$#'
@@ -14783,12 +15599,6 @@ parameters:
 			identifier: phpDoc.parseError
 			count: 1
 			path: tests/lib/Config/AdminUiForms/ContentTypeFieldTypesResolverTest.php
-
-		-
-			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with Symfony\\Component\\HttpFoundation\\Response will always evaluate to false\.$#'
-			identifier: staticMethod.impossibleType
-			count: 2
-			path: tests/lib/Event/FormActionEventTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Event\\FormActionEventTest\:\:testConstruct\(\) has no return type specified\.$#'
@@ -14821,10 +15631,22 @@ parameters:
 			path: tests/lib/EventListener/ContentProxyCreateDraftListenerTest.php
 
 		-
+			message: '#^Access to undefined constant Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:MASTER_REQUEST\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: tests/lib/EventListener/InContextTranslationListenerTest.php
+
+		-
 			message: '#^Call to an undefined method Symfony\\Component\\HttpFoundation\\Request\:\:expects\(\)\.$#'
 			identifier: method.notFound
 			count: 2
 			path: tests/lib/EventListener/InContextTranslationListenerTest.php
+
+		-
+			message: '#^Access to undefined constant Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:MASTER_REQUEST\.$#'
+			identifier: classConstant.notFound
+			count: 1
+			path: tests/lib/EventListener/RequestListenerTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\EventListener\\RequestListenerTest\:\:testOnKernelRequestAllowAccessWhenGroupMatch\(\) has no return type specified\.$#'
@@ -14861,6 +15683,12 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/lib/EventListener/RequestListenerTest.php
+
+		-
+			message: '#^Access to undefined constant Symfony\\Component\\HttpKernel\\HttpKernelInterface\:\:MASTER_REQUEST\.$#'
+			identifier: classConstant.notFound
+			count: 4
+			path: tests/lib/EventListener/RequestLocaleListenerTest.php
 
 		-
 			message: '#^Call to an undefined method Ibexa\\Core\\MVC\\Symfony\\Locale\\UserLanguagePreferenceProviderInterface\:\:method\(\)\.$#'
@@ -15017,6 +15845,12 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: tests/lib/Form/Data/FormMapper/ContentTranslationMapperTest.php
+
+		-
+			message: '#^Access to protected property Ibexa\\Core\\Repository\\Values\\ContentType\\ContentTypeDraft\:\:\$isContainer\.$#'
+			identifier: property.protected
+			count: 1
+			path: tests/lib/Form/Data/FormMapper/ContentTypeDraftMapperTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\Data\\FormMapper\\ContentTypeDraftMapperTest\:\:createFieldDefinitionsData\(\) return type has no value type specified in iterable type array\.$#'
@@ -16657,6 +17491,12 @@ parameters:
 			path: tests/lib/Limitation/Mapper/UDWBasedMapperTest.php
 
 		-
+			message: '#^Method Ibexa\\Tests\\AdminUi\\Limitation\\Mapper\\UDWBasedMapperTest\:\:createSearchResultsMock\(\) return type with generic class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchResult does not specify its types\: TSearchHitValueObject$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/lib/Limitation/Mapper/UDWBasedMapperTest.php
+
+		-
 			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\PermissionResolver\:\:method\(\)\.$#'
 			identifier: method.notFound
 			count: 2
@@ -16708,12 +17548,6 @@ parameters:
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Pagination\\Pagerfanta\\TrashItemAdapterTest\:\:testGetSlice\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
-			path: tests/lib/Pagination/Pagerfanta/TrashItemAdapterTest.php
-
-		-
-			message: '#^Property Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\:\:\$query \(Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\Criterion\) does not accept Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Query\\CriterionInterface&PHPUnit\\Framework\\MockObject\\MockObject\.$#'
-			identifier: assign.propertyType
-			count: 2
 			path: tests/lib/Pagination/Pagerfanta/TrashItemAdapterTest.php
 
 		-
@@ -16833,6 +17667,12 @@ parameters:
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Siteaccess\\AdminSiteaccessPreviewVoterTest\:\:dataProviderForSiteaccessPreviewVoterContext\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: tests/lib/Siteaccess/AdminSiteaccessPreviewVoterTest.php
+
+		-
+			message: '#^Return type of call to method PHPUnit\\Framework\\TestCase\:\:createMock\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
 			count: 1
 			path: tests/lib/Siteaccess/AdminSiteaccessPreviewVoterTest.php
 
@@ -17005,6 +17845,24 @@ parameters:
 			path: tests/lib/Translation/Extractor/LimitationTranslationExtractorTest.php
 
 		-
+			message: '#^Call to an undefined method Ibexa\\Bundle\\Core\\ApiLoader\\RepositoryConfigurationProvider\:\:method\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: tests/lib/UI/Config/Provider/Module/DamWidgetTest.php
+
+		-
+			message: '#^PHPDoc tag @var for property Ibexa\\Tests\\AdminUi\\UI\\Config\\Provider\\Module\\DamWidgetTest\:\:\$repositoryConfigurationProvider contains unresolvable type\.$#'
+			identifier: property.unresolvableType
+			count: 1
+			path: tests/lib/UI/Config/Provider/Module/DamWidgetTest.php
+
+		-
+			message: '#^Return type of call to method PHPUnit\\Framework\\TestCase\:\:createMock\(\) contains unresolvable type\.$#'
+			identifier: method.unresolvableReturnType
+			count: 1
+			path: tests/lib/UI/Config/Provider/Module/DamWidgetTest.php
+
+		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\UI\\Config\\Service\\ContentTypeIconResolverTest\:\:dataProviderForGetContentTypeIcon\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -17111,6 +17969,12 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: tests/lib/Util/FieldDefinitionGroupsUtilTest.php
+
+		-
+			message: '#^Class Ibexa\\Tests\\AdminUi\\Validator\\Constraint\\DateRangeValidatorTest extends generic class Symfony\\Component\\Validator\\Test\\ConstraintValidatorTestCase but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/lib/Validator/Constraint/DateRangeValidatorTest.php
 
 		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Validator\\Constraint\\FieldDefinitionDefaultValueTest\:\:testConstruct\(\) has no return type specified\.$#'
