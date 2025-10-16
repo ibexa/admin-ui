@@ -104,6 +104,15 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
                 null,
             ),
         ];
+
+        yield 'file content type duplicated, all fields, without group' => [
+            '{file, file}/*',
+            new ContentTypeFieldsParsedStructure(
+                null,
+                ['file'],
+                null,
+            ),
+        ];
     }
 
     /**
@@ -129,6 +138,18 @@ final class ContentTypeFieldsExpressionParserTest extends TestCase
 
         yield 'file content type, fields being identifier and wildcard' => [
             'file/{field1, *}',
+        ];
+
+        yield 'empty {} list' => [
+            'file/{}',
+        ];
+
+        yield 'missing opening {' => [
+            'file/field1, field2}',
+        ];
+
+        yield 'missing closing {' => [
+            'file/{field1, field2,',
         ];
     }
 }

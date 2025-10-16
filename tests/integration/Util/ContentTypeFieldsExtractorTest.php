@@ -114,7 +114,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
     }
 
     /**
-     * @return iterable<list<string>>
+     * @return iterable<array{string}>
      */
     public function dataProviderForTestFieldIdWithinExpression(): iterable
     {
@@ -128,7 +128,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
     }
 
     /**
-     * @return iterable<list<string>>
+     * @return iterable<array{string}>
      */
     public function dataProviderForTestFieldIdNotWithinExpression(): iterable
     {

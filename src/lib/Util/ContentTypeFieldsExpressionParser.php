@@ -76,10 +76,14 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
 
         // Multiple elements between braces
         if ($this->lexer->token->isA(ContentTypeFieldsExpressionDoctrineLexer::T_LBRACE)) {
-            $items[] = $this->getTokenFromInsideBracket();
+            $token = $this->getTokenFromInsideBracket();
+            $items[] = $token;
 
             while ($this->lexer->token->isA(ContentTypeFieldsExpressionDoctrineLexer::T_COMMA)) {
-                $items[] = $this->getTokenFromInsideBracket();
+                $token = $this->getTokenFromInsideBracket();
+                if (!in_array($token, $items, true)) {
+                    $items[] = $token;
+                }
             }
 
             if (!$this->lexer->token->isA(ContentTypeFieldsExpressionDoctrineLexer::T_RBRACE)) {
