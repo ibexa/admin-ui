@@ -1,5 +1,6 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--eztext';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class EzTextValidator extends ibexa.BaseFieldValidator {
         /**
@@ -12,7 +13,7 @@
          */
         validateInput(event) {
             const isError = event.target.required && !event.target.value.trim();
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector(SELECTOR_LABEL).innerText;
             const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
             return {
@@ -30,6 +31,7 @@
                 selector: '.ibexa-field-edit--eztext textarea',
                 eventName: 'blur',
                 callback: 'validateInput',
+                invalidStateSelectors: [SELECTOR_LABEL],
                 errorNodeSelectors: ['.ibexa-form-error'],
             },
         ],
