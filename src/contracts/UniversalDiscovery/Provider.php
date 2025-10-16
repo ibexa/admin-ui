@@ -83,9 +83,28 @@ interface Provider
     ): array;
 
     /**
-     * @param list<string> $locationIds
-     *
-     * @return array<array{
+     * Get list of (@see \Ibexa\Contracts\Core\Repository\Values\Content\Location locations} with their permissions.
+     * 
+     * Returns a indexed array of hashes with the following structure:
+     * ```
+     * [
+     *     [
+     *         'location' => (@see \Ibexa\Contracts\Core\Repository\Values\Content\Location],
+     *         'permissions' => [
+     *             'create' => [
+     *                 'hasAccess' => bool true/false,
+     *                 'restrictedContentTypeIds' => [1, 2, 3]
+     *             ],
+     *             'edit' => [],
+     *         ],
+     *     ],
+     * ]
+     * ```
+     * 
+     * @param array<int, string> $locationIds
+     * 
+     * @return array<int, array> An array of assiative arrays with "location" and "permissions" keys
+     * @phpstan-return array<array{
      *     location: \Ibexa\Contracts\Core\Repository\Values\Content\Location,
      *     permissions: array{
      *       create: array{
