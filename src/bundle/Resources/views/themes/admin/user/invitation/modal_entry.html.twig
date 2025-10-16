@@ -3,9 +3,11 @@
     <button
         type="button"
         class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-user-invitation-modal__entry-delete-btn"
+        title={{ 'modal.delete'|trans|desc('Delete') }}
+        data-tooltip-container-selector=".modal-dialog"
     >
         <svg class="ibexa-icon ibexa-icon--small">
-            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
         </svg>
     </button>
     <div class="ibexa-user-invitation-modal__entry-issues ibexa-form-error"></div>
