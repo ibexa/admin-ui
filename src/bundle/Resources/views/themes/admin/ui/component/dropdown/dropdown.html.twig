@@ -11,6 +11,7 @@
 {% set min_item_width = min_item_width|default(100) %}
 {% set custom_form = custom_form is defined ? custom_form : true %}
 {% set translation_domain = translation_domain|default(false) %}
+{% set choice_translation_domain = choice_translation_domain|default(false) %}
 {% set value = value is defined ? value : null %}
 {% set multiple = multiple|default(false) %}
 {% set no_items = choices_flat|length == 0 %}
@@ -85,7 +86,7 @@
 
                             {% include selected_item_template_path with {
                                 value: first_choice.value,
-                                label: _self.get_translated_label(first_choice.label, translation_domain),
+                                label: _self.get_translated_label(first_choice.label, choice_translation_domain),
                                 icon: first_choice.icon is defined ? first_choice.icon,
                             } %}
                         {% endif %}
@@ -95,7 +96,7 @@
                         {% if custom_form ? choice.value == value : choice is selectedchoice(value) %}
                             {% set label = selected_item_label is defined
                                 ? selected_item_label
-                                : _self.get_translated_label(choice.label, translation_domain)
+                                : _self.get_translated_label(choice.label, choice_translation_domain)
                             %}
 
                             {% include selected_item_template_path with {
