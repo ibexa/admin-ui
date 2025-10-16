@@ -155,7 +155,7 @@
             previewImg.classList.toggle('d-none', image === null);
             previewAlt.value = image.alternativeText;
             previewActionPreview.setAttribute('href', destinationLocationUrl);
-            assetNameContainer.innerHTML = destinationContentName;
+            assetNameContainer.innerText = destinationContentName;
             assetNameContainer.setAttribute('href', destinationLocationUrl);
 
             this.inputDestinationContentId.value = destinationContentId;

@@ -14,9 +14,14 @@
         node.insertAdjacentHTML(position, escapedText);
     };
 
+    const dangerouslyAppend = (node, nodeOrText) => {
+        node.append(nodeOrText);
+    };
+
     eZ.addConfig('helpers.dom', {
         safelySetInnerHTML,
         dangerouslySetInnerHTML,
         dangerouslyInsertAdjacentHTML,
+        dangerouslyAppend,
     });
 })(window, window.document, window.eZ);
