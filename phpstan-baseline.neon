@@ -583,60 +583,6 @@ parameters:
 			path: src/bundle/Controller/LinkManagerController.php
 
 		-
-			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:\$priority\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:\$remoteId\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getContent\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getContentInfo\(\)\.$#'
-			identifier: method.notFound
-			count: 2
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getId\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:getPathString\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:isHidden\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^Call to an undefined method Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\:\:isInvisible\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
-			message: '#^PHPDoc tag @param for parameter \$childrenList contains generic type Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchHit\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> but class Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Search\\SearchHit is not generic\.$#'
-			identifier: generics.notGeneric
-			count: 1
-			path: src/bundle/Controller/Location/LoadSubItemsController.php
-
-		-
 			message: '#^Cannot access property \$contentId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
 			identifier: property.nonObject
 			count: 3
@@ -1757,18 +1703,6 @@ parameters:
 			identifier: property.onlyRead
 			count: 1
 			path: src/bundle/View/EzPagerfantaView.php
-
-		-
-			message: '#^Instantiated class Ibexa\\Bundle\\AdminUi\\View\\Template\\IbexaPagerfantaTemplate not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: src/bundle/View/IbexaPagerfantaView.php
-
-		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\View\\IbexaPagerfantaView\:\:createDefaultTemplate\(\) should return Pagerfanta\\View\\Template\\TemplateInterface but returns Ibexa\\Bundle\\AdminUi\\View\\Template\\IbexaPagerfantaTemplate\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/View/IbexaPagerfantaView.php
 
 		-
 			message: '#^Constructor of class Ibexa\\Bundle\\AdminUi\\View\\Template\\EzPagerfantaTemplate has an unused parameter \$translator\.$#'
@@ -14963,12 +14897,6 @@ parameters:
 			identifier: method.void
 			count: 1
 			path: tests/lib/EventListener/SetViewParametersListenerTest.php
-
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Validator\\ValidatorBuilder\:\:enableAttributeMapping\(\)\.$#'
-			identifier: method.notFound
-			count: 1
-			path: tests/lib/Form/Data/AbstractFormDataValidationTestCase.php
 
 		-
 			message: '#^Access to protected property Ibexa\\AdminUi\\Form\\Data\\ContentTranslationData\:\:\$fieldsData\.$#'
