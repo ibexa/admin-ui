@@ -47,4 +47,48 @@ class UserNotificationContext implements Context
         $this->userNotificationPopup->verifyIsLoaded();
         $this->userNotificationPopup->clickNotification($type, $description);
     }
+
+    /**
+     * @Then an unread notification appears with details:
+     */
+    public function thereIsUnreadNotificationAppearsWithDetails(TableNode $notificationDetails): void
+    {
+        $type = $notificationDetails->getHash()[0]['Type'];
+        $author = $notificationDetails->getHash()[0]['Author'];
+        $description = $notificationDetails->getHash()[0]['Description'];
+        $date = $notificationDetails->getHash()[0]['Date'];
+
+        $this->userNotificationPopup->verifyIsLoaded();
+        $this->userNotificationPopup->verifyNotification($type, $author, $description, $date, true);
+    }
+
+    /**
+     * @Then no notification appears with details:
+     */
+    public function noNotificationAppearsWithDetails(TableNode $notificationDetails): void
+    {
+        $type = $notificationDetails->getHash()[0]['Type'];
+        $author = $notificationDetails->getHash()[0]['Author'];
+        $description = $notificationDetails->getHash()[0]['Description'];
+        $date = $notificationDetails->getHash()[0]['Date'];
+
+        $this->userNotificationPopup->verifyIsLoaded();
+        $this->userNotificationPopup->verifyNotification($type, $author, $description, $date, false);
+    }
+
+    /**
+     * @When I open notification menu with description :description
+     */
+    public function iOpenNotificationMenuNotification(string $description): void
+    {
+        $this->userNotificationPopup->openNotificationMenu($description);
+    }
+
+    /**
+     * @When I click :action action
+     */
+    public function iDeleteTheNotification(): void
+    {
+        $this->userNotificationPopup->clickButton('Delete');
+    }
 }
