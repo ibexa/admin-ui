@@ -136,6 +136,7 @@ class DateTimePicker {
 
     init() {
         const flatpickr = getFlatpickr();
+        this.flatpickrConfig.static = this.inputField.dataset.isStatic === 'true';
         this.flatpickrInstance = flatpickr(this.inputField, this.flatpickrConfig);
 
         this.inputField.addEventListener('input', this.onInput, false);
