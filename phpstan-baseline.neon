@@ -12643,24 +12643,6 @@ parameters:
 			path: src/lib/Translation/Extractor/PolicyTranslationExtractor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\SortingTranslationExtractor\:\:extract\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/SortingTranslationExtractor.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Translation\\Extractor\\SortingTranslationExtractor\:\:\$defaultTranslations has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Translation/Extractor/SortingTranslationExtractor.php
-
-		-
-			message: '#^Property Ibexa\\AdminUi\\Translation\\Extractor\\SortingTranslationExtractor\:\:\$domain has no type specified\.$#'
-			identifier: missingType.property
-			count: 1
-			path: src/lib/Translation/Extractor/SortingTranslationExtractor.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\UI\\Action\\FormUiActionMapper\:\:map\(\) has parameter \$form with generic interface Symfony\\Component\\Form\\FormInterface but does not specify its types\: TData$#'
 			identifier: missingType.generics
 			count: 1
