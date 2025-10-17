@@ -45,9 +45,7 @@ final class SortingTranslationExtractor implements ExtractorInterface
 
         $sortConstants = array_filter(
             $locationClass->getConstants(),
-            static function ($value, $key): bool {
-                return is_scalar($value) && strtolower(substr($key, 0, 11)) === 'sort_field_';
-            },
+            static fn ($value, $key): bool => is_int($value) && str_starts_with(strtolower($key), 'sort_field_'),
             ARRAY_FILTER_USE_BOTH
         );
 
