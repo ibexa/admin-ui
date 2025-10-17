@@ -28,6 +28,7 @@
             if (this.backdrop) {
                 this.backdrop.remove();
                 this.backdrop = null;
+                this.extraClasses = [];
             }
         }
 
