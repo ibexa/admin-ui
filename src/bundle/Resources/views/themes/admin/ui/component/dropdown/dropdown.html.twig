@@ -48,7 +48,9 @@
     <div class="ibexa-dropdown__wrapper">
         {% set placeholder_list_item %}
             <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
+                <span class="ibexa-dropdown__selected-item-label">
+                    {{ 'dropdown.placeholder.empty'|trans|desc("No options available") }}
+                </span
             </li>
         {% endset %}
         <ul
@@ -111,11 +113,14 @@
                         class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder"
                         {% if value is empty %}hidden{% endif %}
                     >
-                        {% if placeholder is defined and placeholder is not none %}
-                            {{ _self.get_translated_label(placeholder, translation_domain )}}
-                        {% else %}
-                            {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
-                        {% endif %}
+                        <span class="ibexa-dropdown__selected-item-label">
+                            {% if placeholder is defined and placeholder is not none %}
+                                {{ _self.get_translated_label(placeholder, translation_domain )}}
+                            {% else %}
+                                {{ 'dropdown.placeholder'|trans|desc("Choose an option") }}
+                            {% endif %}
+                        </span>
+
                     </li>
                 {% endif %}
             {% endif %}

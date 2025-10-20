@@ -109,12 +109,14 @@
         padding-top: 0;
         padding-bottom: 0;
         margin-right: calculateRem(8px);
-        display: inline-block;
         max-width: calculateRem(380px);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+
+        &-label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         &--has-icon {
             border-radius: 0;
