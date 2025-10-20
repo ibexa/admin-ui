@@ -40,6 +40,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.picker.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.notifications.modal.js'),
     path.resolve(__dirname, '../public/js/scripts/sidebar/side.panel.js'),
+    path.resolve(__dirname, '../public/js/scripts/quick.action.manager.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.location.add.translation.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.autosubmit.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.anchor.navigation'),

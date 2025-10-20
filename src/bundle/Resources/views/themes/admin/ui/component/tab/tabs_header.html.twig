@@ -17,6 +17,7 @@
                         label: tab.label,
                         active: tab == active_tab,
                         has_error: tab.has_error|default(false),
+                        tab_corner_disabled: tab_corner_disabled|default(false),
                     } %}
                 {% endfor %}
             {% endblock %}
