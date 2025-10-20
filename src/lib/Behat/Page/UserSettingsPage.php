@@ -34,7 +34,7 @@ final class UserSettingsPage extends Page
     public function verifyIsLoaded(): void
     {
         $pageHeaderText = $this->getHTMLPage()->find($this->getLocator('title'))->getText();
-        Assert::AssertContains($pageHeaderText, ['User settings', 'Content authoring']);
+        Assert::AssertContains($pageHeaderText, ['User settings', 'Content authoring', 'Browsing']);
     }
 
     public function switchTab(string $tabName): void
@@ -57,6 +57,7 @@ final class UserSettingsPage extends Page
             new VisibleCSSLocator('title', '.ibexa-edit-header__title,.ibexa-page-title__content'),
             new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
             new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
+            new VisibleCSSLocator('helpCenterValueDropdown', '#user_setting_update_help_center div.ibexa-dropdown__wrapper > ul'),
         ];
     }
 
@@ -90,5 +91,22 @@ final class UserSettingsPage extends Page
     public function getName(): string
     {
         return 'User settings';
+    }
+
+    public function openBrowsingEditionPage(): void
+    {
+        $this->getHTMLPage()
+            ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
+            ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header__headline'), 'Browsing'))
+            ->find(new VisibleCSSLocator('editButton', ' .ibexa-btn__label'))
+            ->assert()->textEquals('Edit')
+            ->click();
+    }
+
+    public function disableHelpCenter(): void
+    {
+        $this->contentActionsMenu->verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('helpCenterValueDropdown'))->click();
+        $this->ibexaDropdown->selectOption('Disabled');
     }
 }

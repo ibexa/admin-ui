@@ -33,6 +33,13 @@
                     }
                 }
 
+                &--no-corner {
+                    .ibexa-tabs__link {
+                        font-weight: 600;
+                        background-color: $ibexa-color-light-400;
+                    }
+                }
+
                 &--hidden {
                     display: none;
                 }

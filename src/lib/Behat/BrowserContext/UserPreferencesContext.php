@@ -56,4 +56,14 @@ final readonly class UserPreferencesContext implements Context
         $this->userSettingsPage->verifyIsLoaded();
         $this->userSettingsPage->disableAutosave();
     }
+
+    /**
+     * @Given I disable Help center
+     */
+    public function iDisableHelpCenter(): void
+    {
+        $this->userSettingsPage->openBrowsingEditionPage();
+        $this->userSettingsPage->verifyIsLoaded();
+        $this->userSettingsPage->disableHelpCenter();
+    }
 }

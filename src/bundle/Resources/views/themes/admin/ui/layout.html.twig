@@ -216,21 +216,23 @@
             })|e('html_attr')  }}"></div>
         <div class="ibexa-modal-wrapper"></div>
 
-        {% if not is_back_to_top_disabled|default(false) %}
-            {% block back_to_top %}
-                <div class="ibexa-back-to-top">
-                    <button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
-                        <span class="ibexa-back-to-top__title">
-                            {{ 'back.to.top'|trans|desc('Go to top') }}
-                        </span>
-                        <svg class="ibexa-icon ibexa-icon--medium ibexa-back-to-top__icon">
-                            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
-                        </svg>
-                    </button>
-                </div>
-            {% endblock %}
-        {% endif %}
-
+        <div class="ibexa-quick-action-menu">
+            {% if not is_back_to_top_disabled|default(false) %}
+                {% block back_to_top %}
+                    <div class="ibexa-back-to-top">
+                        <button type="button" class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--no-text ibexa-back-to-top__btn">
+                            <span class="ibexa-back-to-top__title">
+                                {{ 'back.to.top'|trans|desc('Go to top') }}
+                            </span>
+                            <svg class="ibexa-icon ibexa-icon--medium ibexa-back-to-top__icon">
+                                <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+                            </svg>
+                        </button>
+                    </div>
+                {% endblock %}
+            {% endif %}
+            {{ ibexa_twig_component_group('admin-ui-quick-action-menu') }}
+        </div>
         {{ ibexa_twig_component_group('admin-ui-layout-content-after') }}
 
         {{ encore_entry_script_tags('ibexa-admin-ui-layout-js', null, 'ibexa') }}
