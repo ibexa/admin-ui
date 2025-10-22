@@ -19,18 +19,24 @@
         const timePicker = filterNode.querySelector('.ibexa-date-time-picker__input');
 
         if (sourceSelect) {
+            console.log('sourceSelect', sourceSelect);
             const sourceSelectOptions = sourceSelect.querySelectorAll('option');
 
             sourceSelectOptions.forEach((option) => {
-                option.selected = false;
+                option.selected = false; 
             });
+
+            sourceSelectOptions[0].selected = true;
+
 
             if (isNodeDatePicker(filterNode)) {
                 sourceSelectOptions[0].selected = true;
             }
         } else if (checkboxes.length) {
+            console.log('checkboxes', checkboxes);
             checkboxes.forEach((checkbox) => (checkbox.checked = false));
         } else if (timePicker.value.length) {
+            console.log('timePicker', timePicker);
             const formInput = filterNode.querySelector('.ibexa-picker__form-input');
 
             timePicker.value = '';
@@ -39,9 +45,8 @@
             timePicker.dispatchEvent(new Event('input'));
             formInput.dispatchEvent(new Event('input'));
         }
-
-        searchForm.submit();
     };
+
     const attachStatusFilterEvents = (filterNode) => {
         if (!filterNode) {
             return;
@@ -129,6 +134,7 @@
         clearFilter(statusFilterNode);
         clearFilter(typeFilterNode);
         datetimeFilterNodes.forEach((input) => clearFilter(input));
+        searchForm.submit();
     };
 
     attachInitEvents();
