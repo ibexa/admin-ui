@@ -41,7 +41,7 @@
 
 {% include '@ibexadesign/ui/component/details/details.html.twig' with {
     headline: 'tab.author.authors'|trans()|desc('Authors'),
-    items: content_details_items|merge(content_details_extra_items|default({})),
+    items: content_details_items|merge(content_details_extra_items|default([])),
 } only %}
 
 {% set technical_details_items = [
