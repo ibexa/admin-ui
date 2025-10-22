@@ -22,6 +22,7 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
+                    clearCheckboxes();
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -36,6 +37,10 @@
         const selectedNotifications = [...notificationsCheckboxes]
             .filter((checkbox) => checkbox.checked)
             .map((checkbox) => checkbox.dataset.notificationId);
+
+        if (!selectedNotifications.length) {
+            return;
+        }
 
         const markAsReadLink = Routing.generate('ibexa.notifications.mark_multiple_as_read');
         const request = new Request(markAsReadLink, {
@@ -60,6 +65,7 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
+                    clearCheckboxes();
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -68,6 +74,16 @@
             .catch(() => {
                 showErrorNotification(message);
             });
+    };
+
+    const clearCheckboxes = () => {
+        // Firefox persists checkbox states on refresh — manually reset them
+        const multipleCheckbox = doc.querySelector('.ibexa-input--checkbox.ibexa-table__header-cell-checkbox');
+        multipleCheckbox.checked = false;
+
+        notificationsCheckboxes.forEach(checkbox => {
+            checkbox.checked = false;
+        });
     };
 
     const handleNotificationClick = (notification, isToggle = false) => {
