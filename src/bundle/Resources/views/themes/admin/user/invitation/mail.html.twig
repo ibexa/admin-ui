@@ -1,0 +1,27 @@
+{% extends '@ibexadesign/ui/mail/base_mail_template.html.twig' %}
+
+{% trans_default_domain 'ibexa_user_invitation' %}
+
+{%- block subject -%}
+    {{ 'ibexa.user.invitation.mail.subject'|trans|desc('You are invited to join') }}
+{%- endblock subject -%}
+
+{%- block mail_message_title_content -%}
+    {{ 'ibexa.user.invitation.mail.message_title'|trans()|desc('Hello,') }}
+{%- endblock mail_message_title_content -%}
+
+{%- block mail_message_content -%}
+    {{ 'ibexa.user.invitation.mail.message'|trans()|desc('Join us at:') }}
+{%- endblock mail_message_content -%}
+
+{%- block mail_actions_content -%}
+    {% include '@ibexadesign/ui/mail/components/action_btn.html.twig' with {
+        url: url('ibexa.user.from_invite.register', {
+            'inviteHash': invite_hash,
+            'siteaccess': siteaccess
+        }),
+        label: 'ibexa.user.invitation.mail.join'|trans()|desc('Join')
+    } %}
+{%- endblock mail_actions_content -%}
+
+{%- block mail_footer -%}{%- endblock mail_footer -%}
