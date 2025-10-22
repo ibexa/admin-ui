@@ -81,7 +81,7 @@
         const multipleCheckbox = doc.querySelector('.ibexa-input--checkbox.ibexa-table__header-cell-checkbox');
         multipleCheckbox.checked = false;
 
-        notificationsCheckboxes.forEach(checkbox => {
+        notificationsCheckboxes.forEach((checkbox) => {
             checkbox.checked = false;
         });
     };
