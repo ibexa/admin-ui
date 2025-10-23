@@ -107,7 +107,7 @@ final class VersionInfoTransformerTest extends TestCase
      * @dataProvider dataProviderForReverseTransformWithValidInput
      *
      * @phpstan-param array{
-     *      content_info: \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null,
+     *      content_info: ContentInfo|null,
      *      version_no: int|string|null
      * }|null $value
      */
@@ -139,10 +139,10 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @phpstan-return array<string, array{
      *     array{
-     *          content_info: \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null,
+     *          content_info: ContentInfo|null,
      *          version_no: int|string|null
      *     }|null,
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
+     *     VersionInfo|null
      * }>
      */
     public function dataProviderForReverseTransformWithValidInput(): array

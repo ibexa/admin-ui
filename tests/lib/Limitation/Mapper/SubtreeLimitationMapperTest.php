@@ -77,8 +77,8 @@ final class SubtreeLimitationMapperTest extends TestCase
     /**
      * @phpstan-param ContentInfo[] $expected
      *
-     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @phpstan-return SearchResult<
+     *     Location
      * >
      */
     private function createSearchResultsMock(array $expected): SearchResult

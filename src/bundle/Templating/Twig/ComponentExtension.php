@@ -67,7 +67,7 @@ final class ComponentExtension extends AbstractExtension
 
     /**
      * @return array{
-     *     deprecation_info: \Twig\DeprecatedCallableInfo
+     *     deprecation_info: DeprecatedCallableInfo
      * }
      */
     private function getDeprecationOptions(string $newFunction): array

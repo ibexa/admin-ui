@@ -13,8 +13,8 @@ use Ibexa\Rest\Value;
 final class ContentType extends Value
 {
     public function __construct(
-        readonly public string $identifier,
-        readonly public ?string $name = null,
+        public readonly string $identifier,
+        public readonly ?string $name = null,
     ) {
     }
 }

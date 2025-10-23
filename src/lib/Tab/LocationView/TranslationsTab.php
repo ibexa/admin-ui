@@ -154,8 +154,8 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<
-     *   \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData
+     * @return FormInterface<
+     *   MainTranslationUpdateData
      * >
      */
     private function createMainLanguageUpdateForm(

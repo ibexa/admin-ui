@@ -37,8 +37,8 @@ class ContentUpdateItemPage extends Page
      * @param FieldTypeComponent[] $fieldTypeComponents
      */
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         protected readonly iterable $fieldTypeComponents,
         private readonly Notification $notification,

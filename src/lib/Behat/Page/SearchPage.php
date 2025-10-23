@@ -21,9 +21,9 @@ final class SearchPage extends Page
     private TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
-        readonly TableBuilder $tableBuilder,
+        public readonly Session $session,
+        public readonly Router $router,
+        public readonly TableBuilder $tableBuilder,
         private readonly UpperMenu $upperMenu
     ) {
         parent::__construct($session, $router);

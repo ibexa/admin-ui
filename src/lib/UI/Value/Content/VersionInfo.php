@@ -30,8 +30,8 @@ class VersionInfo extends CoreVersionInfo
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        readonly APIVersionInfo $versionInfo,
-        readonly array $properties = []
+        public readonly APIVersionInfo $versionInfo,
+        public readonly array $properties = []
     ) {
         parent::__construct(get_object_vars($versionInfo) + $properties);
     }

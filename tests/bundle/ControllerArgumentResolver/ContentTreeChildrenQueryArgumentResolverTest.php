@@ -62,7 +62,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @return iterable<string, array{
-     *     \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata
+     *     ArgumentMetadata
      * }>
      */
     public function provideDataForUnsupported(): iterable
@@ -125,9 +125,9 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @return iterable<array{
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface,
-     *     \Symfony\Component\HttpFoundation\Request,
-     *     \Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface>,
+     *     CriterionInterface,
+     *     Request,
+     *     Traversable<CriterionInterface>,
      *     3?: array<string, string>,
      * }>
      *

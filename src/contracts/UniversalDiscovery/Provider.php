@@ -87,7 +87,7 @@ interface Provider
      * @param list<string> $locationIds
      *
      * @return array<array{
-     *     location: \Ibexa\Contracts\Core\Repository\Values\Content\Location,
+     *     location: Location,
      *     permissions: array{
      *       create: array{
      *         hasAccess: bool,

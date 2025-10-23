@@ -32,8 +32,8 @@ class Role extends RoleAssignment
      * @param array<string, mixed> $properties
      */
     public function __construct(
-        readonly RoleAssignment $roleAssignment,
-        readonly array $properties = []
+        public readonly RoleAssignment $roleAssignment,
+        public readonly array $properties = []
     ) {
         parent::__construct(get_object_vars($roleAssignment) + $properties);
 

@@ -19,7 +19,7 @@ final class Time extends FieldTypeComponent
     private const string VALUE_TIME_FORMAT = 'G:i';
 
     public function __construct(
-        readonly Session $session,
+        public readonly Session $session,
         private readonly DateAndTimePopup $dateAndTimePopup
     ) {
         parent::__construct($session);

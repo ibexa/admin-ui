@@ -13,8 +13,8 @@ use Ibexa\Rest\Value;
 final class Thumbnail extends Value
 {
     public function __construct(
-        readonly public ?string $uri,
-        readonly public ?string $mimeType
+        public readonly ?string $uri,
+        public readonly ?string $mimeType
     ) {
     }
 }

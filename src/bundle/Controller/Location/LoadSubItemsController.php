@@ -41,7 +41,7 @@ final class LoadSubItemsController extends RestController
         'ContentName' => SortClause\ContentName::class,
     ];
 
-    public function __construct(readonly private SearchService $searchService)
+    public function __construct(private readonly SearchService $searchService)
     {
     }
 

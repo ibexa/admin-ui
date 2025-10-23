@@ -18,7 +18,7 @@ use PHPUnit\Framework\Assert;
 final class Media extends FieldTypeComponent
 {
     public function __construct(
-        readonly Session $session,
+        public readonly Session $session,
         private readonly FileUploadHelper $fileUploadHelper
     ) {
         parent::__construct($session);

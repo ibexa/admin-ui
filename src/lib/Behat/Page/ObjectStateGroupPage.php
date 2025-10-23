@@ -30,9 +30,9 @@ final class ObjectStateGroupPage extends Page
     private mixed $expectedObjectStateGroupId;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
-        readonly TableBuilder $tableBuilder,
+        public readonly Session $session,
+        public readonly Router $router,
+        public readonly TableBuilder $tableBuilder,
         private readonly Dialog $dialog,
         private readonly Repository $repository
     ) {

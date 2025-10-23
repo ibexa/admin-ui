@@ -16,8 +16,8 @@ final class SubItemList extends Value
      * @param SubItem[] $elements
      */
     public function __construct(
-        readonly public int $totalCount,
-        readonly public array $elements = []
+        public readonly int $totalCount,
+        public readonly array $elements = []
     ) {
     }
 }

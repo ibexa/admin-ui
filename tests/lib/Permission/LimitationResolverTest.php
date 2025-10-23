@@ -91,10 +91,10 @@ final class LimitationResolverTest extends TestCase
      *          name: string,
      *          hasAccess: bool,
      *     }>,
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo,
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Location,
-     *     \Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult,
-     *     iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
+     *     ContentInfo,
+     *     Location,
+     *     LookupLimitationResult,
+     *     iterable<Language>
      * }>
      */
     public function provideDataForTestGetLanguageLimitations(): iterable

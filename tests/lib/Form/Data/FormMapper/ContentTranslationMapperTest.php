@@ -53,13 +53,13 @@ final class ContentTranslationMapperTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     \Ibexa\Core\Repository\Values\Content\Content,
+     *     Content,
      *     array{
-     *       language: \Ibexa\Contracts\Core\Repository\Values\Content\Language,
+     *       language: Language,
      *       contentType: ApiContentType,
-     *       baseLanguage: \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     *       baseLanguage: Language|null
      *     },
-     *     \Ibexa\AdminUi\Form\Data\ContentTranslationData
+     *     ContentTranslationData
      * }>
      */
     public function paramsProvider(): array
@@ -178,7 +178,7 @@ final class ContentTranslationMapperTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     \Ibexa\Core\Repository\Values\Content\Content,
+     *     Content,
      *     array<string, mixed>,
      *     array{class: class-string<\Throwable>, message: string}
      * }>
