@@ -12,6 +12,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Component\UserNotificationPopup;
+use Ibexa\AdminUi\Behat\Page\NotificationsPage;
 use PHPUnit\Framework\Assert;
 
 class UserNotificationContext implements Context
@@ -22,10 +23,15 @@ class UserNotificationContext implements Context
     /** @var \Ibexa\AdminUi\Behat\Component\UserNotificationPopup */
     private $userNotificationPopup;
 
-    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup)
+    private NotificationsPage $notificationsPage;
+
+    private int $previousCount;
+
+    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup, NotificationsPage $notificationsPage)
     {
         $this->upperMenu = $upperMenu;
         $this->userNotificationPopup = $userNotificationPopup;
+        $this->notificationsPage = $notificationsPage;
     }
 
     /**
@@ -49,9 +55,9 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @Then an unread notification appears with details:
+     * @Then the notification appears with details:
      */
-    public function thereIsUnreadNotificationAppearsWithDetails(TableNode $notificationDetails): void
+    public function thereIsNotificationAppearsWithDetails(TableNode $notificationDetails): void
     {
         $type = $notificationDetails->getHash()[0]['Type'];
         $author = $notificationDetails->getHash()[0]['Author'];
@@ -87,8 +93,93 @@ class UserNotificationContext implements Context
     /**
      * @When I click :action action
      */
-    public function iDeleteTheNotification(): void
+    public function iClickActionButton(string $action): void
     {
-        $this->userNotificationPopup->clickButton('Delete');
+        $this->userNotificationPopup->clickActionButton($action);
+    }
+
+    /**
+     * @When I store current notification count
+     */
+    public function storeNotificationCount(): void
+    {
+        $this->userNotificationPopup->verifyIsLoaded();
+        $this->previousCount = $this->userNotificationPopup->getNotificationCount();
+    }
+
+    /**
+     * @Then the notification count should change in :direction direction
+     */
+    public function verifyNotificationCountChanged(string $direction): void
+    {
+        $this->userNotificationPopup->verifyNotificationCountChanged($this->previousCount, $direction);
+    }
+
+    /**
+     * @When I click mark all as read button
+     */
+    public function iClickButton(): void
+    {
+        $this->userNotificationPopup->verifyIsLoaded();
+        $this->userNotificationPopup->clickOnMarkAllAsReadButton();
+    }
+
+    /**
+     * @When I click view all notifications button
+     */
+    public function iClickViewAllNotificationsButton(): void
+    {
+        $this->userNotificationPopup->verifyIsLoaded();
+        $this->userNotificationPopup->clickViewAllNotificationsButton();
+    }
+
+    /**
+     * @Then there is :notificationTitle notification on list
+     */
+    public function thereIsNotificationOnList(string $notificationTitle): void
+    {
+        $this->notificationsPage->verifyIsLoaded();
+        $this->notificationsPage->verifyNotificationIsOnList($notificationTitle);
+    }
+
+    /**
+     * @Then there is no :notificationTitle notification on list
+     */
+    public function thereIsNoNotificationOnList(string $notificationTitle): void
+    {
+        $this->notificationsPage->verifyIsLoaded();
+        $this->notificationsPage->verifyNotificationIsNotOnList($notificationTitle);
+    }
+
+    /**
+     * @When I marked as unread notification with title :notificationTitle
+     */
+    public function iMarkedNotificationAsUnread(string $notificationTitle): void
+    {
+        $this->notificationsPage->markAsUnread($notificationTitle);
+    }
+
+    /**
+     * @Then the notification with title :notificationTitle has status :notificationStatus
+     */
+    public function verifyNotificationStatus(string $notificationTitle, string $notificationStatus): void
+    {
+        Assert::assertEquals($notificationStatus, $this->notificationsPage->getStatusForNotification($notificationTitle));
+    }
+
+    /**
+     * @When I go to content of notification with title :notificationTitle
+     */
+    public function iGoToContent(string $notificationTitle): void
+    {
+        $this->notificationsPage->goToContent($notificationTitle);
+    }
+
+    /**
+     * @When I deleted notification with title :notificationTitle
+     */
+    public function iDeleteNotification(string $notificationTitle): void
+    {
+        $this->notificationsPage->deleteNotification($notificationTitle);
     }
 }

@@ -87,6 +87,43 @@ class UserNotificationPopup extends Component
         }
     }
 
+    public function getNotificationCount(): int
+    {
+        try {
+            $counterElement = $this->getHTMLPage()->find($this->getLocator('notificationCounterDot'));
+            $countText = $counterElement->getAttribute('data-count');
+
+            return (int) $countText;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
+    public function verifyNotificationCountChanged(int $previousCount, string $direction): void
+    {
+        $attempts = 10;
+        $interval = 500000;
+        $currentCount = 0;
+
+        for ($i = 0; $i < $attempts; ++$i) {
+            $currentCount = $this->getNotificationCount();
+
+            if (($direction === 'increase' && $currentCount > $previousCount) ||
+                ($direction === 'decrease' && $currentCount < $previousCount)) {
+                return;
+            }
+
+            usleep($interval);
+        }
+
+        throw new \Exception(sprintf(
+            'Expected notification count to %s (previous: %d, current: %d)',
+            $direction,
+            $previousCount,
+            $currentCount
+        ));
+    }
+
     public function openNotificationMenu(string $expectedDescription): void
     {
         $notifications = $this->getHTMLPage()
@@ -101,7 +138,7 @@ class UserNotificationPopup extends Component
         $menuButton->click();
     }
 
-    public function clickButton(string $buttonText): void
+    public function clickActionButton(string $buttonText): void
     {
         $buttons = $this->getHTMLPage()
             ->setTimeout(5)
@@ -109,6 +146,16 @@ class UserNotificationPopup extends Component
             ->filterBy(new ElementTextCriterion($buttonText));
 
         $buttons->first()->execute(new MouseOverAndClick());
+    }
+
+    public function clickOnMarkAllAsReadButton(): void
+    {
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('markAllAsReadButton'))->click();
+    }
+
+    public function clickViewAllNotificationsButton(): void
+    {
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('viewAllNotificationsButton'))->click();
     }
 
     public function verifyIsLoaded(): void
@@ -130,6 +177,9 @@ class UserNotificationPopup extends Component
             new VisibleCSSLocator('notificationDate', '.ibexa-notifications-modal__item--date'),
             new VisibleCSSLocator('notificationMenuButton', '.ibexa-notifications-modal__actions'),
             new VisibleCSSLocator('notificationMenuItemContent', '.ibexa-popup-menu__item-content.ibexa-multilevel-popup-menu__item-content'),
+            new VisibleCSSLocator('notificationCounterDot', '.ibexa-header-user-menu__notice-dot'),
+            new VisibleCSSLocator('markAllAsReadButton', '.ibexa-notifications-modal__mark-all-read-btn'),
+            new VisibleCSSLocator('viewAllNotificationsButton', '.ibexa-notifications-modal__view-all-btn'),
         ];
     }
 }
