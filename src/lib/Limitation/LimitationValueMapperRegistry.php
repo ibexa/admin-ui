@@ -16,14 +16,12 @@ use Ibexa\AdminUi\Exception\ValueMapperNotFoundException;
 final class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInterface
 {
     /**
-     * @param array<string, \Ibexa\AdminUi\Limitation\LimitationValueMapperInterface> $limitationValueMappers
+     * @param array<string, LimitationValueMapperInterface> $limitationValueMappers
      */
-    public function __construct(private array $limitationValueMappers = [])
-    {
-    }
+    public function __construct(private array $limitationValueMappers = []) {}
 
     /**
-     * @return array<string, \Ibexa\AdminUi\Limitation\LimitationValueMapperInterface>
+     * @return array<string, LimitationValueMapperInterface>
      */
     public function getMappers(): array
     {
@@ -44,8 +42,10 @@ final class LimitationValueMapperRegistry implements LimitationValueMapperRegist
         return isset($this->limitationValueMappers[$limitationType]);
     }
 
-    public function addMapper(LimitationValueMapperInterface $mapper, string $limitationType): void
-    {
+    public function addMapper(
+        LimitationValueMapperInterface $mapper,
+        string $limitationType
+    ): void {
         $this->limitationValueMappers[$limitationType] = $mapper;
     }
 }

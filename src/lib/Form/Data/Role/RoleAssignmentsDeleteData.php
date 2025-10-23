@@ -21,8 +21,7 @@ final class RoleAssignmentsDeleteData
     public function __construct(
         private ?Role $role = null,
         private ?array $roleAssignments = []
-    ) {
-    }
+    ) {}
 
     public function getRole(): ?Role
     {

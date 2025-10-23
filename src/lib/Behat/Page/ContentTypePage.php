@@ -28,10 +28,10 @@ final class ContentTypePage extends Page
     private TableInterface $fieldTable;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentTypeService $contentTypeService,
-        readonly TableBuilder $tableBuilder
+        public readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
 
@@ -41,8 +41,10 @@ final class ContentTypePage extends Page
             ->build();
     }
 
-    public function hasProperty(string $label, string $value): bool
-    {
+    public function hasProperty(
+        string $label,
+        string $value
+    ): bool {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('globalPropertiesItem'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('globalPropertiesLabel'), $label))

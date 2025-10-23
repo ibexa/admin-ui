@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -27,15 +28,15 @@ class ContentTypeGroupPage extends Page
     private TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentTypeService $contentTypeService,
-        readonly TableBuilder $tableBuilder,
+        public readonly TableBuilder $tableBuilder,
         private readonly Dialog $dialog
     ) {
         parent::__construct($session, $router);
 
-        /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
+        /** @var CSSLocator $locator */
         $locator = $this->getLocator('tableContainer');
 
         $this->table = $tableBuilder->newTable()->withParentLocator($locator)->build();

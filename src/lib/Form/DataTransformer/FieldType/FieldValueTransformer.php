@@ -18,9 +18,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final readonly class FieldValueTransformer implements DataTransformerInterface
 {
-    public function __construct(private FieldType $fieldType)
-    {
-    }
+    public function __construct(private FieldType $fieldType) {}
 
     /**
      * Transforms a FieldType Value into a hash using `FieldTpe::toHash()`.

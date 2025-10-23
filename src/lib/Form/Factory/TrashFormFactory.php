@@ -19,12 +19,11 @@ use Ibexa\AdminUi\Form\Type\Trash\TrashItemRestoreType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final readonly class TrashFormFactory
 {
-    public function __construct(private FormFactoryInterface $formFactory)
-    {
-    }
+    public function __construct(private FormFactoryInterface $formFactory) {}
 
     public function restoreTrashItem(
         ?TrashItemRestoreData $data = null,
@@ -36,7 +35,7 @@ final readonly class TrashFormFactory
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function deleteTrashItem(
         ?TrashItemDeleteData $data = null,

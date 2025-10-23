@@ -19,8 +19,7 @@ final class RoleLimitationMapper extends MultipleSelectionBasedMapper implements
 {
     public function __construct(
         private readonly RoleService $roleService
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<int, string>

@@ -19,12 +19,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class ObjectStateGroupType extends AbstractType
 {
-    public function __construct(private readonly ObjectStateService $objectStateService)
-    {
-    }
+    public function __construct(private readonly ObjectStateService $objectStateService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(
             new ObjectStateGroupTransformer($this->objectStateService)
         );

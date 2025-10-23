@@ -18,12 +18,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionType extends AbstractType
 {
-    public function __construct(protected readonly SectionService $sectionService)
-    {
-    }
+    public function __construct(protected readonly SectionService $sectionService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addViewTransformer(
             $options['multiple']
             ? new SectionsTransformer($this->sectionService)

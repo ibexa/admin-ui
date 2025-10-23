@@ -17,9 +17,7 @@ class ConfigWrapper implements ArrayAccess, JsonSerializable
     /**
      * @param array<mixed> $config
      */
-    public function __construct(private array $config)
-    {
-    }
+    public function __construct(private array $config) {}
 
     #[\ReturnTypeWillChange]
     public function offsetExists($offset): bool
@@ -34,8 +32,10 @@ class ConfigWrapper implements ArrayAccess, JsonSerializable
     }
 
     #[\ReturnTypeWillChange]
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
+    public function offsetSet(
+        mixed $offset,
+        mixed $value
+    ): void {
         throw new RuntimeException('Configuration is readonly');
     }
 

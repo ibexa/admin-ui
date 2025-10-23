@@ -23,6 +23,7 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,8 +36,7 @@ final class ContentTypeGroupController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(Request $request): Response
     {
@@ -54,7 +54,7 @@ final class ContentTypeGroupController extends Controller
         );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
+        /** @var ContentTypeGroup[] $contentTypeGroupList */
         $contentTypeGroupList = $pagerfanta->getCurrentPageResults();
 
         $deleteContentTypeGroupsForm = $this->formFactory->deleteContentTypeGroups(
@@ -84,7 +84,7 @@ final class ContentTypeGroupController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createContentTypeGroup(
             new ContentTypeGroupCreateData()
         );
@@ -119,10 +119,12 @@ final class ContentTypeGroupController extends Controller
         ]);
     }
 
-    public function updateAction(Request $request, ContentTypeGroup $group): Response
-    {
+    public function updateAction(
+        Request $request,
+        ContentTypeGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updateContentTypeGroup(
             $group,
             new ContentTypeGroupUpdateData($group)
@@ -160,8 +162,10 @@ final class ContentTypeGroupController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, ContentTypeGroup $group): Response
-    {
+    public function deleteAction(
+        Request $request,
+        ContentTypeGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->formFactory->deleteContentTypeGroup(
             $group,
@@ -221,8 +225,11 @@ final class ContentTypeGroupController extends Controller
         return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
-    public function viewAction(Request $request, ContentTypeGroup $group, int $page = 1): Response
-    {
+    public function viewAction(
+        Request $request,
+        ContentTypeGroup $group,
+        int $page = 1
+    ): Response {
         return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
             'content_type_group' => $group,
             'page' => $page,
@@ -232,7 +239,7 @@ final class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
+     * @param ContentTypeGroup[] $contentTypeGroups
      *
      * @return array<int, mixed>
      */

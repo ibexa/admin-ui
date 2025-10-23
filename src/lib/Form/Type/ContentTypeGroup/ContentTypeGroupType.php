@@ -19,12 +19,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ContentTypeGroupType extends AbstractType
 {
-    public function __construct(protected readonly ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(protected readonly ContentTypeService $contentTypeService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(
             new ContentTypeGroupTransformer($this->contentTypeService)
         );

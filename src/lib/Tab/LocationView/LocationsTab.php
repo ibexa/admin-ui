@@ -22,6 +22,7 @@ use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
@@ -76,8 +77,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
     public function evaluate(array $parameters): bool
     {
-        return IsFocusModeEnabled
-            ::fromUserSettings($this->userSettingService)
+        return IsFocusModeEnabled::fromUserSettings($this->userSettingService)
             ->isSatisfiedBy(FocusMode::FOCUS_MODE_OFF);
     }
 
@@ -88,9 +88,9 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
         $versionInfo = $content->getVersionInfo();
         $contentInfo = $versionInfo->getContentInfo();
@@ -173,7 +173,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData>
+     * @return FormInterface<ContentLocationAddData>
      */
     private function createLocationAddForm(Location $location): FormInterface
     {
@@ -185,10 +185,12 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     /**
      * @param \Ibexa\AdminUi\UI\Value\Content\Location[] $contentLocations
      *
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData>
+     * @return FormInterface<ContentLocationRemoveData>
      */
-    private function createLocationRemoveForm(Location $location, array $contentLocations): FormInterface
-    {
+    private function createLocationRemoveForm(
+        Location $location,
+        array $contentLocations
+    ): FormInterface {
         return $this->formFactory->removeLocation(
             new ContentLocationRemoveData(
                 $location->getContentInfo(),
@@ -210,7 +212,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Location\LocationSwapData>
+     * @return FormInterface<LocationSwapData>
      */
     protected function createLocationSwapForm(Location $location): FormInterface
     {
@@ -220,7 +222,7 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Location\LocationUpdateVisibilityData>
+     * @return FormInterface<LocationUpdateVisibilityData>
      */
     protected function createLocationUpdateVisibilityForm(Location $location): FormInterface
     {
@@ -230,10 +232,12 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData>
+     * @return FormInterface<ContentMainLocationUpdateData>
      */
-    protected function createLocationUpdateMainForm($contentInfo, Location $location): FormInterface
-    {
+    protected function createLocationUpdateMainForm(
+        $contentInfo,
+        Location $location
+    ): FormInterface {
         return $this->formFactory->updateContentMainLocation(
             new ContentMainLocationUpdateData($contentInfo, $location)
         );

@@ -24,8 +24,7 @@ final class UniversalDiscoveryRequestQueryValueResolver implements ValueResolver
     public function __construct(
         private readonly Provider $provider,
         private readonly ValidatorInterface $validator
-    ) {
-    }
+    ) {}
 
     private function supports(ArgumentMetadata $argument): bool
     {
@@ -34,10 +33,12 @@ final class UniversalDiscoveryRequestQueryValueResolver implements ValueResolver
     }
 
     /**
-     * @return iterable<\Ibexa\AdminUi\REST\Value\UniversalDiscovery\RequestQuery>
+     * @return iterable<RequestQuery>
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
+    public function resolve(
+        Request $request,
+        ArgumentMetadata $argument
+    ): iterable {
         if (!$this->supports($argument)) {
             return [];
         }

@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\View;
 
 use Ibexa\Core\MVC\Symfony\View\BaseView;
 
-class CreateContentOnTheFlyView extends BaseView
-{
-}
+class CreateContentOnTheFlyView extends BaseView {}

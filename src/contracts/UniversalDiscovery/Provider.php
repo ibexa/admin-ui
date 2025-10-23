@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\AdminUi\UniversalDiscovery;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 
@@ -30,7 +31,7 @@ interface Provider
     ): array;
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getBreadcrumbLocations(
         int $locationId,
@@ -43,7 +44,7 @@ interface Provider
     public function getLocationPermissionRestrictions(Location $location): array;
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content[]
+     * @return Content[]
      */
     public function getSubitemContents(
         int $locationId,
@@ -53,7 +54,7 @@ interface Provider
     ): array;
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getSubitemLocations(
         int $locationId,
@@ -86,7 +87,7 @@ interface Provider
      * @param list<string> $locationIds
      *
      * @return array<array{
-     *     location: \Ibexa\Contracts\Core\Repository\Values\Content\Location,
+     *     location: Location,
      *     permissions: array{
      *       create: array{
      *         hasAccess: bool,
@@ -103,5 +104,8 @@ interface Provider
      */
     public function getLocations(array $locationIds): array;
 
-    public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause;
+    public function getSortClause(
+        string $sortClauseName,
+        string $sortOrder
+    ): Query\SortClause;
 }

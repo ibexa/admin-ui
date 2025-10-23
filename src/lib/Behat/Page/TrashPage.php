@@ -24,16 +24,16 @@ final class TrashPage extends Page
 {
     private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\TrashSearch */
+    /** @var TrashSearch */
     private TrashSearch $trashSearch;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly Dialog $dialog,
         private readonly ContentActionsMenu $contentActionsMenu,
-        readonly TableBuilder $tableBuilder,
+        public readonly TableBuilder $tableBuilder,
         TrashSearch $trashSearch
     ) {
         parent::__construct($session, $router);
@@ -42,8 +42,10 @@ final class TrashPage extends Page
         $this->trashSearch = $trashSearch;
     }
 
-    public function hasElement(string $itemType, string $itemName): bool
-    {
+    public function hasElement(
+        string $itemType,
+        string $itemName
+    ): bool {
         return $this->table->hasElement(['Name' => $itemName, 'Content type' => $itemType]);
     }
 

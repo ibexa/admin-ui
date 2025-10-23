@@ -23,8 +23,7 @@ final class VersionPreviewUrlChoiceLoader extends BaseChoiceLoader
         private readonly VersionInfo $versionInfo,
         private readonly Location $location,
         private readonly Language $language
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string> An associative array where keys are site access names and values are preview URLs.

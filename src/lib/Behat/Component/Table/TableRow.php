@@ -76,9 +76,7 @@ final class TableRow extends Component
         return $this->element->find($this->locatorCollection->get($headerName));
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     public function click(LocatorInterface $locator): void
     {

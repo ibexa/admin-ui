@@ -18,22 +18,19 @@ use Symfony\Component\Form\FormInterface;
 
 final readonly class NullLimitationMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
-    public function __construct(private string $template)
-    {
-    }
+    public function __construct(private string $template) {}
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
-    }
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {}
 
     public function getFormTemplate(): string
     {
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 
     /**
      * @return mixed[]

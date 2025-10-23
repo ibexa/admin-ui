@@ -15,11 +15,9 @@ use RuntimeException;
 final readonly class ApplicationConfigRestGeneratorRegistry implements ApplicationConfigRestGeneratorRegistryInterface
 {
     /**
-     * @param iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface> $generators
+     * @param iterable<ApplicationConfigRestGeneratorInterface> $generators
      */
-    public function __construct(private iterable $generators)
-    {
-    }
+    public function __construct(private iterable $generators) {}
 
     public function hasGenerator(
         string $namespace,
@@ -48,8 +46,10 @@ final readonly class ApplicationConfigRestGeneratorRegistry implements Applicati
         return false;
     }
 
-    public function getGenerator(string $namespace, string $parameter): ApplicationConfigRestGeneratorInterface
-    {
+    public function getGenerator(
+        string $namespace,
+        string $parameter
+    ): ApplicationConfigRestGeneratorInterface {
         foreach ($this->generators as $generator) {
             if (
                 $generator->supportsNamespace($namespace)
@@ -69,7 +69,7 @@ final readonly class ApplicationConfigRestGeneratorRegistry implements Applicati
     }
 
     /**
-     * @return iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorInterface>
+     * @return iterable<ApplicationConfigRestGeneratorInterface>
      */
     public function getGenerators(string $namespace): iterable
     {

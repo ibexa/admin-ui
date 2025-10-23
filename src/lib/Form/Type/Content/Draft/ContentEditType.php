@@ -30,11 +30,12 @@ class ContentEditType extends AbstractType
     public function __construct(
         protected readonly LanguageService $languageService,
         private readonly LanguageChoiceLoader $languageChoiceLoader
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'location',

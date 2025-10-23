@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class SectionsTransformer implements DataTransformerInterface
 {
-    public function __construct(private SectionService $sectionService)
-    {
-    }
+    public function __construct(private SectionService $sectionService) {}
 
     public function transform(mixed $value): ?string
     {
@@ -34,9 +32,9 @@ final readonly class SectionsTransformer implements DataTransformerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
+     * @return Section[]|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): ?array
     {

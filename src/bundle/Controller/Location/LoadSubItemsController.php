@@ -22,6 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,9 +41,7 @@ final class LoadSubItemsController extends RestController
         'ContentName' => SortClause\ContentName::class,
     ];
 
-    public function __construct(readonly private SearchService $searchService)
-    {
-    }
+    public function __construct(private readonly SearchService $searchService) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
@@ -74,7 +73,7 @@ final class LoadSubItemsController extends RestController
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
+     * @return SortClause[]
      */
     private function getDefaultSortClause(Location $location): array
     {
@@ -88,10 +87,12 @@ final class LoadSubItemsController extends RestController
     }
 
     /**
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function buildSortClause(string $sortClause, string $sortOrder): SortClause
-    {
+    private function buildSortClause(
+        string $sortClause,
+        string $sortOrder
+    ): SortClause {
         if (!isset(static::SORT_CLAUSE_MAP[$sortClause])) {
             throw new InvalidArgumentException('$sortClause', 'Invalid sort clause');
         }
@@ -105,10 +106,12 @@ final class LoadSubItemsController extends RestController
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit<\Ibexa\Contracts\Core\Repository\Values\Content\Location>> $childrenList
+     * @param array<SearchHit<Location>> $childrenList
      */
-    private function buildSubItemsList(int $totalCount, array $childrenList): SubItemList
-    {
+    private function buildSubItemsList(
+        int $totalCount,
+        array $childrenList
+    ): SubItemList {
         $subItems = [];
         foreach ($childrenList as $hit) {
             $location = $hit->valueObject;

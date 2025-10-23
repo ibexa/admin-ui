@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation;
 
+use Ibexa\AdminUi\Exception\ValueMapperNotFoundException;
+
 /**
  * Interface for Limitation value mappers registry.
  */
@@ -23,11 +25,14 @@ interface LimitationValueMapperRegistryInterface
     /**
      * Returns mapper corresponding to given Limitation Type.
      *
-     * @throws \Ibexa\AdminUi\Exception\ValueMapperNotFoundException if no mapper exists for $limitationType
+     * @throws ValueMapperNotFoundException if no mapper exists for $limitationType
      */
     public function getMapper(string $limitationType): LimitationValueMapperInterface;
 
     public function hasMapper(string $limitationType): bool;
 
-    public function addMapper(LimitationValueMapperInterface $mapper, string $limitationType): void;
+    public function addMapper(
+        LimitationValueMapperInterface $mapper,
+        string $limitationType
+    ): void;
 }

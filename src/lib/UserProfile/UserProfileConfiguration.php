@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 final readonly class UserProfileConfiguration implements UserProfileConfigurationInterface
 {
-    public function __construct(private ConfigResolverInterface $configResolver)
-    {
-    }
+    public function __construct(private ConfigResolverInterface $configResolver) {}
 
     public function isEnabled(): bool
     {

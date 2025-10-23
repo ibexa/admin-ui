@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class ContentInfoTransformer implements DataTransformerInterface
 {
-    public function __construct(private ContentService $contentService)
-    {
-    }
+    public function __construct(private ContentService $contentService) {}
 
     public function transform(mixed $value): ?int
     {

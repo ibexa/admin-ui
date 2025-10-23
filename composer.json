@@ -62,7 +62,7 @@
         "ext-zip": "*",
         "dama/doctrine-test-bundle": "^8.2",
         "ibexa/behat": "~5.0.x-dev",
-        "ibexa/code-style": "~2.0.0",
+        "ibexa/code-style": "dev-bump-php-cs-fixer-to-v3.89.0 as 2.2.x-dev",
         "ibexa/doctrine-schema": "~5.0.x-dev",
         "ibexa/http-cache": "~5.0.x-dev",
         "ibexa/notifications": "~5.0.x-dev",

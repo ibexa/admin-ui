@@ -46,7 +46,7 @@ abstract class AbstractFormContextMenuBuilder extends AbstractBuilder
      */
     protected function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->addChild(
@@ -89,7 +89,7 @@ abstract class AbstractFormContextMenuBuilder extends AbstractBuilder
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

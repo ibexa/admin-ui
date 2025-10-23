@@ -25,8 +25,7 @@ final readonly class CredentialsExpiredListener implements EventSubscriberInterf
     public function __construct(
         private RequestStack $requestStack,
         private array $siteAccessGroups
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

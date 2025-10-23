@@ -76,8 +76,10 @@ final class ContentTypeIsUserTest extends TestCase
     /**
      * @param string[] $fieldsTypes
      */
-    private function createContentType(string $identifier, array $fieldsTypes = []): APIContentType
-    {
+    private function createContentType(
+        string $identifier,
+        array $fieldsTypes = []
+    ): APIContentType {
         $contentType = $this->createMock(ContentType::class);
         $contentType
             ->method('getIdentifier')

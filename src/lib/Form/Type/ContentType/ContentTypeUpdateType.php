@@ -48,8 +48,10 @@ class ContentTypeUpdateType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $isTranslation = $options['mainLanguageCode'] !== $options['languageCode'];
 
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);

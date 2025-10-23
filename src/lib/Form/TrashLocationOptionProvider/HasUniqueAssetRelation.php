@@ -26,8 +26,7 @@ final readonly class HasUniqueAssetRelation implements TrashLocationOptionProvid
     public function __construct(
         private ContentService $contentService,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function supports(Location $location): bool
     {
@@ -36,8 +35,10 @@ final readonly class HasUniqueAssetRelation implements TrashLocationOptionProvid
             ->isSatisfiedBy($location->getContent());
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $translatorParameters = [
             '%content%' => $location->getContent()->getName(),
         ];

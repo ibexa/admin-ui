@@ -8,17 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Content\Draft;
 
+use Ibexa\AdminUi\UI\Value\Content\VersionId;
+
 final class ContentRemoveData
 {
     /**
-     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId[]|false[]|null $versions
+     * @param VersionId[]|false[]|null $versions
      */
-    public function __construct(private ?array $versions = null)
-    {
-    }
+    public function __construct(private ?array $versions = null) {}
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\VersionId[]|false[]|null
+     * @return VersionId[]|false[]|null
      */
     public function getVersions(): ?array
     {
@@ -26,7 +26,7 @@ final class ContentRemoveData
     }
 
     /**
-     * @param \Ibexa\AdminUi\UI\Value\Content\VersionId[]|false[]|null $versions
+     * @param VersionId[]|false[]|null $versions
      */
     public function setVersions(?array $versions): self
     {

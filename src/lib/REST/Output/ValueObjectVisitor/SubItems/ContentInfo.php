@@ -17,8 +17,11 @@ final class ContentInfo extends ValueObjectVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\SubItems\ContentInfo $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('ContentInfo');
 
         $generator->valueElement('id', $data->id);

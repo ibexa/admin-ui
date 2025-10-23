@@ -23,8 +23,11 @@ final class BulkOperationResponse extends ValueObjectVisitor
      *
      * @param \Ibexa\AdminUi\REST\Value\BulkOperationResponse $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('BulkOperationResponse');
         $visitor->setHeader('Content-Type', $generator->getMediaType('BulkOperationResponse'));
         $visitor->setStatus(Response::HTTP_OK);

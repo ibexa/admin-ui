@@ -23,12 +23,10 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
  */
 final readonly class PathService
 {
-    public function __construct(private SearchService $searchService)
-    {
-    }
+    public function __construct(private SearchService $searchService) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function loadPathLocations(Location $location): array
     {

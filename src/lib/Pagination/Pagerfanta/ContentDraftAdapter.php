@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -20,11 +21,10 @@ final readonly class ContentDraftAdapter implements AdapterInterface
     public function __construct(
         private ContentService $contentService,
         private DatasetFactory $datasetFactory
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getNbResults(): int
     {
@@ -32,8 +32,10 @@ final readonly class ContentDraftAdapter implements AdapterInterface
         return $this->contentService->countContentDrafts();
     }
 
-    public function getSlice(int $offset, int $length): iterable
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): iterable {
         return $this->datasetFactory
             ->contentDraftList()
             ->load(null, $offset, $length)

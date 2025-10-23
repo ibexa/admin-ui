@@ -22,8 +22,7 @@ readonly class ContentTypeService
     public function __construct(
         private Repository\ContentTypeService $contentTypeService,
         private array $prioritizedLanguages
-    ) {
-    }
+    ) {}
 
     public function getContentType(int $id): ContentType
     {
@@ -46,7 +45,7 @@ readonly class ContentTypeService
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]
+     * @return ContentType[]
      */
     public function getContentTypes(ContentTypeGroup $group): array
     {

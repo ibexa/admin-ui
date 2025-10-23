@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor;
 
+use Ibexa\AdminUi\REST\Value\ApplicationConfig;
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestGeneratorRegistryInterface;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
@@ -20,14 +21,16 @@ final class ApplicationConfigVisitor extends ValueObjectVisitor
 {
     public function __construct(
         private readonly ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry
-    ) {
-    }
+    ) {}
 
     /**
-     * @param \Ibexa\AdminUi\REST\Value\ApplicationConfig $data
+     * @param ApplicationConfig $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('ApplicationConfig');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ApplicationConfig'));
 

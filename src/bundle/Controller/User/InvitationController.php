@@ -35,11 +35,12 @@ final readonly class InvitationController
         private TranslatableNotificationHandlerInterface $notificationHandler,
         private SiteAccessServiceInterface $siteAccessService,
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
-    public function sendInvitationsAction(int $userGroupId, Request $request): Response
-    {
+    public function sendInvitationsAction(
+        int $userGroupId,
+        Request $request
+    ): Response {
         $group = $this->userService->loadUserGroup($userGroupId);
 
         $form = $this->formFactory->create(

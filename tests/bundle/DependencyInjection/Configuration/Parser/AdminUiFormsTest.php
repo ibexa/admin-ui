@@ -20,7 +20,7 @@ class AdminUiFormsTest extends TestCase
 {
     private AdminUiForms $parser;
 
-    private ContextualizerInterface&MockObject $contextualizer;
+    private ContextualizerInterface & MockObject $contextualizer;
 
     protected function setUp(): void
     {

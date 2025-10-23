@@ -8,6 +8,4 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Location;
 
-final class LocationCopyData extends AbstractLocationCopyData
-{
-}
+final class LocationCopyData extends AbstractLocationCopyData {}

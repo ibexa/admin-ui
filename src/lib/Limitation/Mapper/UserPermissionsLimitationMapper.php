@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Core\Limitation\LimitationIdentifierToLabelConverter;
 use Ibexa\User\Form\ChoiceList\Loader\UserGroupsChoiceLoader;
 use JMS\TranslationBundle\Model\Message;
@@ -33,14 +34,15 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         private readonly SearchService $searchService,
         private readonly RoleService $roleService,
         private readonly UserService $userService
-    ) {
-    }
+    ) {}
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
         $sub = $form
             ->getConfig()
             ->getFormFactory()
@@ -81,7 +83,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
                     ))->loadChoiceList()->getChoices();
 
                     $choices = [];
-                    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup */
+                    /** @var UserGroup $userGroup */
                     foreach ($userGroups as $userGroup) {
                         $choices[$userGroup->getName()] = $userGroup->getId();
                     }
@@ -105,9 +107,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 
     public function mapLimitationValue(Limitation $limitation): array
     {

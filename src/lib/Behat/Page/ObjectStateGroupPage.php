@@ -19,6 +19,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 final class ObjectStateGroupPage extends Page
 {
@@ -29,9 +30,9 @@ final class ObjectStateGroupPage extends Page
     private mixed $expectedObjectStateGroupId;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
-        readonly TableBuilder $tableBuilder,
+        public readonly Session $session,
+        public readonly Router $router,
+        public readonly TableBuilder $tableBuilder,
         private readonly Dialog $dialog,
         private readonly Repository $repository
     ) {
@@ -57,7 +58,7 @@ final class ObjectStateGroupPage extends Page
     {
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
+        /** @var ObjectStateGroup[] $objectStateGroups */
         $objectStateGroups = $this->repository->sudo(function (): iterable {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });
@@ -74,8 +75,10 @@ final class ObjectStateGroupPage extends Page
         return count($this->objectStates->getColumnValues(['Object state name'])) > 0;
     }
 
-    public function hasAttribute(string $label, string $value): bool
-    {
+    public function hasAttribute(
+        string $label,
+        string $value
+    ): bool {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('objectStateGroupAttribute'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))

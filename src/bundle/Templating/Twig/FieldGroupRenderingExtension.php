@@ -16,11 +16,10 @@ final class FieldGroupRenderingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly FieldsGroupsList $fieldsGroupsList
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Twig\TwigFilter[]
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {

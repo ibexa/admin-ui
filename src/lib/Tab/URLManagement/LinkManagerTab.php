@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Pagination\Pagerfanta\URLSearchAdapter;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\Query\Criterion;
@@ -62,7 +63,7 @@ class LinkManagerTab extends AbstractTab implements OrderedTabInterface, Conditi
     /**
      * @param array<string, mixed> $parameters
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {

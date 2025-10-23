@@ -19,11 +19,10 @@ final class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
     public function __construct(
         private readonly LanguageService $languageService,
         private readonly array $languageCodes
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getChoiceList(): array
     {

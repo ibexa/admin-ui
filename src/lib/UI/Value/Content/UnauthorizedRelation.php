@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\Unauthorize
 
 final readonly class UnauthorizedRelation implements RelationInterface
 {
-    public function __construct(private UnauthorizedRelationListItem $unauthorizedRelation)
-    {
-    }
+    public function __construct(private UnauthorizedRelationListItem $unauthorizedRelation) {}
 
     public function getUnauthorizedRelation(): UnauthorizedRelationListItem
     {

@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Permission;
 
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -19,6 +21,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentOwnerLimitation
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 final readonly class PermissionChecker implements PermissionCheckerInterface
@@ -28,8 +31,7 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
     public function __construct(
         private PermissionResolver $permissionResolver,
         private UserService $userService
-    ) {
-    }
+    ) {}
 
     /**
      * @param mixed[] $hasAccess
@@ -37,8 +39,10 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
      *
      * @return mixed[]
      */
-    public function getRestrictions(array $hasAccess, string $class): array
-    {
+    public function getRestrictions(
+        array $hasAccess,
+        string $class
+    ): array {
         $restrictions = [];
         $oneOfPoliciesHasNoLimitation = false;
 
@@ -65,11 +69,13 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
     /**
      * @param array<mixed>|bool $hasAccess
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    public function canCreateInLocation(Location $location, array|bool $hasAccess): bool
-    {
+    public function canCreateInLocation(
+        Location $location,
+        array | bool $hasAccess
+    ): bool {
         if (is_bool($hasAccess)) {
             return $hasAccess;
         }
@@ -117,8 +123,8 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
 
         $restrictedSubtrees = $this->getRestrictions($hasAccess, SubtreeLimitation::class);
         $canCreateInSubtree = empty($restrictedSubtrees) || !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
-                return str_starts_with($location->getPathString(), $restrictedSubtree);
-            }));
+            return str_starts_with($location->getPathString(), $restrictedSubtree);
+        }));
 
         if (false === $canCreateInSubtree) {
             return false;
@@ -139,7 +145,7 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
     {
         $limitations = [];
         foreach ($hasAccess as $permissionSet) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy */
+            /** @var Policy $policy */
             foreach ($permissionSet['policies'] as $policy) {
                 $policyLimitations = $policy->getLimitations();
                 if (!empty($policyLimitations)) {
@@ -157,8 +163,8 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function hasSameParentUserGroup(Location $location): bool
     {
@@ -176,7 +182,7 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
     /**
      * @return int[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     private function loadAllUserGroupsIdsOfUser(User $user): array
     {

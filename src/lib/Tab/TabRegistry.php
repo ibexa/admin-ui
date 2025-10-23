@@ -13,11 +13,11 @@ use InvalidArgumentException;
 
 class TabRegistry
 {
-    /** @var \Ibexa\AdminUi\Tab\TabGroup[] */
+    /** @var TabGroup[] */
     private array $tabGroups = [];
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
+     * @return TabInterface[]
      */
     public function getTabsByGroupName(string $group): array
     {
@@ -35,8 +35,10 @@ class TabRegistry
         return $this->tabGroups[$group];
     }
 
-    public function getTabFromGroup(string $name, string $group): TabInterface
-    {
+    public function getTabFromGroup(
+        string $name,
+        string $group
+    ): TabInterface {
         if (!isset($this->tabGroups[$group])) {
             throw new InvalidArgumentException(
                 sprintf('Could not find the requested group named "%s". Did you tag the service?', $group)
@@ -59,8 +61,10 @@ class TabRegistry
         $this->tabGroups[$group->getIdentifier()] = $group;
     }
 
-    public function addTab(TabInterface $tab, string $group): void
-    {
+    public function addTab(
+        TabInterface $tab,
+        string $group
+    ): void {
         if (!isset($this->tabGroups[$group])) {
             $this->tabGroups[$group] = new TabGroup($group, []);
         }

@@ -21,11 +21,11 @@ final readonly class DateIntervalToArrayTransformer implements DataTransformerIn
     /**
      * Transforms a date interval into an array of date interval elements.
      *
-     * @param \DateInterval|null $value date interval
+     * @param DateInterval|null $value date interval
      *
      * @return array<string, string> date interval elements
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException If the given value is not an instance of DateInterval
+     * @throws TransformationFailedException If the given value is not an instance of DateInterval
      */
     public function transform(mixed $value): array
     {
@@ -53,7 +53,7 @@ final readonly class DateIntervalToArrayTransformer implements DataTransformerIn
     /**
      * Transforms an array of date interval elements into a date interval.
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an array,
+     * @throws TransformationFailedException if the given value is not an array,
      *                                       or if the value could not be transformed
      */
     public function reverseTransform(mixed $value): ?DateInterval

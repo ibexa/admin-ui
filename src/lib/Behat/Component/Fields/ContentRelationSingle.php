@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
@@ -22,7 +23,7 @@ final class ContentRelationSingle extends FieldTypeComponent
     private TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
+        public readonly Session $session,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly TableBuilder $tableBuilder
     ) {
@@ -63,7 +64,7 @@ final class ContentRelationSingle extends FieldTypeComponent
 
     public function getValue(): array
     {
-        /** @var \Ibexa\AdminUi\Behat\Component\Table\Table $table */
+        /** @var Table $table */
         $table = $this->table;
         $names = $table->getColumnValues(['Name']);
 

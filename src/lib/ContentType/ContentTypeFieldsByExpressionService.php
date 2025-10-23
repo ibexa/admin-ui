@@ -21,8 +21,7 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         private ContentTypeFieldsExtractorInterface $fieldsExtractor,
         private ContentTypeHandler $contentTypeHandler,
         private ContentTypeDomainMapper $contentTypeDomainMapper
-    ) {
-    }
+    ) {}
 
     public function getFieldsFromExpression(string $expression): array
     {
@@ -45,8 +44,10 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         return $contentTypeFieldDefinitions;
     }
 
-    public function isFieldIncludedInExpression(FieldDefinition $fieldDefinition, string $expression): bool
-    {
+    public function isFieldIncludedInExpression(
+        FieldDefinition $fieldDefinition,
+        string $expression
+    ): bool {
         return $this->fieldsExtractor->isFieldWithinExpression($fieldDefinition->getId(), $expression);
     }
 }

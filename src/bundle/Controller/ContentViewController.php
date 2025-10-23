@@ -29,6 +29,9 @@ use Ibexa\AdminUi\UI\Service\PathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -64,17 +67,18 @@ final class ContentViewController extends Controller
         private readonly Repository $repository,
         private readonly PermissionResolver $permissionResolver,
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
      */
-    public function locationViewAction(Request $request, ContentView $view): ContentView
-    {
+    public function locationViewAction(
+        Request $request,
+        ContentView $view
+    ): ContentView {
         $location = $view->getLocation();
         if ($location === null) {
             $contentId = $view->getContent()->getId();
@@ -244,8 +248,10 @@ final class ContentViewController extends Controller
         );
     }
 
-    private function supplyDraftPagination(ContentView $view, Request $request): void
-    {
+    private function supplyDraftPagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -259,8 +265,10 @@ final class ContentViewController extends Controller
         ]);
     }
 
-    private function supplyRelationPagination(ContentView $view, Request $request): void
-    {
+    private function supplyRelationPagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -274,8 +282,10 @@ final class ContentViewController extends Controller
         ]);
     }
 
-    private function supplyReverseRelationPagination(ContentView $view, Request $request): void
-    {
+    private function supplyReverseRelationPagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -291,8 +301,10 @@ final class ContentViewController extends Controller
         ]);
     }
 
-    private function supplyCustomUrlPagination(ContentView $view, Request $request): void
-    {
+    private function supplyCustomUrlPagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -307,8 +319,10 @@ final class ContentViewController extends Controller
         ]);
     }
 
-    private function supplySystemUrlPagination(ContentView $view, Request $request): void
-    {
+    private function supplySystemUrlPagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -323,8 +337,10 @@ final class ContentViewController extends Controller
         ]);
     }
 
-    private function supplyRolePagination(ContentView $view, Request $request): void
-    {
+    private function supplyRolePagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -339,8 +355,10 @@ final class ContentViewController extends Controller
         ]);
     }
 
-    private function supplyPolicyPagination(ContentView $view, Request $request): void
-    {
+    private function supplyPolicyPagination(
+        ContentView $view,
+        Request $request
+    ): void {
         $page = $request->query->all('page');
 
         $view->addParameters([
@@ -363,7 +381,7 @@ final class ContentViewController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function resolveTreeRootLocationId(?Location $location): int
     {

@@ -14,9 +14,7 @@ use Symfony\Component\EventDispatcher as SymfonyEventDispatcher;
 
 readonly class EventDispatcher implements EventDispatcherInterface
 {
-    public function __construct(protected SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher)
-    {
-    }
+    public function __construct(protected SymfonyEventDispatcher\EventDispatcherInterface $eventDispatcher) {}
 
     public function dispatch(UiActionEventInterface $event): void
     {

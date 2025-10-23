@@ -22,8 +22,8 @@ use PHPUnit\Framework\Assert;
 final class UserSettingsPage extends Page
 {
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         private readonly TableNavigationTab $tableNavigationTab,
         private readonly IbexaDropdown $ibexaDropdown

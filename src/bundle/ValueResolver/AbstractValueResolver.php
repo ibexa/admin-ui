@@ -20,8 +20,10 @@ abstract class AbstractValueResolver implements ValueResolverInterface
     /**
      * @return iterable<TValue>
      */
-    final public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
+    final public function resolve(
+        Request $request,
+        ArgumentMetadata $argument
+    ): iterable {
         if (!$this->supports($argument)) {
             return [];
         }

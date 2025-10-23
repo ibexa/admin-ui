@@ -22,9 +22,9 @@ final readonly class RoleCreateMapper implements DataMapperInterface
     /**
      * Maps given RoleCreateStruct object to a RoleCreateData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|RoleCreateStruct $value): RoleCreateData
+    public function map(ValueObject | RoleCreateStruct $value): RoleCreateData
     {
         if (!$value instanceof RoleCreateStruct) {
             throw new InvalidArgumentException(
@@ -41,7 +41,7 @@ final readonly class RoleCreateMapper implements DataMapperInterface
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap(mixed $data): RoleCreateStruct
     {

@@ -27,8 +27,10 @@ final class LeftMenu extends Component
         $menuButton->find(new VisibleCSSLocator('activeMarker', '.ibexa-main-menu__item-action.active'))->assert()->isVisible();
     }
 
-    public function goToSubTab(string $tabName, string $subTabName): void
-    {
+    public function goToSubTab(
+        string $tabName,
+        string $subTabName
+    ): void {
         $menuButton = $this->getHTMLPage()->setTimeout(5)
             ->findAll($this->getLocator('menuItem'))
             ->getByCriterion(new ElementAttributeCriterion('data-original-title', $tabName));

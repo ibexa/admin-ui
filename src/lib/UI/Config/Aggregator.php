@@ -17,19 +17,19 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 class Aggregator
 {
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] $providers
+     * @param ProviderInterface[] $providers
      */
-    public function __construct(private array $providers = [])
-    {
-    }
+    public function __construct(private array $providers = []) {}
 
-    public function addProvider(string $key, ProviderInterface $provider): void
-    {
+    public function addProvider(
+        string $key,
+        ProviderInterface $provider
+    ): void {
         $this->providers[$key] = $provider;
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function removeProvider(string $key): ProviderInterface
     {
@@ -44,7 +44,7 @@ class Aggregator
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[]
+     * @return ProviderInterface[]
      */
     public function getProviders(): array
     {
@@ -52,7 +52,7 @@ class Aggregator
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface[] $providers
+     * @param ProviderInterface[] $providers
      */
     public function setProviders(array $providers): void
     {

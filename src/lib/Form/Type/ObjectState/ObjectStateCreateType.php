@@ -21,8 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class ObjectStateCreateType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('identifier', TextType::class, [
                 'label' => /** @Desc("Identifier") */ 'object_state.create.identifier',

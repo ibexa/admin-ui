@@ -18,8 +18,7 @@ final readonly class BookmarkContext implements Context
     public function __construct(
         private ContentViewPage $contentViewPage,
         private BookmarksPage $bookmarksPage
-    ) {
-    }
+    ) {}
 
     /**
      * @Given I bookmark the Content Item :path

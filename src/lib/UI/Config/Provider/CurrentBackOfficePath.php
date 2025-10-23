@@ -17,8 +17,7 @@ final readonly class CurrentBackOfficePath implements ProviderInterface
     public function __construct(
         private RouterInterface $router,
         private Repository $repository
-    ) {
-    }
+    ) {}
 
     public function getConfig(): string
     {

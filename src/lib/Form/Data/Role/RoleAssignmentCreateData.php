@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Role;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,14 +23,14 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     public const string LIMITATION_TYPE_SECTION = 'section';
     public const string LIMITATION_TYPE_LOCATION = 'location';
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] */
+    /** @var UserGroup[] */
     private array $groups;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User[] */
+    /** @var User[] */
     private array $users;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
+     * @var Section[]
      */
     #[Assert\Expression(
         "this.getLimitationType() != 'section' or value != []",
@@ -35,7 +39,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     private array $sections;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @var Location[]
      */
     #[Assert\Expression(
         "this.getLimitationType() != 'location' or value != []",
@@ -52,10 +56,10 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     private ?string $limitationType;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $groups
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[] $users
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param UserGroup[] $groups
+     * @param User[] $users
+     * @param Section[] $sections
+     * @param Location[] $locations
      */
     public function __construct(
         array $groups = [],
@@ -72,7 +76,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]
+     * @return UserGroup[]
      */
     public function getGroups(): array
     {
@@ -80,7 +84,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[] $groups
+     * @param UserGroup[] $groups
      */
     public function setGroups(array $groups): self
     {
@@ -90,7 +94,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
+     * @return User[]
      */
     public function getUsers(): array
     {
@@ -98,7 +102,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[] $users
+     * @param User[] $users
      */
     public function setUsers(array $users): self
     {
@@ -108,7 +112,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]
+     * @return Section[]
      */
     public function getSections(): array
     {
@@ -116,7 +120,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
+     * @param Section[] $sections
      */
     public function setSections(array $sections): self
     {
@@ -126,7 +130,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocations(): array
     {
@@ -134,7 +138,7 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      *
      * @return self
      */
@@ -158,8 +162,10 @@ final class RoleAssignmentCreateData implements TranslationContainerInterface
     }
 
     #[Assert\Callback]
-    public function validate(ExecutionContextInterface $context, mixed $payload): void
-    {
+    public function validate(
+        ExecutionContextInterface $context,
+        mixed $payload
+    ): void {
         if (empty($this->getUsers()) && empty($this->getGroups())) {
             $context->buildViolation(
                 'validator.assign_users_or_groups'

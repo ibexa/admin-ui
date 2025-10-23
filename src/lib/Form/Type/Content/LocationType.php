@@ -21,12 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class LocationType extends AbstractType
 {
-    public function __construct(protected LocationService $locationService)
-    {
-    }
+    public function __construct(protected LocationService $locationService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addViewTransformer(
             $options['multiple']
             ? new LocationsTransformer($this->locationService)

@@ -18,8 +18,7 @@ final readonly class SiteaccessPreviewVoterContext
         private VersionInfo $versionInfo,
         private string $siteaccess,
         private string $languageCode
-    ) {
-    }
+    ) {}
 
     public function getLocation(): Location
     {

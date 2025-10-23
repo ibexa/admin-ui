@@ -36,11 +36,12 @@ final readonly class MetaFieldDefinitionService implements MetaFieldDefinitionSe
         private LanguageService $languageService,
         private LocaleConverterInterface $localeConverter,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
-    public function addMetaFieldDefinitions(ValueObject $contentType, ?Language $language = null): void
-    {
+    public function addMetaFieldDefinitions(
+        ValueObject $contentType,
+        ?Language $language = null
+    ): void {
         $metaFieldTypes = $this->contentTypeFieldTypesResolver->getMetaFieldTypes();
 
         if (null === $language) {

@@ -25,7 +25,7 @@ final class SearchContentTypeChoiceLoader extends ContentTypeChoiceLoader
         private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($contentTypeService, $userLanguagePreferenceProvider);
-   }
+    }
 
     public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {

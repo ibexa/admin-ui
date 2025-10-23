@@ -22,8 +22,7 @@ final readonly class ReverseRelationAdapter implements AdapterInterface
         private ContentService $contentService,
         private DatasetFactory $datasetFactory,
         private Content $content
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {
@@ -33,8 +32,10 @@ final readonly class ReverseRelationAdapter implements AdapterInterface
         );
     }
 
-    public function getSlice(int $offset, int $length): iterable
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): iterable {
         return $this->datasetFactory
             ->reverseRelationList()
             ->load($this->content, $offset, $length)

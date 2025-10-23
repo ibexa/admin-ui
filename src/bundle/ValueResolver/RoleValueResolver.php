@@ -20,8 +20,7 @@ final class RoleValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly RoleService $roleService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

@@ -16,15 +16,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 class UiActionEvent extends Event implements UiActionEventInterface
 {
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function __construct(
         protected string $name,
         protected string $type,
         protected FormInterface $form,
         protected ?Response $response
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {
@@ -47,7 +46,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
     public function getForm(): FormInterface
     {
@@ -55,7 +54,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function setForm(FormInterface $form): void
     {

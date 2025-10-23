@@ -40,8 +40,7 @@ final class LocationData extends Value
         private readonly ?bool $isBookmarked = null,
         private readonly ?array $permissions = null,
         private readonly ?Version $version = null
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return SubItems

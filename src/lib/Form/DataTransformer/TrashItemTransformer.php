@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -16,12 +17,10 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final readonly class TrashItemTransformer implements DataTransformerInterface
 {
-    public function __construct(private TrashService $trashService)
-    {
-    }
+    public function __construct(private TrashService $trashService) {}
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?int
     {
@@ -37,8 +36,8 @@ final readonly class TrashItemTransformer implements DataTransformerInterface
     }
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws TransformationFailedException
+     * @throws UnauthorizedException
      */
     public function reverseTransform(mixed $value): ?TrashItem
     {

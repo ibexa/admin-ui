@@ -19,9 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ObjectStateChoiceType extends AbstractType
 {
-    public function __construct(protected readonly ObjectStateService $objectStateService)
-    {
-    }
+    public function __construct(protected readonly ObjectStateService $objectStateService) {}
 
     public function getParent(): string
     {

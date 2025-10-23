@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentTranslationData extends ContentUpdateStruct implements NewnessCheckable
 {
-    /** @var \Ibexa\Contracts\ContentForms\Data\Content\FieldData[] */
+    /** @var FieldData[] */
     #[Assert\Valid]
     protected array $fieldsData = [];
 

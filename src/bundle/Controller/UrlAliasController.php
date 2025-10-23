@@ -25,15 +25,14 @@ final class UrlAliasController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly URLAliasService $urlAliasService
-    ) {
-    }
+    ) {}
 
     public function addAction(Request $request): Response
     {
         $form = $this->formFactory->addCustomUrl();
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
+        /** @var CustomUrlAddData $data */
         $data = $form->getData();
         $location = $data->getLocation();
 

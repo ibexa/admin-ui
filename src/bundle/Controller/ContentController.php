@@ -51,6 +51,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class ContentController extends Controller
@@ -74,11 +75,10 @@ final class ContentController extends Controller
         private readonly VersionPreviewUrlResolverInterface $previewUrlResolver,
         private readonly LanguageService $languageService,
         private readonly SiteAccessServiceInterface $siteAccessService
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
     public function createAction(Request $request): Response
@@ -131,7 +131,7 @@ final class ContentController extends Controller
         string $languageCode,
         int $parentLocationId
     ): Response {
-        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent $event */
+        /** @var ContentProxyCreateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyCreateEvent(
                 $contentType,
@@ -155,7 +155,7 @@ final class ContentController extends Controller
 
     /**
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function editAction(Request $request): Response
     {
@@ -188,7 +188,7 @@ final class ContentController extends Controller
                     ]);
                 }
 
-                /** @var \Ibexa\Contracts\AdminUi\Event\ContentEditEvent $event */
+                /** @var ContentEditEvent $event */
                 $event = $this->eventDispatcher->dispatch(
                     new ContentEditEvent(
                         $content,
@@ -228,7 +228,7 @@ final class ContentController extends Controller
             }
         }
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData $data */
+        /** @var ContentEditData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
 
@@ -245,7 +245,7 @@ final class ContentController extends Controller
     /**
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function updateMainLocationAction(Request $request): Response
     {
@@ -279,7 +279,7 @@ final class ContentController extends Controller
             }
         }
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData $data */
+        /** @var ContentEditData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
 
@@ -401,7 +401,7 @@ final class ContentController extends Controller
                 return $result;
             }
         }
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data */
+        /** @var MainTranslationUpdateData $data */
         $data = $form->getData();
         $contentInfo = $data->content;
         if (null !== $contentInfo) {
@@ -480,8 +480,10 @@ final class ContentController extends Controller
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function checkEditPermissionAction(Content $content, ?string $languageCode): JsonResponse
-    {
+    public function checkEditPermissionAction(
+        Content $content,
+        ?string $languageCode
+    ): JsonResponse {
         $targets = [];
 
         if (null !== $languageCode) {

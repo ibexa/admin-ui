@@ -14,11 +14,9 @@ use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverRegistryInterface;
 final readonly class ApplicationConfigRestResolverRegistry implements ApplicationConfigRestResolverRegistryInterface
 {
     /**
-     * @param iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface> $resolvers
+     * @param iterable<ApplicationConfigRestResolverInterface> $resolvers
      */
-    public function __construct(private iterable $resolvers)
-    {
-    }
+    public function __construct(private iterable $resolvers) {}
 
     public function hasResolver(
         string $namespace,
@@ -47,8 +45,10 @@ final readonly class ApplicationConfigRestResolverRegistry implements Applicatio
         return false;
     }
 
-    public function getResolver(string $namespace, string $parameter): ?ApplicationConfigRestResolverInterface
-    {
+    public function getResolver(
+        string $namespace,
+        string $parameter
+    ): ?ApplicationConfigRestResolverInterface {
         foreach ($this->resolvers as $mapper) {
             if (
                 $mapper->supportsNamespace($namespace)
@@ -62,7 +62,7 @@ final readonly class ApplicationConfigRestResolverRegistry implements Applicatio
     }
 
     /**
-     * @return iterable<\Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface>
+     * @return iterable<ApplicationConfigRestResolverInterface>
      */
     public function getResolvers(string $namespace): iterable
     {

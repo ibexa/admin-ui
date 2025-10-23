@@ -24,8 +24,7 @@ final class FieldDefinitionMappingEvent extends Event
         private FieldDefinitionData $fieldDefinitionData,
         private readonly ?Language $baseLanguage,
         private readonly ?Language $targetLanguage
-    ) {
-    }
+    ) {}
 
     public function getFieldDefinition(): FieldDefinition
     {

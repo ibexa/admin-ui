@@ -18,8 +18,7 @@ class LocationMoveData
     public function __construct(
         protected ?Location $location = null,
         protected ?Location $newParentLocation = null
-    ) {
-    }
+    ) {}
 
     public function getLocation(): ?Location
     {

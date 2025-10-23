@@ -20,8 +20,8 @@ final class UserProfilePage extends Page
     private string $locationPath;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentFacade $contentFacade
     ) {
         parent::__construct($session, $router);
@@ -40,8 +40,13 @@ final class UserProfilePage extends Page
         $this->getHTMLPage()->find($this->getLocator('editButton'))->click();
     }
 
-    public function verifyUserProfileSummary(string $fullName, string $email, string $jobTitle, string $department, string $location): void
-    {
+    public function verifyUserProfileSummary(
+        string $fullName,
+        string $email,
+        string $jobTitle,
+        string $department,
+        string $location
+    ): void {
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('fullName'))->assert()->textContains($fullName);
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('email'))->assert()->textEquals($email);
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('jobTitle'))->assert()->textEquals($jobTitle);

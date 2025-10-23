@@ -68,7 +68,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->logger = $logger;
     }
 
-    public function enterNode(Node $node): int|Node|array|null
+    public function enterNode(Node $node): int | Node | array | null
     {
         $methodCallNodeName = null;
         if ($node instanceof Node\Expr\MethodCall) {
@@ -151,10 +151,13 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     }
 
     /**
-     * @param \PhpParser\Node[] $ast
+     * @param Node[] $ast
      */
-    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
-    {
+    public function visitPhpFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        array $ast
+    ): void {
         $this->file = $file;
         $this->catalogue = $catalogue;
         $this->traverser->traverse($ast);
@@ -165,7 +168,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
-    public function leaveNode(Node $node): int|Node|array|null
+    public function leaveNode(Node $node): int | Node | array | null
     {
         return null;
     }
@@ -175,13 +178,16 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
-    {
-    }
+    public function visitFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue
+    ): void {}
 
-    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast): void
-    {
-    }
+    public function visitTwigFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        TwigNode $ast
+    ): void {}
 
     private function getDocCommentForNode(Node $node): ?string
     {

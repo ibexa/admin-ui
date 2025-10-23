@@ -24,8 +24,7 @@ final readonly class ContentTypeFormFactory
 {
     public function __construct(
         private FormFactoryInterface $formFactory
-    ) {
-    }
+    ) {}
 
     public function addContentTypeTranslation(
         ?TranslationAddData $data = null,
@@ -61,7 +60,7 @@ final readonly class ContentTypeFormFactory
     /**
      * @param array<string, mixed> $options
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     public function contentTypeCopy(
         ContentTypeCopyData $data,

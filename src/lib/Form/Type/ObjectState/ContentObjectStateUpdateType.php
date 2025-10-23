@@ -30,11 +30,12 @@ class ContentObjectStateUpdateType extends AbstractType
     public function __construct(
         protected readonly ObjectStateService $objectStateService,
         private readonly PermissionResolver $permissionResolver
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('contentInfo', ContentInfoType::class, [
                 'label' => false,
@@ -47,7 +48,7 @@ class ContentObjectStateUpdateType extends AbstractType
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
-            /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $data */
+            /** @var ContentObjectStateUpdateData $data */
             $data = $event->getData();
             $form = $event->getForm();
 

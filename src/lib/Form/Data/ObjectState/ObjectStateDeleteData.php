@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 
 final class ObjectStateDeleteData
 {
-    public function __construct(private ?ObjectState $objectState = null)
-    {
-    }
+    public function __construct(private ?ObjectState $objectState = null) {}
 
     public function getObjectState(): ?ObjectState
     {

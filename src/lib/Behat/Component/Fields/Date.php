@@ -19,7 +19,7 @@ final class Date extends FieldTypeComponent
     private const string DATE_FORMAT = 'm/d/Y';
 
     public function __construct(
-        readonly Session $session,
+        public readonly Session $session,
         private readonly DateAndTimePopup $dateAndTimePopup
     ) {
         parent::__construct($session);

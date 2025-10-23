@@ -21,8 +21,10 @@ class LocationTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?Location $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Location $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($service);
 
@@ -80,8 +82,7 @@ class LocationTransformerTest extends TestCase
 
         $service = $this->createMock(LocationService::class);
         $service->method('loadLocation')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new LocationTransformer($service);
 

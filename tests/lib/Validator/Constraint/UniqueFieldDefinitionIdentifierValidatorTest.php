@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
 {
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private UniqueFieldDefinitionIdentifierValidator $validator;
 

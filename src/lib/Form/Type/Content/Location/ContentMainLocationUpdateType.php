@@ -22,12 +22,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ContentMainLocationUpdateType extends AbstractType
 {
-    public function __construct(protected readonly LocationService $locationService)
-    {
-    }
+    public function __construct(protected readonly LocationService $locationService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'content_info',

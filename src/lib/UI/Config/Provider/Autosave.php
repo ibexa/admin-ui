@@ -13,9 +13,7 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 
 final readonly class Autosave implements ProviderInterface
 {
-    public function __construct(private AutosaveServiceInterface $autosaveService)
-    {
-    }
+    public function __construct(private AutosaveServiceInterface $autosaveService) {}
 
     /**
      * @return array<string, mixed>

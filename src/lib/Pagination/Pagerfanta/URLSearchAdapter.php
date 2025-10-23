@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
@@ -20,11 +22,10 @@ final readonly class URLSearchAdapter implements AdapterInterface
     public function __construct(
         private URLQuery $query,
         private URLService $urlService
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function getNbResults(): int
     {
@@ -37,12 +38,14 @@ final readonly class URLSearchAdapter implements AdapterInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\URL\URL[]
+     * @return URL[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
-    public function getSlice(int $offset, int $length): array
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): array {
         $query = clone $this->query;
         $query->offset = $offset;
         $query->limit = $length;

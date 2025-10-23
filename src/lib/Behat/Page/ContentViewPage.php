@@ -25,6 +25,7 @@ use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -45,8 +46,8 @@ class ContentViewPage extends Page
     private ?string $route = null;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         private readonly SubItemsList $subItemList,
         private readonly ContentTypePicker $contentTypePicker,
@@ -67,8 +68,10 @@ class ContentViewPage extends Page
         parent::__construct($session, $router);
     }
 
-    public function startCreatingContent(string $contentTypeName, ?string $language = null): void
-    {
+    public function startCreatingContent(
+        string $contentTypeName,
+        ?string $language = null
+    ): void {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
         if ($language !== null) {
@@ -115,8 +118,10 @@ class ContentViewPage extends Page
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function addTranslation(string $language, string $base): void
-    {
+    public function addTranslation(
+        string $language,
+        string $base
+    ): void {
         $this->getHTMLPage()->find($this->getLocator('addTranslationButton'))->click();
         $this->translationDialog->verifyIsLoaded();
         $this->translationDialog->selectNewTranslation($language);
@@ -263,15 +268,20 @@ class ContentViewPage extends Page
         return $this->getHTMLPage()->find($this->getLocator('isBookmarked'))->isVisible();
     }
 
-    public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
-    {
+    public function createNewUrlAlias(
+        string $path,
+        string $languageName,
+        bool $redirect
+    ): void {
         $this->getHTMLPage()->find($this->getLocator('addUrlAliasButton'))->click();
         $this->createUrlAliasModal->createNewUrlAlias($path, $languageName, $redirect);
     }
 
-    public function isUrlAliasOnTheList(string $path, string $type): bool
-    {
-        /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
+    public function isUrlAliasOnTheList(
+        string $path,
+        string $type
+    ): bool {
+        /** @var CSSLocator $locator */
         $locator = $this->getLocator('customUrlAliasesTable');
         $customUrlAliasesTable = $this->tableBuilder->newTable()->withParentLocator($locator)->build();
 
@@ -325,8 +335,10 @@ class ContentViewPage extends Page
         });
     }
 
-    private function loadContent(Repository $repository, string $locationPath): Content
-    {
+    private function loadContent(
+        Repository $repository,
+        string $locationPath
+    ): Content {
         $this->getHTMLPage()
             ->setTimeout(3)
             ->waitUntil(

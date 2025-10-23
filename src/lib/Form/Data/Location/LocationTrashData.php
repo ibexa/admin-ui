@@ -18,8 +18,7 @@ final class LocationTrashData
     public function __construct(
         private ?Location $location = null,
         private ?array $trashOptions = null
-    ) {
-    }
+    ) {}
 
     public function getLocation(): ?Location
     {

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
@@ -25,16 +26,17 @@ final readonly class ContentTreeChildrenQueryValueResolver implements ValueResol
      */
     public function __construct(
         private CriterionProcessorInterface $criterionProcessor
-    ) {
-    }
+    ) {}
 
     /**
-     * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface|null>
+     * @return iterable<CriterionInterface|null>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
+    public function resolve(
+        Request $request,
+        ArgumentMetadata $argument
+    ): iterable {
         if (!$this->supports($argument)) {
             return [];
         }
@@ -58,7 +60,7 @@ final readonly class ContentTreeChildrenQueryValueResolver implements ValueResol
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface>
+     * @return array<CriterionInterface>
      */
     private function processFilterQueryCriteria(Request $request): array
     {

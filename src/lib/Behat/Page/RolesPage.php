@@ -23,9 +23,9 @@ final class RolesPage extends Page
     private TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
-        readonly TableBuilder $tableBuilder,
+        public readonly Session $session,
+        public readonly Router $router,
+        public readonly TableBuilder $tableBuilder,
         private readonly Dialog $dialog
     ) {
         parent::__construct($session, $router);
@@ -33,8 +33,11 @@ final class RolesPage extends Page
         $this->table = $tableBuilder->newTable()->build();
     }
 
-    public function verifyItemAttribute(string $label, string $value, string $itemName): void
-    {
+    public function verifyItemAttribute(
+        string $label,
+        string $value,
+        string $itemName
+    ): void {
         Assert::assertEquals(
             $value,
             $this->adminList->table->getTableCellValue($itemName, $label),

@@ -15,8 +15,7 @@ final readonly class SuggestionSetting implements ProviderInterface
     public function __construct(
         private int $minQueryLength,
         private int $resultLimit
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string,int>

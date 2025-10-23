@@ -24,8 +24,7 @@ final class CustomUrlsDataset
         private readonly URLAliasService $urlAliasService,
         private readonly ValueFactory $valueFactory,
         private readonly LoggerInterface $logger
-    ) {
-    }
+    ) {}
 
     public function load(Location $location): self
     {

@@ -21,8 +21,7 @@ final readonly class ContentCreateLanguageChoiceLoader implements ChoiceLoaderIn
     public function __construct(
         private LanguageChoiceLoader $languageChoiceLoader,
         private array $restrictedLanguagesCodes
-    ) {
-    }
+    ) {}
 
     public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
@@ -42,8 +41,10 @@ final readonly class ContentCreateLanguageChoiceLoader implements ChoiceLoaderIn
     /**
      * @return string[]
      */
-    public function loadChoicesForValues(array $values, ?callable $value = null): array
-    {
+    public function loadChoicesForValues(
+        array $values,
+        ?callable $value = null
+    ): array {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -56,8 +57,10 @@ final readonly class ContentCreateLanguageChoiceLoader implements ChoiceLoaderIn
     /**
      * @return string[]
      */
-    public function loadValuesForChoices(array $choices, ?callable $value = null): array
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        ?callable $value = null
+    ): array {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

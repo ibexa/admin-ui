@@ -19,8 +19,10 @@ class LocationsTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(mixed $value, ?string $expected): void
-    {
+    public function testTransform(
+        mixed $value,
+        ?string $expected
+    ): void {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationsTransformer($service);
 
@@ -75,7 +77,7 @@ class LocationsTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{\Ibexa\Core\Repository\Values\Content\Location[]|string|null, string|null}>
+     * @return array<string, array{Location[]|string|null, string|null}>
      */
     public function transformDataProvider(): array
     {

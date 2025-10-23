@@ -82,8 +82,10 @@ class RichText extends FieldTypeComponent
         $this->executeCommand('enter');
     }
 
-    public function insertLine(mixed $value, string $style = ''): void
-    {
+    public function insertLine(
+        mixed $value,
+        string $style = ''
+    ): void {
         $this->getFieldInput()->setValue($value);
 
         if ($style === '') {

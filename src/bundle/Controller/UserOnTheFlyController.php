@@ -19,6 +19,7 @@ use Ibexa\ContentForms\Form\Type\User\UserCreateType;
 use Ibexa\ContentForms\Form\Type\User\UserUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -45,20 +46,19 @@ final class UserOnTheFlyController extends Controller
         private readonly PermissionResolver $permissionResolver,
         private readonly CreateUserOnTheFlyDispatcher $createUserActionDispatcher,
         private readonly EditUserOnTheFlyDispatcher $editUserActionDispatcher
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws NotFoundException
+     * @throws ApiException\UnauthorizedException
+     * @throws ApiException\InvalidArgumentException
      */
     public function createUserAction(
         Request $request,
         string $languageCode,
         ContentType $contentType,
         Location $parentLocation
-    ): BaseView|Response {
+    ): BaseView | Response {
         $language = $this->languageService->loadLanguage($languageCode);
         $parentGroup = $this->userService->loadUserGroup($parentLocation->getContentId());
 
@@ -139,9 +139,9 @@ final class UserOnTheFlyController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws NotFoundException
+     * @throws ApiException\UnauthorizedException
+     * @throws ApiException\InvalidArgumentException
      */
     public function editUserAction(
         Request $request,

@@ -19,7 +19,7 @@ final readonly class MainTranslationUpdateMapper implements DataMapperInterface
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function map(ValueObject|ContentMetadataUpdateStruct $value): MainTranslationUpdateData
+    public function map(ValueObject | ContentMetadataUpdateStruct $value): MainTranslationUpdateData
     {
         if (!$value instanceof ContentMetadataUpdateStruct) {
             throw new InvalidArgumentException(
@@ -35,7 +35,7 @@ final readonly class MainTranslationUpdateMapper implements DataMapperInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data
+     * @param MainTranslationUpdateData $data
      */
     public function reverseMap(mixed $data): ContentMetadataUpdateStruct
     {

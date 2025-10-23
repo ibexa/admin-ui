@@ -27,8 +27,7 @@ final readonly class NavigationContext implements Context
         private ContentViewPage $contentViewPage,
         private PageRegistry $pageRegistry,
         private ContentUpdateItemPage $contentUpdateItemPage
-    ) {
-    }
+    ) {}
 
     /**
      * @Given I open :pageName page in admin SiteAccess
@@ -84,8 +83,10 @@ final readonly class NavigationContext implements Context
     /**
      * @Then I go to :subTab in :tab tab
      */
-    public function iGoToSubTab(string $tab, string $subTab): void
-    {
+    public function iGoToSubTab(
+        string $tab,
+        string $subTab
+    ): void {
         $this->leftMenu->goToSubTab($tab, $subTab);
     }
 
@@ -109,8 +110,11 @@ final readonly class NavigationContext implements Context
     /**
      * @Given I navigate to content :contentName of type :contentType in :path
      */
-    public function iNavigateToContent(string $contentName, string $contentType, ?string $path = null): void
-    {
+    public function iNavigateToContent(
+        string $contentName,
+        string $contentType,
+        ?string $path = null
+    ): void {
         $expectedContentPath = sprintf('%s/%s', $path, $contentName);
         $pathParts = explode('/', $expectedContentPath);
         if ('root' === $pathParts[0]) {

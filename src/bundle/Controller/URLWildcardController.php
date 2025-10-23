@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\URLWildcardService;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use JMS\TranslationBundle\Annotation\Desc;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,12 +31,11 @@ final class URLWildcardController extends Controller
         private readonly TranslatableNotificationHandlerInterface $notificationHandler,
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler
-    ) {
-    }
+    ) {}
 
     public function addAction(Request $request): Response
     {
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createURLWildcard();
 
         $form->handleRequest($request);
@@ -66,9 +66,11 @@ final class URLWildcardController extends Controller
         ]);
     }
 
-    public function updateAction(URLWildcard $urlWildcard, Request $request): Response
-    {
-        /** @var \Symfony\Component\Form\Form $form */
+    public function updateAction(
+        URLWildcard $urlWildcard,
+        Request $request
+    ): Response {
+        /** @var Form $form */
         $form = $this->formFactory->createURLWildcardUpdate(
             new URLWildcardUpdateData($urlWildcard)
         );

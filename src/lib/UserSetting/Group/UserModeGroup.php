@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UserSetting\Group;
 
+use Ibexa\Contracts\User\UserSetting\ValueDefinitionInterface;
 use Ibexa\User\UserSetting\Group\AbstractGroup;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -15,7 +16,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class UserModeGroup extends AbstractGroup
 {
     /**
-     * @param array<string, \Ibexa\Contracts\User\UserSetting\ValueDefinitionInterface> $values
+     * @param array<string, ValueDefinitionInterface> $values
      */
     public function __construct(
         private readonly TranslatorInterface $translator,

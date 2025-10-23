@@ -20,6 +20,5 @@ abstract class AbstractTab implements TabInterface
     public function __construct(
         protected Environment $twig,
         protected TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 }

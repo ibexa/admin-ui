@@ -12,23 +12,23 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 
 readonly class SiteaccessResolver implements SiteaccessResolverInterface
 {
     /**
-     * @param iterable<\Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterInterface> $siteAccessPreviewVoters
+     * @param iterable<SiteaccessPreviewVoterInterface> $siteAccessPreviewVoters
      */
     public function __construct(
         private ContentService $contentService,
         private iterable $siteAccessPreviewVoters,
         private SiteAccessService $siteAccessService,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,
@@ -40,7 +40,7 @@ readonly class SiteaccessResolver implements SiteaccessResolverInterface
         $languageCode = $languageCode ?? $contentInfo->getMainLanguageCode();
 
         $eligibleSiteAccesses = [];
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var SiteAccess $siteAccess */
         foreach ($this->siteAccessService->getAll() as $siteAccess) {
             $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteAccess->name, $languageCode);
             foreach ($this->siteAccessPreviewVoters as $siteAccessPreviewVoter) {

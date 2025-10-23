@@ -41,8 +41,11 @@ final class ContentTranslationMapperTest extends TestCase
      *
      * @dataProvider paramsProvider
      */
-    public function testMapToFormData(Content $content, array $params, ContentTranslationData $expectedData): void
-    {
+    public function testMapToFormData(
+        Content $content,
+        array $params,
+        ContentTranslationData $expectedData
+    ): void {
         $actualData = $this->mapper->mapToFormData($content, $params);
 
         self::assertEquals($expectedData, $actualData);
@@ -50,13 +53,13 @@ final class ContentTranslationMapperTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     \Ibexa\Core\Repository\Values\Content\Content,
+     *     Content,
      *     array{
-     *       language: \Ibexa\Contracts\Core\Repository\Values\Content\Language,
+     *       language: Language,
      *       contentType: ApiContentType,
-     *       baseLanguage: \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     *       baseLanguage: Language|null
      *     },
-     *     \Ibexa\AdminUi\Form\Data\ContentTranslationData
+     *     ContentTranslationData
      * }>
      */
     public function paramsProvider(): array
@@ -162,8 +165,11 @@ final class ContentTranslationMapperTest extends TestCase
      *
      * @dataProvider wrongParamsProvider
      */
-    public function testMapToFormDataWithoutRequiredParameter(Content $content, array $params, array $exception): void
-    {
+    public function testMapToFormDataWithoutRequiredParameter(
+        Content $content,
+        array $params,
+        array $exception
+    ): void {
         $this->expectException($exception['class']);
         $this->expectExceptionMessage($exception['message']);
 
@@ -172,7 +178,7 @@ final class ContentTranslationMapperTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     \Ibexa\Core\Repository\Values\Content\Content,
+     *     Content,
      *     array<string, mixed>,
      *     array{class: class-string<\Throwable>, message: string}
      * }>
@@ -242,7 +248,7 @@ final class ContentTranslationMapperTest extends TestCase
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Field[] $fields
+     * @param Field[] $fields
      */
     private function getCompleteContent(array $fields = []): Content
     {
@@ -254,8 +260,10 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getField(string $fieldDefIdentifier = 'identifier', string $languageCode = self::LANGUAGE_CODE): Field
-    {
+    private function getField(
+        string $fieldDefIdentifier = 'identifier',
+        string $languageCode = self::LANGUAGE_CODE
+    ): Field {
         return new Field([
             'fieldDefIdentifier' => $fieldDefIdentifier,
             'languageCode' => $languageCode,
@@ -264,7 +272,7 @@ final class ContentTranslationMapperTest extends TestCase
     }
 
     /**
-     * @param array<\Ibexa\Core\Repository\Values\ContentType\FieldDefinition> $fieldDefs
+     * @param array<FieldDefinition> $fieldDefs
      */
     private function getContentType(array $fieldDefs = []): ContentType
     {
@@ -273,8 +281,10 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
-    {
+    private function getFieldDefinition(
+        string $identifier = 'identifier',
+        bool $isTranslatable = false
+    ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $identifier,
             'defaultValue' => $this->createMock(Value::class),

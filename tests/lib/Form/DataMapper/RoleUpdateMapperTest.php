@@ -83,7 +83,7 @@ final class RoleUpdateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
+     * @return RoleUpdateStruct
      */
     private function createStruct(array $properties): RoleUpdateStruct
     {
@@ -93,7 +93,7 @@ final class RoleUpdateMapperTest extends TestCase
     /**
      * @param array<string, mixed> $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData
+     * @return RoleUpdateData
      */
     private function createData(array $properties): RoleUpdateData
     {

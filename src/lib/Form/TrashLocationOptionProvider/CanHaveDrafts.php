@@ -16,17 +16,17 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final readonly class CanHaveDrafts implements TrashLocationOptionProvider
 {
-    public function __construct(private TranslatorInterface $translator)
-    {
-    }
+    public function __construct(private TranslatorInterface $translator) {}
 
     public function supports(Location $location): bool
     {
         return true;
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $form
             ->add('can_have_drafts', ChoiceType::class, [
                 'label' =>

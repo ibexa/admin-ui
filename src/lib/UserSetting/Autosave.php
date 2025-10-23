@@ -27,8 +27,7 @@ final readonly class Autosave implements ValueDefinitionInterface, FormMapperInt
     public function __construct(
         private TranslatorInterface $translator,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

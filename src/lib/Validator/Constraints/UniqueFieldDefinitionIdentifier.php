@@ -20,7 +20,7 @@ final class UniqueFieldDefinitionIdentifier extends Constraint implements Transl
     public string $message = 'ez.field_definition.identifier.unique';
 
     /**
-     * @return array<\JMS\TranslationBundle\Model\Message>
+     * @return array<Message>
      */
     public static function getTranslationMessages(): array
     {

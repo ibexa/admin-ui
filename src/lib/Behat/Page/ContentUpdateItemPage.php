@@ -34,11 +34,11 @@ class ContentUpdateItemPage extends Page
     private string $locationPath;
 
     /**
-     * @param \Ibexa\AdminUi\Behat\Component\Fields\FieldTypeComponent[] $fieldTypeComponents
+     * @param FieldTypeComponent[] $fieldTypeComponents
      */
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         private readonly ContentActionsMenu $contentActionsMenu,
         protected readonly iterable $fieldTypeComponents,
         private readonly Notification $notification,
@@ -83,13 +83,18 @@ class ContentUpdateItemPage extends Page
     /**
      * @param array<string, mixed> $value
      */
-    public function fillFieldWithValue(string $label, array $value, ?int $fieldPosition = null): void
-    {
+    public function fillFieldWithValue(
+        string $label,
+        array $value,
+        ?int $fieldPosition = null
+    ): void {
         $this->getField($label, $fieldPosition)->setValue($value);
     }
 
-    public function verifyValidationMessage(string $fieldName, string $expectedMessage): void
-    {
+    public function verifyValidationMessage(
+        string $fieldName,
+        string $expectedMessage
+    ): void {
         $this->getField($fieldName)->verifyValidationMessage($expectedMessage);
     }
 
@@ -136,8 +141,10 @@ class ContentUpdateItemPage extends Page
         $this->locationPath = $locationPath;
     }
 
-    public function getField(string $fieldName, ?int $fieldPosition = null): FieldTypeComponent
-    {
+    public function getField(
+        string $fieldName,
+        ?int $fieldPosition = null
+    ): FieldTypeComponent {
         if ($fieldPosition === null) {
             $fieldPosition = $this->getFieldPosition($fieldName);
         }
@@ -204,13 +211,17 @@ class ContentUpdateItemPage extends Page
     /**
      * @param array<string, mixed> $fieldData
      */
-    public function verifyFieldHasValue(string $label, array $fieldData): void
-    {
+    public function verifyFieldHasValue(
+        string $label,
+        array $fieldData
+    ): void {
         $this->getField($label)->verifyValueInEditView($fieldData);
     }
 
-    private function getFieldtypeIdentifier(VisibleCSSLocator $fieldLocator, string $fieldName): string
-    {
+    private function getFieldtypeIdentifier(
+        VisibleCSSLocator $fieldLocator,
+        string $fieldName
+    ): string {
         $isEditable = !$this->getHTMLPage()
             ->find($fieldLocator)
             ->hasClass($this->getLocator('noneditableFieldClass')->getSelector());

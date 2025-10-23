@@ -21,7 +21,7 @@ final class ContentRelationMultiple extends FieldTypeComponent
     private TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
+        public readonly Session $session,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly TableBuilder $tableBuilder
     ) {
@@ -164,8 +164,10 @@ final class ContentRelationMultiple extends FieldTypeComponent
      * @param array<string, mixed> $items
      * @param array<array-key, string> $paths
      */
-    private function selectRelationsAndConfirm(array $items, array $paths): void
-    {
+    private function selectRelationsAndConfirm(
+        array $items,
+        array $paths
+    ): void {
         $this->universalDiscoveryWidget->verifyIsLoaded();
 
         $itemsToSet = array_keys($items);

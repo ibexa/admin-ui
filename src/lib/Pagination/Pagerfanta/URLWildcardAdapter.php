@@ -8,7 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\URLWildcardService;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
@@ -20,12 +23,11 @@ final readonly class URLWildcardAdapter implements AdapterInterface
     public function __construct(
         private URLWildcardQuery $query,
         private URLWildcardService $urlWildcardService
-    ) {
-    }
+    ) {}
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws UnauthorizedException
+     * @throws InvalidArgumentException
      */
     public function getNbResults(): int
     {
@@ -38,13 +40,15 @@ final readonly class URLWildcardAdapter implements AdapterInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
+     * @return URLWildcard[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
      */
-    public function getSlice(int $offset, int $length): array
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): array {
         $query = clone $this->query;
         $query->offset = $offset;
         $query->limit = $length;

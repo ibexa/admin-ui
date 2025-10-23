@@ -50,8 +50,10 @@ class AdminUpdateItemPage extends Page
         return 'Admin item update';
     }
 
-    public function fillFieldWithValue(string $fieldName, mixed $value): void
-    {
+    public function fillFieldWithValue(
+        string $fieldName,
+        mixed $value
+    ): void {
         $field = $this->getField($fieldName);
         $fieldType = $field->getAttribute('type');
 

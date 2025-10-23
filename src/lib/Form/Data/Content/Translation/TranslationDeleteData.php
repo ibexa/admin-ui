@@ -9,17 +9,17 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data\Content\Translation;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class TranslationDeleteData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|false[] $languageCodes
+     * @param Language[]|false[] $languageCodes
      */
     public function __construct(
         protected ?ContentInfo $contentInfo = null,
         protected array $languageCodes = []
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {
@@ -32,7 +32,7 @@ class TranslationDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|false[]
+     * @return Language[]|false[]
      */
     public function getLanguageCodes(): array
     {
@@ -40,7 +40,7 @@ class TranslationDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[]|false[] $languageCodes
+     * @param Language[]|false[] $languageCodes
      */
     public function setLanguageCodes(array $languageCodes): void
     {

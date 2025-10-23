@@ -18,8 +18,7 @@ final readonly class UDWContext implements Context
     public function __construct(
         private ArgumentParser $argumentParser,
         private UniversalDiscoveryWidget $universalDiscoveryWidget
-    ) {
-    }
+    ) {}
 
     /**
      * @When I select content :pathToContent through UDW

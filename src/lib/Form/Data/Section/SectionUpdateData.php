@@ -24,7 +24,7 @@ final class SectionUpdateData
     private ?string $name;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param Section|null $section
      */
     public function __construct(private ?Section $section = null)
     {

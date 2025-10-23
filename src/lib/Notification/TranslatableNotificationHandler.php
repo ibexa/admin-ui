@@ -19,11 +19,14 @@ final readonly class TranslatableNotificationHandler implements TranslatableNoti
     public function __construct(
         private NotificationHandlerInterface $notificationHandler,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
-    public function info(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function info(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,
@@ -36,8 +39,12 @@ final readonly class TranslatableNotificationHandler implements TranslatableNoti
         );
     }
 
-    public function success(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function success(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,
@@ -50,8 +57,12 @@ final readonly class TranslatableNotificationHandler implements TranslatableNoti
         );
     }
 
-    public function warning(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function warning(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,
@@ -64,8 +75,12 @@ final readonly class TranslatableNotificationHandler implements TranslatableNoti
         );
     }
 
-    public function error(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function error(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,

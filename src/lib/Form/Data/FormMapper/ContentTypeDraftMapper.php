@@ -20,6 +20,8 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
+use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final readonly class ContentTypeDraftMapper implements FormDataMapperInterface
@@ -29,24 +31,25 @@ final readonly class ContentTypeDraftMapper implements FormDataMapperInterface
         private ContentTypeService $contentTypeService,
         private EventDispatcherInterface $eventDispatcher,
         private FieldsGroupsList $fieldsGroupsList
-    ) {
-    }
+    ) {}
 
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
      * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject|ContentTypeDraft $contentTypeDraft, array $params = []): ContentTypeData
-    {
+    public function mapToFormData(
+        ValueObject | ContentTypeDraft $contentTypeDraft,
+        array $params = []
+    ): ContentTypeData {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
         $params = $optionsResolver->resolve($params);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $params['language'] ?? null;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
+        /** @var Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'] ?? null;
 
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
@@ -117,8 +120,8 @@ final readonly class ContentTypeDraftMapper implements FormDataMapperInterface
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws UndefinedOptionsException
+     * @throws AccessException
      */
     private function configureOptions(OptionsResolver $optionsResolver): void
     {

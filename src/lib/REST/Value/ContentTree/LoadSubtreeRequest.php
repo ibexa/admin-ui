@@ -14,11 +14,10 @@ use Ibexa\Rest\Value as RestValue;
 final class LoadSubtreeRequest extends RestValue
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] $nodes
+     * @param LoadSubtreeRequestNode[] $nodes
      */
     public function __construct(
         public array $nodes = [],
         public ?CriterionInterface $filter = null
-    ) {
-    }
+    ) {}
 }

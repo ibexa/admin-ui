@@ -21,8 +21,10 @@ class SectionTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?Section $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Section $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(SectionService::class);
         $transformer = new SectionTransformer($service);
 
@@ -80,8 +82,7 @@ class SectionTransformerTest extends TestCase
 
         $service = $this->createMock(SectionService::class);
         $service->method('loadSection')
-            ->will(self::throwException(new class('Section not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Section not found') extends NotFoundException {}));
 
         $transformer = new SectionTransformer($service);
 

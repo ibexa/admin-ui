@@ -28,12 +28,13 @@ class ContentTypeEditType extends AbstractType
 {
     public function __construct(
         protected readonly LanguageService $languageService
-    ) {
-    }
+    ) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
+        /** @var ContentType $contentType */
         $contentType = $options['contentType'];
         $contentTypeLanguages = $contentType->languageCodes;
 

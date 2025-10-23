@@ -23,8 +23,7 @@ final class ResolveVersionPreviewUrlEvent extends Event
         private readonly Language $language,
         private readonly Location $location,
         private readonly SiteAccess $siteAccess
-    ) {
-    }
+    ) {}
 
     public function getVersionInfo(): VersionInfo
     {

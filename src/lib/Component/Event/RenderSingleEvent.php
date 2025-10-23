@@ -13,7 +13,7 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderSingleEvent} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see RenderSingleEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent} instead
  */
 final class RenderSingleEvent extends Event
@@ -28,8 +28,7 @@ final class RenderSingleEvent extends Event
         private readonly string $groupName,
         private readonly string $serviceId,
         private readonly array $parameters = []
-    ) {
-    }
+    ) {}
 
     public function getGroupName(): string
     {

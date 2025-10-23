@@ -16,9 +16,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
  */
 final readonly class ContentIsUser implements ContentSpecification
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+    public function __construct(private UserService $userService) {}
 
     public function isSatisfiedBy(Content $content): bool
     {

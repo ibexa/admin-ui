@@ -27,11 +27,12 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
         private LimitationValueMapperRegistryInterface $valueMapperRegistry,
         private Environment $twig,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
-    public function renderLimitationValue(Limitation $limitation, array $parameters = []): string
-    {
+    public function renderLimitationValue(
+        Limitation $limitation,
+        array $parameters = []
+    ): string {
         try {
             $blockName = $this->getValueBlockName($limitation);
             $parameters = $this->getValueBlockParameters($limitation, $parameters);
@@ -64,8 +65,8 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
      */
     private function findTemplateWithBlock(
         string $blockName,
-        string|Template|null $localTemplate = null
-    ): TemplateWrapper|Template|null {
+        string | Template | null $localTemplate = null
+    ): TemplateWrapper | Template | null {
         if ($localTemplate !== null) {
             if (is_string($localTemplate)) {
                 $localTemplate = $this->twig->load($localTemplate);
@@ -97,8 +98,10 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
      *
      * @return array<string, mixed>
      */
-    private function getValueBlockParameters(Limitation $limitation, array $parameters): array
-    {
+    private function getValueBlockParameters(
+        Limitation $limitation,
+        array $parameters
+    ): array {
         $values = $this->valueMapperRegistry
             ->getMapper($limitation->getIdentifier())
             ->mapLimitationValue($limitation);
@@ -116,8 +119,10 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
      *
      * @return array<string, mixed>
      */
-    private function getValueFallbackBlockParameters(Limitation $limitation, array $parameters): array
-    {
+    private function getValueFallbackBlockParameters(
+        Limitation $limitation,
+        array $parameters
+    ): array {
         $parameters += [
             'limitation' => $limitation,
             'values' => $limitation->limitationValues,
@@ -133,7 +138,10 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
     {
         $resources = $this->configResolver->getParameter('limitation_value_templates');
 
-        usort($resources, static function (array $a, array $b): int {
+        usort($resources, static function (
+            array $a,
+            array $b
+        ): int {
             return $b['priority'] <=> $a['priority'];
         });
 

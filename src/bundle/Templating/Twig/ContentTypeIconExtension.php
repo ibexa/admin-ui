@@ -16,8 +16,7 @@ final class ContentTypeIconExtension extends AbstractExtension
 {
     public function __construct(
         private readonly ContentTypeIconResolver $contentTypeIconResolver
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {

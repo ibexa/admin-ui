@@ -17,8 +17,7 @@ abstract class AbstractRelationFormMapper implements FieldDefinitionFormMapperIn
     public function __construct(
         protected ContentTypeService $contentTypeService,
         protected LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * Fill a hash with all content types and their ids.

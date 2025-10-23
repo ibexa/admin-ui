@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu\Admin\Role;
 
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -31,11 +32,11 @@ final class PolicyEditRightSidebarBuilder extends AbstractBuilder implements Tra
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $section */
+        /** @var Role $section */
         $role = $options['role'];
         $saveAndCloseId = $options['save_and_close_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(
@@ -65,7 +66,7 @@ final class PolicyEditRightSidebarBuilder extends AbstractBuilder implements Tra
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

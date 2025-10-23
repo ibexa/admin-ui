@@ -14,8 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class AllNotificationsController extends Controller
 {
-    public function renderAllNotificationsPageAction(Request $request, int $page): Response
-    {
+    public function renderAllNotificationsPageAction(
+        Request $request,
+        int $page
+    ): Response {
         return $this->forward(
             NotificationController::class . '::renderNotificationsPageAction',
             [

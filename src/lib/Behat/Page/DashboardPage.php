@@ -22,9 +22,9 @@ class DashboardPage extends Page
     protected TableInterface $table;
 
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
-        readonly TableBuilder $tableBuilder
+        public readonly Session $session,
+        public readonly Router $router,
+        public readonly TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
 
@@ -34,8 +34,10 @@ class DashboardPage extends Page
             ->build();
     }
 
-    public function switchTab(string $tableName, string $tabName): void
-    {
+    public function switchTab(
+        string $tableName,
+        string $tabName
+    ): void {
         if ($this->getActiveTabName($tableName) == $tabName) {
             return;
         }

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Validator\Constraints;
 
 use DateTimeInterface;
+use Ibexa\AdminUi\Form\Data\DateRangeData;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -16,10 +17,12 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class DateRangeConstraintValidator extends ConstraintValidator
 {
     /**
-     * @param \Ibexa\AdminUi\Form\Data\DateRangeData|null $value
+     * @param DateRangeData|null $value
      */
-    public function validate($value, Constraint $constraint): void
-    {
+    public function validate(
+        $value,
+        Constraint $constraint
+    ): void {
         if (!$constraint instanceof DateRangeConstraint) {
             throw new UnexpectedTypeException($constraint, DateRangeConstraint::class);
         }

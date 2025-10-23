@@ -15,9 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 final class TrashEmptyData
 {
-    public function __construct(#[Assert\IsTrue] public bool $emptyTrash = false)
-    {
-    }
+    public function __construct(#[Assert\IsTrue] public bool $emptyTrash = false) {}
 
     public function setEmptyTrash(bool $emptyTrash): void
     {

@@ -18,8 +18,7 @@ final class BookmarkRemoveData
     public function __construct(
         #[Assert\NotBlank]
         private array $bookmarks = []
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<int, false>

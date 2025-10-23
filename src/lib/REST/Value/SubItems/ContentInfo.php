@@ -13,13 +13,12 @@ use Ibexa\Rest\Value;
 final class ContentInfo extends Value
 {
     public function __construct(
-        readonly public int $id,
-        readonly public string $remoteId,
-        readonly public string $mainLanguageCode,
-        readonly public int $publishedDate,
-        readonly public int $modificationDate,
-        readonly public ?string $sectionName,
-        readonly public ?string $name = null,
-    ) {
-    }
+        public readonly int $id,
+        public readonly string $remoteId,
+        public readonly string $mainLanguageCode,
+        public readonly int $publishedDate,
+        public readonly int $modificationDate,
+        public readonly ?string $sectionName,
+        public readonly ?string $name = null,
+    ) {}
 }

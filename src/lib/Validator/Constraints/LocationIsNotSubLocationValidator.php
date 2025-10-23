@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraints\AbstractComparisonValidator;
 
 final class LocationIsNotSubLocationValidator extends AbstractComparisonValidator
@@ -15,11 +16,13 @@ final class LocationIsNotSubLocationValidator extends AbstractComparisonValidato
     /**
      * Compares the two given values to find if their relationship is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $targetLocation
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $sourceLocation
+     * @param Location $targetLocation
+     * @param Location $sourceLocation
      */
-    protected function compareValues(mixed $targetLocation, mixed $sourceLocation): bool
-    {
+    protected function compareValues(
+        mixed $targetLocation,
+        mixed $sourceLocation
+    ): bool {
         return stripos(
             $targetLocation->getPathString(),
             $sourceLocation->getPathString()

@@ -22,15 +22,14 @@ final readonly class ContentEditMetaFieldsComponent implements ComponentInterfac
     public function __construct(
         private Environment $twig,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $parameters
      */
     public function render(array $parameters = []): string
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $parameters['content_type'];
 
         $metaFieldTypeIdentifiers = $this->getMetaFieldTypeIdentifiers();

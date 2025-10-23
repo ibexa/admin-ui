@@ -25,8 +25,7 @@ final class FieldTypeChoiceType extends AbstractType
     public function __construct(
         private readonly FieldTypeRegistry $fieldTypeRegistry,
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function getBlockPrefix(): string
     {

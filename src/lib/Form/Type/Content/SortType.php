@@ -19,8 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class SortType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('field', ChoiceType::class, [
                 'choices' => $options['sort_fields'],

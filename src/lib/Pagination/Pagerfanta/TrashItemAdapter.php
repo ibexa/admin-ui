@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Pagerfanta\Adapter\AdapterInterface;
 
 /**
@@ -23,8 +24,7 @@ final class TrashItemAdapter implements AdapterInterface
     public function __construct(
         private readonly Query $query,
         private readonly TrashService $trashService
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {
@@ -39,10 +39,12 @@ final class TrashItemAdapter implements AdapterInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ValueObject[]
+     * @return ValueObject[]
      */
-    public function getSlice(int $offset, int $length): array
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): array {
         $query = clone $this->query;
         $query->offset = $offset;
         $query->limit = $length;

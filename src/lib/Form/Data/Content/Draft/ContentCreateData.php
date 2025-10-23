@@ -21,8 +21,7 @@ class ContentCreateData
         protected ?ContentType $contentType = null,
         protected ?Location $parentLocation = null,
         protected ?Language $language = null
-    ) {
-    }
+    ) {}
 
     public function getContentType(): ?ContentType
     {

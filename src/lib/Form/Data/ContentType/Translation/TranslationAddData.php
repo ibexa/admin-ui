@@ -23,8 +23,7 @@ final class TranslationAddData
         #[Assert\NotBlank]
         private ?Language $language = null,
         private ?Language $baseLanguage = null
-    ) {
-    }
+    ) {}
 
     public function getContentType(): ?ContentType
     {

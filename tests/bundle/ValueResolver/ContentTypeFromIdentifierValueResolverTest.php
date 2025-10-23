@@ -20,7 +20,7 @@ final class ContentTypeFromIdentifierValueResolverTest extends TestCase
 {
     private ContentTypeFromIdentifierValueResolver $resolver;
 
-    private MockObject&ContentTypeService $contentTypeServiceMock;
+    private MockObject & ContentTypeService $contentTypeServiceMock;
 
     protected function setUp(): void
     {
@@ -57,8 +57,10 @@ final class ContentTypeFromIdentifierValueResolverTest extends TestCase
      *
      * @param array<string, mixed> $attributes
      */
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
         $mockArgumentMetadata->expects(self::once())
             ->method('getType')

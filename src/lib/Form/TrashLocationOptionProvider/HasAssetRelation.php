@@ -22,8 +22,7 @@ final readonly class HasAssetRelation implements TrashLocationOptionProvider
     public function __construct(
         private ContentService $contentService,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function supports(Location $location): bool
     {
@@ -32,8 +31,10 @@ final readonly class HasAssetRelation implements TrashLocationOptionProvider
             ->isSatisfiedBy($location->getContent());
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $form->add('trash_assets_non_unique', ChoiceType::class, [
             'label' =>
                 /** @Desc("Asset Fields(s)") */

@@ -21,8 +21,10 @@ class RoleAssignmentTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?UserRoleAssignment $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?UserRoleAssignment $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleAssignmentTransformer($service);
 
@@ -78,8 +80,7 @@ class RoleAssignmentTransformerTest extends TestCase
     {
         $service = $this->createMock(RoleService::class);
         $service->method('loadRoleAssignment')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new RoleAssignmentTransformer($service);
 

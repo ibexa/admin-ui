@@ -19,8 +19,7 @@ final class RequestQuery extends Value
         private readonly int $limit,
         private readonly SortClause $sortClause,
         private readonly int $rootLocationId
-    ) {
-    }
+    ) {}
 
     public function getLocationId(): int
     {

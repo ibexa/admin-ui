@@ -17,9 +17,7 @@ final readonly class NonAdminRESTRequestMatcher implements RequestMatcherInterfa
     /**
      * @param string[][] $siteAccessGroups
      */
-    public function __construct(private array $siteAccessGroups)
-    {
-    }
+    public function __construct(private array $siteAccessGroups) {}
 
     public function matches(Request $request): bool
     {

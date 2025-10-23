@@ -18,12 +18,10 @@ final class IsAdmin extends AbstractSpecification
     /**
      * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(private readonly array $siteAccessGroups)
-    {
-    }
+    public function __construct(private readonly array $siteAccessGroups) {}
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function isSatisfiedBy(mixed $item): bool
     {

@@ -19,8 +19,7 @@ final class AutosaveService implements AutosaveServiceInterface
 
     public function __construct(
         private readonly UserSettingService $userSettingService
-    ) {
-    }
+    ) {}
 
     public function isEnabled(): bool
     {

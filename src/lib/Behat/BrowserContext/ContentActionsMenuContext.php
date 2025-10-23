@@ -15,17 +15,17 @@ use PHPUnit\Framework\Assert;
 
 final readonly class ContentActionsMenuContext implements Context
 {
-    public function __construct(private ContentActionsMenu $contentActionsMenu)
-    {
-    }
+    public function __construct(private ContentActionsMenu $contentActionsMenu) {}
 
     /**
      * @Given I click (on) the edit action bar button :buttonName
      * @Given I perform the :buttonName action
      * @Given I perform the :buttonName action from the :groupName group
      */
-    public function clickEditActionBar(string $buttonName, ?string $groupName = null): void
-    {
+    public function clickEditActionBar(
+        string $buttonName,
+        ?string $groupName = null
+    ): void {
         $this->contentActionsMenu->clickButton($buttonName, $groupName);
     }
 

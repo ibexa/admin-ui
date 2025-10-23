@@ -22,8 +22,8 @@ use Ibexa\Behat\Browser\Routing\Router;
 final class RoleUpdatePage extends AdminUpdateItemPage
 {
     public function __construct(
-        readonly Session $session,
-        readonly Router $router,
+        public readonly Session $session,
+        public readonly Router $router,
         ContentActionsMenu $contentActionsMenu,
         private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
         private readonly IbexaDropdown $ibexaDropdown
@@ -36,8 +36,10 @@ final class RoleUpdatePage extends AdminUpdateItemPage
     /**
      * @param string[] $values
      */
-    public function selectLimitationValues(string $selectName, array $values): void
-    {
+    public function selectLimitationValues(
+        string $selectName,
+        array $values
+    ): void {
         try {
             $currentlySelectedElementsCount = $this->getHTMLPage()
                 ->findAll($this->getLocator('limitationField'))
@@ -96,8 +98,10 @@ final class RoleUpdatePage extends AdminUpdateItemPage
     /**
      * @param array<string> $itemPaths
      */
-    public function assign(array $itemPaths, string $itemType): void
-    {
+    public function assign(
+        array $itemPaths,
+        string $itemType
+    ): void {
         $itemTypeToLabelMapping = [
             'users' => 'Select Users',
             'groups' => 'Select User Groups',

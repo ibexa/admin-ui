@@ -20,5 +20,8 @@ interface FormDataMapperInterface
      *
      * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject $repositoryValueObject, array $params = []): mixed;
+    public function mapToFormData(
+        ValueObject $repositoryValueObject,
+        array $params = []
+    ): mixed;
 }

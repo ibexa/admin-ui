@@ -16,19 +16,18 @@ final class SubItem extends Value
      * @param string[] $languagesCodes
      */
     public function __construct(
-        readonly public int $id,
-        readonly public string $remoteId,
-        readonly public bool $hidden,
-        readonly public bool $invisible,
-        readonly public int $priority,
-        readonly public string $pathString,
-        readonly public Thumbnail $contentThumbnail,
-        readonly public Owner $owner,
-        readonly public int $currentVersionNo,
-        readonly public array $languagesCodes,
-        readonly public Owner $currentVersionOwner,
-        readonly public ContentType $contentType,
-        readonly public ContentInfo $contentInfo,
-    ) {
-    }
+        public readonly int $id,
+        public readonly string $remoteId,
+        public readonly bool $hidden,
+        public readonly bool $invisible,
+        public readonly int $priority,
+        public readonly string $pathString,
+        public readonly Thumbnail $contentThumbnail,
+        public readonly Owner $owner,
+        public readonly int $currentVersionNo,
+        public readonly array $languagesCodes,
+        public readonly Owner $currentVersionOwner,
+        public readonly ContentType $contentType,
+        public readonly ContentInfo $contentInfo,
+    ) {}
 }

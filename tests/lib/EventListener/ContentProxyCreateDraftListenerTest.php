@@ -255,7 +255,7 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
     }
 
     /**
-     * @param \Ibexa\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefs
+     * @param FieldDefinition[] $fieldDefs
      */
     private function getContentType(array $fieldDefs = []): ContentType
     {

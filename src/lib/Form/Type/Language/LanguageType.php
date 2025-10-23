@@ -19,12 +19,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class LanguageType extends AbstractType
 {
-    public function __construct(protected readonly LanguageService $languageService)
-    {
-    }
+    public function __construct(protected readonly LanguageService $languageService) {}
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(new LanguageTransformer($this->languageService));
     }
 

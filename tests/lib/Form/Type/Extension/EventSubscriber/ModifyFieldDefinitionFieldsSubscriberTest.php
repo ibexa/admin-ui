@@ -36,10 +36,10 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 
     private ModifyFieldDefinitionFieldsSubscriber $modifyFieldDefinitionFieldsSubscriber;
 
-    /** @var \Symfony\Component\Form\FormInterface<mixed>&\PHPUnit\Framework\MockObject\MockObject */
-    private FormInterface&MockObject $form;
+    /** @var FormInterface<mixed>&MockObject */
+    private FormInterface & MockObject $form;
 
-    private FormBuilderInterface&MockObject $formBuilder;
+    private FormBuilderInterface & MockObject $formBuilder;
 
     protected function setUp(): void
     {
@@ -82,7 +82,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     }
 
     /**
-     * @return array<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>
+     * @return array<string, FieldDefinitionData>
      */
     private function getFormData(string $identifier): array
     {
@@ -163,8 +163,10 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     /**
      * @param array<string, mixed> $options
      */
-    private function mockFormAdd(string $identifier, array $options): void
-    {
+    private function mockFormAdd(
+        string $identifier,
+        array $options
+    ): void {
         $this->form
             ->expects(self::once())
             ->method('add')

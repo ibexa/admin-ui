@@ -21,6 +21,7 @@ use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStatesDeleteType;
 use Ibexa\AdminUi\Form\Type\ObjectState\ObjectStateUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -29,6 +30,7 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,12 +44,11 @@ final class ObjectStateController extends Controller
         private readonly SubmitHandler $submitHandler,
         private readonly PermissionResolver $permissionResolver,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(ObjectStateGroup $objectStateGroup): Response
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $objectStates */
+        /** @var ObjectState[] $objectStates */
         $objectStates = $this->objectStateService->loadObjectStates($objectStateGroup);
 
         $deleteObjectStatesForm = $this->formFactory->create(
@@ -84,13 +85,15 @@ final class ObjectStateController extends Controller
         ]);
     }
 
-    public function addAction(Request $request, ObjectStateGroup $objectStateGroup): Response
-    {
+    public function addAction(
+        Request $request,
+        ObjectStateGroup $objectStateGroup
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
         $languages = $this->configResolver->getParameter('languages');
         $defaultLanguageCode = reset($languages);
 
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->create(
             ObjectStateCreateType::class,
             new ObjectStateCreateData()
@@ -131,8 +134,10 @@ final class ObjectStateController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, ObjectState $objectState): Response
-    {
+    public function deleteAction(
+        Request $request,
+        ObjectState $objectState
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
         $form = $this->formFactory->create(
             ObjectStateDeleteType::class,
@@ -167,8 +172,10 @@ final class ObjectStateController extends Controller
         ]);
     }
 
-    public function bulkDeleteAction(Request $request, int $objectStateGroupId): Response
-    {
+    public function bulkDeleteAction(
+        Request $request,
+        int $objectStateGroupId
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
         $form = $this->formFactory->create(
             ObjectStatesDeleteType::class,
@@ -201,10 +208,12 @@ final class ObjectStateController extends Controller
         ]);
     }
 
-    public function updateAction(Request $request, ObjectState $objectState): Response
-    {
+    public function updateAction(
+        Request $request,
+        ObjectState $objectState
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->create(
             ObjectStateUpdateType::class,
             new ObjectStateUpdateData($objectState)
@@ -245,7 +254,7 @@ final class ObjectStateController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function updateContentStateAction(
         Request $request,
@@ -294,7 +303,7 @@ final class ObjectStateController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[] $states
+     * @param ObjectState[] $states
      *
      * @return array<int, mixed>
      */

@@ -19,16 +19,18 @@ readonly class MenuItemFactory implements MenuItemFactoryInterface
     public function __construct(
         protected FactoryInterface $factory,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * Creates Location menu item only when user has content:read permission.
      *
      * @param array<string, mixed> $options
      */
-    public function createLocationMenuItem(string $name, int $locationId, array $options = []): ?ItemInterface
-    {
+    public function createLocationMenuItem(
+        string $name,
+        int $locationId,
+        array $options = []
+    ): ?ItemInterface {
         try {
             $location = $this->locationService->loadLocation($locationId);
             $contentInfo = $location->getContentInfo();
@@ -47,8 +49,10 @@ readonly class MenuItemFactory implements MenuItemFactoryInterface
         return $this->createItem($name, array_merge_recursive($defaults, $options));
     }
 
-    public function createItem(string $name, array $options = []): ItemInterface
-    {
+    public function createItem(
+        string $name,
+        array $options = []
+    ): ItemInterface {
         if (empty($options['extras']['translation_domain'])) {
             $options['extras']['translation_domain'] = 'ibexa_menu';
         }

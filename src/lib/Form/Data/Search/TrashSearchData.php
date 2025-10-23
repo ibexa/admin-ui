@@ -28,8 +28,7 @@ final class TrashSearchData
         private ?User $creator = null,
         private ?string $contentName = null,
         private ?array $sort = ['field' => 'trashed', 'direction' => 0]
-    ) {
-    }
+    ) {}
 
     public function getTrashed(): ?string
     {

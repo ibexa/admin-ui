@@ -28,8 +28,7 @@ readonly class TabsComponent implements ComponentInterface
         protected string $template,
         protected string $groupIdentifier,
         protected array $parameters = []
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters
@@ -62,8 +61,10 @@ readonly class TabsComponent implements ComponentInterface
     /**
      * @param array<mixed> $parameters
      */
-    private function dispatchTabPreRenderEvent(TabInterface $tab, array $parameters): TabEvent
-    {
+    private function dispatchTabPreRenderEvent(
+        TabInterface $tab,
+        array $parameters
+    ): TabEvent {
         $tabEvent = new TabEvent();
         $tabEvent->setData($tab);
         $tabEvent->setParameters($parameters);
@@ -78,8 +79,10 @@ readonly class TabsComponent implements ComponentInterface
      *
      * @return array{name: string, view: string, identifier: string}
      */
-    private function composeTabParameters(TabInterface $tab, array $parameters): array
-    {
+    private function composeTabParameters(
+        TabInterface $tab,
+        array $parameters
+    ): array {
         return [
             'name' => $tab->getName(),
             'view' => $tab->renderView($parameters),

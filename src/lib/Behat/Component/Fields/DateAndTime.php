@@ -21,7 +21,7 @@ final class DateAndTime extends FieldTypeComponent
     private const string FIELD_DISPLAY_FORMAT = 'd/m/Y G:i';
 
     public function __construct(
-        readonly Session $session,
+        public readonly Session $session,
         private readonly DateAndTimePopup $dateAndTimePopup
     ) {
         parent::__construct($session);

@@ -22,7 +22,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
 {
     private const int EXAMPLE_CONTENT_TYPE_GROUP_ID = 1;
 
-    private ContentTypeService&MockObject $contentService;
+    private ContentTypeService & MockObject $contentService;
 
     private ContentTypeGroupTransformer $transformer;
 
@@ -35,13 +35,15 @@ final class ContentTypeGroupTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForTransformWithValidInput
      */
-    public function testTransformWithValidInput(?APIContentTypeGroup $value, ?int $expected): void
-    {
+    public function testTransformWithValidInput(
+        ?APIContentTypeGroup $value,
+        ?int $expected
+    ): void {
         self::assertEquals($expected, $this->transformer->transform($value));
     }
 
     /**
-     * @return array<string, array{\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null, int|null}>
+     * @return array<string, array{APIContentTypeGroup|null, int|null}>
      */
     public function dataProviderForTransformWithValidInput(): array
     {
@@ -84,8 +86,10 @@ final class ContentTypeGroupTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForReverseTransformWithValidInput
      */
-    public function testReverseTransformWithValidInput(mixed $value, ?APIContentTypeGroup $expected): void
-    {
+    public function testReverseTransformWithValidInput(
+        mixed $value,
+        ?APIContentTypeGroup $expected
+    ): void {
         if ($expected !== null) {
             $this->contentService
                 ->method('loadContentTypeGroup')
@@ -100,7 +104,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
     }
 
     /**
-     * @return array<string, array{mixed, \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null}>
+     * @return array<string, array{mixed, APIContentTypeGroup|null}>
      */
     public function dataProviderForReverseTransformWithValidInput(): array
     {
@@ -152,8 +156,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $exception = new class($expectedExceptionMessage) extends NotFoundException {
-        };
+        $exception = new class($expectedExceptionMessage) extends NotFoundException {};
 
         $this->contentService
             ->method('loadContentTypeGroup')

@@ -14,11 +14,16 @@ use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList;
 use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
@@ -48,8 +53,7 @@ final readonly class ContentViewParameterSupplier
         private UserSettingService $userSettingService,
         private QueryFactoryInterface $queryFactory,
         private SearchService $searchService
-    ) {
-    }
+    ) {}
 
     /**
      * Fetches data for Subitems module to populate it with preloaded data.
@@ -60,27 +64,27 @@ final readonly class ContentViewParameterSupplier
      * we are using the same data structure it would use while
      * fetching data from the REST.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function supply(ContentView $view): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes */
+        /** @var ContentType[] $contentTypes */
         $contentTypes = [];
         $subitemsRows = [];
         $location = $view->getLocation();
         $subitemsLimit = (int)$this->userSettingService->getUserSetting('subitems_limit')->getValue();
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $locationChildrenQuery */
+        /** @var LocationQuery $locationChildrenQuery */
         $locationChildrenQuery = $this->queryFactory->create('Children', ['location' => $location]);
         $locationChildrenQuery->offset = 0;
         $locationChildrenQuery->limit = $subitemsLimit;
 
         $searchResult = $this->searchService->findLocations($locationChildrenQuery);
         foreach ($searchResult->searchHits as $searchHit) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $locationChild */
+            /** @var Location $locationChild */
             $locationChild = $searchHit->valueObject;
             $contentType = $locationChild->getContent()->getContentType();
 
@@ -168,12 +172,14 @@ final readonly class ContentViewParameterSupplier
     /**
      * @return array<string, mixed>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
-    private function getContentCreatePermissionsForMFU(Location $location, Content $content): array
-    {
+    private function getContentCreatePermissionsForMFU(
+        Location $location,
+        Content $content
+    ): array {
         $createPermissionsInMfu = [];
 
         $hasAccess = $this->permissionResolver->hasAccess('content', 'create');

@@ -31,7 +31,7 @@ final class SectionCreateRightSidebarBuilder extends AbstractBuilder implements 
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $createItem = $this->createMenuItem(
@@ -58,7 +58,7 @@ final class SectionCreateRightSidebarBuilder extends AbstractBuilder implements 
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

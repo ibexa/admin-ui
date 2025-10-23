@@ -24,10 +24,14 @@ use Ibexa\Bundle\AdminUi\View\Template\IbexaPagerfantaTemplate;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
@@ -39,6 +43,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use JMS\TranslationBundle\Annotation\Ignore;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,8 +63,7 @@ final class SectionController extends Controller
         private readonly PermissionResolver $permissionResolver,
         private readonly PermissionCheckerInterface $permissionChecker,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function performAccessCheck(): void
     {
@@ -69,7 +73,7 @@ final class SectionController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function listAction(Request $request): Response
     {
@@ -84,7 +88,7 @@ final class SectionController extends Controller
         );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sectionList */
+        /** @var Section[] $sectionList */
         $sectionList = $pagerfanta->getCurrentPageResults();
         $contentCountBySectionId = [];
         $deletableSections = [];
@@ -140,12 +144,15 @@ final class SectionController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws InvalidArgumentException
      */
-    public function viewSectionContentAction(Section $section, int $page = 1, int $limit = 10): Response
-    {
+    public function viewSectionContentAction(
+        Section $section,
+        int $page = 1,
+        int $limit = 10
+    ): Response {
         $sectionContentAssignForm = $this->formFactory->assignContentSectionForm(
             new SectionContentAssignData($section)
         )->createView();
@@ -162,7 +169,7 @@ final class SectionController extends Controller
 
         $assignedContent = [];
         foreach ($pagerfanta as $content) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+            /** @var Content $content */
             $mainLocationId = $content->getContentInfo()->getMainLocationId();
             $assignedContent[] = [
                 'id' => $content->getId(),
@@ -193,8 +200,10 @@ final class SectionController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, Section $section): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Section $section
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
         $form = $this->formFactory->deleteSection(
             new SectionDeleteData($section)
@@ -257,10 +266,12 @@ final class SectionController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function assignContentAction(Request $request, Section $section): Response
-    {
+    public function assignContentAction(
+        Request $request,
+        Section $section
+    ): Response {
         if (!$this->canUserAssignSectionToSomeContent($section)) {
             $exception = $this->createAccessDeniedException();
             $exception->setAttributes('state');
@@ -309,7 +320,7 @@ final class SectionController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createSection(
             new SectionCreateData()
         );
@@ -343,10 +354,12 @@ final class SectionController extends Controller
         ]);
     }
 
-    public function updateAction(Request $request, Section $section): Response
-    {
+    public function updateAction(
+        Request $request,
+        Section $section
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('section', 'edit'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updateSection(
             new SectionUpdateData($section)
         );
@@ -382,7 +395,7 @@ final class SectionController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[] $sections
+     * @param Section[] $sections
      *
      * @return array<int, mixed>
      */
@@ -394,7 +407,7 @@ final class SectionController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function canUserAssignSectionToSomeContent(Section $section): bool
     {

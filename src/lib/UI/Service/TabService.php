@@ -15,9 +15,7 @@ use InvalidArgumentException;
 
 final readonly class TabService
 {
-    public function __construct(private TabRegistry $tabRegistry)
-    {
-    }
+    public function __construct(private TabRegistry $tabRegistry) {}
 
     public function getTabGroup(string $groupIdentifier): TabGroup
     {
@@ -25,7 +23,7 @@ final readonly class TabService
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
+     * @return TabInterface[]
      */
     public function getTabsFromGroup(string $groupIdentifier): array
     {
@@ -34,8 +32,10 @@ final readonly class TabService
         return $tabGroup->getTabs();
     }
 
-    public function getTabFromGroup(string $tabIdentifier, string $groupIdentifier): TabInterface
-    {
+    public function getTabFromGroup(
+        string $tabIdentifier,
+        string $groupIdentifier
+    ): TabInterface {
         $tabs = $this->getTabsFromGroup($groupIdentifier);
 
         if (!isset($tabs[$tabIdentifier])) {

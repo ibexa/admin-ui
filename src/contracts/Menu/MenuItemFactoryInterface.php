@@ -18,5 +18,9 @@ interface MenuItemFactoryInterface extends FactoryInterface
      *
      * @param array<mixed> $options
      */
-    public function createLocationMenuItem(string $name, int $locationId, array $options = []): ?ItemInterface;
+    public function createLocationMenuItem(
+        string $name,
+        int $locationId,
+        array $options = []
+    ): ?ItemInterface;
 }

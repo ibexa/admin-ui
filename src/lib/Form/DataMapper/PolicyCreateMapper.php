@@ -22,9 +22,9 @@ final readonly class PolicyCreateMapper implements DataMapperInterface
     /**
      * Maps given PolicyCreateStruct object to a PolicyCreateData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function map(ValueObject|PolicyCreateStruct $value): PolicyCreateData
+    public function map(ValueObject | PolicyCreateStruct $value): PolicyCreateData
     {
         if (!$value instanceof PolicyCreateStruct) {
             throw new InvalidArgumentException(

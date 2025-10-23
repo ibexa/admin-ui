@@ -18,8 +18,7 @@ final class LocationSwapData
     public function __construct(
         private ?Location $currentLocation = null,
         private ?Location $newLocation = null
-    ) {
-    }
+    ) {}
 
     public function getCurrentLocation(): ?Location
     {

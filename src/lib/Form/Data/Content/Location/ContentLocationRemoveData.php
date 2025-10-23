@@ -9,20 +9,20 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data\Content\Location;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ContentLocationRemoveData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $selectedLocations
+     * @param Location[] $selectedLocations
      */
     public function __construct(
         #[Assert\NotBlank]
         public ?ContentInfo $contentInfo = null,
         #[Assert\NotBlank]
         public array $selectedLocations = []
-    ) {
-    }
+    ) {}
 
     public function setContentInfo(?ContentInfo $contentInfo): void
     {
@@ -35,7 +35,7 @@ class ContentLocationRemoveData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      */
     public function setLocations(array $locations): void
     {
@@ -43,7 +43,7 @@ class ContentLocationRemoveData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocations(): array
     {

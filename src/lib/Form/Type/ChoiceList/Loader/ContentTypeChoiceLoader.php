@@ -20,11 +20,10 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
     public function __construct(
         protected ContentTypeService $contentTypeService,
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-    ) {
-    }
+    ) {}
 
     /**
-     * @return array<string, \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]>
+     * @return array<string, ContentType[]>
      */
     public function getChoiceList(): array
     {
@@ -35,7 +34,10 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
             $contentTypes = iterator_to_array(
                 $this->contentTypeService->loadContentTypes($contentTypeGroup, $preferredLanguages)
             );
-            usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
+            usort($contentTypes, static function (
+                ContentType $contentType1,
+                ContentType $contentType2
+            ): int {
                 return strnatcasecmp($contentType1->getName() ?? '', $contentType2->getName() ?? '');
             });
 
@@ -53,10 +55,12 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]
+     * @return ContentType[]
      */
-    public function loadChoicesForValues(array $values, ?callable $value = null): array
-    {
+    public function loadChoicesForValues(
+        array $values,
+        ?callable $value = null
+    ): array {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -69,8 +73,10 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
     /**
      * @return string[]
      */
-    public function loadValuesForChoices(array $choices, ?callable $value = null): array
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        ?callable $value = null
+    ): array {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {
