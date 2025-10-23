@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use DateTimeImmutable;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
@@ -39,8 +41,8 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidArgumentException
+     * @throws InvalidCriterionArgumentException
      * @throws \Exception
      */
     public function downloadAction(string $contentIdList): Response
@@ -79,7 +81,7 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $result
+     * @phpstan-param SearchResult<Content> $result
      *
      * @throws \Exception
      */
@@ -136,7 +138,7 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
+     * @param array<Content> $contentList
      *
      * @throws \Exception
      */
@@ -229,10 +231,10 @@ final class DownloadImageController extends Controller
     /**
      * @param array<int> $contentIdList
      *
-     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Content>
+     * @phpstan-return SearchResult<Content>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidArgumentException
+     * @throws InvalidCriterionArgumentException
      */
     private function loadImages(array $contentIdList): SearchResult
     {
@@ -281,12 +283,14 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
+     * @param array<Content> $contentList
      *
      * @throws \Exception
      */
-    private function createArchive(string $name, array $contentList): void
-    {
+    private function createArchive(
+        string $name,
+        array $contentList
+    ): void {
         $zipArchive = new ZipArchive();
         $zipArchive->open($name, ZipArchive::CREATE);
 

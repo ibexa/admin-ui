@@ -38,10 +38,12 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
         $options = [
             'multiple' => true,
             'expanded' => false,

@@ -27,8 +27,10 @@ final readonly class ContentCreateMapper implements FormDataMapperInterface
      *
      * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject|ContentTypeDraft $contentType, array $params = []): ContentCreateData
-    {
+    public function mapToFormData(
+        ValueObject | ContentTypeDraft $contentType,
+        array $params = []
+    ): ContentCreateData {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $params = $resolver->resolve($params);

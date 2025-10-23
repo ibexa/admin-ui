@@ -16,8 +16,12 @@ use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
+use Symfony\Component\Form\Exception\LogicException;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,8 +41,10 @@ class TranslationAddType extends AbstractType
     ) {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'contentType',
@@ -76,16 +82,16 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on default form data.
      *
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
+     * @throws UnexpectedTypeException
      */
     public function onPreSetData(FormEvent $event): void
     {
         $contentLanguages = [];
         $form = $event->getForm();
 
-        /** @var \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData $data */
+        /** @var TranslationAddData $data */
         $data = $event->getData();
         $contentType = $data->getContentType();
 
@@ -99,9 +105,9 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on submitted form data.
      *
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
+     * @throws UnexpectedTypeException
      */
     public function onPreSubmit(FormEvent $event): void
     {
@@ -131,7 +137,7 @@ class TranslationAddType extends AbstractType
      *
      * @param callable $filter
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function loadLanguages(callable $filter): array
     {
@@ -144,15 +150,17 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields to the $form. Language options are composed based on content language.
      *
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      * @param string[] $contentLanguages
      *
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
+     * @throws UnexpectedTypeException
      */
-    public function addLanguageFields(FormInterface $form, array $contentLanguages): void
-    {
+    public function addLanguageFields(
+        FormInterface $form,
+        array $contentLanguages
+    ): void {
         $form
             ->add(
                 'language',

@@ -41,8 +41,10 @@ final readonly class SectionsContext implements Context
     /**
      * @Then content items list in section :sectionName contains items
      */
-    public function sectionContainsProperContentItems(string $sectionName, TableNode $contentItems): void
-    {
+    public function sectionContainsProperContentItems(
+        string $sectionName,
+        TableNode $contentItems
+    ): void {
         $this->sectionPage->setExpectedSectionName($sectionName);
 
         foreach ($contentItems->getHash() as $contentItem) {

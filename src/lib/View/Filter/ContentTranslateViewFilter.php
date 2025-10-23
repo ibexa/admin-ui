@@ -13,6 +13,8 @@ use Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper;
 use Ibexa\ContentForms\Form\Type\Content\ContentEditType;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
@@ -23,6 +25,12 @@ use Ibexa\Core\MVC\Symfony\View\ViewEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\Exception\NoSuchOptionException;
+use Symfony\Component\OptionsResolver\Exception\OptionDefinitionException;
+use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 
 /**
  * Handles content translation form.
@@ -44,14 +52,14 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
-     * @throws \Symfony\Component\OptionsResolver\Exception\NoSuchOptionException
-     * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UndefinedOptionsException
+     * @throws OptionDefinitionException
+     * @throws NoSuchOptionException
+     * @throws MissingOptionsException
+     * @throws AccessException
+     * @throws InvalidOptionsException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      */
     public function handleContentTranslateForm(FilterViewBuilderParametersEvent $event): void
     {
@@ -93,12 +101,12 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
-     * @throws \Symfony\Component\OptionsResolver\Exception\NoSuchOptionException
-     * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws UndefinedOptionsException
+     * @throws OptionDefinitionException
+     * @throws NoSuchOptionException
+     * @throws MissingOptionsException
+     * @throws InvalidOptionsException
+     * @throws AccessException
      */
     private function resolveContentTranslationData(
         Content $content,
@@ -119,7 +127,7 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
     private function resolveContentTranslateForm(
         ContentTranslationData $contentUpdate,

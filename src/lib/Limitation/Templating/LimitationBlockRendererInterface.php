@@ -15,5 +15,8 @@ interface LimitationBlockRendererInterface
     /**
      * @param array<string, mixed> $parameters
      */
-    public function renderLimitationValue(Limitation $limitation, array $parameters = []): string;
+    public function renderLimitationValue(
+        Limitation $limitation,
+        array $parameters = []
+    ): string;
 }

@@ -24,7 +24,7 @@ final class ContentTypeIsUser extends AbstractSpecification
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function isSatisfiedBy(mixed $contentType): bool
     {

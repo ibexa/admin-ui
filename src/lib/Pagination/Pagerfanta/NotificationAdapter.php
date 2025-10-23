@@ -40,8 +40,10 @@ final class NotificationAdapter implements AdapterInterface
         return $this->nbResults = $this->notificationService->getNotificationCount($query);
     }
 
-    public function getSlice(int $offset, int $length): NotificationList
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): NotificationList {
         $query = clone $this->query;
         $query->setOffset($offset);
         $query->setLimit($length);

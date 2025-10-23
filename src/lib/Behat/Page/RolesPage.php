@@ -33,8 +33,11 @@ final class RolesPage extends Page
         $this->table = $tableBuilder->newTable()->build();
     }
 
-    public function verifyItemAttribute(string $label, string $value, string $itemName): void
-    {
+    public function verifyItemAttribute(
+        string $label,
+        string $value,
+        string $itemName
+    ): void {
         Assert::assertEquals(
             $value,
             $this->adminList->table->getTableCellValue($itemName, $label),

@@ -21,7 +21,7 @@ class Location extends CoreLocation
 
     protected bool $main;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    /** @var APILocation[] */
     protected array $pathLocations;
 
     protected bool $userCanManage;

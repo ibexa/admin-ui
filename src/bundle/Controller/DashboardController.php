@@ -11,6 +11,7 @@ namespace Ibexa\Bundle\AdminUi\Controller;
 use Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,7 +24,7 @@ final class DashboardController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function dashboardAction(): Response
     {

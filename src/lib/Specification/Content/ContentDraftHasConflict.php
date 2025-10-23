@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\Content;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class ContentDraftHasConflict extends AbstractSpecification
@@ -22,7 +23,7 @@ final class ContentDraftHasConflict extends AbstractSpecification
     /**
      * Checks if Content has draft conflict.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param ContentInfo $contentInfo
      */
     public function isSatisfiedBy(mixed $contentInfo): bool
     {

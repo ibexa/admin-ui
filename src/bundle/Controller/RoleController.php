@@ -28,9 +28,11 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final class RoleController extends Controller
 {
@@ -60,7 +62,7 @@ final class RoleController extends Controller
 
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
+        /** @var Role[] $roles */
         $roles = $pagerfanta->getCurrentPageResults();
 
         $rolesNumbers = array_column($roles, 'id');
@@ -81,8 +83,12 @@ final class RoleController extends Controller
         ]);
     }
 
-    public function viewAction(Request $request, Role $role, int $policyPage = 1, int $assignmentPage = 1): Response
-    {
+    public function viewAction(
+        Request $request,
+        Role $role,
+        int $policyPage = 1,
+        int $assignmentPage = 1
+    ): Response {
         $deleteForm = $this->formFactory->deleteRole(
             new RoleDeleteData($role)
         );
@@ -99,7 +105,7 @@ final class RoleController extends Controller
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'create'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createRole();
         $form->handleRequest($request);
 
@@ -131,8 +137,10 @@ final class RoleController extends Controller
         ]);
     }
 
-    public function copyAction(Request $request, Role $role): Response
-    {
+    public function copyAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'create'));
 
         $form = $this->createForm(RoleCopyType::class, new RoleCopyData($role));
@@ -166,10 +174,12 @@ final class RoleController extends Controller
         ]);
     }
 
-    public function updateAction(Request $request, Role $role): Response
-    {
+    public function updateAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updateRole(
             new RoleUpdateData($role)
         );
@@ -177,7 +187,7 @@ final class RoleController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (RoleUpdateData $data): Response {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
+                /** @var Role $role */
                 $role = $data->getRole();
 
                 $roleUpdateStruct = $this->roleUpdateMapper->reverseMap($data);
@@ -209,8 +219,10 @@ final class RoleController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, Role $role): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'delete'));
         $form = $this->formFactory->deleteRole(
             new RoleDeleteData($role)
@@ -245,7 +257,7 @@ final class RoleController extends Controller
     /**
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function bulkDeleteAction(Request $request): Response
     {

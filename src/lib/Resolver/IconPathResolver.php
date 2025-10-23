@@ -30,8 +30,10 @@ final class IconPathResolver implements IconPathResolverInterface, EventSubscrib
         $this->iconCache = [];
     }
 
-    public function resolve(string $icon, ?string $set = null): string
-    {
+    public function resolve(
+        string $icon,
+        ?string $set = null
+    ): string {
         $icon = $this->resolveIconAlias($icon);
 
         if (isset($this->iconCache[$set][$icon])) {

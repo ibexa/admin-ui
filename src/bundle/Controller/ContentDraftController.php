@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface;
 use Ibexa\AdminUi\UI\Value\Content\VersionId;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
@@ -91,7 +92,7 @@ final class ContentDraftController extends Controller
     private function createContentRemoveData(Pagerfanta $pagerfanta): ContentRemoveData
     {
         $versions = [];
-        /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface $contentDraft */
+        /** @var ContentDraftInterface $contentDraft */
         foreach ($pagerfanta->getCurrentPageResults() as $contentDraft) {
             if ($contentDraft->isAccessible()) {
                 $versions[] = $contentDraft->getVersionId();

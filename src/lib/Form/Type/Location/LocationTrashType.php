@@ -37,8 +37,10 @@ final class LocationTrashType extends AbstractType
     ) {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'location',

@@ -8,7 +8,10 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\EventListener;
 
+use Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
@@ -24,12 +27,12 @@ final readonly class AddLanguageFieldBasedOnContentListener
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function onPreSetData(FormEvent $event): void
     {
-        /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
+        /** @var CustomUrlAddData $data */
         $data = $event->getData();
         $location = $data->getLocation();
         if (null === $location) {
@@ -66,7 +69,7 @@ final readonly class AddLanguageFieldBasedOnContentListener
     /**
      * @param string[] $contentLanguages
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     private function filterLanguages(array $contentLanguages): array
     {

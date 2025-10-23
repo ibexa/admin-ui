@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -45,7 +46,7 @@ final class SourceLanguageValueResolver extends AbstractValueResolver
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     protected function load(array $key): object
     {

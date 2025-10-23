@@ -164,8 +164,10 @@ final class ContentRelationMultiple extends FieldTypeComponent
      * @param array<string, mixed> $items
      * @param array<array-key, string> $paths
      */
-    private function selectRelationsAndConfirm(array $items, array $paths): void
-    {
+    private function selectRelationsAndConfirm(
+        array $items,
+        array $paths
+    ): void {
         $this->universalDiscoveryWidget->verifyIsLoaded();
 
         $itemsToSet = array_keys($items);

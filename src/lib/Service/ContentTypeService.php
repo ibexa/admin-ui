@@ -46,7 +46,7 @@ readonly class ContentTypeService
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[]
+     * @return ContentType[]
      */
     public function getContentTypes(ContentTypeGroup $group): array
     {

@@ -44,8 +44,10 @@ final class DateAndTimePopup extends Component
         $this->parentLocator = VisibleCSSLocator::empty();
     }
 
-    public function setDate(DateTimeInterface $date, string $dateFormat = self::DATETIME_FORMAT): void
-    {
+    public function setDate(
+        DateTimeInterface $date,
+        string $dateFormat = self::DATETIME_FORMAT
+    ): void {
         $this->getSession()->executeScript(
             sprintf(
                 self::ADD_CALLBACK_TO_DATEPICKER_SCRIPT_FORMAT,
@@ -69,8 +71,10 @@ final class DateAndTimePopup extends Component
             ->isVisible();
     }
 
-    public function setTime(int $hour, int $minute): void
-    {
+    public function setTime(
+        int $hour,
+        int $minute
+    ): void {
         $calendarContainerClassesScript = sprintf(
             self::CALENDAR_CONTAINER_CLASSES_SCRIPT,
             $this->parentLocator->getSelector(),

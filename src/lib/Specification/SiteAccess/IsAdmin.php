@@ -23,7 +23,7 @@ final class IsAdmin extends AbstractSpecification
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function isSatisfiedBy(mixed $item): bool
     {

@@ -23,9 +23,9 @@ class ObjectStateLimitationMapperTest extends TestCase
     private const EXAMPLE_OBJECT_STATE_ID_B = 2;
     private const EXAMPLE_OBJECT_STATE_ID_C = 3;
 
-    private ObjectStateService&MockObject $objectStateService;
+    private ObjectStateService & MockObject $objectStateService;
 
-    private LoggerInterface&MockObject $logger;
+    private LoggerInterface & MockObject $logger;
 
     private ObjectStateLimitationMapper $mapper;
 
@@ -89,7 +89,7 @@ class ObjectStateLimitationMapperTest extends TestCase
         self::assertEmpty($actual);
     }
 
-    private function createStateMock(string $value): ObjectState&MockObject
+    private function createStateMock(string $value): ObjectState & MockObject
     {
         $stateGroupMock = $this->createMock(ObjectStateGroup::class);
         $stateGroupMock

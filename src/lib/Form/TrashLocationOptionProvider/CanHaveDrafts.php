@@ -25,8 +25,10 @@ final readonly class CanHaveDrafts implements TrashLocationOptionProvider
         return true;
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $form
             ->add('can_have_drafts', ChoiceType::class, [
                 'label' =>

@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -28,7 +29,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function getAllowedContentTypesIdentifiers(array $contentTypesAllowedViaConfig): ?array
     {
@@ -64,7 +65,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {

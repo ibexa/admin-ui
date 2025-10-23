@@ -26,7 +26,7 @@ final class VersionInfoTransformerTest extends TestCase
     private const int EXAMPLE_CONTENT_ID = 123456;
     private const int EXAMPLE_VERSION_NO = 7;
 
-    private ContentService&MockObject $contentService;
+    private ContentService & MockObject $contentService;
 
     private VersionInfoTransformer $transformer;
 
@@ -41,8 +41,10 @@ final class VersionInfoTransformerTest extends TestCase
      *
      * @phpstan-param TTransformedValue|null $expected
      */
-    public function testTransformWithValidInput(?VersionInfo $value, ?array $expected): void
-    {
+    public function testTransformWithValidInput(
+        ?VersionInfo $value,
+        ?array $expected
+    ): void {
         self::assertEquals(
             $expected,
             $this->transformer->transform($value)
@@ -50,7 +52,7 @@ final class VersionInfoTransformerTest extends TestCase
     }
 
     /**
-     * @phpstan-return list<array{\Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null, TTransformedValue|null, }>
+     * @phpstan-return list<array{VersionInfo|null, TTransformedValue|null, }>
      */
     public function dataProviderForTransformWithValidInput(): array
     {
@@ -109,8 +111,10 @@ final class VersionInfoTransformerTest extends TestCase
      *      version_no: int|string|null
      * }|null $value
      */
-    public function testReverseTransformWithValidInput(?array $value, ?VersionInfo $expected): void
-    {
+    public function testReverseTransformWithValidInput(
+        ?array $value,
+        ?VersionInfo $expected
+    ): void {
         if ($expected !== null && $value !== null) {
             $this->contentService
                 ->expects(self::once())
@@ -250,8 +254,10 @@ final class VersionInfoTransformerTest extends TestCase
         $this->transformer->reverseTransform($value);
     }
 
-    private function createVersionInfoMock(ContentInfo $contentInfo, int $versionNo): VersionInfo
-    {
+    private function createVersionInfoMock(
+        ContentInfo $contentInfo,
+        int $versionNo
+    ): VersionInfo {
         $versionInfo = $this->createMock(VersionInfo::class);
         $versionInfo->method('getVersionNo')->willReturn($versionNo);
         $versionInfo->method('getContentInfo')->willReturn($contentInfo);

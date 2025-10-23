@@ -34,9 +34,9 @@ final readonly class SectionsTransformer implements DataTransformerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
+     * @return Section[]|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): ?array
     {

@@ -21,8 +21,10 @@ class ContentEditTypeExtension extends AbstractTypeExtension
     /**
      * @param array<string, mixed> $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add('preview', SubmitType::class, [
             'label' => /** @Desc("Preview") */ 'preview',
             'attr' => [

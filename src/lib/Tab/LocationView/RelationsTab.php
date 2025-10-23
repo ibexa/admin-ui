@@ -16,7 +16,11 @@ use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -56,8 +60,8 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -75,7 +79,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
         $reverseRelationPaginationParams = $contextParameters['reverse_relation_pagination_params'];
         $reverseRelationPagination = new Pagerfanta(
@@ -102,7 +106,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         $relations = $relationPagination->getCurrentPageResults();
         foreach ($relations as $relation) {
             if ($relation->isAccessible()) {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
+                /** @var Relation $relation */
                 $contentTypeIds[] = $relation->getDestinationContentInfo()->contentTypeId;
             }
         }
@@ -114,7 +118,7 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
             foreach ($reverseRelations as $relation) {
                 if ($relation->isAccessible()) {
-                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
+                    /** @var Relation $relation */
                     $contentTypeIds[] = $relation->getSourceContentInfo()->contentTypeId;
                 }
             }

@@ -34,10 +34,12 @@ final class UniversalDiscoveryRequestQueryValueResolver implements ValueResolver
     }
 
     /**
-     * @return iterable<\Ibexa\AdminUi\REST\Value\UniversalDiscovery\RequestQuery>
+     * @return iterable<RequestQuery>
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
+    public function resolve(
+        Request $request,
+        ArgumentMetadata $argument
+    ): iterable {
         if (!$this->supports($argument)) {
             return [];
         }

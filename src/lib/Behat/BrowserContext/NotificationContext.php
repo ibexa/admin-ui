@@ -23,8 +23,11 @@ final readonly class NotificationContext implements Context
     /**
      * @Then notification that :itemType :itemName is :action appears
      */
-    public function notificationAppears(string $itemType, string $itemName, string $action): void
-    {
+    public function notificationAppears(
+        string $itemType,
+        string $itemName,
+        string $action
+    ): void {
         $expectedMessage = sprintf('%s \'%s\' %s.', $itemType, $itemName, $action);
 
         $this->notification->verifyIsLoaded();

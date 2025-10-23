@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Pagerfanta\Adapter\AdapterInterface;
 
@@ -30,10 +31,12 @@ final readonly class URLUsagesAdapter implements AdapterInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]
+     * @return ContentInfo[]
      */
-    public function getSlice($offset, $length): array
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ): array {
         return $this->urlService->findUsages($this->url, $offset, $length)->items;
     }
 }

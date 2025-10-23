@@ -117,8 +117,11 @@ final readonly class ContentTypeContext implements Context
     /**
      * @When I set :field to :value for :fieldName field
      */
-    public function iSetFieldDefinitionData(string $label, string $value, string $fieldName): void
-    {
+    public function iSetFieldDefinitionData(
+        string $label,
+        string $value,
+        string $fieldName
+    ): void {
         $this->contentTypeUpdatePage->fillFieldDefinitionFieldWithValue($fieldName, $label, $value);
     }
 

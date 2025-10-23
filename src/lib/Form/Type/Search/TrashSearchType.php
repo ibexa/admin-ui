@@ -15,6 +15,7 @@ use Ibexa\AdminUi\Form\Type\Date\DateIntervalType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\User\UserType;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
@@ -23,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -38,10 +40,12 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('page', HiddenType::class)
             ->add('content_name', TextType::class, [
@@ -82,7 +86,7 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws AccessException
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

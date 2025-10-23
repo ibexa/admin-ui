@@ -11,6 +11,10 @@ namespace Ibexa\AdminUi\Service\Role;
 use Ibexa\AdminUi\Form\Data\PolicyData;
 use Ibexa\AdminUi\Form\Data\RoleAssignmentData;
 use Ibexa\AdminUi\Form\Data\RoleData;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentId;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
@@ -19,6 +23,8 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
 use Ibexa\Core\Repository;
 use Ibexa\Core\Repository\SearchService;
 use InvalidArgumentException;
@@ -38,7 +44,7 @@ readonly class RoleService
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role[]
+     * @return Role[]
      */
     public function getRoles(): iterable
     {
@@ -62,8 +68,10 @@ readonly class RoleService
         return $role;
     }
 
-    public function updateRole(Role $role, RoleData $data): Role
-    {
+    public function updateRole(
+        Role $role,
+        RoleData $data
+    ): Role {
         $roleUpdateStruct = $this->roleService->newRoleUpdateStruct();
         $roleUpdateStruct->identifier = $data->getIdentifier() ?? $role->identifier;
 
@@ -79,8 +87,10 @@ readonly class RoleService
         $this->roleService->deleteRole($role);
     }
 
-    public function getPolicy(Role $role, int $policyId): ?Policy
-    {
+    public function getPolicy(
+        Role $role,
+        int $policyId
+    ): ?Policy {
         foreach ($role->getPolicies() as $policy) {
             if ($policy->id === $policyId) {
                 return $policy;
@@ -90,8 +100,10 @@ readonly class RoleService
         return null;
     }
 
-    public function createPolicy(Role $role, PolicyData $data): Role
-    {
+    public function createPolicy(
+        Role $role,
+        PolicyData $data
+    ): Role {
         $module = $data->getModule();
         $function = $data->getFunction();
         if ($module === null || $function === null) {
@@ -110,8 +122,10 @@ readonly class RoleService
         return $draft;
     }
 
-    public function deletePolicy(Role $role, Policy $policy): void
-    {
+    public function deletePolicy(
+        Role $role,
+        Policy $policy
+    ): void {
         $draft = $this->roleService->createRoleDraft($role);
         foreach ($draft->getPolicies() as $policyDraft) {
             if ($policyDraft->originalId == $policy->id) {
@@ -125,8 +139,11 @@ readonly class RoleService
         throw new RuntimeException("Policy {$policy->id} not found.");
     }
 
-    public function updatePolicy(Role $role, Policy $policy, PolicyData $data): Role
-    {
+    public function updatePolicy(
+        Role $role,
+        Policy $policy,
+        PolicyData $data
+    ): Role {
         $policyUpdateStruct = $this->roleService->newPolicyUpdateStruct();
         foreach ($data->getLimitations() as $limitation) {
             if (!empty($limitation->limitationValues)) {
@@ -148,7 +165,7 @@ readonly class RoleService
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[]
+     * @return RoleAssignment[]
      */
     public function getRoleAssignments(Role $role): iterable
     {
@@ -165,8 +182,10 @@ readonly class RoleService
         $this->roleService->removeRoleAssignment($roleAssignment);
     }
 
-    public function assignRole(Role $role, RoleAssignmentData $data): void
-    {
+    public function assignRole(
+        Role $role,
+        RoleAssignmentData $data
+    ): void {
         $users = $data->getUsers();
         $groups = $data->getGroups();
 
@@ -210,14 +229,14 @@ readonly class RoleService
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[]|null $users
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]|null $groups
+     * @param User[]|null $users
+     * @param UserGroup[]|null $groups
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\LimitationValidationException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws LimitationValidationException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function doAssignLimitation(
         Role $role,

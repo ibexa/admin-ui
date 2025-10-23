@@ -47,7 +47,7 @@ final class MediaValueTransformer extends AbstractBinaryBaseTransformer implemen
      */
     public function reverseTransform(mixed $value): Value
     {
-        /** @var \Ibexa\Core\FieldType\Media\Value $valueObject */
+        /** @var Value $valueObject */
         $valueObject = $this->getReverseTransformedValue($value);
 
         if ($this->fieldType->isEmptyValue($valueObject)) {

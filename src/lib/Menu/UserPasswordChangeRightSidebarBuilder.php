@@ -31,7 +31,7 @@ final class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implem
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -59,7 +59,7 @@ final class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implem
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

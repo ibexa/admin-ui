@@ -32,8 +32,10 @@ final readonly class HasAssetRelation implements TrashLocationOptionProvider
             ->isSatisfiedBy($location->getContent());
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $form->add('trash_assets_non_unique', ChoiceType::class, [
             'label' =>
                 /** @Desc("Asset Fields(s)") */

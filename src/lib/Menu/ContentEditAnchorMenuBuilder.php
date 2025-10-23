@@ -44,10 +44,10 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
-        /** @var \Ibexa\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $options['content_type'];
 
         /** @var array<string, array<string>> $groupedFields */
@@ -93,7 +93,7 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
     /**
      * @param array<string, array<string>> $groupedFields
      *
-     * @return array<\Knp\Menu\ItemInterface>
+     * @return array<ItemInterface>
      */
     private function getContentFieldGroupItems(array $groupedFields): array
     {
@@ -115,7 +115,7 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
     }
 
     /**
-     * @return array<\Knp\Menu\ItemInterface>
+     * @return array<ItemInterface>
      */
     private function getMetaFieldItems(ContentType $contentType): array
     {
@@ -186,7 +186,7 @@ final class ContentEditAnchorMenuBuilder extends AbstractBuilder implements Tran
     }
 
     /**
-     * @return array<\JMS\TranslationBundle\Model\Message>
+     * @return array<Message>
      */
     public static function getTranslationMessages(): array
     {

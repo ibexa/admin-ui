@@ -17,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
@@ -136,7 +137,7 @@ class UniversalDiscoveryProvider implements Provider
 
         return array_map(
             function (SearchHit $searchHit): array {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+                /** @var Location $location */
                 $location = $searchHit->valueObject;
 
                 return [
@@ -194,7 +195,7 @@ class UniversalDiscoveryProvider implements Provider
 
         return array_map(
             static function (SearchHit $searchHit): Version {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+                /** @var Content $content */
                 $content = $searchHit->valueObject;
 
                 return new Version($content, $content->getContentType(), []);
@@ -221,7 +222,7 @@ class UniversalDiscoveryProvider implements Provider
         return [
             'locations' => array_map(
                 static function (SearchHit $searchHit): RestLocation {
-                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+                    /** @var Location $location */
                     $location = $searchHit->valueObject;
 
                     return new RestLocation(
@@ -303,8 +304,10 @@ class UniversalDiscoveryProvider implements Provider
         ];
     }
 
-    public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause
-    {
+    public function getSortClause(
+        string $sortClauseName,
+        string $sortOrder
+    ): Query\SortClause {
         $sortClauseClass = $this->sortClauseClassMap[$sortClauseName] ?? $this->sortClauseClassMap[self::SORT_CLAUSE_DATE_PUBLISHED];
         $sortOrder = !in_array($sortOrder, $this->availableSortOrder)
             ? Query::SORT_ASC
@@ -318,8 +321,10 @@ class UniversalDiscoveryProvider implements Provider
      *
      * @return int[]
      */
-    private function getRelativeLocationPath(int $locationId, array $locationPath): array
-    {
+    private function getRelativeLocationPath(
+        int $locationId,
+        array $locationPath
+    ): array {
         $locationIds = array_values($locationPath);
 
         $index = array_search($locationId, $locationIds);

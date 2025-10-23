@@ -19,6 +19,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Core\Base\Exceptions\BadStateException;
 
 final class SectionPage extends Page
 {
@@ -29,7 +30,7 @@ final class SectionPage extends Page
     private TableInterface $contentItemsTable;
 
     /**
-     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
+     * @throws BadStateException
      */
     public function __construct(
         readonly Session $session,

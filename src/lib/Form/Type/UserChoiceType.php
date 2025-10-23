@@ -44,7 +44,7 @@ class UserChoiceType extends AbstractType
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
+     * @return User[]
      */
     protected function getUsers(): array
     {

@@ -24,10 +24,12 @@ final class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param Constraint $constraint The constraint for the validation
      */
-    public function validate(mixed $location, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $location,
+        Constraint $constraint
+    ): void {
         if (null === $location) {
             $this->context->addViolation($constraint->message);
 

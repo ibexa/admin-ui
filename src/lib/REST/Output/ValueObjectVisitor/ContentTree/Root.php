@@ -20,8 +20,11 @@ final class Root extends ValueObjectVisitor
      *
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\Root $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('ContentTreeRoot');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ContentTreeRoot'));
         $visitor->setStatus(Response::HTTP_OK);

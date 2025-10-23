@@ -33,8 +33,10 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
     ) {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $subscriber = new ModifyFieldDefinitionFieldsSubscriber(
             $this->modifiedOptions,
             $this->fieldIdentifiers,

@@ -44,8 +44,10 @@ final class ProfileEditController extends Controller
     ) {
     }
 
-    public function editAction(Request $request, ?string $languageCode): UserUpdateView|Response
-    {
+    public function editAction(
+        Request $request,
+        ?string $languageCode
+    ): UserUpdateView | Response {
         $user = $this->userService->loadUser(
             $this->permissionResolver->getCurrentUserReference()->getUserId()
         );

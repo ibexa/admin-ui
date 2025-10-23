@@ -24,7 +24,7 @@ final class IsWithinCopySubtreeLimit extends AbstractSpecification
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
+     * @param Location $item
      */
     public function isSatisfiedBy(mixed $item): bool
     {

@@ -13,7 +13,7 @@ use Ibexa\Rest\Value as RestValue;
 final class Root extends RestValue
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node[] $elements
+     * @param Node[] $elements
      */
     public function __construct(public array $elements = [])
     {

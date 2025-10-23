@@ -24,16 +24,21 @@ final class PasswordConstraintCheckboxType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(new CallbackTransformer('boolval', 'boolval'));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         $view->vars['label'] = 'field_definition.ibexa_user.' . $this->toSnakeCase($view->vars['name']);
     }
 

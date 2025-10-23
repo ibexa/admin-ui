@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
@@ -38,7 +39,7 @@ final readonly class ContentEditNotificationFormProcessor implements EventSubscr
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function addPublishMessage(FormActionEvent $event): void
     {
@@ -60,7 +61,7 @@ final readonly class ContentEditNotificationFormProcessor implements EventSubscr
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function addSaveDraftMessage(FormActionEvent $event): void
     {
@@ -82,7 +83,7 @@ final readonly class ContentEditNotificationFormProcessor implements EventSubscr
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function isAdminSiteAccess(Request $request): bool
     {

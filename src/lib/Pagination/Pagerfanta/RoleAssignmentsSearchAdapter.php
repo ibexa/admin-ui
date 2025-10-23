@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Pagerfanta\Adapter\AdapterInterface;
@@ -25,9 +28,9 @@ final readonly class RoleAssignmentsSearchAdapter implements AdapterInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
      */
     public function getNbResults(): int
     {
@@ -36,12 +39,14 @@ final readonly class RoleAssignmentsSearchAdapter implements AdapterInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
      */
-    public function getSlice($offset, $length): iterable
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ): iterable {
         return $this->roleService->loadRoleAssignments($this->role, $offset, $length);
     }
 }

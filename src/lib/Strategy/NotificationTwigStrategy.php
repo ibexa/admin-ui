@@ -30,7 +30,7 @@ final class NotificationTwigStrategy
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\NoValidResultException
+     * @throws NoValidResultException
      */
     public function decide(mixed $contentId): string
     {

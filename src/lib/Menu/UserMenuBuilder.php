@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Specification\UserProfile\IsProfileAvailable;
 use Ibexa\AdminUi\UserProfile\UserProfileConfigurationInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
+use Ibexa\Core\MVC\Symfony\Security\User;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -56,7 +57,7 @@ final class UserMenuBuilder extends AbstractBuilder implements TranslationContai
 
         $token = $this->tokenStorage->getToken();
         if (null !== $token && is_object($token->getUser())) {
-            /** @var \Ibexa\Core\MVC\Symfony\Security\User $user */
+            /** @var User $user */
             $user = $token->getUser();
 
             if ((new IsProfileAvailable($this->userProfileConfiguration))->isSatisfiedBy($user->getAPIUser())) {

@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see ComponentPass} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Bundle\TwigComponents\DependencyInjection\Compiler\ComponentPass} instead
  */
 final readonly class ComponentPass implements CompilerPassInterface
@@ -26,7 +26,7 @@ final readonly class ComponentPass implements CompilerPassInterface
 
     /**
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException When a service is abstract
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
+     * @throws InvalidArgumentException When a tag is missing 'group' attribute
      */
     public function process(ContainerBuilder $container): void
     {

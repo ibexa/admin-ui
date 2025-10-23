@@ -35,8 +35,10 @@ final readonly class RolesContext implements Context
     /**
      * @When I delete assignment from :roleName role
      */
-    public function iDeleteAssignmentsFromRole(string $roleName, TableNode $items): void
-    {
+    public function iDeleteAssignmentsFromRole(
+        string $roleName,
+        TableNode $items
+    ): void {
         $itemNames = array_column($items->getHash(), 'item');
 
         $this->rolePage->setExpectedRoleName($roleName);
@@ -46,8 +48,10 @@ final readonly class RolesContext implements Context
     /**
      * @When I delete policy from :roleName role
      */
-    public function iDeleteAPolicyFromRole(string $roleName, TableNode $items): void
-    {
+    public function iDeleteAPolicyFromRole(
+        string $roleName,
+        TableNode $items
+    ): void {
         $itemNames = array_column($items->getHash(), 'item');
 
         $this->rolePage->setExpectedRoleName($roleName);
@@ -57,8 +61,11 @@ final readonly class RolesContext implements Context
     /**
      * @Then there is a policy :moduleAndFunction with :limitation limitation on the :roleName policies list
      */
-    public function thereIsAPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
-    {
+    public function thereIsAPolicy(
+        string $moduleAndFunction,
+        string $limitation,
+        string $roleName
+    ): void {
         $this->rolePage->setExpectedRoleName($roleName);
         Assert::assertTrue(
             $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
@@ -68,8 +75,11 @@ final readonly class RolesContext implements Context
     /**
      * @Then there is no policy :moduleAndFunction with :limitation limitation on the :roleName policies list
      */
-    public function thereIsNoPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
-    {
+    public function thereIsNoPolicy(
+        string $moduleAndFunction,
+        string $limitation,
+        string $roleName
+    ): void {
         $this->rolePage->setExpectedRoleName($roleName);
         Assert::assertFalse(
             $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
@@ -79,8 +89,10 @@ final readonly class RolesContext implements Context
     /**
      * @Then there are policies on the :roleName policies list
      */
-    public function thereArePolicies(string $roleName, TableNode $settings): void
-    {
+    public function thereArePolicies(
+        string $roleName,
+        TableNode $settings
+    ): void {
         $policies = $settings->getHash();
         foreach ($policies as $policy) {
             $this->thereIsAPolicy($policy['policy'], $policy['limitation'], $roleName);
@@ -114,8 +126,10 @@ final readonly class RolesContext implements Context
     /**
      * @When I assign :itemType to role
      */
-    public function iAssignToRole(string $itemType, TableNode $items): void
-    {
+    public function iAssignToRole(
+        string $itemType,
+        TableNode $items
+    ): void {
         $itemPaths = array_column($items->getHash(), 'path');
         $this->roleUpdatePage->assign($itemPaths, $itemType);
     }
@@ -123,8 +137,10 @@ final readonly class RolesContext implements Context
     /**
      * @When I select limitation for :selectName
      */
-    public function iSelectOptionsFrom(string $selectName, TableNode $options): void
-    {
+    public function iSelectOptionsFrom(
+        string $selectName,
+        TableNode $options
+    ): void {
         $values = array_column($options->getHash(), 'option');
         $this->roleUpdatePage->selectLimitationValues($selectName, $values);
     }
@@ -223,8 +239,10 @@ final readonly class RolesContext implements Context
     /**
      * @Then I start editing the policy :policyName :functionName
      */
-    public function editPolicy(string $policyName, string $functionName): void
-    {
+    public function editPolicy(
+        string $policyName,
+        string $functionName
+    ): void {
         $this->rolePage->editPolicy($policyName, $functionName);
     }
 

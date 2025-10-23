@@ -125,10 +125,12 @@ final readonly class ContentProxyCreateDraftListener implements EventSubscriberI
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
+     * @return Field[]
      */
-    private function getTranslatedContentFields(Content $content, string $languageCode): array
-    {
+    private function getTranslatedContentFields(
+        Content $content,
+        string $languageCode
+    ): array {
         $contentType = $content->getContentType();
 
         $translatableFields = array_filter($content->getFields(), static function (Field $field) use ($contentType): bool {

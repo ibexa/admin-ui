@@ -8,22 +8,27 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
+use Ibexa\Contracts\Core\Repository\Values\User\UserGroup;
+
 final class RoleAssignmentData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]|null */
+    /** @var UserGroup[]|null */
     private ?array $groups = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User[]|null */
+    /** @var User[]|null */
     private ?array $users = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null */
+    /** @var Section[]|null */
     private ?array $sections = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null */
+    /** @var Location[]|null */
     private ?array $locations = null;
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]|null
+     * @return UserGroup[]|null
      */
     public function getGroups(): ?array
     {
@@ -31,7 +36,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\UserGroup[]|null $groups
+     * @param UserGroup[]|null $groups
      */
     public function setGroups(?array $groups): void
     {
@@ -39,7 +44,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]|null
+     * @return User[]|null
      */
     public function getUsers(): ?array
     {
@@ -47,7 +52,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User[]|null $users
+     * @param User[]|null $users
      */
     public function setUsers(?array $users): void
     {
@@ -55,7 +60,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null
+     * @return Section[]|null
      */
     public function getSections(): ?array
     {
@@ -63,7 +68,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section[]|null $sections
+     * @param Section[]|null $sections
      */
     public function setSections(?array $sections): void
     {
@@ -71,7 +76,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
+     * @return Location[]|null
      */
     public function getLocations(): ?array
     {
@@ -79,7 +84,7 @@ final class RoleAssignmentData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null $locations
+     * @param Location[]|null $locations
      */
     public function setLocations(?array $locations): void
     {

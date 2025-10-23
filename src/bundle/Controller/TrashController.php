@@ -23,6 +23,7 @@ use Ibexa\AdminUi\UI\Service\PathService as UiPathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
@@ -31,11 +32,15 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPerPageException;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Util\StringUtil;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final class TrashController extends Controller
 {
@@ -62,11 +67,11 @@ final class TrashController extends Controller
 
     /**
      * @throws \LogicException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws NotFoundException
+     * @throws OutOfRangeCurrentPageException
+     * @throws LessThan1CurrentPageException
+     * @throws LessThan1MaxPerPageException
+     * @throws InvalidOptionsException
      */
     public function listAction(Request $request): Response
     {
@@ -93,7 +98,7 @@ final class TrashController extends Controller
         );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem $item */
+        /** @var TrashItem $item */
         foreach ($pagerfanta->getCurrentPageResults() as $item) {
             $contentType = $this->contentTypeService->loadContentType(
                 $item->getContentInfo()->contentTypeId,
@@ -223,7 +228,7 @@ final class TrashController extends Controller
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \LogicException
      * @throws \InvalidArgumentException
@@ -273,7 +278,7 @@ final class TrashController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     private function getCreatorFromTrashItem(TrashItem $trashItem): ?User
     {

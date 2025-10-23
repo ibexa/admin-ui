@@ -20,7 +20,7 @@ final class SectionValueResolverTest extends TestCase
 {
     private SectionValueResolver $resolver;
 
-    private MockObject&SectionService $sectionService;
+    private MockObject & SectionService $sectionService;
 
     protected function setUp(): void
     {
@@ -57,8 +57,10 @@ final class SectionValueResolverTest extends TestCase
      *
      * @param array<string, mixed> $attributes
      */
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')
             ->willReturn(Section::class);

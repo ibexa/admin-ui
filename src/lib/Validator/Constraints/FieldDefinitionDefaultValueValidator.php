@@ -19,8 +19,10 @@ use Symfony\Component\Validator\Constraint;
  */
 final class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
 {
-    public function validate(mixed $value, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $value,
+        Constraint $constraint
+    ): void {
         if (!$value instanceof FieldDefinitionData) {
             return;
         }
@@ -61,8 +63,10 @@ final class FieldDefinitionDefaultValueValidator extends FieldTypeValidator
         return $value->getFieldTypeIdentifier();
     }
 
-    protected function generatePropertyPath($errorIndex, $errorTarget): string
-    {
+    protected function generatePropertyPath(
+        $errorIndex,
+        $errorTarget
+    ): string {
         return 'defaultValue';
     }
 }

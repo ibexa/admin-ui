@@ -18,6 +18,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
@@ -57,7 +58,7 @@ final class RoleAssignmentController extends Controller
 
         // If user has no permission to content/read than he should see empty table.
         try {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $assignments */
+            /** @var RoleAssignment[] $assignments */
             $assignments = $pagerfanta->getCurrentPageResults();
         } catch (UnauthorizedException $e) {
             $assignments = [];
@@ -76,8 +77,10 @@ final class RoleAssignmentController extends Controller
         ]);
     }
 
-    public function createAction(Request $request, Role $role): Response
-    {
+    public function createAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
         $form = $this->formFactory->createRoleAssignment(new RoleAssignmentCreateData());
         $form->handleRequest($request);
@@ -117,8 +120,11 @@ final class RoleAssignmentController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, Role $role, RoleAssignment $roleAssignment): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Role $role,
+        RoleAssignment $roleAssignment
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
         $form = $this->formFactory->deleteRoleAssignment(
             new RoleAssignmentDeleteData($roleAssignment)
@@ -152,8 +158,10 @@ final class RoleAssignmentController extends Controller
         ]);
     }
 
-    public function bulkDeleteAction(Request $request, Role $role): Response
-    {
+    public function bulkDeleteAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
         $form = $this->formFactory->deleteRoleAssignments(
             new RoleAssignmentsDeleteData()
@@ -191,7 +199,7 @@ final class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
+     * @param RoleAssignment[] $roleAssignments
      *
      * @return array<int, mixed>
      */
@@ -203,7 +211,7 @@ final class RoleAssignmentController extends Controller
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation[]
+     * @return RoleLimitation[]
      */
     private function createLimitations(RoleAssignmentCreateData $data): array
     {

@@ -22,11 +22,15 @@ final class LimitationValueRenderingExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
-        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []): string {
+        $limitationValueCallable = function (
+            Environment $twig,
+            Limitation $limitation,
+            array $params = []
+        ): string {
             return $this->limitationRenderer->renderLimitationValue($limitation, $params);
         };
 

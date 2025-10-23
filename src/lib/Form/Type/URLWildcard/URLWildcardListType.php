@@ -27,8 +27,10 @@ final class URLWildcardListType extends AbstractType implements TranslationConta
     private const string TYPE_FORWARD = 'url_wildcard.type.forward';
     private const string PLACEHOLDER = 'url_wildcard.type.all';
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add('type', ChoiceType::class, [
             'choices' => [
                 self::TYPE_DIRECT => true,
@@ -54,7 +56,7 @@ final class URLWildcardListType extends AbstractType implements TranslationConta
     }
 
     /**
-     * @return array<\JMS\TranslationBundle\Model\Message>
+     * @return array<Message>
      */
     public static function getTranslationMessages(): array
     {

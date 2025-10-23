@@ -8,9 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -35,10 +38,10 @@ final class PoliciesDataset
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      */
     public function load(Location $location): self
     {

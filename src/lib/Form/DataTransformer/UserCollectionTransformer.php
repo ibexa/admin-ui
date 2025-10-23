@@ -23,7 +23,7 @@ final readonly class UserCollectionTransformer implements DataTransformerInterfa
     }
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?string
     {
@@ -37,7 +37,7 @@ final readonly class UserCollectionTransformer implements DataTransformerInterfa
     /**
      * @return array<mixed>
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
+     * @throws TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
     public function reverseTransform($value): array

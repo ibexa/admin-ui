@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -16,7 +17,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class ContentDraftListDataset
 {
-    /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface[] */
+    /** @var ContentDraftInterface[] */
     private array $data = [];
 
     public function __construct(
@@ -26,8 +27,11 @@ class ContentDraftListDataset
     ) {
     }
 
-    public function load(?User $user = null, int $offset = 0, int $limit = 10): self
-    {
+    public function load(
+        ?User $user = null,
+        int $offset = 0,
+        int $limit = 10
+    ): self {
         $contentDraftListItems = $this->contentService->loadContentDraftList($user, $offset, $limit)->items;
 
         $contentTypes = $contentTypeIds = [];
@@ -59,7 +63,7 @@ class ContentDraftListDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface[]
+     * @return ContentDraftInterface[]
      */
     public function getContentDrafts(): array
     {

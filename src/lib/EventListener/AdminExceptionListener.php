@@ -14,6 +14,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
 use JMS\TranslationBundle\Annotation\Ignore;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LogLevel;
 use SplFileInfo;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class AdminExceptionListener implements LoggerAwareInterface
 
     /**
      * @param array<string, string[]> $siteAccessGroups
-     * @param \Psr\Log\LogLevel::* $logLevel
+     * @param LogLevel::* $logLevel
      */
     public function __construct(
         protected Environment $twig,
@@ -103,7 +104,7 @@ class AdminExceptionListener implements LoggerAwareInterface
     {
         $request = $event->getRequest();
 
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var SiteAccess $siteAccess */
         $siteAccess = $request->get('siteaccess', new SiteAccess('default'));
 
         return in_array(

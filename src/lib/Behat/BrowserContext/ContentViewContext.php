@@ -28,8 +28,10 @@ final readonly class ContentViewContext implements Context
      * @Given I start creating a new Content :contentType
      * @Given I start creating a new Content :contentType in :language language
      */
-    public function startCreatingContent(string $contentType, ?string $language = null): void
-    {
+    public function startCreatingContent(
+        string $contentType,
+        ?string $language = null
+    ): void {
         $this->contentViewPage->startCreatingContent($contentType, $language);
     }
 
@@ -70,8 +72,10 @@ final readonly class ContentViewContext implements Context
      * @Given I add new translation :language without base translation
      * @Given I add new translation :language basing on :base translation
      */
-    public function iAddNewTranslation(string $language, string $base = 'none'): void
-    {
+    public function iAddNewTranslation(
+        string $language,
+        string $base = 'none'
+    ): void {
         $this->contentViewPage->addTranslation($language, $base);
     }
 
@@ -104,8 +108,10 @@ final readonly class ContentViewContext implements Context
     /**
      * @Then there's a :itemName :itemType on Subitems list
      */
-    public function verifyThereIsItemInSubItemList(string $itemName, string $itemType): void
-    {
+    public function verifyThereIsItemInSubItemList(
+        string $itemName,
+        string $itemType
+    ): void {
         $this->contentViewPage->verifyIsLoaded();
         Assert::assertTrue($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
     }
@@ -113,8 +119,10 @@ final readonly class ContentViewContext implements Context
     /**
      * @Then there's no :itemName :itemType on Subitems list
      */
-    public function verifyThereIsNoItemInSubItemListInRoot(string $itemName, string $itemType): void
-    {
+    public function verifyThereIsNoItemInSubItemListInRoot(
+        string $itemName,
+        string $itemType
+    ): void {
         $this->contentViewPage->verifyIsLoaded();
         Assert::assertFalse($this->contentViewPage->isChildElementPresent(['Name' => $itemName, 'Content type' => $itemType]));
     }
@@ -170,8 +178,11 @@ final readonly class ContentViewContext implements Context
     /**
      * @When I create a new Url Alias called :path in :languageName language with redirect value set to :redirect
      */
-    public function iCreateNewUrlAlias(string $path, string $languageName, string $redirect_string): void
-    {
+    public function iCreateNewUrlAlias(
+        string $path,
+        string $languageName,
+        string $redirect_string
+    ): void {
         $redirect = filter_var($redirect_string, FILTER_VALIDATE_BOOLEAN);
         $this->contentViewPage->createNewUrlAlias($path, $languageName, $redirect);
     }
@@ -179,8 +190,10 @@ final readonly class ContentViewContext implements Context
     /**
      * @Then there should be a :path Url Alias on the list with :type type
      */
-    public function verifyUrlAliasExists(string $path, string $type): void
-    {
+    public function verifyUrlAliasExists(
+        string $path,
+        string $type
+    ): void {
         Assert::assertTrue(
             $this->contentViewPage->isUrlAliasOnTheList($path, $type),
             sprintf('Url alias "%s" with type "%s" not found', $path, $type)

@@ -14,14 +14,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 final class AddContentTypeGroupToUIConfigEvent extends Event
 {
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup> $contentTypeGroups
+     * @param array<ContentTypeGroup> $contentTypeGroups
      */
     public function __construct(private array $contentTypeGroups)
     {
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup>
+     * @return array<ContentTypeGroup>
      */
     public function getContentTypeGroups(): array
     {

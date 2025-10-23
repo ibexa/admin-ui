@@ -34,7 +34,7 @@ final class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Tra
     {
         $saveAndCloseId = $options['save_and_close_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(
@@ -61,7 +61,7 @@ final class RoleCreateRightSidebarBuilder extends AbstractBuilder implements Tra
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

@@ -18,8 +18,10 @@ abstract class Controller extends AbstractController implements RestrictedContro
 {
     use AuthenticatedRememberedCheckTrait;
 
-    public function redirectToLocation(Location $location, string $uriFragment = ''): RedirectResponse
-    {
+    public function redirectToLocation(
+        Location $location,
+        string $uriFragment = ''
+    ): RedirectResponse {
         return $this->redirectToRoute('ibexa.content.view', [
             'contentId' => $location->getContentId(),
             'locationId' => $location->getId(),

@@ -14,7 +14,7 @@ use InvalidArgumentException;
 class TabGroup
 {
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
+     * @param TabInterface[] $tabs
      */
     public function __construct(
         protected string $identifier,
@@ -33,7 +33,7 @@ class TabGroup
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
+     * @return TabInterface[]
      */
     public function getTabs(): array
     {
@@ -41,7 +41,7 @@ class TabGroup
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
+     * @param TabInterface[] $tabs
      */
     public function setTabs(array $tabs): void
     {

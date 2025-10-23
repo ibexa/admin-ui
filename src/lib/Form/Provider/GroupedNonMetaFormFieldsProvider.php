@@ -21,7 +21,7 @@ final readonly class GroupedNonMetaFormFieldsProvider implements GroupedContentF
     }
 
     /**
-     * @param array<string, \Symfony\Component\Form\FormInterface<mixed>> $fieldsDataForm
+     * @param array<string, FormInterface<mixed>> $fieldsDataForm
      *
      * @return array<string, array<int, string>>
      */

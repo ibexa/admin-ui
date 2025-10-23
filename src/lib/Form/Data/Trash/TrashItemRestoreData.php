@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data\Trash;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,11 +18,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 final class TrashItemRestoreData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
+     * @param TrashItem[] $trashItems
      */
     public function __construct(
         /**
-         * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
+         * @var TrashItem[]
          */
         #[Assert\NotBlank]
         private array $trashItems = [],
@@ -30,7 +31,7 @@ final class TrashItemRestoreData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
+     * @return TrashItem[]
      */
     public function getTrashItems(): array
     {
@@ -38,7 +39,7 @@ final class TrashItemRestoreData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
+     * @param TrashItem[] $trashItems
      */
     public function setTrashItems(array $trashItems): void
     {

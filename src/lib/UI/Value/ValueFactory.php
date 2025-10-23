@@ -15,6 +15,10 @@ use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
@@ -58,9 +62,9 @@ class ValueFactory
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
     public function createVersionInfo(VersionInfo $versionInfo): UIValue\Content\VersionInfo
     {
@@ -82,11 +86,13 @@ class ValueFactory
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
-    public function createLanguage(Language $language, VersionInfo $versionInfo): UIValue\Content\Language
-    {
+    public function createLanguage(
+        Language $language,
+        VersionInfo $versionInfo
+    ): UIValue\Content\Language {
         $target = (new VersionBuilder())->translateToAnyLanguageOf([
             $language->getLanguageCode(),
         ])->build();
@@ -99,12 +105,14 @@ class ValueFactory
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws NotFoundException
+     * @throws ForbiddenException
+     * @throws BadStateException
      */
-    public function createRelationItem(RelationListItem $relationListItem, Content $content): UIValue\Content\Relation
-    {
+    public function createRelationItem(
+        RelationListItem $relationListItem,
+        Content $content
+    ): UIValue\Content\Relation {
         $contentType = $content->getContentType();
         $relation = $relationListItem->getRelation();
         if ($relation === null) {
@@ -130,8 +138,8 @@ class ValueFactory
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createLocation(Location $location): UIValue\Content\Location
     {
@@ -163,8 +171,8 @@ class ValueFactory
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createObjectState(
         ContentInfo $contentInfo,
@@ -192,15 +200,17 @@ class ValueFactory
         return new User\Role($roleAssignment);
     }
 
-    public function createPolicy(Policy $policy, RoleAssignment $roleAssignment): User\Policy
-    {
+    public function createPolicy(
+        Policy $policy,
+        RoleAssignment $roleAssignment
+    ): User\Policy {
         return new User\Policy($policy, ['roleAssignment' => $roleAssignment]);
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
     public function createBookmark(Location $location): UIValue\Location\Bookmark
     {
@@ -222,8 +232,8 @@ class ValueFactory
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createLanguageFromContentType(
         Language $language,
@@ -264,8 +274,10 @@ class ValueFactory
         return new UIValue\Content\UnauthorizedContentDraft($contentDraftListItem);
     }
 
-    private function getRelationFieldDefinitionName(?Relation $relation, ContentType $contentType): string
-    {
+    private function getRelationFieldDefinitionName(
+        ?Relation $relation,
+        ContentType $contentType
+    ): string {
         if ($relation !== null && $relation->sourceFieldDefinitionIdentifier !== null) {
             $fieldDefinition = $contentType->getFieldDefinition(
                 $relation->sourceFieldDefinitionIdentifier

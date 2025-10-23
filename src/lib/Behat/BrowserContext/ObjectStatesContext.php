@@ -124,8 +124,10 @@ final readonly class ObjectStatesContext implements Context
     /**
      * @Then there's no :objectStateName Object State on Object States list for :objectStateGroupName
      */
-    public function thereIsNoObjectStateOnTheList(string $objectStateName, string $objectStateGroupName): void
-    {
+    public function thereIsNoObjectStateOnTheList(
+        string $objectStateName,
+        string $objectStateGroupName
+    ): void {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->verifyIsLoaded();
 
@@ -137,8 +139,10 @@ final readonly class ObjectStatesContext implements Context
     /**
      * @Then there's a :objectStateName Object State on Object States list for :objectStateGroupName
      */
-    public function thereIsObjectStateOnTheList(string $objectStateName, string $objectStateGroupName): void
-    {
+    public function thereIsObjectStateOnTheList(
+        string $objectStateName,
+        string $objectStateGroupName
+    ): void {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->verifyIsLoaded();
 

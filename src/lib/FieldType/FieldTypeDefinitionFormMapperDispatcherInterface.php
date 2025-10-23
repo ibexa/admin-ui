@@ -16,7 +16,13 @@ use Symfony\Component\Form\FormInterface;
  */
 interface FieldTypeDefinitionFormMapperDispatcherInterface
 {
-    public function addMapper(FieldDefinitionFormMapperInterface $mapper, string $fieldTypeIdentifier): void;
+    public function addMapper(
+        FieldDefinitionFormMapperInterface $mapper,
+        string $fieldTypeIdentifier
+    ): void;
 
-    public function map(FormInterface $form, FieldDefinitionData $data): void;
+    public function map(
+        FormInterface $form,
+        FieldDefinitionData $data
+    ): void;
 }

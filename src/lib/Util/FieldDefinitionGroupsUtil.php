@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Util;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 
 final readonly class FieldDefinitionGroupsUtil
@@ -17,7 +18,7 @@ final readonly class FieldDefinitionGroupsUtil
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param FieldDefinition[] $fieldDefinitions
      *
      * @return mixed[]
      */

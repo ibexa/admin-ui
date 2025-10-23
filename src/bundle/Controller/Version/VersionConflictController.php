@@ -11,6 +11,8 @@ namespace Ibexa\Bundle\AdminUi\Controller\Version;
 use Ibexa\AdminUi\Specification\Version\VersionHasConflict;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Core\Base\Exceptions\BadStateException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,12 +28,15 @@ final class VersionConflictController extends Controller
      *
      * If Version has no conflict, return empty Response. If it has conflict return HTML with content of modal.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws BadStateException
      */
-    public function versionHasNoConflictAction(int $contentId, int $versionNo, string $languageCode): Response
-    {
+    public function versionHasNoConflictAction(
+        int $contentId,
+        int $versionNo,
+        string $languageCode
+    ): Response {
         $versionInfo = $this->contentService->loadVersionInfoById($contentId, $versionNo);
 
         if (!$versionInfo->isDraft()) {

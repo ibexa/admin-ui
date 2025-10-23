@@ -28,8 +28,11 @@ final readonly class UserConfigRestGenerator implements ApplicationConfigRestGen
         return self::PARAMETER === $parameterName;
     }
 
-    public function generate(mixed $parameter, Generator $generator, Visitor $visitor): void
-    {
+    public function generate(
+        mixed $parameter,
+        Generator $generator,
+        Visitor $visitor
+    ): void {
         if ($parameter instanceof User) {
             $generator->startHashElement(self::PARAMETER);
             $visitor->visitValueObject($parameter);

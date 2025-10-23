@@ -10,5 +10,8 @@ namespace Ibexa\Contracts\AdminUi\Resolver;
 
 interface IconPathResolverInterface
 {
-    public function resolve(string $icon, ?string $set = null): string;
+    public function resolve(
+        string $icon,
+        ?string $set = null
+    ): string;
 }

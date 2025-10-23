@@ -32,8 +32,10 @@ final readonly class HasReverseRelations implements TrashLocationOptionProvider
         return $reverseRelationsCount > 0;
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $reverseRelationsCount = $this->contentService->countReverseRelations(
             $location->getContentInfo()
         );

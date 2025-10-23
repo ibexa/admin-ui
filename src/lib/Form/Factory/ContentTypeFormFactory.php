@@ -61,7 +61,7 @@ final readonly class ContentTypeFormFactory
     /**
      * @param array<string, mixed> $options
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     public function contentTypeCopy(
         ContentTypeCopyData $data,

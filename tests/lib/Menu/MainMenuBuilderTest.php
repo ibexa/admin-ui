@@ -26,15 +26,15 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 final class MainMenuBuilderTest extends TestCase
 {
-    private MenuItemFactoryInterface&MockObject $factory;
+    private MenuItemFactoryInterface & MockObject $factory;
 
-    private EventDispatcherInterface&MockObject $eventDispatcher;
+    private EventDispatcherInterface & MockObject $eventDispatcher;
 
-    private ConfigResolverInterface&MockObject $configResolver;
+    private ConfigResolverInterface & MockObject $configResolver;
 
-    private PermissionResolver&MockObject $permissionResolver;
+    private PermissionResolver & MockObject $permissionResolver;
 
-    private TokenStorageInterface&MockObject $tokenStorage;
+    private TokenStorageInterface & MockObject $tokenStorage;
 
     private UserSettingService $userSettingService;
 
@@ -42,7 +42,7 @@ final class MainMenuBuilderTest extends TestCase
     {
         $knpFactory = $this->createMock(FactoryInterface::class);
         $knpFactory->method('createItem')
-            ->willReturnCallback(static function (string $name) use ($knpFactory): \Knp\Menu\MenuItem {
+            ->willReturnCallback(static function (string $name) use ($knpFactory): MenuItem {
                 return new MenuItem($name, $knpFactory);
             })
         ;

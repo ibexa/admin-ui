@@ -20,6 +20,7 @@ use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Ibexa\Core\Helper\TranslationHelper;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -70,7 +71,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
 
         $customUrlsPaginationParams = $contextParameters['custom_urls_pagination_params'];
@@ -144,7 +145,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias[] $customUrlAliases
+     * @param URLAlias[] $customUrlAliases
      */
     private function createCustomUrlRemoveForm(
         Location $location,
@@ -156,7 +157,7 @@ class UrlsTab extends AbstractEventDispatchingTab implements OrderedTabInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLAlias[] $customUrlAliases
+     * @param URLAlias[] $customUrlAliases
      *
      * @return mixed[]
      */

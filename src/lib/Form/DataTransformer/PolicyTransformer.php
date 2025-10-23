@@ -17,7 +17,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 final readonly class PolicyTransformer implements DataTransformerInterface
 {
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?string
     {
@@ -35,7 +35,7 @@ final readonly class PolicyTransformer implements DataTransformerInterface
     /**
      * @return array<string, mixed>|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): ?array
     {

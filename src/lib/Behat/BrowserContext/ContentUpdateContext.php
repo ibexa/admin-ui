@@ -39,8 +39,10 @@ final readonly class ContentUpdateContext implements Context
     /**
      * @When field :fieldName contains validation error :errorMessage
      */
-    public function fieldContainsValidationError(string $fieldName, string $errorMessage): void
-    {
+    public function fieldContainsValidationError(
+        string $fieldName,
+        string $errorMessage
+    ): void {
         $this->contentUpdateItemPage->verifyValidationMessage($fieldName, $errorMessage);
     }
 
@@ -76,8 +78,10 @@ final readonly class ContentUpdateContext implements Context
     /**
      * @When I select :contentPath from Image Asset Repository for :fieldName field
      */
-    public function selectContentFromIARepository(string $contentPath, string $fieldName): void
-    {
+    public function selectContentFromIARepository(
+        string $contentPath,
+        string $fieldName
+    ): void {
         $this->contentUpdateItemPage->getField($fieldName)->selectFromRepository($contentPath);
     }
 

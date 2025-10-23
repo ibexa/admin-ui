@@ -35,8 +35,10 @@ final class PolicyChoiceType extends AbstractType
         $this->policyChoices = $this->buildPolicyChoicesFromMap($policyMap);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(new class() implements DataTransformerInterface {
             /**
              * @param array{module: string, function: string}|null $value
@@ -97,7 +99,7 @@ final class PolicyChoiceType extends AbstractType
         $policyChoices = [
             self::MESSAGE_ID_PREFIX . self::ALL_MODULES => [
                 self::MESSAGE_ID_PREFIX . self::ALL_MODULES_ALL_FUNCTIONS => '*|*',
-             ],
+            ],
         ];
 
         foreach ($policyMap as $module => $functionList) {

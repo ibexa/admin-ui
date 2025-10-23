@@ -21,8 +21,10 @@ class LocationTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?Location $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?Location $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationTransformer($service);
 

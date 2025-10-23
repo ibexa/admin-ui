@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component;
 
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
+use Ibexa\TwigComponents\Component\TemplateComponent;
 use Twig\Environment;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\TwigComponent} class is deprecated, will be removed in 6.0.
- * Use {@see \Ibexa\TwigComponents\Component\TemplateComponent} instead
+ * @deprecated 4.6.19 The {@see TwigComponent} class is deprecated, will be removed in 6.0.
+ * Use {@see TemplateComponent} instead
  */
 readonly class TwigComponent implements ComponentInterface
 {

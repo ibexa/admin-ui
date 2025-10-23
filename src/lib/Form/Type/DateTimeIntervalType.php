@@ -34,8 +34,10 @@ class DateTimeIntervalType extends AbstractType
         return 'datetimeinterval';
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->addViewTransformer(new DateIntervalToArrayTransformer())
             ->add('year', IntegerType::class)

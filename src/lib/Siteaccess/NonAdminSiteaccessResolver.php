@@ -28,7 +28,7 @@ readonly class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,

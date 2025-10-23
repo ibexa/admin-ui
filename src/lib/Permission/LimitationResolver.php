@@ -108,8 +108,10 @@ final readonly class LimitationResolver implements LimitationResolverInterface
     /**
      * @param array<string> $limitationLanguageCodes
      */
-    private function hasAccessToLanguage(Language $language, array $limitationLanguageCodes): bool
-    {
+    private function hasAccessToLanguage(
+        Language $language,
+        array $limitationLanguageCodes
+    ): bool {
         return $language->isEnabled()
             && (
                 empty($limitationLanguageCodes)
@@ -136,7 +138,7 @@ final readonly class LimitationResolver implements LimitationResolverInterface
     }
 
     /**
-     * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Language>|null $languages
+     * @param iterable<Language>|null $languages
      *
      * @return array<string>
      */

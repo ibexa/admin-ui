@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -24,6 +25,8 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
+use Symfony\Component\Form\Exception\AlreadySubmittedException;
+use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,8 +49,10 @@ class TranslationAddType extends AbstractType
     ) {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'location',
@@ -76,10 +81,10 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on default form data.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
      */
     public function onPreSetData(FormEvent $event): void
     {
@@ -101,10 +106,10 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on submitted form data.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
-     * @throws \Symfony\Component\Form\Exception\LogicException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws AlreadySubmittedException
+     * @throws LogicException
      */
     public function onPreSubmit(FormEvent $event): void
     {
@@ -132,7 +137,7 @@ class TranslationAddType extends AbstractType
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function loadLanguages(callable $filter): array
     {

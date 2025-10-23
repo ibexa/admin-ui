@@ -18,8 +18,10 @@ class BulkOperation extends BaseParser
     /**
      * @param array{operations?: array<int|string, array{uri?: string|mixed, method?: string|mixed, headers?: array|mixed, parameters?: array|mixed, content?: string|mixed}>} $data
      */
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher): BulkOperationValue
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ): BulkOperationValue {
         if (!array_key_exists('operations', $data)) {
             throw new Exceptions\Parser('Invalid structure for BulkOperation.');
         }

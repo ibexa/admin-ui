@@ -19,6 +19,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 final class UserDeleteController extends Controller
 {
@@ -32,7 +33,7 @@ final class UserDeleteController extends Controller
     }
 
     /**
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function userDeleteAction(Request $request): Response
     {

@@ -17,10 +17,10 @@ use Symfony\Component\Form\FormInterface;
 final class ContentTypeEditView extends BaseView
 {
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function __construct(
-        string|\Closure $template,
+        string | \Closure $template,
         private ContentTypeGroup $contentTypeGroup,
         private ContentTypeDraft $contentTypeDraft,
         private FormInterface $form,
@@ -60,7 +60,7 @@ final class ContentTypeEditView extends BaseView
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
     public function getForm(): FormInterface
     {
@@ -68,7 +68,7 @@ final class ContentTypeEditView extends BaseView
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function setForm(FormInterface $form): void
     {

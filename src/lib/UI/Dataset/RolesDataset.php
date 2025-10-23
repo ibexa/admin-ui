@@ -10,14 +10,18 @@ namespace Ibexa\AdminUi\UI\Dataset;
 
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\UI\Value\User\Role;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class RolesDataset
 {
-    /** @var \Ibexa\AdminUi\UI\Value\User\Role[]|null */
+    /** @var Role[]|null */
     private ?array $data = null;
 
     /**
@@ -34,9 +38,9 @@ class RolesDataset
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws InvalidArgumentException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      */
     public function load(Location $location): self
     {
@@ -64,7 +68,7 @@ class RolesDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\User\Role[]
+     * @return Role[]
      */
     public function getRoles(): array
     {

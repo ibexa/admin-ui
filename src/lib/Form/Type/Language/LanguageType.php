@@ -23,8 +23,10 @@ class LanguageType extends AbstractType
     {
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->addModelTransformer(new LanguageTransformer($this->languageService));
     }
 

@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\ChoiceList\Loader;
 
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
 use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
@@ -23,7 +24,7 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getChoiceList(): array
     {
@@ -38,10 +39,12 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
-    public function loadChoicesForValues(array $values, ?callable $value = null): array
-    {
+    public function loadChoicesForValues(
+        array $values,
+        ?callable $value = null
+    ): array {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -54,8 +57,10 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     /**
      * @return string[]
      */
-    public function loadValuesForChoices(array $choices, ?callable $value = null): array
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        ?callable $value = null
+    ): array {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {
@@ -68,7 +73,7 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     /**
      * Sort languages based on SiteAccess languages order.
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     private function getPriorityOrderedLanguages(): array
     {

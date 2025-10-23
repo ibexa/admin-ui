@@ -29,6 +29,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
@@ -41,11 +42,15 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPerPageException;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ContentTypeController extends Controller
@@ -70,13 +75,16 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
+     * @throws InvalidOptionsException
+     * @throws OutOfRangeCurrentPageException
+     * @throws LessThan1CurrentPageException
+     * @throws LessThan1MaxPerPageException
      */
-    public function listAction(ContentTypeGroup $group, string $routeName, int $page): Response
-    {
+    public function listAction(
+        ContentTypeGroup $group,
+        string $routeName,
+        int $page
+    ): Response {
         $deletableTypes = [];
         $contentTypes = iterator_to_array(
             $this->contentTypeService->loadContentTypes(
@@ -85,7 +93,10 @@ final class ContentTypeController extends Controller
             )
         );
 
-        usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
+        usort($contentTypes, static function (
+            ContentType $contentType1,
+            ContentType $contentType2
+        ): int {
             return strnatcasecmp($contentType1->getName() ?? '', $contentType2->getName() ?? '');
         });
 
@@ -98,7 +109,7 @@ final class ContentTypeController extends Controller
         );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
+        /** @var ContentTypeGroup[] $contentTypeGroupList */
         $types = iterator_to_array($pagerfanta->getCurrentPageResults());
 
         $deleteContentTypesForm = $this->formFactory->deleteContentTypes(
@@ -127,12 +138,12 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentTypeFieldDefinitionValidationException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
+     * @throws ContentTypeFieldDefinitionValidationException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function addAction(ContentTypeGroup $group): RedirectResponse|ContentTypeCreateView
+    public function addAction(ContentTypeGroup $group): RedirectResponse | ContentTypeCreateView
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
         $mainLanguageCode = $this->languageService->getDefaultLanguageCode();
@@ -180,7 +191,7 @@ final class ContentTypeController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData $data */
+        /** @var TranslationAddData $data */
         $data = $form->getData();
         $contentType = $data->getContentType();
         $contentTypeGroup = $data->getContentTypeGroup();
@@ -235,7 +246,7 @@ final class ContentTypeController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationRemoveData $data */
+        /** @var TranslationRemoveData $data */
         $data = $form->getData();
         $contentType = $data->getContentType();
         $contentTypeGroup = $data->getContentTypeGroup();
@@ -288,11 +299,14 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws UnauthorizedException
+     * @throws BadStateException
      */
-    public function editAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
-    {
+    public function editAction(
+        Request $request,
+        ContentTypeGroup $group,
+        ContentType $contentType
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
         try {
             $contentTypeDraft = $this->contentTypeService->loadContentTypeDraft($contentType->id, true);
@@ -348,8 +362,11 @@ final class ContentTypeController extends Controller
         ]);
     }
 
-    public function copyAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
-    {
+    public function copyAction(
+        Request $request,
+        ContentTypeGroup $group,
+        ContentType $contentType
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
 
         $contentTypeService = $this->contentTypeService;
@@ -401,7 +418,7 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function updateAction(
         Request $request,
@@ -409,7 +426,7 @@ final class ContentTypeController extends Controller
         ContentTypeDraft $contentTypeDraft,
         ?Language $language = null,
         ?Language $baseLanguage = null
-    ): Response|ContentTypeEditView {
+    ): Response | ContentTypeEditView {
         if (!$language) {
             $language = $this->getDefaultLanguage($contentTypeDraft);
         }
@@ -522,8 +539,11 @@ final class ContentTypeController extends Controller
     /**
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      */
-    public function deleteAction(Request $request, ContentTypeGroup $group, ContentType $contentType): Response
-    {
+    public function deleteAction(
+        Request $request,
+        ContentTypeGroup $group,
+        ContentType $contentType
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->createDeleteForm($group, $contentType);
         $form->handleRequest($request);
@@ -552,11 +572,13 @@ final class ContentTypeController extends Controller
 
     /**
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      * @throws \InvalidArgumentException
      */
-    public function bulkDeleteAction(Request $request, ContentTypeGroup $group): Response
-    {
+    public function bulkDeleteAction(
+        Request $request,
+        ContentTypeGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->formFactory->deleteContentTypes(
             new ContentTypesDeleteData()
@@ -591,7 +613,7 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function viewAction(
         ContentTypeGroup $group,
@@ -675,10 +697,12 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface<mixed>
+     * @return FormInterface<mixed>
      */
-    protected function createDeleteForm(ContentTypeGroup $group, ContentType $contentType): FormInterface
-    {
+    protected function createDeleteForm(
+        ContentTypeGroup $group,
+        ContentType $contentType
+    ): FormInterface {
         $formBuilder = $this->createFormBuilder(null, [
             'method' => Request::METHOD_DELETE,
             'action' => $this->generateUrl('ibexa.content_type.delete', [
@@ -691,7 +715,7 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes
+     * @param ContentType[] $contentTypes
      *
      * @return array<int, false>
      */
@@ -722,7 +746,7 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     private function getDefaultLanguage(ContentTypeDraft $contentTypeDraft): Language
     {
@@ -740,8 +764,8 @@ final class ContentTypeController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws UnauthorizedException
      */
     private function tryToCreateContentTypeDraft(ContentType $contentType): ContentTypeDraft
     {

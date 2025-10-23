@@ -9,10 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\Event;
 
 use Ibexa\AdminUi\Component\Registry;
+use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderGroupEvent} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see RenderGroupEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderGroupEvent} instead
  */
 final class RenderGroupEvent extends Event
@@ -35,7 +36,7 @@ final class RenderGroupEvent extends Event
     }
 
     /**
-     * @return \Ibexa\Contracts\TwigComponents\ComponentInterface[]
+     * @return ComponentInterface[]
      */
     public function getComponents(): array
     {
@@ -43,7 +44,7 @@ final class RenderGroupEvent extends Event
     }
 
     /**
-     * @param \Ibexa\Contracts\TwigComponents\ComponentInterface[] $components
+     * @param ComponentInterface[] $components
      */
     public function setComponents(array $components): void
     {

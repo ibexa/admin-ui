@@ -14,6 +14,7 @@ use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -31,7 +32,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-   }
+    }
 
     public function getIdentifier(): string
     {
@@ -55,9 +56,9 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
 
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $contextParameters['contentType'];
         $fieldDefinitions = $contentType->getFieldDefinitions();
         $fieldDefinitionsByGroup = $this->fieldDefinitionGroupsUtil->groupFieldDefinitions($fieldDefinitions);
@@ -73,7 +74,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * @return list<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
+     * @return list<Language>
      */
     public function loadContentLanguages(Content $content): array
     {

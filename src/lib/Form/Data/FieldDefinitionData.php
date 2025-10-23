@@ -16,8 +16,8 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 /**
  * Base class for FieldDefinition forms, with corresponding FieldDefinition object.
  *
- * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
- * @property \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData
+ * @property FieldDefinition $fieldDefinition
+ * @property ContentTypeData $contentTypeData
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct implements TranslationContainerInterface
 {

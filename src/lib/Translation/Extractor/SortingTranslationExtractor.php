@@ -68,8 +68,11 @@ final class SortingTranslationExtractor implements ExtractorInterface
         return $catalog;
     }
 
-    private function createMessage(string $id, string $desc, string $source): Message
-    {
+    private function createMessage(
+        string $id,
+        string $desc,
+        string $source
+    ): Message {
         $message = new Message\XliffMessage($id, $this->domain);
         $message->addSource(new FileSource($source));
         $message->setMeaning($desc);

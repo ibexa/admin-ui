@@ -8,13 +8,14 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\Location\Bookmark;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 final class BookmarksDataset
 {
-    /** @var \Ibexa\AdminUi\UI\Value\Location\Bookmark[] */
+    /** @var Bookmark[] */
     private ?array $data = null;
 
     public function __construct(
@@ -23,8 +24,10 @@ final class BookmarksDataset
     ) {
     }
 
-    public function load(int $offset = 0, int $limit = 25): self
-    {
+    public function load(
+        int $offset = 0,
+        int $limit = 25
+    ): self {
         $this->data = array_map(
             function (Location $location) {
                 return $this->valueFactory->createBookmark($location);
@@ -36,7 +39,7 @@ final class BookmarksDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Location\Bookmark[]
+     * @return Bookmark[]
      */
     public function getBookmarks(): array
     {

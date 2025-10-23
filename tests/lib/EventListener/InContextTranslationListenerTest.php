@@ -30,13 +30,13 @@ final class InContextTranslationListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    private Request&MockObject $request;
+    private Request & MockObject $request;
 
-    private HttpKernelInterface&MockObject $httpKernel;
+    private HttpKernelInterface & MockObject $httpKernel;
 
-    private UserSettingService&MockObject $userSettingService;
+    private UserSettingService & MockObject $userSettingService;
 
-    private TranslatorInterface&MockObject $translator;
+    private TranslatorInterface & MockObject $translator;
 
     protected function setUp(): void
     {
@@ -197,7 +197,7 @@ final class InContextTranslationListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     * @return MockObject|Request
      */
     private function requestWithSetLocaleExpectsNever(): MockObject
     {

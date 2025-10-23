@@ -8,13 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Policy;
 
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+
 final class PolicyCreateData
 {
     private ?string $module = null;
 
     private ?string $function = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] */
+    /** @var Limitation[] */
     private array $limitations = [];
 
     public function getModule(): ?string
@@ -64,7 +66,7 @@ final class PolicyCreateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
+     * @return Limitation[]
      */
     public function getLimitations(): array
     {
@@ -72,7 +74,7 @@ final class PolicyCreateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation[] $limitations
+     * @param Limitation[] $limitations
      */
     public function setLimitations(array $limitations): void
     {

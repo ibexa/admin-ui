@@ -24,9 +24,9 @@ final class PermissionCheckerTest extends TestCase
 {
     private const int USER_ID = 14;
 
-    private PermissionResolver&MockObject $permissionResolver;
+    private PermissionResolver & MockObject $permissionResolver;
 
-    private UserService&MockObject $userService;
+    private UserService & MockObject $userService;
 
     private PermissionChecker $permissionChecker;
 
@@ -51,8 +51,11 @@ final class PermissionCheckerTest extends TestCase
      *
      * @dataProvider restrictionsProvider
      */
-    public function testGetRestrictions(array $hasAccess, string $class, array $expectedRestrictions): void
-    {
+    public function testGetRestrictions(
+        array $hasAccess,
+        string $class,
+        array $expectedRestrictions
+    ): void {
         $actual = $this->permissionChecker->getRestrictions($hasAccess, $class);
 
         self::assertEquals($expectedRestrictions, $actual);
@@ -178,7 +181,7 @@ final class PermissionCheckerTest extends TestCase
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
+     * @return User
      */
     private function generateUser(int $id): User
     {

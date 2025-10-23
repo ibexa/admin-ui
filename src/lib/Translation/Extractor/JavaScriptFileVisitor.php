@@ -18,6 +18,7 @@ use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
 use Peast\Peast;
 use Peast\Syntax\Exception;
 use Peast\Syntax\Node;
+use Peast\Syntax\Node\Expression;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use SplFileInfo;
@@ -48,8 +49,10 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
         ]);
     }
 
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
-    {
+    public function visitFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue
+    ): void {
         if (!$this->supports($file)) {
             return;
         }
@@ -99,16 +102,25 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
         });
     }
 
-    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
-    {
+    public function visitPhpFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        array $ast
+    ) {
     }
 
-    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
-    {
+    public function visitTwigFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        TwigNode $ast
+    ) {
     }
 
-    private function isMethodCall(Node\Node $node, string $objectName, string $methodName): bool
-    {
+    private function isMethodCall(
+        Node\Node $node,
+        string $objectName,
+        string $methodName
+    ): bool {
         if ($node instanceof Node\CallExpression) {
             $callee = $node->getCallee();
 
@@ -128,10 +140,12 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
     /**
      * Extracts a message domain from the translator call.
      *
-     * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param Expression[] $arguments
      */
-    private function extractId(SplFileInfo $file, array $arguments): ?string
-    {
+    private function extractId(
+        SplFileInfo $file,
+        array $arguments
+    ): ?string {
         if (!empty($arguments)) {
             $idNode = $arguments[self::ID_ARG];
 
@@ -156,10 +170,13 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
     /**
      * Extracts a message domain from the translator call.
      *
-     * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param Expression[] $arguments
      */
-    private function extractDomain(SplFileInfo $file, array $arguments, string $methodName): ?string
-    {
+    private function extractDomain(
+        SplFileInfo $file,
+        array $arguments,
+        string $methodName
+    ): ?string {
         $domainArgIndex = $methodName === self::TRANSLATOR_TRANS_METHOD
             ? self::TRANS_DOMAIN_ARG
             : self::TRANS_CHOICE_DOMAIN_ARG;
@@ -188,7 +205,7 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
     /**
      * Extracts a message description from the translator call.
      *
-     * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param Expression[] $arguments
      */
     private function extractDesc(array $arguments): ?string
     {

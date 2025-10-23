@@ -23,9 +23,9 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
 {
     private FieldTypeDefinitionFormMapperDispatcher $dispatcher;
 
-    private FieldDefinitionFormMapperInterface&MockObject $fieldDefinitionMapperMock;
+    private FieldDefinitionFormMapperInterface & MockObject $fieldDefinitionMapperMock;
 
-    private FieldTypeAliasResolverInterface&MockObject $fieldTypeAliasResolver;
+    private FieldTypeAliasResolverInterface & MockObject $fieldTypeAliasResolver;
 
     protected function setUp(): void
     {

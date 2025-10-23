@@ -23,7 +23,7 @@ final class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     public function getChoiceList(): array
     {

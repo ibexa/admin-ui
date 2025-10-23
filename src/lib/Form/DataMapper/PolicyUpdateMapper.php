@@ -21,7 +21,7 @@ final readonly class PolicyUpdateMapper implements DataMapperInterface
     /**
      * Maps given PolicyUpdateStruct object to a PolicyUpdateData object.
      */
-    public function map(ValueObject|PolicyUpdateStruct $value): PolicyUpdateData
+    public function map(ValueObject | PolicyUpdateStruct $value): PolicyUpdateData
     {
         $data = new PolicyUpdateData();
 
@@ -35,7 +35,7 @@ final readonly class PolicyUpdateMapper implements DataMapperInterface
     /**
      * Maps given PolicyUpdateData object to a PolicyUpdateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData $data
+     * @param PolicyUpdateData $data
      */
     public function reverseMap(mixed $data): PolicyUpdateStruct
     {

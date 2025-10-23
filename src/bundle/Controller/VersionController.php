@@ -15,11 +15,17 @@ use Ibexa\AdminUi\Tab\LocationView\VersionsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Core\Helper\TranslationHelper;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\Translation\Exception\InvalidArgumentException;
 
 final class VersionController extends Controller
 {
@@ -33,11 +39,11 @@ final class VersionController extends Controller
     }
 
     /**
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
+     * @throws InvalidOptionsException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function removeAction(Request $request): Response
     {
@@ -55,7 +61,7 @@ final class VersionController extends Controller
         );
         $form->handleRequest($request);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
+        /** @var ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (VersionRemoveData $data): RedirectResponse {

@@ -14,8 +14,10 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class UserNotificationPopup extends Component
 {
-    public function clickNotification(string $expectedType, string $expectedDescription): void
-    {
+    public function clickNotification(
+        string $expectedType,
+        string $expectedDescription
+    ): void {
         $notifications = $this->getHTMLPage()->findAll($this->getLocator('notificationItem'));
 
         foreach ($notifications as $notification) {

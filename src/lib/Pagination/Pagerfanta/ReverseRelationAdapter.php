@@ -33,8 +33,10 @@ final readonly class ReverseRelationAdapter implements AdapterInterface
         );
     }
 
-    public function getSlice(int $offset, int $length): iterable
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): iterable {
         return $this->datasetFactory
             ->reverseRelationList()
             ->load($this->content, $offset, $length)

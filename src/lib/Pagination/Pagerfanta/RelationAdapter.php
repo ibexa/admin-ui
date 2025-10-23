@@ -9,7 +9,11 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Content\RelationInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Pagerfanta\Adapter\AdapterInterface;
 
@@ -26,8 +30,8 @@ final readonly class RelationAdapter implements AdapterInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function getNbResults(): int
     {
@@ -38,12 +42,14 @@ final readonly class RelationAdapter implements AdapterInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\RelationInterface[]
+     * @return RelationInterface[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
-    public function getSlice(int $offset, int $length): array
-    {
+    public function getSlice(
+        int $offset,
+        int $length
+    ): array {
         return $this->datasetFactory
             ->relationList()
             ->load($this->content, $offset, $length)

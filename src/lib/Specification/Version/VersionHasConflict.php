@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Specification\Version;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class VersionHasConflict extends AbstractSpecification
@@ -20,7 +21,7 @@ final class VersionHasConflict extends AbstractSpecification
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param VersionInfo $versionInfo
      */
     public function isSatisfiedBy(mixed $versionInfo): bool
     {

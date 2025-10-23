@@ -25,9 +25,9 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 final class UniqueContentTypeIdentifierValidatorTest extends TestCase
 {
-    private ContentTypeService&MockObject $contentTypeService;
+    private ContentTypeService & MockObject $contentTypeService;
 
-    private ExecutionContextInterface&MockObject $executionContext;
+    private ExecutionContextInterface & MockObject $executionContext;
 
     private UniqueContentTypeIdentifierValidator $validator;
 

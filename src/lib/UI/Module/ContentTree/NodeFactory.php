@@ -12,7 +12,10 @@ use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -24,6 +27,8 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\TranslationHelper;
@@ -38,7 +43,7 @@ final class NodeFactory
     private const int TOP_NODE_CONTENT_ID = 0;
 
     /**
-     * @var array<string, class-string<\Ibexa\Contracts\Core\Repository\Values\Filter\FilteringSortClause>>
+     * @var array<string, class-string<FilteringSortClause>>
      */
     private const array SORT_CLAUSE_MAP = [
         'DatePublished' => SortClause\DatePublished::class,
@@ -58,8 +63,8 @@ final class NodeFactory
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function createNode(
         Location $location,
@@ -117,7 +122,7 @@ final class NodeFactory
     }
 
     /**
-     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Location>
+     * @phpstan-return SearchResult<Location>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -138,8 +143,10 @@ final class NodeFactory
         return $this->searchService->findLocations($searchQuery);
     }
 
-    private function getSearchQuery(int $parentLocationId, ?CriterionInterface $requestFilter = null): LocationQuery
-    {
+    private function getSearchQuery(
+        int $parentLocationId,
+        ?CriterionInterface $requestFilter = null
+    ): LocationQuery {
         $searchQuery = new LocationQuery();
         $searchQuery->filter = new Criterion\ParentLocationId($parentLocationId);
 
@@ -166,8 +173,10 @@ final class NodeFactory
         return $searchQuery;
     }
 
-    private function findChild(int $locationId, LoadSubtreeRequestNode $loadSubtreeRequestNode): ?LoadSubtreeRequestNode
-    {
+    private function findChild(
+        int $locationId,
+        LoadSubtreeRequestNode $loadSubtreeRequestNode
+    ): ?LoadSubtreeRequestNode {
         foreach ($loadSubtreeRequestNode->children as $child) {
             if ($child->locationId === $locationId) {
                 return $child;
@@ -180,8 +189,10 @@ final class NodeFactory
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function countSubitems(int $parentLocationId, ?CriterionInterface $requestFilter = null): int
-    {
+    private function countSubitems(
+        int $parentLocationId,
+        ?CriterionInterface $requestFilter = null
+    ): int {
         $searchQuery = $this->getSearchQuery($parentLocationId, $requestFilter);
 
         $searchQuery->limit = 0;
@@ -192,15 +203,17 @@ final class NodeFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $containerLocations
+     * @param Location[] $containerLocations
      *
      * @return mixed[]
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidCriterionArgumentException
      */
-    private function countAggregatedSubitems(array $containerLocations, ?CriterionInterface $requestFilter): array
-    {
+    private function countAggregatedSubitems(
+        array $containerLocations,
+        ?CriterionInterface $requestFilter
+    ): array {
         if (empty($containerLocations)) {
             return [];
         }
@@ -249,7 +262,7 @@ final class NodeFactory
     {
         $resultsAsArray = [];
         foreach ($aggregationResult->getEntries() as $entry) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            /** @var Location $location */
             $location = $entry->getKey();
             $resultsAsArray[$location->id] = $entry->getCount();
         }
@@ -265,15 +278,17 @@ final class NodeFactory
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    private function buildSortClause(string $sortClause, string $sortOrder): SortClause
-    {
+    private function buildSortClause(
+        string $sortClause,
+        string $sortOrder
+    ): SortClause {
         if (!isset(static::SORT_CLAUSE_MAP[$sortClause])) {
             throw new InvalidArgumentException('$sortClause', 'Invalid sort clause');
         }
 
         $map = static::SORT_CLAUSE_MAP;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause $sortClauseInstance */
+        /** @var SortClause $sortClauseInstance */
         $sortClauseInstance = new $map[$sortClause]();
         $sortClauseInstance->direction = $sortOrder;
 
@@ -281,7 +296,7 @@ final class NodeFactory
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause[]
+     * @return SortClause[]
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
@@ -302,14 +317,14 @@ final class NodeFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $uninitializedContentInfoList
+     * @param ContentInfo[] $uninitializedContentInfoList
      * @param array<int, int> $bookmarkLocations
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $containerLocations
+     * @param Location[] $containerLocations
      * @param mixed[] $bookmarkLocations
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function buildNode(
         Location $location,
@@ -349,7 +364,7 @@ final class NodeFactory
             $searchResult = $this->findSubitems($location, $limit, $offset, $sortClause, $sortOrder, $requestFilter);
             $totalChildrenCount = (int) $searchResult->totalCount;
 
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $childLocation */
+            /** @var Location $childLocation */
             foreach (array_column($searchResult->searchHits, 'valueObject') as $childLocation) {
                 $childLoadSubtreeRequestNode = null !== $loadSubtreeRequestNode
                     ? $this->findChild($childLocation->getId(), $loadSubtreeRequestNode)
@@ -400,10 +415,12 @@ final class NodeFactory
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versionInfoById
+     * @param VersionInfo[] $versionInfoById
      */
-    private function supplyTranslatedContentName(Node $node, array $versionInfoById): void
-    {
+    private function supplyTranslatedContentName(
+        Node $node,
+        array $versionInfoById
+    ): void {
         if ($node->contentId !== self::TOP_NODE_CONTENT_ID) {
             $node->name = $this->translationHelper->getTranslatedContentNameByVersionInfo(
                 $versionInfoById[$node->contentId]

@@ -16,7 +16,7 @@ class Bookmark extends CoreLocation
 {
     protected ContentType $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    /** @var Location[] */
     protected array $pathLocations;
 
     protected bool $userCanEdit;

@@ -32,8 +32,10 @@ final class ObjectStatePage extends Page
         parent::__construct($session, $router);
     }
 
-    public function hasAttribute(string $label, string $value): bool
-    {
+    public function hasAttribute(
+        string $label,
+        string $value
+    ): bool {
         return $this
             ->getHTMLPage()
             ->findAll($this->getLocator('objectStateAttribute'))

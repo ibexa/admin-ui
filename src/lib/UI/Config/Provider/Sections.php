@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 
 /**
  * Provides information about sections.
@@ -29,7 +30,7 @@ final readonly class Sections implements ProviderInterface
         $sections = $this->sectionService->loadSections();
         $config = [];
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section $section */
+        /** @var Section $section */
         foreach ($sections as $section) {
             $config[$section->getIdentifier()] = $section->getName();
         }

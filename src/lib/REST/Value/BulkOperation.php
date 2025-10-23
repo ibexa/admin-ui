@@ -13,7 +13,7 @@ use Ibexa\Rest\Value as RestValue;
 final class BulkOperation extends RestValue
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\Operation[] $operations
+     * @param Operation[] $operations
      */
     public function __construct(public readonly array $operations)
     {

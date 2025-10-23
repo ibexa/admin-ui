@@ -50,7 +50,7 @@ final class PolicyDraftValueResolver extends AbstractValueResolver
 
         $roleDraft = $this->roleService->loadRoleDraftByRoleId($roleId);
         foreach ($roleDraft->getPolicies() as $policy) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\PolicyDraft $policy */
+            /** @var PolicyDraft $policy */
             if ($policy->originalId === $policyId) {
                 return $policy;
             }

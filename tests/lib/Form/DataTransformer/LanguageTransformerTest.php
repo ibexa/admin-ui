@@ -18,7 +18,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final class LanguageTransformerTest extends TestCase
 {
-    private LanguageService&MockObject $languageService;
+    private LanguageService & MockObject $languageService;
 
     protected function setUp(): void
     {
@@ -28,8 +28,10 @@ final class LanguageTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?Language $value, ?string $expected): void
-    {
+    public function testTransform(
+        ?Language $value,
+        ?string $expected
+    ): void {
         $transformer = new LanguageTransformer($this->languageService);
 
         $result = $transformer->transform($value);

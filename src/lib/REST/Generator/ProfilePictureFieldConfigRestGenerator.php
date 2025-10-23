@@ -28,8 +28,11 @@ final readonly class ProfilePictureFieldConfigRestGenerator implements Applicati
         return self::PARAMETER === $parameterName;
     }
 
-    public function generate(mixed $parameter, Generator $generator, Visitor $visitor): void
-    {
+    public function generate(
+        mixed $parameter,
+        Generator $generator,
+        Visitor $visitor
+    ): void {
         if ($parameter instanceof Field) {
             $generator->startHashElement(self::PARAMETER);
             $visitor->visitValueObject($parameter);

@@ -29,8 +29,10 @@ final readonly class HasChildren implements TrashLocationOptionProvider
         return (new HasChildrenSpec($this->locationService))->isSatisfiedBy($location);
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $childCount = $this->locationService->getLocationChildCount($location);
 
         $translatorParameters = [

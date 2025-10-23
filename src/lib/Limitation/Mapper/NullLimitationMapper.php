@@ -22,8 +22,10 @@ final readonly class NullLimitationMapper implements LimitationFormMapperInterfa
     {
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
     }
 
     public function getFormTemplate(): string

@@ -17,8 +17,10 @@ class PolicyTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(mixed $value, ?string $expected): void
-    {
+    public function testTransform(
+        mixed $value,
+        ?string $expected
+    ): void {
         $transformer = new PolicyTransformer();
 
         $result = $transformer->transform($value);
@@ -44,8 +46,10 @@ class PolicyTransformerTest extends TestCase
      *
      * @phpstan-param array{id: int, module: string, function: string}|null $expected
      */
-    public function testReverseTransform(?string $value, ?array $expected): void
-    {
+    public function testReverseTransform(
+        ?string $value,
+        ?array $expected
+    ): void {
         $transformer = new PolicyTransformer();
         $result = $transformer->reverseTransform($value);
 
@@ -55,8 +59,10 @@ class PolicyTransformerTest extends TestCase
     /**
      * @dataProvider reverseTransformWithInvalidInputDataProvider
      */
-    public function testReverseTransformWithInvalidInput(mixed $value, string $expectedMessage): void
-    {
+    public function testReverseTransformWithInvalidInput(
+        mixed $value,
+        string $expectedMessage
+    ): void {
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedMessage);
 

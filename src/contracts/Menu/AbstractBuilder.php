@@ -27,21 +27,27 @@ abstract class AbstractBuilder
     /**
      * @param array<mixed> $options
      */
-    protected function createMenuItem(string $id, array $options = []): ItemInterface
-    {
+    protected function createMenuItem(
+        string $id,
+        array $options = []
+    ): ItemInterface {
         return $this->factory->createItem($id, $options);
     }
 
-    protected function dispatchMenuEvent(string $name, Event $event): void
-    {
+    protected function dispatchMenuEvent(
+        string $name,
+        Event $event
+    ): void {
         $this->eventDispatcher->dispatch($event, $name);
     }
 
     /**
      * @param array<mixed> $options
      */
-    protected function createConfigureMenuEvent(ItemInterface $menu, array $options = []): ConfigureMenuEvent
-    {
+    protected function createConfigureMenuEvent(
+        ItemInterface $menu,
+        array $options = []
+    ): ConfigureMenuEvent {
         return new ConfigureMenuEvent($this->factory, $menu, $options);
     }
 

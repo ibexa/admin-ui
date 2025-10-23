@@ -14,12 +14,12 @@ use Symfony\Component\Form\FormInterface;
 interface FormUiActionMapperInterface
 {
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function map(FormInterface $form): UiActionEvent;
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function supports(FormInterface $form): bool;
 }

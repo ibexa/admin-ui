@@ -13,7 +13,7 @@ use Ibexa\Rest\Value as RestValue;
 final class LoadSubtreeRequestNode extends RestValue
 {
     /**
-     * @param \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] $children
+     * @param LoadSubtreeRequestNode[] $children
      */
     public function __construct(
         public int $locationId,

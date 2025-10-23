@@ -11,6 +11,8 @@ namespace Ibexa\AdminUi\Form\DataMapper;
 use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData;
 use Ibexa\Contracts\AdminUi\Form\DataMapper\DataMapperInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentMetadataUpdateStruct;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
@@ -27,11 +29,11 @@ final readonly class ContentMainLocationUpdateMapper implements DataMapperInterf
     /**
      * Maps given ContentMetadataUpdateStruct object to a ContentMainLocationUpdateData object.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
-    public function map(ValueObject|ContentMetadataUpdateStruct $value): ContentMainLocationUpdateData
+    public function map(ValueObject | ContentMetadataUpdateStruct $value): ContentMainLocationUpdateData
     {
         if (!$value instanceof ContentMetadataUpdateStruct) {
             throw new InvalidArgumentException(
@@ -52,7 +54,7 @@ final readonly class ContentMainLocationUpdateMapper implements DataMapperInterf
     /**
      * Maps given ContentMainLocationUpdateData object to a ContentMetadataUpdateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData $data
+     * @param ContentMainLocationUpdateData $data
      */
     public function reverseMap(mixed $data): ContentMetadataUpdateStruct
     {

@@ -36,7 +36,7 @@ final readonly class UDWBasedValueViewTransformer implements DataTransformerInte
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
+     * @return Location[]|null
      */
     public function reverseTransform(mixed $value): ?array
     {

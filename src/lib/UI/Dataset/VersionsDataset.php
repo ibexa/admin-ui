@@ -16,7 +16,7 @@ use function Ibexa\PolyfillPhp82\iterator_to_array;
 
 class VersionsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] */
+    /** @var VersionInfo[] */
     protected array $data;
 
     public function __construct(
@@ -38,7 +38,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getVersions(): array
     {
@@ -46,7 +46,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getDraftVersions(): array
     {
@@ -59,10 +59,12 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
-    public function getConflictedDraftVersions(int $currentVersionNo, string $languageCode): array
-    {
+    public function getConflictedDraftVersions(
+        int $currentVersionNo,
+        string $languageCode
+    ): array {
         return $this->filterVersions(
             $this->data,
             static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode): bool {
@@ -74,7 +76,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getPublishedVersions(): array
     {
@@ -87,7 +89,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getArchivedVersions(): array
     {
@@ -100,13 +102,15 @@ class VersionsDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versions
+     * @param VersionInfo[] $versions
      * @param callable $callable
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
-    protected function filterVersions(array $versions, callable $callable): array
-    {
+    protected function filterVersions(
+        array $versions,
+        callable $callable
+    ): array {
         return array_values(array_filter($versions, $callable));
     }
 }

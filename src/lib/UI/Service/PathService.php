@@ -28,7 +28,7 @@ final readonly class PathService
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function loadPathLocations(Location $location): array
     {

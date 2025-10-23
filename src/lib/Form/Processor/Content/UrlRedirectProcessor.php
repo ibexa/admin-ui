@@ -8,10 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Processor\Content;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -36,9 +39,9 @@ final readonly class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function processRedirectAfterPublish(FormActionEvent $event): void
     {
@@ -54,9 +57,9 @@ final readonly class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function processRedirectAfterCancel(FormActionEvent $event): void
     {
@@ -68,7 +71,7 @@ final readonly class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function isAdminSiteaccess(): bool
     {

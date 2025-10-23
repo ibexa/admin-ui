@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ValueResolver;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -44,8 +46,8 @@ final class PolicyValueResolver extends AbstractValueResolver
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     protected function load(array $key): object
     {

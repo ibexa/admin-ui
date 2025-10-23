@@ -26,7 +26,7 @@ final class UiConfigExtension extends AbstractExtension implements GlobalsInterf
     }
 
     /**
-     * @return array<string, \Ibexa\AdminUi\UI\Config\ConfigWrapper>
+     * @return array<string, ConfigWrapper>
      */
     public function getGlobals(): array
     {
@@ -43,7 +43,13 @@ final class UiConfigExtension extends AbstractExtension implements GlobalsInterf
     private function createConfigWrapper(): ConfigWrapper
     {
         $factory = new LazyLoadingValueHolderFactory();
-        $initializer = function (&$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer): true {
+        $initializer = function (
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
+        ): true {
             $initializer = null;
             $wrappedObject = new ConfigWrapper($this->aggregator->getConfig());
 

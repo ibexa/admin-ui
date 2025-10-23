@@ -8,10 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
@@ -27,7 +30,7 @@ final readonly class PagerLocationToDataMapper
     }
 
     /**
-     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $pager
+     * @param Pagerfanta<Location> $pager
      *
      * @return array<
      *      array{
@@ -44,15 +47,17 @@ final readonly class PagerLocationToDataMapper
      *      }
      * >
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws ForbiddenException
+     * @throws BadStateException
+     * @throws NotFoundException
      */
-    public function map(Pagerfanta $pager, bool $doMapVersionInfoData = false): array
-    {
+    public function map(
+        Pagerfanta $pager,
+        bool $doMapVersionInfoData = false
+    ): array {
         $data = [];
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         foreach ($pager as $location) {
             $contentInfo = $location->getContentInfo();
             $versionInfo = $doMapVersionInfoData ? $location->getContent()->getVersionInfo() : null;
@@ -85,7 +90,7 @@ final readonly class PagerLocationToDataMapper
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     private function getAvailableTranslations(
         VersionInfo $versionInfo

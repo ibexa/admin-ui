@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\ContentForms\User\View\UserCreateView;
 use Ibexa\ContentForms\User\View\UserUpdateView;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Event\PreContentViewEvent;
 use Ibexa\Core\MVC\Symfony\MVCEvents;
@@ -33,7 +34,7 @@ final readonly class ViewTemplatesListener implements EventSubscriberInterface
      * If the event's view has a defined template, sets the view's template identifier,
      * and the 'page_layout' parameter.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function setViewTemplates(PreContentViewEvent $event): void
     {

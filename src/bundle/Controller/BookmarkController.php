@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\BookmarkAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Location\Bookmark;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -99,7 +100,7 @@ final class BookmarkController extends Controller
     }
 
     /**
-     * @param array<\Ibexa\AdminUi\UI\Value\Location\Bookmark> $bookmarks
+     * @param array<Bookmark> $bookmarks
      *
      * @return array<int, false>
      */

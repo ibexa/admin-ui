@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment as APIRoleAssignment;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -38,8 +39,8 @@ final readonly class RoleAssignmentTransformer implements DataTransformerInterfa
     }
 
     /**
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws TransformationFailedException
+     * @throws UnauthorizedException
      */
     public function reverseTransform(mixed $value): ?APIRoleAssignment
     {

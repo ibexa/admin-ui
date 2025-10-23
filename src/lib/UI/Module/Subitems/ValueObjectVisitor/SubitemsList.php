@@ -17,8 +17,11 @@ final class SubitemsList extends ValueObjectVisitor
     /**
      * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('SubitemsList');
         $visitor->setHeader('Content-Type', $generator->getMediaType('SubitemsList'));
         //@todo Needs refactoring, disabling certain headers should not be done this way

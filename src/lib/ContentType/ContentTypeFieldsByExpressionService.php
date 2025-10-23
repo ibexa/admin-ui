@@ -45,8 +45,10 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         return $contentTypeFieldDefinitions;
     }
 
-    public function isFieldIncludedInExpression(FieldDefinition $fieldDefinition, string $expression): bool
-    {
+    public function isFieldIncludedInExpression(
+        FieldDefinition $fieldDefinition,
+        string $expression
+    ): bool {
         return $this->fieldsExtractor->isFieldWithinExpression($fieldDefinition->getId(), $expression);
     }
 }

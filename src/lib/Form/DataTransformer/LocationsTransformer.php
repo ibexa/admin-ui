@@ -34,9 +34,9 @@ final readonly class LocationsTransformer implements DataTransformerInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): array
     {

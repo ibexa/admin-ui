@@ -24,8 +24,10 @@ final readonly class ContentActionsMenuContext implements Context
      * @Given I perform the :buttonName action
      * @Given I perform the :buttonName action from the :groupName group
      */
-    public function clickEditActionBar(string $buttonName, ?string $groupName = null): void
-    {
+    public function clickEditActionBar(
+        string $buttonName,
+        ?string $groupName = null
+    ): void {
         $this->contentActionsMenu->clickButton($buttonName, $groupName);
     }
 

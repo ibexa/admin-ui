@@ -24,6 +24,7 @@ use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsP
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
@@ -64,8 +65,8 @@ final class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws ApiException\BadStateException
+     * @throws ApiException\InvalidArgumentException
      */
     public function hasCreateAccessAction(
         string $languageCode,
@@ -130,15 +131,15 @@ final class ContentOnTheFlyController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws NotFoundException
+     * @throws ApiException\InvalidArgumentException
      */
     public function createContentAction(
         Request $request,
         string $languageCode,
         ContentType $contentType,
         Location $parentLocation
-    ): BaseView|Response {
+    ): BaseView | Response {
         if (
             (new ContentTypeIsUser($this->configResolver->getParameter('user_content_type_identifier')))
             ->isSatisfiedBy($contentType)
@@ -150,7 +151,7 @@ final class ContentOnTheFlyController extends Controller
             ]);
         }
 
-        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent $event */
+        /** @var ContentProxyCreateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyCreateEvent(
                 $contentType,
@@ -209,10 +210,10 @@ final class ContentOnTheFlyController extends Controller
 
     /**
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Core\Base\Exceptions\BadStateException
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentException
+     * @throws NotFoundException
+     * @throws ApiException\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function editContentAction(
         Request $request,
@@ -220,7 +221,7 @@ final class ContentOnTheFlyController extends Controller
         int $contentId,
         int $versionNo,
         ?int $locationId
-    ): Response|EditContentOnTheFlySuccessView|EditContentOnTheFlyView {
+    ): Response | EditContentOnTheFlySuccessView | EditContentOnTheFlyView {
         $content = $this->contentService->loadContent($contentId, [$languageCode], $versionNo);
         $versionInfo = $content->getVersionInfo();
 

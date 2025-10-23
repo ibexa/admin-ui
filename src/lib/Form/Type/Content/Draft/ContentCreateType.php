@@ -17,6 +17,9 @@ use Ibexa\AdminUi\Form\Type\ContentType\ContentTypeChoiceType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
@@ -41,16 +44,18 @@ class ContentCreateType extends AbstractType
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $restrictedContentTypesIds = [];
         $restrictedLanguageCodes = [];
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentCreateData $contentCreateData */
+        /** @var ContentCreateData $contentCreateData */
         $contentCreateData = $options['data'];
         if ($location = $contentCreateData->getParentLocation()) {
             $limitationsValues = $this->getLimitationValuesForLocation($location);
@@ -109,9 +114,9 @@ class ContentCreateType extends AbstractType
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      *
      * @return array<string, array<int|string>>
      */

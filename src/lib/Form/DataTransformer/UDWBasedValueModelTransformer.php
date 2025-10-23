@@ -31,7 +31,7 @@ final readonly class UDWBasedValueModelTransformer implements DataTransformerInt
     /**
      * {@inheritdoc}
      *
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Location|null>
+     * @return array<Location|null>
      */
     public function transform(mixed $value): ?array
     {

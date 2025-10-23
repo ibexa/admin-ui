@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,7 +52,7 @@ final class ProfileViewController extends Controller
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Role[]
+     * @return Role[]
      */
     private function getUserRoles(User $user): iterable
     {
@@ -59,7 +60,7 @@ final class ProfileViewController extends Controller
             return [];
         }
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $assignments */
+        /** @var RoleAssignment[] $assignments */
         $assignments = $this->repository->sudo(function () use ($user): iterable {
             return $this->roleService->getRoleAssignmentsForUser($user, true);
         });
@@ -72,7 +73,10 @@ final class ProfileViewController extends Controller
             }
         }
 
-        usort($roles, static function (Role $roleA, Role $roleB): int {
+        usort($roles, static function (
+            Role $roleA,
+            Role $roleB
+        ): int {
             return strcmp($roleA->identifier, $roleB->identifier);
         });
 

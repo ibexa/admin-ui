@@ -29,8 +29,10 @@ class ConfigResolver
      *
      * @return array<mixed>
      */
-    public function getConfig(string $configName, array $context = []): array
-    {
+    public function getConfig(
+        string $configName,
+        array $context = []
+    ): array {
         $config = $this->getUDWConfiguration($configName);
         $defaults = $this->getUDWConfiguration(self::DEFAULT_CONFIGURATION_KEY);
 
@@ -42,7 +44,7 @@ class ConfigResolver
         $configResolveEvent->setContext($context);
         $configResolveEvent->setConfig($config);
 
-        /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event */
+        /** @var ConfigResolveEvent $event */
         $event = $this->eventDispatcher->dispatch($configResolveEvent, ConfigResolveEvent::NAME);
 
         return $event->getConfig();
@@ -53,8 +55,10 @@ class ConfigResolver
      *
      * @return array<string, mixed>
      */
-    protected function mergeConfiguration(array $default, mixed $apply): array
-    {
+    protected function mergeConfiguration(
+        array $default,
+        mixed $apply
+    ): array {
         foreach ($apply as $key => $item) {
             if (isset($default[$key]) && $this->isAssocArray($default[$key])) {
                 $default[$key] = $this->mergeConfiguration($default[$key], $item);

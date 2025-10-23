@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -20,7 +21,7 @@ final class PathStringExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
@@ -33,7 +34,7 @@ final class PathStringExtension extends AbstractExtension
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocationList(string $pathString): array
     {

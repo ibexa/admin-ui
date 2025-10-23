@@ -13,6 +13,8 @@ use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -57,23 +59,23 @@ final class ContentEditRightSidebarBuilder extends AbstractBuilder implements Tr
     /**
      * @param array<string, mixed> $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $options['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $options['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $options['language'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
+        /** @var Location $parentLocation */
         $parentLocation = $options['parent_location'];
 
         $target = (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf(
@@ -166,7 +168,7 @@ final class ContentEditRightSidebarBuilder extends AbstractBuilder implements Tr
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {
@@ -180,8 +182,8 @@ final class ContentEditRightSidebarBuilder extends AbstractBuilder implements Tr
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     private function getContentPreviewItem(
         ?Location $location,

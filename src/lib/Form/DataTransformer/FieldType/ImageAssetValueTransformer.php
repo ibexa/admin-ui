@@ -15,9 +15,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 final class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer implements DataTransformerInterface
 {
     /**
-     * @param \Ibexa\Core\FieldType\ImageAsset\Value|null $value
+     * @param Value|null $value
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      *
      * @return array<string, mixed>|null
      */
@@ -45,7 +45,7 @@ final class ImageAssetValueTransformer extends AbstractBinaryBaseTransformer imp
     /**
      * @param array<string, mixed>|null $value
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): ?Value
     {

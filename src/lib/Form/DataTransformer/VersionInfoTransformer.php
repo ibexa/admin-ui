@@ -26,7 +26,7 @@ final readonly class VersionInfoTransformer implements DataTransformerInterface
     }
 
     /**
-     * @phpstan-return array{content_info: \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo, version_no: int}|null
+     * @phpstan-return array{content_info: ContentInfo, version_no: int}|null
      */
     public function transform(mixed $value): ?array
     {

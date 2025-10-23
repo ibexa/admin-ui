@@ -13,6 +13,8 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Iterator\BatchIterator;
 use Ibexa\Contracts\Core\Repository\Iterator\BatchIteratorAdapter\RelationListIteratorAdapter;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\Relation;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationType;
 use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
@@ -42,10 +44,10 @@ final class ContentHaveUniqueRelation extends AbstractSpecification
             )
         );
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationItem */
+        /** @var RelationListItem $relationItem */
         foreach ($relationListIterator as $relationItem) {
             if ($relationItem->hasRelation()) {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation */
+                /** @var Relation $relation */
                 $relation = $relationItem->getRelation();
                 $relationsFromAssetSide = $this->contentService->countReverseRelations(
                     $relation->getDestinationContentInfo()

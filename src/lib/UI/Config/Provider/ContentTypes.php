@@ -57,7 +57,7 @@ final readonly class ContentTypes implements ProviderInterface
             $eventContentTypeGroups[] = $contentTypeGroup;
         }
 
-        /** @var \Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent $event */
+        /** @var AddContentTypeGroupToUIConfigEvent $event */
         $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($eventContentTypeGroups));
 
         foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
@@ -66,7 +66,10 @@ final readonly class ContentTypes implements ProviderInterface
                 $preferredLanguages
             ));
 
-            usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
+            usort($contentTypes, static function (
+                ContentType $contentType1,
+                ContentType $contentType2
+            ): int {
                 return strnatcasecmp($contentType1->getName(), $contentType2->getName());
             });
 
@@ -78,7 +81,7 @@ final readonly class ContentTypes implements ProviderInterface
             }
         }
 
-        /** @var \Ibexa\AdminUi\Event\FilterContentTypesEvent $event */
+        /** @var FilterContentTypesEvent $event */
         $event = $this->eventDispatcher->dispatch(new FilterContentTypesEvent($contentTypeGroups));
 
         return $event->getContentTypeGroups();
@@ -87,8 +90,10 @@ final readonly class ContentTypes implements ProviderInterface
     /**
      * @phpstan-return TContentTypeData
      */
-    private function getContentTypeData(ContentType $contentType, bool $isHidden): array
-    {
+    private function getContentTypeData(
+        ContentType $contentType,
+        bool $isHidden
+    ): array {
         return [
             'id' => $contentType->id,
             'identifier' => $contentType->getIdentifier(),

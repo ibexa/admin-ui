@@ -17,6 +17,11 @@ use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Exception\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentStruct;
@@ -24,6 +29,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
@@ -51,7 +59,7 @@ final readonly class PreviewFormProcessor implements EventSubscriberInterface
      */
     public function processPreview(FormActionEvent $event): void
     {
-        /** @var \Ibexa\ContentForms\Data\Content\ContentCreateData|\Ibexa\ContentForms\Data\Content\ContentUpdateData $data */
+        /** @var ContentCreateData|ContentUpdateData $data */
         $data = $event->getData();
         $form = $event->getForm();
         $languageCode = $form->getConfig()->getOption('languageCode');
@@ -85,14 +93,14 @@ final readonly class PreviewFormProcessor implements EventSubscriberInterface
      * Saves content draft corresponding to $data.
      * Depending on the nature of $data (create or update data), the draft will either be created or simply updated.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentValidationException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ContentFieldValidationException
+     * @throws ContentValidationException
+     * @throws ContentFieldValidationException
      */
     private function saveDraft(
-        ContentCreateData|ContentStruct|ContentUpdateData $data,
+        ContentCreateData | ContentStruct | ContentUpdateData $data,
         string $languageCode
     ): Content {
         $mainLanguageCode = $this->resolveMainLanguageCode($data);
@@ -120,12 +128,14 @@ final readonly class PreviewFormProcessor implements EventSubscriberInterface
     /**
      * Returns content create or edit URL depending on $data type.
      *
-     * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException
-     * @throws \Symfony\Component\Routing\Exception\MissingMandatoryParametersException
-     * @throws \Symfony\Component\Routing\Exception\InvalidParameterException
+     * @throws RouteNotFoundException
+     * @throws MissingMandatoryParametersException
+     * @throws InvalidParameterException
      */
-    private function getContentEditUrl(ContentCreateData|ContentUpdateData $data, string $languageCode): string
-    {
+    private function getContentEditUrl(
+        ContentCreateData | ContentUpdateData $data,
+        string $languageCode
+    ): string {
         return $data->isNew() && $data instanceof ContentCreateData
             ? $this->urlGenerator->generate('ibexa.content.create.proxy', [
                 'parentLocationId' => $data->getLocationStructs()[0]->parentLocationId,
@@ -140,7 +150,7 @@ final readonly class PreviewFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Exception\InvalidArgumentException If unable to resolve main language code given $data
+     * @throws InvalidArgumentException If unable to resolve main language code given $data
      */
     private function resolveMainLanguageCode(ContentStruct $data): string
     {
@@ -156,8 +166,8 @@ final readonly class PreviewFormProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function resolveLocation(
         Content $content,

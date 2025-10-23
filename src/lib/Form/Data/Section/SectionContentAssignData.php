@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Section;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 
 /**
@@ -16,7 +17,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 final class SectionContentAssignData
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      */
     public function __construct(
         private ?Section $section = null,
@@ -35,7 +36,7 @@ final class SectionContentAssignData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocations(): array
     {
@@ -43,7 +44,7 @@ final class SectionContentAssignData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      */
     public function setLocations(array $locations): void
     {

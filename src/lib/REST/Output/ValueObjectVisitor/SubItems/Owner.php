@@ -17,8 +17,11 @@ final class Owner extends ValueObjectVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\SubItems\Owner $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('Owner');
 
         $generator->valueElement('id', $data->id);

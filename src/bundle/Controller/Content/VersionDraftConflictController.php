@@ -13,6 +13,8 @@ use Ibexa\AdminUi\Specification\ContentIsUser;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -33,9 +35,9 @@ final class VersionDraftConflictController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function draftHasNoConflictAction(
         int $contentId,

@@ -74,8 +74,10 @@ final readonly class UserOnTheFlyProcessor implements EventSubscriberInterface
         );
     }
 
-    private function setContentFields(UserCreateData $data, string $languageCode): void
-    {
+    private function setContentFields(
+        UserCreateData $data,
+        string $languageCode
+    ): void {
         foreach ($data->getFieldsData() as $fieldDefIdentifier => $fieldData) {
             $data->setField($fieldDefIdentifier, $fieldData->getValue(), $languageCode);
         }

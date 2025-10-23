@@ -67,8 +67,10 @@ class FieldDefinitionType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);
         $isTranslation = $options['languageCode'] !== $options['mainLanguageCode'];
 
@@ -121,7 +123,7 @@ class FieldDefinitionType extends AbstractType
 
         // Hook on form generation for specific FieldType needs
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
-            /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data */
+            /** @var FieldDefinitionData $data */
             $data = $event->getData();
             $form = $event->getForm();
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
@@ -164,8 +166,11 @@ class FieldDefinitionType extends AbstractType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         $view->vars['disable_remove'] = $options['disable_remove'];
     }
 

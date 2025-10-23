@@ -17,8 +17,11 @@ final class ContentType extends ValueObjectVisitor
     /**
      * @param \Ibexa\AdminUi\REST\Value\SubItems\ContentType $data
      */
-    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        mixed $data
+    ): void {
         $generator->startObjectElement('ContentType');
 
         $generator->valueElement('name', $data->name);

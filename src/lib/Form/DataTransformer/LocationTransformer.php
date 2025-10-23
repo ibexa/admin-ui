@@ -27,7 +27,7 @@ final readonly class LocationTransformer implements DataTransformerInterface
     /**
      * Transforms a domain specific Location object into a Location's identifier.
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform(mixed $value): ?int
     {
@@ -45,7 +45,7 @@ final readonly class LocationTransformer implements DataTransformerInterface
     /**
      * Transforms a Location's ID into a domain specific Location object.
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform(mixed $value): ?APILocation
     {

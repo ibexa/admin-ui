@@ -33,7 +33,7 @@ final class UrlAliasController extends Controller
         $form = $this->formFactory->addCustomUrl();
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
+        /** @var CustomUrlAddData $data */
         $data = $form->getData();
         $location = $data->getLocation();
 

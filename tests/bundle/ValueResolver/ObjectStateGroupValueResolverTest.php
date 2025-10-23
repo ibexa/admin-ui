@@ -20,7 +20,7 @@ final class ObjectStateGroupValueResolverTest extends TestCase
 {
     private ObjectStateGroupValueResolver $resolver;
 
-    private MockObject&ObjectStateService $objectStateServiceMock;
+    private MockObject & ObjectStateService $objectStateServiceMock;
 
     protected function setUp(): void
     {
@@ -58,8 +58,10 @@ final class ObjectStateGroupValueResolverTest extends TestCase
      * @param array<string, mixed> $attributes
      * @param string $expectedMessage
      */
-    public function testResolveInvalidAttributes(array $attributes, string $expectedMessage): void
-    {
+    public function testResolveInvalidAttributes(
+        array $attributes,
+        string $expectedMessage
+    ): void {
         $mockArgumentMetadata = $this->createMock(ArgumentMetadata::class);
         $mockArgumentMetadata->expects(self::once())
             ->method('getType')

@@ -41,11 +41,13 @@ readonly class SubmitHandler implements UserActionsSubmitHandler
      * Handles form errors (NotificationHandler:warning).
      * Handles business logic exceptions (NotificationHandler:error).
      *
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      * @param callable $handler
      */
-    public function handle(FormInterface $form, callable $handler): ?Response
-    {
+    public function handle(
+        FormInterface $form,
+        callable $handler
+    ): ?Response {
         $data = $form->getData();
 
         if ($form->isValid()) {
@@ -91,13 +93,15 @@ readonly class SubmitHandler implements UserActionsSubmitHandler
      *
      * @param callable(mixed): ?Response $handler
      */
-    public function handleAjax(FormInterface $form, callable $handler): JsonResponse
-    {
+    public function handleAjax(
+        FormInterface $form,
+        callable $handler
+    ): JsonResponse {
         $data = $form->getData();
 
         if ($form->isValid()) {
             try {
-                /** @var \Symfony\Component\HttpFoundation\JsonResponse $result */
+                /** @var JsonResponse $result */
                 $result = $handler($data);
                 if ($result->getStatusCode() === Response::HTTP_OK) {
                     $event = $this->formUiActionMappingDispatcher->dispatch($form);

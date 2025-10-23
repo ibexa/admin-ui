@@ -20,7 +20,7 @@ final class FieldGroupRenderingExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFilter[]
+     * @return TwigFilter[]
      */
     public function getFilters(): array
     {

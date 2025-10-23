@@ -23,8 +23,10 @@ final readonly class ContentUpdateMapper implements FormDataMapperInterface
      *
      * @param array<string, mixed> $params
      */
-    public function mapToFormData(ValueObject|Content $repositoryValueObject, array $params = []): ContentUpdateData
-    {
+    public function mapToFormData(
+        ValueObject | Content $repositoryValueObject,
+        array $params = []
+    ): ContentUpdateData {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
 

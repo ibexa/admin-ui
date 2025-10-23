@@ -36,8 +36,10 @@ final readonly class HasUniqueAssetRelation implements TrashLocationOptionProvid
             ->isSatisfiedBy($location->getContent());
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $translatorParameters = [
             '%content%' => $location->getContent()->getName(),
         ];

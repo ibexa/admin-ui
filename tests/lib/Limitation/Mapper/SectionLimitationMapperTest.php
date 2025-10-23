@@ -20,9 +20,9 @@ class SectionLimitationMapperTest extends TestCase
 {
     private const EXAMPLE_SECTION_ID = 0xFF;
 
-    private SectionService&MockObject $sectionServiceMock;
+    private SectionService & MockObject $sectionServiceMock;
 
-    private LoggerInterface&MockObject $logger;
+    private LoggerInterface & MockObject $logger;
 
     private SectionLimitationMapper $mapper;
 

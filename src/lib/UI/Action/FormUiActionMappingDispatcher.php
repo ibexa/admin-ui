@@ -14,13 +14,13 @@ use Traversable;
 
 class FormUiActionMappingDispatcher
 {
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] */
+    /** @var FormUiActionMapperInterface[] */
     protected $mappers;
 
     protected FormUiActionMapperInterface $defaultMapper;
 
     /**
-     * @param \Traversable<\Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface> $mappers
+     * @param Traversable<FormUiActionMapperInterface> $mappers
      */
     public function __construct(
         Traversable $mappers,
@@ -31,7 +31,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[]
+     * @return FormUiActionMapperInterface[]
      */
     public function getMappers(): array
     {
@@ -39,7 +39,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] $mappers
+     * @param FormUiActionMapperInterface[] $mappers
      */
     public function setMappers(array $mappers): void
     {
@@ -57,7 +57,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
     public function dispatch(FormInterface $form): UiActionEvent
     {

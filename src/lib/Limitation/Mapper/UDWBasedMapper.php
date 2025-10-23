@@ -15,6 +15,7 @@ use Ibexa\AdminUi\Limitation\LimitationValueMapperInterface;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
@@ -50,10 +51,12 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param FormInterface<mixed> $form
      */
-    public function mapLimitationForm(FormInterface $form, Limitation $data): void
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ): void {
         $form->add(
             // Creating from FormBuilder as we need to add a DataTransformer.
             $form->getConfig()->getFormFactory()
@@ -79,7 +82,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
     }
 
     /**
-     * @phpstan-return list<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]>
+     * @phpstan-return list<ContentInfo[]>
      */
     public function mapLimitationValue(Limitation $limitation): array
     {

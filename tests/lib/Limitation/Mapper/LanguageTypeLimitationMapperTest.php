@@ -18,9 +18,9 @@ use Psr\Log\LoggerInterface;
 
 class LanguageTypeLimitationMapperTest extends TestCase
 {
-    private LanguageService&MockObject $languageService;
+    private LanguageService & MockObject $languageService;
 
-    private LoggerInterface&MockObject $logger;
+    private LoggerInterface & MockObject $logger;
 
     private LanguageLimitationMapper $mapper;
 

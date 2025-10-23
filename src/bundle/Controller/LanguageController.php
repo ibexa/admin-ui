@@ -24,6 +24,7 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,7 +55,7 @@ final class LanguageController extends Controller
 
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageList */
+        /** @var Language[] $languageList */
         $languageList = $pagerfanta->getCurrentPageResults();
 
         $deleteLanguagesForm = $this->formFactory->deleteLanguages(
@@ -82,8 +83,10 @@ final class LanguageController extends Controller
         ]);
     }
 
-    public function deleteAction(Request $request, Language $language): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Language $language
+    ): Response {
         $form = $this->formFactory->deleteLanguage(
             $language,
             new LanguageDeleteData($language)
@@ -143,7 +146,7 @@ final class LanguageController extends Controller
 
     public function createAction(Request $request): Response
     {
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createLanguage();
         $form->handleRequest($request);
 
@@ -175,9 +178,11 @@ final class LanguageController extends Controller
         ]);
     }
 
-    public function editAction(Request $request, Language $language): Response
-    {
-        /** @var \Symfony\Component\Form\Form $form */
+    public function editAction(
+        Request $request,
+        Language $language
+    ): Response {
+        /** @var Form $form */
         $form = $this->formFactory->updateLanguage(
             new LanguageUpdateData($language)
         );
@@ -218,7 +223,7 @@ final class LanguageController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
+     * @param Language[] $languages
      *
      * @return array<int, bool>
      */

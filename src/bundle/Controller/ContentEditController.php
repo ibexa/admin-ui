@@ -33,7 +33,7 @@ final class ContentEditController extends Controller
         string $toLanguageCode,
         ?int $locationId = null
     ): Response {
-        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent $event */
+        /** @var ContentProxyTranslateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyTranslateEvent(
                 $contentId,

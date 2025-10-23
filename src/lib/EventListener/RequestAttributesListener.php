@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\EventListener;
 
 use Ibexa\Bundle\AdminUi\IbexaAdminUiBundle;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -42,8 +44,8 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
     /**
      * Adds all the request attributes to the parameters.
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function addRequestAttributes(FilterViewBuilderParametersEvent $event): void
     {
@@ -61,7 +63,7 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
         }
 
         if ($this->hasContentLanguage($request, $parameterBag)) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            /** @var Location $location */
             $location = $parameterBag->get('location');
 
             $languageCode = $parameterBag->get('languageCode');
@@ -71,8 +73,10 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
         }
     }
 
-    private function hasContentLanguage(Request $request, ParameterBag $parameterBag): bool
-    {
+    private function hasContentLanguage(
+        Request $request,
+        ParameterBag $parameterBag
+    ): bool {
         return $parameterBag->has('languageCode')
             && $parameterBag->has('location')
             && $request->get('_route') === self::TRANSLATED_CONTENT_VIEW_ROUTE_NAME;
@@ -88,11 +92,13 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws UnauthorizedException
+     * @throws NotFoundException
      */
-    private function loadContent(int $contentId, ?string $language): Content
-    {
+    private function loadContent(
+        int $contentId,
+        ?string $language
+    ): Content {
         return $this->repository->getContentService()->loadContent(
             $contentId,
             $language ? [$language] : null

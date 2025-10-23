@@ -26,10 +26,12 @@ final class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidato
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param Constraint $constraint The constraint for the validation
      */
-    public function validate(mixed $location, Constraint $constraint): void
-    {
+    public function validate(
+        mixed $location,
+        Constraint $constraint
+    ): void {
         if (null === $location) {
             return;
         }

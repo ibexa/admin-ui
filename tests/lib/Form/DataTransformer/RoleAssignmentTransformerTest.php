@@ -21,8 +21,10 @@ class RoleAssignmentTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      */
-    public function testTransform(?UserRoleAssignment $value, ?int $expected): void
-    {
+    public function testTransform(
+        ?UserRoleAssignment $value,
+        ?int $expected
+    ): void {
         $service = $this->createMock(RoleService::class);
         $transformer = new RoleAssignmentTransformer($service);
 

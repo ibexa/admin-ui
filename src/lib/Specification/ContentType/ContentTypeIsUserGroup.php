@@ -24,9 +24,9 @@ final class ContentTypeIsUserGroup extends AbstractSpecification
     /**
      * Checks if $contentType is an existing User content.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function isSatisfiedBy(mixed $contentType): bool
     {

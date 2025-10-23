@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\EventListener;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -23,8 +25,8 @@ final readonly class BuildPathFromRootListener
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function onPreSubmitData(FormEvent $event): void
     {
@@ -51,11 +53,13 @@ final readonly class BuildPathFromRootListener
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    private function createPathBasedOnParentLocation(int $locationId, string $path): string
-    {
+    private function createPathBasedOnParentLocation(
+        int $locationId,
+        string $path
+    ): string {
         $parentLocation = $this->locationService->loadLocation($locationId);
         $urlAlias = $this->urlAliasService->reverseLookup($parentLocation);
 

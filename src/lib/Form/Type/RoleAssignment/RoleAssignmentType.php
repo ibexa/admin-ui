@@ -22,8 +22,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class RoleAssignmentType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add('groups', UserGroupChoiceType::class, [
             'required' => false,
             'multiple' => true,

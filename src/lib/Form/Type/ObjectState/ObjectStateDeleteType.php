@@ -20,8 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class ObjectStateDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('object_state_', ObjectStateType::class)
             ->add('delete', SubmitType::class, [

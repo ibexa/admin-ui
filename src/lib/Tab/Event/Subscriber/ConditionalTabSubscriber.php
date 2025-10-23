@@ -18,7 +18,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Evaluates if tabs should be visible (Tabs implementing ConditionalTabInterface).
  *
- * @see \Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface
+ * @see ConditionalTabInterface
  */
 final readonly class ConditionalTabSubscriber implements EventSubscriberInterface
 {
