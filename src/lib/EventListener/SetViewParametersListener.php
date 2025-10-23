@@ -42,8 +42,7 @@ readonly class SetViewParametersListener implements EventSubscriberInterface
         private Repository $repository,
         private ConfigResolverInterface $configResolver,
         private GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
-    ) {
-    }
+    ) {}
 
     /**
      * Returns an array of event names this subscriber wants to listen to.

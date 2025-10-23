@@ -21,8 +21,7 @@ final readonly class HasChildren implements TrashLocationOptionProvider
     public function __construct(
         private LocationService $locationService,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function supports(Location $location): bool
     {

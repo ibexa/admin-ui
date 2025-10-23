@@ -23,9 +23,7 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final readonly class TrashFormFactory
 {
-    public function __construct(private FormFactoryInterface $formFactory)
-    {
-    }
+    public function __construct(private FormFactoryInterface $formFactory) {}
 
     public function restoreTrashItem(
         ?TrashItemRestoreData $data = null,

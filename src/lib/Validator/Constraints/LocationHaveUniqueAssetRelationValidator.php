@@ -17,9 +17,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
 {
-    public function __construct(private readonly ContentService $contentService)
-    {
-    }
+    public function __construct(private readonly ContentService $contentService) {}
 
     /**
      * Checks if the passed value is valid.

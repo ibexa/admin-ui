@@ -130,7 +130,9 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language as APILanguage;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
+
 use function is_string;
+
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Util\StringUtil;
@@ -140,8 +142,7 @@ class FormFactory
 {
     public function __construct(
         private readonly FormFactoryInterface $formFactory
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $options

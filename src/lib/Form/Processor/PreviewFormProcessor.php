@@ -44,8 +44,7 @@ final readonly class PreviewFormProcessor implements EventSubscriberInterface
         private UrlGeneratorInterface $urlGenerator,
         private TranslatableNotificationHandlerInterface $notificationHandler,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

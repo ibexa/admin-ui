@@ -23,8 +23,7 @@ final readonly class UserOnTheFlyProcessor implements EventSubscriberInterface
         private UserService $userService,
         private Environment $twig,
         private UserUpdateFormProcessor $innerUserUpdateFormProcessor
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

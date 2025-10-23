@@ -18,6 +18,5 @@ final class SubItemList extends Value
     public function __construct(
         public readonly int $totalCount,
         public readonly array $elements = []
-    ) {
-    }
+    ) {}
 }

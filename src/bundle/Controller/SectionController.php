@@ -63,8 +63,7 @@ final class SectionController extends Controller
         private readonly PermissionResolver $permissionResolver,
         private readonly PermissionCheckerInterface $permissionChecker,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function performAccessCheck(): void
     {

@@ -25,8 +25,7 @@ final class UserGroupChoiceType extends AbstractType
         private readonly Repository $repository,
         private readonly SearchService $searchService,
         private readonly UserService $userService
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

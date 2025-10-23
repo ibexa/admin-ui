@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class LanguageTransformer implements DataTransformerInterface
 {
-    public function __construct(private LanguageService $languageService)
-    {
-    }
+    public function __construct(private LanguageService $languageService) {}
 
     public function transform(mixed $value): ?string
     {

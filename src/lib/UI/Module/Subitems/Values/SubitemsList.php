@@ -18,6 +18,5 @@ final class SubitemsList extends RestValue
     public function __construct(
         public readonly array $subitemRows,
         public readonly int $childrenCount
-    ) {
-    }
+    ) {}
 }

@@ -18,8 +18,7 @@ final class ContentObjectStateUpdateData
         private ?ContentInfo $contentInfo = null,
         private ?ObjectStateGroup $objectStateGroup = null,
         private ?ObjectState $objectState = null
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

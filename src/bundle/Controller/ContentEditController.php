@@ -24,8 +24,7 @@ final class ContentEditController extends Controller
         private readonly ContentService $contentService,
         private readonly LocationService $locationService,
         private readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     public function proxyTranslateAction(
         int $contentId,

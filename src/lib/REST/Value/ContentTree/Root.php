@@ -15,7 +15,5 @@ final class Root extends RestValue
     /**
      * @param Node[] $elements
      */
-    public function __construct(public array $elements = [])
-    {
-    }
+    public function __construct(public array $elements = []) {}
 }

@@ -15,9 +15,7 @@ final class ObjectStatesDeleteData
     /**
      * @param ObjectState[]|null $objectStates
      */
-    public function __construct(private ?array $objectStates = [])
-    {
-    }
+    public function __construct(private ?array $objectStates = []) {}
 
     /**
      * @return ObjectState[]|null

@@ -19,9 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ContentTypeType extends AbstractType
 {
-    public function __construct(protected readonly ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(protected readonly ContentTypeService $contentTypeService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

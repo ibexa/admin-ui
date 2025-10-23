@@ -21,8 +21,7 @@ final class BookmarksDataset
     public function __construct(
         private readonly BookmarkService $bookmarkService,
         private readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(
         int $offset = 0,

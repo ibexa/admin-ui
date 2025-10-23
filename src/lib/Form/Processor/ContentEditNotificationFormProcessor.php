@@ -27,8 +27,7 @@ final readonly class ContentEditNotificationFormProcessor implements EventSubscr
         private TranslatableNotificationHandlerInterface $notificationHandler,
         private RequestStack $requestStack,
         private array $siteAccessGroups
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

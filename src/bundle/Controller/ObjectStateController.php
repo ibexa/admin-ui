@@ -44,8 +44,7 @@ final class ObjectStateController extends Controller
         private readonly SubmitHandler $submitHandler,
         private readonly PermissionResolver $permissionResolver,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(ObjectStateGroup $objectStateGroup): Response
     {

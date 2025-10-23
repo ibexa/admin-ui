@@ -28,8 +28,7 @@ readonly class TabsComponent implements ComponentInterface
         protected string $template,
         protected string $groupIdentifier,
         protected array $parameters = []
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters

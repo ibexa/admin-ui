@@ -12,9 +12,7 @@ use Symfony\Component\Form\FormEvent;
 
 final readonly class SelectionMultilingualOptionsDataListener
 {
-    public function __construct(private string $languageCode)
-    {
-    }
+    public function __construct(private string $languageCode) {}
 
     public function setLanguageOptions(FormEvent $event): void
     {

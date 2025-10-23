@@ -34,8 +34,7 @@ final class AccordionData extends Value
     public function __construct(
         private readonly array $breadcrumb,
         private readonly array $columns
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<Location>

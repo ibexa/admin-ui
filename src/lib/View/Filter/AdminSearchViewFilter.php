@@ -43,8 +43,7 @@ final readonly class AdminSearchViewFilter implements EventSubscriberInterface
         private array $siteAccessGroups,
         private SearchViewFilter $innerFilter,
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

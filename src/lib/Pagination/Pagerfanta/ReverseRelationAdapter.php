@@ -22,8 +22,7 @@ final readonly class ReverseRelationAdapter implements AdapterInterface
         private ContentService $contentService,
         private DatasetFactory $datasetFactory,
         private Content $content
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {

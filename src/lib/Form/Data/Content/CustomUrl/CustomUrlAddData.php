@@ -20,8 +20,7 @@ final class CustomUrlAddData
         private bool $redirect = true,
         private bool $siteRoot = true,
         private ?string $siteAccess = null
-    ) {
-    }
+    ) {}
 
     public function getLocation(): ?Location
     {

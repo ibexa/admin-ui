@@ -16,9 +16,7 @@ final readonly class OptionsFactory
     /**
      * @param iterable<TrashLocationOptionProvider> $providers
      */
-    public function __construct(private iterable $providers)
-    {
-    }
+    public function __construct(private iterable $providers) {}
 
     public function addOptions(
         FormInterface $form,

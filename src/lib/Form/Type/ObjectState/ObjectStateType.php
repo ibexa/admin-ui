@@ -19,9 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 final class ObjectStateType extends AbstractType
 {
-    public function __construct(private readonly ObjectStateService $objectStateService)
-    {
-    }
+    public function __construct(private readonly ObjectStateService $objectStateService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

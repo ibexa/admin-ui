@@ -19,8 +19,7 @@ final readonly class UserNotificationContext implements Context
     public function __construct(
         private UpperMenu $upperMenu,
         private UserNotificationPopup $userNotificationPopup
-    ) {
-    }
+    ) {}
 
     /**
      * @Given there is an unread notification for current user

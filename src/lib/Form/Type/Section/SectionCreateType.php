@@ -19,9 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class SectionCreateType extends AbstractType
 {
-    public function __construct(private readonly SectionType $sectionType)
-    {
-    }
+    public function __construct(private readonly SectionType $sectionType) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

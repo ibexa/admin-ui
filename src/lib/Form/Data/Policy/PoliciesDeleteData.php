@@ -21,8 +21,7 @@ final class PoliciesDeleteData
     public function __construct(
         private ?Role $role = null,
         private ?array $policies = []
-    ) {
-    }
+    ) {}
 
     public function getRole(): ?Role
     {

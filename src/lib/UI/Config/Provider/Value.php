@@ -16,9 +16,7 @@ use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
  */
 readonly class Value implements ProviderInterface
 {
-    public function __construct(protected mixed $config)
-    {
-    }
+    public function __construct(protected mixed $config) {}
 
     public function getConfig(): mixed
     {

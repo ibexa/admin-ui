@@ -54,9 +54,7 @@ class ContentItemAdminPreview extends Component
         }
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     protected function specifyLocators(): array
     {

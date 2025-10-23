@@ -29,8 +29,7 @@ final readonly class InContextTranslationListener implements EventSubscriberInte
         private array $siteAccessGroups,
         private UserSettingService $userSettingService,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritdoc}

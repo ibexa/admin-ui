@@ -19,8 +19,7 @@ final readonly class TranslatableNotificationHandler implements TranslatableNoti
     public function __construct(
         private NotificationHandlerInterface $notificationHandler,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function info(
         string $message,

@@ -24,8 +24,7 @@ final readonly class RoleAssignmentsSearchAdapter implements AdapterInterface
         private RoleService $roleService,
         private Role $role,
         private ?int $assignmentsCount = null
-    ) {
-    }
+    ) {}
 
     /**
      * @throws BadStateException

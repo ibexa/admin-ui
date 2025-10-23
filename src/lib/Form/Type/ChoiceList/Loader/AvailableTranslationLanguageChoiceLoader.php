@@ -19,8 +19,7 @@ final class AvailableTranslationLanguageChoiceLoader extends BaseChoiceLoader
     public function __construct(
         private readonly LanguageService $languageService,
         private readonly array $languageCodes
-    ) {
-    }
+    ) {}
 
     /**
      * @return Language[]

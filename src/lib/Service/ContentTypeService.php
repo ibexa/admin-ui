@@ -22,8 +22,7 @@ readonly class ContentTypeService
     public function __construct(
         private Repository\ContentTypeService $contentTypeService,
         private array $prioritizedLanguages
-    ) {
-    }
+    ) {}
 
     public function getContentType(int $id): ContentType
     {

@@ -17,9 +17,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 
 final readonly class TrashItemTransformer implements DataTransformerInterface
 {
-    public function __construct(private TrashService $trashService)
-    {
-    }
+    public function __construct(private TrashService $trashService) {}
 
     /**
      * @throws TransformationFailedException

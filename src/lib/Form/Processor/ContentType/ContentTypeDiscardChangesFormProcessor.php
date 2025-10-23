@@ -22,8 +22,7 @@ final readonly class ContentTypeDiscardChangesFormProcessor implements EventSubs
 {
     public function __construct(
         private UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

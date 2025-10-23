@@ -18,9 +18,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final readonly class ContentTypeTransformer implements DataTransformerInterface
 {
-    public function __construct(private ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(private ContentTypeService $contentTypeService) {}
 
     /**
      * @param ContentType|null $value

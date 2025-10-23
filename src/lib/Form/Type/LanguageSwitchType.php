@@ -22,9 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class LanguageSwitchType extends AbstractType
 {
-    public function __construct(private readonly LanguageService $languageService)
-    {
-    }
+    public function __construct(private readonly LanguageService $languageService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

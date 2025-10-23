@@ -90,8 +90,7 @@ final class VersionInfoTransformerTest extends TestCase
      */
     public function dataProviderForTransformWithInvalidInput(): array
     {
-        $object = new class() {
-        };
+        $object = new class() {};
 
         return [
             'string' => ['string'],
@@ -218,8 +217,7 @@ final class VersionInfoTransformerTest extends TestCase
             'version_no' => self::EXAMPLE_VERSION_NO,
         ];
 
-        $exception = new class('VersionInfo not found') extends NotFoundException {
-        };
+        $exception = new class('VersionInfo not found') extends NotFoundException {};
 
         $this->contentService
             ->method('loadVersionInfo')
@@ -243,8 +241,7 @@ final class VersionInfoTransformerTest extends TestCase
             'version_no' => self::EXAMPLE_VERSION_NO,
         ];
 
-        $exception = new class('Unauthorized VersionInfo') extends UnauthorizedException {
-        };
+        $exception = new class('Unauthorized VersionInfo') extends UnauthorizedException {};
 
         $this->contentService
             ->method('loadVersionInfo')

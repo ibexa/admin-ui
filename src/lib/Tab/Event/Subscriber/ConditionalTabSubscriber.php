@@ -22,9 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 final readonly class ConditionalTabSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private TabService $tabService)
-    {
-    }
+    public function __construct(private TabService $tabService) {}
 
     public static function getSubscribedEvents(): array
     {

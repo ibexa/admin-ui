@@ -37,8 +37,7 @@ final readonly class ContentTypes implements ProviderInterface
         private ContentTypeIconResolver $contentTypeIconResolver,
         private UrlGeneratorInterface $urlGenerator,
         private EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return array<string, array<TContentTypeData>>

@@ -29,8 +29,7 @@ final class UserDeleteController extends Controller
         private readonly SubmitHandler $submitHandler,
         private readonly UserService $userService,
         private readonly LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

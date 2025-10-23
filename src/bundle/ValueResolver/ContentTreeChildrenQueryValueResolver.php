@@ -26,8 +26,7 @@ final readonly class ContentTreeChildrenQueryValueResolver implements ValueResol
      */
     public function __construct(
         private CriterionProcessorInterface $criterionProcessor
-    ) {
-    }
+    ) {}
 
     /**
      * @return iterable<CriterionInterface|null>

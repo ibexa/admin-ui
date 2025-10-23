@@ -181,15 +181,13 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     public function visitFile(
         SplFileInfo $file,
         MessageCatalogue $catalogue
-    ): void {
-    }
+    ): void {}
 
     public function visitTwigFile(
         SplFileInfo $file,
         MessageCatalogue $catalogue,
         TwigNode $ast
-    ): void {
-    }
+    ): void {}
 
     private function getDocCommentForNode(Node $node): ?string
     {

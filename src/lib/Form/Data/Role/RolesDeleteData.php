@@ -13,9 +13,7 @@ final class RolesDeleteData
     /**
      * @param array<int, mixed>|null $roles
      */
-    public function __construct(private ?array $roles = [])
-    {
-    }
+    public function __construct(private ?array $roles = []) {}
 
     /**
      * @return array<int, mixed>|null

@@ -21,8 +21,7 @@ final class ApplicationConfigVisitor extends ValueObjectVisitor
 {
     public function __construct(
         private readonly ApplicationConfigRestGeneratorRegistryInterface $applicationConfigRestGeneratorRegistry
-    ) {
-    }
+    ) {}
 
     /**
      * @param ApplicationConfig $data

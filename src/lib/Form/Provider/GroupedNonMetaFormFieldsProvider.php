@@ -17,8 +17,7 @@ final readonly class GroupedNonMetaFormFieldsProvider implements GroupedContentF
     public function __construct(
         private GroupedContentFormFieldsProviderInterface $innerGroupedContentFormFieldsProvider,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, FormInterface<mixed>> $fieldsDataForm

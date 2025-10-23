@@ -25,8 +25,7 @@ final readonly class FieldTypeToolbarFactory
         private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
         private FieldTypeRegistry $fieldTypeRegistry,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function create(): FieldTypeToolbar
     {

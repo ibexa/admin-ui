@@ -35,8 +35,7 @@ final class NodeExtendedInfo extends RestValue
         private readonly ?array $permissions = null,
         private readonly array $previewableTranslations = [],
         private readonly array $translations = []
-    ) {
-    }
+    ) {}
 
     /**
      * @return TPermissionRestrictions|null

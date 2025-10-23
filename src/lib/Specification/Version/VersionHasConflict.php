@@ -17,8 +17,7 @@ final class VersionHasConflict extends AbstractSpecification
     public function __construct(
         private readonly ContentService $contentService,
         private readonly string $languageCode
-    ) {
-    }
+    ) {}
 
     /**
      * @param VersionInfo $versionInfo

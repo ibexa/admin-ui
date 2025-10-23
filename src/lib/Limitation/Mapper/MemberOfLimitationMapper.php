@@ -31,8 +31,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
         private readonly Repository $repository,
         private readonly ContentService $contentService,
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<int, string|null>

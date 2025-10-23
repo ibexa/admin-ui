@@ -18,9 +18,7 @@ final readonly class LocationVoter implements VoterInterface
 {
     private const string CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.view';
 
-    public function __construct(private RequestStack $requestStack)
-    {
-    }
+    public function __construct(private RequestStack $requestStack) {}
 
     public function matchItem(ItemInterface $item): ?bool
     {

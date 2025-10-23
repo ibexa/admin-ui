@@ -19,8 +19,7 @@ readonly class DefaultRenderer implements RendererInterface
 {
     public function __construct(
         private TwigComponentsDefaultRenderer $inner
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $parameters

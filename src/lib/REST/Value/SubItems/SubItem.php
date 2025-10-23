@@ -29,6 +29,5 @@ final class SubItem extends Value
         public readonly Owner $currentVersionOwner,
         public readonly ContentType $contentType,
         public readonly ContentInfo $contentInfo,
-    ) {
-    }
+    ) {}
 }

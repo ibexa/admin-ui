@@ -17,9 +17,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class ContentHaveAssetRelation extends AbstractSpecification
 {
-    public function __construct(private readonly ContentService $contentService)
-    {
-    }
+    public function __construct(private readonly ContentService $contentService) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException

@@ -15,9 +15,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
  */
 final class SectionDeleteData
 {
-    public function __construct(private ?Section $section = null)
-    {
-    }
+    public function __construct(private ?Section $section = null) {}
 
     public function getSection(): ?Section
     {

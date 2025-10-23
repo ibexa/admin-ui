@@ -106,15 +106,13 @@ final class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareIn
         SplFileInfo $file,
         MessageCatalogue $catalogue,
         array $ast
-    ) {
-    }
+    ) {}
 
     public function visitTwigFile(
         SplFileInfo $file,
         MessageCatalogue $catalogue,
         TwigNode $ast
-    ) {
-    }
+    ) {}
 
     private function isMethodCall(
         Node\Node $node,

@@ -19,8 +19,7 @@ abstract class IconResolver
     public function __construct(
         private readonly ConfigResolverInterface $configResolver,
         protected readonly Packages $packages
-    ) {
-    }
+    ) {}
 
     protected function getIcon(
         string $format,

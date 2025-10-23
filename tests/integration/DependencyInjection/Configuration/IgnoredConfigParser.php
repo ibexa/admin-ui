@@ -39,6 +39,5 @@ final class IgnoredConfigParser extends AbstractParser
         array &$scopeSettings,
         $currentScope,
         ContextualizerInterface $contextualizer
-    ): void {
-    }
+    ): void {}
 }

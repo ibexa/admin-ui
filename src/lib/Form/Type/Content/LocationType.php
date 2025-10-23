@@ -21,9 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class LocationType extends AbstractType
 {
-    public function __construct(protected LocationService $locationService)
-    {
-    }
+    public function __construct(protected LocationService $locationService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

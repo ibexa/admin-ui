@@ -23,8 +23,7 @@ class TranslationsDataset
     public function __construct(
         protected readonly LanguageService $languageService,
         protected readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(VersionInfo $versionInfo): self
     {

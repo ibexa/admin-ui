@@ -23,8 +23,7 @@ final readonly class InContextTranslation implements ValueDefinitionInterface, F
 
     public function __construct(
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

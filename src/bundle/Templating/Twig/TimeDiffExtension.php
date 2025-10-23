@@ -18,8 +18,7 @@ final class TimeDiffExtension extends AbstractExtension
 {
     public function __construct(
         private readonly DateTimeFormatter $dateTimeFormatter
-    ) {
-    }
+    ) {}
 
     public function getFilters(): array
     {

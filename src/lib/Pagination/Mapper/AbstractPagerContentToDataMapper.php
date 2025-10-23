@@ -29,8 +29,7 @@ abstract readonly class AbstractPagerContentToDataMapper
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
         protected TranslationHelper $translationHelper,
         private LanguageService $languageService
-    ) {
-    }
+    ) {}
 
     /**
      * @return Language[]

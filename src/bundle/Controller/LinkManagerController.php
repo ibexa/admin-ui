@@ -34,8 +34,7 @@ final class LinkManagerController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly TranslatableNotificationHandlerInterface $notificationHandler
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NotFoundException

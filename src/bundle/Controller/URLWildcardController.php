@@ -31,8 +31,7 @@ final class URLWildcardController extends Controller
         private readonly TranslatableNotificationHandlerInterface $notificationHandler,
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler
-    ) {
-    }
+    ) {}
 
     public function addAction(Request $request): Response
     {

@@ -30,8 +30,7 @@ final readonly class SearchViewFilterParametersListener implements EventSubscrib
         private ConfigResolverInterface $configResolver,
         private RequestStack $requestStack,
         private array $siteAccessGroups
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

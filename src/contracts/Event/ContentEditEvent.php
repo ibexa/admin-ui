@@ -24,8 +24,7 @@ final class ContentEditEvent extends Event
         private readonly Content $content,
         private readonly VersionInfo $versionInfo,
         private readonly string $languageCode
-    ) {
-    }
+    ) {}
 
     public function getContent(): Content
     {

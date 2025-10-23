@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\View;
 
 use Ibexa\ContentForms\Content\View\ContentEditView;
 
-class EditContentOnTheFlyView extends ContentEditView
-{
-}
+class EditContentOnTheFlyView extends ContentEditView {}

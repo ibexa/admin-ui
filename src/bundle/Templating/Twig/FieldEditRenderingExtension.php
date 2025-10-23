@@ -19,8 +19,7 @@ final class FieldEditRenderingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly FieldBlockRendererInterface $fieldBlockRenderer
-    ) {
-    }
+    ) {}
 
     /**
      * @return TwigFunction[]

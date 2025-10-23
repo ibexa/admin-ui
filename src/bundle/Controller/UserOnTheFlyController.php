@@ -46,8 +46,7 @@ final class UserOnTheFlyController extends Controller
         private readonly PermissionResolver $permissionResolver,
         private readonly CreateUserOnTheFlyDispatcher $createUserActionDispatcher,
         private readonly EditUserOnTheFlyDispatcher $editUserActionDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NotFoundException

@@ -27,8 +27,7 @@ class LimitationType extends AbstractType
     public function __construct(
         private readonly LimitationFormMapperRegistryInterface $limitationFormMapperRegistry,
         private readonly LimitationFormMapperInterface $nullMapper
-    ) {
-    }
+    ) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

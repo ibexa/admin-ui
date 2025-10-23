@@ -60,8 +60,7 @@ final readonly class DamWidget implements ProviderInterface
         private ContentTypeService $contentTypeService,
         private RepositoryConfigurationProviderInterface $repositoryConfigurationProvider,
         private SchemaIdentifierExtractorInterface $schemaIdentifierExtractor
-    ) {
-    }
+    ) {}
 
     /**
      * @phpstan-return array{

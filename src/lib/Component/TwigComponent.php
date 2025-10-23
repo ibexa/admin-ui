@@ -25,8 +25,7 @@ readonly class TwigComponent implements ComponentInterface
         protected Environment $twig,
         protected string $template,
         protected array $parameters = []
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters

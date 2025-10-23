@@ -13,8 +13,7 @@ final readonly class VersionId
     public function __construct(
         private int $contentId,
         private int $versionNo
-    ) {
-    }
+    ) {}
 
     public function getContentId(): int
     {

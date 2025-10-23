@@ -35,8 +35,7 @@ final class VersionController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly TranslationHelper $translationHelper
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidOptionsException

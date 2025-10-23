@@ -156,8 +156,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $exception = new class($expectedExceptionMessage) extends NotFoundException {
-        };
+        $exception = new class($expectedExceptionMessage) extends NotFoundException {};
 
         $this->contentService
             ->method('loadContentTypeGroup')

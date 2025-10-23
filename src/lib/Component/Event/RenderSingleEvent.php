@@ -28,8 +28,7 @@ final class RenderSingleEvent extends Event
         private readonly string $groupName,
         private readonly string $serviceId,
         private readonly array $parameters = []
-    ) {
-    }
+    ) {}
 
     public function getGroupName(): string
     {

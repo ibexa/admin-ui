@@ -21,8 +21,7 @@ final readonly class ContentViewContext implements Context
         private ArgumentParser $argumentParser,
         private ContentViewPage $contentViewPage,
         private DraftConflictDialog $draftConflictDialog
-    ) {
-    }
+    ) {}
 
     /**
      * @Given I start creating a new Content :contentType

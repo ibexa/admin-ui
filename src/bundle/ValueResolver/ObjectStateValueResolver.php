@@ -20,8 +20,7 @@ final class ObjectStateValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly ObjectStateService $objectStateService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

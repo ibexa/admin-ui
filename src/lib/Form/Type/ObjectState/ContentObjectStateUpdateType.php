@@ -30,8 +30,7 @@ class ContentObjectStateUpdateType extends AbstractType
     public function __construct(
         protected readonly ObjectStateService $objectStateService,
         private readonly PermissionResolver $permissionResolver
-    ) {
-    }
+    ) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

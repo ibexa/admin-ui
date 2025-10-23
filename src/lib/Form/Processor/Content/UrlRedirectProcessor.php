@@ -27,8 +27,7 @@ final readonly class UrlRedirectProcessor implements EventSubscriberInterface
         private SiteAccess $siteaccess,
         private SystemUrlRedirectProcessor $systemUrlRedirectProcessor,
         private array $siteaccessGroups
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

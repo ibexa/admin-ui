@@ -31,8 +31,7 @@ final readonly class ContentTypeDraftMapper implements FormDataMapperInterface
         private ContentTypeService $contentTypeService,
         private EventDispatcherInterface $eventDispatcher,
         private FieldsGroupsList $fieldsGroupsList
-    ) {
-    }
+    ) {}
 
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).

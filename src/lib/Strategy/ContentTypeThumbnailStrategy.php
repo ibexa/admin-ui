@@ -22,8 +22,7 @@ final readonly class ContentTypeThumbnailStrategy implements ThumbnailStrategy
 
     public function __construct(
         private ContentTypeIconResolver $contentTypeIconResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @param Field[] $fields

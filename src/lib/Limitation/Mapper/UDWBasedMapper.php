@@ -37,8 +37,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         protected readonly LocationService $locationService,
         protected readonly SearchService $searchService,
         protected readonly Repository $repository
-    ) {
-    }
+    ) {}
 
     public function setFormTemplate(string $template): void
     {
@@ -77,9 +76,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         );
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 
     /**
      * @phpstan-return list<ContentInfo[]>

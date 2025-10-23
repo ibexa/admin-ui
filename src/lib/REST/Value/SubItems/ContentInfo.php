@@ -20,6 +20,5 @@ final class ContentInfo extends Value
         public readonly int $modificationDate,
         public readonly ?string $sectionName,
         public readonly ?string $name = null,
-    ) {
-    }
+    ) {}
 }

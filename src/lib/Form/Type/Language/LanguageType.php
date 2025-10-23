@@ -19,9 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class LanguageType extends AbstractType
 {
-    public function __construct(protected readonly LanguageService $languageService)
-    {
-    }
+    public function __construct(protected readonly LanguageService $languageService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

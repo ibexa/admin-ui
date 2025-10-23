@@ -15,9 +15,7 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 final readonly class BackOfficeLanguage implements ProviderInterface
 {
-    public function __construct(private UserSettingService $userSettingService)
-    {
-    }
+    public function __construct(private UserSettingService $userSettingService) {}
 
     /**
      * @throws InvalidArgumentException

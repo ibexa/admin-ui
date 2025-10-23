@@ -22,6 +22,5 @@ final readonly class FormErrorDataTestWrapper
         public string $message,
         public array $parameters,
         public string $propertyPath
-    ) {
-    }
+    ) {}
 }

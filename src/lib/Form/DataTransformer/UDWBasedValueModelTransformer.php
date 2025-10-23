@@ -25,8 +25,7 @@ final readonly class UDWBasedValueModelTransformer implements DataTransformerInt
     public function __construct(
         private LocationService $locationService,
         private Repository $repository
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritdoc}

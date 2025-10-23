@@ -34,8 +34,7 @@ class RolesDataset
         protected readonly ValueFactory $valueFactory,
         private readonly array $userContentTypeIdentifier,
         private readonly array $userGroupContentTypeIdentifier
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

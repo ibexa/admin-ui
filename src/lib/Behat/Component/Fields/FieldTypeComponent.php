@@ -70,7 +70,5 @@ abstract class FieldTypeComponent extends Component implements FieldTypeComponen
         );
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 }

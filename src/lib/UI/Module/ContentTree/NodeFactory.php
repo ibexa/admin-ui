@@ -58,8 +58,7 @@ final class NodeFactory
         private readonly ConfigResolverInterface $configResolver,
         private readonly Repository $repository,
         private readonly int $maxLocationIdsInSingleAggregation
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException

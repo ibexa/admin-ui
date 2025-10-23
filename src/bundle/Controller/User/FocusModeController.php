@@ -35,8 +35,7 @@ final class FocusModeController extends Controller
         private readonly UserSettingService $userSettingService,
         private readonly UrlMatcherInterface $urlMatcher,
         private readonly iterable $redirectStrategies
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

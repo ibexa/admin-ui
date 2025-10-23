@@ -22,9 +22,7 @@ final readonly class UDWBasedValueViewTransformer implements DataTransformerInte
 {
     public const string DELIMITER = ',';
 
-    public function __construct(private LocationService $locationService)
-    {
-    }
+    public function __construct(private LocationService $locationService) {}
 
     public function transform(mixed $value): ?string
     {

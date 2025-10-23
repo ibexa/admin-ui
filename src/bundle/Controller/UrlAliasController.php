@@ -25,8 +25,7 @@ final class UrlAliasController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly URLAliasService $urlAliasService
-    ) {
-    }
+    ) {}
 
     public function addAction(Request $request): Response
     {

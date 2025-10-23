@@ -20,8 +20,7 @@ final class IsWithinCopySubtreeLimit extends AbstractSpecification
     public function __construct(
         private readonly int $copyLimit,
         private readonly LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * @param Location $item

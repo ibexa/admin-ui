@@ -38,8 +38,7 @@ final class LanguageController extends Controller
         private readonly SubmitHandler $submitHandler,
         private readonly FormFactory $formFactory,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(Request $request): Response
     {

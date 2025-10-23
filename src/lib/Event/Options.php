@@ -16,9 +16,7 @@ final class Options implements MutableOptionsBag
     /**
      * @param array<string, mixed> $options
      */
-    public function __construct(private array $options = [])
-    {
-    }
+    public function __construct(private array $options = []) {}
 
     /**
      * @return array<string, mixed>

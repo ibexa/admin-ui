@@ -27,8 +27,7 @@ final readonly class NavigationContext implements Context
         private ContentViewPage $contentViewPage,
         private PageRegistry $pageRegistry,
         private ContentUpdateItemPage $contentUpdateItemPage
-    ) {
-    }
+    ) {}
 
     /**
      * @Given I open :pageName page in admin SiteAccess

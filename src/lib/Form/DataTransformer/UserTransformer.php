@@ -21,9 +21,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class UserTransformer implements DataTransformerInterface
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+    public function __construct(private UserService $userService) {}
 
     public function transform(mixed $value): ?int
     {

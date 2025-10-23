@@ -15,9 +15,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class LocationHasChildrenValidator extends ConstraintValidator
 {
-    public function __construct(private readonly LocationService $locationService)
-    {
-    }
+    public function __construct(private readonly LocationService $locationService) {}
 
     /**
      * Checks if the passed value is valid.

@@ -49,8 +49,7 @@ final class ContentTreeController extends RestController
         private readonly ConfigResolverInterface $configResolver,
         private readonly SiteaccessResolverInterface $siteaccessResolver,
         private readonly LimitationResolverInterface $limitationResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NotFoundException

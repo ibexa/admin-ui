@@ -21,8 +21,7 @@ final readonly class BookmarkAdapter implements AdapterInterface
     public function __construct(
         private BookmarkService $bookmarkService,
         private DatasetFactory $datasetFactory
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

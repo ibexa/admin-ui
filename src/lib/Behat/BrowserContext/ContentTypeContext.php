@@ -23,8 +23,7 @@ final readonly class ContentTypeContext implements Context
         private ContentTypeUpdatePage $contentTypeUpdatePage,
         private ContentTypeGroupPage $contentTypeGroupPage,
         private ContentTypeGroupsPage $contentTypeGroupsPage
-    ) {
-    }
+    ) {}
 
     /**
      * @Then content type has proper Global properties

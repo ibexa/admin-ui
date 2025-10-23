@@ -27,9 +27,7 @@ final readonly class ContentDownloadRouteReferenceListener implements EventSubsc
     /**
      * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(private array $siteAccessGroups)
-    {
-    }
+    public function __construct(private array $siteAccessGroups) {}
 
     public static function getSubscribedEvents(): array
     {

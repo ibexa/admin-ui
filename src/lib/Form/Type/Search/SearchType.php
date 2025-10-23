@@ -29,8 +29,7 @@ final class SearchType extends AbstractType
     public function __construct(
         private readonly AbstractType $baseType,
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException

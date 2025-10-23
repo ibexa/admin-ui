@@ -19,8 +19,7 @@ class TranslationDeleteData
     public function __construct(
         protected ?ContentInfo $contentInfo = null,
         protected array $languageCodes = []
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

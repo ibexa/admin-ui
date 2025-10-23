@@ -20,9 +20,7 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
  */
 class Configured implements ViewProvider
 {
-    public function __construct(protected readonly MatcherFactoryInterface $matcherFactory)
-    {
-    }
+    public function __construct(protected readonly MatcherFactoryInterface $matcherFactory) {}
 
     /**
      * @throws InvalidArgumentType

@@ -20,8 +20,7 @@ final class UserEditData
         private ?VersionInfo $versionInfo = null,
         private ?Language $language = null,
         private ?Location $location = null
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

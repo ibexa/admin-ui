@@ -24,8 +24,7 @@ final readonly class ContentTypeFormFactory
 {
     public function __construct(
         private FormFactoryInterface $formFactory
-    ) {
-    }
+    ) {}
 
     public function addContentTypeTranslation(
         ?TranslationAddData $data = null,

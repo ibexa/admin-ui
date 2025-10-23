@@ -17,9 +17,7 @@ final readonly class ApplicationConfigRestGeneratorRegistry implements Applicati
     /**
      * @param iterable<ApplicationConfigRestGeneratorInterface> $generators
      */
-    public function __construct(private iterable $generators)
-    {
-    }
+    public function __construct(private iterable $generators) {}
 
     public function hasGenerator(
         string $namespace,

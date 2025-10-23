@@ -19,9 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class RoleAssignmentType extends AbstractType
 {
-    public function __construct(protected readonly RoleService $roleService)
-    {
-    }
+    public function __construct(protected readonly RoleService $roleService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

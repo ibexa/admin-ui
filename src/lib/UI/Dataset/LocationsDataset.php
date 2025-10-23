@@ -21,8 +21,7 @@ final class LocationsDataset
     public function __construct(
         private readonly LocationService $locationService,
         private readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(ContentInfo $contentInfo): self
     {

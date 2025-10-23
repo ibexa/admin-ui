@@ -20,8 +20,7 @@ final class VersionConflictController extends Controller
 {
     public function __construct(
         private readonly ContentService $contentService
-    ) {
-    }
+    ) {}
 
     /**
      * Checks if Version has conflict with another published Version.

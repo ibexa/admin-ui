@@ -24,9 +24,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  */
 class ContentTypeCreateType extends AbstractType
 {
-    public function __construct(private readonly ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(private readonly ContentTypeService $contentTypeService) {}
 
     public function getName(): string
     {

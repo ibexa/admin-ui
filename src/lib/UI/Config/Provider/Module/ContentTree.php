@@ -15,8 +15,7 @@ final readonly class ContentTree implements ProviderInterface
 {
     public function __construct(
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, mixed>

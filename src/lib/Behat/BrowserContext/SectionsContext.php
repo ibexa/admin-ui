@@ -19,8 +19,7 @@ final readonly class SectionsContext implements Context
     public function __construct(
         private SectionPage $sectionPage,
         private SectionsPage $sectionsPage
-    ) {
-    }
+    ) {}
 
     /**
      * @When I create a new Section

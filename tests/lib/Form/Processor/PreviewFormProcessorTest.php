@@ -115,8 +115,7 @@ final class PreviewFormProcessorTest extends TestCase
         $contentService
             ->expects(self::once())
             ->method('createContent')
-            ->will(self::throwException(new class('Location not found') extends \Exception {
-            }));
+            ->will(self::throwException(new class('Location not found') extends \Exception {}));
 
         $urlGenerator = $this->generateUrlGeneratorForContentEditUrlMock($contentDraft, $languageCode, $url);
 

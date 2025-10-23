@@ -19,9 +19,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class VersionPreviewUrlResolver implements VersionPreviewUrlResolverInterface
 {
-    public function __construct(private EventDispatcherInterface $eventDispatcher)
-    {
-    }
+    public function __construct(private EventDispatcherInterface $eventDispatcher) {}
 
     public function resolveUrl(
         VersionInfo $versionInfo,

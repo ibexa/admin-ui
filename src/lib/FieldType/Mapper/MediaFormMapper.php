@@ -23,8 +23,7 @@ final readonly class MediaFormMapper implements FieldDefinitionFormMapperInterfa
 {
     public function __construct(
         private MaxUploadSize $maxUploadSize
-    ) {
-    }
+    ) {}
 
     public function mapFieldDefinitionForm(
         FormInterface $fieldDefinitionForm,

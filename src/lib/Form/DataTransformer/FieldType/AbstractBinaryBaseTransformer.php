@@ -23,8 +23,7 @@ abstract class AbstractBinaryBaseTransformer
         protected FieldType $fieldType,
         protected Value $initialValue,
         protected string $valueClass
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, false|null>

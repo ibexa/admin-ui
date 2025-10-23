@@ -19,9 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class UserType extends AbstractType
 {
-    public function __construct(protected readonly UserService $userService)
-    {
-    }
+    public function __construct(protected readonly UserService $userService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

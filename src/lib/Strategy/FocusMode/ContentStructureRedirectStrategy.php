@@ -22,8 +22,7 @@ final readonly class ContentStructureRedirectStrategy implements RedirectStrateg
         private ConfigResolverInterface $configResolver,
         private LocationService $locationService,
         private RouterInterface $router
-    ) {
-    }
+    ) {}
 
     /**
      * Contains paths that are not available in "Focus mode" so shouldn't be redirected to.

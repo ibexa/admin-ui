@@ -58,8 +58,7 @@ class ValueFactory
         protected DatasetFactory $datasetFactory,
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
         protected LocationResolver $locationResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @throws BadStateException

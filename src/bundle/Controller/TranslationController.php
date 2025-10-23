@@ -31,8 +31,7 @@ final class TranslationController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly TranslationHelper $translationHelper
-    ) {
-    }
+    ) {}
 
     public function addAction(Request $request): Response
     {

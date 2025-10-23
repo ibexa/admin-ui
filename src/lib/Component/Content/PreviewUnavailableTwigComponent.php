@@ -23,8 +23,7 @@ final readonly class PreviewUnavailableTwigComponent implements ComponentInterfa
         private Environment $twig,
         private SiteaccessResolverInterface $siteaccessResolver,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters

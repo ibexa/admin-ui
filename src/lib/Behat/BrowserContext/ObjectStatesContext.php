@@ -21,8 +21,7 @@ final readonly class ObjectStatesContext implements Context
         private ObjectStateGroupPage $objectStateGroupPage,
         private ObjectStateGroupsPage $objectStateGroupsPage,
         private ObjectStatePage $objectStatePage
-    ) {
-    }
+    ) {}
 
     /**
      * @Then there's a :objectStateGroupName Object State group on Object State groups list

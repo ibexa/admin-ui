@@ -23,9 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UserChoiceType extends AbstractType
 {
-    public function __construct(private readonly Repository $repository)
-    {
-    }
+    public function __construct(private readonly Repository $repository) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

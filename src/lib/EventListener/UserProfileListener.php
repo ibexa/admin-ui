@@ -35,8 +35,7 @@ final readonly class UserProfileListener implements EventSubscriberInterface
         private UrlGeneratorInterface $urlGenerator,
         private UserProfileConfigurationInterface $configuration,
         private RequestStack $requestStack
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

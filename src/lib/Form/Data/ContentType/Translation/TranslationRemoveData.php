@@ -25,8 +25,7 @@ final class TranslationRemoveData
         private ?ContentTypeGroup $contentTypeGroup = null,
         #[Assert\NotBlank]
         private array $languageCodes = []
-    ) {
-    }
+    ) {}
 
     public function getContentType(): ?ContentType
     {

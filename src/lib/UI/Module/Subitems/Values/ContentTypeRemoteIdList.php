@@ -16,7 +16,5 @@ final class ContentTypeRemoteIdList extends RestValue
     /**
      * @param ContentType[] $contentTypes
      */
-    public function __construct(public readonly array $contentTypes)
-    {
-    }
+    public function __construct(public readonly array $contentTypes) {}
 }

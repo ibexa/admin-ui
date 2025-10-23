@@ -15,9 +15,7 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 final readonly class FocusMode implements ProviderInterface
 {
-    public function __construct(private UserSettingService $userSettingService)
-    {
-    }
+    public function __construct(private UserSettingService $userSettingService) {}
 
     public function getConfig(): bool
     {

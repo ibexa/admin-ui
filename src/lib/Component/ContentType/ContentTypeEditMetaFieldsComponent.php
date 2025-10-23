@@ -20,8 +20,7 @@ final readonly class ContentTypeEditMetaFieldsComponent implements ComponentInte
     public function __construct(
         private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
         private Environment $twig
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $parameters

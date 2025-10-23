@@ -22,9 +22,7 @@ use Ibexa\Contracts\Core\Repository\Values\ValueObject;
  */
 final readonly class ContentMainLocationUpdateMapper implements DataMapperInterface
 {
-    public function __construct(private LocationService $locationService)
-    {
-    }
+    public function __construct(private LocationService $locationService) {}
 
     /**
      * Maps given ContentMetadataUpdateStruct object to a ContentMainLocationUpdateData object.

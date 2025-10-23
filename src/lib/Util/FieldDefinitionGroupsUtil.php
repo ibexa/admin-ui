@@ -13,9 +13,7 @@ use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 
 final readonly class FieldDefinitionGroupsUtil
 {
-    public function __construct(private FieldsGroupsList $fieldsGroupsListHelper)
-    {
-    }
+    public function __construct(private FieldsGroupsList $fieldsGroupsListHelper) {}
 
     /**
      * @param FieldDefinition[] $fieldDefinitions

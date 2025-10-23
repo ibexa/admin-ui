@@ -24,8 +24,7 @@ final class NotificationAdapter implements AdapterInterface
     public function __construct(
         private readonly NotificationService $notificationService,
         private readonly NotificationQuery $query
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {

@@ -18,9 +18,7 @@ final class LimitationValueMapperRegistry implements LimitationValueMapperRegist
     /**
      * @param array<string, LimitationValueMapperInterface> $limitationValueMappers
      */
-    public function __construct(private array $limitationValueMappers = [])
-    {
-    }
+    public function __construct(private array $limitationValueMappers = []) {}
 
     /**
      * @return array<string, LimitationValueMapperInterface>

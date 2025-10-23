@@ -52,8 +52,7 @@ class UniversalDiscoveryProvider implements Provider
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
         private readonly LocationPathQueryType $locationPathQueryType,
         private readonly LimitationResolverInterface $limitationResolver
-    ) {
-    }
+    ) {}
 
     public function getColumns(
         int $locationId,

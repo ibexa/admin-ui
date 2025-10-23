@@ -17,8 +17,7 @@ final readonly class UserPreferencesContext implements Context
     public function __construct(
         private ChangePasswordPage $changePasswordPage,
         private UserSettingsPage $userSettingsPage
-    ) {
-    }
+    ) {}
 
     /**
      * @Given I switch to :tabName tab in User settings

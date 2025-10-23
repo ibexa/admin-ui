@@ -27,8 +27,7 @@ final class TrashItemRestoreData
         #[Assert\NotBlank]
         private array $trashItems = [],
         private ?Location $location = null
-    ) {
-    }
+    ) {}
 
     /**
      * @return TrashItem[]

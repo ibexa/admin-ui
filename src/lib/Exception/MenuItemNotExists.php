@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\Exception;
 
 use Exception;
 
-final class MenuItemNotExists extends Exception
-{
-}
+final class MenuItemNotExists extends Exception {}

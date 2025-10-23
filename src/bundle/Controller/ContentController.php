@@ -75,8 +75,7 @@ final class ContentController extends Controller
         private readonly VersionPreviewUrlResolverInterface $previewUrlResolver,
         private readonly LanguageService $languageService,
         private readonly SiteAccessServiceInterface $siteAccessService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidOptionsException

@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 final class ObjectStateGroupDeleteData
 {
-    public function __construct(private ?ObjectStateGroup $objectStateGroup = null)
-    {
-    }
+    public function __construct(private ?ObjectStateGroup $objectStateGroup = null) {}
 
     public function getObjectStateGroup(): ?ObjectStateGroup
     {

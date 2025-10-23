@@ -13,9 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DatePeriodChoiceLoader extends BaseChoiceLoader
 {
-    public function __construct(private TranslatorInterface $translator)
-    {
-    }
+    public function __construct(private TranslatorInterface $translator) {}
 
     /**
      * @return array<string, string>

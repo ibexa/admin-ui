@@ -24,8 +24,7 @@ final class TrashItemAdapter implements AdapterInterface
     public function __construct(
         private readonly Query $query,
         private readonly TrashService $trashService
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {

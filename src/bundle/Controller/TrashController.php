@@ -55,8 +55,7 @@ final class TrashController extends Controller
         private readonly ConfigResolverInterface $configResolver,
         private readonly TrashSearchQueryType $trashSearchQueryType,
         private readonly UserService $userService
-    ) {
-    }
+    ) {}
 
     public function performAccessCheck(): void
     {

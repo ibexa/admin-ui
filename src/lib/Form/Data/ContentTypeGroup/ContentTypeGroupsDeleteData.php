@@ -18,9 +18,7 @@ class ContentTypeGroupsDeleteData
     /**
      * @param ContentTypeGroup[]|null $contentTypeGroups
      */
-    public function __construct(protected ?array $contentTypeGroups = [])
-    {
-    }
+    public function __construct(protected ?array $contentTypeGroups = []) {}
 
     /**
      * @return ContentTypeGroup[]|null

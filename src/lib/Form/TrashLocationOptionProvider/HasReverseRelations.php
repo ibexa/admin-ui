@@ -20,8 +20,7 @@ final readonly class HasReverseRelations implements TrashLocationOptionProvider
     public function __construct(
         private ContentService $contentService,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     public function supports(Location $location): bool
     {

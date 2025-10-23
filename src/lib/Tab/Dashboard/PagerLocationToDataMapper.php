@@ -27,8 +27,7 @@ final readonly class PagerLocationToDataMapper
         private UserService $userService,
         private LocationResolver $locationResolver,
         private LanguageService $languageService
-    ) {
-    }
+    ) {}
 
     /**
      * @param Pagerfanta<Location> $pager

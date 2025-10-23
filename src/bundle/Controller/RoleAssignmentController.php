@@ -39,8 +39,7 @@ final class RoleAssignmentController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(
         Role $role,

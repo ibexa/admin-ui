@@ -21,8 +21,7 @@ final readonly class RenderEventSubscriber implements EventSubscriberInterface
     public function __construct(
         private EventDispatcherInterface $eventDispatcher,
         private Registry $registry
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

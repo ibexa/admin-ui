@@ -35,8 +35,7 @@ readonly class RoleService
     public function __construct(
         private Repository\RoleService $roleService,
         private SearchService $searchService
-    ) {
-    }
+    ) {}
 
     public function getRole(int $id): Role
     {

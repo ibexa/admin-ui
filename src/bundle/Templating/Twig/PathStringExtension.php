@@ -17,8 +17,7 @@ final class PathStringExtension extends AbstractExtension
 {
     public function __construct(
         private readonly LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * @return TwigFunction[]

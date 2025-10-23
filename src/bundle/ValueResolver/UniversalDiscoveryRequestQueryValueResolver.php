@@ -24,8 +24,7 @@ final class UniversalDiscoveryRequestQueryValueResolver implements ValueResolver
     public function __construct(
         private readonly Provider $provider,
         private readonly ValidatorInterface $validator
-    ) {
-    }
+    ) {}
 
     private function supports(ArgumentMetadata $argument): bool
     {

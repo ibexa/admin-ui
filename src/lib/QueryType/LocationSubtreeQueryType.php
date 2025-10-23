@@ -23,8 +23,7 @@ abstract class LocationSubtreeQueryType extends OptionsResolverBasedQueryType
     public function __construct(
         protected readonly ConfigResolverInterface $configResolver,
         private readonly PermissionResolver $permissionResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $parameters

@@ -18,9 +18,7 @@ use Ibexa\User\UserSetting\UserSettingService;
  */
 final readonly class SubItemsList implements ProviderInterface
 {
-    public function __construct(private UserSettingService $userSettingService)
-    {
-    }
+    public function __construct(private UserSettingService $userSettingService) {}
 
     /**
      * @return array<string, mixed>

@@ -16,8 +16,7 @@ final class UniversalDiscoveryExtension extends AbstractExtension
 {
     public function __construct(
         private readonly ConfigResolver $udwConfigResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @return TwigFunction[]

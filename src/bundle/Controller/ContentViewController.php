@@ -67,8 +67,7 @@ final class ContentViewController extends Controller
         private readonly Repository $repository,
         private readonly PermissionResolver $permissionResolver,
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException

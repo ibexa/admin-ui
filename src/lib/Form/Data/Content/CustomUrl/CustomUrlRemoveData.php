@@ -19,8 +19,7 @@ final class CustomUrlRemoveData
     public function __construct(
         private ?Location $location = null,
         private array $urlAliases = []
-    ) {
-    }
+    ) {}
 
     public function getLocation(): ?Location
     {

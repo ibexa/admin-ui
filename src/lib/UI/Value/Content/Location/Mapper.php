@@ -16,8 +16,7 @@ final readonly class Mapper
 {
     public function __construct(
         private ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     /**
      * @param Location[] $locations

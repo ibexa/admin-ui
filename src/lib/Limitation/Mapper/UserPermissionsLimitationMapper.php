@@ -34,8 +34,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         private readonly SearchService $searchService,
         private readonly RoleService $roleService,
         private readonly UserService $userService
-    ) {
-    }
+    ) {}
 
     /**
      * @param FormInterface<mixed> $form
@@ -108,9 +107,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 
     public function mapLimitationValue(Limitation $limitation): array
     {

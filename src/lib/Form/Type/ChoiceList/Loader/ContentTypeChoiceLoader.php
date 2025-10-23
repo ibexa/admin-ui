@@ -20,8 +20,7 @@ class ContentTypeChoiceLoader implements ChoiceLoaderInterface
     public function __construct(
         protected ContentTypeService $contentTypeService,
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, ContentType[]>

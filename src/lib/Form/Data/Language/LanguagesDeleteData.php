@@ -18,9 +18,7 @@ class LanguagesDeleteData
     /**
      * @param Language[] $languages
      */
-    public function __construct(protected array $languages = [])
-    {
-    }
+    public function __construct(protected array $languages = []) {}
 
     /**
      * @return Language[]

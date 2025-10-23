@@ -15,9 +15,7 @@ use PHPUnit\Framework\Assert;
 
 final readonly class ContentActionsMenuContext implements Context
 {
-    public function __construct(private ContentActionsMenu $contentActionsMenu)
-    {
-    }
+    public function __construct(private ContentActionsMenu $contentActionsMenu) {}
 
     /**
      * @Given I click (on) the edit action bar button :buttonName

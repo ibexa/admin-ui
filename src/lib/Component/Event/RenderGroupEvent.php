@@ -27,8 +27,7 @@ final class RenderGroupEvent extends Event
         private readonly Registry $registry,
         private readonly string $groupName,
         private readonly array $parameters = []
-    ) {
-    }
+    ) {}
 
     public function getGroupName(): string
     {

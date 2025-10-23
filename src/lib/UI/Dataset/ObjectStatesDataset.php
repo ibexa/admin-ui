@@ -22,8 +22,7 @@ final class ObjectStatesDataset
     public function __construct(
         private readonly ObjectStateService $objectStateService,
         private readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(ContentInfo $contentInfo): self
     {

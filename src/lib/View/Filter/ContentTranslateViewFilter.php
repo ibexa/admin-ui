@@ -43,8 +43,7 @@ class ContentTranslateViewFilter implements EventSubscriberInterface
         private readonly ContentTypeService $contentTypeService,
         private readonly FormFactoryInterface $formFactory,
         private readonly UserLanguagePreferenceProviderInterface $languagePreferenceProvider
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

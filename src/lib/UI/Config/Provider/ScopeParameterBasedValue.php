@@ -18,8 +18,7 @@ readonly class ScopeParameterBasedValue implements ProviderInterface
         protected string $parameterName,
         protected ?string $namespace = null,
         protected ?string $scope = null
-    ) {
-    }
+    ) {}
 
     public function getConfig(): mixed
     {

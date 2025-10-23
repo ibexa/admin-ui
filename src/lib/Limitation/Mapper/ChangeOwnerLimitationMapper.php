@@ -26,8 +26,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
 
     public function __construct(
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * @return int[]
@@ -60,9 +59,7 @@ final class ChangeOwnerLimitationMapper implements LimitationValueMapperInterfac
         return $this->formTemplate;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 
     /**
      * @return array<int, string>

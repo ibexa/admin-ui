@@ -30,8 +30,7 @@ final readonly class ImageFormMapper implements FieldDefinitionFormMapperInterfa
         private array $allowedMimeTypes,
         private MaxUploadSize $maxUploadSize,
         private MimeTypesInterface $mimeTypes
-    ) {
-    }
+    ) {}
 
     public function mapFieldDefinitionForm(
         FormInterface $fieldDefinitionForm,

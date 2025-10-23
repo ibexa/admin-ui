@@ -15,6 +15,5 @@ final class ContentType extends Value
     public function __construct(
         public readonly string $identifier,
         public readonly ?string $name = null,
-    ) {
-    }
+    ) {}
 }

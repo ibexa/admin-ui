@@ -14,6 +14,4 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
  * @deprecated 4.6.19 The {@see Renderable} class is deprecated, will be removed in 6.0.
  * Use {@see ComponentInterface} instead
  */
-interface Renderable extends ComponentInterface
-{
-}
+interface Renderable extends ComponentInterface {}

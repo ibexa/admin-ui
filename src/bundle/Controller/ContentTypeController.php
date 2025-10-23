@@ -71,8 +71,7 @@ final class ContentTypeController extends Controller
         private readonly ConfigResolverInterface $configResolver,
         private readonly FieldTypeToolbarFactory $fieldTypeToolbarFactory,
         private readonly MetaFieldDefinitionServiceInterface $metaFieldDefinitionService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidOptionsException

@@ -21,8 +21,7 @@ final readonly class RolesContext implements Context
         private RolesPage $rolesPage,
         private RolePage $rolePage,
         private RoleUpdatePage $roleUpdatePage
-    ) {
-    }
+    ) {}
 
     /**
      * @When I start assigning users and groups from Role page

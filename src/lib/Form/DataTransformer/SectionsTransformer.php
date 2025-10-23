@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class SectionsTransformer implements DataTransformerInterface
 {
-    public function __construct(private SectionService $sectionService)
-    {
-    }
+    public function __construct(private SectionService $sectionService) {}
 
     public function transform(mixed $value): ?string
     {

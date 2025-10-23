@@ -53,8 +53,7 @@ final readonly class ContentViewParameterSupplier
         private UserSettingService $userSettingService,
         private QueryFactoryInterface $queryFactory,
         private SearchService $searchService
-    ) {
-    }
+    ) {}
 
     /**
      * Fetches data for Subitems module to populate it with preloaded data.

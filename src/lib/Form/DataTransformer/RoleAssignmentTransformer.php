@@ -22,9 +22,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class RoleAssignmentTransformer implements DataTransformerInterface
 {
-    public function __construct(private RoleService $roleService)
-    {
-    }
+    public function __construct(private RoleService $roleService) {}
 
     /**
      * Transforms a domain specific RoleAssignment object into an ID.

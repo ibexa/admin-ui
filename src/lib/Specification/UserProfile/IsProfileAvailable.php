@@ -16,8 +16,7 @@ final class IsProfileAvailable extends AbstractSpecification
 {
     public function __construct(
         private readonly UserProfileConfigurationInterface $userProfileConfiguration
-    ) {
-    }
+    ) {}
 
     /**
      * @param User $item

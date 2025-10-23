@@ -19,8 +19,7 @@ final class PolicyData
         private ?string $module = null,
         private ?string $function = null,
         private array $limitations = []
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string|null>

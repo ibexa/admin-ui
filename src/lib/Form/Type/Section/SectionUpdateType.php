@@ -19,9 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class SectionUpdateType extends AbstractType
 {
-    public function __construct(protected readonly SectionType $sectionType)
-    {
-    }
+    public function __construct(protected readonly SectionType $sectionType) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

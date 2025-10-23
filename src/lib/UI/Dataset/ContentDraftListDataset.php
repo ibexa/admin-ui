@@ -24,8 +24,7 @@ class ContentDraftListDataset
         private readonly ContentService $contentService,
         private readonly ContentTypeService $contentTypeService,
         private readonly ValueFactory $valueFactory
-    ) {
-    }
+    ) {}
 
     public function load(
         ?User $user = null,

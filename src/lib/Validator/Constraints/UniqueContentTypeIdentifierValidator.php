@@ -19,9 +19,7 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 final class UniqueContentTypeIdentifierValidator extends ConstraintValidator
 {
-    public function __construct(private readonly ContentTypeService $contentTypeService)
-    {
-    }
+    public function __construct(private readonly ContentTypeService $contentTypeService) {}
 
     /**
      * Checks if the passed value is valid.

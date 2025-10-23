@@ -27,8 +27,7 @@ final readonly class LimitationBlockRenderer implements LimitationBlockRendererI
         private LimitationValueMapperRegistryInterface $valueMapperRegistry,
         private Environment $twig,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function renderLimitationValue(
         Limitation $limitation,

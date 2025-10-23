@@ -27,9 +27,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class PolicyCreateWithLimitationType extends AbstractType
 {
-    public function __construct(private readonly RoleService $roleService)
-    {
-    }
+    public function __construct(private readonly RoleService $roleService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

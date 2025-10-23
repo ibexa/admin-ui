@@ -19,8 +19,7 @@ final readonly class LanguageContext implements Context
     public function __construct(
         private LanguagePage $languagePage,
         private LanguagesPage $languagesPage
-    ) {
-    }
+    ) {}
 
     /**
      * @When  I delete the language

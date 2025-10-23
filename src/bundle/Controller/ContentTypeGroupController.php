@@ -36,8 +36,7 @@ final class ContentTypeGroupController extends Controller
         private readonly FormFactory $formFactory,
         private readonly SubmitHandler $submitHandler,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(Request $request): Response
     {

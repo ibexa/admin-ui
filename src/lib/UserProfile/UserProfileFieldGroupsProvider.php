@@ -22,8 +22,7 @@ final readonly class UserProfileFieldGroupsProvider implements FieldsGroupsList,
     public function __construct(
         private FieldsGroupsList $innerService,
         private TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string>

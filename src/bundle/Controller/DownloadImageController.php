@@ -37,8 +37,7 @@ final class DownloadImageController extends Controller
         private readonly FormatterInterface $formatter,
         private readonly array $imageMappings,
         private readonly SearchService $searchService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

@@ -18,8 +18,7 @@ class MainTranslationUpdateData
         public ?Content $content = null,
         #[Assert\NotBlank]
         public ?string $languageCode = null
-    ) {
-    }
+    ) {}
 
     public function setContent(?Content $contentInfo = null): void
     {

@@ -20,6 +20,5 @@ final class LoadSubtreeRequestNode extends RestValue
         public int $limit = 20,
         public int $offset = 0,
         public array $children = []
-    ) {
-    }
+    ) {}
 }

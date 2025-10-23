@@ -23,8 +23,7 @@ final readonly class AddLanguageFieldBasedOnContentListener
     public function __construct(
         private ContentService $contentService,
         private LanguageService $languageService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NotFoundException

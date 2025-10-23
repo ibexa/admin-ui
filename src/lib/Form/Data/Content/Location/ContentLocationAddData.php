@@ -19,8 +19,7 @@ class ContentLocationAddData
     public function __construct(
         protected ?ContentInfo $contentInfo = null,
         protected array $newLocations = []
-    ) {
-    }
+    ) {}
 
     public function getContentInfo(): ?ContentInfo
     {

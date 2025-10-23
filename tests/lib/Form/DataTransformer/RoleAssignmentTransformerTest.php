@@ -80,8 +80,7 @@ class RoleAssignmentTransformerTest extends TestCase
     {
         $service = $this->createMock(RoleService::class);
         $service->method('loadRoleAssignment')
-            ->will(self::throwException(new class('Location not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Location not found') extends NotFoundException {}));
 
         $transformer = new RoleAssignmentTransformer($service);
 

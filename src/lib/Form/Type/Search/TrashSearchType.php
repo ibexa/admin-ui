@@ -36,8 +36,7 @@ class TrashSearchType extends AbstractType
         private readonly PermissionResolver $permissionResolver,
         private readonly DatePeriodChoiceLoader $datePeriodChoiceLoader,
         private readonly SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

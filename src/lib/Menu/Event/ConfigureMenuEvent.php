@@ -58,8 +58,7 @@ final class ConfigureMenuEvent extends Event
         private readonly FactoryInterface $factory,
         private readonly ItemInterface $menu,
         private readonly array $options = []
-    ) {
-    }
+    ) {}
 
     public function getFactory(): FactoryInterface
     {

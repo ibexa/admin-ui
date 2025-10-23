@@ -25,8 +25,7 @@ final class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefiniti
     public function __construct(
         private readonly FieldTypeAliasResolverInterface $fieldTypeAliasResolver,
         private array $mappers = []
-    ) {
-    }
+    ) {}
 
     public function addMapper(
         FieldDefinitionFormMapperInterface $mapper,

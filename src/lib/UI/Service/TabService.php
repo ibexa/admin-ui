@@ -15,9 +15,7 @@ use InvalidArgumentException;
 
 final readonly class TabService
 {
-    public function __construct(private TabRegistry $tabRegistry)
-    {
-    }
+    public function __construct(private TabRegistry $tabRegistry) {}
 
     public function getTabGroup(string $groupIdentifier): TabGroup
     {

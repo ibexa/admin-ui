@@ -15,7 +15,5 @@ final class BulkOperation extends RestValue
     /**
      * @param Operation[] $operations
      */
-    public function __construct(public readonly array $operations)
-    {
-    }
+    public function __construct(public readonly array $operations) {}
 }

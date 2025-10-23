@@ -19,6 +19,5 @@ final class LoadSubtreeRequest extends RestValue
     public function __construct(
         public array $nodes = [],
         public ?CriterionInterface $filter = null
-    ) {
-    }
+    ) {}
 }

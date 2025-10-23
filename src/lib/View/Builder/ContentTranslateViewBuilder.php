@@ -40,8 +40,7 @@ readonly class ContentTranslateViewBuilder implements ViewBuilder
         private ParametersInjector $viewParametersInjector,
         private ActionDispatcherInterface $contentActionDispatcher,
         private UserLanguagePreferenceProviderInterface $languagePreferenceProvider
-    ) {
-    }
+    ) {}
 
     public function matches($argument): bool
     {

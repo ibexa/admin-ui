@@ -21,8 +21,7 @@ final readonly class ContentCreateLanguageChoiceLoader implements ChoiceLoaderIn
     public function __construct(
         private LanguageChoiceLoader $languageChoiceLoader,
         private array $restrictedLanguagesCodes
-    ) {
-    }
+    ) {}
 
     public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {

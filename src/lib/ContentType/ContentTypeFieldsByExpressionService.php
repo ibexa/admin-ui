@@ -21,8 +21,7 @@ final readonly class ContentTypeFieldsByExpressionService implements ContentType
         private ContentTypeFieldsExtractorInterface $fieldsExtractor,
         private ContentTypeHandler $contentTypeHandler,
         private ContentTypeDomainMapper $contentTypeDomainMapper
-    ) {
-    }
+    ) {}
 
     public function getFieldsFromExpression(string $expression): array
     {

@@ -32,8 +32,7 @@ readonly class SubmitHandler implements UserActionsSubmitHandler
         protected EventDispatcherInterface $uiActionEventDispatcher,
         protected FormUiActionMappingDispatcher $formUiActionMappingDispatcher,
         private LoggerInterface $logger
-    ) {
-    }
+    ) {}
 
     /**
      * Wraps business logic with reusable boilerplate code.

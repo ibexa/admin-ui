@@ -22,8 +22,7 @@ final readonly class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         private SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         private ?Location $location = null,
         private ?string $languageCode = null
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string>

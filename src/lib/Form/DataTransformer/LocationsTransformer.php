@@ -19,9 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class LocationsTransformer implements DataTransformerInterface
 {
-    public function __construct(private LocationService $locationService)
-    {
-    }
+    public function __construct(private LocationService $locationService) {}
 
     public function transform(mixed $value): ?string
     {

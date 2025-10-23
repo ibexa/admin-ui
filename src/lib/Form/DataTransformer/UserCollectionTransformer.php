@@ -18,9 +18,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class UserCollectionTransformer implements DataTransformerInterface
 {
-    public function __construct(private UserService $userService)
-    {
-    }
+    public function __construct(private UserService $userService) {}
 
     /**
      * @throws TransformationFailedException

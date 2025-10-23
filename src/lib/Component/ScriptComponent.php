@@ -25,8 +25,7 @@ readonly class ScriptComponent implements ComponentInterface
         protected ?string $defer = null,
         protected ?string $crossorigin = null,
         protected ?string $integrity = null
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters

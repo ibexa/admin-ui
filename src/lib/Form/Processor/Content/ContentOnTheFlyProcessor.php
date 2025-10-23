@@ -29,8 +29,7 @@ final readonly class ContentOnTheFlyProcessor implements EventSubscriberInterfac
     public function __construct(
         private Environment $twig,
         private ContentFormProcessor $innerContentFormProcessor
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

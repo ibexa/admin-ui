@@ -79,9 +79,7 @@ readonly class Registry
 
     private const string GROUP_PREFIX = 'admin-ui-';
 
-    public function __construct(protected TwigComponentsRegistry $inner)
-    {
-    }
+    public function __construct(protected TwigComponentsRegistry $inner) {}
 
     public function addComponent(
         string $group,

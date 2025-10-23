@@ -25,8 +25,7 @@ final class ReadAllowedContentTypes implements EventSubscriberInterface
         private readonly PermissionResolver $permissionResolver,
         private readonly PermissionCheckerInterface $permissionChecker,
         private readonly ContentTypeService $contentTypeService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

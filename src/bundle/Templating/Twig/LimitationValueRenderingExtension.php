@@ -18,8 +18,7 @@ final class LimitationValueRenderingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly LimitationBlockRendererInterface $limitationRenderer
-    ) {
-    }
+    ) {}
 
     /**
      * @return TwigFunction[]

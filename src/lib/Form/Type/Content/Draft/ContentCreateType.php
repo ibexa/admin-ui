@@ -40,8 +40,7 @@ class ContentCreateType extends AbstractType
         private readonly LanguageChoiceLoader $languageChoiceLoader,
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
         private readonly LimitationResolverInterface $limitationResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @throws BadStateException

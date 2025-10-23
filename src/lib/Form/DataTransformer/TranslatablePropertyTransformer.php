@@ -19,9 +19,7 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 final readonly class TranslatablePropertyTransformer implements DataTransformerInterface
 {
-    public function __construct(private string $languageCode)
-    {
-    }
+    public function __construct(private string $languageCode) {}
 
     public function transform(mixed $value): mixed
     {

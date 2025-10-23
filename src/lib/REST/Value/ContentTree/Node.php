@@ -31,6 +31,5 @@ final class Node extends RestValue
         public string $mainLanguageCode,
         public array $children = [],
         public string $pathString = ''
-    ) {
-    }
+    ) {}
 }

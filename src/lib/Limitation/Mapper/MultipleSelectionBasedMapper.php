@@ -66,7 +66,5 @@ abstract class MultipleSelectionBasedMapper implements LimitationFormMapperInter
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation): void
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation): void {}
 }

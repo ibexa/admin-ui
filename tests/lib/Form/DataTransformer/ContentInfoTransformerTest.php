@@ -94,8 +94,7 @@ final class ContentInfoTransformerTest extends TestCase
         /** @var ContentService|MockObject $service */
         $service = $this->createMock(ContentService::class);
         $service->method('loadContentInfo')
-            ->will(self::throwException(new class('ContentInfo not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('ContentInfo not found') extends NotFoundException {}));
 
         $transformer = new ContentInfoTransformer($service);
 

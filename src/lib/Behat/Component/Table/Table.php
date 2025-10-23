@@ -205,9 +205,7 @@ final class Table extends Component implements TableInterface
         return $this->tableFactory->createRow($rowElement, new LocatorCollection($filteredCellLocators));
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     private function setParentElement(): void
     {

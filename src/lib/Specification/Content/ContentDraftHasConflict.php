@@ -17,8 +17,7 @@ final class ContentDraftHasConflict extends AbstractSpecification
     public function __construct(
         private readonly ContentService $contentService,
         private readonly string $languageCode
-    ) {
-    }
+    ) {}
 
     /**
      * Checks if Content has draft conflict.

@@ -22,8 +22,7 @@ final class SectionContentAssignData
     public function __construct(
         private ?Section $section = null,
         private array $locations = []
-    ) {
-    }
+    ) {}
 
     public function getSection(): ?Section
     {

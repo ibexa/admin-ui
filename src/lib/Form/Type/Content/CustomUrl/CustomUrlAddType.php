@@ -39,8 +39,7 @@ final class CustomUrlAddType extends AbstractType
         private readonly DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
         private readonly SiteaccessResolverInterface $nonAdminSiteaccessResolver,
         private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator
-    ) {
-    }
+    ) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

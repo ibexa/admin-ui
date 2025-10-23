@@ -38,8 +38,7 @@ class TranslationAddType extends AbstractType
     public function __construct(
         protected readonly LanguageService $languageService,
         private readonly ContentTypeService $contentTypeService
-    ) {
-    }
+    ) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

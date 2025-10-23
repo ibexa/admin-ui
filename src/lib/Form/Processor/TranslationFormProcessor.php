@@ -23,8 +23,7 @@ final readonly class TranslationFormProcessor implements EventSubscriberInterfac
 {
     public function __construct(
         private ContentService $contentService
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

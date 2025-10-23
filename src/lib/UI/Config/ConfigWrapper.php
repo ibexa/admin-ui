@@ -17,9 +17,7 @@ class ConfigWrapper implements ArrayAccess, JsonSerializable
     /**
      * @param array<mixed> $config
      */
-    public function __construct(private array $config)
-    {
-    }
+    public function __construct(private array $config) {}
 
     #[\ReturnTypeWillChange]
     public function offsetExists($offset): bool

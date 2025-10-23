@@ -82,8 +82,7 @@ class SectionTransformerTest extends TestCase
 
         $service = $this->createMock(SectionService::class);
         $service->method('loadSection')
-            ->will(self::throwException(new class('Section not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Section not found') extends NotFoundException {}));
 
         $transformer = new SectionTransformer($service);
 

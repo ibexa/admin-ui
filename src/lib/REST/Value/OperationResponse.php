@@ -19,6 +19,5 @@ final class OperationResponse extends RestValue
         public readonly int $statusCode,
         public readonly array $headers,
         public readonly ?string $content = null
-    ) {
-    }
+    ) {}
 }

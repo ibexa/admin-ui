@@ -20,8 +20,7 @@ final readonly class ContentUpdateContext implements Context
     public function __construct(
         private ContentUpdateItemPage $contentUpdateItemPage,
         private UserUpdatePage $userUpdatePage
-    ) {
-    }
+    ) {}
 
     /**
      * @When I set content fields

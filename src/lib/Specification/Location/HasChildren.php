@@ -14,9 +14,7 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class HasChildren extends AbstractSpecification
 {
-    public function __construct(private readonly LocationService $locationService)
-    {
-    }
+    public function __construct(private readonly LocationService $locationService) {}
 
     /**
      * @param Location $item

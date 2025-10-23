@@ -60,8 +60,7 @@ final class LocationController extends Controller
         private readonly SubmitHandler $submitHandler,
         private readonly Repository $repository,
         private readonly TranslationHelper $translationHelper
-    ) {
-    }
+    ) {}
 
     public function moveAction(Request $request): Response
     {

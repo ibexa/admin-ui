@@ -23,8 +23,7 @@ class UiActionEvent extends Event implements UiActionEventInterface
         protected string $type,
         protected FormInterface $form,
         protected ?Response $response
-    ) {
-    }
+    ) {}
 
     public function getName(): string
     {

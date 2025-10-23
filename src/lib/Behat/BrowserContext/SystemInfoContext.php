@@ -16,8 +16,7 @@ final readonly class SystemInfoContext implements Context
 {
     public function __construct(
         private SystemInfoPage $systemInfoPage
-    ) {
-    }
+    ) {}
 
     /**
      * @When I go to :tabName tab in System Information

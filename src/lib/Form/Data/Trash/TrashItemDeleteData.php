@@ -22,8 +22,7 @@ final class TrashItemDeleteData
     public function __construct(
         #[Assert\NotBlank]
         private array $trashItems = []
-    ) {
-    }
+    ) {}
 
     /**
      * @return TrashItem[]

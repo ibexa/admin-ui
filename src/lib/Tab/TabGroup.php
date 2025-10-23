@@ -19,8 +19,7 @@ class TabGroup
     public function __construct(
         protected string $identifier,
         protected array $tabs = []
-    ) {
-    }
+    ) {}
 
     public function getIdentifier(): string
     {

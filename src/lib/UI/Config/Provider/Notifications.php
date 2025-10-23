@@ -18,9 +18,7 @@ final readonly class Notifications implements ProviderInterface
 {
     public const array NOTIFICATION_TYPES = ['error', 'warning', 'info', 'success'];
 
-    public function __construct(private ConfigResolverInterface $configResolver)
-    {
-    }
+    public function __construct(private ConfigResolverInterface $configResolver) {}
 
     /**
      * @return array<string, mixed>

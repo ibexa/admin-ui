@@ -31,8 +31,7 @@ final readonly class RequestLocaleListener implements EventSubscriberInterface
         private TranslatorInterface $translator,
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * {@inheritdoc}

@@ -19,8 +19,7 @@ class LocationAssignSubtreeData
         protected ?Section $section = null,
         #[Assert\NotBlank]
         protected ?Location $location = null
-    ) {
-    }
+    ) {}
 
     public function getSection(): ?Section
     {

@@ -35,8 +35,7 @@ final class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         private readonly LocationService $locationService,
         private readonly ?ContentInfo $contentInfo = null,
         private readonly ?Location $location = null
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

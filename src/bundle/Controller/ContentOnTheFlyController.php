@@ -61,8 +61,7 @@ final class ContentOnTheFlyController extends Controller
         private readonly ConfigResolverInterface $configResolver,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ActionDispatcherInterface $contentActionDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @throws ApiException\BadStateException

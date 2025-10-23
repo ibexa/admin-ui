@@ -21,8 +21,7 @@ abstract class AbstractBuilder
     public function __construct(
         protected readonly MenuItemFactoryInterface $factory,
         protected readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $options

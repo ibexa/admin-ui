@@ -18,9 +18,7 @@ final class IsAdmin extends AbstractSpecification
     /**
      * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(private readonly array $siteAccessGroups)
-    {
-    }
+    public function __construct(private readonly array $siteAccessGroups) {}
 
     /**
      * @throws InvalidArgumentException

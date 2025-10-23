@@ -16,6 +16,5 @@ final class FieldDefinitionCreate extends RestValue
         public readonly ?string $fieldTypeIdentifier,
         public readonly ?string $fieldGroupIdentifier,
         public readonly ?int $position = null
-    ) {
-    }
+    ) {}
 }

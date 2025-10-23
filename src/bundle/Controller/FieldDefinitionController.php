@@ -31,8 +31,7 @@ final class FieldDefinitionController extends RestController
     public function __construct(
         private readonly ContentTypeService $contentTypeService,
         private readonly UrlGeneratorInterface $urlGenerator
-    ) {
-    }
+    ) {}
 
     public function addFieldDefinitionAction(
         Request $request,

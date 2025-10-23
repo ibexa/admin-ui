@@ -21,8 +21,7 @@ final readonly class BuildPathFromRootListener
         private LocationService $locationService,
         private URLAliasService $urlAliasService,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @throws NotFoundException

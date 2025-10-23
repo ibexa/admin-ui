@@ -22,8 +22,7 @@ final readonly class URLSearchAdapter implements AdapterInterface
     public function __construct(
         private URLQuery $query,
         private URLService $urlService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws UnauthorizedException

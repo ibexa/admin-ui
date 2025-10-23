@@ -41,8 +41,7 @@ final class ProfileEditController extends Controller
         private readonly LanguageService $languageService,
         private readonly ActionDispatcherInterface $userActionDispatcher,
         private readonly GroupedContentFormFieldsProviderInterface $groupedContentFormFieldsProvider
-    ) {
-    }
+    ) {}
 
     public function editAction(
         Request $request,

@@ -19,9 +19,7 @@ final readonly class FieldTypeToolbar implements IteratorAggregate
     /**
      * @param FieldTypeToolbarItem[] $items
      */
-    public function __construct(private array $items)
-    {
-    }
+    public function __construct(private array $items) {}
 
     /**
      * @return FieldTypeToolbarItem[]

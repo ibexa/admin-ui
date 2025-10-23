@@ -68,8 +68,7 @@ class UserTransformerTest extends TestCase
         $service = $this->createMock(UserService::class);
         $service
             ->method('loadUser')
-            ->will(self::throwException(new class('User not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('User not found') extends NotFoundException {}));
 
         $transformer = new UserTransformer($service);
         $transformer->reverseTransform(654321);

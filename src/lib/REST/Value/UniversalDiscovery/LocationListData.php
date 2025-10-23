@@ -25,9 +25,7 @@ final class LocationListData extends Value
     /**
      * @phpstan-param LocationList $locationList
      */
-    public function __construct(private readonly array $locationList)
-    {
-    }
+    public function __construct(private readonly array $locationList) {}
 
     /**
      * @phpstan-return LocationList

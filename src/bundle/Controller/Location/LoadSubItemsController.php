@@ -41,9 +41,7 @@ final class LoadSubItemsController extends RestController
         'ContentName' => SortClause\ContentName::class,
     ];
 
-    public function __construct(private readonly SearchService $searchService)
-    {
-    }
+    public function __construct(private readonly SearchService $searchService) {}
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException

@@ -16,8 +16,7 @@ final readonly class AdminUpdateContext implements Context
 {
     public function __construct(
         private AdminUpdateItemPage $adminUpdateItemPage
-    ) {
-    }
+    ) {}
 
     /**
      * @When I set fields

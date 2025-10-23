@@ -33,8 +33,7 @@ final readonly class RequestAttributesListener implements EventSubscriberInterfa
     public function __construct(
         private array $siteAccessGroups,
         private Repository $repository
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

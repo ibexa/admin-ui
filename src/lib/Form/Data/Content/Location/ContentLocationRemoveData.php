@@ -22,8 +22,7 @@ class ContentLocationRemoveData
         public ?ContentInfo $contentInfo = null,
         #[Assert\NotBlank]
         public array $selectedLocations = []
-    ) {
-    }
+    ) {}
 
     public function setContentInfo(?ContentInfo $contentInfo): void
     {

@@ -24,8 +24,7 @@ final class PolicyValueResolver extends AbstractValueResolver
 
     public function __construct(
         private readonly RoleService $roleService
-    ) {
-    }
+    ) {}
 
     protected function getRequestAttributes(): array
     {

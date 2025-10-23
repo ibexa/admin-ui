@@ -25,9 +25,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UserEditType extends AbstractType
 {
-    public function __construct(protected readonly LanguageService $languageService)
-    {
-    }
+    public function __construct(protected readonly LanguageService $languageService) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

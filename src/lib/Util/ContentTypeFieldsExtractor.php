@@ -19,8 +19,7 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
     public function __construct(
         private readonly ContentTypeFieldsExpressionParserInterface $expressionParser,
         private readonly ContentTypeService $contentTypeService
-    ) {
-    }
+    ) {}
 
     public function extractFieldsFromExpression(string $expression): array
     {

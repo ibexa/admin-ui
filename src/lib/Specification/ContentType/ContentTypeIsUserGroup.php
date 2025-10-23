@@ -17,9 +17,7 @@ final class ContentTypeIsUserGroup extends AbstractSpecification
     /**
      * @param string[] $userGroupContentTypeIdentifiers
      */
-    public function __construct(private readonly array $userGroupContentTypeIdentifiers)
-    {
-    }
+    public function __construct(private readonly array $userGroupContentTypeIdentifiers) {}
 
     /**
      * Checks if $contentType is an existing User content.

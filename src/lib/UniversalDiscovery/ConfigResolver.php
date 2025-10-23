@@ -21,8 +21,7 @@ class ConfigResolver
     public function __construct(
         protected readonly ConfigResolverInterface $configResolver,
         protected readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $context

@@ -19,8 +19,7 @@ readonly class MenuItemFactory implements MenuItemFactoryInterface
     public function __construct(
         protected FactoryInterface $factory,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * Creates Location menu item only when user has content:read permission.

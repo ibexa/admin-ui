@@ -19,8 +19,7 @@ final class ComponentExtension extends AbstractExtension
     public function __construct(
         private readonly ComponentRegistry $registry,
         private readonly RendererInterface $renderer
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {

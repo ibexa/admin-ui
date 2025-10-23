@@ -17,8 +17,7 @@ final class IconPathExtension extends AbstractExtension
 {
     public function __construct(
         private readonly IconPathResolverInterface $iconPathResolver
-    ) {
-    }
+    ) {}
 
     public function getFunctions(): array
     {

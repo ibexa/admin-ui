@@ -23,8 +23,7 @@ final readonly class URLWildcardAdapter implements AdapterInterface
     public function __construct(
         private URLWildcardQuery $query,
         private URLWildcardService $urlWildcardService
-    ) {
-    }
+    ) {}
 
     /**
      * @throws UnauthorizedException

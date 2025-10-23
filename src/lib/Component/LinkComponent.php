@@ -24,8 +24,7 @@ readonly class LinkComponent implements ComponentInterface
         protected string $rel = 'stylesheet',
         protected ?string $crossorigin = null,
         protected ?string $integrity = null
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<mixed> $parameters

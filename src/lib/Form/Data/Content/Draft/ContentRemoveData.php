@@ -15,9 +15,7 @@ final class ContentRemoveData
     /**
      * @param VersionId[]|false[]|null $versions
      */
-    public function __construct(private ?array $versions = null)
-    {
-    }
+    public function __construct(private ?array $versions = null) {}
 
     /**
      * @return VersionId[]|false[]|null

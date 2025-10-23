@@ -31,8 +31,7 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
     public function __construct(
         private PermissionResolver $permissionResolver,
         private UserService $userService
-    ) {
-    }
+    ) {}
 
     /**
      * @param mixed[] $hasAccess

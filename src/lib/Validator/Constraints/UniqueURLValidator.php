@@ -16,9 +16,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 final class UniqueURLValidator extends ConstraintValidator
 {
-    public function __construct(private readonly URLService $urlService)
-    {
-    }
+    public function __construct(private readonly URLService $urlService) {}
 
     public function validate(
         mixed $value,

@@ -26,8 +26,7 @@ final class TrashItemData
         private ?ContentType $contentType = null,
         private array $ancestors = [],
         private readonly ?User $creator = null
-    ) {
-    }
+    ) {}
 
     public function getLocation(): APITrashItem
     {

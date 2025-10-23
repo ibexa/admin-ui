@@ -10,6 +10,4 @@ namespace Ibexa\AdminUi\Exception;
 
 use RuntimeException;
 
-final class MissingLimitationBlockException extends RuntimeException
-{
-}
+final class MissingLimitationBlockException extends RuntimeException {}

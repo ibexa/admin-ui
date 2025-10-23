@@ -26,8 +26,7 @@ final readonly class RelationAdapter implements AdapterInterface
         private ContentService $contentService,
         private DatasetFactory $datasetFactory,
         private Content $content
-    ) {
-    }
+    ) {}
 
     /**
      * @throws BadStateException

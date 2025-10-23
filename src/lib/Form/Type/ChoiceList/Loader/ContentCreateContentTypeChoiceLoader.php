@@ -26,8 +26,7 @@ final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterfac
     public function __construct(
         private readonly ContentTypeChoiceLoader $contentTypeChoiceLoader,
         private readonly EventDispatcherInterface $eventDispatcher
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<int> $restrictedContentTypeIds

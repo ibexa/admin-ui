@@ -20,8 +20,7 @@ final class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidato
     public function __construct(
         private readonly LocationService $locationService,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * Checks if the passed value is valid.

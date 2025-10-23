@@ -17,8 +17,7 @@ final readonly class NotificationContext implements Context
 {
     public function __construct(
         private Notification $notification
-    ) {
-    }
+    ) {}
 
     /**
      * @Then notification that :itemType :itemName is :action appears

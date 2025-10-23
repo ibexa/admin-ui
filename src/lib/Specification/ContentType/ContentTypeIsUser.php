@@ -19,9 +19,7 @@ final class ContentTypeIsUser extends AbstractSpecification
     /**
      * @param string[] $userContentTypeIdentifiers
      */
-    public function __construct(private readonly array $userContentTypeIdentifiers)
-    {
-    }
+    public function __construct(private readonly array $userContentTypeIdentifiers) {}
 
     /**
      * @throws InvalidArgumentException

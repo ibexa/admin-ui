@@ -20,9 +20,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final readonly class LocationTransformer implements DataTransformerInterface
 {
-    public function __construct(private LocationService $locationService)
-    {
-    }
+    public function __construct(private LocationService $locationService) {}
 
     /**
      * Transforms a domain specific Location object into a Location's identifier.

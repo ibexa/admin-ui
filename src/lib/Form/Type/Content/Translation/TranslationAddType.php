@@ -46,8 +46,7 @@ class TranslationAddType extends AbstractType
         protected readonly LocationService $locationService,
         private readonly PermissionResolver $permissionResolver,
         private readonly LookupLimitationsTransformer $lookupLimitationsTransformer
-    ) {
-    }
+    ) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

@@ -42,8 +42,7 @@ class FieldDefinitionType extends AbstractType
         private readonly FieldTypeDefinitionFormMapperDispatcherInterface $fieldTypeMapperDispatcher,
         private readonly FieldTypeService $fieldTypeService,
         private readonly ThumbnailStrategy $thumbnailStrategy
-    ) {
-    }
+    ) {}
 
     public function setGroupsList(?FieldsGroupsList $groupsList): void
     {

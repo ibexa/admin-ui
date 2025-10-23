@@ -22,8 +22,7 @@ final readonly class ContentEditMetaFieldsComponent implements ComponentInterfac
     public function __construct(
         private Environment $twig,
         private ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @param array<string, mixed> $parameters

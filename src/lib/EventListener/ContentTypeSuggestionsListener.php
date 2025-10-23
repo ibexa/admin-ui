@@ -28,8 +28,7 @@ final readonly class ContentTypeSuggestionsListener implements EventSubscriberIn
         private SearchService $searchService,
         private TranslatorInterface $translator,
         private int $limit = 4
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

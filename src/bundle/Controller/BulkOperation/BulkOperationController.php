@@ -21,8 +21,7 @@ final class BulkOperationController extends RestController
 {
     public function __construct(
         private readonly HttpKernelInterface $httpKernel
-    ) {
-    }
+    ) {}
 
     /**
      * @throws \Exception

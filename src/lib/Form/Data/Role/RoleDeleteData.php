@@ -12,9 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Role;
 
 final class RoleDeleteData
 {
-    public function __construct(private ?Role $role = null)
-    {
-    }
+    public function __construct(private ?Role $role = null) {}
 
     public function getRole(): ?Role
     {

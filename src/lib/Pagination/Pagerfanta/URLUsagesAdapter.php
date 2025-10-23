@@ -21,8 +21,7 @@ final readonly class URLUsagesAdapter implements AdapterInterface
     public function __construct(
         private URL $url,
         private URLService $urlService
-    ) {
-    }
+    ) {}
 
     public function getNbResults(): int
     {

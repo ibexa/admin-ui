@@ -36,8 +36,7 @@ final class VersionPreviewUrlChoiceType extends AbstractType
         private readonly SiteaccessResolverInterface $siteAccessResolver,
         private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
         private readonly VersionPreviewUrlResolverInterface $previewUrlResolver
-    ) {
-    }
+    ) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

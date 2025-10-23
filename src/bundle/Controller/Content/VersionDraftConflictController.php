@@ -31,8 +31,7 @@ final class VersionDraftConflictController extends Controller
         private readonly DatasetFactory $datasetFactory,
         private readonly UserService $userService,
         private readonly TranslatorInterface $translator
-    ) {
-    }
+    ) {}
 
     /**
      * @throws BadStateException

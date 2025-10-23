@@ -14,9 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final readonly class UserSelectionAllowedContentTypes implements EventSubscriberInterface
 {
-    public function __construct(private ConfigResolverInterface $configResolver)
-    {
-    }
+    public function __construct(private ConfigResolverInterface $configResolver) {}
 
     public static function getSubscribedEvents(): array
     {

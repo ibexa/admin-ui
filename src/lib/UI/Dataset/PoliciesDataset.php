@@ -34,8 +34,7 @@ final class PoliciesDataset
         private readonly ValueFactory $valueFactory,
         private readonly array $userContentTypeIdentifier,
         private readonly array $userGroupContentTypeIdentifier
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

@@ -24,9 +24,7 @@ final class FieldDefinitionsCollectionType extends AbstractType
     /**
      * @param FieldsGroupsList $fieldsGroupsList
      */
-    public function __construct(private readonly FieldsGroupsList $fieldsGroupsList)
-    {
-    }
+    public function __construct(private readonly FieldsGroupsList $fieldsGroupsList) {}
 
     public function buildForm(
         FormBuilderInterface $builder,

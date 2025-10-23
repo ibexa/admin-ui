@@ -33,8 +33,7 @@ final class BookmarkController extends Controller
         private readonly LocationService $locationService,
         private readonly SubmitHandler $submitHandler,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     public function listAction(Request $request): Response
     {

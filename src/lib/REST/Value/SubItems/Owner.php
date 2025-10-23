@@ -17,6 +17,5 @@ final class Owner extends Value
         public readonly Thumbnail $thumbnail,
         public readonly ContentType $contentType,
         public readonly ?string $name = null,
-    ) {
-    }
+    ) {}
 }

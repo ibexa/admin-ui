@@ -19,8 +19,7 @@ final readonly class Sections implements ProviderInterface
 {
     public function __construct(
         private SectionService $sectionService
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, string>

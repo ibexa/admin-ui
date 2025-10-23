@@ -16,9 +16,7 @@ final readonly class ApplicationConfigRestResolverRegistry implements Applicatio
     /**
      * @param iterable<ApplicationConfigRestResolverInterface> $resolvers
      */
-    public function __construct(private iterable $resolvers)
-    {
-    }
+    public function __construct(private iterable $resolvers) {}
 
     public function hasResolver(
         string $namespace,

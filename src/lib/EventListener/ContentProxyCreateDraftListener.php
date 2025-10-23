@@ -26,8 +26,7 @@ final readonly class ContentProxyCreateDraftListener implements EventSubscriberI
         private LocationService $locationService,
         private AutosaveServiceInterface $autosaveService,
         private RouterInterface $router
-    ) {
-    }
+    ) {}
 
     public static function getSubscribedEvents(): array
     {

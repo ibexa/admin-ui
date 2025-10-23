@@ -25,8 +25,7 @@ readonly class SiteaccessResolver implements SiteaccessResolverInterface
         private iterable $siteAccessPreviewVoters,
         private SiteAccessService $siteAccessService,
         private LocationService $locationService
-    ) {
-    }
+    ) {}
 
     /**
      * @return SiteAccess[]

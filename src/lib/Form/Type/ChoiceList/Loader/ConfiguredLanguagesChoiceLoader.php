@@ -20,8 +20,7 @@ class ConfiguredLanguagesChoiceLoader implements ChoiceLoaderInterface
     public function __construct(
         private readonly LanguageService $languageService,
         private readonly ConfigResolverInterface $configResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @return Language[]

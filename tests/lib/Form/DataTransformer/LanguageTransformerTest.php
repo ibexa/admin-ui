@@ -85,8 +85,7 @@ final class LanguageTransformerTest extends TestCase
     {
         $this->languageService
             ->method('loadLanguage')
-            ->will(self::throwException(new class('Language not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Language not found') extends NotFoundException {}));
 
         $transformer = new LanguageTransformer($this->languageService);
 

@@ -18,9 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class SectionChoiceType extends AbstractType
 {
-    public function __construct(private readonly SectionService $sectionService)
-    {
-    }
+    public function __construct(private readonly SectionService $sectionService) {}
 
     public function configureOptions(OptionsResolver $resolver): void
     {

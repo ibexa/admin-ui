@@ -15,9 +15,7 @@ use PHPUnit\Framework\Assert;
 
 final readonly class TrashContext implements Context
 {
-    public function __construct(private TrashPage $trashPage)
-    {
-    }
+    public function __construct(private TrashPage $trashPage) {}
 
     /**
      * @Then trash is empty

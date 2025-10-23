@@ -20,8 +20,7 @@ final class CancelEditVersionDraftEvent extends Event
     public function __construct(
         private readonly Content $content,
         private readonly Location $referrerLocation
-    ) {
-    }
+    ) {}
 
     public function getContent(): Content
     {

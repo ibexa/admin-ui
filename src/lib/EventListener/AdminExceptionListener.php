@@ -43,8 +43,7 @@ class AdminExceptionListener implements LoggerAwareInterface
         protected string $rootDir,
         protected string $kernelEnvironment,
         private readonly string $logLevel
-    ) {
-    }
+    ) {}
 
     public function onKernelException(ExceptionEvent $event): void
     {

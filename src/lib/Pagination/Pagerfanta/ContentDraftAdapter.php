@@ -21,8 +21,7 @@ final readonly class ContentDraftAdapter implements AdapterInterface
     public function __construct(
         private ContentService $contentService,
         private DatasetFactory $datasetFactory
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

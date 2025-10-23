@@ -20,8 +20,7 @@ final class DashboardController extends Controller
     public function __construct(
         private readonly FormFactory $formFactory,
         private readonly PermissionResolver $permissionResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @throws InvalidArgumentException

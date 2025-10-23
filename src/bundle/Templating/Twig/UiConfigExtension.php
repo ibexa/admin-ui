@@ -22,8 +22,7 @@ final class UiConfigExtension extends AbstractExtension implements GlobalsInterf
 {
     public function __construct(
         private readonly Aggregator $aggregator
-    ) {
-    }
+    ) {}
 
     /**
      * @return array<string, ConfigWrapper>
