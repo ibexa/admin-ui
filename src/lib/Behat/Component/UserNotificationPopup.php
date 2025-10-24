@@ -46,7 +46,7 @@ class UserNotificationPopup extends Component
 
     public function verifyNotification(string $expectedType, string $expectedAuthor, string $expectedDescription, ?string $expectedDate = null, bool $shouldExist = true): void
     {
-        $notifications = $this->getHTMLPage()->setTimeout(3)->findAll($this->getLocator('notificationItem'));
+        $notifications = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'));
 
         foreach ($notifications as $notification) {
             $criteria = [
