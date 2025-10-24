@@ -112,12 +112,6 @@
         max-width: calculateRem(380px);
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
-        &-label {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
         &--has-icon {
             border-radius: 0;
         }
@@ -158,6 +152,12 @@
         .ibexa-icon {
             margin-right: calculateRem(8px);
         }
+    }
+
+    &__selected-item-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &__selection-toggler-btn {
