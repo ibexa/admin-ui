@@ -136,6 +136,17 @@
         );
     };
 
+    const uncheckCheckboxes = (table) => {
+        const mainCheckbox = table.querySelector('.ibexa-table__header-cell-checkbox');
+        const subCheckboxes = [...table.querySelectorAll('.ibexa-table__cell--has-checkbox .ibexa-input--checkbox')];
+
+        mainCheckbox.checked = false;
+        mainCheckbox.indeterminate = false;
+        subCheckboxes.forEach((subCheckbox) => {
+            subCheckbox.checked = false;
+        });
+    };
+
     ibexaTables.forEach(initTableCheckboxesListeners);
     initStickyTables();
 
@@ -143,6 +154,14 @@
         'ibexa-init-main-table-checkboxes-listeners',
         (event) => {
             initTableCheckboxesListeners(event.detail.table);
+        },
+        false,
+    );
+
+    doc.body.addEventListener(
+        'ibexa-uncheck-checkboxes',
+        (event) => {
+            uncheckCheckboxes(event.detail.table);
         },
         false,
     );

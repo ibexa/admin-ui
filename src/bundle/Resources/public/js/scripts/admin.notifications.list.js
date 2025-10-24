@@ -12,6 +12,10 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
     const notificationsCheckboxes = [
         ...doc.querySelectorAll('.ibexa-notification-list .ibexa-table__cell--has-checkbox .ibexa-input--checkbox'),
     ];
+    const notificationsTable = doc.querySelector('.ibexa-table--notifications');
+    const uncheckCheckboxesEvent = new CustomEvent('ibexa-uncheck-checkboxes', {
+        detail: { table: notificationsTable },
+    });
     const markAllAsRead = () => {
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
         const message = Translator.trans(
@@ -25,7 +29,7 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
             .then((response) => {
                 if (response.status === 'success') {
                     if (isFirefox()) {
-                        clearCheckboxes();
+                        document.body.dispatchEvent(uncheckCheckboxesEvent);
                     }
                     global.location.reload();
                 } else {
@@ -41,10 +45,6 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
         const selectedNotifications = [...notificationsCheckboxes]
             .filter((checkbox) => checkbox.checked)
             .map((checkbox) => checkbox.dataset.notificationId);
-
-        if (!selectedNotifications.length) {
-            return;
-        }
 
         const markAsReadLink = Routing.generate('ibexa.notifications.mark_multiple_as_read');
         const request = new Request(markAsReadLink, {
@@ -70,7 +70,7 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
             .then((response) => {
                 if (response.status === 'success') {
                     if (isFirefox()) {
-                        clearCheckboxes();
+                        document.body.dispatchEvent(uncheckCheckboxesEvent);
                     }
                     global.location.reload();
                 } else {
@@ -80,15 +80,6 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
             .catch(() => {
                 showErrorNotification(message);
             });
-    };
-
-    const clearCheckboxes = () => {
-        const multipleCheckbox = doc.querySelector('.ibexa-input--checkbox.ibexa-table__header-cell-checkbox');
-        multipleCheckbox.checked = false;
-
-        notificationsCheckboxes.forEach((checkbox) => {
-            checkbox.checked = false;
-        });
     };
 
     const handleNotificationClick = (notification, isToggle = false) => {
@@ -156,7 +147,6 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
         handleNotificationClick(notification, isToggle);
     };
     const getNotificationsStatus = () => {
-        const notificationsTable = doc.querySelector('.ibexa-table--notifications');
         const notificationsStatusLink = notificationsTable.dataset.notificationsCount;
         const request = new Request(notificationsStatusLink, {
             mode: 'cors',
