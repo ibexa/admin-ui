@@ -24,7 +24,9 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    if (isFirefox) clearCheckboxes();
+                    if (isFirefox()) {
+                        clearCheckboxes();
+                    }
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -67,7 +69,9 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    if (isFirefox) clearCheckboxes();
+                    if (isFirefox()) {
+                        clearCheckboxes();
+                    }
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
