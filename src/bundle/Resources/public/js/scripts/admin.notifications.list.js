@@ -1,3 +1,5 @@
+import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/browser.helper.js';
+
 (function (global, doc, ibexa, Translator, Routing) {
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
     const SELECTOR_GO_TO_NOTIFICATION = '.ibexa-notification-view-all__show';
@@ -22,7 +24,7 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    clearCheckboxes();
+                    if (isFirefox) clearCheckboxes();
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -65,7 +67,7 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    clearCheckboxes();
+                    if (isFirefox) clearCheckboxes();
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -77,7 +79,6 @@
     };
 
     const clearCheckboxes = () => {
-        // Firefox persists checkbox states on refresh — manually reset them
         const multipleCheckbox = doc.querySelector('.ibexa-input--checkbox.ibexa-table__header-cell-checkbox');
         multipleCheckbox.checked = false;
 
