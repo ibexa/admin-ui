@@ -85,7 +85,7 @@ class UserNotificationContext implements Context
     /**
      * @When I open notification menu with description :description
      */
-    public function iOpenNotificationMenuNotification(string $description): void
+    public function iOpenNotificationMenu(string $description): void
     {
         $this->userNotificationPopup->openNotificationMenu($description);
     }
@@ -152,9 +152,9 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @When I marked as unread notification with title :notificationTitle
+     * @When I mark notification as unread with title :notificationTitle
      */
-    public function iMarkedNotificationAsUnread(string $notificationTitle): void
+    public function iMarkNotificationAsUnread(string $notificationTitle): void
     {
         $this->notificationsPage->markAsUnread($notificationTitle);
     }
@@ -176,7 +176,7 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @When I deleted notification with title :notificationTitle
+     * @When I delete notification with title :notificationTitle
      */
     public function iDeleteNotification(string $notificationTitle): void
     {
