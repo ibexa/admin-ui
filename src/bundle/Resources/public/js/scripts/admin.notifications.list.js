@@ -1,3 +1,5 @@
+import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/browser.helper.js';
+
 (function (global, doc, ibexa, Translator, Routing) {
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
     const SELECTOR_GO_TO_NOTIFICATION = '.ibexa-notification-view-all__show';
@@ -10,6 +12,10 @@
     const notificationsCheckboxes = [
         ...doc.querySelectorAll('.ibexa-notification-list .ibexa-table__cell--has-checkbox .ibexa-input--checkbox'),
     ];
+    const notificationsTable = doc.querySelector('.ibexa-table--notifications');
+    const uncheckCheckboxesEvent = new CustomEvent('ibexa-uncheck-checkboxes', {
+        detail: { table: notificationsTable },
+    });
     const markAllAsRead = () => {
         const markAllAsReadLink = Routing.generate('ibexa.notifications.mark_all_as_read');
         const message = Translator.trans(
@@ -22,6 +28,9 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
+                    if (isFirefox()) {
+                        document.body.dispatchEvent(uncheckCheckboxesEvent);
+                    }
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -60,6 +69,9 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
+                    if (isFirefox()) {
+                        document.body.dispatchEvent(uncheckCheckboxesEvent);
+                    }
                     global.location.reload();
                 } else {
                     showErrorNotification(message);
@@ -135,7 +147,6 @@
         handleNotificationClick(notification, isToggle);
     };
     const getNotificationsStatus = () => {
-        const notificationsTable = doc.querySelector('.ibexa-table--notifications');
         const notificationsStatusLink = notificationsTable.dataset.notificationsCount;
         const request = new Request(notificationsStatusLink, {
             mode: 'cors',
