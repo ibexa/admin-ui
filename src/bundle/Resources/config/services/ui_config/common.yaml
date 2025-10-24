@@ -104,6 +104,8 @@ services:
 
     Ibexa\Bundle\AdminUi\Templating\Twig\EmbeddedItemEditFormExtension: ~
 
+    Ibexa\Bundle\AdminUi\Templating\Twig\TableExtension: ~
+
     Ibexa\AdminUi\UI\Config\Provider\UserContentTypes:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'userContentTypes' }
