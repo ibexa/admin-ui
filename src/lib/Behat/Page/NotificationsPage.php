@@ -21,8 +21,7 @@ final class NotificationsPage extends Page
 {
     private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
+    private Dialog $dialog;
 
     public function __construct(
         Session $session,
@@ -71,13 +70,11 @@ final class NotificationsPage extends Page
         $this->dialog->confirm();
     }
 
-    public function getStatusForNotification(string $notificationStatus): string
+    public function getStatusForNotification(string $notificationTitle): string
     {
-        return $this->getHTMLPage()
-            ->findAll($this->getLocator('tableRow'))
-            ->getByCriterion(new ChildElementTextCriterion($this->getLocator('rowName'), $notificationStatus))
-            ->find($this->getLocator('rowStatus'))
-            ->getText();
+        return $this->getHTMLPage()->findAll($this->getLocator('tableRow'))
+            ->getByCriterion(new ChildElementTextCriterion($this->getLocator('rowName'), $notificationTitle))
+            ->find($this->getLocator('rowStatus'))->getText();
     }
 
     public function verifyIsLoaded(): void
