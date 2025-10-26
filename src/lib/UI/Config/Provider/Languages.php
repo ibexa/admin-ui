@@ -31,9 +31,7 @@ class Languages implements ProviderInterface
     private $siteAccessService;
 
     /**
-     * @param LanguageService $languageService
-     * @param ConfigResolverInterface $configResolver
-     * @param string[]
+     * @param string[] $siteAccesses
      */
     public function __construct(
         LanguageService $languageService,
