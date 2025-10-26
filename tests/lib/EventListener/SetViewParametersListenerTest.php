@@ -13,6 +13,7 @@ use Ibexa\ContentForms\Content\View\ContentEditView;
 use Ibexa\ContentForms\User\View\UserUpdateView;
 use Ibexa\Contracts\ContentForms\Content\Form\Provider\GroupedContentFormFieldsProviderInterface;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Exceptions\Exception;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\UserService;
@@ -183,6 +184,9 @@ final class SetViewParametersListenerTest extends TestCase
         self::assertSame(reset($parentLocations), $contentView->getParameter('parent_location'));
     }
 
+    /**
+     * @throws Exception
+     */
     public function testSetViewTemplateParametersWithoutContentEditViewInstance(): void
     {
         $contentView = $this->createMock(View::class);
@@ -190,11 +194,7 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        self::assertNull(
-            $this->viewParametersListener->setContentEditViewTemplateParameters(
-                new PreContentViewEvent($contentView)
-            )
-        );
+        $this->viewParametersListener->setContentEditViewTemplateParameters(new PreContentViewEvent($contentView));
     }
 
     public function testSetUserUpdateViewTemplateParametersWithoutUserUpdateViewInstance(): void
@@ -204,10 +204,8 @@ final class SetViewParametersListenerTest extends TestCase
         $this->locationService->expects(self::never())
             ->method('loadParentLocationsForDraftContent');
 
-        self::assertNull(
-            $this->viewParametersListener->setUserUpdateViewTemplateParameters(
-                new PreContentViewEvent($view)
-            )
+        $this->viewParametersListener->setUserUpdateViewTemplateParameters(
+            new PreContentViewEvent($view)
         );
     }
 
