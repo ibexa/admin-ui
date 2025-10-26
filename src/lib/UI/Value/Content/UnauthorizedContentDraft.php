@@ -12,11 +12,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedCo
 
 class UnauthorizedContentDraft implements ContentDraftInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem */
+    /** @var UnauthorizedContentDraftListItem */
     private $unauthorizedContentDraft;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem $unauthorizedContentDraft
+     * @param UnauthorizedContentDraftListItem $unauthorizedContentDraft
      */
     public function __construct(UnauthorizedContentDraftListItem $unauthorizedContentDraft)
     {
@@ -24,7 +24,7 @@ class UnauthorizedContentDraft implements ContentDraftInterface
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\DraftList\Item\UnauthorizedContentDraftListItem
+     * @return UnauthorizedContentDraftListItem
      */
     public function getUnauthorizedContentDraft(): UnauthorizedContentDraftListItem
     {

@@ -17,7 +17,7 @@ interface LimitationValueMapperInterface
     /**
      * Map the limitation values, in order to pass them as context of limitation value rendering.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
+     * @param Limitation $limitation
      *
      * @return mixed[]
      */

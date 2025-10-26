@@ -9,17 +9,20 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Util;
 
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 class ContentTypeUtil
 {
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      * @param string $fieldTypeIdentifier
      *
      * @return bool
      */
-    public function hasFieldType(ContentType $contentType, string $fieldTypeIdentifier): bool
-    {
+    public function hasFieldType(
+        ContentType $contentType,
+        string $fieldTypeIdentifier
+    ): bool {
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
             if ($fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier) {
                 return true;
@@ -30,13 +33,15 @@ class ContentTypeUtil
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      * @param string $fieldTypeIdentifier
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[]
+     * @return FieldDefinition[]
      */
-    public function findFieldDefinitions(ContentType $contentType, string $fieldTypeIdentifier): array
-    {
+    public function findFieldDefinitions(
+        ContentType $contentType,
+        string $fieldTypeIdentifier
+    ): array {
         $fieldTypes = [];
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
             if ($fieldDefinition->fieldTypeIdentifier === $fieldTypeIdentifier) {

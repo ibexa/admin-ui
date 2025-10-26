@@ -16,19 +16,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class UserCollectionType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     protected $userService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->addViewTransformer(new UserCollectionTransformer($this->userService));
     }
 

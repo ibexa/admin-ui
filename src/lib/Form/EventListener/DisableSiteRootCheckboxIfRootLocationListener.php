@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormEvent;
 class DisableSiteRootCheckboxIfRootLocationListener
 {
     /**
-     * @param \Symfony\Component\Form\FormEvent $event
+     * @param FormEvent $event
      */
     public function onPreSetData(FormEvent $event)
     {

@@ -9,26 +9,29 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Siteaccess;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 
 class SiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessPreviewVoterInterface[] */
+    /** @var SiteaccessPreviewVoterInterface[] */
     private $siteAccessPreviewVoters;
 
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessService */
+    /** @var SiteAccessService */
     private $siteAccessService;
 
     private LocationService $locationService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      * @param iterable $siteaccessPreviewVoters
      * @param array $siteAccesses
      */
@@ -47,8 +50,8 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     /**
      * @return array
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function getSiteaccessesForLocation(
         Location $location,
@@ -68,7 +71,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,
@@ -80,7 +83,7 @@ class SiteaccessResolver implements SiteaccessResolverInterface
         $languageCode = $languageCode ?? $contentInfo->getMainLanguageCode();
 
         $eligibleSiteAccesses = [];
-        /** @var \Ibexa\Core\MVC\Symfony\SiteAccess $siteAccess */
+        /** @var SiteAccess $siteAccess */
         foreach ($this->siteAccessService->getAll() as $siteAccess) {
             $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteAccess->name, $languageCode);
             foreach ($this->siteAccessPreviewVoters as $siteAccessPreviewVoter) {

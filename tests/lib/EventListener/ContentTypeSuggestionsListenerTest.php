@@ -17,16 +17,17 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\Term
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResultCollection;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ContentTypeSuggestionsListenerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var SearchService&MockObject */
     private SearchService $searchService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var TranslatorInterface&MockObject */
     private TranslatorInterface $translator;
 
     protected function setUp(): void
@@ -128,7 +129,7 @@ final class ContentTypeSuggestionsListenerTest extends TestCase
         $eventDispatcher->addSubscriber($this->createDefaultListener());
         $eventDispatcher->dispatch($event, ContentCreateContentTypeChoiceLoaderEvent::RESOLVE_CONTENT_TYPES);
 
-        $this->assertEquals([
+        self::assertEquals([
             'content_type_suggestions' => [$article, $folder],
             'content_type_group_content' => [$article, $folder],
             'content_type_group_media' => [$image],
@@ -177,6 +178,6 @@ final class ContentTypeSuggestionsListenerTest extends TestCase
 
     private function expectSuggestionsAreNotComputed(): void
     {
-        $this->searchService->expects($this->never())->method('findLocations');
+        $this->searchService->expects(self::never())->method('findLocations');
     }
 }

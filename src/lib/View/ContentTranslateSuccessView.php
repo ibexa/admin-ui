@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\View;
 
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\MVC\Symfony\View\BaseView;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
@@ -15,9 +16,9 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 class ContentTranslateSuccessView extends BaseView
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param Response $response
      *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
+     * @throws InvalidArgumentType
      */
     public function __construct(Response $response)
     {

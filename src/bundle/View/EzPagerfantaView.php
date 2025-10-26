@@ -9,13 +9,14 @@ namespace Ibexa\Bundle\AdminUi\View;
 
 use Ibexa\Bundle\AdminUi\View\Template\EzPagerfantaTemplate;
 use Pagerfanta\View\DefaultView;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * View to render Pagerfanta pagination.
  */
 class EzPagerfantaView extends DefaultView
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     protected function createDefaultTemplate()

@@ -8,39 +8,44 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\Content\RelationInterface;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem;
+use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem;
 use Ibexa\Contracts\Core\Repository\Values\Content\RelationList\RelationListItemInterface;
 
 final class ReverseRelationListDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     private $valueFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\RelationInterface[] */
+    /** @var RelationInterface[] */
     private $reverseRelations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param ContentService $contentService
+     * @param ValueFactory $valueFactory
      */
-    public function __construct(ContentService $contentService, ValueFactory $valueFactory)
-    {
+    public function __construct(
+        ContentService $contentService,
+        ValueFactory $valueFactory
+    ) {
         $this->contentService = $contentService;
         $this->valueFactory = $valueFactory;
         $this->reverseRelations = [];
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      * @param int $offset
      * @param int $limit
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\ReverseRelationListDataset
+     * @return ReverseRelationListDataset
      */
     public function load(
         Content $content,
@@ -58,14 +63,14 @@ final class ReverseRelationListDataset
         $this->reverseRelations = array_map(
             function (RelationListItemInterface $relationListItem) use ($content) {
                 if ($relationListItem->hasRelation()) {
-                    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem */
+                    /** @var RelationListItem $relationListItem */
                     return $this->valueFactory->createRelationItem(
                         $relationListItem,
                         $content
                     );
                 }
 
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\UnauthorizedRelationListItem $relationListItem */
+                /** @var UnauthorizedRelationListItem $relationListItem */
                 return $this->valueFactory->createUnauthorizedRelationItem(
                     $relationListItem
                 );
@@ -77,7 +82,7 @@ final class ReverseRelationListDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Content\RelationInterface[]
+     * @return RelationInterface[]
      */
     public function getReverseRelations(): array
     {

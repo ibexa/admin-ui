@@ -9,8 +9,11 @@ namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 
 use Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 class VersionInfoParamConverterTest extends AbstractParamConverterTest
@@ -18,10 +21,10 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = VersionInfo::class;
     public const PARAMETER_NAME = 'versionInfo';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\VersionInfoParamConverter */
+    /** @var VersionInfoParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -39,22 +42,26 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
      * @param mixed $contentId
      * @param int $contentIdToLoad
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    public function testApply($versionNo, int $versionNoToload, $contentId, int $contentIdToLoad)
-    {
+    public function testApply(
+        $versionNo,
+        int $versionNoToload,
+        $contentId,
+        int $contentIdToLoad
+    ) {
         $valueObject = $this->createMock(ContentInfo::class);
         $versionInfo = $this->createMock(VersionInfo::class);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentInfo')
             ->with($contentIdToLoad)
             ->willReturn($valueObject);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadVersionInfo')
             ->with($valueObject, $versionNoToload)
             ->willReturn($versionInfo);
@@ -67,8 +74,8 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**
@@ -77,8 +84,10 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
      * @param $contentId
      * @param $versionNo
      */
-    public function testApplyWithWrongAttribute($contentId, $versionNo)
-    {
+    public function testApplyWithWrongAttribute(
+        $contentId,
+        $versionNo
+    ) {
         $requestAttributes = [
             VersionInfoParamConverter::PARAMETER_CONTENT_ID => $contentId,
             VersionInfoParamConverter::PARAMETER_VERSION_NO => $versionNo,
@@ -87,8 +96,8 @@ class VersionInfoParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**

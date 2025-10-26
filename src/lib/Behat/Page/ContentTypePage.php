@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -21,7 +22,7 @@ class ContentTypePage extends Page
     /** @var string */
     private $expectedContentTypeName;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     /** @var mixed */
@@ -30,7 +31,7 @@ class ContentTypePage extends Page
     /** @var mixed */
     private $expectedContenTypeId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $fieldTable;
 
     public function __construct(
@@ -44,8 +45,10 @@ class ContentTypePage extends Page
         $this->fieldTable = $tableBuilder->newTable()->withParentLocator($this->getLocator('contentFieldsTable'))->build();
     }
 
-    public function hasProperty($label, $value): bool
-    {
+    public function hasProperty(
+        $label,
+        $value
+    ): bool {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('globalPropertiesItem'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('globalPropertiesLabel'), $label))

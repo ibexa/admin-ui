@@ -30,7 +30,7 @@ class FormActionEvent extends FormEvent
     /**
      * Response to return after form post-processing. Typically a RedirectResponse.
      *
-     * @var \Symfony\Component\HttpFoundation\Response|null
+     * @var Response|null
      */
     private $response;
 
@@ -70,8 +70,10 @@ class FormActionEvent extends FormEvent
      *
      * @return mixed
      */
-    public function getOption($optionName, $defaultValue = null)
-    {
+    public function getOption(
+        $optionName,
+        $defaultValue = null
+    ) {
         if (!isset($this->options[$optionName])) {
             return $defaultValue;
         }
@@ -119,8 +121,10 @@ class FormActionEvent extends FormEvent
         return $this->payloads[$name];
     }
 
-    public function setPayload(string $name, $payload): void
-    {
+    public function setPayload(
+        string $name,
+        $payload
+    ): void {
         $this->payloads[$name] = $payload;
     }
 }

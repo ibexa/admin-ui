@@ -21,12 +21,12 @@ class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('toHash');
 
         $result = (new FieldValueTransformer($fieldType))->transform($value);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testTransform()
@@ -36,14 +36,14 @@ class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('toHash')
             ->with($value)
             ->willReturn($valueHash);
 
         $result = (new FieldValueTransformer($fieldType))->transform($value);
 
-        $this->assertEquals($result, $valueHash);
+        self::assertEquals($result, $valueHash);
     }
 
     public function testReverseTransformNull()
@@ -52,16 +52,16 @@ class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getEmptyValue')
             ->willReturn($emptyValue);
         $fieldType
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('fromHash');
 
         $result = (new FieldValueTransformer($fieldType))->reverseTransform(null);
 
-        $this->assertSame($emptyValue, $result);
+        self::assertSame($emptyValue, $result);
     }
 
     public function testReverseTransform()
@@ -71,16 +71,16 @@ class FieldValueTransformerTest extends TestCase
 
         $fieldType = $this->createMock(FieldType::class);
         $fieldType
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('getEmptyValue');
         $fieldType
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('fromHash')
             ->willReturn($expected);
 
         $result = (new FieldValueTransformer($fieldType))->reverseTransform($value);
 
-        $this->assertSame($expected, $result);
+        self::assertSame($expected, $result);
     }
 }
 

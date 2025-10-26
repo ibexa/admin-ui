@@ -12,6 +12,7 @@ use Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine;
 use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
@@ -81,7 +82,7 @@ final class DamWidget implements ProviderInterface
      *     folder: TFolderConfig
      * }
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function getConfig(): array
     {
@@ -94,7 +95,7 @@ final class DamWidget implements ProviderInterface
     /**
      * @phpstan-return TImageConfig
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     private function getImageConfig(): array
     {
@@ -127,7 +128,7 @@ final class DamWidget implements ProviderInterface
     /**
      * @phpstan-return TFolderConfig
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     private function getFolderConfig(): array
     {
@@ -142,7 +143,7 @@ final class DamWidget implements ProviderInterface
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     private function loadContentType(string $contentTypeIdentifier): ContentType
     {
@@ -158,7 +159,7 @@ final class DamWidget implements ProviderInterface
     }
 
     /**
-     * @throws \Ibexa\Bundle\Core\ApiLoader\Exception\InvalidSearchEngine
+     * @throws InvalidSearchEngine
      */
     private function showImageFilters(): bool
     {

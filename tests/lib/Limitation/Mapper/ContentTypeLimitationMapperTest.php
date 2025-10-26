@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -21,13 +22,13 @@ class ContentTypeLimitationMapperTest extends TestCase
     private const EXAMPLE_CONTENT_TYPE_ID_B = 2;
     private const EXAMPLE_CONTENT_TYPE_ID_C = 3;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|MockObject */
     private $contentTypeService;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LoggerInterface|MockObject */
     private $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\ContentTypeLimitationMapper */
+    /** @var ContentTypeLimitationMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -55,7 +56,7 @@ class ContentTypeLimitationMapperTest extends TestCase
 
         foreach ($values as $i => $value) {
             $this->contentTypeService
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadContentType')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -65,20 +66,20 @@ class ContentTypeLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
-        $this->assertCount(3, $result);
+        self::assertEquals($expected, $result);
+        self::assertCount(3, $result);
     }
 
     public function testMapLimitationValueWithNotExistingContentType()
     {
         $this->contentTypeService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentType')
             ->with(self::EXAMPLE_CONTENT_TYPE_ID_A)
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a content type with ID ' . self::EXAMPLE_CONTENT_TYPE_ID_A);
 
@@ -86,7 +87,7 @@ class ContentTypeLimitationMapperTest extends TestCase
             'limitationValues' => [self::EXAMPLE_CONTENT_TYPE_ID_A],
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
 

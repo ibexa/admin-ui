@@ -8,37 +8,41 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\User;
 
-use Ibexa\Contracts\Core\Repository\Values\User\Policy as  APIPolicy;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy as APIPolicy;
+use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 
 class Policy extends APIPolicy
 {
     /**
      * Limitations assigned to this policy.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
+     * @var Limitation[]
      */
     protected $limitations = [];
 
     /**
      * RoleAssignment to which policy belongs.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment
+     * @var RoleAssignment
      */
     protected $role_assignment;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
+     * @param APIPolicy $policy
      * @param array $properties
      */
-    public function __construct(APIPolicy $policy, array $properties = [])
-    {
+    public function __construct(
+        APIPolicy $policy,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($policy) + $properties);
 
         $this->limitations = $policy->getLimitations();
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]
+     * @return Limitation[]
      */
     public function getLimitations(): iterable
     {

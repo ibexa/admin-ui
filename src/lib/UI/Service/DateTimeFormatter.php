@@ -17,7 +17,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class DateTimeFormatter implements DateTimeFormatterInterface, TranslationContainerInterface
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -25,8 +25,10 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
         $this->translator = $translator;
     }
 
-    public function formatDiff(DateTimeInterface $from, DateTimeInterface $to): string
-    {
+    public function formatDiff(
+        DateTimeInterface $from,
+        DateTimeInterface $to
+    ): string {
         static $units = [
             'y' => 'year',
             'm' => 'month',
@@ -56,8 +58,11 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
      *
      * @return string
      */
-    private function getDiffMessage(int $count, bool $invert, string $unit): string
-    {
+    private function getDiffMessage(
+        int $count,
+        bool $invert,
+        string $unit
+    ): string {
         $id = sprintf('diff.%s.%s', $invert ? 'ago' : 'in', $unit);
 
         /** @Ignore */
@@ -75,7 +80,7 @@ final class DateTimeFormatter implements DateTimeFormatterInterface, Translation
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

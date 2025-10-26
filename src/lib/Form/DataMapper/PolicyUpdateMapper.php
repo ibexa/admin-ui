@@ -20,9 +20,9 @@ class PolicyUpdateMapper implements DataMapperInterface
     /**
      * Maps given PolicyUpdateStruct object to a PolicyUpdateData object.
      *
-     * @param \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param PolicyUpdateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
+     * @return PolicyUpdateData
      */
     public function map(ValueObject $value): PolicyUpdateData
     {
@@ -38,9 +38,9 @@ class PolicyUpdateMapper implements DataMapperInterface
     /**
      * Maps given PolicyUpdateData object to a PolicyUpdateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData $data
+     * @param PolicyUpdateData $data
      *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
+     * @return PolicyUpdateStruct
      */
     public function reverseMap($data): PolicyUpdateStruct
     {

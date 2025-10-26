@@ -33,8 +33,10 @@ class SelectionFormMapper implements FieldDefinitionFormMapperInterface
      *   `multilingualOptions` if those are provided.
      *   `multilingualOptions` is an array with keys equal to used languageCodes.
      */
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $options = $fieldDefinitionForm->getConfig()->getOptions();
         $languageCode = $options['languageCode'];

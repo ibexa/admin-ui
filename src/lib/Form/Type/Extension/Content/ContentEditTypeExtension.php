@@ -22,11 +22,13 @@ use Symfony\Component\Form\FormEvents;
 class ContentEditTypeExtension extends AbstractTypeExtension
 {
     /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->add('preview', SubmitType::class, [
             'label' => /** @Desc("Preview") */ 'preview',
             'attr' => [

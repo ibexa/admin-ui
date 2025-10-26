@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\View\Provider\ContentTranslateView;
 
 use Ibexa\AdminUi\View\ContentTranslateView;
+use Ibexa\Core\Base\Exceptions\InvalidArgumentType;
 use Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface;
 use Ibexa\Core\MVC\Symfony\View\View;
 use Ibexa\Core\MVC\Symfony\View\ViewProvider;
@@ -20,12 +21,12 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 class Configured implements ViewProvider
 {
     /**
-     * @var \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface
+     * @var MatcherFactoryInterface
      */
     protected $matcherFactory;
 
     /**
-     * @param \Ibexa\Core\MVC\Symfony\Matcher\MatcherFactoryInterface $matcherFactory
+     * @param MatcherFactoryInterface $matcherFactory
      */
     public function __construct(MatcherFactoryInterface $matcherFactory)
     {
@@ -35,7 +36,7 @@ class Configured implements ViewProvider
     /**
      * {@inheritdoc}
      *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
+     * @throws InvalidArgumentType
      */
     public function getView(View $view)
     {
@@ -51,9 +52,9 @@ class Configured implements ViewProvider
      *
      * @param array $viewConfig
      *
-     * @return \Ibexa\AdminUi\View\ContentTranslateView
+     * @return ContentTranslateView
      *
-     * @throws \Ibexa\Core\Base\Exceptions\InvalidArgumentType
+     * @throws InvalidArgumentType
      */
     protected function buildContentTranslateView(array $viewConfig): ContentTranslateView
     {

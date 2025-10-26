@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ContentTranslationDataTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData */
+    /** @var ContentTranslationData */
     private $contentTranslationData;
 
     protected function setUp(): void
@@ -24,31 +24,31 @@ class ContentTranslationDataTest extends TestCase
 
     public function testAddFieldData()
     {
-        $this->assertNull($this->contentTranslationData->fieldsData);
+        self::assertNull($this->contentTranslationData->fieldsData);
 
         $this->contentTranslationData->addFieldData(new FieldData([
             'fieldDefinition' => $this->getFieldDefinition(),
         ]));
 
-        $this->assertCount(1, $this->contentTranslationData->fieldsData);
+        self::assertCount(1, $this->contentTranslationData->fieldsData);
 
         // Add another field with same identifier
         $this->contentTranslationData->addFieldData(new FieldData([
             'fieldDefinition' => $this->getFieldDefinition(),
         ]));
-        $this->assertCount(1, $this->contentTranslationData->fieldsData);
+        self::assertCount(1, $this->contentTranslationData->fieldsData);
 
         // Add field with another identifier
         $this->contentTranslationData->addFieldData(new FieldData([
             'fieldDefinition' => $this->getFieldDefinition('another_identifier'),
         ]));
-        $this->assertCount(2, $this->contentTranslationData->fieldsData);
+        self::assertCount(2, $this->contentTranslationData->fieldsData);
     }
 
     /**
      * @param string $identifier
      *
-     * @return \Ibexa\Core\Repository\Values\ContentType\FieldDefinition
+     * @return FieldDefinition
      */
     private function getFieldDefinition(string $identifier = 'identifier'): FieldDefinition
     {

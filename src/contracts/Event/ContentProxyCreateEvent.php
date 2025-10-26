@@ -21,10 +21,10 @@ class ContentProxyCreateEvent extends Event
     public const OPTION_CONTENT_DRAFT = 'contentDraft';
     public const OPTION_IS_ON_THE_FLY = 'isOnTheFly';
 
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
+    /** @var Response|null */
     private $response;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
+    /** @var ContentType */
     private $contentType;
 
     /** @var string */
@@ -33,7 +33,7 @@ class ContentProxyCreateEvent extends Event
     /** @var int */
     private $parentLocationId;
 
-    /** @var \Ibexa\AdminUi\Event\Options */
+    /** @var Options */
     private $options;
 
     public function __construct(

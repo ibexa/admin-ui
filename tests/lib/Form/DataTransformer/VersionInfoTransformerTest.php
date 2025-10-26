@@ -14,6 +14,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -22,10 +23,10 @@ final class VersionInfoTransformerTest extends TestCase
     private const EXAMPLE_CONTENT_ID = 123456;
     private const EXAMPLE_VERSION_NO = 7;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentService|MockObject */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\VersionInfoTransformer */
+    /** @var VersionInfoTransformer */
     private $transformer;
 
     protected function setUp(): void
@@ -37,9 +38,11 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForTransformWithValidInput
      */
-    public function testTransformWithValidInput(?VersionInfo $value, ?array $expected): void
-    {
-        $this->assertEquals(
+    public function testTransformWithValidInput(
+        ?VersionInfo $value,
+        ?array $expected
+    ): void {
+        self::assertEquals(
             $expected,
             $this->transformer->transform($value)
         );
@@ -78,8 +81,7 @@ final class VersionInfoTransformerTest extends TestCase
 
     public function dataProviderForTransformWithInvalidInput(): array
     {
-        $object = new class() {
-        };
+        $object = new class() {};
 
         return [
             'string' => ['string'],
@@ -94,24 +96,26 @@ final class VersionInfoTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForReverseTransformWithValidInput
      */
-    public function testReverseTransformWithValidInput(?array $value, ?VersionInfo $expected): void
-    {
+    public function testReverseTransformWithValidInput(
+        ?array $value,
+        ?VersionInfo $expected
+    ): void {
         if ($expected !== null) {
             $this->contentService
-                ->expects($this->once())
+                ->expects(self::once())
                 ->method('loadVersionInfo')
                 ->with(
-                    $this->equalTo($value['content_info']),
-                    $this->logicalAnd(
-                        $this->equalTo($value['version_no']),
+                    self::equalTo($value['content_info']),
+                    self::logicalAnd(
+                        self::equalTo($value['version_no']),
                         // Make sure value is casted to int
-                        $this->isType('int')
+                        self::isType('int')
                     )
                 )
                 ->willReturn($expected);
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             $this->transformer->reverseTransform($value)
         );
@@ -185,8 +189,7 @@ final class VersionInfoTransformerTest extends TestCase
             'version_no' => self::EXAMPLE_VERSION_NO,
         ];
 
-        $exception = new class('VersionInfo not found') extends NotFoundException {
-        };
+        $exception = new class('VersionInfo not found') extends NotFoundException {};
 
         $this->contentService
             ->method('loadVersionInfo')
@@ -210,8 +213,7 @@ final class VersionInfoTransformerTest extends TestCase
             'version_no' => self::EXAMPLE_VERSION_NO,
         ];
 
-        $exception = new class('Unauthorized VersionInfo') extends UnauthorizedException {
-        };
+        $exception = new class('Unauthorized VersionInfo') extends UnauthorizedException {};
 
         $this->contentService
             ->method('loadVersionInfo')
@@ -221,8 +223,10 @@ final class VersionInfoTransformerTest extends TestCase
         $this->transformer->reverseTransform($value);
     }
 
-    private function createVersionInfoMock(ContentInfo $contentInfo, int $versionNo): VersionInfo
-    {
+    private function createVersionInfoMock(
+        ContentInfo $contentInfo,
+        int $versionNo
+    ): VersionInfo {
         $versionInfo = $this->createMock(VersionInfo::class);
         $versionInfo
             ->method('__get')

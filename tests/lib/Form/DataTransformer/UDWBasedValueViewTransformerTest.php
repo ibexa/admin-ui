@@ -13,15 +13,16 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UDWBasedValueViewTransformerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LocationService|MockObject */
     private $locationService;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\UDWBasedValueViewTransformer */
+    /** @var UDWBasedValueViewTransformer */
     private $transformer;
 
     protected function setUp(): void
@@ -35,9 +36,11 @@ class UDWBasedValueViewTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForTransform
      */
-    public function testTransform(?array $given, ?string $expected)
-    {
-        $this->assertEquals($expected, $this->transformer->transform($given));
+    public function testTransform(
+        ?array $given,
+        ?string $expected
+    ) {
+        self::assertEquals($expected, $this->transformer->transform($given));
     }
 
     public function dataProviderForTransform(): array
@@ -58,15 +61,17 @@ class UDWBasedValueViewTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForReverseTransform
      */
-    public function testReverseTransform(?string $given, ?array $expected)
-    {
+    public function testReverseTransform(
+        ?string $given,
+        ?array $expected
+    ) {
         $this->locationService
             ->method('loadLocation')
             ->willReturnCallback(function ($id) {
                 return $this->createLocation($id);
             });
 
-        $this->assertEquals($expected, $this->transformer->reverseTransform($given));
+        self::assertEquals($expected, $this->transformer->reverseTransform($given));
     }
 
     public function dataProviderForReverseTransform(): array

@@ -14,14 +14,14 @@ use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
 class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
+    /** @var LanguageChoiceLoader */
     private $languageChoiceLoader;
 
     /** @var string[] */
     private $restrictedLanguagesCodes;
 
     /**
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
+     * @param LanguageChoiceLoader $languageChoiceLoader
      * @param array $restrictedLanguagesCodes
      */
     public function __construct(
@@ -53,8 +53,10 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadChoicesForValues(array $values, $value = null)
-    {
+    public function loadChoicesForValues(
+        array $values,
+        $value = null
+    ) {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -67,8 +69,10 @@ class ContentCreateLanguageChoiceLoader implements ChoiceLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadValuesForChoices(array $choices, $value = null)
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        $value = null
+    ) {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

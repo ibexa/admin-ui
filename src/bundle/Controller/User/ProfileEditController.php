@@ -28,6 +28,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\FieldType\User\Type as UserFieldType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class ProfileEditController extends Controller
 {
@@ -68,10 +69,12 @@ final class ProfileEditController extends Controller
     }
 
     /**
-     * @return \Ibexa\ContentForms\User\View\UserUpdateView|\Symfony\Component\HttpFoundation\Response
+     * @return UserUpdateView|Response
      */
-    public function editAction(Request $request, ?string $languageCode)
-    {
+    public function editAction(
+        Request $request,
+        ?string $languageCode
+    ) {
         $user = $this->userService->loadUser($this->permissionResolver->getCurrentUserReference()->getUserId());
         if (!$this->isUserProfileAvailable($user)) {
             throw $this->createNotFoundException();

@@ -20,11 +20,11 @@ class URLWildcardParamConverter implements ParamConverterInterface
 {
     private const PARAMETER_URL_WILDCARD_ID = 'urlWildcardId';
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
+    /** @var URLWildcardService */
     private $urlWildcardService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\URLWildcardService $urlWildcardService
+     * @param URLWildcardService $urlWildcardService
      */
     public function __construct(URLWildcardService $urlWildcardService)
     {
@@ -34,8 +34,10 @@ class URLWildcardParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration): bool
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ): bool {
         if (empty($request->get(self::PARAMETER_URL_WILDCARD_ID))) {
             return false;
         }

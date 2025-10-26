@@ -56,10 +56,12 @@ class NotificationAdapter implements AdapterInterface
      * @param int $offset the offset
      * @param int $length the length
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Notification\NotificationList
+     * @return NotificationList
      */
-    public function getSlice($offset, $length): NotificationList
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ): NotificationList {
         $query = clone $this->query;
         $query->setOffset($offset);
         $query->setLimit($length);

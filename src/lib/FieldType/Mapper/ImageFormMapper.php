@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Mime\MimeTypesInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Range;
 
@@ -24,7 +25,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
     /** @var array<string> */
     private array $allowedMimeTypes;
 
-    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
+    /** @var MaxUploadSize */
     private $maxUploadSize;
 
     private MimeTypesInterface $mimeTypes;
@@ -42,8 +43,10 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
         $this->mimeTypes = $mimeTypes;
     }
 
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
 
         if (!empty($this->allowedMimeTypes)) {
@@ -86,7 +89,7 @@ class ImageFormMapper implements FieldDefinitionFormMapperInterface
     /**
      * Fake method to set the translation domain for the extractor.
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws AccessException
      */
     public function configureOptions(OptionsResolver $resolver)
     {

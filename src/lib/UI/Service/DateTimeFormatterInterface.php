@@ -12,7 +12,10 @@ use DateTimeInterface;
 
 interface DateTimeFormatterInterface
 {
-    public function formatDiff(DateTimeInterface $from, DateTimeInterface $to): string;
+    public function formatDiff(
+        DateTimeInterface $from,
+        DateTimeInterface $to
+    ): string;
 }
 
 class_alias(DateTimeFormatterInterface::class, 'EzSystems\EzPlatformAdminUi\UI\Service\DateTimeFormatterInterface');

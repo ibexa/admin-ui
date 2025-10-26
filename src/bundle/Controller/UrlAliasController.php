@@ -20,19 +20,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UrlAliasController extends Controller
 {
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     protected $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     protected $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
+    /** @var URLAliasService */
     protected $urlAliasService;
 
     /**
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Contracts\Core\Repository\URLAliasService $urlAliasService
+     * @param FormFactory $formFactory
+     * @param SubmitHandler $submitHandler
+     * @param URLAliasService $urlAliasService
      */
     public function __construct(
         FormFactory $formFactory,
@@ -45,16 +45,16 @@ class UrlAliasController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addAction(Request $request): Response
     {
         $form = $this->formFactory->addCustomUrl();
         $form->handleRequest($request);
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\CustomUrl\CustomUrlAddData $data */
+        /** @var CustomUrlAddData $data */
         $data = $form->getData();
         $location = $data->getLocation();
 
@@ -83,9 +83,9 @@ class UrlAliasController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function removeAction(Request $request): Response
     {

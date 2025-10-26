@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class TranslationFormProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     public function __construct(
@@ -44,11 +44,11 @@ class TranslationFormProcessor implements EventSubscriberInterface
      *
      * This step is required to achieve compatibility with other FormProcessors.
      *
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
+     * @param FormActionEvent $event
      */
     public function createContentDraft(FormActionEvent $event): void
     {
-        /** @var \Ibexa\AdminUi\Form\Data\ContentTranslationData $data */
+        /** @var ContentTranslationData $data */
         $data = $event->getData();
 
         if (!$data instanceof ContentTranslationData) {

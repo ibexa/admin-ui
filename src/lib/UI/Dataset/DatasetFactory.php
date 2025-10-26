@@ -28,37 +28,37 @@ class DatasetFactory implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     protected $objectStateService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
+    /** @var URLAliasService */
     private $urlAliasService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
+    /** @var BookmarkService */
     private $bookmarkService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -90,7 +90,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\VersionsDataset
+     * @return VersionsDataset
      */
     public function versions(): VersionsDataset
     {
@@ -98,7 +98,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\TranslationsDataset
+     * @return TranslationsDataset
      */
     public function translations(): TranslationsDataset
     {
@@ -108,7 +108,7 @@ class DatasetFactory implements LoggerAwareInterface
     /**
      * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::relationList and DatasetFactory::reverseRelationList instead.
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\RelationsDataset
+     * @return RelationsDataset
      */
     public function relations(): RelationsDataset
     {
@@ -116,7 +116,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\RelationListDataset
+     * @return RelationListDataset
      */
     public function relationList(): RelationListDataset
     {
@@ -127,7 +127,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\ReverseRelationListDataset
+     * @return ReverseRelationListDataset
      */
     public function reverseRelationList(): ReverseRelationListDataset
     {
@@ -138,7 +138,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\LocationsDataset
+     * @return LocationsDataset
      */
     public function locations(): LocationsDataset
     {
@@ -146,7 +146,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\ObjectStatesDataset
+     * @return ObjectStatesDataset
      */
     public function objectStates(): ObjectStatesDataset
     {
@@ -154,7 +154,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
+     * @return CustomUrlsDataset
      */
     public function customUrls(): CustomUrlsDataset
     {
@@ -162,7 +162,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\RolesDataset
+     * @return RolesDataset
      */
     public function roles(): RolesDataset
     {
@@ -178,7 +178,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\PoliciesDataset
+     * @return PoliciesDataset
      */
     public function policies(): PoliciesDataset
     {
@@ -194,7 +194,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\BookmarksDataset
+     * @return BookmarksDataset
      */
     public function bookmarks(): BookmarksDataset
     {
@@ -207,7 +207,7 @@ class DatasetFactory implements LoggerAwareInterface
     /**
      * @deprecated since version 2.5, to be removed in 3.0. Please use DatasetFactory::contentDraftList instead.
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftsDataset
+     * @return ContentDraftsDataset
      */
     public function contentDrafts(): ContentDraftsDataset
     {
@@ -219,7 +219,7 @@ class DatasetFactory implements LoggerAwareInterface
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Dataset\ContentDraftListDataset
+     * @return ContentDraftListDataset
      */
     public function contentDraftList(): ContentDraftListDataset
     {

@@ -58,8 +58,10 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
         ;
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
+    protected function initialize(
+        InputInterface $input,
+        OutputInterface $output
+    ): void {
         $timeout = $input->getOption('timeout');
 
         if (!is_numeric($timeout)) {
@@ -67,8 +69,10 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
         }
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
+    protected function execute(
+        InputInterface $input,
+        OutputInterface $output
+    ): int {
         $timeout = (float)$input->getOption('timeout');
         $env = $input->getOption('env');
         $configName = $input->getOption('config-name');
@@ -98,7 +102,10 @@ class CompileAssetsCommand extends Command implements BackwardCompatibleCommand
             sprintf('Evaluating command <comment>%s</comment>', $yarnEncoreCommand)
         ));
 
-        $process->run(static function ($type, $buffer) use ($output, $debugFormatter, $process) {
+        $process->run(static function (
+            $type,
+            $buffer
+        ) use ($output, $debugFormatter, $process) {
             $output->write(
                 $debugFormatter->progress(
                     spl_object_hash($process),

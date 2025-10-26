@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class InContextTranslationListenerTest extends TestCase
 {
@@ -29,16 +30,16 @@ final class InContextTranslationListenerTest extends TestCase
 
     private const NON_ADMIN_SITEACCESS = 'non_admin_siteaccess';
 
-    /** @var \Symfony\Component\HttpFoundation\Request */
+    /** @var Request */
     private $request;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpKernel\HttpKernelInterface */
+    /** @var MockObject|HttpKernelInterface */
     private $httpKernel;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var UserSettingService|MockObject */
     private $userSettingService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var TranslatorInterface|MockObject */
     private $translator;
 
     protected function setUp(): void
@@ -104,12 +105,12 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsSet(): void
     {
         $this->request
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('ach-UG');
 
         $this->translator
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setLocale')
             ->with('ach-UG');
 
@@ -138,7 +139,7 @@ final class InContextTranslationListenerTest extends TestCase
     public function testLocaleIsNotSet(): void
     {
         $this->request
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setLocale');
 
         $event = new RequestEvent(
@@ -171,7 +172,7 @@ final class InContextTranslationListenerTest extends TestCase
             $this->translator
         );
 
-        $this->assertSame(
+        self::assertSame(
             [KernelEvents::REQUEST => [['setInContextTranslation', 5]]],
             $listener::getSubscribedEvents()
         );
@@ -200,7 +201,7 @@ final class InContextTranslationListenerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\Request
+     * @return MockObject|Request
      */
     private function requestWithSetLocaleExpectsNever(): MockObject
     {
@@ -209,7 +210,7 @@ final class InContextTranslationListenerTest extends TestCase
             ->setMethods(['setLocale'])
             ->getMock();
         $request
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('setLocale');
 
         return $request;

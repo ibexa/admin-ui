@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\Bundle\AdminUi\DependencyInjection\Compiler\ComponentPass} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see ComponentPass} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Bundle\TwigComponents\DependencyInjection\Compiler\ComponentPass} instead
  */
 class ComponentPass implements CompilerPassInterface
@@ -25,10 +25,10 @@ class ComponentPass implements CompilerPassInterface
     public const TAG_NAME = 'ibexa.admin_ui.component';
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param ContainerBuilder $container
      *
      * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException When a service is abstract
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException When a tag is missing 'group' attribute
+     * @throws InvalidArgumentException When a tag is missing 'group' attribute
      */
     public function process(ContainerBuilder $container): void
     {

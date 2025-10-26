@@ -9,9 +9,13 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Core\Pagination\Pagerfanta\LocationSearchAdapter;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Pagerfanta;
+use Twig\Error\Error;
 
 class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
 {
@@ -32,10 +36,10 @@ class MyMediaTab extends AbstractMediaTab implements OrderedTabInterface
     }
 
     /**
-     * @throws \Twig\Error\Error
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws Error
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function renderView(array $parameters): string
     {

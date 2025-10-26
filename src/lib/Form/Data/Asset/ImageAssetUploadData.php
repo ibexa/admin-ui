@@ -18,7 +18,7 @@ class ImageAssetUploadData
      *
      * @Assert\Image(detectCorrupted = true)
      *
-     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+     * @var UploadedFile
      */
     private $file;
 
@@ -29,8 +29,10 @@ class ImageAssetUploadData
      */
     private $languageCode;
 
-    public function __construct(?UploadedFile $file = null, ?string $languageCode = null)
-    {
+    public function __construct(
+        ?UploadedFile $file = null,
+        ?string $languageCode = null
+    ) {
         $this->file = $file;
         $this->languageCode = $languageCode;
     }

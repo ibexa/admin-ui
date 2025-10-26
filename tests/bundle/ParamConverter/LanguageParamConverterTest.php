@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,10 +21,10 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Language::class;
     public const PARAMETER_NAME = 'language';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\LanguageParamConverter */
+    /** @var LanguageParamConverter */
     protected $converter;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LanguageService|MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -40,12 +41,14 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
      * @param mixed $languageId The language identifier fetched from the request
      * @param int $languageIdToLoad The language identifier used to load the language
      */
-    public function testApplyForLanguageId($languageId, int $languageIdToLoad)
-    {
+    public function testApplyForLanguageId(
+        $languageId,
+        int $languageIdToLoad
+    ) {
         $valueObject = $this->createMock(Language::class);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLanguageById')
             ->with($languageIdToLoad)
             ->willReturn($valueObject);
@@ -57,8 +60,8 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**
@@ -70,7 +73,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
         $valueObject = $this->createMock(Language::class);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLanguage')
             ->with($languageCode)
             ->willReturn($valueObject);
@@ -83,7 +86,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
 
         $this->converter->apply($request, $config);
 
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**
@@ -96,8 +99,8 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $attributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**
@@ -111,7 +114,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
         $this->expectExceptionMessage(sprintf('Language %s not found.', $languageId));
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLanguageById')
             ->with($languageId)
             ->willThrowException($this->createMock(NotFoundException::class));
@@ -137,7 +140,7 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
         $this->expectExceptionMessage(sprintf('Language %s not found.', $languageCode));
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadLanguage')
             ->with($languageCode)
             ->willThrowException($this->createMock(NotFoundException::class));
@@ -157,9 +160,11 @@ class LanguageParamConverterTest extends AbstractParamConverterTest
      *
      * @dataProvider dataProviderForSupport
      */
-    public function testSupport(string $class, bool $expected)
-    {
-        $this->assertEquals($expected, $this->converter->supports($this->createConfiguration($class)));
+    public function testSupport(
+        string $class,
+        bool $expected
+    ) {
+        self::assertEquals($expected, $this->converter->supports($this->createConfiguration($class)));
     }
 
     public function dataProviderForSupport(): array

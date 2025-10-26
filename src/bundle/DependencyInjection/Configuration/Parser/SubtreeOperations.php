@@ -27,8 +27,11 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  */
 class SubtreeOperations extends AbstractParser
 {
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (!isset($scopeSettings['subtree_operations']['copy_subtree']['limit'])) {
             return;
         }

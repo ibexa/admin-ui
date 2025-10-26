@@ -15,8 +15,10 @@ final class CreateUrlAliasModal extends Component
 {
     private IbexaDropdown $ibexaDropdown;
 
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
         $this->ibexaDropdown = $ibexaDropdown;
     }
@@ -26,8 +28,11 @@ final class CreateUrlAliasModal extends Component
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('title'))->assert()->textEquals('Create a new URL alias');
     }
 
-    public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
-    {
+    public function createNewUrlAlias(
+        string $path,
+        string $languageName,
+        bool $redirect
+    ): void {
         $this->getHTMLPage()->find($this->getLocator('pathInput'))->setValue($path);
         $this->getHTMLPage()->find($this->getLocator('languageDropdown'))->click();
         $this->ibexaDropdown->verifyIsLoaded();

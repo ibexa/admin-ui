@@ -10,11 +10,12 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 
 /**
  * Provides information about mapping between serialized sort order and the value accepted by sort clause.
  *
- * @see \Ibexa\Contracts\Rest\Output\ValueObjectVisitor::serializeSortOrder
+ * @see ValueObjectVisitor::serializeSortOrder
  */
 class SortOrderMappings implements ProviderInterface
 {

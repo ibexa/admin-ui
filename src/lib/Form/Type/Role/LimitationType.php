@@ -21,25 +21,29 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class LimitationType extends AbstractType
 {
     /**
-     * @var \Ibexa\AdminUi\Limitation\LimitationFormMapperRegistryInterface
+     * @var LimitationFormMapperRegistryInterface
      */
     private $limitationFormMapperRegistry;
 
     /**
-     * @var \Ibexa\AdminUi\Limitation\LimitationFormMapperInterface
+     * @var LimitationFormMapperInterface
      */
     private $nullMapper;
 
-    public function __construct(LimitationFormMapperRegistryInterface $limitationFormMapperRegistry, LimitationFormMapperInterface $nullMapper)
-    {
+    public function __construct(
+        LimitationFormMapperRegistryInterface $limitationFormMapperRegistry,
+        LimitationFormMapperInterface $nullMapper
+    ) {
         $this->limitationFormMapperRegistry = $limitationFormMapperRegistry;
         $this->nullMapper = $nullMapper;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
+            /** @var Limitation $data */
             $data = $event->getData();
             $form = $event->getForm();
 
@@ -49,7 +53,7 @@ class LimitationType extends AbstractType
         });
 
         $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
+            /** @var Limitation $data */
             $data = $event->getData();
             if ($this->limitationFormMapperRegistry->hasMapper($data->getIdentifier())) {
                 $this->limitationFormMapperRegistry->getMapper($data->getIdentifier())->filterLimitationValues($data);
@@ -57,8 +61,11 @@ class LimitationType extends AbstractType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ) {
         $data = $view->vars['value'];
         if (!$data instanceof Limitation) {
             return;

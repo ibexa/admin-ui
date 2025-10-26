@@ -22,29 +22,29 @@ use Symfony\Component\Form\FormView;
  */
 class ContentTranslateView extends BaseView implements ContentTypeValueView
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
+    /** @var Content */
     private $content;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
+    /** @var ContentType */
     private $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
+    /** @var Language */
     private $language;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     private $baseLanguage;
 
-    /** @var \Symfony\Component\Form\FormInterface */
+    /** @var FormInterface */
     private $form;
 
-    /** @var \Symfony\Component\Form\FormView */
+    /** @var FormView */
     private $formView;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      */
     public function setContent(Content $content)
     {
@@ -52,7 +52,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
+     * @return Content
      */
     public function getContent(): Content
     {
@@ -60,7 +60,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location)
     {
@@ -68,7 +68,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -76,7 +76,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language
+     * @return Language
      */
     public function getLanguage(): Language
     {
@@ -84,7 +84,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param Language $language
      */
     public function setLanguage(Language $language)
     {
@@ -92,7 +92,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      */
     public function getBaseLanguage(): ?Language
     {
@@ -100,7 +100,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage
+     * @param Language|null $baseLanguage
      */
     public function setBaseLanguage($baseLanguage)
     {
@@ -108,7 +108,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     public function getForm(): FormInterface
     {
@@ -116,7 +116,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      */
     public function setForm(FormInterface $form)
     {
@@ -124,7 +124,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Symfony\Component\Form\FormView
+     * @return FormView
      */
     public function getFormView(): FormView
     {
@@ -132,7 +132,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Symfony\Component\Form\FormView $formView
+     * @param FormView $formView
      */
     public function setFormView(FormView $formView)
     {
@@ -140,7 +140,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+     * @return ContentType
      */
     public function getContentType(): ContentType
     {
@@ -148,7 +148,7 @@ class ContentTranslateView extends BaseView implements ContentTypeValueView
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      */
     public function setContentType(ContentType $contentType)
     {

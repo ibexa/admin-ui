@@ -20,7 +20,7 @@ class OwnerLimitationMapperTest extends TestCase
 
         $translatorMock = $this->createMock(TranslatorInterface::class);
         $translatorMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('trans')
             ->willReturnArgument(0);
 
@@ -29,7 +29,7 @@ class OwnerLimitationMapperTest extends TestCase
             'limitationValues' => [1],
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 }
 

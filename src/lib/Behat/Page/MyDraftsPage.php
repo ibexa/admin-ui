@@ -21,8 +21,12 @@ final class MyDraftsPage extends Page
 
     private Dialog $dialog;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
+        Dialog $dialog
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder->newTable()->build();
         $this->dialog = $dialog;

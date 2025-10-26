@@ -16,7 +16,7 @@ class MainTranslationUpdateData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
+     * @var Content|null
      */
     public $content;
 
@@ -28,7 +28,7 @@ class MainTranslationUpdateData
     public $languageCode;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $content
+     * @param Content|null $content
      * @param string|null $languageCode
      */
     public function __construct(
@@ -40,7 +40,7 @@ class MainTranslationUpdateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content|null
+     * @return Content|null
      */
     public function getContent(): ?Content
     {
@@ -48,7 +48,7 @@ class MainTranslationUpdateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|null $contentInfo
+     * @param Content|null $contentInfo
      */
     public function setContent(?Content $contentInfo = null)
     {

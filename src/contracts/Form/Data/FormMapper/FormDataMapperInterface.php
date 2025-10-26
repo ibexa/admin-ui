@@ -18,12 +18,15 @@ interface FormDataMapperInterface
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $repositoryValueObject
+     * @param ValueObject $repositoryValueObject
      * @param array $params
      *
      * @return mixed
      */
-    public function mapToFormData(ValueObject $repositoryValueObject, array $params = []);
+    public function mapToFormData(
+        ValueObject $repositoryValueObject,
+        array $params = []
+    );
 }
 
 class_alias(FormDataMapperInterface::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FormMapper\FormDataMapperInterface');

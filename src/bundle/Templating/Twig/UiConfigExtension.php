@@ -21,18 +21,20 @@ use Twig\Extension\GlobalsInterface;
  */
 class UiConfigExtension extends AbstractExtension implements GlobalsInterface
 {
-    /** @var \Twig\Environment */
+    /** @var Environment */
     protected $twig;
 
-    /** @var \Ibexa\AdminUi\UI\Config\Aggregator */
+    /** @var Aggregator */
     protected $aggregator;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Ibexa\AdminUi\UI\Config\Aggregator $aggregator
+     * @param Environment $twig
+     * @param Aggregator $aggregator
      */
-    public function __construct(Environment $twig, Aggregator $aggregator)
-    {
+    public function __construct(
+        Environment $twig,
+        Aggregator $aggregator
+    ) {
         $this->twig = $twig;
         $this->aggregator = $aggregator;
     }
@@ -54,12 +56,18 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
     /**
      * Create lazy loaded configuration.
      *
-     * @return \Ibexa\AdminUi\UI\Config\ConfigWrapper
+     * @return ConfigWrapper
      */
     private function createConfigWrapper(): ConfigWrapper
     {
         $factory = new LazyLoadingValueHolderFactory();
-        $initializer = function (&$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer) {
+        $initializer = function (
+            &$wrappedObject,
+            LazyLoadingInterface $proxy,
+            $method,
+            array $parameters,
+            &$initializer
+        ) {
             $initializer = null;
             $wrappedObject = new ConfigWrapper($this->aggregator->getConfig());
 

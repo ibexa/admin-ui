@@ -23,13 +23,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UDWBasedValueModelTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     public function __construct(
@@ -45,7 +45,7 @@ class UDWBasedValueModelTransformer implements DataTransformerInterface
     /**
      * {@inheritdoc}
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]|null
+     * @return Location[]|null
      */
     public function transform($value): ?array
     {

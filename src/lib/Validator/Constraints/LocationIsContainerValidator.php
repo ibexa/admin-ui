@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Validator\Constraints;
 
 use Ibexa\AdminUi\Specification\Location\IsContainer;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -17,11 +18,13 @@ class LocationIsContainerValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param Location $location The value that should be validated
+     * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
-    {
+    public function validate(
+        $location,
+        Constraint $constraint
+    ) {
         if (null === $location) {
             $this->context->addViolation($constraint->message);
 

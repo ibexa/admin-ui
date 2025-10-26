@@ -11,6 +11,7 @@ use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\AdminUi\Tab\TabRegistry;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -41,7 +42,7 @@ class TabRegistryTest extends TestCase
         $tabRegistry = new TabRegistry();
         $tabRegistry->addTabGroup($tabGroup);
 
-        $this->assertSame($tabs, $tabRegistry->getTabsByGroupName($this->groupName));
+        self::assertSame($tabs, $tabRegistry->getTabsByGroupName($this->groupName));
     }
 
     public function testGetTabFromGroup()
@@ -55,7 +56,7 @@ class TabRegistryTest extends TestCase
         $tabGroup = $this->createTabGroup($this->groupName, $tabs);
         $tabRegistry->addTabGroup($tabGroup);
 
-        $this->assertSame($tab1, $tabRegistry->getTabFromGroup('tab1', $this->groupName));
+        self::assertSame($tab1, $tabRegistry->getTabFromGroup('tab1', $this->groupName));
     }
 
     public function testGetTabFromGroupWhenGroupDoesNotExist()
@@ -137,10 +138,12 @@ class TabRegistryTest extends TestCase
      * @param string $name
      * @param array $tabs
      *
-     * @return \Ibexa\AdminUi\Tab\TabGroup
+     * @return TabGroup
      */
-    private function createTabGroup(string $name = 'lorem', array $tabs = []): TabGroup
-    {
+    private function createTabGroup(
+        string $name = 'lorem',
+        array $tabs = []
+    ): TabGroup {
         return new TabGroup($name, $tabs);
     }
 
@@ -148,30 +151,36 @@ class TabRegistryTest extends TestCase
      * Returns Tab.
      *
      * @param string $name
-     * @param \Twig\Environment|\PHPUnit\Framework\MockObject\MockObject $twig
-     * @param \PHPUnit\Framework\MockObject\MockObject|\Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param Environment|MockObject $twig
+     * @param MockObject|TranslatorInterface $translator
      *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
+     * @return TabInterface
      */
-    private function createTab(string $name, Environment $twig, TranslatorInterface $translator): TabInterface
-    {
+    private function createTab(
+        string $name,
+        Environment $twig,
+        TranslatorInterface $translator
+    ): TabInterface {
         return new class($name, $twig, $translator) extends AbstractTab {
             /** @var string */
             protected $name;
 
-            /** @var \Twig\Environment */
+            /** @var Environment */
             protected $twig;
 
-            /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+            /** @var TranslatorInterface */
             protected $translator;
 
             /**
              * @param string $name
-             * @param \Twig\Environment $twig
-             * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+             * @param Environment $twig
+             * @param TranslatorInterface $translator
              */
-            public function __construct(string $name = 'tab', Environment $twig, TranslatorInterface $translator)
-            {
+            public function __construct(
+                string $name = 'tab',
+                Environment $twig,
+                TranslatorInterface $translator
+            ) {
                 parent::__construct($twig, $translator);
                 $this->name = $name;
             }

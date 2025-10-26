@@ -11,9 +11,16 @@ namespace Ibexa\AdminUi\Form\Data\FormMapper;
 use Ibexa\AdminUi\Form\Data\ContentTranslationData;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
+use Symfony\Component\OptionsResolver\Exception\NoSuchOptionException;
+use Symfony\Component\OptionsResolver\Exception\OptionDefinitionException;
+use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTranslationMapper implements FormDataMapperInterface
@@ -22,32 +29,34 @@ class ContentTranslationMapper implements FormDataMapperInterface
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update
      * struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content|\Ibexa\Contracts\Core\Repository\Values\ValueObject $content
+     * @param Content|ValueObject $content
      * @param array $params
      *
-     * @return \Ibexa\AdminUi\Form\Data\ContentTranslationData
+     * @return ContentTranslationData
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\OptionDefinitionException
-     * @throws \Symfony\Component\OptionsResolver\Exception\NoSuchOptionException
-     * @throws \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws UndefinedOptionsException
+     * @throws OptionDefinitionException
+     * @throws NoSuchOptionException
+     * @throws MissingOptionsException
+     * @throws InvalidOptionsException
+     * @throws AccessException
      */
-    public function mapToFormData(ValueObject $content, array $params = [])
-    {
+    public function mapToFormData(
+        ValueObject $content,
+        array $params = []
+    ) {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
         $params = $optionsResolver->resolve($params);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $params['language'];
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
+        /** @var Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'];
         $baseLanguageCode = $baseLanguage ? $baseLanguage->languageCode : null;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $params['contentType'];
 
         $data = new ContentTranslationData(['content' => $content, 'contentType' => $contentType]);
@@ -71,10 +80,10 @@ class ContentTranslationMapper implements FormDataMapperInterface
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     * @param OptionsResolver $optionsResolver
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws UndefinedOptionsException
+     * @throws AccessException
      */
     private function configureOptions(OptionsResolver $optionsResolver)
     {

@@ -10,14 +10,15 @@ namespace Ibexa\AdminUi\Specification\Location;
 
 use Ibexa\AdminUi\Specification\AbstractSpecification;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class HasChildren extends AbstractSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param LocationService $locationService
      */
     public function __construct(LocationService $locationService)
     {
@@ -25,7 +26,7 @@ class HasChildren extends AbstractSpecification
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
+     * @param Location $item
      *
      * @return bool
      */

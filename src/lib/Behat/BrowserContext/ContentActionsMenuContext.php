@@ -15,7 +15,7 @@ use PHPUnit\Framework\Assert;
 
 class ContentActionsMenuContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    /** @var ContentActionsMenu */
     private $contentActionsMenu;
 
     public function __construct(ContentActionsMenu $contentActionsMenu)
@@ -28,8 +28,10 @@ class ContentActionsMenuContext implements Context
      * @Given I perform the :buttonName action
      * @Given I perform the :buttonName action from the :groupName group
      */
-    public function clickEditActionBar(string $buttonName, ?string $groupName = null): void
-    {
+    public function clickEditActionBar(
+        string $buttonName,
+        ?string $groupName = null
+    ): void {
         $this->contentActionsMenu->clickButton($buttonName, $groupName);
     }
 

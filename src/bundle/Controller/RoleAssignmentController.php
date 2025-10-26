@@ -18,6 +18,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\RoleService;
+use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
@@ -32,19 +33,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RoleAssignmentController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -97,13 +98,15 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function createAction(Request $request, Role $role): Response
-    {
+    public function createAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
         $form = $this->formFactory->createRoleAssignment(new RoleAssignmentCreateData());
         $form->handleRequest($request);
@@ -144,14 +147,17 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param Request $request
+     * @param Role $role
+     * @param RoleAssignment $roleAssignment
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function deleteAction(Request $request, Role $role, RoleAssignment $roleAssignment): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Role $role,
+        RoleAssignment $roleAssignment
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
         $form = $this->formFactory->deleteRoleAssignment(
             new RoleAssignmentDeleteData($roleAssignment)
@@ -188,13 +194,15 @@ class RoleAssignmentController extends Controller
     /**
      * Handles removing role assignments based on submitted form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function bulkDeleteAction(Request $request, Role $role): Response
-    {
+    public function bulkDeleteAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'assign'));
         $form = $this->formFactory->deleteRoleAssignments(
             new RoleAssignmentsDeleteData()
@@ -232,7 +240,7 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
+     * @param RoleAssignment[] $roleAssignments
      *
      * @return array
      */
@@ -244,9 +252,9 @@ class RoleAssignmentController extends Controller
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleAssignmentCreateData $data
+     * @param RoleAssignmentCreateData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation[]
+     * @return RoleLimitation[]
      */
     private function createLimitations(RoleAssignmentCreateData $data): array
     {

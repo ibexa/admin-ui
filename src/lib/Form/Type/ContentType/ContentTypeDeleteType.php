@@ -34,8 +34,10 @@ class ContentTypeDeleteType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('contentTypeId', HiddenType::class)
             ->add('delete', SubmitType::class, ['label' => /** @Desc("Delete") */ 'content_type.delete']);

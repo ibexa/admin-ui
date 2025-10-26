@@ -24,8 +24,10 @@ class URLEditType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->add('url', TextType::class)
             ->add(self::BTN_SAVE, SubmitType::class, [
                 'label' => /** @Desc("Save") */ 'url.save',

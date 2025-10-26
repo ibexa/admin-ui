@@ -18,12 +18,15 @@ class Root extends ValueObjectVisitor
     /**
      * Visit struct returned by controllers.
      *
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
+     * @param Visitor $visitor
+     * @param Generator $generator
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\Root $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data)
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        $data
+    ) {
         $generator->startObjectElement('ContentTreeRoot');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ContentTreeRoot'));
         $visitor->setStatus(Response::HTTP_OK);

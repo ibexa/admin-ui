@@ -18,12 +18,15 @@ class Node extends ValueObjectVisitor
     /**
      * Visit struct returned by controllers.
      *
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
+     * @param Visitor $visitor
+     * @param Generator $generator
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\Node $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data)
-    {
+    public function visit(
+        Visitor $visitor,
+        Generator $generator,
+        $data
+    ) {
         $generator->startObjectElement('ContentTreeNode');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ContentTreeNode'));
         $visitor->setStatus(Response::HTTP_OK);

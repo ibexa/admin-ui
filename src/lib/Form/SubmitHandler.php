@@ -25,19 +25,19 @@ use Symfony\Component\Routing\RouterInterface;
 
 class SubmitHandler implements UserActionsSubmitHandler
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
+    /** @var NotificationHandlerInterface */
     protected $notificationHandler;
 
-    /** @var \Symfony\Component\Routing\RouterInterface */
+    /** @var RouterInterface */
     protected $router;
 
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     protected $uiActionEventDispatcher;
 
-    /** @var \Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher */
+    /** @var FormUiActionMappingDispatcher */
     protected $formUiActionMappingDispatcher;
 
-    /** @var \Psr\Log\LoggerInterface */
+    /** @var LoggerInterface */
     private $logger;
 
     public function __construct(
@@ -60,13 +60,15 @@ class SubmitHandler implements UserActionsSubmitHandler
      * Handles form errors (NotificationHandler:warning).
      * Handles business logic exceptions (NotificationHandler:error).
      *
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      * @param callable(mixed):?Response $handler
      *
-     * @return \Symfony\Component\HttpFoundation\Response|null
+     * @return Response|null
      */
-    public function handle(FormInterface $form, callable $handler): ?Response
-    {
+    public function handle(
+        FormInterface $form,
+        callable $handler
+    ): ?Response {
         $data = $form->getData();
 
         if ($form->isValid()) {
@@ -110,18 +112,20 @@ class SubmitHandler implements UserActionsSubmitHandler
      * Handles form errors (JsonResponse(['errors'=> [...], Response::ERROR_STATUS_CODE])).
      * Handles business logic exceptions (JsonResponse(['errors'=> [...], Response::ERROR_STATUS_CODE])).
      *
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      * @param callable(mixed):?Response $handler
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      */
-    public function handleAjax(FormInterface $form, callable $handler): JsonResponse
-    {
+    public function handleAjax(
+        FormInterface $form,
+        callable $handler
+    ): JsonResponse {
         $data = $form->getData();
 
         if ($form->isValid()) {
             try {
-                /** @var \Symfony\Component\HttpFoundation\JsonResponse $result */
+                /** @var JsonResponse $result */
                 $result = $handler($data);
                 if ($result instanceof JsonResponse && $result->getStatusCode() === Response::HTTP_OK) {
                     $event = $this->formUiActionMappingDispatcher->dispatch($form);

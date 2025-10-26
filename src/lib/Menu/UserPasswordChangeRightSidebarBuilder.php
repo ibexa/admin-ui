@@ -29,7 +29,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
     public const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
     public const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -53,7 +53,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -61,7 +61,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -89,7 +89,7 @@ class UserPasswordChangeRightSidebarBuilder extends AbstractBuilder implements T
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

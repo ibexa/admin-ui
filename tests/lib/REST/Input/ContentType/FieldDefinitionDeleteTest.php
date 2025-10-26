@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FieldDefinitionDeleteTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionDelete */
+    /** @var FieldDefinitionDelete */
     private $parser;
 
     protected function setUp(): void

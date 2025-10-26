@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\REST\Value\UniversalDiscovery;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Rest\Value;
 
 /**
@@ -25,25 +26,27 @@ use Ibexa\Rest\Value;
  */
 final class AccordionData extends Value
 {
-    /** @var array<\Ibexa\Contracts\Core\Repository\Values\Content\Location> */
+    /** @var array<Location> */
     private array $breadcrumb;
 
     /** @phpstan-var Columns $columns */
     private array $columns;
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $breadcrumb
+     * @param array<Location> $breadcrumb
      *
      * @phpstan-param Columns $columns
      */
-    public function __construct(array $breadcrumb, array $columns)
-    {
+    public function __construct(
+        array $breadcrumb,
+        array $columns
+    ) {
         $this->breadcrumb = $breadcrumb;
         $this->columns = $columns;
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Location>
+     * @return array<Location>
      */
     public function getBreadcrumb(): array
     {

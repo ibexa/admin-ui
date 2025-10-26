@@ -22,7 +22,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
     public function __construct(
@@ -31,9 +31,11 @@ class ContentTypeEditType extends AbstractType
         $this->languageService = $languageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
+        /** @var ContentType $contentType */
         $contentType = $options['contentType'];
         $contentTypeLanguages = $contentType->languageCodes;
 
@@ -76,7 +78,7 @@ class ContentTypeEditType extends AbstractType
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -9,14 +9,21 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\AdminUi\Component\Renderer;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see RendererInterface} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Renderer\RendererInterface} instead
  */
 interface RendererInterface
 {
-    public function renderGroup(string $groupName, array $parameters = []): array;
+    public function renderGroup(
+        string $groupName,
+        array $parameters = []
+    ): array;
 
-    public function renderSingle(string $name, $groupName, array $parameters = []): string;
+    public function renderSingle(
+        string $name,
+        $groupName,
+        array $parameters = []
+    ): string;
 }
 
 class_alias(RendererInterface::class, 'EzSystems\EzPlatformAdminUi\Component\Renderer\RendererInterface');

@@ -18,8 +18,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionsDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('sections', CollectionType::class, [
                 'entry_type' => CheckboxType::class,

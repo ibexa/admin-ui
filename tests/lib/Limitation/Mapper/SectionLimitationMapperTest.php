@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -19,13 +20,13 @@ class SectionLimitationMapperTest extends TestCase
 {
     private const EXAMPLE_SECTION_ID = 0xFF;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\SectionService */
+    /** @var MockObject|SectionService */
     private $sectionServiceMock;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LoggerInterface|MockObject */
     private $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper */
+    /** @var SectionLimitationMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -48,7 +49,7 @@ class SectionLimitationMapperTest extends TestCase
             ]);
 
             $this->sectionServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadSection')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -58,7 +59,7 @@ class SectionLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function testMapLimitationValueWithNotExistingContentType()
@@ -66,13 +67,13 @@ class SectionLimitationMapperTest extends TestCase
         $values = [self::EXAMPLE_SECTION_ID];
 
         $this->sectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadSection')
             ->with($values[0])
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a Section with ID ' . $values[0]);
 
@@ -80,7 +81,7 @@ class SectionLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
 

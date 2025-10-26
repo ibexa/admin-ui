@@ -19,13 +19,13 @@ use Twig\Environment;
 
 class UserOnTheFlyProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
-    /** @var \Twig\Environment */
+    /** @var Environment */
     private $twig;
 
-    /** @var \Ibexa\ContentForms\Form\Processor\User\UserUpdateFormProcessor */
+    /** @var UserUpdateFormProcessor */
     private $innerUserUpdateFormProcessor;
 
     public function __construct(
@@ -92,11 +92,13 @@ class UserOnTheFlyProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Data\User\UserCreateData $data
+     * @param UserCreateData $data
      * @param string $languageCode
      */
-    private function setContentFields(UserCreateData $data, string $languageCode): void
-    {
+    private function setContentFields(
+        UserCreateData $data,
+        string $languageCode
+    ): void {
         foreach ($data->fieldsData as $fieldDefIdentifier => $fieldData) {
             $data->setField($fieldDefIdentifier, $fieldData->value, $languageCode);
         }

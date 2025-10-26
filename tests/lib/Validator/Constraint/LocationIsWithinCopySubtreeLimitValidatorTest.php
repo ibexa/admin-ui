@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
+use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimit;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsWithinCopySubtreeLimitValidator;
 use Ibexa\Contracts\Core\Repository\LocationService;
@@ -24,16 +25,16 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
 {
     private const COPY_LIMIT = 10;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LocationService|MockObject */
     private $locationService;
 
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
+    /** @var ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
+    /** @var LocationIsContainerValidator */
     private $validator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var Location|MockObject */
     private $location;
 
     protected function setUp(): void
@@ -62,7 +63,7 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
         $this->locationService->method('count')->willReturn(5);
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('addViolation');
 
         $this->mockLocationContentContentTypeIsContainer($this->location);
@@ -87,7 +88,7 @@ class LocationIsWithinCopySubtreeLimitValidatorTest extends TestCase
             ->willReturn($constraintViolationBuilder);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation');
 
         $this->validator->validate($this->location, new LocationIsWithinCopySubtreeLimit());

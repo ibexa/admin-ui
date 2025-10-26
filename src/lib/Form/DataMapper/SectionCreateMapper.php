@@ -21,11 +21,11 @@ class SectionCreateMapper implements DataMapperInterface
     /**
      * Maps given SectionCreateStruct object to a SectionCreateData object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param SectionCreateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionCreateData
+     * @return SectionCreateData
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): SectionCreateData
     {
@@ -39,11 +39,11 @@ class SectionCreateMapper implements DataMapperInterface
     /**
      * Maps given SectionCreateData object to a SectionCreateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Section\SectionCreateData $data
+     * @param SectionCreateData $data
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionCreateStruct
+     * @return SectionCreateStruct
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): SectionCreateStruct
     {

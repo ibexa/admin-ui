@@ -21,7 +21,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
  */
 class PathService
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
+    /** @var SearchService */
     private $searchService;
 
     public function __construct(SearchService $searchService)
@@ -32,9 +32,9 @@ class PathService
     /**
      * Load path locations.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function loadPathLocations(Location $location)
     {

@@ -13,11 +13,11 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class AddContentTypeGroupToUIConfigEvent extends Event
 {
-    /** @var array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup> */
+    /** @var array<ContentTypeGroup> */
     private array $contentTypeGroups;
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup> $contentTypeGroups
+     * @param array<ContentTypeGroup> $contentTypeGroups
      */
     public function __construct(array $contentTypeGroups)
     {
@@ -25,7 +25,7 @@ final class AddContentTypeGroupToUIConfigEvent extends Event
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup>
+     * @return array<ContentTypeGroup>
      */
     public function getContentTypeGroups(): array
     {

@@ -25,7 +25,7 @@ class NullLimitationMapperTest extends TestCase
         $mapper = new NullLimitationMapper(null);
         $result = $mapper->mapLimitationValue($limitation);
 
-        $this->assertEquals($values, $result);
+        self::assertEquals($values, $result);
     }
 }
 

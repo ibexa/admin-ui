@@ -12,12 +12,12 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\ScriptComponent} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see ScriptComponent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\TwigComponents\Component\ScriptComponent} instead
  */
 class ScriptComponent implements ComponentInterface
 {
-    /** @var \Twig\Environment */
+    /** @var Environment */
     protected $twig;
 
     /** @var string */

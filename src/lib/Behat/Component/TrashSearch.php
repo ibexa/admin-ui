@@ -18,8 +18,10 @@ class TrashSearch extends Component
 {
     private IbexaDropdown $ibexaDropdown;
 
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
         $this->ibexaDropdown = $ibexaDropdown;
     }
@@ -72,13 +74,13 @@ class TrashSearch extends Component
     {
         return
         [
-        new VisibleCSSLocator('mainSearchBox', '.ibexa-adaptive-filters--inside-container'),
-        new VisibleCSSLocator('mainSearchBoxInput', '#trash_search_content_name'),
-        new VisibleCSSLocator('creatorSearchBoxInput', '.ibexa-trash-search-form__item--creator .ibexa-input--text'),
-        new VisibleCSSLocator('mainSearchBoxConfirmButton', '.ibexa-adaptive-filters__static-left .ibexa-input-text-wrapper--type-text .ibexa-input-text-wrapper__action-btn--search'),
-        new VisibleCSSLocator('contentTypeFilterDropdown', 'label[for="trash_search_content_type"] ~ .ibexa-dropdown'),
-        new VisibleCSSLocator('sectionFilterDropdown', 'label[for="trash_search_section"] ~ .ibexa-dropdown'),
-        new VisibleCSSLocator('creatorFilterDropdown', '.ibexa-trash-search-form__user-list li'),
-            ];
+            new VisibleCSSLocator('mainSearchBox', '.ibexa-adaptive-filters--inside-container'),
+            new VisibleCSSLocator('mainSearchBoxInput', '#trash_search_content_name'),
+            new VisibleCSSLocator('creatorSearchBoxInput', '.ibexa-trash-search-form__item--creator .ibexa-input--text'),
+            new VisibleCSSLocator('mainSearchBoxConfirmButton', '.ibexa-adaptive-filters__static-left .ibexa-input-text-wrapper--type-text .ibexa-input-text-wrapper__action-btn--search'),
+            new VisibleCSSLocator('contentTypeFilterDropdown', 'label[for="trash_search_content_type"] ~ .ibexa-dropdown'),
+            new VisibleCSSLocator('sectionFilterDropdown', 'label[for="trash_search_section"] ~ .ibexa-dropdown'),
+            new VisibleCSSLocator('creatorFilterDropdown', '.ibexa-trash-search-form__user-list li'),
+        ];
     }
 }

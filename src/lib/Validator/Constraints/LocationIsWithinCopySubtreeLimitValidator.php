@@ -11,16 +11,17 @@ namespace Ibexa\AdminUi\Validator\Constraints;
 use Ibexa\AdminUi\Specification\Location\IsWithinCopySubtreeLimit;
 use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\LocationService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -34,11 +35,13 @@ class LocationIsWithinCopySubtreeLimitValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param Location $location The value that should be validated
+     * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
-    {
+    public function validate(
+        $location,
+        Constraint $constraint
+    ) {
         if (null === $location) {
             return;
         }

@@ -29,7 +29,7 @@ final class ContentTranslationMapperTest extends TestCase
 {
     public const LANGUAGE_CODE = 'cyb-CY';
 
-    /** @var \Ibexa\AdminUi\Form\Data\FormMapper\ContentTranslationMapper */
+    /** @var ContentTranslationMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -40,11 +40,14 @@ final class ContentTranslationMapperTest extends TestCase
     /**
      * @dataProvider paramsProvider
      */
-    public function testMapToFormData(Content $content, array $params, ContentTranslationData $expectedData)
-    {
+    public function testMapToFormData(
+        Content $content,
+        array $params,
+        ContentTranslationData $expectedData
+    ) {
         $actualData = $this->mapper->mapToFormData($content, $params);
 
-        $this->assertEquals($expectedData, $actualData);
+        self::assertEquals($expectedData, $actualData);
     }
 
     public function paramsProvider(): array
@@ -147,8 +150,11 @@ final class ContentTranslationMapperTest extends TestCase
     /**
      * @dataProvider wrongParamsProvider
      */
-    public function testMapToFormDataWithoutRequiredParameter($content, array $params, array $exception)
-    {
+    public function testMapToFormDataWithoutRequiredParameter(
+        $content,
+        array $params,
+        array $exception
+    ) {
         $this->expectException($exception['class']);
         $this->expectExceptionMessage($exception['message']);
 
@@ -229,8 +235,11 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getField($fieldDefIdentifier = 'identifier', $languageCode = self::LANGUAGE_CODE, $value = 'string_value'): Field
-    {
+    private function getField(
+        $fieldDefIdentifier = 'identifier',
+        $languageCode = self::LANGUAGE_CODE,
+        $value = 'string_value'
+    ): Field {
         return new Field([
             'fieldDefIdentifier' => $fieldDefIdentifier,
             'languageCode' => $languageCode,
@@ -245,8 +254,10 @@ final class ContentTranslationMapperTest extends TestCase
         ]);
     }
 
-    private function getFieldDefinition(string $identifier = 'identifier', bool $isTranslatable = false): FieldDefinition
-    {
+    private function getFieldDefinition(
+        string $identifier = 'identifier',
+        bool $isTranslatable = false
+    ): FieldDefinition {
         return new FieldDefinition([
             'identifier' => $identifier,
             'defaultValue' => $this->createMock(Value::class),
