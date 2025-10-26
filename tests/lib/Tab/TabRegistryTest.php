@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Tab;
 
@@ -16,9 +17,9 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 
-class TabRegistryTest extends TestCase
+final class TabRegistryTest extends TestCase
 {
-    private $groupName;
+    private string $groupName;
 
     protected function setUp(): void
     {
@@ -26,7 +27,7 @@ class TabRegistryTest extends TestCase
         $this->groupName = 'group_name';
     }
 
-    public function testGetTabsByGroupNameWhenGroupDoesNotExist()
+    public function testGetTabsByGroupNameWhenGroupDoesNotExist(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName));
@@ -35,9 +36,11 @@ class TabRegistryTest extends TestCase
         $tabRegistry->getTabsByGroupName($this->groupName);
     }
 
-    public function testGetTabsByGroupName()
+    public function testGetTabsByGroupName(): void
     {
-        $tabs = ['tab1', 'tab2'];
+        $twig = $this->createMock(Environment::class);
+        $translator = $this->createMock(TranslatorInterface::class);
+        $tabs = [$this->createTab('tab1', $twig, $translator), $this->createTab('tab1', $twig, $translator)];
         $tabGroup = $this->createTabGroup($this->groupName, $tabs);
         $tabRegistry = new TabRegistry();
         $tabRegistry->addTabGroup($tabGroup);
@@ -45,7 +48,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tabs, $tabRegistry->getTabsByGroupName($this->groupName));
     }
 
-    public function testGetTabFromGroup()
+    public function testGetTabFromGroup(): void
     {
         $twig = $this->createMock(Environment::class);
         $translator = $this->createMock(TranslatorInterface::class);
@@ -59,7 +62,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tab1, $tabRegistry->getTabFromGroup('tab1', $this->groupName));
     }
 
-    public function testGetTabFromGroupWhenGroupDoesNotExist()
+    public function testGetTabFromGroupWhenGroupDoesNotExist(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('Could not find the requested group named "%s". Did you tag the service?', $this->groupName));
@@ -68,7 +71,7 @@ class TabRegistryTest extends TestCase
         $tabRegistry->getTabFromGroup('tab1', $this->groupName);
     }
 
-    public function testGetTabFromGroupWhenTabDoesNotExist()
+    public function testGetTabFromGroupWhenTabDoesNotExist(): void
     {
         $tabName = 'tab1';
 
@@ -82,7 +85,7 @@ class TabRegistryTest extends TestCase
         $tabRegistry->getTabFromGroup($tabName, $this->groupName);
     }
 
-    public function testAddTabGroup()
+    public function testAddTabGroup(): void
     {
         $tabRegistry = new TabRegistry();
         $tabGroup = $this->createTabGroup();
@@ -91,7 +94,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tabGroup, $tabRegistry->getTabGroup('lorem'));
     }
 
-    public function testAddTabGroupWithSameIdentifier()
+    public function testAddTabGroupWithSameIdentifier(): void
     {
         $tabGroup = $this->createTabGroup($this->groupName);
         $tabGroupWithSameIdentifier = $this->createTabGroup($this->groupName);
@@ -104,7 +107,7 @@ class TabRegistryTest extends TestCase
         self::assertSame($tabGroupWithSameIdentifier, $tabRegistry->getTabGroup($this->groupName));
     }
 
-    public function testAddTabToExistingGroup()
+    public function testAddTabToExistingGroup(): void
     {
         $twig = $this->createMock(Environment::class);
         $translator = $this->createMock(TranslatorInterface::class);
@@ -120,7 +123,7 @@ class TabRegistryTest extends TestCase
         self::assertCount(2, $tabRegistry->getTabsByGroupName($this->groupName));
     }
 
-    public function testAddTabToNonExistentGroup()
+    public function testAddTabToNonExistentGroup(): void
     {
         $twig = $this->createMock(Environment::class);
         $translator = $this->createMock(TranslatorInterface::class);
@@ -133,12 +136,7 @@ class TabRegistryTest extends TestCase
     }
 
     /**
-     * Returns Tab Group.
-     *
-     * @param string $name
-     * @param array $tabs
-     *
-     * @return TabGroup
+     * @param TabInterface[] $tabs
      */
     private function createTabGroup(
         string $name = 'lorem',
@@ -148,13 +146,8 @@ class TabRegistryTest extends TestCase
     }
 
     /**
-     * Returns Tab.
-     *
-     * @param string $name
-     * @param Environment|MockObject $twig
-     * @param MockObject|TranslatorInterface $translator
-     *
-     * @return TabInterface
+     * @param Environment&MockObject $twig
+     * @param TranslatorInterface&MockObject $translator
      */
     private function createTab(
         string $name,
@@ -162,22 +155,10 @@ class TabRegistryTest extends TestCase
         TranslatorInterface $translator
     ): TabInterface {
         return new class($name, $twig, $translator) extends AbstractTab {
-            /** @var string */
-            protected $name;
+            protected string $name;
 
-            /** @var Environment */
-            protected $twig;
-
-            /** @var TranslatorInterface */
-            protected $translator;
-
-            /**
-             * @param string $name
-             * @param Environment $twig
-             * @param TranslatorInterface $translator
-             */
             public function __construct(
-                string $name = 'tab',
+                string $name,
                 Environment $twig,
                 TranslatorInterface $translator
             ) {
@@ -185,36 +166,19 @@ class TabRegistryTest extends TestCase
                 $this->name = $name;
             }
 
-            /**
-             * Returns identifier of the tab.
-             *
-             * @return string
-             */
             public function getIdentifier(): string
             {
                 return 'identifier';
             }
 
-            /**
-             * Returns name of the tab which is displayed as a tab's title in the UI.
-             *
-             * @return string
-             */
             public function getName(): string
             {
                 return $this->name;
             }
 
-            /**
-             * Returns HTML body of the tab.
-             *
-             * @param array $parameters
-             *
-             * @return string
-             */
             public function renderView(array $parameters): string
             {
-                return null;
+                return '';
             }
         };
     }
