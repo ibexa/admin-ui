@@ -123,7 +123,13 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     $message = $e->getMessage();
                     self::assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $message)));
                     $last = substr($message, \strlen($message) - 1);
-                    self::assertTrue('.' === $last || '?' === $last, $message, 'Exception message must end with a dot or a question mark.');
+                    self::assertTrue(
+                        '.' === $last || '?' === $last,
+                        sprintf(
+                            'Exception message must end with a dot or a question mark. Got: "%s"',
+                            $message
+                        )
+                    );
 
                     return;
                 }
