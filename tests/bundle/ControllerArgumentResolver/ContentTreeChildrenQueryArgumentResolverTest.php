@@ -66,7 +66,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
     /**
      * @return iterable<array{
      *     bool,
-     *     \Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata
+     *     ArgumentMetadata
      * }>
      */
     public function provideDataForTestSupports(): iterable
@@ -137,9 +137,9 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @return iterable<array{
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion,
-     *     \Symfony\Component\HttpFoundation\Request,
-     *     \Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion>,
+     *     Criterion,
+     *     Request,
+     *     Traversable<Criterion>,
      *     3?: array<string, string>,
      * }>
      *

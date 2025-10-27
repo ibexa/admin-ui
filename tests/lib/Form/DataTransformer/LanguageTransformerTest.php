@@ -103,7 +103,7 @@ class LanguageTransformerTest extends TestCase
 
     /**
      * @return array<string, array{
-     *     \Ibexa\Contracts\Core\Repository\Values\Content\Language|null,
+     *     Language|null,
      *     string|null,
      * }>
      */

@@ -162,7 +162,7 @@ final class ContentTypeDraftMapperTest extends TestCase
     /**
      * @param array<string, array{
      *     'identifier': string,
-     *     'defaultValue': ?\Ibexa\Contracts\Core\Repository\Values\ValueObject,
+     *     'defaultValue': ?ValueObject,
      *     'name': string,
      *     'position': int,
      * }> $fieldDefinitionsConfig

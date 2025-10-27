@@ -16,6 +16,7 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 use Pagerfanta\Pagerfanta;
@@ -50,11 +51,11 @@ final class PagerLocationToDataMapper
      *          'name': string,
      *          'type': ?string,
      *          'language': string,
-     *          'available_enabled_translations': \Ibexa\Contracts\Core\Repository\Values\Content\Language[],
-     *          'contributor': ?\Ibexa\Contracts\Core\Repository\Values\User\User,
-     *          'content_type': \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType,
+     *          'available_enabled_translations': Language[],
+     *          'contributor': ?User,
+     *          'content_type': ContentType,
      *          'modified': \DateTime,
-     *          'resolvedLocation': \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     *          'resolvedLocation': Location
      *      }
      * >
      *
