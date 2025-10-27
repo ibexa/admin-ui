@@ -96,6 +96,13 @@
                         {% endif %}
                     {% endblock %}
                     {% block body %}
+                        <div class="ibexa-modal__loader">
+                            <div class="ibexa-modal__loader-content">
+                                <div class="ibexa-modal__loader-spinner"></div>
+                                <div class="ibexa-modal__loader-header-text"></div>
+                                <div class="ibexa-modal__loader-description-text"></div>
+                            </div>
+                        </div>
                         {% if block('body_content') is defined %}
                             <div class="modal-body">
                                 {{ block('body_content') }}

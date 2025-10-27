@@ -50,4 +50,54 @@ const controlManyZIndexes = (items, listenerContainer) => {
     };
 };
 
-export { controlZIndex, controlManyZIndexes };
+const showModalLoader = ({ headerText, descriptionText, modalNode }) => {
+    if (!modalNode) {
+        return;
+    }
+
+    const modalDialog = modalNode.querySelector('.modal-dialog');
+    const headerNode = modalNode.querySelector('.modal-header');
+    const loaderNode = modalNode.querySelector('.ibexa-modal__loader');
+    const headerRect = headerNode ? headerNode.getBoundingClientRect() : { height: 0 };
+    const dialogRect = modalDialog.getBoundingClientRect();
+    const { height: dialogHeight, width: dialogWidth } = dialogRect;
+    const { height: headerHeight } = headerRect;
+
+    loaderNode.style.height = `${dialogHeight - headerHeight}px`;
+    loaderNode.style.width = `${dialogWidth}px`;
+    loaderNode.style.top = `${headerHeight}px`;
+
+    if (headerText) {
+        const headerTextNode = modalNode.querySelector('.ibexa-modal__loader-header-text');
+
+        headerTextNode.innerText = headerText;
+    }
+
+    if (descriptionText) {
+        const descriptionTextNode = modalNode.querySelector('.ibexa-modal__loader-description-text');
+
+        descriptionTextNode.innerText = descriptionText;
+    }
+
+    modalNode.classList.add('ibexa-modal--with-blurred-loader');
+};
+
+const hideModalLoader = ({ modalNode }) => {
+    if (!modalNode) {
+        return;
+    }
+
+    const headerTextNode = modalNode.querySelector('.ibexa-modal__loader-header-text');
+    const descriptionTextNode = modalNode.querySelector('.ibexa-modal__loader-description-text');
+
+    headerTextNode.innerText = '';
+    descriptionTextNode.innerText = '';
+
+    modalNode.classList.remove('ibexa-modal--with-blurred-loader');
+};
+
+document.body.addEventListener('hidden.bs.modal', (event) => {
+    hideModalLoader({ modalNode: event.target });
+});
+
+export { controlZIndex, controlManyZIndexes, showModalLoader, hideModalLoader };
