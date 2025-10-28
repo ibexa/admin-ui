@@ -96,3 +96,10 @@ services:
     Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor:
         parent: Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\BaseCriterionProcessor
 
+    #
+    # Site Accesses
+    #
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SiteAccess\SiteAccessesListVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SiteAccess\SiteAccessesList }

@@ -126,3 +126,14 @@ ibexa.rest.image.download:
     methods: GET
     requirements:
         contentIdList: '^\d+(,\d+)*$'
+
+#
+# Site Access
+#
+
+ibexa.rest.siteaccess.load_for_location:
+    path: /siteaccess/load-for-location/{locationId}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\SiteAccess\SiteAccessController::loadForLocation'
+    methods: [GET]
+    options:
+        expose: true
