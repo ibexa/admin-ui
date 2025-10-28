@@ -143,8 +143,8 @@ ibexa.rest.content_type.load_field_definitions_from_expression:
 #
 
 ibexa.rest.siteaccess.load_for_location:
-    path: /siteaccess/load-for-location/{locationId}
-    controller: 'Ibexa\Bundle\AdminUi\Controller\SiteAccess\SiteAccessController::loadForLocation'
+    path: /siteaccess/load-non-admin-for-location/{locationId}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\SiteAccess\SiteAccessController::loadNonAdminSiteAccessesForLocation'
     methods: [GET]
     options:
         expose: true

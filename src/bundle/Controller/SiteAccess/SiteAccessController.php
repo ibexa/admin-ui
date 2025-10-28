@@ -15,15 +15,17 @@ use Ibexa\Rest\Server\Controller as RestController;
 
 final class SiteAccessController extends RestController
 {
-    private SiteaccessResolverInterface $siteAccessResolver;
+    private SiteaccessResolverInterface $nonAdminSiteAccessResolver;
 
-    public function __construct(SiteaccessResolverInterface $siteAccessResolver)
+    public function __construct(SiteaccessResolverInterface $nonAdminSiteAccessResolver)
     {
-        $this->siteAccessResolver = $siteAccessResolver;
+        $this->nonAdminSiteAccessResolver = $nonAdminSiteAccessResolver;
     }
 
-    public function loadForLocation(Location $location): SiteAccessesList
+    public function loadNonAdminSiteAccessesForLocation(Location $location): SiteAccessesList
     {
-        return new SiteAccessesList($this->siteAccessResolver->getSiteAccessesListForLocation($location));
+        return new SiteAccessesList(
+            $this->nonAdminSiteAccessResolver->getSiteAccessesListForLocation($location)
+        );
     }
 }

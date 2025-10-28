@@ -11,7 +11,7 @@ namespace Ibexa\Tests\Integration\AdminUi\REST;
 use Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition;
 
 /**
- * Coverage for /siteaccess/load-for-location/{locationId} REST endpoint.
+ * Coverage for /siteaccess/load-non-admin-for-location/{locationId} REST endpoint.
  */
 final class GetSiteAccessesListTest extends BaseAdminUiRestWebTestCase
 {
@@ -44,7 +44,7 @@ final class GetSiteAccessesListTest extends BaseAdminUiRestWebTestCase
         foreach (self::REQUIRED_FORMATS as $format) {
             yield new EndpointRequestDefinition(
                 'GET',
-                '/api/ibexa/v2/siteaccess/load-for-location/2',
+                '/api/ibexa/v2/siteaccess/load-non-admin-for-location/2',
                 'SiteAccessesList',
                 "application/vnd.ibexa.api.SiteAccessesList+$format",
                 ['HTTP_X-SiteAccess' => 'admin'],
