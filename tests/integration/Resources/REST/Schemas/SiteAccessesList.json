@@ -19,15 +19,11 @@
                 },
                 "name": {
                   "type": "string"
-                },
-                "provider": {
-                  "type": "string"
                 }
               },
               "required": [
                 "_media-type",
-                "name",
-                "provider"
+                "name"
               ]
             }
           ]
