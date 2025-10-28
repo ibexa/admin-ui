@@ -29,9 +29,6 @@ final class SiteAccessesListVisitor extends ValueObjectVisitor
             $generator->startValueElement('name', $siteAccess->name);
             $generator->endValueElement('name');
 
-            $generator->startValueElement('provider', $siteAccess->provider);
-            $generator->endValueElement('provider');
-
             $generator->endObjectElement('SiteAccess');
         }
         $generator->endList('values');
