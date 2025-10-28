@@ -4,28 +4,23 @@
     "values": [
       {
         "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
-        "name": "__default_site_access__",
-        "provider": "Ibexa\\Core\\MVC\\Symfony\\SiteAccess\\Provider\\StaticSiteAccessProvider"
+        "name": "__default_site_access__"
       },
       {
         "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
-        "name": "__second_site_access__",
-        "provider": "Ibexa\\Core\\MVC\\Symfony\\SiteAccess\\Provider\\StaticSiteAccessProvider"
+        "name": "__second_site_access__"
       },
       {
         "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
-        "name": "ger",
-        "provider": "Ibexa\\Core\\MVC\\Symfony\\SiteAccess\\Provider\\StaticSiteAccessProvider"
+        "name": "ger"
       },
       {
         "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
-        "name": "eng",
-        "provider": "Ibexa\\Core\\MVC\\Symfony\\SiteAccess\\Provider\\StaticSiteAccessProvider"
+        "name": "eng"
       },
       {
         "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
-        "name": "ku6\"H",
-        "provider": "Ibexa\\Core\\MVC\\Symfony\\SiteAccess\\Provider\\StaticSiteAccessProvider"
+        "name": "ku6\"H"
       }
     ]
   }
