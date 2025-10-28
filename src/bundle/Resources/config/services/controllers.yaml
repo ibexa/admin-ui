@@ -265,3 +265,11 @@ services:
             $fieldsByExpressionService: '@Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface'
         tags:
             - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\SiteAccess\SiteAccessController:
+        parent: Ibexa\Rest\Server\Controller
+        autowire: true
+        arguments:
+            $siteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
+        tags:
+            - controller.service_arguments

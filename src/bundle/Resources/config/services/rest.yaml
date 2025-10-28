@@ -108,3 +108,10 @@ services:
         parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionInfoList }
+    #
+    # Site Accesses
+    #
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\SiteAccess\SiteAccessesListVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SiteAccess\SiteAccessesList }
