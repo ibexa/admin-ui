@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SiteAccessesList media-type="application/vnd.ibexa.api.SiteAccessesList+xml">
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>__default_site_access__</name>
+        <provider>Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider</provider>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>__second_site_access__</name>
+        <provider>Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider</provider>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>ger</name>
+        <provider>Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider</provider>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>eng</name>
+        <provider>Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider</provider>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>ku6&quot;H</name>
+        <provider>Ibexa\Core\MVC\Symfony\SiteAccess\Provider\StaticSiteAccessProvider</provider>
+    </SiteAccess>
+</SiteAccessesList>
