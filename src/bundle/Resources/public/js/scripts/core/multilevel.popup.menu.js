@@ -1,4 +1,7 @@
 (function (global, doc, ibexa, Popper) {
+    const { escapeHTML } = ibexa.helpers.text;
+    const { dangerouslyInsertAdjacentHTML } = ibexa.helpers.dom;
+
     class MultilevelPopupMenu {
         constructor(config) {
             this.container = config.container;
@@ -359,9 +362,11 @@
             const itemTemplate = !!href ? itemTemplateLink : itemTemplateBtn;
 
             const container = doc.createElement('div');
-            const renderedItem = itemTemplate.replaceAll('{{ label }}', label).replaceAll('{{ sublabel }}', sublabel);
+            const renderedItem = itemTemplate
+                .replaceAll('{{ label }}', escapeHTML(label))
+                .replaceAll('{{ sublabel }}', escapeHTML(sublabel));
 
-            container.insertAdjacentHTML('beforeend', renderedItem);
+            dangerouslyInsertAdjacentHTML(container, 'beforeend', renderedItem);
 
             const newItemElement = container.querySelector('.ibexa-popup-menu__item');
             const newItemContentElement = newItemElement.querySelector('.ibexa-popup-menu__item-content');

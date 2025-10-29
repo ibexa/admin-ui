@@ -170,7 +170,7 @@ const Dropdown = ({
     const renderSelectedMultipleItem = (item) => {
         return (
             <li key={item.value} className="ibexa-dropdown__selected-item">
-                {item.label}
+                <span className="ibexa-dropdown__selected-item-label">{item.label}</span>
                 <span className="ibexa-dropdown__remove-selection" onClick={() => onChange(item.value)} />
             </li>
         );

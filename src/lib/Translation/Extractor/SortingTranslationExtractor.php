@@ -19,7 +19,12 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
  */
 class SortingTranslationExtractor implements ExtractorInterface
 {
-    private $defaultTranslations = [
+    /**
+     * Default translations for sort fields.
+     *
+     * @var array<int, string>
+     */
+    private array $defaultTranslations = [
         1 => 'Location path',
         2 => 'Publication date',
         3 => 'Modification date',
@@ -31,18 +36,16 @@ class SortingTranslationExtractor implements ExtractorInterface
         9 => 'Content name',
     ];
 
-    private $domain = 'ibexa_content_type';
+    private string $domain = 'ibexa_content_type';
 
-    public function extract()
+    public function extract(): MessageCatalogue
     {
         $catalogue = new MessageCatalogue();
         $locationClass = new \ReflectionClass(Location::class);
 
         $sortConstants = array_filter(
             $locationClass->getConstants(),
-            static function ($value, $key) {
-                return is_scalar($value) && strtolower(substr($key, 0, 11)) === 'sort_field_';
-            },
+            static fn ($value, $key): bool => is_int($value) && str_starts_with(strtolower($key), 'sort_field_'),
             ARRAY_FILTER_USE_BOTH
         );
 

@@ -10,5 +10,7 @@
             label: tab.label,
         } %}
     {% endblock %}
-    {% include '@ibexadesign/ui/component/tab/tab_corner.html.twig' %}
+    {% if not tab_corner_disabled|default(false) %}
+        {% include '@ibexadesign/ui/component/tab/tab_corner.html.twig' %}
+    {% endif %}
 </li>
