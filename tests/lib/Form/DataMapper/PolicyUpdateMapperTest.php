@@ -17,13 +17,13 @@ use PHPUnit\Framework\TestCase;
 
 class PolicyUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
+    /** @var PolicyUpdateMapper */
     private $mapper;
 
     protected function setUp(): void
     {
         /* TODO - test skipped, because tested class need to be improved */
-        $this->markTestSkipped();
+        self::markTestSkipped();
         $this->mapper = new PolicyUpdateMapper();
     }
 
@@ -41,7 +41,7 @@ class PolicyUpdateMapperTest extends TestCase
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
@@ -53,7 +53,7 @@ class PolicyUpdateMapperTest extends TestCase
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
     public function testMapWithWrongInstance()
@@ -74,7 +74,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
+     * @return PolicyUpdateStruct
      */
     private function createStruct(array $properties): PolicyUpdateStruct
     {
@@ -87,7 +87,7 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
+     * @return PolicyUpdateData
      */
     private function createData(array $properties): PolicyUpdateData
     {

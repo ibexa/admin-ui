@@ -12,14 +12,14 @@ use Ibexa\AdminUi\Component\Registry;
 use Symfony\Contracts\EventDispatcher\Event;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderGroupEvent} class is deprecated, will be removed in 6.0.
+ * @deprecated 4.6.19 The {@see RenderGroupEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderGroupEvent} instead
  */
 class RenderGroupEvent extends Event
 {
     public const NAME = 'ezplatform_admin_ui.component.render_group';
 
-    /** @var \Ibexa\AdminUi\Component\Registry */
+    /** @var Registry */
     private $registry;
 
     /** @var string */
@@ -29,12 +29,15 @@ class RenderGroupEvent extends Event
     private $parameters;
 
     /**
-     * @param \Ibexa\AdminUi\Component\Registry $registry
+     * @param Registry $registry
      * @param string $groupName
      * @param array $parameters
      */
-    public function __construct(Registry $registry, string $groupName, array $parameters = [])
-    {
+    public function __construct(
+        Registry $registry,
+        string $groupName,
+        array $parameters = []
+    ) {
         $this->registry = $registry;
         $this->groupName = $groupName;
         $this->parameters = $parameters;

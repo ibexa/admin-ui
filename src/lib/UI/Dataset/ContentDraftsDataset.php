@@ -22,22 +22,22 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
  */
 class ContentDraftsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
     /** @var array */
     private $data = [];
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param ContentService $contentService
+     * @param ContentTypeService $contentTypeService
+     * @param LocationService $locationService
      */
     public function __construct(
         ContentService $contentService,
@@ -74,7 +74,10 @@ class ContentDraftsDataset
 
         // ContentService::loadContentDrafts returns unsorted list of VersionInfo.
         // Sort results by modification date, descending.
-        usort($contentDrafts, static function (VersionInfo $a, VersionInfo $b) {
+        usort($contentDrafts, static function (
+            VersionInfo $a,
+            VersionInfo $b
+        ) {
             return $b->modificationDate <=> $a->modificationDate;
         });
 
@@ -100,13 +103,15 @@ class ContentDraftsDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $draft
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param VersionInfo $draft
+     * @param ContentType $contentType
      *
      * @return array
      */
-    private function mapContentDraft(VersionInfo $draft, ContentType $contentType): array
-    {
+    private function mapContentDraft(
+        VersionInfo $draft,
+        ContentType $contentType
+    ): array {
         $contentInfo = $draft->getContentInfo();
 
         return [

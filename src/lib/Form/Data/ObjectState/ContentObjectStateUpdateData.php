@@ -15,17 +15,17 @@ use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 class ContentObjectStateUpdateData
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo
+     * @var ContentInfo
      */
     private $contentInfo;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup
+     * @var ObjectStateGroup
      */
     private $objectStateGroup;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState
+     * @var ObjectState
      */
     private $objectState;
 

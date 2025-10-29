@@ -16,9 +16,12 @@ use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\OptionsResolver\Exception\AccessException;
+use Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeDraftMapper implements FormDataMapperInterface
@@ -27,14 +30,14 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
 
     private ContentTypeService $contentTypeService;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var FieldsGroupsList */
     private $fieldsGroupsList;
 
     /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver,
@@ -51,21 +54,23 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentTypeDraft
+     * @param ContentTypeDraft|ValueObject $contentTypeDraft
      * @param array $params
      *
-     * @return \Ibexa\AdminUi\Form\Data\ContentTypeData
+     * @return ContentTypeData
      */
-    public function mapToFormData(ValueObject $contentTypeDraft, array $params = [])
-    {
+    public function mapToFormData(
+        ValueObject $contentTypeDraft,
+        array $params = []
+    ) {
         $optionsResolver = new OptionsResolver();
         $this->configureOptions($optionsResolver);
         $params = $optionsResolver->resolve($params);
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $params['language'] ?? null;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $baseLanguage */
+        /** @var Language|null $baseLanguage */
         $baseLanguage = $params['baseLanguage'] ?? null;
 
         $contentTypeData = new ContentTypeData(['contentTypeDraft' => $contentTypeDraft]);
@@ -136,10 +141,10 @@ class ContentTypeDraftMapper implements FormDataMapperInterface
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     * @param OptionsResolver $optionsResolver
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\UndefinedOptionsException
-     * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
+     * @throws UndefinedOptionsException
+     * @throws AccessException
      */
     private function configureOptions(OptionsResolver $optionsResolver)
     {

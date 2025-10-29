@@ -12,16 +12,17 @@ use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\Content\ContentHaveUniqueRelation;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -31,11 +32,13 @@ class LocationHaveUniqueAssetRelationValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
+     * @param Location $location The value that should be validated
+     * @param Constraint $constraint The constraint for the validation
      */
-    public function validate($location, Constraint $constraint)
-    {
+    public function validate(
+        $location,
+        Constraint $constraint
+    ) {
         if (null === $location) {
             $this->context->addViolation($constraint->message);
 

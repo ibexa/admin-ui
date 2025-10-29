@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var ContentTypeGroup */
     private $contentTypeGroup;
 
     /** @var string */
@@ -43,7 +43,7 @@ class ContentTypeGroupUpdateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup
+     * @return ContentTypeGroup
      */
     public function getContentTypeGroup(): ContentTypeGroup
     {
@@ -51,7 +51,7 @@ class ContentTypeGroupUpdateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param ContentTypeGroup $contentTypeGroup
      */
     public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup)
     {

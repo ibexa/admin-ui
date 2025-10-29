@@ -26,8 +26,11 @@ class TabViewRenderEvent extends Event
      * @param string $template
      * @param array $parameters
      */
-    public function __construct(string $tabIdentifier, string $template, array $parameters = [])
-    {
+    public function __construct(
+        string $tabIdentifier,
+        string $template,
+        array $parameters = []
+    ) {
         $this->tabIdentifier = $tabIdentifier;
         $this->template = $template;
         $this->parameters = $parameters;

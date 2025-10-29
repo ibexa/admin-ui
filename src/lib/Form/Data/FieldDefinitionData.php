@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -15,15 +16,15 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 /**
  * Base class for FieldDefinition forms, with corresponding FieldDefinition object.
  *
- * @property \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition $fieldDefinition
- * @property \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData
+ * @property FieldDefinition $fieldDefinition
+ * @property ContentTypeData $contentTypeData
  */
 class FieldDefinitionData extends FieldDefinitionUpdateStruct implements TranslationContainerInterface
 {
     public bool $enabled;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
+     * @var FieldDefinition
      */
     protected $fieldDefinition;
 
@@ -31,7 +32,7 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct implements Transla
      * ContentTypeData holding current FieldDefinitionData.
      * Mainly used for validation.
      *
-     * @var \Ibexa\AdminUi\Form\Data\ContentTypeData
+     * @var ContentTypeData
      */
     protected $contentTypeData;
 

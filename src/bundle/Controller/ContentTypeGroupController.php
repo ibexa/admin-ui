@@ -25,25 +25,26 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Button;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ContentTypeGroupController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -61,9 +62,9 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function listAction(Request $request): Response
     {
@@ -79,7 +80,7 @@ class ContentTypeGroupController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_group_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
+        /** @var ContentTypeGroup[] $contentTypeGroupList */
         $contentTypeGroupList = $pagerfanta->getCurrentPageResults();
 
         $deleteContentTypeGroupsForm = $this->formFactory->deleteContentTypeGroups(
@@ -104,14 +105,14 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createContentTypeGroup(
             new ContentTypeGroupCreateData()
         );
@@ -155,15 +156,17 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param Request $request
+     * @param ContentTypeGroup $group
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function updateAction(Request $request, ContentTypeGroup $group): Response
-    {
+    public function updateAction(
+        Request $request,
+        ContentTypeGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updateContentTypeGroup(
             new ContentTypeGroupUpdateData($group)
         );
@@ -209,13 +212,15 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param Request $request
+     * @param ContentTypeGroup $group
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function deleteAction(Request $request, ContentTypeGroup $group): Response
-    {
+    public function deleteAction(
+        Request $request,
+        ContentTypeGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->formFactory->deleteContentTypeGroup(
             new ContentTypeGroupDeleteData($group)
@@ -246,9 +251,9 @@ class ContentTypeGroupController extends Controller
     /**
      * Handles removing content type groups based on submitted form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function bulkDeleteAction(Request $request): Response
     {
@@ -282,14 +287,17 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
+     * @param Request $request
+     * @param ContentTypeGroup $group
      * @param int $page
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function viewAction(Request $request, ContentTypeGroup $group, int $page = 1): Response
-    {
+    public function viewAction(
+        Request $request,
+        ContentTypeGroup $group,
+        int $page = 1
+    ): Response {
         return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
             'content_type_group' => $group,
             'page' => $page,
@@ -299,7 +307,7 @@ class ContentTypeGroupController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
+     * @param ContentTypeGroup[] $contentTypeGroups
      *
      * @return array
      */

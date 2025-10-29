@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Permission;
 
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -20,16 +22,17 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ParentUserGroupLimita
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\LookupLimitationResult;
+use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class PermissionChecker implements PermissionCheckerInterface
 {
     private const USER_GROUPS_LIMIT = 25;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
     private LimitationResolverInterface $limitationResolver;
@@ -50,8 +53,10 @@ class PermissionChecker implements PermissionCheckerInterface
      *
      * @return array
      */
-    public function getRestrictions(array $hasAccess, string $class): array
-    {
+    public function getRestrictions(
+        array $hasAccess,
+        string $class
+    ): array {
         $restrictions = [];
         $oneOfPoliciesHasNoLimitation = false;
 
@@ -76,16 +81,18 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      * @param array|bool $hasAccess
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    public function canCreateInLocation(Location $location, $hasAccess): bool
-    {
+    public function canCreateInLocation(
+        Location $location,
+        $hasAccess
+    ): bool {
         if (\is_bool($hasAccess)) {
             return $hasAccess;
         }
@@ -193,7 +200,7 @@ class PermissionChecker implements PermissionCheckerInterface
 
         $limitations = [];
         foreach ($hasAccess as $permissionSet) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy */
+            /** @var Policy $policy */
             foreach ($permissionSet['policies'] as $policy) {
                 $policyLimitations = $policy->getLimitations();
                 if (!empty($policyLimitations)) {
@@ -211,12 +218,12 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function hasSameParentUserGroup(Location $location): bool
     {
@@ -232,11 +239,11 @@ class PermissionChecker implements PermissionCheckerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
+     * @param User $user
      *
      * @return int[]
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     private function loadAllUserGroupsIdsOfUser(User $user): array
     {

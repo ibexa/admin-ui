@@ -30,18 +30,22 @@ class PolicyChoiceType extends AbstractType
      * PolicyChoiceType constructor.
      *
      * @param array $policyMap
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator, array $policyMap)
-    {
+    public function __construct(
+        TranslatorInterface $translator,
+        array $policyMap
+    ) {
         $this->policyChoices = $this->buildPolicyChoicesFromMap($policyMap);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->addModelTransformer(new class() implements DataTransformerInterface {
             public function transform($value)
             {
@@ -102,7 +106,7 @@ class PolicyChoiceType extends AbstractType
         $policyChoices = [
             self::MESSAGE_ID_PREFIX . self::ALL_MODULES => [
                 self::MESSAGE_ID_PREFIX . self::ALL_MODULES_ALL_FUNCTIONS => '*|*',
-             ],
+            ],
         ];
 
         foreach ($policyMap as $module => $functionList) {

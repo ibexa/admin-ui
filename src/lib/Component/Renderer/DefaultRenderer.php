@@ -12,8 +12,8 @@ use Ibexa\Contracts\AdminUi\Component\Renderer\RendererInterface;
 use Ibexa\TwigComponents\Component\Renderer\DefaultRenderer as TwigComponentsDefaultRenderer;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Renderer\DefaultRenderer} class is deprecated, will be removed in 6.0.
- * Use {@see \Ibexa\TwigComponents\Component\Renderer\DefaultRenderer} instead
+ * @deprecated 4.6.19 The {@see DefaultRenderer} class is deprecated, will be removed in 6.0.
+ * Use {@see TwigComponentsDefaultRenderer} instead
  */
 class DefaultRenderer implements RendererInterface
 {
@@ -24,13 +24,18 @@ class DefaultRenderer implements RendererInterface
         $this->inner = $inner;
     }
 
-    public function renderGroup(string $groupName, array $parameters = []): array
-    {
+    public function renderGroup(
+        string $groupName,
+        array $parameters = []
+    ): array {
         return $this->inner->renderGroup($groupName, $parameters);
     }
 
-    public function renderSingle(string $name, $groupName, array $parameters = []): string
-    {
+    public function renderSingle(
+        string $name,
+        $groupName,
+        array $parameters = []
+    ): string {
         return $this->inner->renderSingle($name, $groupName, $parameters);
     }
 }

@@ -15,6 +15,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ReadAllowedContentTypesTest extends TestCase
@@ -26,16 +27,16 @@ final class ReadAllowedContentTypesTest extends TestCase
     private const ALLOWED_CONTENT_TYPES_IDS = [2, 4];
     private const ALLOWED_CONTENT_TYPES = ['article', 'folder'];
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionResolver|MockObject */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionCheckerInterface|MockObject */
     private $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|MockObject */
     private $contentTypeService;
 
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber\ReadAllowedContentTypes */
+    /** @var ReadAllowedContentTypes */
     private $subscriber;
 
     protected function setUp(): void
@@ -54,8 +55,8 @@ final class ReadAllowedContentTypesTest extends TestCase
     public function testUdwConfigResolveOnUnsupportedConfigName(): void
     {
         $this->permissionResolver->method('hasAccess')->with('content', 'read')->willReturn(true);
-        $this->permissionChecker->expects($this->never())->method('getRestrictions');
-        $this->contentTypeService->expects($this->never())->method('loadContentTypeList');
+        $this->permissionChecker->expects(self::never())->method('getRestrictions');
+        $this->contentTypeService->expects(self::never())->method('loadContentTypeList');
 
         $event = $this->createConfigResolveEvent('unsupported_config_name');
 
@@ -65,14 +66,14 @@ final class ReadAllowedContentTypesTest extends TestCase
             'allowed_content_types' => null,
         ];
 
-        $this->assertEquals($expectedConfig, $event->getConfig());
+        self::assertEquals($expectedConfig, $event->getConfig());
     }
 
     public function testUdwConfigResolveWhenThereIsNoContentReadLimitations(): void
     {
         $this->permissionResolver->method('hasAccess')->with('content', 'read')->willReturn(true);
-        $this->permissionChecker->expects($this->never())->method('getRestrictions');
-        $this->contentTypeService->expects($this->never())->method('loadContentTypeList');
+        $this->permissionChecker->expects(self::never())->method('getRestrictions');
+        $this->contentTypeService->expects(self::never())->method('loadContentTypeList');
 
         $this->assertConfigurationResolvingResult([
             'allowed_content_types' => null,
@@ -82,8 +83,8 @@ final class ReadAllowedContentTypesTest extends TestCase
     public function testUdwConfigResolveWhenThereIsNoContentReadLimitationsAndNoAccess(): void
     {
         $this->permissionResolver->method('hasAccess')->with('content', 'read')->willReturn(false);
-        $this->permissionChecker->expects($this->never())->method('getRestrictions');
-        $this->contentTypeService->expects($this->never())->method('loadContentTypeList');
+        $this->permissionChecker->expects(self::never())->method('getRestrictions');
+        $this->contentTypeService->expects(self::never())->method('loadContentTypeList');
 
         $this->assertConfigurationResolvingResult([
             'allowed_content_types' => [null],
@@ -119,7 +120,7 @@ final class ReadAllowedContentTypesTest extends TestCase
 
             $this->subscriber->onUdwConfigResolve($event);
 
-            $this->assertEquals(
+            self::assertEquals(
                 $expectedConfiguration,
                 $event->getConfig()
             );

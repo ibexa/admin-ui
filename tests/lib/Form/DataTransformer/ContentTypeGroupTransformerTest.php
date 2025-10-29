@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup as APIContentTypeGroup;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeGroup;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -21,10 +22,10 @@ final class ContentTypeGroupTransformerTest extends TestCase
 {
     private const EXAMPLE_CONTENT_TYPE_GROUP_ID = 1;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|MockObject */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\ContentTypeGroupTransformer */
+    /** @var ContentTypeGroupTransformer */
     private $transformer;
 
     protected function setUp(): void
@@ -36,9 +37,11 @@ final class ContentTypeGroupTransformerTest extends TestCase
     /**
      * @dataProvider dataProviderForTransformWithValidInput
      */
-    public function testTransformWithValidInput(?APIContentTypeGroup $value, ?int $expected): void
-    {
-        $this->assertEquals($expected, $this->transformer->transform($value));
+    public function testTransformWithValidInput(
+        ?APIContentTypeGroup $value,
+        ?int $expected
+    ): void {
+        self::assertEquals($expected, $this->transformer->transform($value));
     }
 
     public function dataProviderForTransformWithValidInput(): array
@@ -72,15 +75,17 @@ final class ContentTypeGroupTransformerTest extends TestCase
             'bool' => [true],
             'float' => [12.34],
             'array' => [[]],
-            'object' => [new \stdClass()],
+            'object' => [new stdClass()],
         ];
     }
 
     /**
      * @dataProvider dataProviderForReverseTransformWithValidInput
      */
-    public function testReverseTransformWithValidInput($value, ?APIContentTypeGroup $expected): void
-    {
+    public function testReverseTransformWithValidInput(
+        $value,
+        ?APIContentTypeGroup $expected
+    ): void {
         if ($expected !== null) {
             $this->contentService
                 ->method('loadContentTypeGroup')
@@ -88,7 +93,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
                 ->willReturn($expected);
         }
 
-        $this->assertEquals(
+        self::assertEquals(
             $expected,
             $this->transformer->reverseTransform($value)
         );
@@ -141,8 +146,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
 
-        $exception = new class($expectedExceptionMessage) extends NotFoundException {
-        };
+        $exception = new class($expectedExceptionMessage) extends NotFoundException {};
 
         $this->contentService
             ->method('loadContentTypeGroup')

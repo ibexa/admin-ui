@@ -14,15 +14,21 @@ use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList;
 use Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Core\MVC\Symfony\View\ContentView;
 use Ibexa\Core\Query\QueryFactoryInterface;
+use Ibexa\Rest\Output\Generator\Json;
 use Ibexa\Rest\Output\Generator\Json as JsonOutputGenerator;
 use Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList as ContentTypeInfoListValueObjectVisitor;
 use Ibexa\Rest\Server\Values\ContentTypeInfoList;
@@ -35,34 +41,34 @@ use Ibexa\User\UserSetting\UserSettingService;
  */
 class ContentViewParameterSupplier
 {
-    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
+    /** @var Visitor */
     private $outputVisitor;
 
-    /** @var \Ibexa\Rest\Output\Generator\Json */
+    /** @var Json */
     private $outputGenerator;
 
-    /** @var \Ibexa\Rest\Server\Output\ValueObjectVisitor\ContentTypeInfoList */
+    /** @var ContentTypeInfoListValueObjectVisitor */
     private $contentTypeInfoListValueObjectVisitor;
 
-    /** @var \Ibexa\AdminUi\UI\Module\Subitems\ValueObjectVisitor\SubitemsList */
+    /** @var SubitemsListValueObjectVisitor */
     private $subitemsListValueObjectVisitor;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Config\Provider\ContentTypeMappings */
+    /** @var ContentTypeMappings */
     private $contentTypeMappings;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
+    /** @var UserSettingService */
     private $userSettingService;
 
     private QueryFactoryInterface $queryFactory;
@@ -106,29 +112,29 @@ class ContentViewParameterSupplier
      * we are using the same data structure it would use while
      * fetching data from the REST.
      *
-     * @param \Ibexa\Core\MVC\Symfony\View\ContentView $view
+     * @param ContentView $view
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     public function supply(ContentView $view)
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType[] $contentTypes */
+        /** @var ContentType[] $contentTypes */
         $contentTypes = [];
         $subitemsRows = [];
         $location = $view->getLocation();
         $subitemsLimit = (int)$this->userSettingService->getUserSetting('subitems_limit')->value;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery $locationChildrenQuery */
+        /** @var LocationQuery $locationChildrenQuery */
         $locationChildrenQuery = $this->queryFactory->create('Children', ['location' => $location]);
         $locationChildrenQuery->offset = 0;
         $locationChildrenQuery->limit = $subitemsLimit;
 
         $searchResult = $this->searchService->findLocations($locationChildrenQuery);
         foreach ($searchResult->searchHits as $searchHit) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $locationChild */
+            /** @var Location $locationChild */
             $locationChild = $searchHit->valueObject;
             $contentType = $locationChild->getContent()->getContentType();
 
@@ -155,13 +161,13 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param Location $location
+     * @param ContentType $contentType
      *
-     * @return \Ibexa\Rest\Server\Values\RestContent
+     * @return RestContent
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function createRestContent(
         Location $location,
@@ -177,9 +183,9 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Ibexa\Rest\Server\Values\RestLocation
+     * @return RestLocation
      */
     private function createRestLocation(Location $location): RestLocation
     {
@@ -190,13 +196,13 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param Location $location
+     * @param ContentType $contentType
      *
-     * @return \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsRow
+     * @return SubitemsRow
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     private function createSubitemsRow(
         Location $location,
@@ -209,7 +215,7 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \Ibexa\AdminUi\UI\Module\Subitems\Values\SubitemsList $subitemsList
+     * @param SubitemsList $subitemsList
      *
      * @return string
      */
@@ -223,7 +229,7 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \Ibexa\Rest\Server\Values\ContentTypeInfoList $contentTypeInfoList
+     * @param ContentTypeInfoList $contentTypeInfoList
      *
      * @return string
      */
@@ -237,17 +243,19 @@ class ContentViewParameterSupplier
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Location $location
+     * @param Content $content
      *
      * @return array
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
-    private function getContentCreatePermissionsForMFU(Location $location, Content $content): array
-    {
+    private function getContentCreatePermissionsForMFU(
+        Location $location,
+        Content $content
+    ): array {
         $createPermissionsInMfu = [];
 
         $hasAccess = $this->permissionResolver->hasAccess('content', 'create');

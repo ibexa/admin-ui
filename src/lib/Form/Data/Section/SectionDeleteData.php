@@ -15,11 +15,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Section;
  */
 class SectionDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Section|null */
+    /** @var Section|null */
     protected $section;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param Section|null $section
      */
     public function __construct(?Section $section = null)
     {
@@ -27,7 +27,7 @@ class SectionDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Section|null
+     * @return Section|null
      */
     public function getSection(): ?Section
     {
@@ -35,7 +35,7 @@ class SectionDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Section|null $section
+     * @param Section|null $section
      */
     public function setSection(?Section $section)
     {

@@ -17,11 +17,13 @@ use PHPUnit\Framework\Assert;
 
 class Image extends FieldTypeComponent
 {
-    /** @var \Ibexa\Behat\Browser\FileUpload\FileUploadHelper */
+    /** @var FileUploadHelper */
     protected $fileUploadHelper;
 
-    public function __construct(Session $session, FileUploadHelper $fileUploadHelper)
-    {
+    public function __construct(
+        Session $session,
+        FileUploadHelper $fileUploadHelper
+    ) {
         parent::__construct($session);
         $this->fileUploadHelper = $fileUploadHelper;
     }

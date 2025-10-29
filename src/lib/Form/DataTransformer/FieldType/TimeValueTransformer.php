@@ -7,6 +7,7 @@
 
 namespace Ibexa\AdminUi\Form\DataTransformer\FieldType;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Core\FieldType\Time\Value;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -17,11 +18,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class TimeValueTransformer implements DataTransformerInterface
 {
     /**
-     * @param mixed|\Ibexa\Core\FieldType\Time\Value $value
+     * @param mixed|Value $value
      *
      * @return int|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value)
     {
@@ -41,10 +42,10 @@ class TimeValueTransformer implements DataTransformerInterface
     /**
      * @param int|mixed $value
      *
-     * @return \Ibexa\Core\FieldType\Time\Value|null
+     * @return Value|null
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws InvalidArgumentException
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value)
     {

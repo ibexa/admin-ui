@@ -13,14 +13,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class TabEvent extends Event
 {
-    /** @var \Ibexa\Contracts\AdminUi\Tab\TabInterface */
+    /** @var TabInterface */
     private $data;
 
     /** @var array */
     private $parameters;
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
+     * @return TabInterface
      */
     public function getData(): TabInterface
     {
@@ -28,7 +28,7 @@ class TabEvent extends Event
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $data
+     * @param TabInterface $data
      */
     public function setData(TabInterface $data)
     {

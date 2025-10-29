@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -18,11 +19,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class UserCollectionTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     protected $userService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -34,7 +35,7 @@ class UserCollectionTransformer implements DataTransformerInterface
      *
      * @return string|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function transform($value)
     {
@@ -50,8 +51,8 @@ class UserCollectionTransformer implements DataTransformerInterface
      *
      * @return array
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
+     * @throws UnauthorizedException
+     * @throws TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
     public function reverseTransform($value): array

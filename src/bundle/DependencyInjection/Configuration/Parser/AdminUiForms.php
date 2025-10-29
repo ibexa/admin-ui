@@ -39,7 +39,7 @@ class AdminUiForms extends AbstractParser
     /**
      * Adds semantic configuration definition.
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
+     * @param NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
      */
     public function addSemanticConfig(NodeBuilder $nodeBuilder)
     {
@@ -211,8 +211,10 @@ class AdminUiForms extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function postMap(array $config, ContextualizerInterface $contextualizer)
-    {
+    public function postMap(
+        array $config,
+        ContextualizerInterface $contextualizer
+    ) {
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit_form_templates', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.fieldtypes', $config);
         $contextualizer->mapConfigArray('admin_ui_forms.content_edit.meta_field_groups_list', $config);

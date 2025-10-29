@@ -30,11 +30,11 @@ class ContentTypeIsUser extends AbstractSpecification
     /**
      * Checks if $contentType is an existing User content.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      *
      * @return bool
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function isSatisfiedBy($contentType): bool
     {

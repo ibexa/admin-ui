@@ -35,7 +35,9 @@ final class IgnoredConfigParser extends AbstractParser
     /**
      * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
-    }
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {}
 }

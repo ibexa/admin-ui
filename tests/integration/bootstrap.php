@@ -9,6 +9,7 @@ declare(strict_types=1);
 use Ibexa\Contracts\Core\Test\Persistence\Fixture\FixtureImporter;
 use Ibexa\Tests\Core\Repository\LegacySchemaImporter;
 use Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel;
+use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 
@@ -38,7 +39,7 @@ $application->run(new ArrayInput([
     '--quiet' => true,
 ]));
 
-/** @var \Psr\Container\ContainerInterface $testContainer */
+/** @var ContainerInterface $testContainer */
 $testContainer = $kernel->getContainer()->get('test.service_container');
 
 $schemaImporter = $testContainer->get(LegacySchemaImporter::class);

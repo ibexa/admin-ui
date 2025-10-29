@@ -33,8 +33,10 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadChoicesForValues(array $values, $value = null)
-    {
+    public function loadChoicesForValues(
+        array $values,
+        $value = null
+    ) {
         // Optimize
         $values = array_filter($values);
         if (empty($values)) {
@@ -47,8 +49,10 @@ abstract class BaseChoiceLoader implements ChoiceLoaderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadValuesForChoices(array $choices, $value = null)
-    {
+    public function loadValuesForChoices(
+        array $choices,
+        $value = null
+    ) {
         // Optimize
         $choices = array_filter($choices);
         if (empty($choices)) {

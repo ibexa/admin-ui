@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Tests\AdminUi\Tab\LocationView;
 
 use Ibexa\AdminUi\UserSetting\FocusMode;
+use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
@@ -21,8 +22,11 @@ abstract class AbstractTabVisibilityTestCase extends TestCase
      *
      * @param array<string, mixed> $parameters
      */
-    final public function testTabVisibilityInGivenUserMode(string $userMode, array $parameters, bool $expectedResult): void
-    {
+    final public function testTabVisibilityInGivenUserMode(
+        string $userMode,
+        array $parameters,
+        bool $expectedResult
+    ): void {
         $userSetting = $this->createMock(UserSetting::class);
         $userSetting->method('__get')->with('value')->willReturn($userMode);
 
@@ -40,7 +44,7 @@ abstract class AbstractTabVisibilityTestCase extends TestCase
     abstract public function dataProviderForTestTabVisibilityInGivenUserMode(): iterable;
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface&\Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface
+     * @return TabInterface&ConditionalTabInterface
      */
     abstract protected function createTabForVisibilityInGivenUserModeTest(
         UserSettingService $userSettingService

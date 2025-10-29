@@ -18,23 +18,23 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
  */
 class ContentCreateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null */
+    /** @var ContentType|null */
     protected $contentType;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @var Location|null
      *
      * @AdminUiAssert\LocationIsContainer()
      */
     protected $parentLocation;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     protected $language;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $parentLocation
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param ContentType|null $contentType
+     * @param Location|null $parentLocation
+     * @param Language|null $language
      */
     public function __construct(
         ?ContentType $contentType = null,
@@ -47,7 +47,7 @@ class ContentCreateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
+     * @return ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -55,7 +55,7 @@ class ContentCreateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
+     * @param ContentType $contentType
      *
      * @return self
      */
@@ -67,7 +67,7 @@ class ContentCreateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getParentLocation(): ?Location
     {
@@ -75,7 +75,7 @@ class ContentCreateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation
+     * @param Location $parentLocation
      *
      * @return self
      */
@@ -87,7 +87,7 @@ class ContentCreateData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -95,7 +95,7 @@ class ContentCreateData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param Language $language
      *
      * @return self
      */

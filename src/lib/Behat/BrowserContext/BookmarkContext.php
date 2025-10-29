@@ -14,14 +14,16 @@ use PHPUnit\Framework\Assert;
 
 class BookmarkContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
+    /** @var ContentViewPage */
     private $contentViewPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\BookmarksPage */
+    /** @var BookmarksPage */
     private $bookmarksPage;
 
-    public function __construct(ContentViewPage $contentViewPage, BookmarksPage $bookmarksPage)
-    {
+    public function __construct(
+        ContentViewPage $contentViewPage,
+        BookmarksPage $bookmarksPage
+    ) {
         $this->contentViewPage = $contentViewPage;
         $this->bookmarksPage = $bookmarksPage;
     }

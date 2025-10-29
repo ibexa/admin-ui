@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class LanguageCreateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
+    /** @var LanguageCreateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -39,7 +39,7 @@ class LanguageCreateMapperTest extends TestCase
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
@@ -51,7 +51,7 @@ class LanguageCreateMapperTest extends TestCase
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
     public function testMapWithWrongInstance()
@@ -81,7 +81,7 @@ class LanguageCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\LanguageCreateStruct
+     * @return LanguageCreateStruct
      */
     private function createStruct(array $properties): LanguageCreateStruct
     {
@@ -91,7 +91,7 @@ class LanguageCreateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Language\LanguageCreateData
+     * @return LanguageCreateData
      */
     private function createData(array $properties): LanguageCreateData
     {

@@ -49,7 +49,7 @@ final class GetContentTreeChildrenTest extends BaseAdminUiRestWebTestCase
     }
 
     /**
-     * @return iterable<\Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition>
+     * @return iterable<EndpointRequestDefinition>
      */
     private static function generateRequestDefinitionsWithAllFormats(
         EndpointRequestDefinition $endpointRequestDefinition,

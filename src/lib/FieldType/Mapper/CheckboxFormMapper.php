@@ -19,8 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class CheckboxFormMapper implements FieldDefinitionFormMapperInterface
 {
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $fieldDefinition): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $fieldDefinition
+    ): void {
         $isTranslation = $fieldDefinition->contentTypeData->languageCode !== $fieldDefinition->contentTypeData->mainLanguageCode;
         $defaultValueForm = $fieldDefinitionForm
             ->getConfig()

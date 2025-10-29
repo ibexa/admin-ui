@@ -21,8 +21,11 @@ final class FieldDefinitionCreate extends RestValue
     /** @var int|null */
     public $position;
 
-    public function __construct(?string $fieldTypeIdentifier, ?string $fieldGroupIdentifier, ?int $position = null)
-    {
+    public function __construct(
+        ?string $fieldTypeIdentifier,
+        ?string $fieldGroupIdentifier,
+        ?int $position = null
+    ) {
         $this->fieldTypeIdentifier = $fieldTypeIdentifier;
         $this->fieldGroupIdentifier = $fieldGroupIdentifier;
         $this->position = $position;

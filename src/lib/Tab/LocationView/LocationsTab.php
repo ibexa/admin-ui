@@ -22,6 +22,7 @@ use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
@@ -42,40 +43,40 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     public const URI_FRAGMENT = 'ibexa-tab-location-view-locations';
     private const PAGINATION_PARAM_NAME = 'locations-tab-page';
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     protected $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    /** @var RequestStack */
     private $requestStack;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
+    /** @var SearchService */
     private $searchService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Content\Location\Mapper */
+    /** @var Mapper */
     private $locationToUILocationMapper;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     private UserSettingService $userSettingService;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\Repository\SearchService $searchService
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+     * @param Environment $twig
+     * @param TranslatorInterface $translator
+     * @param FormFactory $formFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param PermissionResolver $permissionResolver
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param SearchService $searchService
+     * @param RequestStack $requestStack
      * @param \Ibexa\AdminUi\UI\Value\Content\Location\Mapper$locationToUILocationMapper
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
+     * @param ConfigResolverInterface $configResolver
      */
     public function __construct(
         Environment $twig,
@@ -145,9 +146,9 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
         $versionInfo = $content->getVersionInfo();
         $contentInfo = $versionInfo->getContentInfo();
@@ -226,9 +227,9 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     private function createLocationAddForm(Location $location): FormInterface
     {
@@ -238,13 +239,15 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      * @param \Ibexa\AdminUi\UI\Value\Content\Location[] $contentLocations
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
-    private function createLocationRemoveForm(Location $location, array $contentLocations): FormInterface
-    {
+    private function createLocationRemoveForm(
+        Location $location,
+        array $contentLocations
+    ): FormInterface {
         return $this->formFactory->removeLocation(
             new ContentLocationRemoveData($location->getContentInfo(), $this->getLocationChoices($contentLocations))
         );
@@ -263,9 +266,9 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     protected function createLocationSwapForm(Location $location): FormInterface
     {
@@ -275,9 +278,9 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     protected function createLocationUpdateVisibilityForm(Location $location): FormInterface
     {
@@ -288,12 +291,14 @@ class LocationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
 
     /**
      * @param $contentInfo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
-    protected function createLocationUpdateMainForm($contentInfo, Location $location): FormInterface
-    {
+    protected function createLocationUpdateMainForm(
+        $contentInfo,
+        Location $location
+    ): FormInterface {
         return $this->formFactory->updateContentMainLocation(
             new ContentMainLocationUpdateData($contentInfo, $location)
         );

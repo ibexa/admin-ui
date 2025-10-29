@@ -14,15 +14,15 @@ use Traversable;
 
 class FormUiActionMappingDispatcher
 {
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] */
+    /** @var FormUiActionMapperInterface[] */
     protected $mappers;
 
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface */
+    /** @var FormUiActionMapperInterface */
     protected $defaultMapper;
 
     /**
-     * @param \Traversable $mappers
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
+     * @param Traversable $mappers
+     * @param FormUiActionMapperInterface $defaultMapper
      */
     public function __construct(
         Traversable $mappers,
@@ -33,7 +33,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[]
+     * @return FormUiActionMapperInterface[]
      */
     public function getMappers(): array
     {
@@ -41,7 +41,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] $mappers
+     * @param FormUiActionMapperInterface[] $mappers
      */
     public function setMappers(array $mappers): void
     {
@@ -49,7 +49,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface
+     * @return FormUiActionMapperInterface
      */
     public function getDefaultMapper(): FormUiActionMapperInterface
     {
@@ -57,7 +57,7 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface $defaultMapper
+     * @param FormUiActionMapperInterface $defaultMapper
      */
     public function setDefaultMapper(FormUiActionMapperInterface $defaultMapper): void
     {
@@ -65,13 +65,13 @@ class FormUiActionMappingDispatcher
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      *
-     * @return \Ibexa\AdminUi\UI\Action\UiActionEvent
+     * @return UiActionEvent
      */
     public function dispatch(FormInterface $form): UiActionEvent
     {
-        /** @var \Ibexa\Contracts\AdminUi\UI\Action\FormUiActionMapperInterface[] $mappers */
+        /** @var FormUiActionMapperInterface[] $mappers */
         foreach ($this->mappers as $mapper) {
             if ($mapper === $this->defaultMapper) {
                 continue;

@@ -38,7 +38,7 @@ class PolicyTranslationExtractor implements ExtractorInterface
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\MessageCatalogue
+     * @return MessageCatalogue
      *
      * @deprecated Since ibexa/admin-ui 4.4: The method "PolicyTranslationExtractor::extract()" method is deprecated, will be removed in 5.0.
      */
@@ -67,10 +67,12 @@ class PolicyTranslationExtractor implements ExtractorInterface
      * @param string $id
      * @param string $desc
      *
-     * @return \JMS\TranslationBundle\Model\Message\XliffMessage|null
+     * @return XliffMessage|null
      */
-    private function createMessage(string $id, string $desc): ?XliffMessage
-    {
+    private function createMessage(
+        string $id,
+        string $desc
+    ): ?XliffMessage {
         $id = self::MESSAGE_ID_PREFIX . $id;
 
         $message = new XliffMessage($id, self::MESSAGE_DOMAIN);

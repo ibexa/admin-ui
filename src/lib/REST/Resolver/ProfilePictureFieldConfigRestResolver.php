@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\REST\Resolver;
 
 use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Rest\Server\Values\RestFieldDefinition;
 use Ibexa\Rest\Value;
 
@@ -29,7 +30,7 @@ final class ProfilePictureFieldConfigRestResolver implements ApplicationConfigRe
 
     public function resolve(array $config): ?Value
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\User|null $apiUser */
+        /** @var User|null $apiUser */
         $apiUser = $config['user'];
         if (null === $apiUser) {
             return null;

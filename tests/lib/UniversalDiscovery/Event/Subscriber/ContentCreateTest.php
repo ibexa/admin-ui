@@ -24,13 +24,13 @@ class ContentCreateTest extends TestCase
     private const ALLOWED_LANGUAGE_CODE = 'eng-GB';
     private const ALLOWED_CONTENT_TYPE_ID = 1;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionCheckerInterface|PHPUnit\Framework\MockObject\MockObject */
     private $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentTypeService|PHPUnit\Framework\MockObject\MockObject */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionResolver|PHPUnit\Framework\MockObject\MockObject */
     private $permissionResolver;
 
     public function setUp(): void
@@ -60,7 +60,7 @@ class ContentCreateTest extends TestCase
 
         $expectedConfig = $config + $addedConfig;
 
-        $this->assertEquals($expectedConfig, $event->getConfig());
+        self::assertEquals($expectedConfig, $event->getConfig());
     }
 
     /**
@@ -75,7 +75,7 @@ class ContentCreateTest extends TestCase
         $subscriber = $this->getSubscriberWithRestrictions();
         $subscriber->onUdwConfigResolve($event);
 
-        $this->assertEquals($config, $event->getConfig());
+        self::assertEquals($config, $event->getConfig());
     }
 
     public function createTab(): array

@@ -17,7 +17,7 @@ interface DataMapperInterface
     /**
      * Maps Struct object to Data object.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param ValueObject $value
      *
      * @return mixed
      */

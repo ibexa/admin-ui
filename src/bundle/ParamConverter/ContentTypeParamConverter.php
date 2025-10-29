@@ -22,15 +22,15 @@ class ContentTypeParamConverter implements ParamConverterInterface
     public const PARAMETER_CONTENT_TYPE_ID = 'contentTypeId';
     public const PARAMETER_CONTENT_TYPE_IDENTIFIER = 'contentTypeIdentifier';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var UserLanguagePreferenceProviderInterface */
     private $languagePreferenceProvider;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeGroupService
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $languagePreferenceProvider
+     * @param ContentTypeService $contentTypeGroupService
+     * @param UserLanguagePreferenceProviderInterface $languagePreferenceProvider
      */
     public function __construct(
         ContentTypeService $contentTypeGroupService,
@@ -43,8 +43,10 @@ class ContentTypeParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         if (!$request->get(self::PARAMETER_CONTENT_TYPE_ID) && !$request->get(self::PARAMETER_CONTENT_TYPE_IDENTIFIER)) {
             return false;
         }

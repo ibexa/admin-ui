@@ -16,25 +16,26 @@ use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Helper\TranslationHelper;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 
 abstract class AbstractPagerContentToDataMapper
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
+    /** @var TranslationHelper */
     protected $translationHelper;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
     public function __construct(
@@ -52,10 +53,10 @@ abstract class AbstractPagerContentToDataMapper
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      * @param bool $filterDisabled
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return Language[]
      */
     protected function getAvailableTranslations(
         Content $content,
@@ -78,7 +79,7 @@ abstract class AbstractPagerContentToDataMapper
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      *
      * @return bool
      */
@@ -88,9 +89,9 @@ abstract class AbstractPagerContentToDataMapper
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param VersionInfo $versionInfo
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User|null
+     * @return User|null
      */
     protected function getVersionContributor(VersionInfo $versionInfo): ?User
     {
@@ -105,8 +106,10 @@ abstract class AbstractPagerContentToDataMapper
      * @param array $data
      * @param int[] $contentTypeIds
      */
-    protected function setTranslatedContentTypesNames(array &$data, array $contentTypeIds): void
-    {
+    protected function setTranslatedContentTypesNames(
+        array &$data,
+        array $contentTypeIds
+    ): void {
         // load list of content types with proper translated names
         $contentTypes = $this->contentTypeService->loadContentTypeList(
             array_unique($contentTypeIds),
@@ -116,7 +119,7 @@ abstract class AbstractPagerContentToDataMapper
         foreach ($data as $idx => $item) {
             // get content type from bulk-loaded list or fallback to lazy loaded one if not present
             $contentTypeId = $item['contentTypeId'];
-            /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+            /** @var ContentType $contentType */
             $contentType = $contentTypes[$contentTypeId] ?? $item['content']->getContentType();
 
             $data[$idx]['type'] = $contentType->getName();

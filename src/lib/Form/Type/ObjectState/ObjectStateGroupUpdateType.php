@@ -23,8 +23,10 @@ class ObjectStateGroupUpdateType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('identifier', TextType::class, [
                 'label' => /** @Desc("Identifier") */ 'object_state_group.update.identifier',

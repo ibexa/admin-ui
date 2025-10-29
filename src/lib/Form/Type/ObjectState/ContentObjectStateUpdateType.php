@@ -24,18 +24,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentObjectStateUpdateType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     protected $objectStateService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param ObjectStateService $objectStateService
+     * @param PermissionResolver $permissionResolver
      */
-    public function __construct(ObjectStateService $objectStateService, PermissionResolver $permissionResolver)
-    {
+    public function __construct(
+        ObjectStateService $objectStateService,
+        PermissionResolver $permissionResolver
+    ) {
         $this->objectStateService = $objectStateService;
         $this->permissionResolver = $permissionResolver;
     }
@@ -43,8 +45,10 @@ class ContentObjectStateUpdateType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('contentInfo', ContentInfoType::class, [
                 'label' => false,
@@ -57,7 +61,7 @@ class ContentObjectStateUpdateType extends AbstractType
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $contentObjectStateUpdateData */
+            /** @var ContentObjectStateUpdateData $contentObjectStateUpdateData */
             $contentObjectStateUpdateData = $event->getData();
             $objectStateGroup = $contentObjectStateUpdateData->getObjectStateGroup();
             $contentInfo = $contentObjectStateUpdateData->getContentInfo();

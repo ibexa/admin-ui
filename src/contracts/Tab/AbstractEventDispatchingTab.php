@@ -21,7 +21,7 @@ use Twig\Environment;
  */
 abstract class AbstractEventDispatchingTab extends AbstractTab
 {
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     protected $eventDispatcher;
 
     public function __construct(

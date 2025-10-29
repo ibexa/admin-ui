@@ -15,27 +15,29 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 class VersionsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] */
+    /** @var VersionInfo[] */
     protected $data;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param ContentService $contentService
+     * @param ValueFactory $valueFactory
      */
-    public function __construct(ContentService $contentService, ValueFactory $valueFactory)
-    {
+    public function __construct(
+        ContentService $contentService,
+        ValueFactory $valueFactory
+    ) {
         $this->contentService = $contentService;
         $this->valueFactory = $valueFactory;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param ContentInfo $contentInfo
      *
      * @return VersionsDataset
      */
@@ -50,7 +52,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getVersions(): array
     {
@@ -58,7 +60,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getDraftVersions(): array
     {
@@ -76,8 +78,10 @@ class VersionsDataset
      *
      * @return array
      */
-    public function getConflictedDraftVersions(int $currentVersionNo, string $languageCode): array
-    {
+    public function getConflictedDraftVersions(
+        int $currentVersionNo,
+        string $languageCode
+    ): array {
         return $this->filterVersions(
             $this->data,
             static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode) {
@@ -89,7 +93,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getPublishedVersions(): array
     {
@@ -102,7 +106,7 @@ class VersionsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
     public function getArchivedVersions(): array
     {
@@ -115,13 +119,15 @@ class VersionsDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versions
+     * @param VersionInfo[] $versions
      * @param callable $callable
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
+     * @return VersionInfo[]
      */
-    protected function filterVersions(array $versions, callable $callable): array
-    {
+    protected function filterVersions(
+        array $versions,
+        callable $callable
+    ): array {
         return array_values(array_filter($versions, $callable));
     }
 }

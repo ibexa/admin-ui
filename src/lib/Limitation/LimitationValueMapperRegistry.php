@@ -48,8 +48,10 @@ class LimitationValueMapperRegistry implements LimitationValueMapperRegistryInte
         return isset($this->limitationValueMappers[$limitationType]);
     }
 
-    public function addMapper(LimitationValueMapperInterface $mapper, $limitationType)
-    {
+    public function addMapper(
+        LimitationValueMapperInterface $mapper,
+        $limitationType
+    ) {
         $this->limitationValueMappers[$limitationType] = $mapper;
     }
 }

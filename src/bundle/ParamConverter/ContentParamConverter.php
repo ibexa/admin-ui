@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
@@ -24,12 +26,12 @@ class ContentParamConverter implements ParamConverterInterface
     public const PARAMETER_LANGUAGE_CODE = 'languageCode';
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentService
+     * @var ContentService
      */
     private $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
@@ -39,11 +41,13 @@ class ContentParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    public function apply(Request $request, ParamConverter $configuration): bool
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ): bool {
         $contentId = $request->get(self::PARAMETER_CONTENT_ID);
         $versionNo = $request->get(self::PARAMETER_VERSION_NO);
         $languageCode = $request->get(self::PARAMETER_LANGUAGE_CODE);

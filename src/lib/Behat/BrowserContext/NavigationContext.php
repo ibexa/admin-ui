@@ -19,25 +19,25 @@ use Ibexa\Behat\Core\Behat\ArgumentParser;
 
 class NavigationContext implements Context
 {
-    /** @var \Ibexa\Behat\Core\Behat\ArgumentParser */
+    /** @var ArgumentParser */
     private $argumentParser;
 
-    /** @var \Ibexa\Behat\Browser\Page\PageRegistry[] */
+    /** @var PageRegistry[] */
     private $pageRegistry;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
+    /** @var UpperMenu */
     private $upperMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\LeftMenu */
+    /** @var LeftMenu */
     private $leftMenu;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Breadcrumb */
+    /** @var Breadcrumb */
     private $breadcrumb;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
+    /** @var ContentViewPage */
     private $contentViewPage;
 
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage */
+    /** @var ContentUpdateItemPage */
     private $contentUpdateItemPage;
 
     public function __construct(
@@ -112,8 +112,10 @@ class NavigationContext implements Context
     /**
      * @Then I go to :subTab in :tab tab
      */
-    public function iGoToSubTab(string $tab, string $subTab): void
-    {
+    public function iGoToSubTab(
+        string $tab,
+        string $subTab
+    ): void {
         $this->leftMenu->goToSubTab($tab, $subTab);
     }
 
@@ -137,8 +139,11 @@ class NavigationContext implements Context
     /**
      * @Given I navigate to content :contentName of type :contentType in :path
      */
-    public function iNavigateToContent(string $contentName, string $contentType, ?string $path = null)
-    {
+    public function iNavigateToContent(
+        string $contentName,
+        string $contentType,
+        ?string $path = null
+    ) {
         $expectedContentPath = sprintf('%s/%s', $path, $contentName);
         $pathParts = explode('/', $expectedContentPath);
         if ('root' === $pathParts[0]) {

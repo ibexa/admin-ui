@@ -17,8 +17,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CountryFormMapper implements FieldDefinitionFormMapperInterface
 {
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
             ->add(

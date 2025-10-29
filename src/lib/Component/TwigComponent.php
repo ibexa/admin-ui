@@ -9,25 +9,26 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component;
 
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
+use Ibexa\TwigComponents\Component\TemplateComponent;
 use Twig\Environment;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\TwigComponent} class is deprecated, will be removed in 6.0.
- * Use {@see \Ibexa\TwigComponents\Component\TemplateComponent} instead
+ * @deprecated 4.6.19 The {@see TwigComponent} class is deprecated, will be removed in 6.0.
+ * Use {@see TemplateComponent} instead
  */
 class TwigComponent implements ComponentInterface
 {
     /** @var string */
     protected $template;
 
-    /** @var \Twig\Environment */
+    /** @var Environment */
     protected $twig;
 
     /** @var array */
     protected $parameters;
 
     /**
-     * @param \Twig\Environment $twig
+     * @param Environment $twig
      * @param string $template
      * @param array $parameters
      */

@@ -14,18 +14,20 @@ use Ibexa\User\UserSetting\UserSettingService;
 
 class DateFormat implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
+    /** @var UserSettingService */
     protected $userSettingService;
 
-    /** @var \Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer */
+    /** @var DateTimeFormatSerializer */
     protected $dateTimeFormatSerializer;
 
     /**
-     * @param \Ibexa\User\UserSetting\UserSettingService $userSettingService
-     * @param \Ibexa\User\UserSetting\Setting\DateTimeFormatSerializer $dateTimeFormatSerializer
+     * @param UserSettingService $userSettingService
+     * @param DateTimeFormatSerializer $dateTimeFormatSerializer
      */
-    public function __construct(UserSettingService $userSettingService, DateTimeFormatSerializer $dateTimeFormatSerializer)
-    {
+    public function __construct(
+        UserSettingService $userSettingService,
+        DateTimeFormatSerializer $dateTimeFormatSerializer
+    ) {
         $this->userSettingService = $userSettingService;
         $this->dateTimeFormatSerializer = $dateTimeFormatSerializer;
     }

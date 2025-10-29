@@ -35,8 +35,10 @@ class RoleService
      * @param Repository\RoleService $roleService
      * @param Repository\SearchService $searchService
      */
-    public function __construct(Repository\RoleService $roleService, Repository\SearchService $searchService)
-    {
+    public function __construct(
+        Repository\RoleService $roleService,
+        Repository\SearchService $searchService
+    ) {
         $this->roleService = $roleService;
         $this->searchService = $searchService;
     }
@@ -63,8 +65,10 @@ class RoleService
         return $role;
     }
 
-    public function updateRole(Role $role, RoleData $data): Role
-    {
+    public function updateRole(
+        Role $role,
+        RoleData $data
+    ): Role {
         $roleUpdateStruct = $this->roleService->newRoleUpdateStruct();
         $roleUpdateStruct->identifier = $data->getIdentifier();
 
@@ -80,8 +84,10 @@ class RoleService
         $this->roleService->deleteRole($role);
     }
 
-    public function getPolicy(Role $role, int $policyId)
-    {
+    public function getPolicy(
+        Role $role,
+        int $policyId
+    ) {
         foreach ($role->getPolicies() as $policy) {
             if ($policy->id === $policyId) {
                 return $policy;
@@ -91,8 +97,10 @@ class RoleService
         return null;
     }
 
-    public function createPolicy(Role $role, PolicyData $data): Role
-    {
+    public function createPolicy(
+        Role $role,
+        PolicyData $data
+    ): Role {
         $policyCreateStruct = $this->roleService->newPolicyCreateStruct(
             $data->getModule(),
             $data->getFunction()
@@ -105,8 +113,10 @@ class RoleService
         return $draft;
     }
 
-    public function deletePolicy(Role $role, Policy $policy)
-    {
+    public function deletePolicy(
+        Role $role,
+        Policy $policy
+    ) {
         $draft = $this->roleService->createRoleDraft($role);
         foreach ($draft->getPolicies() as $policyDraft) {
             if ($policyDraft->originalId == $policy->id) {
@@ -120,8 +130,11 @@ class RoleService
         throw new \RuntimeException("Policy {$policy->id} not found.");
     }
 
-    public function updatePolicy(Role $role, Policy $policy, PolicyData $data): Role
-    {
+    public function updatePolicy(
+        Role $role,
+        Policy $policy,
+        PolicyData $data
+    ): Role {
         $policyUpdateStruct = $this->roleService->newPolicyUpdateStruct();
         foreach ($data->getLimitations() as $limitation) {
             if (!empty($limitation->limitationValues)) {
@@ -157,8 +170,10 @@ class RoleService
         $this->roleService->removeRoleAssignment($roleAssignment);
     }
 
-    public function assignRole(Role $role, RoleAssignmentData $data)
-    {
+    public function assignRole(
+        Role $role,
+        RoleAssignmentData $data
+    ) {
         $users = $data->getUsers();
         $groups = $data->getGroups();
 
@@ -201,8 +216,12 @@ class RoleService
         }
     }
 
-    private function doAssignLimitation(Role $role, ?array $users = null, ?array $groups = null, ?RoleLimitation $limitation = null)
-    {
+    private function doAssignLimitation(
+        Role $role,
+        ?array $users = null,
+        ?array $groups = null,
+        ?RoleLimitation $limitation = null
+    ) {
         if (null !== $users) {
             foreach ($users as $user) {
                 $this->roleService->assignRoleToUser($role, $user, $limitation);

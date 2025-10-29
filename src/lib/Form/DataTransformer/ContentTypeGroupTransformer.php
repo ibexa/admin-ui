@@ -19,7 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class ContentTypeGroupTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     public function __construct(ContentTypeService $contentTypeService)

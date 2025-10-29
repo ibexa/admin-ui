@@ -14,7 +14,7 @@ interface ContentSpecification
     /**
      * Check to see if the specification is satisfied.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      *
      * @return bool
      */

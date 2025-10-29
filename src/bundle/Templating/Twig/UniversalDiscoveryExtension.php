@@ -14,11 +14,11 @@ use Twig\TwigFunction;
 
 class UniversalDiscoveryExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var ConfigResolver */
     protected $udwConfigResolver;
 
     /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver $udwConfigResolver
+     * @param ConfigResolver $udwConfigResolver
      */
     public function __construct(
         ConfigResolver $udwConfigResolver
@@ -55,8 +55,10 @@ class UniversalDiscoveryExtension extends AbstractExtension
      *
      * @return string
      */
-    public function renderUniversalDiscoveryWidgetConfig(string $configName, array $context = []): string
-    {
+    public function renderUniversalDiscoveryWidgetConfig(
+        string $configName,
+        array $context = []
+    ): string {
         $config = $this->udwConfigResolver->getConfig($configName, $context);
 
         $normalized = $this->recursiveConfigurationArrayNormalize($config);
@@ -78,8 +80,10 @@ class UniversalDiscoveryExtension extends AbstractExtension
         return $normalized;
     }
 
-    private function toCamelCase(string $input, string $delimiter = '_'): string
-    {
+    private function toCamelCase(
+        string $input,
+        string $delimiter = '_'
+    ): string {
         $words = explode($delimiter, ucwords($input, $delimiter));
 
         return lcfirst(implode('', $words));

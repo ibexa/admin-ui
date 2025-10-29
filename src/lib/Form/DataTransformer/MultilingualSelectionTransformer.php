@@ -16,15 +16,17 @@ class MultilingualSelectionTransformer implements DataTransformerInterface
     /** @var string */
     protected $languageCode;
 
-    /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData */
+    /** @var FieldDefinitionData */
     private $data;
 
     /**
      * @param string $languageCode
-     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data
+     * @param FieldDefinitionData $data
      */
-    public function __construct(string $languageCode, FieldDefinitionData $data)
-    {
+    public function __construct(
+        string $languageCode,
+        FieldDefinitionData $data
+    ) {
         $this->languageCode = $languageCode;
         $this->data = $data;
     }

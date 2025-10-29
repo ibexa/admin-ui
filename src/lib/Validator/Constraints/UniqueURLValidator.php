@@ -15,13 +15,13 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class UniqueURLValidator extends ConstraintValidator
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService */
+    /** @var URLService */
     private $urlService;
 
     /**
      * UniqueURLValidator constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
+     * @param URLService $urlService
      */
     public function __construct(URLService $urlService)
     {
@@ -31,8 +31,10 @@ class UniqueURLValidator extends ConstraintValidator
     /**
      * {@inheritdoc}
      */
-    public function validate($value, Constraint $constraint)
-    {
+    public function validate(
+        $value,
+        Constraint $constraint
+    ) {
         if (!$value instanceof URLUpdateData || $value->url === null) {
             return;
         }

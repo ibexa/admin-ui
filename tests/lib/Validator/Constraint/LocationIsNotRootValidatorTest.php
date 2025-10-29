@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Validator\Constraint;
 
+use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotRoot;
 use Ibexa\AdminUi\Validator\Constraints\LocationIsNotRootValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -16,10 +17,10 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsNotRootValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
+    /** @var ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
+    /** @var LocationIsContainerValidator */
     private $validator;
 
     protected function setUp(): void
@@ -35,7 +36,7 @@ class LocationIsNotRootValidatorTest extends TestCase
         $location->method('getDepth')->willReturn(5);
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('addViolation');
 
         $this->validator->validate($location, new LocationIsNotRoot());
@@ -47,7 +48,7 @@ class LocationIsNotRootValidatorTest extends TestCase
         $location->method('getDepth')->willReturn(1);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate($location, new LocationIsNotRoot());

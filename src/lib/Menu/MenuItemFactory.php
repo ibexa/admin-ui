@@ -15,19 +15,19 @@ use Knp\Menu\ItemInterface;
 
 class MenuItemFactory implements MenuItemFactoryInterface
 {
-    /** @var \Knp\Menu\FactoryInterface */
+    /** @var FactoryInterface */
     protected $factory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
     /**
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
+     * @param FactoryInterface $factory
+     * @param PermissionResolver $permissionResolver
+     * @param LocationService $locationService
      */
     public function __construct(
         FactoryInterface $factory,
@@ -46,10 +46,13 @@ class MenuItemFactory implements MenuItemFactoryInterface
      * @param int $locationId
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface|null
+     * @return ItemInterface|null
      */
-    public function createLocationMenuItem(string $name, int $locationId, array $options = []): ?ItemInterface
-    {
+    public function createLocationMenuItem(
+        string $name,
+        int $locationId,
+        array $options = []
+    ): ?ItemInterface {
         try {
             $location = $this->locationService->loadLocation($locationId);
             $contentInfo = $location->getContentInfo();
@@ -69,8 +72,10 @@ class MenuItemFactory implements MenuItemFactoryInterface
         return $this->createItem($name, array_merge_recursive($defaults, $options));
     }
 
-    public function createItem($name, array $options = []): ItemInterface
-    {
+    public function createItem(
+        $name,
+        array $options = []
+    ): ItemInterface {
         if (empty($options['extras']['translation_domain'])) {
             $options['extras']['translation_domain'] = 'ibexa_menu';
         }

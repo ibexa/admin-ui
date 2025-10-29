@@ -17,8 +17,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ContentTypeCopyType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add(
                 'content_type',
@@ -40,7 +42,7 @@ class ContentTypeCopyType extends AbstractType
     }
 
     /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

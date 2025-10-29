@@ -39,7 +39,10 @@ interface LimitationFormMapperRegistryInterface
      * @param LimitationFormMapperInterface $mapper
      * @param string $limitationIdentifier limitation identifier the mapper is meant for
      */
-    public function addMapper(LimitationFormMapperInterface $mapper, $limitationIdentifier);
+    public function addMapper(
+        LimitationFormMapperInterface $mapper,
+        $limitationIdentifier
+    );
 }
 
 class_alias(

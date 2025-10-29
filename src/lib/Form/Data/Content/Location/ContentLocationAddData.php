@@ -9,17 +9,18 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data\Content\Location;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class ContentLocationAddData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
+    /** @var ContentInfo|null */
     protected $contentInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    /** @var Location[] */
     protected $newLocations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $currentLocation
+     * @param ContentInfo|null $currentLocation
      * @param array $newLocations
      */
     public function __construct(
@@ -31,7 +32,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -39,7 +40,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {
@@ -47,7 +48,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getNewLocations(): array
     {
@@ -55,7 +56,7 @@ class ContentLocationAddData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $newLocations
+     * @param Location[] $newLocations
      */
     public function setNewLocations(array $newLocations)
     {

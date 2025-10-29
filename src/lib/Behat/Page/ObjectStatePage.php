@@ -23,20 +23,25 @@ class ObjectStatePage extends Page
     /** @var string */
     private $expectedObjectStateName;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     /** @var mixed */
     private $expectedObjectStateId;
 
-    public function __construct(Session $session, Router $router, Repository $repository)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        Repository $repository
+    ) {
         parent::__construct($session, $router);
         $this->repository = $repository;
     }
 
-    public function hasAttribute($label, $value)
-    {
+    public function hasAttribute(
+        $label,
+        $value
+    ) {
         return $this->getHTMLPage()
                 ->findAll($this->getLocator('objectStateAttribute'))
                 ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))

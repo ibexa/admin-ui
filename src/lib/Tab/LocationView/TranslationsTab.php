@@ -26,6 +26,7 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -34,29 +35,29 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
 {
     public const URI_FRAGMENT = 'ibexa-tab-location-view-translations';
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
     /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param Environment $twig
+     * @param TranslatorInterface $translator
+     * @param DatasetFactory $datasetFactory
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param FormFactoryInterface $formFactory
+     * @param PermissionResolver $permissionResolver
      */
     public function __construct(
         Environment $twig,
@@ -106,9 +107,9 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $contextParameters['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
         $versionInfo = $content->getVersionInfo();
         $translationsDataset = $this->datasetFactory->translations();
@@ -148,11 +149,11 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     private function createTranslationAddForm(Location $location): FormInterface
     {
@@ -162,15 +163,17 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
+     * @param Location $location
      * @param array $languageCodes
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
-    private function createTranslationDeleteForm(Location $location, array $languageCodes): FormInterface
-    {
+    private function createTranslationDeleteForm(
+        Location $location,
+        array $languageCodes
+    ): FormInterface {
         $data = new TranslationDeleteData(
             $location->getContentInfo(),
             array_combine($languageCodes, array_fill_keys($languageCodes, false))
@@ -180,13 +183,15 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      * @param string $languageCode
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
-    private function createMainLanguageUpdateForm(Content $content, string $languageCode): FormInterface
-    {
+    private function createMainLanguageUpdateForm(
+        Content $content,
+        string $languageCode
+    ): FormInterface {
         $data = new MainTranslationUpdateData($content, $languageCode);
 
         return $this->formFactory->create(MainTranslationUpdateType::class, $data);

@@ -59,11 +59,11 @@ final class VersionPreviewUrlChoiceType extends AbstractType
 
         $resolver->setDefaults([
             'choice_loader' => function (Options $options): ChoiceLoaderInterface {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo */
+                /** @var VersionInfo $versionInfo */
                 $versionInfo = $options['version_info'];
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+                /** @var Location $location */
                 $location = $options['location'];
-                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+                /** @var Language $language */
                 $language = $options['language'];
 
                 return ChoiceList::loader(

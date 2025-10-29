@@ -18,11 +18,11 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 class SectionsTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
+    /** @var SectionService */
     protected $sectionService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
+     * @param SectionService $sectionService
      */
     public function __construct(SectionService $sectionService)
     {
@@ -53,7 +53,7 @@ class SectionsTransformer implements DataTransformerInterface
      *
      * @return array|null
      *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * @throws TransformationFailedException
      */
     public function reverseTransform($value): ?array
     {

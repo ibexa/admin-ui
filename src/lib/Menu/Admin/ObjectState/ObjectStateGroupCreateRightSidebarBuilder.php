@@ -30,7 +30,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     public const ITEM__CREATE_AND_EDIT = 'object_state_group_create__sidebar_right__create_and_edit';
     public const ITEM__CANCEL = 'object_state_group_create__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -54,7 +54,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -62,7 +62,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $createItem = $this->createMenuItem(
@@ -99,7 +99,7 @@ class ObjectStateGroupCreateRightSidebarBuilder extends AbstractBuilder implemen
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

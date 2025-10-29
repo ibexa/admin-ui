@@ -16,8 +16,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoleAssignmentDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'role_assignment',

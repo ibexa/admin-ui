@@ -22,7 +22,7 @@ class LanguageLimitationMapper extends MultipleSelectionBasedMapper implements L
     use LoggerAwareTrait;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\LanguageService
+     * @var LanguageService
      */
     private $languageService;
 

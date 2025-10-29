@@ -18,26 +18,26 @@ class TranslationAddData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
+     * @var ContentType|null
      */
     private $contentType;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
+     * @var ContentTypeGroup|null
      */
     private $contentTypeGroup;
 
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @var Language|null
      */
     private $language;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @var Language|null
      */
     private $baseLanguage;
 

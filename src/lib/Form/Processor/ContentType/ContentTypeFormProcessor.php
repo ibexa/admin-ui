@@ -7,6 +7,7 @@
 
 namespace Ibexa\AdminUi\Form\Processor\ContentType;
 
+use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\AdminUi\Event\FormEvents;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -16,18 +17,19 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionCreateStru
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
 class ContentTypeFormProcessor implements EventSubscriberInterface
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
+     * @var ContentTypeService
      */
     private $contentTypeService;
 
     /**
-     * @var \Symfony\Component\Routing\RouterInterface
+     * @var RouterInterface
      */
     private $router;
 
@@ -37,7 +39,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
     private $options;
 
     /**
-     * @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList
+     * @var FieldsGroupsList
      */
     private $groupsList;
 
@@ -81,7 +83,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
         }
 
         // Always update FieldDefinitions and ContentTypeDraft
-        /** @var \Ibexa\AdminUi\Form\Data\ContentTypeData $contentTypeData */
+        /** @var ContentTypeData $contentTypeData */
         $contentTypeData = $event->getData();
         $contentTypeDraft = $contentTypeData->contentTypeDraft;
         foreach ($contentTypeData->getFlatFieldDefinitionsData() as $fieldDefData) {
@@ -146,12 +148,12 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
 
     public function processRemoveFieldDefinition(FormActionEvent $event)
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
+        /** @var ContentTypeDraft $contentTypeDraft */
         $contentTypeDraft = $event->getData()->contentTypeDraft;
 
         // Accessing FieldDefinition user selection through the form and not the data,
         // as "selected" is not a property of FieldDefinitionData.
-        /** @var \Symfony\Component\Form\FormInterface $fieldDefForm */
+        /** @var FormInterface $fieldDefForm */
         foreach ($event->getForm()->get('fieldDefinitionsData') as $fieldDefForm) {
             if ($fieldDefForm->get('selected')->getData() === true) {
                 $this->contentTypeService->removeFieldDefinition($contentTypeDraft, $fieldDefForm->getData()->fieldDefinition);
@@ -173,7 +175,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
     public function processPublishAndEditContentType(FormActionEvent $event): void
     {
         $eventData = $event->getData();
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft */
+        /** @var ContentTypeDraft $contentTypeDraft */
         $contentTypeDraft = $eventData->contentTypeDraft;
         $languageCode = $eventData->languageCode;
 
@@ -197,7 +199,7 @@ class ContentTypeFormProcessor implements EventSubscriberInterface
     /**
      * Resolves unique field definition identifier.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft $contentTypeDraft
+     * @param ContentTypeDraft $contentTypeDraft
      * @param int $startIndex
      * @param string $fieldTypeIdentifier
      *

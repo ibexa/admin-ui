@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\SubitemsGrid;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Component\Component;
@@ -22,16 +23,19 @@ use PHPUnit\Framework\Assert;
 
 class SubItemsList extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     protected $table;
 
     protected $isGridViewEnabled;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\SubitemsGrid */
+    /** @var SubitemsGrid */
     private $grid;
 
-    public function __construct(Session $session, TableBuilder $tableBuilder, SubitemsGrid $grid)
-    {
+    public function __construct(
+        Session $session,
+        TableBuilder $tableBuilder,
+        SubitemsGrid $grid
+    ) {
         parent::__construct($session);
         $this->table = $tableBuilder
             ->newTable()
@@ -41,8 +45,10 @@ class SubItemsList extends Component
         $this->grid = $grid;
     }
 
-    public function sortBy(string $columnName, bool $ascending): void
-    {
+    public function sortBy(
+        string $columnName,
+        bool $ascending
+    ): void {
         if ($this->isGridViewEnabled) {
             return;
         }
@@ -91,8 +97,10 @@ class SubItemsList extends Component
             ->assert()->textContains('Viewing');
     }
 
-    public function clickListElement(string $contentName, string $contentType)
-    {
+    public function clickListElement(
+        string $contentName,
+        string $contentType
+    ) {
         $this->getTable()->getTableRow(['Name' => $contentName, 'Content type' => $contentType])->goToItem();
     }
 

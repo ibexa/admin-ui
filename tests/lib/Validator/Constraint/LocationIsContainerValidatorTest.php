@@ -13,21 +13,22 @@ use Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class LocationIsContainerValidatorTest extends TestCase
 {
-    /** @var \Symfony\Component\Validator\Context\ExecutionContextInterface */
+    /** @var ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\LocationIsContainerValidator */
+    /** @var LocationIsContainerValidator */
     private $validator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var Location|MockObject */
     private $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var ContentType|MockObject */
     private $contentType;
 
     protected function setUp(): void
@@ -58,7 +59,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn(true);
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('addViolation');
 
         $this->validator->validate($this->location, new LocationIsContainer());
@@ -72,7 +73,7 @@ class LocationIsContainerValidatorTest extends TestCase
             ->willReturn(false);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate($this->location, new LocationIsContainer());

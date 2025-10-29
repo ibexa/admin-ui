@@ -16,7 +16,7 @@ use Twig\TwigFilter;
 
 class TimeDiffExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UI\Service\DateTimeFormatter */
+    /** @var DateTimeFormatter */
     private $dateTimeFormatter;
 
     public function __construct(DateTimeFormatter $dateTimeFormatter)
@@ -44,8 +44,10 @@ class TimeDiffExtension extends AbstractExtension
         ];
     }
 
-    public function diff(DateTimeInterface $from, ?DateTimeInterface $to = null): string
-    {
+    public function diff(
+        DateTimeInterface $from,
+        ?DateTimeInterface $to = null
+    ): string {
         return $this->dateTimeFormatter->formatDiff($from, $to ?? new DateTime());
     }
 }

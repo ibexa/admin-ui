@@ -21,11 +21,11 @@ class PolicyCreateMapper implements DataMapperInterface
     /**
      * Maps given PolicyCreateStruct object to a PolicyCreateData object.
      *
-     * @param \Ibexa\Core\Repository\Values\User\PolicyCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param PolicyCreateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData
+     * @return PolicyCreateData
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): PolicyCreateData
     {
@@ -45,11 +45,11 @@ class PolicyCreateMapper implements DataMapperInterface
     /**
      * Maps given PolicyCreateData object to a PolicyCreateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyCreateData $data
+     * @param PolicyCreateData $data
      *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyCreateStruct
+     * @return PolicyCreateStruct
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): PolicyCreateStruct
     {

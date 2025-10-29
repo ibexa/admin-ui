@@ -12,6 +12,7 @@ use Ibexa\ContentForms\Data\Content\ContentCreateData;
 use Ibexa\Contracts\AdminUi\Form\Data\FormMapper\FormDataMapperInterface;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,13 +24,15 @@ class ContentCreateMapper implements FormDataMapperInterface
     /**
      * Maps a ValueObject from Ibexa content repository to a data usable as underlying form data (e.g. create/update struct).
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|\Ibexa\Contracts\Core\Repository\Values\ValueObject $contentType
+     * @param ContentType|ValueObject $contentType
      * @param array $params
      *
-     * @return \Ibexa\ContentForms\Data\Content\ContentCreateData
+     * @return ContentCreateData
      */
-    public function mapToFormData(ValueObject $contentType, array $params = [])
-    {
+    public function mapToFormData(
+        ValueObject $contentType,
+        array $params = []
+    ) {
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
         $params = $resolver->resolve($params);

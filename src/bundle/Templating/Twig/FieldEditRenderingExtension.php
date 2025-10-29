@@ -11,13 +11,14 @@ namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Core\MVC\Symfony\Templating\Exception\MissingFieldBlockException;
 use Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface;
+use Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class FieldEditRenderingExtension extends AbstractExtension
 {
-    /** @var \Ibexa\Core\MVC\Symfony\Templating\FieldBlockRendererInterface|\Ibexa\Core\MVC\Symfony\Templating\Twig\FieldBlockRenderer */
+    /** @var FieldBlockRendererInterface|FieldBlockRenderer */
     private $fieldBlockRenderer;
 
     public function __construct(FieldBlockRendererInterface $fieldBlockRenderer)
@@ -26,11 +27,15 @@ class FieldEditRenderingExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
-        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []) {
+        $fieldDefinitionEditCallable = function (
+            Environment $twig,
+            FieldDefinitionData $fieldDefinitionData,
+            array $params = []
+        ) {
             $this->fieldBlockRenderer->setTwig($twig);
 
             return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);
@@ -58,8 +63,10 @@ class FieldEditRenderingExtension extends AbstractExtension
         ];
     }
 
-    public function renderFieldDefinitionEdit(FieldDefinitionData $fieldDefinitionData, array $params = []): string
-    {
+    public function renderFieldDefinitionEdit(
+        FieldDefinitionData $fieldDefinitionData,
+        array $params = []
+    ): string {
         $params += ['data' => $fieldDefinitionData];
         try {
             return $this->fieldBlockRenderer->renderFieldDefinitionEdit($fieldDefinitionData->fieldDefinition, $params);

@@ -38,7 +38,7 @@ class ContentEditMetaFieldsComponent implements ComponentInterface
      */
     public function render(array $parameters = []): string
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $parameters['content_type'];
 
         $metaFieldTypeIdentifiers = $this->getMetaFieldTypeIdentifiers();

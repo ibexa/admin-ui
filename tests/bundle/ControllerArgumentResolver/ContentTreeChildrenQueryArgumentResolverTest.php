@@ -11,10 +11,14 @@ namespace Ibexa\Tests\Bundle\AdminUi\ControllerArgumentResolver;
 use ArrayIterator;
 use Generator;
 use Ibexa\Bundle\AdminUi\ControllerArgumentResolver\ContentTreeChildrenQueryArgumentResolver;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
+use Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
@@ -32,7 +36,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 {
     private ArgumentValueResolverInterface $resolver;
 
-    /** @phpstan-var TCriterionProcessor&\PHPUnit\Framework\MockObject\MockObject */
+    /** @phpstan-var TCriterionProcessor&MockObject */
     private CriterionProcessorInterface $criterionProcessor;
 
     protected function setUp(): void
@@ -101,9 +105,9 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
      * @dataProvider provideDataForTestResolve
      *
      * @param array<string, string|array<mixed>> $criteriaToProcess
-     * @param Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface> $expectedCriteria
+     * @param Traversable<CriterionInterface> $expectedCriteria
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function testResolve(
         Criterion $expected,
@@ -139,7 +143,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
      *     3?: array<string, string>,
      * }>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidCriterionArgumentException
      */
     public function provideDataForTestResolve(): iterable
     {
@@ -172,7 +176,7 @@ final class ContentTreeChildrenQueryArgumentResolverTest extends TestCase
 
     /**
      * @param array<string, string|array<mixed>> $criteriaToProcess
-     * @param Traversable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\CriterionInterface> $expectedCriteria
+     * @param Traversable<CriterionInterface> $expectedCriteria
      */
     private function mockCriterionProcessorProcessCriteria(
         ?array $criteriaToProcess,

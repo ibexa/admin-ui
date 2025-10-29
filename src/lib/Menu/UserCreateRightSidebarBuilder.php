@@ -36,7 +36,7 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -44,7 +44,7 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $menu->setChildren([
@@ -72,7 +72,7 @@ class UserCreateRightSidebarBuilder extends AbstractBuilder implements Translati
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

@@ -12,12 +12,13 @@ use Ibexa\AdminUi\Form\DataTransformer\LanguageTransformer;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class LanguageTransformerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LanguageService&MockObject */
     private LanguageService $languageService;
 
     protected function setUp(): void
@@ -28,16 +29,18 @@ class LanguageTransformerTest extends TestCase
     /**
      * @dataProvider transformDataProvider
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $value
+     * @param Language|null $value
      * @param string|null $expected
      */
-    public function testTransform($value, $expected): void
-    {
+    public function testTransform(
+        $value,
+        $expected
+    ): void {
         $transformer = new LanguageTransformer($this->languageService);
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -68,7 +71,7 @@ class LanguageTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform('eng-GB');
 
-        $this->assertEquals(new Language(['languageCode' => 'eng-GB']), $result);
+        self::assertEquals(new Language(['languageCode' => 'eng-GB']), $result);
     }
 
     public function testReverseTransformWithNull(): void
@@ -81,15 +84,14 @@ class LanguageTransformerTest extends TestCase
 
         $result = $transformer->reverseTransform(null);
 
-        $this->assertNull($result);
+        self::assertNull($result);
     }
 
     public function testReverseTransformWithNotFoundException(): void
     {
         $this->languageService
             ->method('loadLanguage')
-            ->will($this->throwException(new class('Language not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('Language not found') extends NotFoundException {}));
 
         $transformer = new LanguageTransformer($this->languageService);
 

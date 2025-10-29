@@ -16,10 +16,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class HasReverseRelations implements TrashLocationOptionProvider
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -37,8 +37,10 @@ final class HasReverseRelations implements TrashLocationOptionProvider
         return $reverseRelationsCount > 0;
     }
 
-    public function addOptions(FormInterface $form, Location $location): void
-    {
+    public function addOptions(
+        FormInterface $form,
+        Location $location
+    ): void {
         $reverseRelationsCount = $this->contentService->countReverseRelations($location->contentInfo);
 
         $translatorParameters = [

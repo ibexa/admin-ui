@@ -63,8 +63,10 @@ final class InvitationController
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function sendInvitationsAction(int $userGroupId, Request $request): Response
-    {
+    public function sendInvitationsAction(
+        int $userGroupId,
+        Request $request
+    ): Response {
         $group = $this->userService->loadUserGroup($userGroupId);
 
         $form = $this->formFactory->create(

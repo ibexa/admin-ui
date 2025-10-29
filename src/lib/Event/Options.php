@@ -40,8 +40,10 @@ final class Options implements MutableOptionsBag
         return isset($this->options[$key]);
     }
 
-    public function set(string $key, $value): void
-    {
+    public function set(
+        string $key,
+        $value
+    ): void {
         $this->options[$key] = $value;
     }
 

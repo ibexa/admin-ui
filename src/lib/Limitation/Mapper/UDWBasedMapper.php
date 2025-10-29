@@ -31,12 +31,12 @@ use Symfony\Component\Form\FormInterface;
 class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMapperInterface, TranslationContainerInterface
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\LocationService
+     * @var LocationService
      */
     protected $locationService;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\SearchService
+     * @var SearchService
      */
     protected $searchService;
 
@@ -47,10 +47,10 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
      */
     private $template;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     public function __construct(
@@ -75,8 +75,10 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         return $this->template;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
-    {
+    public function mapLimitationForm(
+        FormInterface $form,
+        Limitation $data
+    ) {
         $form->add(
             // Creating from FormBuilder as we need to add a DataTransformer.
             $form->getConfig()->getFormFactory()
@@ -98,9 +100,7 @@ class UDWBasedMapper implements LimitationFormMapperInterface, LimitationValueMa
         );
     }
 
-    public function filterLimitationValues(Limitation $limitation)
-    {
-    }
+    public function filterLimitationValues(Limitation $limitation) {}
 
     public function mapLimitationValue(Limitation $limitation)
     {

@@ -45,8 +45,10 @@ class ContentTypeUpdateType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $hasFieldDefinition = count($options['data']->fieldDefinitionsData) > 0;
         $isTranslation = $options['mainLanguageCode'] !== $options['languageCode'];
 

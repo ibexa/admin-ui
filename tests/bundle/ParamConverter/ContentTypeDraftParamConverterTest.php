@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 use Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeDraftParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
@@ -17,10 +18,10 @@ class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = ContentTypeDraft::class;
     public const PARAMETER_NAME = 'contentType';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeDraftParamConverter */
+    /** @var ContentTypeDraftParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $contentTypeServiceMock;
 
     protected function setUp(): void
@@ -36,12 +37,14 @@ class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
      * @param mixed $contentTypeId The content type identifier fetched from the request
      * @param int $contentTypeIdToLoad The content type identifier used to load the content type draft
      */
-    public function testApply($contentTypeId, int $contentTypeIdToLoad)
-    {
+    public function testApply(
+        $contentTypeId,
+        int $contentTypeIdToLoad
+    ) {
         $valueObject = $this->createMock(ContentTypeDraft::class);
 
         $this->contentTypeServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContentTypeDraft')
             ->with($contentTypeIdToLoad)
             ->willReturn($valueObject);
@@ -53,8 +56,8 @@ class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWithWrongAttribute()
@@ -66,8 +69,8 @@ class ContentTypeDraftParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function dataProvider(): array

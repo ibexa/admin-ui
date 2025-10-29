@@ -19,8 +19,11 @@ final class IsFocusModeEnabledTest extends TestCase
     /**
      * @dataProvider dataProviderForIsSatisfiedBy
      */
-    public function testIsSatisfiedBy(string $userMode, string $value, bool $expectedResult): void
-    {
+    public function testIsSatisfiedBy(
+        string $userMode,
+        string $value,
+        bool $expectedResult
+    ): void {
         self::assertEquals(
             $expectedResult,
             (new IsFocusModeEnabled($userMode))->isSatisfiedBy($value)
@@ -30,8 +33,11 @@ final class IsFocusModeEnabledTest extends TestCase
     /**
      * @dataProvider dataProviderForIsSatisfiedBy
      */
-    public function testFromUserSetting(string $userMode, string $value, bool $expectedResult): void
-    {
+    public function testFromUserSetting(
+        string $userMode,
+        string $value,
+        bool $expectedResult
+    ): void {
         $userSetting = $this->createMock(UserSetting::class);
         $userSetting->method('__get')->with('value')->willReturn($userMode);
 

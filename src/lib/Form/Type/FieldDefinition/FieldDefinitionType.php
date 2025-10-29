@@ -34,16 +34,16 @@ class FieldDefinitionType extends AbstractType
 {
     private ContentTypeFieldTypesResolverInterface $contentTypeFieldTypesResolver;
 
-    /** @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface */
+    /** @var FieldTypeDefinitionFormMapperDispatcherInterface */
     private $fieldTypeMapperDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\Repository\FieldTypeService */
+    /** @var FieldTypeService */
     private $fieldTypeService;
 
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var FieldsGroupsList */
     private $groupsList;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Strategy\ContentThumbnail\Field\ThumbnailStrategy */
+    /** @var ThumbnailStrategy */
     private $thumbnailStrategy;
 
     public function __construct(
@@ -80,8 +80,10 @@ class FieldDefinitionType extends AbstractType
             ->setRequired(['languageCode']);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $translatablePropertyTransformer = new TranslatablePropertyTransformer($options['languageCode']);
         $isTranslation = $options['languageCode'] !== $options['mainLanguageCode'];
 
@@ -134,7 +136,7 @@ class FieldDefinitionType extends AbstractType
 
         // Hook on form generation for specific FieldType needs
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data */
+            /** @var FieldDefinitionData $data */
             $data = $event->getData();
             $form = $event->getForm();
             $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
@@ -176,8 +178,11 @@ class FieldDefinitionType extends AbstractType
         });
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ) {
         $view->vars['disable_remove'] = $options['disable_remove'];
     }
 

@@ -14,11 +14,12 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\Query\SortClause;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\SearchResult;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard\URLWildcardQuery;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class URLWildcardAdapterTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var URLWildcard|MockObject */
     private $urlWildcardService;
 
     protected function setUp(): void
@@ -36,7 +37,7 @@ final class URLWildcardAdapterTest extends TestCase
         ]);
 
         $this->urlWildcardService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUrlWildcards')
             ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $searchResults) {
                 $this->assertEquals($query->filter, $q->filter);
@@ -49,7 +50,7 @@ final class URLWildcardAdapterTest extends TestCase
 
         $adapter = new URLWildcardAdapter($query, $this->urlWildcardService);
 
-        $this->assertEquals($searchResults->totalCount, $adapter->getNbResults());
+        self::assertEquals($searchResults->totalCount, $adapter->getNbResults());
     }
 
     public function testGetSlice(): void
@@ -64,7 +65,7 @@ final class URLWildcardAdapterTest extends TestCase
         ]);
 
         $this->urlWildcardService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('findUrlWildcards')
             ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $limit, $offset, $searchResults) {
                 $this->assertEquals($query->filter, $q->filter);
@@ -77,11 +78,11 @@ final class URLWildcardAdapterTest extends TestCase
 
         $adapter = new URLWildcardAdapter($query, $this->urlWildcardService);
 
-        $this->assertEquals($searchResults->items, $adapter->getSlice($offset, $limit));
+        self::assertEquals($searchResults->items, $adapter->getSlice($offset, $limit));
     }
 
     /**
-     * @return  \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard[]
+     * @return  URLWildcard[]
      */
     public function urlWildcards(): array
     {

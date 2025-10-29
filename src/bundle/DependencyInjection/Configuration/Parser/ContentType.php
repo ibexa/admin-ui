@@ -33,8 +33,11 @@ class ContentType extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ) {
         if (empty($scopeSettings['content_type'])) {
             return;
         }

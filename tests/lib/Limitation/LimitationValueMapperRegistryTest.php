@@ -26,9 +26,9 @@ class LimitationValueMapperRegistryTest extends TestCase
 
         $result = $registry->getMappers();
 
-        $this->assertCount(2, $result);
-        $this->assertContains($foo, $result);
-        $this->assertContains($bar, $result);
+        self::assertCount(2, $result);
+        self::assertContains($foo, $result);
+        self::assertContains($bar, $result);
     }
 
     public function testGetMapper()
@@ -39,7 +39,7 @@ class LimitationValueMapperRegistryTest extends TestCase
             'foo' => $foo,
         ]);
 
-        $this->assertEquals($foo, $registry->getMapper('foo'));
+        self::assertEquals($foo, $registry->getMapper('foo'));
     }
 
     public function testGetNonExistingMapper()
@@ -60,7 +60,7 @@ class LimitationValueMapperRegistryTest extends TestCase
         $registry = new LimitationValueMapperRegistry();
         $registry->addMapper($foo, 'foo');
 
-        $this->assertTrue($registry->hasMapper('foo'));
+        self::assertTrue($registry->hasMapper('foo'));
     }
 
     public function testHasMapper()
@@ -69,8 +69,8 @@ class LimitationValueMapperRegistryTest extends TestCase
             'foo' => $this->createMock(LimitationValueMapperInterface::class),
         ]);
 
-        $this->assertTrue($registry->hasMapper('foo'));
-        $this->assertFalse($registry->hasMapper('bar'));
+        self::assertTrue($registry->hasMapper('foo'));
+        self::assertFalse($registry->hasMapper('bar'));
     }
 }
 

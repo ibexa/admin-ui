@@ -22,8 +22,10 @@ class UniversalDiscoveryWidgetType extends AbstractType
     public const TAB_BROWSE = 'browse';
     public const TAB_SEARCH = 'search';
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('location', LocationType::class, [
                 'attr' => ['hidden' => true],
@@ -37,8 +39,11 @@ class UniversalDiscoveryWidgetType extends AbstractType
             ->addModelTransformer($this->getDataTransformer());
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
-    {
+    public function finishView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ) {
         $selectContentButtonView = $view->offsetGet('select_content');
 
         if (!empty($options['title'])) {
@@ -89,7 +94,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
     }
 
     /**
-     * @return \Symfony\Component\Form\DataTransformerInterface
+     * @return DataTransformerInterface
      */
     private function getDataTransformer(): DataTransformerInterface
     {

@@ -26,7 +26,7 @@ final class Table extends Component implements TableInterface
     /** @var TableRowFactory */
     protected $tableFactory;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Pagination */
+    /** @var Pagination */
     private $pagination;
 
     private $parentElement;
@@ -207,9 +207,7 @@ final class Table extends Component implements TableInterface
         return $this->tableFactory->createRow($rowElement, new LocatorCollection($filteredCellLocators));
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     private function setParentElement()
     {
@@ -222,8 +220,10 @@ final class Table extends Component implements TableInterface
         $this->isParentElementSet = true;
     }
 
-    private function getTableCellLocator(int $headerPosition, string $identifier = 'tableCell'): CSSLocator
-    {
+    private function getTableCellLocator(
+        int $headerPosition,
+        string $identifier = 'tableCell'
+    ): CSSLocator {
         // +1: headerPosition is 0-indexed, but CSS selectors are 1-indexed
         return new CSSLocator($identifier, sprintf($this->getLocator('cell')->getSelector(), $headerPosition + 1, $headerPosition + 1));
     }
@@ -237,8 +237,10 @@ final class Table extends Component implements TableInterface
     /**
      * @param array $elementData
      */
-    private function getHeaderPositions(array $searchedHeaders, array $allHeaders): array
-    {
+    private function getHeaderPositions(
+        array $searchedHeaders,
+        array $allHeaders
+    ): array {
         $foundHeaders = array_filter($allHeaders, static function (string $header) use ($searchedHeaders) {
             return in_array($header, $searchedHeaders, true);
         });
@@ -252,8 +254,10 @@ final class Table extends Component implements TableInterface
         return $foundHeaders;
     }
 
-    private function getMatchingTableRow(array $foundHeaders, array $elementData): ?ElementInterface
-    {
+    private function getMatchingTableRow(
+        array $foundHeaders,
+        array $elementData
+    ): ?ElementInterface {
         foreach ($this->parentElement->setTimeout(3)->findAll($this->getLocator('row')) as $row) {
             foreach ($foundHeaders as $headerPosition => $header) {
                 $foundHeader = $row->setTimeout(0)->findAll($this->getTableCellLocator($headerPosition));

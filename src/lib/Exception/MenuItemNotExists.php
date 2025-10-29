@@ -9,8 +9,6 @@ namespace Ibexa\AdminUi\Exception;
 
 use Exception;
 
-class MenuItemNotExists extends Exception
-{
-}
+class MenuItemNotExists extends Exception {}
 
 class_alias(MenuItemNotExists::class, 'EzSystems\EzPlatformAdminUi\Exception\MenuItemNotExists');
