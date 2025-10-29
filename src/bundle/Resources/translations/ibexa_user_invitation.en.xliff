@@ -31,6 +31,11 @@
         <target state="new">Cancel</target>
         <note>key: modal.cancel.label</note>
       </trans-unit>
+      <trans-unit id="9eae227b7c27ab230a6d0ce5947d93e7d2e1626f" resname="modal.delete">
+        <source>Delete</source>
+        <target state="new">Delete</target>
+        <note>key: modal.delete</note>
+      </trans-unit>
       <trans-unit id="7fe6937710fc7ea8e9233c52f19086aa536bc9d2" resname="modal.drop">
         <source>Drag and drop file</source>
         <target state="new">Drag and drop file</target>
