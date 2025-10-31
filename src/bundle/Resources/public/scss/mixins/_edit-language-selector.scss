@@ -6,7 +6,15 @@
     font-size: $ibexa-text-font-size-medium;
     color: $ibexa-color-dark;
     border: calculateRem(1px) solid $ibexa-color-light;
-
+    
+    &:focus, 
+    &:focus-visible,
+    &:active {
+        outline: none;
+        border-color: $ibexa-color-primary;
+        box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
+    }
+    
     &:hover {
         border-color: $ibexa-color-primary;
         cursor: pointer;
@@ -15,5 +23,6 @@
     &--active {
         background-color: $ibexa-color-light-200;
         border-color: $ibexa-color-light-400;
+        font-weight: 600;
     }
 }
