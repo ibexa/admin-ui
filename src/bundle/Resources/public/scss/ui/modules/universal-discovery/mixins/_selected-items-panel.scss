@@ -14,7 +14,7 @@
     border-top-right-radius: $ibexa-border-radius;
     border-bottom-right-radius: $ibexa-border-radius;
     box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.15);
-    z-index: 1;
+    z-index: 2;
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
     &__header {
