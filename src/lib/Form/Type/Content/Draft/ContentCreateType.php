@@ -54,7 +54,7 @@ class ContentCreateType extends AbstractType
         $contentCreateData = $options['data'];
         if ($location = $contentCreateData->getParentLocation()) {
             $limitationsValues = $this->getLimitationValuesForLocation($location);
-            $restrictedContentTypesIds = $limitationsValues[Limitation::CONTENTTYPE];
+            $restrictedContentTypesIds = array_map('intval', $limitationsValues[Limitation::CONTENTTYPE]);
             $restrictedLanguageCodes = $limitationsValues[Limitation::LANGUAGE];
         }
 
