@@ -75,9 +75,6 @@
         @include spinner(calculateRem(48px), calculateRem(6px), $ibexa-color-primary);
     }
 
-    &__loader-header-text {
-    }
-
     &--no-header {
         .close {
             @include close-button();
