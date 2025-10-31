@@ -50,6 +50,12 @@ const controlManyZIndexes = (items, listenerContainer) => {
     };
 };
 
+const forceHideLoaderOnHideEvent = (event) => {
+    if (event.target.classList.contains('ibexa-modal--with-blurred-loader')) {
+        hideModalLoader({ modalNode: event.target });
+    }
+};
+
 const showModalLoader = ({ headerText, descriptionText, modalNode }) => {
     if (!modalNode) {
         return;
@@ -80,6 +86,8 @@ const showModalLoader = ({ headerText, descriptionText, modalNode }) => {
     }
 
     modalNode.classList.add('ibexa-modal--with-blurred-loader');
+
+    document.body.addEventListener('hidden.bs.modal', forceHideLoaderOnHideEvent);
 };
 
 const hideModalLoader = ({ modalNode }) => {
@@ -94,12 +102,8 @@ const hideModalLoader = ({ modalNode }) => {
     descriptionTextNode.innerText = '';
 
     modalNode.classList.remove('ibexa-modal--with-blurred-loader');
-};
 
-document.body.addEventListener('hidden.bs.modal', (event) => {
-    if (event.target.classList.contains('ibexa-modal--with-blurred-loader')) {
-        hideModalLoader({ modalNode: event.target });
-    }
-});
+    document.body.removeEventListener('hidden.bs.modal', forceHideLoaderOnHideEvent);
+};
 
 export { controlZIndex, controlManyZIndexes, showModalLoader, hideModalLoader };
