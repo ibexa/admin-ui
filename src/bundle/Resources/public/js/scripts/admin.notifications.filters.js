@@ -39,8 +39,6 @@
             timePicker.dispatchEvent(new Event('input'));
             formInput.dispatchEvent(new Event('input'));
         }
-
-        searchForm.submit();
     };
     const attachStatusFilterEvents = (filterNode) => {
         if (!filterNode) {
@@ -129,6 +127,7 @@
         clearFilter(statusFilterNode);
         clearFilter(typeFilterNode);
         datetimeFilterNodes.forEach((input) => clearFilter(input));
+        searchForm.submit();
     };
 
     attachInitEvents();
