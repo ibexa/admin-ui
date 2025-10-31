@@ -2347,12 +2347,6 @@ parameters:
 			path: src/lib/Form/Type/ChoiceList/Loader/ContentEditTranslationChoiceLoader.php
 
 		-
-			message: '#^Parameter \#1 \$restrictedContentTypeIds of method Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentCreateContentTypeChoiceLoader\:\:setRestrictedContentTypeIds\(\) expects array\<int\>, array\<int\|string\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Form/Type/Content/Draft/ContentCreateType.php
-
-		-
 			message: '#^Parameter \#2 \$restrictedLanguagesCodes of class Ibexa\\AdminUi\\Form\\Type\\ChoiceList\\Loader\\ContentCreateLanguageChoiceLoader constructor expects array\<string\>, array\<int\|string\> given\.$#'
 			identifier: argument.type
 			count: 1
