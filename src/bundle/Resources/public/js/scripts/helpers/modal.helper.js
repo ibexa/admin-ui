@@ -97,7 +97,9 @@ const hideModalLoader = ({ modalNode }) => {
 };
 
 document.body.addEventListener('hidden.bs.modal', (event) => {
-    hideModalLoader({ modalNode: event.target });
+    if (event.target.classList.contains('ibexa-modal--with-blurred-loader')) {
+        hideModalLoader({ modalNode: event.target });
+    }
 });
 
 export { controlZIndex, controlManyZIndexes, showModalLoader, hideModalLoader };
