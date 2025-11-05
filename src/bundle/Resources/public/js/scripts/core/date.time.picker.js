@@ -131,7 +131,6 @@ class DateTimePicker {
                     flatpickrDate.setSeconds(value);
                     break;
             }
-            }
 
             if (this.flatpickrInstance.config.minDate?.getTime() > flatpickrDate.getTime()) {
                 return;
