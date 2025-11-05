@@ -1,6 +1,10 @@
 .ibexa-notifications-modal {
     cursor: auto;
 
+    &.ibexa-side-panel {
+        z-index: 10201;
+    }
+
     &__footer {
         display: flex;
         justify-content: flex-end;
