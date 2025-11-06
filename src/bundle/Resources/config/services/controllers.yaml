@@ -258,3 +258,11 @@ services:
             $imageMappings: '%ibexa.dam_widget.image.mappings%'
         tags:
             - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\ContentTypeFieldsByExpressionController:
+        parent: Ibexa\Rest\Server\Controller
+        autowire: true
+        arguments:
+            $fieldsByExpressionService: '@Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface'
+        tags:
+            - controller.service_arguments

@@ -1,0 +1,5 @@
+{
+  "FieldDefinitionExpression": {
+    "expression": "{Content}/{folder}/{name}"
+  }
+}
