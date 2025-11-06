@@ -25,6 +25,8 @@
             return false;
         });
 
+        const maxExtraPadding = Math.max(...buttonsToRender.map((config) => config.extraBottomPadding || 2));
+
         buttonsToRender.forEach((buttonConfig, index) => {
             const { container } = buttonConfig;
 
@@ -36,7 +38,7 @@
             container.style.right = '2rem';
             container.style.zIndex = buttonConfig.zIndex || 1040;
 
-            const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + 2}rem`;
+            const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + maxExtraPadding}rem`;
 
             container.style.bottom = bottomPosition;
         });

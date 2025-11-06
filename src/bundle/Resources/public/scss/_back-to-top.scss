@@ -11,6 +11,7 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity $ibexa-admin-transition-duration $ibexa-admin-transition;
+        box-shadow: $ibexa-edit-header-box-shadow;
 
         &--visible {
             opacity: 1;
