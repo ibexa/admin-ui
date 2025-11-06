@@ -158,7 +158,9 @@ class DateTimePicker {
         if (this.flatpickrInstance.config.enableTime) {
             this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, 'hours'), false);
             this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, 'minutes'), false);
-            this.flatpickrInstance.secondElement.addEventListener('keyup', this.onKeyUp.bind(this, 'seconds'), false);
+            if (this.flatpickrInstance.secondElement !== undefined) {
+                this.flatpickrInstance.secondElement.addEventListener('keyup', this.onKeyUp.bind(this, 'seconds'), false);
+            }
         }
     }
 }
