@@ -10,9 +10,11 @@ namespace Ibexa\AdminUi\ContentType;
 
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
+use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as ContentLanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
+use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
 
 final class ContentTypeFieldsByExpressionService implements ContentTypeFieldsByExpressionServiceInterface
@@ -26,11 +28,17 @@ final class ContentTypeFieldsByExpressionService implements ContentTypeFieldsByE
     public function __construct(
         ContentTypeFieldsExtractorInterface $fieldsExtractor,
         ContentTypeHandler $contentTypeHandler,
-        ContentTypeDomainMapper $contentTypeDomainMapper
+        ContentLanguageHandler $contentLanguageHandler,
+        FieldTypeRegistry $fieldTypeRegistry
     ) {
         $this->fieldsExtractor = $fieldsExtractor;
         $this->contentTypeHandler = $contentTypeHandler;
-        $this->contentTypeDomainMapper = $contentTypeDomainMapper;
+        // Building ContentTypeDomainMapper manually to avoid circular dependency.
+        $this->contentTypeDomainMapper = new ContentTypeDomainMapper(
+            $contentTypeHandler,
+            $contentLanguageHandler,
+            $fieldTypeRegistry,
+        );
     }
 
     public function getFieldsFromExpression(string $expression): array
