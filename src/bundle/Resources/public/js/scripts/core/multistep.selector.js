@@ -1,12 +1,13 @@
 (function (global, doc, ibexa) {
     class StepSelector {
-        constructor(container, apiUrl) {
+        constructor(container, { customDropdown } = {}) {
             this.container = container;
-            this.apiUrl = apiUrl;
             this.dropdownInitialContainer = this.container.querySelector('.ibexa-multistep-selector__dropdown-initial');
             this.dropdownContainer = this.container.querySelector('.ibexa-multistep-selector__dropdown');
             this.dropdownTemplate = this.container.querySelector('template');
             this.filledTemplate = null;
+            this.value = [];
+            this.DropdownClass = customDropdown ?? ibexa.core.Dropdown;
 
             this.createDropdown = this.createDropdown.bind(this);
             this.loadData = this.loadData.bind(this);
@@ -48,7 +49,7 @@
             itemsList.append(itemsListFragment);
         }
 
-        createDropdown(options = []) {
+        createDropdown(options = [], values = []) {
             this.filledTemplate = this.dropdownTemplate.content.cloneNode(true);
 
             this.fillSourceOptions(options);
@@ -58,11 +59,18 @@
             this.dropdownContainer.innerHTML = '';
             this.dropdownContainer.appendChild(this.filledTemplate);
             this.filledTemplate = null;
-            this.dropdownInstance = new ibexa.core.Dropdown({
+            this.dropdownInstance = new this.DropdownClass({
                 container: this.dropdownContainer.querySelector('.ibexa-dropdown'),
             });
 
             this.dropdownInstance.init();
+
+            values.forEach((value) => {
+                const element = this.dropdownInstance.itemsContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"]`);
+
+                this.dropdownInstance.onSelect(element, true);
+            });
+
             this.bindOnChangeListener();
         }
 
@@ -92,13 +100,18 @@
             }
         }
 
-        loadData(requestPromise) {
+        loadData(requestPromise, values = []) {
+            this.reset();
             this.toggleDropdown(false);
             this.toggleLoader(true);
 
             requestPromise().then((response) => {
+                if (response.length === 0) {
+                    return;
+                }
+
                 this.toggleLoader(false);
-                this.createDropdown(response);
+                this.createDropdown(response, values);
             });
         }
 
@@ -106,12 +119,15 @@
             this.bindOnChangeListener = () => {
                 this.dropdownInstance.sourceInput.addEventListener('change', (event) => {
                     const selectedValues = [...event.target.selectedOptions].map((option) => option.value);
+
+                    this.value = selectedValues;
                     callback({ selectedValues });
                 });
             };
         }
 
         reset() {
+            this.value = [];
             this.toggleDropdown(false);
             this.toggleLoader(false);
         }
@@ -120,15 +136,17 @@
     }
 
     class MultistepSelector {
-        constructor(container, steps) {
+        constructor(container, steps, { customDropdown, initialValue, callback } = {}) {
             this.container = container;
+            this.callback = callback;
+            this.initialValue = initialValue ?? [];
 
             this.steps = steps.map((step) => {
                 const stepContainer = this.container.querySelector(`.ibexa-multistep-selector__step[data-step-id="${step.id}"]`);
 
                 return {
                     ...step,
-                    instance: new StepSelector(stepContainer),
+                    instance: new StepSelector(stepContainer, { customDropdown }),
                 };
             });
         }
@@ -146,12 +164,31 @@
                     }
 
                     futureSteps.forEach((futureStep) => futureStep.instance.reset());
+
+                    if (this.callback) {
+                        const output = this.steps.map(({ instance }) => instance.value);
+
+                        this.callback(output);
+                    }
                 });
             });
 
             if (this.steps[0]) {
-                this.steps[0].instance.loadData(() => this.steps[0].loadData());
+                const firstStepInitialValue = this.initialValue[0] || [];
+
+                this.steps[0].instance.loadData(() => this.steps[0].loadData(), firstStepInitialValue);
             }
+
+            this.initialValue.forEach((payloadValues, key) => {
+                const step = this.steps[key + 1];
+                const stepValues = this.initialValue[key + 1];
+
+                if (!step) {
+                    return;
+                }
+
+                step.instance.loadData(() => step.loadData({ selectedValues: payloadValues }), stepValues);
+            });
         }
     }
 
