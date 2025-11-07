@@ -28,14 +28,9 @@ final class FieldDefinitionInfoList extends RestContentTypeBase
         foreach ($fieldDefinitionList->fieldDefinitions as $fieldDefinition) {
             $generator->startObjectElement('FieldDefinitionInfo');
 
-            $generator->startValueElement('id', $fieldDefinition->id);
-            $generator->endValueElement('id');
-
-            $generator->startValueElement('identifier', $fieldDefinition->identifier);
-            $generator->endValueElement('identifier');
-
-            $generator->startValueElement('position', $fieldDefinition->position);
-            $generator->endValueElement('position');
+            $generator->valueElement('id', $fieldDefinition->id);
+            $generator->valueElement('identifier', $fieldDefinition->identifier);
+            $generator->valueElement('position', $fieldDefinition->position);
 
             $this->visitNamesList($generator, $fieldDefinition->getNames());
 

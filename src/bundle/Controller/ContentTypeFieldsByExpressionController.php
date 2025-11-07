@@ -8,10 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
 use Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionInfoList;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
+use Ibexa\Rest\Server\Exceptions\BadRequestException;
+use LogicException;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ContentTypeFieldsByExpressionController extends RestController
@@ -36,8 +39,12 @@ final class ContentTypeFieldsByExpressionController extends RestController
             )
         );
 
-        return new FieldDefinitionInfoList(
-            $this->fieldsByExpressionService->getFieldsFromExpression($input->expression),
-        );
+        try {
+            $fieldDefinitions = $this->fieldsByExpressionService->getFieldsFromExpression($input->expression);
+        } catch (FieldTypeExpressionParserException | LogicException $e) {
+            throw new BadRequestException($e->getMessage());
+        }
+
+        return new FieldDefinitionInfoList($fieldDefinitions);
     }
 }

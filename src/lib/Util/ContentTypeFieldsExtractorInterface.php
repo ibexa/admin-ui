@@ -14,6 +14,8 @@ interface ContentTypeFieldsExtractorInterface
      * @return list<int>
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
+     * @throws \LogicException
      */
     public function extractFieldsFromExpression(string $expression): array;
 

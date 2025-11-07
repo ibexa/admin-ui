@@ -14,7 +14,7 @@ use Ibexa\Contracts\Test\Rest\Request\Value\EndpointRequestDefinition;
 /**
  * Coverage for /content-type/load-field-definitions-from-expression REST endpoint.
  */
-final class PostLoadFieldDefinitionsFromExpression extends BaseAdminUiRestWebTestCase
+final class PostLoadFieldDefinitionsFromExpressionTest extends BaseAdminUiRestWebTestCase
 {
     private const INPUT_MEDIA_TYPE = 'FieldDefinitionExpression';
 
