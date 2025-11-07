@@ -584,3 +584,37 @@
     {% set checked = ibexa_is_focus_mode_on() %}
     {{ block('toggle_widget') }}
 {% endblock %}
+
+{% block ibexa_fields_selector_row %}
+    {% set title %}
+        {%- if form.vars.label_html is same as(false) -%}
+            {{- form.vars.label|trans(form.vars.label_translation_parameters, form.vars.translation_domain) -}}
+        {%- else -%}
+            {{- form.vars.label|trans(form.vars.label_translation_parameters, form.vars.translation_domain)|raw -}}
+        {%- endif -%}
+    {% endset %}
+    {% set source %}
+        {{ block('form_widget') }}
+    {% endset %}
+    {% include '@ibexadesign/ui/component/multistep_selector/widget.html.twig' with {
+        id: 'source',
+        title,
+        info: form.vars.help,
+        source,
+        class: 'ibexa-fields-selector',
+        steps: [
+            {
+                id: 'ct-group',
+                label: 'ibexa.fields_selector.ct_group'|trans({}, 'forms')|desc('Content type group'),
+            },
+            {
+                id: 'ct',
+                label: 'ibexa.fields_selector.ct'|trans({}, 'forms')|desc('Content type'),
+            },
+            {
+                id: 'field',
+                label: 'ibexa.fields_selector.field'|trans({}, 'forms')|desc('Field'),
+            },
+        ]
+    } %}
+{% endblock %}

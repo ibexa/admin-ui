@@ -111,6 +111,31 @@
         <target state="new">Asset Fields(s)</target>
         <note>key: form.trash_assets_non_unique.label</note>
       </trans-unit>
+      <trans-unit id="0bbc49ec2e38e0aff20c2ca0645dd97a56794283" resname="ibexa.fields_selector.any_item">
+        <source>Any</source>
+        <target state="new">Any</target>
+        <note>key: ibexa.fields_selector.any_item</note>
+      </trans-unit>
+      <trans-unit id="26972d2c5e40f385bc2fb379c35a243a904dcc12" resname="ibexa.fields_selector.any_item_selected">
+        <source>Any (%count% selected</source>
+        <target state="new">Any (%count% selected</target>
+        <note>key: ibexa.fields_selector.any_item_selected</note>
+      </trans-unit>
+      <trans-unit id="d5dbaa991c4874c729e1f5462397c29c3746c35d" resname="ibexa.fields_selector.ct">
+        <source>Content type</source>
+        <target state="new">Content type</target>
+        <note>key: ibexa.fields_selector.ct</note>
+      </trans-unit>
+      <trans-unit id="6cdb6bfa1e44cc5eb66cf066c131adf54401fd2b" resname="ibexa.fields_selector.ct_group">
+        <source>Content type group</source>
+        <target state="new">Content type group</target>
+        <note>key: ibexa.fields_selector.ct_group</note>
+      </trans-unit>
+      <trans-unit id="9395b8ad45184204a105d2d4c78d82659a79e9a9" resname="ibexa.fields_selector.field">
+        <source>Field</source>
+        <target state="new">Field</target>
+        <note>key: ibexa.fields_selector.field</note>
+      </trans-unit>
       <trans-unit id="32094a2bed643086c29c124312938f6eee9240c8" resname="language.create.save">
         <source>Save</source>
         <target state="new">Save</target>
@@ -155,6 +180,11 @@
         <source>Send the Content item and its related assets to trash</source>
         <target state="new">Send the Content item and its related assets to trash</target>
         <note>key: location_trash_form.trash_with_asset</note>
+      </trans-unit>
+      <trans-unit id="f18d9e0877138188085b8d737bd00331d177e30c" resname="multistep_selector.step.dropdown.placeholder">
+        <source>Select</source>
+        <target state="new">Select</target>
+        <note>key: multistep_selector.step.dropdown.placeholder</note>
       </trans-unit>
       <trans-unit id="f86cd366867d370b0706e250355f605e2b783229" resname="policies_delete_form.delete">
         <source>Delete Policies</source>
