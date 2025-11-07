@@ -24,7 +24,7 @@
         } %}
             {% block selection_info_content %}
                 <li class="ibexa-dropdown__selected-item ibexa-dropdown__selected-item--predefined ibexa-dropdown__selected-placeholder">
-                    {{ 'multistep_selector.step.dropdown.placeholder'|trans|desc('Select') }}
+                    {{ 'multistep_selector.step.dropdown.placeholder'|trans({}, 'forms')|desc('Select') }}
                 </li>
                 <li class="ibexa-dropdown__selected-item ibexa-dropdown__loader-wrapper" hidden>
                     <div class="ibexa-dropdown__loader"></div>
