@@ -3,15 +3,10 @@
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const currentLanguageCode = ibexa.adminUiConfig.languages.priority[0];
     const fieldsSelectorNodes = doc.querySelectorAll('.ibexa-fields-selector');
-    const DROPDOWN_ROUTINE = {
-        CHANGE_ANY_ITEM: 'changeAnyItem',
-        CHANGE_ITEM: 'changeItem',
-    };
     const ANY_ITEM = {
         id: '*',
         name: Translator.trans(/*@Desc("Any")*/ 'ibexa.fields_selector.any_item', {}, 'forms'),
     };
-    let contentTypeGroups = [];
     const getNameForContentType = (names) => {
         const currentLanguageNames = names.value.find(({ _languageCode }) => _languageCode === currentLanguageCode);
 
@@ -58,8 +53,8 @@
         return fetch(request)
             .then(ibexa.helpers.request.getJsonFromResponse)
             .then((response) => {
-                contentTypeGroups = response.ContentTypeGroupList.ContentTypeGroup.map(({ id, identifier }) => ({
-                    id,
+                const contentTypeGroups = response.ContentTypeGroupList.ContentTypeGroup.map(({ identifier }) => ({
+                    id: identifier,
                     name: identifier,
                 }));
 
@@ -83,7 +78,7 @@
         }
 
         if (params.selectedValues[0] !== '*') {
-            bodyRequest.ViewInput.ContentTypeQuery.Query.ContentTypeGroupIdCriterion = params.selectedValues;
+            bodyRequest.ViewInput.ContentTypeQuery.Query.ContentTypeGroupNameCriterion = params.selectedValues;
         }
 
         const request = new Request('/api/ibexa/v2/content/types/view', {
@@ -136,29 +131,7 @@
             return value === ANY_ITEM.id;
         }
 
-        fitItems() {
-            if (this.dropdownRoutine === DROPDOWN_ROUTINE.CHANGE_ITEM) {
-                return;
-            }
-
-            super.fitItems();
-        }
-
-        onSelectSetSelectionInfoState(element, ...restArgs) {
-            if (this.isAnyItem(element)) {
-                return;
-            }
-
-            super.onSelectSetSelectionInfoState(element, ...restArgs);
-        }
-
-        onSelectSetCurrentSelectedValueState(element, selected, ...restArgs) {
-            if (this.dropdownRoutine === DROPDOWN_ROUTINE.CHANGE_ITEM) {
-                return;
-            }
-
-            super.onSelectSetCurrentSelectedValueState(element, selected, ...restArgs);
-        }
+        onSelectSetCurrentSelectedValueState() {}
 
         getNumberOfSelectedItems() {
             let numberOfSelectedItems = this.getSelectedItems().length;
@@ -176,8 +149,6 @@
             const anyItemCheckbox = anyItemElement.querySelector('.ibexa-input--checkbox');
             const numberOfSelectedItems = this.getNumberOfSelectedItems();
 
-            this.dropdownRoutine = DROPDOWN_ROUTINE.CHANGE_ANY_ITEM;
-
             if (numberOfSelectedItems === 0) {
                 anyItemLabel.textContent = ANY_ITEM.name;
             } else {
@@ -192,15 +163,17 @@
 
             if (numberOfSelectedItems === 0) {
                 anyItemCheckbox.indeterminate = false;
+                this.onSelectSetSourceInputState(anyItemElement, false);
+                this.onSelectSetItemsListState(anyItemElement, false);
             } else if (numberOfSelectedItems === this.getAllItems().length) {
                 anyItemCheckbox.indeterminate = false;
-                this.onSelect(anyItemElement, true);
+                this.onSelectSetSourceInputState(anyItemElement, true);
+                this.onSelectSetItemsListState(anyItemElement, true);
             } else {
-                this.onSelect(anyItemElement, false);
+                this.onSelectSetSourceInputState(anyItemElement, false);
+                this.onSelectSetItemsListState(anyItemElement, false);
                 anyItemCheckbox.indeterminate = true;
             }
-
-            this.dropdownRoutine = null;
         }
 
         deselectOption(...args) {
@@ -209,37 +182,33 @@
             this.updateAnyItemState();
         }
 
-        onSelect(element, selected, ...restArgs) {
-            super.onSelect(element, selected, ...restArgs);
+        toggleAllItems(selected) {
+            const allItems = this.getAllItems();
 
-            if (this.isAnyItem(element)) {
-                if (this.dropdownRoutine === DROPDOWN_ROUTINE.CHANGE_ANY_ITEM) {
-                    return;
+            allItems.forEach((item) => {
+                const itemValue = this.getValueFromElement(item);
+                const sourceOption = this.sourceInput.querySelector(`[value=${itemValue}]`);
+
+                if (sourceOption.selected !== selected) {
+                    this.onSelectSetSourceInputState(item, selected);
+                    this.onSelectSetItemsListState(item, selected);
+                    this.onSelectSetSelectionInfoState(item, selected);
                 }
+            });
+        }
 
-                const allItems = this.getAllItems();
+        onSelect(element, selected, ...restArgs) {
+            if (this.isAnyItem(element)) {
+                const anyItemCheckbox = element.querySelector('.ibexa-input--checkbox');
+                const nextSelectState = anyItemCheckbox.indeterminate ? false : selected;
 
-                this.dropdownRoutine = DROPDOWN_ROUTINE.CHANGE_ITEM;
-
-                allItems.forEach((item) => {
-                    const value = this.getValueFromElement(item);
-                    const { selected: itemSelected } = this.sourceInput.querySelector(`[value=${value}]`);
-
-                    if (selected && !itemSelected) {
-                        this.onSelect(item, true, ...restArgs);
-                    } else if (!selected && itemSelected) {
-                        this.onSelect(item, false, ...restArgs);
-                    }
-                });
-
-                this.dropdownRoutine = null;
-                this.fitItems();
-                this.fireValueChangedEvent();
-
-                return;
+                this.toggleAllItems(nextSelectState);
+            } else {
+                super.onSelect(element, selected, ...restArgs);
             }
 
             this.updateAnyItemState();
+            this.fireValueChangedEvent();
         }
     }
 
