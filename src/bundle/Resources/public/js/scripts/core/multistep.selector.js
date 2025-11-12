@@ -65,8 +65,13 @@
 
             this.dropdownInstance.init();
 
+            this.value = values;
             values.forEach((value) => {
                 const element = this.dropdownInstance.itemsContainer.querySelector(`.ibexa-dropdown__item[data-value="${value}"]`);
+
+                if (!element) {
+                    return;
+                }
 
                 this.dropdownInstance.onSelect(element, true);
             });
@@ -106,11 +111,12 @@
             this.toggleLoader(true);
 
             requestPromise().then((response) => {
+                this.toggleLoader(false);
+
                 if (response.length === 0) {
                     return;
                 }
 
-                this.toggleLoader(false);
                 this.createDropdown(response, values);
             });
         }
