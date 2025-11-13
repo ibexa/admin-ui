@@ -46,6 +46,38 @@
         @include modal-footer();
     }
 
+    &__loader {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        display: none;
+        backdrop-filter: blur(8px);
+        pointer-events: none;
+        border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+    }
+
+    &__loader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__loader-header-text:not(:empty) {
+        margin-top: calculateRem(24px);
+        font-weight: bold;
+    }
+
+    &__loader-description-text:not(:empty) {
+        margin-top: calculateRem(8px);
+        width: calculateRem(240px);
+        text-wrap: wrap;
+        text-align: center;
+    }
+
+    &__loader-spinner {
+        @include spinner(calculateRem(48px), calculateRem(6px), $ibexa-color-primary);
+    }
+
     &--no-header {
         .close {
             @include close-button();
@@ -94,6 +126,14 @@
             .modal-body {
                 padding-top: 0;
             }
+        }
+    }
+
+    &--with-blurred-loader {
+        .ibexa-modal__loader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }
