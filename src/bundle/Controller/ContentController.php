@@ -264,7 +264,8 @@ class ContentController extends Controller
                     new ContentEditEvent(
                         $content,
                         $versionInfo,
-                        $language->languageCode
+                        $language->languageCode,
+                        $request
                     )
                 );
 
