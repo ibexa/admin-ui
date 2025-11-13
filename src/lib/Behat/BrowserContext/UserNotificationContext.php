@@ -12,7 +12,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Component\UserNotificationPopup;
-use Ibexa\AdminUi\Behat\Page\NotificationsPage;
+use Ibexa\AdminUi\Behat\Page\NotificationsViewAllPage;
 use PHPUnit\Framework\Assert;
 
 class UserNotificationContext implements Context
@@ -23,15 +23,13 @@ class UserNotificationContext implements Context
     /** @var \Ibexa\AdminUi\Behat\Component\UserNotificationPopup */
     private $userNotificationPopup;
 
-    private NotificationsPage $notificationsPage;
+    private NotificationsViewAllPage $notificationsViewAllPage;
 
-    private int $previousCount;
-
-    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup, NotificationsPage $notificationsPage)
+    public function __construct(UpperMenu $upperMenu, UserNotificationPopup $userNotificationPopup, NotificationsViewAllPage $notificationsViewAllPage)
     {
         $this->upperMenu = $upperMenu;
         $this->userNotificationPopup = $userNotificationPopup;
-        $this->notificationsPage = $notificationsPage;
+        $this->notificationsViewAllPage = $notificationsViewAllPage;
     }
 
     /**
@@ -69,24 +67,11 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @Then no notification appears with details:
-     */
-    public function noNotificationAppearsWithDetails(TableNode $notificationDetails): void
-    {
-        $type = $notificationDetails->getHash()[0]['Type'];
-        $author = $notificationDetails->getHash()[0]['Author'];
-        $description = $notificationDetails->getHash()[0]['Description'];
-        $date = $notificationDetails->getHash()[0]['Date'];
-
-        $this->userNotificationPopup->verifyIsLoaded();
-        $this->userNotificationPopup->verifyNotification($type, $author, $description, $date, false);
-    }
-
-    /**
      * @When I open notification menu with description :description
      */
     public function iOpenNotificationMenu(string $description): void
     {
+        $this->userNotificationPopup->verifyIsLoaded();
         $this->userNotificationPopup->openNotificationMenu($description);
     }
 
@@ -99,20 +84,11 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @When I store current notification count
+     * @Then the notification action should be :expectedAction
      */
-    public function storeNotificationCount(): void
+    public function verifyNotificationAction(string $expectedAction): void
     {
-        $this->userNotificationPopup->verifyIsLoaded();
-        $this->previousCount = $this->userNotificationPopup->getNotificationCount();
-    }
-
-    /**
-     * @Then the notification count should change in :direction direction
-     */
-    public function verifyNotificationCountChanged(string $direction): void
-    {
-        $this->userNotificationPopup->verifyNotificationCountChanged($this->previousCount, $direction);
+        $this->userNotificationPopup->getActionButton($expectedAction);
     }
 
     /**
@@ -138,17 +114,8 @@ class UserNotificationContext implements Context
      */
     public function thereIsNotificationOnList(string $notificationTitle): void
     {
-        $this->notificationsPage->verifyIsLoaded();
-        $this->notificationsPage->verifyNotificationIsOnList($notificationTitle);
-    }
-
-    /**
-     * @Then there is no :notificationTitle notification on list
-     */
-    public function thereIsNoNotificationOnList(string $notificationTitle): void
-    {
-        $this->notificationsPage->verifyIsLoaded();
-        $this->notificationsPage->verifyNotificationIsNotOnList($notificationTitle);
+        $this->notificationsViewAllPage->verifyIsLoaded();
+        $this->notificationsViewAllPage->verifyNotificationIsOnList($notificationTitle);
     }
 
     /**
@@ -156,7 +123,7 @@ class UserNotificationContext implements Context
      */
     public function iMarkNotificationAsUnread(string $notificationTitle): void
     {
-        $this->notificationsPage->markAsUnread($notificationTitle);
+        $this->notificationsViewAllPage->markAsUnread($notificationTitle);
     }
 
     /**
@@ -164,7 +131,7 @@ class UserNotificationContext implements Context
      */
     public function verifyNotificationStatus(string $notificationTitle, string $notificationStatus): void
     {
-        Assert::assertEquals($notificationStatus, $this->notificationsPage->getStatusForNotification($notificationTitle));
+        Assert::assertEquals($notificationStatus, $this->notificationsViewAllPage->getStatusForNotification($notificationTitle));
     }
 
     /**
@@ -172,7 +139,7 @@ class UserNotificationContext implements Context
      */
     public function iGoToContent(string $notificationTitle): void
     {
-        $this->notificationsPage->goToContent($notificationTitle);
+        $this->notificationsViewAllPage->goToContent($notificationTitle);
     }
 
     /**
@@ -180,6 +147,22 @@ class UserNotificationContext implements Context
      */
     public function iDeleteNotification(string $notificationTitle): void
     {
-        $this->notificationsPage->deleteNotification($notificationTitle);
+        $this->notificationsViewAllPage->deleteNotification($notificationTitle);
+    }
+
+    /**
+     * @Then I should see the text :text in the notifications popup
+     */
+    public function iShouldSeeTextInNotificationsPopup(string $expectedMessage): void
+    {
+        $this->userNotificationPopup->verifyNoNotificationsMessage($expectedMessage);
+    }
+
+    /**
+     * @Then I should see the text :text in the All Notifications view
+     */
+    public function iShouldSeeTextInAllNotificationsView(string $expectedMessage): void
+    {
+        $this->notificationsViewAllPage->verifyNoNotificationsMessage($expectedMessage);
     }
 }

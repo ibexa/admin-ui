@@ -64,4 +64,5 @@ services:
 
   Ibexa\AdminUi\Behat\Page\UserProfilePage: ~
 
-  Ibexa\AdminUi\Behat\Page\NotificationsPage: ~
+  Ibexa\AdminUi\Behat\Page\NotificationsViewAllPage: ~
+

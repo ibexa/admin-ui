@@ -11,8 +11,10 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Exception;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 class UserNotificationPopup extends Component
@@ -87,52 +89,19 @@ class UserNotificationPopup extends Component
         }
     }
 
-    public function getNotificationCount(): int
-    {
-        try {
-            $counterElement = $this->getHTMLPage()->find($this->getLocator('notificationCounterDot'));
-            $countText = $counterElement->getAttribute('data-count');
-
-            return (int) $countText;
-        } catch (Exception $e) {
-            return 0;
-        }
-    }
-
-    public function verifyNotificationCountChanged(int $previousCount, string $direction): void
-    {
-        $attempts = 10;
-        $interval = 500000;
-        $currentCount = 0;
-
-        for ($i = 0; $i < $attempts; ++$i) {
-            $currentCount = $this->getNotificationCount();
-
-            if (($direction === 'increase' && $currentCount > $previousCount) ||
-                ($direction === 'decrease' && $currentCount < $previousCount)) {
-                return;
-            }
-
-            usleep($interval);
-        }
-
-        throw new \Exception(sprintf(
-            'Expected notification count to %s (previous: %d, current: %d)',
-            $direction,
-            $previousCount,
-            $currentCount
-        ));
-    }
-
     public function openNotificationMenu(string $expectedDescription): void
     {
-        $notifications = $this->getHTMLPage()
-            ->setTimeout(5)
-            ->findAll($this->getLocator('notificationItem'))
-            ->filterBy(new ChildElementTextCriterion(
-                $this->getLocator('notificationDescriptionText'),
-                $expectedDescription
-            ));
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationDescriptionText')
+                )
+            );
+
+        $notifications = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'))
+            ->filterBy(new ChildElementTextCriterion($this->getLocator('notificationDescriptionText'), $expectedDescription));
 
         $menuButton = $notifications->first()->find($this->getLocator('notificationMenuButton'));
         $menuButton->click();
@@ -141,11 +110,41 @@ class UserNotificationPopup extends Component
     public function clickActionButton(string $buttonText): void
     {
         $buttons = $this->getHTMLPage()
-            ->setTimeout(5)
+            ->setTimeout(10)
             ->findAll($this->getLocator('notificationMenuItemContent'))
             ->filterBy(new ElementTextCriterion($buttonText));
 
         $buttons->first()->execute(new MouseOverAndClick());
+    }
+
+    public function getActionButton(string $buttonText): ?ElementInterface
+    {
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationMenuItemContent')
+                )
+            );
+
+        return $this->getHTMLPage()
+            ->setTimeout(10)
+            ->findAll($this->getLocator('notificationMenuItemContent'))
+            ->filterBy(new ElementTextCriterion($buttonText))
+            ->first();
+    }
+
+    public function verifyNoNotificationsMessage(string $expectedMessage): void
+    {
+        $this->getHTMLPage()->setTimeout(20)->waitUntilCondition(
+            new ElementExistsCondition(
+                $this->getHTMLPage(),
+                $this->getLocator('notificationsEmptyText')
+            )
+        );
+
+        $this->getHTMLPage()->find($this->getLocator('notificationsEmptyText'))->assert()->textEquals($expectedMessage);
     }
 
     public function clickOnMarkAllAsReadButton(): void
@@ -180,6 +179,8 @@ class UserNotificationPopup extends Component
             new VisibleCSSLocator('notificationCounterDot', '.ibexa-header-user-menu__notice-dot'),
             new VisibleCSSLocator('markAllAsReadButton', '.ibexa-notifications-modal__mark-all-read-btn'),
             new VisibleCSSLocator('viewAllNotificationsButton', '.ibexa-notifications-modal__view-all-btn'),
+            new VisibleCSSLocator('popupMenuHidden', '.ibexa-notification-actions-popup-menu.ibexa-popup-menu--hidden'),
+            new VisibleCSSLocator('notificationsEmptyText', '.ibexa-notifications-modal__empty-text'),
         ];
     }
 }
