@@ -9,15 +9,17 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Exception;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
-final class NotificationsPage extends Page
+final class NotificationsViewAllPage extends Page
 {
     private TableInterface $table;
 
@@ -38,20 +40,13 @@ final class NotificationsPage extends Page
     public function verifyNotificationIsOnList(string $notificationTitle): void
     {
         if (!$this->table->hasElement(['Title' => $notificationTitle])) {
-            throw new \Exception(sprintf('Notification "%s" not found on list.', $notificationTitle));
-        }
-    }
-
-    public function verifyNotificationIsNotOnList(string $notificationTitle): void
-    {
-        if ($this->table->hasElement(['Title' => $notificationTitle])) {
-            throw new \Exception(sprintf('Notification "%s" is still present on list.', $notificationTitle));
+            throw new Exception(sprintf('Notification "%s" not found on list.', $notificationTitle));
         }
     }
 
     public function markAsUnread(string $notificationTitle): void
     {
-        $this->getHTMLPage()->setTimeout(5);
+        $this->getHTMLPage()->setTimeout(10);
         $this->table->getTableRow(['Title' => $notificationTitle])->click($this->getLocator('markAsUnreadButton'));
     }
 
@@ -75,6 +70,18 @@ final class NotificationsPage extends Page
         return $this->getHTMLPage()->findAll($this->getLocator('tableRow'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('rowName'), $notificationTitle))
             ->find($this->getLocator('rowStatus'))->getText();
+    }
+
+    public function verifyNoNotificationsMessage(string $expectedMessage): void
+    {
+        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(
+            new ElementExistsCondition(
+                $this->getHTMLPage(),
+                $this->getLocator('notificationsEmptyText')
+            )
+        );
+
+        $this->getHTMLPage()->find($this->getLocator('notificationsEmptyText'))->assert()->textEquals($expectedMessage);
     }
 
     public function verifyIsLoaded(): void
@@ -103,6 +110,7 @@ final class NotificationsPage extends Page
             new VisibleCSSLocator('goToContentButton', '[data-original-title="Go to content"]'),
             new VisibleCSSLocator('deleteButton', '.ibexa-notification-list__btn-delete'),
             new VisibleCSSLocator('notificationCheckbox', '.ibexa-notification-list__mark-row-checkbox'),
+            new VisibleCSSLocator('notificationsEmptyText', '.ibexa-table__empty-table-info-text'),
         ];
     }
 }
