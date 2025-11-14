@@ -203,7 +203,7 @@ class ContentViewPage extends Page
         return 'Content view';
     }
 
-    public function editContent(?string $language): void
+    public function editContent(?string $language = null): void
     {
         $this->contentActionsMenu->clickButton('Edit');
 
@@ -211,12 +211,10 @@ class ContentViewPage extends Page
             return;
         }
 
-        $availableLanguages = $this->languagePicker->getLanguages();
-
-        Assert::assertGreaterThan(1, count($availableLanguages));
-        Assert::assertContains($language, $availableLanguages);
-
         if ($language !== null) {
+            $availableLanguages = $this->languagePicker->getLanguages();
+            Assert::assertGreaterThan(1, count($availableLanguages));
+            Assert::assertContains($language, $availableLanguages);
             $this->languagePicker->chooseLanguage($language);
         }
     }
