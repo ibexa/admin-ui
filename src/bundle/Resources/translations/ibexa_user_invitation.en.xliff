@@ -6,6 +6,26 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="07c52e99431e40b768788c64536e4dc12ade0f03" resname="ibexa.user.invitation.mail.join">
+        <source>Join</source>
+        <target state="new">Join</target>
+        <note>key: ibexa.user.invitation.mail.join</note>
+      </trans-unit>
+      <trans-unit id="bc254dd11e21f88f3d7b2a1a9c8ab30bb6825702" resname="ibexa.user.invitation.mail.message">
+        <source>Join us at:</source>
+        <target state="new">Join us at:</target>
+        <note>key: ibexa.user.invitation.mail.message</note>
+      </trans-unit>
+      <trans-unit id="56996e20d695f581a1344e83a8c542c7df1a04ec" resname="ibexa.user.invitation.mail.message_title">
+        <source>Hello,</source>
+        <target state="new">Hello,</target>
+        <note>key: ibexa.user.invitation.mail.message_title</note>
+      </trans-unit>
+      <trans-unit id="54fce872265c3912727c793b582ab71318d2294e" resname="ibexa.user.invitation.mail.subject">
+        <source>You are invited to join</source>
+        <target state="new">You are invited to join</target>
+        <note>key: ibexa.user.invitation.mail.subject</note>
+      </trans-unit>
       <trans-unit id="f38b1e5444d2424d3f1a9f86b6dc7846e771fece" resname="ibexa.user.invitations.invitation_exist">
         <source>Invitation for %email% already exists</source>
         <target state="new">Invitation for %email% already exists</target>
