@@ -71,6 +71,7 @@ class IbexaAdminUiBundle extends Bundle
             new Parser\AdminUiForms(),
             new Parser\ContentType(),
             new Parser\ContentTypeGroup(),
+            new Parser\ContentTypeFieldsByExpression(),
             new Parser\SubtreePath(),
             new Parser\LimitationValueTemplates(),
             new Parser\Assets(),
