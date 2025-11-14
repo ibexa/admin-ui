@@ -240,6 +240,7 @@ class ContentTypeController extends Controller
 
                 try {
                     $contentTypeDraft = $this->tryToCreateContentTypeDraft($contentType);
+                    $this->metaFieldDefinitionService->addMetaFieldDefinitions($contentTypeDraft, $language);
                 } catch (BadStateException $e) {
                     $userId = $contentType->modifierId;
                     $this->notificationHandler->error(
