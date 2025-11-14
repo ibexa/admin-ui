@@ -23,6 +23,6 @@ final class FieldDefinitionExpression extends BaseParser
             );
         }
 
-        return new FieldDefinitionExpressionValue($data['expression']);
+        return new FieldDefinitionExpressionValue($data['expression'], $data['configuration'] ?? null);
     }
 }

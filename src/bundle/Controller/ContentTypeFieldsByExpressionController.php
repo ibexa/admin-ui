@@ -40,7 +40,10 @@ final class ContentTypeFieldsByExpressionController extends RestController
         );
 
         try {
-            $fieldDefinitions = $this->fieldsByExpressionService->getFieldsFromExpression($input->expression);
+            $fieldDefinitions = $this->fieldsByExpressionService->getFieldsFromExpression(
+                $input->expression,
+                $input->configuration,
+            );
         } catch (FieldTypeExpressionParserException | LogicException $e) {
             throw new BadRequestException($e->getMessage(), $e->getCode(), $e);
         }
