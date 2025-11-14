@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Tab\Dashboard;
 
+use Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType;
 use Ibexa\Contracts\AdminUi\Tab\AbstractTab;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\SearchService;
@@ -17,13 +18,13 @@ use Twig\Environment;
 
 abstract class AbstractContentTab extends AbstractTab implements OrderedTabInterface
 {
-    /** @var \Ibexa\AdminUi\Tab\Dashboard\PagerLocationToDataMapper */
+    /** @var PagerLocationToDataMapper */
     protected $pagerLocationToDataMapper;
 
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
+    /** @var SearchService */
     protected $searchService;
 
-    /** @var \Ibexa\AdminUi\QueryType\ContentLocationSubtreeQueryType */
+    /** @var ContentLocationSubtreeQueryType */
     protected $contentLocationSubtreeQueryType;
 
     public function __construct(

@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class SelectionUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\SectionUpdateMapper */
+    /** @var SectionUpdateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -40,7 +40,7 @@ class SelectionUpdateMapperTest extends TestCase
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
@@ -52,7 +52,7 @@ class SelectionUpdateMapperTest extends TestCase
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
     public function testMapWithWrongInstance()
@@ -84,7 +84,7 @@ class SelectionUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\SectionUpdateStruct
+     * @return SectionUpdateStruct
      */
     private function createStruct(array $properties): SectionUpdateStruct
     {
@@ -94,7 +94,7 @@ class SelectionUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Section\SectionUpdateData
+     * @return SectionUpdateData
      */
     private function createData(array $properties): SectionUpdateData
     {

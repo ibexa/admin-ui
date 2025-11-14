@@ -18,18 +18,20 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractBuilder
 {
-    /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
+    /** @var MenuItemFactoryInterface */
     protected $factory;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     protected $eventDispatcher;
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     * @param MenuItemFactoryInterface $factory
+     * @param EventDispatcherInterface $eventDispatcher
      */
-    public function __construct(MenuItemFactoryInterface $factory, EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        MenuItemFactoryInterface $factory,
+        EventDispatcherInterface $eventDispatcher
+    ) {
         $this->factory = $factory;
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -38,36 +40,42 @@ abstract class AbstractBuilder
      * @param string $id
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
-    protected function createMenuItem(string $id, array $options = []): ItemInterface
-    {
+    protected function createMenuItem(
+        string $id,
+        array $options = []
+    ): ItemInterface {
         return $this->factory->createItem($id, $options);
     }
 
     /**
      * @param string $name
-     * @param \Symfony\Contracts\EventDispatcher\Event $event
+     * @param Event $event
      */
-    protected function dispatchMenuEvent(string $name, Event $event): void
-    {
+    protected function dispatchMenuEvent(
+        string $name,
+        Event $event
+    ): void {
         $this->eventDispatcher->dispatch($event, $name);
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param ItemInterface $menu
      *
-     * @return \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent
+     * @return ConfigureMenuEvent
      */
-    protected function createConfigureMenuEvent(ItemInterface $menu, array $options = []): ConfigureMenuEvent
-    {
+    protected function createConfigureMenuEvent(
+        ItemInterface $menu,
+        array $options = []
+    ): ConfigureMenuEvent {
         return new ConfigureMenuEvent($this->factory, $menu, $options);
     }
 
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function build(array $options): ItemInterface
     {

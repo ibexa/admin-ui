@@ -18,8 +18,10 @@ class OrSpecification extends AbstractSpecification
 {
     private SpecificationInterface $baseSpecification;
 
-    public function __construct(SpecificationInterface $one, SpecificationInterface $two)
-    {
+    public function __construct(
+        SpecificationInterface $one,
+        SpecificationInterface $two
+    ) {
         $this->baseSpecification = new BaseOrSpecification($one, $two);
     }
 

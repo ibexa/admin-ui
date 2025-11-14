@@ -15,8 +15,10 @@ class TranslationDialog extends Dialog
 {
     private IbexaDropdown $ibexaDropdown;
 
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
         $this->ibexaDropdown = $ibexaDropdown;
     }

@@ -27,8 +27,10 @@ class LimitationFormMapperRegistry implements LimitationFormMapperRegistryInterf
         return $this->limitationFormMappers;
     }
 
-    public function addMapper(LimitationFormMapperInterface $mapper, $fieldTypeIdentifier)
-    {
+    public function addMapper(
+        LimitationFormMapperInterface $mapper,
+        $fieldTypeIdentifier
+    ) {
         $this->limitationFormMappers[$fieldTypeIdentifier] = $mapper;
     }
 
@@ -37,7 +39,7 @@ class LimitationFormMapperRegistry implements LimitationFormMapperRegistryInterf
      *
      * @param string $limitationIdentifier
      *
-     * @throws \InvalidArgumentException if no mapper exists for $fieldTypeIdentifier
+     * @throws InvalidArgumentException if no mapper exists for $fieldTypeIdentifier
      *
      * @return LimitationFormMapperInterface
      */

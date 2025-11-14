@@ -20,7 +20,7 @@ class ContentTypeService
     /** @var Repository\ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
     /** @var array */
@@ -30,7 +30,7 @@ class ContentTypeService
      * ContentTypeGroupService constructor.
      *
      * @param Repository\ContentTypeService $contentTypeService
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
+     * @param FormFactoryInterface $formFactory
      * @param array $prioritizedLanguages
      */
     public function __construct(
@@ -91,7 +91,7 @@ class ContentTypeService
      * Return the highest prioritized language that $contentType is translated to.
      * If there is no translation for a prioritized language, return $contentType's main language.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType Content type (or content type draft)
+     * @param ContentType $contentType Content type (or content type draft)
      *
      * @return string Language code
      */

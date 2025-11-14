@@ -29,8 +29,10 @@ class User extends FieldTypeComponent
         $this->setEnabledField(true);
     }
 
-    public function setSpecificFieldValue(string $fieldName, string $value): void
-    {
+    public function setSpecificFieldValue(
+        string $fieldName,
+        string $value
+    ): void {
         $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator($fieldName))->setValue($value);
     }
 

@@ -18,7 +18,7 @@ use Ibexa\Core\MVC\Symfony\SiteAccess;
  */
 class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
 {
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolver */
+    /** @var SiteaccessResolver */
     private $siteaccessResolver;
 
     /** @var string[] */
@@ -27,8 +27,10 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     /**
      * @param string[] $siteAccessGroups
      */
-    public function __construct(SiteaccessResolver $siteaccessResolver, array $siteAccessGroups)
-    {
+    public function __construct(
+        SiteaccessResolver $siteaccessResolver,
+        array $siteAccessGroups
+    ) {
         $this->siteaccessResolver = $siteaccessResolver;
         $this->siteAccessGroups = $siteAccessGroups;
     }
@@ -45,7 +47,7 @@ class NonAdminSiteaccessResolver implements SiteaccessResolverInterface
     }
 
     /**
-     * @return \Ibexa\Core\MVC\Symfony\SiteAccess[]
+     * @return SiteAccess[]
      */
     public function getSiteAccessesListForLocation(
         Location $location,

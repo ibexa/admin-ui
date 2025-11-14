@@ -20,13 +20,13 @@ class PolicyDraftParamConverter implements ParamConverterInterface
     public const PARAMETER_ROLE_ID = 'roleId';
     public const PARAMETER_POLICY_ID = 'policyId';
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
     /**
      * RoleParamConverter constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
+     * @param RoleService $roleService
      */
     public function __construct(RoleService $roleService)
     {
@@ -36,8 +36,10 @@ class PolicyDraftParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         if (!$request->get(self::PARAMETER_ROLE_ID) || !$request->get(self::PARAMETER_POLICY_ID)) {
             return false;
         }

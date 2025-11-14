@@ -57,7 +57,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
 
     public function onPreSetData(FormEvent $event): void
     {
-        /** @var array<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData>|null $data */
+        /** @var array<string, FieldDefinitionData>|null $data */
         $data = $event->getData();
         $form = $event->getForm();
 
@@ -96,7 +96,7 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
     }
 
     /**
-     * @param array<string, \Ibexa\AdminUi\Form\Data\FieldDefinitionData> $data
+     * @param array<string, FieldDefinitionData> $data
      */
     private function getContentTypeDraft(array $data): ?ContentTypeDraft
     {
@@ -108,8 +108,10 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
         return $firstField->contentTypeData->contentTypeDraft;
     }
 
-    private function acceptsFieldDefinition(FieldDefinitionData $field, string $identifier): bool
-    {
+    private function acceptsFieldDefinition(
+        FieldDefinitionData $field,
+        string $identifier
+    ): bool {
         $matchesType = $this->fieldTypeIdentifier === $field->getFieldTypeIdentifier();
         $matchesIdentifier = in_array($identifier, $this->fieldIdentifiers, true);
 
@@ -117,10 +119,12 @@ final class ModifyFieldDefinitionFieldsSubscriber implements EventSubscriberInte
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\FieldDefinitionData[]> $form
+     * @param FormInterface<FieldDefinitionData[]> $form
      */
-    private function rebuildFieldForm(FormInterface $form, string $name): void
-    {
+    private function rebuildFieldForm(
+        FormInterface $form,
+        string $name
+    ): void {
         $baseFieldForm = $form->get($name);
         $baseFieldFormName = $baseFieldForm->getName();
 

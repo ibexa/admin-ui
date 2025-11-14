@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\TableNavigationTab;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -17,28 +18,29 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use PHPUnit\Framework\Assert;
 
 class RolePage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     public $dialog;
 
     /** @var string */
     private $expectedRoleName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\TableNavigationTab */
+    /** @var TableNavigationTab */
     private $tableNavigationTab;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     private $expectedRoleId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $policies;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $assignments;
 
     public function __construct(
@@ -66,8 +68,10 @@ class RolePage extends Page
      *
      * @return bool
      */
-    public function isRoleWithLimitationPresent(string $moduleAndFunction, string $limitation): bool
-    {
+    public function isRoleWithLimitationPresent(
+        string $moduleAndFunction,
+        string $limitation
+    ): bool {
         $this->tableNavigationTab->goToTab('Policies');
         $actualPoliciesList = $this->policies->getColumnValues(['Module', 'Function', 'Limitations']);
 
@@ -86,8 +90,10 @@ class RolePage extends Page
         return false;
     }
 
-    private function isLimitationCorrect(string $expectedLimitation, string $actualLimitations): bool
-    {
+    private function isLimitationCorrect(
+        string $expectedLimitation,
+        string $actualLimitations
+    ): bool {
         if ($expectedLimitation === 'None') {
             return $actualLimitations === 'None';
         }
@@ -121,7 +127,7 @@ class RolePage extends Page
     {
         $this->expectedRoleName = $roleName;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
+        /** @var Role[] $roles */
         $roles = $this->repository->sudo(static function (Repository $repository) {
             return $repository->getRoleService()->loadRoles();
         });
@@ -245,8 +251,10 @@ class RolePage extends Page
             ->click();
     }
 
-    public function editPolicy(string $moduleName, string $functionName): void
-    {
+    public function editPolicy(
+        string $moduleName,
+        string $functionName
+    ): void {
         $this->policies->getTableRow(['Module' => $moduleName, 'Function' => $functionName])->edit();
     }
 }

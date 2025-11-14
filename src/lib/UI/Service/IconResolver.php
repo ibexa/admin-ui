@@ -20,14 +20,18 @@ abstract class IconResolver
 
     protected Packages $packages;
 
-    public function __construct(ConfigResolverInterface $configResolver, Packages $packages)
-    {
+    public function __construct(
+        ConfigResolverInterface $configResolver,
+        Packages $packages
+    ) {
         $this->configResolver = $configResolver;
         $this->packages = $packages;
     }
 
-    protected function getIcon(string $format, string $identifier): string
-    {
+    protected function getIcon(
+        string $format,
+        string $identifier
+    ): string {
         $icon = $this->resolveIcon($format, $identifier);
         $fragment = null;
         if (strpos($icon, '#') !== false) {
@@ -37,8 +41,10 @@ abstract class IconResolver
         return $this->packages->getUrl($icon) . ($fragment ? '#' . $fragment : '');
     }
 
-    private function resolveIcon(string $format, string $identifier): string
-    {
+    private function resolveIcon(
+        string $format,
+        string $identifier
+    ): string {
         $parameterName = $this->getConfigParameterName($format, $identifier);
         $defaultParameterName = $this->getConfigParameterName($format, static::DEFAULT_IDENTIFIER);
 
@@ -59,8 +65,10 @@ abstract class IconResolver
     /**
      * Returns configuration parameter name for given content type identifier.
      */
-    private function getConfigParameterName(string $format, string $identifier): string
-    {
+    private function getConfigParameterName(
+        string $format,
+        string $identifier
+    ): string {
         return sprintf($format, $identifier);
     }
 }

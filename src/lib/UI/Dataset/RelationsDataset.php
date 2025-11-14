@@ -11,14 +11,15 @@ namespace Ibexa\AdminUi\UI\Dataset;
 use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 class RelationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
     /** @var UIValue\Content\Relation[] */
@@ -28,11 +29,13 @@ class RelationsDataset
     protected $reverseRelations;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param ContentService $contentService
+     * @param ValueFactory $valueFactory
      */
-    public function __construct(ContentService $contentService, ValueFactory $valueFactory)
-    {
+    public function __construct(
+        ContentService $contentService,
+        ValueFactory $valueFactory
+    ) {
         $this->contentService = $contentService;
         $this->valueFactory = $valueFactory;
         $this->relations = [];
@@ -44,7 +47,7 @@ class RelationsDataset
      *
      * @return RelationsDataset
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      */
     public function load(Content $content): self
     {

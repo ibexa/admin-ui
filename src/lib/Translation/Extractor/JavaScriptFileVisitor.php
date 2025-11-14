@@ -18,6 +18,7 @@ use JMS\TranslationBundle\Translation\Extractor\FileVisitorInterface;
 use Peast\Peast;
 use Peast\Syntax\Exception;
 use Peast\Syntax\Node;
+use Peast\Syntax\Node\Expression;
 use Psr\Log\LoggerAwareTrait;
 use Psr\Log\NullLogger;
 use SplFileInfo;
@@ -35,7 +36,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     public const TRANS_DOMAIN_ARG = 2;
     public const TRANS_CHOICE_DOMAIN_ARG = 3;
 
-    /** @var \Doctrine\Common\Annotations\DocParser */
+    /** @var DocParser */
     private $docParser;
 
     /** @var string */
@@ -58,8 +59,10 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         ]);
     }
 
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue)
-    {
+    public function visitFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue
+    ) {
         if (!$this->supports($file)) {
             return;
         }
@@ -109,25 +112,32 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
         });
     }
 
-    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
-    {
-    }
+    public function visitPhpFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        array $ast
+    ) {}
 
-    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
-    {
-    }
+    public function visitTwigFile(
+        SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        TwigNode $ast
+    ) {}
 
     /**
      * Returns true if node is a method call.
      *
-     * @param \Peast\Syntax\Node\Node $node
+     * @param Node\Node $node
      * @param string $objectName
      * @param string $methodName
      *
      * @return bool
      */
-    private function isMethodCall(Node\Node $node, string $objectName, string $methodName): bool
-    {
+    private function isMethodCall(
+        Node\Node $node,
+        string $objectName,
+        string $methodName
+    ): bool {
         if ($node instanceof Node\CallExpression) {
             $callee = $node->getCallee();
 
@@ -147,13 +157,15 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     /**
      * Extracts a message domain from the translator call.
      *
-     * @param \SplFileInfo $file
-     * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param SplFileInfo $file
+     * @param Expression[] $arguments
      *
      * @return string|null
      */
-    private function extractId(SplFileInfo $file, array $arguments): ?string
-    {
+    private function extractId(
+        SplFileInfo $file,
+        array $arguments
+    ): ?string {
         if (!empty($arguments)) {
             $idNode = $arguments[self::ID_ARG];
 
@@ -178,14 +190,17 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     /**
      * Extracts a message domain from the translator call.
      *
-     * @param \SplFileInfo $file
-     * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param SplFileInfo $file
+     * @param Expression[] $arguments
      * @param string $methodName
      *
      * @return string|null
      */
-    private function extractDomain(SplFileInfo $file, array $arguments, string $methodName): ?string
-    {
+    private function extractDomain(
+        SplFileInfo $file,
+        array $arguments,
+        string $methodName
+    ): ?string {
         $domainArgIndex = $methodName === self::TRANSLATOR_TRANS_METHOD
             ? self::TRANS_DOMAIN_ARG
             : self::TRANS_CHOICE_DOMAIN_ARG;
@@ -214,7 +229,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     /**
      * Extracts a message description from the translator call.
      *
-     * @param \Peast\Syntax\Node\Expression[] $arguments
+     * @param Expression[] $arguments
      *
      * @return string|null
      */
@@ -235,7 +250,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
     /**
      * Returns true if file is supported by extractor.
      *
-     * @param \SplFileInfo $file
+     * @param SplFileInfo $file
      *
      * @return bool
      */

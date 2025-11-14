@@ -16,8 +16,10 @@ class Country extends FieldTypeComponent
 {
     private IbexaDropdown $dropdown;
 
-    public function __construct(Session $session, IbexaDropdown $dropdown)
-    {
+    public function __construct(
+        Session $session,
+        IbexaDropdown $dropdown
+    ) {
         parent::__construct($session);
         $this->dropdown = $dropdown;
     }

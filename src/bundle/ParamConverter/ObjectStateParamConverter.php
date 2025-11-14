@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ParamConverter;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -19,11 +20,11 @@ class ObjectStateParamConverter implements ParamConverterInterface
 {
     public const PARAMETER_OBJECT_STATE_ID = 'objectStateId';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     private $objectStateService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
+     * @param ObjectStateService $objectStateService
      */
     public function __construct(ObjectStateService $objectStateService)
     {
@@ -31,15 +32,17 @@ class ObjectStateParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration
+     * @param Request $request
+     * @param ParamConverter $configuration
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         $id = (int)$request->get(self::PARAMETER_OBJECT_STATE_ID);
         $objectState = $this->objectStateService->loadObjectState($id);
 
@@ -53,7 +56,7 @@ class ObjectStateParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration
+     * @param ParamConverter $configuration
      *
      * @return bool
      */

@@ -10,6 +10,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,12 +19,12 @@ use PHPUnit\Framework\TestCase;
 class AdminUiFormsTest extends TestCase
 {
     /**
-     * @var \Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser\AdminUiForms
+     * @var AdminUiForms
      */
     private $parser;
 
     /**
-     * @var \Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var ContextualizerInterface|MockObject
      */
     private $contextualizer;
 

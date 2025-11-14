@@ -19,8 +19,10 @@ class CreateNewPopup extends Component
 {
     private IbexaDropdown $ibexaDropdown;
 
-    public function __construct(Session $session, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        Session $session,
+        IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session);
         $this->ibexaDropdown = $ibexaDropdown;
     }
@@ -38,8 +40,10 @@ class CreateNewPopup extends Component
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('popupHeader'))->assert()->textEquals($expectedHeader);
     }
 
-    public function selectFromDropdown(string $dropdownLabel, string $dropdownValue): void
-    {
+    public function selectFromDropdown(
+        string $dropdownLabel,
+        string $dropdownValue
+    ): void {
         $definition = $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('popup'))->findAll($this->getLocator('formGroup'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $dropdownLabel));
         if ($definition->find($this->getLocator('dropdownValue'))->getText() === $dropdownValue) {
@@ -51,8 +55,10 @@ class CreateNewPopup extends Component
         $this->ibexaDropdown->selectOption($dropdownValue);
     }
 
-    public function selectRadio(string $radioLabel, string $radioValue): void
-    {
+    public function selectRadio(
+        string $radioLabel,
+        string $radioValue
+    ): void {
         $definition = $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('popup'))->findAll($this->getLocator('formGroup'))
             ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $radioLabel));
         if ($definition->find($this->getLocator('radioValue'))->getText() === $radioValue) {

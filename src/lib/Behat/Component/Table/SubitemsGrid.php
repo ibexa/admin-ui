@@ -23,9 +23,7 @@ class SubitemsGrid extends Component implements TableInterface
         ];
     }
 
-    public function verifyIsLoaded(): void
-    {
-    }
+    public function verifyIsLoaded(): void {}
 
     public function isEmpty(): bool
     {

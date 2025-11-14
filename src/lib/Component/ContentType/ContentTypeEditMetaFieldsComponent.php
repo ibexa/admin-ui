@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Component\ContentType;
 
 use Ibexa\AdminUi\Config\AdminUiForms\ContentTypeFieldTypesResolverInterface;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Twig\Environment;
 
@@ -33,7 +34,7 @@ final class ContentTypeEditMetaFieldsComponent implements ComponentInterface
      */
     public function render(array $parameters = []): string
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $parameters['content_type'];
         $metaFieldTypeIdentifiers = $this->contentTypeFieldTypesResolver->getMetaFieldTypeIdentifiers();
 

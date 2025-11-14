@@ -117,8 +117,10 @@ class MapLocation extends FieldTypeComponent
         ];
     }
 
-    private function setSpecificCoordinate(string $coordinateName, string $value): void
-    {
+    private function setSpecificCoordinate(
+        string $coordinateName,
+        string $value
+    ): void {
         $fieldSelector = CSSLocatorBuilder::base($this->parentLocator)
             ->withDescendant($this->getLocator($coordinateName))
             ->build()

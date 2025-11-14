@@ -9,7 +9,9 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\AdminList;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -19,26 +21,31 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 class ContentTypeGroupPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList */
+    /** @var AdminList */
     protected $adminList;
 
     /** @var string */
     protected $expectedName;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     /** @var mixed */
     private $contentTypeGroupId;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     private $dialog;
 
-    public function __construct(Session $session, Router $router, ContentTypeService $contentTypeService, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        ContentTypeService $contentTypeService,
+        TableBuilder $tableBuilder,
+        Dialog $dialog
+    ) {
         parent::__construct($session, $router);
         $this->contentTypeService = $contentTypeService;
         $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('tableContainer'))->build();

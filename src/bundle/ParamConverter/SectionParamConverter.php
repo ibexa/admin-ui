@@ -21,14 +21,14 @@ class SectionParamConverter implements ParamConverterInterface
     public const PARAMETER_SECTION_ID = 'sectionId';
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\SectionService
+     * @var SectionService
      */
     private $sectionService;
 
     /**
      * SectionParamConverter constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
+     * @param SectionService $sectionService
      */
     public function __construct(SectionService $sectionService)
     {
@@ -38,8 +38,10 @@ class SectionParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         if (!$request->get(self::PARAMETER_SECTION_ID)) {
             return false;
         }

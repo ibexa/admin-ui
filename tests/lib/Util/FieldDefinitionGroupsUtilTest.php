@@ -50,8 +50,8 @@ class FieldDefinitionGroupsUtilTest extends TestCase
 
         $util = new FieldDefinitionGroupsUtil($fieldsGroupsListHelper);
 
-        $this->assertSame($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
-        $this->assertEquals($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
+        self::assertSame($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
+        self::assertEquals($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
     }
 }
 

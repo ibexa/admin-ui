@@ -19,8 +19,10 @@ class SearchContext implements Context
 
     private UpperMenu $upperMenu;
 
-    public function __construct(SearchPage $searchPage, UpperMenu $upperMenu)
-    {
+    public function __construct(
+        SearchPage $searchPage,
+        UpperMenu $upperMenu
+    ) {
         $this->searchPage = $searchPage;
         $this->upperMenu = $upperMenu;
     }

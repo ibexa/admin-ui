@@ -20,25 +20,29 @@ class FieldTypeDefinitionFormMapperDispatcher implements FieldTypeDefinitionForm
     /**
      * FieldType form mappers, indexed by FieldType identifier.
      *
-     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[]
+     * @var FieldDefinitionFormMapperInterface[]
      */
     private $mappers = [];
 
     /**
-     * @param \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface[] $mappers
+     * @param FieldDefinitionFormMapperInterface[] $mappers
      */
     public function __construct(array $mappers = [])
     {
         $this->mappers = $mappers;
     }
 
-    public function addMapper(FieldDefinitionFormMapperInterface $mapper, string $fieldTypeIdentifier): void
-    {
+    public function addMapper(
+        FieldDefinitionFormMapperInterface $mapper,
+        string $fieldTypeIdentifier
+    ): void {
         $this->mappers[$fieldTypeIdentifier] = $mapper;
     }
 
-    public function map(FormInterface $fieldForm, FieldDefinitionData $data): void
-    {
+    public function map(
+        FormInterface $fieldForm,
+        FieldDefinitionData $data
+    ): void {
         $fieldTypeIdentifier = $data->getFieldTypeIdentifier();
 
         if (!isset($this->mappers[$fieldTypeIdentifier])) {

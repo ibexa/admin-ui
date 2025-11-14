@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeGroupDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var ContentTypeGroup */
     private $contentTypeGroup;
 
     public function __construct(?ContentTypeGroup $contentTypeGroup = null)
@@ -21,7 +21,7 @@ class ContentTypeGroupDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup
+     * @return ContentTypeGroup
      */
     public function getContentTypeGroup(): ContentTypeGroup
     {
@@ -29,7 +29,7 @@ class ContentTypeGroupDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param ContentTypeGroup $contentTypeGroup
      */
     public function setContentTypeGroup(ContentTypeGroup $contentTypeGroup)
     {

@@ -17,6 +17,7 @@ use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\User\UserSetting\UserSettingService;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,7 +25,7 @@ use Twig\Environment;
 
 final class VersionsTabVisibilityTest extends AbstractTabVisibilityTestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var Content&MockObject */
     private Content $exampleContent;
 
     private function getExampleContent(): Content

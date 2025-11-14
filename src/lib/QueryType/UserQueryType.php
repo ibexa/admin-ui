@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\QueryType;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Core\QueryType\BuiltIn\AbstractQueryType;
@@ -49,7 +50,7 @@ final class UserQueryType extends AbstractQueryType
     /**
      * @param array<mixed> $parameters
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidCriterionArgumentException
      */
     protected function getQueryFilter(array $parameters): Criterion
     {

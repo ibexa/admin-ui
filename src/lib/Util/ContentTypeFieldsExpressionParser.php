@@ -118,7 +118,7 @@ final class ContentTypeFieldsExpressionParser implements ContentTypeFieldsExpres
     }
 
     /**
-     * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
+     * @throws FieldTypeExpressionParserException
      */
     private function expectSlash(): void
     {

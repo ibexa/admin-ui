@@ -51,50 +51,51 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContentController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\ContentMainLocationUpdateMapper */
+    /** @var ContentMainLocationUpdateMapper */
     private $contentMainLocationUpdateMapper;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface */
+    /** @var SiteaccessResolverInterface */
     private $siteaccessResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
+    /** @var LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
+    /** @var TranslationHelper */
     private $translationHelper;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface */
+    /** @var SiteAccessNameGeneratorInterface */
     private $siteAccessNameGenerator;
 
-    /** @var \Symfony\Contracts\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
     private FormFactoryInterface $baseFormFactory;
@@ -146,13 +147,13 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws UnauthorizedException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws ApiException\ContentValidationException
      * @throws ApiException\ContentFieldValidationException
@@ -197,7 +198,7 @@ class ContentController extends Controller
         string $languageCode,
         int $parentLocationId
     ): Response {
-        /** @var \Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent $event */
+        /** @var ContentProxyCreateEvent $event */
         $event = $this->eventDispatcher->dispatch(
             new ContentProxyCreateEvent(
                 $contentType,
@@ -220,13 +221,13 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws UnauthorizedException
+     * @throws InvalidOptionsException
      */
     public function editAction(Request $request): Response
     {
@@ -259,7 +260,7 @@ class ContentController extends Controller
                     ]);
                 }
 
-                /** @var \Ibexa\Contracts\AdminUi\Event\ContentEditEvent $event */
+                /** @var ContentEditEvent $event */
                 $event = $this->eventDispatcher->dispatch(
                     new ContentEditEvent(
                         $content,
@@ -299,7 +300,7 @@ class ContentController extends Controller
             }
         }
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData $data */
+        /** @var ContentEditData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
 
@@ -314,16 +315,16 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws ApiException\InvalidArgumentException
+     * @throws UnauthorizedException
+     * @throws InvalidOptionsException
      */
     public function updateMainLocationAction(Request $request): Response
     {
@@ -357,7 +358,7 @@ class ContentController extends Controller
             }
         }
 
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData $data */
+        /** @var ContentEditData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
 
@@ -373,12 +374,12 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      * @param string|null $languageCode
      * @param int|null $versionNo
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function previewAction(
         Request $request,
@@ -457,9 +458,9 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function updateMainTranslationAction(Request $request): Response
     {
@@ -490,7 +491,7 @@ class ContentController extends Controller
                 return $result;
             }
         }
-        /** @var \Ibexa\AdminUi\Form\Data\Content\Translation\MainTranslationUpdateData $data */
+        /** @var MainTranslationUpdateData $data */
         $data = $form->getData();
         $contentInfo = $data->getContentInfo();
         if (null !== $contentInfo) {
@@ -505,9 +506,9 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function updateVisibilityAction(Request $request): Response
     {
@@ -571,16 +572,18 @@ class ContentController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      * @param string|null $languageCode
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return JsonResponse
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws ApiException\BadStateException
+     * @throws ApiException\InvalidArgumentException
      */
-    public function checkEditPermissionAction(Content $content, ?string $languageCode): JsonResponse
-    {
+    public function checkEditPermissionAction(
+        Content $content,
+        ?string $languageCode
+    ): JsonResponse {
         $targets = [];
 
         if (null !== $languageCode) {

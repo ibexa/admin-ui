@@ -9,6 +9,7 @@ namespace Ibexa\Tests\AdminUi\EventListener;
 
 use Ibexa\AdminUi\EventListener\RequestListener;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -18,16 +19,16 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class RequestListenerTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\EventListener\RequestListener */
+    /** @var RequestListener */
     private $requestListener;
 
-    /** @var \Symfony\Component\HttpFoundation\Request */
+    /** @var Request */
     private $request;
 
-    /** @var \Symfony\Component\HttpKernel\Event\RequestEvent */
+    /** @var RequestEvent */
     private $event;
 
-    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var HttpKernelInterface|MockObject */
     private $httpKernel;
 
     protected function setUp(): void
@@ -69,21 +70,21 @@ class RequestListenerTest extends TestCase
             HttpKernelInterface::SUB_REQUEST
         );
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testOnKernelRequestAllowAccessWithoutSiteAccess()
     {
         $this->request->attributes->set('siteaccess', 'not_siteaccess_object');
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testOnKernelRequestAllowAccessWithoutGroupWhitelist()
     {
         $this->request->attributes->set('siteaccess_group_whitelist', null);
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testOnKernelRequestAllowAccessWhenGroupMatch()
@@ -91,12 +92,12 @@ class RequestListenerTest extends TestCase
         $this->request->attributes->set('siteaccess', new SiteAccess('some_name'));
         $this->request->attributes->set('siteaccess_group_whitelist', ['group_1', 'group_2']);
 
-        $this->assertNull($this->requestListener->onKernelRequest($this->event));
+        self::assertNull($this->requestListener->onKernelRequest($this->event));
     }
 
     public function testSubscribedEvents()
     {
-        $this->assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
+        self::assertSame([KernelEvents::REQUEST => ['onKernelRequest', 13]], $this->requestListener::getSubscribedEvents());
     }
 }
 

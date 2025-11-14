@@ -15,19 +15,19 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 final class ReverseRelationAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     private $datasetFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
+    /** @var Content */
     private $content;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param ContentService $contentService
+     * @param DatasetFactory $datasetFactory
+     * @param Content $content
      */
     public function __construct(
         ContentService $contentService,
@@ -57,8 +57,10 @@ final class ReverseRelationAdapter implements AdapterInterface
      *
      * @return array|\Traversable the slice
      */
-    public function getSlice($offset, $length)
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ) {
         return $this->datasetFactory
             ->reverseRelationList()
             ->load($this->content, $offset, $length)

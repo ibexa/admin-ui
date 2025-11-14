@@ -24,24 +24,25 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Button;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ObjectStateGroupController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     private $objectStateService;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -59,11 +60,11 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function listAction(): Response
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
+        /** @var ObjectStateGroup[] $objectStateGroups */
         $objectStateGroups = $this->objectStateService->loadObjectStateGroups();
         $emptyObjectStateGroups = [];
 
@@ -84,9 +85,9 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $objectStateGroup
+     * @param ObjectStateGroup $objectStateGroup
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function viewAction(ObjectStateGroup $objectStateGroup): Response
     {
@@ -102,9 +103,9 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addAction(Request $request): Response
     {
@@ -112,7 +113,7 @@ class ObjectStateGroupController extends Controller
         $languages = $this->configResolver->getParameter('languages');
         $defaultLanguageCode = reset($languages);
 
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createObjectStateGroup(
             new ObjectStateGroupCreateData()
         );
@@ -161,13 +162,15 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $group
+     * @param Request $request
+     * @param ObjectStateGroup $group
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function deleteAction(Request $request, ObjectStateGroup $group): Response
-    {
+    public function deleteAction(
+        Request $request,
+        ObjectStateGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
         $form = $this->formFactory->deleteObjectStateGroup(
             new ObjectStateGroupDeleteData($group)
@@ -198,9 +201,9 @@ class ObjectStateGroupController extends Controller
     /**
      * Handles removing object state groups based on submitted form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function bulkDeleteAction(Request $request): Response
     {
@@ -234,15 +237,17 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup $group
+     * @param Request $request
+     * @param ObjectStateGroup $group
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function updateAction(Request $request, ObjectStateGroup $group): Response
-    {
+    public function updateAction(
+        Request $request,
+        ObjectStateGroup $group
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('state', 'administrate'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updateObjectStateGroup(
             new ObjectStateGroupUpdateData($group)
         );
@@ -289,7 +294,7 @@ class ObjectStateGroupController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $groups
+     * @param ObjectStateGroup[] $groups
      *
      * @return array
      */

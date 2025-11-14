@@ -20,15 +20,15 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
  */
 class User implements ProviderInterface
 {
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     /**
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param TokenStorageInterface $tokenStorage
+     * @param ContentTypeService $contentTypeService
      */
     public function __construct(
         TokenStorageInterface $tokenStorage,
@@ -65,9 +65,9 @@ class User implements ProviderInterface
     /**
      * Returns first occurrence of an `ezimage` fieldtype.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\User $user
+     * @param ApiUser $user
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field|null
+     * @return Field|null
      */
     private function resolveProfilePictureField(ApiUser $user): ?Field
     {

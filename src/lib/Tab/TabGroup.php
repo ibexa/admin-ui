@@ -15,15 +15,17 @@ class TabGroup
     /** @var string */
     protected $identifier;
 
-    /** @var \Ibexa\Contracts\AdminUi\Tab\TabInterface[] */
+    /** @var TabInterface[] */
     protected $tabs;
 
     /**
      * @param string $name
      * @param array $tabs
      */
-    public function __construct(string $name, array $tabs = [])
-    {
+    public function __construct(
+        string $name,
+        array $tabs = []
+    ) {
         $this->identifier = $name;
         $this->tabs = $tabs;
     }
@@ -45,7 +47,7 @@ class TabGroup
     }
 
     /**
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
+     * @return TabInterface[]
      */
     public function getTabs(): array
     {
@@ -53,7 +55,7 @@ class TabGroup
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
+     * @param TabInterface[] $tabs
      */
     public function setTabs(array $tabs)
     {
@@ -61,7 +63,7 @@ class TabGroup
     }
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $tab
+     * @param TabInterface $tab
      */
     public function addTab(TabInterface $tab)
     {

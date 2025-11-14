@@ -15,17 +15,18 @@ use Ibexa\Contracts\Core\Repository\Values\Content as API;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content as Core;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class UserTransformerTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataTransformer\UserTransformer */
+    /** @var UserTransformer */
     private $userTransformer;
 
     protected function setUp(): void
     {
-        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $userService */
+        /** @var UserService|MockObject $userService */
         $userService = $this->createMock(UserService::class);
         $userService->expects(self::any())
             ->method('loadUser')
@@ -41,11 +42,13 @@ class UserTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
-    {
+    public function testTransform(
+        $value,
+        $expected
+    ) {
         $result = $this->userTransformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -67,11 +70,13 @@ class UserTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testReverseTransform($value, $expected)
-    {
+    public function testReverseTransform(
+        $value,
+        $expected
+    ) {
         $result = $this->userTransformer->reverseTransform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     /**
@@ -92,11 +97,10 @@ class UserTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('User not found');
 
-        /** @var \Ibexa\Contracts\Core\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject $service */
+        /** @var UserService|MockObject $service */
         $service = $this->createMock(UserService::class);
         $service->method('loadUser')
-            ->will($this->throwException(new class('User not found') extends NotFoundException {
-            }));
+            ->will(self::throwException(new class('User not found') extends NotFoundException {}));
 
         $transformer = new UserTransformer($service);
 

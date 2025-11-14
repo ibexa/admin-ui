@@ -15,24 +15,26 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
  */
 class VersionRemoveData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
+    /** @var ContentInfo|null */
     protected $contentInfo;
 
     /** @var array|null */
     protected $versions;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      * @param array|null $versions
      */
-    public function __construct(?ContentInfo $contentInfo = null, array $versions = [])
-    {
+    public function __construct(
+        ?ContentInfo $contentInfo = null,
+        array $versions = []
+    ) {
         $this->contentInfo = $contentInfo;
         $this->versions = $versions;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -40,7 +42,7 @@ class VersionRemoveData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo)
     {

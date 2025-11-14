@@ -19,12 +19,12 @@ final class FlashBagNotificationHandler implements NotificationHandlerInterface
     private const TYPE_ERROR = 'error';
 
     /**
-     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+     * @var SessionInterface
      */
     private $session;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
+     * @param SessionInterface $session
      */
     public function __construct(SessionInterface $session)
     {

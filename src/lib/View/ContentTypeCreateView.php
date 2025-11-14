@@ -15,13 +15,13 @@ use Symfony\Component\Form\FormInterface;
 
 final class ContentTypeCreateView extends BaseView
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var ContentTypeGroup */
     private $contentTypeGroup;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft */
+    /** @var ContentTypeDraft */
     private $contentTypeDraft;
 
-    /** @var \Symfony\Component\Form\FormInterface */
+    /** @var FormInterface */
     private $form;
 
     /**

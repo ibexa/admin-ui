@@ -21,8 +21,10 @@ final class URLWildcardDeleteType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('URLWildcardsChoices', CollectionType::class, [
                 'entry_type' => CheckboxType::class,

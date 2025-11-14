@@ -21,13 +21,13 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class SearchViewFilterParametersListener implements EventSubscriberInterface
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    /** @var RequestStack */
     private $requestStack;
 
     /** @var string[][] */

@@ -16,16 +16,16 @@ interface FormUiActionMapperInterface
     /**
      * Maps $form object to UiActionEvent object.
      *
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      *
-     * @return \Ibexa\AdminUi\UI\Action\UiActionEvent
+     * @return UiActionEvent
      */
     public function map(FormInterface $form): UiActionEvent;
 
     /**
      * Returns true if FormUiActionMapper is able to create Event from the $form;.
      *
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      *
      * @return bool
      */

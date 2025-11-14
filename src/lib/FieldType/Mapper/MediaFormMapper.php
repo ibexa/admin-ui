@@ -21,19 +21,23 @@ use Symfony\Component\Validator\Constraints\Range;
 
 class MediaFormMapper implements FieldDefinitionFormMapperInterface
 {
-    /** @var \Ibexa\ContentForms\ConfigResolver\MaxUploadSize */
+    /** @var MaxUploadSize */
     private $maxUploadSize;
 
     protected const ACCEPT_VIDEO = 'video/*';
     protected const ACCEPT_AUDIO = 'audio/*';
 
-    public function __construct(FieldTypeService $fieldTypeService, MaxUploadSize $maxUploadSize)
-    {
+    public function __construct(
+        FieldTypeService $fieldTypeService,
+        MaxUploadSize $maxUploadSize
+    ) {
         $this->maxUploadSize = $maxUploadSize;
     }
 
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
-    {
+    public function mapFieldDefinitionForm(
+        FormInterface $fieldDefinitionForm,
+        FieldDefinitionData $data
+    ): void {
         $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $fieldDefinitionForm
             ->add('maxSize', IntegerType::class, [

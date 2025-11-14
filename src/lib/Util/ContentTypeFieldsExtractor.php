@@ -37,15 +37,17 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
         return $this->mergeFieldIds($extractedMetadata->getFields(), $contentTypes);
     }
 
-    public function isFieldWithinExpression(int $fieldDefinitionId, string $expression): bool
-    {
+    public function isFieldWithinExpression(
+        int $fieldDefinitionId,
+        string $expression
+    ): bool {
         $fieldsFromExpression = $this->extractFieldsFromExpression($expression);
 
         return in_array($fieldDefinitionId, $fieldsFromExpression, true);
     }
 
     /**
-     * @return list<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType>
+     * @return list<ContentType>
      */
     private function resolveContentTypes(ContentTypeFieldsParsedStructure $extractedMetadata): array
     {
@@ -89,8 +91,10 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
      *
      * @return array<int, int>
      */
-    private function resolveFieldIds(?array $fieldIdentifiers, ContentType $contentType): array
-    {
+    private function resolveFieldIds(
+        ?array $fieldIdentifiers,
+        ContentType $contentType
+    ): array {
         $fieldDefinitions = $contentType->getFieldDefinitions();
 
         if ($fieldIdentifiers === null) {
@@ -107,7 +111,7 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
     }
 
     /**
-     * @param non-empty-list<\Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType> $contentTypes
+     * @param non-empty-list<ContentType> $contentTypes
      * @param list<string> $contentTypeGroupIdentifiers
      */
     private function validateContentTypesInsideGroups(
@@ -142,8 +146,10 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
      *
      * @return list<int>
      */
-    private function mergeFieldIds(?array $fieldIdentifiers, iterable $contentTypes): array
-    {
+    private function mergeFieldIds(
+        ?array $fieldIdentifiers,
+        iterable $contentTypes
+    ): array {
         $finalFieldIds = [];
         foreach ($contentTypes as $contentType) {
             $finalFieldIds = array_merge(

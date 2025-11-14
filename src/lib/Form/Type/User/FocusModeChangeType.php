@@ -16,8 +16,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class FocusModeChangeType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder->add(
             'enabled',
             CheckboxType::class,

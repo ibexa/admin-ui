@@ -36,7 +36,7 @@ class LimitationTranslationExtractorTest extends TestCase
     /**
      * Get expected MessageCatalogue object created by the extractor.
      *
-     * @return \JMS\TranslationBundle\Model\MessageCatalogue
+     * @return MessageCatalogue
      */
     private function getExpectedMessageCatalogue(): MessageCatalogue
     {

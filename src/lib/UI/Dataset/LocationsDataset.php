@@ -11,30 +11,33 @@ namespace Ibexa\AdminUi\UI\Dataset;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class LocationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     protected $locationService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     protected $valueFactory;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
+    /** @var Location[] */
     protected $data;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param LocationService $locationService
+     * @param ValueFactory $valueFactory
      */
-    public function __construct(LocationService $locationService, ValueFactory $valueFactory)
-    {
+    public function __construct(
+        LocationService $locationService,
+        ValueFactory $valueFactory
+    ) {
         $this->locationService = $locationService;
         $this->valueFactory = $valueFactory;
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
+     * @param ContentInfo $contentInfo
      *
      * @return LocationsDataset
      */
@@ -50,9 +53,9 @@ class LocationsDataset
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $locations
+     * @param Location[] $locations
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     protected function prioritizeMainLocation(array $locations): array
     {
@@ -68,7 +71,7 @@ class LocationsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location[]
+     * @return Location[]
      */
     public function getLocations(): array
     {

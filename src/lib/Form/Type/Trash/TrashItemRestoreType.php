@@ -21,8 +21,10 @@ class TrashItemRestoreType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->add('trash_items', CollectionType::class, [
             'entry_type' => TrashItemCheckboxType::class,
             'entry_options' => [

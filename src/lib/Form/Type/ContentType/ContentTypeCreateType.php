@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 class ContentTypeCreateType extends AbstractType
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ContentTypeService
+     * @var ContentTypeService
      */
     private $contentTypeService;
 
@@ -48,12 +48,17 @@ class ContentTypeCreateType extends AbstractType
             ]);
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('contentTypeGroupId', HiddenType::class, [
                 'constraints' => new Callback(
-                    function ($contentTypeGroupId, ExecutionContextInterface $context) {
+                    function (
+                        $contentTypeGroupId,
+                        ExecutionContextInterface $context
+                    ) {
                         try {
                             $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                         } catch (NotFoundException $e) {

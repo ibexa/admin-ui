@@ -14,6 +14,7 @@ use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -22,13 +23,13 @@ use Twig\Environment;
 
 class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    /** @var \Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil */
+    /** @var FieldDefinitionGroupsUtil */
     private $fieldDefinitionGroupsUtil;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -74,9 +75,9 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     public function getTemplateParameters(array $contextParameters = []): array
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $contextParameters['content'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $contextParameters['contentType'];
         $fieldDefinitions = $contentType->getFieldDefinitions();
         $fieldDefinitionsByGroup = $this->fieldDefinitionGroupsUtil->groupFieldDefinitions($fieldDefinitions);
@@ -94,7 +95,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     /**
      * Loads system languages with filtering applied.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      *
      * @return array
      */

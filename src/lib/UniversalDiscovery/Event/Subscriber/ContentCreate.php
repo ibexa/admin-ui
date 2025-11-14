@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation;
@@ -25,18 +26,18 @@ class ContentCreate implements EventSubscriberInterface
     /** @var array */
     private $restrictedLanguagesCodes;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
+    /** @var PermissionCheckerInterface */
     private $permissionChecker;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface $permissionChecker
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param PermissionResolver $permissionResolver
+     * @param PermissionCheckerInterface $permissionChecker
+     * @param ContentTypeService $contentTypeService
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct(
         PermissionResolver $permissionResolver,
@@ -62,7 +63,7 @@ class ContentCreate implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
+     * @param ConfigResolveEvent $event
      */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {

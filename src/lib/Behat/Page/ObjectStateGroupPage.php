@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
@@ -18,26 +19,32 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 
 class ObjectStateGroupPage extends Page
 {
     /** @var string */
     protected $expectedObjectStateGroupName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     private $dialog;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $objectStates;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     /** @var mixed */
     private $expectedObjectStateGroupId;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
+        Dialog $dialog,
+        Repository $repository
+    ) {
         parent::__construct($session, $router);
         $this->dialog = $dialog;
         $this->objectStates = $tableBuilder->newTable()->withParentLocator($this->getLocator('objectStatesTable'))->build();
@@ -58,7 +65,7 @@ class ObjectStateGroupPage extends Page
     {
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
+        /** @var ObjectStateGroup[] $objectStateGroups */
         $objectStateGroups = $this->repository->sudo(function () {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });
@@ -75,8 +82,10 @@ class ObjectStateGroupPage extends Page
         return count($this->objectStates->getColumnValues(['Object state name'])) > 0;
     }
 
-    public function hasAttribute($label, $value): bool
-    {
+    public function hasAttribute(
+        $label,
+        $value
+    ): bool {
         return $this->getHTMLPage()
                     ->findAll($this->getLocator('objectStateGroupAttribute'))
                     ->getByCriterion(new ChildElementTextCriterion($this->getLocator('label'), $label))

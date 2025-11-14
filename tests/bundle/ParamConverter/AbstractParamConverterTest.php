@@ -18,7 +18,7 @@ abstract class AbstractParamConverterTest extends CoreAbstractParamConverterTest
     {
         $config = $this->createConfiguration(static::SUPPORTED_CLASS);
 
-        $this->assertTrue($this->converter->supports($config));
+        self::assertTrue($this->converter->supports($config));
     }
 }
 

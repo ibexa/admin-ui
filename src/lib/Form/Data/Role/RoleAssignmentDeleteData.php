@@ -12,7 +12,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
 
 class RoleAssignmentDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment */
+    /** @var RoleAssignment */
     private $roleAssignment;
 
     public function __construct(?RoleAssignment $roleAssignment = null)
@@ -21,7 +21,7 @@ class RoleAssignmentDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment
+     * @return RoleAssignment
      */
     public function getRoleAssignment(): ?RoleAssignment
     {
@@ -29,7 +29,7 @@ class RoleAssignmentDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment $roleAssignment
+     * @param RoleAssignment $roleAssignment
      */
     public function setRoleAssignment(RoleAssignment $roleAssignment)
     {

@@ -8,29 +8,32 @@
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\Contracts\Core\Repository\URLService;
+use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Ibexa\Contracts\Core\Repository\Values\URL\URLQuery;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class URLSearchAdapter implements AdapterInterface
 {
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery
+     * @var URLQuery
      */
     private $query;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\URLService
+     * @var URLService
      */
     private $urlService;
 
     /**
      * UrlSearchAdapter constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URLQuery $query
-     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
+     * @param URLQuery $query
+     * @param URLService $urlService
      */
-    public function __construct(URLQuery $query, URLService $urlService)
-    {
+    public function __construct(
+        URLQuery $query,
+        URLService $urlService
+    ) {
         $this->query = $query;
         $this->urlService = $urlService;
     }
@@ -50,10 +53,12 @@ class URLSearchAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\URL\URL[]
+     * @return URL[]
      */
-    public function getSlice($offset, $length): array
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ): array {
         $query = clone $this->query;
         $query->offset = $offset;
         $query->limit = $length;

@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 final class SiteaccessPreviewVoterContext
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
+    /** @var Location */
     private $location;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo */
+    /** @var VersionInfo */
     private $versionInfo;
 
     /** @var string */
@@ -38,7 +38,7 @@ final class SiteaccessPreviewVoterContext
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @return Location
      */
     public function getLocation(): Location
     {
@@ -62,7 +62,7 @@ final class SiteaccessPreviewVoterContext
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo
+     * @return VersionInfo
      */
     public function getVersionInfo(): VersionInfo
     {

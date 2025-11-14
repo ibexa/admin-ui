@@ -13,13 +13,13 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class CustomUrlAddData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     /** @var string|null */
     private $path;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     private $language;
 
     /** @var bool */
@@ -48,7 +48,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -56,7 +56,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      *
      * @return CustomUrlAddData
      */
@@ -68,7 +68,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -76,7 +76,7 @@ class CustomUrlAddData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param Language|null $language
      *
      * @return CustomUrlAddData
      */

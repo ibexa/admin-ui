@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -20,13 +21,13 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueURLValidatorTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var URLService|MockObject */
     private $urlService;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Validator\Context\ExecutionContextInterface */
+    /** @var MockObject|ExecutionContextInterface */
     private $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator */
+    /** @var UniqueURLValidator */
     private $validator;
 
     protected function setUp(): void
@@ -43,11 +44,11 @@ class UniqueURLValidatorTest extends TestCase
         $value = new stdClass();
 
         $this->urlService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadByUrl');
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueURL());
@@ -58,13 +59,13 @@ class UniqueURLValidatorTest extends TestCase
         $url = 'http://ibexa.co';
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate(new URLUpdateData([
@@ -79,7 +80,7 @@ class UniqueURLValidatorTest extends TestCase
         $url = 'http://ibexa.co';
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
             ->willReturn(new URL([
@@ -90,25 +91,25 @@ class UniqueURLValidatorTest extends TestCase
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->with($constraint->message)
             ->willReturn($constraintViolationBuilder);
 
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('atPath')
             ->with('url')
             ->willReturn($constraintViolationBuilder);
 
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setParameter')
             ->with('%url%', $url)
             ->willReturn($constraintViolationBuilder);
 
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate(new URLUpdateData([
@@ -123,7 +124,7 @@ class UniqueURLValidatorTest extends TestCase
         $url = 'http://ibexa.co';
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
             ->willReturn(new URL([
@@ -132,7 +133,7 @@ class UniqueURLValidatorTest extends TestCase
             ]));
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate(new URLUpdateData([

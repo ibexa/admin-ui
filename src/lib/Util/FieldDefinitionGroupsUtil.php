@@ -8,15 +8,16 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Util;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList;
 
 class FieldDefinitionGroupsUtil
 {
-    /** @var \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList */
+    /** @var FieldsGroupsList */
     private $fieldsGroupsListHelper;
 
     /**
-     * @param \Ibexa\Core\Helper\FieldsGroups\FieldsGroupsList $fieldsGroupsListHelper
+     * @param FieldsGroupsList $fieldsGroupsListHelper
      */
     public function __construct(FieldsGroupsList $fieldsGroupsListHelper)
     {
@@ -24,7 +25,7 @@ class FieldDefinitionGroupsUtil
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition[] $fieldDefinitions
+     * @param FieldDefinition[] $fieldDefinitions
      *
      * @return array
      */

@@ -15,7 +15,7 @@ use Knp\Menu\Util\MenuManipulator;
 class ReorderMenuListener
 {
     /**
-     * @param \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent $event
+     * @param ConfigureMenuEvent $event
      */
     public function moveAdminToLast(ConfigureMenuEvent $event): void
     {

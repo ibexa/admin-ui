@@ -17,8 +17,10 @@ class UserPreferencesContext implements Context
 
     private UserSettingsPage $userSettingsPage;
 
-    public function __construct(ChangePasswordPage $changePasswordPage, UserSettingsPage $userSettingsPage)
-    {
+    public function __construct(
+        ChangePasswordPage $changePasswordPage,
+        UserSettingsPage $userSettingsPage
+    ) {
         $this->changePasswordPage = $changePasswordPage;
         $this->userSettingsPage = $userSettingsPage;
     }
@@ -42,8 +44,10 @@ class UserPreferencesContext implements Context
     /**
      * @When I change password from :oldPassword to :newPassword
      */
-    public function iChangePassword($oldPassword, $newPassword): void
-    {
+    public function iChangePassword(
+        $oldPassword,
+        $newPassword
+    ): void {
         $this->changePasswordPage->verifyIsLoaded();
         $this->changePasswordPage->setOldPassword($oldPassword);
         $this->changePasswordPage->setNewPassword($newPassword);

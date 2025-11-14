@@ -20,32 +20,32 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
 class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
     /** @var string[] */
     private $languageCodes;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
+    /** @var ContentInfo */
     private $contentInfo;
 
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
+    /** @var LookupLimitationsTransformer */
     private $lookupLimitationsTransformer;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
+     * @param LanguageService $languageService
+     * @param PermissionResolver $permissionResolver
+     * @param ContentInfo $contentInfo
+     * @param LookupLimitationsTransformer $lookupLimitationsTransformer
      * @param string[] $languageCodes
      */
     public function __construct(

@@ -18,22 +18,23 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content as CoreContent;
 use Ibexa\Core\Repository\Values\User\Policy;
 use Ibexa\Core\Repository\Values\User\User as CoreUser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class PermissionCheckerTest extends TestCase
 {
     private const USER_ID = 14;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var PermissionResolver&MockObject */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var UserService&MockObject */
     private $userService;
 
-    /** @var \Ibexa\AdminUi\Permission\LimitationResolverInterface&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var LimitationResolverInterface&MockObject */
     private LimitationResolverInterface $permissionLimitationResolver;
 
-    /** @var \Ibexa\AdminUi\Permission\PermissionChecker */
+    /** @var PermissionChecker */
     private $permissionChecker;
 
     public function setUp(): void
@@ -56,11 +57,14 @@ class PermissionCheckerTest extends TestCase
     /**
      * @dataProvider restrictionsProvider
      */
-    public function testGetRestrictions(array $hasAccess, string $class, array $expectedRestrictions): void
-    {
+    public function testGetRestrictions(
+        array $hasAccess,
+        string $class,
+        array $expectedRestrictions
+    ): void {
         $actual = $this->permissionChecker->getRestrictions($hasAccess, $class);
 
-        $this->assertEquals($expectedRestrictions, $actual);
+        self::assertEquals($expectedRestrictions, $actual);
     }
 
     public function restrictionsProvider(): array
@@ -168,12 +172,12 @@ class PermissionCheckerTest extends TestCase
             ],
         ];
 
-        $this->assertEquals(
+        self::assertEquals(
             [44],
             $this->permissionChecker->getRestrictions($hasAccessA, Limitation\SectionLimitation::class)
         );
 
-        $this->assertEquals(
+        self::assertEquals(
             [2, 3],
             $this->permissionChecker->getRestrictions($hasAccessB, Limitation\ContentTypeLimitation::class)
         );
@@ -182,7 +186,7 @@ class PermissionCheckerTest extends TestCase
     /**
      * @param int $id
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User
+     * @return User
      */
     private function generateUser(int $id): User
     {

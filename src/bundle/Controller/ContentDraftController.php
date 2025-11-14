@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Pagination\Pagerfanta\ContentDraftAdapter;
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
+use Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface;
 use Ibexa\AdminUi\UI\Value\Content\VersionId;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
@@ -25,19 +26,19 @@ class ContentDraftController extends Controller
 {
     private const PAGINATION_PARAM_NAME = 'page';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     private $datasetFactory;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -55,9 +56,9 @@ class ContentDraftController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function listAction(Request $request): Response
     {
@@ -80,9 +81,9 @@ class ContentDraftController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function removeAction(Request $request): Response
     {
@@ -114,14 +115,14 @@ class ContentDraftController extends Controller
     }
 
     /**
-     * @param \Pagerfanta\Pagerfanta $pagerfanta
+     * @param Pagerfanta $pagerfanta
      *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
+     * @return ContentRemoveData
      */
     private function createContentRemoveData(Pagerfanta $pagerfanta): ContentRemoveData
     {
         $versions = [];
-        /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface $contentDraft */
+        /** @var ContentDraftInterface $contentDraft */
         foreach ($pagerfanta->getCurrentPageResults() as $contentDraft) {
             if ($contentDraft->isAccessible()) {
                 $versions[] = $contentDraft->getVersionId();

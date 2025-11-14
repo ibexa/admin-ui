@@ -16,19 +16,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class VersionInfoType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
+     * @param ContentService $contentService
      */
     public function __construct(ContentService $contentService)
     {
         $this->contentService = $contentService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'content_info',

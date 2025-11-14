@@ -11,6 +11,8 @@ namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 use Ibexa\AdminUi\UI\Config\Aggregator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
@@ -21,10 +23,10 @@ class UiConfigProviderPass implements CompilerPassInterface
     public const TAG_CONFIG_PROVIDER = 'ibexa.admin_ui.config.provider';
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param ContainerBuilder $container
      *
-     * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException
+     * @throws InvalidArgumentException
+     * @throws ServiceNotFoundException
      */
     public function process(ContainerBuilder $container): void
     {

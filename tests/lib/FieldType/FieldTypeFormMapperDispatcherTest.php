@@ -9,23 +9,25 @@ namespace Ibexa\Tests\AdminUi\FieldType;
 
 use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher;
+use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
 class FieldTypeFormMapperDispatcherTest extends TestCase
 {
     /**
-     * @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface
+     * @var FieldTypeDefinitionFormMapperDispatcherInterface
      */
     private $dispatcher;
 
     /**
-     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var FieldDefinitionFormMapperInterface|MockObject
      */
     private $fieldDefinitionMapperMock;
 
@@ -53,7 +55,7 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
         $formMock = $this->createMock(FormInterface::class);
 
         $this->fieldDefinitionMapperMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('mapFieldDefinitionForm')
             ->with($formMock, $data);
 

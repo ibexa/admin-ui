@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Form\Type\Extension\EventSubscriber\ModifyFieldDefinitionField
 use Ibexa\AdminUi\Form\Type\FieldDefinition\FieldDefinitionType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -34,7 +35,7 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
 
     private ModifyFieldDefinitionFieldsSubscriber $modifyFieldDefinitionFieldsSubscriber;
 
-    /** @var \Symfony\Component\Form\FormInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var FormInterface|MockObject */
     private FormInterface $form;
 
     private FormBuilderInterface $formBuilder;
@@ -157,8 +158,10 @@ final class ModifyFieldDefinitionFieldsSubscriberTest extends TestCase
     /**
      * @param array<string, scalar|bool> $options
      */
-    private function mockFormAdd(string $identifier, array $options): void
-    {
+    private function mockFormAdd(
+        string $identifier,
+        array $options
+    ): void {
         $this->form
             ->expects(self::once())
             ->method('add')

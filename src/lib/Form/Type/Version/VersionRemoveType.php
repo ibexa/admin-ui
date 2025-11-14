@@ -19,8 +19,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class VersionRemoveType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('content_info', ContentInfoType::class)
             ->add('versions', CollectionType::class, [

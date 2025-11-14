@@ -15,16 +15,16 @@ use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 
 class UserEditData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
+    /** @var ContentInfo|null */
     private $contentInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null */
+    /** @var VersionInfo|null */
     private $versionInfo;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language|null */
+    /** @var Language|null */
     private $language;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     private $location;
 
     public function __construct(
@@ -40,7 +40,7 @@ class UserEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
+     * @return ContentInfo|null
      */
     public function getContentInfo(): ?ContentInfo
     {
@@ -48,7 +48,7 @@ class UserEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
+     * @param ContentInfo|null $contentInfo
      */
     public function setContentInfo(?ContentInfo $contentInfo): void
     {
@@ -56,7 +56,7 @@ class UserEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null
+     * @return VersionInfo|null
      */
     public function getVersionInfo(): ?VersionInfo
     {
@@ -64,7 +64,7 @@ class UserEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $versionInfo
+     * @param VersionInfo|null $versionInfo
      */
     public function setVersionInfo(?VersionInfo $versionInfo): void
     {
@@ -72,7 +72,7 @@ class UserEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
+     * @return Language|null
      */
     public function getLanguage(): ?Language
     {
@@ -80,7 +80,7 @@ class UserEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $language
+     * @param Language|null $language
      */
     public function setLanguage(?Language $language): void
     {
@@ -88,7 +88,7 @@ class UserEditData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -96,7 +96,7 @@ class UserEditData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location): void
     {

@@ -21,11 +21,11 @@ class RoleCreateMapper implements DataMapperInterface
     /**
      * Maps given RoleCreateStruct object to a RoleCreateData object.
      *
-     * @param \Ibexa\Core\Repository\Values\User\RoleCreateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
+     * @param RoleCreateStruct|ValueObject $value
      *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleCreateData
+     * @return RoleCreateData
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): RoleCreateData
     {
@@ -43,11 +43,11 @@ class RoleCreateMapper implements DataMapperInterface
     /**
      * Maps given RoleCreateData object to a RoleCreateStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCreateData $data
+     * @param RoleCreateData $data
      *
-     * @return \Ibexa\Core\Repository\Values\User\RoleCreateStruct
+     * @return RoleCreateStruct
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): RoleCreateStruct
     {

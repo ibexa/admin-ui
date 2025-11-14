@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ContentTypeIdentifier;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -19,13 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
     /**
      * UserGroupChoiceType constructor.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param Repository $repository
      */
     public function __construct(Repository $repository)
     {
@@ -57,7 +58,7 @@ class UserChoiceType extends AbstractType
     /**
      * Get users list.
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\User[]
+     * @return User[]
      */
     protected function getUsers(): array
     {

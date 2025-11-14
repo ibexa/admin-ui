@@ -19,8 +19,11 @@ class BookmarksPage extends Page
 {
     private TableInterface $table;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder->newTable()->build();
     }

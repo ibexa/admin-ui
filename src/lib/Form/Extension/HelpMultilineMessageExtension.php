@@ -21,8 +21,11 @@ final class HelpMultilineMessageExtension extends AbstractTypeExtension
         return [FormType::class];
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
+    public function buildView(
+        FormView $view,
+        FormInterface $form,
+        array $options
+    ): void {
         $view->vars['help_multiline'] = $options['help_multiline'] ?? '';
     }
 

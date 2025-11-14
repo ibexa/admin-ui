@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,10 +20,10 @@ class RoleParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Role::class;
     public const PARAMETER_NAME = 'role';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\RoleParamConverter */
+    /** @var RoleParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -38,12 +39,14 @@ class RoleParamConverterTest extends AbstractParamConverterTest
      * @param mixed $roleId The role identifier fetched from the request
      * @param int $roleIdToLoad The role identifier used to load the role
      */
-    public function testApply($roleId, int $roleIdToLoad)
-    {
+    public function testApply(
+        $roleId,
+        int $roleIdToLoad
+    ) {
         $valueObject = $this->createMock(Role::class);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRole')
             ->with($roleIdToLoad)
             ->willReturn($valueObject);
@@ -55,8 +58,8 @@ class RoleParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWithWrongAttribute()
@@ -68,8 +71,8 @@ class RoleParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWhenNotFound()
@@ -80,7 +83,7 @@ class RoleParamConverterTest extends AbstractParamConverterTest
         $this->expectExceptionMessage(sprintf('Role %s not found.', $roleId));
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRole')
             ->with($roleId)
             ->willThrowException($this->createMock(NotFoundException::class));

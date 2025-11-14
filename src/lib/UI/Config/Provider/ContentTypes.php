@@ -30,25 +30,25 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class ContentTypes implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver */
+    /** @var ContentTypeIconResolver */
     private $contentTypeIconResolver;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
     private EventDispatcherInterface $eventDispatcher;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\AdminUi\UI\Service\ContentTypeIconResolver $contentTypeIconResolver
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $urlGenerator
+     * @param ContentTypeService $contentTypeService
+     * @param UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param ContentTypeIconResolver $contentTypeIconResolver
+     * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         ContentTypeService $contentTypeService,
@@ -81,7 +81,7 @@ class ContentTypes implements ProviderInterface
             $eventContentTypeGroups[] = $contentTypeGroup;
         }
 
-        /** @var \Ibexa\AdminUi\Event\AddContentTypeGroupToUIConfigEvent $event */
+        /** @var AddContentTypeGroupToUIConfigEvent $event */
         $event = $this->eventDispatcher->dispatch(new AddContentTypeGroupToUIConfigEvent($eventContentTypeGroups));
 
         foreach ($event->getContentTypeGroups() as $contentTypeGroup) {
@@ -90,7 +90,10 @@ class ContentTypes implements ProviderInterface
                 $preferredLanguages
             );
 
-            usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
+            usort($contentTypes, static function (
+                ContentType $contentType1,
+                ContentType $contentType2
+            ) {
                 return strnatcasecmp($contentType1->getName(), $contentType2->getName());
             });
 
@@ -102,7 +105,7 @@ class ContentTypes implements ProviderInterface
             }
         }
 
-        /** @var \Ibexa\AdminUi\Event\FilterContentTypesEvent $event */
+        /** @var FilterContentTypesEvent $event */
         $event = $this->eventDispatcher->dispatch(new FilterContentTypesEvent($contentTypeGroups));
 
         return $event->getContentTypeGroups();
@@ -111,8 +114,10 @@ class ContentTypes implements ProviderInterface
     /**
      * @phpstan-return TContentTypeData
      */
-    private function getContentTypeData(ContentType $contentType, bool $isHidden): array
-    {
+    private function getContentTypeData(
+        ContentType $contentType,
+        bool $isHidden
+    ): array {
         return [
             'id' => $contentType->id,
             'identifier' => $contentType->identifier,
