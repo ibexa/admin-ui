@@ -16,6 +16,12 @@
         transition: opacity $ibexa-admin-transition-duration $ibexa-admin-transition;
         box-shadow: $ibexa-edit-header-box-shadow;
 
+        &:hover {
+            .ibexa-back-to-top__title {
+                display: inline-block;
+            }
+        }
+
         &--visible {
             opacity: 1;
             visibility: visible;
@@ -25,10 +31,6 @@
     &__title {
         display: none;
         padding-right: calculateRem(8px);
-
-        &--visible {
-            display: inline-block;
-        }
     }
 
     &__icon.ibexa-icon {
