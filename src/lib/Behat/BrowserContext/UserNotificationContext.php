@@ -71,7 +71,6 @@ class UserNotificationContext implements Context
      */
     public function iOpenNotificationMenu(string $description): void
     {
-        $this->userNotificationPopup->verifyIsLoaded();
         $this->userNotificationPopup->openNotificationMenu($description);
     }
 
