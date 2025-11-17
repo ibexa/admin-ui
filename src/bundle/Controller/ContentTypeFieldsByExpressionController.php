@@ -44,7 +44,7 @@ final class ContentTypeFieldsByExpressionController extends RestController
                 $input->expression,
                 $input->configuration,
             );
-        } catch (FieldTypeExpressionParserException | LogicException $e) {
+        } catch (FieldTypeExpressionParserException $e) {
             throw new BadRequestException($e->getMessage(), $e->getCode(), $e);
         }
 
