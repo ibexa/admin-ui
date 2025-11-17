@@ -12,6 +12,7 @@ use Exception;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
@@ -105,6 +106,15 @@ class UserNotificationPopup extends Component
 
         $menuButton = $notifications->first()->find($this->getLocator('notificationMenuButton'));
         $menuButton->click();
+
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationActionsPopup'),
+                )
+            );
     }
 
     public function clickActionButton(string $buttonText): void
@@ -115,6 +125,15 @@ class UserNotificationPopup extends Component
             ->filterBy(new ElementTextCriterion($buttonText));
 
         $buttons->first()->execute(new MouseOverAndClick());
+
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementNotExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationActionsPopup')
+                )
+            );
     }
 
     public function getActionButton(string $buttonText): ?ElementInterface
@@ -176,10 +195,9 @@ class UserNotificationPopup extends Component
             new VisibleCSSLocator('notificationDate', '.ibexa-notifications-modal__item--date'),
             new VisibleCSSLocator('notificationMenuButton', '.ibexa-notifications-modal__actions'),
             new VisibleCSSLocator('notificationMenuItemContent', '.ibexa-popup-menu__item-content.ibexa-multilevel-popup-menu__item-content'),
-            new VisibleCSSLocator('notificationCounterDot', '.ibexa-header-user-menu__notice-dot'),
             new VisibleCSSLocator('markAllAsReadButton', '.ibexa-notifications-modal__mark-all-read-btn'),
             new VisibleCSSLocator('viewAllNotificationsButton', '.ibexa-notifications-modal__view-all-btn'),
-            new VisibleCSSLocator('popupMenuHidden', '.ibexa-notification-actions-popup-menu.ibexa-popup-menu--hidden'),
+            new VisibleCSSLocator('notificationActionsPopup', '.ibexa-notification-actions-popup-menu:not(.ibexa-popup-menu--hidden)'),
             new VisibleCSSLocator('notificationsEmptyText', '.ibexa-notifications-modal__empty-text'),
         ];
     }
