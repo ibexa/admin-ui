@@ -27,7 +27,7 @@ document.querySelector('.ibexa-back-to-top-scroll-container') && document.queryS
 JS);
         $this->getHTMLPage()
             ->setTimeout(3)
-            ->findAll(new VisibleCSSLocator('backToTopWithTitle', '.ibexa-back-to-top__title--visible'));
+            ->findAll(new VisibleCSSLocator('backToTopBtn', '.ibexa-back-to-top__btn--visible'));
         $this->getHTMLPage()->find($this->getLocator('nextButton'))->click();
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage) {
             $activePge = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
