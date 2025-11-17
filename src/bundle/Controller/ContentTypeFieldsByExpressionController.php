@@ -14,7 +14,6 @@ use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInte
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
 use Ibexa\Rest\Server\Exceptions\BadRequestException;
-use LogicException;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ContentTypeFieldsByExpressionController extends RestController
