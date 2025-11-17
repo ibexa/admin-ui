@@ -12,7 +12,6 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/core/base.chart.js'),
     path.resolve(__dirname, '../public/js/scripts/core/line.chart.js'),
     path.resolve(__dirname, '../public/js/scripts/core/multilevel.popup.menu.js'),
-    path.resolve(__dirname, '../public/js/scripts/core/multistep.selector.js'),
     path.resolve(__dirname, '../public/js/scripts/core/split.btn.js'),
     path.resolve(__dirname, '../public/js/scripts/core/pie.chart.js'),
     path.resolve(__dirname, '../public/js/scripts/core/bar.chart.js'),
