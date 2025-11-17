@@ -47,7 +47,7 @@ final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
 
         $extractedFieldDefinitions = $this->fieldsFromExpressionService->getFieldsFromExpression(
             $expression,
-            'text_fields',
+            'vectorizable_fields',
         );
 
         $expectedFieldTypes = ['ezstring', 'eztext'];

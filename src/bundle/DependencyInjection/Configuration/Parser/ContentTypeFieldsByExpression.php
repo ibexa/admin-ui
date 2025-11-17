@@ -21,9 +21,9 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  * ibexa:
  *   system:
  *      default:
- *          content_type_fields_by_expression:
+ *          content_type_field_type_groups:
  *              configurations:
- *                  text_fields: [ezstring, eztext]
+ *                  vectorizable_fields: [ezstring, eztext]
  * ```
  */
 final class ContentTypeFieldsByExpression extends AbstractParser
@@ -31,7 +31,7 @@ final class ContentTypeFieldsByExpression extends AbstractParser
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
-            ->arrayNode('content_type_fields_by_expression')
+            ->arrayNode('content_type_field_type_groups')
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->arrayNode('configurations')
@@ -50,14 +50,14 @@ final class ContentTypeFieldsByExpression extends AbstractParser
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
-        if (!isset($scopeSettings['content_type_fields_by_expression'])) {
+        if (!isset($scopeSettings['content_type_field_type_groups'])) {
             return;
         }
 
-        $configurations = $scopeSettings['content_type_fields_by_expression']['configurations'] ?? [];
+        $configurations = $scopeSettings['content_type_field_type_groups']['configurations'] ?? [];
         foreach ($configurations as $name => $config) {
             $contextualizer->setContextualParameter(
-                "content_type_fields_by_expression.configurations.$name",
+                "content_type_field_type_groups.configurations.$name",
                 $currentScope,
                 $config
             );

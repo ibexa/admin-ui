@@ -33,7 +33,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
         $scopeSettings = [
             'content_type_fields_by_expression' => [
                 'configurations' => [
-                    'text_fields' => ['ezstring', 'eztext'],
+                    'vectorizable_fields' => ['ezstring', 'eztext'],
                 ],
             ],
         ];
@@ -43,7 +43,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
             ->expects(self::once())
             ->method('setContextualParameter')
             ->with(
-                'content_type_fields_by_expression.configurations.text_fields',
+                'content_type_fields_by_expression.configurations.vectorizable_fields',
                 $currentScope,
                 ['ezstring', 'eztext'],
             );
