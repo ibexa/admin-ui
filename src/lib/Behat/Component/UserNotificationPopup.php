@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Exception;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
@@ -118,22 +119,12 @@ class UserNotificationPopup extends Component
 
     public function clickActionButton(string $buttonText): void
     {
-        $this->getHTMLPage()
-            ->setTimeout(10)
-            ->waitUntilCondition(
-                new ElementExistsCondition(
-                    $this->getHTMLPage(),
-                    $this->getLocator('notificationActionsPopup')
-                )
-            );
-
         $buttons = $this->getHTMLPage()
             ->setTimeout(10)
             ->findAll($this->getLocator('notificationMenuItemContent'))
-            ->filterBy(new ElementTextCriterion($buttonText))
-            ->first();
+            ->filterBy(new ElementTextCriterion($buttonText));
 
-        $buttons->click();
+        $buttons->first()->execute(new MouseOverAndClick());
 
         $this->getHTMLPage()
             ->setTimeout(10)
