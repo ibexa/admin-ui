@@ -12,6 +12,7 @@ use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInte
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
+use Ibexa\Core\MVC\Exception\ParameterNotFoundException;
 
 final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
 {
@@ -38,6 +39,35 @@ final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
         $fieldDefinition = $extractedFieldDefinitions[0];
         self::assertSame('name', $fieldDefinition->identifier);
         self::assertSame('ezstring', $fieldDefinition->fieldTypeIdentifier);
+    }
+
+    public function testExtractWithConfiguration(): void
+    {
+        $expression = '{Content}/folder/*';
+
+        $extractedFieldDefinitions = $this->fieldsFromExpressionService->getFieldsFromExpression(
+            $expression,
+            'text_fields',
+        );
+
+        $expectedFieldTypes = ['ezstring', 'eztext'];
+
+        foreach ($extractedFieldDefinitions as $fieldDefinition) {
+            self::assertContains($fieldDefinition->fieldTypeIdentifier, $expectedFieldTypes);
+        }
+    }
+
+    public function testExtractWithInvalidConfiguration(): void
+    {
+        $expression = '{Content}/folder/*';
+
+        $this->expectException(ParameterNotFoundException::class);
+        $this->expectExceptionMessage("Parameter 'content_type_fields_by_expression.configurations.invalid_configuration' with namespace '' could not be found. Tried scopes: ");
+
+        $this->fieldsFromExpressionService->getFieldsFromExpression(
+            $expression,
+            'invalid_configuration',
+        );
     }
 
     public function testFieldIdWithinExpression(): void

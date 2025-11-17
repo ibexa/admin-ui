@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldDefinitions media-type="application/vnd.ibexa.api.FieldDefinitionInfoList+xml">
+    <FieldDefinitionInfo media-type="application/vnd.ibexa.api.FieldDefinitionInfo+xml">
+        <id>__FIXED_ID__</id>
+        <identifier>publish_date</identifier>
+        <position>8</position>
+        <names>
+            <value languageCode="eng-GB">Publish date</value>
+        </names>
+    </FieldDefinitionInfo>
+</FieldDefinitions>

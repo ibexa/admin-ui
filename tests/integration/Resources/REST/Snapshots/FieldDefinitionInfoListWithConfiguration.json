@@ -1,0 +1,21 @@
+{
+  "FieldDefinitions": {
+    "_media-type": "application/vnd.ibexa.api.FieldDefinitionInfoList+json",
+    "FieldDefinitionInfo": [
+      {
+        "_media-type": "application/vnd.ibexa.api.FieldDefinitionInfo+json",
+        "id": "__FIXED_ID__",
+        "identifier": "publish_date",
+        "position": 8,
+        "names": {
+          "value": [
+            {
+              "_languageCode": "eng-GB",
+              "#text": "Publish date"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

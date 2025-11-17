@@ -57,6 +57,21 @@ final class PostLoadFieldDefinitionsFromExpressionTest extends BaseAdminUiRestWe
                 null,
                 'FieldDefinitionInfoList'
             );
+
+            yield new EndpointRequestDefinition(
+                'POST',
+                '/api/ibexa/v2/content-type/load-field-definitions-from-expression',
+                'FieldDefinitionInfoList',
+                "application/vnd.ibexa.api.FieldDefinitionInfoList+$format",
+                ['HTTP_X-SiteAccess' => 'admin'],
+                $payloadLoader->loadPayload(
+                    self::INPUT_MEDIA_TYPE,
+                    'json',
+                    'FieldDefinitionExpressionWithConfiguration',
+                ),
+                null,
+                'FieldDefinitionInfoListWithConfiguration'
+            );
         }
     }
 }
