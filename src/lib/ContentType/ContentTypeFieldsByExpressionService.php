@@ -52,7 +52,7 @@ final class ContentTypeFieldsByExpressionService implements ContentTypeFieldsByE
         $contentTypeFieldIds = $this->fieldsExtractor->extractFieldsFromExpression($expression);
 
         $configuration = $configuration !== null
-            ? $this->configResolver->getParameter("content_type_fields_by_expression.configurations.$configuration")
+            ? $this->configResolver->getParameter("content_type_field_type_groups.configurations.$configuration")
             : null;
 
         $contentTypeFieldDefinitions = [];

@@ -31,7 +31,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
     public function testMapConfiguration(): void
     {
         $scopeSettings = [
-            'content_type_fields_by_expression' => [
+            'content_type_field_type_groups' => [
                 'configurations' => [
                     'vectorizable_fields' => ['ezstring', 'eztext'],
                 ],
@@ -43,7 +43,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
             ->expects(self::once())
             ->method('setContextualParameter')
             ->with(
-                'content_type_fields_by_expression.configurations.vectorizable_fields',
+                'content_type_field_type_groups.configurations.vectorizable_fields',
                 $currentScope,
                 ['ezstring', 'eztext'],
             );
@@ -54,7 +54,7 @@ final class ContentTypeFieldsByExpressionTest extends TestCase
     public function testMapEmptyConfiguration(): void
     {
         $scopeSettings = [
-            'content_type_fields_by_expression' => [
+            'content_type_field_type_groups' => [
                 'configurations' => [],
             ],
         ];

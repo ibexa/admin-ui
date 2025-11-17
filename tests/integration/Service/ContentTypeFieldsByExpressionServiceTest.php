@@ -62,7 +62,7 @@ final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
         $expression = '{Content}/folder/*';
 
         $this->expectException(ParameterNotFoundException::class);
-        $this->expectExceptionMessage("Parameter 'content_type_fields_by_expression.configurations.invalid_configuration' with namespace '' could not be found. Tried scopes: ");
+        $this->expectExceptionMessage("Parameter 'content_type_field_type_groups.configurations.invalid_configuration' with namespace '' could not be found. Tried scopes: ");
 
         $this->fieldsFromExpressionService->getFieldsFromExpression(
             $expression,
