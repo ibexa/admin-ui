@@ -15,7 +15,7 @@
             const urlValue = input.value.trim();
             const isRequired = input.required;
             const isEmpty = !urlValue;
-            const label = input.closest(SELECTOR_FIELD_LINK).querySelector(SELECTOR_LABEL).innerHTML;
+            const label = input.closest(SELECTOR_FIELD_LINK).querySelector(SELECTOR_LABEL).innerText;
 
             if (isRequired && isEmpty) {
                 result.isError = true;
