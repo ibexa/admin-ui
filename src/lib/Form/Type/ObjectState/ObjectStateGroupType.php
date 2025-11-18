@@ -16,19 +16,21 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ObjectStateGroupType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
+    /** @var ObjectStateService */
     protected $objectStateService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
+     * @param ObjectStateService $objectStateService
      */
     public function __construct(ObjectStateService $objectStateService)
     {
         $this->objectStateService = $objectStateService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->addModelTransformer(new ObjectStateGroupTransformer($this->objectStateService));
     }
 

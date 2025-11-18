@@ -18,10 +18,10 @@ use Twig\Environment;
  */
 abstract class AbstractRouteBasedTab extends AbstractTab
 {
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     protected $urlGenerator;
 
-    /** @var \Symfony\Bridge\Twig\Extension\HttpKernelRuntime */
+    /** @var HttpKernelRuntime */
     private $httpKernelRuntime;
 
     public function __construct(

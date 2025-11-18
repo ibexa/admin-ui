@@ -37,7 +37,7 @@ class Relation extends CoreRelation implements RelationInterface
      * Main location for the relation.
      * This will either come from destinationContentInfo OR sourceContentInfo depending upon if reverse relation or normal relation.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @var Location
      */
     protected $relationLocation;
 
@@ -52,23 +52,25 @@ class Relation extends CoreRelation implements RelationInterface
     /**
      * Source location for the relation.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @var Location
      */
     protected $resolvedSourceLocation;
 
     /**
      * Destination location for the relation.
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Location
+     * @var Location
      */
     protected $resolvedDestinationLocation;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Relation $relation
+     * @param APIRelation $relation
      * @param array $properties
      */
-    public function __construct(APIRelation $relation, array $properties = [])
-    {
+    public function __construct(
+        APIRelation $relation,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($relation) + $properties);
     }
 

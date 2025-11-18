@@ -8,10 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\ControllerArgumentResolver;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\LogicalAnd;
 use Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\CriterionProcessorInterface;
+
 use function Ibexa\PolyfillPhp82\iterator_to_array;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -33,19 +36,23 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
         $this->criterionProcessor = $criterionProcessor;
     }
 
-    public function supports(Request $request, ArgumentMetadata $argument): bool
-    {
+    public function supports(
+        Request $request,
+        ArgumentMetadata $argument
+    ): bool {
         return Criterion::class === $argument->getType()
             && 'filter' === $argument->getName();
     }
 
     /**
-     * @return iterable<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion|null>
+     * @return iterable<Criterion|null>
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
-    {
+    public function resolve(
+        Request $request,
+        ArgumentMetadata $argument
+    ): iterable {
         $criteria = $this->processFilterQueryCriteria($request);
         if ($argument->isNullable() && empty($criteria)) {
             yield null;
@@ -57,7 +64,7 @@ final class ContentTreeChildrenQueryArgumentResolver implements ArgumentValueRes
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion>
+     * @return array<Criterion>
      */
     private function processFilterQueryCriteria(Request $request): array
     {

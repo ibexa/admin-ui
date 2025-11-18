@@ -10,22 +10,25 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class ContentDraftAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     private $datasetFactory;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param ContentService $contentService
+     * @param DatasetFactory $datasetFactory
      */
-    public function __construct(ContentService $contentService, DatasetFactory $datasetFactory)
-    {
+    public function __construct(
+        ContentService $contentService,
+        DatasetFactory $datasetFactory
+    ) {
         $this->contentService = $contentService;
         $this->datasetFactory = $datasetFactory;
     }
@@ -35,7 +38,7 @@ final class ContentDraftAdapter implements AdapterInterface
      *
      * @return int the number of results
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getNbResults()
     {
@@ -50,10 +53,12 @@ final class ContentDraftAdapter implements AdapterInterface
      *
      * @return array|\Traversable the slice
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function getSlice($offset, $length)
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ) {
         return $this->datasetFactory
             ->contentDraftList()
             ->load(null, $offset, $length)

@@ -39,7 +39,7 @@ class ContentTypeIsUserTest extends TestCase
             $customUserContentType,
         ]);
 
-        $this->assertTrue($specification->isSatisfiedBy($this->createContentType($customUserContentType)));
+        self::assertTrue($specification->isSatisfiedBy($this->createContentType($customUserContentType)));
     }
 
     /**
@@ -54,7 +54,7 @@ class ContentTypeIsUserTest extends TestCase
             ['ezstring', 'ezuser']
         );
 
-        $this->assertTrue($specification->isSatisfiedBy($contentTypeWithEzUserField));
+        self::assertTrue($specification->isSatisfiedBy($contentTypeWithEzUserField));
     }
 
     /**
@@ -68,7 +68,7 @@ class ContentTypeIsUserTest extends TestCase
 
         $articleContentType = $this->createContentType('article', ['ezstring', 'ezrichtext']);
 
-        $this->assertFalse($specification->isSatisfiedBy($articleContentType));
+        self::assertFalse($specification->isSatisfiedBy($articleContentType));
     }
 
     /**
@@ -77,10 +77,12 @@ class ContentTypeIsUserTest extends TestCase
      * @param string $identifier
      * @param array $fieldsType
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType
+     * @return APIContentType
      */
-    private function createContentType(string $identifier, array $fieldsType = []): APIContentType
-    {
+    private function createContentType(
+        string $identifier,
+        array $fieldsType = []
+    ): APIContentType {
         $contentType = $this->createMock(ContentType::class);
         $contentType
             ->method('__get')

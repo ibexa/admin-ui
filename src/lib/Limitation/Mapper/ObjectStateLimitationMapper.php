@@ -23,7 +23,7 @@ class ObjectStateLimitationMapper extends MultipleSelectionBasedMapper implement
     use LoggerAwareTrait;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\ObjectStateService
+     * @var ObjectStateService
      */
     private $objectStateService;
 

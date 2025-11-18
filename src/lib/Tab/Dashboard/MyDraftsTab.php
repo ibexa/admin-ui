@@ -15,6 +15,7 @@ use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Annotation\Desc;
@@ -22,27 +23,30 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 class MyDraftsTab extends AbstractTab implements OrderedTabInterface, ConditionalTabInterface
 {
     private const PAGINATION_PARAM_NAME = 'mydrafts-page';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     protected $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     protected $permissionResolver;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     protected $datasetFactory;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
+    /** @var RequestStack */
     private $requestStack;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -97,7 +101,7 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
      *
      * @return bool
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
@@ -110,9 +114,9 @@ class MyDraftsTab extends AbstractTab implements OrderedTabInterface, Conditiona
      *
      * @return string
      *
-     * @throws \Twig\Error\LoaderError
-     * @throws \Twig\Error\RuntimeError
-     * @throws \Twig\Error\SyntaxError
+     * @throws LoaderError
+     * @throws RuntimeError
+     * @throws SyntaxError
      */
     public function renderView(array $parameters): string
     {

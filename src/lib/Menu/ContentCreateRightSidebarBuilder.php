@@ -12,6 +12,9 @@ use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct;
@@ -41,16 +44,16 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     public const BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
     public const BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     private $contentTypeService;
 
     public function __construct(
@@ -82,22 +85,22 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
+     * @throws NotFoundException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $parentLocation */
+        /** @var Location $parentLocation */
         $parentLocation = $options['parent_location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $options['content_type'];
         $parentContentType = $parentLocation->getContent()->getContentType();
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language $language */
+        /** @var Language $language */
         $language = $options['language'];
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $contentCreateStruct = $this->createContentCreateStruct($parentLocation, $contentType, $language);
@@ -191,7 +194,7 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {
@@ -205,14 +208,17 @@ class ContentCreateRightSidebarBuilder extends AbstractBuilder implements Transl
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param Location $location
+     * @param ContentType $contentType
+     * @param Language $language
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentCreateStruct
+     * @return ContentCreateStruct
      */
-    private function createContentCreateStruct(Location $location, ContentType $contentType, Language $language): ContentCreateStruct
-    {
+    private function createContentCreateStruct(
+        Location $location,
+        ContentType $contentType,
+        Language $language
+    ): ContentCreateStruct {
         $contentCreateStruct = $this->contentService->newContentCreateStruct($contentType, $language->languageCode);
         $contentCreateStruct->sectionId = $location->contentInfo->sectionId;
 

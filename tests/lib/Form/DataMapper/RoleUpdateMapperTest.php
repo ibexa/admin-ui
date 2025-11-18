@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoleUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper */
+    /** @var RoleUpdateMapper */
     private $mapper;
 
     protected function setUp(): void
@@ -39,7 +39,7 @@ class RoleUpdateMapperTest extends TestCase
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
@@ -51,7 +51,7 @@ class RoleUpdateMapperTest extends TestCase
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
     public function testMapWithWrongInstance()
@@ -80,7 +80,7 @@ class RoleUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleUpdateStruct
+     * @return RoleUpdateStruct
      */
     private function createStruct(array $properties): RoleUpdateStruct
     {
@@ -90,7 +90,7 @@ class RoleUpdateMapperTest extends TestCase
     /**
      * @param array $properties
      *
-     * @return \Ibexa\AdminUi\Form\Data\Role\RoleUpdateData
+     * @return RoleUpdateData
      */
     private function createData(array $properties): RoleUpdateData
     {

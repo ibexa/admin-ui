@@ -8,13 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ObjectState;
 
+use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
+
 class ObjectStatesDeleteData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null */
+    /** @var ObjectState[]|null */
     protected $objectStates;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null $objectStates
+     * @param ObjectState[]|null $objectStates
      */
     public function __construct(array $objectStates = [])
     {
@@ -22,7 +24,7 @@ class ObjectStatesDeleteData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null
+     * @return ObjectState[]|null
      */
     public function getObjectStates(): ?array
     {
@@ -30,7 +32,7 @@ class ObjectStatesDeleteData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState[]|null $objectStates
+     * @param ObjectState[]|null $objectStates
      */
     public function setObjectStates(?array $objectStates)
     {

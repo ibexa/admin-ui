@@ -136,8 +136,10 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
-    private function getTranslatedContentFields(Content $content, string $languageCode): array
-    {
+    private function getTranslatedContentFields(
+        Content $content,
+        string $languageCode
+    ): array {
         $contentType = $content->getContentType();
 
         $translatableFields = array_filter($content->getFields(), static function (Field $field) use ($contentType): bool {

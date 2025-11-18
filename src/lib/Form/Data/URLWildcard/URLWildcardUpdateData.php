@@ -12,11 +12,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 
 class URLWildcardUpdateData extends URLWildcardData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
+    /** @var URLWildcard|null */
     private $urlWildcard;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard
+     * @param URLWildcard|null $urlWildcard
      */
     public function __construct(?URLWildcard $urlWildcard = null)
     {
@@ -26,13 +26,13 @@ class URLWildcardUpdateData extends URLWildcardData
         }
     }
 
-    /** @return \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null */
+    /** @return URLWildcard|null */
     public function getUrlWildcard(): ?URLWildcard
     {
         return $this->urlWildcard;
     }
 
-    /** @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard|null $urlWildcard */
+    /** @param URLWildcard|null $urlWildcard */
     public function setUrlWildcard(?URLWildcard $urlWildcard): void
     {
         $this->urlWildcard = $urlWildcard;

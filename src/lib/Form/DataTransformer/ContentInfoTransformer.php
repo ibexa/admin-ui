@@ -19,7 +19,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class ContentInfoTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     public function __construct(ContentService $contentService)
@@ -28,7 +28,7 @@ final class ContentInfoTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $value
+     * @param ContentInfo|null $value
      */
     public function transform($value): ?int
     {

@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Value\Content;
 
+use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo as APIVersionInfo;
+use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
 
 /**
@@ -17,11 +19,11 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
  */
 class VersionInfo extends CoreVersionInfo
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\User\User */
+    /** @var User */
     protected $author;
 
     /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @var Language[]
      */
     protected $translations;
 
@@ -33,11 +35,13 @@ class VersionInfo extends CoreVersionInfo
     protected $userCanRemove;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
+     * @param APIVersionInfo $versionInfo
      * @param array $properties
      */
-    public function __construct(APIVersionInfo $versionInfo, array $properties = [])
-    {
+    public function __construct(
+        APIVersionInfo $versionInfo,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($versionInfo) + $properties);
     }
 

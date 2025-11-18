@@ -45,7 +45,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'fifth',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testOrderedMenuList(): void
@@ -76,7 +76,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'first',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testSameOrderMenuListUntouched(): void
@@ -107,7 +107,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'fifth',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testAppendUnorderedMenuListAtTheEnd(): void
@@ -142,7 +142,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'another',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testNestedOrderedMenuList(): void
@@ -189,15 +189,15 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'unordered_child',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
-        $this->assertEquals($expectedNested, $this->getChildrenNames($menu->getChild('another')));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expectedNested, $this->getChildrenNames($menu->getChild('another')));
     }
 
     private function getConfigureMenuEventMock(ItemInterface $menu): ConfigureMenuEvent
     {
         $mock = $this->createMock(ConfigureMenuEvent::class);
         $mock
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getMenu')
             ->willReturn($menu);
 

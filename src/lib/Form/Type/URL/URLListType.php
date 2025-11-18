@@ -23,14 +23,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class URLListType extends AbstractType
 {
     /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     private $translator;
 
     /**
      * URLListType constructor.
      *
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
     {
@@ -40,8 +40,10 @@ class URLListType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder->add('status', ChoiceType::class, [
             'choices' => [
                 $this->translator->trans(

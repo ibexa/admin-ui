@@ -22,11 +22,11 @@ use Symfony\Component\Form\Util\StringUtil;
 
 class ContentTypeFormFactory
 {
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
     /**
-     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory
+     * @param FormFactoryInterface $formFactory
      */
     public function __construct(
         FormFactoryInterface $formFactory
@@ -68,7 +68,7 @@ class ContentTypeFormFactory
     /**
      * @param array $options
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     public function contentTypeCopy(
         ContentTypeCopyData $data,

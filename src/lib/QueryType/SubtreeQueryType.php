@@ -19,10 +19,10 @@ abstract class SubtreeQueryType extends OptionsResolverBasedQueryType implements
     protected const OWNED_OPTION_NAME = 'owned';
     protected const SUBTREE_OPTION_NAME = 'subtree';
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
     public function __construct(

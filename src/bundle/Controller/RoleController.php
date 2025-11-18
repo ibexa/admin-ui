@@ -31,34 +31,36 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Button;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 class RoleController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCreateMapper */
+    /** @var RoleCreateMapper */
     private $roleCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleCopyMapper */
+    /** @var RoleCopyMapper */
     private $roleCopyMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\RoleUpdateMapper */
+    /** @var RoleUpdateMapper */
     private $roleUpdateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -92,7 +94,7 @@ class RoleController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.role_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $sectionList */
+        /** @var Role[] $sectionList */
         $roles = $pagerfanta->getCurrentPageResults();
 
         $rolesNumbers = array_column($roles, 'id');
@@ -113,8 +115,12 @@ class RoleController extends Controller
         ]);
     }
 
-    public function viewAction(Request $request, Role $role, int $policyPage = 1, int $assignmentPage = 1): Response
-    {
+    public function viewAction(
+        Request $request,
+        Role $role,
+        int $policyPage = 1,
+        int $assignmentPage = 1
+    ): Response {
         $deleteForm = $this->formFactory->deleteRole(
             new RoleDeleteData($role)
         );
@@ -129,14 +135,14 @@ class RoleController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('role', 'create'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createRole();
         $form->handleRequest($request);
 
@@ -176,8 +182,10 @@ class RoleController extends Controller
         ]);
     }
 
-    public function copyAction(Request $request, Role $role): Response
-    {
+    public function copyAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'create'));
 
         $form = $this->createForm(RoleCopyType::class, new RoleCopyData($role));
@@ -212,15 +220,17 @@ class RoleController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function updateAction(Request $request, Role $role): Response
-    {
+    public function updateAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updateRole(
             new RoleUpdateData($role)
         );
@@ -228,7 +238,7 @@ class RoleController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (RoleUpdateData $data) use ($form): Response {
-                /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
+                /** @var Role $role */
                 $role = $data->getRole();
 
                 $roleUpdateStruct = $this->roleUpdateMapper->reverseMap($data);
@@ -269,13 +279,15 @@ class RoleController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function deleteAction(Request $request, Role $role): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'delete'));
         $form = $this->formFactory->deleteRole(
             new RoleDeleteData($role)
@@ -310,13 +322,13 @@ class RoleController extends Controller
     /**
      * Handles removing roles based on submitted form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      */
     public function bulkDeleteAction(Request $request): Response
     {

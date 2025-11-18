@@ -8,11 +8,15 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\AdminUi\REST;
 
+use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\RoleLimitation;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Test\Rest\BaseRestWebTestCase;
 use Ibexa\Core\MVC\Symfony\Security\UserWrapped;
+use Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -20,12 +24,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @phpstan-type TPoliciesData array<string, \Ibexa\Contracts\Core\Repository\Values\User\Limitation[]>
  *
- * @see \Ibexa\Tests\Integration\AdminUi\AdminUiIbexaTestKernel
+ * @see AdminUiIbexaTestKernel
  */
 abstract class BaseAdminUiRestWebTestCase extends BaseRestWebTestCase
 {
-    protected function getSchemaFileBasePath(string $resourceType, string $format): string
-    {
+    protected function getSchemaFileBasePath(
+        string $resourceType,
+        string $format
+    ): string {
         return dirname(__DIR__) . '/Resources/REST/Schemas/' . $resourceType;
     }
 
@@ -37,9 +43,9 @@ abstract class BaseAdminUiRestWebTestCase extends BaseRestWebTestCase
     /**
      * @phpstan-param TPoliciesData $policiesData
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
     protected function createUserWithPolicies(
         string $login,
@@ -69,12 +75,14 @@ abstract class BaseAdminUiRestWebTestCase extends BaseRestWebTestCase
     /**
      * @phpstan-param TPoliciesData $policiesData
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws UnauthorizedException
      */
-    protected function createRoleWithPolicies(string $roleName, array $policiesData): Role
-    {
+    protected function createRoleWithPolicies(
+        string $roleName,
+        array $policiesData
+    ): Role {
         $roleService = $this->getIbexaTestCore()->getRoleService();
 
         $roleCreateStruct = $roleService->newRoleCreateStruct($roleName);

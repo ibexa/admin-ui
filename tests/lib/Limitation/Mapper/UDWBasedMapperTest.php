@@ -56,7 +56,7 @@ class UDWBasedMapperTest extends TestCase
             ]);
 
             $locationServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadLocation')
                 ->with($id)
                 ->willReturn($location);

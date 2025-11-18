@@ -11,6 +11,7 @@ use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -29,7 +30,7 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
     public const ITEM__SAVE_AND_CLOSE = 'role_edit__sidebar_right__save_and_close';
     public const ITEM__CANCEL = 'role_edit__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -53,7 +54,7 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -61,12 +62,12 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $role */
+        /** @var Role $role */
         $role = $options['role'];
         $saveId = $options['save_id'];
         $saveAncCloseId = $options['save_and_close_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(
@@ -103,7 +104,7 @@ class RoleEditRightSidebarBuilder extends AbstractBuilder implements Translation
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

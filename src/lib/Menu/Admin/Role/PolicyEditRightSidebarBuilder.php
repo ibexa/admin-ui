@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Menu\Admin\Role;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\Core\Repository\Exceptions as ApiExceptions;
+use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -37,7 +38,7 @@ class PolicyEditRightSidebarBuilder extends AbstractBuilder implements Translati
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -45,12 +46,12 @@ class PolicyEditRightSidebarBuilder extends AbstractBuilder implements Translati
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role $section */
+        /** @var Role $section */
         $role = $options['role'];
         $saveId = $options['save_id'];
         $saveAncCloseId = $options['save_and_close_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $saveAndCloseItem = $this->createMenuItem(
@@ -90,7 +91,7 @@ class PolicyEditRightSidebarBuilder extends AbstractBuilder implements Translati
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

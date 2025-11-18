@@ -21,14 +21,14 @@ class LoadSubtreeRequestNode extends RestValue
     /** @var int */
     public $offset;
 
-    /** @var \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] */
+    /** @var LoadSubtreeRequestNode[] */
     public $children;
 
     /**
      * @param int $locationId
      * @param int $limit
      * @param int $offset
-     * @param \Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode[] $children
+     * @param LoadSubtreeRequestNode[] $children
      */
     public function __construct(
         int $locationId,

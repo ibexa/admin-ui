@@ -15,8 +15,10 @@ use Ibexa\Rest\Input\BaseParser;
 
 final class FieldDefinitionReorder extends BaseParser
 {
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher): FieldDefinitionReorderValue
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ): FieldDefinitionReorderValue {
         if (!array_key_exists('fieldDefinitionIdentifiers', $data)) {
             throw new Exceptions\Parser(
                 sprintf("Missing or invalid 'fieldDefinitionIdentifiers' property for %s.", FieldDefinitionReorderValue::class)

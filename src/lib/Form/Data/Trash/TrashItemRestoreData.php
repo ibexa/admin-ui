@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Data\Trash;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,25 +20,27 @@ class TrashItemRestoreData
     /**
      * @Assert\NotBlank()
      *
-     * @var \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
+     * @var TrashItem[]
      */
     public $trashItems;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
+    /** @var Location|null */
     public $location;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param TrashItem[] $trashItems
+     * @param Location|null $location
      */
-    public function __construct(array $trashItems = [], ?Location $location = null)
-    {
+    public function __construct(
+        array $trashItems = [],
+        ?Location $location = null
+    ) {
         $this->trashItems = $trashItems;
         $this->location = $location;
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[]
+     * @return TrashItem[]
      */
     public function getTrashItems(): array
     {
@@ -45,7 +48,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\TrashItem[] $trashItems
+     * @param TrashItem[] $trashItems
      */
     public function setTrashItems(array $trashItems)
     {
@@ -53,7 +56,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location|null
+     * @return Location|null
      */
     public function getLocation(): ?Location
     {
@@ -61,7 +64,7 @@ class TrashItemRestoreData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location|null $location
+     * @param Location|null $location
      */
     public function setLocation(?Location $location)
     {

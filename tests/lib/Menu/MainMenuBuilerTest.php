@@ -18,6 +18,7 @@ use Ibexa\User\UserSetting\UserSetting;
 use Ibexa\User\UserSetting\UserSettingService;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuItem;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\TestBrowserToken;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,22 +26,22 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class MainMenuBuilerTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface */
+    /** @var MenuItemFactoryInterface */
     private $factory;
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     private $eventDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var \Ibexa\User\UserSetting\UserSettingService&\PHPUnit\Framework\MockObject\MockObject */
+    /** @var UserSettingService&MockObject */
     private UserSettingService $userSettingService;
 
     protected function setUp(): void
@@ -217,10 +218,10 @@ class MainMenuBuilerTest extends TestCase
 
     private function assertMenuHasAllItems(array $menu): void
     {
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_CONTENT, $menu);
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_ADMIN, $menu);
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_BOOKMARKS, $menu);
-        $this->assertArrayHasKey(MainMenuBuilder::ITEM_TRASH, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_CONTENT, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_ADMIN, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_BOOKMARKS, $menu);
+        self::assertArrayHasKey(MainMenuBuilder::ITEM_TRASH, $menu);
     }
 }
 

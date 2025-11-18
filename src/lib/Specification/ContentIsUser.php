@@ -13,11 +13,11 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 
 class ContentIsUser implements ContentSpecification
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
+     * @param UserService $userService
      */
     public function __construct(UserService $userService)
     {
@@ -27,7 +27,7 @@ class ContentIsUser implements ContentSpecification
     /**
      * Checks if $contentId is an existing User content.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
+     * @param Content $content
      *
      * @return bool
      */

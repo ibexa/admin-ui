@@ -12,8 +12,8 @@ use Ibexa\Contracts\TwigComponents\ComponentInterface;
 use Ibexa\TwigComponents\Component\Registry as TwigComponentsRegistry;
 
 /**
- * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Registry} class is deprecated, will be removed in 6.0.
- * Use {@see \Ibexa\TwigComponents\Component\Registry} instead
+ * @deprecated 4.6.19 The {@see Registry} class is deprecated, will be removed in 6.0.
+ * Use {@see TwigComponentsRegistry} instead
  */
 class Registry
 {
@@ -89,8 +89,11 @@ class Registry
         $this->inner = $inner;
     }
 
-    public function addComponent(string $group, string $serviceId, ComponentInterface $component): void
-    {
+    public function addComponent(
+        string $group,
+        string $serviceId,
+        ComponentInterface $component
+    ): void {
         $this->triggerDeprecation();
         $group = $this->prefixGroupIfNeeded($group);
 
@@ -98,7 +101,7 @@ class Registry
     }
 
     /**
-     * @return \Ibexa\Contracts\TwigComponents\ComponentInterface[]
+     * @return ComponentInterface[]
      */
     public function getComponents(string $group): array
     {
@@ -109,10 +112,12 @@ class Registry
     }
 
     /**
-     * @param \Ibexa\Contracts\TwigComponents\ComponentInterface[] $components
+     * @param ComponentInterface[] $components
      */
-    public function setComponents(string $group, array $components)
-    {
+    public function setComponents(
+        string $group,
+        array $components
+    ) {
         $this->triggerDeprecation();
         $group = $this->prefixGroupIfNeeded($group);
 

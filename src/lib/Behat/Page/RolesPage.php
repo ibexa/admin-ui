@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -19,21 +20,28 @@ use PHPUnit\Framework\Assert;
 
 class RolesPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     private $dialog;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
+        Dialog $dialog
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder->newTable()->build();
         $this->dialog = $dialog;
     }
 
-    public function verifyItemAttribute(string $label, string $value, string $itemName): void
-    {
+    public function verifyItemAttribute(
+        string $label,
+        string $value,
+        string $itemName
+    ): void {
         Assert::assertEquals(
             $value,
             $this->adminList->table->getTableCellValue($itemName, $label),

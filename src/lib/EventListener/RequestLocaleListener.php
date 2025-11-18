@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
@@ -26,21 +27,21 @@ class RequestLocaleListener implements EventSubscriberInterface
     /** @var array */
     private $availableTranslations;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
-    /** @var \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface */
+    /** @var UserLanguagePreferenceProviderInterface */
     private $userLanguagePreferenceProvider;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     /**
      * @param array $siteAccessGroups
      * @param array $availableTranslations
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
+     * @param TranslatorInterface $translator
+     * @param UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider
+     * @param ConfigResolverInterface $configResolver
      */
     public function __construct(
         array $siteAccessGroups,
@@ -67,9 +68,9 @@ class RequestLocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     * @param RequestEvent $event
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function onKernelRequest(RequestEvent $event): void
     {
@@ -100,11 +101,11 @@ class RequestLocaleListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
      * @return bool
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     protected function isAdminSiteAccess(Request $request): bool
     {

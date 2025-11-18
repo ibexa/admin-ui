@@ -10,15 +10,16 @@ namespace Ibexa\AdminUi\Menu\Admin\ContentType;
 
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Knp\Menu\ItemInterface;
+use Symfony\Component\Form\FormView;
 
 abstract class AbstractContentTypeRightSidebarBuilder extends AbstractBuilder
 {
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Symfony\Component\Form\FormView $contentTypeFormView */
+        /** @var FormView $contentTypeFormView */
         $contentTypeFormView = $options['form_view'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $itemSaveIdentifier = $this->getItemSaveIdentifier();

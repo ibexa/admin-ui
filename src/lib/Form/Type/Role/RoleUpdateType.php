@@ -19,8 +19,10 @@ class RoleUpdateType extends AbstractType
 {
     public const BTN_SAVE = 'save';
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add(
                 'identifier',

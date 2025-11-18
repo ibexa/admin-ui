@@ -41,7 +41,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
     {
         $mapperMock = $this->createMock(LimitationValueMapperInterface::class);
         $mapperMock
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('mapLimitationValue')
             ->willReturnCallback(static function (Limitation $limitation) {
                 return $limitation->limitationValues;
@@ -49,31 +49,40 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
 
         $registryMock = $this->createMock(LimitationValueMapperRegistryInterface::class);
         $registryMock
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('getMapper')
             ->willReturn($mapperMock);
 
         return $registryMock;
     }
 
-    public function getLimitation($identifier, array $values): LimitationMock
-    {
+    public function getLimitation(
+        $identifier,
+        array $values
+    ): LimitationMock {
         return new LimitationMock($identifier, $values);
     }
 
     /**
-     * @see \Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase::doIntegrationTest
+     * @see FileSystemTwigIntegrationTestCase::doIntegrationTest
      */
-    protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
-    {
+    protected function doIntegrationTest(
+        $file,
+        $message,
+        $condition,
+        $templates,
+        $exception,
+        $outputs,
+        $deprecation = ''
+    ): void {
         if (!$outputs) {
-            $this->markTestSkipped('no legacy tests to run');
+            self::markTestSkipped('no legacy tests to run');
         }
 
         if ($condition) {
             eval('$ret = ' . $condition . ';');
             if (!$ret) {
-                $this->markTestSkipped($condition);
+                self::markTestSkipped($condition);
             }
         }
 
@@ -112,9 +121,15 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
             } catch (Exception $e) {
                 if (false !== $exception) {
                     $message = $e->getMessage();
-                    $this->assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $message)));
+                    self::assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $message)));
                     $last = substr($message, \strlen($message) - 1);
-                    $this->assertTrue('.' === $last || '?' === $last, $message, 'Exception message must end with a dot or a question mark.');
+                    self::assertTrue(
+                        '.' === $last || '?' === $last,
+                        sprintf(
+                            'Exception message must end with a dot or a question mark. Got: "%s"',
+                            $message
+                        )
+                    );
 
                     return;
                 }
@@ -126,7 +141,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                 $output = trim($template->render(eval($match[1] . ';')), "\n ");
             } catch (Exception $e) {
                 if (false !== $exception) {
-                    $this->assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $e->getMessage())));
+                    self::assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $e->getMessage())));
 
                     return;
                 }
@@ -139,7 +154,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
             if (false !== $exception) {
                 list($class) = explode(':', $exception);
                 $constraintClass = class_exists('PHPUnit\Framework\Constraint\Exception') ? 'PHPUnit\Framework\Constraint\Exception' : 'PHPUnit_Framework_Constraint_Exception';
-                $this->assertThat(null, new $constraintClass($class));
+                self::assertThat(null, new $constraintClass($class));
             }
 
             $expected = trim($match[3], "\n ");
@@ -152,7 +167,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
                     echo $twig->compile($twig->parse($twig->tokenize($twig->getLoader()->getSourceContext($name))));
                 }
             }
-            $this->assertEquals($expected, $output, $message . ' (in ' . $file . ')');
+            self::assertEquals($expected, $output, $message . ' (in ' . $file . ')');
         }
     }
 

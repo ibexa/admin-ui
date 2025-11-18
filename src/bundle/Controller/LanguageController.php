@@ -18,6 +18,8 @@ use Ibexa\AdminUi\Form\Type\Language\LanguageCreateType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -26,28 +28,30 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Button;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 class LanguageController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\LanguageCreateMapper */
+    /** @var LanguageCreateMapper */
     private $languageCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -69,9 +73,9 @@ class LanguageController extends Controller
     /**
      * Renders the language list.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function listAction(Request $request): Response
     {
@@ -84,7 +88,7 @@ class LanguageController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.language_limit'));
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languageList */
+        /** @var Language[] $languageList */
         $languageList = $pagerfanta->getCurrentPageResults();
 
         $deleteLanguagesForm = $this->formFactory->deleteLanguages(
@@ -101,9 +105,9 @@ class LanguageController extends Controller
     /**
      * Renders the view of a language.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param Language $language
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function viewAction(Language $language): Response
     {
@@ -121,13 +125,15 @@ class LanguageController extends Controller
     /**
      * Deletes a language.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param Request $request
+     * @param Language $language
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function deleteAction(Request $request, Language $language): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Language $language
+    ): Response {
         $form = $this->formFactory->deleteLanguage(
             new LanguageDeleteData($language)
         );
@@ -157,15 +163,15 @@ class LanguageController extends Controller
     /**
      * Handles removing languages based on submitted form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws UnauthorizedException
+     * @throws InvalidOptionsException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      * @throws \InvalidArgumentException
      */
     public function bulkDeleteAction(Request $request): Response
@@ -200,7 +206,7 @@ class LanguageController extends Controller
 
     public function createAction(Request $request): Response
     {
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createLanguage();
         $form->handleRequest($request);
 
@@ -240,9 +246,11 @@ class LanguageController extends Controller
         ]);
     }
 
-    public function editAction(Request $request, Language $language): Response
-    {
-        /** @var \Symfony\Component\Form\Form $form */
+    public function editAction(
+        Request $request,
+        Language $language
+    ): Response {
+        /** @var Form $form */
         $form = $this->formFactory->updateLanguage(
             new LanguageUpdateData($language)
         );
@@ -289,7 +297,7 @@ class LanguageController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language[] $languages
+     * @param Language[] $languages
      *
      * @return array
      */

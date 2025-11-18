@@ -13,18 +13,20 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 
 class BaseTranslationLanguageChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     protected $languageService;
 
     /** @var string[] */
     protected $languageCodes;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
+     * @param LanguageService $languageService
      * @param string[] $languageCodes
      */
-    public function __construct(LanguageService $languageService, $languageCodes)
-    {
+    public function __construct(
+        LanguageService $languageService,
+        $languageCodes
+    ) {
         $this->languageService = $languageService;
         $this->languageCodes = $languageCodes;
     }

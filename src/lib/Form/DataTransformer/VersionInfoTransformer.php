@@ -21,7 +21,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
  */
 final class VersionInfoTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     public function __construct(ContentService $contentService)
@@ -30,7 +30,7 @@ final class VersionInfoTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo|null $value
+     * @param VersionInfo|null $value
      */
     public function transform($value): ?array
     {

@@ -13,8 +13,6 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification as BaseAbstractSpec
 /**
  * @deprecated 4.4.0 Use \Ibexa\Contracts\Core\Specification\AbstractSpecification
  */
-abstract class AbstractSpecification extends BaseAbstractSpecification
-{
-}
+abstract class AbstractSpecification extends BaseAbstractSpecification {}
 
 class_alias(AbstractSpecification::class, 'EzSystems\EzPlatformAdminUi\Specification\AbstractSpecification');

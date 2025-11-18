@@ -22,14 +22,16 @@ class LocationsTransformerTest extends TestCase
      * @param $value
      * @param $expected
      */
-    public function testTransform($value, $expected)
-    {
+    public function testTransform(
+        $value,
+        $expected
+    ) {
         $service = $this->createMock(LocationService::class);
         $transformer = new LocationsTransformer($service);
 
         $result = $transformer->transform($value);
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
     public function testReverseTransformWithIds()
@@ -45,7 +47,7 @@ class LocationsTransformerTest extends TestCase
         $transformer = new LocationsTransformer($service);
         $result = $transformer->reverseTransform('123456,456789');
 
-        $this->assertEquals([new Location(['id' => 123456]), new Location(['id' => 456789])], $result);
+        self::assertEquals([new Location(['id' => 123456]), new Location(['id' => 456789])], $result);
     }
 
     /**
@@ -62,7 +64,7 @@ class LocationsTransformerTest extends TestCase
         $transformer = new LocationsTransformer($service);
         $result = $transformer->reverseTransform($value);
 
-        $this->assertEmpty($result);
+        self::assertEmpty($result);
     }
 
     /**

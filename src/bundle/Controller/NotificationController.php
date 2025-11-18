@@ -19,6 +19,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\NotificationService;
+use Ibexa\Contracts\Core\Repository\Values\Notification\Notification;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\Criterion;
 use Ibexa\Contracts\Core\Repository\Values\Notification\Query\NotificationQuery;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
@@ -88,8 +89,11 @@ final class NotificationController extends Controller
         }
     }
 
-    public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
-    {
+    public function getNotificationsAction(
+        Request $request,
+        int $offset,
+        int $limit
+    ): JsonResponse {
         return $this->handleJsonErrors(function () use ($offset, $limit) {
             $notificationList = $this->notificationService->loadNotifications($offset, $limit);
 
@@ -101,8 +105,10 @@ final class NotificationController extends Controller
         });
     }
 
-    public function renderNotificationsPageAction(Request $request, int $page): Response
-    {
+    public function renderNotificationsPageAction(
+        Request $request,
+        int $page
+    ): Response {
         $searchForm = $this->createForm(SearchType::class);
         $searchForm->handleRequest($request);
 
@@ -133,10 +139,12 @@ final class NotificationController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\Form\FormInterface<SearchQueryData|null> $searchForm
+     * @param FormInterface<SearchQueryData|null> $searchForm
      */
-    private function getNotificationQuery(Request $request, FormInterface $searchForm): NotificationQuery
-    {
+    private function getNotificationQuery(
+        Request $request,
+        FormInterface $searchForm
+    ): NotificationQuery {
         $session = $request->getSession();
 
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
@@ -159,7 +167,7 @@ final class NotificationController extends Controller
     /**
      * Renders notifications from any iterable source or Pagerfanta page.
      *
-     * @param iterable<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $notifications
+     * @param iterable<Notification> $notifications
      *
      * @return string[]
      */
@@ -178,7 +186,7 @@ final class NotificationController extends Controller
     /**
      * Renders current page of Pagerfanta notifications.
      *
-     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $pagerfanta
+     * @param Pagerfanta<Notification> $pagerfanta
      *
      * @return string[]
      */
@@ -217,7 +225,7 @@ final class NotificationController extends Controller
     }
 
     /**
-     * @param \Pagerfanta\Pagerfanta<\Ibexa\Contracts\Core\Repository\Values\Notification\Notification> $pagerfanta
+     * @param Pagerfanta<Notification> $pagerfanta
      */
     private function createNotificationSelectionData(Pagerfanta $pagerfanta): NotificationSelectionData
     {
@@ -243,8 +251,10 @@ final class NotificationController extends Controller
      * server service for websocket connection), so * we need a way to mark notification
      * as read. AJAX call is fine.
      */
-    public function markNotificationAsReadAction(Request $request, int $notificationId): JsonResponse
-    {
+    public function markNotificationAsReadAction(
+        Request $request,
+        int $notificationId
+    ): JsonResponse {
         return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
 
@@ -291,8 +301,10 @@ final class NotificationController extends Controller
         });
     }
 
-    public function markNotificationAsUnreadAction(Request $request, int $notificationId): JsonResponse
-    {
+    public function markNotificationAsUnreadAction(
+        Request $request,
+        int $notificationId
+    ): JsonResponse {
         return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
 
@@ -302,8 +314,10 @@ final class NotificationController extends Controller
         });
     }
 
-    public function deleteNotificationAction(Request $request, int $notificationId): JsonResponse
-    {
+    public function deleteNotificationAction(
+        Request $request,
+        int $notificationId
+    ): JsonResponse {
         return $this->handleJsonErrors(function () use ($notificationId) {
             $notification = $this->notificationService->getNotification($notificationId);
 

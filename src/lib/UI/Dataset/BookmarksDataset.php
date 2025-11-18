@@ -7,24 +7,26 @@
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value\Location\Bookmark;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
 class BookmarksDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
+    /** @var BookmarkService */
     private $bookmarkService;
 
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
+    /** @var ValueFactory */
     private $valueFactory;
 
-    /** @var \Ibexa\AdminUi\UI\Value\Location\Bookmark[] */
+    /** @var Bookmark[] */
     private $data;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
+     * @param BookmarkService $bookmarkService
+     * @param ValueFactory $valueFactory
      */
     public function __construct(
         BookmarkService $bookmarkService,
@@ -38,12 +40,14 @@ class BookmarksDataset
      * @param int $offset
      * @param int $limit
      *
-     * @return \Ibexa\AdminUi\UI\Dataset\BookmarksDataset
+     * @return BookmarksDataset
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function load(int $offset = 0, int $limit = 25): self
-    {
+    public function load(
+        int $offset = 0,
+        int $limit = 25
+    ): self {
         $this->data = array_map(
             function (Location $location) {
                 return $this->valueFactory->createBookmark($location);
@@ -55,7 +59,7 @@ class BookmarksDataset
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Value\Location\Bookmark[]
+     * @return Bookmark[]
      */
     public function getBookmarks(): array
     {

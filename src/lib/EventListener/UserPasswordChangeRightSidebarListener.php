@@ -20,7 +20,7 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
     public const ITEM__UPDATE = 'user_password_change__sidebar_right__update';
     public const ITEM__CANCEL = 'user_password_change__sidebar_right__cancel';
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(TranslatorInterface $translator)
@@ -37,7 +37,7 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent $event
+     * @param ConfigureMenuEvent $event
      */
     public function onUserPasswordChangeRightSidebarConfigure(ConfigureMenuEvent $event): void
     {
@@ -66,7 +66,7 @@ class UserPasswordChangeRightSidebarListener implements EventSubscriberInterface
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

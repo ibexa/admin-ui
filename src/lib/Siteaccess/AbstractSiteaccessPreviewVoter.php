@@ -13,10 +13,10 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
+    /** @var RepositoryConfigurationProvider */
     protected $repositoryConfigurationProvider;
 
     public function __construct(

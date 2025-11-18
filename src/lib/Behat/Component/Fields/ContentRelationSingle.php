@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
@@ -18,13 +19,13 @@ use PHPUnit\Framework\Assert;
 
 class ContentRelationSingle extends FieldTypeComponent
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
+    /** @var UniversalDiscoveryWidget */
     private $universalDiscoveryWidget;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableBuilder */
+    /** @var TableBuilder */
     private $tableBuilder;
 
     public function specifyLocators(): array
@@ -37,8 +38,11 @@ class ContentRelationSingle extends FieldTypeComponent
         ];
     }
 
-    public function __construct(Session $session, UniversalDiscoveryWidget $universalDiscoveryWidget, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        Session $session,
+        UniversalDiscoveryWidget $universalDiscoveryWidget,
+        TableBuilder $tableBuilder
+    ) {
         parent::__construct($session);
         $this->universalDiscoveryWidget = $universalDiscoveryWidget;
         $this->tableBuilder = $tableBuilder;

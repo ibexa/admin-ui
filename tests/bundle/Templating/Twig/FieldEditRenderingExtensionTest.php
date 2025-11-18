@@ -14,11 +14,12 @@ use Ibexa\Core\MVC\Symfony\Templating\Twig\ResourceProviderInterface;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Tests\Core\MVC\Symfony\Templating\Twig\Extension\FileSystemTwigIntegrationTestCase;
 use Twig\Environment;
+use Twig\Extension\ExtensionInterface;
 
 class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
 {
     /**
-     * @return \Twig\Extension\ExtensionInterface[]
+     * @return ExtensionInterface[]
      */
     public function getExtensions(): array
     {
@@ -52,8 +53,11 @@ class FieldEditRenderingExtensionTest extends FileSystemTwigIntegrationTestCase
         return __DIR__ . '/_fixtures/field_edit_rendering_functions/';
     }
 
-    public function getFieldDefinitionData($typeIdentifier, $id = null, $settings = []): FieldDefinitionData
-    {
+    public function getFieldDefinitionData(
+        $typeIdentifier,
+        $id = null,
+        $settings = []
+    ): FieldDefinitionData {
         return new FieldDefinitionData([
             'fieldDefinition' => new FieldDefinition([
                 'id' => $id,

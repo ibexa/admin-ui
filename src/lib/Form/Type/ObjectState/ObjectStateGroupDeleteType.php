@@ -20,8 +20,10 @@ class ObjectStateGroupDeleteType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
             ->add('object_state_group', ObjectStateGroupType::class)
             ->add('delete', SubmitType::class, [

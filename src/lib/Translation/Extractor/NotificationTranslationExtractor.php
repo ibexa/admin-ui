@@ -31,25 +31,25 @@ use Twig\Node\Node as TwigNode;
  */
 class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisitorInterface, NodeVisitor
 {
-    /** @var \JMS\TranslationBundle\Translation\FileSourceFactory */
+    /** @var FileSourceFactory */
     private $fileSourceFactory;
 
-    /** @var \PhpParser\NodeTraverser */
+    /** @var NodeTraverser */
     private $traverser;
 
-    /** @var \JMS\TranslationBundle\Model\MessageCatalogue */
+    /** @var MessageCatalogue */
     private $catalogue;
 
     /** @var \SplFileInfo */
     private $file;
 
-    /** @var \Doctrine\Common\Annotations\DocParser */
+    /** @var DocParser */
     private $docParser;
 
-    /** @var \Psr\Log\LoggerInterface */
+    /** @var LoggerInterface */
     private $logger;
 
-    /** @var \PhpParser\Node */
+    /** @var Node */
     private $previousNode;
 
     /**
@@ -64,8 +64,10 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         'error' => 2,
     ];
 
-    public function __construct(DocParser $docParser, FileSourceFactory $fileSourceFactory)
-    {
+    public function __construct(
+        DocParser $docParser,
+        FileSourceFactory $fileSourceFactory
+    ) {
         $this->docParser = $docParser;
         $this->fileSourceFactory = $fileSourceFactory;
         $this->traverser = new NodeTraverser();
@@ -149,32 +151,32 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->catalogue->add($message);
     }
 
-    public function visitPhpFile(\SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
-    {
+    public function visitPhpFile(
+        \SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        array $ast
+    ) {
         $this->file = $file;
         $this->catalogue = $catalogue;
         $this->traverser->traverse($ast);
     }
 
-    public function beforeTraverse(array $nodes)
-    {
-    }
+    public function beforeTraverse(array $nodes) {}
 
-    public function leaveNode(Node $node)
-    {
-    }
+    public function leaveNode(Node $node) {}
 
-    public function afterTraverse(array $nodes)
-    {
-    }
+    public function afterTraverse(array $nodes) {}
 
-    public function visitFile(\SplFileInfo $file, MessageCatalogue $catalogue)
-    {
-    }
+    public function visitFile(
+        \SplFileInfo $file,
+        MessageCatalogue $catalogue
+    ) {}
 
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
-    {
-    }
+    public function visitTwigFile(
+        \SplFileInfo $file,
+        MessageCatalogue $catalogue,
+        TwigNode $ast
+    ) {}
 
     private function getDocCommentForNode(Node $node): ?string
     {

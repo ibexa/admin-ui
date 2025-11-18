@@ -11,7 +11,10 @@ namespace Ibexa\AdminUi\Menu;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\Contracts\AdminUi\Menu\AbstractBuilder;
 use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Knp\Menu\ItemInterface;
@@ -28,16 +31,16 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
     /* Menu items */
     public const ITEM__EDIT = 'content_type__sidebar_right__edit';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     /**
-     * @param \Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface $factory
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
+     * @param MenuItemFactoryInterface $factory
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param PermissionResolver $permissionResolver
      */
     public function __construct(
         MenuItemFactoryInterface $factory,
@@ -62,17 +65,17 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws BadStateException
+     * @throws InvalidArgumentException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $options['content_type'];
 
-        /** @var \Knp\Menu\ItemInterface $menu */
+        /** @var ItemInterface $menu */
         $menu = $this->factory->createItem('root');
 
         $editAttributes = [
@@ -100,7 +103,7 @@ class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Translat
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

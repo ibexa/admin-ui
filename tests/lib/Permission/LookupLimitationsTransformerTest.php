@@ -35,7 +35,7 @@ class LookupLimitationsTransformerTest extends TestCase
 
         $flattenedLimitationsValues = (new LookupLimitationsTransformer())->getFlattenedLimitationsValues($lookupLimitations);
 
-        $this->assertEqualsCanonicalizing([1, 2, 3], $flattenedLimitationsValues, '');
+        self::assertEqualsCanonicalizing([1, 2, 3], $flattenedLimitationsValues, '');
     }
 
     public function testGetGroupedLimitationValues(): void
@@ -67,7 +67,7 @@ class LookupLimitationsTransformerTest extends TestCase
             Limitation::CONTENTTYPE => [4],
         ];
 
-        $this->assertEquals($expected, $flattenedLimitationsValues);
+        self::assertEquals($expected, $flattenedLimitationsValues);
     }
 
     public function testGetGroupedLimitationValuesThrowException(): void

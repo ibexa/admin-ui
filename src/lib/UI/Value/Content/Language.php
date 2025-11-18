@@ -36,11 +36,13 @@ class Language extends APILanguage
     protected $userCanEdit = false;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language $language
+     * @param APILanguage $language
      * @param array $properties
      */
-    public function __construct(APILanguage $language, array $properties = [])
-    {
+    public function __construct(
+        APILanguage $language,
+        array $properties = []
+    ) {
         parent::__construct(get_object_vars($language) + $properties);
     }
 

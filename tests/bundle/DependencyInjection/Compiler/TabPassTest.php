@@ -24,7 +24,7 @@ class TabPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param ContainerBuilder $container
      */
     protected function registerCompilerPass(ContainerBuilder $container): void
     {

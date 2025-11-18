@@ -19,6 +19,7 @@ use Ibexa\AdminUi\Form\SubmitHandler;
 use Ibexa\AdminUi\Form\Type\Policy\PolicyUpdateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
@@ -27,33 +28,40 @@ use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Exception\LessThan1CurrentPageException;
+use Pagerfanta\Exception\LessThan1MaxPerPageException;
+use Pagerfanta\Exception\NotIntegerCurrentPageException;
+use Pagerfanta\Exception\NotIntegerMaxPerPageException;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\Form\Button;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 class PolicyController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
+    /** @var RoleService */
     private $roleService;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyCreateMapper */
+    /** @var PolicyCreateMapper */
     private $policyCreateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
+    /** @var PolicyUpdateMapper */
     private $policyUpdateMapper;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     public function __construct(
@@ -75,22 +83,25 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Role $role
      * @param string $routeName
      * @param int $policyPage
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
-     * @throws \Pagerfanta\Exception\OutOfRangeCurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerCurrentPageException
-     * @throws \Pagerfanta\Exception\LessThan1CurrentPageException
-     * @throws \Pagerfanta\Exception\NotIntegerMaxPerPageException
-     * @throws \Pagerfanta\Exception\LessThan1MaxPerPageException
+     * @throws InvalidOptionsException
+     * @throws BadStateException
+     * @throws OutOfRangeCurrentPageException
+     * @throws NotIntegerCurrentPageException
+     * @throws LessThan1CurrentPageException
+     * @throws NotIntegerMaxPerPageException
+     * @throws LessThan1MaxPerPageException
      */
-    public function listAction(Role $role, string $routeName, int $policyPage = 1): Response
-    {
+    public function listAction(
+        Role $role,
+        string $routeName,
+        int $policyPage = 1
+    ): Response {
         $pagerfanta = new Pagerfanta(
             new ArrayAdapter($role->getPolicies())
         );
@@ -98,7 +109,7 @@ class PolicyController extends Controller
         $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.policy_limit'));
         $pagerfanta->setCurrentPage(min($policyPage, $pagerfanta->getNbPages()));
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies */
+        /** @var Policy[] $policies */
         $policies = $pagerfanta->getCurrentPageResults();
 
         $isEditable = [];
@@ -125,16 +136,18 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      */
-    public function createAction(Request $request, Role $role): Response
-    {
+    public function createAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
         $form = $this->formFactory->createPolicy(
             new PolicyCreateData()
@@ -199,18 +212,21 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
+     * @param Request $request
+     * @param Role $role
+     * @param Policy $policy
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws BadStateException
      * @throws \InvalidArgumentException
      */
-    public function updateAction(Request $request, Role $role, Policy $policy): Response
-    {
+    public function updateAction(
+        Request $request,
+        Role $role,
+        Policy $policy
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
         $limitationTypes = $policy->module
             ? $this->roleService->getLimitationTypesByModuleFunction($policy->module, $policy->function)
@@ -231,7 +247,7 @@ class PolicyController extends Controller
             ]));
         }
 
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->updatePolicy(
             new PolicyUpdateData($policy)
         );
@@ -285,15 +301,19 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      * @param string $policyModule
      * @param string $policyFunction
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function createWithLimitationAction(Request $request, Role $role, string $policyModule, string $policyFunction): Response
-    {
+    public function createWithLimitationAction(
+        Request $request,
+        Role $role,
+        string $policyModule,
+        string $policyFunction
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
         $form = $this->formFactory->createPolicyWithLimitation(
             (new PolicyCreateData())->setPolicy([
@@ -334,17 +354,20 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy $policy
+     * @param Request $request
+     * @param Role $role
+     * @param Policy $policy
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
      * @throws \InvalidArgumentException
      */
-    public function deleteAction(Request $request, Role $role, Policy $policy): Response
-    {
+    public function deleteAction(
+        Request $request,
+        Role $role,
+        Policy $policy
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
         $form = $this->formFactory->deletePolicy(
             new PolicyDeleteData($policy)
@@ -387,17 +410,19 @@ class PolicyController extends Controller
     /**
      * Handles removing policies based on submitted form.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Role $role
+     * @param Request $request
+     * @param Role $role
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @throws InvalidOptionsException
      * @throws \InvalidArgumentException
      */
-    public function bulkDeleteAction(Request $request, Role $role): Response
-    {
+    public function bulkDeleteAction(
+        Request $request,
+        Role $role
+    ): Response {
         $this->denyAccessUnlessGranted(new Attribute('role', 'update'));
         $form = $this->formFactory->deletePolicies(
             new PoliciesDeleteData()
@@ -441,7 +466,7 @@ class PolicyController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Policy[] $policies
+     * @param Policy[] $policies
      *
      * @return array
      */

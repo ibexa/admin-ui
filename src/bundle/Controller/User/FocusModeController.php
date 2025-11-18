@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Form\Type\User\FocusModeChangeType;
 use Ibexa\AdminUi\UserSetting\FocusMode;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Event\FocusModeChangedEvent;
+use Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface;
 use Ibexa\User\UserSetting\UserSettingService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -30,11 +31,11 @@ final class FocusModeController extends Controller
 
     private UrlMatcherInterface $urlMatcher;
 
-    /** @var iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> */
+    /** @var iterable<RedirectStrategyInterface> */
     private iterable $redirectStrategies;
 
     /**
-     * @param iterable<\Ibexa\Contracts\AdminUi\FocusMode\RedirectStrategyInterface> $redirectStrategies
+     * @param iterable<RedirectStrategyInterface> $redirectStrategies
      */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -48,8 +49,10 @@ final class FocusModeController extends Controller
         $this->redirectStrategies = $redirectStrategies;
     }
 
-    public function changeAction(Request $request, ?string $returnPath): Response
-    {
+    public function changeAction(
+        Request $request,
+        ?string $returnPath
+    ): Response {
         $data = new FocusModeChangeData();
         $data->setEnabled(
             $this->userSettingService->getUserSetting(FocusMode::IDENTIFIER)->value === FocusMode::FOCUS_MODE_ON
@@ -102,8 +105,10 @@ final class FocusModeController extends Controller
         return new RedirectResponse($path);
     }
 
-    private function isSafeUrl(string $referer, string $baseUrl): bool
-    {
+    private function isSafeUrl(
+        string $referer,
+        string $baseUrl
+    ): bool {
         return str_starts_with($referer, $baseUrl);
     }
 

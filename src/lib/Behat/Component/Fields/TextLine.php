@@ -26,8 +26,8 @@ class TextLine extends FieldTypeComponent
     public function specifyLocators(): array
     {
         return [
-                new VisibleCSSLocator('fieldInput', 'input'),
-            ];
+            new VisibleCSSLocator('fieldInput', 'input'),
+        ];
     }
 
     public function getFieldTypeIdentifier(): string

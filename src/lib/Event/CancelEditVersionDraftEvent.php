@@ -15,13 +15,13 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class CancelEditVersionDraftEvent extends Event
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
+    /** @var Content */
     private $content;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location */
+    /** @var Location */
     private $referrerLocation;
 
-    /** @var \Symfony\Component\HttpFoundation\Response|null */
+    /** @var Response|null */
     private $response;
 
     public function __construct(

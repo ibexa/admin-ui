@@ -11,6 +11,7 @@ use Ibexa\Bundle\AdminUi\ParamConverter\RoleAssignmentParamConverter;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,10 +20,10 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = RoleAssignment::class;
     public const PARAMETER_NAME = 'roleAssignment';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\RoleAssignmentParamConverter */
+    /** @var RoleAssignmentParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -38,12 +39,14 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
      * @param mixed $roleAssignmentId The role assignment identifier fetched from the request
      * @param int $roleAssignmentIdToLoad The role assignment identifier used to load the role assignment
      */
-    public function testApply($roleAssignmentId, int $roleAssignmentIdToLoad)
-    {
+    public function testApply(
+        $roleAssignmentId,
+        int $roleAssignmentIdToLoad
+    ) {
         $valueObject = $this->createMock(RoleAssignment::class);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRoleAssignment')
             ->with($roleAssignmentIdToLoad)
             ->willReturn($valueObject);
@@ -55,8 +58,8 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWithWrongAttribute()
@@ -68,8 +71,8 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWhenNotFound()
@@ -80,7 +83,7 @@ class RoleAssignmentParamConverterTest extends AbstractParamConverterTest
         $this->expectExceptionMessage(sprintf('Role assignment %s not found.', $roleAssignmentId));
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRoleAssignment')
             ->with($roleAssignmentId)
             ->willThrowException($this->createMock(NotFoundException::class));

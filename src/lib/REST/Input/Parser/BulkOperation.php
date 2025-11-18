@@ -19,12 +19,14 @@ class BulkOperation extends BaseParser
      * Parse input structure.
      *
      * @param array $data
-     * @param \Ibexa\Contracts\Rest\Input\ParsingDispatcher $parsingDispatcher
+     * @param ParsingDispatcher $parsingDispatcher
      *
-     * @return \Ibexa\AdminUi\REST\Value\BulkOperation
+     * @return BulkOperationValue
      */
-    public function parse(array $data, ParsingDispatcher $parsingDispatcher)
-    {
+    public function parse(
+        array $data,
+        ParsingDispatcher $parsingDispatcher
+    ) {
         if (!is_array($data) || 'operations' !== key($data)) {
             throw new Exceptions\Parser('Invalid structure for BulkOperation.');
         }

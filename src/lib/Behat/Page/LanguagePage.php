@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
+use Ibexa\AdminUi\Behat\Component\Table\Table;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
@@ -24,20 +25,25 @@ class LanguagePage extends Page
     /** @var string */
     private $expectedLanguageName;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
+    /** @var Table */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     private $dialog;
 
     /** @var int */
     private $expectedLanguageId;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
+    /** @var Repository */
     private $repository;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog, Repository $repository)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
+        Dialog $dialog,
+        Repository $repository
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder->newTable()->build();
         $this->dialog = $dialog;

@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -18,14 +19,18 @@ use PHPUnit\Framework\Assert;
 
 class SectionsPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableInterface */
+    /** @var TableInterface */
     private $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
+    /** @var Dialog */
     private $dialog;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        TableBuilder $tableBuilder,
+        Dialog $dialog
+    ) {
         parent::__construct($session, $router);
         $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('tableContainer'))->build();
         $this->dialog = $dialog;

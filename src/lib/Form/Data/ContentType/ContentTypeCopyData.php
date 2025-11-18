@@ -13,15 +13,15 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 
 class ContentTypeCopyData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType */
+    /** @var ContentType */
     private $contentType;
 
-    /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup */
+    /** @var ContentTypeGroup */
     private $contentTypeGroup;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $contentTypeGroup
+     * @param ContentType $contentType
+     * @param ContentTypeGroup $contentTypeGroup
      */
     public function __construct(
         ?ContentType $contentType,
@@ -32,7 +32,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
+     * @return ContentType|null
      */
     public function getContentType(): ?ContentType
     {
@@ -40,7 +40,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null $contentType
+     * @param ContentType|null $contentType
      */
     public function setContentType(?ContentType $contentType): void
     {
@@ -48,7 +48,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null
+     * @return ContentTypeGroup|null
      */
     public function getContentTypeGroup(): ?ContentTypeGroup
     {
@@ -56,7 +56,7 @@ class ContentTypeCopyData
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup|null $contentTypeGroup
+     * @param ContentTypeGroup|null $contentTypeGroup
      */
     public function setContentTypeGroup(?ContentTypeGroup $contentTypeGroup): void
     {

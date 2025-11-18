@@ -34,7 +34,7 @@ final class LocationPathQueryType extends OptionsResolverBasedQueryType
 
     protected function doGetQuery(array $parameters): Query
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $parameters['location'];
         /** @var int $rootLocationId */
         $rootLocationId = $parameters['rootLocationId'];

@@ -22,8 +22,10 @@ class SubitemsList extends RestValue
      * @param SubitemsRow[] $subitemRows
      * @param int $childrenCount
      */
-    public function __construct(array $subitemRows, int $childrenCount)
-    {
+    public function __construct(
+        array $subitemRows,
+        int $childrenCount
+    ) {
         $this->subitemRows = $subitemRows;
         $this->childrenCount = $childrenCount;
     }

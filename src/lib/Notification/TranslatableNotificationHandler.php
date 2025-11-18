@@ -15,10 +15,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class TranslatableNotificationHandler implements TranslatableNotificationHandlerInterface, ActionResultHandler
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
+    /** @var NotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(
@@ -29,8 +29,12 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
         $this->translator = $translator;
     }
 
-    public function info(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function info(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,
@@ -43,8 +47,12 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
         );
     }
 
-    public function success(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function success(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,
@@ -57,8 +65,12 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
         );
     }
 
-    public function warning(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function warning(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,
@@ -71,8 +83,12 @@ final class TranslatableNotificationHandler implements TranslatableNotificationH
         );
     }
 
-    public function error(string $message, array $parameters = [], ?string $domain = null, ?string $locale = null): void
-    {
+    public function error(
+        string $message,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): void {
         $translatedMessage = $this->translator->trans(
             /** @Ignore */
             $message,

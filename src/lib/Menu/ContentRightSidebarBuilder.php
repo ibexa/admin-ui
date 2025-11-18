@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Menu;
 
+use Ibexa\AdminUi\Exception\InvalidArgumentException;
 use Ibexa\AdminUi\Menu\Event\ConfigureMenuEvent;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
@@ -22,10 +23,13 @@ use Ibexa\Contracts\AdminUi\Menu\MenuItemFactoryInterface;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
 use Ibexa\Contracts\Core\Limitation\Target\Builder\VersionBuilder;
+use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -54,25 +58,25 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     private const CREATE_USER_LABEL = 'sidebar_right.create_user';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
+    /** @var PermissionResolver */
     private $permissionResolver;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
+    /** @var ConfigResolver */
     private $udwConfigResolver;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
+    /** @var LocationService */
     private $locationService;
 
-    /** @var \Ibexa\Bundle\AdminUi\Templating\Twig\UniversalDiscoveryExtension */
+    /** @var UniversalDiscoveryExtension */
     private $udwExtension;
 
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
+    /** @var PermissionCheckerInterface */
     private $permissionChecker;
 
-    private SiteaccessResolverInterface  $siteaccessResolver;
+    private SiteaccessResolverInterface $siteaccessResolver;
 
     public function __construct(
         MenuItemFactoryInterface $factory,
@@ -107,22 +111,22 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws InvalidArgumentException
+     * @throws BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function createStructure(array $options): ItemInterface
     {
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+        /** @var Location $location */
         $location = $options['location'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType */
+        /** @var ContentType $contentType */
         $contentType = $options['content_type'];
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+        /** @var Content $content */
         $content = $options['content'];
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
         $startingLocationId = $this->udwConfigResolver->getConfig('default')['starting_location_id'];
 
@@ -317,7 +321,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {
@@ -338,12 +342,15 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param ItemInterface $menu
      * @param bool $contentIsUser
      * @param bool $canEdit
      */
-    private function addEditMenuItem(ItemInterface $menu, bool $contentIsUser, bool $canEdit): void
-    {
+    private function addEditMenuItem(
+        ItemInterface $menu,
+        bool $contentIsUser,
+        bool $canEdit
+    ): void {
         $editAttributes = [
             'class' => 'ibexa-btn--extra-actions ibexa-btn--edit',
             'data-actions' => 'edit',
@@ -381,10 +388,12 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param ItemInterface $menu
      */
-    private function addRevealMenuItem(ItemInterface $menu, bool $canHide): void
-    {
+    private function addRevealMenuItem(
+        ItemInterface $menu,
+        bool $canHide
+    ): void {
         $attributes = [
             'class' => 'ibexa-btn--reveal',
             'data-actions' => 'reveal',
@@ -404,10 +413,12 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     }
 
     /**
-     * @param \Knp\Menu\ItemInterface $menu
+     * @param ItemInterface $menu
      */
-    private function addHideMenuItem(ItemInterface $menu, bool $canHide): void
-    {
+    private function addHideMenuItem(
+        ItemInterface $menu,
+        bool $canHide
+    ): void {
         $attributes = [
             'class' => 'ibexa-btn--hide',
             'data-actions' => 'hide',
@@ -448,8 +459,10 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         return $hasCreatePermission && $hasManageLocationsPermission;
     }
 
-    private function canCopySubtree(Location $location, bool $hasCreatePermission): bool
-    {
+    private function canCopySubtree(
+        Location $location,
+        bool $hasCreatePermission
+    ): bool {
         if (!$hasCreatePermission) {
             return false;
         }
@@ -472,7 +485,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     /**
      * @param array<string, mixed> $options
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     private function getContentPreviewItem(

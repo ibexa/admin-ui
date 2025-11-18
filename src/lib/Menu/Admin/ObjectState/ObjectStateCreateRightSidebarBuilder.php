@@ -38,7 +38,7 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
     /**
      * @param array $options
      *
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      *
      * @throws \InvalidArgumentException
      * @throws ApiExceptions\BadStateException
@@ -48,7 +48,7 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
     {
         $groupId = $options['group_id'];
 
-        /** @var \Knp\Menu\ItemInterface|\Knp\Menu\ItemInterface[] $menu */
+        /** @var ItemInterface|ItemInterface[] $menu */
         $menu = $this->factory->createItem('root');
 
         $createItem = $this->createMenuItem(
@@ -88,7 +88,7 @@ class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder implements Tr
     }
 
     /**
-     * @return \JMS\TranslationBundle\Model\Message[]
+     * @return Message[]
      */
     public static function getTranslationMessages(): array
     {

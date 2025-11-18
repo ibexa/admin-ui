@@ -90,15 +90,20 @@ class Matrix extends FieldTypeComponent
         }
     }
 
-    private function internalSetValue(int $rowIndex, string $column, $value): void
-    {
+    private function internalSetValue(
+        int $rowIndex,
+        string $column,
+        $value
+    ): void {
         $matrixCellSelector = new VisibleCSSLocator('matrixCell', sprintf('[name="ezplatform_content_forms_content_edit[fieldsData][ezmatrix][value][entries][%d][%s]"]', $rowIndex, $column));
 
         $this->getHTMLPage()->find($matrixCellSelector)->setValue($value);
     }
 
-    private function getParsedTableValue(LocatorInterface $headerSelector, LocatorInterface $rowSelector): string
-    {
+    private function getParsedTableValue(
+        LocatorInterface $headerSelector,
+        LocatorInterface $rowSelector
+    ): string {
         $parsedTable = '';
 
         $headers = $this->getHTMLPage()->find($this->parentLocator)->findAll($headerSelector)->mapBy(new ElementTextMapper());

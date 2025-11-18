@@ -22,21 +22,22 @@ use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLWildcardUpdateStruct;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Button;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class URLWildcardController extends Controller
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
+    /** @var URLWildcardService */
     private $urlWildcardService;
 
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
+    /** @var TranslatableNotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
+    /** @var FormFactory */
     private $formFactory;
 
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
+    /** @var SubmitHandler */
     private $submitHandler;
 
     public function __construct(
@@ -52,13 +53,13 @@ final class URLWildcardController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function addAction(Request $request): Response
     {
-        /** @var \Symfony\Component\Form\Form $form */
+        /** @var Form $form */
         $form = $this->formFactory->createURLWildcard();
 
         $form->handleRequest($request);
@@ -98,14 +99,16 @@ final class URLWildcardController extends Controller
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\URLWildcard $urlWildcard
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param URLWildcard $urlWildcard
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function updateAction(URLWildcard $urlWildcard, Request $request): Response
-    {
-        /** @var \Symfony\Component\Form\Form $form */
+    public function updateAction(
+        URLWildcard $urlWildcard,
+        Request $request
+    ): Response {
+        /** @var Form $form */
         $form = $this->formFactory->createURLWildcardUpdate(
             new URLWildcardUpdateData($urlWildcard)
         );
@@ -165,9 +168,9 @@ final class URLWildcardController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function bulkDeleteAction(Request $request): Response
     {

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Templating\Twig;
 
+use Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer;
 use Ibexa\AdminUi\Limitation\Templating\LimitationBlockRendererInterface;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Twig\Environment;
@@ -16,7 +17,7 @@ use Twig\TwigFunction;
 
 class LimitationValueRenderingExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\Limitation\Templating\LimitationBlockRenderer */
+    /** @var LimitationBlockRenderer */
     private $limitationRenderer;
 
     public function __construct(LimitationBlockRendererInterface $limitationRenderer)
@@ -25,11 +26,15 @@ class LimitationValueRenderingExtension extends AbstractExtension
     }
 
     /**
-     * @return \Twig\TwigFunction[]
+     * @return TwigFunction[]
      */
     public function getFunctions(): array
     {
-        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []) {
+        $limitationValueCallable = function (
+            Environment $twig,
+            Limitation $limitation,
+            array $params = []
+        ) {
             return $this->limitationRenderer->renderLimitationValue($limitation, $params);
         };
 

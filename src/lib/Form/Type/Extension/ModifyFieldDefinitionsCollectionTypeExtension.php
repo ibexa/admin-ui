@@ -47,8 +47,10 @@ final class ModifyFieldDefinitionsCollectionTypeExtension extends AbstractTypeEx
         $this->contentTypeSpecification = $contentTypeSpecification;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $subscriber = new ModifyFieldDefinitionFieldsSubscriber(
             $this->fieldTypeIdentifier,
             $this->modifiedOptions,

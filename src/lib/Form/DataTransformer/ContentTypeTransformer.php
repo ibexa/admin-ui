@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Symfony\Component\Form\DataTransformerInterface;
 
@@ -17,11 +18,11 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 class ContentTypeTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
+    /** @var ContentTypeService */
     protected $contentTypeService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
+     * @param ContentTypeService $contentTypeService
      */
     public function __construct(ContentTypeService $contentTypeService)
     {
@@ -29,7 +30,7 @@ class ContentTypeTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $value
+     * @param ContentType $value
      *
      * @return string|null
      */
@@ -43,9 +44,9 @@ class ContentTypeTransformer implements DataTransformerInterface
     /**
      * @param mixed $value
      *
-     * @return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType|null
+     * @return ContentType|null
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws NotFoundException
      */
     public function reverseTransform($value)
     {

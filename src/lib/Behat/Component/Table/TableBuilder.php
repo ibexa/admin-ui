@@ -16,16 +16,16 @@ use Ibexa\Core\Base\Exceptions\BadStateException;
 
 class TableBuilder
 {
-    /** @var \Behat\Mink\Session */
+    /** @var Session */
     private $session;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableRowFactory */
+    /** @var TableRowFactory */
     private $tableRowFactory;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Pagination */
+    /** @var Pagination */
     private $pagination;
 
-    /** @var \Ibexa\Behat\Browser\Locator\LocatorCollection */
+    /** @var LocatorCollection */
     private $locators;
 
     /**
@@ -33,8 +33,11 @@ class TableBuilder
      */
     private $buildInProgress;
 
-    public function __construct(Session $session, TableRowFactory $tableRowFactory, Pagination $pagination)
-    {
+    public function __construct(
+        Session $session,
+        TableRowFactory $tableRowFactory,
+        Pagination $pagination
+    ) {
         $this->session = $session;
         $this->tableRowFactory = $tableRowFactory;
         $this->pagination = $pagination;

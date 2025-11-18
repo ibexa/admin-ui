@@ -11,6 +11,7 @@ namespace Ibexa\Tests\Bundle\AdminUi\ParamConverter;
 use Ibexa\Bundle\AdminUi\ParamConverter\ContentParamConverter;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,10 +22,10 @@ class ContentParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Content::class;
     public const PARAMETER_NAME = 'content';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\ContentParamConverter */
+    /** @var ContentParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $contentServiceMock;
 
     protected function setUp(): void
@@ -42,7 +43,7 @@ class ContentParamConverterTest extends AbstractParamConverterTest
         $valueObject = $this->createMock(Content::class);
 
         $this->contentServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadContent')
             ->with($contentId, $languageCode, $versionNo)
             ->willReturn($valueObject);
@@ -56,8 +57,8 @@ class ContentParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
+        self::assertTrue($this->converter->apply($request, $config));
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**
@@ -66,8 +67,10 @@ class ContentParamConverterTest extends AbstractParamConverterTest
      * @param $contentId
      * @param $languageCode
      */
-    public function testApplyWithWrongAttribute($contentId, $languageCode)
-    {
+    public function testApplyWithWrongAttribute(
+        $contentId,
+        $languageCode
+    ) {
         $versionNo = 53;
 
         $requestAttributes = [
@@ -79,8 +82,8 @@ class ContentParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     /**

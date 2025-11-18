@@ -12,11 +12,11 @@ use Ibexa\Rest\Value as RestValue;
 
 class BulkOperation extends RestValue
 {
-    /** @var \Ibexa\AdminUi\REST\Value\Operation[] */
+    /** @var Operation[] */
     public $operations;
 
     /**
-     * @param \Ibexa\AdminUi\REST\Value\Operation[] $operations
+     * @param Operation[] $operations
      */
     public function __construct(array $operations)
     {

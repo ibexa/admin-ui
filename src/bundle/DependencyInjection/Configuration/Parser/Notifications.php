@@ -32,8 +32,11 @@ class Notifications extends AbstractParser
     /**
      * {@inheritdoc}
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        $currentScope,
+        ContextualizerInterface $contextualizer
+    ) {
         if (!empty($scopeSettings['notifications'])) {
             $settings = $scopeSettings['notifications'];
             $nodes = ['timeout'];

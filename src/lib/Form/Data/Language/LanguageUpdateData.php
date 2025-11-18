@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class LanguageUpdateData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language */
+    /** @var Language */
     private $language;
 
     /**

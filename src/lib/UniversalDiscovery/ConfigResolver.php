@@ -18,15 +18,15 @@ class ConfigResolver
 
     public const DEFAULT_CONFIGURATION_KEY = '_default';
 
-    /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+    /** @var EventDispatcherInterface */
     protected $eventDispatcher;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     protected $configResolver;
 
     /**
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
+     * @param ConfigResolverInterface $configResolver
+     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(
         ConfigResolverInterface $configResolver,
@@ -42,8 +42,10 @@ class ConfigResolver
      *
      * @return array
      */
-    public function getConfig(string $configName, array $context = []): array
-    {
+    public function getConfig(
+        string $configName,
+        array $context = []
+    ): array {
         $config = $this->getUDWConfiguration($configName);
         $defaults = $this->getUDWConfiguration(self::DEFAULT_CONFIGURATION_KEY);
 
@@ -55,7 +57,7 @@ class ConfigResolver
         $configResolveEvent->setContext($context);
         $configResolveEvent->setConfig($config);
 
-        /** @var \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event */
+        /** @var ConfigResolveEvent $event */
         $event = $this->eventDispatcher->dispatch($configResolveEvent, ConfigResolveEvent::NAME);
 
         return $event->getConfig();
@@ -67,8 +69,10 @@ class ConfigResolver
      *
      * @return array
      */
-    protected function mergeConfiguration(array $default, $apply): array
-    {
+    protected function mergeConfiguration(
+        array $default,
+        $apply
+    ): array {
         foreach ($apply as $key => $item) {
             if (isset($default[$key]) && $this->isAssocArray($default[$key])) {
                 $default[$key] = $this->mergeConfiguration($default[$key], $item);

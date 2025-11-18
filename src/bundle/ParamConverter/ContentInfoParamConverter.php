@@ -19,11 +19,11 @@ class ContentInfoParamConverter implements ParamConverterInterface
 {
     public const PARAMETER_CONTENT_INFO_ID = 'contentInfoId';
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
+    /** @var ContentService */
     private $contentService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentTypeService
+     * @param ContentService $contentTypeService
      */
     public function __construct(ContentService $contentTypeService)
     {
@@ -33,8 +33,10 @@ class ContentInfoParamConverter implements ParamConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function apply(Request $request, ParamConverter $configuration)
-    {
+    public function apply(
+        Request $request,
+        ParamConverter $configuration
+    ) {
         $id = (int)$request->get(self::PARAMETER_CONTENT_INFO_ID);
         $contentInfo = $this->contentService->loadContentInfo($id);
 

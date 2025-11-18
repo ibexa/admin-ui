@@ -30,7 +30,7 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
 
     protected function doGetQuery(array $parameters): Query
     {
-        /** @var \Ibexa\AdminUi\Form\Data\Search\TrashSearchData $searchData */
+        /** @var TrashSearchData $searchData */
         $searchData = $parameters['search_data'];
         $query = new Query();
 
@@ -58,8 +58,10 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
         return 'IbexaAdminUi:TrashSearchQuery';
     }
 
-    protected function addCriteria(TrashSearchData $searchData, Query $query): void
-    {
+    protected function addCriteria(
+        TrashSearchData $searchData,
+        Query $query
+    ): void {
         $criteria = [];
 
         if ($searchData->getSection() instanceof Section) {
@@ -103,8 +105,10 @@ final class TrashSearchQueryType extends OptionsResolverBasedQueryType
         }
     }
 
-    private function addSort(TrashSearchData $searchData, Query $query): void
-    {
+    private function addSort(
+        TrashSearchData $searchData,
+        Query $query
+    ): void {
         $sort = $searchData->getSort();
 
         if (empty($sort)) {

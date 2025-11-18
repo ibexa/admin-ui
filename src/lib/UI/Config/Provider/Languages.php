@@ -18,22 +18,20 @@ use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
  */
 class Languages implements ProviderInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
+    /** @var LanguageService */
     private $languageService;
 
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
+    /** @var ConfigResolverInterface */
     private $configResolver;
 
     /** @var string[] */
     private $siteAccesses;
 
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    /** @var SiteAccessServiceInterface */
     private $siteAccessService;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface $configResolver
-     * @param string[]
+     * @param string[] $siteAccesses
      */
     public function __construct(
         LanguageService $languageService,

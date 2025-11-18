@@ -26,7 +26,7 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         's' => 'seconds',
     ];
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
     public function __construct(TranslatorInterface $translator)

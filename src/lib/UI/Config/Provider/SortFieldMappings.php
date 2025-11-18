@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UI\Config\Provider;
 
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
+use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 
 /**
  * Provides information about mapping between serialized sort field and the value accepted by sort clause.
  *
- * @see \Ibexa\Contracts\Rest\Output\ValueObjectVisitor::serializeSortField
+ * @see ValueObjectVisitor::serializeSortField
  */
 class SortFieldMappings implements ProviderInterface
 {
@@ -23,15 +24,15 @@ class SortFieldMappings implements ProviderInterface
     public function getConfig(): array
     {
         return [
-           'PATH' => 'LocationPath',
-           'PUBLISHED' => 'DatePublished',
-           'MODIFIED' => 'DateModified',
-           'SECTION' => 'SectionIdentifier',
-           'DEPTH' => 'LocationDepth',
-           'PRIORITY' => 'LocationPriority',
-           'NAME' => 'ContentName',
-           'NODE_ID' => 'LocationId',
-           'CONTENTOBJECT_ID' => 'ContentId',
+            'PATH' => 'LocationPath',
+            'PUBLISHED' => 'DatePublished',
+            'MODIFIED' => 'DateModified',
+            'SECTION' => 'SectionIdentifier',
+            'DEPTH' => 'LocationDepth',
+            'PRIORITY' => 'LocationPriority',
+            'NAME' => 'ContentName',
+            'NODE_ID' => 'LocationId',
+            'CONTENTOBJECT_ID' => 'ContentId',
         ];
     }
 }

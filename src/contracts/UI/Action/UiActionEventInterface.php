@@ -37,22 +37,22 @@ interface UiActionEventInterface
     public function setType(string $type): void;
 
     /**
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     public function getForm(): FormInterface;
 
     /**
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param FormInterface $form
      */
     public function setForm(FormInterface $form): void;
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response|null
+     * @return Response|null
      */
     public function getResponse(): ?Response;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Response|null $response
+     * @param Response|null $response
      */
     public function setResponse(?Response $response): void;
 }

@@ -10,22 +10,25 @@ namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
 use Ibexa\AdminUi\UI\Dataset\DatasetFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
 use Pagerfanta\Adapter\AdapterInterface;
 
 class BookmarkAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
+    /** @var BookmarkService */
     private $bookmarkService;
 
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
+    /** @var DatasetFactory */
     private $datasetFactory;
 
     /**
-     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
+     * @param BookmarkService $bookmarkService
+     * @param DatasetFactory $datasetFactory
      */
-    public function __construct(BookmarkService $bookmarkService, DatasetFactory $datasetFactory)
-    {
+    public function __construct(
+        BookmarkService $bookmarkService,
+        DatasetFactory $datasetFactory
+    ) {
         $this->bookmarkService = $bookmarkService;
         $this->datasetFactory = $datasetFactory;
     }
@@ -35,7 +38,7 @@ class BookmarkAdapter implements AdapterInterface
      *
      * @return int the number of results
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getNbResults()
     {
@@ -50,10 +53,12 @@ class BookmarkAdapter implements AdapterInterface
      *
      * @return array|\Traversable the slice
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function getSlice($offset, $length)
-    {
+    public function getSlice(
+        $offset,
+        $length
+    ) {
         return $this->datasetFactory
             ->bookmarks()
             ->load($offset, $length)

@@ -23,16 +23,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class CredentialsExpirationWarningListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
+    /** @var NotificationHandlerInterface */
     private $notificationHandler;
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
+    /** @var TranslatorInterface */
     private $translator;
 
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
+    /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
+    /** @var UserService */
     private $userService;
 
     /** @var string[][] */

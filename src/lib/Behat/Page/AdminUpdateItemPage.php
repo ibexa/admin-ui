@@ -21,11 +21,14 @@ use PHPUnit\Framework\Assert;
 
 class AdminUpdateItemPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\ContentActionsMenu */
+    /** @var ContentActionsMenu */
     protected $contentActionsMenu;
 
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
-    {
+    public function __construct(
+        Session $session,
+        Router $router,
+        ContentActionsMenu $contentActionsMenu
+    ) {
         parent::__construct($session, $router);
         $this->contentActionsMenu = $contentActionsMenu;
     }
@@ -50,8 +53,10 @@ class AdminUpdateItemPage extends Page
         return 'Admin item update';
     }
 
-    public function fillFieldWithValue(string $fieldName, $value): void
-    {
+    public function fillFieldWithValue(
+        string $fieldName,
+        $value
+    ): void {
         $field = $this->getField($fieldName);
         $fieldType = $field->getAttribute('type');
 

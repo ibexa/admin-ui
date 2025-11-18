@@ -9,9 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller;
 
 use DateTimeImmutable;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
+use Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
+use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult;
 use Ibexa\Core\FieldType\Image\Value;
 use Ibexa\Rest\Server\Controller;
@@ -52,8 +55,8 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
+     * @throws InvalidArgumentException
+     * @throws InvalidCriterionArgumentException
      * @throws \Exception
      */
     public function downloadAction(string $contentIdList): Response
@@ -110,9 +113,9 @@ final class DownloadImageController extends Controller
 
         $contentList = [];
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit $image */
+        /** @var SearchHit $image */
         foreach ($result as $image) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
+            /** @var Content $content */
             $content = $image->valueObject;
             $contentList[] = $content;
         }
@@ -149,7 +152,7 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
+     * @param array<Content> $contentList
      *
      * @throws \Exception
      */
@@ -289,12 +292,14 @@ final class DownloadImageController extends Controller
     }
 
     /**
-     * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $contentList
+     * @param array<Content> $contentList
      *
      * @throws \Exception
      */
-    private function createArchive(string $name, array $contentList): void
-    {
+    private function createArchive(
+        string $name,
+        array $contentList
+    ): void {
         $zipArchive = new ZipArchive();
         $zipArchive->open($name, ZipArchive::CREATE);
 

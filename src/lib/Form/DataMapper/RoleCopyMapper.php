@@ -21,7 +21,7 @@ class RoleCopyMapper implements DataMapperInterface
     /**
      * Maps given RoleCopyStruct object to a RoleCopyData object.
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function map(ValueObject $value): RoleCopyData
     {
@@ -35,9 +35,9 @@ class RoleCopyMapper implements DataMapperInterface
     /**
      * Maps given RoleCopyData object to a RoleCopyStruct object.
      *
-     * @param \Ibexa\AdminUi\Form\Data\Role\RoleCopyData $data
+     * @param RoleCopyData $data
      *
-     * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function reverseMap($data): RoleCopyStruct
     {

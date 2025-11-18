@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Repository\RoleService;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\Role;
 use Ibexa\Core\Repository\Values\User\Policy as UserPolicy;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -21,10 +22,10 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
     public const SUPPORTED_CLASS = Policy::class;
     public const PARAMETER_NAME = 'policy';
 
-    /** @var \Ibexa\Bundle\AdminUi\ParamConverter\PolicyParamConverter */
+    /** @var PolicyParamConverter */
     protected $converter;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject */
+    /** @var MockObject */
     protected $serviceMock;
 
     protected function setUp(): void
@@ -41,8 +42,11 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
      * @param mixed $roleId The role identifier fetched from the request
      * @param int $roleIdToLoad The role identifier used to load the role
      */
-    public function testApply($policyId, $roleId, int $roleIdToLoad)
-    {
+    public function testApply(
+        $policyId,
+        $roleId,
+        int $roleIdToLoad
+    ) {
         $matchingPolicyId = 53;
         $valueObject = $this->createMock(Role::class);
         $valueObject->expects(self::once())
@@ -50,7 +54,7 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
             ->willReturn([new UserPolicy(['id' => $matchingPolicyId]), new UserPolicy(['id' => 444])]);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRole')
             ->with($roleIdToLoad)
             ->willReturn($valueObject);
@@ -63,10 +67,10 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertTrue($this->converter->apply($request, $config));
+        self::assertTrue($this->converter->apply($request, $config));
         $policy = $request->attributes->get(self::PARAMETER_NAME);
-        $this->assertInstanceOf(self::SUPPORTED_CLASS, $policy);
-        $this->assertSame($matchingPolicyId, $policy->id);
+        self::assertInstanceOf(self::SUPPORTED_CLASS, $policy);
+        self::assertSame($matchingPolicyId, $policy->id);
     }
 
     /**
@@ -75,8 +79,10 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
      * @param $roleId
      * @param $policyId
      */
-    public function testApplyWithWrongAttribute($roleId, $policyId)
-    {
+    public function testApplyWithWrongAttribute(
+        $roleId,
+        $policyId
+    ) {
         $requestAttributes = [
             PolicyParamConverter::PARAMETER_ROLE_ID => $roleId,
             PolicyParamConverter::PARAMETER_POLICY_ID => $policyId,
@@ -85,8 +91,8 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
         $request = new Request([], [], $requestAttributes);
         $config = $this->createConfiguration(self::SUPPORTED_CLASS, self::PARAMETER_NAME);
 
-        $this->assertFalse($this->converter->apply($request, $config));
-        $this->assertNull($request->attributes->get(self::PARAMETER_NAME));
+        self::assertFalse($this->converter->apply($request, $config));
+        self::assertNull($request->attributes->get(self::PARAMETER_NAME));
     }
 
     public function testApplyWhenRoleNotFound()
@@ -98,7 +104,7 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
         $this->expectExceptionMessage(sprintf('Role %s not found.', $roleId));
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRole')
             ->with($roleId)
             ->willThrowException($this->createMock(NotFoundException::class));
@@ -128,7 +134,7 @@ class PolicyParamConverterTest extends AbstractParamConverterTest
             ->willReturn([new UserPolicy(['id' => 123])]);
 
         $this->serviceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadRole')
             ->with($roleId)
             ->willReturn($valueObject);
