@@ -4351,12 +4351,6 @@ parameters:
 			path: src/lib/Event/Options.php
 
 		-
-			message: '#^Cannot call method log\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/EventListener/AdminExceptionListener.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\AdminExceptionListener\:\:__construct\(\) has parameter \$siteAccessGroups with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -10669,12 +10663,6 @@ parameters:
 			path: src/lib/Limitation/Mapper/ChangeOwnerLimitationMapper.php
 
 		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/ContentTypeLimitationMapper.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\ContentTypeLimitationMapper\:\:getSelectionChoices\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -10685,12 +10673,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Limitation/Mapper/GroupLimitationMapper.php
-
-		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/LanguageLimitationMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\LanguageLimitationMapper\:\:getSelectionChoices\(\) return type has no value type specified in iterable type array\.$#'
@@ -10777,12 +10759,6 @@ parameters:
 			path: src/lib/Limitation/Mapper/ObjectStateLimitationMapper.php
 
 		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/ObjectStateLimitationMapper.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\ObjectStateLimitationMapper\:\:getObjectStateLabel\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -10817,12 +10793,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Limitation/Mapper/RoleLimitationMapper.php
-
-		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Limitation/Mapper/SectionLimitationMapper.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\Limitation\\Mapper\\SectionLimitationMapper\:\:getSelectionChoices\(\) return type has no value type specified in iterable type array\.$#'
@@ -11375,18 +11345,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: src/lib/Notification/TranslatableNotificationHandler.php
-
-		-
-			message: '#^Cannot call method warning\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Notifier/Notification/UserInvitation.php
-
-		-
-			message: '#^Cannot call method warning\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: src/lib/Notifier/Notification/UserPasswordReset.php
 
 		-
 			message: '#^Cannot access offset mixed on iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\>\.$#'
@@ -12466,12 +12424,6 @@ parameters:
 			message: '#^Call to an undefined method Peast\\Syntax\\Node\\Expression\:\:getValue\(\)\.$#'
 			identifier: method.notFound
 			count: 2
-			path: src/lib/Translation/Extractor/JavaScriptFileVisitor.php
-
-		-
-			message: '#^Cannot call method error\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
-			identifier: method.nonObject
-			count: 3
 			path: src/lib/Translation/Extractor/JavaScriptFileVisitor.php
 
 		-
