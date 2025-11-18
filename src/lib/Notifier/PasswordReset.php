@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Notifier;
 
+use Ibexa\AdminUi\Notifier\Notification\UserPasswordReset;
 use Ibexa\Contracts\Core\Repository\Values\User\User;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Notifications\Service\NotificationServiceInterface;
 use Ibexa\Contracts\Notifications\Value\Notification\SymfonyNotificationAdapter;
 use Ibexa\Contracts\Notifications\Value\Recipent\SymfonyRecipientAdapter;
 use Ibexa\Contracts\Notifications\Value\Recipent\UserRecipient;
-use Ibexa\Contracts\User\Notification\UserPasswordReset;
 use Ibexa\Contracts\User\PasswordReset\NotifierInterface;
 use InvalidArgumentException;
 use Psr\Log\LoggerAwareInterface;
@@ -107,7 +107,14 @@ class PasswordReset implements NotifierInterface, LoggerAwareInterface
     {
         $this->notificationService->send(
             new SymfonyNotificationAdapter(
-                new UserPasswordReset($user, $token),
+                new UserPasswordReset(
+                    $user,
+                    $token,
+                    $this->configResolver,
+                    $this->twig,
+                    $this->kernel,
+                    $this->logger
+                ),
             ),
             [new SymfonyRecipientAdapter(new UserRecipient($user))],
         );

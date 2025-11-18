@@ -11377,6 +11377,18 @@ parameters:
 			path: src/lib/Notification/TranslatableNotificationHandler.php
 
 		-
+			message: '#^Cannot call method warning\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/lib/Notifier/Notification/UserInvitation.php
+
+		-
+			message: '#^Cannot call method warning\(\) on Psr\\Log\\LoggerInterface\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: src/lib/Notifier/Notification/UserPasswordReset.php
+
+		-
 			message: '#^Cannot access offset mixed on iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\>\.$#'
 			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
