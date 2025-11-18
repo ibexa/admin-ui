@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    Ibexa\AdminUi\Notifier\PasswordReset:
+        decorates: Ibexa\Contracts\User\PasswordReset\NotifierInterface
+
+    Ibexa\AdminUi\Notifier\UserInvitation:
+        decorates: Ibexa\Contracts\User\Invitation\InvitationSender

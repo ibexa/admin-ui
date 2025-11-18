@@ -296,28 +296,6 @@
         <target state="new">This email is connected with several accounts. Enter your login instead.</target>
         <note>key: ezplatform.forgot_user_password.login</note>
       </trans-unit>
-      <trans-unit id="db6dd97ed4776bb0e9843554c48e3962327e8f50" resname="ezplatform.forgot_user_password.message">
-        <source><![CDATA[Hi,
-        <br /><br />
-        We have received a request to reset the password for your Ibexa DXP account. Click “reset password” below to choose a new password:
-        <br /><br />
-        <a href="%reset_password%">Reset password</a>
-        <br /><br />
-        If you did not request a password reset, please ignore this email, and your password will remain the same.]]></source>
-        <target state="new"><![CDATA[Hi,
-        <br /><br />
-        We have received a request to reset the password for your Ibexa DXP account. Click “reset password” below to choose a new password:
-        <br /><br />
-        <a href="%reset_password%">Reset password</a>
-        <br /><br />
-        If you did not request a password reset, please ignore this email, and your password will remain the same.]]></target>
-        <note>key: ezplatform.forgot_user_password.message</note>
-      </trans-unit>
-      <trans-unit id="801ba7693e80ca58fbf2a9da2b735bf3f324fd27" resname="ezplatform.forgot_user_password.reset_your_password">
-        <source>Reset your password</source>
-        <target state="new">Reset your password</target>
-        <note>key: ezplatform.forgot_user_password.reset_your_password</note>
-      </trans-unit>
       <trans-unit id="264649149b7563144f9e2c462b13477dc7441302" resname="ezplatform.registration_confirmation.header">
         <source>Your account has been created</source>
         <target state="new">Your account has been created</target>
