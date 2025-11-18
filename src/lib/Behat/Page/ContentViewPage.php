@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Breadcrumb;
-use Ibexa\AdminUi\Behat\Component\CancelContentDialog;
 use Ibexa\AdminUi\Behat\Component\ContentActionsMenu;
 use Ibexa\AdminUi\Behat\Component\ContentItemAdminPreview;
 use Ibexa\AdminUi\Behat\Component\ContentTypePicker;
@@ -135,10 +134,13 @@ class ContentViewPage extends Page
         $this->tableBuilder = $tableBuilder;
     }
 
-    public function startCreatingContent(string $contentTypeName)
+    public function startCreatingContent(string $contentTypeName, ?string $language = null)
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
+        if ($language !== null) {
+            $this->contentTypePicker->selectLanguage($language);
+        }
         $this->contentTypePicker->select($contentTypeName);
         $this->contentTypePicker->confirm();
     }
