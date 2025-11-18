@@ -8,12 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\Integration\AdminUi\Util;
 
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Test\IbexaKernelTestCase;
-use LogicException;
 
 final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
 {
@@ -74,7 +74,7 @@ final class ContentTypeFieldsExtractorTest extends IbexaKernelTestCase
 
     public function testExtractWithContentTypeAndGroupNamesFailsWithTypesOutsideGroups(): void
     {
-        self::expectException(LogicException::class);
+        self::expectException(FieldTypeExpressionParserException::class);
 
         $expression = 'Content/user/{first_name,last_name}';
 

@@ -17,7 +17,6 @@ interface ContentTypeFieldsByExpressionServiceInterface
      *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\AdminUi\Exception\FieldTypeExpressionParserException
-     * @throws \LogicException
      */
     public function getFieldsFromExpression(string $expression, ?string $configuration = null): array;
 

@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Util;
 
+use Ibexa\AdminUi\Exception\FieldTypeExpressionParserException;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
-use LogicException;
 
 final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInterface
 {
@@ -125,13 +125,11 @@ final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInte
             );
 
             if (array_intersect($contentTypeGroupIdentifiers, $groupsIdentifiers) === []) {
-                throw new LogicException(
-                    sprintf(
-                        'Groups of content type "%s" have no common identifiers with chosen groups: "%s".',
-                        $contentType->getIdentifier(),
-                        implode(', ', $contentTypeGroupIdentifiers),
-                    ),
-                );
+                throw new FieldTypeExpressionParserException(sprintf(
+                    'Groups of content type "%s" have no common identifiers with chosen groups: "%s".',
+                    $contentType->getIdentifier(),
+                    implode(', ', $contentTypeGroupIdentifiers),
+                ));
             }
         }
     }
