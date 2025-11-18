@@ -95,8 +95,6 @@ class ContentViewPage extends Page
 
     private TableBuilder $tableBuilder;
 
-    private ?CancelContentDialog $cancelContentDialog;
-
     public function __construct(
         Session $session,
         Router $router,
@@ -115,8 +113,7 @@ class ContentViewPage extends Page
         UpperMenu $upperMenu,
         DeleteContentDialog $deleteContentDialog,
         CreateUrlAliasModal $createUrlAliasModal,
-        TableBuilder $tableBuilder,
-        ?CancelContentDialog $cancelContentDialog = null
+        TableBuilder $tableBuilder
     ) {
         parent::__construct($session, $router);
 
@@ -136,16 +133,12 @@ class ContentViewPage extends Page
         $this->deleteContentDialog = $deleteContentDialog;
         $this->createUrlAliasModal = $createUrlAliasModal;
         $this->tableBuilder = $tableBuilder;
-        $this->cancelContentDialog = $cancelContentDialog;
     }
 
-    public function startCreatingContent(string $contentTypeName, ?string $language = null)
+    public function startCreatingContent(string $contentTypeName)
     {
         $this->contentActionsMenu->clickButton('Create content');
         $this->contentTypePicker->verifyIsLoaded();
-        if ($language !== null) {
-            $this->contentTypePicker->selectLanguage($language);
-        }
         $this->contentTypePicker->select($contentTypeName);
         $this->contentTypePicker->confirm();
     }
@@ -430,8 +423,6 @@ class ContentViewPage extends Page
     {
         $this->getHTMLPage()->find($this->getLocator('cancelScheduleButton'))->click();
         $this->dialog->verifyIsLoaded();
-        if ($this->cancelContentDialog !== null) {
-            $this->cancelContentDialog->confirmCanceling('Cancel scheduled hiding');
-        }
+        $this->dialog->confirm();
     }
 }

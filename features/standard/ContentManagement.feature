@@ -143,11 +143,11 @@ Scenario: Content can be copied
       | title                  | short_title            | intro            |
       | TestArticleToHideLater | TestArticleToHideLater | TestArticleIntro |
     And I'm on Content view Page for "ContentManagement/TestArticleToHideLater"
-    When I perform the "Hide" action
+    And I perform the "Hide" action
     And I select hide "later" for field options
     And I perform the "Confirm" action
     And I should be on Content view Page for "ContentManagement/TestArticleToHideLater"
-    Then I should see the alert contains "This Content item will be hidden and won't be publicly available after" appear
+    And I should see the alert contains "This Content item will be hidden and won't be publicly available after" appear
     When I run the scheduled jobs
     And I clear the behat cache directory
     Then I should see the alert "This Content item or its Location is hidden." appear
@@ -161,10 +161,10 @@ Scenario: Content can be copied
       | title                        | short_title                  | intro            |
       | TestArticleToCancelHideLater | TestArticleToCancelHideLater | TestArticleIntro |
     And I'm on Content view Page for "ContentManagement/TestArticleToCancelHideLater"
-    When I perform the "Hide" action
+    And I perform the "Hide" action
     And I select hide "later" for field options
     And I perform the "Confirm" action
     And I should be on Content view Page for "ContentManagement/TestArticleToCancelHideLater"
-    Then I should see the alert contains "This Content item will be hidden and won't be publicly available after" appear
+    And I should see the alert contains "This Content item will be hidden and won't be publicly available after" appear
     When I cancel scheduled hiding of the content item
     Then I should see the alert "Canceled scheduled hiding of Content item 'TestArticleToCancelHideLater'." appear
