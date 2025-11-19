@@ -10,12 +10,10 @@ namespace Ibexa\AdminUi\ContentType;
 
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as ContentLanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
 
 final readonly class ContentTypeFieldsByExpressionService implements ContentTypeFieldsByExpressionServiceInterface

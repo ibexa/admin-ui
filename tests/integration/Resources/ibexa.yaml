@@ -4,5 +4,5 @@ ibexa:
             languages: [ eng-GB, ger-DE ]
             content_type_field_type_groups:
                 configurations:
-                    vectorizable_fields: [ezstring, eztext]
-                    datetime_fields: [ezdatetime]
+                    vectorizable_fields: [ibexa_string, ibexa_text]
+                    datetime_fields: [ibexa_datetime]
