@@ -50,7 +50,7 @@ final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
             'vectorizable_fields',
         );
 
-        $expectedFieldTypes = ['ezstring', 'eztext'];
+        $expectedFieldTypes = ['ibexa_string', 'ibexa_text'];
 
         foreach ($extractedFieldDefinitions as $fieldDefinition) {
             self::assertContains($fieldDefinition->fieldTypeIdentifier, $expectedFieldTypes);
