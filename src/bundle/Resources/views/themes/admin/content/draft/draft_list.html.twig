@@ -8,6 +8,8 @@
 
 {% import _self as macros %}
 
+{% set empty_content_name_placeholder = 'drafts.list.content.empty_name_placeholder'|trans|desc('[Untitled]') %}
+
 {% block title %}{{ 'drafts.list'|trans|desc('Drafts') }} - {{ parent() }}{% endblock %}
 
 {% block body_class %}ibexa-drafts-list-view{% endblock %}
@@ -49,7 +51,7 @@
 
                     {% set col_raw %}
                         <span title="{{ row.versionInfo.name }}">
-                            {{ row.versionInfo.name }}
+                            {{ row.versionInfo.name|default(empty_content_name_placeholder) }}
                         </span>
                     {% endset %}
                     {% set body_row_cols = body_row_cols|merge([{

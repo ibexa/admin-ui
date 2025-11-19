@@ -1,6 +1,7 @@
 {% trans_default_domain 'ibexa_dashboard' %}
 {% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
 
+{% set empty_content_name_placeholder = 'dashboard.table.content.empty_name_placeholder'|trans|desc('[Untitled]') %}
 {% set body_rows = [] %}
 {% for row in data %}
     {% set body_row_cols = [] %}
@@ -19,7 +20,7 @@
         }]) %}
 
         {% set body_row_cols = body_row_cols|merge([
-            { content: row.versionInfo.name },
+            { content: row.versionInfo.name|default(empty_content_name_placeholder)},
             { content: row.contentType.name },
             { content: ibexa_admin_ui_config.languages.mappings[row.versionInfo.initialLanguageCode].name },
             { content: row.versionInfo.versionNo },
