@@ -1,0 +1,6 @@
+{
+  "FieldDefinitionExpression": {
+    "expression": "{Content}/{article}/*",
+    "configuration": "datetime_fields"
+  }
+}
