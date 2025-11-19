@@ -141,3 +141,14 @@ ibexa.rest.location.subitems:
     defaults:
         limit: 10
         offset: 0
+
+#
+# Content type fields by expression
+#
+
+ibexa.rest.content_type.load_field_definitions_from_expression:
+    path: /content-type/load-field-definitions-from-expression
+    controller: 'Ibexa\Bundle\AdminUi\Controller\ContentTypeFieldsByExpressionController::loadFieldDefinitionsFromExpression'
+    methods: [POST]
+    options:
+        expose: true

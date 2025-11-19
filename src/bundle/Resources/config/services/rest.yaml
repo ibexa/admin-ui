@@ -96,7 +96,6 @@ services:
     Ibexa\AdminUi\REST\Input\Parser\CriterionProcessor:
         parent: Ibexa\Contracts\Rest\Input\Parser\Query\Criterion\BaseCriterionProcessor
 
-
     #
     # Subitems
     #
@@ -129,3 +128,16 @@ services:
         parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\SubItems\ContentInfo }
+
+    #
+    # Content type
+    #
+    Ibexa\AdminUi\REST\Input\Parser\ContentType\FieldDefinitionExpression:
+        parent: Ibexa\Rest\Server\Common\Parser
+        tags:
+            - { name: ibexa.rest.input.parser, mediaType: application/vnd.ibexa.api.FieldDefinitionExpression }
+
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentType\FieldDefinitionInfoList:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentType\FieldDefinitionInfoList }

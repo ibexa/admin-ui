@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "FieldDefinitions": {
+      "type": "object",
+      "properties": {
+        "_media-type": {
+          "type": "string"
+        },
+        "FieldDefinitionInfo": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_media-type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "integer"
+              },
+              "identifier": {
+                "type": "string"
+              },
+              "position": {
+                "type": "integer"
+              },
+              "names": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_languageCode": {
+                          "type": "string"
+                        },
+                        "#text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "_languageCode",
+                        "#text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            },
+            "required": [
+              "_media-type",
+              "id",
+              "identifier",
+              "position",
+              "names"
+            ]
+          }
+        }
+      },
+      "required": [
+        "_media-type",
+        "FieldDefinitionInfo"
+      ]
+    }
+  },
+  "required": [
+    "FieldDefinitions"
+  ]
+}
