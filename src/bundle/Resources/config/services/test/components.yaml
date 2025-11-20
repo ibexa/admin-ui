@@ -63,5 +63,3 @@ services:
   Ibexa\AdminUi\Behat\Component\CreateUrlAliasModal: ~
 
   Ibexa\AdminUi\Behat\Component\TrashSearch: ~
-
-
