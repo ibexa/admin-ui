@@ -15,6 +15,7 @@ use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
+use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -84,6 +85,12 @@ final class NotificationsViewAllPage extends Page
         $this->getHTMLPage()->find($this->getLocator('notificationsEmptyText'))->assert()->textEquals($expectedMessage);
     }
 
+    public function verifyNotificationsCount(int $expectedCount): void
+    {
+        $this->getHTMLPage()->setTimeout(10)->findAll($this->getLocator('notificationsTotalCount'))
+            ->getByCriterion(new ElementAttributeCriterion('data-notifications-total', (string)$expectedCount))->assert()->isVisible();
+    }
+
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('pageTitle'))->assert()->textContains('Notifications');
@@ -111,6 +118,7 @@ final class NotificationsViewAllPage extends Page
             new VisibleCSSLocator('deleteButton', '.ibexa-notification-list__btn-delete'),
             new VisibleCSSLocator('notificationCheckbox', '.ibexa-notification-list__mark-row-checkbox'),
             new VisibleCSSLocator('notificationsEmptyText', '.ibexa-table__empty-table-info-text'),
+            new VisibleCSSLocator('notificationsTotalCount', 'table[data-notifications-total]'),
         ];
     }
 }

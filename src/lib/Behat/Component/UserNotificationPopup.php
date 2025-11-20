@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Exception;
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
@@ -114,26 +115,16 @@ class UserNotificationPopup extends Component
                     $this->getLocator('notificationActionsPopup'),
                 )
             );
-
-        $this->getHTMLPage()
-            ->setTimeout(10)
-            ->waitUntilCondition(
-                new ElementExistsCondition(
-                    $this->getHTMLPage(),
-                    $this->getLocator('notificationMenuItemContent')
-                )
-            );
     }
 
     public function clickActionButton(string $buttonText): void
     {
-        $button = $this->getActionButton($buttonText);
+        $buttons = $this->getHTMLPage()
+            ->setTimeout(10)
+            ->findAll($this->getLocator('notificationMenuItemContent'))
+            ->filterBy(new ElementTextCriterion($buttonText));
 
-        if ($button === null) {
-            throw new \Exception(sprintf('Action button "%s" not found.', $buttonText));
-        }
-
-        $button->click();
+        $buttons->first()->execute(new MouseOverAndClick());
 
         $this->getHTMLPage()
             ->setTimeout(10)
@@ -185,6 +176,11 @@ class UserNotificationPopup extends Component
         $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('viewAllNotificationsButton'))->click();
     }
 
+    public function verifyNotificationsCount(int $expectedCount): void
+    {
+        $this->getHTMLPage()->setTimeout(10)->find($this->getLocator('notificationsCount'))->assert()->textEquals('(' . $expectedCount . ')');
+    }
+
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()
@@ -208,6 +204,7 @@ class UserNotificationPopup extends Component
             new VisibleCSSLocator('viewAllNotificationsButton', '.ibexa-notifications-modal__view-all-btn'),
             new VisibleCSSLocator('notificationActionsPopup', '.ibexa-notification-actions-popup-menu:not(.ibexa-popup-menu--hidden)'),
             new VisibleCSSLocator('notificationsEmptyText', '.ibexa-notifications-modal__empty-text'),
+            new VisibleCSSLocator('notificationsCount', '.ibexa-notifications-modal__count'),
         ];
     }
 }
