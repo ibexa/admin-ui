@@ -164,4 +164,20 @@ class UserNotificationContext implements Context
     {
         $this->notificationsViewAllPage->verifyNoNotificationsMessage($expectedMessage);
     }
+
+    /**
+     * @Then there should be :expectedCount notification on the list
+     */
+    public function thereShouldBeNotificationsInPopup(int $expectedCount): void
+    {
+        $this->userNotificationPopup->verifyNotificationsCount($expectedCount);
+    }
+
+    /**
+     * @Then there should be :expectedCount notification in the All Notifications view
+     */
+    public function thereShouldBeNotificationsInAllNotificationsView(int $expectedCount): void
+    {
+        $this->notificationsViewAllPage->verifyNotificationsCount($expectedCount);
+    }
 }
