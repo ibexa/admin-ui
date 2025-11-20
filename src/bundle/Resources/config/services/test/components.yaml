@@ -64,5 +64,4 @@ services:
 
   Ibexa\AdminUi\Behat\Component\TrashSearch: ~
 
-  Ibexa\AdminUi\Behat\Component\CancelContentDialog: ~
 
