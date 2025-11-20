@@ -166,7 +166,7 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @Then there should be :expectedCount notification on the list
+     * @Then the notifications popup should contain :expectedCount notification
      */
     public function thereShouldBeNotificationsInPopup(int $expectedCount): void
     {
