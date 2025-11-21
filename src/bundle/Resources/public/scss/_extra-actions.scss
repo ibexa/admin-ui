@@ -144,6 +144,8 @@
     }
 
     &--create {
+        z-index: 10250;
+
         #{$self} {
             &__content {
                 max-height: calc(100% - #{calculateRem(155px)});
