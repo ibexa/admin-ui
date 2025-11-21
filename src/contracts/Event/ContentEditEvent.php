@@ -10,6 +10,7 @@ namespace Ibexa\Contracts\AdminUi\Event;
 
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -26,14 +27,18 @@ final class ContentEditEvent extends Event
 
     private string $languageCode;
 
+    private Request $request;
+
     public function __construct(
         Content $content,
         VersionInfo $versionInfo,
-        string $languageCode
+        string $languageCode,
+        Request $request
     ) {
         $this->content = $content;
         $this->versionInfo = $versionInfo;
         $this->languageCode = $languageCode;
+        $this->request = $request;
     }
 
     public function getContent(): Content
@@ -64,5 +69,10 @@ final class ContentEditEvent extends Event
     public function hasResponse(): bool
     {
         return !empty($this->response);
+    }
+
+    public function getRequest(): Request
+    {
+        return $this->request;
     }
 }
