@@ -3,6 +3,7 @@
 {% set content = content|default(null) %}
 {% set show_extra_bottom_content = show_extra_bottom_content|default(false) %}
 {% set is_user_content_type = content_type is defined and content_type.identifier in ibexa_admin_ui_config.userContentTypes %}
+{% set empty_title_placeholder = 'content.title.empty_title_placeholder'|trans|desc('[Untitled]') %}
 
 <div class="ibexa-edit-header {{ show_extra_bottom_content ? 'ibexa-edit-header--has-extra-content' }}">
     <div class="ibexa-edit-header__containers">
@@ -38,7 +39,7 @@
         </div>
         <div class="ibexa-edit-header__container ibexa-edit-header__container--details">
             <div class="ibexa-edit-header__title-section">
-                <h1 class="ibexa-edit-header__title">{{ title }}</h1>
+                <h1 class="ibexa-edit-header__title">{{ title|default(empty_title_placeholder) }}</h1>
                 <div class="ibexa-edit-header__after-title">
                     {% block after_title %}{% endblock %}
                 </div>
