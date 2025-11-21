@@ -41,6 +41,8 @@
                 attributeFilter: ['disabled'],
                 attributeOldValue: true,
             });
+
+            ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
 
         toggleEmptyListState() {
