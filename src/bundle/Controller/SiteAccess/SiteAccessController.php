@@ -22,10 +22,12 @@ final class SiteAccessController extends RestController
         $this->nonAdminSiteAccessResolver = $nonAdminSiteAccessResolver;
     }
 
-    public function loadNonAdminSiteAccessesForLocation(Location $location): SiteAccessesList
+    public function loadForLocation(Location $location, string $resolverType = 'non_admin'): SiteAccessesList
     {
-        return new SiteAccessesList(
-            $this->nonAdminSiteAccessResolver->getSiteAccessesListForLocation($location)
-        );
+        switch ($resolverType) {
+            default: $siteAccesses = $this->nonAdminSiteAccessResolver->getSiteAccessesListForLocation($location);
+        }
+
+        return new SiteAccessesList($siteAccesses);
     }
 }
