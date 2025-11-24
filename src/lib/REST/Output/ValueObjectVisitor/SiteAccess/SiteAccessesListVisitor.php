@@ -26,8 +26,7 @@ final class SiteAccessesListVisitor extends ValueObjectVisitor
         foreach ($data->getSiteAccesses() as $siteAccess) {
             $generator->startObjectElement('SiteAccess');
 
-            $generator->startValueElement('name', $siteAccess->name);
-            $generator->endValueElement('name');
+            $generator->valueElement('name', $siteAccess->name);
 
             $generator->endObjectElement('SiteAccess');
         }
