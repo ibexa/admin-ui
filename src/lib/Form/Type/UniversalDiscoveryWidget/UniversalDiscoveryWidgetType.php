@@ -8,6 +8,7 @@
 namespace Ibexa\AdminUi\Form\Type\UniversalDiscoveryWidget;
 
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -103,7 +104,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
 
                 return ['location' => !empty($ids) ? $ids : null];
             },
-            static function ($value): ?string {
+            static function ($value): ?Location {
                 if (is_array($value) && array_key_exists('location', $value)) {
                     return $value['location'] ?? null;
                 }
