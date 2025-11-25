@@ -45,8 +45,11 @@ class PathService
 
         $searchResult = $this->searchService->findLocations($locationQuery);
 
-        return array_map(static function (SearchHit $searchHit) {
-            return $searchHit->valueObject;
+        return array_map(static function (SearchHit $searchHit): Location {
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            $location = $searchHit->valueObject;
+
+            return $location;
         }, $searchResult->searchHits);
     }
 }

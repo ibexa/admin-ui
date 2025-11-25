@@ -86,7 +86,7 @@ class JavaScriptFileVisitor implements FileVisitorInterface, LoggerAwareInterfac
             return;
         }
 
-        $ast->traverse(function ($node) use ($catalogue, $file) {
+        $ast->traverse(function ($node) use ($catalogue, $file): void {
             if ($this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_METHOD)
                 || $this->isMethodCall($node, self::TRANSLATOR_OBJECT, self::TRANSLATOR_TRANS_CHOICE_METHOD)
             ) {

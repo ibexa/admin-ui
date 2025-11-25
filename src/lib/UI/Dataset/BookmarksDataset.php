@@ -7,6 +7,7 @@
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
@@ -45,7 +46,7 @@ class BookmarksDataset
     public function load(int $offset = 0, int $limit = 25): self
     {
         $this->data = array_map(
-            function (Location $location) {
+            function (Location $location): UIValue\Location\Bookmark {
                 return $this->valueFactory->createBookmark($location);
             },
             $this->bookmarkService->loadBookmarks($offset, $limit)->items

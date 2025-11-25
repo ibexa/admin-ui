@@ -55,7 +55,7 @@ class AdminUpdateItemPage extends Page
         $field = $this->getField($fieldName);
         $fieldType = $field->getAttribute('type');
 
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($field, $fieldType, $value) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($field, $fieldType, $value): bool {
             $field->setValue($value);
 
             return $fieldType !== 'text' || $value === $field->getValue();

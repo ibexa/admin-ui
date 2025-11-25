@@ -146,7 +146,7 @@ class PermissionChecker implements PermissionCheckerInterface
         $restrictedSubtrees = $this->getRestrictions($hasAccess, SubtreeLimitation::class);
         $canCreateInSubtree = empty($restrictedSubtrees)
             ? true
-            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location) {
+            : !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
                 return strpos($location->pathString, $restrictedSubtree) === 0;
             }));
 

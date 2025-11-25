@@ -64,7 +64,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) {
+            static function (VersionInfo $versionInfo): bool {
                 return $versionInfo->isDraft();
             }
         );
@@ -80,7 +80,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode) {
+            static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode): bool {
                 return $versionInfo->isDraft()
                     && $versionInfo->versionNo > $currentVersionNo
                     && $versionInfo->initialLanguageCode === $languageCode;
@@ -95,7 +95,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) {
+            static function (VersionInfo $versionInfo): bool {
                 return $versionInfo->isPublished();
             }
         );
@@ -108,7 +108,7 @@ class VersionsDataset
     {
         return $this->filterVersions(
             $this->data,
-            static function (VersionInfo $versionInfo) {
+            static function (VersionInfo $versionInfo): bool {
                 return $versionInfo->isArchived();
             }
         );

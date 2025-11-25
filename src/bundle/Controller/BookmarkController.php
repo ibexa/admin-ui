@@ -19,6 +19,7 @@ use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -105,7 +106,7 @@ class BookmarkController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (BookmarkRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (BookmarkRemoveData $data): RedirectResponse {
                 foreach ($data->getBookmarks() as $locationId => $selected) {
                     $this->bookmarkService->deleteBookmark(
                         $this->locationService->loadLocation($locationId)

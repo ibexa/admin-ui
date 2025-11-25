@@ -63,7 +63,7 @@ class PolicyUpdateType extends AbstractType
                 ['label' => /** @Desc("Save and close") */ 'policy_update.save_and_close']
             );
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {
             $data = $event->getData();
             $form = $event->getForm();
 

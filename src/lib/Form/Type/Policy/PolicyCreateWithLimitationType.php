@@ -54,7 +54,7 @@ class PolicyCreateWithLimitationType extends AbstractType
                 ['label' => /** @Desc("Create") */ 'policy_create.save']
             );
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options): void {
             $data = $event->getData();
             $form = $event->getForm();
 

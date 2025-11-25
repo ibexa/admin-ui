@@ -134,7 +134,7 @@ class ContentTypeController extends Controller
         $deletableTypes = [];
         $contentTypes = $this->contentTypeService->loadContentTypes($group, $this->configResolver->getParameter('languages'));
 
-        usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
+        usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
             return strnatcasecmp($contentType1->getName(), $contentType2->getName());
         });
 
@@ -232,7 +232,7 @@ class ContentTypeController extends Controller
         $contentTypeGroup = $data->getContentTypeGroup();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationAddData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationAddData $data): RedirectResponse {
                 $contentType = $data->getContentType();
                 $language = $data->getLanguage();
                 $baseLanguage = $data->getBaseLanguage();
@@ -287,7 +287,7 @@ class ContentTypeController extends Controller
         $contentTypeGroup = $data->getContentTypeGroup();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationRemoveData $data): RedirectResponse {
                 $contentType = $data->getContentType();
                 $languageCodes = $data->getLanguageCodes();
                 $contentTypeGroup = $data->getContentTypeGroup();
@@ -369,7 +369,7 @@ class ContentTypeController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeEditData $data) use ($contentTypeDraft): RedirectResponse {
                 $contentTypeGroup = $data->getContentTypeGroup();
                 $language = $data->getLanguage();
 
@@ -407,7 +407,7 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeCopyData $data) use ($contentTypeService, $notificationHandler) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeCopyData $data) use ($contentTypeService, $notificationHandler): RedirectResponse {
                 $contentType = $data->getContentType();
 
                 try {
@@ -469,7 +469,7 @@ class ContentTypeController extends Controller
                 $contentTypeDraft,
                 $language,
                 $baseLanguage
-            ) {
+            ): Response {
                 $action = $form->getClickedButton() ? $form->getClickedButton()->getName() : self::PRIMARY_UPDATE_ACTION;
                 $this->contentTypeActionDispatcher->dispatchFormAction(
                     $form,
@@ -574,7 +574,7 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function () use ($contentType) {
+            $result = $this->submitHandler->handle($form, function () use ($contentType): void {
                 $this->contentTypeService->deleteContentType($contentType);
 
                 $this->notificationHandler->success(
@@ -611,7 +611,7 @@ class ContentTypeController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentTypesDeleteData $data): void {
                 foreach ($data->getContentTypes() as $contentTypeId => $selected) {
                     $contentType = $this->contentTypeService->loadContentType($contentTypeId);
 

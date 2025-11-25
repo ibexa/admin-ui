@@ -60,7 +60,7 @@ class ContentTypeEditType extends AbstractType
                     'label' => false,
                     'multiple' => false,
                     'expanded' => true,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentTypeLanguages) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentTypeLanguages): array {
                         return array_map([$this->languageService, 'loadLanguage'], $contentTypeLanguages);
                     }),
                 ]

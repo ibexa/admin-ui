@@ -12,6 +12,7 @@ use Ibexa\AdminUi\Exception\NoValidResultException;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class NotificationTwigStrategy
 {
@@ -73,7 +74,7 @@ class NotificationTwigStrategy
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         try {
             $this->repository->sudo(
-                function () use ($contentId) {
+                function () use ($contentId): ContentInfo {
                     return $this->contentService->loadContentInfo($contentId);
                 }
             );
@@ -88,7 +89,7 @@ class NotificationTwigStrategy
     {
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         $contentInfo = $this->repository->sudo(
-            function () use ($contentId) {
+            function () use ($contentId): ContentInfo {
                 return $this->contentService->loadContentInfo($contentId);
             }
         );

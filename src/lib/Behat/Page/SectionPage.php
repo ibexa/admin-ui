@@ -116,7 +116,7 @@ class SectionPage extends Page
     {
         $this->expectedSectionName = $sectionName;
 
-        $sections = $this->repository->sudo(static function (Repository $repository) {
+        $sections = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getSectionService()->loadSections();
         });
 

@@ -62,7 +62,7 @@ class UDWBasedValueViewTransformerTest extends TestCase
     {
         $this->locationService
             ->method('loadLocation')
-            ->willReturnCallback(function ($id) {
+            ->willReturnCallback(function ($id): Location {
                 return $this->createLocation($id);
             });
 

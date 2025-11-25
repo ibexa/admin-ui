@@ -74,7 +74,7 @@ class TranslationController extends Controller
         $location = $data->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationAddData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationAddData $data): RedirectResponse {
                 $location = $data->getLocation();
                 $contentInfo = $location->getContentInfo();
                 $language = $data->getLanguage();
@@ -117,7 +117,7 @@ class TranslationController extends Controller
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (TranslationDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (TranslationDeleteData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getLanguageCodes() as $languageCode => $selected) {

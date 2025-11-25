@@ -59,7 +59,7 @@ class UiConfigExtension extends AbstractExtension implements GlobalsInterface
     private function createConfigWrapper(): ConfigWrapper
     {
         $factory = new LazyLoadingValueHolderFactory();
-        $initializer = function (&$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer) {
+        $initializer = function (&$wrappedObject, LazyLoadingInterface $proxy, $method, array $parameters, &$initializer): bool {
             $initializer = null;
             $wrappedObject = new ConfigWrapper($this->aggregator->getConfig());
 

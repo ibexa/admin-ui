@@ -133,7 +133,7 @@ class FieldDefinitionType extends AbstractType
             ]);
 
         // Hook on form generation for specific FieldType needs
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             /** @var \Ibexa\AdminUi\Form\Data\FieldDefinitionData $data */
             $data = $event->getData();
             $form = $event->getForm();

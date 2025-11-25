@@ -175,7 +175,7 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateGroupDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateGroupDeleteData $data): void {
                 $group = $data->getObjectStateGroup();
                 $this->objectStateService->deleteObjectStateGroup($group);
 
@@ -211,7 +211,7 @@ class ObjectStateGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateGroupsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateGroupsDeleteData $data): void {
                 foreach ($data->getObjectStateGroups() as $objectStateGroupId => $selected) {
                     $objectStateGroup = $this->objectStateService->loadObjectStateGroup($objectStateGroupId);
                     $this->objectStateService->deleteObjectStateGroup($objectStateGroup);

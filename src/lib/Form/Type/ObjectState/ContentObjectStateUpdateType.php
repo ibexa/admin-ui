@@ -56,7 +56,7 @@ class ContentObjectStateUpdateType extends AbstractType
                 'label' => /** @Desc("Set") */ 'object_state.button.set',
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             /** @var \Ibexa\AdminUi\Form\Data\ObjectState\ContentObjectStateUpdateData $contentObjectStateUpdateData */
             $contentObjectStateUpdateData = $event->getData();
             $objectStateGroup = $contentObjectStateUpdateData->getObjectStateGroup();
@@ -65,12 +65,12 @@ class ContentObjectStateUpdateType extends AbstractType
 
             $form->add('objectState', ObjectStateChoiceType::class, [
                 'label' => false,
-                'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo) {
+                'choice_loader' => new CallbackChoiceLoader(function () use ($objectStateGroup, $contentInfo): array {
                     $contentState = $this->objectStateService->getContentState($contentInfo, $objectStateGroup);
 
                     return array_filter(
                         $this->objectStateService->loadObjectStates($objectStateGroup),
-                        function (ObjectState $objectState) use ($contentInfo, $contentState) {
+                        function (ObjectState $objectState) use ($contentInfo, $contentState): bool {
                             return $this->permissionResolver->canUser('state', 'assign', $contentInfo, [$objectState]);
                         }
                     );

@@ -58,7 +58,7 @@ class ContentDraftsDataset
             $contentDrafts = [];
         }
 
-        $contentDrafts = array_filter($contentDrafts, static function (VersionInfo $version) {
+        $contentDrafts = array_filter($contentDrafts, static function (VersionInfo $version): bool {
             // Filter out content that has been sent to trash
             return !$version->getContentInfo()->isTrashed();
         });
@@ -74,12 +74,12 @@ class ContentDraftsDataset
 
         // ContentService::loadContentDrafts returns unsorted list of VersionInfo.
         // Sort results by modification date, descending.
-        usort($contentDrafts, static function (VersionInfo $a, VersionInfo $b) {
+        usort($contentDrafts, static function (VersionInfo $a, VersionInfo $b): int {
             return $b->modificationDate <=> $a->modificationDate;
         });
 
         $this->data = array_map(
-            function (VersionInfo $versionInfo) use ($contentTypes) {
+            function (VersionInfo $versionInfo) use ($contentTypes): array {
                 return $this->mapContentDraft(
                     $versionInfo,
                     $contentTypes[$versionInfo->getContentInfo()->contentTypeId]

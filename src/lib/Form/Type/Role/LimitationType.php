@@ -38,7 +38,7 @@ class LimitationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
             $data = $event->getData();
             $form = $event->getForm();
@@ -48,7 +48,7 @@ class LimitationType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event) {
+        $builder->addEventListener(FormEvents::SUBMIT, function (FormEvent $event): void {
             /** @var \Ibexa\Contracts\Core\Repository\Values\User\Limitation $data */
             $data = $event->getData();
             if ($this->limitationFormMapperRegistry->hasMapper($data->getIdentifier())) {

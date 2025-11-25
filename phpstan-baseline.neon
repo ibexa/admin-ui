@@ -4393,12 +4393,6 @@ parameters:
 			path: src/lib/EventListener/ContentProxyCreateDraftListener.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\EventListener\\ContentProxyCreateDraftListener\:\:getTranslatedContentFields\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/EventListener/ContentProxyCreateDraftListener.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\EventListener\\ContentTranslateViewFilterParametersListener\:\:getSubscribedEvents\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -12943,6 +12937,11 @@ parameters:
 			path: src/lib/UI/Dataset/LocationsDataset.php
 
 		-
+			message: '#^Closure is missing a return type declaration$#'
+			count: 1
+			path: src/lib/UI/Dataset/ObjectStatesDataset.php
+
+		-
 			message: '#^Parameter \#2 \$array of function array_map expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -13193,12 +13192,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/lib/UI/Module/Subitems/ValueObjectVisitor/SubitemsRow.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\UI\\Service\\PathService\:\:loadPathLocations\(\) should return array\<Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\> but returns array\<Ibexa\\Contracts\\Core\\Repository\\Values\\ValueObject\>\.$#'
-			identifier: return.type
-			count: 1
-			path: src/lib/UI/Service/PathService.php
 
 		-
 			message: '#^Method Ibexa\\AdminUi\\UI\\Service\\TabService\:\:getTabsFromGroup\(\) return type has no value type specified in iterable type array\.$#'

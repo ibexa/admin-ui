@@ -175,7 +175,7 @@ final class URLWildcardController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $this->submitHandler->handle($form, function (URLWildcardDeleteData $data) {
+            $this->submitHandler->handle($form, function (URLWildcardDeleteData $data): void {
                 foreach ($data->getURLWildcardsChoices() as $urlWildcardId => $value) {
                     $urlWildcard = $this->urlWildcardService->load($urlWildcardId);
                     $this->urlWildcardService->remove($urlWildcard);

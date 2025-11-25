@@ -184,7 +184,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleCopyData $data) {
+            $result = $this->submitHandler->handle($form, function (RoleCopyData $data): RedirectResponse {
                 $roleCopyStruct = $this->roleCopyMapper->reverseMap($data);
                 $role = $this->roleService->copyRole($data->getCopiedRole(), $roleCopyStruct);
 
@@ -283,7 +283,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (RoleDeleteData $data): RedirectResponse {
                 $role = $data->getRole();
                 $this->roleService->deleteRole($role);
 
@@ -327,7 +327,7 @@ class RoleController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RolesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (RolesDeleteData $data): RedirectResponse {
                 foreach ($data->getRoles() as $roleId => $selected) {
                     $role = $this->roleService->loadRole($roleId);
                     $this->roleService->deleteRole($role);

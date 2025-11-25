@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\UI\Dataset;
 
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUserGroup;
+use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -102,7 +103,7 @@ class PoliciesDataset
 
         foreach ($roleAssignments as $roleAssignment) {
             $policies[] = array_map(
-                function (Policy $policy) use ($roleAssignment) {
+                function (Policy $policy) use ($roleAssignment): UIValue\User\Policy {
                     return $this->valueFactory->createPolicy($policy, $roleAssignment);
                 },
                 $roleAssignment->getRole()->getPolicies()

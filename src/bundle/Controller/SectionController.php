@@ -243,7 +243,7 @@ class SectionController extends Controller
             ];
         }
 
-        $routeGenerator = function ($page) use ($section) {
+        $routeGenerator = function ($page) use ($section): string {
             return $this->generateUrl('ibexa.section.view', [
                 'sectionId' => $section->id,
                 'page' => $page,
@@ -277,7 +277,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionDeleteData $data): RedirectResponse {
                 $section = $data->getSection();
 
                 $this->sectionService->deleteSection($section);
@@ -316,7 +316,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionsDeleteData $data): void {
                 foreach ($data->getSections() as $sectionId => $selected) {
                     $section = $this->sectionService->loadSection($sectionId);
                     $this->sectionService->deleteSection($section);
@@ -360,7 +360,7 @@ class SectionController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (SectionContentAssignData $data) {
+            $result = $this->submitHandler->handle($form, function (SectionContentAssignData $data): RedirectResponse {
                 $section = $data->getSection();
 
                 $contentInfos = array_column($data->getLocations(), 'contentInfo');

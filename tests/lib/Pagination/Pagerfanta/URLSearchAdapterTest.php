@@ -38,7 +38,7 @@ class URLSearchAdapterTest extends TestCase
         $this->urlService
             ->expects($this->once())
             ->method('findUrls')
-            ->willReturnCallback(function (URLQuery $q) use ($query, $searchResults) {
+            ->willReturnCallback(function (URLQuery $q) use ($query, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals(0, $q->offset);
@@ -70,7 +70,7 @@ class URLSearchAdapterTest extends TestCase
         $this->urlService
             ->expects($this->once())
             ->method('findUrls')
-            ->willReturnCallback(function (URLQuery $q) use ($query, $limit, $offset, $searchResults) {
+            ->willReturnCallback(function (URLQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals($limit, $q->limit);

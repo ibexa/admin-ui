@@ -29,7 +29,7 @@ JS);
             ->setTimeout(3)
             ->findAll(new VisibleCSSLocator('backToTopBtn', '.ibexa-back-to-top__btn--visible'));
         $this->getHTMLPage()->find($this->getLocator('nextButton'))->click();
-        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage) {
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($currentPage): bool {
             $activePge = (int) $this->getHTMLPage()->find($this->getLocator('currentPage'))->getText();
 
             return $activePge === $currentPage + 1;

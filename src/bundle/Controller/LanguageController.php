@@ -134,7 +134,7 @@ class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguageDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (LanguageDeleteData $data): void {
                 $language = $data->getLanguage();
                 $this->languageService->deleteLanguage($language);
 
@@ -176,7 +176,7 @@ class LanguageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LanguagesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (LanguagesDeleteData $data): void {
                 foreach ($data->getLanguages() as $languageId => $selected) {
                     $language = $this->languageService->loadLanguageById($languageId);
                     $this->languageService->deleteLanguage($language);

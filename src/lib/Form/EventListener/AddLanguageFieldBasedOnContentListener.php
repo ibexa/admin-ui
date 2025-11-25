@@ -72,7 +72,7 @@ class AddLanguageFieldBasedOnContentListener
      */
     protected function getCallableFilter(array $contentLanguages): callable
     {
-        return function () use ($contentLanguages) {
+        return function () use ($contentLanguages): array {
             return $this->filterLanguages($contentLanguages);
         };
     }
@@ -86,7 +86,7 @@ class AddLanguageFieldBasedOnContentListener
     {
         return array_filter(
             $this->languageService->loadLanguages(),
-            static function (Language $language) use ($contentLanguages) {
+            static function (Language $language) use ($contentLanguages): bool {
                 return in_array($language->languageCode, $contentLanguages, true);
             }
         );

@@ -90,7 +90,7 @@ class ContentTypeIsUserTest extends TestCase
 
         $contentType
             ->method('hasFieldDefinitionOfType')
-            ->willReturnCallback(static function (string $fieldTypeIdentifier) use ($fieldsType) {
+            ->willReturnCallback(static function (string $fieldTypeIdentifier) use ($fieldsType): bool {
                 return in_array($fieldTypeIdentifier, $fieldsType);
             });
 

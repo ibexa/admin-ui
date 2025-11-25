@@ -29,7 +29,7 @@ class LimitationValueRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []) {
+        $limitationValueCallable = function (Environment $twig, Limitation $limitation, array $params = []): string {
             return $this->limitationRenderer->renderLimitationValue($limitation, $params);
         };
 

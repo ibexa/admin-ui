@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -51,7 +52,7 @@ final class RelationListDataset
         $relationListItems = $this->contentService->loadRelationList($versionInfo, $offset, $limit)->items;
 
         $this->relations = array_map(
-            function (RelationListItemInterface $relationListItem) use ($content) {
+            function (RelationListItemInterface $relationListItem) use ($content): UIValue\Content\RelationInterface {
                 if ($relationListItem->hasRelation()) {
                     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relationListItem */
                     return $this->valueFactory->createRelationItem(
