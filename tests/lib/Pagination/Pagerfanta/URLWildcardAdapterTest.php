@@ -38,7 +38,7 @@ final class URLWildcardAdapterTest extends TestCase
         $this->urlWildcardService
             ->expects($this->once())
             ->method('findUrlWildcards')
-            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $searchResults) {
+            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals(0, $q->offset);
@@ -66,7 +66,7 @@ final class URLWildcardAdapterTest extends TestCase
         $this->urlWildcardService
             ->expects($this->once())
             ->method('findUrlWildcards')
-            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $limit, $offset, $searchResults) {
+            ->willReturnCallback(function (URLWildcardQuery $q) use ($query, $limit, $offset, $searchResults): SearchResult {
                 $this->assertEquals($query->filter, $q->filter);
                 $this->assertEquals($query->sortClauses, $q->sortClauses);
                 $this->assertEquals($limit, $q->limit);

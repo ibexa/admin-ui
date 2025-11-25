@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\DataTransformer;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
+use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -68,7 +69,7 @@ class SectionsTransformer implements DataTransformerInterface
         $value = explode(',', $value);
 
         try {
-            return array_map(function (string $id) {
+            return array_map(function (string $id): Section {
                 return $this->sectionService->loadSection((int)$id);
             }, $value);
         } catch (NotFoundException $e) {

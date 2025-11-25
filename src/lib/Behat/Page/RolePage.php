@@ -93,7 +93,7 @@ class RolePage extends Page
         }
 
         [$expectedLimitationType, $expectedLimitationValue] = explode(':', $expectedLimitation);
-        $expectedLimitationValues = array_map(static function (string $value) {
+        $expectedLimitationValues = array_map(static function (string $value): string {
             return trim($value);
         }, explode(',', $expectedLimitationValue));
 
@@ -122,7 +122,7 @@ class RolePage extends Page
         $this->expectedRoleName = $roleName;
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\User\Role[] $roles */
-        $roles = $this->repository->sudo(static function (Repository $repository) {
+        $roles = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getRoleService()->loadRoles();
         });
 

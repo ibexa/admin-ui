@@ -136,7 +136,7 @@ final class ReadAllowedContentTypesTest extends TestCase
 
     private function createContentTypeListMock(array $identifiers): array
     {
-        return array_map(function (string $identifier) {
+        return array_map(function (string $identifier): ContentType {
             $contentType = $this->createMock(ContentType::class);
             $contentType->method('__get')->with('identifier')->willReturn($identifier);
 

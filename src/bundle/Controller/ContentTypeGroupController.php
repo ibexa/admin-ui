@@ -223,7 +223,7 @@ class ContentTypeGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupDeleteData $data): void {
                 $group = $data->getContentTypeGroup();
                 $this->contentTypeService->deleteContentTypeGroup($group);
 
@@ -259,7 +259,7 @@ class ContentTypeGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupsDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupsDeleteData $data): void {
                 foreach ($data->getContentTypeGroups() as $contentTypeGroupId => $selected) {
                     $group = $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                     $this->contentTypeService->deleteContentTypeGroup($group);

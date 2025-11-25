@@ -28,7 +28,7 @@ abstract class FieldTypeValidator extends BaseFieldTypeValidator
         return new ValidationErrorsProcessor(
             new BaseValidationErrorsProcessor(
                 $this->context,
-                function ($index, $target) {
+                function ($index, $target): string {
                     return $this->generatePropertyPath($index, $target);
                 }
             )

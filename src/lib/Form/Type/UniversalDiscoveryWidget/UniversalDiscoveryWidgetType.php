@@ -94,7 +94,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
     private function getDataTransformer(): DataTransformerInterface
     {
         return new CallbackTransformer(
-            static function ($value) {
+            static function ($value): ?array {
                 if (null === $value) {
                     return null;
                 }

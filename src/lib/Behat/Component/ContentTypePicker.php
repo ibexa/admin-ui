@@ -31,7 +31,7 @@ class ContentTypePicker extends Component
         if ($countBeforeFiltering > self::MINIMUM_ITEMS_COUNT_FOR_SEARCH_INPUT) {
             $this->getHTMLPage()->find($this->getLocator('filterInput'))->clear();
             $this->getHTMLPage()->find($this->getLocator('filterInput'))->setValue($contentTypeName);
-            $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering) {
+            $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($countBeforeFiltering): bool {
                 return $this->getDisplayedItemsCount() < $countBeforeFiltering;
             }, 'The number of displayed content types did not decrease after filtering.');
         }

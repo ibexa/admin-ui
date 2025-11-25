@@ -53,7 +53,7 @@ class ContentTypeCreateType extends AbstractType
         $builder
             ->add('contentTypeGroupId', HiddenType::class, [
                 'constraints' => new Callback(
-                    function ($contentTypeGroupId, ExecutionContextInterface $context) {
+                    function ($contentTypeGroupId, ExecutionContextInterface $context): void {
                         try {
                             $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                         } catch (NotFoundException $e) {

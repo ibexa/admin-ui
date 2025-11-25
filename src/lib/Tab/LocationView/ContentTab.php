@@ -102,7 +102,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     {
         $contentLanguages = $content->versionInfo->languageCodes;
 
-        $filter = static function (Language $language) use ($contentLanguages) {
+        $filter = static function (Language $language) use ($contentLanguages): bool {
             return $language->enabled && in_array($language->languageCode, $contentLanguages, true);
         };
 

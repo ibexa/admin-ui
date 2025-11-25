@@ -102,7 +102,7 @@ class ContentEditType extends AbstractType
         ];
 
         if ($options['choice_loader'] instanceof LanguageChoiceLoader && is_array($options['language_codes'])) {
-            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options) {
+            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options): array {
                 return array_map([$this->languageService, 'loadLanguage'], $options['language_codes']);
             });
         }

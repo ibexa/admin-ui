@@ -43,6 +43,9 @@ class ObjectStatesDataset
     public function load(ContentInfo $contentInfo): self
     {
         $data = array_map(
+            /**
+             * @return UIValue\ObjectState\ObjectState|array
+             */
             function (ObjectStateGroup $objectStateGroup) use ($contentInfo) {
                 $hasObjectStates = !empty($this->objectStateService->loadObjectStates($objectStateGroup));
                 if (!$hasObjectStates) {

@@ -88,7 +88,7 @@ class UserEditType extends AbstractType
         ];
 
         if (is_array($options['language_codes'])) {
-            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options) {
+            $languageOptions['choice_loader'] = new CallbackChoiceLoader(function () use ($options): array {
                 return array_map([$this->languageService, 'loadLanguage'], $options['language_codes']);
             });
         }

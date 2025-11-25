@@ -109,7 +109,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentCreateData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentCreateData $data) use ($role): RedirectResponse {
                 foreach ($this->createLimitations($data) as $limitation) {
                     foreach ($data->getUsers() as $user) {
                         $this->roleService->assignRoleToUser($role, $user, $limitation);
@@ -159,7 +159,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentDeleteData $data) use ($role): RedirectResponse {
                 $roleAssignment = $data->getRoleAssignment();
                 $this->roleService->removeRoleAssignment($roleAssignment);
 
@@ -202,7 +202,7 @@ class RoleAssignmentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (RoleAssignmentsDeleteData $data) use ($role) {
+            $result = $this->submitHandler->handle($form, function (RoleAssignmentsDeleteData $data) use ($role): RedirectResponse {
                 foreach ($data->getRoleAssignments() as $roleAssignmentId => $selected) {
                     $roleAssignment = $this->roleService->loadRoleAssignment($roleAssignmentId);
                     $this->roleService->removeRoleAssignment($roleAssignment);

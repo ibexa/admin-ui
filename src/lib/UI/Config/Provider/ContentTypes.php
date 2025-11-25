@@ -90,7 +90,7 @@ class ContentTypes implements ProviderInterface
                 $preferredLanguages
             );
 
-            usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2) {
+            usort($contentTypes, static function (ContentType $contentType1, ContentType $contentType2): int {
                 return strnatcasecmp($contentType1->getName(), $contentType2->getName());
             });
 

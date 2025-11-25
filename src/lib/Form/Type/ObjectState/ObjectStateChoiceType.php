@@ -36,7 +36,7 @@ class ObjectStateChoiceType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'choice_loader' => new CallbackChoiceLoader(function () {
+                'choice_loader' => new CallbackChoiceLoader(function (): array {
                     $objectStates = [];
                     $objectStateGroups = $this->objectStateService->loadObjectStateGroups();
                     foreach ($objectStateGroups as $objectStateGroup) {

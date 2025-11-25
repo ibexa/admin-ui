@@ -100,7 +100,7 @@ class RequestAttributesListener implements EventSubscriberInterface
     private function loadLocation(int $locationId): Location
     {
         $location = $this->repository->sudo(
-            static function (Repository $repository) use ($locationId) {
+            static function (Repository $repository) use ($locationId): Location {
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );

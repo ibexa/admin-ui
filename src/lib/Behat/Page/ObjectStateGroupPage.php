@@ -59,7 +59,7 @@ class ObjectStateGroupPage extends Page
         $this->expectedObjectStateGroupName = $objectStateGroupName;
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup[] $objectStateGroups */
-        $objectStateGroups = $this->repository->sudo(function () {
+        $objectStateGroups = $this->repository->sudo(function (): iterable {
             return $this->repository->getObjectStateService()->loadObjectStateGroups();
         });
 

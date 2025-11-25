@@ -43,7 +43,7 @@ class LimitationValueRenderingExtensionTest extends FileSystemTwigIntegrationTes
         $mapperMock
             ->expects($this->atLeastOnce())
             ->method('mapLimitationValue')
-            ->willReturnCallback(static function (Limitation $limitation) {
+            ->willReturnCallback(static function (Limitation $limitation): array {
                 return $limitation->limitationValues;
             });
 

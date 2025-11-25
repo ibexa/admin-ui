@@ -357,7 +357,7 @@ class ContentViewPage extends Page
 
     private function getContentData(string $locationPath): array
     {
-        return $this->repository->sudo(function (Repository $repository) use ($locationPath) {
+        return $this->repository->sudo(function (Repository $repository) use ($locationPath): array {
             $content = $this->loadContent($repository, $locationPath);
 
             return [
@@ -371,7 +371,7 @@ class ContentViewPage extends Page
 
     private function loadContent(Repository $repository, string $locationPath): Content
     {
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($repository, $locationPath) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(static function () use ($repository, $locationPath): bool {
             $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
 
             return URLAlias::LOCATION === $urlAlias->type;

@@ -92,7 +92,7 @@ class ContentUpdateContext implements Context
         $values = $parameters;
         unset($values['label']);
 
-        return array_filter($values, static function ($element) { return !empty($element) || $element === 0;});
+        return array_filter($values, static function ($element): bool { return !empty($element) || $element === 0;});
     }
 
     /**

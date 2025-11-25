@@ -89,7 +89,7 @@ class VersionController extends Controller
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo */
         $contentInfo = $form->getData()->getContentInfo();
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (VersionRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (VersionRemoveData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getVersions() as $versionNo => $selected) {

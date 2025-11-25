@@ -47,7 +47,7 @@ class MainMenuBuilerTest extends TestCase
     {
         $knpFactory = $this->createMock(FactoryInterface::class);
         $knpFactory->method('createItem')
-            ->willReturnCallback(static function (string $name) use ($knpFactory) {
+            ->willReturnCallback(static function (string $name) use ($knpFactory): MenuItem {
                 return new MenuItem($name, $knpFactory);
             })
         ;

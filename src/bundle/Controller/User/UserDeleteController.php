@@ -74,7 +74,7 @@ class UserDeleteController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (UserDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (UserDeleteData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 $location = $this->locationService->loadLocation($contentInfo->mainLocationId);

@@ -140,7 +140,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationMoveData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationMoveData $data): RedirectResponse {
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
@@ -193,7 +193,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationCopyData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationCopyData $data): RedirectResponse {
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
@@ -259,7 +259,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location) {
+            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location): RedirectResponse {
                 $newParentLocation = $data->getNewParentLocation();
 
                 $copiedContent = $this->locationService->copySubtree(
@@ -305,7 +305,7 @@ class LocationController extends Controller
         $location = $form->getData()->getCurrentLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationSwapData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationSwapData $data): RedirectResponse {
                 $currentLocation = $data->getCurrentLocation();
                 $newLocation = $data->getNewLocation();
 
@@ -360,7 +360,7 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationTrashData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationTrashData $data): RedirectResponse {
                 return $this->handleTrashLocation($data);
             });
 
@@ -445,7 +445,7 @@ class LocationController extends Controller
         $contentInfo = $form->getData()->getContentInfo();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentLocationRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentLocationRemoveData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 foreach ($data->getLocations() as $locationId => $selected) {
@@ -609,7 +609,7 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationUpdateData $data): RedirectResponse {
                 $location = $data->getLocation();
 
                 $locationUpdateStruct = new LocationUpdateStruct(['sortField' => $data->getSortField(), 'sortOrder' => $data->getSortOrder()]);
@@ -656,7 +656,7 @@ class LocationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data) {
+            $result = $this->submitHandler->handle($form, function (LocationAssignSubtreeData $data): RedirectResponse {
                 $section = $data->getSection();
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $data->getLocation();

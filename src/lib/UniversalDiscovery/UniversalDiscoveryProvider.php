@@ -154,8 +154,11 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            static function (SearchHit $searchHit) {
-                return $searchHit->valueObject;
+            static function (SearchHit $searchHit): Location {
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+                $location = $searchHit->valueObject;
+
+                return $location;
             },
             $searchResult->searchHits
         );
@@ -170,7 +173,7 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            function (SearchHit $searchHit) {
+            function (SearchHit $searchHit): array {
                 /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
                 $location = $searchHit->valueObject;
 

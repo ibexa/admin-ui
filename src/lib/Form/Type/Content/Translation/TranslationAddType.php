@@ -223,9 +223,9 @@ class TranslationAddType extends AbstractType
                     'placeholder' => false,
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages, $limitationLanguageCodes) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages, $limitationLanguageCodes): array {
                         return $this->loadLanguages(
-                            static function (Language $language) use ($contentLanguages, $limitationLanguageCodes) {
+                            static function (Language $language) use ($contentLanguages, $limitationLanguageCodes): bool {
                                 return $language->enabled
                                     && !in_array($language->languageCode, $contentLanguages, true)
                                     && (empty($limitationLanguageCodes) || in_array($language->languageCode, $limitationLanguageCodes, true));
@@ -245,9 +245,9 @@ class TranslationAddType extends AbstractType
                     'placeholder' => /** @Desc("No language") */ 'translation.base_language.no_language',
                     'multiple' => false,
                     'expanded' => false,
-                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages) {
+                    'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages): array {
                         return $this->loadLanguages(
-                            static function (Language $language) use ($contentLanguages) {
+                            static function (Language $language) use ($contentLanguages): bool {
                                 return $language->enabled && in_array($language->languageCode, $contentLanguages, true);
                             }
                         );

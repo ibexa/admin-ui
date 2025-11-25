@@ -77,7 +77,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         if (!empty($this->languageCodes)) {
             $languages = array_filter(
                 $languages,
-                function (Language $language) {
+                function (Language $language): bool {
                     return \in_array($language->languageCode, $this->languageCodes, true);
                 }
             );
@@ -106,7 +106,7 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         if (!empty($limitationLanguageCodes)) {
             $languages = array_filter(
                 $languages,
-                static function (Language $language) use ($limitationLanguageCodes) {
+                static function (Language $language) use ($limitationLanguageCodes): bool {
                     return \in_array($language->languageCode, $limitationLanguageCodes, true);
                 }
             );

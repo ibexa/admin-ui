@@ -136,6 +136,9 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         $event->setResponse($response);
     }
 
+    /**
+     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Field>
+     */
     private function getTranslatedContentFields(Content $content, string $languageCode): array
     {
         $contentType = $content->getContentType();

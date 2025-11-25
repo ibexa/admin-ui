@@ -60,7 +60,7 @@ class ObjectStatePage extends Page
     public function setExpectedObjectStateName(string $objectStateName)
     {
         $this->expectedObjectStateName = $objectStateName;
-        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($objectStateName) {
+        $this->getHTMLPage()->setTimeout(3)->waitUntil(function () use ($objectStateName): bool {
             return $this->getObjectState($objectStateName) !== null;
         }, sprintf('Object state %s was not found', $objectStateName));
 
@@ -95,7 +95,7 @@ class ObjectStatePage extends Page
 
     private function getObjectState(string $objectStateName): ?ObjectState
     {
-        return $this->repository->sudo(static function (Repository $repository) use ($objectStateName) {
+        return $this->repository->sudo(static function (Repository $repository) use ($objectStateName): ?ObjectState {
             foreach ($repository->getObjectStateService()->loadObjectStateGroups() as $group) {
                 foreach ($repository->getObjectStateService()->loadObjectStates($group) as $objectState) {
                     if ($objectState->getName() === $objectStateName) {

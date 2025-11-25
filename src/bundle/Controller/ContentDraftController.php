@@ -18,6 +18,7 @@ use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -90,7 +91,7 @@ class ContentDraftController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentRemoveData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentRemoveData $data): RedirectResponse {
                 foreach (array_keys($data->getVersions()) as $version) {
                     $versionId = VersionId::fromString($version);
 

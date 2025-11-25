@@ -30,7 +30,7 @@ class FieldEditRenderingExtension extends AbstractExtension
      */
     public function getFunctions(): array
     {
-        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []) {
+        $fieldDefinitionEditCallable = function (Environment $twig, FieldDefinitionData $fieldDefinitionData, array $params = []): string {
             $this->fieldBlockRenderer->setTwig($twig);
 
             return $this->renderFieldDefinitionEdit($fieldDefinitionData, $params);

@@ -43,7 +43,7 @@ class ContentTypeIconResolverTest extends TestCase
         $this->configResolver
             ->expects($this->any())
             ->method('hasParameter')
-            ->willReturnCallback(static function (string $key) use ($config) {
+            ->willReturnCallback(static function (string $key) use ($config): bool {
                 $key = explode('.', $key);
 
                 return isset($config[array_pop($key)]);
@@ -52,7 +52,7 @@ class ContentTypeIconResolverTest extends TestCase
         $this->configResolver
             ->expects($this->any())
             ->method('getParameter')
-            ->willReturnCallback(static function (string $key) use ($config) {
+            ->willReturnCallback(static function (string $key) use ($config): array {
                 $key = explode('.', $key);
 
                 return $config[array_pop($key)];
@@ -61,7 +61,7 @@ class ContentTypeIconResolverTest extends TestCase
         $this->packages
             ->expects($this->any())
             ->method('getUrl')
-            ->willReturnCallback(static function (string $uri) {
+            ->willReturnCallback(static function (string $uri): string {
                 return "https://cdn.example.com/$uri";
             });
 

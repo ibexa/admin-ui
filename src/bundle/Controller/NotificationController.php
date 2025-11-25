@@ -90,7 +90,7 @@ final class NotificationController extends Controller
 
     public function getNotificationsAction(Request $request, int $offset, int $limit): JsonResponse
     {
-        return $this->handleJsonErrors(function () use ($offset, $limit) {
+        return $this->handleJsonErrors(function () use ($offset, $limit): JsonResponse {
             $notificationList = $this->notificationService->loadNotifications($offset, $limit);
 
             return new JsonResponse([
@@ -232,7 +232,7 @@ final class NotificationController extends Controller
 
     public function countNotificationsAction(): JsonResponse
     {
-        return $this->handleJsonErrors(fn () => new JsonResponse([
+        return $this->handleJsonErrors(fn (): JsonResponse => new JsonResponse([
             'pending' => $this->notificationService->getPendingNotificationCount(),
             'total' => $this->notificationService->getNotificationCount(),
         ]));
@@ -245,7 +245,7 @@ final class NotificationController extends Controller
      */
     public function markNotificationAsReadAction(Request $request, int $notificationId): JsonResponse
     {
-        return $this->handleJsonErrors(function () use ($notificationId) {
+        return $this->handleJsonErrors(function () use ($notificationId): JsonResponse {
             $notification = $this->notificationService->getNotification($notificationId);
 
             $this->notificationService->markNotificationAsRead($notification);
@@ -266,7 +266,7 @@ final class NotificationController extends Controller
 
     public function markNotificationsAsReadAction(Request $request): JsonResponse
     {
-        return $this->handleJsonErrors(function () use ($request) {
+        return $this->handleJsonErrors(function () use ($request): JsonResponse {
             $ids = $request->toArray()['ids'] ?? [];
 
             if (empty($ids)) {
@@ -284,7 +284,7 @@ final class NotificationController extends Controller
 
     public function markAllNotificationsAsReadAction(Request $request): JsonResponse
     {
-        return $this->handleJsonErrors(function () {
+        return $this->handleJsonErrors(function (): JsonResponse {
             $this->notificationService->markUserNotificationsAsRead();
 
             return new JsonResponse(['status' => 'success']);
@@ -293,7 +293,7 @@ final class NotificationController extends Controller
 
     public function markNotificationAsUnreadAction(Request $request, int $notificationId): JsonResponse
     {
-        return $this->handleJsonErrors(function () use ($notificationId) {
+        return $this->handleJsonErrors(function () use ($notificationId): JsonResponse {
             $notification = $this->notificationService->getNotification($notificationId);
 
             $this->notificationService->markNotificationAsUnread($notification);
@@ -304,7 +304,7 @@ final class NotificationController extends Controller
 
     public function deleteNotificationAction(Request $request, int $notificationId): JsonResponse
     {
-        return $this->handleJsonErrors(function () use ($notificationId) {
+        return $this->handleJsonErrors(function () use ($notificationId): JsonResponse {
             $notification = $this->notificationService->getNotification($notificationId);
 
             $this->notificationService->deleteNotification($notification);

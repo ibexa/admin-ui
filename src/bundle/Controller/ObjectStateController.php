@@ -197,7 +197,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStateDeleteData $data): void {
                 $objectState = $data->getObjectState();
                 $this->objectStateService->deleteObjectState($objectState);
 
@@ -237,7 +237,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ObjectStatesDeleteData $data) {
+            $result = $this->submitHandler->handle($form, function (ObjectStatesDeleteData $data): void {
                 foreach ($data->getObjectStates() as $objectStateId => $selected) {
                     $objectState = $this->objectStateService->loadObjectState($objectStateId);
                     $this->objectStateService->deleteObjectState($objectState);
@@ -347,7 +347,7 @@ class ObjectStateController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentObjectStateUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentObjectStateUpdateData $data): void {
                 $contentInfo = $data->getContentInfo();
                 $objectStateGroup = $data->getObjectStateGroup();
                 $objectState = $data->getObjectState();

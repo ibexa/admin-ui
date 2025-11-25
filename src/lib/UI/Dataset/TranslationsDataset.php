@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Language;
@@ -48,7 +49,7 @@ class TranslationsDataset
         }
 
         $this->data = array_map(
-            function (Language $language) use ($versionInfo) {
+            function (Language $language) use ($versionInfo): UIValue\Content\Language {
                 return $this->valueFactory->createLanguage($language, $versionInfo);
             },
             $languages
@@ -72,7 +73,7 @@ class TranslationsDataset
         }
 
         $this->data = array_map(
-            function (Language $language) use ($contentType) {
+            function (Language $language) use ($contentType): UIValue\Content\Language {
                 return $this->valueFactory->createLanguageFromContentType($language, $contentType);
             },
             $languages

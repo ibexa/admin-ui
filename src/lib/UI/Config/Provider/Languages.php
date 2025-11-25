@@ -101,7 +101,7 @@ class Languages implements ProviderInterface
 
         $languageCodes = array_unique($priority);
 
-        $languages = array_filter(array_values($languageCodes), static function ($languageCode) use ($languagesMap) {
+        $languages = array_filter(array_values($languageCodes), static function ($languageCode) use ($languagesMap): bool {
             // Get only Languages defined and enabled in Admin
             return isset($languagesMap[$languageCode]) && $languagesMap[$languageCode]['enabled'];
         });

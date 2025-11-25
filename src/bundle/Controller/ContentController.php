@@ -164,7 +164,7 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentCreateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentCreateData $data): RedirectResponse {
                 $contentType = $data->getContentType();
                 $language = $data->getLanguage();
                 $parentLocation = $data->getParentLocation();
@@ -242,7 +242,7 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentEditData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentEditData $data): Response {
                 $contentInfo = $data->getContentInfo();
                 $language = $data->getLanguage();
                 $location = $data->getLocation();
@@ -269,7 +269,10 @@ class ContentController extends Controller
                 );
 
                 if ($event->hasResponse()) {
-                    return $event->getResponse();
+                    $response = $event->getResponse();
+                    if ($response !== null) {
+                        return $response;
+                    }
                 }
 
                 if (!$versionInfo->isDraft()) {
@@ -331,7 +334,7 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentMainLocationUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentMainLocationUpdateData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
 
                 $contentMetadataUpdateStruct = $this->contentMainLocationUpdateMapper->reverseMap($data);
@@ -467,7 +470,7 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (MainTranslationUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (MainTranslationUpdateData $data): RedirectResponse {
                 $content = $data->getContent();
                 $contentInfo = $content->contentInfo;
                 $mapper = new MainTranslationUpdateMapper();
@@ -517,7 +520,7 @@ class ContentController extends Controller
         $result = null;
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentVisibilityUpdateData $data) {
+            $result = $this->submitHandler->handle($form, function (ContentVisibilityUpdateData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
                 $contentName = $this->translationHelper->getTranslatedContentNameByContentInfo($contentInfo);
                 $desiredVisibility = $data->getVisible();

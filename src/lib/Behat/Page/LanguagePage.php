@@ -101,7 +101,7 @@ class LanguagePage extends Page
     {
         $this->expectedLanguageName = $languageName;
 
-        $languages = $this->repository->sudo(static function (Repository $repository) {
+        $languages = $this->repository->sudo(static function (Repository $repository): iterable {
             return $repository->getContentLanguageService()->loadLanguages();
         });
 

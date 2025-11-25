@@ -59,7 +59,7 @@ class LocationTrashType extends AbstractType
                 ['label' => /** @Desc("Send to trash") */ 'location_trash_form.trash']
             );
 
-        $builder->get('trash_options')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->get('trash_options')->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event): void {
             $form = $event->getForm();
             $this->trashTypeStrategy->addOptions(
                 $form,
@@ -71,7 +71,7 @@ class LocationTrashType extends AbstractType
             }
         });
 
-        $builder->get('location')->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->get('location')->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {
             $form = $event->getForm()->getParent();
             $this->trashTypeStrategy->addOptions(
                 $form->get('trash_options'),
