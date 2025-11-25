@@ -10393,6 +10393,11 @@ parameters:
 			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
 
 		-
+			message: '#^Closure is missing a return type declaration$#'
+			count: 1
+			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
+
+		-
 			message: '#^Method Ibexa\\AdminUi\\Form\\Type\\UniversalDiscoveryWidget\\UniversalDiscoveryWidgetType\:\:buildForm\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
