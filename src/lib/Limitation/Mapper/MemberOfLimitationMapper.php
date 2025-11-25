@@ -68,7 +68,7 @@ final class MemberOfLimitationMapper extends MultipleSelectionBasedMapper implem
      */
     private function loadUserGroups(): array
     {
-        return $this->repository->sudo(function () {
+        return $this->repository->sudo(function (): array {
             $filter = new Filter();
             $filter->withCriterion(new ContentTypeIdentifier('user_group'));
             $filter->withSortClause(new ContentName());

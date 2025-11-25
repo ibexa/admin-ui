@@ -48,7 +48,7 @@ class UserChoiceType extends AbstractType
      */
     protected function getUsers(): array
     {
-        return $this->repository->sudo(static function (Repository $repository) {
+        return $this->repository->sudo(static function (Repository $repository): array {
             $query = new LocationQuery();
             $query->filter = new ContentTypeIdentifier('user');
             $query->offset = 0;

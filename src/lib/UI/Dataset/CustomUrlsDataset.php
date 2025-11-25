@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\Exceptions\BadStateException;
 use Ibexa\Contracts\Core\Repository\URLAliasService;
@@ -48,7 +49,7 @@ final class CustomUrlsDataset
         }
 
         $this->data = array_map(
-            function (URLAlias $urlAlias) {
+            function (URLAlias $urlAlias): UIValue\Content\UrlAlias {
                 return $this->valueFactory->createUrlAlias($urlAlias);
             },
             iterator_to_array($customUrlAliases)

@@ -7,12 +7,6 @@ parameters:
 			path: src/bundle/Controller/AssetController.php
 
 		-
-			message: '#^Anonymous function should return Symfony\\Component\\HttpFoundation\\Response but returns Symfony\\Component\\HttpFoundation\\Response\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
 			message: '#^Cannot access property \$isHidden on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null\.$#'
 			identifier: property.nonObject
 			count: 4
@@ -2439,6 +2433,11 @@ parameters:
 		-
 			message: '#^Class Ibexa\\AdminUi\\Form\\Type\\UniversalDiscoveryWidget\\UniversalDiscoveryWidgetType extends generic class Symfony\\Component\\Form\\AbstractType but does not specify its types\: TData$#'
 			identifier: missingType.generics
+			count: 1
+			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
+
+		-
+			message: '#^Closure is missing a return type declaration$#'
 			count: 1
 			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
 

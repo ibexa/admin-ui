@@ -198,7 +198,10 @@ final class ContentController extends Controller
                 );
 
                 if ($event->hasResponse()) {
-                    return $event->getResponse();
+                    $response = $event->getResponse();
+                    if ($response !== null) {
+                        return $response;
+                    }
                 }
 
                 if (!$versionInfo->isDraft()) {

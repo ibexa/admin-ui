@@ -52,7 +52,7 @@ final class ContentTypeIconResolverTest extends TestCase
         $this->configResolver
             ->expects(self::any())
             ->method('getParameter')
-            ->willReturnCallback(static function (string $key) use ($config) {
+            ->willReturnCallback(static function (string $key) use ($config): array {
                 $key = explode('.', $key);
 
                 return $config[array_pop($key)];

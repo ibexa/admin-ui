@@ -14,7 +14,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\Ancestor;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause\Location\Path;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 
 /**
  * Service for loading path information.
@@ -39,8 +38,11 @@ final readonly class PathService
 
         $searchResult = $this->searchService->findLocations($locationQuery);
 
-        return array_map(static function (SearchHit $searchHit): ValueObject {
-            return $searchHit->valueObject;
+        return array_map(static function (SearchHit $searchHit): Location {
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+            $location = $searchHit->valueObject;
+
+            return $location;
         }, $searchResult->searchHits);
     }
 }

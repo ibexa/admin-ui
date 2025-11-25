@@ -22,7 +22,6 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Core\Repository\Values\ValueObject;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\Rest\Server\Values\Version;
 
@@ -119,8 +118,11 @@ class UniversalDiscoveryProvider implements Provider
         );
 
         return array_map(
-            static function (SearchHit $searchHit): ValueObject {
-                return $searchHit->valueObject;
+            static function (SearchHit $searchHit): Location {
+                /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location $location */
+                $location = $searchHit->valueObject;
+
+                return $location;
             },
             $searchResult->searchHits
         );

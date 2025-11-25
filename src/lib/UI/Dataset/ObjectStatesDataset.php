@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\UI\Dataset;
 
 use Ibexa\AdminUi\UI\Value as UIValue;
+use Ibexa\AdminUi\UI\Value\ObjectState\ObjectState;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ObjectStateService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -28,7 +29,7 @@ final class ObjectStatesDataset
     public function load(ContentInfo $contentInfo): self
     {
         $data = array_map(
-            function (ObjectStateGroup $objectStateGroup) use ($contentInfo) {
+            function (ObjectStateGroup $objectStateGroup) use ($contentInfo): ObjectState|array {
                 $hasObjectStates = !empty($this->objectStateService->loadObjectStates($objectStateGroup));
                 if (!$hasObjectStates) {
                     return [];

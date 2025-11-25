@@ -69,7 +69,7 @@ final class RoleAssignmentCreateType extends AbstractType
                     RoleAssignmentCreateData::LIMITATION_TYPE_SECTION => RoleAssignmentCreateData::LIMITATION_TYPE_SECTION,
                     RoleAssignmentCreateData::LIMITATION_TYPE_LOCATION => RoleAssignmentCreateData::LIMITATION_TYPE_LOCATION,
                 ],
-                'choice_name' => static function ($value) {
+                'choice_name' => static function ($value): string {
                     return $value;
                 },
             ])

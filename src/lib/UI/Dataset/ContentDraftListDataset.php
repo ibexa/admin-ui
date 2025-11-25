@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
+use Ibexa\AdminUi\UI\Value as UIValue;
 use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -42,7 +43,7 @@ class ContentDraftListDataset
         }
 
         $this->data = array_map(
-            function (ContentDraftListItemInterface $contentDraftListItem) use ($contentTypes) {
+            function (ContentDraftListItemInterface $contentDraftListItem) use ($contentTypes): UIValue\Content\ContentDraftInterface {
                 if ($contentDraftListItem->hasVersionInfo()) {
                     $versionInfo = $contentDraftListItem->getVersionInfo();
                     $contentType = $contentTypes[$versionInfo->getContentInfo()->contentTypeId];
