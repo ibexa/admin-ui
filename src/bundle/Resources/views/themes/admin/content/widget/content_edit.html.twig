@@ -1,5 +1,8 @@
 {% trans_default_domain 'ibexa_locationview' %}
-{% form_theme form '@ibexadesign/content/widget/form_fields.html.twig' %}
+{% set default_form_templates = '@ibexadesign/content/widget/form_fields.html.twig' %}
+{% set form_templates = form_templates is defined ? form_templates : default_form_templates %}
+
+{% form_theme form with form_templates %}
 
 {% set data_actions = data_actions|default('edit') %}
 {% set action = action is defined ? action : path('ibexa.content.edit') %}
