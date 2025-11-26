@@ -9,25 +9,38 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Controller\SiteAccess;
 
 use Ibexa\AdminUi\REST\Value\SiteAccess\SiteAccessesList;
-use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Rest\Server\Controller as RestController;
+use Ibexa\Rest\Server\Exceptions\BadRequestException;
+use Psr\Container\NotFoundExceptionInterface;
+use Symfony\Component\DependencyInjection\ServiceLocator;
+use Symfony\Component\HttpFoundation\Request;
 
 final class SiteAccessController extends RestController
 {
-    private SiteaccessResolverInterface $nonAdminSiteAccessResolver;
+    private ServiceLocator $siteAccessResolvers;
 
-    public function __construct(SiteaccessResolverInterface $nonAdminSiteAccessResolver)
-    {
-        $this->nonAdminSiteAccessResolver = $nonAdminSiteAccessResolver;
+    public function __construct(
+        ServiceLocator $siteAccessResolvers
+    ) {
+        $this->siteAccessResolvers = $siteAccessResolvers;
     }
 
-    public function loadForLocation(Location $location, string $resolverType = 'non_admin'): SiteAccessesList
+    /**
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function loadForLocation(Request $request, Location $location): SiteAccessesList
     {
-        switch ($resolverType) {
-            default: $siteAccesses = $this->nonAdminSiteAccessResolver->getSiteAccessesListForLocation($location);
+        $resolverType = $request->query->get('resolver_type', 'non_admin');
+
+        try {
+            /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface $siteAccessResolver */
+            $siteAccessResolver = $this->siteAccessResolvers->get($resolverType);
+        } catch (NotFoundExceptionInterface $e) {
+            throw new BadRequestException($e->getMessage(), $e->getCode(), $e);
         }
 
-        return new SiteAccessesList($siteAccesses);
+        return new SiteAccessesList($siteAccessResolver->getSiteAccessesListForLocation($location));
     }
 }

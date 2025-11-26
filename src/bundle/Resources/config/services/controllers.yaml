@@ -270,6 +270,8 @@ services:
         parent: Ibexa\Rest\Server\Controller
         autowire: true
         arguments:
-            $nonAdminSiteAccessResolver: '@Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver'
+            $siteAccessResolvers: !tagged_locator
+                tag: 'ibexa.site_access.resolver'
+                index_by: type
         tags:
             - controller.service_arguments
