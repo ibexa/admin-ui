@@ -56,6 +56,11 @@
         <target state="new">Edit</target>
         <note>key: dashboard.table.content.edit</note>
       </trans-unit>
+      <trans-unit id="e84a6508aff9e0a1f694695d466a7dca38f42dfb" resname="dashboard.table.content.empty_name_placeholder">
+        <source>[Untitled]</source>
+        <target state="new">[Untitled]</target>
+        <note>key: dashboard.table.content.empty_name_placeholder</note>
+      </trans-unit>
       <trans-unit id="e17a8999c9e44b7e8ea1ba0f5cff596ece264da5" resname="dashboard.table.content_type">
         <source>Content type</source>
         <target state="new">Content type</target>
