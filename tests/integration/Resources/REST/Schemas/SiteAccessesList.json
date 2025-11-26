@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "SiteAccessesList": {
+      "type": "object",
+      "properties": {
+        "_media-type": {
+          "type": "string"
+        },
+        "values": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "_media-type": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "_media-type",
+                "name"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "_media-type",
+        "values"
+      ]
+    }
+  },
+  "required": [
+    "SiteAccessesList"
+  ]
+}
