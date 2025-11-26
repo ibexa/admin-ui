@@ -18,6 +18,8 @@ services:
     Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver:
         arguments:
             $siteAccessGroups: '%ibexa.site_access.groups%'
+        tags:
+            - { name: 'ibexa.site_access.resolver', type: 'non_admin' }
 
     Ibexa\AdminUi\Siteaccess\AdminSiteaccessPreviewVoter:
         arguments:
