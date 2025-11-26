@@ -31,6 +31,11 @@
         <target state="new">Delete</target>
         <note>key: drafts.list.action.remove.confirmation.title</note>
       </trans-unit>
+      <trans-unit id="a467c57cd3c072a6e0d2152a45ee3784c9f42b9d" resname="drafts.list.content.empty_name_placeholder">
+        <source>[Untitled]</source>
+        <target state="new">[Untitled]</target>
+        <note>key: drafts.list.content.empty_name_placeholder</note>
+      </trans-unit>
       <trans-unit id="b62c11ec52c71a7923851340a98932ed8ac8704b" resname="drafts.list.content_type">
         <source>Content type</source>
         <target state="new">Content type</target>
