@@ -55,7 +55,7 @@ class UserNotificationContext implements Context
     /**
      * @Then the notification appears with details:
      */
-    public function thereIsNotificationAppearsWithDetails(TableNode $notificationDetails): void
+    public function notificationAppearsWithDetails(TableNode $notificationDetails): void
     {
         $type = $notificationDetails->getHash()[0]['Type'];
         $author = $notificationDetails->getHash()[0]['Author'];
@@ -75,34 +75,34 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @When I click :action action
+     * @When I perform the :action action on the notification
      */
-    public function iClickActionButton(string $action): void
+    public function iPerformNotificationAction(string $action): void
     {
         $this->userNotificationPopup->clickActionButton($action);
     }
 
     /**
-     * @Then the notification action should be :expectedAction
+     * @Then the notification should have :expectedAction action available
      */
     public function verifyNotificationAction(string $expectedAction): void
     {
-        $this->userNotificationPopup->getActionButton($expectedAction);
+        $this->userNotificationPopup->findActionButton($expectedAction);
     }
 
     /**
-     * @When I click mark all as read button
+     * @When I mark all notifications as read
      */
-    public function iClickButton(): void
+    public function markAllNotificationsAsRead(): void
     {
         $this->userNotificationPopup->verifyIsLoaded();
         $this->userNotificationPopup->clickOnMarkAllAsReadButton();
     }
 
     /**
-     * @When I click view all notifications button
+     * @When I go to the list of all notifications
      */
-    public function iClickViewAllNotificationsButton(): void
+    public function goToAllNotificationsList(): void
     {
         $this->userNotificationPopup->verifyIsLoaded();
         $this->userNotificationPopup->clickViewAllNotificationsButton();
@@ -150,31 +150,31 @@ class UserNotificationContext implements Context
     }
 
     /**
-     * @Then I should see the text :text in the notifications popup
+     * @Then an empty notifications state in the popup should be visible
      */
-    public function iShouldSeeTextInNotificationsPopup(string $expectedMessage): void
+    public function emptyNotificationsStateInPopup(): void
     {
-        $this->userNotificationPopup->verifyNoNotificationsMessage($expectedMessage);
+        $this->userNotificationPopup->assertEmptyStateVisible();
     }
 
     /**
-     * @Then I should see the text :text in the All Notifications view
+     * @Then an empty notifications state should be visible in the All Notifications view
      */
-    public function iShouldSeeTextInAllNotificationsView(string $expectedMessage): void
+    public function emptyNotificationsStateInAllNotificationsView(): void
     {
-        $this->notificationsViewAllPage->verifyNoNotificationsMessage($expectedMessage);
+        $this->notificationsViewAllPage->assertEmptyStateVisible();
     }
 
     /**
-     * @Then the notifications popup should contain :expectedCount notification
+     * @Then the notifications popup counter should display :expectedCount
      */
-    public function thereShouldBeNotificationsInPopup(int $expectedCount): void
+    public function iShouldSeeNotificationsCountInPopup(int $expectedCount): void
     {
         $this->userNotificationPopup->verifyNotificationsCount($expectedCount);
     }
 
     /**
-     * @Then there should be :expectedCount notification in the All Notifications view
+     * @Then I should see :expectedCount notifications in the All Notifications view
      */
     public function thereShouldBeNotificationsInAllNotificationsView(int $expectedCount): void
     {

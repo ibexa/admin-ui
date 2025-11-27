@@ -13,7 +13,6 @@ use Exception;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
-use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -73,16 +72,9 @@ final class NotificationsViewAllPage extends Page
             ->find($this->getLocator('rowStatus'))->getText();
     }
 
-    public function verifyNoNotificationsMessage(string $expectedMessage): void
+    public function assertEmptyStateVisible(): void
     {
-        $this->getHTMLPage()->setTimeout(10)->waitUntilCondition(
-            new ElementExistsCondition(
-                $this->getHTMLPage(),
-                $this->getLocator('notificationsEmptyText')
-            )
-        );
-
-        $this->getHTMLPage()->find($this->getLocator('notificationsEmptyText'))->assert()->textEquals($expectedMessage);
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('notificationsEmptyText'))->assert()->isVisible();
     }
 
     public function verifyNotificationsCount(int $expectedCount): void

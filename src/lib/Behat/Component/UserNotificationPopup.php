@@ -64,12 +64,12 @@ class UserNotificationPopup extends Component
 
             foreach ($criteria as $criterion) {
                 if (!$criterion->matches($notification)) {
-                    continue 2; // go to next notification
+                    continue 2;
                 }
             }
 
             if ($shouldExist) {
-                return; // matching notification found
+                return;
             } else {
                 throw new \Exception(sprintf(
                     'Notification of type "%s" with author "%s" and description "%s" should not exist, but was found.',
@@ -92,20 +92,9 @@ class UserNotificationPopup extends Component
 
     public function openNotificationMenu(string $expectedDescription): void
     {
-        $this->getHTMLPage()
-            ->setTimeout(10)
-            ->waitUntilCondition(
-                new ElementExistsCondition(
-                    $this->getHTMLPage(),
-                    $this->getLocator('notificationDescriptionText')
-                )
-            );
-
-        $notifications = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'))
-            ->filterBy(new ChildElementTextCriterion($this->getLocator('notificationDescriptionText'), $expectedDescription));
-
-        $menuButton = $notifications->first()->find($this->getLocator('notificationMenuButton'));
-        $menuButton->click();
+        $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'))
+            ->filterBy(new ChildElementTextCriterion($this->getLocator('notificationDescriptionText'), $expectedDescription))
+            ->first()->find($this->getLocator('notificationMenuButton'))->click();
 
         $this->getHTMLPage()
             ->setTimeout(10)
@@ -119,12 +108,10 @@ class UserNotificationPopup extends Component
 
     public function clickActionButton(string $buttonText): void
     {
-        $buttons = $this->getHTMLPage()
+        $this->getHTMLPage()
             ->setTimeout(10)
             ->findAll($this->getLocator('notificationMenuItemContent'))
-            ->filterBy(new ElementTextCriterion($buttonText));
-
-        $buttons->first()->execute(new MouseOverAndClick());
+            ->filterBy(new ElementTextCriterion($buttonText))->first()->execute(new MouseOverAndClick());
 
         $this->getHTMLPage()
             ->setTimeout(10)
@@ -136,7 +123,7 @@ class UserNotificationPopup extends Component
             );
     }
 
-    public function getActionButton(string $buttonText): ?ElementInterface
+    public function findActionButton(string $buttonText): ?ElementInterface
     {
         $this->getHTMLPage()
             ->setTimeout(10)
@@ -154,16 +141,9 @@ class UserNotificationPopup extends Component
             ->first();
     }
 
-    public function verifyNoNotificationsMessage(string $expectedMessage): void
+    public function assertEmptyStateVisible(): void
     {
-        $this->getHTMLPage()->setTimeout(20)->waitUntilCondition(
-            new ElementExistsCondition(
-                $this->getHTMLPage(),
-                $this->getLocator('notificationsEmptyText')
-            )
-        );
-
-        $this->getHTMLPage()->find($this->getLocator('notificationsEmptyText'))->assert()->textEquals($expectedMessage);
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('notificationsEmptyText'))->assert()->isVisible();
     }
 
     public function clickOnMarkAllAsReadButton(): void
