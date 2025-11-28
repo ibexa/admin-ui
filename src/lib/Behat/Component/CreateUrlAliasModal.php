@@ -9,7 +9,6 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Behat\Mink\Session;
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class CreateUrlAliasModal extends Component
@@ -37,8 +36,6 @@ final class CreateUrlAliasModal extends Component
         if ($redirect !== $redirectToggleState->hasClass('ibexa-toggle--is-checked')) {
             $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
         }
-
-        $this->getHTMLPage()->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('createButton')));
         $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
