@@ -1,5 +1,6 @@
-const controlZIndex = (container) => {
+const controlZIndex = (container, ZIndexValue) => {
     const initialZIndex = container.style.zIndex;
+    container.style.zIndex = ZIndexValue;
 
     container.addEventListener('show.bs.modal', () => {
         container.style.zIndex = 'initial';
