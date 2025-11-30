@@ -109,6 +109,8 @@ const Popup = ({
                 data-bs-dismiss="modal"
                 aria-label={closeBtnLabel}
                 onClick={hidePopup}
+                title={closeBtnLabel}
+                data-tooltip-container-selector={'.c-popup'}
             >
                 <Icon name="discard" extraClasses="ibexa-icon--small" />
             </button>
@@ -138,7 +140,10 @@ const Popup = ({
                         : title && (
                               <>
                                   <div className="modal-header c-popup__header">
-                                      <h3 className="modal-title c-popup__headline" title={showTooltip ? title : null}>
+                                      <h3
+                                          className="modal-title c-popup__headline"
+                                          {...(showTooltip ? { title, 'data-tooltip-container-selector': '.c-popup' } : {})}
+                                      >
                                           <span className="c-popup__title">{title}</span>
                                           {subtitle && <span className="c-popup__subtitle">{subtitle}</span>}
                                       </h3>
