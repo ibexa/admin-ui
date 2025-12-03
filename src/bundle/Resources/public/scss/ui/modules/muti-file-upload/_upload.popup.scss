@@ -1,7 +1,7 @@
 .c-upload-popup {
     background: rgba($ibexa-color-black, 0.35);
     position: fixed;
-    z-index: 10250;
+    z-index: 10100;
     top: 0;
     left: 0;
     height: 100vh;
@@ -13,6 +13,10 @@
         color: $ibexa-color-dark-400;
         font-size: $ibexa-text-font-size-small;
         line-height: calculateRem(18px);
+    }
+
+    &--elevated {
+        z-index: 10250;
     }
 
     .c-tooltip-popup {

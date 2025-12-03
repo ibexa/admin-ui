@@ -8,10 +8,14 @@ import { getContentTypeName } from '@ibexa-admin-ui/src/bundle/Resources/public/
 import TooltipPopup from '../../../common/tooltip-popup/tooltip.popup.component';
 import DropAreaComponent from '../drop-area/drop.area.component';
 import UploadListComponent from '../upload-list/upload.list.component';
+import { UDWContext } from '../../../universal-discovery/universal.discovery.module';
+import { createCssClassNames } from '../../..//common/helpers/css.class.names';
 
 const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
 export default class UploadPopupModule extends Component {
+    static contextType = UDWContext;
+
     constructor(props) {
         super(props);
 
@@ -47,6 +51,7 @@ export default class UploadPopupModule extends Component {
     }
 
     render() {
+        const isUDW = this.context;
         const Translator = getTranslator();
         const hasAnyUploadedItems = !!this.props.uploadedItems.length;
         const hasAnyItemsToUpload = !!this.props.itemsToUpload.length;
@@ -60,6 +65,10 @@ export default class UploadPopupModule extends Component {
             {},
             'ibexa_multi_file_upload',
         );
+        const className = createCssClassNames({
+            'c-upload-popup': true,
+            'c-upload-popup--elevated': !!isUDW,
+        });
         const {
             addItemsToUpload,
             subtitle,
@@ -120,7 +129,7 @@ export default class UploadPopupModule extends Component {
         }
 
         return (
-            <div className="c-upload-popup" ref={this.refTooltip}>
+            <div className={className} ref={this.refTooltip}>
                 <TooltipPopup {...tooltipAttrs}>
                     <div className="c-upload-popup__label">{label}</div>
                     <DropAreaComponent
