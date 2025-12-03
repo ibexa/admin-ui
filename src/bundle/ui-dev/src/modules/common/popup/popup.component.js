@@ -9,6 +9,8 @@ import {
     getRootDOMElement,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
+const MODAL_Z_INDEX = 10260;
+const MODAL_BACKDROP_Z_INDEX = 10250;
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
 const MODAL_CONFIG = {
@@ -37,6 +39,7 @@ const Popup = ({
     extraClasses,
     showTooltip,
     subheader,
+    controlZIndex,
 }) => {
     const rootDOMElement = getRootDOMElement();
     const modalRef = useRef(null);
@@ -56,7 +59,34 @@ const Popup = ({
                 latestBootstrapModal.current.hide();
             }
         }
-    }, [isVisible]);
+
+        const modalNode = modalRef.current;
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+
+        if (!modalBackdrop || !modalNode || !controlZIndex) {
+            return;
+        }
+
+        const backdropInitialZIndex = window.getComputedStyle(modalBackdrop)['z-index'];
+        const modalInitialZIndex = window.getComputedStyle(modalNode)['z-index'];
+
+        modalBackdrop.style.zIndex = MODAL_BACKDROP_Z_INDEX;
+        modalNode.style.zIndex = MODAL_Z_INDEX;
+
+        return () => {
+            if (backdropInitialZIndex) {
+                modalBackdrop.style.zIndex = backdropInitialZIndex;
+            } else {
+                modalBackdrop.style.removeProperty('z-index');
+            }
+
+            if (modalInitialZIndex) {
+                modalNode.style.zIndex = modalInitialZIndex;
+            } else {
+                modalNode.style.removeProperty('z-index');
+            }
+        };
+    }, [isVisible, controlZIndex]);
 
     useEffect(() => {
         return () => {
@@ -201,6 +231,7 @@ Popup.propTypes = {
     extraClasses: PropTypes.string,
     showTooltip: PropTypes.bool,
     subheader: PropTypes.node,
+    controlZIndex: PropTypes.bool,
 };
 
 Popup.defaultProps = {
@@ -216,6 +247,7 @@ Popup.defaultProps = {
     subtitle: null,
     showTooltip: true,
     subheader: null,
+    controlZIndex: false,
 };
 
 export default Popup;
