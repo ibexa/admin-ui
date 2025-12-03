@@ -13,9 +13,7 @@ import { createCssClassNames } from '../../..//common/helpers/css.class.names';
 
 const CLASS_SCROLL_DISABLED = 'ibexa-scroll-disabled';
 
-export default class UploadPopupModule extends Component {
-    static contextType = UDWContext;
-
+class UploadPopupModule extends Component {
     constructor(props) {
         super(props);
 
@@ -193,3 +191,7 @@ UploadPopupModule.defaultProps = {
     onAfterDelete: () => {},
     enableUploadedItemEdit: true,
 };
+
+UploadPopupModule.contextType = UDWContext;
+
+export default UploadPopupModule;
