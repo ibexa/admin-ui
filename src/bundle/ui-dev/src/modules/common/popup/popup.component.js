@@ -11,7 +11,6 @@ import {
 
 const MODAL_Z_INDEX = 10260;
 const MODAL_BACKDROP_Z_INDEX = 10250;
-
 const CLASS_NON_SCROLLABLE = 'ibexa-non-scrollable';
 const CLASS_MODAL_OPEN = 'modal-open';
 const MODAL_CONFIG = {
@@ -68,8 +67,8 @@ const Popup = ({
             return;
         }
 
-        const backdropInitialZIndex = modalBackdrop.style.zIndex;
-        const modalInitialZIndex = modalNode.style.zIndex;
+        const backdropInitialZIndex = window.getComputedStyle(modalBackdrop)['z-index'];
+        const modalInitialZIndex = window.getComputedStyle(modalNode)['z-index'];
 
         modalBackdrop.style.zIndex = MODAL_BACKDROP_Z_INDEX;
         modalNode.style.zIndex = MODAL_Z_INDEX;
@@ -87,7 +86,7 @@ const Popup = ({
                 modalNode.style.removeProperty('z-index');
             }
         };
-    }, [isVisible]);
+    }, [isVisible, controlZIndex]);
 
     useEffect(() => {
         return () => {
