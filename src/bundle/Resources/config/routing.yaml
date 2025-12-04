@@ -915,8 +915,10 @@ ibexa.notifications.render.page:
 ibexa.notifications.render.all:
     path: /notifications/render/all/{page}
     defaults:
-        _controller: 'Ibexa\Bundle\AdminUi\Controller\AllNotificationsController::renderAllNotificationsPageAction'
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\NotificationController::renderNotificationsPageAction'
         page: 1
+        template: '@ibexadesign/account/notifications/list_all.html.twig'
+        render_all: true
     methods: [ GET, POST ]
     requirements:
         page: '\d+'
