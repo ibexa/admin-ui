@@ -43,6 +43,8 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
                 attributeFilter: ['disabled'],
                 attributeOldValue: true,
             });
+
+            ibexa.helpers.objectInstances.setInstance(this.container, this);
         }
 
         toggleEmptyListState() {

@@ -110,8 +110,13 @@
         display: flex;
     }
 
-    &__btn-select-path {
+    &__actions {
         margin-top: calculateRem(24px);
+    }
+
+    &__separator {
+        display: inline-block;
+        padding: 0 calculateRem(16px);
     }
 
     &:disabled,
