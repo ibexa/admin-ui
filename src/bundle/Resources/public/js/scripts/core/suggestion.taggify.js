@@ -127,6 +127,12 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
             return container.querySelector('div');
         }
 
+        triggerSuggestionsRequest() {
+            if (this.inputNode.value.length >= MIN_QUERY_LENGTH) {
+                this.getSuggestions(this.inputNode.value);
+            }
+        }
+
         handleInputKeyUp(event) {
             super.handleInputKeyUp(event);
 
@@ -136,9 +142,7 @@ import { getRestInfo } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
                 return;
             }
 
-            if (this.inputNode.value.length >= MIN_QUERY_LENGTH) {
-                this.getSuggestions(this.inputNode.value);
-            }
+            this.triggerSuggestionsRequest();
         }
 
         init() {
