@@ -1,6 +1,15 @@
 (function (global) {
     const ACTION_BTN_VERTICAL_SPACING = 4.3;
+    const isIframe = global.self !== global.top;
     let actionButtonConfigs = [];
+
+    if (!isIframe) {
+        const quickActionMenu = document.querySelector('.ibexa-quick-action-menu');
+
+        if (quickActionMenu) {
+            quickActionMenu.classList.remove('ibexa-quick-action-menu--hidden');
+        }
+    }
 
     const registerButton = (config) => {
         if (!config || !config.container || actionButtonConfigs.some((btn) => btn.id === config.id)) {
