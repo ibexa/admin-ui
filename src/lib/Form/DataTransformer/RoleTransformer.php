@@ -39,6 +39,8 @@ final readonly class RoleTransformer implements DataTransformerInterface
 
     /**
      * Transforms a Role ID into a domain specific Role object.
+     *
+     * @param int|string|null $value
      */
     public function reverseTransform(mixed $value): ?APIRole
     {
@@ -46,8 +48,8 @@ final readonly class RoleTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!ctype_digit($value)) {
-            throw new TransformationFailedException('Expected a numeric string.');
+        if (!is_int($value) && !ctype_digit($value)) {
+            throw new TransformationFailedException('Expected an integer or numeric string.');
         }
 
         try {

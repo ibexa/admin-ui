@@ -38,6 +38,8 @@ final readonly class RoleAssignmentTransformer implements DataTransformerInterfa
     }
 
     /**
+     * @param int|string|null $value
+     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
@@ -47,8 +49,8 @@ final readonly class RoleAssignmentTransformer implements DataTransformerInterfa
             return null;
         }
 
-        if (!ctype_digit($value)) {
-            throw new TransformationFailedException('Expected a numeric string.');
+        if (!is_int($value) && !ctype_digit($value)) {
+            throw new TransformationFailedException('Expected an integer or numeric string.');
         }
 
         try {

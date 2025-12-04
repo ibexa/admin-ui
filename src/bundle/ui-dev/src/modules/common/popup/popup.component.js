@@ -8,7 +8,6 @@ import {
     getBootstrap,
     getRootDOMElement,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
-import { FILTERS_DATA_SIZE_MAX } from '@ibexa-image-picker/src/bundle/ui-dev/src/modules/image-picker/hooks/useFilters';
 
 const MODAL_Z_INDEX = 10260;
 const MODAL_BACKDROP_Z_INDEX = 10250;
@@ -141,7 +140,7 @@ const Popup = ({
                 aria-label={closeBtnLabel}
                 onClick={hidePopup}
                 title={closeBtnLabel}
-                data-tooltip-container-selector={'.c-popup'}
+                data-tooltip-container-selector=".c-popup"
             >
                 <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
             </button>

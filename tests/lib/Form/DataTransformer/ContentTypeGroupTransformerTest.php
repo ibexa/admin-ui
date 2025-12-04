@@ -127,7 +127,7 @@ final class ContentTypeGroupTransformerTest extends TestCase
     public function testReverseTransformWithInvalidInput(mixed $value): void
     {
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a numeric string.');
+        $this->expectExceptionMessage('Expected an integer or numeric string.');
 
         $this->transformer->reverseTransform($value);
     }

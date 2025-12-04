@@ -36,6 +36,9 @@ final readonly class ContentTypeGroupTransformer implements DataTransformerInter
         return $value->id;
     }
 
+    /**
+     * @param int|string|null $value
+     */
     public function reverseTransform($value): ?ContentTypeGroup
     {
         if (empty($value)) {
@@ -43,7 +46,7 @@ final readonly class ContentTypeGroupTransformer implements DataTransformerInter
         }
 
         if (!is_int($value) && !ctype_digit($value)) {
-            throw new TransformationFailedException('Expected a numeric string.');
+            throw new TransformationFailedException('Expected an integer or numeric string.');
         }
 
         try {
