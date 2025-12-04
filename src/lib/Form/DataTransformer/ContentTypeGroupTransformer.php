@@ -36,6 +36,9 @@ final readonly class ContentTypeGroupTransformer implements DataTransformerInter
         return $value->id;
     }
 
+    /**
+     * @param int|string|null $value
+     */
     public function reverseTransform($value): ?ContentTypeGroup
     {
         if (empty($value)) {
