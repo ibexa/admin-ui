@@ -50,7 +50,7 @@ final readonly class RoleAssignmentTransformer implements DataTransformerInterfa
         }
 
         if (!is_int($value) && !ctype_digit($value)) {
-            throw new TransformationFailedException('Expected a numeric string.');
+            throw new TransformationFailedException('Expected an integer or numeric string.');
         }
 
         try {

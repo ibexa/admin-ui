@@ -67,7 +67,7 @@ class RoleTransformerTest extends TestCase
         $transformer = new RoleTransformer($roleService);
 
         $this->expectException(TransformationFailedException::class);
-        $this->expectExceptionMessage('Expected a numeric string.');
+        $this->expectExceptionMessage('Expected an integer or numeric string.');
 
         $transformer->reverseTransform($value);
     }
