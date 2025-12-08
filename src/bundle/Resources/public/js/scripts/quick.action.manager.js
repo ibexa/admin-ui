@@ -1,6 +1,19 @@
-(function (global) {
+(function (global, doc) {
     const ACTION_BTN_VERTICAL_SPACING = 4.3;
+    const isIframe = global.self !== global.top;
     let actionButtonConfigs = [];
+
+    const handleQuickActionMenuVisibility = () => {
+        if (!isIframe) {
+            const quickActionMenu = doc.querySelector('.ibexa-quick-action-menu');
+
+            if (quickActionMenu) {
+                quickActionMenu.classList.remove('ibexa-quick-action-menu--hidden');
+            }
+        }
+    };
+
+    doc.addEventListener('DOMContentLoaded', handleQuickActionMenuVisibility, false);
 
     const registerButton = (config) => {
         if (!config || !config.container || actionButtonConfigs.some((btn) => btn.id === config.id)) {
@@ -49,4 +62,4 @@
         unregisterButton,
         recalculateButtonsLayout,
     };
-})(window);
+})(window, window.document);
