@@ -137,3 +137,14 @@ ibexa.rest.content_type.load_field_definitions_from_expression:
     methods: [POST]
     options:
         expose: true
+
+#
+# Site Access
+#
+
+ibexa.rest.site_access.load_for_location:
+    path: /site-access/by-location/{locationId}
+    controller: 'Ibexa\Bundle\AdminUi\Controller\SiteAccess\SiteAccessController::loadForLocation'
+    methods: [GET]
+    options:
+        expose: true
