@@ -268,3 +268,13 @@ services:
             $fieldsByExpressionService: '@Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface'
         tags:
             - controller.service_arguments
+
+    Ibexa\Bundle\AdminUi\Controller\SiteAccess\SiteAccessController:
+        parent: Ibexa\Rest\Server\Controller
+        autowire: true
+        arguments:
+            $siteAccessResolvers: !tagged_locator
+                tag: 'ibexa.site_access.resolver'
+                index_by: type
+        tags:
+            - controller.service_arguments

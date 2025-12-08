@@ -1,0 +1,27 @@
+{
+  "SiteAccessesList": {
+    "_media-type": "application/vnd.ibexa.api.SiteAccessesList+json",
+    "values": [
+      {
+        "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
+        "name": "__default_site_access__"
+      },
+      {
+        "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
+        "name": "__second_site_access__"
+      },
+      {
+        "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
+        "name": "ger"
+      },
+      {
+        "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
+        "name": "eng"
+      },
+      {
+        "_media-type": "application/vnd.ibexa.api.SiteAccess+json",
+        "name": "ku6\"H"
+      }
+    ]
+  }
+}
