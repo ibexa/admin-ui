@@ -14,7 +14,6 @@ use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
 use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ChildElementTextCriterion;
-use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
@@ -79,8 +78,15 @@ final class NotificationsViewAllPage extends Page
 
     public function verifyNotificationsCount(int $expectedCount): void
     {
-        $this->getHTMLPage()->setTimeout(10)->findAll($this->getLocator('notificationsTotalCount'))
-            ->getByCriterion(new ElementAttributeCriterion('data-notifications-total', (string)$expectedCount))->assert()->isVisible();
+        $actualCount = $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('notificationsTotalCount'))->getAttribute('data-notifications-total');
+
+        if ($actualCount !== (string)$expectedCount) {
+            throw new \Exception(sprintf(
+                'Expected notification count %d, but got %s.',
+                $expectedCount,
+                $actualCount
+            ));
+        }
     }
 
     public function verifyIsLoaded(): void
