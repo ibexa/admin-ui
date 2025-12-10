@@ -38,7 +38,7 @@ final class CreateUrlAliasModal extends Component
             $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
         }
 
-        $this->getHTMLPage()->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('createButton')));
+        $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('createButton')));
         $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
