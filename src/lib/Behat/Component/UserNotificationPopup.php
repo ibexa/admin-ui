@@ -123,7 +123,7 @@ class UserNotificationPopup extends Component
             );
     }
 
-    public function findActionButton(string $buttonText): ?ElementInterface
+    public function findActionButton(string $buttonText): ElementInterface
     {
         $this->getHTMLPage()
             ->setTimeout(10)
