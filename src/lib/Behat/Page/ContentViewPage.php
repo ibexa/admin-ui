@@ -310,7 +310,7 @@ class ContentViewPage extends Page
 
     public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
-        $this->getHTMLPage()->find($this->getLocator('addUrlAliasButton'))->click();
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('addUrlAliasButton'))->click();
         $this->createUrlAliasModal->createNewUrlAlias($path, $languageName, $redirect);
     }
 
