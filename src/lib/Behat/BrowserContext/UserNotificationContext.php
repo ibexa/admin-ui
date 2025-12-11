@@ -18,10 +18,10 @@ use PHPUnit\Framework\Assert;
 class UserNotificationContext implements Context
 {
     /** @var \Ibexa\AdminUi\Behat\Component\UpperMenu */
-    private $upperMenu;
+    private UpperMenu $upperMenu;
 
     /** @var \Ibexa\AdminUi\Behat\Component\UserNotificationPopup */
-    private $userNotificationPopup;
+    private UserNotificationPopup $userNotificationPopup;
 
     private NotificationsViewAllPage $notificationsViewAllPage;
 
