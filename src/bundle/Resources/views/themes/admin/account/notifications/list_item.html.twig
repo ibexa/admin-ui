@@ -47,7 +47,11 @@
 
 {% set popup_items = popup_items|merge([{
     label: 'notification.delete'|trans|desc('Delete'),
-    action_attr: { class: 'ibexa-notifications-modal--delete', 'data-notification-id': notification.id },
+    action_attr: {
+        class: 'ibexa-notifications-open-modal-button',
+        'data-notification-id': notification.id,
+        'data-bs-toggle': 'modal',
+        'data-bs-target': '#delete-notification-modal', }
 }]) %}
 
 {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
@@ -101,5 +105,16 @@
                 </div>
             {% endblock %}
         {% endembed %}
+    {% endblock %}
+{% endembed %}
+
+{% embed '@ibexadesign/ui/modal/delete_confirmation.html.twig' with {
+    id: 'delete-notification-modal',
+    message: 'notification.modal.delete.confirm_message'|trans|desc('Are you sure you want to delete this notification?'),
+} %}
+    {% block confirm_button %}
+        <button class="btn ibexa-btn ibexa-btn--primary ibexa-notifications-modal--delete--confirm" data-bs-dismiss="modal">
+            {{ 'modal.delete'|trans|desc('Delete') }}
+        </button>
     {% endblock %}
 {% endembed %}
