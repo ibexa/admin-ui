@@ -11,34 +11,21 @@ namespace Ibexa\AdminUi\UI\Service;
 use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\AdminUi\Tab\TabRegistry;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use InvalidArgumentException;
 
-class TabService
+final readonly class TabService
 {
-    /** @var \Ibexa\AdminUi\Tab\TabRegistry */
-    protected $tabRegistry;
-
-    /**
-     * @param \Ibexa\AdminUi\Tab\TabRegistry $tabRegistry
-     */
-    public function __construct(TabRegistry $tabRegistry)
+    public function __construct(private TabRegistry $tabRegistry)
     {
-        $this->tabRegistry = $tabRegistry;
     }
 
-    /**
-     * @param string $groupIdentifier
-     *
-     * @return \Ibexa\AdminUi\Tab\TabGroup
-     */
     public function getTabGroup(string $groupIdentifier): TabGroup
     {
         return $this->tabRegistry->getTabGroup($groupIdentifier);
     }
 
     /**
-     * @param string $groupIdentifier
-     *
-     * @return array
+     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface[]
      */
     public function getTabsFromGroup(string $groupIdentifier): array
     {
@@ -47,18 +34,12 @@ class TabService
         return $tabGroup->getTabs();
     }
 
-    /**
-     * @param string $tabIdentifier
-     * @param string $groupIdentifier
-     *
-     * @return \Ibexa\Contracts\AdminUi\Tab\TabInterface
-     */
     public function getTabFromGroup(string $tabIdentifier, string $groupIdentifier): TabInterface
     {
         $tabs = $this->getTabsFromGroup($groupIdentifier);
 
         if (!isset($tabs[$tabIdentifier])) {
-            throw new \InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'There is no "%s" tab assigned to "%s" group.',
                 $tabIdentifier,
                 $groupIdentifier
@@ -68,5 +49,3 @@ class TabService
         return $tabs[$tabIdentifier];
     }
 }
-
-class_alias(TabService::class, 'EzSystems\EzPlatformAdminUi\UI\Service\TabService');

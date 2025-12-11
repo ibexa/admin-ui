@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller;
 
+use Exception;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationAddData;
 use Ibexa\AdminUi\Form\Data\Content\Location\ContentLocationRemoveData;
 use Ibexa\AdminUi\Form\Data\Location\LocationAssignSubtreeData;
@@ -26,10 +27,8 @@ use Ibexa\AdminUi\Tab\LocationView\LocationsTab;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException as APIRepositoryUnauthorizedException;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\TrashService;
@@ -44,91 +43,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class LocationController extends Controller
+final class LocationController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\TrashService */
-    private $trashService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
-    /** @var \Ibexa\Core\Helper\TranslationHelper */
-    private $translationHelper;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\TrashService $trashService
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     * @param \Ibexa\Core\Helper\TranslationHelper $translationHelper
-     */
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator,
-        LocationService $locationService,
-        ContentTypeService $contentTypeService,
-        ContentService $contentService,
-        TrashService $trashService,
-        SectionService $sectionService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        PermissionResolver $permissionResolver,
-        Repository $repository,
-        TranslationHelper $translationHelper
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly TranslatorInterface $translator,
+        private readonly LocationService $locationService,
+        private readonly ContentService $contentService,
+        private readonly TrashService $trashService,
+        private readonly SectionService $sectionService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly Repository $repository,
+        private readonly TranslationHelper $translationHelper
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->translator = $translator;
-        $this->locationService = $locationService;
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->trashService = $trashService;
-        $this->sectionService = $sectionService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->permissionResolver = $permissionResolver;
-        $this->repository = $repository;
-        $this->translationHelper = $translationHelper;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function moveAction(Request $request): Response
     {
         $form = $this->formFactory->moveLocation(
@@ -144,7 +74,7 @@ class LocationController extends Controller
                 $location = $data->getLocation();
                 $newParentLocation = $data->getNewParentLocation();
 
-                if (!$newParentLocation->getContent()->getContentType()->isContainer) {
+                if (!$newParentLocation?->getContent()->getContentType()->isContainer()) {
                     throw new InvalidArgumentException(
                         '$newParentLocation',
                         'Cannot move the Location to a parent that is not a container'
@@ -156,13 +86,16 @@ class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("'%name%' moved to '%location%'") */
                     'location.move.success',
-                    ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
+                    [
+                        '%name%' => $location?->getContentInfo()->getName(),
+                        '%location%' => $newParentLocation->getContentInfo()->getName(),
+                    ],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $location->contentId,
-                    'locationId' => $location->id,
+                    'contentId' => $location?->getContentId(),
+                    'locationId' => $location?->getId(),
                 ]));
             });
 
@@ -171,17 +104,12 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
-            'contentId' => $location->contentId,
-            'locationId' => $location->id,
-        ]));
+        return $this->redirectToRoute('ibexa.content.view', [
+            'contentId' => $location?->getContentId(),
+            'locationId' => $location?->getId(),
+        ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function copyAction(Request $request): Response
     {
         $form = $this->formFactory->copyLocation(
@@ -195,18 +123,38 @@ class LocationController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (LocationCopyData $data): RedirectResponse {
                 $location = $data->getLocation();
+                if ($location === null) {
+                    $this->notificationHandler->error(
+                        /** @Desc("Location cannot be copied.") */
+                        'location.copy.failure',
+                        [],
+                        'ibexa_location'
+                    );
+                }
+
                 $newParentLocation = $data->getNewParentLocation();
 
-                if (!$newParentLocation->getContent()->getContentType()->isContainer) {
+                if (!$newParentLocation?->getContent()->getContentType()?->isContainer()) {
                     throw new InvalidArgumentException(
                         '$newParentLocation',
                         'Cannot copy the Location to a parent that is not a container'
                     );
                 }
 
-                $locationCreateStruct = $this->locationService->newLocationCreateStruct($newParentLocation->id);
+                $locationCreateStruct = $this->locationService->newLocationCreateStruct(
+                    $newParentLocation->getId()
+                );
+
+                $contentInfo = $location?->getContentInfo();
+                if ($contentInfo === null) {
+                    throw new InvalidArgumentException(
+                        '$location',
+                        'Location must have a ContentInfo'
+                    );
+                }
+
                 $copiedContent = $this->contentService->copyContent(
-                    $location->contentInfo,
+                    $contentInfo,
                     $locationCreateStruct
                 );
 
@@ -222,13 +170,16 @@ class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("'%name%' copied to '%location%'") */
                     'location.copy.success',
-                    ['%name%' => $location->getContentInfo()->name, '%location%' => $newParentLocation->getContentInfo()->name],
+                    [
+                        '%name%' => $contentInfo->getName(),
+                        '%location%' => $newParentLocation->getContentInfo()->getName(),
+                    ],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $newLocation->contentId,
-                    'locationId' => $newLocation->id,
+                    'contentId' => $newLocation->getContentId(),
+                    'locationId' => $newLocation->getId(),
                 ]));
             });
 
@@ -237,17 +188,12 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
-            'contentId' => $location->contentId,
-            'locationId' => $location->id,
-        ]));
+        return $this->redirectToRoute('ibexa.content.view', [
+            'contentId' => $location->getContentId(),
+            'locationId' => $location->getId(),
+        ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function copySubtreeAction(Request $request): Response
     {
         $form = $this->formFactory->copyLocationSubtree(
@@ -259,28 +205,33 @@ class LocationController extends Controller
         $location = $form->getData()->getLocation();
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (LocationCopySubtreeData $data) use ($location): RedirectResponse {
-                $newParentLocation = $data->getNewParentLocation();
+            $result = $this->submitHandler->handle(
+                $form,
+                function (LocationCopySubtreeData $data) use ($location): RedirectResponse {
+                    $newParentLocation = $data->getNewParentLocation();
 
-                $copiedContent = $this->locationService->copySubtree(
-                    $location,
-                    $newParentLocation
-                );
+                    $copiedContent = $this->locationService->copySubtree(
+                        $location,
+                        $newParentLocation
+                    );
 
-                $newLocation = $this->locationService->loadLocation($copiedContent->contentInfo->mainLocationId);
+                    $newLocation = $this->locationService->loadLocation(
+                        $copiedContent->getContentInfo()->getMainLocationId()
+                    );
 
-                $this->notificationHandler->success(
-                    /** @Desc("Subtree '%name%' copied to Location '%location%'") */
-                    'location.copy_subtree.success',
-                    [
-                        '%name%' => $location->getContentInfo()->name,
-                        '%location%' => $newParentLocation->getContentInfo()->name,
-                    ],
-                    'ibexa_location'
-                );
+                    $this->notificationHandler->success(
+                        /** @Desc("Subtree '%name%' copied to Location '%location%'") */
+                        'location.copy_subtree.success',
+                        [
+                            '%name%' => $location->getContentInfo()->getName(),
+                            '%location%' => $newParentLocation?->getContentInfo()->getName(),
+                        ],
+                        'ibexa_location'
+                    );
 
-                return $this->redirectToLocation($newLocation);
-            });
+                    return $this->redirectToLocation($newLocation);
+                }
+            );
 
             if ($result instanceof Response) {
                 return $result;
@@ -290,11 +241,6 @@ class LocationController extends Controller
         return $this->redirectToLocation($location);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function swapAction(Request $request): Response
     {
         $form = $this->formFactory->swapLocation(
@@ -310,9 +256,9 @@ class LocationController extends Controller
                 $newLocation = $data->getNewLocation();
 
                 $childCount = $this->locationService->getLocationChildCount($currentLocation);
-                $contentType = $newLocation->getContent()->getContentType();
+                $contentType = $newLocation?->getContent()->getContentType();
 
-                if (!$contentType->isContainer && $childCount) {
+                if (!$contentType?->isContainer() && $childCount) {
                     throw new \InvalidArgumentException(
                         'Cannot swap a Location that has sub-items with a Location that is not a container'
                     );
@@ -322,13 +268,16 @@ class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("Location '%name%' swapped with Location '%location%'") */
                     'location.swap.success',
-                    ['%name%' => $currentLocation->getContentInfo()->name, '%location%' => $newLocation->getContentInfo()->name],
+                    [
+                        '%name%' => $currentLocation?->getContentInfo()->getName(),
+                        '%location%' => $newLocation?->getContentInfo()->getName(),
+                    ],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $currentLocation->contentId,
-                    'locationId' => $newLocation->id,
+                    'contentId' => $currentLocation?->getContentId(),
+                    'locationId' => $newLocation?->getId(),
                     '_fragment' => LocationsTab::URI_FRAGMENT,
                 ]));
             });
@@ -338,18 +287,13 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
-            'contentId' => $location->contentId,
-            'locationId' => $location->id,
+        return $this->redirectToRoute('ibexa.content.view', [
+            'contentId' => $location?->getContentId(),
+            'locationId' => $location?->getId(),
             '_fragment' => LocationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function trashAction(Request $request): Response
     {
         $form = $this->formFactory->trashLocation(
@@ -376,29 +320,45 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.trash.list'));
+        return $this->redirectToRoute('ibexa.trash.list');
     }
 
-    private function trashRelatedAsset(ContentInfo $contentInfo): void
+    private function trashRelatedAsset(?ContentInfo $contentInfo): void
     {
+        if ($contentInfo === null) {
+            return;
+        }
+
         $content = $this->contentService->loadContentByContentInfo($contentInfo);
-        $relations = $this->contentService->loadRelations($content->versionInfo);
-        $imageLocation = $this->locationService->loadLocation($relations[0]->destinationContentInfo->mainLocationId);
+        $relations = $this->contentService->loadRelationList(
+            $content->getVersionInfo(),
+            0,
+            1
+        );
+
+        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\RelationList\Item\RelationListItem $relation */
+        $relation = $relations->items[0];
+        if (!$relation->hasRelation()) {
+            return;
+        }
+        $mainLocationId = $relation->getRelation()->getDestinationContentInfo()->getMainLocationId();
+        if ($mainLocationId === null) {
+            return;
+        }
+        $imageLocation = $this->locationService->loadLocation($mainLocationId);
         $this->trashService->trash($imageLocation);
     }
 
     /**
-     * @param \Ibexa\AdminUi\Form\Data\Location\LocationTrashData $data
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     private function handleTrashLocation(LocationTrashData $data): RedirectResponse
     {
         $location = $data->getLocation();
-        $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
+        $parentLocation = $this->locationService->loadLocation(
+            $location->parentLocationId
+        );
         $trashOptions = $data->getTrashOptions();
 
         $this->repository->beginTransaction();
@@ -406,11 +366,11 @@ class LocationController extends Controller
             if (isset($trashOptions[HasUniqueAssetRelation::TRASH_ASSETS])
                 && HasUniqueAssetRelation::RADIO_SELECT_TRASH_WITH_ASSETS === $trashOptions[HasUniqueAssetRelation::TRASH_ASSETS]
             ) {
-                $this->trashRelatedAsset($location->getContentInfo());
+                $this->trashRelatedAsset($location?->getContentInfo());
             }
             $this->trashService->trash($location);
             $this->repository->commit();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->repository->rollback();
             throw $exception;
         }
@@ -419,7 +379,7 @@ class LocationController extends Controller
             $this->translator->trans(
                 /** @Desc("Location '%name%' moved to Trash.") */
                 'location.trash.success',
-                ['%name%' => $location->getContentInfo()->name],
+                ['%name%' => $location?->getContentInfo()->getName()],
                 'ibexa_location'
             )
         );
@@ -427,13 +387,6 @@ class LocationController extends Controller
         return $this->redirectToLocation($parentLocation);
     }
 
-    /**
-     * Handles removing locations assigned to content item based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->removeLocation(
@@ -446,23 +399,23 @@ class LocationController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentLocationRemoveData $data): RedirectResponse {
-                $contentInfo = $data->getContentInfo();
+                $contentInfo = $data->contentInfo;
 
-                foreach ($data->getLocations() as $locationId => $selected) {
+                foreach ($data->selectedLocations as $locationId => $selected) {
                     $location = $this->locationService->loadLocation($locationId);
                     $this->trashService->trash($location);
 
                     $this->notificationHandler->success(
                         /** @Desc("Location '%name%' removed.") */
                         'location.delete.success',
-                        ['%name%' => $location->getContentInfo()->name],
+                        ['%name%' => $location?->getContentInfo()->getName()],
                         'ibexa_location'
                     );
                 }
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $contentInfo->id,
-                    'locationId' => $contentInfo->mainLocationId,
+                    'contentId' => $contentInfo?->getId(),
+                    'locationId' => $contentInfo?->getMainLocationId(),
                     '_fragment' => LocationsTab::URI_FRAGMENT,
                 ]));
             });
@@ -472,20 +425,13 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+        return $this->redirectToRoute('ibexa.content.view', [
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => LocationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
-    /**
-     * Handles assigning new location to the content item based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function addAction(Request $request): Response
     {
         $form = $this->formFactory->addLocation(
@@ -504,13 +450,16 @@ class LocationController extends Controller
                     $contentInfo = $data->getContentInfo();
 
                     foreach ($data->getNewLocations() as $newLocation) {
-                        $locationCreateStruct = $this->locationService->newLocationCreateStruct($newLocation->id);
+                        $locationCreateStruct = $this->locationService->newLocationCreateStruct(
+                            $newLocation->getId()
+                        );
+
                         $this->locationService->createLocation($contentInfo, $locationCreateStruct);
 
                         $this->notificationHandler->success(
                             /** @Desc("Location '%name%' created.") */
                             'location.create.success',
-                            ['%name%' => $newLocation->getContentInfo()->name],
+                            ['%name%' => $newLocation->getContentInfo()->getName()],
                             'ibexa_location',
                         );
                     }
@@ -518,8 +467,8 @@ class LocationController extends Controller
                     $redirectUrl = $referer ?: $this->generateUrl(
                         'ibexa.content.view',
                         [
-                            'contentId' => $contentInfo->id,
-                            'locationId' => $contentInfo->mainLocationId,
+                            'contentId' => $contentInfo?->getId(),
+                            'locationId' => $contentInfo?->getMainLocationId(),
                             '_fragment' => LocationsTab::URI_FRAGMENT,
                         ],
                     );
@@ -533,20 +482,13 @@ class LocationController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+        return $this->redirectToRoute('ibexa.content.view', [
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => LocationsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
-    /**
-     * Handles toggling visibility location of a content item based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateVisibilityAction(Request $request): Response
     {
         $form = $this->formFactory->updateVisibilityLocation();
@@ -560,7 +502,9 @@ class LocationController extends Controller
             $hidden = $data->getHidden();
 
             try {
-                $contentName = $this->translationHelper->getTranslatedContentNameByContentInfo($location->getContentInfo());
+                $contentName = $this->translationHelper->getTranslatedContentNameByContentInfo(
+                    $location->getContentInfo()
+                );
 
                 if ($hidden) {
                     $this->locationService->hideLocation($location);
@@ -584,7 +528,7 @@ class LocationController extends Controller
             }
         } else {
             $errors = [];
-            foreach ($form->getErrors(true, true) as $formError) {
+            foreach ($form->getErrors(true) as $formError) {
                 $errors[] = $formError->getMessage();
             }
 
@@ -594,13 +538,6 @@ class LocationController extends Controller
         return new JsonResponse(['message' => $message]);
     }
 
-    /**
-     * Handles update existing location.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request): Response
     {
         $form = $this->formFactory->updateLocation();
@@ -612,19 +549,23 @@ class LocationController extends Controller
             $result = $this->submitHandler->handle($form, function (LocationUpdateData $data): RedirectResponse {
                 $location = $data->getLocation();
 
-                $locationUpdateStruct = new LocationUpdateStruct(['sortField' => $data->getSortField(), 'sortOrder' => $data->getSortOrder()]);
+                $locationUpdateStruct = new LocationUpdateStruct([
+                    'sortField' => $data->getSortField(),
+                    'sortOrder' => $data->getSortOrder(),
+                ]);
+
                 $this->locationService->updateLocation($location, $locationUpdateStruct);
 
                 $this->notificationHandler->success(
                     /** @Desc("Location '%name%' updated.") */
                     'location.update.success',
-                    ['%name%' => $location->getContentInfo()->name],
+                    ['%name%' => $location?->getContentInfo()->getName()],
                     'ibexa_location'
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $location->contentId,
-                    'locationId' => $location->getContentInfo()->mainLocationId,
+                    'contentId' => $location?->getContentId(),
+                    'locationId' => $location?->getContentInfo()->getMainLocationId(),
                     '_fragment' => DetailsTab::URI_FRAGMENT,
                 ]));
             });
@@ -636,20 +577,13 @@ class LocationController extends Controller
 
         $contentInfo = $location->getContentInfo();
 
-        return $this->redirect($this->generateUrl('ibexa.content.view', [
-            'contentId' => $contentInfo->id,
-            'locationId' => $contentInfo->mainLocationId,
+        return $this->redirectToRoute('ibexa.content.view', [
+            'contentId' => $contentInfo->getId(),
+            'locationId' => $contentInfo->getMainLocationId(),
             '_fragment' => DetailsTab::URI_FRAGMENT,
-        ]));
+        ]);
     }
 
-    /**
-     * Handles assigning section to subtree.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function assignSectionAction(Request $request): Response
     {
         $form = $this->createForm(LocationAssignSectionType::class, new LocationAssignSubtreeData());
@@ -666,7 +600,7 @@ class LocationController extends Controller
                 $this->notificationHandler->success(
                     /** @Desc("Subtree assigned to Section '%name%'") */
                     'location.assign_section.success',
-                    ['%name%' => $section->name],
+                    ['%name%' => $section?->getName()],
                     'ibexa_location'
                 );
 
@@ -685,5 +619,3 @@ class LocationController extends Controller
         return $this->redirectToRoute('ibexa.dashboard');
     }
 }
-
-class_alias(LocationController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\LocationController');

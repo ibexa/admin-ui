@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data;
 
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinitionUpdateStruct;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
@@ -22,22 +23,17 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct implements Transla
 {
     public bool $enabled;
 
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition
-     */
-    protected $fieldDefinition;
+    protected FieldDefinition $fieldDefinition;
 
     /**
      * ContentTypeData holding current FieldDefinitionData.
      * Mainly used for validation.
-     *
-     * @var \Ibexa\AdminUi\Form\Data\ContentTypeData
      */
-    protected $contentTypeData;
+    protected ContentTypeData $contentTypeData;
 
-    public function getFieldTypeIdentifier()
+    public function getFieldTypeIdentifier(): string
     {
-        return $this->fieldDefinition->fieldTypeIdentifier;
+        return $this->fieldDefinition->getFieldTypeIdentifier();
     }
 
     public static function getTranslationMessages(): array
@@ -50,10 +46,3 @@ class FieldDefinitionData extends FieldDefinitionUpdateStruct implements Transla
         ];
     }
 }
-
-class_alias(
-    FieldDefinitionData::class,
-    \EzSystems\RepositoryForms\Data\FieldDefinitionData::class
-);
-
-class_alias(FieldDefinitionData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\FieldDefinitionData');

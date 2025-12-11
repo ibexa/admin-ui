@@ -15,12 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ObjectStateGroupDeleteType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupDeleteData>
+ */
+final class ObjectStateGroupDeleteType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('object_state_group', ObjectStateGroupType::class)
@@ -30,10 +30,7 @@ class ObjectStateGroupDeleteType extends AbstractType
             ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateGroupDeleteData::class,
@@ -41,5 +38,3 @@ class ObjectStateGroupDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(ObjectStateGroupDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupDeleteType');

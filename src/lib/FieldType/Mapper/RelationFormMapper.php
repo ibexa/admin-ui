@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -15,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RelationFormMapper extends AbstractRelationFormMapper
+final class RelationFormMapper extends AbstractRelationFormMapper
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -24,11 +25,11 @@ class RelationFormMapper extends AbstractRelationFormMapper
             ->add('selectionRoot', RelationType::class, [
                 'required' => true,
                 'property_path' => 'fieldSettings[selectionRoot]',
-                'label' => /** @Desc("Starting Location") */ 'field_definition.ezobjectrelation.selection_root',
+                'label' => /** @Desc("Starting Location") */ 'field_definition.ibexa_object_relation.selection_root',
             ])
             ->add('rootDefaultLocation', CheckboxType::class, [
                 'required' => false,
-                'label' => /** @Desc("Root Default Location") */ 'field_definition.ezobjectrelation.root_default_location',
+                'label' => /** @Desc("Root Default Location") */ 'field_definition.ibexa_object_relation.root_default_location',
                 'property_path' => 'fieldSettings[rootDefaultLocation]',
             ])
             ->add('selectionContentTypes', ChoiceType::class, [
@@ -37,7 +38,7 @@ class RelationFormMapper extends AbstractRelationFormMapper
                 'multiple' => true,
                 'required' => false,
                 'property_path' => 'fieldSettings[selectionContentTypes]',
-                'label' => /** @Desc("Allowed content types") */ 'field_definition.ezobjectrelation.selection_content_types',
+                'label' => /** @Desc("Allowed content types") */ 'field_definition.ibexa_object_relation.selection_content_types',
                 'disabled' => $isTranslation,
             ]);
     }
@@ -53,5 +54,3 @@ class RelationFormMapper extends AbstractRelationFormMapper
             ]);
     }
 }
-
-class_alias(RelationFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\RelationFormMapper');

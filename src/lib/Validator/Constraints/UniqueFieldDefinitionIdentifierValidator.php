@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Validator\Constraints;
 
@@ -14,17 +15,12 @@ use Symfony\Component\Validator\ConstraintValidator;
 /**
  * Will check if FieldDefinition identifier is not already used within ContentType.
  */
-class UniqueFieldDefinitionIdentifierValidator extends ConstraintValidator
+final class UniqueFieldDefinitionIdentifierValidator extends ConstraintValidator
 {
     /**
-     * Checks if the passed value is valid.
-     *
-     * @param \Ibexa\AdminUi\Form\Data\FieldDefinitionData $value The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint The constraint for the validation
-     *
-     * @api
+     * @param \Symfony\Component\Validator\Constraint|UniqueFieldDefinitionIdentifier $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$value instanceof FieldDefinitionData) {
             return;
@@ -45,5 +41,3 @@ class UniqueFieldDefinitionIdentifierValidator extends ConstraintValidator
         }
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifierValidator::class, 'EzSystems\EzPlatformAdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator');

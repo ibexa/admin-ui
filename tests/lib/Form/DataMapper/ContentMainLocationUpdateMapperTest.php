@@ -52,7 +52,7 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
 
         $data = $this->mapper->map($struct);
 
-        self::assertSame($location, $data->getLocation());
+        self::assertSame($location, $data->location);
     }
 
     /**
@@ -70,7 +70,7 @@ final class ContentMainLocationUpdateMapperTest extends TestCase
 
         $data = $this->mapper->map($struct);
 
-        self::assertNull($data->getLocation());
+        self::assertNull($data->location);
     }
 
     /**

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -15,18 +16,18 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ISBNFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class ISBNFormMapper implements FieldDefinitionFormMapperInterface
 {
-    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $fieldDefinition): void
+    public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
-        $isTranslation = $fieldDefinition->contentTypeData->languageCode !== $fieldDefinition->contentTypeData->mainLanguageCode;
+        $isTranslation = $data->contentTypeData->languageCode !== $data->contentTypeData->mainLanguageCode;
         $defaultValueForm = $fieldDefinitionForm
             ->getConfig()
             ->getFormFactory()
             ->createBuilder()
             ->create('defaultValue', ISBNFieldType::class, [
                 'required' => false,
-                'label' => /** @Desc("Default value") */ 'field_definition.ezisbn.default_value',
+                'label' => /** @Desc("Default value") */ 'field_definition.ibexa_isbn.default_value',
                 'disabled' => $isTranslation,
             ])
             ->setAutoInitialize(false)
@@ -39,7 +40,7 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[isISBN13]',
-                    'label' => /** @Desc("ISBN-13 format") */ 'field_definition.ezisbn.is_isbn13',
+                    'label' => /** @Desc("ISBN-13 format") */ 'field_definition.ibexa_isbn.is_isbn13',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -49,7 +50,7 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
     /**
      * Fake method to set the translation domain for the extractor.
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -57,5 +58,3 @@ class ISBNFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(ISBNFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\ISBNFormMapper');

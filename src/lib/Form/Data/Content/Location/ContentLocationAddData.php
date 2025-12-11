@@ -12,36 +12,21 @@ use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
 class ContentLocationAddData
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null */
-    protected $contentInfo;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location[] */
-    protected $newLocations;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $currentLocation
-     * @param array $newLocations
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $newLocations
      */
     public function __construct(
-        ?ContentInfo $currentLocation = null,
-        array $newLocations = []
+        protected ?ContentInfo $contentInfo = null,
+        protected array $newLocations = []
     ) {
-        $this->contentInfo = $currentLocation;
-        $this->newLocations = $newLocations;
     }
 
-    /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null
-     */
     public function getContentInfo(): ?ContentInfo
     {
         return $this->contentInfo;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo|null $contentInfo
-     */
-    public function setContentInfo(?ContentInfo $contentInfo)
+    public function setContentInfo(?ContentInfo $contentInfo): void
     {
         $this->contentInfo = $contentInfo;
     }
@@ -57,10 +42,8 @@ class ContentLocationAddData
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location[] $newLocations
      */
-    public function setNewLocations(array $newLocations)
+    public function setNewLocations(array $newLocations): void
     {
         $this->newLocations = $newLocations;
     }
 }
-
-class_alias(ContentLocationAddData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Content\Location\ContentLocationAddData');

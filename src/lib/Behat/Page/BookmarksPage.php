@@ -15,19 +15,27 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class BookmarksPage extends Page
+final class BookmarksPage extends Page
 {
     private TableInterface $table;
 
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder
+    ) {
         parent::__construct($session, $router);
+
         $this->table = $tableBuilder->newTable()->build();
     }
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('Bookmarks');
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('pageTitle'))
+            ->assert()
+            ->textEquals('Bookmarks');
     }
 
     public function isBookmarked(string $contentName): bool
@@ -35,17 +43,17 @@ class BookmarksPage extends Page
         return $this->table->hasElement(['Name' => $contentName]);
     }
 
-    public function goToItem(string $contentName)
+    public function goToItem(string $contentName): void
     {
         $this->table->getTableRow(['Name' => $contentName])->goToItem();
     }
 
-    public function edit(string $contentName)
+    public function edit(string $contentName): void
     {
         $this->table->getTableRow(['Name' => $contentName])->edit();
     }
 
-    public function delete(string $contentName)
+    public function delete(string $contentName): void
     {
         $this->table->getTableRow(['Name' => $contentName])->select();
 

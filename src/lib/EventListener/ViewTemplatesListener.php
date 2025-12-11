@@ -18,14 +18,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Sets the templates used by the user controller.
  */
-class ViewTemplatesListener implements EventSubscriberInterface
+final readonly class ViewTemplatesListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     public static function getSubscribedEvents(): array
@@ -35,18 +31,19 @@ class ViewTemplatesListener implements EventSubscriberInterface
 
     /**
      * If the event's view has a defined template, sets the view's template identifier,
-     * and the 'pagelayout' parameter.
+     * and the 'page_layout' parameter.
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function setViewTemplates(PreContentViewEvent $event): void
     {
         $view = $event->getContentView();
-        $pagelayout = $this->configResolver->getParameter('pagelayout');
+        $pageLayout = $this->configResolver->getParameter('page_layout');
 
         foreach ($this->getTemplatesMap() as $viewClass => $template) {
             if ($view instanceof $viewClass) {
                 $view->setTemplateIdentifier($template);
-                $view->addParameters(['pagelayout' => $pagelayout]);
-                $view->addParameters(['page_layout' => $pagelayout]);
+                $view->addParameters(['page_layout' => $pageLayout]);
             }
         }
     }
@@ -62,5 +59,3 @@ class ViewTemplatesListener implements EventSubscriberInterface
         ];
     }
 }
-
-class_alias(ViewTemplatesListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ViewTemplatesListener');

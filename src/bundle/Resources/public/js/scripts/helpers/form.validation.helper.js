@@ -2,7 +2,7 @@ import { getTranslator } from './context.helper';
 import { getIconPath } from './icon.helper';
 
 const formatErrorLine = (errorMessage) => {
-    const errorIcon = `<svg class="ibexa-icon ibexa-icon--small ibexa-form-error__icon">
+    const errorIcon = `<svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-error__icon">
         <use xlink:href="${getIconPath('notice')}"></use>
     </svg>`;
     const container = document.createElement('em');
@@ -23,9 +23,9 @@ const checkIsEmpty = (field) => {
     if (label) {
         const fieldName = label.innerText;
 
-        errorMessage = Translator.trans(/*@Desc("%fieldName% cannot be empty.")*/ 'error.required.field', { fieldName }, 'forms');
+        errorMessage = Translator.trans(/* @Desc("%fieldName% cannot be empty.") */ 'error.required.field', { fieldName }, 'forms');
     } else {
-        errorMessage = Translator.trans(/*@Desc("This value should not be blank.")*/ 'error.required.field_not_blank', {}, 'forms');
+        errorMessage = Translator.trans(/* @Desc("This value should not be blank.") */ 'error.required.field_not_blank', {}, 'forms');
     }
 
     return {

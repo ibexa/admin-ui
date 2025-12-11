@@ -8,11 +8,8 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
-class AdminSiteaccessPreviewVoter extends AbstractSiteaccessPreviewVoter
+final class AdminSiteaccessPreviewVoter extends AbstractSiteaccessPreviewVoter
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getRootLocationIds(string $siteaccess): array
     {
         $locationIds = [];
@@ -35,5 +32,3 @@ class AdminSiteaccessPreviewVoter extends AbstractSiteaccessPreviewVoter
         return $locationIds;
     }
 }
-
-class_alias(AdminSiteaccessPreviewVoter::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\AdminSiteaccessPreviewVoter');

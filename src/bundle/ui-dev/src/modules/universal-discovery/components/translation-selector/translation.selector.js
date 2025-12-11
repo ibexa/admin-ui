@@ -15,7 +15,7 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
     const languageCodes = version ? version.VersionInfo.languageCodes.split(',') : [];
     const isSearchEnabled = languageCodes.length >= MIN_ITEMS_WITH_SEARCH;
     const editTranslationLabel = Translator.trans(
-        /*@Desc("Select translation")*/ 'meta_preview.edit_translation',
+        /* @Desc("Select translation") */ 'meta_preview.edit_translation',
         {},
         'ibexa_universal_discovery_widget',
     );

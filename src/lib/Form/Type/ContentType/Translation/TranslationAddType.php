@@ -16,6 +16,7 @@ use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,31 +26,18 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentType\Translation\TranslationAddData>
+ */
 class TranslationAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     */
     public function __construct(
-        LanguageService $languageService,
-        ContentTypeService $contentTypeService
+        protected readonly LanguageService $languageService,
+        private readonly ContentTypeService $contentTypeService
     ) {
-        $this->languageService = $languageService;
-        $this->contentTypeService = $contentTypeService;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -77,10 +65,7 @@ class TranslationAddType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit']);
     }
 
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TranslationAddData::class,
@@ -91,15 +76,11 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on default form data.
      *
-     * @param \Symfony\Component\Form\FormEvent $event
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSetData(FormEvent $event)
+    public function onPreSetData(FormEvent $event): void
     {
         $contentLanguages = [];
         $form = $event->getForm();
@@ -118,15 +99,11 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields and populates options list based on submitted form data.
      *
-     * @param \Symfony\Component\Form\FormEvent $event
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
      * @throws \Symfony\Component\Form\Exception\LogicException
      * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException
      */
-    public function onPreSubmit(FormEvent $event)
+    public function onPreSubmit(FormEvent $event): void
     {
         $contentLanguages = [];
         $form = $event->getForm();
@@ -134,8 +111,10 @@ class TranslationAddType extends AbstractType
 
         if (isset($data['contentType'])) {
             try {
-                $contentType = $this->contentTypeService->loadContentTypeByIdentifier($data['contentType']);
-            } catch (NotFoundException $e) {
+                $contentType = $this->contentTypeService->loadContentTypeByIdentifier(
+                    $data['contentType']
+                );
+            } catch (NotFoundException) {
                 $contentType = null;
             }
 
@@ -152,7 +131,7 @@ class TranslationAddType extends AbstractType
      *
      * @param callable $filter
      *
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
      */
     public function loadLanguages(callable $filter): array
     {
@@ -165,7 +144,7 @@ class TranslationAddType extends AbstractType
     /**
      * Adds language fields to the $form. Language options are composed based on content language.
      *
-     * @param \Symfony\Component\Form\FormInterface $form
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
      * @param string[] $contentLanguages
      *
      * @throws \Symfony\Component\Form\Exception\AlreadySubmittedException
@@ -204,5 +183,3 @@ class TranslationAddType extends AbstractType
             );
     }
 }
-
-class_alias(TranslationAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\Translation\TranslationAddType');

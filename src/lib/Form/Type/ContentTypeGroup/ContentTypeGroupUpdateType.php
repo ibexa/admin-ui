@@ -16,31 +16,21 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData>
+ */
 class ContentTypeGroupUpdateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('identifier', TextType::class, [
                 'label' => /** @Desc("Name") */ 'content_type_group.update.name',
             ])
-            ->add('update', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'content_type_group.update.submit',
-            ])
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'content_type_group.update.save',
-            ]);
+            ->add('update', SubmitType::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ContentTypeGroupUpdateData::class,
@@ -48,5 +38,3 @@ class ContentTypeGroupUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentTypeGroupUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupUpdateType');

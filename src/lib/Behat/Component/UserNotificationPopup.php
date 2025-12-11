@@ -18,9 +18,9 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class UserNotificationPopup extends Component
+final class UserNotificationPopup extends Component
 {
-    public function clickNotification(string $expectedType, string $expectedDescription)
+    public function clickNotification(string $expectedType, string $expectedDescription): void
     {
         $notifications = $this->getHTMLPage()->findAll($this->getLocator('notificationItem'));
 
@@ -44,7 +44,9 @@ class UserNotificationPopup extends Component
             return;
         }
 
-        throw new Exception(sprintf('Notification of type: %s with description: %d not found', $expectedType, $expectedDescription));
+        throw new Exception(
+            sprintf('Notification of type: %s with description: %d not found', $expectedType, $expectedDescription)
+        );
     }
 
     public function verifyNotification(string $expectedType, string $expectedAuthor, string $expectedDescription, ?string $expectedDate = null, bool $shouldExist = true): void

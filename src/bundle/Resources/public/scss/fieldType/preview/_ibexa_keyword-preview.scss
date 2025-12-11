@@ -1,0 +1,26 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tags' as *;
+
+.ibexa-field-preview--ibexa_keyword {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    .ibexa-keyword {
+        &__item {
+            @include tag();
+
+            & {
+                max-width: 100%;
+                margin: 0 calculateRem(5px) 0 0;
+                padding: calculateRem(6px) calculateRem(8px);
+            }
+        }
+
+        &__item-content {
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+}

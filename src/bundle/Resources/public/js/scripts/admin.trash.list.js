@@ -1,4 +1,4 @@
-(function (global, doc, ibexa, React, ReactDOM, Translator) {
+(function (global, doc, ibexa, React, ReactDOMClient, Translator) {
     const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
     const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
     const { getInstance } = ibexa.helpers.objectInstances;
@@ -23,7 +23,7 @@
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
-    const errorMessage = Translator.trans(/*@Desc("Cannot fetch user list")*/ 'trash.user_list.error', {}, 'ibexa_trash_ui');
+    const errorMessage = Translator.trans(/* @Desc("Cannot fetch user list") */ 'trash.user_list.error', {}, 'ibexa_trash_ui');
     let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();
     const onConfirm = (form, content) => {
@@ -41,12 +41,12 @@
         const form = event.target.closest('form[name="trash_item_restore"]');
         const config = JSON.parse(event.currentTarget.dataset.udwConfig);
         const title = Translator.trans(
-            /*@Desc("Select a new location to restore the content items")*/ 'restore_under_new_location.title',
+            /* @Desc("Select a new location to restore the content items") */ 'restore_under_new_location.title',
             {},
             'ibexa_universal_discovery_widget',
         );
 
-        udwRoot = ReactDOM.createRoot(udwContainer);
+        udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
                 onConfirm: onConfirm.bind(this, form),
@@ -257,4 +257,4 @@
     updateTrashForm(trashRestoreCheckboxes);
     enableButtons();
     trashRestoreCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', handleCheckboxChange, false));
-})(window, window.document, window.ibexa, window.React, window.ReactDOM, window.Translator, window.flatpickr);
+})(window, window.document, window.ibexa, window.React, window.ReactDOMClient, window.Translator, window.flatpickr);

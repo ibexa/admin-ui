@@ -15,12 +15,12 @@ use Doctrine\Common\Lexer\AbstractLexer;
  */
 final class ContentTypeFieldsExpressionDoctrineLexer extends AbstractLexer
 {
-    public const T_LBRACE = 1;
-    public const T_RBRACE = 2;
-    public const T_COMMA = 3;
-    public const T_SLASH = 4;
-    public const T_WILDCARD = 5;
-    public const T_IDENTIFIER = 6;
+    public const int T_LBRACE = 1;
+    public const int T_RBRACE = 2;
+    public const int T_COMMA = 3;
+    public const int T_SLASH = 4;
+    public const int T_WILDCARD = 5;
+    public const int T_IDENTIFIER = 6;
 
     /**
      * @return list<string>
@@ -44,10 +44,7 @@ final class ContentTypeFieldsExpressionDoctrineLexer extends AbstractLexer
         ];
     }
 
-    /**
-     * @param string $value
-     */
-    protected function getType(&$value): int
+    protected function getType(string &$value): int
     {
         if ($value === '{') {
             return self::T_LBRACE;

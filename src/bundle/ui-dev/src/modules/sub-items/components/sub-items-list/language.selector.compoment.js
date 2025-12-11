@@ -8,43 +8,39 @@ import InstantFilter from '../sub-items-list/instant.filter.component';
 
 const MIN_ITEMS_WITH_SEARCH = 10;
 
-const LanguageSelector = (props) => {
+const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], handleItemChange = () => {}, close = () => {} }) => {
     const Translator = getTranslator();
     const discardBtnRef = useRef(null);
     const submitBtnRef = useRef(null);
     const [activeLanguage, setActiveLanguage] = useState('');
-    const isSearchEnabled = props.languageItems.length >= MIN_ITEMS_WITH_SEARCH;
+    const isSearchEnabled = languageItems.length >= MIN_ITEMS_WITH_SEARCH;
     const className = createCssClassNames({
         'c-language-selector': true,
         'ibexa-extra-actions': true,
         'ibexa-extra-actions--edit': true,
-        'ibexa-extra-actions--hidden': !props.isOpen,
+        'ibexa-extra-actions--hidden': !isOpen,
         'ibexa-extra-actions--has-search': isSearchEnabled,
     });
-    const closeLanguageSelector = (event) => {
+    const closeSelector = (event) => {
         if (!event.target.closest('.c-table-view-item__btn') && !event.target.classList.contains('ibexa-instant-filter__input')) {
-            props.close();
+            close();
             resetLanguageSelector();
         }
     };
     const dispatchSubmitFormEvent = () => {
         document.body.dispatchEvent(new CustomEvent('ibexa-sub-items:submit-version-edit-form'));
     };
-    const handleItemChange = (value) => {
-        props.handleItemChange(value);
-        setActiveLanguage(value);
-    };
     const resetLanguageSelector = () => {
         setActiveLanguage('');
     };
 
     useEffect(() => {
-        discardBtnRef.current?.addEventListener('click', closeLanguageSelector, false);
+        discardBtnRef.current?.addEventListener('click', closeSelector, false);
         submitBtnRef.current?.addEventListener('click', dispatchSubmitFormEvent, false);
         document.body.addEventListener('ibexa:edit-content-reset-language-selector', resetLanguageSelector, false);
 
         return () => {
-            discardBtnRef.current?.removeEventListener('click', closeLanguageSelector);
+            discardBtnRef.current?.removeEventListener('click', closeSelector);
             submitBtnRef.current?.removeEventListener('click', dispatchSubmitFormEvent);
             document.body.removeEventListener('ibexa:edit-content-reset-language-selector', resetLanguageSelector);
         };
@@ -53,13 +49,16 @@ const LanguageSelector = (props) => {
     return (
         <div className={className}>
             <div className="ibexa-extra-actions__header">
-                <h2 className="ibexa-extra-actions__header-content">{props.label}</h2>
+                <h2 className="ibexa-extra-actions__header-content">{label}</h2>
             </div>
             <div className="ibexa-extra-actions__content">
                 <InstantFilter
-                    items={props.languageItems}
+                    items={languageItems}
                     activeLanguage={activeLanguage}
-                    handleItemChange={handleItemChange}
+                    handleItemChange={(value) => {
+                        handleItemChange(value);
+                        setActiveLanguage(value);
+                    }}
                     isSearchEnabled={isSearchEnabled}
                 />
             </div>
@@ -85,17 +84,7 @@ LanguageSelector.propTypes = {
     label: PropTypes.string,
     languageItems: PropTypes.array,
     handleItemChange: PropTypes.func,
-    closeLanguageSelector: PropTypes.func,
     close: PropTypes.func,
-};
-
-LanguageSelector.defaultProps = {
-    isOpen: false,
-    label: '',
-    languageItems: [],
-    handleItemChange: () => {},
-    closeLanguageSelector: () => {},
-    close: () => {},
 };
 
 export default LanguageSelector;

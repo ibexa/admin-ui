@@ -10,11 +10,12 @@ namespace Ibexa\Bundle\AdminUi\DependencyInjection\Configuration\Parser;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\AbstractParser;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use SplFileInfo;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
-class Assets extends AbstractParser
+final class Assets extends AbstractParser
 {
-    private const ASSETS_NODE = 'assets';
+    private const string ASSETS_NODE = 'assets';
 
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
@@ -28,10 +29,13 @@ class Assets extends AbstractParser
                 ->end()
                 ->children()
                     ->arrayNode('icon_sets')
+                        ->defaultValue([
+                            'default' => [],
+                        ])
                         ->validate()
                             ->ifTrue(static function (array $value): bool {
-                                foreach ($value as $set => $path) {
-                                    $file = new \SplFileInfo($path);
+                                foreach ($value as $path) {
+                                    $file = new SplFileInfo($path);
 
                                     if ($file->getExtension() !== 'svg') {
                                         return true;
@@ -43,25 +47,43 @@ class Assets extends AbstractParser
                             ->thenInvalid('Icon Path is invalid. Please provide *.svg file.')
                         ->end()
                         ->useAttributeAsKey('name')
-                        ->scalarPrototype()->end()
+                        ->scalarPrototype()
+                        ->end()
                     ->end()
                     ->scalarNode('default_icon_set')
-                        ->isRequired()
+                        ->defaultValue('default')
+                    ->end()
+                    ->arrayNode('icon_aliases')
+                        ->useAttributeAsKey('name')
+                        ->normalizeKeys(false)
+                        ->scalarPrototype()->end()
                     ->end()
                 ->end()
             ->end();
     }
 
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    /**
+     * @param array<string, mixed> $scopeSettings
+     */
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings[self::ASSETS_NODE])) {
             return;
         }
 
         foreach ($scopeSettings[self::ASSETS_NODE] as $identifier => $config) {
-            $contextualizer->setContextualParameter(sprintf('%s.%s', self::ASSETS_NODE, $identifier), $currentScope, $config);
+            if (empty($config)) {
+                continue;
+            }
+
+            $contextualizer->setContextualParameter(
+                sprintf('%s.%s', self::ASSETS_NODE, $identifier),
+                $currentScope,
+                $config
+            );
         }
     }
 }
-
-class_alias(Assets::class, 'Ibexa\Platform\Bundle\Assets\DependencyInjection\Configuration\Parser\Assets');

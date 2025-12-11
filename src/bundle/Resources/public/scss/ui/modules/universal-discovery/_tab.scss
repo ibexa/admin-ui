@@ -1,3 +1,6 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
 .c-udw-tab {
     height: calc(100vh - #{calculateRem(32px)});
     display: flex;

@@ -20,25 +20,24 @@ use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class SubItemsList extends Component
+final class SubItemsList extends Component
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    protected $table;
+    protected TableInterface $table;
 
-    protected $isGridViewEnabled;
+    protected bool $isGridViewEnabled;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\SubitemsGrid */
-    private $grid;
-
-    public function __construct(Session $session, TableBuilder $tableBuilder, SubitemsGrid $grid)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly TableBuilder $tableBuilder,
+        private readonly SubitemsGrid $grid
+    ) {
         parent::__construct($session);
+
         $this->table = $tableBuilder
             ->newTable()
             ->withParentLocator($this->getLocator('table'))
             ->withEmptyLocator($this->getLocator('empty'))
             ->build();
-        $this->grid = $grid;
     }
 
     public function sortBy(string $columnName, bool $ascending): void
@@ -91,11 +90,14 @@ class SubItemsList extends Component
             ->assert()->textContains('Viewing');
     }
 
-    public function clickListElement(string $contentName, string $contentType)
+    public function clickListElement(string $contentName, string $contentType): void
     {
         $this->getTable()->getTableRow(['Name' => $contentName, 'Content type' => $contentType])->goToItem();
     }
 
+    /**
+     * @param array<string, string> $elementData
+     */
     public function isElementInTable(array $elementData): bool
     {
         return $this->getTable()->hasElement($elementData);

@@ -16,18 +16,12 @@ use Ibexa\Contracts\TwigComponents\Event\RenderSingleEvent as TwigComponentsRend
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class RenderEventSubscriber implements EventSubscriberInterface
+final readonly class RenderEventSubscriber implements EventSubscriberInterface
 {
-    private Registry $registry;
-
-    private EventDispatcherInterface $eventDispatcher;
-
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        Registry $registry
+        private EventDispatcherInterface $eventDispatcher,
+        private Registry $registry
     ) {
-        $this->registry = $registry;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public static function getSubscribedEvents(): array

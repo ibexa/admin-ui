@@ -10,11 +10,11 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
-class ISBN extends FieldTypeComponent
+final class ISBN extends FieldTypeComponent
 {
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezisbn';
+        return 'ibexa_isbn';
     }
 
     public function specifyLocators(): array

@@ -14,11 +14,11 @@ use PHPUnit\Framework\TestCase;
 
 class FieldDefinitionGroupsUtilTest extends TestCase
 {
-    public function testGroupFieldDefinitions()
+    public function testGroupFieldDefinitions(): void
     {
         $randomGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'random']);
         $testGroupFieldDefinition = new FieldDefinition(['fieldGroup' => 'test']);
-        $defaultGroupFieldDefinition = new FieldDefinition();
+        $defaultGroupFieldDefinition = new FieldDefinition(['fieldGroup' => '']);
 
         $fieldDefinitions = [
             $randomGroupFieldDefinition,
@@ -50,9 +50,7 @@ class FieldDefinitionGroupsUtilTest extends TestCase
 
         $util = new FieldDefinitionGroupsUtil($fieldsGroupsListHelper);
 
-        $this->assertSame($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
-        $this->assertEquals($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
+        self::assertSame($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
+        self::assertEquals($groupedFieldDefinitions, $util->groupFieldDefinitions($fieldDefinitions));
     }
 }
-
-class_alias(FieldDefinitionGroupsUtilTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Util\FieldDefinitionGroupsUtilTest');

@@ -12,30 +12,19 @@ use Ibexa\AdminUi\UI\Service\ContentTypeIconResolver;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ContentTypeIconExtension extends AbstractExtension
+final class ContentTypeIconExtension extends AbstractExtension
 {
-    private ContentTypeIconResolver $contentTypeIconResolver;
-
-    public function __construct(ContentTypeIconResolver $contentTypeIconResolver)
-    {
-        $this->contentTypeIconResolver = $contentTypeIconResolver;
+    public function __construct(
+        private readonly ContentTypeIconResolver $contentTypeIconResolver
+    ) {
     }
 
     public function getFunctions(): array
     {
         return [
             new TwigFunction(
-                'ez_content_type_icon',
-                [$this->contentTypeIconResolver, 'getContentTypeIcon'],
-                [
-                    'is_safe' => ['html'],
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_content_type_icon',
-                ]
-            ),
-            new TwigFunction(
                 'ibexa_content_type_icon',
-                [$this->contentTypeIconResolver, 'getContentTypeIcon'],
+                $this->contentTypeIconResolver->getContentTypeIcon(...),
                 [
                     'is_safe' => ['html'],
                 ]
@@ -43,5 +32,3 @@ class ContentTypeIconExtension extends AbstractExtension
         ];
     }
 }
-
-class_alias(ContentTypeIconExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\ContentTypeIconExtension');

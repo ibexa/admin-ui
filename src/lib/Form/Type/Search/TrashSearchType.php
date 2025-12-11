@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\Type\Search;
 use Ibexa\AdminUi\Form\Data\Search\TrashSearchData;
 use Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader;
 use Ibexa\AdminUi\Form\Type\Content\SortType;
+use Ibexa\AdminUi\Form\Type\Date\DateIntervalType;
 use Ibexa\AdminUi\Form\Type\Section\SectionChoiceType;
 use Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader;
 use Ibexa\AdminUi\Form\Type\User\UserType;
@@ -23,38 +24,23 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Search\TrashSearchData>
+ */
 class TrashSearchType extends AbstractType
 {
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\DatePeriodChoiceLoader */
-    private $datePeriodChoiceLoader;
-
-    /** @var \Ibexa\AdminUi\Form\Type\Trash\ChoiceList\Loader\SearchContentTypeChoiceLoader */
-    private $searchContentTypeChoiceLoader;
-
     public function __construct(
-        TranslatorInterface $translator,
-        PermissionResolver $permissionResolver,
-        DatePeriodChoiceLoader $datePeriodChoiceLoader,
-        SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader
+        private readonly PermissionResolver $permissionResolver,
+        private readonly DatePeriodChoiceLoader $datePeriodChoiceLoader,
+        private readonly SearchContentTypeChoiceLoader $searchContentTypeChoiceLoader
     ) {
-        $this->translator = $translator;
-        $this->permissionResolver = $permissionResolver;
-        $this->datePeriodChoiceLoader = $datePeriodChoiceLoader;
-        $this->searchContentTypeChoiceLoader = $searchContentTypeChoiceLoader;
     }
 
     /**
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('page', HiddenType::class)
@@ -96,11 +82,9 @@ class TrashSearchType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Symfony\Component\OptionsResolver\Exception\AccessException
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => TrashSearchData::class,
@@ -110,5 +94,3 @@ class TrashSearchType extends AbstractType
         ]);
     }
 }
-
-class_alias(TrashSearchType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Search\TrashSearchType');

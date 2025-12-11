@@ -14,45 +14,25 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 
-class NotificationTwigStrategy
+final class NotificationTwigStrategy
 {
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
+    private ?string $defaultTemplate = null;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var string */
-    private $defaultTemplate;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
     public function __construct(
-        Repository $repository,
-        ContentService $contentService
+        private readonly Repository $repository,
+        private readonly ContentService $contentService
     ) {
-        $this->repository = $repository;
-        $this->contentService = $contentService;
     }
 
-    /**
-     * @param string $defaultTemplate
-     */
-    public function setDefault(string $defaultTemplate)
+    public function setDefault(string $defaultTemplate): void
     {
         $this->defaultTemplate = $defaultTemplate;
     }
 
     /**
-     * @param mixed $contentId
-     *
-     * @return string
-     *
      * @throws \Ibexa\AdminUi\Exception\NoValidResultException
      */
-    public function decide($contentId): string
+    public function decide(mixed $contentId): string
     {
         $contentId = (int)$contentId;
 
@@ -69,7 +49,7 @@ class NotificationTwigStrategy
         throw new NoValidResultException();
     }
 
-    private function isContentPermanentlyDeleted($contentId): bool
+    private function isContentPermanentlyDeleted(int $contentId): bool
     {
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         try {
@@ -85,7 +65,7 @@ class NotificationTwigStrategy
         }
     }
 
-    private function isContentTrashed($contentId): bool
+    private function isContentTrashed(int $contentId): bool
     {
         // Using sudo in order to be sure that information is valid in case user no longer have access to content i.e when in trash.
         $contentInfo = $this->repository->sudo(
@@ -97,5 +77,3 @@ class NotificationTwigStrategy
         return $contentInfo->isTrashed();
     }
 }
-
-class_alias(NotificationTwigStrategy::class, 'EzSystems\EzPlatformAdminUi\Strategy\NotificationTwigStrategy');

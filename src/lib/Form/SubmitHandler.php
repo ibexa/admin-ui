@@ -17,41 +17,22 @@ use Ibexa\Contracts\Core\Repository\Exceptions\ForbiddenException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\User\Form\SubmitHandler as UserActionsSubmitHandler;
+use JMS\TranslationBundle\Annotation\Ignore;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
-class SubmitHandler implements UserActionsSubmitHandler
+readonly class SubmitHandler implements UserActionsSubmitHandler
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
-    protected $notificationHandler;
-
-    /** @var \Symfony\Component\Routing\RouterInterface */
-    protected $router;
-
-    /** @var \Ibexa\Contracts\AdminUi\UI\Action\EventDispatcherInterface */
-    protected $uiActionEventDispatcher;
-
-    /** @var \Ibexa\AdminUi\UI\Action\FormUiActionMappingDispatcher */
-    protected $formUiActionMappingDispatcher;
-
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
-
     public function __construct(
-        NotificationHandlerInterface $notificationHandler,
-        RouterInterface $router,
-        EventDispatcherInterface $uiActionEventDispatcher,
-        FormUiActionMappingDispatcher $formUiActionMappingDispatcher,
-        LoggerInterface $logger
+        protected NotificationHandlerInterface $notificationHandler,
+        protected RouterInterface $router,
+        protected EventDispatcherInterface $uiActionEventDispatcher,
+        protected FormUiActionMappingDispatcher $formUiActionMappingDispatcher,
+        private LoggerInterface $logger
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->router = $router;
-        $this->uiActionEventDispatcher = $uiActionEventDispatcher;
-        $this->formUiActionMappingDispatcher = $formUiActionMappingDispatcher;
-        $this->logger = $logger;
     }
 
     /**
@@ -60,10 +41,8 @@ class SubmitHandler implements UserActionsSubmitHandler
      * Handles form errors (NotificationHandler:warning).
      * Handles business logic exceptions (NotificationHandler:error).
      *
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param callable(mixed):?Response $handler
-     *
-     * @return \Symfony\Component\HttpFoundation\Response|null
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     * @param callable $handler
      */
     public function handle(FormInterface $form, callable $handler): ?Response
     {
@@ -110,10 +89,7 @@ class SubmitHandler implements UserActionsSubmitHandler
      * Handles form errors (JsonResponse(['errors'=> [...], Response::ERROR_STATUS_CODE])).
      * Handles business logic exceptions (JsonResponse(['errors'=> [...], Response::ERROR_STATUS_CODE])).
      *
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param callable(mixed):?Response $handler
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @param callable(mixed): ?Response $handler
      */
     public function handleAjax(FormInterface $form, callable $handler): JsonResponse
     {
@@ -123,7 +99,7 @@ class SubmitHandler implements UserActionsSubmitHandler
             try {
                 /** @var \Symfony\Component\HttpFoundation\JsonResponse $result */
                 $result = $handler($data);
-                if ($result instanceof JsonResponse && $result->getStatusCode() === Response::HTTP_OK) {
+                if ($result->getStatusCode() === Response::HTTP_OK) {
                     $event = $this->formUiActionMappingDispatcher->dispatch($form);
                     $event->setResponse($result);
                     $event->setType(UiActionEventInterface::TYPE_SUCCESS);
@@ -141,7 +117,7 @@ class SubmitHandler implements UserActionsSubmitHandler
             }
         } else {
             $errors = [];
-            foreach ($form->getErrors(true, true) as $formError) {
+            foreach ($form->getErrors(true) as $formError) {
                 $errors[] = $formError->getMessage();
             }
 
@@ -159,5 +135,3 @@ class SubmitHandler implements UserActionsSubmitHandler
         );
     }
 }
-
-class_alias(SubmitHandler::class, 'EzSystems\EzPlatformAdminUi\Form\SubmitHandler');

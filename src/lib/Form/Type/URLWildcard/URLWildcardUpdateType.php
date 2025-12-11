@@ -17,13 +17,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\URLWildcard\URLWildcardUpdateData>
+ */
 final class URLWildcardUpdateType extends AbstractType
 {
-    public const BTN_SAVE = 'save';
-
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -37,17 +35,9 @@ final class URLWildcardUpdateType extends AbstractType
                 'label' => false,
                 'required' => false,
             ])
-            ->add(self::BTN_SAVE, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'url_wildcard.save',
-            ])
-            ->add('save_and_close', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'url_wildcard.save_and_close',
-            ]);
+            ->add('save_and_close', SubmitType::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -56,5 +46,3 @@ final class URLWildcardUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(URLWildcardUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\URLWildcard\URLWildcardUpdateType');

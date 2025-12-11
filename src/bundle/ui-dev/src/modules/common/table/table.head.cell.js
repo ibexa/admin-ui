@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../helpers/css.class.names';
 
 const TableHeadCell = ({
-    extraClasses,
-    wrapperExtraClasses,
-    children,
-    sortColumnName,
-    hasCheckbox,
-    hasIcon,
-    isCloseLeft,
-    isCenterContent,
+    extraClasses = '',
+    wrapperExtraClasses = '',
+    children = null,
+    sortColumnName = null,
+    hasCheckbox = false,
+    hasIcon = false,
+    isCloseLeft = false,
+    isCenterContent = false,
 }) => {
     const className = createCssClassNames({
         'ibexa-table__header-cell': true,
@@ -46,17 +46,6 @@ TableHeadCell.propTypes = {
     hasIcon: PropTypes.bool,
     isCloseLeft: PropTypes.bool,
     isCenterContent: PropTypes.bool,
-};
-
-TableHeadCell.defaultProps = {
-    extraClasses: '',
-    wrapperExtraClasses: '',
-    children: null,
-    sortColumnName: null,
-    hasCheckbox: false,
-    hasIcon: false,
-    isCloseLeft: false,
-    isCenterContent: false,
 };
 
 export default TableHeadCell;

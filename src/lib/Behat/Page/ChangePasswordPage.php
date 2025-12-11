@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Page;
 
@@ -13,14 +14,14 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class ChangePasswordPage extends Page
+final class ChangePasswordPage extends Page
 {
-    private ContentActionsMenu $contentActionsMenu;
-
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentActionsMenu $contentActionsMenu
+    ) {
         parent::__construct($session, $router);
-        $this->contentActionsMenu = $contentActionsMenu;
     }
 
     public function verifyIsLoaded(): void

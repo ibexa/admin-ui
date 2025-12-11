@@ -8,26 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\ContentTypeGroup;
 
-class ContentTypeGroupCreateData
+final class ContentTypeGroupCreateData
 {
-    /** @var string */
-    private $identifier;
+    private ?string $identifier = null;
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(?string $identifier): void
     {
         $this->identifier = $identifier;
     }
 }
-
-class_alias(ContentTypeGroupCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupCreateData');

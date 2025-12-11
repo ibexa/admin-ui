@@ -22,44 +22,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentDraftController extends Controller
+final class ContentDraftController extends Controller
 {
-    private const PAGINATION_PARAM_NAME = 'page';
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    private const string PAGINATION_PARAM_NAME = 'page';
 
     public function __construct(
-        ContentService $contentService,
-        DatasetFactory $datasetFactory,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly ContentService $contentService,
+        private readonly DatasetFactory $datasetFactory,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(Request $request): Response
     {
         $currentPage = $request->query->getInt(self::PAGINATION_PARAM_NAME, 1);
@@ -67,7 +42,11 @@ class ContentDraftController extends Controller
         $pagination = new Pagerfanta(
             new ContentDraftAdapter($this->contentService, $this->datasetFactory)
         );
-        $pagination->setMaxPerPage($this->configResolver->getParameter('pagination.content_draft_limit'));
+
+        $pagination->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.content_draft_limit')
+        );
+
         $pagination->setCurrentPage(min($currentPage, $pagination->getNbPages()));
 
         $removeContentDraftForm = $this->formFactory->removeContentDraft(
@@ -76,15 +55,10 @@ class ContentDraftController extends Controller
 
         return $this->render('@ibexadesign/content/draft/draft_list.html.twig', [
             'pager' => $pagination,
-            'form_remove' => $removeContentDraftForm->createView(),
+            'form_remove' => $removeContentDraftForm,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function removeAction(Request $request): Response
     {
         $form = $this->formFactory->removeContentDraft();
@@ -92,7 +66,7 @@ class ContentDraftController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentRemoveData $data): RedirectResponse {
-                foreach (array_keys($data->getVersions()) as $version) {
+                foreach (array_keys($data->getVersions() ?? []) as $version) {
                     $versionId = VersionId::fromString($version);
 
                     $this->contentService->deleteVersion(
@@ -114,11 +88,6 @@ class ContentDraftController extends Controller
         return $this->redirectToRoute('ibexa.content_draft.list');
     }
 
-    /**
-     * @param \Pagerfanta\Pagerfanta $pagerfanta
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Content\Draft\ContentRemoveData
-     */
     private function createContentRemoveData(Pagerfanta $pagerfanta): ContentRemoveData
     {
         $versions = [];
@@ -134,5 +103,3 @@ class ContentDraftController extends Controller
         );
     }
 }
-
-class_alias(ContentDraftController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentDraftController');

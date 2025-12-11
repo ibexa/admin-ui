@@ -8,28 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Siteaccess;
 
-use Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider;
+use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInterface;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 
 abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    protected $configResolver;
-
-    /** @var \Ibexa\Bundle\Core\ApiLoader\RepositoryConfigurationProvider */
-    protected $repositoryConfigurationProvider;
-
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        RepositoryConfigurationProvider $repositoryConfigurationProvider
+        protected readonly ConfigResolverInterface $configResolver,
+        protected readonly RepositoryConfigurationProviderInterface $repositoryConfigurationProvider
     ) {
-        $this->configResolver = $configResolver;
-        $this->repositoryConfigurationProvider = $repositoryConfigurationProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function vote(SiteaccessPreviewVoterContext $context): bool
     {
         $siteAccess = $context->getSiteaccess();
@@ -69,11 +58,7 @@ abstract class AbstractSiteaccessPreviewVoter implements SiteaccessPreviewVoterI
     }
 
     /**
-     * @param string $siteaccess
-     *
      * @return int[]
      */
     abstract protected function getRootLocationIds(string $siteaccess): array;
 }
-
-class_alias(AbstractSiteaccessPreviewVoter::class, 'EzSystems\EzPlatformAdminUi\Siteaccess\AbstractSiteaccessPreviewVoter');

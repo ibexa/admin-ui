@@ -10,8 +10,6 @@ namespace Ibexa\AdminUi\Exception;
 
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException as BaseInvalidArgumentException;
 
-class InvalidArgumentException extends BaseInvalidArgumentException
+final class InvalidArgumentException extends BaseInvalidArgumentException
 {
 }
-
-class_alias(InvalidArgumentException::class, 'EzSystems\EzPlatformAdminUi\Exception\InvalidArgumentException');

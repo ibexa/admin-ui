@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Pagination\Pagerfanta;
 
@@ -11,39 +12,24 @@ use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
 use Pagerfanta\Adapter\AdapterInterface;
 
-class URLUsagesAdapter implements AdapterInterface
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo>
+ */
+final readonly class URLUsagesAdapter implements AdapterInterface
 {
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\URLService
-     */
-    private $urlService;
-
-    /**
-     * @var \Ibexa\Contracts\Core\Repository\Values\URL\URL
-     */
-    private $url;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\URL\URL $url
-     * @param \Ibexa\Contracts\Core\Repository\URLService $urlService
-     */
-    public function __construct(URL $url, URLService $urlService)
-    {
-        $this->urlService = $urlService;
-        $this->url = $url;
+    public function __construct(
+        private URL $url,
+        private URLService $urlService
+    ) {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNbResults(): int
     {
+        /** @phpstan-var int<0, max> */
         return $this->urlService->findUsages($this->url, 0, 0)->totalCount;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[]
      */
     public function getSlice($offset, $length): array
@@ -51,5 +37,3 @@ class URLUsagesAdapter implements AdapterInterface
         return $this->urlService->findUsages($this->url, $offset, $length)->items;
     }
 }
-
-class_alias(URLUsagesAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\URLUsagesAdapter');

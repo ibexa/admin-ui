@@ -15,24 +15,13 @@ use Ibexa\AdminUi\Behat\Page\ContentViewPage;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
-final class ContentViewContext implements Context
+final readonly class ContentViewContext implements Context
 {
-    private $argumentParser;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentViewPage */
-    private $contentViewPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\DraftConflictDialog */
-    private $draftConflictDialog;
-
     public function __construct(
-        ArgumentParser $argumentParser,
-        ContentViewPage $contentViewPage,
-        DraftConflictDialog $draftConflictDialog
+        private ArgumentParser $argumentParser,
+        private ContentViewPage $contentViewPage,
+        private DraftConflictDialog $draftConflictDialog
     ) {
-        $this->argumentParser = $argumentParser;
-        $this->contentViewPage = $contentViewPage;
-        $this->draftConflictDialog = $draftConflictDialog;
     }
 
     /**
@@ -63,7 +52,7 @@ final class ContentViewContext implements Context
     /**
      * @Given I switch to :tab tab in Content structure
      */
-    public function switchTab(string $tabName)
+    public function switchTab(string $tabName): void
     {
         $this->contentViewPage->switchToTab($tabName);
     }

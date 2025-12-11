@@ -18,12 +18,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class SiteAccessController extends RestController
 {
-    private ServiceLocator $siteAccessResolvers;
-
+    /**
+     * @phpstan-param \Symfony\Component\DependencyInjection\ServiceLocator<\Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface> $siteAccessResolvers
+     */
     public function __construct(
-        ServiceLocator $siteAccessResolvers
+        private readonly ServiceLocator $siteAccessResolvers
     ) {
-        $this->siteAccessResolvers = $siteAccessResolvers;
     }
 
     /**
@@ -35,7 +35,6 @@ final class SiteAccessController extends RestController
         $resolverType = $request->query->get('resolver_type', 'non_admin');
 
         try {
-            /** @var \Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface $siteAccessResolver */
             $siteAccessResolver = $this->siteAccessResolvers->get($resolverType);
         } catch (NotFoundExceptionInterface $e) {
             throw new BadRequestException($e->getMessage(), $e->getCode(), $e);

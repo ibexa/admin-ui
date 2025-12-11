@@ -15,32 +15,22 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Twig\Environment;
+use Twig\Template;
+use Twig\TemplateWrapper;
 
-class LimitationBlockRenderer implements LimitationBlockRendererInterface
+final readonly class LimitationBlockRenderer implements LimitationBlockRendererInterface
 {
-    public const LIMITATION_VALUE_BLOCK_NAME = 'ez_limitation_%s_value';
-    public const LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ez_limitation_value_fallback';
-
-    /** @var \Ibexa\AdminUi\Limitation\LimitationValueMapperRegistryInterface */
-    private $valueMapperRegistry;
-
-    /** @var \Twig\Environment */
-    private $twig;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
+    public const string LIMITATION_VALUE_BLOCK_NAME = 'ibexa_limitation_%s_value';
+    public const string LIMITATION_VALUE_BLOCK_NAME_FALLBACK = 'ibexa_limitation_value_fallback';
 
     public function __construct(
-        LimitationValueMapperRegistryInterface $valueMapperRegistry,
-        Environment $twig,
-        ConfigResolverInterface $configResolver
+        private LimitationValueMapperRegistryInterface $valueMapperRegistry,
+        private Environment $twig,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->valueMapperRegistry = $valueMapperRegistry;
-        $this->twig = $twig;
-        $this->configResolver = $configResolver;
     }
 
-    public function renderLimitationValue(Limitation $limitation, array $parameters = [])
+    public function renderLimitationValue(Limitation $limitation, array $parameters = []): string
     {
         try {
             $blockName = $this->getValueBlockName($limitation);
@@ -64,28 +54,18 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
         return $template->renderBlock($blockName, $parameters);
     }
 
-    /**
-     * Generates value block name based on Limitation.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
-     *
-     * @return string
-     */
-    protected function getValueBlockName(Limitation $limitation)
+    private function getValueBlockName(Limitation $limitation): string
     {
         return sprintf(self::LIMITATION_VALUE_BLOCK_NAME, strtolower($limitation->getIdentifier()));
     }
 
     /**
-     * Find the first template containing block definition $blockName.
-     *
-     * @param string $blockName
-     * @param string|\Twig\Template $localTemplate
-     *
-     * @return \Twig\TemplateWrapper|null
+     * Finds the first template containing block definition $blockName.
      */
-    protected function findTemplateWithBlock($blockName, $localTemplate = null)
-    {
+    private function findTemplateWithBlock(
+        string $blockName,
+        string|Template|null $localTemplate = null
+    ): TemplateWrapper|Template|null {
         if ($localTemplate !== null) {
             if (is_string($localTemplate)) {
                 $localTemplate = $this->twig->load($localTemplate);
@@ -113,12 +93,11 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     /**
      * Get parameters passed as context of value block render.
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function getValueBlockParameters(Limitation $limitation, array $parameters)
+    private function getValueBlockParameters(Limitation $limitation, array $parameters): array
     {
         $values = $this->valueMapperRegistry
             ->getMapper($limitation->getIdentifier())
@@ -133,14 +112,11 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
     }
 
     /**
-     * Get parameters passed as context of value fallback block.
+     * @param array<string, mixed> $parameters
      *
-     * @param \Ibexa\Contracts\Core\Repository\Values\User\Limitation $limitation
-     * @param array $parameters
-     *
-     * @return array
+     * @return array<string, mixed>
      */
-    protected function getValueFallbackBlockParameters(Limitation $limitation, array $parameters)
+    private function getValueFallbackBlockParameters(Limitation $limitation, array $parameters): array
     {
         $parameters += [
             'limitation' => $limitation,
@@ -150,16 +126,17 @@ class LimitationBlockRenderer implements LimitationBlockRendererInterface
         return $parameters;
     }
 
+    /**
+     * @return mixed[]
+     */
     private function getLimitationValueResources(): array
     {
         $resources = $this->configResolver->getParameter('limitation_value_templates');
 
-        usort($resources, static function ($a, $b): int {
+        usort($resources, static function (array $a, array $b): int {
             return $b['priority'] <=> $a['priority'];
         });
 
         return array_column($resources, 'template');
     }
 }
-
-class_alias(LimitationBlockRenderer::class, 'EzSystems\EzPlatformAdminUi\Limitation\Templating\LimitationBlockRenderer');

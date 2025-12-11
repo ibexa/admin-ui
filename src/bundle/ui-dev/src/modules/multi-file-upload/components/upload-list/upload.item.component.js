@@ -6,7 +6,7 @@ import { getTranslator, isExternalInstance } from '@ibexa-admin-ui/src/bundle/Re
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
-import { fileSizeToString } from '../../helpers/text.helper';
+import { fileSizeToString } from '../../../common/helpers/text.helper';
 import ProgressBarComponent from '../progress-bar/progress.bar.component';
 
 export default class UploadItemComponent extends Component {
@@ -263,10 +263,10 @@ export default class UploadItemComponent extends Component {
         const [, iconName] = contentTypeIconUrl.split('#');
 
         if (this.isExternalInstance) {
-            return <Icon name={iconName} extraClasses="ibexa-icon--small" defaultIconName="file" />;
+            return <Icon name={iconName} extraClasses="ibexa-icon--small-medium" defaultIconName="file" />;
         }
 
-        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small" />;
+        return <Icon customPath={contentTypeIconUrl} extraClasses="ibexa-icon--small-medium" />;
     }
 
     renderProgressBar() {
@@ -289,7 +289,7 @@ export default class UploadItemComponent extends Component {
         const Translator = getTranslator();
         const hasMultipleErrors = errorMsgs.length > 1;
         const label = hasMultipleErrors
-            ? Translator.trans(/*@Desc("Failed to upload ")*/ 'multierror.label', {}, 'ibexa_multi_file_upload')
+            ? Translator.trans(/* @Desc("Failed to upload ") */ 'multierror.label', {}, 'ibexa_multi_file_upload')
             : errorMsgs[0];
 
         return (
@@ -321,7 +321,7 @@ export default class UploadItemComponent extends Component {
             return;
         }
 
-        const message = Translator.trans(/*@Desc("100% Uploaded")*/ 'upload.success.message', {}, 'ibexa_multi_file_upload');
+        const message = Translator.trans(/* @Desc("100% Uploaded") */ 'upload.success.message', {}, 'ibexa_multi_file_upload');
 
         return (
             <div className="c-upload-list-item__message c-upload-list-item__message--success">
@@ -339,7 +339,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Abort")*/ 'abort.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Abort") */ 'abort.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button
@@ -349,7 +349,7 @@ export default class UploadItemComponent extends Component {
                 tabIndex="-1"
                 type="button"
             >
-                <Icon name="trash" extraClasses="ibexa-icon--small" />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     }
@@ -381,7 +381,7 @@ export default class UploadItemComponent extends Component {
             return null;
         }
 
-        const label = Translator.trans(/*@Desc("Edit")*/ 'edit.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Edit") */ 'edit.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button
@@ -392,7 +392,7 @@ export default class UploadItemComponent extends Component {
                 type="button"
                 disabled={!struct}
             >
-                <Icon name="edit" extraClasses="ibexa-icon--small" />
+                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     }
@@ -406,7 +406,7 @@ export default class UploadItemComponent extends Component {
         }
 
         const Translator = getTranslator();
-        const label = Translator.trans(/*@Desc("Delete")*/ 'delete.label', {}, 'ibexa_multi_file_upload');
+        const label = Translator.trans(/* @Desc("Delete") */ 'delete.label', {}, 'ibexa_multi_file_upload');
 
         return (
             <button
@@ -417,7 +417,7 @@ export default class UploadItemComponent extends Component {
                 type="button"
                 disabled={!(struct || failed)}
             >
-                <Icon name="trash" extraClasses="ibexa-icon--small" />
+                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
             </button>
         );
     }

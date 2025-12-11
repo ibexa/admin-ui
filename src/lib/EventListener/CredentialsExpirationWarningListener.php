@@ -14,6 +14,7 @@ use Ibexa\AdminUi\Specification\SiteAccess\IsAdmin;
 use Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Core\MVC\Symfony\Security\UserInterface;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,35 +22,18 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class CredentialsExpirationWarningListener implements EventSubscriberInterface
+final readonly class CredentialsExpirationWarningListener implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\NotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var string[][] */
-    private $siteAccessGroups;
-
+    /**
+     * @param array<string, string[]> $siteAccessGroups
+     */
     public function __construct(
-        NotificationHandlerInterface $notificationHandler,
-        TranslatorInterface $translator,
-        UrlGeneratorInterface $urlGenerator,
-        UserService $userService,
-        array $siteAccessGroups
+        private NotificationHandlerInterface $notificationHandler,
+        private TranslatorInterface $translator,
+        private UrlGeneratorInterface $urlGenerator,
+        private UserService $userService,
+        private array $siteAccessGroups
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->translator = $translator;
-        $this->urlGenerator = $urlGenerator;
-        $this->siteAccessGroups = $siteAccessGroups;
-        $this->userService = $userService;
     }
 
     public function onAuthenticationSuccess(InteractiveLoginEvent $event): void
@@ -111,8 +95,8 @@ final class CredentialsExpirationWarningListener implements EventSubscriberInter
 
     private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy(
+            $request->attributes->get('siteaccess')
+        );
     }
 }
-
-class_alias(CredentialsExpirationWarningListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\CredentialsExpirationWarningListener');

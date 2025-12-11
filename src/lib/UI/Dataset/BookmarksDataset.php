@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UI\Dataset;
 
@@ -12,37 +13,17 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 
-class BookmarksDataset
+final class BookmarksDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
-
     /** @var \Ibexa\AdminUi\UI\Value\Location\Bookmark[] */
-    private $data;
+    private ?array $data = null;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\BookmarkService $bookmarkService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
     public function __construct(
-        BookmarkService $bookmarkService,
-        ValueFactory $valueFactory
+        private readonly BookmarkService $bookmarkService,
+        private readonly ValueFactory $valueFactory
     ) {
-        $this->bookmarkService = $bookmarkService;
-        $this->valueFactory = $valueFactory;
     }
 
-    /**
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\BookmarksDataset
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
-     */
     public function load(int $offset = 0, int $limit = 25): self
     {
         $this->data = array_map(
@@ -60,8 +41,6 @@ class BookmarksDataset
      */
     public function getBookmarks(): array
     {
-        return $this->data;
+        return $this->data ?? [];
     }
 }
-
-class_alias(BookmarksDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\BookmarksDataset');

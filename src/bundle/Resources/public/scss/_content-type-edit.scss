@@ -1,5 +1,9 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/drag-and-drop' as *;
+
 .ibexa-available-field-types {
-    @include sidebar-drag-items();
+    @include toolbox-drag-items;
 
     & {
         min-height: calculateRem(700px);
@@ -9,7 +13,7 @@
 }
 
 .ibexa-available-field-type {
-    @include sidebar-drag-item;
+    @include toolbox-drag-item;
 }
 
 .ibexa-content-type-edit {
@@ -122,7 +126,7 @@
                     border-color: $ibexa-color-dark;
 
                     .ibexa-collapse__draggable-btn .ibexa-icon {
-                        fill: $ibexa-color-dark;
+                        fill: $ibexa-color-dark-400;
                     }
                 }
 
@@ -169,7 +173,7 @@
                         cursor: grab;
 
                         .ibexa-icon {
-                            fill: $ibexa-color-light;
+                            fill: $ibexa-color-dark-400;
                         }
                     }
                 }

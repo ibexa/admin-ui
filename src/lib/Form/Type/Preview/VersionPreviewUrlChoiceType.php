@@ -31,24 +31,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class VersionPreviewUrlChoiceType extends AbstractType
 {
-    private SiteAccessServiceInterface $siteAccessService;
-
-    private SiteaccessResolverInterface $siteAccessResolver;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
-    private VersionPreviewUrlResolverInterface $previewUrlResolver;
-
     public function __construct(
-        SiteAccessServiceInterface $siteAccessService,
-        SiteaccessResolverInterface $siteAccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        VersionPreviewUrlResolverInterface $previewUrlResolver
+        private readonly SiteAccessServiceInterface $siteAccessService,
+        private readonly SiteaccessResolverInterface $siteAccessResolver,
+        private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
+        private readonly VersionPreviewUrlResolverInterface $previewUrlResolver
     ) {
-        $this->siteAccessService = $siteAccessService;
-        $this->siteAccessResolver = $siteAccessResolver;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
-        $this->previewUrlResolver = $previewUrlResolver;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

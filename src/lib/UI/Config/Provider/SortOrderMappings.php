@@ -16,10 +16,10 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Query;
  *
  * @see \Ibexa\Contracts\Rest\Output\ValueObjectVisitor::serializeSortOrder
  */
-class SortOrderMappings implements ProviderInterface
+final readonly class SortOrderMappings implements ProviderInterface
 {
     /**
-     * @return array
+     * @return array<string, string>
      */
     public function getConfig(): array
     {
@@ -29,5 +29,3 @@ class SortOrderMappings implements ProviderInterface
         ];
     }
 }
-
-class_alias(SortOrderMappings::class, 'EzSystems\EzPlatformAdminUi\UI\Config\Provider\SortOrderMappings');

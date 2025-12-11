@@ -15,41 +15,27 @@ use Symfony\Contracts\EventDispatcher\Event;
  * @deprecated 4.6.19 The {@see \Ibexa\AdminUi\Component\Event\RenderGroupEvent} class is deprecated, will be removed in 6.0.
  * Use {@see \Ibexa\Contracts\TwigComponents\Event\RenderGroupEvent} instead
  */
-class RenderGroupEvent extends Event
+final class RenderGroupEvent extends Event
 {
-    public const NAME = 'ezplatform_admin_ui.component.render_group';
-
-    /** @var \Ibexa\AdminUi\Component\Registry */
-    private $registry;
-
-    /** @var string */
-    private $groupName;
-
-    /** @var array */
-    private $parameters;
+    public const string NAME = 'ezplatform_admin_ui.component.render_group';
 
     /**
-     * @param \Ibexa\AdminUi\Component\Registry $registry
-     * @param string $groupName
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      */
-    public function __construct(Registry $registry, string $groupName, array $parameters = [])
-    {
-        $this->registry = $registry;
-        $this->groupName = $groupName;
-        $this->parameters = $parameters;
+    public function __construct(
+        private readonly Registry $registry,
+        private readonly string $groupName,
+        private readonly array $parameters = []
+    ) {
     }
 
-    /**
-     * @return string
-     */
     public function getGroupName(): string
     {
         return $this->groupName;
     }
 
     /**
-     * @return array
+     * @return \Ibexa\Contracts\TwigComponents\ComponentInterface[]
      */
     public function getComponents(): array
     {
@@ -57,20 +43,18 @@ class RenderGroupEvent extends Event
     }
 
     /**
-     * @param array $components
+     * @param \Ibexa\Contracts\TwigComponents\ComponentInterface[] $components
      */
-    public function setComponents(array $components)
+    public function setComponents(array $components): void
     {
         $this->registry->setComponents($this->getGroupName(), $components);
     }
 
     /**
-     * @return array
+     * @return array<string, mixed>
      */
     public function getParameters(): array
     {
         return $this->parameters;
     }
 }
-
-class_alias(RenderGroupEvent::class, 'EzSystems\EzPlatformAdminUi\Component\Event\RenderGroupEvent');

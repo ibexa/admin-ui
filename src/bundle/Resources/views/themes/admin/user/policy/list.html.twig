@@ -58,7 +58,7 @@
                     href="{{ path('ibexa.policy.update', { roleId: role.id, policyId: policy.id }) }}"
                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text{{ not is_editable[policy.id] ? ' disabled' : '' }}"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small ibexa-icon--edit">
+                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
                         <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
                     </svg>
                 </a>
@@ -94,7 +94,7 @@
                             href="{{ path('ibexa.policy.create', {roleId: role.id}) }}"
                             class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--create">
+                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
                                 <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
                             </svg>
                             <span class="ibexa-btn__label">
@@ -110,7 +110,7 @@
                             data-bs-toggle="modal"
                             data-bs-target="#{{ modal_data_target }}"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
+                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
                                 <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
                             </svg>
                             <span class="ibexa-btn__label">

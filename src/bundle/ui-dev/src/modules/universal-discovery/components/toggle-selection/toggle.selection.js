@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { SelectedLocationsContext } from '../../universal.discovery.module';
 
-const ToggleSelection = ({ multiple, location, isDisabled, isHidden }) => {
+const ToggleSelection = ({ multiple, location, isDisabled = false, isHidden = false }) => {
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const isSelected = selectedLocations.some((selectedItem) => selectedItem.location.id === location.id);
     const className = createCssClassNames({
@@ -32,11 +32,6 @@ ToggleSelection.propTypes = {
     multiple: PropTypes.bool.isRequired,
     isHidden: PropTypes.bool,
     isDisabled: PropTypes.bool,
-};
-
-ToggleSelection.defaultProps = {
-    isHidden: false,
-    isDisabled: false,
 };
 
 export default ToggleSelection;

@@ -12,30 +12,17 @@ use Ibexa\AdminUi\Siteaccess\SiteAccessNameGeneratorInterface;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Symfony\Component\Form\ChoiceList\ArrayChoiceList;
+use Symfony\Component\Form\ChoiceList\ChoiceListInterface;
 use Symfony\Component\Form\ChoiceList\Loader\ChoiceLoaderInterface;
 
-class SiteAccessChoiceLoader implements ChoiceLoaderInterface
+final readonly class SiteAccessChoiceLoader implements ChoiceLoaderInterface
 {
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private SiteaccessResolverInterface $nonAdminSiteaccessResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
-    private ?string $languageCode;
-
     public function __construct(
-        SiteaccessResolverInterface $nonAdminSiteaccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
-        ?Location $location = null,
-        ?string $languageCode = null
+        private SiteaccessResolverInterface $nonAdminSiteAccessResolver,
+        private SiteAccessNameGeneratorInterface $siteAccessNameGenerator,
+        private ?Location $location = null,
+        private ?string $languageCode = null
     ) {
-        $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
-        $this->location = $location;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
-        $this->languageCode = $languageCode;
     }
 
     /**
@@ -44,11 +31,11 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
     public function getChoiceList(): array
     {
         $siteAccesses = $this->location === null
-            ? $this->nonAdminSiteaccessResolver->getSiteAccessesList()
-            : $this->nonAdminSiteaccessResolver->getSiteAccessesListForLocation(
+            ? $this->nonAdminSiteAccessResolver->getSiteAccessesList()
+            : $this->nonAdminSiteAccessResolver->getSiteAccessesListForLocation(
                 $this->location,
                 null,
-                $this->languageCode
+                $this->languageCode,
             );
 
         $data = [];
@@ -60,14 +47,17 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return $data;
     }
 
-    public function loadChoiceList($value = null)
+    public function loadChoiceList(?callable $value = null): ChoiceListInterface
     {
         $choices = $this->getChoiceList();
 
         return new ArrayChoiceList($choices, $value);
     }
 
-    public function loadChoicesForValues(array $values, $value = null)
+    /**
+     * @return string[]
+     */
+    public function loadChoicesForValues(array $values, ?callable $value = null): array
     {
         // Optimize
         $values = array_filter($values);
@@ -78,7 +68,10 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getChoicesForValues($values);
     }
 
-    public function loadValuesForChoices(array $choices, $value = null)
+    /**
+     * @return string[]
+     */
+    public function loadValuesForChoices(array $choices, ?callable $value = null): array
     {
         // Optimize
         $choices = array_filter($choices);
@@ -94,5 +87,3 @@ class SiteAccessChoiceLoader implements ChoiceLoaderInterface
         return $this->loadChoiceList($value)->getValuesForChoices($choices);
     }
 }
-
-class_alias(SiteAccessChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\SiteAccessChoiceLoader');

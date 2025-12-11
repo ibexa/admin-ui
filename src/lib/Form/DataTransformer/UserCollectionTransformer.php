@@ -16,27 +16,16 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between comma separated string of User's ID and an array of domain specific User objects.
  */
-class UserCollectionTransformer implements DataTransformerInterface
+final readonly class UserCollectionTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    protected $userService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
     /**
-     * @param array|null $value
-     *
-     * @return string|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!is_array($value) || empty($value)) {
             return null;
@@ -46,11 +35,8 @@ class UserCollectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param string|null $value
+     * @return array<mixed>
      *
-     * @return array
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
@@ -73,5 +59,3 @@ class UserCollectionTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(UserCollectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserCollectionTransformer');

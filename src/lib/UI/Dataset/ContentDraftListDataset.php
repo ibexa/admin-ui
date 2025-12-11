@@ -17,31 +17,14 @@ use Ibexa\Contracts\Core\Repository\Values\User\User;
 
 class ContentDraftListDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
-
     /** @var \Ibexa\AdminUi\UI\Value\Content\ContentDraftInterface[] */
-    private $data = [];
+    private array $data = [];
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
     public function __construct(
-        ContentService $contentService,
-        ContentTypeService $contentTypeService,
-        ValueFactory $valueFactory
+        private readonly ContentService $contentService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly ValueFactory $valueFactory
     ) {
-        $this->contentService = $contentService;
-        $this->contentTypeService = $contentTypeService;
-        $this->valueFactory = $valueFactory;
     }
 
     public function load(?User $user = null, int $offset = 0, int $limit = 10): self
@@ -84,5 +67,3 @@ class ContentDraftListDataset
         return $this->data;
     }
 }
-
-class_alias(ContentDraftListDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\ContentDraftListDataset');

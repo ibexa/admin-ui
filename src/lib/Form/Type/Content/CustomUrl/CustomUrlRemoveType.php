@@ -9,19 +9,19 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Content\CustomUrl;
 
 use Ibexa\AdminUi\Form\Type\Content\LocationType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class CustomUrlRemoveType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class CustomUrlRemoveType extends AbstractType
 {
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -51,5 +51,3 @@ class CustomUrlRemoveType extends AbstractType
             );
     }
 }
-
-class_alias(CustomUrlRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\CustomUrl\CustomUrlRemoveType');

@@ -13,24 +13,34 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Keywords extends FieldTypeComponent
+final class Keywords extends FieldTypeComponent
 {
-    private $setKeywordsValueScript = <<<SCRIPT
-const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
-const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
-const taggify = new window.Taggify({
-    containerNode: taggifyContainer,
-    displayLabel: false,
-    displayInputValues: false,
-});
-
-const tags = [%s];
-var list = tags.map(function (item) {
-    return {id: item, label: item};
-});
-
-taggify.updateTags(list);
-SCRIPT;
+    private string $setKeywordsValueScript = <<<SCRIPT
+        const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify';
+        const taggifyContainer = document.querySelector(SELECTOR_TAGGIFY);
+        const keywordInput = taggifyContainer.closest('.ibexa-data-source').querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
+        class KeywordTaggify extends window.ibexa.core.Taggify {
+            afterTagsUpdate() {
+                const tags = [...this.tags];
+                const tagsInputValue = tags.join();
+        
+                if (keywordInput.value !== tagsInputValue) {
+                    keywordInput.value = tagsInputValue;
+                    keywordInput.dispatchEvent(new Event('change'));
+                }
+            }
+        }
+        const taggify = new KeywordTaggify({
+            container: taggifyContainer,
+        });
+        
+        const tags = [%s];
+        var list = tags.map(function (item) {
+            return {name: item, value: item};
+        });
+        
+        taggify.addTags(list);
+    SCRIPT;
 
     public function setValue(array $parameters): void
     {
@@ -62,6 +72,9 @@ SCRIPT;
         Assert::assertEquals($expectedValues, $actualValues);
     }
 
+    /**
+     * @return string[]
+     */
     private function parseValueString(string $value): array
     {
         $parsedValues = [];
@@ -85,6 +98,6 @@ SCRIPT;
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezkeyword';
+        return 'ibexa_keyword';
     }
 }

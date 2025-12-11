@@ -16,19 +16,19 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class SearchPage extends Page
+final class SearchPage extends Page
 {
     private TableInterface $table;
 
-    private UpperMenu $upperMenu;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, UpperMenu $upperMenu)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly UpperMenu $upperMenu
+    ) {
         parent::__construct($session, $router);
-        $this->table = $tableBuilder
-            ->newTable()
-            ->build();
-        $this->upperMenu = $upperMenu;
+
+        $this->table = $tableBuilder->newTable()->build();
     }
 
     public function search(string $contentItemName): void

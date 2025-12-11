@@ -12,9 +12,9 @@ use Ibexa\AdminUi\Tab\TabGroup;
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
 use PHPUnit\Framework\TestCase;
 
-class TabGroupTest extends TestCase
+final class TabGroupTest extends TestCase
 {
-    public function testAddTab()
+    public function testAddTab(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -25,14 +25,14 @@ class TabGroupTest extends TestCase
 
         $tabGroup = new TabGroup('group_name');
 
-        $this->assertCount(0, $tabGroup->getTabs());
+        self::assertCount(0, $tabGroup->getTabs());
 
         $tabGroup->addTab($tab);
 
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
     }
 
-    public function testAddTabWithSameIdentifier()
+    public function testAddTabWithSameIdentifier(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -49,12 +49,12 @@ class TabGroupTest extends TestCase
         $tabGroup = new TabGroup('group_name');
         $tabGroup->addTab($tab);
 
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
         $tabGroup->addTab($tabWithSameIdentifier);
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
     }
 
-    public function testRemoveTab()
+    public function testRemoveTab(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -66,12 +66,12 @@ class TabGroupTest extends TestCase
         $tabGroup = new TabGroup('group_name');
         $tabGroup->addTab($tab);
 
-        $this->assertCount(1, $tabGroup->getTabs());
+        self::assertCount(1, $tabGroup->getTabs());
         $tabGroup->removeTab($tabIdentifier);
-        $this->assertCount(0, $tabGroup->getTabs());
+        self::assertCount(0, $tabGroup->getTabs());
     }
 
-    public function testRemoveTabWhenNotExist()
+    public function testRemoveTabWhenNotExist(): void
     {
         $tabIdentifier = 'tab_identifier';
 
@@ -83,9 +83,7 @@ class TabGroupTest extends TestCase
 
         $tabGroup = new TabGroup('group_name');
 
-        $this->assertCount(0, $tabGroup->getTabs());
+        self::assertCount(0, $tabGroup->getTabs());
         $tabGroup->removeTab($tabIdentifier);
     }
 }
-
-class_alias(TabGroupTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Tab\TabGroupTest');

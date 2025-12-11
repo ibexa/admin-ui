@@ -14,21 +14,21 @@ use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ContentType\ContentTypeEditData>
+ */
 class ContentTypeEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
     public function __construct(
-        LanguageService $languageService
+        protected readonly LanguageService $languageService
     ) {
-        $this->languageService = $languageService;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -75,10 +75,7 @@ class ContentTypeEditType extends AbstractType
             );
     }
 
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -89,5 +86,3 @@ class ContentTypeEditType extends AbstractType
             ->setAllowedTypes('contentType', ContentType::class);
     }
 }
-
-class_alias(ContentTypeEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeEditType');

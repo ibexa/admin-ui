@@ -12,10 +12,10 @@ use Ibexa\Contracts\AdminUi\REST\ApplicationConfigRestResolverInterface;
 use Ibexa\Rest\Server\Values\RestFieldDefinition;
 use Ibexa\Rest\Value;
 
-final class ProfilePictureFieldConfigRestResolver implements ApplicationConfigRestResolverInterface
+final readonly class ProfilePictureFieldConfigRestResolver implements ApplicationConfigRestResolverInterface
 {
-    private const NAMESPACE = 'user';
-    private const PARAMETER = 'profile_picture_field';
+    public const string NAMESPACE = 'user';
+    public const string PARAMETER = 'profile_picture_field';
 
     public function supportsNamespace(string $namespace): bool
     {
@@ -41,7 +41,7 @@ final class ProfilePictureFieldConfigRestResolver implements ApplicationConfigRe
         }
 
         $fieldDefinition = $userContentType->getFieldDefinition(
-            $config['profile_picture_field']->fieldDefIdentifier
+            $config['profile_picture_field']->getFieldDefinitionIdentifier()
         );
 
         if (null === $fieldDefinition) {

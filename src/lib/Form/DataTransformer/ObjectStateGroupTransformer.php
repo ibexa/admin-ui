@@ -17,20 +17,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Translates ObjectStateGroup's ID to domain specific ObjectStateGroup object.
  */
-class ObjectStateGroupTransformer implements DataTransformerInterface
+final readonly class ObjectStateGroupTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     */
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(private ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
     }
 
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
@@ -43,7 +36,7 @@ class ObjectStateGroupTransformer implements DataTransformerInterface
         return $value->id;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?ObjectStateGroup
     {
         if (empty($value)) {
             return null;
@@ -56,5 +49,3 @@ class ObjectStateGroupTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(ObjectStateGroupTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\ObjectStateGroupTransformer');

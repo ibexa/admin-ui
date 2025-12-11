@@ -55,7 +55,7 @@ final class VersionPreviewUrlResolverTest extends TestCase
         $resolver = new VersionPreviewUrlResolver($eventDispatcher);
         $result = $resolver->resolveUrl($versionInfo, $location, $language, $siteAccess);
 
-        $this->assertSame(self::EXAMPLE_PREVIEW_URL, $result);
+        self::assertSame(self::EXAMPLE_PREVIEW_URL, $result);
     }
 
     public function testThrowsExceptionWhenPreviewUrlIsNotResolved(): void

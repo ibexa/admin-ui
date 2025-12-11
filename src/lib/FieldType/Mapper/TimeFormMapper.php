@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -17,9 +18,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for eztime FieldType.
+ * FormMapper for ibexa_time FieldType.
  */
-class TimeFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class TimeFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -31,7 +32,7 @@ class TimeFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[useSeconds]',
-                    'label' => /** @Desc("Use seconds") */ 'field_definition.eztime.use_seconds',
+                    'label' => /** @Desc("Use seconds") */ 'field_definition.ibexa_time.use_seconds',
                     'disabled' => $isTranslation,
                 ]
             )
@@ -41,20 +42,20 @@ class TimeFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'choices' => [
                         /** @Desc("Empty") */
-                        'field_definition.eztime.default_type_empty' => Type::DEFAULT_EMPTY,
+                        'field_definition.ibexa_time.default_type_empty' => Type::DEFAULT_EMPTY,
                         /** @Desc("Current time") */
-                        'field_definition.eztime.default_type_current' => Type::DEFAULT_CURRENT_TIME,
+                        'field_definition.ibexa_time.default_type_current' => Type::DEFAULT_CURRENT_TIME,
                     ],
                     'expanded' => true,
                     'required' => true,
                     'property_path' => 'fieldSettings[defaultType]',
-                    'label' => /** @Desc("Default value") */ 'field_definition.eztime.default_type',
+                    'label' => /** @Desc("Default value") */ 'field_definition.ibexa_time.default_type',
                     'disabled' => $isTranslation,
                 ]
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -62,5 +63,3 @@ class TimeFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(TimeFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\TimeFormMapper');

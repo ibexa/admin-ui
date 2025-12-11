@@ -15,9 +15,7 @@ interface ApplicationConfigRestResolverInterface
     public function supportsParameter(string $parameterName): bool;
 
     /**
-     * @param array<mixed> $config
-     *
-     * @return mixed
+     * @param array<string, mixed> $config
      */
-    public function resolve(array $config);
+    public function resolve(array $config): mixed;
 }

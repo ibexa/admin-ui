@@ -15,9 +15,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-class FormatIntervalExtension extends AbstractExtension implements TranslationContainerInterface
+final class FormatIntervalExtension extends AbstractExtension implements TranslationContainerInterface
 {
-    private const INTERVAL_PARTS = [
+    private const array INTERVAL_PARTS = [
         'y' => 'years',
         'm' => 'months',
         'd' => 'days',
@@ -26,22 +26,19 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         's' => 'seconds',
     ];
 
-    /** @var \Symfony\Contracts\Translation\TranslatorInterface */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
+    public function __construct(
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
-            new TwigFilter('format_interval', [$this, 'formatInterval']),
+            new TwigFilter('format_interval', $this->formatInterval(...)),
         ];
     }
 
-    public function formatInterval(string $periodFormat)
+    public function formatInterval(string $periodFormat): string
     {
         $interval = new DateInterval($periodFormat);
         $parts = [];
@@ -72,5 +69,3 @@ class FormatIntervalExtension extends AbstractExtension implements TranslationCo
         ];
     }
 }
-
-class_alias(FormatIntervalExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\FormatIntervalExtension');

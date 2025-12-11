@@ -38,7 +38,7 @@ final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
         self::assertCount(1, $extractedFieldDefinitions);
         $fieldDefinition = $extractedFieldDefinitions[0];
         self::assertSame('name', $fieldDefinition->identifier);
-        self::assertSame('ezstring', $fieldDefinition->fieldTypeIdentifier);
+        self::assertSame('ibexa_string', $fieldDefinition->fieldTypeIdentifier);
     }
 
     public function testExtractWithConfiguration(): void
@@ -50,7 +50,7 @@ final class ContentTypeFieldsByExpressionServiceTest extends IbexaKernelTestCase
             'vectorizable_fields',
         );
 
-        $expectedFieldTypes = ['ezstring', 'eztext'];
+        $expectedFieldTypes = ['ibexa_string', 'ibexa_text'];
 
         foreach ($extractedFieldDefinitions as $fieldDefinition) {
             self::assertContains($fieldDefinition->fieldTypeIdentifier, $expectedFieldTypes);

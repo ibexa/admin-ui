@@ -15,35 +15,18 @@ use Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor;
 use Ibexa\Core\MVC\Symfony\SiteAccess;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class UrlRedirectProcessor implements EventSubscriberInterface
+final readonly class UrlRedirectProcessor implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess */
-    private $siteaccess;
-
-    /** @var \Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor */
-    private $systemUrlRedirectProcessor;
-
-    /** @var array */
-    private $siteaccessGroups;
-
     /**
-     * @param \Ibexa\Core\MVC\Symfony\SiteAccess $siteaccess
-     * @param \Ibexa\ContentForms\Form\Processor\SystemUrlRedirectProcessor $systemUrlRedirectProcessor
-     * @param array $siteaccessGroups
+     * @param array<string, string[]> $siteaccessGroups
      */
     public function __construct(
-        SiteAccess $siteaccess,
-        SystemUrlRedirectProcessor $systemUrlRedirectProcessor,
-        array $siteaccessGroups
+        private SiteAccess $siteaccess,
+        private SystemUrlRedirectProcessor $systemUrlRedirectProcessor,
+        private array $siteaccessGroups
     ) {
-        $this->siteaccess = $siteaccess;
-        $this->systemUrlRedirectProcessor = $systemUrlRedirectProcessor;
-        $this->siteaccessGroups = $siteaccessGroups;
     }
 
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -53,15 +36,13 @@ class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function processRedirectAfterPublish(FormActionEvent $event): void
     {
-        if ($event->getForm()['redirectUrlAfterPublish']->getData()) {
+        if ($event->getForm()['redirectUrlAfterPublish']?->getData()) {
             return;
         }
 
@@ -73,8 +54,6 @@ class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @param \Ibexa\ContentForms\Event\FormActionEvent $event
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
@@ -89,14 +68,10 @@ class UrlRedirectProcessor implements EventSubscriberInterface
     }
 
     /**
-     * @return bool
-     *
      * @throws \Ibexa\AdminUi\Exception\InvalidArgumentException
      */
-    protected function isAdminSiteaccess(): bool
+    private function isAdminSiteaccess(): bool
     {
         return (new IsAdmin($this->siteaccessGroups))->isSatisfiedBy($this->siteaccess);
     }
 }
-
-class_alias(UrlRedirectProcessor::class, 'EzSystems\EzPlatformAdminUi\Form\Processor\Content\UrlRedirectProcessor');

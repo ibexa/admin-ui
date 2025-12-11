@@ -14,12 +14,12 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SortType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<array{field: string, direction: int}>
+ */
+final class SortType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('field', ChoiceType::class, [
@@ -36,13 +36,11 @@ class SortType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $optionsResolver): void
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $optionsResolver->setDefined('sort_fields');
-        $optionsResolver->setDefined('default');
-        $optionsResolver->setAllowedTypes('sort_fields', 'array');
-        $optionsResolver->setAllowedTypes('default', 'array');
+        $resolver->setDefined('sort_fields');
+        $resolver->setDefined('default');
+        $resolver->setAllowedTypes('sort_fields', 'array');
+        $resolver->setAllowedTypes('default', 'array');
     }
 }
-
-class_alias(SortType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\SortType');

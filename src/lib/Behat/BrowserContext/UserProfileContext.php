@@ -12,13 +12,10 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\UserProfilePage;
 
-final class UserProfileContext implements Context
+final readonly class UserProfileContext implements Context
 {
-    private UserProfilePage $userProfilePage;
-
-    public function __construct(UserProfilePage $userProfilePage)
+    public function __construct(private UserProfilePage $userProfilePage)
     {
-        $this->userProfilePage = $userProfilePage;
     }
 
     /**
@@ -35,8 +32,15 @@ final class UserProfileContext implements Context
     public function iVerifyUserProfileSummary(TableNode $table): void
     {
         $this->userProfilePage->verifyIsLoaded();
+
         foreach ($table->getHash() as $row) {
-            $this->userProfilePage->verifyUserProfileSummary($row['Full name'], $row['Email'], $row['Job Title'], $row['Department'], $row['Location']);
+            $this->userProfilePage->verifyUserProfileSummary(
+                $row['Full name'],
+                $row['Email'],
+                $row['Job Title'],
+                $row['Department'],
+                $row['Location']
+            );
         }
     }
 }

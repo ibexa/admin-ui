@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\DependencyInjection\Compiler;
 
@@ -16,11 +17,11 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Compiler pass to register Limitation form mappers.
  */
-class LimitationFormMapperPass implements CompilerPassInterface
+final readonly class LimitationFormMapperPass implements CompilerPassInterface
 {
-    private const LIMITATION_MAPPER_FORM_TAG = 'ibexa.admin_ui.limitation.mapper.form';
+    private const string LIMITATION_MAPPER_FORM_TAG = 'ibexa.admin_ui.limitation.mapper.form';
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->hasDefinition(LimitationFormMapperRegistry::class)) {
             return;
@@ -48,5 +49,3 @@ class LimitationFormMapperPass implements CompilerPassInterface
         }
     }
 }
-
-class_alias(LimitationFormMapperPass::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Compiler\LimitationFormMapperPass');

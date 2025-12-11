@@ -23,48 +23,23 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class AdminSearchViewFilter implements EventSubscriberInterface
+final readonly class AdminSearchViewFilter implements EventSubscriberInterface
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var array */
-    private $siteAccessGroups;
-
-    /** @var \Ibexa\Search\View\SearchViewFilter */
-    private $innerFilter;
-
-    /** @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface */
-    private $urlGenerator;
-
+    /**
+     * @param array<string, string[]> $siteAccessGroups
+     */
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        FormFactoryInterface $formFactory,
-        SectionService $sectionService,
-        ContentTypeService $contentTypeService,
-        array $siteAccessGroups,
-        SearchViewFilter $innerFilter,
-        UrlGeneratorInterface $urlGenerator
+        private ConfigResolverInterface $configResolver,
+        private FormFactoryInterface $formFactory,
+        private SectionService $sectionService,
+        private ContentTypeService $contentTypeService,
+        private array $siteAccessGroups,
+        private SearchViewFilter $innerFilter,
+        private UrlGeneratorInterface $urlGenerator
     ) {
-        $this->configResolver = $configResolver;
-        $this->formFactory = $formFactory;
-        $this->sectionService = $sectionService;
-        $this->contentTypeService = $contentTypeService;
-        $this->siteAccessGroups = $siteAccessGroups;
-        $this->innerFilter = $innerFilter;
-        $this->urlGenerator = $urlGenerator;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [ViewEvents::FILTER_BUILDER_PARAMETERS => 'handleSearchForm'];
     }
@@ -98,7 +73,10 @@ class AdminSearchViewFilter implements EventSubscriberInterface
         }
 
         $search = $request->query->all('search');
-        $limit = isset($search['limit']) ? (int)$search['limit'] : $this->configResolver->getParameter('pagination.search_limit');
+        $limit = isset($search['limit'])
+            ? (int)$search['limit']
+            : $this->configResolver->getParameter('search.pagination.limit');
+
         $page = isset($search['page']) ? (int)$search['page'] : 1;
         $query = $search['query'] ?? '';
         $section = null;
@@ -112,12 +90,12 @@ class AdminSearchViewFilter implements EventSubscriberInterface
         if (!empty($search['section'])) {
             try {
                 $section = $this->sectionService->loadSection((int)$search['section']);
-            } catch (NotFoundException $e) {
-                $section = null;
+            } catch (NotFoundException) {
+                // do nothing
             }
         }
 
-        if (!empty($search['content_types']) && \is_array($search['content_types'])) {
+        if (!empty($search['content_types']) && is_array($search['content_types'])) {
             foreach ($search['content_types'] as $identifier) {
                 $contentTypes[] = $this->contentTypeService->loadContentTypeByIdentifier($identifier);
             }
@@ -149,10 +127,11 @@ class AdminSearchViewFilter implements EventSubscriberInterface
         ]);
     }
 
-    protected function isAdminSiteAccess(Request $request): bool
+    private function isAdminSiteAccess(Request $request): bool
     {
-        return (new IsAdmin($this->siteAccessGroups))->isSatisfiedBy($request->attributes->get('siteaccess'));
+        return (new IsAdmin($this->siteAccessGroups))
+            ->isSatisfiedBy(
+                $request->attributes->get('siteaccess')
+            );
     }
 }
-
-class_alias(AdminSearchViewFilter::class, 'EzSystems\EzPlatformAdminUi\View\Filter\AdminSearchViewFilter');

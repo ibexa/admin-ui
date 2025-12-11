@@ -16,33 +16,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Form Type allowing to select ContentType.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
 class ContentTypeChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
-
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader */
-    private $contentTypeChoiceLoader;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\ContentTypeChoiceLoader $contentTypeChoiceLoader
-     */
     public function __construct(
-        ContentTypeService $contentTypeService,
-        ContentTypeChoiceLoader $contentTypeChoiceLoader
+        protected readonly ContentTypeService $contentTypeService,
+        private readonly ContentTypeChoiceLoader $contentTypeChoiceLoader
     ) {
-        $this->contentTypeService = $contentTypeService;
-        $this->contentTypeChoiceLoader = $contentTypeChoiceLoader;
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -52,5 +42,3 @@ class ContentTypeChoiceType extends AbstractType
             ]);
     }
 }
-
-class_alias(ContentTypeChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\ContentTypeChoiceType');

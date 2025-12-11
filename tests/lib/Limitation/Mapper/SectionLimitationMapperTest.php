@@ -12,6 +12,7 @@ use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\SectionService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Section;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SectionLimitation;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -19,14 +20,11 @@ class SectionLimitationMapperTest extends TestCase
 {
     private const EXAMPLE_SECTION_ID = 0xFF;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Ibexa\Contracts\Core\Repository\SectionService */
-    private $sectionServiceMock;
+    private SectionService&MockObject $sectionServiceMock;
 
-    /** @var \Psr\Log\LoggerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $logger;
+    private LoggerInterface&MockObject $logger;
 
-    /** @var \Ibexa\AdminUi\Limitation\Mapper\SectionLimitationMapper */
-    private $mapper;
+    private SectionLimitationMapper $mapper;
 
     protected function setUp(): void
     {
@@ -37,9 +35,9 @@ class SectionLimitationMapperTest extends TestCase
         $this->mapper->setLogger($this->logger);
     }
 
-    public function testMapLimitationValue()
+    public function testMapLimitationValue(): void
     {
-        $values = ['3', '5', '7'];
+        $values = [3, 5, 7];
 
         $expected = [];
         foreach ($values as $i => $value) {
@@ -48,7 +46,7 @@ class SectionLimitationMapperTest extends TestCase
             ]);
 
             $this->sectionServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadSection')
                 ->with($value)
                 ->willReturn($expected[$i]);
@@ -58,21 +56,21 @@ class SectionLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEquals($expected, $result);
+        self::assertEquals($expected, $result);
     }
 
-    public function testMapLimitationValueWithNotExistingContentType()
+    public function testMapLimitationValueWithNotExistingContentType(): void
     {
         $values = [self::EXAMPLE_SECTION_ID];
 
         $this->sectionServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadSection')
             ->with($values[0])
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->logger
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('error')
             ->with('Could not map the Limitation value: could not find a Section with ID ' . $values[0]);
 
@@ -80,8 +78,6 @@ class SectionLimitationMapperTest extends TestCase
             'limitationValues' => $values,
         ]));
 
-        $this->assertEmpty($actual);
+        self::assertEmpty($actual);
     }
 }
-
-class_alias(SectionLimitationMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\SectionLimitationMapperTest');

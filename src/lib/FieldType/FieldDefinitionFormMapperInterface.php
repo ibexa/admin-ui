@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType;
 
@@ -29,10 +30,3 @@ interface FieldDefinitionFormMapperInterface
      */
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void;
 }
-
-class_alias(
-    FieldDefinitionFormMapperInterface::class,
-    \EzSystems\RepositoryForms\FieldType\FieldDefinitionFormMapperInterface::class
-);
-
-class_alias(FieldDefinitionFormMapperInterface::class, 'EzSystems\EzPlatformAdminUi\FieldType\FieldDefinitionFormMapperInterface');

@@ -17,33 +17,23 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          pagination:
- *              search_limit: 10
  *              trash_limit: 10
  *              section_limit: 10
  *              language_limit: 10
  * ```
  */
-class Pagination extends AbstractParser
+final class Pagination extends AbstractParser
 {
-    /**
-     * Adds semantic configuration definition.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeBuilder $nodeBuilder Node just under ezpublish.system.<siteaccess>
-     */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('pagination')
                 ->info('System pagination configuration')
                 ->children()
-                    ->scalarNode('search_limit')
-                        ->isRequired()
-                        ->setDeprecated('ezsystems/ezplatform-admin-ui', '2.1', 'The child node "%node%" at path "%path%" is deprecated. Use "search.pagination.limit" instead.')
-                    ->end()
                     ->scalarNode('trash_limit')->isRequired()->end()
                     ->scalarNode('section_limit')->isRequired()->end()
                     ->scalarNode('language_limit')->isRequired()->end()
@@ -66,17 +56,19 @@ class Pagination extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['pagination'])) {
             return;
         }
 
         $settings = $scopeSettings['pagination'];
         $keys = [
-            'search_limit',
             'trash_limit',
             'section_limit',
             'language_limit',
@@ -97,7 +89,7 @@ class Pagination extends AbstractParser
         ];
 
         foreach ($keys as $key) {
-            if (!isset($settings[$key]) || empty($settings[$key])) {
+            if (empty($settings[$key])) {
                 continue;
             }
 
@@ -109,5 +101,3 @@ class Pagination extends AbstractParser
         }
     }
 }
-
-class_alias(Pagination::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Pagination');

@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Limitation\Mapper;
 
@@ -17,17 +18,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class GroupLimitationMapper extends MultipleSelectionBasedMapper implements LimitationValueMapperInterface, TranslationContainerInterface
 {
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
-    protected function getSelectionChoices()
+    /**
+     * @return array<int, string>
+     */
+    protected function getSelectionChoices(): array
     {
         return [
             1 => $this->translator->trans(/** @Desc("Self") */
@@ -38,7 +36,10 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         ];
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    /**
+     * @return string[]
+     */
+    public function mapLimitationValue(Limitation $limitation): array
     {
         return [
             $this->translator->trans(/** @Desc("Self") */
@@ -59,5 +60,3 @@ class GroupLimitationMapper extends MultipleSelectionBasedMapper implements Limi
         ];
     }
 }
-
-class_alias(GroupLimitationMapper::class, 'EzSystems\EzPlatformAdminUi\Limitation\Mapper\GroupLimitationMapper');

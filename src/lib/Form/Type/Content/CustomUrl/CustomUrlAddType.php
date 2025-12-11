@@ -27,46 +27,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CustomUrlAddType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class CustomUrlAddType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\AdminUi\Form\EventListener\AddLanguageFieldBasedOnContentListener */
-    private $addLanguageFieldBasedOnContentListener;
-
-    /** @var \Ibexa\AdminUi\Form\EventListener\BuildPathFromRootListener */
-    private $buildPathFromRootListener;
-
-    /** @var \Ibexa\AdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener */
-    private $checkboxIfRootLocationListener;
-
-    /** @var \Ibexa\AdminUi\Siteaccess\NonAdminSiteaccessResolver */
-    private $nonAdminSiteaccessResolver;
-
-    private SiteAccessNameGeneratorInterface $siteAccessNameGenerator;
-
     public function __construct(
-        LanguageService $languageService,
-        AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener,
-        BuildPathFromRootListener $buildPathFromRootListener,
-        DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
-        SiteaccessResolverInterface $nonAdminSiteaccessResolver,
-        SiteAccessNameGeneratorInterface $siteAccessNameGenerator
+        private readonly LanguageService $languageService,
+        private readonly AddLanguageFieldBasedOnContentListener $addLanguageFieldBasedOnContentListener,
+        private readonly BuildPathFromRootListener $buildPathFromRootListener,
+        private readonly DisableSiteRootCheckboxIfRootLocationListener $checkboxIfRootLocationListener,
+        private readonly SiteaccessResolverInterface $nonAdminSiteaccessResolver,
+        private readonly SiteAccessNameGeneratorInterface $siteAccessNameGenerator
     ) {
-        $this->languageService = $languageService;
-        $this->addLanguageFieldBasedOnContentListener = $addLanguageFieldBasedOnContentListener;
-        $this->buildPathFromRootListener = $buildPathFromRootListener;
-        $this->checkboxIfRootLocationListener = $checkboxIfRootLocationListener;
-        $this->nonAdminSiteaccessResolver = $nonAdminSiteaccessResolver;
-        $this->siteAccessNameGenerator = $siteAccessNameGenerator;
     }
 
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $location = $options['data']->getLocation();
 
@@ -151,5 +127,3 @@ class CustomUrlAddType extends AbstractType
         ]);
     }
 }
-
-class_alias(CustomUrlAddType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\CustomUrl\CustomUrlAddType');

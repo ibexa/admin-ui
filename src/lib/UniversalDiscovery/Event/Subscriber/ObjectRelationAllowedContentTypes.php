@@ -11,11 +11,8 @@ namespace Ibexa\AdminUi\UniversalDiscovery\Event\Subscriber;
 use Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class ObjectRelationAllowedContentTypes implements EventSubscriberInterface
+final readonly class ObjectRelationAllowedContentTypes implements EventSubscriberInterface
 {
-    /**
-     * @return array
-     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -23,9 +20,6 @@ class ObjectRelationAllowedContentTypes implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\Event\ConfigResolveEvent $event
-     */
     public function onUdwConfigResolve(ConfigResolveEvent $event): void
     {
         $context = $event->getContext();
@@ -62,5 +56,3 @@ class ObjectRelationAllowedContentTypes implements EventSubscriberInterface
         $event->setConfig($config);
     }
 }
-
-class_alias(ObjectRelationAllowedContentTypes::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\Event\Subscriber\ObjectRelationAllowedContentTypes');

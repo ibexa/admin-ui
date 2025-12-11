@@ -33,73 +33,39 @@ use Twig\Environment;
 
 class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
 {
-    private const PAGINATION_PARAM_NAME = 'url-wildcards-page';
+    private const string PAGINATION_PARAM_NAME = 'url-wildcards-page';
 
-    public const URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
-    /** @var \Ibexa\Contracts\Core\Repository\URLWildcardService */
-    private $urlWildcardService;
-
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
-
-    /** @var \Symfony\Component\Form\FormFactoryInterface */
-    private $formFactory;
+    public const string URI_FRAGMENT = 'ibexa-tab-link-manager-url-wildcards';
 
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        PermissionResolver $permissionResolver,
-        ConfigResolverInterface $configResolver,
-        RequestStack $requestStack,
-        URLWildcardService $urlWildcardService,
-        FormFactoryInterface $formFactory
+        protected readonly PermissionResolver $permissionResolver,
+        private readonly ConfigResolverInterface $configResolver,
+        private readonly RequestStack $requestStack,
+        private readonly URLWildcardService $urlWildcardService,
+        private readonly FormFactoryInterface $formFactory
     ) {
         parent::__construct($twig, $translator);
-
-        $this->permissionResolver = $permissionResolver;
-        $this->configResolver = $configResolver;
-        $this->requestStack = $requestStack;
-        $this->urlWildcardService = $urlWildcardService;
-        $this->formFactory = $formFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIdentifier(): string
     {
         return 'url-wildcards';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return /** @Desc("URL wildcards") */
             $this->translator->trans('tab.name.url_wildcards', [], 'ibexa_url_wildcard');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getOrder(): int
     {
         return 20;
     }
 
     /**
-     * @param array $parameters
-     *
-     * @return string
-     *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
@@ -109,7 +75,11 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
     {
         $limit = $this->configResolver->getParameter('pagination.url_wildcards');
         $currentRequest = $this->requestStack->getCurrentRequest();
-        $page = $this->requestStack->getCurrentRequest()->query->getInt(
+        if ($currentRequest == null) {
+            return '';
+        }
+
+        $page = $currentRequest->query->getInt(
             self::PAGINATION_PARAM_NAME,
             1
         );
@@ -139,7 +109,7 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
             )
         );
 
-        $urlWildcardLists->setMaxPerPage($data->getLimit());
+        $urlWildcardLists->setMaxPerPage($data->limit);
         $urlWildcardLists->setCurrentPage(min($page, $urlWildcardLists->getNbPages()));
 
         $urlWildcards = $urlWildcardLists->getCurrentPageResults();
@@ -201,5 +171,3 @@ class URLWildcardsTab extends AbstractTab implements OrderedTabInterface
         return $query;
     }
 }
-
-class_alias(URLWildcardsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\URLManagement\URLWildcardsTab');

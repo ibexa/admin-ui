@@ -1,7 +1,6 @@
 imports:
     - { resource: services/service_aliases.yaml }
     - { resource: services/config.yaml }
-    - { resource: services/controller_argument_resolvers.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/tabs.yaml }
     - { resource: services/action_menu.yaml }
@@ -41,6 +40,7 @@ imports:
     - { resource: services/icons.yaml }
     - { resource: services/role_form_mappers.yaml }
     - { resource: services/security.yaml }
+    - { resource: services/value_resolvers.yaml }
     - { resource: services/notifier.yaml }
 
 services:
@@ -50,21 +50,8 @@ services:
         public: false
 
     Ibexa\Contracts\AdminUi\Controller\Controller:
-        tags: ['controller.service_arguments']
-        calls:
-            - [setContainer, ["@service_container"]]
-            - [performAccessCheck, []]
-
-    Ibexa\Bundle\AdminUi\ParamConverter\:
-        resource: "../../ParamConverter/*"
-        public: true
         tags:
-            - { name: 'request.param_converter' }
-
-    Ibexa\Bundle\AdminUi\ParamConverter\ContentTypeParamConverter:
-        public: true
-        tags:
-            - { name: 'request.param_converter' }
+            -   name: controller.service_arguments
 
     Ibexa\AdminUi\UI\Dataset\DatasetFactory:
         lazy: true

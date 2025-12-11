@@ -1,0 +1,10 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'mixins/selected-items-panel' as *;
+
+.c-selected-items-panel {
+    @include c-selected-items-panel;
+
+    & {
+        width: calculateRem(400px);
+    }
+}

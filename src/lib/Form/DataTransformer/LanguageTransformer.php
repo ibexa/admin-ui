@@ -17,29 +17,13 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between a Language's ID and a domain specific Language object.
  */
-class LanguageTransformer implements DataTransformerInterface
+final readonly class LanguageTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
-    public function __construct(LanguageService $languageService)
+    public function __construct(private LanguageService $languageService)
     {
-        $this->languageService = $languageService;
     }
 
-    /**
-     * Transforms a domain specific Language object into a Language's ID.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Language|null $value
-     *
-     * @return string|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not a Language object
-     */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (null === $value) {
             return null;
@@ -49,20 +33,13 @@ class LanguageTransformer implements DataTransformerInterface
             throw new TransformationFailedException('Expected a ' . Language::class . ' object.');
         }
 
-        return $value->languageCode;
+        return $value->getLanguageCode();
     }
 
     /**
-     * Transforms a Content's ID integer into a domain specific ContentInfo object.
-     *
-     * @param string|null $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language|null
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the value can not be found
      */
-    public function reverseTransform($value)
+    public function reverseTransform(mixed $value): ?Language
     {
         if (empty($value)) {
             return null;
@@ -81,5 +58,3 @@ class LanguageTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(LanguageTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\LanguageTransformer');

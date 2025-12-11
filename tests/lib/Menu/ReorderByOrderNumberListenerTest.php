@@ -32,7 +32,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             ]
         );
 
-        $eventMock = $this->getConfigureMenuEventMock($menu);
+        $eventMock = $this->getConfigureMenuEvent($menu);
 
         $listener = new ReorderByOrderNumberListener();
         $listener->reorderMenuItems($eventMock);
@@ -45,7 +45,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'fifth',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testOrderedMenuList(): void
@@ -63,7 +63,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             ]
         );
 
-        $eventMock = $this->getConfigureMenuEventMock($menu);
+        $eventMock = $this->getConfigureMenuEvent($menu);
 
         $listener = new ReorderByOrderNumberListener();
         $listener->reorderMenuItems($eventMock);
@@ -76,7 +76,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'first',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testSameOrderMenuListUntouched(): void
@@ -94,7 +94,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             ]
         );
 
-        $eventMock = $this->getConfigureMenuEventMock($menu);
+        $eventMock = $this->getConfigureMenuEvent($menu);
 
         $listener = new ReorderByOrderNumberListener();
         $listener->reorderMenuItems($eventMock);
@@ -107,7 +107,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'fifth',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testAppendUnorderedMenuListAtTheEnd(): void
@@ -127,7 +127,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             ]
         );
 
-        $eventMock = $this->getConfigureMenuEventMock($menu);
+        $eventMock = $this->getConfigureMenuEvent($menu);
 
         $listener = new ReorderByOrderNumberListener();
         $listener->reorderMenuItems($eventMock);
@@ -142,7 +142,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'another',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
     }
 
     public function testNestedOrderedMenuList(): void
@@ -167,7 +167,7 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             ]
         );
 
-        $eventMock = $this->getConfigureMenuEventMock($menu);
+        $eventMock = $this->getConfigureMenuEvent($menu);
 
         $listener = new ReorderByOrderNumberListener();
         $listener->reorderMenuItems($eventMock);
@@ -189,21 +189,18 @@ final class ReorderByOrderNumberListenerTest extends TestCase
             'unordered_child',
         ];
 
-        $this->assertEquals($expected, $this->getChildrenNames($menu));
-        $this->assertEquals($expectedNested, $this->getChildrenNames($menu->getChild('another')));
+        self::assertEquals($expected, $this->getChildrenNames($menu));
+        self::assertEquals($expectedNested, $this->getChildrenNames($menu->getChild('another')));
     }
 
-    private function getConfigureMenuEventMock(ItemInterface $menu): ConfigureMenuEvent
+    private function getConfigureMenuEvent(ItemInterface $menu): ConfigureMenuEvent
     {
-        $mock = $this->createMock(ConfigureMenuEvent::class);
-        $mock
-            ->expects($this->any())
-            ->method('getMenu')
-            ->willReturn($menu);
-
-        return $mock;
+        return new ConfigureMenuEvent(new MenuFactory(), $menu);
     }
 
+    /**
+     * @param array<int, array{name: string, order?: int, children?: array<mixed>}> $items
+     */
     private function recursiveCreateMenuChildren(
         ItemInterface $menu,
         FactoryInterface $factory,
@@ -221,12 +218,17 @@ final class ReorderByOrderNumberListenerTest extends TestCase
         return $menu;
     }
 
-    private function getChildrenNames(ItemInterface $item): array
+    /**
+     * @return string[]
+     */
+    private function getChildrenNames(?ItemInterface $item = null): array
     {
+        if (null === $item) {
+            return [];
+        }
+
         return array_map(static function (ItemInterface $item): string {
             return $item->getName();
         }, array_values($item->getChildren()));
     }
 }
-
-class_alias(ReorderByOrderNumberListenerTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Menu\ReorderByOrderNumberListenerTest');

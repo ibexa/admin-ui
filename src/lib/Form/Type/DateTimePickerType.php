@@ -16,30 +16,31 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class DateTimePickerType extends AbstractType
 {
-    public function getParent()
+    public function getParent(): string
     {
         return IntegerType::class;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->addModelTransformer(new DateTimePickerTransformer());
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['attr']['data-seconds'] = (int) $options['with_seconds'];
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefault('with_seconds', true)
             ->setAllowedTypes('with_seconds', 'bool');
     }
 }
-
-class_alias(DateTimePickerType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\DateTimePickerType');

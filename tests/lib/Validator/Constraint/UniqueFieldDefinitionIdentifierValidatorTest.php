@@ -13,21 +13,16 @@ use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifier;
 use Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /**
-     * @var \Ibexa\AdminUi\Validator\Constraints\UniqueFieldDefinitionIdentifierValidator
-     */
-    private $validator;
+    private UniqueFieldDefinitionIdentifierValidator $validator;
 
     protected function setUp(): void
     {
@@ -40,7 +35,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
     public function testNotFieldDefinitionData(): void
     {
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate('foo', new UniqueFieldDefinitionIdentifier());
@@ -49,7 +44,7 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
     public function testValid(): void
     {
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $contentTypeData = new ContentTypeData([
@@ -76,22 +71,22 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $constraint = new UniqueFieldDefinitionIdentifier();
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->with($constraint->message)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('atPath')
             ->with('identifier')
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setParameter')
             ->with('%identifier%', $identifier)
             ->willReturn($constraintViolationBuilder);
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $contentTypeData = new ContentTypeData([
@@ -112,5 +107,3 @@ class UniqueFieldDefinitionIdentifierValidatorTest extends TestCase
         $this->validator->validate($fieldDefData1, $constraint);
     }
 }
-
-class_alias(UniqueFieldDefinitionIdentifierValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueFieldDefinitionIdentifierValidatorTest');

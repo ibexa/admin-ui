@@ -16,28 +16,23 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrashItemCheckboxType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
+final class TrashItemCheckboxType extends AbstractType
 {
-    /* @var TrashService */
-    private $trashService;
-
-    public function __construct(TrashService $trashService)
+    public function __construct(private readonly TrashService $trashService)
     {
-        $this->trashService = $trashService;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new TrashItemTransformer($this->trashService));
+        $builder->addModelTransformer(
+            new TrashItemTransformer($this->trashService)
+        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars = array_replace($view->vars, [
             'value' => $form->getViewData(),
@@ -45,12 +40,10 @@ class TrashItemCheckboxType extends AbstractType
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'compound' => false,
         ]);
     }
 }
-
-class_alias(TrashItemCheckboxType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Trash\TrashItemCheckboxType');

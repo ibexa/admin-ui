@@ -11,29 +11,28 @@ use Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface;
 use Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcher;
 use Ibexa\AdminUi\Form\Data\ContentTypeData;
 use Ibexa\AdminUi\Form\Data\FieldDefinitionData;
+use Ibexa\Core\FieldType\FieldTypeAliasResolverInterface;
 use Ibexa\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Core\Repository\Values\ContentType\ContentTypeDraft;
 use Ibexa\Core\Repository\Values\ContentType\FieldDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 
 class FieldTypeFormMapperDispatcherTest extends TestCase
 {
-    /**
-     * @var \Ibexa\AdminUi\FieldType\FieldTypeDefinitionFormMapperDispatcherInterface
-     */
-    private $dispatcher;
+    private FieldTypeDefinitionFormMapperDispatcher $dispatcher;
 
-    /**
-     * @var \Ibexa\AdminUi\FieldType\FieldDefinitionFormMapperInterface|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $fieldDefinitionMapperMock;
+    private FieldDefinitionFormMapperInterface&MockObject $fieldDefinitionMapperMock;
+
+    private FieldTypeAliasResolverInterface&MockObject $fieldTypeAliasResolver;
 
     protected function setUp(): void
     {
-        $this->dispatcher = new FieldTypeDefinitionFormMapperDispatcher();
-
         $this->fieldDefinitionMapperMock = $this->createMock(FieldDefinitionFormMapperInterface::class);
+        $this->fieldTypeAliasResolver = $this->createMock(FieldTypeAliasResolverInterface::class);
+
+        $this->dispatcher = new FieldTypeDefinitionFormMapperDispatcher($this->fieldTypeAliasResolver);
         $this->dispatcher->addMapper($this->fieldDefinitionMapperMock, 'first_type');
     }
 
@@ -52,13 +51,15 @@ class FieldTypeFormMapperDispatcherTest extends TestCase
 
         $formMock = $this->createMock(FormInterface::class);
 
+        $this->fieldTypeAliasResolver
+            ->method('resolveIdentifier')
+            ->willReturnArgument(0);
+
         $this->fieldDefinitionMapperMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('mapFieldDefinitionForm')
             ->with($formMock, $data);
 
         $this->dispatcher->map($formMock, $data);
     }
 }
-
-class_alias(FieldTypeFormMapperDispatcherTest::class, 'EzSystems\EzPlatformAdminUi\Tests\FieldType\FieldTypeFormMapperDispatcherTest');

@@ -22,7 +22,7 @@ import {
 } from '../../universal.discovery.module';
 import { getAdminUiConfig } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-const TreeView = ({ itemsPerPage }) => {
+const TreeView = ({ itemsPerPage = 50 }) => {
     const adminUiConfig = getAdminUiConfig();
     const [loadedLocationsMap, dispatchLoadedLocationsAction] = useContext(LoadedLocationsMapContext);
     const [markedLocationId, setMarkedLocationId] = useContext(MarkedLocationIdContext);
@@ -129,10 +129,6 @@ const TreeView = ({ itemsPerPage }) => {
 
 TreeView.propTypes = {
     itemsPerPage: PropTypes.number,
-};
-
-TreeView.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default TreeView;

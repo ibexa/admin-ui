@@ -17,7 +17,7 @@ use JMS\TranslationBundle\Translation\ExtractorInterface;
 /**
  * Generates translation strings for sort options (field and order).
  */
-class SortingTranslationExtractor implements ExtractorInterface
+final class SortingTranslationExtractor implements ExtractorInterface
 {
     /**
      * Default translations for sort fields.
@@ -40,7 +40,7 @@ class SortingTranslationExtractor implements ExtractorInterface
 
     public function extract(): MessageCatalogue
     {
-        $catalogue = new MessageCatalogue();
+        $catalog = new MessageCatalogue();
         $locationClass = new \ReflectionClass(Location::class);
 
         $sortConstants = array_filter(
@@ -53,7 +53,7 @@ class SortingTranslationExtractor implements ExtractorInterface
             if (!isset($this->defaultTranslations[$sortId])) {
                 continue;
             }
-            $catalogue->add(
+            $catalog->add(
                 $this->createMessage(
                     'content_type.sort_field.' . $sortId,
                     $this->defaultTranslations[$sortId],
@@ -62,10 +62,10 @@ class SortingTranslationExtractor implements ExtractorInterface
             );
         }
 
-        $catalogue->add($this->createMessage('content_type.sort_order.0', 'Descending', Location::class));
-        $catalogue->add($this->createMessage('content_type.sort_order.1', 'Ascending', Location::class));
+        $catalog->add($this->createMessage('content_type.sort_order.0', 'Descending', Location::class));
+        $catalog->add($this->createMessage('content_type.sort_order.1', 'Ascending', Location::class));
 
-        return $catalogue;
+        return $catalog;
     }
 
     private function createMessage(string $id, string $desc, string $source): Message
@@ -79,5 +79,3 @@ class SortingTranslationExtractor implements ExtractorInterface
         return $message;
     }
 }
-
-class_alias(SortingTranslationExtractor::class, 'EzSystems\EzPlatformAdminUi\Translation\Extractor\SortingTranslationExtractor');

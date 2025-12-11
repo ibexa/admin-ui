@@ -26,29 +26,20 @@ use Symfony\Component\Form\FormInterface;
 
 final class UserPermissionsLimitationMapper implements LimitationValueMapperInterface, LimitationFormMapperInterface, TranslationContainerInterface
 {
-    private RoleService $roleService;
-
-    private UserService $userService;
-
     private string $template;
 
-    private Repository $repository;
-
-    private SearchService $searchService;
-
     public function __construct(
-        Repository $repository,
-        SearchService $searchService,
-        RoleService $roleService,
-        UserService $userService
+        private readonly Repository $repository,
+        private readonly SearchService $searchService,
+        private readonly RoleService $roleService,
+        private readonly UserService $userService
     ) {
-        $this->roleService = $roleService;
-        $this->userService = $userService;
-        $this->repository = $repository;
-        $this->searchService = $searchService;
     }
 
-    public function mapLimitationForm(FormInterface $form, Limitation $data)
+    /**
+     * @param \Symfony\Component\Form\FormInterface<mixed> $form
+     */
+    public function mapLimitationForm(FormInterface $form, Limitation $data): void
     {
         $sub = $form
             ->getConfig()
@@ -92,7 +83,7 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
                     $choices = [];
                     /** @var \Ibexa\Contracts\Core\Repository\Values\User\UserGroup $userGroup */
                     foreach ($userGroups as $userGroup) {
-                        $choices[$userGroup->getName()] = $userGroup->id;
+                        $choices[$userGroup->getName()] = $userGroup->getId();
                     }
 
                     return $choices;
@@ -114,11 +105,11 @@ final class UserPermissionsLimitationMapper implements LimitationValueMapperInte
         return $this->template;
     }
 
-    public function filterLimitationValues(Limitation $limitation)
+    public function filterLimitationValues(Limitation $limitation): void
     {
     }
 
-    public function mapLimitationValue(Limitation $limitation)
+    public function mapLimitationValue(Limitation $limitation): array
     {
         $values = [
             'roles' => [],
