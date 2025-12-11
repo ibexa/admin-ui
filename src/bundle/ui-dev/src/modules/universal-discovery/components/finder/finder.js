@@ -5,7 +5,7 @@ import FinderBranch from './finder.branch';
 
 import { LoadedLocationsMapContext } from '../../universal.discovery.module';
 
-const Finder = ({ itemsPerPage }) => {
+const Finder = ({ itemsPerPage = 50 }) => {
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const finderRef = useRef(null);
 
@@ -26,10 +26,6 @@ const Finder = ({ itemsPerPage }) => {
 
 Finder.propTypes = {
     itemsPerPage: PropTypes.number,
-};
-
-Finder.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default Finder;

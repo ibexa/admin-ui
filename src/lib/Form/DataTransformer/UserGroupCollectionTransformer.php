@@ -16,27 +16,16 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 /**
  * Transforms between comma separated string of UserGroups's ID and an array of domain specific UserGroup objects.
  */
-class UserGroupCollectionTransformer implements DataTransformerInterface
+final readonly class UserGroupCollectionTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    protected $userService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     */
-    public function __construct(UserService $userService)
+    public function __construct(private UserService $userService)
     {
-        $this->userService = $userService;
     }
 
     /**
-     * @param array|null $value
-     *
-     * @return string|null
-     *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      */
-    public function transform($value)
+    public function transform(mixed $value): ?string
     {
         if (!is_array($value) || empty($value)) {
             return null;
@@ -46,15 +35,12 @@ class UserGroupCollectionTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param string|null $value
+     * @return array<mixed>
      *
-     * @return array
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException if the given value is not an integer
      *                                                                         or if the value can not be transformed
      */
-    public function reverseTransform($value): array
+    public function reverseTransform(mixed $value): array
     {
         if (empty($value)) {
             return [];
@@ -73,5 +59,3 @@ class UserGroupCollectionTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(UserGroupCollectionTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\UserGroupCollectionTransformer');

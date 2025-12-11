@@ -12,38 +12,26 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use function Ibexa\PolyfillPhp82\iterator_to_array;
 
 class VersionsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    protected $contentService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
-
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] */
-    protected $data;
+    protected array $data;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
-    public function __construct(ContentService $contentService, ValueFactory $valueFactory)
-    {
-        $this->contentService = $contentService;
-        $this->valueFactory = $valueFactory;
+    public function __construct(
+        protected ContentService $contentService,
+        protected ValueFactory $valueFactory
+    ) {
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return VersionsDataset
-     */
     public function load(ContentInfo $contentInfo): self
     {
+        $versions = $this->contentService->loadVersions($contentInfo);
+
         $this->data = array_map(
             [$this->valueFactory, 'createVersionInfo'],
-            $this->contentService->loadVersions($contentInfo)
+            iterator_to_array($versions)
         );
 
         return $this;
@@ -71,10 +59,7 @@ class VersionsDataset
     }
 
     /**
-     * @param int $currentVersionNo
-     * @param string $languageCode
-     *
-     * @return array
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[]
      */
     public function getConflictedDraftVersions(int $currentVersionNo, string $languageCode): array
     {
@@ -82,8 +67,8 @@ class VersionsDataset
             $this->data,
             static function (VersionInfo $versionInfo) use ($currentVersionNo, $languageCode): bool {
                 return $versionInfo->isDraft()
-                    && $versionInfo->versionNo > $currentVersionNo
-                    && $versionInfo->initialLanguageCode === $languageCode;
+                    && $versionInfo->getVersionNo() > $currentVersionNo
+                    && $versionInfo->getInitialLanguage()->getLanguageCode() === $languageCode;
             }
         );
     }
@@ -125,5 +110,3 @@ class VersionsDataset
         return array_values(array_filter($versions, $callable));
     }
 }
-
-class_alias(VersionsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\VersionsDataset');

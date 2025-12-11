@@ -15,33 +15,25 @@ use Ibexa\AdminUi\Form\Type\Content\LocationType;
 use Ibexa\AdminUi\Form\Type\Content\VersionInfoType;
 use Ibexa\AdminUi\Form\Type\Language\LanguageChoiceType;
 use Ibexa\Contracts\Core\Repository\LanguageService;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Draft\ContentEditData>
+ */
 class ContentEditType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /** @var \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader */
-    private $languageChoiceLoader;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\AdminUi\Form\Type\ChoiceList\Loader\LanguageChoiceLoader $languageChoiceLoader
-     */
     public function __construct(
-        LanguageService $languageService,
-        LanguageChoiceLoader $languageChoiceLoader
+        protected readonly LanguageService $languageService,
+        private readonly LanguageChoiceLoader $languageChoiceLoader
     ) {
-        $this->languageService = $languageService;
-        $this->languageChoiceLoader = $languageChoiceLoader;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -75,7 +67,7 @@ class ContentEditType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -88,9 +80,9 @@ class ContentEditType extends AbstractType
     }
 
     /**
-     * @param array $options
+     * @param array<string, mixed> $options
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getLanguageOptions(array $options): array
     {
@@ -110,5 +102,3 @@ class ContentEditType extends AbstractType
         return $languageOptions;
     }
 }
-
-class_alias(ContentEditType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Draft\ContentEditType');

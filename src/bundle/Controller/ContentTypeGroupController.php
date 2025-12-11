@@ -14,7 +14,6 @@ use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupsDeleteData;
 use Ibexa\AdminUi\Form\Data\ContentTypeGroup\ContentTypeGroupUpdateData;
 use Ibexa\AdminUi\Form\Factory\FormFactory;
 use Ibexa\AdminUi\Form\SubmitHandler;
-use Ibexa\AdminUi\Form\Type\ContentTypeGroup\ContentTypeGroupCreateType;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
@@ -24,59 +23,35 @@ use Ibexa\Core\MVC\Symfony\Security\Authorization\Attribute;
 use JMS\TranslationBundle\Annotation\Desc;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
-use Symfony\Component\Form\Button;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentTypeGroupController extends Controller
+final class ContentTypeGroupController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        ContentTypeService $contentTypeService,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        ConfigResolverInterface $configResolver
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly ConfigResolverInterface $configResolver
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->contentTypeService = $contentTypeService;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function listAction(Request $request): Response
     {
         $deletableContentTypeGroup = [];
         $count = [];
 
-        $page = $request->query->get('page') ?? 1;
+        $page = $request->query->getInt('page', 1);
 
         $pagerfanta = new Pagerfanta(
-            new ArrayAdapter($this->contentTypeService->loadContentTypeGroups())
+            new ArrayAdapter(iterator_to_array($this->contentTypeService->loadContentTypeGroups()))
         );
 
-        $pagerfanta->setMaxPerPage($this->configResolver->getParameter('pagination.content_type_group_limit'));
+        $pagerfanta->setMaxPerPage(
+            $this->configResolver->getParameter('pagination.content_type_group_limit')
+        );
         $pagerfanta->setCurrentPage(min($page, $pagerfanta->getNbPages()));
 
         /** @var \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroupList */
@@ -87,14 +62,17 @@ class ContentTypeGroupController extends Controller
         );
 
         foreach ($contentTypeGroupList as $contentTypeGroup) {
-            $contentTypesCount = count($this->contentTypeService->loadContentTypes($contentTypeGroup));
+            $contentTypesCount = count(
+                iterator_to_array($this->contentTypeService->loadContentTypes($contentTypeGroup))
+            );
+
             $deletableContentTypeGroup[$contentTypeGroup->id] = !(bool)$contentTypesCount;
             $count[$contentTypeGroup->id] = $contentTypesCount;
         }
 
         return $this->render('@ibexadesign/content_type/content_type_group/list.html.twig', [
             'pager' => $pagerfanta,
-            'form_content_type_groups_delete' => $deleteContentTypeGroupsForm->createView(),
+            'form_content_type_groups_delete' => $deleteContentTypeGroupsForm,
             'deletable' => $deletableContentTypeGroup,
             'content_types_count' => $count,
             'can_create' => $this->isGranted(new Attribute('class', 'create')),
@@ -103,11 +81,6 @@ class ContentTypeGroupController extends Controller
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function createAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'create'));
@@ -118,7 +91,7 @@ class ContentTypeGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupCreateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupCreateData $data): Response {
                 $createStruct = $this->contentTypeService->newContentTypeGroupCreateStruct(
                     $data->getIdentifier()
                 );
@@ -131,14 +104,6 @@ class ContentTypeGroupController extends Controller
                     'ibexa_content_type'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ContentTypeGroupCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.content_type_group.update', [
-                        'contentTypeGroupId' => $group->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
@@ -150,27 +115,22 @@ class ContentTypeGroupController extends Controller
         }
 
         return $this->render('@ibexadesign/content_type/content_type_group/create.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function updateAction(Request $request, ContentTypeGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'update'));
         /** @var \Symfony\Component\Form\Form $form */
         $form = $this->formFactory->updateContentTypeGroup(
+            $group,
             new ContentTypeGroupUpdateData($group)
         );
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $result = $this->submitHandler->handle($form, function (ContentTypeGroupUpdateData $data) use ($form): Response {
+            $result = $this->submitHandler->handle($form, function (ContentTypeGroupUpdateData $data): Response {
                 $group = $data->getContentTypeGroup();
                 $updateStruct = $this->contentTypeService->newContentTypeGroupUpdateStruct();
                 $updateStruct->identifier = $data->getIdentifier();
@@ -184,14 +144,6 @@ class ContentTypeGroupController extends Controller
                     'ibexa_content_type'
                 );
 
-                if ($form->getClickedButton() instanceof Button
-                    && $form->getClickedButton()->getName() === ContentTypeGroupCreateType::BTN_SAVE
-                ) {
-                    return $this->redirectToRoute('ibexa.content_type_group.update', [
-                        'contentTypeGroupId' => $group->id,
-                    ]);
-                }
-
                 return new RedirectResponse($this->generateUrl('ibexa.content_type_group.view', [
                     'contentTypeGroupId' => $group->id,
                 ]));
@@ -204,20 +156,15 @@ class ContentTypeGroupController extends Controller
 
         return $this->render('@ibexadesign/content_type/content_type_group/edit.html.twig', [
             'content_type_group' => $group,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function deleteAction(Request $request, ContentTypeGroup $group): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
         $form = $this->formFactory->deleteContentTypeGroup(
+            $group,
             new ContentTypeGroupDeleteData($group)
         );
         $form->handleRequest($request);
@@ -240,16 +187,9 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
+        return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
-    /**
-     * Handles removing content type groups based on submitted form.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function bulkDeleteAction(Request $request): Response
     {
         $this->denyAccessUnlessGranted(new Attribute('class', 'delete'));
@@ -260,7 +200,7 @@ class ContentTypeGroupController extends Controller
 
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (ContentTypeGroupsDeleteData $data): void {
-                foreach ($data->getContentTypeGroups() as $contentTypeGroupId => $selected) {
+                foreach ($data->getContentTypeGroups() ?? [] as $contentTypeGroupId => $selected) {
                     $group = $this->contentTypeService->loadContentTypeGroup($contentTypeGroupId);
                     $this->contentTypeService->deleteContentTypeGroup($group);
 
@@ -278,16 +218,9 @@ class ContentTypeGroupController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.content_type_group.list'));
+        return $this->redirectToRoute('ibexa.content_type_group.list');
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup $group
-     * @param int $page
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function viewAction(Request $request, ContentTypeGroup $group, int $page = 1): Response
     {
         return $this->render('@ibexadesign/content_type/content_type_group/index.html.twig', [
@@ -301,7 +234,7 @@ class ContentTypeGroupController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup[] $contentTypeGroups
      *
-     * @return array
+     * @return array<int, mixed>
      */
     private function getContentTypeGroupsNumbers(array $contentTypeGroups): array
     {
@@ -310,5 +243,3 @@ class ContentTypeGroupController extends Controller
         return array_combine($contentTypeGroupsNumbers, array_fill_keys($contentTypeGroupsNumbers, false));
     }
 }
-
-class_alias(ContentTypeGroupController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\ContentTypeGroupController');

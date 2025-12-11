@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\FieldType\Mapper;
 
@@ -15,9 +16,9 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * FormMapper for eztext FieldType.
+ * FormMapper for ibexa_text FieldType.
  */
-class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
+final readonly class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
 {
     public function mapFieldDefinitionForm(FormInterface $fieldDefinitionForm, FieldDefinitionData $data): void
     {
@@ -29,13 +30,13 @@ class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
                 [
                     'required' => false,
                     'property_path' => 'fieldSettings[textRows]',
-                    'label' => /** @Desc("Number of text rows") */ 'field_definition.eztext.text_rows',
+                    'label' => /** @Desc("Number of text rows") */ 'field_definition.ibexa_text.text_rows',
                     'disabled' => $isTranslation,
                 ]
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -43,5 +44,3 @@ class TextBlockFormMapper implements FieldDefinitionFormMapperInterface
             ]);
     }
 }
-
-class_alias(TextBlockFormMapper::class, 'EzSystems\EzPlatformAdminUi\FieldType\Mapper\TextBlockFormMapper');

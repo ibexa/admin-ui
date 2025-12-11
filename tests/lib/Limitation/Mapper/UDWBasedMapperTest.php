@@ -4,12 +4,12 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Limitation\Mapper;
 
 use Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper;
 use Ibexa\Contracts\Core\Repository\LocationService;
-use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\SearchService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -22,7 +22,10 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\SubtreeLimitation;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
-class UDWBasedMapperTest extends TestCase
+/**
+ * @covers \Ibexa\AdminUi\Limitation\Mapper\UDWBasedMapper
+ */
+final class UDWBasedMapperTest extends TestCase
 {
     public function testMapLimitationValue(): void
     {
@@ -47,7 +50,6 @@ class UDWBasedMapperTest extends TestCase
 
         $locationServiceMock = $this->createMock(LocationService::class);
         $searchServiceMock = $this->createMock(SearchService::class);
-        $permissionResolverMock = $this->createMock(PermissionResolver::class);
         $repositoryMock = $this->createMock(Repository::class);
 
         foreach ($values as $i => $id) {
@@ -56,7 +58,7 @@ class UDWBasedMapperTest extends TestCase
             ]);
 
             $locationServiceMock
-                ->expects($this->at($i))
+                ->expects(self::at($i))
                 ->method('loadLocation')
                 ->with($id)
                 ->willReturn($location);
@@ -76,7 +78,6 @@ class UDWBasedMapperTest extends TestCase
         $mapper = new UDWBasedMapper(
             $locationServiceMock,
             $searchServiceMock,
-            $permissionResolverMock,
             $repositoryMock
         );
         $result = $mapper->mapLimitationValue(new SubtreeLimitation([
@@ -86,6 +87,11 @@ class UDWBasedMapperTest extends TestCase
         self::assertEquals($expected, $result);
     }
 
+    /**
+     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo[] $expected
+     *
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Core\Repository\Values\Content\Location>
+     */
     private function createSearchResultsMock(array $expected): SearchResult
     {
         $hits = [];
@@ -99,8 +105,7 @@ class UDWBasedMapperTest extends TestCase
             $hits[] = new SearchHit(['valueObject' => $locationMock]);
         }
 
+        /** @phpstan-var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Core\Repository\Values\Content\Location> */
         return new SearchResult(['searchHits' => $hits]);
     }
 }
-
-class_alias(UDWBasedMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Limitation\Mapper\UDWBasedMapperTest');

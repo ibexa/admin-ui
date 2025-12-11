@@ -12,28 +12,25 @@ use PHPUnit\Framework\TestCase;
 
 class UniqueURLTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURL */
-    private $constraint;
+    private UniqueURL $constraint;
 
     protected function setUp(): void
     {
         $this->constraint = new UniqueURL();
     }
 
-    public function testConstruct()
+    public function testConstruct(): void
     {
-        $this->assertSame('ez.url.unique', $this->constraint->message);
+        self::assertSame('ez.url.unique', $this->constraint->message);
     }
 
-    public function testValidatedBy()
+    public function testValidatedBy(): void
     {
-        $this->assertSame('ezplatform.content_forms.validator.unique_url', $this->constraint->validatedBy());
+        self::assertSame('ezplatform.content_forms.validator.unique_url', $this->constraint->validatedBy());
     }
 
-    public function testGetTargets()
+    public function testGetTargets(): void
     {
-        $this->assertSame(UniqueURL::CLASS_CONSTRAINT, $this->constraint->getTargets());
+        self::assertSame(UniqueURL::CLASS_CONSTRAINT, $this->constraint->getTargets());
     }
 }
-
-class_alias(UniqueURLTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueURLTest');

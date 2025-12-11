@@ -23,32 +23,19 @@ use ZipArchive;
 
 final class DownloadImageController extends Controller
 {
-    private const EXTENSION_ZIP = '.zip';
+    private const string EXTENSION_ZIP = '.zip';
 
-    private const ARCHIVE_NAME_PATTERN = 'images_%s' . self::EXTENSION_ZIP;
-
-    private int $downloadLimit;
-
-    private FormatterInterface $formatter;
-
-    /** @var array<string, mixed> */
-    private array $imageMappings;
-
-    private SearchService $searchService;
+    private const string ARCHIVE_NAME_PATTERN = 'images_%s' . self::EXTENSION_ZIP;
 
     /**
      * @param array<string, mixed> $imageMappings
      */
     public function __construct(
-        int $downloadLimit,
-        FormatterInterface $formatter,
-        array $imageMappings,
-        SearchService $searchService
+        private readonly int $downloadLimit,
+        private readonly FormatterInterface $formatter,
+        private readonly array $imageMappings,
+        private readonly SearchService $searchService
     ) {
-        $this->downloadLimit = $downloadLimit;
-        $this->formatter = $formatter;
-        $this->imageMappings = $imageMappings;
-        $this->searchService = $searchService;
     }
 
     /**
@@ -92,6 +79,8 @@ final class DownloadImageController extends Controller
     }
 
     /**
+     * @phpstan-param \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Content> $result
+     *
      * @throws \Exception
      */
     private function processDownloading(SearchResult $result): Response
@@ -110,9 +99,7 @@ final class DownloadImageController extends Controller
 
         $contentList = [];
 
-        /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit $image */
         foreach ($result as $image) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
             $content = $image->valueObject;
             $contentList[] = $content;
         }
@@ -178,7 +165,10 @@ final class DownloadImageController extends Controller
 
     private function getImageValue(Content $content): Value
     {
-        $imageFieldIdentifier = $this->getImageFieldIdentifier($content->getContentType()->identifier);
+        $imageFieldIdentifier = $this->getImageFieldIdentifier(
+            $content->getContentType()->getIdentifier()
+        );
+
         $value = $content->getFieldValue($imageFieldIdentifier);
 
         if (null === $value) {
@@ -239,8 +229,10 @@ final class DownloadImageController extends Controller
     /**
      * @param array<int> $contentIdList
      *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException;
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException;
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchResult<\Ibexa\Contracts\Core\Repository\Values\Content\Content>
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidCriterionArgumentException
      */
     private function loadImages(array $contentIdList): SearchResult
     {
@@ -280,7 +272,7 @@ final class DownloadImageController extends Controller
 
         return new Response(
             $content,
-            200,
+            Response::HTTP_OK,
             [
                 'Content-Disposition' => $disposition,
                 'Content-Length' => strlen($content),

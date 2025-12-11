@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\Data\Language;
 
@@ -11,83 +12,46 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class LanguageCreateData implements TranslationContainerInterface
+final class LanguageCreateData implements TranslationContainerInterface
 {
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     */
-    private $name;
+    #[Assert\NotBlank]
+    private ?string $name = null;
 
-    /**
-     * @var string
-     *
-     * @Assert\NotBlank()
-     *
-     * @Assert\Regex(
-     *      pattern="/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/",
-     *      message="ibexa.language.language_code.format"
-     * )
-     */
-    private $languageCode;
+    #[Assert\NotBlank]
+    #[Assert\Regex(pattern: '/^[a-zA-Z0-9_][a-zA-Z0-9_\-:]*$/', message: 'ibexa.language.language_code.format')]
+    private ?string $languageCode = null;
 
-    /** @var bool */
-    private $enabled = true;
+    private bool $enabled = true;
 
-    /**
-     * @return string
-     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return LanguageCreateData
-     */
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLanguageCode(): ?string
     {
         return $this->languageCode;
     }
 
-    /**
-     * @param string $languageCode
-     *
-     * @return LanguageCreateData
-     */
-    public function setLanguageCode(string $languageCode): self
+    public function setLanguageCode(?string $languageCode): self
     {
         $this->languageCode = $languageCode;
 
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool
     {
         return $this->enabled;
     }
 
-    /**
-     * @param bool $enabled
-     *
-     * @return LanguageCreateData
-     */
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
@@ -105,5 +69,3 @@ class LanguageCreateData implements TranslationContainerInterface
         ];
     }
 }
-
-class_alias(LanguageCreateData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Language\LanguageCreateData');

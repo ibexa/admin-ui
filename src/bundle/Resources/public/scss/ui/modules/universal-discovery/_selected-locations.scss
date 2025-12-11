@@ -1,0 +1,5 @@
+@use 'mixins/selected-items-panel' as *;
+
+.c-selected-locations {
+    @include c-selected-items-panel;
+}

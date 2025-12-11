@@ -17,20 +17,16 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Content\Location\ContentMainLocationUpdateData>
+ */
 class ContentMainLocationUpdateType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    protected $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
-    public function __construct(LocationService $locationService)
+    public function __construct(protected readonly LocationService $locationService)
     {
-        $this->locationService = $locationService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
@@ -56,7 +52,7 @@ class ContentMainLocationUpdateType extends AbstractType
             );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ContentMainLocationUpdateData::class,
@@ -64,5 +60,3 @@ class ContentMainLocationUpdateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ContentMainLocationUpdateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Content\Location\ContentMainLocationUpdateType');

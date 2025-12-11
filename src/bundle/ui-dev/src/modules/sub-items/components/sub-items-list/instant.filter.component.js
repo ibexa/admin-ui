@@ -4,26 +4,26 @@ import PropTypes from 'prop-types';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createCssClassNames } from '@ibexa-admin-ui-modules/common/helpers/css.class.names';
 
-const InstantFilter = (props) => {
+const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnabled = true, activeLanguage = '' }) => {
     const Translator = getTranslator();
     const [filterQuery, setFilterQuery] = useState('');
     const searchInputWrapperClassName = createCssClassNames({
         'ibexa-instant-filter__input-wrapper': true,
-        'ibexa-instant-filter__input-wrapper--hidden': !props.isSearchEnabled,
+        'ibexa-instant-filter__input-wrapper--hidden': !isSearchEnabled,
     });
     const filteredItems = useMemo(() => {
         if (!filterQuery) {
-            return props.items;
+            return items;
         }
 
         const filterQueryLowerCase = filterQuery.toLowerCase();
 
-        return props.items.filter((item) => {
+        return items.filter((item) => {
             const itemLabelLowerCase = item.label.toLowerCase();
 
             return itemLabelLowerCase.includes(filterQueryLowerCase);
         });
-    }, [props.items, filterQuery]);
+    }, [items, filterQuery]);
 
     return (
         <div className="ibexa-instant-filter">
@@ -45,7 +45,7 @@ const InstantFilter = (props) => {
                     const labelClassName = createCssClassNames({
                         'form-check-label': true,
                         'ibexa-label': true,
-                        'ibexa-label--active': props.activeLanguage === item.value,
+                        'ibexa-label--active': activeLanguage === item.value,
                     });
 
                     return (
@@ -57,8 +57,8 @@ const InstantFilter = (props) => {
                                     name="items"
                                     className="form-check-input ibexa-input"
                                     value={item.value}
-                                    checked={props.activeLanguage === item.value}
-                                    onChange={() => props.handleItemChange(item.value)}
+                                    checked={activeLanguage === item.value}
+                                    onChange={() => handleItemChange(item.value)}
                                 />
                                 <label className={labelClassName} htmlFor={radioId}>
                                     {item.label}
@@ -77,13 +77,6 @@ InstantFilter.propTypes = {
     activeLanguage: PropTypes.string,
     items: PropTypes.array,
     handleItemChange: PropTypes.func,
-};
-
-InstantFilter.defaultProps = {
-    isSearchEnabled: true,
-    activeLanguage: '',
-    items: [],
-    handleItemChange: () => {},
 };
 
 export default InstantFilter;

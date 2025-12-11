@@ -25,97 +25,54 @@ use Twig\Environment;
 
 class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInterface, ConditionalTabInterface
 {
-    public const URI_FRAGMENT = 'ibexa-tab-location-view-relations';
+    public const string URI_FRAGMENT = 'ibexa-tab-location-view-relations';
 
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    protected $permissionResolver;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    protected $datasetFactory;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    protected $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /**
-     * @param \Twig\Environment $twig
-     * @param \Symfony\Contracts\Translation\TranslatorInterface $translator
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\ContentTypeService $contentTypeService
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     */
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        PermissionResolver $permissionResolver,
-        DatasetFactory $datasetFactory,
-        ContentTypeService $contentTypeService,
+        protected readonly PermissionResolver $permissionResolver,
+        protected readonly DatasetFactory $datasetFactory,
+        protected readonly ContentTypeService $contentTypeService,
         EventDispatcherInterface $eventDispatcher,
-        ContentService $contentService
+        private readonly ContentService $contentService
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->permissionResolver = $permissionResolver;
-        $this->datasetFactory = $datasetFactory;
-        $this->contentTypeService = $contentTypeService;
-        $this->contentService = $contentService;
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'relations';
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         /** @Desc("Relations") */
         return $this->translator->trans('tab.name.relations', [], 'ibexa_locationview');
     }
 
-    /**
-     * @return int
-     */
     public function getOrder(): int
     {
         return 600;
     }
 
     /**
-     * Get information about tab presence.
-     *
-     * @param array $parameters
-     *
-     * @return bool
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      */
     public function evaluate(array $parameters): bool
     {
-        return $this->permissionResolver->canUser('content', 'reverserelatedlist', $parameters['content']);
+        return $this->permissionResolver->canUser(
+            'content',
+            'reverserelatedlist',
+            $parameters['content']
+        );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/relations/tab.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
@@ -167,7 +124,9 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         }
 
         if (!empty($contentTypeIds)) {
-            $viewParameters['content_types'] = $this->contentTypeService->loadContentTypeList(array_unique($contentTypeIds));
+            $viewParameters['content_types'] = $this->contentTypeService->loadContentTypeList(
+                array_unique($contentTypeIds)
+            );
         } else {
             $viewParameters['content_types'] = [];
         }
@@ -175,5 +134,3 @@ class RelationsTab extends AbstractEventDispatchingTab implements OrderedTabInte
         return array_replace($contextParameters, $viewParameters);
     }
 }
-
-class_alias(RelationsTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\RelationsTab');

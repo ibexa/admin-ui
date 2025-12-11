@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Form\DataMapper;
 
@@ -15,16 +16,12 @@ use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 /**
  * Maps between PolicyUpdateStruct and PolicyUpdateData objects.
  */
-class PolicyUpdateMapper implements DataMapperInterface
+final readonly class PolicyUpdateMapper implements DataMapperInterface
 {
     /**
      * Maps given PolicyUpdateStruct object to a PolicyUpdateData object.
-     *
-     * @param \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct|\Ibexa\Contracts\Core\Repository\Values\ValueObject $value
-     *
-     * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
      */
-    public function map(ValueObject $value): PolicyUpdateData
+    public function map(ValueObject|PolicyUpdateStruct $value): PolicyUpdateData
     {
         $data = new PolicyUpdateData();
 
@@ -39,21 +36,19 @@ class PolicyUpdateMapper implements DataMapperInterface
      * Maps given PolicyUpdateData object to a PolicyUpdateStruct object.
      *
      * @param \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData $data
-     *
-     * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
      */
-    public function reverseMap($data): PolicyUpdateStruct
+    public function reverseMap(mixed $data): PolicyUpdateStruct
     {
         $policyUpdateStruct = new PolicyUpdateStruct();
 
         foreach ($data->getLimitations() as $limitation) {
-            if (!empty($limitation->limitationValues)) {
-                $policyUpdateStruct->addLimitation($limitation);
+            if (empty($limitation->limitationValues)) {
+                continue;
             }
+
+            $policyUpdateStruct->addLimitation($limitation);
         }
 
         return $policyUpdateStruct;
     }
 }
-
-class_alias(PolicyUpdateMapper::class, 'EzSystems\EzPlatformAdminUi\Form\DataMapper\PolicyUpdateMapper');

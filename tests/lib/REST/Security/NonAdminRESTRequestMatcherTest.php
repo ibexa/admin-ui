@@ -97,5 +97,3 @@ class NonAdminRESTRequestMatcherTest extends TestCase
         self::assertTrue($adminRESTRequestMatcher->matches($request));
     }
 }
-
-class_alias(NonAdminRESTRequestMatcherTest::class, 'EzSystems\EzPlatformAdminUi\Tests\REST\Security\NonAdminRESTRequestMatcherTest');

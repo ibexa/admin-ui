@@ -23,7 +23,7 @@ import {
 
 const SCROLL_OFFSET = 200;
 
-const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
+const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage = 50 }) => {
     const Translator = getTranslator();
     const refBookmarksList = useRef(null);
     const [offset, setOffset] = useState(0);
@@ -76,6 +76,15 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
             </div>
         );
     };
+    const renderNoBookmarksContent = () => {
+        return (
+            <table>
+                <tbody>
+                    <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />
+                </tbody>
+            </table>
+        );
+    };
 
     useEffect(() => {
         if (isLoading) {
@@ -104,7 +113,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 
     return (
         <div className={containerClassName} onScroll={loadMore} ref={refBookmarksList}>
-            {!isLoading && areSomeBookmarksAdded && <EmptyTableBodyRow infoText={noBookmarksInfoText} actionText={noBookmarksActionText} />}
+            {!isLoading && areSomeBookmarksAdded && renderNoBookmarksContent()}
             {bookmarks.map((bookmark) => {
                 const isMarked = bookmark.id === markedLocationId;
                 const contentTypeInfo = contentTypesMap[bookmark.ContentInfo.Content.ContentType._href];
@@ -135,7 +144,7 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 
                 return (
                     <div key={bookmark.id} className={className} onClick={markLocation}>
-                        <Icon extraClasses="ibexa-icon--small" customPath={contentTypeInfo.thumbnail} />
+                        <Icon extraClasses="ibexa-icon--small-medium" customPath={contentTypeInfo.thumbnail} />
                         <span
                             title={bookmark.ContentInfo.Content.TranslatedName}
                             data-tooltip-container-selector=".c-bookmarks-list"
@@ -154,10 +163,6 @@ const BookmarksList = ({ setBookmarkedLocationMarked, itemsPerPage }) => {
 BookmarksList.propTypes = {
     setBookmarkedLocationMarked: PropTypes.func.isRequired,
     itemsPerPage: PropTypes.number,
-};
-
-BookmarksList.defaultProps = {
-    itemsPerPage: 50,
 };
 
 export default BookmarksList;

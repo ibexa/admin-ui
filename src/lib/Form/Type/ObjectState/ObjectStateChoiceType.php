@@ -14,25 +14,21 @@ use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState>
+ */
 class ObjectStateChoiceType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ObjectStateService */
-    protected $objectStateService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ObjectStateService $objectStateService
-     */
-    public function __construct(ObjectStateService $objectStateService)
+    public function __construct(protected readonly ObjectStateService $objectStateService)
     {
-        $this->objectStateService = $objectStateService;
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
@@ -40,7 +36,9 @@ class ObjectStateChoiceType extends AbstractType
                     $objectStates = [];
                     $objectStateGroups = $this->objectStateService->loadObjectStateGroups();
                     foreach ($objectStateGroups as $objectStateGroup) {
-                        $objectStates[$objectStateGroup->identifier] = $this->objectStateService->loadObjectStates($objectStateGroup);
+                        $objectStates[$objectStateGroup->identifier] = $this->objectStateService->loadObjectStates(
+                            $objectStateGroup
+                        );
                     }
 
                     return $objectStates;
@@ -51,5 +49,3 @@ class ObjectStateChoiceType extends AbstractType
             ]);
     }
 }
-
-class_alias(ObjectStateChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateChoiceType');

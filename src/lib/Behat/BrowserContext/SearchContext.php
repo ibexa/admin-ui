@@ -13,16 +13,12 @@ use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\SearchPage;
 use PHPUnit\Framework\Assert;
 
-class SearchContext implements Context
+final readonly class SearchContext implements Context
 {
-    private SearchPage $searchPage;
-
-    private UpperMenu $upperMenu;
-
-    public function __construct(SearchPage $searchPage, UpperMenu $upperMenu)
-    {
-        $this->searchPage = $searchPage;
-        $this->upperMenu = $upperMenu;
+    public function __construct(
+        private SearchPage $searchPage,
+        private UpperMenu $upperMenu
+    ) {
     }
 
     /**

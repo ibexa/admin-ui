@@ -13,6 +13,7 @@ use Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\URLService;
 use Ibexa\Contracts\Core\Repository\Values\URL\URL;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -20,14 +21,11 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class UniqueURLValidatorTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLService|\PHPUnit\Framework\MockObject\MockObject */
-    private $urlService;
+    private URLService&MockObject $urlService;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Validator\Context\ExecutionContextInterface */
-    private $executionContext;
+    private ExecutionContextInterface&MockObject $executionContext;
 
-    /** @var \Ibexa\AdminUi\Validator\Constraints\UniqueURLValidator */
-    private $validator;
+    private UniqueURLValidator $validator;
 
     protected function setUp(): void
     {
@@ -38,33 +36,33 @@ class UniqueURLValidatorTest extends TestCase
         $this->validator->initialize($this->executionContext);
     }
 
-    public function testUnsupportedValueType()
+    public function testUnsupportedValueType(): void
     {
         $value = new stdClass();
 
         $this->urlService
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('loadByUrl');
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate($value, new UniqueURL());
     }
 
-    public function testValid()
+    public function testValid(): void
     {
         $url = 'http://ibexa.co';
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
             ->willThrowException($this->createMock(NotFoundException::class));
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate(new URLUpdateData([
@@ -73,13 +71,13 @@ class UniqueURLValidatorTest extends TestCase
         ]), new UniqueURL());
     }
 
-    public function testInvalid()
+    public function testInvalid(): void
     {
         $constraint = new UniqueURL();
         $url = 'http://ibexa.co';
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
             ->willReturn(new URL([
@@ -90,25 +88,25 @@ class UniqueURLValidatorTest extends TestCase
         $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
 
         $this->executionContext
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('buildViolation')
             ->with($constraint->message)
             ->willReturn($constraintViolationBuilder);
 
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('atPath')
             ->with('url')
             ->willReturn($constraintViolationBuilder);
 
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setParameter')
             ->with('%url%', $url)
             ->willReturn($constraintViolationBuilder);
 
         $constraintViolationBuilder
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('addViolation');
 
         $this->validator->validate(new URLUpdateData([
@@ -117,13 +115,13 @@ class UniqueURLValidatorTest extends TestCase
         ]), $constraint);
     }
 
-    public function testEditingIsValid()
+    public function testEditingIsValid(): void
     {
         $id = 1;
         $url = 'http://ibexa.co';
 
         $this->urlService
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('loadByUrl')
             ->with($url)
             ->willReturn(new URL([
@@ -132,7 +130,7 @@ class UniqueURLValidatorTest extends TestCase
             ]));
 
         $this->executionContext
-            ->expects($this->never())
+            ->expects(self::never())
             ->method('buildViolation');
 
         $this->validator->validate(new URLUpdateData([
@@ -141,5 +139,3 @@ class UniqueURLValidatorTest extends TestCase
         ]), new UniqueURL());
     }
 }
-
-class_alias(UniqueURLValidatorTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Validator\Constraint\UniqueURLValidatorTest');

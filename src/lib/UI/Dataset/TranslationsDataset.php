@@ -17,34 +17,19 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 
 class TranslationsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    protected $valueFactory;
-
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
-    protected $data;
+    protected array $data;
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\AdminUi\UI\Value\ValueFactory $valueFactory
-     */
-    public function __construct(LanguageService $languageService, ValueFactory $valueFactory)
-    {
-        $this->languageService = $languageService;
-        $this->valueFactory = $valueFactory;
+    public function __construct(
+        protected readonly LanguageService $languageService,
+        protected readonly ValueFactory $valueFactory
+    ) {
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo $versionInfo
-     *
-     * @return TranslationsDataset
-     */
     public function load(VersionInfo $versionInfo): self
     {
         $languages = [];
-        foreach ($versionInfo->languageCodes as $languageCode) {
+        foreach ($versionInfo->getLanguageCodes() as $languageCode) {
             $languages[] = $this->languageService->loadLanguage($languageCode);
         }
 
@@ -58,13 +43,6 @@ class TranslationsDataset
         return $this;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\TranslationsDataset
-     *
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
-     */
     public function loadFromContentType(ContentType $contentType): self
     {
         $languages = [];
@@ -91,12 +69,10 @@ class TranslationsDataset
     }
 
     /**
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Language[]
+     * @return list<string>
      */
     public function getLanguageCodes(): array
     {
         return array_column($this->data, 'languageCode');
     }
 }
-
-class_alias(TranslationsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\TranslationsDataset');

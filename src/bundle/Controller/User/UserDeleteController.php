@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Bundle\AdminUi\Controller\User;
 
@@ -19,53 +20,19 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserDeleteController extends Controller
+final class UserDeleteController extends Controller
 {
-    /** @var \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface */
-    private $notificationHandler;
-
-    /** @var \Ibexa\AdminUi\Form\Factory\FormFactory */
-    private $formFactory;
-
-    /** @var \Ibexa\AdminUi\Form\SubmitHandler */
-    private $submitHandler;
-
-    /** @var \Ibexa\Contracts\Core\Repository\UserService */
-    private $userService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface $notificationHandler
-     * @param \Ibexa\AdminUi\Form\Factory\FormFactory $formFactory
-     * @param \Ibexa\AdminUi\Form\SubmitHandler $submitHandler
-     * @param \Ibexa\Contracts\Core\Repository\UserService $userService
-     * @param \Ibexa\Contracts\Core\Repository\LocationService $locationService
-     */
     public function __construct(
-        TranslatableNotificationHandlerInterface $notificationHandler,
-        FormFactory $formFactory,
-        SubmitHandler $submitHandler,
-        UserService $userService,
-        LocationService $locationService
+        private readonly TranslatableNotificationHandlerInterface $notificationHandler,
+        private readonly FormFactory $formFactory,
+        private readonly SubmitHandler $submitHandler,
+        private readonly UserService $userService,
+        private readonly LocationService $locationService
     ) {
-        $this->notificationHandler = $notificationHandler;
-        $this->formFactory = $formFactory;
-        $this->submitHandler = $submitHandler;
-        $this->userService = $userService;
-        $this->locationService = $locationService;
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Translation\Exception\InvalidArgumentException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
-     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     public function userDeleteAction(Request $request): Response
     {
@@ -76,11 +43,33 @@ class UserDeleteController extends Controller
         if ($form->isSubmitted()) {
             $result = $this->submitHandler->handle($form, function (UserDeleteData $data): RedirectResponse {
                 $contentInfo = $data->getContentInfo();
+                if ($contentInfo === null) {
+                    $this->notificationHandler->error(
+                        /** @Desc("Deleting user failed.") */
+                        'user.delete.error.failed',
+                        [],
+                        'ibexa_content'
+                    );
 
-                $location = $this->locationService->loadLocation($contentInfo->mainLocationId);
+                    return new RedirectResponse($this->generateUrl('ibexa.dashboard'));
+                }
+
+                $mainLocationId = $contentInfo->getMainLocationId();
+                if ($mainLocationId === null) {
+                    $this->notificationHandler->error(
+                        /** @Desc("Deleting user failed. User has no main location.") */
+                        'user.delete.error.no_main_location',
+                        [],
+                        'ibexa_content'
+                    );
+
+                    return new RedirectResponse($this->generateUrl('ibexa.dashboard'));
+                }
+
+                $location = $this->locationService->loadLocation($mainLocationId);
                 $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
 
-                $user = $this->userService->loadUser($contentInfo->id);
+                $user = $this->userService->loadUser($contentInfo->getId());
 
                 $this->userService->deleteUser($user);
 
@@ -92,7 +81,7 @@ class UserDeleteController extends Controller
                 );
 
                 return new RedirectResponse($this->generateUrl('ibexa.content.view', [
-                    'contentId' => $parentLocation->contentId,
+                    'contentId' => $parentLocation->getContentId(),
                     'locationId' => $location->parentLocationId,
                 ]));
             });
@@ -102,8 +91,6 @@ class UserDeleteController extends Controller
             }
         }
 
-        return $this->redirect($this->generateUrl('ibexa.dashboard'));
+        return $this->redirectToRoute('ibexa.dashboard');
     }
 }
-
-class_alias(UserDeleteController::class, 'EzSystems\EzPlatformAdminUiBundle\Controller\User\UserDeleteController');

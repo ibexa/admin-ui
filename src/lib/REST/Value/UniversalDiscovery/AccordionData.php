@@ -25,21 +25,15 @@ use Ibexa\Rest\Value;
  */
 final class AccordionData extends Value
 {
-    /** @var array<\Ibexa\Contracts\Core\Repository\Values\Content\Location> */
-    private array $breadcrumb;
-
-    /** @phpstan-var Columns $columns */
-    private array $columns;
-
     /**
      * @param array<\Ibexa\Contracts\Core\Repository\Values\Content\Location> $breadcrumb
      *
      * @phpstan-param Columns $columns
      */
-    public function __construct(array $breadcrumb, array $columns)
-    {
-        $this->breadcrumb = $breadcrumb;
-        $this->columns = $columns;
+    public function __construct(
+        private readonly array $breadcrumb,
+        private readonly array $columns
+    ) {
     }
 
     /**

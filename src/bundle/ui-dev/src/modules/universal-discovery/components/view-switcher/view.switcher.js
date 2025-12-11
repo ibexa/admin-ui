@@ -5,9 +5,9 @@ import SimpleDropdown from '../../../common/simple-dropdown/simple.dropdown';
 import { getTranslator } from '../../../../../../Resources/public/js/scripts/helpers/context.helper';
 import { CurrentViewContext, ViewContext } from '../../universal.discovery.module';
 
-const ViewSwitcher = ({ isDisabled }) => {
+const ViewSwitcher = ({ isDisabled = false }) => {
     const Translator = getTranslator();
-    const viewLabel = Translator.trans(/*@Desc("View")*/ 'view_switcher.view', {}, 'ibexa_universal_discovery_widget');
+    const viewLabel = Translator.trans(/* @Desc("View") */ 'view_switcher.view', {}, 'ibexa_universal_discovery_widget');
     const [currentView, setCurrentView] = useContext(CurrentViewContext);
     const { views } = useContext(ViewContext);
     const selectedOption = views.find((option) => option.value === currentView);
@@ -31,10 +31,6 @@ const ViewSwitcher = ({ isDisabled }) => {
 
 ViewSwitcher.propTypes = {
     isDisabled: PropTypes.bool,
-};
-
-ViewSwitcher.defaultProps = {
-    isDisabled: false,
 };
 
 export const ViewSwitcherButton = {

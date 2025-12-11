@@ -1,0 +1,150 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.c-upload-list-item {
+    display: flex;
+    flex-wrap: nowrap;
+    background: $ibexa-color-white;
+    padding: 0;
+    margin: calculateRem(4px) 0;
+    height: calculateRem(48px);
+
+    &--errored {
+        background: $ibexa-color-danger-200;
+        color: $ibexa-color-danger-600;
+        border-radius: $ibexa-border-radius;
+
+        .ibexa-icon {
+            fill: $ibexa-color-danger-600;
+        }
+
+        .c-upload-list-item__size {
+            color: $ibexa-color-danger-600;
+        }
+    }
+
+    &--expanded-multiple-errors {
+        padding-bottom: 0;
+        height: auto;
+
+        .c-upload-list-item {
+            &__multiple-errors-list {
+                display: block;
+                padding: calculateRem(4px) 0 calculateRem(8px) calculateRem(26px);
+                margin-top: calculateRem(4px);
+            }
+
+            &__multiple-errors-toggle-btn {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__icon-wrapper {
+        flex: 0 0 calculateRem(20px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__meta {
+        padding: 0 calculateRem(8px);
+        max-width: calculateRem(450px);
+        height: calculateRem(48px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__name {
+        margin-right: calculateRem(8px);
+        max-width: calculateRem(315px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__size {
+        min-width: calculateRem(80px);
+        color: $ibexa-color-dark-400;
+        font-size: $ibexa-text-font-size-small;
+    }
+
+    &__info {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__message {
+        font-size: $ibexa-text-font-size-medium;
+        line-height: $ibexa-text-font-size-medium;
+
+        .ibexa-icon {
+            margin-right: calculateRem(4px);
+            flex-shrink: 0;
+        }
+
+        &--success {
+            color: $ibexa-color-success;
+
+            .ibexa-icon {
+                fill: $ibexa-color-success;
+            }
+        }
+
+        &--error {
+            display: flex;
+            align-items: center;
+            font-size: $ibexa-text-font-size-small;
+            line-height: $ibexa-text-font-size-small;
+            padding-right: calculateRem(32px);
+        }
+    }
+
+    &__actions {
+        text-align: right;
+
+        .ibexa-btn {
+            margin: 0;
+        }
+    }
+
+    &__action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: calculateRem(15px);
+        width: calculateRem(44px);
+        height: calculateRem(44px);
+        cursor: pointer;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    &__multiple-errors-toggle-btn {
+        border: none;
+        outline: none;
+        margin: 0 0 0 calculateRem(8px);
+        padding: 0;
+        transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
+    }
+
+    &__multiple-errors-list {
+        display: none;
+        flex-basis: 100%;
+        background: $ibexa-color-danger-100;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        border-radius: 0 0 $ibexa-border-radius $ibexa-border-radius;
+    }
+
+    &__multiple-errors-item {
+        margin: calculateRem(4px) 0;
+        font-size: $ibexa-text-font-size-medium;
+    }
+}

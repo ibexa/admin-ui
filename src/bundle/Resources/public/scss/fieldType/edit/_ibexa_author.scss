@@ -1,0 +1,36 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-field-edit--ibexa_author {
+    .ibexa-data-source {
+        &__labels {
+            display: grid;
+            column-gap: calculateRem(16px);
+            grid-template-columns: repeat(2, 1fr);
+            padding: calculateRem(16px) calculateRem(46px) 0;
+        }
+
+        &__author {
+            display: grid;
+            column-gap: calculateRem(16px);
+            grid-template-columns: calculateRem(30px) repeat(2, 1fr) calculateRem(30px);
+        }
+
+        &__main-actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 0 calculateRem(24px);
+            border-bottom: calculateRem(1px) solid $ibexa-color-light;
+        }
+
+        &__checkbox {
+            padding-top: calculateRem(8px);
+        }
+
+        &__actions {
+            .ibexa-btn {
+                padding: calculateRem(7px);
+            }
+        }
+    }
+}

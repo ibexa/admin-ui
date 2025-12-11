@@ -6,16 +6,16 @@ import { getTranslator } from '../../../../../Resources/public/js/scripts/helper
 import TableBodyRow from './table.body.row';
 
 const EmptyTableBodyRow = ({
-    extraClasses,
-    infoText: customInfoText,
-    actionText,
-    extraActions,
-    emptyTableImageSrc: customEmptyTableImageSrc,
-    colspan,
+    extraClasses = '',
+    infoText: customInfoText = null,
+    actionText = null,
+    extraActions = null,
+    emptyTableImageSrc: customEmptyTableImageSrc = null,
+    colspan = 9999,
 }) => {
     const Translator = getTranslator();
     const defaultEmptyTableInfoText = Translator.trans(
-        /*@Desc("Table is empty")*/ 'table.empty_table_body_row.info_text.default',
+        /* @Desc("Table is empty") */ 'table.empty_table_body_row.info_text.default',
         {},
         'ibexa_universal_discovery_widget',
     );
@@ -43,15 +43,6 @@ EmptyTableBodyRow.propTypes = {
     extraActions: PropTypes.element,
     emptyTableImageSrc: PropTypes.string,
     colspan: PropTypes.number,
-};
-
-EmptyTableBodyRow.defaultProps = {
-    extraClasses: '',
-    infoText: null,
-    actionText: null,
-    extraActions: null,
-    emptyTableImageSrc: null,
-    colspan: 9999,
 };
 
 export default EmptyTableBodyRow;

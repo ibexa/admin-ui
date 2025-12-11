@@ -22,29 +22,16 @@ use Twig\Environment;
 
 class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterface
 {
-    /** @var \Ibexa\AdminUi\Util\FieldDefinitionGroupsUtil */
-    private $fieldDefinitionGroupsUtil;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface */
-    private $configResolver;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        FieldDefinitionGroupsUtil $fieldDefinitionGroupsUtil,
-        LanguageService $languageService,
+        private readonly FieldDefinitionGroupsUtil $fieldDefinitionGroupsUtil,
+        private readonly LanguageService $languageService,
         EventDispatcherInterface $eventDispatcher,
-        ConfigResolverInterface $configResolver
+        private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-
-        $this->fieldDefinitionGroupsUtil = $fieldDefinitionGroupsUtil;
-        $this->languageService = $languageService;
-        $this->configResolver = $configResolver;
-    }
+   }
 
     public function getIdentifier(): string
     {
@@ -61,17 +48,11 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return 100;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplate(): string
     {
         return '@ibexadesign/content/tab/content.html.twig';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTemplateParameters(array $contextParameters = []): array
     {
         /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content $content */
@@ -92,33 +73,28 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     }
 
     /**
-     * Loads system languages with filtering applied.
-     *
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     *
-     * @return array
+     * @return list<\Ibexa\Contracts\Core\Repository\Values\Content\Language>
      */
     public function loadContentLanguages(Content $content): array
     {
-        $contentLanguages = $content->versionInfo->languageCodes;
+        $contentLanguages = $content->getVersionInfo()->getLanguageCodes();
 
         $filter = static function (Language $language) use ($contentLanguages): bool {
-            return $language->enabled && in_array($language->languageCode, $contentLanguages, true);
+            return $language->isEnabled() && in_array($language->getLanguageCode(), $contentLanguages, true);
         };
 
         $languagesByCode = [];
+        $languages = iterator_to_array($this->languageService->loadLanguages());
 
-        foreach (array_filter($this->languageService->loadLanguages(), $filter) as $language) {
+        foreach (array_filter($languages, $filter) as $language) {
             $languagesByCode[$language->languageCode] = $language;
         }
 
         $saLanguages = [];
-
         foreach ($this->configResolver->getParameter('languages') as $languageCode) {
             if (!isset($languagesByCode[$languageCode])) {
                 continue;
             }
-
             $saLanguages[] = $languagesByCode[$languageCode];
             unset($languagesByCode[$languageCode]);
         }
@@ -126,5 +102,3 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         return array_merge($saLanguages, array_values($languagesByCode));
     }
 }
-
-class_alias(ContentTab::class, 'EzSystems\EzPlatformAdminUi\Tab\LocationView\ContentTab');

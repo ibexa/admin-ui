@@ -13,7 +13,7 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Core\Repository\Values\Content\Location;
 use PHPUnit\Framework\TestCase;
 
-class CustomUrlAddDataTest extends TestCase
+final class CustomUrlAddDataTest extends TestCase
 {
     public function testConstruct(): void
     {
@@ -24,11 +24,9 @@ class CustomUrlAddDataTest extends TestCase
 
         $data = new CustomUrlAddData($location, $path, $language, false, true, $siteAccess);
 
-        $this->assertSame($location, $data->getLocation());
-        $this->assertSame($language, $data->getLanguage());
-        $this->assertSame($path, $data->getPath());
-        $this->assertSame($siteAccess, $data->getSiteAccess());
+        self::assertSame($location, $data->getLocation());
+        self::assertSame($language, $data->getLanguage());
+        self::assertSame($path, $data->getPath());
+        self::assertSame($siteAccess, $data->getSiteAccess());
     }
 }
-
-class_alias(CustomUrlAddDataTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\Data\Content\CustomUrl\CustomUrlAddDataTest');

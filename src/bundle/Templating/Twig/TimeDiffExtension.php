@@ -14,31 +14,19 @@ use Ibexa\AdminUi\UI\Service\DateTimeFormatter;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
-class TimeDiffExtension extends AbstractExtension
+final class TimeDiffExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UI\Service\DateTimeFormatter */
-    private $dateTimeFormatter;
-
-    public function __construct(DateTimeFormatter $dateTimeFormatter)
-    {
-        $this->dateTimeFormatter = $dateTimeFormatter;
+    public function __construct(
+        private readonly DateTimeFormatter $dateTimeFormatter
+    ) {
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter(
-                'ez_datetime_diff',
-                [$this, 'diff'],
-                [
-                    'is_safe' => ['html'],
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_datetime_diff',
-                ]
-            ),
-            new TwigFilter(
                 'ibexa_datetime_diff',
-                [$this, 'diff'],
+                $this->diff(...),
                 ['is_safe' => ['html']]
             ),
         ];
@@ -49,5 +37,3 @@ class TimeDiffExtension extends AbstractExtension
         return $this->dateTimeFormatter->formatDiff($from, $to ?? new DateTime());
     }
 }
-
-class_alias(TimeDiffExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\TimeDiffExtension');

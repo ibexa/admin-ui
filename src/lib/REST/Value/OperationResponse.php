@@ -10,28 +10,15 @@ namespace Ibexa\AdminUi\REST\Value;
 
 use Ibexa\Rest\Value as RestValue;
 
-class OperationResponse extends RestValue
+final class OperationResponse extends RestValue
 {
-    /** @var int */
-    public $statusCode;
-
-    /** @var array */
-    public $headers;
-
-    /** @var string|null */
-    public $content;
-
     /**
-     * @param int $statusCode
-     * @param array $headers
-     * @param string|null $content
+     * @param array<string, list<string|null>> $headers
      */
-    public function __construct(int $statusCode, array $headers, ?string $content)
-    {
-        $this->statusCode = $statusCode;
-        $this->headers = $headers;
-        $this->content = $content;
+    public function __construct(
+        public readonly int $statusCode,
+        public readonly array $headers,
+        public readonly ?string $content = null
+    ) {
     }
 }
-
-class_alias(OperationResponse::class, 'EzSystems\EzPlatformAdminUi\REST\Value\OperationResponse');

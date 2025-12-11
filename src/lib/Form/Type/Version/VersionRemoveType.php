@@ -10,6 +10,7 @@ namespace Ibexa\AdminUi\Form\Type\Version;
 
 use Ibexa\AdminUi\Form\Data\Version\VersionRemoveData;
 use Ibexa\AdminUi\Form\Type\Content\ContentInfoType;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,9 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Version\VersionRemoveData>
+ */
 class VersionRemoveType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('content_info', ContentInfoType::class)
@@ -35,7 +39,7 @@ class VersionRemoveType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => VersionRemoveData::class,
@@ -43,5 +47,3 @@ class VersionRemoveType extends AbstractType
         ]);
     }
 }
-
-class_alias(VersionRemoveType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Version\VersionRemoveType');

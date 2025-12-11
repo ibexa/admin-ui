@@ -15,61 +15,42 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 /**
- * Transforms between a Role Assignment's identifier and a domain specific object.
+ * Transforms between a Role Assignment's ID and a domain specific object.
+ *
+ * @phpstan-implements \Symfony\Component\Form\DataTransformerInterface<\Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment, int>
  */
-class RoleAssignmentTransformer implements DataTransformerInterface
+final readonly class RoleAssignmentTransformer implements DataTransformerInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\RoleService */
-    protected $roleService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\RoleService $roleService
-     */
-    public function __construct(RoleService $roleService)
+    public function __construct(private RoleService $roleService)
     {
-        $this->roleService = $roleService;
     }
 
     /**
-     * Transforms a domain specific RoleAssignment object into a RoleAssignment string.
-     *
-     * @param mixed $value
-     *
-     * @return mixed|null
-     *
-     * @throws \Symfony\Component\Form\Exception\TransformationFailedException
+     * Transforms a domain specific RoleAssignment object into an ID.
      */
-    public function transform($value)
+    public function transform(mixed $value): ?int
     {
         if (null === $value) {
             return null;
         }
 
-        if (!$value instanceof APIRoleAssignment) {
-            throw new TransformationFailedException('Expected a ' . APIRoleAssignment::class . ' object.');
-        }
-
-        return $value->id;
+        return $value->getId();
     }
 
     /**
-     * Transforms a RoleAssignment's ID into a domain specific RoleAssignment object.
-     *
-     * @param mixed $value
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment|null
+     * @param int|string|null $value
      *
      * @throws \Symfony\Component\Form\Exception\TransformationFailedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function reverseTransform($value): ?APIRoleAssignment
+    public function reverseTransform(mixed $value): ?APIRoleAssignment
     {
         if (empty($value)) {
             return null;
         }
 
-        if (!ctype_digit($value)) {
-            throw new TransformationFailedException('Expected a numeric string.');
+        if (!is_int($value) && !ctype_digit($value)) {
+            throw new TransformationFailedException('Expected an integer or numeric string.');
         }
 
         try {
@@ -79,5 +60,3 @@ class RoleAssignmentTransformer implements DataTransformerInterface
         }
     }
 }
-
-class_alias(RoleAssignmentTransformer::class, 'EzSystems\EzPlatformAdminUi\Form\DataTransformer\RoleAssignmentTransformer');

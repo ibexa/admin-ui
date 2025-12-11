@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\Tests\AdminUi\Form\DataMapper;
 
@@ -15,15 +16,14 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation
 use Ibexa\Core\Repository\Values\User\PolicyUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class PolicyUpdateMapperTest extends TestCase
+final class PolicyUpdateMapperTest extends TestCase
 {
-    /** @var \Ibexa\AdminUi\Form\DataMapper\PolicyUpdateMapper */
-    private $mapper;
+    private PolicyUpdateMapper $mapper;
 
     protected function setUp(): void
     {
         /* TODO - test skipped, because tested class need to be improved */
-        $this->markTestSkipped();
+        self::markTestSkipped();
         $this->mapper = new PolicyUpdateMapper();
     }
 
@@ -35,28 +35,28 @@ class PolicyUpdateMapperTest extends TestCase
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function testMap(array $properties)
+    public function testMap(array $properties): void
     {
         $data = $this->mapper->map($this->createStruct($properties));
 
-        $this->assertEquals($this->createData($properties), $data);
+        self::assertEquals($this->createData($properties), $data);
     }
 
     /**
      * @dataProvider dataProvider
      *
-     * @param array $properties
+     * @param array<string, mixed> $properties
      */
-    public function testReverseMap(array $properties)
+    public function testReverseMap(array $properties): void
     {
         $struct = $this->mapper->reverseMap($this->createData($properties));
 
-        $this->assertEquals($this->createStruct($properties), $struct);
+        self::assertEquals($this->createStruct($properties), $struct);
     }
 
-    public function testMapWithWrongInstance()
+    public function testMapWithWrongInstance(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Argument \'value\' is invalid: must be an instance of ' . PolicyUpdateStruct::class);
@@ -64,6 +64,9 @@ class PolicyUpdateMapperTest extends TestCase
         $this->mapper->map(new LocationCreateStruct());
     }
 
+    /**
+     * @return array<string, array<int, array<string, \Ibexa\Contracts\Core\Repository\Values\User\Limitation\ContentTypeLimitation>>>
+     */
     public function dataProvider(): array
     {
         return [
@@ -72,7 +75,7 @@ class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\Core\Repository\Values\User\PolicyUpdateStruct
      */
@@ -85,7 +88,7 @@ class PolicyUpdateMapperTest extends TestCase
     }
 
     /**
-     * @param array $properties
+     * @param array<string, mixed> $properties
      *
      * @return \Ibexa\AdminUi\Form\Data\Policy\PolicyUpdateData
      */
@@ -94,5 +97,3 @@ class PolicyUpdateMapperTest extends TestCase
         return new PolicyUpdateData(['module' => $properties['module'], 'function' => $properties['function']]);
     }
 }
-
-class_alias(PolicyUpdateMapperTest::class, 'EzSystems\EzPlatformAdminUi\Tests\Form\DataMapper\PolicyUpdateMapperTest');

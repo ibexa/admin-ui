@@ -1,0 +1,16 @@
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+.ibexa-field-edit--ibexa_keyword {
+    &.ibexa-field-edit--nontranslatable {
+        .ibexa-data-source__taggify {
+            pointer-events: none;
+
+            .ibexa-taggify {
+                &__list {
+                    background-color: $ibexa-color-light-300;
+                }
+            }
+        }
+    }
+}

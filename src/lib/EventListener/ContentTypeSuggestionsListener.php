@@ -19,21 +19,15 @@ use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ContentTypeSuggestionsListener implements EventSubscriberInterface
+final readonly class ContentTypeSuggestionsListener implements EventSubscriberInterface
 {
-    private const SUGGESTIONS_AGGREGATION_KEY = 'suggestions';
+    private const string SUGGESTIONS_AGGREGATION_KEY = 'suggestions';
 
-    private SearchService $searchService;
-
-    private TranslatorInterface $translator;
-
-    private int $limit;
-
-    public function __construct(SearchService $searchService, TranslatorInterface $translator, int $limit = 4)
-    {
-        $this->searchService = $searchService;
-        $this->translator = $translator;
-        $this->limit = $limit;
+    public function __construct(
+        private SearchService $searchService,
+        private TranslatorInterface $translator,
+        private int $limit = 4
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -76,7 +70,7 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
     {
         foreach ($contentTypes as $group) {
             foreach ($group as $contentType) {
-                if ($contentType->identifier === $needle->identifier) {
+                if ($contentType->getIdentifier() === $needle->getIdentifier()) {
                     return true;
                 }
             }
@@ -105,14 +99,14 @@ final class ContentTypeSuggestionsListener implements EventSubscriberInterface
 
         $query = new LocationQuery();
         $query->limit = 0;
-        $query->filter = new ParentLocationId($location->id);
+        $query->filter = new ParentLocationId($location->getId());
         $query->aggregations[] = $aggregation;
         $query->performCount = false;
 
         $results = $this->searchService->findLocations($query);
 
         if ($results->aggregations->has(self::SUGGESTIONS_AGGREGATION_KEY)) {
-            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult $aggregationResult */
+            /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Search\AggregationResult\TermAggregationResult<ContentType> $aggregationResult */
             $aggregationResult = $results->aggregations->get(self::SUGGESTIONS_AGGREGATION_KEY);
 
             $suggestions = [];

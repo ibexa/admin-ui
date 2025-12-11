@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Form\Type\Language;
 
 use Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData;
+use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -16,9 +17,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\Language\LanguagesDeleteData>
+ */
 class LanguagesDeleteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('languages', CollectionType::class, [
@@ -34,7 +38,7 @@ class LanguagesDeleteType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => LanguagesDeleteData::class,
@@ -42,5 +46,3 @@ class LanguagesDeleteType extends AbstractType
         ]);
     }
 }
-
-class_alias(LanguagesDeleteType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguagesDeleteType');

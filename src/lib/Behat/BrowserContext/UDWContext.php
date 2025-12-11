@@ -13,17 +13,12 @@ use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Core\Behat\ArgumentParser;
 use PHPUnit\Framework\Assert;
 
-class UDWContext implements Context
+final readonly class UDWContext implements Context
 {
-    private $argumentParser;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
-
-    public function __construct(ArgumentParser $argumentParser, UniversalDiscoveryWidget $universalDiscoveryWidget)
-    {
-        $this->argumentParser = $argumentParser;
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
+    public function __construct(
+        private ArgumentParser $argumentParser,
+        private UniversalDiscoveryWidget $universalDiscoveryWidget
+    ) {
     }
 
     /**

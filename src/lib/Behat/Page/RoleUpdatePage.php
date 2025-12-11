@@ -19,22 +19,23 @@ use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class RoleUpdatePage extends AdminUpdateItemPage
+final class RoleUpdatePage extends AdminUpdateItemPage
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\IbexaDropdown */
-    private $ibexaDropdown;
-
-    public function __construct(Session $session, Router $router, ContentActionsMenu $contentActionsMenu, UniversalDiscoveryWidget $universalDiscoveryWidget, IbexaDropdown $ibexaDropdown)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        ContentActionsMenu $contentActionsMenu,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly IbexaDropdown $ibexaDropdown
+    ) {
         parent::__construct($session, $router, $contentActionsMenu);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->ibexaDropdown = $ibexaDropdown;
+
         $this->locators->replace(new VisibleCSSLocator('button', '.ibexa-edit-content__container button'));
     }
 
+    /**
+     * @param string[] $values
+     */
     public function selectLimitationValues(string $selectName, array $values): void
     {
         try {
@@ -52,7 +53,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
                     ->find($this->getLocator('limitationDropdownOptionRemove'))
                     ->click();
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             // no need to remove current selection
         }
 
@@ -92,7 +93,10 @@ class RoleUpdatePage extends AdminUpdateItemPage
         );
     }
 
-    public function assign(array $itemPaths, string $itemType)
+    /**
+     * @param array<string> $itemPaths
+     */
+    public function assign(array $itemPaths, string $itemType): void
     {
         $itemTypeToLabelMapping = [
             'users' => 'Select Users',
@@ -119,7 +123,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         $this->ibexaDropdown->selectOption($limitationName);
     }
 
-    public function selectLimitationForAssignment(string $itemPath)
+    public function selectLimitationForAssignment(string $itemPath): void
     {
         $this->verifyIsLoaded();
         $this->switchToTab('Limitations');
@@ -130,7 +134,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function selectSubtreeLimitationForPolicy(string $itemPath)
+    public function selectSubtreeLimitationForPolicy(string $itemPath): void
     {
         $buttons = $this->getHTMLPage()
             ->findAll($this->getLocator('button'))
@@ -143,7 +147,7 @@ class RoleUpdatePage extends AdminUpdateItemPage
         $this->universalDiscoveryWidget->confirm();
     }
 
-    public function selectPolicy(string $policyName)
+    public function selectPolicy(string $policyName): void
     {
         $this->getHTMLPage()->find($this->getLocator('ibexaDropdownSelectionInfo'))->click();
         $this->ibexaDropdown->verifyIsLoaded();

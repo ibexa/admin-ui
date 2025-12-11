@@ -11,26 +11,21 @@ namespace Ibexa\AdminUi\UI\Config\Provider;
 use Ibexa\Contracts\AdminUi\UI\Config\ProviderInterface;
 use Ibexa\User\UserSetting\UserSettingService;
 
-final class BackOfficeLanguage implements ProviderInterface
+final readonly class BackOfficeLanguage implements ProviderInterface
 {
-    /** @var \Ibexa\User\UserSetting\UserSettingService */
-    private $userSettingService;
-
-    public function __construct(UserSettingService $userSettingService)
+    public function __construct(private UserSettingService $userSettingService)
     {
-        $this->userSettingService = $userSettingService;
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getConfig(): string
     {
-        $language = $this->userSettingService->getUserSetting('language');
-
-        return $language->value;
+        return $this
+            ->userSettingService
+            ->getUserSetting('language')
+            ->getValue();
     }
 }

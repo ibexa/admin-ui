@@ -21,5 +21,3 @@ interface ConditionalTabInterface
      */
     public function evaluate(array $parameters): bool;
 }
-
-class_alias(ConditionalTabInterface::class, 'EzSystems\EzPlatformAdminUi\Tab\ConditionalTabInterface');

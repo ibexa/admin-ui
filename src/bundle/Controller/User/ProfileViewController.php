@@ -21,28 +21,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ProfileViewController extends Controller
 {
-    private Repository $repository;
-
-    private UserService $userService;
-
-    private RoleService $roleService;
-
-    private PermissionResolver $permissionResolver;
-
-    private UserProfileConfigurationInterface $configuration;
-
     public function __construct(
-        Repository $repository,
-        UserService $userService,
-        RoleService $roleService,
-        PermissionResolver $permissionResolver,
-        UserProfileConfigurationInterface $configuration
+        private readonly Repository $repository,
+        private readonly UserService $userService,
+        private readonly RoleService $roleService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly UserProfileConfigurationInterface $configuration
     ) {
-        $this->repository = $repository;
-        $this->userService = $userService;
-        $this->roleService = $roleService;
-        $this->permissionResolver = $permissionResolver;
-        $this->configuration = $configuration;
     }
 
     public function viewAction(int $userId): Response

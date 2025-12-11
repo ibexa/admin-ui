@@ -11,23 +11,24 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 
-class LanguagesPage extends Page
+final class LanguagesPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
-
-    public function __construct(Session $session, Router $router, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
+
         $this->table = $tableBuilder->newTable()->build();
-        $this->dialog = $dialog;
     }
 
     public function editLanguage(string $languageName): void
@@ -43,15 +44,24 @@ class LanguagesPage extends Page
         $this->dialog->confirm();
     }
 
-    public function isLanguageOnTheList(string $languageName)
+    public function isLanguageOnTheList(string $languageName): bool
     {
         return $this->table->hasElement(['Name' => $languageName]);
     }
 
     public function verifyIsLoaded(): void
     {
-        $this->getHTMLPage()->find($this->getLocator('pageTitle'))->assert()->textEquals('Languages');
-        $this->getHTMLPage()->find($this->getLocator('listHeader'))->assert()->textContains('List');
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('pageTitle'))
+            ->assert()
+            ->textEquals('Languages');
+
+        $this
+            ->getHTMLPage()
+            ->find($this->getLocator('listHeader'))
+            ->assert()
+            ->textContains('List');
     }
 
     public function getName(): string

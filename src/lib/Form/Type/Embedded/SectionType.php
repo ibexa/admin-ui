@@ -18,18 +18,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SectionType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\SectionService */
-    protected $sectionService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\SectionService $sectionService
-     */
-    public function __construct(SectionService $sectionService)
+    public function __construct(protected readonly SectionService $sectionService)
     {
-        $this->sectionService = $sectionService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addViewTransformer(
             $options['multiple']
@@ -38,17 +31,15 @@ class SectionType extends AbstractType
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('multiple', false);
         $resolver->setRequired(['multiple']);
         $resolver->setAllowedTypes('multiple', 'boolean');
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return HiddenType::class;
     }
 }
-
-class_alias(SectionType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Embedded\SectionType');

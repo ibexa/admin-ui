@@ -16,35 +16,18 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
 use Psr\Log\LoggerInterface;
 
-class CustomUrlsDataset
+final class CustomUrlsDataset
 {
-    /** @var \Ibexa\Contracts\Core\Repository\URLAliasService */
-    private $urlAliasService;
-
-    /** @var \Ibexa\AdminUi\UI\Value\ValueFactory */
-    private $valueFactory;
-
     /** @var \Ibexa\AdminUi\UI\Value\Content\UrlAlias[] */
-    private $data;
-
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
+    private ?array $data = null;
 
     public function __construct(
-        URLAliasService $urlAliasService,
-        ValueFactory $valueFactory,
-        LoggerInterface $logger
+        private readonly URLAliasService $urlAliasService,
+        private readonly ValueFactory $valueFactory,
+        private readonly LoggerInterface $logger
     ) {
-        $this->urlAliasService = $urlAliasService;
-        $this->valueFactory = $valueFactory;
-        $this->logger = $logger;
     }
 
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $location
-     *
-     * @return \Ibexa\AdminUi\UI\Dataset\CustomUrlsDataset
-     */
     public function load(Location $location): self
     {
         try {
@@ -58,7 +41,7 @@ class CustomUrlsDataset
             $this->logger->warning(
                 sprintf(
                     'At least one custom alias belonging to location %d is broken. Fix it by using the ibexa:urls:regenerate-aliases command.',
-                    $location->id
+                    $location->getId()
                 ),
                 ['exception' => $e]
             );
@@ -69,7 +52,7 @@ class CustomUrlsDataset
             function (URLAlias $urlAlias): UIValue\Content\UrlAlias {
                 return $this->valueFactory->createUrlAlias($urlAlias);
             },
-            $customUrlAliases
+            iterator_to_array($customUrlAliases)
         );
 
         return $this;
@@ -80,8 +63,6 @@ class CustomUrlsDataset
      */
     public function getCustomUrlAliases(): array
     {
-        return $this->data;
+        return $this->data ?? [];
     }
 }
-
-class_alias(CustomUrlsDataset::class, 'EzSystems\EzPlatformAdminUi\UI\Dataset\CustomUrlsDataset');

@@ -18,60 +18,31 @@ use Ibexa\Contracts\Core\Repository\Values\Content\Language;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 
-class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
+final class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    private $languageService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
-    private $permissionResolver;
-
-    /** @var string[] */
-    private $languageCodes;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo */
-    private $contentInfo;
-
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
-
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Location|null */
-    private $location;
-
     /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     * @param \Ibexa\Contracts\Core\Repository\PermissionResolver $permissionResolver
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo $contentInfo
-     * @param \Ibexa\AdminUi\Permission\LookupLimitationsTransformer $lookupLimitationsTransformer
      * @param string[] $languageCodes
      */
     public function __construct(
-        LanguageService $languageService,
-        PermissionResolver $permissionResolver,
-        ?ContentInfo $contentInfo,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        array $languageCodes,
-        LocationService $locationService,
-        ?Location $location
+        private readonly LanguageService $languageService,
+        private readonly PermissionResolver $permissionResolver,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly array $languageCodes,
+        private readonly LocationService $locationService,
+        private readonly ?ContentInfo $contentInfo = null,
+        private readonly ?Location $location = null
     ) {
-        $this->languageService = $languageService;
-        $this->permissionResolver = $permissionResolver;
-        $this->contentInfo = $contentInfo;
-        $this->languageCodes = $languageCodes;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->locationService = $locationService;
-        $this->location = $location;
     }
 
     /**
-     * {@inheritdoc}
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
     public function getChoiceList(): array
     {
-        $languages = $this->languageService->loadLanguages();
+        $languages = iterator_to_array($this->languageService->loadLanguages());
         $limitationLanguageCodes = [];
 
         if (!empty($this->languageCodes)) {
@@ -93,21 +64,23 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
                     (new Target\Builder\VersionBuilder())->translateToAnyLanguageOf($languagesCodes)->build(),
                     $this->locationService->loadLocation(
                         $this->location !== null
-                            ? $this->location->id
-                            : $this->contentInfo->mainLocationId
+                            ? $this->location->getId()
+                            : $this->contentInfo->getMainLocationId()
                     ),
                 ],
                 [Limitation::LANGUAGE]
             );
 
-            $limitationLanguageCodes = $this->lookupLimitationsTransformer->getFlattenedLimitationsValues($lookupLimitations);
+            $limitationLanguageCodes = $this->lookupLimitationsTransformer->getFlattenedLimitationsValues(
+                $lookupLimitations
+            );
         }
 
         if (!empty($limitationLanguageCodes)) {
             $languages = array_filter(
                 $languages,
                 static function (Language $language) use ($limitationLanguageCodes): bool {
-                    return \in_array($language->languageCode, $limitationLanguageCodes, true);
+                    return in_array($language->getLanguageCode(), $limitationLanguageCodes, true);
                 }
             );
         }
@@ -115,5 +88,3 @@ class ContentEditTranslationChoiceLoader extends BaseChoiceLoader
         return $languages;
     }
 }
-
-class_alias(ContentEditTranslationChoiceLoader::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ChoiceList\Loader\ContentEditTranslationChoiceLoader');

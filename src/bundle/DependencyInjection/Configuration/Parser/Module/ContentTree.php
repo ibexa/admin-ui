@@ -17,7 +17,7 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *
  * Example configuration:
  * ```yaml
- * ezpublish:
+ * ibexa:
  *   system:
  *      default: # configuration per siteaccess or siteaccess group
  *          content_tree_module:
@@ -29,12 +29,12 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *              ignored_content_types: [article, post]
  * ```
  */
-class ContentTree extends AbstractParser
+final class ContentTree extends AbstractParser
 {
     /**
      * {@inheritdoc}
      */
-    public function addSemanticConfig(NodeBuilder $nodeBuilder)
+    public function addSemanticConfig(NodeBuilder $nodeBuilder): void
     {
         $nodeBuilder
             ->arrayNode('content_tree_module')
@@ -99,10 +99,13 @@ class ContentTree extends AbstractParser
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string, mixed> $scopeSettings
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
-    {
+    public function mapConfig(
+        array &$scopeSettings,
+        mixed $currentScope,
+        ContextualizerInterface $contextualizer
+    ): void {
         if (empty($scopeSettings['content_tree_module'])) {
             return;
         }
@@ -166,5 +169,3 @@ class ContentTree extends AbstractParser
         }
     }
 }
-
-class_alias(ContentTree::class, 'EzSystems\EzPlatformAdminUiBundle\DependencyInjection\Configuration\Parser\Module\ContentTree');

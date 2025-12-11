@@ -18,23 +18,17 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class FocusMode implements ValueDefinitionInterface, FormMapperInterface, TranslationContainerInterface
+final readonly class FocusMode implements ValueDefinitionInterface, FormMapperInterface, TranslationContainerInterface
 {
-    public const IDENTIFIER = 'focus_mode';
+    public const string IDENTIFIER = 'focus_mode';
 
-    public const FOCUS_MODE_OFF = '0';
-    public const FOCUS_MODE_ON = '1';
-
-    private TranslatorInterface $translator;
-
-    private ConfigResolverInterface $configResolver;
+    public const string FOCUS_MODE_OFF = '0';
+    public const string FOCUS_MODE_ON = '1';
 
     public function __construct(
-        ConfigResolverInterface $configResolver,
-        TranslatorInterface $translator
+        private ConfigResolverInterface $configResolver,
+        private TranslatorInterface $translator
     ) {
-        $this->configResolver = $configResolver;
-        $this->translator = $translator;
     }
 
     public function getName(): string

@@ -10,12 +10,11 @@ namespace Ibexa\AdminUi\Form\Data\URLWildcard;
 
 final class URLWildcardDeleteData
 {
-    /** @var bool[]|null */
-    private $urlWildcardsChoices;
-
-    public function __construct(?array $urlWildcardsChoices = [])
+    /**
+     * @param bool[]|null $urlWildcardsChoices
+     */
+    public function __construct(private ?array $urlWildcardsChoices = [])
     {
-        $this->urlWildcardsChoices = $urlWildcardsChoices;
     }
 
     /**
@@ -34,5 +33,3 @@ final class URLWildcardDeleteData
         $this->urlWildcardsChoices = $urlWildcardsChoices;
     }
 }
-
-class_alias(URLWildcardDeleteData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\URLWildcard\URLWildcardDeleteData');

@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\Locator\LocatorInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Matrix extends FieldTypeComponent
+final class Matrix extends FieldTypeComponent
 {
     public function setValue(array $parameters): void
     {
@@ -35,19 +35,27 @@ class Matrix extends FieldTypeComponent
 
     public function getValue(): array
     {
-        return [$this->getParsedTableValue($this->getLocator('editModeTableHeaders'), $this->getLocator('editModeTableRow'))];
+        return [
+            $this->getParsedTableValue(
+                $this->getLocator('editModeTableHeaders'),
+                $this->getLocator('editModeTableRow')
+            ),
+        ];
     }
 
-    public function verifyValueInItemView(array $expectedValue): void
+    public function verifyValueInItemView(array $values): void
     {
-        $parsedTable = $this->getParsedTableValue($this->getLocator('viewModeTableHeaders'), $this->getLocator('viewModeTableRow'));
+        $parsedTable = $this->getParsedTableValue(
+            $this->getLocator('viewModeTableHeaders'),
+            $this->getLocator('viewModeTableRow')
+        );
 
-        Assert::assertEquals($expectedValue['value'], $parsedTable);
+        Assert::assertEquals($values['value'], $parsedTable);
     }
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezmatrix';
+        return 'ibexa_matrix';
     }
 
     protected function specifyLocators(): array
@@ -62,6 +70,11 @@ class Matrix extends FieldTypeComponent
         ];
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     *
+     * @return array<array<string, string>>
+     */
     private function parseParameters(array $parameters): array
     {
         $rows = explode(',', $parameters['value']);
@@ -90,9 +103,12 @@ class Matrix extends FieldTypeComponent
         }
     }
 
-    private function internalSetValue(int $rowIndex, string $column, $value): void
+    private function internalSetValue(int $rowIndex, string $column, mixed $value): void
     {
-        $matrixCellSelector = new VisibleCSSLocator('matrixCell', sprintf('[name="ezplatform_content_forms_content_edit[fieldsData][ezmatrix][value][entries][%d][%s]"]', $rowIndex, $column));
+        $matrixCellSelector = new VisibleCSSLocator(
+            'matrixCell',
+            sprintf('[name="ezplatform_content_forms_content_edit[fieldsData][ibexa_matrix][value][entries][%d][%s]"]', $rowIndex, $column)
+        );
 
         $this->getHTMLPage()->find($matrixCellSelector)->setValue($value);
     }
@@ -100,9 +116,7 @@ class Matrix extends FieldTypeComponent
     private function getParsedTableValue(LocatorInterface $headerSelector, LocatorInterface $rowSelector): string
     {
         $parsedTable = '';
-
         $headers = $this->getHTMLPage()->find($this->parentLocator)->findAll($headerSelector)->mapBy(new ElementTextMapper());
-
         $parsedTable .= implode(':', $headers);
 
         $rows = $this->getHTMLPage()->find($this->parentLocator)->findAll($rowSelector);

@@ -12,48 +12,29 @@ use Ibexa\AdminUi\UniversalDiscovery\ConfigResolver;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class UniversalDiscoveryExtension extends AbstractExtension
+final class UniversalDiscoveryExtension extends AbstractExtension
 {
-    /** @var \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver */
-    protected $udwConfigResolver;
-
-    /**
-     * @param \Ibexa\AdminUi\UniversalDiscovery\ConfigResolver $udwConfigResolver
-     */
     public function __construct(
-        ConfigResolver $udwConfigResolver
+        private readonly ConfigResolver $udwConfigResolver
     ) {
-        $this->udwConfigResolver = $udwConfigResolver;
     }
 
     /**
-     * @return array
+     * @return \Twig\TwigFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(
-                'ez_udw_config',
-                [$this, 'renderUniversalDiscoveryWidgetConfig'],
-                [
-                    'is_safe' => ['json'],
-                    'deprecated' => '4.0',
-                    'alternative' => 'ibexa_udw_config',
-                ]
-            ),
-            new TwigFunction(
                 'ibexa_udw_config',
-                [$this, 'renderUniversalDiscoveryWidgetConfig'],
+                $this->renderUniversalDiscoveryWidgetConfig(...),
                 ['is_safe' => ['json']]
             ),
         ];
     }
 
     /**
-     * @param string $configName
-     * @param array $context
-     *
-     * @return string
+     * @param array<string, mixed> $context
      */
     public function renderUniversalDiscoveryWidgetConfig(string $configName, array $context = []): string
     {
@@ -61,9 +42,14 @@ class UniversalDiscoveryExtension extends AbstractExtension
 
         $normalized = $this->recursiveConfigurationArrayNormalize($config);
 
-        return json_encode($normalized);
+        return json_encode($normalized) ?: '';
     }
 
+    /**
+     * @param array<string, mixed> $config
+     *
+     * @return array<string, mixed>
+     */
     private function recursiveConfigurationArrayNormalize(array $config): array
     {
         $normalized = [];
@@ -78,12 +64,10 @@ class UniversalDiscoveryExtension extends AbstractExtension
         return $normalized;
     }
 
-    private function toCamelCase(string $input, string $delimiter = '_'): string
+    private function toCamelCase(string $input): string
     {
-        $words = explode($delimiter, ucwords($input, $delimiter));
+        $words = explode('_', ucwords($input, '_'));
 
         return lcfirst(implode('', $words));
     }
 }
-
-class_alias(UniversalDiscoveryExtension::class, 'EzSystems\EzPlatformAdminUiBundle\Templating\Twig\UniversalDiscoveryExtension');

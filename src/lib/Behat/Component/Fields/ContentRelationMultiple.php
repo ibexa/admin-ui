@@ -10,27 +10,22 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class ContentRelationMultiple extends FieldTypeComponent
+final class ContentRelationMultiple extends FieldTypeComponent
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget */
-    private $universalDiscoveryWidget;
+    private TableInterface $table;
 
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\TableBuilder */
-    private $tableBuilder;
-
-    public function __construct(Session $session, UniversalDiscoveryWidget $universalDiscoveryWidget, TableBuilder $tableBuilder)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly UniversalDiscoveryWidget $universalDiscoveryWidget,
+        private readonly TableBuilder $tableBuilder
+    ) {
         parent::__construct($session);
-        $this->universalDiscoveryWidget = $universalDiscoveryWidget;
-        $this->tableBuilder = $tableBuilder;
     }
 
     public function setParentLocator(VisibleCSSLocator $locator): void
@@ -117,9 +112,14 @@ class ContentRelationMultiple extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezobjectrelationlist';
+        return 'ibexa_object_relation_list';
     }
 
+    /**
+     * @param array<string, string> $wantedRelations
+     *
+     * @return array<string, string>
+     */
     private function removeRedundantRelations(array $wantedRelations): array
     {
         $currentContentRelations = array_column($this->table->getColumnValues(['Name']), 'Name');
@@ -143,7 +143,7 @@ class ContentRelationMultiple extends FieldTypeComponent
         return $wantedRelations;
     }
 
-    private function startAddingRelations()
+    private function startAddingRelations(): void
     {
         if ($this->isRelationEmpty()) {
             $selectLocator = CSSLocatorBuilder::base($this->parentLocator)
@@ -160,7 +160,11 @@ class ContentRelationMultiple extends FieldTypeComponent
         }
     }
 
-    private function selectRelationsAndConfirm($items, $paths)
+    /**
+     * @param array<string, mixed> $items
+     * @param array<array-key, string> $paths
+     */
+    private function selectRelationsAndConfirm(array $items, array $paths): void
     {
         $this->universalDiscoveryWidget->verifyIsLoaded();
 

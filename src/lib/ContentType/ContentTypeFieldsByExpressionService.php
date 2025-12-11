@@ -10,41 +10,20 @@ namespace Ibexa\AdminUi\ContentType;
 
 use Ibexa\AdminUi\Util\ContentTypeFieldsExtractorInterface;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
-use Ibexa\Contracts\Core\Persistence\Content\Language\Handler as ContentLanguageHandler;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Ibexa\Core\FieldType\FieldTypeRegistry;
 use Ibexa\Core\Repository\Mapper\ContentTypeDomainMapper;
 
-final class ContentTypeFieldsByExpressionService implements ContentTypeFieldsByExpressionServiceInterface
+final readonly class ContentTypeFieldsByExpressionService implements ContentTypeFieldsByExpressionServiceInterface
 {
-    private ContentTypeFieldsExtractorInterface $fieldsExtractor;
-
-    private ContentTypeHandler $contentTypeHandler;
-
-    private ContentTypeDomainMapper $contentTypeDomainMapper;
-
-    private ConfigResolverInterface $configResolver;
-
     public function __construct(
-        ContentTypeFieldsExtractorInterface $fieldsExtractor,
-        ContentTypeHandler $contentTypeHandler,
-        ContentLanguageHandler $contentLanguageHandler,
-        FieldTypeRegistry $fieldTypeRegistry,
-        ConfigResolverInterface $configResolver
+        private ContentTypeFieldsExtractorInterface $fieldsExtractor,
+        private ContentTypeHandler $contentTypeHandler,
+        private ContentTypeDomainMapper $contentTypeDomainMapper,
+        private ConfigResolverInterface $configResolver
     ) {
-        $this->fieldsExtractor = $fieldsExtractor;
-        $this->contentTypeHandler = $contentTypeHandler;
-        // Building ContentTypeDomainMapper manually to avoid circular dependency.
-        //TODO handle after core merge
-        $this->contentTypeDomainMapper = new ContentTypeDomainMapper(
-            $contentTypeHandler,
-            $contentLanguageHandler,
-            $fieldTypeRegistry,
-        );
-        $this->configResolver = $configResolver;
     }
 
     public function getFieldsFromExpression(string $expression, ?string $configuration = null): array

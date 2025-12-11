@@ -8,7 +8,13 @@ import { TitleContext, CancelContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
-const TopMenu = ({ actionsDisabledMap }) => {
+const TopMenu = ({
+    actionsDisabledMap = {
+        'content-create-button': false,
+        'sort-switcher': false,
+        'view-switcher': false,
+    },
+}) => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
     const { topMenuActions } = adminUiConfig.universalDiscoveryWidget;
@@ -22,7 +28,7 @@ const TopMenu = ({ actionsDisabledMap }) => {
             return actionB.priority - actionA.priority;
         });
     }, []);
-    const backTitle = Translator.trans(/*@Desc("Close")*/ 'close.label', {}, 'ibexa_universal_discovery_widget');
+    const backTitle = Translator.trans(/* @Desc("Close") */ 'close.label', {}, 'ibexa_universal_discovery_widget');
     const className = createCssClassNames({
         'c-top-menu': true,
         'c-top-menu--search-opened': isSearchOpened,
@@ -62,14 +68,6 @@ const TopMenu = ({ actionsDisabledMap }) => {
 
 TopMenu.propTypes = {
     actionsDisabledMap: PropTypes.object,
-};
-
-TopMenu.defaultProps = {
-    actionsDisabledMap: {
-        'content-create-button': false,
-        'sort-switcher': false,
-        'view-switcher': false,
-    },
 };
 
 export default TopMenu;

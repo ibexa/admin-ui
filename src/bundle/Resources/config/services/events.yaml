@@ -32,7 +32,7 @@ services:
     Ibexa\AdminUi\EventListener\AdminExceptionListener:
         arguments:
             $siteAccessGroups: '%ibexa.site_access.groups%'
-            $kernelProjectDir: '%kernel.project_dir%'
+            $rootDir: '%kernel.project_dir%'
             $kernelEnvironment: '%kernel.environment%'
             $encoreTagRenderer: '@webpack_encore.tag_renderer'
             $entrypointLookupCollection: '@webpack_encore.entrypoint_lookup_collection'

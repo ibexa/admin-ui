@@ -12,14 +12,10 @@ use DateTimeInterface;
 
 final class DateRangeData
 {
-    private ?DateTimeInterface $min;
-
-    private ?DateTimeInterface $max;
-
-    public function __construct(?DateTimeInterface $min = null, ?DateTimeInterface $max = null)
-    {
-        $this->min = $min;
-        $this->max = $max;
+    public function __construct(
+        private ?DateTimeInterface $min = null,
+        private ?DateTimeInterface $max = null
+    ) {
     }
 
     public function isEmpty(): bool

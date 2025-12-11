@@ -11,27 +11,24 @@ namespace Ibexa\AdminUi\Form\EventListener;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 
-class DisableSiteRootCheckboxIfRootLocationListener
+final readonly class DisableSiteRootCheckboxIfRootLocationListener
 {
-    /**
-     * @param \Symfony\Component\Form\FormEvent $event
-     */
-    public function onPreSetData(FormEvent $event)
+    public function onPreSetData(FormEvent $event): void
     {
         $location = $event->getData()->getLocation();
-        if (null !== $location && 1 >= $location->depth) {
-            $form = $event->getForm();
-            $form->add(
-                'site_root',
-                CheckboxType::class,
-                [
-                    'required' => false,
-                    'label' => false,
-                    'disabled' => true,
-                ]
-            );
+        if (null === $location || 1 >= $location->depth) {
+            return;
         }
+
+        $form = $event->getForm();
+        $form->add(
+            'site_root',
+            CheckboxType::class,
+            [
+                'required' => false,
+                'label' => false,
+                'disabled' => true,
+            ]
+        );
     }
 }
-
-class_alias(DisableSiteRootCheckboxIfRootLocationListener::class, 'EzSystems\EzPlatformAdminUi\Form\EventListener\DisableSiteRootCheckboxIfRootLocationListener');

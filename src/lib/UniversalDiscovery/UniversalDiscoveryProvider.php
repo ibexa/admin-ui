@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\UniversalDiscovery;
 
+use Ibexa\AdminUi\Permission\LimitationResolverInterface;
 use Ibexa\AdminUi\Permission\LookupLimitationsTransformer;
 use Ibexa\AdminUi\QueryType\LocationPathQueryType;
-use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\AdminUi\UniversalDiscovery\Provider;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
 use Ibexa\Contracts\Core\Repository\ContentService;
@@ -22,71 +22,35 @@ use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Search\SearchHit;
 use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
-use Ibexa\Contracts\Rest\Output\Visitor;
 use Ibexa\Rest\Server\Values\RestLocation;
 use Ibexa\Rest\Server\Values\Version;
 
 class UniversalDiscoveryProvider implements Provider
 {
-    private const COLUMNS_NUMBER = 4;
+    private const int COLUMNS_NUMBER = 4;
 
-    /** @var \Ibexa\Contracts\Core\Repository\LocationService */
-    private $locationService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\SearchService */
-    private $searchService;
-
-    /** @var \Ibexa\Contracts\Rest\Output\Visitor */
-    private $visitor;
-
-    /** @var \Ibexa\Contracts\Core\Repository\BookmarkService */
-    private $bookmarkService;
-
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface */
-    private $permissionChecker;
-
-    /** @var \Ibexa\AdminUi\Permission\LookupLimitationsTransformer */
-    private $lookupLimitationsTransformer;
-
-    /** @var \Ibexa\AdminUi\QueryType\LocationPathQueryType */
-    private $locationPathQueryType;
-
-    private $sortClauseClassMap = [
+    /** @var array<string, class-string> */
+    private array $sortClauseClassMap = [
         self::SORT_CLAUSE_DATE_PUBLISHED => Query\SortClause\DatePublished::class,
         self::SORT_CLAUSE_CONTENT_NAME => Query\SortClause\ContentName::class,
     ];
 
-    private $availableSortOrder = [
+    /** @var string[] */
+    private array $availableSortOrder = [
         Query::SORT_ASC,
         Query::SORT_DESC,
     ];
 
     public function __construct(
-        LocationService $locationService,
-        ContentTypeService $contentTypeService,
-        SearchService $searchService,
-        BookmarkService $bookmarkService,
-        ContentService $contentService,
-        Visitor $visitor,
-        PermissionCheckerInterface $permissionChecker,
-        LookupLimitationsTransformer $lookupLimitationsTransformer,
-        LocationPathQueryType $locationPathQueryType
+        private readonly LocationService $locationService,
+        private readonly ContentTypeService $contentTypeService,
+        private readonly SearchService $searchService,
+        private readonly BookmarkService $bookmarkService,
+        private readonly ContentService $contentService,
+        private readonly LookupLimitationsTransformer $lookupLimitationsTransformer,
+        private readonly LocationPathQueryType $locationPathQueryType,
+        private readonly LimitationResolverInterface $limitationResolver
     ) {
-        $this->locationService = $locationService;
-        $this->contentTypeService = $contentTypeService;
-        $this->searchService = $searchService;
-        $this->bookmarkService = $bookmarkService;
-        $this->contentService = $contentService;
-        $this->visitor = $visitor;
-        $this->permissionChecker = $permissionChecker;
-        $this->lookupLimitationsTransformer = $lookupLimitationsTransformer;
-        $this->locationPathQueryType = $locationPathQueryType;
     }
 
     public function getColumns(
@@ -188,8 +152,8 @@ class UniversalDiscoveryProvider implements Provider
 
     public function getLocationPermissionRestrictions(Location $location): array
     {
-        $lookupCreateLimitationsResult = $this->permissionChecker->getContentCreateLimitations($location);
-        $lookupUpdateLimitationsResult = $this->permissionChecker->getContentUpdateLimitations($location);
+        $lookupCreateLimitationsResult = $this->limitationResolver->getContentCreateLimitations($location);
+        $lookupUpdateLimitationsResult = $this->limitationResolver->getContentUpdateLimitations($location);
 
         $createLimitationsValues = $this->lookupLimitationsTransformer->getGroupedLimitationValues(
             $lookupCreateLimitationsResult,
@@ -287,7 +251,9 @@ class UniversalDiscoveryProvider implements Provider
 
         $location = $this->locationService->loadLocation($locationId);
         $content = $this->contentService->loadContentByContentInfo($location->getContentInfo());
-        $contentType = $this->contentTypeService->loadContentType($location->getContentInfo()->contentTypeId);
+        $contentType = $this->contentTypeService->loadContentType(
+            $location->getContentInfo()->getContentType()->id
+        );
 
         return [
             'location' => $location,
@@ -319,7 +285,9 @@ class UniversalDiscoveryProvider implements Provider
 
         $location = $this->locationService->loadLocation($locationId);
         $content = $this->contentService->loadContentByContentInfo($location->getContentInfo());
-        $contentType = $this->contentTypeService->loadContentType($location->getContentInfo()->contentTypeId);
+        $contentType = $this->contentTypeService->loadContentType(
+            $location->getContentInfo()->getContentType()->id
+        );
 
         $locations = $this->getSubitemLocations($locationId, $offset, $limit, $sortClause);
         $versions = $this->getSubitemContents($locationId, $offset, $limit, $sortClause);
@@ -337,20 +305,6 @@ class UniversalDiscoveryProvider implements Provider
         ];
     }
 
-    public function getRestFormat($valueObject): array
-    {
-        trigger_deprecation(
-            'ibexa/admin-ui',
-            '4.6',
-            sprintf('The %s() method is deprecated, will be removed in 5.0.', __METHOD__)
-        );
-
-        return json_decode(
-            $this->visitor->visit($valueObject)->getContent(),
-            true
-        );
-    }
-
     public function getSortClause(string $sortClauseName, string $sortOrder): Query\SortClause
     {
         $sortClauseClass = $this->sortClauseClassMap[$sortClauseName] ?? $this->sortClauseClassMap[self::SORT_CLAUSE_DATE_PUBLISHED];
@@ -361,6 +315,11 @@ class UniversalDiscoveryProvider implements Provider
         return new $sortClauseClass($sortOrder);
     }
 
+    /**
+     * @param int[] $locationPath
+     *
+     * @return int[]
+     */
     private function getRelativeLocationPath(int $locationId, array $locationPath): array
     {
         $locationIds = array_values($locationPath);
@@ -375,14 +334,19 @@ class UniversalDiscoveryProvider implements Provider
         return array_slice($locationIds, $index);
     }
 
+    /**
+     * @param mixed[] $locations
+     *
+     * @return mixed[]
+     */
     private function moveSelectedLocationOnTop(
         Location $location,
         array $locations,
         bool $isLastColumnLocationId
     ): array {
-        $index = array_search($location->id, array_map(
+        $index = array_search($location->getId(), array_map(
             static function (RestLocation $location): int {
-                return $location->location->id;
+                return $location->location->getId();
             },
             $locations
         ), true);
@@ -400,5 +364,3 @@ class UniversalDiscoveryProvider implements Provider
         return $locations;
     }
 }
-
-class_alias(UniversalDiscoveryProvider::class, 'EzSystems\EzPlatformAdminUi\UniversalDiscovery\UniversalDiscoveryProvider');

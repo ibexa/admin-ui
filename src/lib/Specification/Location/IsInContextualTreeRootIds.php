@@ -13,17 +13,14 @@ use Ibexa\Contracts\Core\Specification\AbstractSpecification;
 
 final class IsInContextualTreeRootIds extends AbstractSpecification
 {
-    private ConfigResolverInterface $configResolver;
-
-    public function __construct(ConfigResolverInterface $configResolver)
+    public function __construct(private readonly ConfigResolverInterface $configResolver)
     {
-        $this->configResolver = $configResolver;
     }
 
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\Location $item
      */
-    public function isSatisfiedBy($item): bool
+    public function isSatisfiedBy(mixed $item): bool
     {
         $contextualRootIds = $this->configResolver->getParameter(
             'content_tree_module.contextual_tree_root_location_ids'

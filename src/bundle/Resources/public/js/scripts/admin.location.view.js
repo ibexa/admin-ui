@@ -1,4 +1,6 @@
-(function (global, doc, localStorage, bootstrap, React, ReactDOM, ibexa, Routing, Translator) {
+import { checkIsContainer } from './helpers/content.type.helper';
+
+(function (global, doc, localStorage, bootstrap, React, ReactDOMClient, ibexa, Routing, Translator) {
     const SELECTOR_MODAL_BULK_ACTION_FAIL = '#bulk-action-failed-modal';
     const listContainers = doc.querySelectorAll('.ibexa-sil');
     const mfuContainer = doc.querySelector('#ibexa-mfu');
@@ -57,7 +59,7 @@
             languageCode: content.mainLanguageCode,
         });
         const errorMessage = Translator.trans(
-            /*@Desc("You don't have permission to edit this Content item")*/ 'content.edit.permission.error',
+            /* @Desc("You don't have permission to edit this Content item") */ 'content.edit.permission.error',
             {},
             'ibexa_content',
         );
@@ -139,7 +141,7 @@
     listContainers.forEach((container) => {
         const sortField = container.getAttribute('data-sort-field');
         const sortOrder = container.getAttribute('data-sort-order');
-        const subitemsRoot = ReactDOM.createRoot(container);
+        const subitemsRoot = ReactDOMClient.createRoot(container);
         const parentLocationId = parseInt(container.dataset.location, 10);
         const activeView = getLocationActiveView(parentLocationId);
         const subItemsList = JSON.parse(container.dataset.items).SubitemsList;
@@ -193,6 +195,7 @@
                             onPopupClose: (itemsUploaded) => itemsUploaded.length && global.location.reload(true),
                             contentCreatePermissionsConfig: JSON.parse(container.dataset.mfuCreatePermissionsConfig),
                             contentTypesMap: mfuContentTypesMap,
+                            withUploadButton: checkIsContainer(mfuContainer.dataset.parentContentTypeIdentifier),
                         },
                     },
                 ],
@@ -223,7 +226,7 @@
     window.localStorage,
     window.bootstrap,
     window.React,
-    window.ReactDOM,
+    window.ReactDOMClient,
     window.ibexa,
     window.Routing,
     window.Translator,

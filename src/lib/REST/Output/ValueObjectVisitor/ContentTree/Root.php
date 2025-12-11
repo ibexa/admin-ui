@@ -13,16 +13,14 @@ use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 use Ibexa\Contracts\Rest\Output\Visitor;
 use Symfony\Component\HttpFoundation\Response;
 
-class Root extends ValueObjectVisitor
+final class Root extends ValueObjectVisitor
 {
     /**
      * Visit struct returned by controllers.
      *
-     * @param \Ibexa\Contracts\Rest\Output\Visitor $visitor
-     * @param \Ibexa\Contracts\Rest\Output\Generator $generator
      * @param \Ibexa\AdminUi\REST\Value\ContentTree\Root $data
      */
-    public function visit(Visitor $visitor, Generator $generator, $data)
+    public function visit(Visitor $visitor, Generator $generator, mixed $data): void
     {
         $generator->startObjectElement('ContentTreeRoot');
         $visitor->setHeader('Content-Type', $generator->getMediaType('ContentTreeRoot'));
@@ -39,5 +37,3 @@ class Root extends ValueObjectVisitor
         $generator->endObjectElement('ContentTreeRoot');
     }
 }
-
-class_alias(Root::class, 'EzSystems\EzPlatformAdminUi\REST\Output\ValueObjectVisitor\ContentTree\Root');

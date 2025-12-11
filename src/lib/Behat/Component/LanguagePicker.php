@@ -14,13 +14,19 @@ use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class LanguagePicker extends Component
+final class LanguagePicker extends Component
 {
-    public function chooseLanguage($language): void
+    public function chooseLanguage(string $language): void
     {
-        $this->getHTMLPage()->findAll($this->getLocator('languageSelector'))->getByCriterion(new ElementTextCriterion($language))->click();
+        $this->getHTMLPage()
+            ->findAll($this->getLocator('languageSelector'))
+            ->getByCriterion(new ElementTextCriterion($language))
+            ->click();
     }
 
+    /**
+     * @return string[]
+     */
     public function getLanguages(): array
     {
         return $this->getHTMLPage()->findAll($this->getLocator('languageSelector'))->map(

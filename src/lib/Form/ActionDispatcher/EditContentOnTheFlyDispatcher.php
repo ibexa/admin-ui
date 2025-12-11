@@ -11,12 +11,10 @@ namespace Ibexa\AdminUi\Form\ActionDispatcher;
 use Ibexa\ContentForms\Form\ActionDispatcher\ContentDispatcher;
 use Ibexa\Contracts\AdminUi\Event\ContentOnTheFlyEvents;
 
-class EditContentOnTheFlyDispatcher extends ContentDispatcher
+final class EditContentOnTheFlyDispatcher extends ContentDispatcher
 {
     protected function getActionEventBaseName(): string
     {
         return ContentOnTheFlyEvents::CONTENT_EDIT;
     }
 }
-
-class_alias(EditContentOnTheFlyDispatcher::class, 'EzSystems\EzPlatformAdminUi\Form\ActionDispatcher\EditContentOnTheFlyDispatcher');

@@ -9,37 +9,25 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Tab;
 
 use Ibexa\Contracts\AdminUi\Tab\TabInterface;
+use InvalidArgumentException;
 
 class TabGroup
 {
-    /** @var string */
-    protected $identifier;
-
-    /** @var \Ibexa\Contracts\AdminUi\Tab\TabInterface[] */
-    protected $tabs;
-
     /**
-     * @param string $name
-     * @param array $tabs
+     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
      */
-    public function __construct(string $name, array $tabs = [])
-    {
-        $this->identifier = $name;
-        $this->tabs = $tabs;
+    public function __construct(
+        protected string $identifier,
+        protected array $tabs = []
+    ) {
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function setIdentifier(string $identifier)
+    public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
     }
@@ -55,30 +43,24 @@ class TabGroup
     /**
      * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface[] $tabs
      */
-    public function setTabs(array $tabs)
+    public function setTabs(array $tabs): void
     {
         $this->tabs = $tabs;
     }
 
-    /**
-     * @param \Ibexa\Contracts\AdminUi\Tab\TabInterface $tab
-     */
-    public function addTab(TabInterface $tab)
+    public function addTab(TabInterface $tab): void
     {
         $this->tabs[$tab->getIdentifier()] = $tab;
     }
 
-    /**
-     * @param string $identifier
-     */
-    public function removeTab(string $identifier)
+    public function removeTab(string $identifier): void
     {
         if (!isset($this->tabs[$identifier])) {
-            throw new \InvalidArgumentException(sprintf('Could not find a tab identified as "%s".', $identifier));
+            throw new InvalidArgumentException(
+                sprintf('Could not find a tab identified as "%s".', $identifier)
+            );
         }
 
         unset($this->tabs[$identifier]);
     }
 }
-
-class_alias(TabGroup::class, 'EzSystems\EzPlatformAdminUi\Tab\TabGroup');

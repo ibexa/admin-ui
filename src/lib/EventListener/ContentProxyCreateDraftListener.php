@@ -19,26 +19,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\RouterInterface;
 
-class ContentProxyCreateDraftListener implements EventSubscriberInterface
+final readonly class ContentProxyCreateDraftListener implements EventSubscriberInterface
 {
-    private ContentService $contentService;
-
-    private LocationService $locationService;
-
-    private AutosaveServiceInterface $autosaveService;
-
-    private RouterInterface $router;
-
     public function __construct(
-        ContentService $contentService,
-        LocationService $locationService,
-        AutosaveServiceInterface $autosaveService,
-        RouterInterface $router
+        private ContentService $contentService,
+        private LocationService $locationService,
+        private AutosaveServiceInterface $autosaveService,
+        private RouterInterface $router
     ) {
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->autosaveService = $autosaveService;
-        $this->router = $router;
     }
 
     public static function getSubscribedEvents(): array
@@ -75,17 +63,17 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
         if ($options->get(ContentProxyCreateEvent::OPTION_IS_ON_THE_FLY, false)) {
             $response = new RedirectResponse(
                 $this->router->generate('ibexa.content.on_the_fly.edit', [
-                    'contentId' => $contentDraft->id,
-                    'versionNo' => $contentDraft->getVersionInfo()->versionNo,
+                    'contentId' => $contentDraft->getId(),
+                    'versionNo' => $contentDraft->getVersionInfo()->getVersionNo(),
                     'languageCode' => $event->getLanguageCode(),
-                    'locationId' => $contentDraft->contentInfo->mainLocationId,
+                    'locationId' => $contentDraft->getContentInfo()->getMainLocationId(),
                 ])
             );
         } else {
             $response = new RedirectResponse(
                 $this->router->generate('ibexa.content.draft.edit', [
-                    'contentId' => $contentDraft->id,
-                    'versionNo' => $contentDraft->getVersionInfo()->versionNo,
+                    'contentId' => $contentDraft->getId(),
+                    'versionNo' => $contentDraft->getVersionInfo()->getVersionNo(),
                     'language' => $event->getLanguageCode(),
                 ])
             );
@@ -116,7 +104,7 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
             $contentUpdateStruct->fields = $this->getTranslatedContentFields($content, $toLanguageCode);
         }
 
-        $contentDraft = $this->contentService->createContentDraft($content->contentInfo);
+        $contentDraft = $this->contentService->createContentDraft($content->getContentInfo());
 
         $this->contentService->updateContent(
             $contentDraft->getVersionInfo(),
@@ -126,8 +114,8 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
         $response = new RedirectResponse(
             $this->router->generate('ibexa.content.draft.edit', [
-                'contentId' => $contentDraft->id,
-                'versionNo' => $contentDraft->getVersionInfo()->versionNo,
+                'contentId' => $contentDraft->getId(),
+                'versionNo' => $contentDraft->getVersionInfo()->getVersionNo(),
                 'language' => $toLanguageCode,
                 'locationId' => $event->getLocationId(),
             ])
@@ -137,25 +125,25 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Core\Repository\Values\Content\Field>
+     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Field[]
      */
     private function getTranslatedContentFields(Content $content, string $languageCode): array
     {
         $contentType = $content->getContentType();
 
         $translatableFields = array_filter($content->getFields(), static function (Field $field) use ($contentType): bool {
-            return $contentType->getFieldDefinition($field->fieldDefIdentifier)->isTranslatable;
+            return $contentType->getFieldDefinition(
+                $field->getFieldDefinitionIdentifier()
+            )->isTranslatable();
         });
 
         return array_map(static function (Field $field) use ($languageCode): Field {
             return new Field([
-                'value' => $field->value,
-                'fieldDefIdentifier' => $field->fieldDefIdentifier,
-                'fieldTypeIdentifier' => $field->fieldTypeIdentifier,
+                'value' => $field->getValue(),
+                'fieldDefIdentifier' => $field->getFieldDefinitionIdentifier(),
+                'fieldTypeIdentifier' => $field->getFieldTypeIdentifier(),
                 'languageCode' => $languageCode,
             ]);
         }, $translatableFields);
     }
 }
-
-class_alias(ContentProxyCreateDraftListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\ContentProxyCreateDraftListener');

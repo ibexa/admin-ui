@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\EventListener;
 use Ibexa\Contracts\AdminUi\Event\FieldDefinitionMappingEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class PopulateFieldDefinitionData implements EventSubscriberInterface
+final readonly class PopulateFieldDefinitionData implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
     {
@@ -23,22 +23,20 @@ class PopulateFieldDefinitionData implements EventSubscriberInterface
         $fieldDefinition = $event->getFieldDefinition();
         $fieldDefinitionData = $event->getFieldDefinitionData();
 
-        $fieldDefinitionData->identifier = $fieldDefinition->identifier;
+        $fieldDefinitionData->identifier = $fieldDefinition->getIdentifier();
         $fieldDefinitionData->names = $fieldDefinition->getNames();
         $fieldDefinitionData->descriptions = $fieldDefinition->getDescriptions();
-        $fieldDefinitionData->fieldGroup = $fieldDefinition->fieldGroup;
-        $fieldDefinitionData->position = $fieldDefinition->position;
-        $fieldDefinitionData->isTranslatable = $fieldDefinition->isTranslatable;
-        $fieldDefinitionData->isRequired = $fieldDefinition->isRequired;
-        $fieldDefinitionData->isThumbnail = $fieldDefinition->isThumbnail;
-        $fieldDefinitionData->isInfoCollector = $fieldDefinition->isInfoCollector;
+        $fieldDefinitionData->fieldGroup = $fieldDefinition->getFieldGroup();
+        $fieldDefinitionData->position = $fieldDefinition->getPosition();
+        $fieldDefinitionData->isTranslatable = $fieldDefinition->isTranslatable();
+        $fieldDefinitionData->isRequired = $fieldDefinition->isRequired();
+        $fieldDefinitionData->isThumbnail = $fieldDefinition->isThumbnail();
+        $fieldDefinitionData->isInfoCollector = $fieldDefinition->isInfoCollector();
         $fieldDefinitionData->validatorConfiguration = $fieldDefinition->getValidatorConfiguration();
         $fieldDefinitionData->fieldSettings = $fieldDefinition->getFieldSettings();
-        $fieldDefinitionData->defaultValue = $fieldDefinition->defaultValue;
-        $fieldDefinitionData->isSearchable = $fieldDefinition->isSearchable;
+        $fieldDefinitionData->defaultValue = $fieldDefinition->getDefaultValue();
+        $fieldDefinitionData->isSearchable = $fieldDefinition->isSearchable();
 
         $event->setFieldDefinitionData($fieldDefinitionData);
     }
 }
-
-class_alias(PopulateFieldDefinitionData::class, 'EzSystems\EzPlatformAdminUi\EventListener\PopulateFieldDefinitionData');

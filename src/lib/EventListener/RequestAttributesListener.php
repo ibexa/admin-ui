@@ -4,6 +4,7 @@
  * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace Ibexa\AdminUi\EventListener;
 
@@ -20,27 +21,20 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Collects parameters for the ViewBuilder from the Request.
  */
-class RequestAttributesListener implements EventSubscriberInterface
+final readonly class RequestAttributesListener implements EventSubscriberInterface
 {
-    private const TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
-
-    /** @var \Ibexa\Contracts\Core\Repository\Repository */
-    private $repository;
-
-    /** @var array */
-    private $siteAccessGroups;
+    private const string TRANSLATED_CONTENT_VIEW_ROUTE_NAME = 'ibexa.content.translation.view';
 
     /**
-     * @param array $siteAccessGroups
-     * @param \Ibexa\Contracts\Core\Repository\Repository $repository
+     * @param array<string, string[]> $siteAccessGroups
      */
-    public function __construct(array $siteAccessGroups, Repository $repository)
-    {
-        $this->repository = $repository;
-        $this->siteAccessGroups = $siteAccessGroups;
+    public function __construct(
+        private array $siteAccessGroups,
+        private Repository $repository
+    ) {
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [ViewEvents::FILTER_BUILDER_PARAMETERS => 'addRequestAttributes'];
     }
@@ -48,12 +42,10 @@ class RequestAttributesListener implements EventSubscriberInterface
     /**
      * Adds all the request attributes to the parameters.
      *
-     * @param \Ibexa\Core\MVC\Symfony\View\Event\FilterViewBuilderParametersEvent $event
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      */
-    public function addRequestAttributes(FilterViewBuilderParametersEvent $event)
+    public function addRequestAttributes(FilterViewBuilderParametersEvent $event): void
     {
         $request = $event->getRequest();
 
@@ -74,17 +66,11 @@ class RequestAttributesListener implements EventSubscriberInterface
 
             $languageCode = $parameterBag->get('languageCode');
 
-            $content = $this->loadContent($location->contentInfo->id, $languageCode);
+            $content = $this->loadContent($location->getContentInfo()->getId(), $languageCode);
             $parameterBag->set('content', $content);
         }
     }
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     *
-     * @return bool
-     */
     private function hasContentLanguage(Request $request, ParameterBag $parameterBag): bool
     {
         return $parameterBag->has('languageCode')
@@ -92,42 +78,35 @@ class RequestAttributesListener implements EventSubscriberInterface
             && $request->get('_route') === self::TRANSLATED_CONTENT_VIEW_ROUTE_NAME;
     }
 
-    /**
-     * @param int $locationId
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Location
-     */
     private function loadLocation(int $locationId): Location
     {
-        $location = $this->repository->sudo(
+        return $this->repository->sudo(
             static function (Repository $repository) use ($locationId): Location {
                 return $repository->getLocationService()->loadLocation($locationId);
             }
         );
-
-        return $location;
     }
 
     /**
-     * @param int $contentId
-     * @param string $language
-     *
-     * @return \Ibexa\Contracts\Core\Repository\Values\Content\Content
-     *
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException
      * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
      */
     private function loadContent(int $contentId, ?string $language): Content
     {
-        return $this->repository->getContentService()->loadContent($contentId, $language ? [$language] : null);
+        return $this->repository->getContentService()->loadContent(
+            $contentId,
+            $language ? [$language] : null
+        );
     }
 
     private function isAdmin(Request $request): bool
     {
         $siteAccess = $request->attributes->get('siteaccess');
 
-        return \in_array($siteAccess->name, $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME], true);
+        return in_array(
+            $siteAccess->name,
+            $this->siteAccessGroups[IbexaAdminUiBundle::ADMIN_GROUP_NAME],
+            true
+        );
     }
 }
-
-class_alias(RequestAttributesListener::class, 'EzSystems\EzPlatformAdminUi\EventListener\RequestAttributesListener');

@@ -16,16 +16,10 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 
 final class ContentTypeFieldsExtractor implements ContentTypeFieldsExtractorInterface
 {
-    private ContentTypeFieldsExpressionParserInterface $expressionParser;
-
-    private ContentTypeService $contentTypeService;
-
     public function __construct(
-        ContentTypeFieldsExpressionParserInterface $expressionParser,
-        ContentTypeService $contentTypeService
+        private readonly ContentTypeFieldsExpressionParserInterface $expressionParser,
+        private readonly ContentTypeService $contentTypeService
     ) {
-        $this->expressionParser = $expressionParser;
-        $this->contentTypeService = $contentTypeService;
     }
 
     public function extractFieldsFromExpression(string $expression): array

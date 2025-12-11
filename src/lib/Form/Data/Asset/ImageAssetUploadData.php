@@ -11,28 +11,15 @@ namespace Ibexa\AdminUi\Form\Data\Asset;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ImageAssetUploadData
+final class ImageAssetUploadData
 {
-    /**
-     * @Assert\NotBlank()
-     *
-     * @Assert\Image(detectCorrupted = true)
-     *
-     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-     */
-    private $file;
-
-    /**
-     * @Assert\NotBlank()
-     *
-     * @var string
-     */
-    private $languageCode;
-
-    public function __construct(?UploadedFile $file = null, ?string $languageCode = null)
-    {
-        $this->file = $file;
-        $this->languageCode = $languageCode;
+    public function __construct(
+        #[Assert\NotBlank]
+        #[Assert\Image(detectCorrupted: true)]
+        private ?UploadedFile $file = null,
+        #[Assert\NotBlank]
+        private ?string $languageCode = null
+    ) {
     }
 
     public function getFile(): ?UploadedFile
@@ -59,5 +46,3 @@ class ImageAssetUploadData
         return $this;
     }
 }
-
-class_alias(ImageAssetUploadData::class, 'EzSystems\EzPlatformAdminUi\Form\Data\Asset\ImageAssetUploadData');

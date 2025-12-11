@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\Dialog;
 use Ibexa\AdminUi\Behat\Component\Table\TableBuilder;
+use Ibexa\AdminUi\Behat\Component\Table\TableInterface;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
@@ -19,30 +20,25 @@ use Ibexa\Contracts\Core\Repository\ContentTypeService;
 
 class ContentTypeGroupPage extends Page
 {
-    /** @var \Ibexa\AdminUi\Behat\Component\AdminList */
-    protected $adminList;
+    protected string $expectedName;
 
-    /** @var string */
-    protected $expectedName;
+    private mixed $contentTypeGroupId;
 
-    /** @var \Ibexa\Contracts\Core\Repository\ContentTypeService */
-    private $contentTypeService;
+    private TableInterface $table;
 
-    /** @var mixed */
-    private $contentTypeGroupId;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Table\Table */
-    private $table;
-
-    /** @var \Ibexa\AdminUi\Behat\Component\Dialog */
-    private $dialog;
-
-    public function __construct(Session $session, Router $router, ContentTypeService $contentTypeService, TableBuilder $tableBuilder, Dialog $dialog)
-    {
+    public function __construct(
+        readonly Session $session,
+        readonly Router $router,
+        private readonly ContentTypeService $contentTypeService,
+        readonly TableBuilder $tableBuilder,
+        private readonly Dialog $dialog
+    ) {
         parent::__construct($session, $router);
-        $this->contentTypeService = $contentTypeService;
-        $this->table = $tableBuilder->newTable()->withParentLocator($this->getLocator('tableContainer'))->build();
-        $this->dialog = $dialog;
+
+        /** @var \Ibexa\Behat\Browser\Locator\CSSLocator $locator */
+        $locator = $this->getLocator('tableContainer');
+
+        $this->table = $tableBuilder->newTable()->withParentLocator($locator)->build();
     }
 
     public function hasContentTypes(): bool
@@ -66,12 +62,12 @@ class ContentTypeGroupPage extends Page
         $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
     }
 
-    public function isContentTypeOnTheList($contentTypeName): bool
+    public function isContentTypeOnTheList(string $contentTypeName): bool
     {
         return $this->table->hasElement(['Name' => $contentTypeName]);
     }
 
-    public function delete(string $contentTypeName)
+    public function delete(string $contentTypeName): void
     {
         $contentTypeLabelLocator = $this->getLocator('contentTypeLabel');
         $listElement = $this->getHTMLPage()
@@ -105,7 +101,7 @@ class ContentTypeGroupPage extends Page
             ->assert()->textContains('List');
     }
 
-    public function setExpectedContentTypeGroupName(string $expectedName)
+    public function setExpectedContentTypeGroupName(string $expectedName): void
     {
         $this->expectedName = $expectedName;
         $groups = $this->contentTypeService->loadContentTypeGroups();

@@ -12,15 +12,12 @@ use Ibexa\Rest\Value as RestValue;
 
 final class SiteAccessesList extends RestValue
 {
-    /** @var \Ibexa\Core\MVC\Symfony\SiteAccess[] */
-    private array $siteAccesses;
-
     /**
      * @param \Ibexa\Core\MVC\Symfony\SiteAccess[] $siteAccesses
      */
-    public function __construct(array $siteAccesses = [])
-    {
-        $this->siteAccesses = $siteAccesses;
+    public function __construct(
+        private readonly array $siteAccesses = []
+    ) {
     }
 
     /**

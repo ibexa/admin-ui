@@ -16,7 +16,6 @@
 {% block context_menu %}
     {% set url_create_sidebar_right = knp_menu_get('ezplatform_admin_ui.menu_configure.url_wildcard_edit_sidebar_right', [], {
         submit_selector: '#' ~ form.save_and_close.vars.id,
-        save_selector: '#' ~ form.save.vars.id,
     }) %}
 
     {{ knp_menu_render(url_create_sidebar_right, {'template': '@ibexadesign/ui/menu/context_menu.html.twig'}) }}
@@ -47,7 +46,7 @@
                             <label class="ibexa-label">{{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}</label>
                             {{ form_widget(form.forward) }}
                             <small class="ibexa-form-help">
-                                <svg class="ibexa-icon ibexa-icon--small ibexa-form-help__icon">
+                                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-help__icon">
                                     <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
                                 </svg>
                                 <span class="ibexa-custom-url-from__helper-text">
@@ -57,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-                {{ form_widget(form.save, { attr: { hidden: 'hidden' } }) }}
                 {{ form_widget(form.save_and_close, { attr: { hidden: 'hidden' } }) }}
             {{ form_end(form) }}
         </div>

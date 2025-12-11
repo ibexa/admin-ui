@@ -18,5 +18,3 @@ interface RendererInterface
 
     public function renderSingle(string $name, $groupName, array $parameters = []): string;
 }
-
-class_alias(RendererInterface::class, 'EzSystems\EzPlatformAdminUi\Component\Renderer\RendererInterface');

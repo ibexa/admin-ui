@@ -17,20 +17,16 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Form type for sort order selection.
+ *
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
  */
-class SortOrderChoiceType extends AbstractType
+final class SortOrderChoiceType extends AbstractType
 {
-    /**
-     * @var \Symfony\Contracts\Translation\TranslatorInterface
-     */
-    private $translator;
-
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(private readonly TranslatorInterface $translator)
     {
-        $this->translator = $translator;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'choices' => $this->getSortOrderChoices(),
@@ -38,7 +34,7 @@ class SortOrderChoiceType extends AbstractType
         ]);
     }
 
-    public function getParent(): ?string
+    public function getParent(): string
     {
         return ChoiceType::class;
     }
@@ -46,9 +42,9 @@ class SortOrderChoiceType extends AbstractType
     /**
      * Generate sort order options available to choose.
      *
-     * @return array
+     * @return array<string, int>
      */
-    private function getSortOrderChoices()
+    private function getSortOrderChoices(): array
     {
         $choices = [];
         foreach ($this->getSortOrder() as $label => $value) {
@@ -61,9 +57,9 @@ class SortOrderChoiceType extends AbstractType
     /**
      * Get available sort order values.
      *
-     * @return array
+     * @return array<string, int>
      */
-    private function getSortOrder()
+    private function getSortOrder(): array
     {
         return [
             $this->translator->trans(/** @Desc("Ascending") */
@@ -79,5 +75,3 @@ class SortOrderChoiceType extends AbstractType
         ];
     }
 }
-
-class_alias(SortOrderChoiceType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ContentType\SortOrderChoiceType');

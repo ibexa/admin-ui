@@ -11,14 +11,16 @@ namespace Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values;
 use Iterator;
 use IteratorAggregate;
 
-final class FieldTypeToolbar implements IteratorAggregate
+/**
+ * @implements \IteratorAggregate<\Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem>
+ */
+final readonly class FieldTypeToolbar implements IteratorAggregate
 {
-    /** @var \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem[] */
-    private $items;
-
-    public function __construct(array $fieldTypes)
+    /**
+     * @param \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem[] $items
+     */
+    public function __construct(private array $items)
     {
-        $this->items = $fieldTypes;
     }
 
     /**
@@ -30,7 +32,7 @@ final class FieldTypeToolbar implements IteratorAggregate
     }
 
     /**
-     * @return \Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem[]
+     * @return \Iterator<\Ibexa\AdminUi\UI\Module\FieldTypeToolbar\Values\FieldTypeToolbarItem>
      */
     public function getIterator(): Iterator
     {

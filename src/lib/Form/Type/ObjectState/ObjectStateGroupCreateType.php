@@ -16,14 +16,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ObjectStateGroupCreateType extends AbstractType
+/**
+ * @extends \Symfony\Component\Form\AbstractType<\Ibexa\AdminUi\Form\Data\ObjectState\ObjectStateGroupCreateData>
+ */
+final class ObjectStateGroupCreateType extends AbstractType
 {
-    public const BTN_CREATE_AND_EDIT = 'create_and_edit';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('identifier', TextType::class, [
@@ -32,18 +30,10 @@ class ObjectStateGroupCreateType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => /** @Desc("Name") */ 'object_state_group.create.name',
             ])
-            ->add('create', SubmitType::class, [
-                'label' => /** @Desc("Save and close") */ 'object_state_group.create.create',
-            ])
-            ->add(self::BTN_CREATE_AND_EDIT, SubmitType::class, [
-                'label' => /** @Desc("Save") */ 'object_state_group.create.create_and_edit',
-            ]);
+            ->add('create', SubmitType::class);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => ObjectStateGroupCreateData::class,
@@ -51,5 +41,3 @@ class ObjectStateGroupCreateType extends AbstractType
         ]);
     }
 }
-
-class_alias(ObjectStateGroupCreateType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\ObjectState\ObjectStateGroupCreateType');

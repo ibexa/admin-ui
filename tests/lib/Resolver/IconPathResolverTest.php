@@ -10,16 +10,15 @@ namespace Ibexa\Tests\AdminUi\Resolver;
 
 use Ibexa\AdminUi\Resolver\IconPathResolver;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Asset\Packages;
 
 final class IconPathResolverTest extends TestCase
 {
-    /** @var \Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $configResolver;
+    private ConfigResolverInterface&MockObject $configResolver;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\Asset\Packages */
-    private $packages;
+    private Packages&MockObject $packages;
 
     public function setUp(): void
     {
@@ -39,6 +38,9 @@ final class IconPathResolverTest extends TestCase
         self::assertEquals($expectedPath, $iconPathResolver->resolve($icon, $set));
     }
 
+    /**
+     * @return array<array{string, ?string, string}>
+     */
     public function resolveDataProvider(): array
     {
         return [
@@ -60,6 +62,9 @@ final class IconPathResolverTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function getDefaultConfig(): array
     {
         return [
@@ -71,7 +76,10 @@ final class IconPathResolverTest extends TestCase
         ];
     }
 
-    private function getConfigResolverMock(array $config): ConfigResolverInterface
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function getConfigResolverMock(array $config): ConfigResolverInterface&MockObject
     {
         $configResolver = $this->createMock(ConfigResolverInterface::class);
         $configResolver->method('getParameter')->willReturnMap([
@@ -82,7 +90,10 @@ final class IconPathResolverTest extends TestCase
         return $configResolver;
     }
 
-    private function getPackagesMock(array $config): Packages
+    /**
+     * @param array<string, mixed> $config
+     */
+    private function getPackagesMock(array $config): Packages&MockObject
     {
         $packages = $this->createMock(Packages::class);
         $packages->method('getUrl')->willReturnMap([
@@ -93,5 +104,3 @@ final class IconPathResolverTest extends TestCase
         return $packages;
     }
 }
-
-class_alias(IconPathResolverTest::class, 'Ibexa\Platform\Tests\Assets\Resolver\IconPathResolverTest');

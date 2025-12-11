@@ -13,51 +13,27 @@ use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Pagerfanta\Adapter\AdapterInterface;
 
-final class ReverseRelationAdapter implements AdapterInterface
+/**
+ * @implements \Pagerfanta\Adapter\AdapterInterface<\Ibexa\AdminUi\UI\Value\Content\RelationInterface>
+ */
+final readonly class ReverseRelationAdapter implements AdapterInterface
 {
-    /** @var \Ibexa\Contracts\Core\Repository\ContentService */
-    private $contentService;
-
-    /** @var \Ibexa\AdminUi\UI\Dataset\DatasetFactory */
-    private $datasetFactory;
-
-    /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Content */
-    private $content;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\ContentService $contentService
-     * @param \Ibexa\AdminUi\UI\Dataset\DatasetFactory $datasetFactory
-     * @param \Ibexa\Contracts\Core\Repository\Values\Content\Content $content
-     */
     public function __construct(
-        ContentService $contentService,
-        DatasetFactory $datasetFactory,
-        Content $content
+        private ContentService $contentService,
+        private DatasetFactory $datasetFactory,
+        private Content $content
     ) {
-        $this->contentService = $contentService;
-        $this->datasetFactory = $datasetFactory;
-        $this->content = $content;
     }
 
-    /**
-     * Returns the number of results.
-     *
-     * @return int the number of results
-     */
-    public function getNbResults()
+    public function getNbResults(): int
     {
-        return $this->contentService->countReverseRelations($this->content->contentInfo);
+        /** @phpstan-var int<0, max> */
+        return $this->contentService->countReverseRelations(
+            $this->content->getContentInfo()
+        );
     }
 
-    /**
-     * Returns an slice of the results.
-     *
-     * @param int $offset the offset
-     * @param int $length the length
-     *
-     * @return array|\Traversable the slice
-     */
-    public function getSlice($offset, $length)
+    public function getSlice(int $offset, int $length): iterable
     {
         return $this->datasetFactory
             ->reverseRelationList()
@@ -65,5 +41,3 @@ final class ReverseRelationAdapter implements AdapterInterface
             ->getReverseRelations();
     }
 }
-
-class_alias(ReverseRelationAdapter::class, 'EzSystems\EzPlatformAdminUi\Pagination\Pagerfanta\ReverseRelationAdapter');

@@ -13,9 +13,9 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 use RuntimeException;
 
-class MapLocation extends FieldTypeComponent
+final class MapLocation extends FieldTypeComponent
 {
-    private const OPEN_STREET_MAP_TIMEOUT = 20;
+    private const int OPEN_STREET_MAP_TIMEOUT = 20;
 
     public function setValue(array $parameters): void
     {
@@ -54,30 +54,30 @@ class MapLocation extends FieldTypeComponent
         return $this->getHTMLPage()->find($coordinateSelector)->getValue();
     }
 
-    public function verifyValueInEditView(array $value): void
+    public function verifyValueInEditView(array $values): void
     {
-        $expectedLatitude = $value['latitude'];
-        $expectedLongitude = $value['longitude'];
-        $expectedAddress = $value['address'];
+        $expectedLatitude = $values['latitude'];
+        $expectedLongitude = $values['longitude'];
+        $expectedAddress = $values['address'];
 
         Assert::assertEquals(
             $expectedLatitude,
             $this->getValue()['latitude'],
-            sprintf('Field %s has wrong latitude value', $value['label'])
+            sprintf('Field %s has wrong latitude value', $values['label'])
         );
         Assert::assertEquals(
             $expectedLongitude,
             $this->getValue()['longitude'],
-            sprintf('Field %s has wrong longitude value', $value['label'])
+            sprintf('Field %s has wrong longitude value', $values['label'])
         );
         Assert::assertEquals(
             $expectedAddress,
             $this->getValue()['address'],
-            sprintf('Field %s has wrong address value', $value['label'])
+            sprintf('Field %s has wrong address value', $values['label'])
         );
     }
 
-    public function verifyValueInItemView(array $expectedValues): void
+    public function verifyValueInItemView(array $values): void
     {
         $mapText = $this->getHTMLPage()->find($this->parentLocator)->getText();
 
@@ -97,22 +97,22 @@ class MapLocation extends FieldTypeComponent
         $actualLatitude = $this->formatToOneDecimalPlace($matches[2]);
         $actualLongitude = $this->formatToOneDecimalPlace($matches[3]);
 
-        Assert::assertEquals($expectedValues['address'], $actualAddress);
-        Assert::assertEquals($expectedValues['latitude'], $actualLatitude);
-        Assert::assertEquals($expectedValues['longitude'], $actualLongitude);
+        Assert::assertEquals($values['address'], $actualAddress);
+        Assert::assertEquals($values['latitude'], $actualLatitude);
+        Assert::assertEquals($values['longitude'], $actualLongitude);
     }
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezgmaplocation';
+        return 'ibexa_gmap_location';
     }
 
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('latitude', '#ezplatform_content_forms_content_edit_fieldsData_ezgmaplocation_value_latitude'),
-            new VisibleCSSLocator('longitude', '#ezplatform_content_forms_content_edit_fieldsData_ezgmaplocation_value_longitude'),
-            new VisibleCSSLocator('address', '#ezplatform_content_forms_content_edit_fieldsData_ezgmaplocation_value_address'),
+            new VisibleCSSLocator('latitude', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_gmap_location_value_latitude'),
+            new VisibleCSSLocator('longitude', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_gmap_location_value_longitude'),
+            new VisibleCSSLocator('address', '#ezplatform_content_forms_content_edit_fieldsData_ibexa_gmap_location_value_address'),
             new VisibleCSSLocator('searchButton', '.ibexa-btn--search-by-address'),
         ];
     }

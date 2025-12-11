@@ -16,26 +16,14 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 final class ResolveVersionPreviewUrlEvent extends Event
 {
-    private VersionInfo $versionInfo;
-
-    private Language $language;
-
-    private Location $location;
-
-    private SiteAccess $siteAccess;
-
     private ?string $previewUrl = null;
 
     public function __construct(
-        VersionInfo $versionInfo,
-        Language $language,
-        Location $location,
-        SiteAccess $siteAccess
+        private readonly VersionInfo $versionInfo,
+        private readonly Language $language,
+        private readonly Location $location,
+        private readonly SiteAccess $siteAccess
     ) {
-        $this->versionInfo = $versionInfo;
-        $this->language = $language;
-        $this->location = $location;
-        $this->siteAccess = $siteAccess;
     }
 
     public function getVersionInfo(): VersionInfo

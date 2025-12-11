@@ -14,28 +14,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * @extends \Symfony\Component\Form\AbstractType<mixed>
+ */
 class LanguageType extends AbstractType
 {
-    /** @var \Ibexa\Contracts\Core\Repository\LanguageService */
-    protected $languageService;
-
-    /**
-     * @param \Ibexa\Contracts\Core\Repository\LanguageService $languageService
-     */
-    public function __construct(LanguageService $languageService)
+    public function __construct(protected readonly LanguageService $languageService)
     {
-        $this->languageService = $languageService;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer(new LanguageTransformer($this->languageService));
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return HiddenType::class;
     }
 }
-
-class_alias(LanguageType::class, 'EzSystems\EzPlatformAdminUi\Form\Type\Language\LanguageType');

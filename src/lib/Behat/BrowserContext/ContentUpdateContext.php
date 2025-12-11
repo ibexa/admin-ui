@@ -15,18 +15,12 @@ use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\UserUpdatePage;
 use PHPUnit\Framework\Assert;
 
-class ContentUpdateContext implements Context
+final readonly class ContentUpdateContext implements Context
 {
-    /** @var \Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage */
-    private $contentUpdateItemPage;
-
-    /** @var \Ibexa\AdminUi\Behat\Page\UserUpdatePage */
-    private $userUpdatePage;
-
-    public function __construct(ContentUpdateItemPage $contentUpdateItemPage, UserUpdatePage $userUpdatePage)
-    {
-        $this->contentUpdateItemPage = $contentUpdateItemPage;
-        $this->userUpdatePage = $userUpdatePage;
+    public function __construct(
+        private ContentUpdateItemPage $contentUpdateItemPage,
+        private UserUpdatePage $userUpdatePage
+    ) {
     }
 
     /**
@@ -87,6 +81,11 @@ class ContentUpdateContext implements Context
         $this->contentUpdateItemPage->getField($fieldName)->selectFromRepository($contentPath);
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     *
+     * @return array<string, mixed>
+     */
     private function filterOutNonEmptyValues(array $parameters): array
     {
         $values = $parameters;
@@ -108,7 +107,7 @@ class ContentUpdateContext implements Context
     /**
      * @When I switch to :tabName field group
      */
-    public function iSwitchToContentTab(string $tabName)
+    public function iSwitchToContentTab(string $tabName): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldGroup($tabName);
@@ -117,7 +116,7 @@ class ContentUpdateContext implements Context
     /**
      * @When I switch to :tabName field tab
      */
-    public function iSwitchToContentGroup(string $tabName)
+    public function iSwitchToContentGroup(string $tabName): void
     {
         $this->contentUpdateItemPage->verifyIsLoaded();
         $this->contentUpdateItemPage->switchToFieldTab($tabName);

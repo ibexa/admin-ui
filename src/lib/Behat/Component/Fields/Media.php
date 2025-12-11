@@ -15,15 +15,13 @@ use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
-class Media extends FieldTypeComponent
+final class Media extends FieldTypeComponent
 {
-    /** @var \Ibexa\Behat\Browser\FileUpload\FileUploadHelper */
-    private $fileUploadHelper;
-
-    public function __construct(Session $session, FileUploadHelper $fileUploadHelper)
-    {
+    public function __construct(
+        readonly Session $session,
+        private readonly FileUploadHelper $fileUploadHelper
+    ) {
         parent::__construct($session);
-        $this->fileUploadHelper = $fileUploadHelper;
     }
 
     public function setValue(array $parameters): void
@@ -67,6 +65,6 @@ class Media extends FieldTypeComponent
 
     public function getFieldTypeIdentifier(): string
     {
-        return 'ezmedia';
+        return 'ibexa_media';
     }
 }

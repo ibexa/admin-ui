@@ -32,7 +32,7 @@ export const BrowseTab = {
     getLabel: () => {
         const Translator = getTranslator();
 
-        return Translator.trans(/*@Desc("Browse")*/ 'browse.label', {}, 'ibexa_universal_discovery_widget');
+        return Translator.trans(/* @Desc("Browse") */ 'browse.label', {}, 'ibexa_universal_discovery_widget');
     },
     getIcon: () => getIconPath('browse'),
 };

@@ -18,17 +18,12 @@ use Twig\Environment;
  */
 abstract class AbstractControllerBasedTab extends AbstractTab
 {
-    /** @var \Symfony\Bridge\Twig\Extension\HttpKernelRuntime */
-    protected $httpKernelRuntime;
-
     public function __construct(
         Environment $twig,
         TranslatorInterface $translator,
-        HttpKernelRuntime $httpKernelRuntime
+        protected readonly HttpKernelRuntime $httpKernelRuntime
     ) {
         parent::__construct($twig, $translator);
-
-        $this->httpKernelRuntime = $httpKernelRuntime;
     }
 
     public function renderView(array $parameters): string
@@ -43,5 +38,3 @@ abstract class AbstractControllerBasedTab extends AbstractTab
      */
     abstract public function getControllerReference(array $parameters): ControllerReference;
 }
-
-class_alias(AbstractControllerBasedTab::class, 'EzSystems\EzPlatformAdminUi\Tab\AbstractControllerBasedTab');

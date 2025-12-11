@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import PopupMenuItem from './popup.menu.item';
 import { showItem } from './popup.menu.helper';
 
-const PopupMenuGroup = ({ items, filterText, onItemClick }) => {
+const PopupMenuGroup = ({ items = [], filterText = '', onItemClick }) => {
     const isAnyItemVisible = items.some((item) => showItem(item, filterText));
 
     if (!isAnyItemVisible) {
@@ -28,11 +28,6 @@ PopupMenuGroup.propTypes = {
     ),
     onItemClick: PropTypes.func.isRequired,
     filterText: PropTypes.string,
-};
-
-PopupMenuGroup.defaultProps = {
-    items: [],
-    filterText: '',
 };
 
 export default PopupMenuGroup;
