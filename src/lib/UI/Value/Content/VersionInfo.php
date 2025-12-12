@@ -18,7 +18,7 @@ use Ibexa\Core\Repository\Values\Content\VersionInfo as CoreVersionInfo;
  */
 class VersionInfo extends CoreVersionInfo
 {
-    protected User $author;
+    protected ?User $author;
 
     /** @var \Ibexa\Contracts\Core\Repository\Values\Content\Language[] */
     protected array $translations;
