@@ -4,6 +4,19 @@ import { getBootstrap } from './context.helper';
 const { document: doc } = window;
 
 const TOOLTIPS_SELECTOR = '[title], [data-tooltip-title]';
+const TOOLTIPS_DEFAULTS_PARAMS = {
+    delay: {
+        show: 150,
+        hide: 75,
+    },
+    placement: 'bottom',
+    trigger: 'hover',
+    useHtml: false,
+    template: (extraClass = '') => `<div class="tooltip ibexa-tooltip ${extraClass}">
+        <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
+        <div class="tooltip-inner ibexa-tooltip__inner"></div>
+    </div>`,
+};
 const observerConfig = {
     childList: true,
     subtree: true,
@@ -130,15 +143,21 @@ const getContainer = (tooltipNode) => {
     return container ?? doc.body;
 };
 const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
+    const {
+        delay: defaultDelay,
+        placement: defaultPlacement,
+        trigger: defaultTrigger,
+        template: defaultTemplate,
+    } = TOOLTIPS_DEFAULTS_PARAMS;
     const { delayShow, delayHide } = tooltipNode.dataset;
     const delay = {
-        show: delayShow ? parseInt(delayShow, 10) : 150,
-        hide: delayHide ? parseInt(delayHide, 10) : 75,
+        show: delayShow ? parseInt(delayShow, 10) : defaultDelay.show,
+        hide: delayHide ? parseInt(delayHide, 10) : defaultDelay.hide,
     };
     const { title } = tooltipNode;
     const extraClass = tooltipNode.dataset.tooltipExtraClass ?? '';
-    const placement = tooltipNode.dataset.tooltipPlacement ?? 'bottom';
-    const trigger = tooltipNode.dataset.tooltipTrigger ?? 'hover';
+    const placement = tooltipNode.dataset.tooltipPlacement ?? defaultPlacement;
+    const trigger = tooltipNode.dataset.tooltipTrigger ?? defaultTrigger;
     const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
     const container = getContainer(tooltipNode);
     const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
@@ -150,10 +169,7 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
         container,
         popperConfig: modifyPopperConfig.bind(null, iframe),
         html: useHtml,
-        template: `<div class="tooltip ibexa-tooltip ${extraClass}">
-                        <div class="tooltip-arrow ibexa-tooltip__arrow"></div>
-                        <div class="tooltip-inner ibexa-tooltip__inner"></div>
-                   </div>`,
+        template: defaultTemplate(extraClass),
     });
 
     if (isSafari()) {
@@ -241,4 +257,4 @@ const observe = (baseElement = doc) => {
     observer.observe(baseElement, observerConfig);
 };
 
-export { parse, hideAll, observe };
+export { parse, hideAll, observe, TOOLTIPS_DEFAULTS_PARAMS };
