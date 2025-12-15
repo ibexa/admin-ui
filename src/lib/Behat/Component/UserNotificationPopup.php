@@ -163,6 +163,120 @@ final class UserNotificationPopup extends Component
         $this->getHTMLPage()->setTimeout(10)->find($this->getLocator('notificationsCount'))->assert()->textEquals('(' . $expectedCount . ')');
     }
 
+    public function verifyNotification(string $expectedType, string $expectedAuthor, string $expectedDescription, ?string $expectedDate = null, bool $shouldExist = true): void
+    {
+        $notifications = $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'));
+
+        foreach ($notifications as $notification) {
+            $criteria = [
+                new ChildElementTextCriterion($this->getLocator('notificationType'), $expectedType),
+                new ChildElementTextCriterion($this->getLocator('notificationDescriptionTitle'), $expectedAuthor),
+                new ChildElementTextCriterion($this->getLocator('notificationDescriptionText'), $expectedDescription),
+            ];
+
+            if ($expectedDate !== null && $expectedDate !== 'XXXX-XX-XX') {
+                $criteria[] = new ChildElementTextCriterion($this->getLocator('notificationDate'), $expectedDate);
+            }
+
+            foreach ($criteria as $criterion) {
+                if (!$criterion->matches($notification)) {
+                    continue 2;
+                }
+            }
+
+            if ($shouldExist) {
+                return;
+            } else {
+                throw new \Exception(sprintf(
+                    'Notification of type "%s" with author "%s" and description "%s" should not exist, but was found.',
+                    $expectedType,
+                    $expectedAuthor,
+                    $expectedDescription
+                ));
+            }
+        }
+
+        if ($shouldExist) {
+            throw new \Exception(sprintf(
+                'Notification of type "%s" with author "%s" and description "%s" was not found.',
+                $expectedType,
+                $expectedAuthor,
+                $expectedDescription
+            ));
+        }
+    }
+
+    public function openNotificationMenu(string $expectedDescription): void
+    {
+        $this->getHTMLPage()->setTimeout(5)->findAll($this->getLocator('notificationItem'))
+            ->filterBy(new ChildElementTextCriterion($this->getLocator('notificationDescriptionText'), $expectedDescription))
+            ->first()->find($this->getLocator('notificationMenuButton'))->click();
+
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationActionsPopup'),
+                )
+            );
+    }
+
+    public function clickActionButton(string $buttonText): void
+    {
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->findAll($this->getLocator('notificationMenuItemContent'))
+            ->filterBy(new ElementTextCriterion($buttonText))->first()->execute(new MouseOverAndClick());
+
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementNotExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationActionsPopup')
+                )
+            );
+    }
+
+    public function findActionButton(string $buttonText): ?ElementInterface
+    {
+        $this->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementExistsCondition(
+                    $this->getHTMLPage(),
+                    $this->getLocator('notificationMenuItemContent')
+                )
+            );
+
+        return $this->getHTMLPage()
+            ->setTimeout(10)
+            ->findAll($this->getLocator('notificationMenuItemContent'))
+            ->filterBy(new ElementTextCriterion($buttonText))
+            ->first();
+    }
+
+    public function assertEmptyStateVisible(): void
+    {
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('notificationsEmptyText'))->assert()->isVisible();
+    }
+
+    public function clickOnMarkAllAsReadButton(): void
+    {
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('markAllAsReadButton'))->click();
+    }
+
+    public function clickViewAllNotificationsButton(): void
+    {
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('viewAllNotificationsButton'))->click();
+    }
+
+    public function verifyNotificationsCount(int $expectedCount): void
+    {
+        $this->getHTMLPage()->setTimeout(10)->find($this->getLocator('notificationsCount'))->assert()->textEquals('(' . $expectedCount . ')');
+    }
+
     public function verifyIsLoaded(): void
     {
         $this->getHTMLPage()
