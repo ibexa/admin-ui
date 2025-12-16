@@ -8,14 +8,6 @@
 
     <tr>
         <td style="{{ base_style ~ style|default('') }}" class="ibexa-email-content">
-            <style>
-                {# This is needed for iPhone Mail app #}
-                @media (prefers-color-scheme: dark) {
-                    .ibexa-email-content {
-                        color: #ffffff !important;
-                    }
-                }
-            </style>
             {{ content|raw }}
         </td>
     </tr>

@@ -19,7 +19,19 @@
             </head>
         {%- endblock template_head -%}
         {%- block template_body -%}
-            <body style="padding: 0; background-color: #ffffff; color: #131c26;">
+            <body style="padding: 0; background-color: #ffffff; color: #131c26;" class="ibexa-email-body">
+                <style>
+                    @media (prefers-color-scheme: dark) {
+                        .ibexa-email-body {
+                            background-color: #131c26 !important;
+                        }
+
+                        .ibexa-email-content {
+                            color: #ffffff !important;
+                        }
+                    }
+                </style>
+
                 <table
                     align="center"
                     border="0"
