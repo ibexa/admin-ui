@@ -17,14 +17,8 @@
 
 {% form_theme form with form_templates %}
 
-{% block left_sidebar %}
-    {% if without_close_button is not defined or without_close_button != true %}
-        {% set referrer_location = content is defined and is_published ? location : parent_location %}
-    {% endif %}
-
-    {% block anchor_menu %}
-        {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
-    {% endblock %}
+{% block anchor_menu %}
+    {% include '@ibexadesign/ui/anchor_navigation_menu.html.twig' with anchor_params %}
 {% endblock %}
 
 {% block content %}
