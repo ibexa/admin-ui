@@ -95,7 +95,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
     {
         $parameters['creator'] = null;
-        $ownerId = $contentInfo->getOwner()->getUserId();
+        $ownerId = $contentInfo->ownerId;
 
         if ((new UserExists($this->userService))->isSatisfiedBy($ownerId)) {
             $parameters['creator'] = $this->userService->loadUser($ownerId);
