@@ -59,7 +59,6 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.middle.ellipsis.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.error.js'),
     path.resolve(__dirname, '../public/js/scripts/embedded.item.actions'),
-    path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.form.tabs.validation.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.search.autocomplete.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.search.autocomplete.content.js'),
@@ -261,5 +260,6 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.filters.sidebar.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.list.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.filters.js'),
-        ]);
+        ])
+        .addEntry('ibexa-admin-ui-flatpickr-js', path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),);
 };
