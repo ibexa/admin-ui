@@ -261,5 +261,5 @@ module.exports = (Encore) => {
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.list.js'),
             path.resolve(__dirname, '../public/js/scripts/admin.notifications.filters.js'),
         ])
-        .addEntry('ibexa-admin-ui-flatpickr-js', path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'),);
+        .addEntry('ibexa-admin-ui-flatpickr-js', path.resolve(__dirname, '../public/js/scripts/widgets/flatpickr.js'));
 };
