@@ -35,9 +35,6 @@ final class ContentTree extends Component
     {
         return [
             new VisibleCSSLocator('header', '.ibexa-content-tree-container .c-tb-header__name-content,.c-header .c-header__name'),
-            new VisibleCSSLocator('treeItem', '.c-tb-list-item-single__label'),
-            new VisibleCSSLocator('treeElement', '.ibexa-content-tree-container__root .c-tb-list-item-single__element'),
-            new VisibleCSSLocator('search', '.c-tb-search .ibexa-input'),
             new VisibleCSSLocator('contentItemInTree', '.c-tb-list-item-single__link'),
         ];
     }

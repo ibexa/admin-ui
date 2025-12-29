@@ -10,16 +10,15 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\ContentTree;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 final class ContentTreeContext implements Context
 {
     private ContentTree $contentTree;
 
-    public function __construct(ContentTree $contentTree)
-        ContentTree $contentTree
-    )
+    public function __construct (ContentTree $contentTree)
+
     {
+
         $this->contentTree = $contentTree;
     }
 
@@ -38,13 +37,5 @@ final class ContentTreeContext implements Context
     {
         $this->contentTree->verifyIsLoaded();
         $this->contentTree->verifyItemExists($itemPath);
-    }
-    /**
-     * @Given I wait :number seconds
-     */
-    public function iWait(string $number): void
-    {
-        $number = (int) $number;
-        sleep($number);
     }
 }
