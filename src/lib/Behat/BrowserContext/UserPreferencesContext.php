@@ -69,4 +69,14 @@ class UserPreferencesContext implements Context
         $this->userSettingsPage->verifyIsLoaded();
         $this->userSettingsPage->disableHelpCenter();
     }
+
+    /**
+     * @Given I enable Help center
+     */
+    public function iEnableHelpCenter(): void
+    {
+        $this->userSettingsPage->openBrowsingEditionPage();
+        $this->userSettingsPage->verifyIsLoaded();
+        $this->userSettingsPage->enableHelpCenter();
+    }
 }
