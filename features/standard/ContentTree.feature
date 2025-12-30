@@ -1,4 +1,5 @@
 @IbexaOSS @IbexaHeadless @IbexaCommerce @IbexaExperience @javascript
+@tree
 Feature: Content tree basic operations
 
   Scenario: Content tree can be displayed
@@ -22,9 +23,9 @@ Feature: Content tree basic operations
     When I start creating a new content "Article"
     And I set content fields
       | label       | value           |
-      | Title       | Arttest         |
-      | Short title | arttest         |
+      | Title       | TestArt         |
+      | Short title | testart         |
       | Intro       | TestArticleIntro|
     And I perform the "Publish" action
-    And I'm on Content view Page for "root/art1/arttest"
-    Then Content item "root/art1/arttest" exists in Content tree
+    And I'm on Content view Page for "root/art1/testart"
+    Then Content item "root/art1/testart" exists in Content tree
