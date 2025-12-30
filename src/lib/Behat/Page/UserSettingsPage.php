@@ -112,4 +112,11 @@ class UserSettingsPage extends Page
         $this->getHTMLPage()->find($this->getLocator('helpCenterValueDropdown'))->click();
         $this->ibexaDropdown->selectOption('Disabled');
     }
+
+    public function enableHelpCenter(): void
+    {
+        $this->contentActionsMenu->verifyIsLoaded();
+        $this->getHTMLPage()->find($this->getLocator('helpCenterValueDropdown'))->click();
+        $this->ibexaDropdown->selectOption('Enabled');
+    }
 }
