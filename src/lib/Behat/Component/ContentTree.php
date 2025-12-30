@@ -27,7 +27,7 @@ final class ContentTree extends Component
     {
 
         $pathParts = explode('/', $itemPath);
-        $searchedElement = $this->getHTMLPage()->findAll($this->getLocator('contextInTree'))->getByCriterion(new ElementTextCriterion(end($pathParts)));
+        $searchedElement = $this->getHTMLPage()->findAll($this->getLocator('contentInTree'))->getByCriterion(new ElementTextCriterion(end($pathParts)));
         return $searchedElement !== null;
     }
 
@@ -35,7 +35,7 @@ final class ContentTree extends Component
     {
         return [
             new VisibleCSSLocator('header', '.ibexa-content-tree-container .c-tb-header__name-content,.c-header .c-header__name'),
-            new VisibleCSSLocator('contentItemInTree', '.c-tb-list-item-single__link'),
+            new VisibleCSSLocator('contentInTree', '.c-tb-list-item-single__link, .c-list-item'),
         ];
     }
 }
