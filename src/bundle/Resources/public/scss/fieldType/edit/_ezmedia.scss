@@ -8,6 +8,15 @@
             width: 100%;
         }
 
+        &__file-name {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
         &__file-name-wrapper,
         &__file-size-wrapper,
         &__control,
