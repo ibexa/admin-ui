@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
+namespace Ibexa\AdminUi\Behat\Component;
+
+use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
+use PHPUnit\Framework\Assert;
+
+final class ContentTree extends Component
+{
+    public function verifyIsLoaded(): void
+    {
+        $this->getHTMLPage()->find($this->getLocator('header'))->assert()->textEquals('Content tree');
+    }
+
+    public function verifyItemExists(string $itemPath): void
+    {
+        Assert::assertTrue($this->itemExists($itemPath));
+    }
+
+    private function itemExists(string $itemPath): bool
+    {
+        $pathParts = explode('/', $itemPath);
+        $elements = $this->getHTMLPage()->findAll($this->getLocator('contentInTree'));
+
+        foreach ($elements as $element) {
+            if ($element->getText() === end($pathParts)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function specifyLocators(): array
+    {
+        return [
+            new VisibleCSSLocator('header', '.ibexa-content-tree-container .c-tb-header__name-content,.c-header .c-header__name'),
+            new VisibleCSSLocator('contentInTree', '.c-tb-list-item-single__link, .c-list-item'),
+        ];
+    }
+}
