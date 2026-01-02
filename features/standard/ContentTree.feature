@@ -1,5 +1,4 @@
 @IbexaOSS @IbexaHeadless @IbexaCommerce @IbexaExperience @javascript
-@tree
 Feature: Content tree basic operations
 
   Scenario: Content tree can be displayed

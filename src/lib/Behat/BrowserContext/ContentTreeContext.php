@@ -17,7 +17,6 @@ final class ContentTreeContext implements Context
 
     public function __construct(ContentTree $contentTree)
     {
-
         $this->contentTree = $contentTree;
     }
 

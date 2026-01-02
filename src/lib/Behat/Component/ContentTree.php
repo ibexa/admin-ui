@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
-use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use PHPUnit\Framework\Assert;
 
@@ -19,16 +18,24 @@ final class ContentTree extends Component
     {
         $this->getHTMLPage()->find($this->getLocator('header'))->assert()->textEquals('Content tree');
     }
+
     public function verifyItemExists(string $itemPath): void
     {
         Assert::assertTrue($this->itemExists($itemPath));
     }
+
     private function itemExists(string $itemPath): bool
     {
-
         $pathParts = explode('/', $itemPath);
-        $searchedElement = $this->getHTMLPage()->findAll($this->getLocator('contentInTree'))->getByCriterion(new ElementTextCriterion(end($pathParts)));
-        return $searchedElement !== null;
+        $elements = $this->getHTMLPage()->findAll($this->getLocator('contentInTree'));
+
+        foreach ($elements as $element) {
+            if ($element->getText() === end($pathParts)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected function specifyLocators(): array
