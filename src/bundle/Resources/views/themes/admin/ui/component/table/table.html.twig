@@ -46,10 +46,10 @@
         {% endset %}
 
         <table
-                class="ibexa-table table
+            class="ibexa-table table
             {{ is_last_column_sticky ? 'ibexa-table--last-column-sticky' }}
             {{ class|default('') -}}"
-                {{ html.attributes(attr|default({})) }}
+            {{ html.attributes(attr|default({})) }}
         >
             <template class="ibexa-table__template--empty-row">
                 {{ empty_row }}
