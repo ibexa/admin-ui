@@ -4,6 +4,10 @@
 .ibexa-edit-content {
     @include edit-right-side-container;
 
+    &-width-wrapper {
+        width: calc(100% - calculateRem(300px));
+    }
+
     &__container {
         max-width: calculateRem(820px);
 

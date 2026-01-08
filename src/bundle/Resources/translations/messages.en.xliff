@@ -6,11 +6,6 @@
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="9177237415bf4199961eb8de9353011a5b22a039" resname="anchor_navigation.close">
-        <source>Close</source>
-        <target state="new">Close</target>
-        <note>key: anchor_navigation.close</note>
-      </trans-unit>
       <trans-unit id="8ace6daf300d4e12a28054d996c185db9ce7fe91" resname="authentication.credentials_expire_in.warning">
         <source>Your current password will expire in %days% day(s). You can change it in User settings/My account settings.</source>
         <target state="new">Your current password will expire in %days% day(s). You can change it in User settings/My account settings.</target>
@@ -351,6 +346,16 @@
         <target state="new">We’ve sent to your email account a link to reset your password.</target>
         <note>key: ibexa.forgot_user_password.success.alert</note>
       </trans-unit>
+      <trans-unit id="ed391233ecfa73eeaf4884c184b6b07e30d8f8fa" resname="ibexa.notifications.search_form.label.from">
+        <source>From</source>
+        <target state="new">From</target>
+        <note>key: ibexa.notifications.search_form.label.from</note>
+      </trans-unit>
+      <trans-unit id="b5ffcfba814a8539a4257894dc59affdfb49f1c6" resname="ibexa.notifications.search_form.label.to">
+        <source>To</source>
+        <target state="new">To</target>
+        <note>key: ibexa.notifications.search_form.label.to</note>
+      </trans-unit>
       <trans-unit id="a806cedb66ffc2616efb687174a31441d15d6b29" resname="ibexa_author.Email">
         <source>Email</source>
         <target state="new">Email</target>
@@ -370,6 +375,16 @@
         <source>Name</source>
         <target state="new">Name</target>
         <note>key: ibexa_author.name</note>
+      </trans-unit>
+      <trans-unit id="a8c78354005b82690d25244c10c2914d1c7cc620" resname="ibexa_notifications">
+        <source>Notifications</source>
+        <target state="new">Notifications</target>
+        <note>key: ibexa_notifications</note>
+      </trans-unit>
+      <trans-unit id="3fb3513f9d1afa70eca71242490ec7b403bdd41c" resname="ibexa_notifications.btn.mark_all_as_read">
+        <source>Mark all as read</source>
+        <target state="new">Mark all as read</target>
+        <note>key: ibexa_notifications.btn.mark_all_as_read</note>
       </trans-unit>
       <trans-unit id="599a4e82a1f7e8220dc4f792e1541cd3f0963dac" resname="ibexa_object_relation_list.cta.limit.multi">
         <source>Set up a Relation with one or several Items</source>
@@ -395,26 +410,6 @@
         <source>Delete</source>
         <target state="new">Delete</target>
         <note>key: ibexa_object_relation_list.delete_selected_relations</note>
-      </trans-unit>
-      <trans-unit id="ed391233ecfa73eeaf4884c184b6b07e30d8f8fa" resname="ibexa.notifications.search_form.label.from">
-        <source>From</source>
-        <target state="new">From</target>
-        <note>key: ibexa.notifications.search_form.label.from</note>
-      </trans-unit>
-      <trans-unit id="b5ffcfba814a8539a4257894dc59affdfb49f1c6" resname="ibexa.notifications.search_form.label.to">
-        <source>To</source>
-        <target state="new">To</target>
-        <note>key: ibexa.notifications.search_form.label.to</note>
-      </trans-unit>
-      <trans-unit id="a8c78354005b82690d25244c10c2914d1c7cc620" resname="ibexa_notifications">
-        <source>Notifications</source>
-        <target state="new">Notifications</target>
-        <note>key: ibexa_notifications</note>
-      </trans-unit>
-      <trans-unit id="3fb3513f9d1afa70eca71242490ec7b403bdd41c" resname="ibexa_notifications.btn.mark_all_as_read">
-        <source>Mark all as read</source>
-        <target state="new">Mark all as read</target>
-        <note>key: ibexa_notifications.btn.mark_all_as_read</note>
       </trans-unit>
       <trans-unit id="8390c7c1adbff8a264583f6f060256c993023787" resname="language.delete">
         <source>Delete</source>
