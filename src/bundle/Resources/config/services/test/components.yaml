@@ -33,6 +33,8 @@ services:
 
   Ibexa\AdminUi\Behat\Component\UserNotificationPopup: ~
 
+  Ibexa\AdminUi\Behat\Component\ContentTree: ~
+
   Ibexa\AdminUi\Behat\Component\ContentTypePicker: ~
 
   Ibexa\AdminUi\Behat\Component\LanguagePicker: ~
