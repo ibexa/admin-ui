@@ -10,7 +10,12 @@ const PopupMenuItem = ({ item, filterText, onItemClick }) => {
 
     return (
         <div className="c-popup-menu__item">
-            <button type="button" className="c-popup-menu__item-content" onClick={() => onItemClick(item)}>
+            <button
+                type="button"
+                className="c-popup-menu__item-content"
+                disabled={item.disabled ?? false}
+                onClick={() => onItemClick(item)}
+            >
                 <span className="c-popup-menu__item-label">{item.label}</span>
             </button>
         </div>
@@ -19,6 +24,7 @@ const PopupMenuItem = ({ item, filterText, onItemClick }) => {
 
 PopupMenuItem.propTypes = {
     item: PropTypes.shape({
+        disabled: PropTypes.bool,
         label: PropTypes.string.isRequired,
     }).isRequired,
     onItemClick: PropTypes.func.isRequired,
