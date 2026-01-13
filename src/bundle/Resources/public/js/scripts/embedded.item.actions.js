@@ -153,7 +153,7 @@
             ? {
                   href: Routing.generate('ibexa.product_catalog.product.edit', {
                       productCode,
-                      languageCode: languages[0].languageCode,
+                      languageCode: languages[0]?.languageCode,
                   }),
               }
             : {
@@ -224,7 +224,7 @@
 
         const mainContainer = container.closest('.ibexa-embedded-item-actions');
         const menuLoader = mainContainer.querySelector('.ibexa-embedded-item-actions__loader-container');
-        const askForLanguagesData = Object.keys(languages).length !== 1;
+        const askForLanguagesData = Object.keys(languages).length !== 1 && !Number.isNaN(contentId);
         const languagesData = askForLanguagesData
             ? await getLanguagesData({
                   contentId,
@@ -232,7 +232,7 @@
                   callbackFunc: hideLoader.bind(null, { menuLoader }),
               })
             : languages;
-        const contentData = await loadContentData(contentId);
+        const contentData = !Number.isNaN(contentId) ? await loadContentData(contentId) : null;
         const menuItems = generateMenuTreeItems({
             contentId,
             locationId,
