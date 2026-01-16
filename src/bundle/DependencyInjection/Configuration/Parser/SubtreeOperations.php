@@ -23,6 +23,8 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
  *          subtree_operations:
  *              copy_subtree:
  *                  limit: 200
+ *              query_subtree:
+ *                  limit: 500
  * ```
  */
 final class SubtreeOperations extends AbstractParser
@@ -35,15 +37,25 @@ final class SubtreeOperations extends AbstractParser
         mixed $currentScope,
         ContextualizerInterface $contextualizer
     ): void {
-        if (!isset($scopeSettings['subtree_operations']['copy_subtree']['limit'])) {
+        if (!isset($scopeSettings['subtree_operations'])) {
             return;
         }
 
-        $contextualizer->setContextualParameter(
-            'subtree_operations.copy_subtree.limit',
-            $currentScope,
-            $scopeSettings['subtree_operations']['copy_subtree']['limit']
-        );
+        if (isset($scopeSettings['subtree_operations']['copy_subtree']['limit'])) {
+            $contextualizer->setContextualParameter(
+                'subtree_operations.copy_subtree.limit',
+                $currentScope,
+                $scopeSettings['subtree_operations']['copy_subtree']['limit']
+            );
+        }
+
+        if (isset($scopeSettings['subtree_operations']['query_subtree']['limit'])) {
+            $contextualizer->setContextualParameter(
+                'subtree_operations.query_subtree.limit',
+                $currentScope,
+                $scopeSettings['subtree_operations']['query_subtree']['limit']
+            );
+        }
     }
 
     public function addSemanticConfig(NodeBuilder $nodeBuilder): void
@@ -58,6 +70,13 @@ final class SubtreeOperations extends AbstractParser
                                 ->info('Number of items that can be copied at once, -1 for no limit, 0 to disable copying.')
                                 ->isRequired()
                             ->end()
+                        ->end()
+                    ->end()
+                    ->arrayNode('query_subtree')
+                    ->children()
+                        ->integerNode('limit')
+                            ->info('Limit the total count of items queried for when calculating the the number of direct children a node has. -1 for no limit.')
+                            ->isRequired()
                         ->end()
                     ->end()
                 ->end()
