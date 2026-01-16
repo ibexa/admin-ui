@@ -165,3 +165,9 @@ services:
             $siteAccessGroups: '%ibexa.site_access.groups%'
         tags:
             - {name: kernel.event_subscriber}
+
+    Ibexa\AdminUi\EventListener\RoleAssignmentCacheInvalidationListener:
+        autowire: true
+        autoconfigure: true
+        arguments:
+            $cache: '@ibexa.cache_pool'
