@@ -32,6 +32,16 @@ final class SubtreeOperationsTest extends TestCase
         yield 'disabled = 0' => [0];
     }
 
+    /**
+     * @return iterable<string, array{int|null}>
+     */
+    public function getExpectedQuerySubtreeLimit(): iterable
+    {
+        yield 'no limit = -1' => [-1];
+        yield 'custom limit = 1000' => [1000];
+        yield 'disabled = 0' => [0];
+    }
+
     protected function setUp(): void
     {
         $this->parser = new SubtreeOperations();
@@ -74,6 +84,81 @@ final class SubtreeOperationsTest extends TestCase
         $this->contextualizer
             ->expects(self::never())
             ->method('setContextualParameter');
+
+        $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
+    }
+
+    /**
+     * @dataProvider getExpectedQuerySubtreeLimit
+     */
+    public function testQuerySubtreeLimit(int $expectedQuerySubtreeLimit): void
+    {
+        $scopeSettings = [
+            'subtree_operations' => [
+                'query_subtree' => [
+                    'limit' => $expectedQuerySubtreeLimit,
+                ],
+            ],
+        ];
+        $currentScope = 'admin_group';
+
+        $this->contextualizer
+            ->expects(self::once())
+            ->method('setContextualParameter')
+            ->with(
+                'subtree_operations.query_subtree.limit',
+                $currentScope,
+                $expectedQuerySubtreeLimit
+            );
+
+        $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
+    }
+
+    public function testQuerySubtreeLimitNotSet(): void
+    {
+        $scopeSettings = [
+            'subtree_operations' => [
+                'query_subtree' =>null,
+            ],
+        ];
+        $currentScope = 'admin_group';
+
+        $this->contextualizer
+            ->expects(self::never())
+            ->method('setContextualParameter');
+
+        $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
+    }
+
+    public function testBothSubtreeOperationsSet(): void
+    {
+        $scopeSettings = [
+            'subtree_operations' => [
+                'copy_subtree' => [
+                    'limit' => 200,
+                ],
+                'query_subtree' => [
+                    'limit' => 500,
+                ],
+            ],
+        ];
+        $currentScope = 'admin_group';
+
+        $this->contextualizer
+            ->expects(self::exactly(2))
+            ->method('setContextualParameter')
+            ->withConsecutive(
+                [
+                    'subtree_operations.copy_subtree.limit',
+                    $currentScope,
+                    200,
+                ],
+                [
+                    'subtree_operations.query_subtree.limit',
+                    $currentScope,
+                    500,
+                ]
+            );
 
         $this->parser->mapConfig($scopeSettings, $currentScope, $this->contextualizer);
     }
