@@ -34,7 +34,10 @@ final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterfac
      */
     public function setRestrictedContentTypeIds(array $restrictedContentTypeIds): self
     {
-        $this->restrictedContentTypesIds = $restrictedContentTypeIds;
+        $this->restrictedContentTypesIds = array_map(
+            'intval',
+            $restrictedContentTypeIds
+        );
 
         return $this;
     }
@@ -68,7 +71,7 @@ final class ContentCreateContentTypeChoiceLoader implements ChoiceLoaderInterfac
 
         foreach ($contentTypesGroups as $group => $contentTypes) {
             $contentTypesGroups[$group] = array_filter($contentTypes, function (ContentType $contentType): bool {
-                return in_array($contentType->id, $this->restrictedContentTypesIds);
+                return in_array($contentType->id, $this->restrictedContentTypesIds, true);
             });
         }
 
