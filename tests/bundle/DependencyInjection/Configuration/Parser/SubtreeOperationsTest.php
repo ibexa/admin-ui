@@ -118,7 +118,7 @@ final class SubtreeOperationsTest extends TestCase
     {
         $scopeSettings = [
             'subtree_operations' => [
-                'query_subtree' =>null,
+                'query_subtree' => null,
             ],
         ];
         $currentScope = 'admin_group';
