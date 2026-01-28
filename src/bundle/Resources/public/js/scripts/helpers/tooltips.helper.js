@@ -23,13 +23,14 @@ const observerConfig = {
     attributes: true,
     attributeFilter: ['title', 'data-tooltip-title', 'data-tooltip-extra-class', 'data-tooltip-manual-reparsing'],
 };
-const bootstrap = getBootstrap();
 const resizeEllipsisObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
         parse(entry.target);
     });
 });
 const observer = new MutationObserver((mutationsList) => {
+    const bootstrap = getBootstrap();
+
     mutationsList.forEach((mutation) => {
         const { type, target, addedNodes, removedNodes } = mutation;
 
@@ -143,6 +144,7 @@ const getContainer = (tooltipNode) => {
     return container ?? doc.body;
 };
 const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
+    const bootstrap = getBootstrap();
     const {
         delay: defaultDelay,
         placement: defaultPlacement,
@@ -192,6 +194,7 @@ const parse = (baseElement = doc) => {
         return;
     }
 
+    const bootstrap = getBootstrap();
     const tooltipNodes = [...baseElement.querySelectorAll(TOOLTIPS_SELECTOR)];
 
     if (baseElement instanceof Element) {
@@ -247,6 +250,7 @@ const hideAll = (baseElement = doc) => {
         return;
     }
 
+    const bootstrap = getBootstrap();
     const tooltipsNode = baseElement.querySelectorAll(TOOLTIPS_SELECTOR);
 
     for (const tooltipNode of tooltipsNode) {
