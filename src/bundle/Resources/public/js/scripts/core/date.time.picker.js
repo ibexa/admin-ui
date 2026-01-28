@@ -104,7 +104,7 @@ class DateTimePicker {
         }
     }
 
-    onKeyUp(isMinute, event) {
+    onKeyUp(type, event) {
         const inputValue = event.target.value;
 
         if (inputValue.length === 0) {
@@ -120,10 +120,16 @@ class DateTimePicker {
                 return;
             }
 
-            if (isMinute) {
-                flatpickrDate.setMinutes(value);
-            } else {
-                flatpickrDate.setHours(value);
+            switch (type) {
+                case 'hours':
+                    flatpickrDate.setHours(value);
+                    break;
+                case 'minutes':
+                    flatpickrDate.setMinutes(value);
+                    break;
+                case 'seconds':
+                    flatpickrDate.setSeconds(value);
+                    break;
             }
 
             if (this.flatpickrInstance.config.minDate?.getTime() > flatpickrDate.getTime()) {
@@ -150,8 +156,11 @@ class DateTimePicker {
         );
 
         if (this.flatpickrInstance.config.enableTime) {
-            this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, true), false);
-            this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, false), false);
+            this.flatpickrInstance.hourElement.addEventListener('keyup', this.onKeyUp.bind(this, 'hours'), false);
+            this.flatpickrInstance.minuteElement.addEventListener('keyup', this.onKeyUp.bind(this, 'minutes'), false);
+            if (this.flatpickrInstance.secondElement !== undefined) {
+                this.flatpickrInstance.secondElement.addEventListener('keyup', this.onKeyUp.bind(this, 'seconds'), false);
+            }
         }
     }
 }
