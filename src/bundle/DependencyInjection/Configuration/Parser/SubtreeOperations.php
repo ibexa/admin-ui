@@ -75,7 +75,7 @@ final class SubtreeOperations extends AbstractParser
                     ->arrayNode('query_subtree')
                     ->children()
                         ->integerNode('limit')
-                            ->info('Limit the total count of items queried for when calculating the the number of direct children a node has. -1 for no limit.')
+                            ->info('Limit the total count of items queried for when calculating the number of direct children a node has. -1 for no limit.')
                         ->end()
                     ->end()
                 ->end()
