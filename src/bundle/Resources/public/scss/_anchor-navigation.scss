@@ -3,6 +3,8 @@
 
 .ibexa-anchor-navigation {
     $self: &;
+    background-color: $ibexa-color-white;
+    padding: calculateRem(24px) calculateRem(32px) 0 calculateRem(32px);
 
     &__sections {
         .card {
@@ -49,13 +51,10 @@
     &__header {
         height: calculateRem(87px);
         padding: calculateRem(20px) 0 0 calculateRem(17px);
-        border-bottom: calculateRem(1px) solid $ibexa-color-light;
     }
 
     &__body {
         height: calc(100% - #{calculateRem(87px)});
-        overflow: auto;
-        padding: calculateRem(25px);
         font-size: $ibexa-text-font-size-medium;
     }
 
@@ -73,39 +72,48 @@
 
     &__sections {
         min-width: calculateRem(240px);
+        max-width: calculateRem(240px);
         list-style: none;
         display: none;
         margin: calculateRem(24px) 0 0;
-        padding: calculateRem(24px) 0 0;
-        border-top: calculateRem(1px) solid $ibexa-color-light;
+        position: absolute;
+        right: calculateRem(30px);
+        z-index: 10;
 
         &--active {
             display: block;
         }
+    }
 
-        &--no-border {
-            border: 0;
-            margin-top: 0;
-            padding-top: 0;
-        }
+    &__sections-header {
+        font-size: $ibexa-text-font-size-extra-large;
+        font-weight: 600;
+        color: $ibexa-color-primary;
+        margin: calculateRem(16px) 0;
+    }
+
+    &__sections-item {
+        height: calculateRem(32px);
     }
 
     &__sections-item-btn {
         display: inline-flex;
         width: 100%;
-        padding: calculateRem(11px) calculateRem(15px);
+        padding: 0;
         border: calculateRem(1px) solid transparent;
-        border-radius: $ibexa-border-radius;
         text-align: left;
+        color: $ibexa-color-dark-400;
+        align-items: center;
+        font-weight: 600;
+        border-left: calculateRem(1px) solid $ibexa-color-light;
 
         &::before {
             content: '';
             display: block;
-            width: calculateRem(8px);
-            height: calculateRem(8px);
-            margin: calculateRem(8px) calculateRem(16px) 0 0;
-            border-radius: 50%;
-            background-color: $ibexa-color-light;
+            width: calculateRem(2px);
+            height: calculateRem(32px);
+            margin: 0 calculateRem(16px) 0 0;
+            opacity: 0;
         }
 
         &::after {
@@ -119,21 +127,20 @@
         }
 
         &:hover {
-            color: $ibexa-color-info;
-            font-weight: 600;
+            color: $ibexa-color-primary;
 
             &::before {
-                background-color: $ibexa-color-info;
+                opacity: 1;
+                background-color: $ibexa-color-primary;
             }
         }
 
         &--active {
-            color: $ibexa-color-info;
-            background: $ibexa-color-info-100;
-            font-weight: 600;
+            color: $ibexa-color-primary;
 
             &::before {
-                background-color: $ibexa-color-info;
+                opacity: 1;
+                background-color: $ibexa-color-primary;
             }
         }
 
