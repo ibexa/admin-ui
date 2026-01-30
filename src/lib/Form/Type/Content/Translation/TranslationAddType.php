@@ -70,7 +70,9 @@ class TranslationAddType extends AbstractType
         $resolver->setDefaults([
             'data_class' => TranslationAddData::class,
             'translation_domain' => 'forms',
+            'allow_no_language' => true,
         ]);
+        $resolver->setAllowedTypes('allow_no_language', 'bool');
     }
 
     /**
@@ -88,6 +90,7 @@ class TranslationAddType extends AbstractType
         $form = $event->getForm();
         $data = $event->getData();
         $location = $data->getLocation();
+        $options = $form->getConfig()->getOptions();
 
         if (null !== $location) {
             $contentInfo = $location->getContentInfo();
@@ -95,7 +98,7 @@ class TranslationAddType extends AbstractType
             $contentLanguages = $versionInfo->languageCodes;
         }
 
-        $this->addLanguageFields($form, $contentLanguages, $contentInfo, $location);
+        $this->addLanguageFields($form, $contentLanguages, $contentInfo, $location, $options);
     }
 
     /**
@@ -112,6 +115,7 @@ class TranslationAddType extends AbstractType
         $contentLanguages = [];
         $form = $event->getForm();
         $data = $event->getData();
+        $options = $form->getConfig()->getOptions();
 
         $location = null;
         if (isset($data['location'])) {
@@ -128,7 +132,7 @@ class TranslationAddType extends AbstractType
             }
         }
 
-        $this->addLanguageFields($form, $contentLanguages, $contentInfo, $location);
+        $this->addLanguageFields($form, $contentLanguages, $contentInfo, $location, $options);
     }
 
     /**
@@ -146,13 +150,16 @@ class TranslationAddType extends AbstractType
      * Adds language fields to the $form. Language options are composed based on content language.
      *
      * @param string[] $contentLanguages
+     * @param array<string, mixed> $options
      */
     public function addLanguageFields(
         FormInterface $form,
         array $contentLanguages,
         ?ContentInfo $contentInfo,
-        ?Location $location = null
+        ?Location $location = null,
+        array $options = []
     ): void {
+        $allowNoLanguage = $options['allow_no_language'] ?? true;
         $languagesCodes = array_column(
             iterator_to_array($this->languageService->loadLanguages()),
             'languageCode'
@@ -206,7 +213,9 @@ class TranslationAddType extends AbstractType
                 ChoiceType::class,
                 [
                     'required' => false,
-                    'placeholder' => /** @Desc("No language") */ 'translation.base_language.no_language',
+                    'placeholder' => $allowNoLanguage
+                        ? /** @Desc("No language") */ 'translation.base_language.no_language'
+                        : false,
                     'multiple' => false,
                     'expanded' => false,
                     'choice_loader' => new CallbackChoiceLoader(function () use ($contentLanguages): array {
