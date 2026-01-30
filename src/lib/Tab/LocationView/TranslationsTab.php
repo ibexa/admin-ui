@@ -129,7 +129,10 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         return $this->formFactory->createNamed(
             'add-translation',
             TranslationAddType::class,
-            $data
+            $data,
+            [
+                'allow_no_language' => false,
+            ]
         );
     }
 

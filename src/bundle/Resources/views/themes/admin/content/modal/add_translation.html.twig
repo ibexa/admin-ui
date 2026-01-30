@@ -7,6 +7,15 @@
 } %}
     {% trans_default_domain 'ibexa_locationview' %}
     {% form_theme form '@ibexadesign/content/translation_add_form_fields.html.twig' %}
+    {% set location = form.vars.data.location ?? null %}
+    {% set content_id = location is not null ? location.contentId : null %}
+    {% set custom_footer = ibexa_twig_component_group('admin-ui-content-translation-modal-footer', {
+            form: form,
+            content_id: content_id,
+            location: location,
+            allow_placeholder: allow_placeholder|default(false)
+        })
+    %}
 
     {% block content_before %}
         {% set action = action is defined ? action : path('ibexa.translation.add') %}
@@ -32,10 +41,16 @@
         {{ ibexa_twig_component_group('admin-ui-form-content-add-translation-body', { form }) }}
     {% endblock %}
     {% block footer_content %}
-        {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
-        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
-            {{ 'tab.translations.add.cancel'|trans|desc('Cancel') }}
-        </button>
+        {% if custom_footer is not empty %}
+            {{ custom_footer|raw }}
+        {% else %}
+            {% if form.add is defined %}
+                {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
+            {% endif %}
+            <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+                {{ 'tab.translations.add.cancel'|trans|desc('Cancel') }}
+            </button>
+        {% endif %}
     {% endblock %}
     {% block content_after %}
         {{ form_end(form) }}
