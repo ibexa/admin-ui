@@ -31,7 +31,7 @@ class ContentTab extends AbstractEventDispatchingTab implements OrderedTabInterf
         private readonly ConfigResolverInterface $configResolver
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
-   }
+    }
 
     public function getIdentifier(): string
     {
