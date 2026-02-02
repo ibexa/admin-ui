@@ -100,9 +100,16 @@ final class DamWidget implements ProviderInterface
     {
         $imageConfig = [
             'showImageFilters' => $this->showImageFilters(),
-            'aggregations' => $this->config['image']['aggregations'],
             'enableMultipleDownload' => extension_loaded('zip'),
         ];
+
+        // The content type may not have the default fields; in that case, don't add the aggregations
+        $imageType = $this->contentTypeService->loadContentTypeByIdentifier('image');
+        foreach ($this->config['image']['aggregations'] as $aggregation) {
+            if ($imageType->hasFieldDefinition($aggregation['fieldDefinitionIdentifier'])) {
+                $imageConfig['aggregations'][] = $aggregation;
+            }
+        }
 
         $mappings = [];
         $contentTypeIdentifiers = [];
