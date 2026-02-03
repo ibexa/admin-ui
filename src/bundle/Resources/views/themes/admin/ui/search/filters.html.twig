@@ -14,12 +14,12 @@
     <div class="ibexa-filters__header">
         <h3 class="ibexa-filters__title">{{ 'search.filters.title'|trans|desc('Filters') }}</h3>
         <div class="ibexa-filters__btns">
-            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--clear">
+            <twig:ibexa:button type="tertiary-alt" size="small" class="ibexa-btn--clear">
                 {{ 'search.clear'|trans|desc('Clear') }}
-            </button>
-            <button type="submit" class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply" disabled>
+            </twig:ibexa:button>
+            <twig:ibexa:button type="secondary" size="small" html_type="submit" class="ibexa-btn--apply" :disabled="true">
                 {{ 'search.apply'|trans|desc('Apply') }}
-            </button>
+            </twig:ibexa:button>
         </div>
     </div>
     <div class="ibexa-filters__items">
