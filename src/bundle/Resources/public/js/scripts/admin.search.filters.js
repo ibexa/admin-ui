@@ -107,6 +107,7 @@
         const methodName = isEnabled ? 'removeAttribute' : 'setAttribute';
 
         applyBtn[methodName]('disabled', !isEnabled);
+        applyBtn.classList.toggle('ids-btn--disabled', !isEnabled);
     };
     const toggleDatesSelectVisibility = (event, select, dateRange) => {
         const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);
