@@ -149,21 +149,16 @@
 {% macro table_header_tools(form) %}
     {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
 
-    <button
+    <twig:ibexa:button
+        type="tertiary"
+        icon="trash"
+        :disabled="true"
         id="confirm-{{ form.remove.vars.id }}"
-        type="button"
-        class="btn ibexa-btn ibexa-btn--ghost"
-        disabled
         data-bs-toggle="modal"
         data-bs-target="#{{ modal_data_target }}"
     >
-        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
-            {{ 'drafts.list.action.remove.confirmation.title'|trans|desc('Delete') }}
-        </span>
-    </button>
+        {{ 'drafts.list.action.remove.confirmation.title'|trans|desc('Delete') }}
+    </twig:ibexa:button>
 
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
