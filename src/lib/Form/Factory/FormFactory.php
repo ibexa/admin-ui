@@ -1071,7 +1071,7 @@ class FormFactory
      * @return \Symfony\Component\Form\FormInterface<\Ibexa\AdminUi\Form\Data\Notification\NotificationSelectionData|null>
      */
     public function deleteNotification(
-        NotificationSelectionData $data = null,
+        ?NotificationSelectionData $data = null,
         ?string $name = null
     ): FormInterface {
         $name = $name ?: StringUtil::fqcnToBlockPrefix(NotificationSelectionType::class);
