@@ -1,0 +1,24 @@
+{
+  "name": "@ibexa/admin-ui-migration-tools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Automated component migration orchestration tools",
+  "type": "module",
+  "scripts": {
+    "migrate": "tsx migrate-component.ts",
+    "migrate:button": "tsx migrate-component.ts --component button",
+    "migrate:badge": "tsx migrate-component.ts --component badge",
+    "migrate:status": "tsx migrate-component.ts --status",
+    "build": "tsc",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
