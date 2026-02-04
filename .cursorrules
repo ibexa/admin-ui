@@ -1,0 +1,24 @@
+# Cursor AI Rules for ibexa/admin-ui
+
+## Git Workflow - LOCAL CHANGES ONLY
+
+**CRITICAL: All changes MUST remain local. DO NOT push or create PRs automatically.**
+
+### NEVER DO:
+- ❌ `git push` or `git push origin <branch>`
+- ❌ `gh pr create` or any PR creation commands
+- ❌ `git push --force`
+- ❌ Automatic merging or rebasing with remote branches
+
+### ALLOWED:
+- ✅ Local file changes
+- ✅ `git status`, `git diff`, `git log`
+- ✅ `git add` and `git commit` (local commits only)
+- ✅ `git checkout -b <branch>` (local branches only)
+- ✅ Running tests locally
+- ✅ Showing diffs and status
+
+### User Control:
+The user will manually push and create PRs when ready.
+
+See CLAUDE.md and MIGRATION_RULES.md for complete documentation.

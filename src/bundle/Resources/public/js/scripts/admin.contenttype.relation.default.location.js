@@ -76,7 +76,9 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
         const isDisabled = !container.querySelector('input[value="1"]').checked;
 
         locationBtn.classList.toggle('disabled', isDisabled);
+        locationBtn.classList.toggle('ids-btn--disabled', isDisabled);
         deleteBtn?.classList.toggle('disabled', isDisabled);
+        deleteBtn?.classList.toggle('ids-btn--disabled', isDisabled);
     };
 
     doc.body.addEventListener(

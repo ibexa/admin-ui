@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git add *)",
+      "Bash(git commit -m *)",
+      "Bash(ls -R *)",
+      "Bash(grep -r *)",
+      "Bash(cat *)",
+      "Bash(php * bin/console lint:twig *)",
+      "Bash(php * bin/console cache:clear *)",
+      "Bash(npm run *)",
+      "Bash(yarn run *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(gh pr *)",
+      "Bash(git remote *)",
+      "Bash(curl *)",
+      "Bash(wget *)"
+    ]
+  }
+}

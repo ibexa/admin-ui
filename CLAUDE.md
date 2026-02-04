@@ -2,6 +2,35 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ⚠️ Git Workflow Policy - LOCAL CHANGES ONLY
+
+**CRITICAL: All changes MUST remain local. DO NOT push or create PRs automatically.**
+
+### Prohibited Actions (NEVER DO)
+- ❌ `git push` or `git push origin <branch>` - Never push to remote
+- ❌ `gh pr create` or similar PR commands - Never create pull requests
+- ❌ `git push --force` - Never force push
+- ❌ Merging or rebasing with remote branches automatically
+
+### Allowed Actions (Local Only)
+- ✅ Making local file changes
+- ✅ Running `git status`, `git diff`, `git log`
+- ✅ Creating local commits: `git add` + `git commit`
+- ✅ Creating local branches: `git checkout -b <branch>`
+- ✅ Running tests locally
+- ✅ Showing diffs and status to the user
+
+### User Control
+The user will manually:
+1. Review changes with `git status` / `git diff`
+2. Push to remote when ready: `git push origin <branch>`
+3. Create PRs via GitHub UI or `gh` CLI
+4. Request code review and merge
+
+**See MIGRATION_RULES.md Section 4 for complete details.**
+
+---
+
 ## Package Overview
 
 This is **ibexa/admin-ui**, the core Back Office interface bundle for Ibexa DXP (Digital Experience Platform). It provides the administrative UI for content management, user management, and system configuration.

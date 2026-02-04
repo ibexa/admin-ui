@@ -66,14 +66,15 @@
                 {% endblock %}
 
                 {% block login_form_buttons %}
-                    <button
-                        type="submit"
-                        class="btn ibexa-btn ibexa-btn--primary ibexa-login__btn ibexa-login__btn--sign-in"
+                    <twig:ibexa:button
+                        type="primary"
+                        html_type="submit"
+                        class="ibexa-login__btn ibexa-login__btn--sign-in"
                         tabindex="3"
-                        disabled
+                        :disabled="true"
                     >
                         {{ 'authentication.login'|trans|desc('Login') }}
-                    </button>
+                    </twig:ibexa:button>
                     <div class="ibexa-login__link-wrapper">
                         <a href="{{ path('ibexa.user.forgot_password') }}" tabindex="4">{{ 'authentication.forgot_password'|trans|desc('Forgot your password?') }}</a>
                     </div>
