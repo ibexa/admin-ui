@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/jakubbrzegowski/Sites/commerce-5-0-dev_15/vendor/ibexa/design-system-twig status)",
+      "Bash(git -C /Users/jakubbrzegowski/Sites/commerce-5-0-dev_15/vendor/ibexa/design-system-twig add src/bundle/Resources/views/themes/standard/design_system/components/button.html.twig)",
+      "Bash(git -C /Users/jakubbrzegowski/Sites/commerce-5-0-dev_15/vendor/ibexa/design-system-twig commit -m \"$\\(cat <<''EOF''\nAdd html_type parameter to button component\n\nAllow setting the HTML button type attribute \\(button, submit, reset\\)\nvia the html_type parameter, defaulting to ''button''.\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(php /Users/jakubbrzegowski/Sites/commerce-5-0-dev_15/bin/console cache:clear:*)",
+      "Bash(git status)",
+      "Bash(git diff)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(ls -R *)",
+      "Bash(grep *)",
+      "Bash(cat *)",
+      "Bash(php * bin/console lint:twig *)",
+      "Bash(php * bin/console cache:clear *)"
+    ],
+    "deny": [
+      "Bash(git push *)",
+      "Bash(gh pr *)",
+      "Bash(git remote *)"
+    ]
+  }
+}

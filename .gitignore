@@ -11,3 +11,4 @@ package-lock.json
 composer.lock
 /var
 tsconfig.json
+.button-migration/*.log

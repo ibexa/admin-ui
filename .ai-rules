@@ -1,0 +1,61 @@
+# AI Assistant Rules for ibexa/admin-ui
+# This file is read by various AI coding assistants (Cursor, Copilot, etc.)
+
+## ⚠️ CRITICAL: Git Workflow Policy - LOCAL CHANGES ONLY
+
+All changes MUST remain local. DO NOT push or create PRs automatically.
+
+### Prohibited Actions (NEVER DO):
+1. ❌ `git push` or `git push origin <branch>` - Never push to remote
+2. ❌ `gh pr create` or any PR creation commands - Never create pull requests
+3. ❌ `git push --force` - Never force push
+4. ❌ Automatic merging or rebasing with remote branches
+5. ❌ Any command that modifies remote repository state
+
+### Allowed Actions (Local Only):
+1. ✅ Making local file changes
+2. ✅ Running `git status`, `git diff`, `git log`
+3. ✅ Creating local commits: `git add` + `git commit`
+4. ✅ Creating local branches: `git checkout -b <branch>`
+5. ✅ Running tests locally
+6. ✅ Showing diffs and status to the user
+
+### User Manual Control:
+The user will manually:
+- Review all changes with `git status` / `git diff`
+- Push to remote when ready: `git push origin <branch>`
+- Create PRs via GitHub UI or `gh` CLI
+- Request code review and merge
+
+### References:
+- See `CLAUDE.md` for package overview and git workflow policy
+- See `MIGRATION_RULES.md` Section 4 for detailed button migration workflow
+
+## Package: ibexa/admin-ui
+Core Back Office interface bundle for Ibexa DXP (Digital Experience Platform).
+
+## Key Commands:
+```bash
+# PHP
+composer fix-cs          # Auto-fix PHP code style
+composer test            # Run all tests
+
+# JavaScript/TypeScript
+yarn test                # Run all checks
+yarn fix                 # Auto-fix frontend issues
+
+# Frontend Assets (from project root)
+yarn ibexa:dev           # Development build
+yarn ibexa:build         # Production build
+```
+
+## Testing:
+```bash
+./vendor/bin/phpunit -c phpunit.xml tests/lib/
+./vendor/bin/phpunit -c phpunit.integration.xml tests/integration/
+```
+
+## Code Style:
+- PHP: `declare(strict_types=1)` required
+- PHPStan level 8
+- Frontend: Prettier + ESLint via `@ibexa/eslint-config`
