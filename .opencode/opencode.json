@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git push *": "deny",
+      "gh pr *": "deny",
+      "git remote *": "deny",
+      "git status": "allow",
+      "git diff": "allow",
+      "git add *": "allow",
+      "git commit *": "allow",
+      "ls *": "allow",
+      "grep *": "allow",
+      "cat *": "allow",
+      "php * bin/console lint:twig *": "allow",
+      "php * bin/console cache:clear *": "allow",
+      "npm run *": "allow",
+      "yarn run *": "allow"
+    }
+  }
+}
