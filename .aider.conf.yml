@@ -1,0 +1,20 @@
+# Aider Configuration for ibexa/admin-ui
+
+# Git workflow settings - LOCAL CHANGES ONLY
+auto-commits: true          # Allow local commits
+auto-push: false            # NEVER auto-push to remote
+dirty-commits: true         # Allow committing with dirty working directory
+commit: true                # Allow creating commits
+no-auto-commits: false      # We want commits, just not pushes
+
+# CRITICAL: These settings prevent automatic remote operations
+# - Aider can create local commits
+# - Aider CANNOT push to remote
+# - User must manually push and create PRs
+
+# Additional context
+read:
+  - CLAUDE.md
+  - MIGRATION_RULES.md
+
+# See CLAUDE.md and MIGRATION_RULES.md for complete git workflow policy

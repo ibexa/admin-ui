@@ -18,6 +18,10 @@
                 {{ form(site_access_form) }}
             </div>
         <div class="ibexa-preview-header__item ibexa-preview-header__item--actions">
+            {# TODO: Migrate to twig:ibexa:button component
+               Reason: Uses unmapped variant 'ibexa-btn--dark-selector' not in design system
+               See: MIGRATION_RULES.md Section 1 - Additional Legacy Variants (Not Yet Mapped)
+            #}
             <button data-preview-mode="desktop" class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--dark-selector ibexa-btn--selected ibexa-preview-header__action">
                 <svg class="ibexa-icon ibexa-icon--medium ibexa-icon--desktop">
                     <use xlink:href="{{ ibexa_icon_path('view-desktop') }}"></use>
@@ -49,6 +53,10 @@
                 }) %}
             {% endif %}
 
+            {# TODO: Migrate to twig:ibexa:button component
+               Reason: Uses unmapped variant 'ibexa-btn--secondary-light' not in design system; also is an <a> tag, not <button>
+               See: MIGRATION_RULES.md Section 1 - Additional Legacy Variants (Not Yet Mapped)
+            #}
             <a
                 class="ibexa-preview-header__link btn ibexa-btn ibexa-btn--secondary-light"
                 href="{{ back_url }}"
