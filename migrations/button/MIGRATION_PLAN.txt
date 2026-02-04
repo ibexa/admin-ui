@@ -1,0 +1,16 @@
+# Button Migration Orchestration Plan
+# Format: CHUNK_ID|FILE_PATH|BUTTON_COUNT|HAS_UNMAPPED|CATEGORY|NOTES
+
+# CHUNK 1: Account - Authentication (7 files, ~10 buttons)
+CHUNK_01|account/login/index.html.twig|1|0|account|
+CHUNK_01|account/register/index.html.twig|1|0|account|
+CHUNK_01|account/reset_password/index.html.twig|1|0|account|
+CHUNK_01|account/forgot_password/index_with_login.html.twig|1|0|account|
+CHUNK_01|account/error/credentials_expired.html.twig|1|0|account|
+CHUNK_01|account/profile/view.html.twig|2|0|account|
+CHUNK_01|account/forgot_password/index.html.twig|3|0|account|
+
+# CHUNK 2: Content - Widgets & Preview (3 files, ~9 buttons)
+CHUNK_02|content/widget/content_create.html.twig|2|0|content-widget|
+CHUNK_02|content/widget/content_edit.html.twig|2|0|content-widget|
+CHUNK_02|content/content_preview.html.twig|5|0|content-widget|
