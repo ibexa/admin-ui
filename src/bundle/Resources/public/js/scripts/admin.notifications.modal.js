@@ -1,7 +1,10 @@
+import { controlZIndex } from './helpers/modal.helper';
+
 (function (global, doc, ibexa, Translator, Routing) {
     let currentPageLink = null;
     let getNotificationsStatusErrorShowed = false;
     let lastFailedCountFetchNotificationNode = null;
+    let selectedNotificationId = null;
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
     const SELECTOR_MODAL_RESULTS = '.ibexa-notifications-modal__results .ibexa-scrollable-wrapper';
     const SELECTOR_MODAL_TITLE = '.ibexa-side-panel__header';
@@ -214,9 +217,8 @@
 
         currentTarget.textContent.trim() === markAsReadLabel ? markAsRead({ currentTarget }) : markAsUnread({ currentTarget });
     };
-    const deleteNotification = ({ currentTarget }) => {
-        const { notificationId } = currentTarget.dataset;
-        const deleteLink = Routing.generate('ibexa.notifications.delete', { notificationId });
+    const deleteNotification = () => {
+        const deleteLink = Routing.generate('ibexa.notifications.delete', { notificationId: selectedNotificationId });
         const message = Translator.trans(
             /* @Desc("Cannot delete notification") */ 'notifications.modal.message.error.delete',
             {},
@@ -227,11 +229,10 @@
             .then(getJsonFromResponse)
             .then((response) => {
                 if (response.status === 'success') {
-                    const notification = doc.querySelector(`.ibexa-notifications-modal__item[data-notification-id="${notificationId}"]`);
-                    const menuBranch = currentTarget.closest('.ibexa-multilevel-popup-menu__branch');
-                    const menuInstance = ibexa.helpers.objectInstances.getInstance(menuBranch.menuInstanceElement);
+                    const notification = doc.querySelector(
+                        `.ibexa-notifications-modal__item[data-notification-id="${selectedNotificationId}"]`,
+                    );
 
-                    menuInstance.closeMenu();
                     notification.remove();
                     getNotificationsStatus();
                 } else {
@@ -245,15 +246,26 @@
     const attachActionsListeners = () => {
         const attachListener = (node, callback) => node.addEventListener('click', callback, false);
         const markAsButtons = doc.querySelectorAll('.ibexa-notifications-modal--mark-as');
-        const deleteButtons = doc.querySelectorAll('.ibexa-notifications-modal--delete');
+        const deleteButtons = doc.querySelectorAll('.ibexa-notifications-open-modal-button');
+        const confirmDeleteButton = doc.querySelector('.ibexa-notifications-modal--delete--confirm');
+        const setNotificationId = ({ currentTarget }) => {
+            const deleteModal = doc.querySelector('.modal-backdrop.show.fade');
+            controlZIndex(deleteModal, '199');
+
+            selectedNotificationId = currentTarget.dataset.notificationId;
+        };
 
         markAsButtons.forEach((markAsButton) => {
             attachListener(markAsButton, handleMarkAsAction);
         });
 
         deleteButtons.forEach((deleteButton) => {
-            attachListener(deleteButton, deleteNotification);
+            attachListener(deleteButton, setNotificationId);
         });
+
+        if (confirmDeleteButton) {
+            confirmDeleteButton.addEventListener('click', deleteNotification);
+        }
     };
     const showNotificationPage = (pageHtml) => {
         const modalResults = panel.querySelector(SELECTOR_MODAL_RESULTS);
