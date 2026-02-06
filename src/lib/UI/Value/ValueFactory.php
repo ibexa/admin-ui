@@ -141,7 +141,7 @@ class ValueFactory
         $target = (new Target\Version())->deleteTranslations($translations);
         $limit = $this->configResolver->getParameter('subtree_operations.query_subtree.limit');
         $useLimit = $limit > 0;
-        $count = $this->locationService->getLocationChildCount($location, $useLimit ? $limit : 1);
+        $count = $this->locationService->getLocationChildCount($location, $useLimit ? $limit : null);
 
         return new UIValue\Content\Location($location, [
             'childCount' => $useLimit && $count >= $limit ? null : $count,
