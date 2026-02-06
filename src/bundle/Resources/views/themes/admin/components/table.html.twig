@@ -1,0 +1,45 @@
+<div class="ibexa-scrollable-wrapper">
+    <table class="ibexa-table table ibexa-table--last-column-sticky">
+        <thead>
+            <tr class="ibexa-table__row ibexa-table__row--header">
+                {% for column in columns %}
+                    <th class="ibexa-table__header-cell {{ loop.last ? 'ibexa-table__header-cell--no-min-width' }}">
+                        <span class="ibexa-table__header-cell-content">
+                            {{ column.label|raw }}
+                        </span>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody class="ibexa-table__body">
+            {% for item in data %}
+                <tr class="ibexa-table__row">
+                    {% for column in columns %}
+                        <td class="ibexa-table__cell {{ loop.last ? 'ibexa-table__cell--has-action-btns' }}">
+                            {{ this.renderCell(column, item)|raw }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% else %}
+                <tr class="ibexa-table__row ibexa-table__row--empty">
+                    <td class="ibexa-table__cell" colspan="{{ columns|length }}">
+                        <div class="ibexa-empty-state">
+                            <div class="ibexa-empty-state__image">
+                                <img src="{{ asset('/bundles/ibexaadminui/img/ibexa-empty-table.svg') }}" alt="">
+                            </div>
+                            <h2 class="ibexa-empty-state__title">{{ this.emptyStateTitle|trans }}</h2>
+                            {% if this.emptyStateDescription %}
+                                <p class="ibexa-empty-state__description">{{ this.emptyStateDescription|trans }}</p>
+                            {% endif %}
+                            {% if this.emptyStateExtraActions %}
+                                <div class="ibexa-empty-state__extra-actions">
+                                    {{ this.emptyStateExtraActions|raw }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

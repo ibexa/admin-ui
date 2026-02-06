@@ -23,13 +23,17 @@ use Ibexa\Bundle\User\IbexaUserBundle;
 use Ibexa\Contracts\AdminUi\ContentType\ContentTypeFieldsByExpressionServiceInterface;
 use Ibexa\Contracts\Core\Persistence\Content\Type\Handler as ContentTypeHandler;
 use Ibexa\Contracts\Core\Repository\BookmarkService;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Contracts\Test\Core\IbexaTestKernel;
+use Ibexa\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use Ibexa\Rest\Server\Controller\JWT;
 use Knp\Bundle\MenuBundle\KnpMenuBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\UX\TwigComponent\TwigComponentBundle;
 use Symfony\WebpackEncoreBundle\WebpackEncoreBundle;
 
 /**
@@ -45,6 +49,7 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new KnpMenuBundle();
         yield new WebpackEncoreBundle();
         yield new DAMADoctrineTestBundle();
+        yield new TwigComponentBundle();
 
         yield new IbexaContentFormsBundle();
         yield new IbexaDesignEngineBundle();
@@ -58,23 +63,24 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
         yield new IbexaAdminUiBundle();
     }
 
-    protected static function getExposedServicesByClass(): iterable
-    {
-        yield from parent::getExposedServicesByClass();
+        protected static function getExposedServicesByClass(): iterable
+        {
+            yield from parent::getExposedServicesByClass();
 
-        yield BookmarkService::class;
+            yield BookmarkService::class;
 
-        yield ContentTypeFieldsExtractorInterface::class;
+            yield ContentTypeFieldsExtractorInterface::class;
 
-        yield ContentTypeHandler::class;
+            yield ContentTypeHandler::class;
 
-        yield ContentTypeFieldsByExpressionServiceInterface::class;
-    }
+            yield ContentTypeFieldsByExpressionServiceInterface::class;
 
-    protected static function getExposedServicesById(): iterable
-    {
-        yield from parent::getExposedServicesById();
-    }
+            yield SiteAccessServiceInterface::class;
+
+            yield EventDispatcherInterface::class;
+
+            yield ConfigResolverInterface::class;
+        }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
