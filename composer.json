@@ -50,6 +50,7 @@
         "symfony/security-core": "^7.3",
         "symfony/security-http": "^7.3",
         "symfony/translation": "^7.3",
+        "symfony/ux-twig-component": "^2.32",
         "symfony/validator": "^7.3",
         "symfony/webpack-encore-bundle": "^2.2",
         "symfony/yaml": "^7.3",
