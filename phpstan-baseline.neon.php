@@ -9,10 +9,10 @@ declare(strict_types=1);
 $includes = [];
 if (PHP_VERSION_ID < 80000) {
     $includes[] = __DIR__ . '/phpstan-baseline-7.4.neon';
-} elseif (PHP_VERSION_ID < 80300) {
-    $includes[] = __DIR__ . '/phpstan-baseline-8.0.neon';
-} else {
+} else if (PHP_VERSION_ID < 80400) {
     $includes[] = __DIR__ . '/phpstan-baseline-8.3.neon';
+} else {
+    $includes[] = __DIR__ . '/phpstan-baseline-8.4.neon';
 }
 
 $config = [];
