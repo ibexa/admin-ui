@@ -36,6 +36,7 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectStateGroup;
 use Ibexa\Contracts\Core\Repository\Values\User\Policy;
 use Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Core\MVC\Symfony\Locale\UserLanguagePreferenceProviderInterface;
 use Ibexa\Core\Repository\LocationResolver\LocationResolver;
 use RuntimeException;
@@ -53,7 +54,8 @@ class ValueFactory
         protected PathService $pathService,
         protected DatasetFactory $datasetFactory,
         private UserLanguagePreferenceProviderInterface $userLanguagePreferenceProvider,
-        protected LocationResolver $locationResolver
+        protected LocationResolver $locationResolver,
+        protected ConfigResolverInterface $configResolver,
     ) {
     }
 
@@ -137,9 +139,12 @@ class ValueFactory
     {
         $translations = $location->getContent()->getVersionInfo()->getLanguageCodes();
         $target = (new Target\Version())->deleteTranslations($translations);
+        $limit = $this->configResolver->getParameter('subtree_operations.query_subtree.limit');
+        $useLimit = $limit > 0;
+        $count = $this->locationService->getLocationChildCount($location, $useLimit ? $limit : null);
 
         return new UIValue\Content\Location($location, [
-            'childCount' => $this->locationService->getLocationChildCount($location),
+            'childCount' => $useLimit && $count >= $limit ? null : $count,
             'pathLocations' => $this->pathService->loadPathLocations($location),
             'userCanManage' => $this->permissionResolver->canUser(
                 'content',

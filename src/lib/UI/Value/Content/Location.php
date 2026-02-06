@@ -17,7 +17,7 @@ use Ibexa\Core\Repository\Values\Content\Location as CoreLocation;
  */
 class Location extends CoreLocation
 {
-    protected int $childCount;
+    protected ?int $childCount;
 
     protected bool $main;
 

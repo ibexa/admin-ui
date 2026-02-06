@@ -125,7 +125,12 @@ final readonly class ContentViewParameterSupplier
     {
         return new RestLocation(
             $location,
-            $this->locationService->getLocationChildCount($location)
+            $this->locationService->getLocationChildCount(
+                $location,
+                // For the sub items module we only ever use the count to determine if there are children (0 or 1+),
+                // hence setting a limit of 1 is sufficient here.
+                1
+            )
         );
     }
 

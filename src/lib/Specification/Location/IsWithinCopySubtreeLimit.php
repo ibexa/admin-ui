@@ -36,7 +36,7 @@ final class IsWithinCopySubtreeLimit extends AbstractSpecification
             return false;
         }
 
-        return $this->copyLimit >= $this->locationService->getSubtreeSize($item);
+        return $this->copyLimit >= $this->locationService->getSubtreeSize($item, $this->copyLimit + 1);
     }
 
     private function isContainer(Location $location): bool
