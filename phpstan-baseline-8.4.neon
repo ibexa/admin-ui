@@ -199,15 +199,3 @@ parameters:
 			message: "#^Deprecated in PHP 8\\.0\\: Required parameter \\$twig follows optional parameter \\$name\\.$#"
 			count: 1
 			path: tests/lib/Tab/TabRegistryTest.php
-
-		-
-			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer\:\:transform\(\) on a separate line has no effect\.$#'
-			identifier: method.resultUnused
-			count: 1
-			path: tests/lib/Form/DataTransformer/LanguageTransformerTest.php
-
-		-
-			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer\:\:transform\(\) on a separate line has no effect\.$#'
-			identifier: method.resultUnused
-			count: 1
-			path: tests/lib/Form/DataTransformer/ContentInfoTransformerTest.php

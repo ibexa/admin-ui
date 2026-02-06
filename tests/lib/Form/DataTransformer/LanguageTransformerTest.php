@@ -52,7 +52,6 @@ class LanguageTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . Language::class . ' object.');
 
-        /** @phpstan-ignore method.resultUnused */
         $transformer->transform($value);
     }
 
