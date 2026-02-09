@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Bundle\AdminUi\Templating\Twig\Components;
 
 use Ibexa\Bundle\AdminUi\Templating\Twig\Components\Table\Column;
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use Symfony\Component\Translation\TranslatableMessage;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
@@ -17,14 +19,12 @@ use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
     name: 'ibexa.Table',
     template: '@ibexadesign/components/table.html.twig',
 )]
-final class Table
+final class Table implements TranslationContainerInterface
 {
     /**
      * @var iterable<object>
      */
     public iterable $data = [];
-
-    public string $type = 'default';
 
     /** @var class-string|null */
     private ?string $dataType = null;
@@ -45,7 +45,7 @@ final class Table
 
     public function __construct()
     {
-        $this->emptyStateTitle = new TranslatableMessage('search.no_results.title', [], 'ibexa_admin_ui');
+        $this->emptyStateTitle = new TranslatableMessage('table.component.default.empty_title', [], 'ibexa_admin_ui');
     }
 
     /**
@@ -128,5 +128,13 @@ final class Table
     public function renderCell(Column $column, mixed $item): string
     {
         return (string) ($column->renderer)($item);
+    }
+
+    public static function getTranslationMessages(): array
+    {
+        return [
+            Message::create('table.component.default.empty_title', 'ibexa_admin_ui')
+                ->setDesc('Empty table title'),
+        ];
     }
 }

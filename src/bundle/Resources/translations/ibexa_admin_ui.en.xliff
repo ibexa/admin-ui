@@ -81,6 +81,11 @@
         <target state="new">Cancel</target>
         <note>key: side_panel.btn.cancel_label</note>
       </trans-unit>
+      <trans-unit id="a7db7bdf24af93f89438dd90a1405a7daf51276b" resname="table.component.default.empty_title">
+        <source>Empty table title</source>
+        <target state="new">Empty table title</target>
+        <note>key: table.component.default.empty_title</note>
+      </trans-unit>
       <trans-unit id="e4b8188e898e654dae14fc6b18133958f8e56084" resname="translation.remove.success">
         <source>Removed '%languageCode%' translation from '%name%'.</source>
         <target state="new">Removed '%languageCode%' translation from '%name%'.</target>
