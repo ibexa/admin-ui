@@ -82,7 +82,7 @@
                 }]) %}
 
                 {% set body_row_cols = body_row_cols|merge([
-                    { content: location.childCount },
+                    { content: location.childCount is null ? (sub_item_query_limit ~ '+') : location.childCount },
                 ]) %}
 
                 {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}

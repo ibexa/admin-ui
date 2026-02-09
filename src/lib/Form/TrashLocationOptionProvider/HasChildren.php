@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Form\TrashLocationOptionProvider;
 use Ibexa\AdminUi\Specification\Location\HasChildren as HasChildrenSpec;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
@@ -20,7 +21,8 @@ final readonly class HasChildren implements TrashLocationOptionProvider
 {
     public function __construct(
         private LocationService $locationService,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private ConfigResolverInterface $configResolver
     ) {
     }
 
@@ -31,10 +33,15 @@ final readonly class HasChildren implements TrashLocationOptionProvider
 
     public function addOptions(FormInterface $form, Location $location): void
     {
-        $childCount = $this->locationService->getLocationChildCount($location);
+        $limit = (int) $this->configResolver->getParameter('subtree_operations.query_subtree.limit');
+
+        $useLimit = $limit > 0;
+        $childCount = $this->locationService->getLocationChildCount($location, $useLimit ? $limit + 1 : null);
 
         $translatorParameters = [
-            '%children_count%' => $childCount,
+            '%children_count%' => ($useLimit && $childCount >= $limit) ?
+                sprintf('%d+', $limit) :
+                $childCount,
             '%content%' => $location->getContent()->getName(),
         ];
 
