@@ -76,10 +76,7 @@ final class TableTest extends IbexaKernelTestCase
 
         self::assertInstanceOf(Table::class, $component);
 
-        $reflection = new \ReflectionProperty(Table::class, 'dataType');
-        $reflection->setAccessible(true);
-
-        self::assertSame(\stdClass::class, $reflection->getValue($component));
+        self::assertSame(\stdClass::class, $component->getDataType());
     }
 
     public function testTableComponentRendersEmptyState(): void
@@ -114,23 +111,19 @@ final class TableTest extends IbexaKernelTestCase
         };
         $dispatcher->addListener(PreMountEvent::class, $listener);
 
-        try {
-            $rendered = $this->renderTwigComponent(
-                name: 'ibexa.Table',
-                data: [
-                    'data' => [],
-                    'emptyStateTitle' => new TranslatableMessage('Original Title', [], 'ibexa_search'),
-                    'emptyStateDescription' => new TranslatableMessage('Original Description', [], 'ibexa_search'),
-                ],
-            );
+        $rendered = $this->renderTwigComponent(
+            name: 'ibexa.Table',
+            data: [
+                'data' => [],
+                'emptyStateTitle' => new TranslatableMessage('Original Title', [], 'ibexa_search'),
+                'emptyStateDescription' => new TranslatableMessage('Original Description', [], 'ibexa_search'),
+            ],
+        );
 
-            $html = $rendered->toString();
-            self::assertStringContainsString('Overridden Title', $html);
-            self::assertStringNotContainsString('Original Title', $html);
-            self::assertStringContainsString('Overridden Description', $html);
-            self::assertStringNotContainsString('Original Description', $html);
-        } finally {
-            $dispatcher->removeListener(PreMountEvent::class, $listener);
-        }
+        $html = $rendered->toString();
+        self::assertStringContainsString('Overridden Title', $html);
+        self::assertStringNotContainsString('Original Title', $html);
+        self::assertStringContainsString('Overridden Description', $html);
+        self::assertStringNotContainsString('Original Description', $html);
     }
 }
