@@ -1,5 +1,5 @@
 const controlZIndex = (container) => {
-    const initialZIndex = container.style.zIndex;
+    const initialZIndex = getComputedStyle(container).zIndex;
 
     container.addEventListener('show.bs.modal', () => {
         container.style.zIndex = 'initial';
@@ -20,7 +20,7 @@ const controlManyZIndexes = (items, listenerContainer) => {
     };
 
     items.forEach(({ container }) => {
-        containersInitialZIndexes.set(container, container.style.zIndex);
+        containersInitialZIndexes.set(container, getComputedStyle(container).zIndex);
     });
 
     listenerContainer.addEventListener(
