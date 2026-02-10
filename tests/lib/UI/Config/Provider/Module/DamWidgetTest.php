@@ -137,6 +137,7 @@ final class DamWidgetTest extends TestCase
         $this->mockRepositoryConfigurationProviderGetRepositoryConfig($repositoryConfig);
         $this->mockContentTypeServiceLoadContentTypeByIdentifier($loadContentTypeValueMap);
         $this->mockSchemaIdentifierExtractorExtract($extractSchemaIdentifiersValueMap);
+        $this->mockContentTypeServiceLoadContentType();
 
         self::assertEquals(
             $expectedConfiguration,
@@ -261,6 +262,16 @@ final class DamWidgetTest extends TestCase
         $this->contentTypeService
             ->method('loadContentTypeByIdentifier')
             ->willReturnMap($valueMap);
+    }
+
+    private function mockContentTypeServiceLoadContentType(): void
+    {
+        $contetnType = $this->createMock(ContentType::class);
+        $contetnType->method('hasFieldDefinition')->willReturn(true);
+
+        $this->contentTypeService
+            ->method('loadContentType')
+            ->willReturn($contetnType);
     }
 
     /**
