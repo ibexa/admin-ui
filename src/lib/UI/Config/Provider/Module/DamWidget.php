@@ -51,6 +51,8 @@ use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
  */
 final class DamWidget implements ProviderInterface
 {
+    private const IMAGE_TYPE_ID = 5;
+
     /** @phpstan-var TConfig */
     private array $config;
 
@@ -104,7 +106,7 @@ final class DamWidget implements ProviderInterface
         ];
 
         // The content type may not have the default fields; in that case, don't add the aggregations
-        $imageType = $this->contentTypeService->loadContentTypeByIdentifier('image');
+        $imageType = $this->contentTypeService->loadContentType(self::IMAGE_TYPE_ID);
         foreach ($this->config['image']['aggregations'] as $aggregation) {
             if ($imageType->hasFieldDefinition($aggregation['fieldDefinitionIdentifier'])) {
                 $imageConfig['aggregations'][] = $aggregation;
