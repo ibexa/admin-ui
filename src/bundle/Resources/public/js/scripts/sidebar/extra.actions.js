@@ -73,6 +73,16 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
         removeBackdrop();
         restoreInitialFormData(actions);
     };
+    const dispatchAfterOpenEvent = (actions) => {
+        actions.addEventListener('transitionend', function handler(event) {
+            if (event.propertyName !== 'transform') {
+                return;
+            }
+
+            actions.removeEventListener('transitionend', handler);
+            doc.body.dispatchEvent(new CustomEvent('ibexa-extra-actions:after-open'));
+        });
+    };
     const toggleExtraActionsWidget = (widgetData) => {
         const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${widgetData.actions}"]`);
 
@@ -96,6 +106,7 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
         }
 
         if (!actions.classList.contains(CLASS_HIDDEN)) {
+            dispatchAfterOpenEvent(actions);
             backdrop.show();
             doc.body.addEventListener('click', detectClickOutside, false);
             doc.body.classList.add('ibexa-scroll-disabled');
