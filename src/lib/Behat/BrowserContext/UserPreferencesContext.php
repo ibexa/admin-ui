@@ -61,7 +61,7 @@ class UserPreferencesContext implements Context
     }
 
     /**
-     * @Given I disable Help center
+     * @Given I disable help center
      */
     public function iDisableHelpCenter(): void
     {
@@ -71,7 +71,7 @@ class UserPreferencesContext implements Context
     }
 
     /**
-     * @Given I enable Help center
+     * @Given I enable help center
      */
     public function iEnableHelpCenter(): void
     {
