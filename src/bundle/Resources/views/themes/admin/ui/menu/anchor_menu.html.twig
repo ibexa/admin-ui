@@ -44,6 +44,9 @@
 {% endblock %}
 
 {% block children_2nd_level %}
+    <div class="ibexa-anchor-navigation-menu__sections-header">
+        {{ 'anchor_menu.sections'|trans|desc('Sections') }}
+    </div>
     {% for item in currentItem.children %}
         {%- set itemClass = 'ibexa-anchor-navigation-menu__sections-item-btn' %}
         {%- if loop.first %}

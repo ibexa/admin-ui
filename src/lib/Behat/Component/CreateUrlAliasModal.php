@@ -36,7 +36,7 @@ final class CreateUrlAliasModal extends Component
         if ($redirect !== $redirectToggleState->hasClass('ibexa-toggle--is-checked')) {
             $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
         }
-        $this->getHTMLPage()->find($this->getLocator('createButton'))->click();
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('createButton'))->click();
     }
 
     protected function specifyLocators(): array

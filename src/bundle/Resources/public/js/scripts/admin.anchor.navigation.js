@@ -7,6 +7,7 @@
 
     const header = doc.querySelector('.ibexa-edit-header');
     const headerContainer = header?.querySelector('.ibexa-edit-header__container');
+    const anchorNavigationSwitcher = doc.querySelector('.ibexa-anchor-navigation .ibexa-tabs--switcher');
     const SECTION_ADJUST_MARGIN_TOP = 36;
     const formContainerNode = doc.querySelector('.ibexa-edit-content');
     const lastSectionObserver = new ResizeObserver(() => {
@@ -88,8 +89,15 @@
                 let firstVisibleSection = visibleSections.find((section) => {
                     const { top, height } = section.getBoundingClientRect();
                     const headerBottomContainerHeight = header.offsetHeight - headerContainer?.offsetHeight;
+                    const anchorNavigationSwitcherHeight = anchorNavigationSwitcher?.offsetHeight ?? 0;
 
-                    return top + height >= headerContainer?.offsetHeight + headerBottomContainerHeight + SECTION_ADJUST_MARGIN_TOP;
+                    return (
+                        top + height >=
+                        headerContainer?.offsetHeight +
+                            headerBottomContainerHeight +
+                            anchorNavigationSwitcherHeight +
+                            SECTION_ADJUST_MARGIN_TOP
+                    );
                 });
 
                 if (!firstVisibleSection) {

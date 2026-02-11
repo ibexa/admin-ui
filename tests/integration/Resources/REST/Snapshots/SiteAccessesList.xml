@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SiteAccessesList media-type="application/vnd.ibexa.api.SiteAccessesList+xml">
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>__default_site_access__</name>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>__second_site_access__</name>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>ger</name>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>eng</name>
+    </SiteAccess>
+    <SiteAccess media-type="application/vnd.ibexa.api.SiteAccess+xml">
+        <name>ku6&quot;H</name>
+    </SiteAccess>
+</SiteAccessesList>

@@ -10,9 +10,9 @@
     ]
 } %}
 
-{% block main_container_class %}{{ parent() }} ibexa-content-type-edit ibexa-main-container--with-anchor-menu-items{% endblock %}
+{% block main_container_class %}{{ parent() }} ibexa-content-type-edit {% endblock %}
 
-{% block left_sidebar %}
+{% block anchor_menu %}
     {% set content_type_edit_anchor_menu = knp_menu_get('ibexa.admin_ui.menu.content_type_edit.anchor_menu', [], {
         'content_type': content_type,
     }) %}

@@ -202,7 +202,6 @@
         usersList.classList.add('ibexa-filters__user-list--hidden');
 
         creatorInput.value = event.target.dataset.name;
-        creatorInput.setAttribute('disabled', true);
 
         doc.querySelector('body').removeEventListener('click', handleClickOutsideUserList, false);
 
