@@ -217,6 +217,14 @@
     if (publishedContentId) {
         emdedItemsUpdateChannel.postMessage({ contentId: publishedContentId });
     }
+
+    doc.body.addEventListener('ibexa:tabs:hash-tab-activated', () => {
+        const contentColumn = doc.querySelector('.ibexa-main-container__content-column');
+
+        setTimeout(() => {
+            contentColumn.scrollTo(0, 0);
+        }, 0);
+    });
 })(
     window,
     window.document,
