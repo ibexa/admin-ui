@@ -74,14 +74,17 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
         restoreInitialFormData(actions);
     };
     const dispatchAfterOpenEvent = (actions) => {
-        actions.addEventListener('transitionend', function handler(event) {
-            if (event.propertyName !== 'transform') {
-                return;
-            }
+        actions.addEventListener(
+            'transitionend',
+            (event) => {
+                if (event.propertyName !== 'transform') {
+                    return;
+                }
 
-            actions.removeEventListener('transitionend', handler);
-            doc.body.dispatchEvent(new CustomEvent('ibexa-extra-actions:after-open'));
-        });
+                doc.body.dispatchEvent(new CustomEvent('ibexa-extra-actions:after-open'));
+            },
+            { once: true },
+        );
     };
     const toggleExtraActionsWidget = (widgetData) => {
         const actions = doc.querySelector(`.ibexa-extra-actions[data-actions="${widgetData.actions}"]`);
