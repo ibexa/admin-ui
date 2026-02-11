@@ -12,7 +12,6 @@ use Ibexa\AdminUi\Specification\UserExists;
 use Ibexa\Contracts\AdminUi\Tab\AbstractEventDispatchingTab;
 use Ibexa\Contracts\AdminUi\Tab\ConditionalTabInterface;
 use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
-use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
@@ -96,12 +95,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
     {
         $parameters['creator'] = null;
-
-        try {
-            $ownerId = $contentInfo->getOwner()->getUserId();
-        } catch (NotFoundException $exception) {
-            return;
-        }
+        $ownerId = $contentInfo->ownerId;
 
         if ((new UserExists($this->userService))->isSatisfiedBy($ownerId)) {
             $parameters['creator'] = $this->userService->loadUser($ownerId);
