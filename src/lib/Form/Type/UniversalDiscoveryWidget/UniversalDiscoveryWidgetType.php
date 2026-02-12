@@ -104,7 +104,7 @@ class UniversalDiscoveryWidgetType extends AbstractType
 
                 return ['location' => !empty($ids) ? $ids : null];
             },
-            static function ($value): ?array {
+            static function ($value): mixed {
                 if (is_array($value) && array_key_exists('location', $value)) {
                     return $value['location'] ?? null;
                 }
