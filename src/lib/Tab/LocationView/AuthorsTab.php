@@ -99,7 +99,7 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
     {
         try {
             $creator = $contentInfo->getOwner();
-            // we are getting owner's id just to resolve proxy
+            // we are resolving the proxy to catch NotFoundException if thrown
             if ($creator instanceof ValueHolderInterface) {
                 if ($creator instanceof LazyLoadingInterface) {
                     $creator->initializeProxy();
