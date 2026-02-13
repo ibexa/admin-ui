@@ -23,10 +23,10 @@ final class SubItem extends Value
         readonly public int $priority,
         readonly public string $pathString,
         readonly public Thumbnail $contentThumbnail,
-        readonly public Owner $owner,
+        readonly public ?Owner $owner,
         readonly public int $currentVersionNo,
         readonly public array $languagesCodes,
-        readonly public Owner $currentVersionOwner,
+        readonly public ?Owner $currentVersionOwner,
         readonly public ContentType $contentType,
         readonly public ContentInfo $contentInfo,
     ) {
