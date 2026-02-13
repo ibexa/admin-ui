@@ -8,12 +8,12 @@ const escapeHTML = (str: string): string => {
     return stringTempNode.innerHTML;
 };
 
-const escapeHTMLAttribute = (str: string | null): string => {
-    if (str === null) {
+const escapeHTMLAttribute = (str: unknown): string => {
+    if (str === null || str === undefined) {
         return '';
     }
 
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 };
 
 export { escapeHTML, escapeHTMLAttribute };
