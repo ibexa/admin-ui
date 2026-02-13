@@ -4,8 +4,14 @@
 
 {% set anchor_params = {
     items: [
-        'role.users_and_groups'|trans|desc('Users and Groups'),
-        'role.limitations'|trans|desc('Limitations')
+        {
+            label: 'role.users_and_groups'|trans|desc('Users and Groups'), 
+            target_id: 'users-and-groups'
+        },
+        {
+            label: 'role.limitations'|trans|desc('Limitations'), 
+            target_id: 'limitations'
+        }
     ]
 } %}
 
