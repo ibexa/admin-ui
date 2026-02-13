@@ -15,7 +15,10 @@ use Ibexa\Contracts\AdminUi\Tab\OrderedTabInterface;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 use JMS\TranslationBundle\Annotation\Desc;
+use ProxyManager\Proxy\LazyLoadingInterface;
+use ProxyManager\Proxy\ValueHolderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -94,11 +97,20 @@ class AuthorsTab extends AbstractEventDispatchingTab implements OrderedTabInterf
      */
     private function supplyCreator(array &$parameters, ContentInfo $contentInfo): void
     {
-        $parameters['creator'] = null;
-        $ownerId = $contentInfo->getOwner()->getUserId();
+        try {
+            $creator = $contentInfo->getOwner();
+            // we are resolving the proxy to catch NotFoundException if thrown
+            if ($creator instanceof ValueHolderInterface) {
+                if ($creator instanceof LazyLoadingInterface) {
+                    $creator->initializeProxy();
+                }
 
-        if ((new UserExists($this->userService))->isSatisfiedBy($ownerId)) {
-            $parameters['creator'] = $this->userService->loadUser($ownerId);
+                $creator = $creator->getWrappedValueHolderValue();
+            }
+        } catch (NotFoundException) {
+            $creator = null;
         }
+
+        $parameters['creator'] = $creator;
     }
 }

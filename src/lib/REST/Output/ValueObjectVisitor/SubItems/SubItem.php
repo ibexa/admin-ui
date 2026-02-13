@@ -33,7 +33,13 @@ final class SubItem extends ValueObjectVisitor
         $generator->endObjectElement('contentThumbnail');
 
         $generator->startObjectElement('owner');
-        $visitor->visitValueObject($data->owner);
+
+        if ($data->owner !== null) {
+            $visitor->visitValueObject($data->owner);
+        } else {
+            $generator->valueElement('owner', null);
+        }
+
         $generator->endObjectElement('owner');
 
         $generator->valueElement('currentVersionNo', $data->currentVersionNo);
@@ -42,8 +48,15 @@ final class SubItem extends ValueObjectVisitor
             $generator->valueElement('languageCode', $languageCode);
         }
         $generator->endList('languageCodes');
+
         $generator->startObjectElement('currentVersionOwner');
-        $visitor->visitValueObject($data->currentVersionOwner);
+
+        if ($data->currentVersionOwner !== null) {
+            $visitor->visitValueObject($data->currentVersionOwner);
+        } else {
+            $generator->valueElement('currentVersionOwner', null);
+        }
+
         $generator->endObjectElement('currentVersionOwner');
 
         $generator->startObjectElement('contentType');

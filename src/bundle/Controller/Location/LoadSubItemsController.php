@@ -14,14 +14,17 @@ use Ibexa\AdminUi\REST\Value\SubItems\Owner;
 use Ibexa\AdminUi\REST\Value\SubItems\SubItem;
 use Ibexa\AdminUi\REST\Value\SubItems\SubItemList;
 use Ibexa\AdminUi\REST\Value\SubItems\Thumbnail;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException as ApiNotFoundException;
 use Ibexa\Contracts\Core\Repository\Exceptions\NotImplementedException;
 use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Ibexa\Contracts\Core\Repository\SearchService;
+use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo as ApiContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
 use Ibexa\Contracts\Core\Repository\Values\Content\LocationQuery;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\Criterion\ParentLocationId;
 use Ibexa\Contracts\Core\Repository\Values\Content\Query\SortClause;
+use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
 use Ibexa\Core\Base\Exceptions\InvalidArgumentException;
 use Ibexa\Rest\Server\Controller as RestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -115,12 +118,16 @@ final class LoadSubItemsController extends RestController
             $content = $location->getContent();
             $contentInfo = $location->getContentInfo();
             $versionInfo = $content->getVersionInfo();
-            $owner = $location->getContentInfo()->getOwner();
+
+            $owner = $this->resolveOwner($contentInfo);
+            $currentVersionOwner = $this->resolveCurrentVersionOwner($versionInfo);
+
             try {
                 $sectionName = $contentInfo->getSection()->getName();
             } catch (UnauthorizedException $e) {
                 $sectionName = null;
             }
+
             $subItems[] = new SubItem(
                 $location->getId(),
                 $location->remoteId,
@@ -132,32 +139,10 @@ final class LoadSubItemsController extends RestController
                     $content->getThumbnail()?->resource,
                     $content->getThumbnail()?->mimeType
                 ),
-                new Owner(
-                    $owner->getId(),
-                    new Thumbnail(
-                        $owner->getThumbnail()?->resource,
-                        $owner->getThumbnail()?->mimeType
-                    ),
-                    new ContentType(
-                        $owner->getContentType()->getIdentifier(),
-                        $owner->getContentType()->getName(),
-                    ),
-                    $owner->getName(),
-                ),
+                $owner,
                 $versionInfo->getVersionNo(),
                 $versionInfo->getLanguageCodes(),
-                new Owner(
-                    $versionInfo->getCreator()->getId(),
-                    new Thumbnail(
-                        $versionInfo->getCreator()->getThumbnail()?->resource,
-                        $versionInfo->getCreator()->getThumbnail()?->mimeType
-                    ),
-                    new ContentType(
-                        $versionInfo->getCreator()->getContentType()->getIdentifier(),
-                        $versionInfo->getCreator()->getContentType()->getName(),
-                    ),
-                    $versionInfo->getCreator()->getName(),
-                ),
+                $currentVersionOwner,
                 new ContentType(
                     $content->getContentType()->getIdentifier(),
                     $content->getContentType()->getName(),
@@ -175,5 +160,51 @@ final class LoadSubItemsController extends RestController
         }
 
         return new SubItemList($totalCount, $subItems);
+    }
+
+    private function resolveOwner(ApiContentInfo $contentInfo): ?Owner
+    {
+        try {
+            $owner = $contentInfo->getOwner();
+
+            $owner = new Owner(
+                $owner->getId(),
+                new Thumbnail(
+                    $owner->getThumbnail()?->resource,
+                    $owner->getThumbnail()?->mimeType
+                ),
+                new ContentType(
+                    $owner->getContentType()->getIdentifier(),
+                    $owner->getContentType()->getName(),
+                ),
+                $owner->getName(),
+            );
+        } catch (ApiNotFoundException) {
+            $owner = null;
+        }
+
+        return $owner;
+    }
+
+    private function resolveCurrentVersionOwner(VersionInfo $versionInfo): ?Owner
+    {
+        try {
+            $currentVersionOwner = new Owner(
+                $versionInfo->getCreator()->getId(),
+                new Thumbnail(
+                    $versionInfo->getCreator()->getThumbnail()?->resource,
+                    $versionInfo->getCreator()->getThumbnail()?->mimeType
+                ),
+                new ContentType(
+                    $versionInfo->getCreator()->getContentType()->getIdentifier(),
+                    $versionInfo->getCreator()->getContentType()->getName(),
+                ),
+                $versionInfo->getCreator()->getName(),
+            );
+        } catch (ApiNotFoundException) {
+            $currentVersionOwner = null;
+        }
+
+        return $currentVersionOwner;
     }
 }

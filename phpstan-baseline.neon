@@ -2437,11 +2437,6 @@ parameters:
 			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
 
 		-
-			message: '#^Closure is missing a return type declaration$#'
-			count: 1
-			path: src/lib/Form/Type/UniversalDiscoveryWidget/UniversalDiscoveryWidgetType.php
-
-		-
 			message: '#^Access to an undefined property Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectState\:\:\$defaultLanguageCode\.$#'
 			identifier: property.notFound
 			count: 2
