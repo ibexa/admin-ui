@@ -228,11 +228,14 @@
             </svg>
             {{ field.value.fileName }}
             {{ field.value.fileSize|ibexa_file_size( 1 ) }}
-            <a class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ml-4" download href="{{ path( route_reference.getRoute(), route_reference.getParams() ) }}">
-                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--download">
-                    <use xlink:href="{{ ibexa_icon_path('download') }}"></use>
-                </svg>
-            </a>
+            <twig:ibexa:link
+                href="{{ path( route_reference.getRoute(), route_reference.getParams() ) }}"
+                variant="button"
+                type="ghost"
+                icon="download"
+                icon_size="small"
+                attr="{{ { download: true, class: 'ml-4' } }}"
+            />
         </div>
     {% endif %}
 {% endblock %}
