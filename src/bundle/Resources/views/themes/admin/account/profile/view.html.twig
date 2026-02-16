@@ -37,14 +37,16 @@
                         <h3 class="ibexa-user-profile-summary__heading">{{ 'user_profile.summary.title'|trans|desc('Summary') }}</h3>
 
                         {% if can_edit_profile and ibexa_is_current_user(user) %}
-                            <a href="{{ path('ibexa.user.profile.edit') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small">
-                                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                                </svg>
-                                <span class="ibexa-btn__label">
-                                    {{ 'user_profile.action.edit'|trans|desc('Edit') }}
-                                </span>
-                            </a>
+                            <twig:ibexa:link
+                                href="{{ path('ibexa.user.profile.edit') }}"
+                                variant="button"
+                                type="tertiary"
+                                size="small"
+                                icon="edit"
+                                icon_size="small-medium"
+                            >
+                                {{ 'user_profile.action.edit'|trans|desc('Edit') }}
+                            </twig:ibexa:link>
                         {% endif %}
                     </div>
 
