@@ -59,11 +59,13 @@
                             </div>
                             {% if item.is_ellipsized|default(false) %}
                                 <div class="ibexa-details__item-content-actions">
-                                    <button
-                                        type="button"
-                                        class="
-                                            btn ibexa-btn ibexa-btn--small ibexa-btn--ghost
-                                            ibexa-details__show-more-btn ibexa-details__show-more-btn--hidden"
+                                    <twig:ibexa:button
+                                        type="tertiary"
+                                        size="small"
+                                        html_type="button"
+                                        icon="arrow-caret-down"
+                                        icon_size="small-medium"
+                                        class="ibexa-details__show-more-btn ibexa-details__show-more-btn--hidden"
                                     >
                                         <span class="ibexa-btn__label ibexa-details__show-more-label">
                                             {{ 'details.show_more.label'|trans()|desc('Show more') }}
@@ -75,14 +77,7 @@
                                         >
                                             {{ 'details.show_less.label'|trans()|desc('Show less') }}
                                         </span>
-                                        <svg
-                                            class="
-                                                ibexa-icon ibexa-icon--small-medium
-                                                ibexa-details__show-more-btn-icon"
-                                        >
-                                            <use xlink:href="{{ ibexa_icon_path('arrow-caret-down') }}"></use>
-                                        </svg>
-                                    </button>
+                                    </twig:ibexa:button>
                                 </div>
                             {% endif %}
                         </div>
