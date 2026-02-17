@@ -52,8 +52,6 @@ use Ibexa\Core\Base\Exceptions\NotFoundException;
  */
 final class DamWidget implements ProviderInterface
 {
-    private const IMAGE_TYPE_ID = 5;
-
     /** @phpstan-var TConfig */
     private array $config;
 
@@ -103,9 +101,9 @@ final class DamWidget implements ProviderInterface
     {
         $imageConfig = [
             'showImageFilters' => $this->showImageFilters(),
+            'aggregations' => [],
             'enableMultipleDownload' => extension_loaded('zip'),
         ];
-
 
         // The content type may not have the default fields; in that case, don't add the aggregations
         foreach ($this->config['image']['aggregations'] as $key => $aggregation) {
