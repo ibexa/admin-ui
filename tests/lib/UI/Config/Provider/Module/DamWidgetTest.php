@@ -137,7 +137,6 @@ final class DamWidgetTest extends TestCase
         $this->mockRepositoryConfigurationProviderGetRepositoryConfig($repositoryConfig);
         $this->mockContentTypeServiceLoadContentTypeByIdentifier($loadContentTypeValueMap);
         $this->mockSchemaIdentifierExtractorExtract($extractSchemaIdentifiersValueMap);
-        $this->mockContentTypeServiceLoadContentType();
 
         self::assertEquals(
             $expectedConfiguration,
