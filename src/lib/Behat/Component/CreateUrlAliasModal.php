@@ -28,6 +28,7 @@ final class CreateUrlAliasModal extends Component
 
     public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
+        $this->verifyIsLoaded();
         $this->getHTMLPage()->find($this->getLocator('pathInput'))->setValue($path);
         $this->getHTMLPage()->find($this->getLocator('languageDropdown'))->click();
         $this->ibexaDropdown->verifyIsLoaded();
