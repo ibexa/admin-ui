@@ -7,6 +7,10 @@
     const { convertDateToTimezone } = ibexa.helpers.timezone;
 
     class EzDateTimeValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzDateTimeValidator';
+        }
+
         /**
          * Validates the input
          *

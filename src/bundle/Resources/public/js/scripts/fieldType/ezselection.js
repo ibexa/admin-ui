@@ -5,6 +5,9 @@
     const EVENT_VALUE_CHANGED = 'change';
 
     class EzSelectionValidator extends ibexa.BaseFieldValidator {
+        getValidatorName() {
+            return 'EzSelectionValidator';
+        }
         /**
          * Validates the textarea field value
          *
