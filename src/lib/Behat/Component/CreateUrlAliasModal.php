@@ -68,6 +68,7 @@ final class CreateUrlAliasModal extends Component
     {
         return !$this->getHTMLPage()->find($this->getLocator('createButton'))->hasAttribute('disabled');
     }
+
     protected function specifyLocators(): array
     {
         return [
