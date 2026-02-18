@@ -25,14 +25,13 @@
     {% set menu_items %}
         {% if can_administrate %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-                <a
+                <twig:ibexa:link
                     href="{{ path('ibexa.object_state.state.update', { objectStateId: object_state.id }) }}"
-                    class="btn ibexa-btn ibexa-btn--primary"
+                    variant="button"
+                    type="primary"
                 >
-                    <span class="ibexa-btn__label">
-                        {{ 'object_state_group.name.action.edit'|trans|desc('Edit') }}
-                    </span>
-                </a>
+                    {{ 'object_state_group.name.action.edit'|trans|desc('Edit') }}
+                </twig:ibexa:link>
             </li>
         {% endif %}
     {% endset %}
