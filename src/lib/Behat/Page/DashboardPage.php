@@ -85,6 +85,10 @@ class DashboardPage extends Page
 
     public function verifyIsLoaded(): void
     {
+        // Check HTTP status BEFORE looking for CSS selectors
+        // This catches 500/404 errors and provides actual error details
+        $this->verifyHttpStatus();
+        
         $this
             ->getHTMLPage()
             ->find($this->getLocator('pageTitle'))
