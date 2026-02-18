@@ -45,9 +45,13 @@
         {{ form_widget(form.trash,
             {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary disabled ibexa-btn--confirm-send-to-trash', 'disabled': true}})
         }}
-        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+        <twig:ibexa:button
+            html_type="button"
+            type="secondary"
+            data-bs-dismiss="modal"
+        >
             {{ 'trash.form.cancel'|trans|desc('Cancel') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
     {% block content_after %}
         {{ form_end(form) }}
