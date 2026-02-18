@@ -29,7 +29,7 @@
         }) }}
         <div class="ibexa-translation__arrow">
             <svg class="ibexa-icon ibexa-icon--medium">
-                <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
+                <use xlink:href="{{ ibexa_icon_path('arrow-left') }}"></use>
             </svg>
         </div>
         {{ form_row(form.language, {
@@ -47,9 +47,13 @@
             {% if form.add is defined %}
                 {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
             {% endif %}
-            <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+            <twig:ibexa:button
+                html_type="button"
+                type="secondary"
+                data-bs-dismiss="modal"
+            >
                 {{ 'tab.translations.add.cancel'|trans|desc('Cancel') }}
-            </button>
+            </twig:ibexa:button>
         {% endif %}
     {% endblock %}
     {% block content_after %}
