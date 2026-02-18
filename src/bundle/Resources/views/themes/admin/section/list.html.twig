@@ -92,7 +92,7 @@
                     <twig:ibexa:link
                         href="#"
                         variant="button"
-                        type="ghost"
+                        type="tertiary"
                         icon="assign-section"
                         icon_size="small"
                         title="{{ 'section.assign_content'|trans|desc('Assign content') }}"
@@ -106,7 +106,7 @@
                     <twig:ibexa:link
                         href="{{ path('ibexa.section.update', {'sectionId': section.id}) }}"
                         variant="button"
-                        type="ghost"
+                        type="tertiary"
                         icon="edit"
                         icon_size="small"
                         title="{{ 'section.edit'|trans|desc('Edit') }}"
@@ -144,7 +144,7 @@
                             <twig:ibexa:button
                                 id="delete-sections"
                                 html_type="button"
-                                type="ghost"
+                                type="tertiary"
                                 icon="trash"
                                 icon_size="small"
                                 :disabled="true"
