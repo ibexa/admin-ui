@@ -530,7 +530,7 @@ variants: {
 
 **Component Logic:**
 - Icon-only detection: `icon_only = (not has_content) and icon is not empty`
-- Disabled class: Adds `ids-btn--disabled` when disabled
+- Disabled state: Adds `disabled` attribute (buttons) or `aria-disabled="true"` (links) when disabled
 - Icon wrapping: `<div class="ids-btn__icon">` → `<twig:ibexa:icon>`
 - Label wrapping: `<div class="ids-btn__label">` for text content
 
