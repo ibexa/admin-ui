@@ -32,17 +32,17 @@
         {% block content %}{% endblock %}
         <div class="ibexa-input-text-wrapper__actions">
             {% block actions %}
-                <button 
-                    type="button" 
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary"
+                    icon="discard"
+                    icon_size="tiny-small"
+                    icon_only="true"
+                    class="ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
                     tabindex="-1"
-                    {{ is_disabled ? 'disabled' }}
-                    {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
-                >
-                    <svg class="ibexa-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                    </svg>
-                </button>
+                    :disabled="is_disabled"
+                    :data-send-form-after-clearing="should_clear_button_send_form ? true : null"
+                />
                 {% if is_password_input %}
                     <button
                         type="button"
@@ -51,23 +51,23 @@
                         {{ is_disabled ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-show">
-                            <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
+                            <use xlink:href="{{ ibexa_icon_path('visibility') }}"></use>
                         </svg>
                         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-hide d-none">
-                            <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
+                            <use xlink:href="{{ ibexa_icon_path('visibility-hidden') }}"></use>
                         </svg>
                     </button>
                 {% elseif has_search %}
-                    <button
-                        type="{{ search_button_type|default('submit') }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
+                    <twig:ibexa:button
+                        html_type="{{ search_button_type|default('submit') }}"
+                        type="tertiary"
+                        icon="search"
+                        icon_size="small-medium"
+                        icon_only="true"
+                        class="ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
                         tabindex="-1"
-                        {{ is_disabled ? 'disabled' }}
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
-                        </svg>
-                    </button>
+                        :disabled="is_disabled"
+                    />
                 {% elseif extra_btn.label is not empty %}
                     <button {{html.attributes(extra_btn.attr)}}>
                         {{- extra_btn.label -}}
