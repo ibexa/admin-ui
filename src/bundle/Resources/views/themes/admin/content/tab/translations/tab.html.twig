@@ -95,36 +95,33 @@
 
 {% macro table_header_tools(form_translation_remove, can_translate) %}
     {% if can_translate %}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--prevented ibexa-btn--add-translation"
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary"
+            size="small"
+            icon="add"
+            icon_size="small-medium"
+            class="ibexa-btn--prevented ibexa-btn--add-translation"
             data-bs-toggle="modal"
             data-bs-target="#add-translation-modal"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'tab.translations.action.add'|trans|desc('Add') }}
-            </span>
-        </button>
+            {{ 'tab.translations.action.add'|trans|desc('Add') }}
+        </twig:ibexa:button>
 
         {% set modal_data_target = 'delete-translations-modal' %}
-        <button
-            type="button"
+        <twig:ibexa:button
+            html_type="button"
             id="delete-translations"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-            disabled
+            type="tertiary"
+            size="small"
+            icon="trash"
+            icon_size="small-medium"
+            :disabled="true"
             data-bs-toggle="modal"
             data-bs-target="#{{ modal_data_target }}"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'tab.translations.action.delete'|trans|desc('Delete') }}
-            </span>
-        </button>
+            {{ 'tab.translations.action.delete'|trans|desc('Delete') }}
+        </twig:ibexa:button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.translations.modal.message'|trans|desc('Do you want to delete the translation?'),
