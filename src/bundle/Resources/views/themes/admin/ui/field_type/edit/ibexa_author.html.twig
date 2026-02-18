@@ -12,28 +12,30 @@
     {% set readonly = attr.readonly|default(false) %}
 
     <div class="ibexa-data-source__main-actions">
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--add-author"
+        <twig:ibexa:button
+            html_type="button"
+            type="secondary"
+            size="small"
+            icon="add"
+            icon_size="small-medium"
+            class="ibexa-btn--add-author"
             title="{{ 'ibexa_author.action.add'|trans|desc('Add') }}"
-            {{ readonly|default(false) ? 'disabled' }}
+            :disabled="readonly|default(false)"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">{{ 'ibexa_author.action.add'|trans|desc('Add') }}</span>
-        </button>
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--bulk-remove-author"
+            {{ 'ibexa_author.action.add'|trans|desc('Add') }}
+        </twig:ibexa:button>
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary"
+            size="small"
+            icon="trash"
+            icon_size="small-medium"
+            class="ibexa-btn--bulk-remove-author"
             title="{{ 'ibexa_author.action.delete'|trans|desc('Delete') }}"
             disabled
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">{{ 'ibexa_author.action.delete'|trans|desc('Delete') }}</span>
-        </button>
+            {{ 'ibexa_author.action.delete'|trans|desc('Delete') }}
+        </twig:ibexa:button>
     </div>
     <div class="ibexa-data-source__labels">
         <label class="ibexa-label form-label">{{ 'ibexa_author.name'|trans|desc('Name') }}</label>
@@ -59,16 +61,15 @@
         {{- form_row(form.name, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: { readonly: readonly }}) -}}
         {{- form_row(form.email, { label_wrapper_attr: { 'hidden': 'hidden' }, attr: {'class': 'ibexa-input--text', readonly: readonly }}) -}}
         <div class="ibexa-data-source__actions {{ readonly ? 'ibexa-data-source__actions--disabled' }}">
-            <button 
-                type="button"
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--remove-author"
+            <twig:ibexa:button
+                html_type="button"
+                type="tertiary"
+                icon="trash"
+                icon_size="small-medium"
+                class="ibexa-btn--remove-author"
                 title="{{ 'ibexa_author.action.delete'|trans|desc('Delete') }}"
                 disabled
-            >
-                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                </svg>
-            </button>
+            />
         </div>
     </div>
 {%- endblock %}
