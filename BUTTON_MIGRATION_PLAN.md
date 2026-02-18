@@ -52,6 +52,87 @@
 
 ---
 
+### Issue 3: Icon Names Have Changed
+
+**CRITICAL:** Most legacy icon names have changed in design-system-twig!
+
+#### ❌ WRONG (Icon Won't Display)
+```twig
+<twig:ibexa:button icon="create">
+<twig:ibexa:button icon="back">
+<twig:ibexa:button icon="checkmark">
+```
+
+#### ✅ CORRECT
+```twig
+<twig:ibexa:button icon="add">
+<twig:ibexa:button icon="arrow-left">
+<twig:ibexa:button icon="form-check">
+```
+
+**Impact:** 75% of legacy icon names have changed. Using wrong names causes icons to not display.
+
+#### Top 15 Critical Icon Name Changes (by usage frequency)
+
+| Legacy Name | New Name | Files Affected | Priority |
+|-------------|----------|----------------|----------|
+| `create` | `add` | 15 files | 🔴 CRITICAL |
+| `system-information` | `info-circle` | 7 files | 🔴 HIGH |
+| `open-newtab` | `open-new-window` | 6 files | 🔴 HIGH |
+| `notice` | `alert-error` | 6 files | 🔴 HIGH |
+| `options` | `more` | 5 files | 🔴 HIGH |
+| `back` | `arrow-left` | 5 files | ⚠️ MEDIUM |
+| `caret-down` | `arrow-caret-down` | 4 files | ⚠️ MEDIUM |
+| `warning-triangle` | `alert-warning` | 3 files | ⚠️ MEDIUM |
+| `warning` | `alert-warning` | 3 files | ⚠️ MEDIUM |
+| `checkmark` | `form-check` | 3 files | ⚠️ MEDIUM |
+| `date` | `calendar` | 2 files | ⚠️ LOW |
+| `mail-open` | `message-email-read` | 2 files | ⚠️ LOW |
+| `view` | `visibility` | 1 file | ⚠️ LOW |
+| `assign-section` | `assign` | 1 file | ⚠️ LOW |
+| `author` | `user-editor` | 1 file | ⚠️ LOW |
+
+#### Quick Reference - Common Icon Mappings
+
+**Direct Matches (No Change):**
+```
+trash, edit, discard, search, copy, assign-user, download, 
+file, lock, bell, filters, drag, arrow-caret-right
+```
+
+**Must Change:**
+```
+create → add
+back → arrow-left
+checkmark → form-check
+bookmark → bookmark-outline
+bookmark-active → bookmark-filled
+system-information → info-circle
+notice → alert-error
+options → more
+view → visibility
+warning → alert-warning
+warning-triangle → alert-warning
+hide → visibility-hidden
+menu → menu-hamburger
+date → calendar
+mail → message-email
+mail-open → message-email-read
+assign-section → assign
+author → user-editor
+restore → archived-restore
+focus → focus-centered or focus-target
+```
+
+#### How to Verify Icon Names
+
+Search the design system sprite file:
+```bash
+grep 'id="your-icon-name"' public/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg
+```
+
+---
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -134,17 +215,24 @@ All icons use the same name in design-system-twig - just remove `ibexa_icon_path
 ✅ New: icon="edit"
 ```
 
-### Available Icons (Alphabetical)
+### Available Icons (Design System - Commonly Used)
 
-- **A**: about, about-info, approved, arrow-caret-down, arrow-caret-right, assign-section, assign-user, author
-- **B-C**: back, bell, bookmark, bookmark-active, button, caret-back, caret-double-next, caret-down, caret-next, checkmark, circle-close, copy, create
-- **D-E**: date, discard, download, drag, edit, error-icon, expand-left, expand-right
-- **F-H**: file, filters, focus, go-right, hide
-- **I-L**: input-number, localize, lock
-- **M-O**: mail, mail-open, menu, notice, open-newtab, options
-- **R-S**: restore, restore-parent, search, spinner, system-information
-- **T-U**: translation-language, trash, un-focus
-- **V-W**: view, view-desktop, view-hide, view-mobile, view-tablet, warning, warning-triangle
+**⚠️ IMPORTANT:** This list shows NEW design-system-twig icon names. Many differ from legacy!
+
+**Direct matches from legacy (use as-is):**
+- trash, edit, discard, search, copy, assign-user, download, file, lock, bell, filters, drag
+
+**Changed names (see "Icon Name Changes" section above):**
+- add (was: create), arrow-left (was: back), form-check (was: checkmark)
+- bookmark-outline (was: bookmark), bookmark-filled (was: bookmark-active)
+- info-circle (was: system-information), alert-error (was: notice)
+- more (was: options), visibility (was: view), alert-warning (was: warning)
+- assign (was: assign-section), user-editor (was: author)
+- arrow-caret-down (was: caret-down), calendar (was: date)
+- message-email (was: mail), message-email-read (was: mail-open)
+- visibility-hidden (was: hide), menu-hamburger (was: menu)
+
+**Complete icon list:** 588+ icons available in `/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg`
 
 ### Autosave Icon Set
 
@@ -176,12 +264,14 @@ All icons use the same name in design-system-twig - just remove `ibexa_icon_path
 <twig:ibexa:button
     type="primary"
     html_type="submit"
-    icon="checkmark"
+    icon="form-check"
     icon_size="small-medium"
 >
     {{ 'button.save'|trans|desc('Save') }}
 </twig:ibexa:button>
 ```
+
+**Note:** Icon name changed from legacy `checkmark` to `form-check` in design-system-twig.
 
 ### Pattern 2: Icon-Only Button (Ghost/No-Text)
 
@@ -682,6 +772,38 @@ Accepted values are: "primary", "secondary", "tertiary",
 ✅ CORRECT: download
 ```
 
+**5. Wrong Icon Name** (Runtime - Icon Missing/Not Showing)
+```
+Problem: Icon doesn't appear in button even though icon prop is set.
+```
+
+**Cause:** Legacy icon name doesn't exist in new design system.
+
+**Fix:** Check "Icon Name Changes" section and use correct new name.
+
+**Examples:**
+```twig
+❌ WRONG: icon="create"
+✅ CORRECT: icon="add"
+
+❌ WRONG: icon="back"
+✅ CORRECT: icon="arrow-left"
+
+❌ WRONG: icon="checkmark"
+✅ CORRECT: icon="form-check"
+
+❌ WRONG: icon="system-information"
+✅ CORRECT: icon="info-circle"
+
+❌ WRONG: icon="notice"
+✅ CORRECT: icon="alert-error"
+```
+
+**How to verify icon exists:**
+```bash
+grep 'id="your-icon-name"' public/bundles/ibexaadminuiassets/vendors/ids-assets/dist/img/all-icons.svg
+```
+
 ---
 
 ## Progress Tracking
@@ -722,6 +844,10 @@ Accepted values are: "primary", "secondary", "tertiary",
 - ✅ **`type="ghost"` error** - Fixed in 2 files (4 instances total)
   - `section/list.html.twig`: 3 buttons changed to `type="tertiary"`
   - `content_fields.html.twig`: 1 button changed to `type="tertiary"`
+- ✅ **Icon name mismatches** - Fixed in 2 files (3 icon names corrected)
+  - `section/list.html.twig`: `create` → `add`, `assign-section` → `assign`
+  - `confirmation_page.html.twig`: `back` → `arrow-left`
+  - Documented 15+ critical icon name changes for future migrations
 
 ---
 
