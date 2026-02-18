@@ -216,7 +216,7 @@ size: {
 ### Component Behavior
 
 1. **Icon-Only Detection**: If no text content and `icon` prop is set, the button automatically becomes icon-only
-2. **Disabled Class**: When `:disabled="true"`, the component adds both `disabled` attribute and `ids-btn--disabled` class
+2. **Disabled State**: When `:disabled="true"`, the component adds the `disabled` attribute (for buttons) or `aria-disabled="true"` attribute (for links)
 3. **Label Wrapping**: Text content is wrapped in `<div class="ids-btn__label">`
 4. **Icon Wrapping**: Icon is wrapped in `<div class="ids-btn__icon">`
 5. **Class Merging**: Custom classes from `class` prop are appended to component's base classes
@@ -321,29 +321,38 @@ When migrating Symfony form widgets that render buttons, ensure form attributes 
 
 ### JS Selector Updates
 
-If JavaScript relies on the `disabled` attribute, the component handles it automatically:
+The component uses native HTML attributes for disabled state. JavaScript should manipulate the `disabled` attribute directly:
 
-**OLD JS:**
+**JavaScript (Button):**
 ```javascript
-applyBtn.setAttribute('disabled', true);
-applyBtn.removeAttribute('disabled');
+// Enable button
+button.removeAttribute('disabled');
+
+// Disable button
+button.setAttribute('disabled', true);
+
+// Or use the disabled property
+button.disabled = true;  // disable
+button.disabled = false; // enable
 ```
 
-**NEW JS (IDS Component requires additional class):**
+**JavaScript (Link styled as button):**
 ```javascript
-applyBtn.setAttribute('disabled', true);
-applyBtn.classList.add('ids-btn--disabled');
+// Enable link
+link.removeAttribute('aria-disabled');
 
-applyBtn.removeAttribute('disabled');
-applyBtn.classList.remove('ids-btn--disabled');
+// Disable link
+link.setAttribute('aria-disabled', 'true');
 ```
 
-**Example from `admin.search.filters.js`:**
+**Example:**
 ```javascript
+const isEnabled = checkFilterSelection();
 const methodName = isEnabled ? 'removeAttribute' : 'setAttribute';
 applyBtn[methodName]('disabled', !isEnabled);
-applyBtn.classList.toggle('ids-btn--disabled', !isEnabled);  // NEW LINE
 ```
+
+**Note:** CSS styling is handled automatically via attribute selectors (`[disabled]`, `[aria-disabled="true"]`). No class manipulation needed.
 
 ### ID Attributes
 **IDs are preserved:**
@@ -413,14 +422,24 @@ Any classes passed via the `class` attribute are **appended** to the base classe
 All non-component attributes (data-*, id, title, etc.) are passed through to the underlying `<button>` element.
 
 ### Disabled State
-The `:disabled="true"` prop renders both:
-1. The `disabled` HTML attribute
-2. The `ids-btn--disabled` CSS class (for IDS styling)
+
+**For Buttons:**
+The `:disabled="true"` prop renders the `disabled` HTML attribute. CSS styling is applied via the `[disabled]` attribute selector.
 
 **Rendered:**
 ```html
-<button class="btn ibexa-btn ibexa-btn--ghost ids-btn--disabled" disabled>
+<button class="btn ibexa-btn ibexa-btn--ghost ids-btn ids-btn--tertiary" disabled>
 ```
+
+**For Links (styled as buttons):**
+The `:disabled="true"` prop renders the `aria-disabled="true"` attribute. CSS styling is applied via the `[aria-disabled="true"]` attribute selector.
+
+**Rendered:**
+```html
+<a href="#" class="btn ibexa-btn ibexa-btn--ghost ids-btn ids-btn--tertiary" aria-disabled="true">
+```
+
+**Key Point:** No `ids-btn--disabled` class is added. Disabled styling is handled purely via attribute selectors in CSS.
 
 ### Rendered HTML Structure
 
@@ -693,7 +712,7 @@ gh pr create --title "Migrate buttons to design system component"
 - [ ] Change `disabled` → `:disabled="true"`
 - [ ] Move text from `<span class="ibexa-btn__label">` to component body
 - [ ] Self-closing tag for icon-only buttons: `<twig:ibexa:button ... />`
-- [ ] Update JavaScript to toggle `ids-btn--disabled` class alongside `disabled` attribute
+- [ ] Update JavaScript to set/remove `disabled` attribute (for buttons) or `aria-disabled` (for links) - no class manipulation needed
 - [ ] Run frontend tests after replacement
 - [ ] If tests fail after reasonable debugging, revert and mark with TODO
 

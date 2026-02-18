@@ -75,10 +75,18 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
         const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
         const isDisabled = !container.querySelector('input[value="1"]').checked;
 
+        // Toggle disabled attribute for native HTML behavior
+        if (isDisabled) {
+            locationBtn.setAttribute('disabled', true);
+            deleteBtn?.setAttribute('disabled', true);
+        } else {
+            locationBtn.removeAttribute('disabled');
+            deleteBtn?.removeAttribute('disabled');
+        }
+
+        // Keep legacy 'disabled' class for backward compatibility with existing CSS
         locationBtn.classList.toggle('disabled', isDisabled);
-        locationBtn.classList.toggle('ids-btn--disabled', isDisabled);
         deleteBtn?.classList.toggle('disabled', isDisabled);
-        deleteBtn?.classList.toggle('ids-btn--disabled', isDisabled);
     };
 
     doc.body.addEventListener(
