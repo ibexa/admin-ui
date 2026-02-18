@@ -1,23 +1,24 @@
 {% set confirm_button_rendered %}
     {%- block confirm_button -%}
-        <button
-            class="btn ibexa-btn ibexa-btn--primary ibexa-btn--trigger"
+        <twig:ibexa:button
+            type="primary"
+            class="ibexa-btn--trigger"
             data-click="{{ data_click }}"
         >
             {{ 'modal.delete'|trans|desc('Delete') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
 {% endset %}
 
 {% set cancel_button_rendered %}
     {%- block cancel_button -%}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--secondary"
+        <twig:ibexa:button
+            html_type="button"
+            type="secondary"
             data-bs-dismiss="modal"
         >
             {{ 'modal.cancel'|trans|desc('Cancel') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
 {% endset %}
 
