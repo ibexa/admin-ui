@@ -95,15 +95,11 @@
                         type="ghost"
                         icon="assign-section"
                         icon_size="small"
-                        attr="{{
-                            {
-                                title: 'section.assign_content'|trans|desc('Assign content'),
-                                'data-section-id': section.id,
-                                'data-form-action': path('ibexa.section.assign_content', {'sectionId': section.id}),
-                                'data-udw-config': ibexa_udw_config('multiple', {'type': 'section_assign'}),
-                                class: 'ibexa-btn--open-udw'
-                            }
-                        }}"
+                        title="{{ 'section.assign_content'|trans|desc('Assign content') }}"
+                        :data-section-id="section.id"
+                        data-form-action="{{ path('ibexa.section.assign_content', {'sectionId': section.id}) }}"
+                        data-udw-config="{{ ibexa_udw_config('multiple', {'type': 'section_assign'}) }}"
+                        class="ibexa-btn--open-udw"
                     />
                 {% endif %}
                 {% if can_edit %}
@@ -113,7 +109,7 @@
                         type="ghost"
                         icon="edit"
                         icon_size="small"
-                        attr="{{ { title: 'section.edit'|trans|desc('Edit') } }}"
+                        title="{{ 'section.edit'|trans|desc('Edit') }}"
                     />
                 {% endif %}
             {% endset %}
@@ -152,12 +148,8 @@
                                 icon="trash"
                                 icon_size="small"
                                 :disabled="true"
-                                attr="{{
-                                    {
-                                        'data-bs-toggle': 'modal',
-                                        'data-bs-target': '#' ~ modal_data_target
-                                    }
-                                }}"
+                                data-bs-toggle="modal"
+                                :data-bs-target="'#' ~ modal_data_target"
                             >
                                 {{ 'section.delete'|trans|desc('Delete') }}
                             </twig:ibexa:button>
