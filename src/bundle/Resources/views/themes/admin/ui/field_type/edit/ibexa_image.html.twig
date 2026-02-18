@@ -23,27 +23,29 @@
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper">
                 <div class="ibexa-field-edit-preview__actions">
-                    <button
-                        type="button"
-                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        {{ readonly ? 'disabled' }}
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary"
+                        size="small"
+                        icon="trash"
+                        icon_size="small-medium"
+                        :disabled="readonly"
+                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--remove"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_image.delete'|trans|desc('Delete') }}</span>
-                    </button>
-                    <a
-                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ 'content.field_type.ibexa_image.delete'|trans|desc('Delete') }}
+                    </twig:ibexa:button>
+                    <twig:ibexa:link
                         href="{{ form.parent.vars.value.value.uri }}"
+                        variant="button"
+                        type="tertiary"
+                        size="small"
+                        icon="open-new-window"
+                        icon_size="small-medium"
                         target="_blank"
-                        {{ readonly ? 'disabled' }}
+                        class="ibexa-field-edit-preview__action ibexa-field-edit-preview__action--preview"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_image.preview'|trans|desc('Preview') }}</span>
-                    </a>
+                        {{ 'content.field_type.ibexa_image.preview'|trans|desc('Preview') }}
+                    </twig:ibexa:link>
 
                     {% if version_info is defined %}
                         {% set content_id = version_info.contentInfo.id %}
