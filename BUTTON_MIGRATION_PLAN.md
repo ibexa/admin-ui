@@ -6,16 +6,18 @@
 
 ---
 
-## ⚠️ CRITICAL: Attribute Passing Syntax
+## ⚠️ CRITICAL ISSUES - READ FIRST
+
+### Issue 1: No `attr` Prop - Pass Attributes Directly
 
 **DO NOT use `attr` prop** - it doesn't exist in Symfony UX Twig Components!
 
-### ❌ WRONG (Runtime Error)
+#### ❌ WRONG (Runtime Error)
 ```twig
 <twig:ibexa:button attr="{{ { 'data-foo': 'bar', class: 'my-class' } }}">
 ```
 
-### ✅ CORRECT
+#### ✅ CORRECT
 ```twig
 <!-- Pass attributes directly -->
 <twig:ibexa:button data-foo="bar" class="my-class">
@@ -25,6 +27,28 @@
 ```
 
 **Why?** Symfony UX Twig Component system automatically collects unrecognized attributes into the `attributes` object. Pass them directly as component props.
+
+---
+
+### Issue 2: No "ghost" Type - Use "tertiary" Instead
+
+**DO NOT use `type="ghost"`** - it's not supported in design-system-twig!
+
+#### ❌ WRONG (Runtime Error)
+```twig
+<twig:ibexa:button type="ghost">
+<twig:ibexa:link variant="button" type="ghost">
+```
+
+**Error:** `The option "type" with value "ghost" is invalid. Accepted values are: "primary", "secondary", "tertiary", "secondary-alt", "tertiary-alt".`
+
+#### ✅ CORRECT
+```twig
+<twig:ibexa:button type="tertiary">
+<twig:ibexa:link variant="button" type="tertiary">
+```
+
+**Mapping:** Legacy `ibexa-btn--ghost` → `type="tertiary"` in design-system-twig
 
 ---
 
@@ -331,12 +355,17 @@ All icons use the same name in design-system-twig - just remove `ibexa_icon_path
 
 ### Button Type Mapping
 
+**⚠️ CRITICAL:** design-system-twig **ONLY** accepts these values:
+- `primary`, `secondary`, `tertiary`, `secondary-alt`, `tertiary-alt`
+
+Any other value will cause runtime error!
+
 | Legacy Class | design-system-twig | Notes |
 |---|---|---|
 | `ibexa-btn--primary` | `type="primary"` | ✅ Direct mapping |
 | `ibexa-btn--secondary` | `type="secondary"` | ✅ Direct mapping |
 | `ibexa-btn--tertiary` | `type="tertiary"` | ✅ Direct mapping |
-| `ibexa-btn--ghost` | `type="tertiary"` or `type="tertiary-alt"` | ⚠️ Context dependent |
+| `ibexa-btn--ghost` | **`type="tertiary"`** | ✅ **VERIFIED: Use tertiary, NOT "ghost"!** |
 | `ibexa-btn--info` | `type="primary"` | ⚠️ May need new variant |
 | `ibexa-btn--dark` | **UNMAPPED** | ❌ Keep legacy + comment |
 | `ibexa-btn--dark-selector` | **UNMAPPED** | ❌ Keep legacy + comment |
@@ -632,14 +661,22 @@ the value is not a scalar (it's a "array")
 ```
 **Fix**: Pass attributes directly, not as `attr` prop.
 
-**2. Dynamic Attribute Syntax Error**
+**2. `type="ghost"` Error** (Runtime)
+```
+Error: The option "type" with value "ghost" is invalid. 
+Accepted values are: "primary", "secondary", "tertiary", 
+"secondary-alt", "tertiary-alt".
+```
+**Fix**: Use `type="tertiary"` instead of `type="ghost"`.
+
+**3. Dynamic Attribute Syntax Error**
 ```twig
 ❌ WRONG: :data-id="{{ item.id }}"
 ✅ CORRECT: :data-id="item.id"
 ```
 **Rule**: Attributes with `:` prefix should NOT have `{{ }}` wrapper.
 
-**3. Boolean Attributes**
+**4. Boolean Attributes**
 ```twig
 ❌ WRONG: download="true"
 ✅ CORRECT: download
@@ -682,6 +719,9 @@ the value is not a scalar (it's a "array")
 - ✅ **`attr` prop error** - Fixed in 3 files (version_conflict, content_fields, section/list)
 - ✅ Attribute passing syntax corrected
 - ✅ Dynamic attribute binding (`:` prefix) syntax verified
+- ✅ **`type="ghost"` error** - Fixed in 2 files (4 instances total)
+  - `section/list.html.twig`: 3 buttons changed to `type="tertiary"`
+  - `content_fields.html.twig`: 1 button changed to `type="tertiary"`
 
 ---
 
