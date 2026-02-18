@@ -18,27 +18,30 @@
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper">
                 <div class="ibexa-field-edit-preview__actions">
-                    <a
-                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                    <twig:ibexa:link
                         href="{{ url }}"
+                        variant="button"
+                        type="tertiary"
+                        size="small"
+                        icon="download"
+                        icon_size="small-medium"
+                        class="ibexa-field-edit-preview__action--preview"
                         download
-                        {{ readonly ? 'disabled' }}
+                        :disabled="readonly"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('download') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'ibexa_binaryfile.action.download'|trans|desc('Download') }}</span>
-                    </a>
-                    <button
-                        type="button"
-                        class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        {{ readonly ? 'disabled' }}
+                        {{ 'ibexa_binaryfile.action.download'|trans|desc('Download') }}
+                    </twig:ibexa:link>
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary"
+                        size="small"
+                        icon="trash"
+                        icon_size="small-medium"
+                        class="ibexa-field-edit-preview__action--remove"
+                        :disabled="readonly"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'ibexa_binaryfile.action.remove'|trans|desc('Delete') }}</span>
-                    </button>
+                        {{ 'ibexa_binaryfile.action.remove'|trans|desc('Delete') }}
+                    </twig:ibexa:button>
                 </div>
                 <div class="ibexa-field-edit-preview__file-name-wrapper">
                     <label class="ibexa-label form-label">{{ 'ibexa_binaryfile.file_name.label'|trans|desc('File name') }}</label>
