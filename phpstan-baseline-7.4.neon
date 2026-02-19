@@ -282,15 +282,3 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Templating/Twig/UniversalDiscoveryExtension.php
-
-		-
-			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer\:\:transform\(\) on a separate line has no effect\.$#'
-			identifier: method.resultUnused
-			count: 1
-			path: tests/lib/Form/DataTransformer/LanguageTransformerTest.php
-
-		-
-			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer\:\:transform\(\) on a separate line has no effect\.$#'
-			identifier: method.resultUnused
-			count: 1
-			path: tests/lib/Form/DataTransformer/ContentInfoTransformerTest.php
