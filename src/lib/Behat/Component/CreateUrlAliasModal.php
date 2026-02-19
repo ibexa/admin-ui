@@ -28,15 +28,45 @@ final class CreateUrlAliasModal extends Component
 
     public function createNewUrlAlias(string $path, string $languageName, bool $redirect): void
     {
-        $this->getHTMLPage()->find($this->getLocator('pathInput'))->setValue($path);
-        $this->getHTMLPage()->find($this->getLocator('languageDropdown'))->click();
+        $this->verifyIsLoaded();
+
+        $page = $this->getHTMLPage();
+        $page->find($this->getLocator('pathInput'))->setValue($path);
+
+        $page->find($this->getLocator('languageDropdown'))->click();
         $this->ibexaDropdown->verifyIsLoaded();
         $this->ibexaDropdown->selectOption($languageName);
-        $redirectToggleState = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
-        if ($redirect !== $redirectToggleState->hasClass('ibexa-toggle--is-checked')) {
+
+        $this->setRedirectToggle($redirect);
+        $this->ensurePathInputIsFilled($path);
+
+        $page->setTimeout(5)->find($this->getLocator('createButton'))->click();
+    }
+
+    private function setRedirectToggle(bool $shouldBeChecked): void
+    {
+        $toggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
+        $isChecked = $toggle->hasClass('ibexa-toggle--is-checked');
+        if ($shouldBeChecked !== $isChecked) {
             $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
         }
-        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('createButton'))->click();
+    }
+
+    private function ensurePathInputIsFilled(string $path): void
+    {
+        $maxAttempts = 3;
+
+        while (!$this->createButtonIsEnabled() && $maxAttempts-- > 0) {
+            $this->getHTMLPage()->setTimeout(2)->find($this->getLocator('pathInput'))->setValue($path);
+        }
+        if (!$this->createButtonIsEnabled()) {
+            throw new \Exception('Create button disabled after retries - path input invalid');
+        }
+    }
+
+    private function createButtonIsEnabled(): bool
+    {
+        return !$this->getHTMLPage()->find($this->getLocator('createButton'))->hasAttribute('disabled');
     }
 
     protected function specifyLocators(): array
