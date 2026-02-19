@@ -2,4 +2,18 @@
     .ibexa-field-edit__error {
         @include error-under-label();
     }
+
+    &.is-invalid {
+        .ibexa-fb-content-edit-form:not(:has(.ibexa-fb-modal--visible)) {
+            @include area-invalid();
+
+            .ibexa-fb-content-edit-form__message--create-form {
+                color: $ibexa-color-danger;
+            }
+
+            .ibexa-icon {
+                fill: $ibexa-color-danger;
+            }
+        }
+    }
 }
