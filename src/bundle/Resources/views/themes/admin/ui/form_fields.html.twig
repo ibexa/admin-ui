@@ -222,6 +222,12 @@
     {{ parent() }}
 {%- endblock email_widget -%}
 
+{%- block url_widget -%}
+    {% set force_text = true %}
+    {%- set type = type|default('url') -%}
+    {{ parent() }}
+{%- endblock url_widget -%}
+
 {%- block table_header_tool_btn -%}
     {%- set type = type|default('submit') -%}
     {%- if label is not same as(false) and label is empty -%}
