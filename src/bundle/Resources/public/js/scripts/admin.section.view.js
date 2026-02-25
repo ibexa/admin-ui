@@ -1,5 +1,5 @@
 (function (global, doc, ibexa, React, ReactDOMClient) {
-    const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
+    const btns = doc.querySelectorAll('.ids-button--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();
