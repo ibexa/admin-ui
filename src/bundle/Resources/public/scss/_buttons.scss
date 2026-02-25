@@ -604,3 +604,9 @@
 button:focus {
     outline: 0;
 }
+
+a.ids-btn {
+    &:hover {
+        text-decoration: none;
+    }
+}
