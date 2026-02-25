@@ -8,7 +8,7 @@
         type="tertiary-alt"
         icon="edit"
         icon_size="small-medium"
-        class="mx-2 ibexa-btn--content-edit"
+        class="mx-2 ids-button--content-edit"
         title="{{ title }}"
         data-content-id="{{ contentId }}"
         data-language-code="{{ language.languageCode }}"
@@ -40,7 +40,7 @@
                         <div class="ibexa-instant-filter__group-item">
                             <twig:ibexa:button
                                 type="tertiary-alt"
-                                class="ibexa-btn--content-edit ibexa-btn--select-language"
+                                class="ids-button--content-edit ibexa-btn--select-language"
                                 data-with-confirm="true"
                                 data-content-id="{{ contentId }}"
                                 data-language-code="{{ language.languageCode }}"
@@ -58,7 +58,7 @@
                 <twig:ibexa:button
                     type="primary"
                     html_type="submit"
-                    class="ibexa-extra-actions__confirm-btn ibexa-btn--content-edit"
+                    class="ibexa-extra-actions__confirm-btn ids-button--content-edit"
                     :disabled="true"
                 >
                     {{ 'edit_translation.languages.edit'|trans|desc('Edit') }}
