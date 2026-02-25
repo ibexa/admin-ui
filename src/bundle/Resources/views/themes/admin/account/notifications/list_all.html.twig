@@ -113,34 +113,30 @@
     {% set modal_data_target = 'modal-selection_remove' %}
 
     <div class="ibexa-notification-list__table-btns">
-        <button
+        <twig:ibexa:button
             id="confirm-mark-selected-as-read"
-            type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn-mark-as-read"
-            disabled
+            html_type="button"
+            type="tertiary-alt"
+            icon="mail-open"
+            icon_size="small"
+            class="ibexa-notification-list__btn-mark-as-read"
+            :disabled="true"
         >
-            <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('mail-open') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'notification.mark_as_read'|trans|desc('Mark as read') }}
-            </span>
-        </button>
-        <button
+            {{ 'notification.mark_as_read'|trans|desc('Mark as read') }}
+        </twig:ibexa:button>
+        <twig:ibexa:button
             id="confirm-selection_remove"
-            type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-notification-list__btn-delete"
+            html_type="button"
+            type="tertiary-alt"
+            icon="trash"
+            icon_size="small"
+            class="ibexa-notification-list__btn-delete"
+            :disabled="true"
             data-bs-toggle="modal"
-            data-bs-target="#{{ modal_data_target }}"
-            disabled
+            :data-bs-target="'#' ~ modal_data_target"
         >
-            <svg class="ibexa-icon ibexa-icon--small ibexa-icon--trash">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'notification.delete'|trans|desc('Delete') }}
-            </span>
-        </button>
+            {{ 'notification.delete'|trans|desc('Delete') }}
+        </twig:ibexa:button>
     </div>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
