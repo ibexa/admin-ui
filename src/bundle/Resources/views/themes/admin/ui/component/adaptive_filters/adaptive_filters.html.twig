@@ -109,12 +109,13 @@
             <div class="ibexa-adaptive-filters__actions ibexa-adaptive-items__item ibexa-adaptive-items__item--force-show">
                 {% block actions %}
                     {% block action_submit %}
-                        <button
-                            type="submit"
-                            class="btn ibexa-btn ibexa-btn--secondary ibexa-adaptive-filters__submit-btn"
+                        <twig:ibexa:button
+                            html_type="submit"
+                            type="secondary"
+                            class="ibexa-adaptive-filters__submit-btn"
                         >
                             {{ 'actions.apply_btn'|trans|desc('Apply') }}
-                        </button>
+                        </twig:ibexa:button>
                     {% endblock %}
                     {% block action_clear %}
                         <twig:ibexa:button
