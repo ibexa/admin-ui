@@ -57,11 +57,14 @@
     {% endblock %}
     {% block close_btn %}
         {% if show_close_btn|default(false) %}
-            <button class="btn ibexa-btn ibexa-btn--no-text ibexa-alert__close-btn" data-bs-dismiss="alert">
-                <svg class="ibexa-icon ibexa-icon--tiny">
-                    <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                </svg>
-            </button>
+            <twig:ibexa:button
+                html_type="button"
+                type="tertiary-alt"
+                icon="discard"
+                icon_size="tiny"
+                class="ibexa-alert__close-btn"
+                data-bs-dismiss="alert"
+            />
         {% endif %}
     {% endblock %}
 </div>
