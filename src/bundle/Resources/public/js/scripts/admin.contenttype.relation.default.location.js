@@ -53,7 +53,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
     };
     const resetStartingLocation = ({ currentTarget }) => {
         const container = currentTarget.closest('.ibexa-default-location');
-        const udwBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const udwBtn = container.querySelector('.ids-button--udw-relation-default-location');
         const pathSelector = container.querySelector('.ibexa-default-location__path-selector');
         const { relationRootInputSelector } = udwBtn.dataset;
 
@@ -62,7 +62,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
         pathSelector.classList.remove('ibexa-default-location__path-selector--filled');
     };
     const attachEvents = (container) => {
-        const udwBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const udwBtn = container.querySelector('.ids-button--udw-relation-default-location');
         const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
         const choices = container.querySelectorAll('input[type="radio"]');
 
@@ -71,7 +71,7 @@ import * as middleEllipsisHelper from '@ibexa-admin-ui/src/bundle/Resources/publ
         choices.forEach((choice) => choice.addEventListener('change', toggleDisabledState.bind(null, container), false));
     };
     const toggleDisabledState = (container) => {
-        const locationBtn = container.querySelector('.ibexa-btn--udw-relation-default-location');
+        const locationBtn = container.querySelector('.ids-button--udw-relation-default-location');
         const deleteBtn = container.querySelector(SELECTOR_RESET_STARTING_LOCATION_BTN);
         const isDisabled = !container.querySelector('input[value="1"]').checked;
 
