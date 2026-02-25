@@ -37,7 +37,7 @@ import { checkIsContainer } from './helpers/content.type.helper';
             }
 
             wrapper
-                .querySelectorAll('.ibexa-btn--prevented')
+                .querySelectorAll('.ids-button--prevented')
                 .forEach((btn) => btn.addEventListener('click', (event) => event.preventDefault(), false));
 
             if (conflictModal) {
