@@ -454,7 +454,7 @@
         const latitudeInput = field.querySelector(SELECTOR_LAT_INPUT);
         const areCoordsSet = !!longitudeInput.value.length && !!latitudeInput.value.length;
         const locateMeBtn = field.querySelector('.ibexa-data-source__locate-me .btn');
-        const searchBtn = field.querySelector('.ibexa-btn--search-by-address');
+        const searchBtn = field.querySelector('.ids-button--search-by-address');
         const mapContainer = field.querySelector('.ibexa-data-source__map');
         let mapConfig = {
             zoom: areCoordsSet ? 15 : 1,
