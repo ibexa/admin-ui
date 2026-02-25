@@ -1,5 +1,3 @@
-{% import "@ibexadesign/ui/component/macros.html.twig" as html %}
-
 {% trans_default_domain 'ibexa_notifications' %}
 
 {% set is_read = notification.isPending == 0 %}
@@ -50,30 +48,19 @@
         {% set is_disabled = btn_disabled|default(false) %}
         {% set defaultTooltip = 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') %}
 
-        <button 
-            title="{{ btn_tooltip|default(defaultTooltip) }}" 
-            type="button" 
-            class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small ibexa-notification-view-all__show"
-            {% if is_disabled %} disabled {% endif %}
-        >
-            <svg class="ibexa-icon ibexa-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('button') }}"></use>
-            </svg>
-        </button>
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary-alt"
+            size="small"
+            icon="button"
+            icon_size="small"
+            title="{{ btn_tooltip|default(defaultTooltip) }}"
+            class="ibexa-notification-view-all__show"
+            :disabled="is_disabled"
+        />
     {% endblock %}
 {% endset %}
 
-{% set icon_mail_open %}
-        <svg class="ibexa-icon ibexa-icon--small">
-            <use xlink:href="{{ ibexa_icon_path('mail-open') }}"></use>
-        </svg>
-{% endset %}
-
-{% set icon_mail %}
-    <svg class="ibexa-icon ibexa-icon--small">
-        <use xlink:href="{{ ibexa_icon_path('mail') }}"></use>
-    </svg>
-{% endset %}
 
 {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
     class: wrapper_class_list ~ (wrapper_additional_classes is defined ? ' ' ~ wrapper_additional_classes),
@@ -127,28 +114,24 @@
         {% endembed %}
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
-                <button 
-                    title="{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}" 
-                    type="button" 
-                    class="
-                        btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small 
-                        ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open 
-                        {{is_read ? 'ibexa-notification-view-all__icon-hidden' }}
-                    "
-                >
-                    {{ icon_mail_open }}
-                </button>
-                <button 
-                    title="{{ 'notification.mark_as_unread'|trans({}, 'ibexa_notifications')|desc('Mark as unread') }}" 
-                    type="button" 
-                    class="
-                        btn ibexa-btn ibexa-btn--no-text ibexa-btn--ghost ibexa-btn--small 
-                        ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed 
-                        {{ not is_read ? 'ibexa-notification-view-all__icon-hidden' }}
-                    "
-                >
-                    {{ icon_mail }}
-                </button>
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    size="small"
+                    icon="mail-open"
+                    icon_size="small"
+                    title="{{ 'notification.mark_as_read'|trans({}, 'ibexa_notifications')|desc('Mark as read') }}"
+                    class="{{ ('ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open ' ~ (is_read ? 'ibexa-notification-view-all__icon-hidden'))|trim }}"
+                />
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    size="small"
+                    icon="mail"
+                    icon_size="small"
+                    title="{{ 'notification.mark_as_unread'|trans({}, 'ibexa_notifications')|desc('Mark as unread') }}"
+                    class="{{ ('ibexa-notification-view-all__mail ibexa-notification-view-all__mail-closed ' ~ (not is_read ? 'ibexa-notification-view-all__icon-hidden'))|trim }}"
+                />
             {% endblock %}
         {% endembed %}
     {% endblock %}
