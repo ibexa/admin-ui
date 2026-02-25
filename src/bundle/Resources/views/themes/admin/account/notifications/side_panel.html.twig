@@ -14,9 +14,14 @@
             <span>{{ 'ibexa_notifications'|trans|desc('Notifications')}}
                 <span class="ibexa-notifications-modal__count">({{max_visible_notifications_count}})</span>
             </span>
-            <button class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-notifications-modal__mark-all-read-btn">
+            <twig:ibexa:button
+                html_type="button"
+                type="tertiary"
+                size="small"
+                class="ibexa-notifications-modal__mark-all-read-btn"
+            >
                 {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
-            </button>
+            </twig:ibexa:button>
         </div>
     {% endblock %}
     
