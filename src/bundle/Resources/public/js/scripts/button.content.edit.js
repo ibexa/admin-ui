@@ -35,7 +35,7 @@
             wrapper.innerHTML = modalHtml;
 
             const conflictModal = doc.querySelector('#version-draft-conflict-modal');
-            const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
+            const addDraftButton = wrapper.querySelector('.ids-button--add-draft');
 
             if (addDraftButton) {
                 addDraftButton.addEventListener('click', addDraft, false);
