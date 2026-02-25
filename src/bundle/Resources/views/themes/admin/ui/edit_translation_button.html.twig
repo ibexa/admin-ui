@@ -5,7 +5,7 @@
 {% if translations|length == 1 %}
     {% set language = translations|first %}
     <twig:ibexa:button
-        type="tertiary"
+        type="tertiary-alt"
         icon="edit"
         icon_size="small-medium"
         class="mx-2 ibexa-btn--content-edit"
@@ -18,7 +18,7 @@
 
     <div class="ibexa-translation-selector">
         <twig:ibexa:button
-            type="tertiary"
+            type="tertiary-alt"
             icon="edit"
             icon_size="small-medium"
             class="mx-2 ibexa-btn--translations-list-toggler"
@@ -39,7 +39,7 @@
                     {% for language in translations %}
                         <div class="ibexa-instant-filter__group-item">
                             <twig:ibexa:button
-                                type="tertiary"
+                                type="tertiary-alt"
                                 class="ibexa-btn--content-edit ibexa-btn--select-language"
                                 data-with-confirm="true"
                                 data-content-id="{{ contentId }}"
