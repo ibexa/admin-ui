@@ -1,5 +1,5 @@
 (function (global, doc, ibexa) {
-    const SELECTOR_REMOVE_AUTHOR = '.ibexa-btn--remove-author';
+    const SELECTOR_REMOVE_AUTHOR = '.ids-button--remove-author';
     const SELECTOR_AUTHOR = '.ibexa-data-source__author';
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_author';
     const SELECTOR_LABEL = '.ibexa-data-source__label';
@@ -106,7 +106,7 @@
             const container = event.target.closest(SELECTOR_FIELD);
             const checkboxes = container.querySelectorAll('.ibexa-input--checkbox');
             const isAnyCheckboxSelected = [...checkboxes].some((checkbox) => checkbox.checked);
-            const bulkDeleteButton = container.querySelector('.ibexa-btn--bulk-remove-author');
+            const bulkDeleteButton = container.querySelector('.ids-button--bulk-remove-author');
 
             bulkDeleteButton.toggleAttribute('disabled', !isAnyCheckboxSelected);
         }
@@ -114,7 +114,7 @@
         removeSelectedItems(event) {
             const container = event.target.closest(SELECTOR_FIELD);
             const selectedCheckboxes = container.querySelectorAll('.ibexa-input--checkbox:checked');
-            const bulkDeleteButton = container.querySelector('.ibexa-btn--bulk-remove-author');
+            const bulkDeleteButton = container.querySelector('.ids-button--bulk-remove-author');
 
             selectedCheckboxes.forEach((checkbox) => checkbox.closest(SELECTOR_AUTHOR).remove());
 
@@ -123,7 +123,7 @@
             const authorsRowsExist = !!container.querySelector(SELECTOR_AUTHOR);
 
             if (!authorsRowsExist) {
-                container.querySelector('.ibexa-btn--add-author').click();
+                container.querySelector('.ids-button--add-author').click();
             }
 
             this.updateDisabledState(container);
@@ -252,13 +252,13 @@
             },
             {
                 isValueValidator: false,
-                selector: '.ibexa-btn--bulk-remove-author',
+                selector: '.ids-button--bulk-remove-author',
                 eventName: 'click',
                 callback: 'removeSelectedItems',
             },
             {
                 isValueValidator: false,
-                selector: '.ibexa-btn--add-author',
+                selector: '.ids-button--add-author',
                 eventName: 'click',
                 callback: 'addItem',
             },
