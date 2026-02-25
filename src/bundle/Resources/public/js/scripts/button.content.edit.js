@@ -80,5 +80,5 @@
             .catch(showErrorNotification);
     };
 
-    doc.querySelectorAll('.ibexa-btn--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
+    doc.querySelectorAll('.ids-button--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
 })(window, window.document, window.bootstrap, window.ibexa, window.Translator, window.Routing);
