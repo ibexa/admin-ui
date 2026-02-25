@@ -28,13 +28,15 @@
             >
                 {{ 'ibexa.notifications.search_form.clear'|trans|desc('Clear') }}
             </twig:ibexa:button>
-            <button
-                type="submit"
-                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ids-button--apply"
-                {% if not is_any_filter_set %}disabled="true"{% endif %}
+            <twig:ibexa:button
+                html_type="submit"
+                type="secondary"
+                size="small"
+                class="ids-button--apply"
+                :disabled="not is_any_filter_set"
             >
                 {{ 'ibexa.notifications.search_form.apply'|trans|desc('Apply') }}
-            </button>
+            </twig:ibexa:button>
         </div>
     </div>
 
