@@ -20,7 +20,7 @@
     const resetCreatorBtn = doc.querySelector('.ids-button--reset-creator');
     const searchCreatorInput = doc.querySelector('#trash_search_creator');
     const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
-    const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
+    const btns = doc.querySelectorAll('.ids-button--open-udw');
     const udwContainer = doc.getElementById('react-udw');
     const autoSendNodes = doc.querySelectorAll('.ibexa-trash-search-form__item--auto-send');
     const errorMessage = Translator.trans(/* @Desc("Cannot fetch user list") */ 'trash.user_list.error', {}, 'ibexa_trash_ui');
