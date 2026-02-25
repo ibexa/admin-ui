@@ -15371,12 +15371,6 @@ parameters:
 			path: tests/lib/Form/DataMapper/SelectionUpdateMapperTest.php
 
 		-
-			message: '#^Call to method Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer\:\:transform\(\) on a separate line has no effect\.$#'
-			identifier: method.resultUnused
-			count: 1
-			path: tests/lib/Form/DataTransformer/ContentInfoTransformerTest.php
-
-		-
 			message: '#^Method Ibexa\\Tests\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformerTest\:\:reverseTransformDataProvider\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
