@@ -55,16 +55,16 @@
 
                 {% set col_action_btns %}
                     {% if bookmark.userCanEdit %}
-                        <button
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--content-edit"
+                        <twig:ibexa:button
+                            html_type="button"
+                            type="tertiary-alt"
+                            icon="edit"
+                            icon_size="small-medium"
+                            class="ibexa-btn--content-edit"
                             title="{{ 'bookmark.list.content.edit'|trans|desc('Edit') }}"
                             data-content-id="{{ bookmark.contentInfo.id }}"
                             data-language-code="{{ bookmark.contentInfo.mainLanguageCode }}"
-                        >
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                            </svg>
-                        </button>
+                        />
                     {% endif %}
                 {% endset %}
 
