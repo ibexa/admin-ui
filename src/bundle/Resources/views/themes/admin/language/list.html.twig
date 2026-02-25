@@ -27,14 +27,13 @@
     {% set menu_items %}
         {% if can_administrate %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-                <a
+                <twig:ibexa:link
                     href="{{ path('ibexa.language.create') }}"
-                    class="btn ibexa-btn ibexa-btn--primary"
+                    variant="button"
+                    type="primary"
                 >
-                    <span class="ibexa-btn__label">
-                        {{ 'language.new'|trans|desc('Add language') }}
-                    </span>
-                </a>
+                    {{ 'language.new'|trans|desc('Add language') }}
+                </twig:ibexa:link>
             </li>
         {% endif %}
     {% endset %}
