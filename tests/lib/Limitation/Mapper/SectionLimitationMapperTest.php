@@ -40,17 +40,22 @@ class SectionLimitationMapperTest extends TestCase
         $values = [3, 5, 7];
 
         $expected = [];
+        $sectionsById = [];
         foreach ($values as $i => $value) {
             $expected[$i] = new Section([
                 'id' => $value,
             ]);
-
-            $this->sectionServiceMock
-                ->expects(self::at($i))
-                ->method('loadSection')
-                ->with($value)
-                ->willReturn($expected[$i]);
+            $sectionsById[$value] = $expected[$i];
         }
+
+        $this->sectionServiceMock
+            ->expects(self::exactly(count($values)))
+            ->method('loadSection')
+            ->willReturnCallback(static function (int $sectionId) use ($sectionsById): Section {
+                self::assertArrayHasKey($sectionId, $sectionsById);
+
+                return $sectionsById[$sectionId];
+            });
 
         $result = $this->mapper->mapLimitationValue(new SectionLimitation([
             'limitationValues' => $values,

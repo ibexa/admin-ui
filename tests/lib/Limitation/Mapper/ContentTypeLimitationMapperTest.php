@@ -51,13 +51,19 @@ class ContentTypeLimitationMapperTest extends TestCase
             $this->createMock(ContentType::class),
         ];
 
+        $contentTypesById = [];
         foreach ($values as $i => $value) {
-            $this->contentTypeService
-                ->expects(self::at($i))
-                ->method('loadContentType')
-                ->with($value)
-                ->willReturn($expected[$i]);
+            $contentTypesById[$value] = $expected[$i];
         }
+
+        $this->contentTypeService
+            ->expects(self::exactly(count($values)))
+            ->method('loadContentType')
+            ->willReturnCallback(static function (int $contentTypeId) use ($contentTypesById): ContentType {
+                self::assertArrayHasKey($contentTypeId, $contentTypesById);
+
+                return $contentTypesById[$contentTypeId];
+            });
 
         $result = $this->mapper->mapLimitationValue(new ContentTypeLimitation([
             'limitationValues' => $values,

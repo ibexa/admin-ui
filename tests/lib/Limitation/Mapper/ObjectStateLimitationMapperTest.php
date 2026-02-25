@@ -52,13 +52,19 @@ class ObjectStateLimitationMapperTest extends TestCase
             $this->createStateMock('baz'),
         ];
 
+        $statesById = [];
         foreach ($values as $i => $value) {
-            $this->objectStateService
-                ->expects(self::at($i))
-                ->method('loadObjectState')
-                ->with($value)
-                ->willReturn($expected[$i]);
+            $statesById[$value] = $expected[$i];
         }
+
+        $this->objectStateService
+            ->expects(self::exactly(count($values)))
+            ->method('loadObjectState')
+            ->willReturnCallback(static function (int $stateId) use ($statesById): ObjectState {
+                self::assertArrayHasKey($stateId, $statesById);
+
+                return $statesById[$stateId];
+            });
 
         $result = $this->mapper->mapLimitationValue(new ObjectStateLimitation([
             'limitationValues' => $values,

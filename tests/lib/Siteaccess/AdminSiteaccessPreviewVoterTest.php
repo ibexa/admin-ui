@@ -17,6 +17,7 @@ use Ibexa\Core\Repository\Values\Content\Location;
 use Ibexa\Core\Repository\Values\Content\VersionInfo;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 final class AdminSiteaccessPreviewVoterTest extends TestCase
 {
@@ -50,7 +51,7 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
 
         $context = new SiteaccessPreviewVoterContext($location, $versionInfo, $siteaccess, $languageCode);
 
-        $this->mockConfigMethods($context);
+        $this->mockConfigMethods($context, 3);
 
         self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
@@ -60,29 +61,17 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
      */
     public function testVoteWithInvalidLanguageMatch(SiteaccessPreviewVoterContext $context): void
     {
-        $this->mockConfigMethods($context);
+        $this->mockConfigMethods($context, 5, null, ['ger-DE']);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::at(0))
+            ->expects(self::once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::at(1))
+            ->expects(self::once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
-
-        $this->configResolver
-            ->expects(self::at(3))
-            ->method('getParameter')
-            ->with('repository', null, $context->getSiteaccess())
-            ->willReturn(null);
-
-        $this->configResolver
-            ->expects(self::at(4))
-            ->method('getParameter')
-            ->with('languages', null, $context->getSiteaccess())
-            ->willReturn(['ger-DE']);
 
         self::assertFalse($this->adminSiteaccessPreviewVoter->vote($context));
     }
@@ -92,21 +81,15 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
      */
     public function testVoteWithInvalidRepositoryMatch(SiteaccessPreviewVoterContext $context): void
     {
-        $this->mockConfigMethods($context);
-
-        $this->configResolver
-            ->expects(self::at(3))
-            ->method('getParameter')
-            ->with('repository', null, $context->getSiteaccess())
-            ->willReturn(null);
+        $this->mockConfigMethods($context, 4);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::at(0))
+            ->expects(self::once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::at(1))
+            ->expects(self::once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('main');
 
@@ -118,52 +101,52 @@ final class AdminSiteaccessPreviewVoterTest extends TestCase
      */
     public function testVoteWithValidRepositoryAndLanguageMatch(SiteaccessPreviewVoterContext $context): void
     {
-        $this->mockConfigMethods($context);
-
-        $this->configResolver
-            ->expects(self::at(3))
-            ->method('getParameter')
-            ->with('repository', null, $context->getSiteaccess())
-            ->willReturn(null);
+        $this->mockConfigMethods($context, 5, null, ['eng-GB', 'fre-FR']);
 
         $this->repositoryConfigurationProvider
-            ->expects(self::at(0))
+            ->expects(self::once())
             ->method('getDefaultRepositoryAlias')
             ->willReturn('default');
 
         $this->repositoryConfigurationProvider
-            ->expects(self::at(1))
+            ->expects(self::once())
             ->method('getCurrentRepositoryAlias')
             ->willReturn('default');
-
-        $this->configResolver
-            ->expects(self::at(4))
-            ->method('getParameter')
-            ->with('languages', null, $context->getSiteaccess())
-            ->willReturn(['eng-GB', 'fre-FR']);
 
         self::assertTrue($this->adminSiteaccessPreviewVoter->vote($context));
     }
 
-    private function mockConfigMethods(SiteaccessPreviewVoterContext $context): void
-    {
+    /**
+     * @param string[] $languages
+     */
+    private function mockConfigMethods(
+        SiteaccessPreviewVoterContext $context,
+        int $expectedCalls,
+        ?string $repository = null,
+        array $languages = []
+    ): void {
         $this->configResolver
-            ->expects(self::at(0))
+            ->expects(self::exactly($expectedCalls))
             ->method('getParameter')
-            ->with('content.tree_root.location_id', null, $context->getSiteaccess())
-            ->willReturn(2);
+            ->willReturnCallback(static function (
+                string $parameterName,
+                ?string $namespace = null,
+                ?string $scope = null
+            ) use ($context, $repository, $languages): mixed {
+                self::assertNull($namespace);
+                self::assertSame($context->getSiteaccess(), $scope);
 
-        $this->configResolver
-            ->expects(self::at(1))
-            ->method('getParameter')
-            ->with('location_ids.media', null, $context->getSiteaccess())
-            ->willReturn(43);
-
-        $this->configResolver
-            ->expects(self::at(2))
-            ->method('getParameter')
-            ->with('location_ids.users', null, $context->getSiteaccess())
-            ->willReturn(5);
+                return match ($parameterName) {
+                    'content.tree_root.location_id' => 2,
+                    'location_ids.media' => 43,
+                    'location_ids.users' => 5,
+                    'repository' => $repository,
+                    'languages' => $languages,
+                    default => throw new RuntimeException(
+                        sprintf('Unexpected config parameter requested: %s', $parameterName)
+                    ),
+                };
+            });
     }
 
     /**
