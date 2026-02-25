@@ -60,7 +60,7 @@ const ContentCreateTabModule = () => {
     const handleIframeLoad = () => {
         const locationId = iframeRef.current.contentWindow.document.querySelector('meta[name="LocationID"]');
         const iframeBody = iframeRef.current.contentWindow.document.body;
-        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ibexa-btn--confirm');
+        const iframeConfirmBtn = iframeBody.querySelector('.ibexa-context-menu .ids-button--confirm');
         const iframeCancelBtn = iframeBody.querySelector('.ibexa-context-menu .ids-button--cancel');
         const iframeCloseBtn = iframeBody.querySelector('.ibexa-anchor-navigation-menu__close');
 
