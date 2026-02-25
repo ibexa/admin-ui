@@ -47,8 +47,7 @@ final class LanguageTransformerTest extends TestCase
         $this->expectException(TransformationFailedException::class);
         $this->expectExceptionMessage('Expected a ' . Language::class . ' object.');
 
-        $result = $transformer->transform($value);
-        self::assertNull($result);
+        $transformer->transform($value);
     }
 
     public function testReverseTransformWithLanguageCode(): void
