@@ -99,21 +99,19 @@
         {% block header %}
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
-                    <button
+                    <twig:ibexa:button
                         id="create-wildcards"
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
-                        {% if not can_manage %}disabled{% endif %}
+                        html_type="button"
+                        type="tertiary"
+                        size="small"
+                        icon="create"
+                        icon_size="small-medium"
+                        :disabled="not can_manage"
                         data-bs-toggle="modal"
-                        data-bs-target="#{{ modal_create_data_target }}"
+                        :data-bs-target="'#' ~ modal_create_data_target"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                            <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">
-                            {{ 'url_wildcard.list.action.create'|trans|desc('Add') }}
-                        </span>
-                    </button>
+                        {{ 'url_wildcard.list.action.create'|trans|desc('Add') }}
+                    </twig:ibexa:button>
                     <twig:ibexa:button
                         id="delete-wildcards"
                         html_type="button"
