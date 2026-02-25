@@ -23,14 +23,14 @@
                 html_type="button"
                 type="tertiary-alt"
                 size="small"
-                class="ibexa-btn--clear"
+                class="ids-button--clear"
                 :disabled="not is_any_filter_set"
             >
                 {{ 'ibexa.notifications.search_form.clear'|trans|desc('Clear') }}
             </twig:ibexa:button>
             <button
                 type="submit"
-                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
+                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ids-button--apply"
                 {% if not is_any_filter_set %}disabled="true"{% endif %}
             >
                 {{ 'ibexa.notifications.search_form.apply'|trans|desc('Apply') }}

@@ -2,8 +2,8 @@
     const SELECTOR_FILTER_CHECKBOX = '.ids-input--checkbox:not([name="dropdown-checkbox"])';
     const searchForm = doc.querySelector('.ibexa-list-search-form');
     const filtersContainerNode = doc.querySelector('.ibexa-list-filters');
-    const applyFiltersBtn = filtersContainerNode.querySelector('.ibexa-btn--apply');
-    const clearFiltersBtn = filtersContainerNode.querySelector('.ibexa-btn--clear');
+    const applyFiltersBtn = filtersContainerNode.querySelector('.ids-button--apply');
+    const clearFiltersBtn = filtersContainerNode.querySelector('.ids-button--clear');
     const statusFilterNode = filtersContainerNode.querySelector('.ibexa-list-filters__item--statuses');
     const typeFilterNode = filtersContainerNode.querySelector('.ibexa-list-filters__item--type');
     const datetimeFilterNodes = filtersContainerNode.querySelectorAll('.ibexa-list-filters__item--date-time .ibexa-picker');
