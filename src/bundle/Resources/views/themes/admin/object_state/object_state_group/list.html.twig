@@ -27,17 +27,15 @@
     {% set menu_items %}
         {% if can_administrate %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-                <a
+                <twig:ibexa:link
                     href="{{ path('ibexa.object_state.group.add') }}"
-                    class="btn ibexa-btn ibexa-btn--primary"
+                    variant="button"
+                    type="primary"
+                    icon="create"
+                    icon_size="small-medium"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label">
-                        {{ 'object_state_group.new'|trans|desc('Create') }}
-                    </span>
-                </a>
+                    {{ 'object_state_group.new'|trans|desc('Create') }}
+                </twig:ibexa:link>
             </li>
         {% endif %}
     {% endset %}
