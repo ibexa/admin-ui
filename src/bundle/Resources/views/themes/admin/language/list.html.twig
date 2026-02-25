@@ -97,15 +97,14 @@
 
             {% set col_raw %}
                 {% if can_administrate %}
-                    <a
-                        title="{{ 'language.edit'|trans|desc('Edit') }}"
+                    <twig:ibexa:link
                         href="{{ path('ibexa.language.edit', {'languageId': language.id}) }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                        </svg>
-                    </a>
+                        variant="button"
+                        type="tertiary-alt"
+                        icon="edit"
+                        icon_size="small"
+                        title="{{ 'language.edit'|trans|desc('Edit') }}"
+                    />
                 {% endif %}
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
@@ -137,21 +136,19 @@
                     {% block actions %}
                         {% if can_administrate %}
                             {% set modal_data_target = 'delete-languages-modal' %}
-                            <button
+                            <twig:ibexa:button
                                 id="delete-languages"
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                                disabled
+                                html_type="button"
+                                type="tertiary-alt"
+                                size="small"
+                                icon="trash"
+                                icon_size="small"
+                                :disabled="true"
                                 data-bs-toggle="modal"
-                                data-bs-target="#{{ modal_data_target }}"
+                                :data-bs-target="'#' ~ modal_data_target"
                             >
-                                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                </svg>
-                                <span class="ibexa-btn__small">
-                                    {{ 'language.delete'|trans|desc('Delete') }}
-                                </span>
-                            </button>
+                                {{ 'language.delete'|trans|desc('Delete') }}
+                            </twig:ibexa:button>
                             {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,
                                 'message': 'language.modal.message'|trans|desc(
