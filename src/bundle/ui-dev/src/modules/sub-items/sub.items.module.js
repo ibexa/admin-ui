@@ -978,7 +978,7 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: confirmLabel,
             onClick: this.onBulkDeletePopupConfirm,
-            className: 'ibexa-btn--primary ibexa-btn--trigger',
+            className: 'ibexa-btn--primary ids-button--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
@@ -993,7 +993,7 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Hide") */ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkHidePopupConfirm,
-            className: 'ibexa-btn--primary ibexa-btn--trigger',
+            className: 'ibexa-btn--primary ids-button--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
@@ -1008,7 +1008,7 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Reveal") */ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkUnhidePopupConfirm,
-            className: 'ibexa-btn--primary ibexa-btn--trigger',
+            className: 'ibexa-btn--primary ids-button--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
