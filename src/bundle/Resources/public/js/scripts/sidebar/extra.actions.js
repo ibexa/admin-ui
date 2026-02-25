@@ -7,7 +7,7 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
     const closeBtns = doc.querySelectorAll(
         '.ibexa-extra-actions .ids-button--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel',
     );
-    const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
+    const btns = [...doc.querySelectorAll('.ids-button--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
     const backdrop = new ibexa.core.Backdrop();
     const formsInitialData = new Map();
