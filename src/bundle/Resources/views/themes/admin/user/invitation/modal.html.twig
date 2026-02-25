@@ -74,14 +74,14 @@
                         <div class="ibexa-user-invitation-modal__issues-alert-issues"></div>
                     {% endblock %}
                     {% block actions %}
-                        <button
-                            type="button"
-                            class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-user-invitation-modal__next-issue-btn"
+                        <twig:ibexa:button
+                            html_type="button"
+                            type="secondary"
+                            size="small"
+                            class="ibexa-user-invitation-modal__next-issue-btn"
                         >
-                            <span class="ibexa-btn__label">
-                                {{ 'modal.entry_issues.alert.go_to_next'|trans|desc('Go to next issue') }}
-                            </span>
-                        </button>
+                            {{ 'modal.entry_issues.alert.go_to_next'|trans|desc('Go to next issue') }}
+                        </twig:ibexa:button>
                     {% endblock %}
                 {% endembed %}
                 {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true, search_button_type: 'button' } %}
@@ -110,17 +110,16 @@
                         'No entries match search.'
                     ) }}
                 </div>
-                <button
-                    type="button"
-                    class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-user-invitation-modal__add-next-btn"
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary"
+                    size="small"
+                    icon="create"
+                    icon_size="small-medium"
+                    class="ibexa-user-invitation-modal__add-next-btn"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label">
-                        {{ 'modal.add_next'|trans|desc('Add next') }}
-                    </span>
-                </button>
+                    {{ 'modal.add_next'|trans|desc('Add next') }}
+                </twig:ibexa:button>
             </div>
             <div class="ibexa-user-invitation-modal__upload">
                 <div class="ibexa-user-invitation-modal__upload-file-message">
@@ -135,13 +134,14 @@
                     <div class="ibexa-user-invitation-modal__or">
                         {{ 'modal.or'|trans|desc('or') }}
                     </div>
-                    <button
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--secondary ibexa-user-invitation-modal__file-select"
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="secondary"
+                        class="ibexa-user-invitation-modal__file-select"
                         tabIndex="-1"
                     >
                         {{ 'modal.upload_local'|trans|desc('Upload a local file') }}
-                    </button>
+                    </twig:ibexa:button>
                     <input
                         id="ibexa-user-invitation-modal-file-input"
                         class="ibexa-user-invitation-modal__file-input"
@@ -154,25 +154,27 @@
         </div>
     {% endblock %}
     {% block footer_content %}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--primary ibexa-user-invitation-modal__fake-submit-btn"
+        <twig:ibexa:button
+            html_type="button"
+            type="primary"
+            class="ibexa-user-invitation-modal__fake-submit-btn"
         >
             {{ 'modal.submit.label'|trans|desc('Send') }}
-        </button>
+        </twig:ibexa:button>
         {{ form_widget(form.send, {
             attr: {
                 hidden: true,
                 class: 'btn ibexa-btn ibexa-btn--primary ibexa-user-invitation-modal__real-submit-btn',
             },
         }) }}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--secondary ibexa-user-invitation-modal__cancel-btn"
+        <twig:ibexa:button
+            html_type="button"
+            type="secondary"
+            class="ibexa-user-invitation-modal__cancel-btn"
             data-bs-dismiss="modal"
         >
             {{ 'modal.cancel.label'|trans|desc('Cancel') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
     {% block content_after %}
         {{ form_end(form) }}
