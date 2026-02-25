@@ -11,14 +11,14 @@
 {% set context_actions %}
     {% set menu_items %}
         <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-            <button class="btn ibexa-btn ibexa-btn--primary ids-button--confirm">
-                <span class="ibexa-btn__label">{{ 'on_the_fly.confirm'|trans()|desc('Publish') }}</span>
-            </button>
+            <twig:ibexa:button html_type="button" type="primary" class="ids-button--confirm">
+                {{ 'on_the_fly.confirm'|trans()|desc('Publish') }}
+            </twig:ibexa:button>
         </li>
         <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-            <button class="btn ibexa-btn ibexa-btn--secondary ids-button--cancel">
-                <span class="ibexa-btn__label">{{'on_the_fly.cancel'|trans()|desc('Discard') }}</span>
-            </button>
+            <twig:ibexa:button html_type="button" type="secondary" class="ids-button--cancel">
+                {{ 'on_the_fly.cancel'|trans()|desc('Discard') }}
+            </twig:ibexa:button>
         </li>
     {% endset %}
 
