@@ -43,7 +43,7 @@
                     title="{{ 'object_state.view.list.action.edit'|trans|desc('Edit') }}"
                     href="{{ path('ibexa.object_state.state.update', {'objectStateId': object_state.id}) }}"
                     variant="button"
-                    type="tertiary"
+                    type="tertiary-alt"
                     icon="edit"
                     icon_size="small-medium"
                 />
@@ -77,7 +77,7 @@
                         <twig:ibexa:link
                             href="{{ path('ibexa.object_state.state.add', {'objectStateGroupId': object_state_group.id}) }}"
                             variant="button"
-                            type="tertiary"
+                            type="tertiary-alt"
                             size="small"
                             icon="add"
                             icon_size="small-medium"
@@ -89,7 +89,7 @@
                         <twig:ibexa:button
                             id="delete-object-state"
                             html_type="button"
-                            type="tertiary"
+                            type="tertiary-alt"
                             size="small"
                             icon="trash"
                             icon_size="small-medium"
