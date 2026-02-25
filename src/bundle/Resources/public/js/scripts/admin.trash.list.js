@@ -17,7 +17,7 @@
     const sortDirection = doc.querySelector('#trash_search_sort_direction');
     const creatorInput = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__input');
     const usersList = doc.querySelector('.ibexa-trash-search-form__item--creator .ibexa-trash-search-form__user-list');
-    const resetCreatorBtn = doc.querySelector('.ibexa-btn--reset-creator');
+    const resetCreatorBtn = doc.querySelector('.ids-button--reset-creator');
     const searchCreatorInput = doc.querySelector('#trash_search_creator');
     const sortableColumns = doc.querySelectorAll('.ibexa-table__sort-column');
     const btns = doc.querySelectorAll('.ibexa-btn--open-udw');
