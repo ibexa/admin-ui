@@ -90,17 +90,16 @@
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
                     {% if can_update %}
-                        <a
+                        <twig:ibexa:link
                             href="{{ path('ibexa.policy.create', {roleId: role.id}) }}"
-                            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
+                            variant="button"
+                            type="tertiary"
+                            size="small"
+                            icon="create"
+                            icon_size="small-medium"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                            </svg>
-                            <span class="ibexa-btn__label">
-                                {{ 'policy.view.list.action.add'|trans|desc('Add') }}
-                            </span>
-                        </a>
+                            {{ 'policy.view.list.action.add'|trans|desc('Add') }}
+                        </twig:ibexa:link>
                         {% set modal_data_target = 'delete-policies-modal' %}
                         <twig:ibexa:button
                             id="delete-policies"
