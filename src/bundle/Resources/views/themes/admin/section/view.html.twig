@@ -41,31 +41,30 @@
     ] %}
     {% set information_headline_items %}
         {% if can_edit %}
-            {% set modalDataAttributes = deletable ? 'data-bs-toggle=modal data-bs-target=#delete-section-modal' : '' %}
-            <a
+            <twig:ibexa:link
                 href="{{ path('ibexa.section.update', {'sectionId': section.id}) }}"
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                variant="button"
+                type="tertiary-alt"
+                size="small"
+                icon="edit"
+                icon_size="small"
             >
-                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                    <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                </svg>
-                <span class="ibexa-btn__label">
-                    {{ 'section.edit'|trans|desc('Edit') }}
-                </span>
-            </a>
-            <button
-                type="button"
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small {% if not deletable %}disabled{% endif %}"
-                {% if not deletable %}disabled{% endif %}
-                {{ modalDataAttributes }}
+                {{ 'section.edit'|trans|desc('Edit') }}
+            </twig:ibexa:link>
+            <twig:ibexa:button
+                html_type="button"
+                type="tertiary-alt"
+                size="small"
+                icon="trash"
+                icon_size="small"
+                :disabled="not deletable"
+                {% if deletable %}
+                data-bs-toggle="modal"
+                data-bs-target="#delete-section-modal"
+                {% endif %}
             >
-                <svg class="ibexa-icon ibexa-icon--small-medium">
-                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                </svg>
-                <span class="ibexa-btn__label">
-                    {{ 'section.action.delete'|trans|desc('Delete') }}
-                </span>
-            </button>
+                {{ 'section.action.delete'|trans|desc('Delete') }}
+            </twig:ibexa:button>
             {% if deletable %}
                 {% include '@ibexadesign/section/modal/delete_confirmation.html.twig' with {'form': form_section_delete} %}
             {% endif %}
