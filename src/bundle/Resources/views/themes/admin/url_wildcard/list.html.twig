@@ -62,26 +62,15 @@
         ]) %}
 
         {% set col_raw %}
-            {% if can_manage %}
-                <a
-                    href="{{ edit_url }}"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    title="{{ 'url_wildcard.action.edit'|trans|desc('Edit') }}"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                    </svg>
-                </a>
-            {% else %}
-                <span
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    disabled
-                >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                    </svg>
-                </span>
-            {% endif %}
+            <twig:ibexa:link
+                href="{{ edit_url }}"
+                variant="button"
+                type="tertiary-alt"
+                icon="edit"
+                icon_size="small"
+                title="{{ 'url_wildcard.action.edit'|trans|desc('Edit') }}"
+                :disabled="not can_manage"
+            />
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
             has_action_btns: true,
@@ -125,22 +114,20 @@
                             {{ 'url_wildcard.list.action.create'|trans|desc('Add') }}
                         </span>
                     </button>
-                    <button
+                    <twig:ibexa:button
                         id="delete-wildcards"
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        disabled
+                        html_type="button"
+                        type="tertiary-alt"
+                        size="small"
+                        icon="trash"
+                        icon_size="small"
+                        :disabled="true"
                         data-bs-toggle="modal"
-                        data-bs-target="#{{ modal_delete_data_target }}"
+                        :data-bs-target="'#' ~ modal_delete_data_target"
                         title="{{ 'url_wildcard.list.action.delete_url_wildcards'|trans|desc('Delete URL wildcards') }}"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">
-                            {{ 'url_wildcard.list.action.delete'|trans|desc('Delete') }}
-                        </span>
-                    </button>
+                        {{ 'url_wildcard.list.action.delete'|trans|desc('Delete') }}
+                    </twig:ibexa:button>
                 {% endblock %}
             {% endembed %}
         {% endblock %}
