@@ -13,12 +13,14 @@
 {% set no_items = pager.count is same as(0) %}
 {% block header %}
     <div class="ibexa-notification-list__btn">
-        <button 
-        class="btn ibexa-btn ibexa-btn--secondary ibexa-notification-list__mark-all-as-read"
-        {% if no_items %}disabled="true"{% endif %}
+        <twig:ibexa:button
+            html_type="button"
+            type="secondary"
+            class="ibexa-notification-list__mark-all-as-read"
+            :disabled="no_items"
         >
             {{ 'ibexa_notifications.btn.mark_all_as_read'|trans|desc('Mark all as read') }}
-        </button>
+        </twig:ibexa:button>
     </div>
 
     {% include '@ibexadesign/ui/page_title.html.twig' with {
