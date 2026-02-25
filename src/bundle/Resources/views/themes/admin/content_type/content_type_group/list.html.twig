@@ -101,18 +101,14 @@
 
             {% set col_raw %}
                 {% if can_update %}
-                    {% set edit_url = path('ibexa.content_type_group.update', {
-                        contentTypeGroupId: content_type_group.id
-                    }) %}
-                    <a
+                    <twig:ibexa:link
+                        href="{{ path('ibexa.content_type_group.update', {contentTypeGroupId: content_type_group.id}) }}"
+                        variant="button"
+                        type="tertiary-alt"
+                        icon="edit"
+                        icon_size="small"
                         title="{{ 'content_type_group.view.list.action.edit'|trans|desc('Edit') }}"
-                        href="{{ edit_url }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--no-text"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                            <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                        </svg>
-                    </a>
+                    />
                 {% endif %}
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
@@ -143,21 +139,19 @@
                     {% block actions %}
                         {% if can_delete %}
                             {% set modal_data_target = 'delete-content-type-groups-modal' %}
-                            <button
+                            <twig:ibexa:button
                                 id="delete-content-type-groups"
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                                disabled
+                                html_type="button"
+                                type="tertiary-alt"
+                                size="small"
+                                icon="trash"
+                                icon_size="small"
+                                :disabled="true"
                                 data-bs-toggle="modal"
-                                data-bs-target="#{{ modal_data_target }}"
+                                :data-bs-target="'#' ~ modal_data_target"
                             >
-                                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                </svg>
-                                <span class="ibexa-btn__label">
-                                    {{ 'content_type_group.view.list.action.delete'|trans|desc('Delete') }}
-                                </span>
-                            </button>
+                                {{ 'content_type_group.view.list.action.delete'|trans|desc('Delete') }}
+                            </twig:ibexa:button>
                             {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,
                                 'message': 'content_type_group.modal.message'|trans|desc('Do you want to delete the content type group?'),
