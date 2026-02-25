@@ -22,17 +22,15 @@
     {% set menu_items %}
         {% if can_create %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-                <a
+                <twig:ibexa:link
                     href="{{ path('ibexa.content_type.add', {contentTypeGroupId: content_type_group.id}) }}"
-                    class="btn ibexa-btn ibexa-btn--primary"
+                    variant="button"
+                    type="primary"
+                    icon="create"
+                    icon_size="small-medium"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label">
-                        {{ 'content_type.view.list.action.add'|trans|desc('Create') }}
-                    </span>
-                </a>
+                    {{ 'content_type.view.list.action.add'|trans|desc('Create') }}
+                </twig:ibexa:link>
             </li>
         {% endif %}
     {% endset %}
