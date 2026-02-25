@@ -2,15 +2,14 @@
 
 <div class="ibexa-user-invitation-modal__entry">
     {% block entry_form_fields %}{% endblock %}
-    <button
-        type="button"
-        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-user-invitation-modal__entry-delete-btn"
-        title={{ 'modal.delete'|trans|desc('Delete') }}
+    <twig:ibexa:button
+        html_type="button"
+        type="tertiary-alt"
+        icon="trash"
+        icon_size="small"
+        class="ibexa-user-invitation-modal__entry-delete-btn"
+        title="{{ 'modal.delete'|trans|desc('Delete') }}"
         data-tooltip-container-selector=".modal-dialog"
-    >
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-        </svg>
-    </button>
+    />
     <div class="ibexa-user-invitation-modal__entry-issues ibexa-form-error"></div>
 </div>
