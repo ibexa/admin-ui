@@ -42,7 +42,7 @@
             }
 
             wrapper
-                .querySelectorAll('.ibexa-btn--prevented')
+                .querySelectorAll('.ids-button--prevented')
                 .forEach((btn) => btn.addEventListener('click', (wrapperBtnEvent) => wrapperBtnEvent.preventDefault(), false));
 
             bootstrap.Modal.getOrCreateInstance(conflictModal).show();
