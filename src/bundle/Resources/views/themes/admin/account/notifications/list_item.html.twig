@@ -78,11 +78,13 @@
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: '' } %}
             {% block content %}
                 <div class="ibexa-notifications-modal__actions">
-                    <button class="btn ibexa-btn ibexa-btn--ghost" id="ibexa-notifications-modal-popup-trigger-{{ notification.id }}">
-                        <svg class="ibexa-icon ibexa-icon--small">
-                            <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-                        </svg>
-                    </button>
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary-alt"
+                        icon="options"
+                        icon_size="small"
+                        id="ibexa-notifications-modal-popup-trigger-{{ notification.id }}"
+                    />
                     {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
                         groups: [
                             {
