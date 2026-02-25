@@ -27,11 +27,13 @@
 
                 {% if extra_actions is defined %}
                     {% for action in extra_actions %}
-                        <button type="button" class="ibexa-collapse__extra-action-button btn ibexa-btn ibexa-btn--no-text {{ action.button_class|default('') }}">
-                            <svg class="ibexa-icon ibexa-icon--{{ action.icon_size|default('small-medium') }}">
-                                <use xlink:href="{{ ibexa_icon_path(action.icon_name) }}"></use>
-                            </svg>
-                        </button>
+                        <twig:ibexa:button
+                            html_type="button"
+                            type="tertiary-alt"
+                            icon="{{ action.icon_name }}"
+                            icon_size="{{ action.icon_size|default('small-medium') }}"
+                            class="ibexa-collapse__extra-action-button {{ action.button_class|default('') }}"
+                        />
                     {% endfor %}
                 {% endif %}
 
