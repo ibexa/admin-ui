@@ -45,9 +45,9 @@
     {% endblock %}
     {% block footer_content %}
         {{ form_widget(form.create, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary', 'disabled': 'disabled'}}) }}
-        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+        <twig:ibexa:button html_type="button" type="secondary" data-bs-dismiss="modal">
             {{ 'url_wildcard.modal.create.cancel'|trans|desc('Cancel') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
     {% block content_after %}
         {{ form_end(form) }}
