@@ -78,7 +78,7 @@ vendor/ibexa/design-system-twig/src/bundle/Resources/views/themes/standard/desig
 
 | Legacy Class | Component Type | Notes |
 |--------------|----------------|-------|
-| `ibexa-btn--ghost` | `tertiary` | Ghost style (transparent background) |
+| `ibexa-btn--ghost` | `tertiary-alt` | Ghost style (transparent background) |
 | `ibexa-btn--primary` | `primary` | Primary action button |
 | `ibexa-btn--secondary` | `secondary` | Secondary action button |
 | `ibexa-btn--tertiary` | `tertiary-alt` | Tertiary action button |
@@ -139,7 +139,7 @@ Buttons with only an icon (no text) are automatically detected by the component.
 **NEW:**
 ```twig
 <twig:ibexa:button
-    type="tertiary"
+    type="tertiary-alt"
     icon="edit"
     icon_size="small-medium"
 />
@@ -312,7 +312,7 @@ When migrating Symfony form widgets that render buttons, ensure form attributes 
 **NEW:**
 ```twig
 <twig:ibexa:button
-    type="tertiary"
+    type="tertiary-alt"
     class="mx-2 ibexa-btn--content-edit"
 >
 ```
@@ -389,9 +389,9 @@ The component internally renders:
 |----------------|-------------|-------------------|
 | `primary` | `ids-btn--primary` | `btn ibexa-btn ibexa-btn--primary` |
 | `secondary` | `ids-btn--secondary` | `btn ibexa-btn ibexa-btn--secondary` |
-| `tertiary` | `ids-btn--tertiary` | `btn ibexa-btn ibexa-btn--ghost` |
+| `tertiary` | `ids-btn--tertiary` | `btn ibexa-btn ibexa-btn--tertiary` |
 | `secondary-alt` | `ids-btn--secondary-alt` | `btn ibexa-btn ibexa-btn--secondary` |
-| `tertiary-alt` | `ids-btn--tertiary-alt` | `btn ibexa-btn ibexa-btn--tertiary` |
+| `tertiary-alt` | `ids-btn--tertiary-alt` | `btn ibexa-btn ibexa-btn--ghost` |
 
 **Size Classes:**
 
@@ -400,9 +400,9 @@ The component internally renders:
 | `small` | `ids-btn--small` | `ibexa-btn--small` |
 | `medium` | `ids-btn--medium` | *(default, no class)* |
 
-**Example for `type="tertiary"` + `size="small"`:**
+**Example for `type="tertiary-alt"` + `size="small"`:**
 ```html
-<button class="ids-btn ids-btn--tertiary ids-btn--small btn ibexa-btn ibexa-btn--ghost ibexa-btn--small">
+<button class="ids-btn ids-btn--tertiary-alt ids-btn--small btn ibexa-btn ibexa-btn--ghost ibexa-btn--small">
 ```
 
 ### Custom Class Preservation
@@ -410,7 +410,7 @@ Any classes passed via the `class` attribute are **appended** to the base classe
 
 **Component:**
 ```twig
-<twig:ibexa:button type="tertiary" class="mx-2 ibexa-btn--content-edit">
+<twig:ibexa:button type="tertiary-alt" class="mx-2 ibexa-btn--content-edit">
 ```
 
 **Rendered:**
@@ -428,7 +428,7 @@ The `:disabled="true"` prop renders the `disabled` HTML attribute. CSS styling i
 
 **Rendered:**
 ```html
-<button class="btn ibexa-btn ibexa-btn--ghost ids-btn ids-btn--tertiary" disabled>
+<button class="btn ibexa-btn ibexa-btn--ghost ids-btn ids-btn--tertiary-alt" disabled>
 ```
 
 **For Links (styled as buttons):**
@@ -436,7 +436,7 @@ The `:disabled="true"` prop renders the `aria-disabled="true"` attribute. CSS st
 
 **Rendered:**
 ```html
-<a href="#" class="btn ibexa-btn ibexa-btn--ghost ids-btn ids-btn--tertiary" aria-disabled="true">
+<a href="#" class="btn ibexa-btn ibexa-btn--ghost ids-btn ids-btn--tertiary-alt" aria-disabled="true">
 ```
 
 **Key Point:** No `ids-btn--disabled` class is added. Disabled styling is handled purely via attribute selectors in CSS.
@@ -447,12 +447,12 @@ The component generates a specific DOM structure with both IDS and legacy BC cla
 
 **Icon-Only Button:**
 ```twig
-<twig:ibexa:button type="tertiary" icon="edit" icon_size="small-medium" />
+<twig:ibexa:button type="tertiary-alt" icon="edit" icon_size="small-medium" />
 ```
 
 Renders as:
 ```html
-<button class="ids-btn ids-btn--tertiary ids-btn--icon-only btn ibexa-btn ibexa-btn--ghost">
+<button class="ids-btn ids-btn--tertiary-alt ids-btn--icon-only btn ibexa-btn ibexa-btn--ghost">
     <div class="ids-btn__icon">
         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
             <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
@@ -744,7 +744,7 @@ gh pr create --title "Migrate buttons to design system component"
 **NEW:**
 ```twig
 <twig:ibexa:button
-    type="tertiary"
+    type="tertiary-alt"
     icon="trash"
     :disabled="true"
     id="confirm-{{ form.remove.vars.id }}"
@@ -775,7 +775,7 @@ gh pr create --title "Migrate buttons to design system component"
 **NEW:**
 ```twig
 <twig:ibexa:button
-    type="tertiary"
+    type="tertiary-alt"
     icon="edit"
     icon_size="small-medium"
     class="mx-2 ibexa-btn--content-edit"
