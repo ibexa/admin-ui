@@ -6,6 +6,7 @@
     const SELECTOR_FIELD_MULTIPLE = '.ibexa-field-edit--ibexa_object_relation_list';
     const SELECTOR_FIELD_SINGLE = '.ibexa-field-edit--ibexa_object_relation';
     const SELECTOR_INPUT = '.ibexa-data-source__input';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
     const SELECTOR_BTN_ADD = '.ibexa-relations__table-action--create';
     const SELECTOR_ROW = '.ibexa-relations__item';
     const EVENT_CUSTOM = 'validateInput';
@@ -24,7 +25,7 @@
             const isEmpty = !currentTarget.value.length;
             const hasCorrectValues = currentTarget.value.split(',').every((id) => !isNaN(parseInt(id, 10)));
             const fieldContainer = currentTarget.closest(SELECTOR_FIELD_MULTIPLE) || currentTarget.closest(SELECTOR_FIELD_SINGLE);
-            const label = fieldContainer.querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = fieldContainer.querySelector(SELECTOR_LABEL).innerText;
             const result = { isError: false };
 
             if (isRequired && isEmpty) {
@@ -48,6 +49,7 @@
                     selector: SELECTOR_INPUT,
                     eventName: 'blur',
                     callback: 'validateInput',
+                    invalidStateSelectors: [SELECTOR_LABEL],
                     errorNodeSelectors: ['.ibexa-form-error'],
                 },
                 {
@@ -55,6 +57,7 @@
                     selector: SELECTOR_INPUT,
                     eventName: EVENT_CUSTOM,
                     callback: 'validateInput',
+                    invalidStateSelectors: [SELECTOR_LABEL],
                     errorNodeSelectors: ['.ibexa-form-error'],
                 },
             ],

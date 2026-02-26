@@ -259,6 +259,7 @@
                     eventName: 'change',
                     callback: 'validateInput',
                     errorNodeSelectors: ['.ibexa-form-error'],
+                    invalidStateSelectors: ['.ibexa-field-edit__label'],
                 },
                 {
                     isValueValidator: false,
@@ -266,6 +267,7 @@
                     eventName: 'ibexa-invalid-file-size',
                     callback: 'showFileSizeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
+                    invalidStateSelectors: ['.ibexa-field-edit__label'],
                 },
                 {
                     isValueValidator: false,
@@ -273,6 +275,7 @@
                     eventName: 'ibexa-invalid-file-type',
                     callback: 'showFileTypeError',
                     errorNodeSelectors: ['.ibexa-form-error'],
+                    invalidStateSelectors: ['.ibexa-field-edit__label'],
                 },
             ],
         });

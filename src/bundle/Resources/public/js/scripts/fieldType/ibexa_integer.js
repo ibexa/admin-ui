@@ -49,6 +49,7 @@
                 eventName: 'blur',
                 callback: 'validateInteger',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
+                invalidStateSelectors: ['.ibexa-field-edit__label'],
             },
         ],
     });

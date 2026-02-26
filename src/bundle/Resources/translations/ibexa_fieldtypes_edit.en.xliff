@@ -32,8 +32,8 @@
         <note>key: ibexa_image_asset.empty_data.message.error</note>
       </trans-unit>
       <trans-unit id="8abe7c12c95d3e11bafd55e0e9f185b4a3d1ddd6" resname="ibexa_maplocation.create.message.error">
-        <source>Area below needs correction</source>
-        <target state="new">Area below needs correction</target>
+        <source>Area above needs correction</source>
+        <target state="new">Area above needs correction</target>
         <note>key: ibexa_maplocation.create.message.error</note>
       </trans-unit>
     </body>

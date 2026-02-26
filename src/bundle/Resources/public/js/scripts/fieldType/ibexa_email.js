@@ -1,6 +1,7 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_email';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class IbexaEmailValidator extends ibexa.BaseFieldValidator {
         /**
@@ -17,7 +18,7 @@
             const isEmpty = !input.value.trim();
             const isValid = ibexa.errors.emailRegexp.test(input.value);
             const isError = (isRequired && isEmpty) || (!isEmpty && !isValid);
-            const label = input.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = input.closest(SELECTOR_FIELD).querySelector(SELECTOR_LABEL).innerText;
             const result = { isError };
 
             if (isRequired && isEmpty) {
@@ -39,6 +40,7 @@
                 eventName: 'blur',
                 callback: 'validateInput',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
+                invalidStateSelectors: [SELECTOR_LABEL],
             },
         ],
     });
