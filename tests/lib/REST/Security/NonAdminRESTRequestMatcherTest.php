@@ -32,16 +32,17 @@ class NonAdminRESTRequestMatcherTest extends TestCase
         $request->attributes = $this->createMock(ParameterBag::class);
 
         $request->attributes
-            ->expects(self::at(0))
+            ->expects(self::exactly(2))
             ->method('get')
-            ->with('is_rest_request')
-            ->willReturn(true);
+            ->willReturnCallback(static function (string $attribute) use ($siteAccessMock): mixed {
+                self::assertContains($attribute, ['is_rest_request', 'siteaccess']);
 
-        $request->attributes
-            ->expects(self::at(1))
-            ->method('get')
-            ->with('siteaccess')
-            ->willReturn($siteAccessMock);
+                if ($attribute === 'is_rest_request') {
+                    return true;
+                }
+
+                return $siteAccessMock;
+            });
 
         self::assertFalse($adminRESTRequestMatcher->matches($request));
     }
@@ -54,7 +55,7 @@ class NonAdminRESTRequestMatcherTest extends TestCase
         $request->attributes = $this->createMock(ParameterBag::class);
 
         $request->attributes
-            ->expects(self::at(0))
+            ->expects(self::once())
             ->method('get')
             ->with('is_rest_request')
             ->willReturn(false);
@@ -83,16 +84,17 @@ class NonAdminRESTRequestMatcherTest extends TestCase
         $request->attributes = $this->createMock(ParameterBag::class);
 
         $request->attributes
-            ->expects(self::at(0))
+            ->expects(self::exactly(2))
             ->method('get')
-            ->with('is_rest_request')
-            ->willReturn(true);
+            ->willReturnCallback(static function (string $attribute) use ($nonAdminSiteAccessMock): mixed {
+                self::assertContains($attribute, ['is_rest_request', 'siteaccess']);
 
-        $request->attributes
-            ->expects(self::at(1))
-            ->method('get')
-            ->with('siteaccess')
-            ->willReturn($nonAdminSiteAccessMock);
+                if ($attribute === 'is_rest_request') {
+                    return true;
+                }
+
+                return $nonAdminSiteAccessMock;
+            });
 
         self::assertTrue($adminRESTRequestMatcher->matches($request));
     }

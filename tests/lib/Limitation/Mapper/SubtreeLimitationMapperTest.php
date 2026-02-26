@@ -49,18 +49,37 @@ final class SubtreeLimitationMapperTest extends TestCase
         $searchServiceMock = $this->createMock(SearchService::class);
         $repositoryMock = $this->createMock(Repository::class);
 
+        $searchResultsByPath = [];
+        $locationsById = [];
         foreach ($values as $i => $pathString) {
-            $query = new LocationQuery([
-                'filter' => new Ancestor($pathString),
-                'sortClauses' => [new Path()],
-            ]);
-
-            $searchServiceMock
-                ->expects(self::at($i))
-                ->method('findLocations')
-                ->with($query)
-                ->willReturn($this->createSearchResultsMock($expected[$i]));
+            $searchResultsByPath[$pathString] = $this->createSearchResultsMock($expected[$i]);
+            $pathParts = explode('/', trim($pathString, '/'));
+            $locationId = (int) array_pop($pathParts);
+            $locationsById[$locationId] = $this->createMock(Location::class);
         }
+
+        $locationServiceMock
+            ->expects(self::exactly(count($values)))
+            ->method('loadLocation')
+            ->willReturnCallback(static function (int $locationId) use ($locationsById): Location {
+                self::assertArrayHasKey($locationId, $locationsById);
+
+                return $locationsById[$locationId];
+            });
+
+        $searchServiceMock
+            ->expects(self::exactly(count($values)))
+            ->method('findLocations')
+            ->willReturnCallback(static function (LocationQuery $query) use ($searchResultsByPath): SearchResult {
+                self::assertInstanceOf(Ancestor::class, $query->filter);
+                self::assertCount(1, $query->sortClauses);
+                self::assertInstanceOf(Path::class, $query->sortClauses[0]);
+                $pathString = is_array($query->filter->value) ? $query->filter->value[0] ?? null : $query->filter->value;
+                self::assertIsString($pathString);
+                self::assertArrayHasKey($pathString, $searchResultsByPath);
+
+                return $searchResultsByPath[$pathString];
+            });
 
         $mapper = new SubtreeLimitationMapper(
             $locationServiceMock,

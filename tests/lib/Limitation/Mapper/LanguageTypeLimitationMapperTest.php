@@ -43,13 +43,19 @@ class LanguageTypeLimitationMapperTest extends TestCase
             $this->createMock(Language::class),
         ];
 
+        $languagesByCode = [];
         foreach ($values as $i => $value) {
-            $this->languageService
-                ->expects(self::at($i))
-                ->method('loadLanguage')
-                ->with($value)
-                ->willReturn($expected[$i]);
+            $languagesByCode[$value] = $expected[$i];
         }
+
+        $this->languageService
+            ->expects(self::exactly(count($values)))
+            ->method('loadLanguage')
+            ->willReturnCallback(static function (string $languageCode) use ($languagesByCode): Language {
+                self::assertArrayHasKey($languageCode, $languagesByCode);
+
+                return $languagesByCode[$languageCode];
+            });
 
         $result = $this->mapper->mapLimitationValue(new LanguageLimitation([
             'limitationValues' => $values,
