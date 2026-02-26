@@ -3,6 +3,7 @@
     const SELECTOR_SELECTED = '.ibexa-dropdown__selection-info';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
     const EVENT_VALUE_CHANGED = 'change';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class IbexaSelectionValidator extends ibexa.BaseFieldValidator {
         /**
@@ -18,7 +19,7 @@
             const hasSelectedOptions = !!fieldContainer.querySelector('.ibexa-data-source__input').value;
             const isRequired = fieldContainer.classList.contains('ibexa-field-edit--required');
             const isError = isRequired && !hasSelectedOptions;
-            const label = fieldContainer.querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = fieldContainer.querySelector(SELECTOR_LABEL).innerText;
             const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', label);
 
             return {
@@ -37,7 +38,7 @@
                 eventName: EVENT_VALUE_CHANGED,
                 callback: 'validateInput',
                 errorNodeSelectors: [SELECTOR_ERROR_NODE],
-                invalidStateSelectors: [SELECTOR_SELECTED],
+                invalidStateSelectors: [SELECTOR_SELECTED, SELECTOR_LABEL],
             },
         ],
     });

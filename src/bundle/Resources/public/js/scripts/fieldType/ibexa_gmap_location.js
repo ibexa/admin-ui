@@ -303,7 +303,7 @@
 
             if (validationResult.isError) {
                 const errorMessage = Translator.trans(
-                    /* @Desc("Area below needs correction") */ 'ibexa_maplocation.create.message.error',
+                    /* @Desc("Area above needs correction") */ 'ibexa_maplocation.create.message.error',
                     {},
                     'ibexa_fieldtypes_edit',
                 );
