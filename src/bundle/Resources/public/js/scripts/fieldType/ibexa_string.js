@@ -1,6 +1,7 @@
 (function (global, doc, ibexa) {
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_string';
     const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
     class IbexaStringValidator extends ibexa.BaseFieldValidator {
         /**
@@ -17,7 +18,7 @@
             const isTooShort = event.target.value.length < parseInt(event.target.dataset.min, 10);
             const isTooLong = event.target.value.length > parseInt(event.target.dataset.max, 10);
             const isError = (isEmpty && isRequired) || (!isEmpty && (isTooShort || isTooLong));
-            const label = event.target.closest(SELECTOR_FIELD).querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = event.target.closest(SELECTOR_FIELD).querySelector(SELECTOR_LABEL).innerText;
             const result = { isError };
 
             if (isEmpty) {
@@ -41,7 +42,7 @@
                 eventName: 'blur',
                 callback: 'validateInput',
                 errorNodeSelectors: ['.ibexa-form-error'],
-                invalidStateSelectors: [SELECTOR_SOURCE_INPUT],
+                invalidStateSelectors: [SELECTOR_SOURCE_INPUT, SELECTOR_LABEL],
             },
         ],
     });

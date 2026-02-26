@@ -1,15 +1,16 @@
 (function (global, doc, ibexa) {
-    const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_text';
+    const SELECTOR_FIELD = '.ibexa-field-edit--ezisbn';
+    const SELECTOR_SOURCE_INPUT = '.ibexa-data-source__input';
     const SELECTOR_LABEL = '.ibexa-field-edit__label';
 
-    class IbexaTextValidator extends ibexa.BaseFieldValidator {
+    class IbexaIsbnValidator extends ibexa.BaseFieldValidator {
         /**
-         * Validates the textarea field value
+         * Validates the input
          *
          * @method validateInput
          * @param {Event} event
          * @returns {Object}
-         * @memberof IbexaTextValidator
+         * @memberof IbexaIsbnValidator
          */
         validateInput(event) {
             const isError = event.target.required && !event.target.value.trim();
@@ -23,16 +24,16 @@
         }
     }
 
-    const validator = new IbexaTextValidator({
+    const validator = new IbexaIsbnValidator({
         classInvalid: 'is-invalid',
         fieldSelector: SELECTOR_FIELD,
         eventsMap: [
             {
-                selector: '.ibexa-field-edit--ibexa_text textarea',
+                selector: `${SELECTOR_FIELD} input`,
                 eventName: 'blur',
                 callback: 'validateInput',
-                invalidStateSelectors: [SELECTOR_LABEL],
                 errorNodeSelectors: ['.ibexa-form-error'],
+                invalidStateSelectors: [SELECTOR_SOURCE_INPUT, SELECTOR_LABEL],
             },
         ],
     });

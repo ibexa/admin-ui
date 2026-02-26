@@ -2,6 +2,7 @@
     const SELECTOR_FIELD = '.ibexa-field-edit--ibexa_keyword';
     const SELECTOR_TAGGIFY_CONTAINER = '.ibexa-data-source__taggify';
     const SELECTOR_TAGGIFY = '.ibexa-data-source__taggify .ibexa-taggify';
+    const SELECTOR_LABEL = '.ibexa-field-edit__label';
     const SELECTOR_ERROR_NODE = '.ibexa-form-error';
 
     class IbexaKeywordValidator extends ibexa.BaseFieldValidator {
@@ -16,7 +17,7 @@
         validateKeywords(event) {
             const fieldContainer = event.currentTarget.closest(SELECTOR_FIELD);
             const input = fieldContainer.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input');
-            const label = fieldContainer.querySelector('.ibexa-field-edit__label').innerHTML;
+            const label = fieldContainer.querySelector(SELECTOR_LABEL).innerText;
             const isRequired = input.required;
             const isEmpty = !input.value.trim().length;
             const isError = isEmpty && isRequired;
@@ -57,14 +58,14 @@
                     eventName: 'blur',
                     callback: 'validateKeywords',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
-                    invalidStateSelectors: [SELECTOR_TAGGIFY],
+                    invalidStateSelectors: [SELECTOR_TAGGIFY, SELECTOR_LABEL],
                 },
                 {
                     selector: `${SELECTOR_FIELD} .ibexa-data-source__input.form-control`,
                     eventName: 'change',
                     callback: 'validateKeywords',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
-                    invalidStateSelectors: [SELECTOR_TAGGIFY],
+                    invalidStateSelectors: [SELECTOR_TAGGIFY, SELECTOR_LABEL],
                 },
             ],
         });
