@@ -46,22 +46,27 @@ final class UpperMenu extends Component
         $this->getHTMLPage()->find($this->getLocator('userNotifications'))->click();
     }
 
+    public function toggleUserDropdown(): void
+    {
+        $this->getHTMLPage()->setTimeout(3)->find($this->getLocator('userSettingsToggle'))->click();
+    }
+
     public function chooseFromUserDropdown(string $option): void
     {
-        $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+        $this->toggleUserDropdown();
         $this->getHTMLPage()->findAll($this->getLocator('userSettingsItem'))->getByCriterion(new ElementTextCriterion($option))->click();
     }
 
     public function setFocusMode(bool $expectedModeStatus): void
     {
-        $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+        $this->toggleUserDropdown();
 
         $isEnabled = $this->getHTMLPage()->setTimeout(3)->findAll($this->getLocator('userFocusEnabled'))->any();
 
         if ($expectedModeStatus != $isEnabled) {
             $this->getHTMLPage()->find($this->getLocator('userFocusMode'))->click();
         } else {
-            $this->getHTMLPage()->find($this->getLocator('userSettingsToggle'))->click();
+            $this->toggleUserDropdown();
         }
 
         if ($expectedModeStatus) {
@@ -78,7 +83,7 @@ final class UpperMenu extends Component
 
     public function selectSiteContext(string $siteName): void
     {
-        $this->getHTMLPage()->find($this->getLocator('siteDropdown'))->click();
+        $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdown'))->click();
         $this->ibexaDropdown->selectOptionByValueFragment($siteName);
         $this->getHTMLPage()->setTimeout(5)->find($this->getLocator('siteDropdownSelectedItem'))->assert()->textEquals(sprintf('Site: %s', $siteName));
     }

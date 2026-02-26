@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
+use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
@@ -47,7 +48,8 @@ final class IbexaDropdown extends Component
     public function selectOptionByValueFragment(string $valueFragment): void
     {
         $dropdownOptionLocator = $this->getLocator('ibexaDropdownExtended');
-        $listElement = $this->getHTMLPage()
+        $listElement = $this->getHTMLPage()->setTimeout(5)
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $dropdownOptionLocator))
             ->findAll($dropdownOptionLocator)
             ->getByCriterion(new ElementTextFragmentCriterion($valueFragment));
         usleep(2000000);
