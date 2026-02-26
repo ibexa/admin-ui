@@ -102,6 +102,12 @@
             ]);
         }
 
+        addTagsFromString(value) {
+            const inputTags = value.split(',');
+
+            inputTags.forEach((inputTag) => this.addTag(inputTag, inputTag));
+        }
+
         removeTagWithValue(value) {
             const tag = this.listNode.querySelector(`.ibexa-taggify__list-tag[data-value="${value}"]`);
 
@@ -140,7 +146,7 @@
         handleInputBlur() {
             const inputValue = this.inputNode.value.trim();
 
-            this.addTag(inputValue, inputValue);
+            this.addTagsFromString(inputValue);
             this.inputNode.value = '';
         }
 
