@@ -1,0 +1,6 @@
+system:
+    admin_group:
+        notifier:
+            subscriptions:
+                Ibexa\AdminUi\Notifier\Notification\UserPasswordReset:
+                    channels: [ email ]
