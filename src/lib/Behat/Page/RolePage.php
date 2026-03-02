@@ -138,7 +138,7 @@ class RolePage extends Page
     public function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('button', '.ids-btn'),
             new VisibleCSSLocator('deleteAssignmentButton', '#delete-role-assignments'),
             new VisibleCSSLocator('deletePoliciesButton', '#delete-policies'),
             new VisibleCSSLocator('assignmentTable', '[name="role_assignments_delete"]'),
