@@ -85,8 +85,8 @@ final class ContentTypeGroupsPage extends Page
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('listHeader', '.ibexa-table-header .ibexa-table-header__headline, header .ibexa-table__headline, header h5'),
-            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
-            new VisibleCSSLocator('trashButton', '.ibexa-icon--trash,button[data-original-title^="Delete"]'),
+            new VisibleCSSLocator('createButton', 'a[href$="/contenttypegroup/create"]'),
+            new VisibleCSSLocator('trashButton', '#delete-content-type-groups'),
         ];
     }
 }
