@@ -32,31 +32,31 @@
         {% block content %}{% endblock %}
         <div class="ibexa-input-text-wrapper__actions">
             {% block actions %}
-                <button 
-                    type="button" 
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    icon="discard"
+                    icon_size="tiny-small"
+                    class="ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
                     tabindex="-1"
-                    {{ is_disabled ? 'disabled' }}
+                    :disabled="is_disabled"
                     {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
-                >
-                    <svg class="ibexa-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                    </svg>
-                </button>
+                />
                 {% if is_password_input %}
-                    <button
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary-alt"
+                        class="ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
                         tabindex="5"
-                        {{ is_disabled ? 'disabled' }}
+                        :disabled="is_disabled"
                     >
                         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-show">
-                            <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
+                            <use xlink:href="{{ ibexa_icon_path('visibility') }}"></use>
                         </svg>
                         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-hide d-none">
-                            <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
+                            <use xlink:href="{{ ibexa_icon_path('visibility-hidden') }}"></use>
                         </svg>
-                    </button>
+                    </twig:ibexa:button>
                 {% elseif has_search %}
                     <button
                         type="{{ search_button_type|default('submit') }}"

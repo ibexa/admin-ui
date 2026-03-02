@@ -43,16 +43,15 @@
 
 {% macro table_header_tools(show_add_button) %}
     {% if show_add_button %}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--add-draft"
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary-alt"
+            size="small"
+            icon="add"
+            icon_size="small-medium"
+            class="ids-button--add-draft"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'draft.conflict.add_new'|trans|desc('Add') }}
-            </span>
-        </button>
+            {{ 'draft.conflict.add_new'|trans|desc('Add') }}
+        </twig:ibexa:button>
     {% endif %}
 {% endmacro %}

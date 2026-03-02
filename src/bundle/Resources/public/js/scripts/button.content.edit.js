@@ -35,14 +35,14 @@
             wrapper.innerHTML = modalHtml;
 
             const conflictModal = doc.querySelector('#version-draft-conflict-modal');
-            const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
+            const addDraftButton = wrapper.querySelector('.ids-button--add-draft');
 
             if (addDraftButton) {
                 addDraftButton.addEventListener('click', addDraft, false);
             }
 
             wrapper
-                .querySelectorAll('.ibexa-btn--prevented')
+                .querySelectorAll('.ids-button--prevented')
                 .forEach((btn) => btn.addEventListener('click', (wrapperBtnEvent) => wrapperBtnEvent.preventDefault(), false));
 
             bootstrap.Modal.getOrCreateInstance(conflictModal).show();
@@ -80,5 +80,5 @@
             .catch(showErrorNotification);
     };
 
-    doc.querySelectorAll('.ibexa-btn--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
+    doc.querySelectorAll('.ids-button--content-edit').forEach((button) => button.addEventListener('click', editVersion, false));
 })(window, window.document, window.bootstrap, window.ibexa, window.Translator, window.Routing);

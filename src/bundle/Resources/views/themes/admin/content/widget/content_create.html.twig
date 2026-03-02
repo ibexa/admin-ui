@@ -62,9 +62,12 @@
                     class: 'ibexa-btn ibexa-btn--primary ibexa-extra-actions__btn ibexa-extra-actions__btn--confirm'
                 }
             }) }}
-            <button class="btn ibexa-btn ibexa-btn--secondary ibexa-extra-actions__btn ibexa-extra-actions__btn--cancel" type="button">
+            <twig:ibexa:button
+                type="secondary"
+                class="ibexa-extra-actions__btn ibexa-extra-actions__btn--cancel"
+            >
                 {{ 'content.create.cancel_btn.label'|trans|desc('Discard') }}
-            </button>
+            </twig:ibexa:button>
         </div>
     </div>
 {{ form_end(form) }}

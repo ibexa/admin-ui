@@ -3,12 +3,16 @@
 {% form_theme form_forgot_user_password '@ibexadesign/ui/form_fields.html.twig' %}
 
 {%- block content -%}
-    <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-login__btn--back">
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
-    </a>
+    <twig:ibexa:link
+        href="{{ path('login') }}"
+        variant="button"
+        type="tertiary-alt"
+        icon="back"
+        icon_size="small"
+        class="ibexa-login__btn--back"
+    >
+        {{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
+    </twig:ibexa:link>
     <h2 class="ibexa-login__actions-headline">{{ 'authentication.reset_your_password'|trans|desc('Reset your password') }}</h2>
     {% if reason == userForgotPasswordReasonMigration %}
         <p>{{ 'ezplatform.forgot_password.reset_your_password.reason.migration'|trans|desc('Your password has expired, change it.') }}</p>
@@ -18,7 +22,7 @@
         <fieldset>
             {{ form_row(form_forgot_user_password.email, {'attr': {'class': 'form-control ibexa-input ibexa-input--text ibexa-login__input'}}) }}
         </fieldset>
-        {{ form_widget(form_forgot_user_password.reset, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-login__btn--reset-password'}}) }}
+        {{ form_widget(form_forgot_user_password.reset, {'attr': {'class': 'ibexa-login__btn--reset-password'}}) }}
 
         {{ form_end(form_forgot_user_password) }}
     {% endif %}

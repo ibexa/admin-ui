@@ -9,42 +9,48 @@
         <div class="ibexa-collapse__header {{ header_class|default('') }}">
             {% block header_content %}
                 {% if is_draggable|default(false) %}
-                    <button type="button" class="btn ibexa-btn ibexa-btn--no-text ibexa-collapse__draggable-btn">
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path("drag") }}"></use>
-                        </svg>
-                    </button>
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary-alt"
+                        icon="drag"
+                        icon_size="small-medium"
+                        class="ibexa-collapse__draggable-btn"
+                    />
                 {% endif %}
 
-                <button
-                    class="btn ibexa-btn ibexa-collapse__toggle-btn ibexa-collapse__toggle-btn--title {{ not is_expanded|default(false) ? 'collapsed' }} {{ label_button_class|default('') }}"
-                    type="button"
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary"
+                    class="ibexa-collapse__toggle-btn ibexa-collapse__toggle-btn--title {{ not is_expanded|default(false) ? 'collapsed' }} {{ label_button_class|default('') }}"
                     data-bs-toggle="collapse"
                     data-bs-target="#{{ body_id }}"
                 >
                     <span class="ibexa-collapse__header-label">{{ header_label|default('') }}</span>
-                </button>
+                </twig:ibexa:button>
 
                 {% if extra_actions is defined %}
                     {% for action in extra_actions %}
-                        <button type="button" class="ibexa-collapse__extra-action-button btn ibexa-btn ibexa-btn--no-text {{ action.button_class|default('') }}">
-                            <svg class="ibexa-icon ibexa-icon--{{ action.icon_size|default('small-medium') }}">
-                                <use xlink:href="{{ ibexa_icon_path(action.icon_name) }}"></use>
-                            </svg>
-                        </button>
+                        <twig:ibexa:button
+                            html_type="button"
+                            type="tertiary-alt"
+                            icon="{{ action.icon_name }}"
+                            icon_size="{{ action.icon_size|default('small-medium') }}"
+                            class="ibexa-collapse__extra-action-button {{ action.button_class|default('') }}"
+                        />
                     {% endfor %}
                 {% endif %}
 
-                <button
-                    class="btn ibexa-btn ibexa-btn--no-text ibexa-collapse__toggle-btn ibexa-collapse__toggle-btn--status {{ not is_expanded|default(false) ? 'collapsed' }}"
-                    type="button"
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    class="ibexa-collapse__toggle-btn ibexa-collapse__toggle-btn--status {{ not is_expanded|default(false) ? 'collapsed' }}"
                     data-bs-toggle="collapse"
                     data-bs-target="#{{ body_id }}"
                 >
                     <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--toggle-status-icon {{ status_icon_class|default('') }}">
                         <use xlink:href="{{ ibexa_icon_path(status_icon|default('caret-up')) }}"></use>
                     </svg>
-                </button>
+                </twig:ibexa:button>
             {% endblock %}
         </div>
     {% endblock %}

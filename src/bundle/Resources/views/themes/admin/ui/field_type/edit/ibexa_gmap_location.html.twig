@@ -9,21 +9,22 @@
             <div class="ibexa-data-source__input-wrapper">
                 {{ form_widget(form.address, {'attr': {'class': 'ibexa-data-source__input', 'placeholder': 'ibexa_gmap_location.input.placeholder'|trans|desc('Search address'), readonly: readonly }}) }}
                 <div class="ibexa-data-source__locate-me">
-                    <button
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--locate-me"
-                        {{ readonly ? 'disabled' }}
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('localize') }}"></use>
-                        </svg>
-                    </button>
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary-alt"
+                        icon="localize"
+                        icon_size="small-medium"
+                        class="ids-button--locate-me"
+                        :disabled="readonly"
+                    />
                 </div>
-                <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--search-by-address">
-                    <svg class="ibexa-icon ibexa-icon--small-medium">
-                        <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
-                    </svg>
-                </button>
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    icon="search"
+                    icon_size="small-medium"
+                    class="ids-button--search-by-address"
+                />
             </div>
             <div class="ibexa-form-error"></div>
         </div>

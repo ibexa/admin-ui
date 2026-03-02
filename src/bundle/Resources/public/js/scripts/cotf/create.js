@@ -1,5 +1,5 @@
 (function (global, doc, ibexa, React, ReactDOMClient, Translator, Routing) {
-    const btns = doc.querySelectorAll('.ibexa-btn--cotf-create');
+    const btns = doc.querySelectorAll('.ids-button--cotf-create');
     const udwContainer = doc.getElementById('react-udw');
     let udwRoot = null;
     const closeUDW = () => udwRoot.unmount();

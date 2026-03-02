@@ -5,9 +5,9 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
     const CLASS_EXPANDED = 'ibexa-context-menu--expanded';
     const CLASS_PREVENT_SHOW = 'ibexa-extra-actions--prevent-show';
     const closeBtns = doc.querySelectorAll(
-        '.ibexa-extra-actions .ibexa-btn--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel',
+        '.ibexa-extra-actions .ids-button--close, .ibexa-extra-actions .ibexa-extra-actions__btn--cancel',
     );
-    const btns = [...doc.querySelectorAll('.ibexa-btn--extra-actions')];
+    const btns = [...doc.querySelectorAll('.ids-button--extra-actions')];
     const menu = doc.querySelector('.ibexa-context-menu');
     const backdrop = new ibexa.core.Backdrop();
     const formsInitialData = new Map();

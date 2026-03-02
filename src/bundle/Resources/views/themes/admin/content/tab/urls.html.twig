@@ -49,35 +49,33 @@
 
 {% macro table_header_tools(form_custom_url_remove, can_edit_custom_url) %}
     {% if can_edit_custom_url %}
-        <button
-            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--prevented"
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary"
+            size="small"
+            icon="create"
+            icon_size="small-medium"
+            class="ids-button--prevented"
             data-bs-toggle="modal"
             data-bs-target="#ibexa-modal--custom-url-alias"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'tab.urls.action.add'|trans|desc('Add') }}
-            </span>
-        </button>
+            {{ 'tab.urls.action.add'|trans|desc('Add') }}
+        </twig:ibexa:button>
 
         {% set modal_data_target = 'delete-custom-url-modal' %}
-        <button
+        <twig:ibexa:button
             id="delete-custom-urls"
-            type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-            disabled
+            html_type="button"
+            type="tertiary-alt"
+            size="small"
+            icon="trash"
+            icon_size="small"
+            :disabled="true"
             data-bs-toggle="modal"
-            data-bs-target="#{{ modal_data_target }}"
+            :data-bs-target="'#' ~ modal_data_target"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-            <span class="ibexa-btn__label">
-                {{ 'tab.urls.action.delete'|trans|desc('Delete') }}
-            </span>
-        </button>
+            {{ 'tab.urls.action.delete'|trans|desc('Delete') }}
+        </twig:ibexa:button>
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.urls.modal.message'|trans|desc('Delete the selected custom URL aliases permanently?'),

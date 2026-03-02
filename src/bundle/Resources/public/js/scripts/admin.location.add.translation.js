@@ -5,7 +5,7 @@
         if (!modal) {
             return;
         }
-        const buttonCreate = modal.querySelector('.ibexa-btn--create-translation');
+        const buttonCreate = modal.querySelector('.ids-button--create-translation');
         if (!buttonCreate) {
             return;
         }

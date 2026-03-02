@@ -4,30 +4,26 @@
 
 {% if translations|length == 1 %}
     {% set language = translations|first %}
-    <button
-        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--content-edit"
+    <twig:ibexa:button
+        type="tertiary-alt"
+        icon="edit"
+        icon_size="small-medium"
+        class="mx-2 ids-button--content-edit"
         title="{{ title }}"
-        type="button"
         data-content-id="{{ contentId }}"
         data-language-code="{{ language.languageCode }}"
-    >
-        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-            <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-        </svg>
-    </button>
+    />
 {% else %}
     {% set top_offset = top_offset is defined ? top_offset : 72 %}
 
     <div class="ibexa-translation-selector">
-        <button
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text mx-2 ibexa-btn--translations-list-toggler"
+        <twig:ibexa:button
+            type="tertiary-alt"
+            icon="edit"
+            icon_size="small-medium"
+            class="mx-2 ids-button--translations-list-toggler"
             title="{{ title }}"
-            type="button"
-        >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-            </svg>
-        </button>
+        />
 
         {% embed '@ibexadesign/ui/component/edit_content_translation_select.html.twig' with {
             title: 'edit_translation.languages.select_language_title'|trans|desc('Select translation'),
@@ -42,13 +38,15 @@
                 <div class="ibexa-instant-filter__items">
                     {% for language in translations %}
                         <div class="ibexa-instant-filter__group-item">
-                            <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--content-edit ibexa-btn--select-language"
+                            <twig:ibexa:button
+                                type="tertiary-alt"
+                                class="ids-button--content-edit ids-button--select-language"
                                 data-with-confirm="true"
                                 data-content-id="{{ contentId }}"
                                 data-language-code="{{ language.languageCode }}"
                             >
                                 {{ language.name }}
-                            </button>
+                            </twig:ibexa:button>
                         </div>
                     {% endfor %}
                 </div>
@@ -57,12 +55,20 @@
             {% block footer_items %}
                 {% trans_default_domain 'ibexa_admin_ui' %}
 
-                <button type="submit" class="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary ibexa-btn--content-edit" disabled>
+                <twig:ibexa:button
+                    type="primary"
+                    html_type="submit"
+                    class="ibexa-extra-actions__confirm-btn ids-button--content-edit"
+                    :disabled="true"
+                >
                     {{ 'edit_translation.languages.edit'|trans|desc('Edit') }}
-                </button>
-                <button type="button" class="btn ibexa-extra-actions__close-btn ibexa-btn ibexa-btn--secondary">
+                </twig:ibexa:button>
+                <twig:ibexa:button
+                    type="secondary"
+                    class="ibexa-extra-actions__close-btn"
+                >
                     {{ 'edit_translation.languages.discard'|trans|desc('Discard') }}
-                </button>
+                </twig:ibexa:button>
             {% endblock %}  
         {% endembed %}
     </div>

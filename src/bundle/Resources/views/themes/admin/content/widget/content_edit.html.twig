@@ -38,12 +38,20 @@
     {% block footer_items %}
         {% trans_default_domain 'ibexa_locationview' %}
 
-        <button type="submit" class="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary " disabled>
+        <twig:ibexa:button
+            type="primary"
+            html_type="submit"
+            class="ibexa-extra-actions__confirm-btn"
+            :disabled="true"
+        >
             {{ 'edit.languages.edit'|trans|desc('Edit') }}
-        </button>
-        <button type="button" class="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary">
+        </twig:ibexa:button>
+        <twig:ibexa:button
+            type="secondary"
+            class="ids-button--close"
+        >
             {{ 'edit.languages.discard'|trans|desc('Discard') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
 
     {% block after_body %}

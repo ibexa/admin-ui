@@ -7,8 +7,8 @@
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const filters = doc.querySelector('.ibexa-filters');
-    const clearBtn = filters.querySelector('.ibexa-btn--clear');
-    const applyBtn = filters.querySelector('.ibexa-btn--apply');
+    const clearBtn = filters.querySelector('.ids-button--clear');
+    const applyBtn = filters.querySelector('.ids-button--apply');
     const contentTypeSelect = doc.querySelector('.ibexa-filters__item--content-type .ibexa-filters__select');
     const sectionSelect = doc.querySelector('.ibexa-filters__item--section .ibexa-filters__select');
     const lastModifiedSelectNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__select');
@@ -107,6 +107,7 @@
         const methodName = isEnabled ? 'removeAttribute' : 'setAttribute';
 
         applyBtn[methodName]('disabled', !isEnabled);
+        // ids-btn--disabled class no longer needed - native [disabled] attribute handles styling
     };
     const toggleDatesSelectVisibility = (event, select, dateRange) => {
         const datesRangeNode = doc.querySelector(event.target.dataset.targetSelector);

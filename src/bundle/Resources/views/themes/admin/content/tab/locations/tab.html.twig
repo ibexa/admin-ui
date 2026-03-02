@@ -148,35 +148,32 @@
 } %}
 
 {% macro table_header_tools(form_add, form_remove, can_add) %}
-    <button
+    <twig:ibexa:button
+        type="tertiary-alt"
+        size="small"
+        icon="add"
+        icon_size="small-medium"
+        class="ibexa-btn--udw-add"
         data-udw-config="{{ ibexa_udw_config('add_location', {}) }}"
-        class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--udw-add"
-        {{ not can_add ? 'disabled' }}
+        :disabled="not can_add"
     >
-        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-            <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
-            {{ 'tab.locations.action.add'|trans|desc('Add') }}
-        </span>
-    </button>
+        {{ 'tab.locations.action.add'|trans|desc('Add') }}
+    </twig:ibexa:button>
 
     {% set modal_data_target = 'delete-content-types-modal' %}
-    <button
+    <twig:ibexa:button
+        html_type="button"
         id="delete-locations"
-        type="button"
-        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-        disabled
+        type="tertiary-alt"
+        size="small"
+        icon="trash"
+        icon_size="small-medium"
+        :disabled="true"
         data-bs-toggle="modal"
         data-bs-target="#{{ modal_data_target }}"
     >
-        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">
-            {{ 'tab.locations.action.delete'|trans|desc('Delete') }}
-        </span>
-    </button>
+        {{ 'tab.locations.action.delete'|trans|desc('Delete') }}
+    </twig:ibexa:button>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),

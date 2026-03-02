@@ -550,25 +550,33 @@
                 {{- form_label(form) -}}
             </div>
             <div class="ibexa-field-edit__distraction-free-mode-btns">
-                 <button {{ (fieldtype_is_not_translatable or disabled) ? 'disabled' }} type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--enable">
-                    <svg class="ibexa-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('focus') }}"></use>
-                    </svg>
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    size="small"
+                    icon="focus"
+                    icon_size="tiny-small"
+                    class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--enable"
+                    :disabled="fieldtype_is_not_translatable or disabled"
+                >
                     <span
                         class="ibexa-btn__label"
                         title="{{ 'distraction_free_mode.enable.tooltip'|trans|desc('Enter distraction free mode. It shows only rich text editor toolbar and focuses your attention on editing text.') }}"
                     >
                         {{ 'distraction_free_mode.enable.label'|trans|desc('Distraction free mode') }}
                     </span>
-                </button>
-                <button {{ (fieldtype_is_not_translatable or disabled) ? 'disabled' }} type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--disable">
-                    <svg class="ibexa-icon ibexa-icon--tiny-small">
-                        <use xlink:href="{{ ibexa_icon_path('un-focus') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label">
-                        {{ 'distraction_free_mode.disable.label'|trans|desc('Exit distraction free mode') }}
-                    </span>
-                </button>
+                </twig:ibexa:button>
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    size="small"
+                    icon="un-focus"
+                    icon_size="tiny-small"
+                    class="ibexa-field-edit__distraction-free-mode-control-btn ibexa-field-edit__distraction-free-mode-control-btn--disable"
+                    :disabled="fieldtype_is_not_translatable or disabled"
+                >
+                    {{ 'distraction_free_mode.disable.label'|trans|desc('Exit distraction free mode') }}
+                </twig:ibexa:button>
             </div>
         </div>
     </div>

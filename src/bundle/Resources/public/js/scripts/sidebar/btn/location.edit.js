@@ -21,7 +21,7 @@
         doc.body.dispatchEvent(event);
     };
     const attachModalListeners = (wrapper, form, btns) => {
-        const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
+        const addDraftButton = wrapper.querySelector('.ids-button--add-draft');
         const conflictModal = doc.querySelector('#version-draft-conflict-modal');
 
         if (addDraftButton) {
@@ -29,7 +29,7 @@
         }
 
         wrapper
-            .querySelectorAll('.ibexa-btn--prevented')
+            .querySelectorAll('.ids-button--prevented')
             .forEach((btn) => btn.addEventListener('click', (event) => event.preventDefault(), false));
 
         if (conflictModal) {

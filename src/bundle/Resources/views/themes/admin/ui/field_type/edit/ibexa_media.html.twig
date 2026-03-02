@@ -17,27 +17,29 @@
         <div class="ibexa-field-edit-preview__visual">
             <div class="ibexa-field-edit-preview__media-wrapper ibexa-field-edit-preview__media-wrapper--loading">
                 <div class="ibexa-field-edit-preview__actions">
-                    <button 
-                        type="button" 
-                        class="ibexa-field-edit-preview__action--remove btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                        {{ readonly ? 'disabled' }}
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary-alt"
+                        size="small"
+                        icon="trash"
+                        icon_size="small-medium"
+                        :disabled="readonly"
+                        class="ibexa-field-edit-preview__action--remove"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_media.delete'|trans|desc('Delete') }}</span>
-                    </button>
-                    <a 
-                        class="ibexa-field-edit-preview__action--preview btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                        {{ 'content.field_type.ibexa_media.delete'|trans|desc('Delete') }}
+                    </twig:ibexa:button>
+                    <twig:ibexa:link
                         href="{{ form.parent.vars.value.value.uri }}"
+                        variant="button"
+                        type="tertiary-alt"
+                        size="small"
+                        icon="open-new-window"
+                        icon_size="small-medium"
                         target="_blank"
-                        {{ readonly ? 'disabled' }}
+                        class="ibexa-field-edit-preview__action--preview"
                     >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('open-newtab') }}"></use>
-                        </svg>
-                        <span class="ibexa-btn__label">{{ 'content.field_type.ibexa_media.download'|trans|desc('Download') }}</span>
-                    </a>
+                        {{ 'content.field_type.ibexa_media.download'|trans|desc('Download') }}
+                    </twig:ibexa:link>
                 </div>
                 <svg class="ibexa-field-edit-preview__spinner ibexa-icon ibexa-spin">
                     <use xlink:href="{{ ibexa_icon_path('spinner') }}"></use>

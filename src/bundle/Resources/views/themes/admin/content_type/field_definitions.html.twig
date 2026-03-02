@@ -48,7 +48,7 @@
                     {
                         'icon_name': 'discard',
                         'icon_size': 'tiny-small',
-                        'button_class': 'ibexa-btn--ghost ibexa-collapse__extra-action-button--remove-field-definitions-group',
+                        'button_class': 'ibexa-collapse__extra-action-button--remove-field-definitions-group',
                     }
                 ],
                 'data_attr': {
@@ -73,16 +73,16 @@
         {% endfor %}
     </div>
     <div class="ibexa-content-type-edit__add-field-definitions-group">
-        <button
-            type="button"
-            class="ibexa-content-type-edit__add-field-definitions-group-btn btn ibexa-btn ibexa-btn--info"
+        <twig:ibexa:button
+            html_type="button"
+            type="info"
+            icon="create"
+            icon_size="small-medium"
+            class="ibexa-content-type-edit__add-field-definitions-group-btn"
             data-is-disabled="{{ is_field_definitions_draggable ? 'false' : 'true' }}"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
             {{ 'content_type.view.edit.add'|trans|desc('Add') }}
-        </button>
+        </twig:ibexa:button>
 
         {{ include('@ibexadesign/ui/component/popup_menu/popup_menu.html.twig', {
             'items': grouped_field_defintions|keys|map(group => {

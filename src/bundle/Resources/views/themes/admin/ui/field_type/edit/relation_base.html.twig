@@ -8,16 +8,15 @@
     {% set helper = helper|default('') %}
     {% set readonly = attr.readonly|default(false) %}
     {% set remove_item_btn %}
-        <button
-            type="button"
-            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-relations__table-action--remove-item ibexa-btn"
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary-alt"
+            icon="trash"
+            icon_size="small-medium"
+            :disabled="readonly"
             title="{{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}"
-            {{ readonly ? 'disabled' }}
-        >
-            <svg class="ibexa-icon ibexa-icon--small-medium">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-            </svg>
-        </button>
+            class="ibexa-relations__table-action--remove-item"
+        />
     {% endset %}
     {% set col_raw_checkbox_template %}
         <input
@@ -263,31 +262,34 @@
                     {% endblock %}
                     {% block actions %}
                         {% if limit != 1 %}
-                            <button
+                            <twig:ibexa:button
+                                html_type="button"
+                                type="secondary"
+                                size="small"
+                                :disabled="true"
                                 data-udw-config="{{ ibexa_udw_config('multiple', {
                                     'type': 'object_relation',
                                     'starting_location_id' : default_location,
                                     'root_default_location': root_default_location,
                                     'allowed_content_types': allowed_content_types
                                 }) }}"
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-relations__table-action--create ibexa-btn {{ readonly ? 'ibexa-relations__table-action--disabled' }}"
-                                disabled
-                                {% if not has_relations %}hidden="true"{% endif %}
+                                class="ibexa-relations__table-action--create{{ readonly ? ' ibexa-relations__table-action--disabled' }}"
+                                :hidden="not has_relations"
                             >
-                                <span class="ibexa-btn__label">{{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}</span>
-                            </button>
-                            <button
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-relations__table-action--remove ibexa-btn"
-                                disabled
-                                {% if not has_relations %}hidden="true"{% endif %}
+                                {{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}
+                            </twig:ibexa:button>
+                            <twig:ibexa:button
+                                html_type="button"
+                                type="tertiary-alt"
+                                size="small"
+                                icon="trash"
+                                icon_size="small-medium"
+                                :disabled="true"
+                                class="ibexa-relations__table-action--remove"
+                                :hidden="not has_relations"
                             >
-                                <svg class="ibexa-icon ibexa-icon--small-medium">
-                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                </svg>
-                                <span class="ibexa-btn__label">{{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}</span>
-                            </button>
+                                {{ 'ibexa_object_relation_list.delete_selected_relations'|trans|desc('Delete') }}
+                            </twig:ibexa:button>
                         {% endif %}
                     {% endblock %}
                 {% endembed %}
@@ -302,17 +304,18 @@
             'allowed_content_types': allowed_content_types
         } %}
         {% set udw_config = ibexa_udw_config(limit == 1 ? 'single' : 'multiple', udw_config_parameters) %}
-        <button
+        <twig:ibexa:button
+            html_type="button"
+            type="secondary"
+            :disabled="readonly|default(false)"
             data-udw-config="{{ udw_config }}"
             data-limit="{{limit}}"
-            class="ibexa-relations__cta-btn btn ibexa-btn ibexa-btn--secondary"
-            type="button"
-            {{ readonly|default(false) ? 'disabled' }}
+            class="ibexa-relations__cta-btn"
         >
             <span class="ibexa-relations__cta-btn-label">
                 {{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}
             </span>
-        </button>
+        </twig:ibexa:button>
         <p class="ibexa-relations__helper-text">{{ helper }}</p>
     </div>
     {% set attr = attr|merge({'hidden': 'hidden'}) %}

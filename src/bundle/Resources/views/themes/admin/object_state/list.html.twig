@@ -39,15 +39,14 @@
 
         {% set col_raw %}
             {% if can_administrate %}
-                <a
+                <twig:ibexa:link
                     title="{{ 'object_state.view.list.action.edit'|trans|desc('Edit') }}"
                     href="{{ path('ibexa.object_state.state.update', {'objectStateId': object_state.id}) }}"
-                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                    </svg>
-                </a>
+                    variant="button"
+                    type="tertiary-alt"
+                    icon="edit"
+                    icon_size="small-medium"
+                />
             {% endif %}
         {% endset %}
         {% set body_row_cols = body_row_cols|merge([{
@@ -75,34 +74,31 @@
             {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
                 {% block actions %}
                     {% if can_administrate %}
-                        <a
+                        <twig:ibexa:link
                             href="{{ path('ibexa.object_state.state.add', {'objectStateGroupId': object_state_group.id}) }}"
-                            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small"
+                            variant="button"
+                            type="tertiary-alt"
+                            size="small"
+                            icon="add"
+                            icon_size="small-medium"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                            </svg>
-                            <span class="ibexa-btn__label">
-                                {{ 'object_state.new'|trans|desc('Add') }}
-                            </span>
-                        </a>
+                            {{ 'object_state.new'|trans|desc('Add') }}
+                        </twig:ibexa:link>
 
                         {% set modal_data_target = 'delete-object-state-modal' %}
-                        <button
+                        <twig:ibexa:button
                             id="delete-object-state"
-                            type="button"
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                            html_type="button"
+                            type="tertiary-alt"
+                            size="small"
+                            icon="trash"
+                            icon_size="small-medium"
                             disabled
                             data-bs-toggle="modal"
                             data-bs-target="#{{ modal_data_target }}"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                            </svg>
-                            <span class="ibexa-btn__label">
-                                {{ 'object_state.delete.bulk_delete.submit'|trans|desc('Delete') }}
-                            </span>
-                        </button>
+                            {{ 'object_state.delete.bulk_delete.submit'|trans|desc('Delete') }}
+                        </twig:ibexa:button>
                         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,
                             'message': 'object_state.modal.message'|trans|desc('Do you want to delete the Object state(s)?'),
