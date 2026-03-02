@@ -35,7 +35,7 @@
                         {{ 'content.field_type.ibexa_image.delete'|trans|desc('Delete') }}
                     </twig:ibexa:button>
                     <twig:ibexa:link
-                        href="{{ form.parent.vars.value.value.uri }}"
+                        href="{{ form.parent.vars.value.value.uri ?? '' }}"
                         variant="button"
                         type="tertiary-alt"
                         size="small"

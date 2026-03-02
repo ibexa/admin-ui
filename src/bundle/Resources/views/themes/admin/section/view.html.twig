@@ -51,6 +51,8 @@
             >
                 {{ 'section.edit'|trans|desc('Edit') }}
             </twig:ibexa:link>
+            {% set delete_btn_toggle = deletable ? 'modal' : '' %}
+            {% set delete_btn_target = deletable ? '#delete-section-modal' : '' %}
             <twig:ibexa:button
                 html_type="button"
                 type="tertiary-alt"
@@ -58,10 +60,8 @@
                 icon="trash"
                 icon_size="small"
                 :disabled="not deletable"
-                {% if deletable %}
-                data-bs-toggle="modal"
-                data-bs-target="#delete-section-modal"
-                {% endif %}
+                data-bs-toggle="{{ delete_btn_toggle }}"
+                data-bs-target="{{ delete_btn_target }}"
             >
                 {{ 'section.action.delete'|trans|desc('Delete') }}
             </twig:ibexa:button>
