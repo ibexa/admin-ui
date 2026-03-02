@@ -97,7 +97,7 @@ final class RolesPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
+            new VisibleCSSLocator('createButton', 'a[href$="/role/create"]'),
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('deleteRoleButton', '#delete-roles'),
             new VisibleCSSLocator('roleLabel', '.ibexa-table__cell--close-left > a'),
