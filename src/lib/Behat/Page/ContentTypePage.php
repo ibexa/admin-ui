@@ -98,7 +98,7 @@ final class ContentTypePage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('createButton', '.btn-icon .ibexa-icon--create'),
+            new VisibleCSSLocator('createButton', 'a[href*="/contenttype/add"]'),
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('contentTypeDataTable', '.ibexa-details .ibexa-table'),
             new VisibleCSSLocator('contentFieldsTable', 'section.ibexa-fieldgroup:nth-of-type(1)'),
