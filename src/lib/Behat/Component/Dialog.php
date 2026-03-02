@@ -33,7 +33,7 @@ class Dialog extends Component
     {
         return [
             new VisibleCSSLocator('confirm', '.modal.show button[type="submit"],.modal.show button[data-click], .modal.show .ibexa-btn--confirm, .modal.show .ibexa-btn--primary'),
-            new VisibleCSSLocator('decline', '.modal.show .ibexa-btn--secondary'),
+            new VisibleCSSLocator('decline', '.modal.show .ids-btn--secondary, .modal.show .ibexa-btn--secondary'),
         ];
     }
 }
