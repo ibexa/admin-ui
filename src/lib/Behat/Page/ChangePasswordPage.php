@@ -44,6 +44,14 @@ class ChangePasswordPage extends Page
         $this->getHTMLPage()->find($this->getLocator('confirmPassword'))->setValue($value);
     }
 
+    public function verifyValidationMessage(string $expectedMessage): void
+    {
+        $this->getHTMLPage()
+            ->find(new VisibleCSSLocator('validation', '.ibexa-form-error'))
+            ->assert()->textEquals($expectedMessage);
+    }
+
+
     protected function specifyLocators(): array
     {
         return [
@@ -51,6 +59,7 @@ class ChangePasswordPage extends Page
             new VisibleCSSLocator('newPassword', '#user_password_change_newPassword_first'),
             new VisibleCSSLocator('confirmPassword', '#user_password_change_newPassword_second'),
             new VisibleCSSLocator('title', '.ibexa-edit-header__title'),
+            new VisibleCSSLocator('oldPasswordField', '.ibexa-form-error'),
         ];
     }
 
