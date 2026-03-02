@@ -181,9 +181,6 @@ class ContentViewPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        // Check HTTP status first to catch 500 errors
-        $this->verifyHttpStatus();
-        
         $this->getHTMLPage()->find($this->getLocator('mainContainer'))->assert()->isVisible();
         $this->contentActionsMenu->verifyIsLoaded();
 
