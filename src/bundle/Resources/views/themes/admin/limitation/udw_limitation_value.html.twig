@@ -3,6 +3,11 @@
     {{ form_errors(form.limitationValues) }}
     {{ form_widget(form.limitationValues) }}
 
+    {% set value_template_attr = include('@ibexadesign/limitation/udw_limitation_value_list_item.html.twig', {
+        'content_breadcrumbs': '',
+        'location_id': '{{ location_id }}',
+        'is_loading_state': true
+    })|e('html_attr') %}
     <twig:ibexa:button
         html_type="button"
         type="secondary"
@@ -11,11 +16,7 @@
         data-location-input-selector="#{{ form.limitationValues.vars.id }}"
         data-selected-location-list-selector="#{{ form.limitationValues.vars.id }}-selected-location"
         data-udw-config="{{ ibexa_udw_config('multiple', {}) }}"
-        data-value-template="{{ include('@ibexadesign/limitation/udw_limitation_value_list_item.html.twig', {
-            'content_breadcrumbs': '',
-            'location_id': '{{ location_id }}',
-            'is_loading_state': true
-        })|e('html_attr') }}"
+        data-value-template="{{ value_template_attr }}"
     >
         {{ 'role.policy.limitation.location.udw_button'|trans({}, 'ibexa_content_forms_role')|desc('Select Locations') }}
     </twig:ibexa:button>
