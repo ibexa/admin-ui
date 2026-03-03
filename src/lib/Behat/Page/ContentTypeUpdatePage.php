@@ -37,10 +37,11 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             'lastFieldDefinition',
             'div.ibexa-collapse__body-content div.ibexa-collapse--field-definition'
         );
-        
-        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
+        $toggleBtnLocator = new VisibleCSSLocator('toggleBtn', '.ibexa-collapse__toggle-btn--title');
+
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator, $toggleBtnLocator): bool {
             $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-            $fieldDefinition->find(new VisibleCSSLocator('collapseButton', 'button.ibexa-collapse__toggle-btn'))->click();
+            $fieldDefinition->find($toggleBtnLocator)->click();
             $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
                 new ElementNotExistsCondition(
                     $fieldDefinition,
