@@ -36,6 +36,14 @@ services:
         tags:
             - { name: twig.extension }
 
+    Ibexa\Bundle\AdminUi\Templating\Twig\RtlExtension:
+        arguments:
+            $assets: '@assets.packages'
+            $requestStack: '@request_stack'
+            $rtlLanguages: '%ibexa.admin_ui.rtl_languages%'
+        tags:
+            - { name: twig.extension }
+
     Ibexa\AdminUi\Component\Renderer\DefaultRenderer:
         public: false
 
