@@ -36,6 +36,13 @@ services:
         tags:
             - { name: twig.extension }
 
+    Ibexa\Bundle\AdminUi\Templating\Twig\RtlExtension:
+        arguments:
+            $assets: '@assets.packages'
+            $requestStack: '@request_stack'
+        tags:
+            - { name: twig.extension }
+
     Ibexa\AdminUi\Component\Renderer\DefaultRenderer:
         public: false
 
