@@ -1,3 +1,5 @@
+import { isRtl } from '@ibexa-admin-ui-helpers/system.helper';
+
 (function (global, doc) {
     const INPUT_PADDING = 12;
     const EXTRA_SPACING = 6;
@@ -48,18 +50,18 @@
         const inputType = textWrapper.classList.contains('ibexa-input-text-wrapper--multiline') ? 'textarea' : 'input';
         const input = textWrapper.querySelector(inputType);
         const { width: actionsWidth } = inputActionsContainer.getBoundingClientRect();
-
+        const paddingProperty = isRtl() ? 'paddingLeft' : 'paddingRight';
         if (!input) {
             return;
         }
 
         if (input.type === 'number') {
-            input.style.paddingRight = input.value ? `${actionsWidth + EXTRA_SPACING}px` : `${INPUT_PADDING}px`;
+            input.style[paddingProperty] = input.value ? `${actionsWidth + EXTRA_SPACING}px` : `${INPUT_PADDING}px`;
 
             return;
         }
 
-        input.style.paddingRight = `${actionsWidth + INPUT_PADDING}px`;
+        input.style[paddingProperty] = `${actionsWidth + INPUT_PADDING}px`;
     };
     const recalculateStyling = () => {
         const inputActionsContainers = doc.querySelectorAll('.ibexa-input-text-wrapper__actions');

@@ -1,9 +1,18 @@
+{% set is_rtl = true %}
+
 <!DOCTYPE html>
-<html>
+<html {{ is_rtl ? 'dir="rtl"' : '' }}>
     <head>
         <meta charset="UTF-8" />
         <title>Ibexa DXP</title>
-        {{ encore_entry_link_tags('ibexa-admin-ui-security-base-css', null, 'ibexa') }}
+        
+    
+        {% if is_rtl %}
+            {{ encore_entry_link_tags('ibexa-admin-ui-security-base-css-rtl', null, 'ibexa') }}
+        {% else %}
+            {{ encore_entry_link_tags('ibexa-admin-ui-security-base-css', null, 'ibexa') }}
+        {% endif %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
 
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/@popperjs/core/dist/umd/popper.min.js') }}"></script>
