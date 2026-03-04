@@ -1,0 +1,19 @@
+{
+    "ContentTreeTranslatedNamesList": {
+        "_media-type": "application\/vnd.ibexa.api.ContentTreeTranslatedNamesList+json",
+        "entries": [
+            {
+                "contentId": 57,
+                "languages": {
+                    "eng-GB": "Home"
+                }
+            },
+            {
+                "contentId": 41,
+                "languages": {
+                    "eng-US": "Media"
+                }
+            }
+        ]
+    }
+}

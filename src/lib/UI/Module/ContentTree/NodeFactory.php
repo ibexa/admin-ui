@@ -96,7 +96,8 @@ final class NodeFactory
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        ?Criterion $requestFilter = null
+        ?Criterion $requestFilter = null,
+        ?int $translationsLimit = null
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
@@ -117,8 +118,11 @@ final class NodeFactory
             $requestFilter
         );
 
-        //TODO decide on the limit of version infos to load at once
-        $uninitializedContentInfoList = array_splice($uninitializedContentInfoList, 0, 30);
+        if ($translationsLimit !== null) {
+            // When translation limit is provided only the first chosen amount of translations will be supplied to node
+            $uninitializedContentInfoList = array_splice($uninitializedContentInfoList, 0, $translationsLimit);
+        }
+
         $versionInfoById = $this->contentService->loadVersionInfoListByContentInfo($uninitializedContentInfoList);
 
         $aggregatedChildrenCount = null;
@@ -427,7 +431,9 @@ final class NodeFactory
     {
         if ($node->contentId !== self::TOP_NODE_CONTENT_ID) {
             if (isset($versionInfoById[$node->contentId])) {
-                $node->name = $this->translationHelper->getTranslatedContentNameByVersionInfo($versionInfoById[$node->contentId]);
+                $node->name = $this->translationHelper->getTranslatedContentNameByVersionInfo(
+                    $versionInfoById[$node->contentId]
+                );
             }
         }
 
