@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale }}" {{ ibexa_is_rtl ? 'dir="rtl"' : '' }}>
     <head>
         <meta charset="UTF-8" />
         <meta name="CSRF-Token" content="{{ csrf_token(ibexa_get_rest_csrf_token_intention()) }}" />
@@ -94,7 +94,9 @@
             <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
         {% endif %}
         <title>{% block title %}Ibexa DXP{% endblock %}</title>
-        {{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }}
+
+        {{ ibexa_encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa', ['ibexa-admin-ui-overwrite-rtl-css']) }}
+
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />
@@ -121,6 +123,7 @@
         <div id="react-udw" data-filter-subtree-udw-config="{{ ibexa_udw_config('single_container', {}) }}"></div>
 
         {% block header_row %}
+      
             <header class="ibexa-main-header">
                 <div class="ibexa-main-header__brand-column">
                     {% block brand %}
