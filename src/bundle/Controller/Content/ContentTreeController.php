@@ -13,6 +13,7 @@ use Ibexa\AdminUi\REST\Value\ContentTree\LoadSubtreeRequestNode;
 use Ibexa\AdminUi\REST\Value\ContentTree\Node;
 use Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo;
 use Ibexa\AdminUi\REST\Value\ContentTree\Root;
+use Ibexa\AdminUi\REST\Value\ContentTree\TranslatedNamesList;
 use Ibexa\AdminUi\Siteaccess\SiteaccessResolverInterface;
 use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
@@ -28,6 +29,7 @@ use Ibexa\Contracts\Core\Repository\Values\User\Limitation;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Ibexa\Rest\Message;
 use Ibexa\Rest\Server\Controller as RestController;
+use Ibexa\Rest\Server\Exceptions\BadRequestException;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -117,8 +119,9 @@ class ContentTreeController extends RestController
             )
         );
 
-        $sortClause = $request->query->get('sortClause', null);
+        $sortClause = $request->query->get('sortClause');
         $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
+        $translationsLimit = $request->query->getInt('translationsLimit', 30);
 
         $locationIdList = array_column($loadSubtreeRequest->nodes, 'locationId');
         $locations = $this->prepareLocationsArray($locationIdList);
@@ -139,6 +142,7 @@ class ContentTreeController extends RestController
                 $sortClause,
                 $sortOrder,
                 $loadSubtreeRequest->filter,
+                $translationsLimit
             );
         }
 
@@ -195,6 +199,29 @@ class ContentTreeController extends RestController
         );
 
         return new NodeExtendedInfo($locationPermissionRestrictions, $previewableTranslations, $translations);
+    }
+
+    /**
+     * Returns a list of translated names for multiple provided content IDs.
+     *
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\BadStateException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\InvalidArgumentException
+     * @throws \Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException
+     * @throws \Ibexa\Rest\Server\Exceptions\BadRequestException
+     */
+    public function loadTranslatedNamesByContentIds(Request $request): TranslatedNamesList
+    {
+        $contentIds = array_map('intval', $request->query->all('content_ids'));
+        if (count($contentIds) === 0) {
+            throw new BadRequestException("The 'content_ids' parameter is required and must contain at least one ID.");
+        }
+
+        $contentService = $this->repository->getContentService();
+        $contentInfos = $contentService->loadContentInfoList($contentIds);
+
+        $versionInfoList = $contentService->loadVersionInfoListByContentInfo($contentInfos);
+
+        return new TranslatedNamesList($versionInfoList);
     }
 
     /**

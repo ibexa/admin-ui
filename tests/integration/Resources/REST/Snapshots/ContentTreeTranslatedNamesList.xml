@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentTreeTranslatedNamesList media-type="application/vnd.ibexa.api.ContentTreeTranslatedNamesList+xml">
+ <entry>
+  <contentId>57</contentId>
+  <languages>
+   <eng-GB>Home</eng-GB>
+  </languages>
+ </entry>
+ <entry>
+  <contentId>41</contentId>
+  <languages>
+   <eng-US>Media</eng-US>
+  </languages>
+ </entry>
+</ContentTreeTranslatedNamesList>
