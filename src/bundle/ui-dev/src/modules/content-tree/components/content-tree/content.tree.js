@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isRtl } from '@ibexa-admin-ui-helpers/system.helper';
 
 import List from '../list/list.component';
 import Header from '../header/header';
@@ -100,7 +101,7 @@ export default class ContentTree extends Component {
 
         this.setState(
             (state) => ({
-                resizedContainerWidth: state.containerWidth + (currentPositionX - state.resizeStartPositionX),
+                resizedContainerWidth: state.containerWidth + (isRtl() ? state.resizeStartPositionX - currentPositionX : currentPositionX - state.resizeStartPositionX),
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
