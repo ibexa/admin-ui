@@ -297,7 +297,7 @@ class ContentViewPage extends Page
             new VisibleCSSLocator('customUrlAliasesTable', '#ibexa-tab-location-view-urls .ibexa-table'),
             new VisibleCSSLocator('alertTitle', '.ibexa-alert__title'),
             new VisibleCSSLocator('selectHideMode', '.form-check .ibexa-input--radio'),
-            new VisibleCSSLocator('cancelScheduleButton', '.ibexa-btn--schedule-hide-cancel'),
+            new VisibleCSSLocator('cancelScheduleButton', '.ids-button--schedule-hide-cancel'),
         ];
     }
 
