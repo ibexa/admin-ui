@@ -1,3 +1,5 @@
+import { isRtl } from "@ibexa-admin-ui-helpers/system.helper";
+
 (function (global, doc) {
     const ACTION_BTN_VERTICAL_SPACING = 4.3;
     const isIframe = global.self !== global.top;
@@ -48,7 +50,8 @@
             }
 
             container.style.position = 'fixed';
-            container.style.right = '2rem';
+            container.style.right = isRtl() ? 'auto' : '2rem';
+            container.style.left = isRtl() ? '2rem' : 'auto';
             container.style.zIndex = buttonConfig.zIndex || 1040;
 
             const bottomPosition = `${index * ACTION_BTN_VERTICAL_SPACING + maxExtraPadding}rem`;
