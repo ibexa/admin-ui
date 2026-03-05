@@ -61,6 +61,14 @@ class UserPreferencesContext implements Context
     }
 
     /**
+     * @Then :fieldName field validates with error message :expectedMessage
+     */
+    public function iValidateOldPassword(string $expectedMessage): void
+    {
+        $this->changePasswordPage->verifyValidationMessage($expectedMessage);
+    }
+
+    /**
      * @Given I disable Help center
      */
     public function iDisableHelpCenter(): void

@@ -44,6 +44,13 @@ class ChangePasswordPage extends Page
         $this->getHTMLPage()->find($this->getLocator('confirmPassword'))->setValue($value);
     }
 
+    public function verifyValidationMessage(string $expectedMessage): void
+    {
+        $this->getHTMLPage()
+            ->find(new VisibleCSSLocator('validation', '.ibexa-form-error'))
+            ->assert()->textEquals($expectedMessage);
+    }
+
     protected function specifyLocators(): array
     {
         return [
