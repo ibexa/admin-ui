@@ -115,30 +115,28 @@
     {% set modal_data_target = 'modal-selection_remove' %}
 
     <div class="ibexa-notification-list__table-btns">
-        <twig:ibexa:button
-            id="confirm-mark-selected-as-read"
-            html_type="button"
-            type="tertiary-alt"
-            icon="mail-open"
-            icon_size="small"
-            class="ibexa-notification-list__btn-mark-as-read"
-            :disabled="true"
-        >
-            {{ 'notification.mark_as_read'|trans|desc('Mark as read') }}
-        </twig:ibexa:button>
-        <twig:ibexa:button
-            id="confirm-selection_remove"
-            html_type="button"
-            type="tertiary-alt"
-            icon="trash"
-            icon_size="small"
-            class="ibexa-notification-list__btn-delete"
-            :disabled="true"
-            data-bs-toggle="modal"
-            :data-bs-target="'#' ~ modal_data_target"
-        >
-            {{ 'notification.delete'|trans|desc('Delete') }}
-        </twig:ibexa:button>
+        {{ component('ibexa:button', {
+            id: 'confirm-mark-selected-as-read',
+            html_type: 'button',
+            type: 'tertiary-alt',
+            size: 'small',
+            icon: 'mail-open',
+            label: 'notification.mark_as_read'|trans|desc('Mark as read'),
+            class: 'ibexa-notification-list__btn-mark-as-read',
+            disabled: true,
+        }) }}
+        {{ component('ibexa:button', {
+            id: 'confirm-selection_remove',
+            html_type: 'button',
+            type: 'tertiary-alt',
+            size: 'small',
+            icon: 'trash',
+            label: 'notification.delete'|trans|desc('Delete'),
+            class: 'ibexa-notification-list__btn-delete',
+            disabled: true,
+            'data-bs-toggle': 'modal',
+            'data-bs-target': '#' ~ modal_data_target,
+        }) }}
     </div>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
