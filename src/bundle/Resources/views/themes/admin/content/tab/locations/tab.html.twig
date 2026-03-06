@@ -148,36 +148,32 @@
 } %}
 
 {% macro table_header_tools(form_add, form_remove, can_add) %}
-    <button
-        type="button"
-        class="ids-btn ids-btn--tertiary-alt ids-btn--small ibexa-btn--udw-add"
+    <twig:ibexa:button
+        type="tertiary-alt"
+        size="small"
+        icon="add"
+        icon_size="small-medium"
+        class="ibexa-btn--udw-add"
         data-udw-config="{{ ibexa_udw_config('add_location', {}) }}"
-        {% if not can_add %}disabled{% endif %}
+        :disabled="not can_add"
     >
-        <div class="ids-btn__icon">
-            <svg class="ids-icon ids-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('add') }}"/>
-            </svg>
-        </div>
-        <div class="ids-btn__label">{{ 'tab.locations.action.add'|trans|desc('Add') }}</div>
-    </button>
+        {{ 'tab.locations.action.add'|trans|desc('Add') }}
+    </twig:ibexa:button>
 
     {% set modal_data_target = 'delete-content-types-modal' %}
-    <button
-        type="button"
+    <twig:ibexa:button
+        html_type="button"
         id="delete-locations"
-        class="ids-btn ids-btn--tertiary-alt ids-btn--small"
-        disabled
+        type="tertiary-alt"
+        size="small"
+        icon="trash"
+        icon_size="small-medium"
+        :disabled="true"
         data-bs-toggle="modal"
         data-bs-target="#{{ modal_data_target }}"
     >
-        <div class="ids-btn__icon">
-            <svg class="ids-icon ids-icon--small">
-                <use xlink:href="{{ ibexa_icon_path('trash') }}"/>
-            </svg>
-        </div>
-        <div class="ids-btn__label">{{ 'tab.locations.action.delete'|trans|desc('Delete') }}</div>
-    </button>
+        {{ 'tab.locations.action.delete'|trans|desc('Delete') }}
+    </twig:ibexa:button>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),
