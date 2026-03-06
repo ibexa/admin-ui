@@ -43,16 +43,15 @@
 
 {% macro table_header_tools(show_add_button) %}
     {% if show_add_button %}
-        <button
-            type="button"
-            class="ids-btn ids-btn--tertiary-alt ids-btn--small ids-button--add-draft"
+        <twig:ibexa:button
+            html_type="button"
+            type="tertiary-alt"
+            size="small"
+            icon="add"
+            icon_size="small-medium"
+            class="ids-button--add-draft"
         >
-            <div class="ids-btn__icon">
-                <svg class="ids-icon ids-icon--small">
-                    <use xlink:href="{{ ibexa_icon_path('add') }}"/>
-                </svg>
-            </div>
-            <div class="ids-btn__label">{{ 'draft.conflict.add_new'|trans|desc('Add') }}</div>
-        </button>
+            {{ 'draft.conflict.add_new'|trans|desc('Add') }}
+        </twig:ibexa:button>
     {% endif %}
 {% endmacro %}
