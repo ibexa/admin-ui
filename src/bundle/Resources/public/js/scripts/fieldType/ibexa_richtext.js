@@ -22,7 +22,14 @@ import initValidator from './validator/richtext-validator';
 
             udwRoot.unmount();
         };
-        const mergedConfig = { ...config, onConfirm: confirmHandler, onCancel: cancelHandler };
+        const itemsConfirmHandler = (items) => {
+            if (typeof config.onItemsConfirm === 'function') {
+                config.onItemsConfirm(items);
+            }
+
+            udwRoot.unmount();
+        };
+        const mergedConfig = { ...config, onConfirm: confirmHandler, onCancel: cancelHandler, onItemsConfirm: itemsConfirmHandler };
 
         udwRoot.render(React.createElement(ibexa.modules.UniversalDiscovery, mergedConfig));
     };
