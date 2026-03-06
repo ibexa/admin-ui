@@ -95,33 +95,29 @@
 
 {% macro table_header_tools(form_translation_remove, can_translate) %}
     {% if can_translate %}
-        <twig:ibexa:button
-            html_type="button"
-            type="tertiary-alt"
-            size="small"
-            icon="add"
-            icon_size="small-medium"
-            class="ids-button--prevented ids-button--add-translation"
-            data-bs-toggle="modal"
-            data-bs-target="#add-translation-modal"
-        >
-            {{ 'tab.translations.action.add'|trans|desc('Add') }}
-        </twig:ibexa:button>
+        {{ component('ibexa:button', {
+            html_type: 'button',
+            type: 'tertiary-alt',
+            size: 'small',
+            icon: 'add',
+            label: 'tab.translations.action.add'|trans|desc('Add'),
+            class: 'ids-button--prevented ids-button--add-translation',
+            'data-bs-toggle': 'modal',
+            'data-bs-target': '#add-translation-modal',
+        }) }}
 
         {% set modal_data_target = 'delete-translations-modal' %}
-        <twig:ibexa:button
-            html_type="button"
-            id="delete-translations"
-            type="tertiary-alt"
-            size="small"
-            icon="trash"
-            icon_size="small-medium"
-            :disabled="true"
-            data-bs-toggle="modal"
-            data-bs-target="#{{ modal_data_target }}"
-        >
-            {{ 'tab.translations.action.delete'|trans|desc('Delete') }}
-        </twig:ibexa:button>
+        {{ component('ibexa:button', {
+            html_type: 'button',
+            id: 'delete-translations',
+            type: 'tertiary-alt',
+            size: 'small',
+            icon: 'trash',
+            label: 'tab.translations.action.delete'|trans|desc('Delete'),
+            disabled: true,
+            'data-bs-toggle': 'modal',
+            'data-bs-target': '#' ~ modal_data_target,
+        }) }}
         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
             'id': modal_data_target,
             'message': 'tab.translations.modal.message'|trans|desc('Do you want to delete the translation?'),
