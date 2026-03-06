@@ -25,17 +25,15 @@
     {% set menu_items %}
         {% if can_create %}
             <li class="ibexa-context-menu__item ibexa-adaptive-items__item">
-                <a
+                <twig:ibexa:link
                     href="{{ path('ibexa.role.create') }}"
-                    class="btn ibexa-btn ibexa-btn--primary"
+                    variant="button"
+                    type="primary"
+                    icon="create"
+                    icon_size="small-medium"
                 >
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                        <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-                    </svg>
-                    <span class="ibexa-btn__label">
-                        {{ 'role.view.list.action.add'|trans|desc('Create') }}
-                    </span>
-                </a>
+                    {{ 'role.view.list.action.add'|trans|desc('Create') }}
+                </twig:ibexa:link>
             </li>
         {% endif %}
     {% endset %}
@@ -69,37 +67,34 @@
 
             {% set col_action_btns %}
                 {% if can_assign %}
-                    <a
-                        title="{{ 'role.view.list.action.assign_to_users_or_groups'|trans|desc('Assign to Users/Groups') }}"
+                    <twig:ibexa:link
                         href="{{ path('ibexa.role_assignment.create', { roleId: role.id }) }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('assign-user') }}"></use>
-                        </svg>
-                    </a>
+                        variant="button"
+                        type="tertiary-alt"
+                        icon="assign-user"
+                        icon_size="small"
+                        title="{{ 'role.view.list.action.assign_to_users_or_groups'|trans|desc('Assign to Users/Groups') }}"
+                    />
                 {% endif %}
                 {% if can_create %}
-                    <a
-                        title="{{ 'role.view.list.action.copy'|trans|desc('Copy') }}"
+                    <twig:ibexa:link
                         href="{{ path('ibexa.role.copy', { roleId: role.id }) }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('copy') }}"></use>
-                        </svg>
-                    </a>
+                        variant="button"
+                        type="tertiary-alt"
+                        icon="copy"
+                        icon_size="small"
+                        title="{{ 'role.view.list.action.copy'|trans|desc('Copy') }}"
+                    />
                 {% endif %}
                 {% if can_update %}
-                    <a
-                        title="{{ 'role.view.list.action.edit'|trans|desc('Edit') }}"
+                    <twig:ibexa:link
                         href="{{ path('ibexa.role.update', { roleId: role.id }) }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium">
-                            <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                        </svg>
-                    </a>
+                        variant="button"
+                        type="tertiary-alt"
+                        icon="edit"
+                        icon_size="small"
+                        title="{{ 'role.view.list.action.edit'|trans|desc('Edit') }}"
+                    />
                 {% endif %}
             {% endset %}
 
@@ -126,21 +121,19 @@
                     {% block actions %}
                         {% if can_delete %}
                             {% set modal_data_target = 'delete-sections-modal' %}
-                            <button
+                            <twig:ibexa:button
                                 id="delete-roles"
-                                type="button"
-                                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                                disabled
+                                html_type="button"
+                                type="tertiary-alt"
+                                size="small"
+                                icon="trash"
+                                icon_size="small"
+                                :disabled="true"
                                 data-bs-toggle="modal"
-                                data-bs-target="#{{ modal_data_target }}"
+                                :data-bs-target="'#' ~ modal_data_target"
                             >
-                                <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                                    <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                </svg>
-                                <span class="ibexa-btn__label">
-                                    {{ 'role.view.list.action.delete'|trans|desc('Delete') }}
-                                </span>
-                            </button>
+                                {{ 'role.view.list.action.delete'|trans|desc('Delete') }}
+                            </twig:ibexa:button>
                             {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                 'id': modal_data_target,
                                 'message': 'role.modal.message'|trans|desc('Do you want to delete the Role(s)?'),

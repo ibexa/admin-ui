@@ -12,16 +12,17 @@
 
 {% block context_menu %}
     <div class="ibexa-dashboard__create">
-        <button
-            class="btn ibexa-btn ibexa-btn--primary ibexa-btn--cotf-create"
+        <twig:ibexa:button
+            html_type="button"
+            type="primary"
+            icon="create"
+            icon_size="small-medium"
+            class="ids-button--cotf-create"
             data-udw-config="{{ ibexa_udw_config('create', {'type': 'content_create'}) }}"
-            {% if not can_create_content %}disabled{% endif %}
+            :disabled="not can_create_content"
         >
-            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--create">
-                <use xlink:href="{{ ibexa_icon_path('create') }}"></use>
-            </svg>
-            <span>{{ 'dashboard.create'|trans|desc('Create content') }}</span>
-        </button>
+            {{ 'dashboard.create'|trans|desc('Create content') }}
+        </twig:ibexa:button>
     </div>
 {% endblock %}
 

@@ -44,11 +44,13 @@
                         placeholder="{{ 'search.creator_input.placeholder' | trans | desc('Type creator\'s name') }}"
                         {{ creator_exists ? 'disabled' : '' }}
                     >
-                    <button class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--reset-creator">
-                        <svg class="ibexa-icon ibexa-icon--tiny-small ibexa-icon--reset">
-                            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-                        </svg>
-                    </button>
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="tertiary-alt"
+                        icon="discard"
+                        icon_size="tiny-small"
+                        class="ids-button--reset-creator"
+                    />
                 </div>
                 <ul class="ibexa-trash-search-form__user-list ibexa-trash-search-form__user-list--hidden"></ul>
             </div>
@@ -303,21 +305,19 @@
                             {% endif %}
                             {% if can_delete %}
                                 {% set modal_data_target = 'delete-trash-items-modal' %}
-                                <button
+                                <twig:ibexa:button
                                     id="delete-trash-items"
-                                    type="button"
-                                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                                    disabled
+                                    html_type="button"
+                                    type="tertiary-alt"
+                                    size="small"
+                                    icon="trash"
+                                    icon_size="small-medium"
+                                    :disabled="true"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#{{ modal_data_target }}"
+                                    :data-bs-target="'#' ~ modal_data_target"
                                 >
-                                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                                        <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                                    </svg>
-                                    <span class="ibexa-btn__label">
-                                        {{ 'trash.delete'|trans|desc('Delete') }}
-                                    </span>
-                                </button>
+                                    {{ 'trash.delete'|trans|desc('Delete') }}
+                                </twig:ibexa:button>
                                 {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                                     'id': modal_data_target,
                                     'message': 'trash.modal.message'|trans|desc('Delete the selected items permanently?'),

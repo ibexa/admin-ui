@@ -116,7 +116,7 @@ final class ContentActionsMenu extends Component
     {
         return [
             new VisibleCSSLocator('label', '.ibexa-btn__label'),
-            new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn'),
+            new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn, .ibexa-context-menu .ids-btn'),
             new VisibleCSSLocator('button', '.ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('toggle', '.ibexa-split-btn__toggle-btn '),
             new VisibleCSSLocator('splitButton', '.ibexa-split-btn'),
