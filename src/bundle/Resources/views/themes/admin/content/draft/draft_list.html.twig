@@ -149,16 +149,15 @@
 {% macro table_header_tools(form) %}
     {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
 
-    <twig:ibexa:button
-        type="tertiary-alt"
-        icon="trash"
-        :disabled="true"
-        id="confirm-{{ form.remove.vars.id }}"
-        data-bs-toggle="modal"
-        data-bs-target="#{{ modal_data_target }}"
-    >
-        {{ 'drafts.list.action.remove.confirmation.title'|trans|desc('Delete') }}
-    </twig:ibexa:button>
+    {{ component('ibexa:button', {
+        type: 'tertiary-alt',
+        icon: 'trash',
+        label: 'drafts.list.action.remove.confirmation.title'|trans|desc('Delete'),
+        disabled: true,
+        id: 'confirm-' ~ form.remove.vars.id,
+        'data-bs-toggle': 'modal',
+        'data-bs-target': '#' ~ modal_data_target,
+    }) }}
 
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,

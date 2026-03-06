@@ -43,15 +43,13 @@
 
 {% macro table_header_tools(show_add_button) %}
     {% if show_add_button %}
-        <twig:ibexa:button
-            html_type="button"
-            type="tertiary-alt"
-            size="small"
-            icon="add"
-            icon_size="small-medium"
-            class="ids-button--add-draft"
-        >
-            {{ 'draft.conflict.add_new'|trans|desc('Add') }}
-        </twig:ibexa:button>
+        {{ component('ibexa:button', {
+            html_type: 'button',
+            type: 'tertiary-alt',
+            size: 'small',
+            icon: 'add',
+            label: 'draft.conflict.add_new'|trans|desc('Add'),
+            class: 'ids-button--add-draft',
+        }) }}
     {% endif %}
 {% endmacro %}
