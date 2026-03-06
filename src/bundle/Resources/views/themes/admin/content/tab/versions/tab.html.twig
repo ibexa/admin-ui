@@ -96,19 +96,21 @@
 
 {% macro table_header_tools(form) %}
     {% set modal_data_target = 'modal-' ~ form.remove.vars.id %}
-    <twig:ibexa:button
+    <button
         id="delete-translations-{{ form.remove.vars.id }}"
-        html_type="button"
-        type="tertiary-alt"
-        size="small"
-        icon="trash"
-        icon_size="small-medium"
-        icon_only="true"
-        :disabled="true"
+        type="button"
+        class="ids-btn ids-btn--icon-only ids-btn--tertiary-alt ids-btn--small"
+        disabled
         data-bs-toggle="modal"
         data-bs-target="#{{ modal_data_target }}"
         title="{{ 'tab.versions.action.delete'|trans|desc('Delete version') }}"
-    />
+    >
+        <div class="ids-btn__icon">
+            <svg class="ids-icon ids-icon--small">
+                <use xlink:href="{{ ibexa_icon_path('trash') }}"/>
+            </svg>
+        </div>
+    </button>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
     'id': modal_data_target,
     'message': 'tab.versions.modal.message'|trans|desc('Do you want to delete the version(s)?'),
