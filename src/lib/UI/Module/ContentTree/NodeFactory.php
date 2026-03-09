@@ -429,12 +429,10 @@ final class NodeFactory
      */
     private function supplyContentName(Node $node, array $versionInfoById): void
     {
-        if ($node->contentId !== self::TOP_NODE_CONTENT_ID) {
-            if (isset($versionInfoById[$node->contentId])) {
-                $node->name = $this->translationHelper->getTranslatedContentNameByVersionInfo(
-                    $versionInfoById[$node->contentId]
-                );
-            }
+        if ($node->contentId !== self::TOP_NODE_CONTENT_ID && isset($versionInfoById[$node->contentId])) {
+            $node->name = $this->translationHelper->getTranslatedContentNameByVersionInfo(
+                $versionInfoById[$node->contentId]
+            );
         }
 
         foreach ($node->children as $child) {
