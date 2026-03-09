@@ -161,6 +161,7 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
     const placement = tooltipNode.dataset.tooltipPlacement ?? defaultPlacement;
     const trigger = tooltipNode.dataset.tooltipTrigger ?? defaultTrigger;
     const useHtml = tooltipNode.dataset.tooltipUseHtml !== undefined;
+    const offset = tooltipNode.dataset.tooltipOffset ? JSON.parse(tooltipNode.dataset.tooltipOffset) : undefined;
     const container = getContainer(tooltipNode);
     const iframe = document.querySelector(tooltipNode.dataset.tooltipIframeSelector);
 
@@ -172,6 +173,7 @@ const initializeTooltip = (tooltipNode, hasEllipsisStyle) => {
         popperConfig: modifyPopperConfig.bind(null, iframe),
         html: useHtml,
         template: defaultTemplate(extraClass),
+        ...(offset && { offset }),
     });
 
     if (isSafari()) {
