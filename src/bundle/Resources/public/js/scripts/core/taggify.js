@@ -102,6 +102,15 @@
             ]);
         }
 
+        addTagsFromString(value) {
+            const separators = this.acceptKeys.filter((key) => key.length === 1);
+            const regex = new RegExp(`[${separators.map((k) => `\\${k}`).join('')}]`);
+
+            const inputTags = value.split(regex);
+
+            inputTags.forEach((inputTag) => this.addTag(inputTag, inputTag));
+        }
+
         removeTagWithValue(value) {
             const tag = this.listNode.querySelector(`.ibexa-taggify__list-tag[data-value="${value}"]`);
 
@@ -140,7 +149,7 @@
         handleInputBlur() {
             const inputValue = this.inputNode.value.trim();
 
-            this.addTag(inputValue, inputValue);
+            this.addTagsFromString(inputValue);
             this.inputNode.value = '';
         }
 
@@ -152,7 +161,7 @@
             if (this.isAcceptKeyPressed(event.key)) {
                 const nameWithoutAcceptKey = this.removeAcceptKey(this.inputNode.value);
 
-                this.addTag(nameWithoutAcceptKey, nameWithoutAcceptKey);
+                this.addTagsFromString(nameWithoutAcceptKey);
 
                 this.inputNode.value = '';
             }
