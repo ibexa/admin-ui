@@ -16,7 +16,7 @@ const Thumbnail = ({ thumbnailData, iconExtraClasses, contentTypeIconPath }: Thu
         );
     };
 
-    if (thumbnailData.mimeType === 'image/svg+xml') {
+    if (thumbnailData?.mimeType === 'image/svg+xml') {
         return (
             <div className="c-thumbnail">
                 <Icon customPath={thumbnailData.resource} extraClasses={iconExtraClasses} />
