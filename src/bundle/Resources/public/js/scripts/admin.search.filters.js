@@ -233,7 +233,7 @@
         form.submit();
     };
     const clearContentType = (event) => {
-        const checkbox = doc.querySelector(event.currentTarget.dataset.targetSelector);
+        const checkbox = doc.querySelector(event.currentTarget.closest('.ids-chip').dataset.targetSelector);
 
         checkbox.checked = false;
         removeSearchTag(event);
@@ -315,7 +315,7 @@
     }
 
     for (const tagType in clearSearchTagBtnMethods) {
-        const tagBtns = doc.querySelectorAll(`.ibexa-tag__remove-btn--${tagType}`);
+        const tagBtns = doc.querySelectorAll(`.ibexa-search-criteria-tags__tag--${tagType} .ids-chip__delete`);
 
         tagBtns.forEach((btn) => btn.addEventListener('click', clearSearchTagBtnMethods[tagType], false));
     }
