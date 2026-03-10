@@ -54,11 +54,6 @@ final class RoleAssignmentCreateDataValidationTest extends AbstractFormDataValid
                     ['{{ value }}' => 'foo'],
                     'children[limitation_type]'
                 ),
-                new FormErrorDataTestWrapper(
-                    'The selected choice is invalid.',
-                    ['{{ value }}' => 'foo'],
-                    'children[limitation_type]'
-                ),
             ],
         ];
 
