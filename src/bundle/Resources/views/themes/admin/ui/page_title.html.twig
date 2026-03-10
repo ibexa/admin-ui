@@ -1,5 +1,3 @@
-{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
-
 {% if title is defined %}
     <div class="ibexa-page-title {% if page_title_class is defined %}{{ page_title_class }}{% endif %}">
         <div class="ibexa-page-title__top">
@@ -7,15 +5,13 @@
                 <span class="ibexa-page-title__content" title="{{ title }}">{{ title }}</span>
                 {% block tag %}
                     {% if tag is defined %}
-                        {% set attr = tag_attr|default({})|merge({
-                            class: (tag_attr.class|default('')
-                                ~ ' ibexa-badge ' ~ tag_extra_classes|default('')
-                            )|trim,
-                        }) %}
-
-                        <div {{ html.attributes(attr) }}>
+                        <twig:ibexa:tag
+                            :type="tag_type|default('neutral')"
+                            class="{{ tag_extra_classes|default('') }}"
+                            {% if tag_attr.style is defined %}style="{{ tag_attr.style }}"{% endif %}
+                        >
                             {{ tag }}
-                        </div>
+                        </twig:ibexa:tag>
                     {% endif %}
                 {% endblock %}
             </h1>
