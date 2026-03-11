@@ -61,12 +61,22 @@ class UserPreferencesContext implements Context
     }
 
     /**
-     * @Given I disable Help center
+     * @Given I disable help center
      */
     public function iDisableHelpCenter(): void
     {
         $this->userSettingsPage->openBrowsingEditionPage();
         $this->userSettingsPage->verifyIsLoaded();
         $this->userSettingsPage->disableHelpCenter();
+    }
+
+    /**
+     * @Given I enable help center
+     */
+    public function iEnableHelpCenter(): void
+    {
+        $this->userSettingsPage->openBrowsingEditionPage();
+        $this->userSettingsPage->verifyIsLoaded();
+        $this->userSettingsPage->enableHelpCenter();
     }
 }
