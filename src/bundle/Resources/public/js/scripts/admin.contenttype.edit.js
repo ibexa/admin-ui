@@ -371,7 +371,7 @@
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
         const field = input.closest('.form-group');
-        const labelNode = field?.querySelector('.ibexa-label');
+        const labelNode = field?.querySelector('.ids-label');
         const errorNode = field?.querySelector('.ibexa-form-error');
 
         input.classList.toggle('is-invalid', isInputEmpty);
