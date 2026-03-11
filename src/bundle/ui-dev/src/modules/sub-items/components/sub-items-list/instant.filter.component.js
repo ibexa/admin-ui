@@ -44,7 +44,8 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
                     const radioId = `item_${item.value}`;
                     const labelClassName = createCssClassNames({
                         'form-check-label': true,
-                        'ibexa-label': true,
+                        'ids-label': true,
+                        // TODO IBX-11236: ibexa-label--active has no DS equivalent yet; update when design system provides an active state modifier
                         'ibexa-label--active': activeLanguage === item.value,
                     });
 
