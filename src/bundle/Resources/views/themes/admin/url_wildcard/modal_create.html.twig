@@ -14,23 +14,23 @@
     {% block body_content %}
         <div class="ibexa-form-block">
             <div class="form-group">
-                <label class="ibexa-label ibexa-modal__label required">
+                <twig:ibexa:label class="ibexa-modal__label" :required="true">
                     {{ 'url_wildcard.modal.create.url.wildcard'|trans|desc('URL wildcard') }}
-                </label>
+                </twig:ibexa:label>
                 {{ form_widget(form.source_url) }}
             </div>
 
             <div class="form-group">
-                <label class="ibexa-label ibexa-modal__label required">
+                <twig:ibexa:label class="ibexa-modal__label" :required="true">
                     {{ 'url_wildcard.modal.create.url.destintion'|trans|desc('Destination') }}
-                </label>
+                </twig:ibexa:label>
                 {{ form_widget(form.destination_url) }}
             </div>
 
             <div class="form-group">
-                <label class="ibexa-label ibexa-modal__label">
+                <twig:ibexa:label class="ibexa-modal__label">
                     {{ 'url_wildcard.modal.create.redirect'|trans|desc('Redirect to wildcard destination') }}
-                </label>
+                </twig:ibexa:label>
                 {{ form_widget(form.forward) }}
                 <small class="ibexa-form-help">
                     <svg class="ibexa-icon ibexa-icon--small-medium ibexa-form-help__icon">
