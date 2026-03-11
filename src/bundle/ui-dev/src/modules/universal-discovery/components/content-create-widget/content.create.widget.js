@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 import Dropdown from '../../../common/dropdown/dropdown';
+import { Label } from '@ids-components/components/Label';
 
 import {
     DropdownPortalRefContext,
@@ -187,7 +188,7 @@ const ContentCreateWidget = () => {
                     <div className="ibexa-extra-actions__header-subtitle">{createUnderLabel}</div>
                 </div>
                 <div className="ibexa-extra-actions__content">
-                    <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
+                    <Label className="ibexa-extra-actions__section-header">{selectLanguageLabel}</Label>
                     <div className="ibexa-extra-actions__section-content">
                         <Dropdown
                             dropdownListRef={dropdownListRef}
