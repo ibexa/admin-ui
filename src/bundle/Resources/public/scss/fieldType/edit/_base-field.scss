@@ -35,7 +35,7 @@
         display: flex;
         align-self: flex-end;
 
-        .ibexa-label {
+        .ids-label {
             display: none;
             padding-bottom: calculateRem(8px);
         }
@@ -83,7 +83,7 @@
     &--disabled {
         pointer-events: none;
 
-        .ibexa-label {
+        .ids-label {
             color: $ibexa-color-black-300;
         }
 
@@ -167,7 +167,7 @@
                 justify-content: space-between;
                 width: 100%;
 
-                .ibexa-label {
+                .ids-label {
                     display: inline-flex;
                     margin: calculateRem(8px) 0 0 0;
                 }
