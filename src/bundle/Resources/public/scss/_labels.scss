@@ -2,7 +2,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins' as *;
 
-.ibexa-label {
+.ids-label {
     @include label-required();
 
     & {
@@ -37,7 +37,7 @@
 }
 
 .form-check-inline {
-    .ibexa-label {
+    .ids-label {
         &--checkbox-radio {
             margin: 0;
         }
@@ -46,7 +46,7 @@
 
 .ibexa-form-block {
     .form-group:first-of-type {
-        .ibexa-label {
+        .ids-label {
             margin-top: 0;
         }
     }
