@@ -24,9 +24,11 @@
         "php": " >=8.3",
         "ext-json": "*",
         "babdev/pagerfanta-bundle": "^4.5",
+<<<<<<< HEAD
         "ibexa/content-forms": "~6.0.x-dev",
         "ibexa/core": "~6.0.x-dev",
         "ibexa/design-engine": "~6.0.x-dev",
+        "ibexa/design-system-twig": "dev-main",
         "ibexa/rest": "~6.0.x-dev",
         "ibexa/search": "~6.0.x-dev",
         "ibexa/twig-components": "~6.0.x-dev",
@@ -97,5 +99,11 @@
         "branch-alias": {
             "dev-main": "6.0.x-dev"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ibexa/design-system-twig"
+        }
+    ]
 }
