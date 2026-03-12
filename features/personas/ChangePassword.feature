@@ -20,7 +20,7 @@ Feature: Verify that an User allowed to change password can change his password
   Scenario: I can check old password validation
     Given I open Login page in admin SiteAccess
     And I log in as "UserPassword" with password "Passw0rd-43"
-    When I go to user settings
+    And I go to user settings
     And I switch to "Account settings" tab in User settings
     And I click on the change password button
     When I change password from "Passw0rd-42" to "Passw0rd-44"
