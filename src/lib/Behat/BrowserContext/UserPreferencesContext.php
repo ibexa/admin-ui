@@ -65,7 +65,7 @@ class UserPreferencesContext implements Context
      */
     public function iValidateOldPassword(string $expectedMessage): void
     {
-        $this->changePasswordPage->verifyValidationMessage($expectedMessage);
+        $this->changePasswordPage->verifyPasswordValidationMessage($expectedMessage);
     }
 
     /**

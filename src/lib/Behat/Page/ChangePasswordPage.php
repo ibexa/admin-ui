@@ -46,7 +46,7 @@ class ChangePasswordPage extends Page
 
     public function verifyValidationMessage(string $expectedMessage): void
     {
-        $this->getHTMLPage()
+        $this->getHTMLPage()->setTimeout(3)
             ->find(new VisibleCSSLocator('validation', '.ibexa-form-error'))
             ->assert()->textEquals($expectedMessage);
     }
