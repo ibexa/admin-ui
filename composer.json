@@ -27,7 +27,7 @@
         "ibexa/content-forms": "~6.0.x-dev",
         "ibexa/core": "~6.0.x-dev",
         "ibexa/design-engine": "~6.0.x-dev",
-        "ibexa/design-system-twig": "dev-6.0",
+        "ibexa/design-system-twig": "~6.0.x-dev",
         "ibexa/rest": "~6.0.x-dev",
         "ibexa/search": "~6.0.x-dev",
         "ibexa/twig-components": "~6.0.x-dev",
