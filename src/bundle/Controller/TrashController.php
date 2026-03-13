@@ -23,6 +23,7 @@ use Ibexa\AdminUi\UI\Service\PathService as UiPathService;
 use Ibexa\Contracts\AdminUi\Controller\Controller;
 use Ibexa\Contracts\AdminUi\Notification\TranslatableNotificationHandlerInterface;
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
+use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Ibexa\Contracts\Core\Repository\TrashService;
 use Ibexa\Contracts\Core\Repository\UserService;
 use Ibexa\Contracts\Core\Repository\Values\Content\TrashItem;
@@ -277,7 +278,11 @@ final class TrashController extends Controller
      */
     private function getCreatorFromTrashItem(TrashItem $trashItem): ?User
     {
-        $ownerId = $trashItem->getContentInfo()->getOwner()->getUserId();
+        try {
+            $ownerId = $trashItem->getContentInfo()->getOwner()->getUserId();
+        } catch (NotFoundException) {
+            return null;
+        }
 
         if (false === (new UserExists($this->userService))->isSatisfiedBy($ownerId)) {
             return null;
