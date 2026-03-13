@@ -40,7 +40,9 @@
                         (is_field_empty ? ' ibexa-details__item--hidden') }}"
                     >
                         {# TODO IBX-11236: This <div> conditionally receives ids-label as a visual style; cannot use <twig:ibexa:label> on a <div>. Migrate when DS provides a non-<label> variant. #}
-                        <div class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ids-label' }}">{{ item.label }}</div>
+                        <twig:ibexa:label class="ibexa-details__item-label {{ item_inline|default(false) ? '' : 'ids-label' }}">
+                            {{ item.label }}
+                        </twig:ibexa:label>
                         <div class="ibexa-details__item-content-wrapper">
                             <div
                                 class="
