@@ -101,20 +101,23 @@
             ? previewLanguageCode
             : mainLanguageCode;
 
-        const href = productCode
-            ? Routing.generate('ibexa.product_catalog.product.view', {
-                  productCode,
-                  languageCode: safeLanguageCode,
-              })
-            : Routing.generate('ibexa.content.translation.view', {
-                  contentId,
-                  locationId,
-                  languageCode: safeLanguageCode,
-              });
+        if (productCode) {
+            return {
+                label: Translator.trans(/* @Desc("Go to product") */ 'embedded_items.action.go_to_product_label', {}, 'ibexa_content'),
+                href: Routing.generate('ibexa.product_catalog.product.view', {
+                    productCode,
+                    languageCode: safeLanguageCode,
+                }),
+            };
+        }
 
         return {
             label: Translator.trans(/* @Desc("Go to content") */ 'embedded_items.action.go_to_label', {}, 'ibexa_content'),
-            href,
+            href: Routing.generate('ibexa.content.translation.view', {
+                contentId,
+                locationId,
+                languageCode: safeLanguageCode,
+            }),
         };
     };
     const generateEditActionItem = ({ contentId, locationId, productCode, languages }) => {
