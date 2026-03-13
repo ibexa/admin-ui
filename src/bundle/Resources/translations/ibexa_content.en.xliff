@@ -91,6 +91,11 @@
         <target state="new">Go to content</target>
         <note>key: embedded_items.action.go_to_label</note>
       </trans-unit>
+      <trans-unit id="a48aa7f4812d8330514a95270803bbb67cb6c65a" resname="embedded_items.action.go_to_product_label">
+        <source>Go to product</source>
+        <target state="new">Go to product</target>
+        <note>key: embedded_items.action.go_to_product_label</note>
+      </trans-unit>
       <trans-unit id="f6ae7078e77f584ad00c8003405ca11dc57c4d56" resname="preview_header.back">
         <source>Close</source>
         <target state="new">Close</target>
