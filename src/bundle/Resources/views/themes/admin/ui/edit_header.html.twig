@@ -16,12 +16,11 @@
                         </svg>
                     {% endif %}
 
-                    {# TODO IBX-11236: This is a <div> using ids-label as a visual style; ibexa-label--small has no DS equivalent. Migrate when DS provides a non-<label> label variant. #}
-                    <div class="ids-label ibexa-label--small ibexa-edit-header__action-name">
+                    <twig:ibexa:label class="ibexa-label--small ibexa-edit-header__action-name">
                         {{ action_name|default('') }}
                         {{ action_object|default('') }}
                         {{ content_type_name|default('') }}
-                    </div>
+                    </twig:ibexa:label>
                 </div>
 
                 {% if show_autosave_status|default(false) %}
