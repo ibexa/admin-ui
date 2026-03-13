@@ -91,7 +91,8 @@
         <div class="ibexa-adaptive-filters__static-left">
             {% block static_left %}
                 <div class="form-group">
-                    <label class="ibexa-label"></label>
+                    {# TODO IBX-11236: This is a layout spacer label with no content/for attr; migrate to DS component when a non-text label variant is available #}
+                    <label class="ids-label"></label>
                     {% block static_left_input %}{% endblock %}
                 </div>
             {% endblock %}

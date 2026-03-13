@@ -108,8 +108,8 @@ class ContentUpdateItemPage extends Page
             new VisibleCSSLocator('autosaveIsOnInfo', '.ibexa-autosave__status--on'),
             new VisibleCSSLocator('autosaveSavedInfo', '.ibexa-autosave__status--saved'),
             new VisibleCSSLocator('autosaveIsOffInfo', '.ibexa-autosave__status--off'),
-            new VisibleCSSLocator('section', '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ibexa-label'),
-            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ibexa-label'),
+            new VisibleCSSLocator('section', '[data-id="%1$s"] .ibexa-field-edit .ibexa-field-edit__label, [data-id="%1$s"] .ibexa-field-edit--eznoneditable .ids-label'),
+            new VisibleCSSLocator('fieldLabel', ' .ibexa-field-edit .ibexa-field-edit__label, .ibexa-field-edit--eznoneditable .ids-label'),
         ];
     }
 

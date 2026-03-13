@@ -80,7 +80,7 @@ final class CreateNewPopup extends Component
             new VisibleCSSLocator('popup', '.ibexa-extra-actions:not(.ibexa-extra-actions--hidden)'),
             new VisibleCSSLocator('formGroup', '.form-group'),
             new VisibleCSSLocator('dropdown', '.ibexa-dropdown'),
-            new VisibleCSSLocator('label', '.ibexa-label'),
+            new VisibleCSSLocator('label', '.ids-label'),
             new VisibleCSSLocator('dropdownValue', '.ibexa-dropdown__selection-info'),
             new VisibleCSSLocator('radioValue', '.ibexa-dc-extra-actions-applies-to__option'),
             new VisibleCSSLocator('radioLabel', '.ibexa-label--checkbox-radio'),
