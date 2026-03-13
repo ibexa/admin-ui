@@ -16,9 +16,9 @@
             'attr': {'class': 'd-inline-block'}
         }) }}
         {{ form_widget(form.delete, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary', 'disabled': not deletable}}) }}
-        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+        <twig:ibexa:button html_type="button" type="secondary" data-bs-dismiss="modal">
             {{ 'form.cancel'|trans|desc('Cancel') }}
-        </button>
+        </twig:ibexa:button>
         {{ form_end(form) }}
     {% endblock %}
 {% endembed %}

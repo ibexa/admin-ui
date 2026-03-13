@@ -32,8 +32,8 @@
         {% block content %}{% endblock %}
         <div class="ibexa-input-text-wrapper__actions">
             {% block actions %}
-                <button 
-                    type="button" 
+                <button
+                    type="button"
                     class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
                     tabindex="-1"
                     {{ is_disabled ? 'disabled' }}
@@ -51,10 +51,10 @@
                         {{ is_disabled ? 'disabled' }}
                     >
                         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-show">
-                            <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
+                            <use xlink:href="{{ ibexa_icon_path('visibility') }}"></use>
                         </svg>
                         <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-hide d-none">
-                            <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
+                            <use xlink:href="{{ ibexa_icon_path('visibility-hidden') }}"></use>
                         </svg>
                     </button>
                 {% elseif has_search %}
