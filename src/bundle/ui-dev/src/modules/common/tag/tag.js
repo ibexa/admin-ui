@@ -5,6 +5,7 @@ import { createCssClassNames } from '../helpers/css.class.names';
 
 const Tag = ({ content, onRemove = () => {}, isDeletable = true, extraClasses = '' }) => {
     const className = createCssClassNames({
+        'ids-chip': true,
         'ibexa-tag': true,
         'ibexa-tag--deletable': isDeletable,
         [extraClasses]: true,
@@ -12,8 +13,8 @@ const Tag = ({ content, onRemove = () => {}, isDeletable = true, extraClasses = 
 
     return (
         <div className={className}>
-            <div className="ibexa-tag__content">{content}</div>
-            <button type="button" className="ibexa-tag__remove-btn" onClick={onRemove}>
+            <div className="ids-chip__content ibexa-tag__content">{content}</div>
+            <button type="button" className="ids-chip__delete ibexa-tag__remove-btn" onClick={onRemove}>
                 <Icon name="circle-close" extraClasses="ibexa-icon--small-medium" />
             </button>
         </div>
