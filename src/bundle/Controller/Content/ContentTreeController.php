@@ -19,6 +19,7 @@ use Ibexa\AdminUi\Specification\ContentType\ContentTypeIsUser;
 use Ibexa\AdminUi\UI\Module\ContentTree\NodeFactory;
 use Ibexa\Contracts\AdminUi\Permission\PermissionCheckerInterface;
 use Ibexa\Contracts\Core\Limitation\Target;
+use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -53,6 +54,8 @@ class ContentTreeController extends RestController
 
     private SiteaccessResolverInterface $siteaccessResolver;
 
+    private ContentService $contentService;
+
     public function __construct(
         LocationService $locationService,
         PermissionCheckerInterface $permissionChecker,
@@ -60,7 +63,8 @@ class ContentTreeController extends RestController
         NodeFactory $contentTreeNodeFactory,
         PermissionResolver $permissionResolver,
         ConfigResolverInterface $configResolver,
-        SiteaccessResolverInterface $siteaccessResolver
+        SiteaccessResolverInterface $siteaccessResolver,
+        ContentService $contentService
     ) {
         $this->locationService = $locationService;
         $this->permissionChecker = $permissionChecker;
@@ -69,6 +73,7 @@ class ContentTreeController extends RestController
         $this->permissionResolver = $permissionResolver;
         $this->configResolver = $configResolver;
         $this->siteaccessResolver = $siteaccessResolver;
+        $this->contentService = $contentService;
     }
 
     /**
@@ -216,10 +221,9 @@ class ContentTreeController extends RestController
             throw new BadRequestException("The 'content_ids' parameter is required and must contain at least one ID.");
         }
 
-        $contentService = $this->repository->getContentService();
-        $contentInfos = $contentService->loadContentInfoList($contentIds);
+        $contentInfos = $this->contentService->loadContentInfoList($contentIds);
 
-        $versionInfoList = $contentService->loadVersionInfoListByContentInfo($contentInfos);
+        $versionInfoList = $this->contentService->loadVersionInfoListByContentInfo($contentInfos);
 
         return new TranslatedNamesList($versionInfoList);
     }
