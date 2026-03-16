@@ -3,6 +3,12 @@
     "license": "(GPL-2.0-only or proprietary)",
     "type": "project",
     "description": "Ibexa Admin Ui",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ibexa/design-system-twig"
+        }
+    ],
     "replace": {
         "ezsystems/ezplatform-admin-ui": "*"
     },
