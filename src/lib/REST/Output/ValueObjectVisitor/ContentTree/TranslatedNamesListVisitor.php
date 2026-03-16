@@ -11,7 +11,6 @@ namespace Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree;
 use Ibexa\Contracts\Rest\Output\Generator;
 use Ibexa\Contracts\Rest\Output\ValueObjectVisitor;
 use Ibexa\Contracts\Rest\Output\Visitor;
-use Symfony\Component\HttpFoundation\Response;
 
 final class TranslatedNamesListVisitor extends ValueObjectVisitor
 {
