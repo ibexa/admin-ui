@@ -1,9 +1,11 @@
+import Chip from '@ibexa-design-system/src/bundle/Resources/public/ts/components/chip';
+
 (function (global, doc, ibexa, flatpickr, React, ReactDOMClient) {
     const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
     const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
     const { getInstance } = ibexa.helpers.objectInstances;
     let getUsersTimeout;
-    const SELECTOR_TAG = '.ibexa-tag';
+    const SELECTOR_TAG = '.ids-chip';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const filters = doc.querySelector('.ibexa-filters');
@@ -264,6 +266,21 @@
         'last-modified': (event) => clearDataRange(event, lastModifiedSelect, lastModifiedDateRange),
         'last-created': (event) => clearDataRange(event, lastCreatedSelect, lastCreatedDateRange),
     };
+    const initSearchTagChips = () => {
+        for (const tagType in clearSearchTagBtnMethods) {
+            const chips = doc.querySelectorAll(`.ibexa-search-criteria-tags__tag--${tagType}.ids-chip`);
+
+            chips.forEach((chip) => {
+                if (!chip.dataset.idsInitialized) {
+                    const chipInstance = new Chip(chip);
+
+                    chipInstance.init();
+                }
+
+                chip.addEventListener('ids:chip:delete:before', clearSearchTagBtnMethods[tagType], false);
+            });
+        }
+    };
     const showMoreContentTypes = (event) => {
         const btn = event.currentTarget;
         const contentTypesList = btn
@@ -314,11 +331,7 @@
         sectionSelect.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
     }
 
-    for (const tagType in clearSearchTagBtnMethods) {
-        const tagBtns = doc.querySelectorAll(`.ibexa-search-criteria-tags__tag--${tagType} .ids-chip__delete`);
-
-        tagBtns.forEach((btn) => btn.addEventListener('click', clearSearchTagBtnMethods[tagType], false));
-    }
+    initSearchTagChips();
 
     lastModifiedPeriod.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
     lastModifiedStartDate.addEventListener('change', toggleDisabledStateOnApplyBtn, false);
