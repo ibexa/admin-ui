@@ -3,17 +3,10 @@
 {% set target_selector = target_selector|default('') %}
 {% set title = title|default('') %}
 
-<div class="ids-chip ibexa-tag ibexa-search-criteria-tags__tag {{ tag_class }}"{% if title %} title="{{ title }}"{% endif %}>
-    <div class="ids-chip__content ibexa-tag__content">
-        {{ content }}
-    </div>
-    <button
-        type="button"
-        class="btn ids-chip__delete ibexa-tag__remove-btn {{ btn_class }}"
-        data-target-selector="{{ target_selector }}"
-    >
-        <svg class="ibexa-icon ibexa-icon--tiny">
-            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-        </svg>
-    </button>
-</div>
+<twig:ibexa:chip
+    class="ibexa-search-criteria-tags__tag {{ tag_class }}"
+    title="{{ title }}"
+    data-target-selector="{{ target_selector }}"
+>
+    {{ content }}
+</twig:ibexa:chip>
