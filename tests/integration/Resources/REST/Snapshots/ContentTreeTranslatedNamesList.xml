@@ -2,14 +2,16 @@
 <ContentTreeTranslatedNamesList media-type="application/vnd.ibexa.api.ContentTreeTranslatedNamesList+xml">
  <entry>
   <contentId>57</contentId>
-  <languages>
-   <eng-GB>Home</eng-GB>
-  </languages>
+  <translatedName>
+   <languageCode>eng-GB</languageCode>
+   <name>Home</name>
+  </translatedName>
  </entry>
  <entry>
   <contentId>41</contentId>
-  <languages>
-   <eng-US>Media</eng-US>
-  </languages>
+  <translatedName>
+   <languageCode>eng-US</languageCode>
+   <name>Media</name>
+  </translatedName>
  </entry>
 </ContentTreeTranslatedNamesList>

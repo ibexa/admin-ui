@@ -7,10 +7,11 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="contentId" type="xs:integer" />
-                            <xs:element name="languages">
+                            <xs:element name="translatedName" maxOccurs="unbounded" minOccurs="0">
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+                                        <xs:element name="languageCode" type="xs:string" />
+                                        <xs:element name="name" type="xs:string" />
                                     </xs:sequence>
                                 </xs:complexType>
                             </xs:element>

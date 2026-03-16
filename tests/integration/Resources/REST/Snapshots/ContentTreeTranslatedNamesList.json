@@ -4,15 +4,21 @@
         "entries": [
             {
                 "contentId": 57,
-                "languages": {
-                    "eng-GB": "Home"
-                }
+                "translatedNames": [
+                    {
+                        "languageCode": "eng-GB",
+                        "name": "Home"
+                    }
+                ]
             },
             {
                 "contentId": 41,
-                "languages": {
-                    "eng-US": "Media"
-                }
+                "translatedNames": [
+                    {
+                        "languageCode": "eng-US",
+                        "name": "Media"
+                    }
+                ]
             }
         ]
     }

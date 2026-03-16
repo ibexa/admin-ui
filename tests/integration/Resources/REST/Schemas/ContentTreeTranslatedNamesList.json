@@ -16,13 +16,28 @@
               "contentId": {
                 "type": "integer"
               },
-              "languages": {
-                "type": "object"
+              "translatedNames": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "languageCode": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "languageCode",
+                    "name"
+                  ]
+                }
               }
             },
             "required": [
               "contentId",
-              "languages"
+              "translatedNames"
             ]
           }
         }

@@ -24,18 +24,20 @@ final class TranslatedNamesListVisitor extends ValueObjectVisitor
     {
         $generator->startObjectElement(self::MAIN_ELEMENT);
         $visitor->setHeader('Content-Type', $generator->getMediaType(self::MAIN_ELEMENT));
-        $visitor->setStatus(Response::HTTP_OK);
 
         $generator->startList('entries');
         foreach ($data->getVersionInfoList() as $versionInfo) {
             $generator->startHashElement('entry');
             $generator->valueElement('contentId', $versionInfo->getContentInfo()->getId());
 
-            $generator->startHashElement('languages');
+            $generator->startList('translatedNames');
             foreach ($versionInfo->getNames() as $languageCode => $name) {
-                $generator->valueElement($languageCode, $name);
+                $generator->startHashElement('translatedName');
+                $generator->valueElement('languageCode', $languageCode);
+                $generator->valueElement('name', $name);
+                $generator->endHashElement('translatedName');
             }
-            $generator->endHashElement('languages');
+            $generator->endList('translatedNames');
 
             $generator->endHashElement('entry');
         }
