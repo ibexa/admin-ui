@@ -34,7 +34,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     {
         $fieldDefinitionLocator = new VisibleCSSLocator(
             'lastFieldDefinition',
-            'div.ibexa-collapse__body-content div.ibexa-collapse--field-definition'
+            '.ibexa-collapse .ibexa-collapse--field-definition'
         );
 
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
