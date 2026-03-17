@@ -59,8 +59,7 @@
         const submitBtn = form.querySelector('.ibexa-extra-actions__confirm-btn');
 
         allLanguageItems.forEach((item) => {
-            // TODO IBX-11236: ibexa-label--active has no DS equivalent yet; update when design system provides an active state modifier
-            item.classList.remove('ibexa-label--active');
+            item.classList.remove('ids-label--active');
         });
 
         fetch(checkVersionDraftLink, {
@@ -84,8 +83,7 @@
             }
 
             submitBtn.disabled = false;
-            // TODO IBX-11236: ibexa-label--active has no DS equivalent yet; update when design system provides an active state modifier
-            activeLanguageItem?.classList.add('ibexa-label--active');
+            activeLanguageItem?.classList.add('ids-label--active');
         });
     };
     const attachEventsToEditActionsWidget = (container) => {
