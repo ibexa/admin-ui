@@ -34,13 +34,12 @@
             
             <div {{ html.attributes(attr_footer) }}>
                 {% block footer %}
-                    <twig:ibexa:button
-                        html_type="button"
-                        type="secondary"
-                        class="ibexa-side-panel__cancel-btn ids-button--close-config-panel"
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--info ibexa-side-panel__cancel-btn ibexa-btn--close-config-panel"
                     >
                         {{ 'side_panel.btn.cancel_label'|trans|desc('Cancel') }}
-                    </twig:ibexa:button>
+                    </button>
                 {% endblock %}
             </div>
         </div>

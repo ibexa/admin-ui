@@ -589,27 +589,6 @@
     }
 }
 
-.ids-btn--info {
-    --ids-default-text-color: #ffffff;
-    --ids-default-bg-color: linear-gradient(315deg, #a32768 0%, #c4234a 74%);
-    --ids-default-border-color: transparent;
-    --ids-hover-text-color: #ffffff;
-    --ids-hover-bg-color: linear-gradient(315deg, #c4234a 19.5%, #882157 100%);
-    --ids-hover-border-color: transparent;
-    --ids-active-text-color: #ffffff;
-    --ids-active-bg-color: linear-gradient(0, #a32768 100%, #a32768 100%);
-    --ids-active-border-color: transparent;
-    --ids-disabled-text-color: #a1a4a8;
-    --ids-disabled-bg-color: #f1f1f2;
-    --ids-disabled-border-color: transparent;
-    --ids-focus-text-color: #ffffff;
-    --ids-focus-bg-color: linear-gradient(315deg, #c4234a 19.5%, #882157 100%);
-    --ids-focus-border-color: transparent;
-    --ids-focus-box-shadow: 0 0 0 0.2857142857rem rgba(163, 39, 104, 0.25);
-
-    border: 0;
-}
-
 .ids-button--content-edit {
     background-color: transparent;
     cursor: pointer;
