@@ -108,7 +108,9 @@ final class DamWidget implements ProviderInterface
         // The content type may not have the default fields; in that case, don't add the aggregations
         foreach ($this->config['image']['aggregations'] as $key => $aggregation) {
             try {
-                $imageType = $this->contentTypeService->loadContentTypeByIdentifier($aggregation['contentTypeIdentifier']);
+                $imageType = $this->contentTypeService->loadContentTypeByIdentifier(
+                    $aggregation['contentTypeIdentifier']
+                );
                 if ($imageType->hasFieldDefinition($aggregation['fieldDefinitionIdentifier'])) {
                     $imageConfig['aggregations'][$key] = $aggregation;
                 }
