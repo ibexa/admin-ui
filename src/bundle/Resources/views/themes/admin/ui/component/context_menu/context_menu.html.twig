@@ -1,5 +1,7 @@
 <ul class="ibexa-context-menu ibexa-context-menu--before-adaptive-items-init">
-    {% set selector_btn_classes = selector_btn_classes|default('btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text') %}
+    {% set selector_btn_classes = selector_btn_classes|default('') %}
+    {% set selector_btn_type = selector_btn_type|default('secondary') %}
+    {% set selector_btn_size = selector_btn_size|default('medium') %}
 
     {{ menu_items }}
 
@@ -10,11 +12,21 @@
         ibexa-adaptive-items__item
         ibexa-adaptive-items__item--selector
     ">
-        <button class="{{ selector_btn_classes ~ ' ibexa-btn--more' }}">
-            <svg class="ibexa-icon ibexa-icon--small-medium">
-                <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
-            </svg>
-        </button>
+        {% if selector_btn_classes is not empty %}
+            <button class="{{ selector_btn_classes ~ ' ibexa-btn--more' }}">
+                <svg class="ibexa-icon ibexa-icon--small-medium">
+                    <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+                </svg>
+            </button>
+        {% else %}
+            <twig:ibexa:button
+                type="{{ selector_btn_type }}"
+                size="{{ selector_btn_size }}"
+                icon="more"
+                icon_size="small-medium"
+                class="ibexa-btn--more"
+            />
+        {% endif %}
 
         {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
             is_custom_init: true,
