@@ -1,5 +1,7 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
+{% set use_legacy = type is null or type not in ['primary', 'secondary', 'tertiary', 'secondary-alt', 'tertiary-alt'] %}
+
 {% set attr = attr|default({})|merge({
     class: ('ibexa-split-btn '
         ~ ('ibexa-split-btn--' ~ type ~ ' ')
@@ -8,19 +10,33 @@
 
 {% set popup_attr = popup_attr|default({}) %}
 
-{% set main_btn_attr = main_btn_attr|default({})|merge({
-    class: ('btn ibexa-btn ibexa-split-btn__main-btn '
-        ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
-        ~ main_btn_attr.class|default(''))|trim,
-    type: main_btn_attr.type|default('button'),
-}) %}
+{% if not use_legacy %}
+    {% set main_btn_attr = main_btn_attr|default({})|merge({
+        class: ('ids-btn ids-btn--' ~ type ~ ' ids-btn--medium ibexa-split-btn__main-btn '
+            ~ main_btn_attr.class|default(''))|trim,
+        type: main_btn_attr.type|default('button'),
+    }) %}
 
-{% set toggler_btn_attr = toggler_btn_attr|default({})|merge({
-    class: ('btn ibexa-btn ibexa-btn--no-text ibexa-split-btn__toggle-btn '
-        ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
-        ~ toggler_btn_attr.class|default(''))|trim,
-    type: toggler_btn_attr.type|default('button'),
-}) %}
+    {% set toggler_btn_attr = toggler_btn_attr|default({})|merge({
+        class: ('ids-btn ids-btn--' ~ type ~ ' ids-btn--medium ids-btn--icon-only ibexa-split-btn__toggle-btn '
+            ~ toggler_btn_attr.class|default(''))|trim,
+        type: toggler_btn_attr.type|default('button'),
+    }) %}
+{% else %}
+    {% set main_btn_attr = main_btn_attr|default({})|merge({
+        class: ('btn ibexa-btn ibexa-split-btn__main-btn '
+            ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
+            ~ main_btn_attr.class|default(''))|trim,
+        type: main_btn_attr.type|default('button'),
+    }) %}
+
+    {% set toggler_btn_attr = toggler_btn_attr|default({})|merge({
+        class: ('btn ibexa-btn ibexa-btn--no-text ibexa-split-btn__toggle-btn '
+            ~ (type is defined and type is not null ? 'ibexa-btn--' ~ type ~ ' ')
+            ~ toggler_btn_attr.class|default(''))|trim,
+        type: toggler_btn_attr.type|default('button'),
+    }) %}
+{% endif %}
 
 {% set popup_params = popup_params|default({})|merge({
     is_custom_init: true,
@@ -40,7 +56,11 @@
         {% block main_btn %}
             <{{ main_btn_element }} {{ html.attributes(main_btn_attr) }}>
                 {% block main_btn_label %}
-                    {{ label }}
+                    {% if not use_legacy %}
+                        <div class="ids-btn__label">{{ label }}</div>
+                    {% else %}
+                        {{ label }}
+                    {% endif %}
                 {% endblock %}
             </{{ main_btn_element }}>
         {% endblock %}
@@ -52,9 +72,19 @@
         {% block toggle_btn %}
             <button {{ html.attributes(toggler_btn_attr) }}>
                 {% block toggle_btn_label %}
-                    <svg class="ibexa-icon ibexa-icon--small-medium ibexa-split-btn__toggler-icon">
-                        <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
-                    </svg>
+                    {% if not use_legacy %}
+                        <div class="ids-btn__icon">
+                            <twig:ibexa:icon
+                                name="caret-down"
+                                size="small-medium"
+                                class="ibexa-split-btn__toggler-icon"
+                            />
+                        </div>
+                    {% else %}
+                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-split-btn__toggler-icon">
+                            <use xlink:href="{{ ibexa_icon_path('caret-down') }}"></use>
+                        </svg>
+                    {% endif %}
                 {% endblock %}
             </button>
         {% endblock %}

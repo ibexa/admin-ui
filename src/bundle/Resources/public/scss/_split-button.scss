@@ -27,11 +27,13 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
 
+        .ids-icon,
         .ibexa-icon {
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
         &--subitems-opened {
+            .ids-icon,
             .ibexa-icon {
                 transform: rotate(180deg);
             }
@@ -42,6 +44,7 @@
         background-image: $ibexa-gradient-danger-primary;
         border-radius: $ibexa-border-radius;
 
+        .ids-btn.ids-btn--primary,
         .ibexa-btn.ibexa-btn--primary {
             background-image: none;
         }
