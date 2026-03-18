@@ -49,16 +49,18 @@
         align-self: flex-end;
         align-items: center;
 
-        &--enable {
+        .ibexa-icon {
+            margin-right: calculateRem(8px);
+        }
+    }
+
+    &__distraction-free-mode-btns {
+        .ibexa-field-edit__distraction-free-mode-control-btn--enable {
             display: inline-flex;
         }
 
-        &--disable {
+        .ibexa-field-edit__distraction-free-mode-control-btn--disable {
             display: none;
-        }
-
-        .ibexa-icon {
-            margin-right: calculateRem(8px);
         }
     }
 
@@ -175,12 +177,14 @@
 
             &__distraction-free-mode-control-btn {
                 margin: 0;
+            }
 
-                &--enable {
+            &__distraction-free-mode-btns {
+                .ibexa-field-edit__distraction-free-mode-control-btn--enable {
                     display: none;
                 }
 
-                &--disable {
+                .ibexa-field-edit__distraction-free-mode-control-btn--disable {
                     display: inline-flex;
                 }
             }
