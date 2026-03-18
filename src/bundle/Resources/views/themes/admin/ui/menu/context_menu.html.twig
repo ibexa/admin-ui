@@ -139,32 +139,24 @@
             {%- set btn_size = item.extras.primary|default(false)
                 ? options.primary_item_size|default('medium')
                 : options.secondary_item_size|default('medium') -%}
+            {%- set ds_classes = 'ids-btn ids-btn--' ~ btn_type ~ ' ids-btn--' ~ btn_size -%}
+            {%- set attributes = attributes|merge({
+                class: (attributes.class|default('') ~ ' ' ~ ds_classes)|trim
+            }) -%}
 
-            {% if element == 'a' %}
-                <twig:ibexa:link
-                    variant="button"
-                    type="{{ btn_type }}"
-                    size="{{ btn_size }}"
-                    href="{{ attributes.href|default('') }}"
-                    {{ macros.attributes(attributes|filter((v, k) => k not in ['class', 'href'])) }}
-                >
-                    {% if item.extras.icon is defined %}
-                        <twig:ibexa:icon name="{{ item.extras.icon }}" size="small-medium" />
-                    {% endif %}
+            <{{element}}{{macros.attributes(attributes)}}>
+                {% if item.extras.icon is defined %}
+                    <div class="ids-btn__icon">
+                        <svg class="ids-icon ids-icon--small-medium">
+                            <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
+                        </svg>
+                    </div>
+                {% endif %}
+                <div class="ids-btn__label">
                     {% set is_btn_label = true %}
                     {{ block('label') }}
-                </twig:ibexa:link>
-            {% else %}
-                <twig:ibexa:button
-                    type="{{ btn_type }}"
-                    size="{{ btn_size }}"
-                    {% if item.extras.icon is defined %}icon="{{ item.extras.icon }}" icon_size="small-medium"{% endif %}
-                    {{ macros.attributes(attributes|filter((v, k) => k not in ['class'])) }}
-                >
-                    {% set is_btn_label = true %}
-                    {{ block('label') }}
-                </twig:ibexa:button>
-            {% endif %}
+                </div>
+            </{{element}}>
 
         {% else %}
             {%- set default_classes = 'btn ibexa-btn' -%}
