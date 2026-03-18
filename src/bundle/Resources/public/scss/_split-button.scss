@@ -19,6 +19,7 @@
     &__main-btn.ids-btn {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+        height: calculateRem(48px);
     }
 
     &__split {
@@ -48,6 +49,7 @@
     &__toggle-btn.ids-btn {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+        height: calculateRem(48px);
     }
 
     &--primary {
