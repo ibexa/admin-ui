@@ -16,6 +16,11 @@
         border-bottom-right-radius: 0;
     }
 
+    &__main-btn.ids-btn {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
     &__split {
         display: none;
         z-index: 2;
@@ -38,6 +43,11 @@
                 transform: rotate(180deg);
             }
         }
+    }
+
+    &__toggle-btn.ids-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 
     &--primary {
