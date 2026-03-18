@@ -1,24 +1,48 @@
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
 
+{% set menu_items = [] %}
+
 {% for action in item.children %}
-    {% set element = action.uri ? 'a' : 'button' %}
-    {% set classess = {
-        class: 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text' ~ ' ' ~ action.attributes.class|default('')
-    } %}
-
-    {% set attr = {
-        title: action.label
-    }|merge(action.attributes, classess) %}
-
+    {% set action_attrs = action.attributes|default({})|merge({
+        class: 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ' ~ action.attributes.class|default(''),
+    }) %}
     {% if action.uri %}
-        {% set attr = attr|merge({ href: action.uri })%}
+        {% set action_attrs = action_attrs|merge({ href: action.uri }) %}
     {% else %}
-        {% set attr = attr|merge({ type: 'button' })%}
+        {% set action_attrs = action_attrs|merge({ type: 'button' }) %}
     {% endif %}
 
-    <{{ element }} {{ html.attributes(attr) }}>
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path(action.extras.icon) }}"></use>
-        </svg>
-    </{{ element }}>
+    {% set menu_items = menu_items|merge([{
+        label: action.label,
+        action_attr: action_attrs,
+        icon: action.extras.icon,
+    }]) %}
 {% endfor %}
+
+{% if item.children|length > 3 %}
+    <div>
+        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-action-list-more">
+            <svg class="ibexa-icon ibexa-icon--small-medium">
+                <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
+            </svg>
+        </button>
+
+        {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
+            groups: [{ id: 'default', items: menu_items }],
+            attr: {
+                'data-trigger-element-selector': '.ibexa-action-list-more',
+                'data-initial-branch-placement': 'bottom-end',
+            },
+        }) }}
+    </div>
+{% else %}
+    {% for menu_item in menu_items %}
+        {% set element = menu_item.action_attr.href is defined ? 'a' : 'button' %}
+        {% set action_attrs = menu_item.action_attr|merge({title: menu_item.label}) %}
+        <{{ element }} {{ html.attributes(action_attrs) }}>
+            <svg class="ibexa-icon ibexa-icon--small-medium">
+                <use xlink:href="{{ ibexa_icon_path(menu_item.icon) }}"></use>
+            </svg>
+        </{{ element }}>
+    {% endfor %}
+{% endif %}
