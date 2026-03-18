@@ -7,7 +7,7 @@
 
     const menuButtons = [
         ...adaptedItemsContainer.querySelectorAll(
-            '.ibexa-context-menu__item > .ibexa-btn:not(.ibexa-btn--more), .ibexa-context-menu__item > .ibexa-split-btn',
+            '.ibexa-context-menu__item > .ibexa-btn:not(.ibexa-btn--more), .ibexa-context-menu__item > .ids-btn:not(.ibexa-btn--more), .ibexa-context-menu__item > .ibexa-split-btn',
         ),
     ];
     const popupMenuElement = adaptedItemsContainer.querySelector('.ibexa-context-menu__item--more .ibexa-multilevel-popup-menu');
