@@ -9,6 +9,7 @@ import { parseCheckbox } from '@ibexa-admin-ui-helpers/table.helper';
 import Icon from '../../../common/icon/icon';
 import UserName from '../../../common/user-name/user.name';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 export default class TableViewItemComponent extends PureComponent {
     constructor(props) {
@@ -219,20 +220,19 @@ export default class TableViewItemComponent extends PureComponent {
                     />
                 </div>
                 <div className="c-table-view-item__priority-actions" {...innerWrapperAttrs}>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--primary ibexa-btn--no-text ibexa-btn--small c-table-view-item__btn c-table-view-item__btn--submit"
+                    <Button
+                        type={ButtonType.Primary}
+                        size={ButtonSize.Small}
+                        icon="checkmark"
                         onClick={this.handleSubmit}
-                    >
-                        <Icon name="checkmark" extraClasses="ibexa-icon--small-medium" />
-                    </button>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--no-text ibexa-btn--small"
+                        className="c-table-view-item__btn c-table-view-item__btn--submit"
+                    />
+                    <Button
+                        type={ButtonType.Secondary}
+                        size={ButtonSize.Small}
+                        icon="discard"
                         onClick={this.handleCancel}
-                    >
-                        <Icon name="discard" extraClasses="ibexa-icon--small-medium" />
-                    </button>
+                    />
                 </div>
             </div>
         );
