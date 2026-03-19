@@ -8,6 +8,7 @@ import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Reso
 
 import Icon from '../../../common/icon/icon';
 import Thumbnail from '../../../common/thumbnail/thumbnail';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { SelectedItemsContext } from '../../universal.discovery.module';
 
@@ -58,15 +59,14 @@ const SelectedItemsPanelItem = ({ item, thumbnailData, name, description, extraC
 
                         return <Component key={action.id} item={item} />;
                     })}
-                    <button
-                        type="button"
-                        className="c-selected-items-panel-item__remove-button btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                    <Button
+                        type={ButtonType.TertiaryAlt}
+                        icon="discard"
                         onClick={removeFromSelection}
                         title={removeItemLabel}
-                        data-tooltip-container-selector=".c-udw-tab"
-                    >
-                        <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
-                    </button>
+                        className="c-selected-items-panel-item__remove-button"
+                        extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
+                    />
                 </div>
             </div>
             <div className="c-selected-items-panel-item__extra-content">{extraContent}</div>

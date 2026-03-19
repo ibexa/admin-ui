@@ -64,15 +64,15 @@ const SelectedLocations = () => {
     };
     const renderToggleButton = () => {
         return (
-            <button
-                type="button"
-                className="c-selected-locations__toggle-button btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small ibexa-btn--no-text"
+            <Button
+                type={ButtonType.Tertiary}
+                size={ButtonSize.Small}
+                icon="expand-left"
                 onClick={toggleExpanded}
                 title={togglerLabel}
-                data-tooltip-container-selector=".c-udw-tab"
-            >
-                <Icon name="expand-left" extraClasses="c-selected-locations__toggle-button-icon ibexa-icon--tiny-small" />
-            </button>
+                className="c-selected-locations__toggle-button"
+                extraAria={{ 'data-tooltip-container-selector': '.c-udw-tab' }}
+            />
         );
     };
     const renderActionButtons = () => {
@@ -85,13 +85,14 @@ const SelectedLocations = () => {
 
         return (
             <div className="c-selected-locations__actions">
-                <button
-                    type="button"
-                    className="c-selected-locations__clear-selection-button btn ibexa-btn ibexa-btn--small ibexa-btn--secondary"
+                <Button
+                    type={ButtonType.Secondary}
+                    size={ButtonSize.Small}
                     onClick={clearSelection}
+                    className="c-selected-locations__clear-selection-button"
                 >
                     {removeLabel}
-                </button>
+                </Button>
             </div>
         );
     };
