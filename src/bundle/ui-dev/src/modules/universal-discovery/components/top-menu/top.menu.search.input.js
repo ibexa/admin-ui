@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { SearchTextContext } from '../../universal.discovery.module';
 
@@ -16,11 +17,7 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
         'c-top-menu-search-input': true,
         'c-top-menu-search-input--search-opened': isSearchOpened,
     });
-    const searchBtnClassName = createCssClassNames({
-        'c-top-menu-search-input__search-btn btn ibexa-btn ibexa-btn--no-text': true,
-        'ibexa-btn--primary': isSearchOpened,
-        'ibexa-btn--tertiary': !isSearchOpened,
-    });
+
     const updateInputValue = ({ target: { value } }) => setInputValue(value);
     const handleSearchBtnClick = () => {
         if (isSearchOpened) {
@@ -66,9 +63,12 @@ const TopMenuSearchInput = ({ isSearchOpened, setIsSearchOpened }) => {
                 onKeyPress={handleKeyPressed}
                 value={inputValue}
             />
-            <button className={searchBtnClassName} type="button" onClick={handleSearchBtnClick}>
-                <Icon name="search" extraClasses="ibexa-icon--small-medium" />
-            </button>
+            <Button
+                type={isSearchOpened ? ButtonType.Primary : ButtonType.Tertiary}
+                icon="search"
+                onClick={handleSearchBtnClick}
+                className="c-top-menu-search-input__search-btn"
+            />
         </div>
     );
 };
