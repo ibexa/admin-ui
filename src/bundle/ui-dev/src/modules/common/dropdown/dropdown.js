@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 const { document } = window;
 const MIN_SEARCH_ITEMS_DEFAULT = 5;
@@ -134,21 +135,20 @@ const Dropdown = ({
                             value={filterText}
                         />
                         <div className="ibexa-input-text-wrapper__actions">
-                            <button
-                                type="button"
-                                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
-                                tabIndex="-1"
+                            <Button
+                                type={ButtonType.TertiaryAlt}
+                                icon="discard"
                                 onClick={resetInputValue}
-                            >
-                                <Icon name="discard" extraClasses="ibexa-icon--tiny-small" />
-                            </button>
-                            <button
-                                type="button"
-                                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
-                                tabIndex="-1"
-                            >
-                                <Icon name="search" extraClasses="ibexa-icon--small-medium" />
-                            </button>
+                                className="ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                                extraAria={{ tabIndex: -1 }}
+                            />
+                            <Button
+                                type={ButtonType.TertiaryAlt}
+                                icon="search"
+                                onClick={() => {}}
+                                className="ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
+                                extraAria={{ tabIndex: -1 }}
+                            />
                         </div>
                     </div>
                 </div>

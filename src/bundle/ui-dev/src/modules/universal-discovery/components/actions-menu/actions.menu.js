@@ -9,6 +9,7 @@ import {
     ConfirmItemsContext,
 } from '../../universal.discovery.module';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 const ActionsMenu = () => {
     const Translator = getTranslator();
@@ -38,19 +39,19 @@ const ActionsMenu = () => {
         return (
             <>
                 <span className="c-actions-menu__confirm-btn-wrapper">
-                    <button
-                        className="c-actions-menu__confirm-btn btn ibexa-btn ibexa-btn--primary"
-                        type="button"
+                    <Button
+                        type={ButtonType.Primary}
                         onClick={handleConfirmBtnClick}
                         disabled={isConfirmDisabled}
+                        className="c-actions-menu__confirm-btn"
                     >
                         {confirmLabel}
-                    </button>
+                    </Button>
                 </span>
                 <span className="c-actions-menu__cancel-btn-wrapper">
-                    <button className="c-actions-menu__cancel-btn btn ibexa-btn ibexa-btn--secondary" type="button" onClick={cancelUDW}>
+                    <Button type={ButtonType.Secondary} onClick={cancelUDW} className="c-actions-menu__cancel-btn">
                         {cancelLabel}
-                    </button>
+                    </Button>
                 </span>
             </>
         );
