@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
+import { Button, ButtonType } from '@ids-components/components/Button';
 import PopupActions from '../popup-actions/popup.actions';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
@@ -17,14 +18,14 @@ const Header = ({ isCollapsed, toggleCollapseTree, actions, popupRef }) => {
         });
 
         return (
-            <button
-                type="button"
-                className="ibexa-btn btn ibexa-btn--no-text ibexa-btn--tertiary c-header__toggle-btn"
+            <Button
+                type={ButtonType.Tertiary}
                 onClick={toggleCollapseTree}
+                className="c-header__toggle-btn"
             >
                 {isCollapsed && <Icon name="content-tree" extraClasses="ibexa-icon--small-medium" />}
                 <Icon name={iconName} extraClasses={caretIconClass} />
-            </button>
+            </Button>
         );
     };
 
