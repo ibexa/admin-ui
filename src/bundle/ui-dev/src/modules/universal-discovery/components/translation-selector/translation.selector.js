@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { InputTextInput } from '@ids-components/components/InputText';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
@@ -122,9 +123,9 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                 >
                     {Translator.trans(/*@Desc("Edit")*/ 'meta_preview.edit.languages.edit', {}, 'ibexa_universal_discovery_widget')}
                 </button>
-                <button type="button" className="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary" onClick={hideTranslationSelector}>
+                <Button type={ButtonType.Secondary} onClick={hideTranslationSelector} className="ibexa-btn--close">
                     {Translator.trans(/*@Desc("Discard")*/ 'meta_preview.edit.languages.discard', {}, 'ibexa_universal_discovery_widget')}
-                </button>
+                </Button>
             </div>
         </div>
     );
