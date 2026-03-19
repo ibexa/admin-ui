@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../helpers/css.class.names';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 const TooltipPopupComponent = ({
     title,
@@ -37,14 +38,14 @@ const TooltipPopupComponent = ({
             </div>
             <div className="c-tooltip-popup__footer">
                 {confirmLabel && (
-                    <button className="btn ibexa-btn ibexa-btn--primary" type="button" onClick={onConfirm} {...confirmBtnAttrs}>
+                    <Button type={ButtonType.Primary} onClick={onConfirm} extraAria={confirmBtnAttrs}>
                         {confirmLabel}
-                    </button>
+                    </Button>
                 )}
                 {closeLabel && (
-                    <button className="btn ibexa-btn ibexa-btn--ghost" type="button" onClick={onClose} {...closeBtnAttrs}>
+                    <Button type={ButtonType.TertiaryAlt} onClick={onClose} extraAria={closeBtnAttrs}>
                         {closeLabel}
-                    </button>
+                    </Button>
                 )}
             </div>
         </div>
