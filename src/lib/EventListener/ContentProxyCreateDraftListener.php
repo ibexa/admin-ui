@@ -12,6 +12,7 @@ use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
@@ -29,16 +30,20 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
     private RouterInterface $router;
 
+    private LanguageService $languageService;
+
     public function __construct(
         ContentService $contentService,
         LocationService $locationService,
         AutosaveServiceInterface $autosaveService,
-        RouterInterface $router
+        RouterInterface $router,
+        LanguageService $languageService
     ) {
         $this->contentService = $contentService;
         $this->locationService = $locationService;
         $this->autosaveService = $autosaveService;
         $this->router = $router;
+        $this->languageService = $languageService;
     }
 
     public static function getSubscribedEvents(): array
@@ -116,7 +121,12 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
             $contentUpdateStruct->fields = $this->getTranslatedContentFields($content, $toLanguageCode);
         }
 
-        $contentDraft = $this->contentService->createContentDraft($content->contentInfo);
+        $contentDraft = $this->contentService->createContentDraft(
+            $content->contentInfo,
+            null,
+            null,
+            $this->languageService->loadLanguage($toLanguageCode),
+        );
 
         $this->contentService->updateContent(
             $contentDraft->getVersionInfo(),
