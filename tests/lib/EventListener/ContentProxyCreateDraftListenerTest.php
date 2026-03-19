@@ -15,6 +15,7 @@ use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
 use Ibexa\Contracts\Core\FieldType\Value;
 use Ibexa\Contracts\Core\Repository\ContentService;
+use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
@@ -61,7 +62,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
                 $contentService,
                 $this->createMock(LocationService::class),
                 $autosaveService,
-                $router
+                $router,
+                $this->createMock(LanguageService::class)
             )
         );
 
@@ -123,7 +125,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
                 $contentService,
                 $this->createMock(LocationService::class),
                 $autosaveService,
-                $router
+                $router,
+                $this->createMock(LanguageService::class)
             )
         );
 
@@ -194,13 +197,16 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
             'pol-PL'
         );
 
+        $languageService = $this->createMock(LanguageService::class);
+
         $eventDispatcher = new EventDispatcher();
         $eventDispatcher->addSubscriber(
             new ContentProxyCreateDraftListener(
                 $contentService,
                 $this->createMock(LocationService::class),
                 $autosaveService,
-                $router
+                $router,
+                $languageService
             )
         );
 
@@ -246,7 +252,8 @@ final class ContentProxyCreateDraftListenerTest extends TestCase
                 $contentService,
                 $this->createMock(LocationService::class),
                 $autosaveService,
-                $this->createMock(RouterInterface::class)
+                $this->createMock(RouterInterface::class),
+                $this->createMock(LanguageService::class)
             )
         );
 
