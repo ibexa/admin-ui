@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 
 const FiltersPanel = ({ children = null, isApplyButtonEnabled, makeSearch, clearFilters }) => {
     const Translator = getTranslator();
@@ -14,17 +15,18 @@ const FiltersPanel = ({ children = null, isApplyButtonEnabled, makeSearch, clear
             <div className="c-filters-panel__header">
                 <div className="c-filters-panel__header-content">{filtersLabel}</div>
                 <div className="c-filters-panel__header-actions">
-                    <button className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small" type="button" onClick={clearFilters}>
+                    <Button type={ButtonType.TertiaryAlt} size={ButtonSize.Small} onClick={clearFilters}>
                         {clearLabel}
-                    </button>
-                    <button
-                        type="button"
-                        className="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
+                    </Button>
+                    <Button
+                        type={ButtonType.Secondary}
+                        size={ButtonSize.Small}
                         onClick={makeSearch}
                         disabled={!isApplyButtonEnabled}
+                        className="ibexa-btn--apply"
                     >
                         {applyLabel}
-                    </button>
+                    </Button>
                 </div>
             </div>
             {children}
