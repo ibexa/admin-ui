@@ -3,6 +3,7 @@ import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
 import Dropdown from '../../../common/dropdown/dropdown';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import {
     DropdownPortalRefContext,
@@ -257,17 +258,17 @@ const ContentCreateWidget = () => {
                     </div>
                 </div>
                 <div className="c-content-create__confirm-wrapper">
-                    <button
-                        className="c-content-create__confirm-button btn ibexa-btn ibexa-btn--primary"
+                    <Button
+                        type={ButtonType.Primary}
                         onClick={createContent}
                         disabled={isConfirmDisabled}
-                        type="button"
+                        className="c-content-create__confirm-button"
                     >
                         {createLabel}
-                    </button>
-                    <button className="btn ibexa-btn ibexa-btn--secondary" onClick={close} type="button">
+                    </Button>
+                    <Button type={ButtonType.Secondary} onClick={close}>
                         {cancelLabel}
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>
