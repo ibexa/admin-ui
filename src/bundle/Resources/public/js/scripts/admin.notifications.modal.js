@@ -317,6 +317,13 @@
         });
     };
 
-    getNotificationsStatusLoop();
+    doc.body.addEventListener('ibexa-notifications:update', (event) => {
+        setPendingNotificationCount(event.detail);
+        updateModalTitleTotalInfo(event.detail.total);
+    });
+
+    if (!doc.querySelector('meta[name="ibexa-notification-handler"]')) {
+        getNotificationsStatusLoop();
+    }
     attachActionsListeners();
 })(window, window.document, window.ibexa, window.Translator, window.Routing);
