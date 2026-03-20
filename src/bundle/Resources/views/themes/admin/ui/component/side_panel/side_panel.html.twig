@@ -21,14 +21,13 @@
     {% block panel %}
         <div>
             {% block header %}
-                <button
-                    type="button"
-                    class="btn ibexa-btn ibexa-btn--no-text ibexa-btn--close-config-panel"
-                >
-                    <svg class="ibexa-icon ibexa-icon--small">
-                        <use xlink:href="{{ ibexa_icon_path('caret-back') }}"></use>
-                    </svg>
-                </button>
+                <twig:ibexa:button
+                    html_type="button"
+                    type="tertiary-alt"
+                    icon="caret-back"
+                    icon_size="small"
+                    class="ids-button--close-config-panel"
+                />
                 <h2 class="ibexa-side-panel__title">{{ title }}</h2>
             {% endblock %}
             {% block content %}{% endblock %}

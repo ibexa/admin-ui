@@ -11,3 +11,9 @@ package-lock.json
 composer.lock
 /var
 tsconfig.json
+.button-migration/*.log
+
+# Migration tool runtime state
+.button-migration/
+migrations/*/.migration-state/
+*.migration.log

@@ -9,6 +9,7 @@ import ViewSwitcherComponent from './components/view-switcher/view.switcher.comp
 import SubItemsListComponent from './components/sub-items-list/sub.items.list.component.js';
 import Popup from '../common/popup/popup.component';
 import ActionButton from './components/action-btn/action.btn.js';
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 import Pagination from '../common/pagination/pagination.js';
 import NoItemsComponent from './components/no-items/no.items.component.js';
 import Icon from '../common/icon/icon.js';
@@ -977,7 +978,7 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: confirmLabel,
             onClick: this.onBulkDeletePopupConfirm,
-            className: 'ibexa-btn--primary ibexa-btn--trigger',
+            className: 'ibexa-btn--primary ids-button--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
@@ -992,7 +993,7 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Hide") */ 'bulk_hide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkHidePopupConfirm,
-            className: 'ibexa-btn--primary ibexa-btn--trigger',
+            className: 'ibexa-btn--primary ids-button--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
@@ -1007,7 +1008,7 @@ export default class SubItemsModule extends Component {
         const confirmBtnAttrs = {
             label: Translator.trans(/* @Desc("Reveal") */ 'bulk_unhide.popup.confirm', {}, 'ibexa_sub_items'),
             onClick: this.onBulkUnhidePopupConfirm,
-            className: 'ibexa-btn--primary ibexa-btn--trigger',
+            className: 'ibexa-btn--primary ids-button--trigger',
         };
         const cancelBtnAttrs = {
             label: Translator.trans(/* @Desc("Cancel") */ 'bulk_action.popup.cancel', {}, 'ibexa_sub_items'),
@@ -1239,7 +1240,15 @@ export default class SubItemsModule extends Component {
         const label = Translator.trans(/* @Desc("Move") */ 'move_btn.label', {}, 'ibexa_sub_items');
 
         return this.renderActionBtnWrapper(
-            <ActionButton disabled={disabled} onClick={this.onMoveBtnClick} label={label} type="move" />,
+            <Button
+                disabled={disabled}
+                onClick={this.onMoveBtnClick}
+                icon="move"
+                type={ButtonType.Tertiary}
+                size={ButtonSize.Medium}
+            >
+                {label}
+            </Button>,
             '',
             { key: 'bulk-move-btn' },
         );

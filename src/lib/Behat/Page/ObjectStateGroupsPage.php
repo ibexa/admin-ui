@@ -77,7 +77,7 @@ final class ObjectStateGroupsPage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
-            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
+            new VisibleCSSLocator('createButton', 'a[href$="/state/group/create"]'),
             new VisibleCSSLocator('deleteButton', '#delete-object-state-groups'),
         ];
     }

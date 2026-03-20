@@ -50,24 +50,20 @@
 
 {% set close_btn_title = 'close_btn.title'|trans({}, 'ibexa_modal')|desc('Close') %}
 {% set close_btn_aria_label = 'close_btn.aria_label'|trans({}, 'ibexa_modal')|desc('Close') %}
-{% set attr_close_btn = attr_close_btn|default({})|merge({
-    class: ('close ibexa-btn ibexa-btn--ghost ' ~ attr_close_btn.class|default(''))|trim,
-    type: attr_close_btn.type|default('button'),
-    title: attr_close_btn.title|default(close_btn_title),
-    'data-bs-dismiss': attr_close_btn['data-bs-dismiss']|default('modal'),
-    'data-tooltip-container-selector': '.modal-dialog',
-    'aria-label': attr_close_btn['aria-label']|default(close_btn_aria_label),
-}) %}
+{% set attr_close_btn = attr_close_btn|default({}) %}
 
 {% set close_btn %}
-    <button {{ html.attributes(attr_close_btn) }}>
-        <svg
-            class="ibexa-icon ibexa-icon--medium"
-            aria-hidden="true"
-        >
-            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
-        </svg>
-    </button>
+    <twig:ibexa:button
+        html_type="{{ attr_close_btn.type|default('button') }}"
+        type="tertiary-alt"
+        icon="discard"
+        icon_size="medium"
+        title="{{ attr_close_btn.title|default(close_btn_title) }}"
+        class="{{ ('close ' ~ attr_close_btn.class|default(''))|trim }}"
+        data-bs-dismiss="{{ attr_close_btn['data-bs-dismiss']|default('modal') }}"
+        data-tooltip-container-selector=".modal-dialog"
+        aria-label="{{ attr_close_btn['aria-label']|default(close_btn_aria_label) }}"
+    />
 {% endset %}
 
 <div {{ html.attributes(attr) }}>
