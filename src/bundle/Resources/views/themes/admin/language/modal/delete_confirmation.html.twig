@@ -9,7 +9,7 @@
         <p>{{ 'language.modal.message'|trans|desc('Delete the languages?') }}</p>
     {% endblock %}
     {% block footer_content %}
-        {{ form_widget(deleteForm.delete, { 'attr': {'class': 'btn ibexa-btn ibexa-btn--primary'} }) }}
+        {{ form_widget(deleteForm.delete, { 'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium'} }) }}
         <twig:ibexa:button html_type="button" type="secondary" data-bs-dismiss="modal">
             {{ 'language.form.cancel'|trans|desc('Cancel') }}
         </twig:ibexa:button>
