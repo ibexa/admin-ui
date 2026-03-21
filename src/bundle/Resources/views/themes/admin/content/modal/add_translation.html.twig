@@ -45,7 +45,7 @@
             {{ custom_footer|raw }}
         {% else %}
             {% if form.add is defined %}
-                {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary ibexa-btn--create-translation'}}) }}
+                {{ form_widget(form.add, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium ibexa-btn--create-translation'}}) }}
             {% endif %}
             <twig:ibexa:button
                 html_type="button"
