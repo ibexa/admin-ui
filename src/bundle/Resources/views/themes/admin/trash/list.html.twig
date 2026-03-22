@@ -288,7 +288,7 @@
                                 {% set restore_under_new_parent_button_attr = form_trash_item_restore.location.select_content.vars.attr|merge({
                                     'attr': {
                                         'data-udw-config': ibexa_udw_config('single_container', {}),
-                                        'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' btn ibexa-btn ibexa-btn--ghost ibexa-btn--small')|trim,
+                                        'class': (form_trash_item_restore.location.select_content.vars.attr.class|default('') ~ ' ids-btn ids-btn--tertiary-alt ids-btn--small')|trim,
                                         'disabled': true
                                     }, 'label': 'trash.button.restore_new_location'|trans({},'ibexa_trash')|desc("Restore in a new location")
                                 }) %}
@@ -296,7 +296,7 @@
                                 {{ form_widget(form_trash_item_restore.location.location) }}
                                 {% do form_trash_item_restore.location.setRendered %}
                                 {{ form_widget(form_trash_item_restore.restore, {
-                                    'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true},
+                                    'attr': {'class': 'ids-btn ids-btn--tertiary-alt ids-btn--small', 'disabled': true},
                                     'label': 'trash.button.restore'|trans({},'ibexa_trash')|desc('Restore')
                                 }) }}
                             {% else %}
