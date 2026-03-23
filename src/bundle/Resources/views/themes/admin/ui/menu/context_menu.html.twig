@@ -159,13 +159,13 @@
             </{{element}}>
 
         {% else %}
-            {%- set default_classes = 'btn ibexa-btn' -%}
+            {%- set default_classes = 'ids-btn ids-btn--medium' -%}
 
             {% if not item.extras.noDefaultBtnStyling|default(false) %}
                 {% if item.extras.primary|default(false) %}
-                    {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ibexa-btn--primary') -%}
+                    {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ids-btn--primary') -%}
                 {% else %}
-                    {%- set default_classes = default_classes ~ ' ' ~ options.secondary_item_class|default('ibexa-btn--secondary') -%}
+                    {%- set default_classes = default_classes ~ ' ' ~ options.secondary_item_class|default('ids-btn--secondary') -%}
                 {% endif %}
             {% endif %}
 
@@ -189,7 +189,7 @@
 
 {% block label %}
     {% if is_btn_label|default(false) %}
-        <span class="ibexa-btn__label">{{ parent() }}</span>
+        <span class="ids-btn__label">{{ parent() }}</span>
     {% else %}
         {{ parent() }}
     {% endif %}
