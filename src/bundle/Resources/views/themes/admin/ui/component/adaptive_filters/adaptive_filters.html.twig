@@ -45,7 +45,7 @@
 }) %}
 
 {% set basic_attr_toggler_btn = basic_attr_toggler_btn|default({})|merge({
-    class: ('btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-adaptive-filters__toggler '
+    class: ('ids-btn ids-btn--tertiary-alt ids-btn--small ibexa-adaptive-filters__toggler '
         ~ basic_attr_toggler_btn.class|default(''))|trim,
     type: basic_attr_toggler_btn.type|default('button'),
 }) %}
