@@ -25,6 +25,10 @@
             & {
                 padding: calculateRem(2px);
             }
+
+            &.ids-btn {
+                top: calculateRem(22px);
+            }
         }
     }
 
