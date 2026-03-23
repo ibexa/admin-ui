@@ -2,7 +2,7 @@
 
 {# TOOD: rename to btn_attr #}
 {% set attr = attr|default({})|merge({
-    class: 'ibexa-tag-view-select__btn-select-path btn ibexa-btn ibexa-btn--small ibexa-btn--secondary ' ~ attr.class|default(''),
+    class: 'ibexa-tag-view-select__btn-select-path ids-btn ids-btn--secondary ids-btn--small ' ~ attr.class|default(''),
 }) %}
 {% set separator = separator|default(',') %}
 {% set custom_form = custom_form|default(false) %}
