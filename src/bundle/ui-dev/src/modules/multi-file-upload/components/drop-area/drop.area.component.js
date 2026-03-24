@@ -5,6 +5,7 @@ import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/sc
 import { fileSizeToString } from '../../../common/helpers/text.helper';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
+import { Button, ButtonType } from '@ids-components/components/Button';
 export default class DropAreaComponent extends Component {
     constructor(props) {
         super(props);
@@ -128,14 +129,14 @@ export default class DropAreaComponent extends Component {
             <form className="c-drop-area" onDrop={this.handleUpload} ref={this._refForm}>
                 <div className="c-drop-area__message c-drop-area__message--main">{dropActionMessage}</div>
                 <div className="c-drop-area__message c-drop-area__message--separator">{separatorMessage}</div>
-                <button
-                    type="button"
-                    className="btn ibexa-btn ibexa-btn--secondary c-drop-area__btn-select"
+                <Button
+                    type={ButtonType.Secondary}
                     onClick={this.openFileSelector}
-                    tabIndex="-1"
+                    className="c-drop-area__btn-select"
+                    extraAria={{ tabIndex: -1 }}
                 >
                     {uploadBtnLabel}
-                </button>
+                </Button>
                 <div className="c-drop-area__message c-drop-area__message--filesize">
                     <ul className={maxFilesSizeListClassNames}>
                         {this.renderMaxFileMsgsToggler()}

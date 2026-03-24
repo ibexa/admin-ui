@@ -62,7 +62,7 @@ final class Matrix extends FieldTypeComponent
     {
         return [
             new VisibleCSSLocator('row', '.ibexa-table__row'),
-            new VisibleCSSLocator('addRowButton', '.ibexa-btn--add-matrix-entry'),
+            new VisibleCSSLocator('addRowButton', '.ibexa-btn--add-matrix-entry, .ids-button--add-matrix-entry'),
             new VisibleCSSLocator('viewModeTableHeaders', 'thead th'),
             new VisibleCSSLocator('viewModeTableRow', 'tbody tr'),
             new VisibleCSSLocator('editModeTableHeaders', '.ibexa-table thead th[data-identifier]'),

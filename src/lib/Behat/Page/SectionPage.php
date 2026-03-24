@@ -154,7 +154,7 @@ final class SectionPage extends Page
             new VisibleCSSLocator('contentItemsTable', '.ibexa-main-container__content-column .ibexa-table'),
             new VisibleCSSLocator('assignButton', '#section_content_assign_locations_select_content'),
             new VisibleCSSLocator('sectionInfoTable', '.ibexa-container .ibexa-table'),
-            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('button', '.ids-btn'),
             new VisibleCSSLocator('sectionPropertiesItem', '.ibexa-details__item'),
             new VisibleCSSLocator('sectionPropertiesLabel', '.ibexa-details__item-label'),
             new VisibleCSSLocator('sectionPropertiesValue', '.ibexa-details__item-content'),

@@ -46,7 +46,7 @@ final class DraftConflictDialog extends Component
     {
         return [
             new VisibleCSSLocator('dialog', '#version-draft-conflict-modal.ibexa-modal--version-draft-conflict.show .modal-content'),
-            new VisibleCSSLocator('addDraft', '.ibexa-btn--add-draft'),
+            new VisibleCSSLocator('addDraft', '.ids-button--add-draft'),
             new VisibleCSSLocator('table', '#version-draft-conflict-modal .modal-content'),
         ];
     }

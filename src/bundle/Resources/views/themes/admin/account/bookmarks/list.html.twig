@@ -55,16 +55,16 @@
 
                 {% set col_action_btns %}
                     {% if bookmark.userCanEdit %}
-                        <button
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--content-edit"
+                        <twig:ibexa:button
+                            html_type="button"
+                            type="tertiary-alt"
+                            icon="edit"
+                            icon_size="small-medium"
+                            class="ids-button--content-edit"
                             title="{{ 'bookmark.list.content.edit'|trans|desc('Edit') }}"
                             data-content-id="{{ bookmark.contentInfo.id }}"
                             data-language-code="{{ bookmark.contentInfo.mainLanguageCode }}"
-                        >
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                                <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                            </svg>
-                        </button>
+                        />
                     {% endif %}
                 {% endset %}
 
@@ -93,7 +93,7 @@
                     { },
                 ],
                 body_rows,
-                actions: form_widget(form_remove.remove, {'attr': {'class': 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--small', 'disabled': true} }),
+                actions: form_widget(form_remove.remove, {'attr': {'class': 'ids-btn ids-btn--tertiary-alt ids-btn--small', 'disabled': true} }),
                 empty_table_info_text: 'bookmark.list.empty'|trans|desc('You have no bookmarks yet. Your bookmarks will show up here.'),
             } %}
             {{ form_end(form_remove) }}

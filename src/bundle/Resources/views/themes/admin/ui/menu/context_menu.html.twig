@@ -15,10 +15,14 @@
     {% endset %}
 
     {% set default_selector_btn_classes = options.selector_btn_classes|default('') %}
+    {% set default_selector_btn_type = options.selector_btn_type|default('secondary') %}
+    {% set default_selector_btn_size = options.selector_btn_size|default('medium') %}
 
     {{ include('@ibexadesign/ui/component/context_menu/context_menu.html.twig', {
         menu_items: menu_items,
-        selector_btn_classes: item.extras.adaptiveItemsSelectorBtnClass|default(default_selector_btn_classes)
+        selector_btn_classes: item.extras.adaptiveItemsSelectorBtnClass|default(default_selector_btn_classes),
+        selector_btn_type: default_selector_btn_type,
+        selector_btn_size: default_selector_btn_size,
     }) }}
 {% endblock %}
 
@@ -111,7 +115,7 @@
             main_btn_attr: attributes,
             main_btn_element: element,
             toggler_btn_attr: {
-                class: attributes.class|replace({ 'ibexa-btn--trigger': '' }),
+                class: attributes.class|replace({ 'ids-button--trigger': '' }),
                 disabled: all_subitems_disabled,
             },
             label: btn_label,
@@ -124,36 +128,69 @@
             {%- endif -%}
         {% endfor %}
     {% else %}
-        {%- set default_classes = 'btn ibexa-btn' -%}
+        {%- set use_legacy = item.extras.noDefaultBtnStyling|default(false)
+            or options.primary_item_class is defined
+            or options.secondary_item_class is defined -%}
 
-        {% if not item.extras.noDefaultBtnStyling|default(false) %}
-            {% if item.extras.primary|default(false) %}
-                {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ibexa-btn--primary') -%}
-            {% else %}
-                {%- set default_classes = default_classes ~ ' ' ~ options.secondary_item_class|default('ibexa-btn--secondary') -%}
+        {% if not use_legacy %}
+            {%- set btn_type = item.extras.primary|default(false)
+                ? options.primary_item_type|default('primary')
+                : options.secondary_item_type|default('secondary') -%}
+            {%- set btn_size = item.extras.primary|default(false)
+                ? options.primary_item_size|default('medium')
+                : options.secondary_item_size|default('medium') -%}
+            {%- set ds_classes = 'ids-btn ids-btn--' ~ btn_type ~ ' ids-btn--' ~ btn_size -%}
+            {%- set ds_icon_size = btn_size == 'small' ? 'tiny-small' : 'small' -%}
+            {%- set attributes = attributes|merge({
+                class: (attributes.class|default('') ~ ' ' ~ ds_classes)|trim
+            }) -%}
+
+            <{{element}}{{macros.attributes(attributes)}}>
+                {% if item.extras.icon is defined %}
+                    <div class="ids-btn__icon">
+                        <svg class="ids-icon ids-icon--{{ ds_icon_size }}">
+                            <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
+                        </svg>
+                    </div>
+                {% endif %}
+                <div class="ids-btn__label">
+                    {% set is_btn_label = true %}
+                    {{ block('label') }}
+                </div>
+            </{{element}}>
+
+        {% else %}
+            {%- set default_classes = 'ids-btn ids-btn--medium' -%}
+
+            {% if not item.extras.noDefaultBtnStyling|default(false) %}
+                {% if item.extras.primary|default(false) %}
+                    {%- set default_classes = default_classes ~ ' ' ~ options.primary_item_class|default('ids-btn--primary') -%}
+                {% else %}
+                    {%- set default_classes = default_classes ~ ' ' ~ options.secondary_item_class|default('ids-btn--secondary') -%}
+                {% endif %}
             {% endif %}
+
+            {%- set attributes = attributes|merge({
+                class: (attributes.class|default('') ~ ' ' ~ default_classes|default('btn btn-secondary btn-block'))|trim
+            }) -%}
+
+            <{{element}}{{macros.attributes(attributes)}}>
+                {% if item.extras.icon is defined %}
+                    <svg class="ibexa-icon ibexa-icon--small-medium">
+                        <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
+                    </svg>
+                {% endif %}
+
+                {% set is_btn_label = true %}
+                {{ block('label') }}
+            </{{element}}>
         {% endif %}
-
-        {%- set attributes = attributes|merge({
-            class: (attributes.class|default('') ~ ' ' ~ default_classes|default('btn btn-secondary btn-block'))|trim
-        }) -%}
-
-        <{{element}}{{macros.attributes(attributes)}}>
-            {% if item.extras.icon is defined %}
-                <svg class="ibexa-icon ibexa-icon--small-medium">
-                    <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
-                </svg>
-            {% endif %}
-
-            {% set is_btn_label = true %}
-            {{ block('label') }}
-        </{{element}}>
     {% endif %}
 {% endblock %}
 
 {% block label %}
     {% if is_btn_label|default(false) %}
-        <span class="ibexa-btn__label">{{ parent() }}</span>
+        <span class="ids-btn__label">{{ parent() }}</span>
     {% else %}
         {{ parent() }}
     {% endif %}

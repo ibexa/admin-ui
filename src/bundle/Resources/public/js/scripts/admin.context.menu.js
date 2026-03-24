@@ -7,11 +7,13 @@
 
     const menuButtons = [
         ...adaptedItemsContainer.querySelectorAll(
-            '.ibexa-context-menu__item > .ibexa-btn:not(.ibexa-btn--more), .ibexa-context-menu__item > .ibexa-split-btn',
+            '.ibexa-context-menu__item > .ibexa-btn:not(.ibexa-btn--more), .ibexa-context-menu__item > .ids-btn:not(.ibexa-btn--more), .ibexa-context-menu__item > .ibexa-split-btn',
         ),
     ];
     const popupMenuElement = adaptedItemsContainer.querySelector('.ibexa-context-menu__item--more .ibexa-multilevel-popup-menu');
     const showPopupButton = adaptedItemsContainer.querySelector('.ibexa-btn--more');
+    const getButtonLabel = (button) => button.querySelector('.ids-btn__label, .ibexa-btn__label')?.textContent ?? '';
+    const getItemButton = (item) => item.querySelector('.ids-btn, .ibexa-btn');
 
     if (!showPopupButton) {
         return;
@@ -24,7 +26,7 @@
             return adaptedItemsContainer.querySelector('.ibexa-context-menu__item');
         },
         onAdapted: (visibleItems, hiddenItems) => {
-            const hiddenButtonsIds = [...hiddenItems].map((item) => item.querySelector('.ibexa-btn').id);
+            const hiddenButtonsIds = [...hiddenItems].map((item) => getItemButton(item)?.id).filter(Boolean);
             const topBranchItems = multilevelPopupMenu.getBranchItems(topBranch);
 
             topBranchItems.forEach((branchItem) => {
@@ -51,7 +53,7 @@
             const mainBtn = menuButton.querySelector('.ibexa-split-btn__main-btn');
             const splitBtn = menuButton.querySelector('.ibexa-split-btn__toggle-btn');
             const relatedMainBtnId = mainBtn.id;
-            const mainBtnLabel = mainBtn.querySelector('.ibexa-btn__label').textContent;
+            const mainBtnLabel = getButtonLabel(mainBtn);
             const {
                 alternativeMainBtnLabel: mainBtnAlternativeLabel,
                 alternativeMainBtnSublabel: mainBtnAlternativeSublabel,
@@ -60,7 +62,7 @@
             const subitemsBtns = [...splitBtn.branchElement.querySelectorAll('.ibexa-popup-menu__item-content')];
 
             const subitems = subitemsBtns.map((subitemBtn) => {
-                const subitemLabel = subitemBtn.querySelector('.ibexa-btn__label').textContent;
+                const subitemLabel = getButtonLabel(subitemBtn);
                 const relatedSubitemBtnId = subitemBtn.id;
 
                 return {
@@ -108,7 +110,7 @@
         }
 
         const relatedBtnId = menuButton.id;
-        const label = menuButton.querySelector('.ibexa-btn__label').textContent;
+        const label = getButtonLabel(menuButton);
 
         return {
             label,

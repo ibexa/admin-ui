@@ -19,20 +19,24 @@
         </button>
         <h4 class="ibexa-list-filters__title">{{ 'ibexa.notifications.search_form.title'|trans()|desc('Filters') }}</h4>
         <div class="ibexa-list-filters__btns">
-            <button
-                type="button"
-                class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small ibexa-btn--clear"
-                {% if not is_any_filter_set %}disabled="true"{% endif %}
+            <twig:ibexa:button
+                html_type="button"
+                type="tertiary-alt"
+                size="small"
+                class="ids-button--clear"
+                :disabled="not is_any_filter_set"
             >
                 {{ 'ibexa.notifications.search_form.clear'|trans|desc('Clear') }}
-            </button>
-            <button
-                type="submit"
-                class="btn ibexa-btn ibexa-btn--secondary ibexa-btn--small ibexa-btn--apply"
-                {% if not is_any_filter_set %}disabled="true"{% endif %}
+            </twig:ibexa:button>
+            <twig:ibexa:button
+                html_type="submit"
+                type="secondary"
+                size="small"
+                class="ids-button--apply"
+                :disabled="not is_any_filter_set"
             >
                 {{ 'ibexa.notifications.search_form.apply'|trans|desc('Apply') }}
-            </button>
+            </twig:ibexa:button>
         </div>
     </div>
 

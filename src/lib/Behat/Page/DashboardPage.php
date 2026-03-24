@@ -120,7 +120,7 @@ class DashboardPage extends Page
             new VisibleCSSLocator('tableTab', '.ibexa-tabs .nav-item'),
             new VisibleCSSLocator('pageTitle', '.ibexa-header-wrapper h1'),
             new VisibleCSSLocator('table', '#ibexa-tab-dashboard-my-my-drafts'),
-            new VisibleCSSLocator('createButton', '.ibexa-btn--cotf-create'),
+            new VisibleCSSLocator('createButton', '.ids-button--cotf-create'),
             new VisibleCSSLocator('activeTabLink', '.ibexa-tabs__link.active'),
         ];
     }

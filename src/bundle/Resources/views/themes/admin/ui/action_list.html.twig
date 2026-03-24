@@ -3,7 +3,7 @@
 {% for action in item.children %}
     {% set element = action.uri ? 'a' : 'button' %}
     {% set classess = {
-        class: 'btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text' ~ ' ' ~ action.attributes.class|default('')
+        class: 'ids-btn ids-btn--tertiary-alt ids-btn--medium ibexa-btn--no-text' ~ ' ' ~ action.attributes.class|default('')
     } %}
 
     {% set attr = {

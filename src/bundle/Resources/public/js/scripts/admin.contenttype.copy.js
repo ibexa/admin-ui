@@ -1,5 +1,5 @@
 (function (global, doc, ibexa, Routing) {
-    const copyButtons = doc.querySelectorAll('.ibexa-btn--copy-content-type');
+    const copyButtons = doc.querySelectorAll('.ids-button--copy-content-type');
     const copyContentType = ({ currentTarget }) => {
         const contentTypeCopyForm = doc.querySelector('form[name="content_type_copy"]');
         const contentTypeIdentifierInput = contentTypeCopyForm.querySelector('#content_type_copy_content_type');
