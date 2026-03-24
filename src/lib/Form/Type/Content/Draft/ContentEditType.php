@@ -71,9 +71,12 @@ class ContentEditType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
+        /** @var mixed $data */
         $data = $form->getData();
 
-        $view->vars['main_language_code'] = $data->getContentInfo()?->getMainLanguageCode();
+        $view->vars['main_language_code'] = $data instanceof ContentEditData
+            ? $data->getContentInfo()?->getMainLanguageCode()
+            : null;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
