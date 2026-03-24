@@ -37,10 +37,16 @@
 
     {% block footer_items %}
         {% trans_default_domain 'ibexa_locationview' %}
+        {% set custom_footer = ibexa_twig_component_group('admin-ui-content-edit-translation-select-footer', {
+            form: form,
+            content_id: form.content_info.vars.value,
+            main_language_code: form.vars.main_language_code
+        }) %}
 
         <button type="submit" class="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary " disabled>
             {{ 'edit.languages.edit'|trans|desc('Edit') }}
         </button>
+        {{ custom_footer|raw }}
         <button type="button" class="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary">
             {{ 'edit.languages.discard'|trans|desc('Discard') }}
         </button>

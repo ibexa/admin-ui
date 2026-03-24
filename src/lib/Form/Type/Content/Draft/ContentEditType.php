@@ -20,6 +20,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -65,6 +67,16 @@ class ContentEditType extends AbstractType
                         'content_draft_create_type.create',
                 ]
             );
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        /** @var mixed $data */
+        $data = $form->getData();
+
+        $view->vars['main_language_code'] = $data instanceof ContentEditData
+            ? $data->getContentInfo()?->getMainLanguageCode()
+            : null;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
