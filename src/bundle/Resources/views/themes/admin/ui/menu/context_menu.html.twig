@@ -140,6 +140,7 @@
                 ? options.primary_item_size|default('medium')
                 : options.secondary_item_size|default('medium') -%}
             {%- set ds_classes = 'ids-btn ids-btn--' ~ btn_type ~ ' ids-btn--' ~ btn_size -%}
+            {%- set ds_icon_size = btn_size == 'small' ? 'tiny-small' : 'small' -%}
             {%- set attributes = attributes|merge({
                 class: (attributes.class|default('') ~ ' ' ~ ds_classes)|trim
             }) -%}
@@ -147,7 +148,7 @@
             <{{element}}{{macros.attributes(attributes)}}>
                 {% if item.extras.icon is defined %}
                     <div class="ids-btn__icon">
-                        <svg class="ids-icon ids-icon--small-medium">
+                        <svg class="ids-icon ids-icon--{{ ds_icon_size }}">
                             <use xlink:href="{{ ibexa_icon_path(item.extras.icon) }}"></use>
                         </svg>
                     </div>

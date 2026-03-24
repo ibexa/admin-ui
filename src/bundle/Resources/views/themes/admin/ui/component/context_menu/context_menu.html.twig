@@ -2,6 +2,7 @@
     {% set selector_btn_classes = selector_btn_classes|default('') %}
     {% set selector_btn_type = selector_btn_type|default('secondary') %}
     {% set selector_btn_size = selector_btn_size|default('medium') %}
+    {% set selector_btn_icon_size = selector_btn_size == 'small' ? 'tiny-small' : 'small' %}
 
     {{ menu_items }}
 
@@ -23,7 +24,7 @@
                 type="{{ selector_btn_type }}"
                 size="{{ selector_btn_size }}"
                 icon="more"
-                icon_size="small-medium"
+                icon_size="{{ selector_btn_icon_size }}"
                 class="ibexa-btn--more"
             />
         {% endif %}
