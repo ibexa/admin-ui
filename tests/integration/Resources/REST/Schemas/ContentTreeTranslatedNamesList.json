@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "ContentTreeTranslatedNamesList": {
+      "type": "object",
+      "properties": {
+        "_media-type": {
+          "type": "string"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "contentId": {
+                "type": "integer"
+              },
+              "translatedNames": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "languageCode": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "languageCode",
+                    "name"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "contentId",
+              "translatedNames"
+            ]
+          }
+        }
+      },
+      "required": [
+        "_media-type",
+        "entries"
+      ]
+    }
+  },
+  "required": [
+    "ContentTreeTranslatedNamesList"
+  ]
+}

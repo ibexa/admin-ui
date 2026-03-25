@@ -14,6 +14,14 @@ ibexa.rest.bulk_operation:
 # Location Tree
 #
 
+ibexa.rest.location.tree.load_translated_names_by_content_ids:
+    path: /content/objects/translated-names-list
+    methods: ['GET']
+    options:
+        expose: true
+    defaults:
+        _controller: 'Ibexa\Bundle\AdminUi\Controller\Content\ContentTreeController::loadTranslatedNamesByContentIds'
+
 ibexa.rest.location.tree.load_children:
     # @todo change name to content tree
     path: /location/tree/load-subitems/{parentLocationId}/{limit}/{offset}

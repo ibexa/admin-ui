@@ -43,6 +43,11 @@ services:
         tags:
             - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\NodeExtendedInfo }
 
+    Ibexa\AdminUi\REST\Output\ValueObjectVisitor\ContentTree\TranslatedNamesListVisitor:
+        parent: Ibexa\Contracts\Rest\Output\ValueObjectVisitor
+        tags:
+            - { name: ibexa.rest.output.value_object.visitor, type: Ibexa\AdminUi\REST\Value\ContentTree\TranslatedNamesList }
+
     #
     # Content type create/edit form
     #
