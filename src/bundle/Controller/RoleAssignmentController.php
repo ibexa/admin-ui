@@ -240,7 +240,7 @@ class RoleAssignmentController extends Controller
     {
         $roleAssignmentsNumbers = array_column($roleAssignments, 'id');
 
-        return array_combine($roleAssignmentsNumbers, array_fill_keys($roleAssignmentsNumbers, false));
+        return array_combine($roleAssignmentsNumbers, array_fill_keys($roleAssignmentsNumbers, false)) ?: [];
     }
 
     /**
