@@ -234,13 +234,16 @@ class RoleAssignmentController extends Controller
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\User\RoleAssignment[] $roleAssignments
      *
-     * @return array
+     * @return array<int, false>
      */
     private function getRoleAssignmentsNumbers(array $roleAssignments): array
     {
         $roleAssignmentsNumbers = array_column($roleAssignments, 'id');
 
-        return array_combine($roleAssignmentsNumbers, array_fill_keys($roleAssignmentsNumbers, false));
+        return array_combine(
+            $roleAssignmentsNumbers,
+            array_fill_keys($roleAssignmentsNumbers, false)
+        ) ?: [];
     }
 
     /**
