@@ -6,7 +6,7 @@ const ViewColumnsTogglerListElement = ({ label, isColumnVisible, toggleColumnVis
         <li className="ibexa-popup-menu__item c-view-columns-toggler-list-element">
             <button className="ibexa-popup-menu__item-content" type="button" onClick={() => toggleColumnVisibility(columnKey)}>
                 <input
-                    className="form-check-input ibexa-input ibexa-input--checkbox"
+                    className="ids-input ids-input--checkbox c-view-columns-toggler-list-element__checkbox"
                     type="checkbox"
                     checked={isColumnVisible}
                     readOnly={true}

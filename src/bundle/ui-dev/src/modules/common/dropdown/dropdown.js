@@ -82,9 +82,7 @@ const Dropdown = ({
                     }
                 }}
             >
-                {!single && (
-                    <input type="checkbox" className="ibexa-input ibexa-input--checkbox" checked={isItemSelected} onChange={() => {}} />
-                )}
+                {!single && <input type="checkbox" className="ids-input ids-input--checkbox ibexa-dropdown__item-checkbox" checked={isItemSelected} onChange={() => {}} />}
                 <span className="ibexa-dropdown__item-label">{item.label}</span>
                 {single && (
                     <div className="ibexa-dropdown__item-check">
