@@ -8,8 +8,7 @@ const ToggleSelection = ({ multiple, location, isDisabled = false, isHidden = fa
     const [selectedLocations, dispatchSelectedLocationsAction] = useContext(SelectedLocationsContext);
     const isSelected = selectedLocations.some((selectedItem) => selectedItem.location.id === location.id);
     const className = createCssClassNames({
-        'c-udw-toggle-selection ibexa-input': true,
-        'ibexa-input--checkbox': multiple,
+        'c-udw-toggle-selection ids-input ids-input--checkbox': true,
         'c-udw-toggle-selection--hidden': isHidden,
     });
     const toggleSelection = () => {
