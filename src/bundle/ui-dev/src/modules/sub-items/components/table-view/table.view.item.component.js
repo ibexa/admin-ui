@@ -420,7 +420,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     componentDidMount() {
-        parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
+        parseCheckbox('.c-table-view-item__cell .c-table-view-item__checkbox', 'c-table-view-item--active');
     }
 
     render() {
@@ -439,7 +439,7 @@ export default class TableViewItemComponent extends PureComponent {
                 <td className="ibexa-table__cell c-table-view-item__cell c-table-view-item__cell--checkbox">
                     <input
                         type="checkbox"
-                        className="ibexa-input ibexa-input--checkbox"
+                        className="ids-input ids-input--checkbox c-table-view-item__checkbox"
                         checked={isSelected}
                         onChange={this.onSelectCheckboxChange}
                     />
