@@ -47,7 +47,7 @@ const ContentTypeSelector = () => {
                                             <input
                                                 type="checkbox"
                                                 id={`ibexa-search-content-type-${contentType.identifier}`}
-                                                className="ibexa-input ibexa-input--checkbox form-check-input"
+                                                className="ids-input ids-input--checkbox c-content-type-selector-list__checkbox"
                                                 value={contentType.identifier}
                                                 data-content-type-identifier={contentType.identifier}
                                                 onChange={handleContentTypeSelect}
