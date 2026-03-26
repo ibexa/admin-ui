@@ -23,7 +23,11 @@
             {% if is_selected %}ibexa-dropdown__item--selected{% endif %}"
     >
         {% if multiple is defined and multiple %}
-            <input type="checkbox" name="dropdown-checkbox" class="ibexa-dropdown__item-checkbox" {% if is_selected %}checked{% endif %} />
+            <twig:ibexa:checkbox:input
+                name="dropdown-checkbox"
+                inputClass="ibexa-dropdown__item-checkbox"
+                :checked="is_selected"
+            />
         {% endif %}
         {% if icon is defined and icon != '' %}
             <svg class="ibexa-icon ibexa-icon--small-medium {{ icon_class|default('') }}">
