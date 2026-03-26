@@ -26,9 +26,14 @@ jobs:
           extensions: 'pdo_sqlite, gd'
           tools: cs2pr
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
+
+      - uses: ibexa/gh-workflows/actions/composer-install@main
         with:
-          dependency-versions: "highest"
+          gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+          gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+          satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+          satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
       - name: Run code style check
         run: composer run-script check-cs -- --format=checkstyle | cs2pr
@@ -57,10 +62,14 @@ jobs:
           extensions: pdo_sqlite, gd
           tools: cs2pr
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
+
+      - uses: ibexa/gh-workflows/actions/composer-install@main
         with:
-          dependency-versions: "highest"
-          composer-options: "--prefer-dist --no-progress"
+          gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+          gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+          satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+          satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -109,9 +118,14 @@ jobs:
             extensions: pdo_pgsql, gd
             tools: cs2pr
 
-      -   uses: ramsey/composer-install@v2
+      -   uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
+
+      -   uses: ibexa/gh-workflows/actions/composer-install@main
           with:
-            dependency-versions: "highest"
+            gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+            gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+            satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+            satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -164,9 +178,14 @@ jobs:
             extensions: pdo_mysql, gd
             tools: cs2pr
 
-      -   uses: ramsey/composer-install@v2
+      -   uses: ibexa/gh-workflows/actions/setup-composer-root-version@main
+
+      -   uses: ibexa/gh-workflows/actions/composer-install@main
           with:
-            dependency-versions: "highest"
+            gh-client-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+            gh-client-secret: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+            satis-network-key: ${{ secrets.SATIS_NETWORK_KEY }}
+            satis-network-token: ${{ secrets.SATIS_NETWORK_TOKEN }}
 
       -   name: Setup problem matchers for PHPUnit
           run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
