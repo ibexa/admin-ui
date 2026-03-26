@@ -56,11 +56,6 @@ parameters:
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
-			message: "#^Method Ibexa\\\\Bundle\\\\AdminUi\\\\Controller\\\\RoleAssignmentController\\:\\:getRoleAssignmentsNumbers\\(\\) should return array but returns array\\<int, false\\>\\|false\\.$#"
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
 			message: "#^Parameter \\#1 \\$roles of class Ibexa\\\\AdminUi\\\\Form\\\\Data\\\\Role\\\\RolesDeleteData constructor expects array, array\\<false\\>\\|false given\\.$#"
 			count: 1
 			path: src/bundle/Controller/RoleController.php

@@ -889,12 +889,6 @@ parameters:
 			path: src/bundle/Controller/RoleAssignmentController.php
 
 		-
-			message: '#^Method Ibexa\\Bundle\\AdminUi\\Controller\\RoleAssignmentController\:\:getRoleAssignmentsNumbers\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: src/bundle/Controller/RoleAssignmentController.php
-
-		-
 			message: '#^PHPDoc tag @var for variable \$assignments contains unknown class eZ\\Publish\\API\\Repository\\Values\\User\\RoleAssignment\.$#'
 			identifier: class.notFound
 			count: 1
