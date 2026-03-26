@@ -14,7 +14,6 @@ use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
 use Ibexa\Contracts\Core\FieldType\ReferenceAwareExternalStorage;
 use Ibexa\Contracts\Core\Options\Context;
 use Ibexa\Contracts\Core\Repository\ContentService;
-use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Field;
