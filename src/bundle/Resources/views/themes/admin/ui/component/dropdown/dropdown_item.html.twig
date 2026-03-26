@@ -23,7 +23,7 @@
             {% if is_selected %}ibexa-dropdown__item--selected{% endif %}"
     >
         {% if multiple is defined and multiple %}
-            <input type="checkbox" name="dropdown-checkbox" class="ibexa-input ibexa-input--checkbox" {% if is_selected %}checked{% endif %} />
+            <input type="checkbox" name="dropdown-checkbox" class="ibexa-dropdown__item-checkbox" {% if is_selected %}checked{% endif %} />
         {% endif %}
         {% if icon is defined and icon != '' %}
             <svg class="ibexa-icon ibexa-icon--small-medium {{ icon_class|default('') }}">
