@@ -152,7 +152,7 @@
 
             this.sourceInput.querySelectorAll('option').forEach((option) => (option.selected = false));
             this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item--selected').forEach((option) => {
-                const checkbox = option.querySelector('.ibexa-input--checkbox');
+                const checkbox = option.querySelector('.ibexa-dropdown__item-checkbox');
 
                 option.classList.remove('ibexa-dropdown__item--selected');
 
