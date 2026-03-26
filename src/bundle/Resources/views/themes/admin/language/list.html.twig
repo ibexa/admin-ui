@@ -80,13 +80,13 @@
 
             {% set col_raw %}
                 <div class="form-check">
-                    <input
-                        type="checkbox"
+                    <twig:ibexa:checkbox:input
+                        name="{{ 'language-enabled-' ~ language.id }}"
+                        inputClass="ibexa-language-status-checkbox form-check-input"
                         title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled')  : 'language.disabled'|trans|desc('Disabled')  }}"
-                        class="ibexa-language-status-checkbox form-check-input"
-                        disabled
-                        {% if language.enabled %}checked{% endif %}
-                    >
+                        :disabled="true"
+                        :checked="language.enabled"
+                    />
                 </div>
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
