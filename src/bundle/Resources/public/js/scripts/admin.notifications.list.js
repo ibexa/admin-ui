@@ -1,6 +1,7 @@
 import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/browser.helper.js';
 
 (function (global, doc, ibexa, Translator, Routing) {
+    const SELECTOR_NOTIFICATION_CHECKBOX = '.ibexa-notification-list__mark-row-checkbox';
     const SELECTOR_MODAL_ITEM = '.ibexa-notifications-modal__item';
     const SELECTOR_GO_TO_NOTIFICATION = '.ibexa-notification-view-all__show';
     const SELECTOR_TOGGLE_NOTIFICATION = '.ibexa-notification-view-all__mail';
@@ -10,7 +11,7 @@ import { isFirefox } from '@ibexa-admin-ui/src/bundle/Resources/public/js/script
     const markAsReadBtn = doc.querySelector('.ibexa-notification-list__btn-mark-as-read');
     const deleteBtn = doc.querySelector('.ibexa-notification-list__btn-delete');
     const notificationsCheckboxes = [
-        ...doc.querySelectorAll('.ibexa-notification-list .ibexa-table__cell--has-checkbox .ibexa-input--checkbox'),
+        ...doc.querySelectorAll(`.ibexa-notification-list .ibexa-table__cell--has-checkbox ${SELECTOR_NOTIFICATION_CHECKBOX}`),
     ];
     const notificationsTable = doc.querySelector('.ibexa-table--notifications');
     const uncheckCheckboxesEvent = new CustomEvent('ibexa-uncheck-checkboxes', {
