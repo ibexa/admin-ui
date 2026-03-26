@@ -148,7 +148,7 @@
 {%- endblock -%}
 
 {%- block checkbox_widget -%}
-    {%- set attr = attr|merge({class: 'ibexa-input ibexa-input--checkbox ' ~ attr.class|default('') }) -%}
+    {%- set attr = attr|merge({class: 'ids-input ids-input--checkbox ' ~ attr.class|default('') }) -%}
     {{ parent() }}
 {%- endblock -%}
 
@@ -185,7 +185,7 @@
 {%- endblock -%}
 
 {%- block trash_item_checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="checkbox" class="ids-input ids-input--checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock -%}
 
 {%- block _trash_item_restore_restore_widget -%}
