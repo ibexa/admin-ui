@@ -32,20 +32,16 @@ class ContentProxyCreateDraftListener implements EventSubscriberInterface
 
     private RouterInterface $router;
 
-    private LanguageService $languageService;
-
     public function __construct(
         ContentService $contentService,
         LocationService $locationService,
         AutosaveServiceInterface $autosaveService,
-        RouterInterface $router,
-        LanguageService $languageService
+        RouterInterface $router
     ) {
         $this->contentService = $contentService;
         $this->locationService = $locationService;
         $this->autosaveService = $autosaveService;
         $this->router = $router;
-        $this->languageService = $languageService;
     }
 
     public static function getSubscribedEvents(): array
