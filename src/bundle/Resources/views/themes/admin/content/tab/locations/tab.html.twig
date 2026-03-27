@@ -52,7 +52,7 @@
                             name="updateVisibility"
                             :checked="not location.explicitlyHidden"
                             :disabled="not can_hide[location.id]"
-                            :value="location.id"
+                            :value="location.id ~ ''"
                             onLabel="{{ 'toggle_widget.label.on'|trans|desc('On') }}"
                             offLabel="{{ 'toggle_widget.label.off'|trans|desc('Off') }}"
                         >
@@ -62,7 +62,7 @@
                                     class="ibexa-content-locations__visibility-checkbox"
                                     :checked="not location.explicitlyHidden"
                                     :disabled="not can_hide[location.id]"
-                                    :value="location.id"
+                                    :value="location.id ~ ''"
                                     data-ids-custom-init="1"
                                 />
                             </twig:block>
