@@ -1,10 +1,18 @@
 {% extends '@ibexadesign/ui/form_fields.html.twig' %}
 
 {% block radio_widget %}
-    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-translation__input')|trim}) %}
+    {% set component_attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-translation__input')|trim}) %}
     <div class="radio ibexa-translation__input-wrapper">
         <label class="ibexa-translation__label">
-            {{ parent() }}
+            <twig:ibexa:radio_button:input
+                id="{{ id }}"
+                name="{{ full_name }}"
+                :checked="checked"
+                :disabled="disabled"
+                :required="required"
+                value="{{ (value is defined ? value : '') ~ '' }}"
+                {{ ...component_attr }}
+            />
             <svg class="ibexa-icon">
                 <use xlink:href="{{ ibexa_icon_path('checkmark') }}"></use>
             </svg>
