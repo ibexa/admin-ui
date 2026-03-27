@@ -21,7 +21,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
     public const string ITEM_EDIT_DRAFT = 'version_list__action__content_edit';
     public const string ITEM_RESTORE_VERSION = 'version_list__action__restore_version';
 
-    private const string ICON_ARCHIVE_RESTORE = 'archive-restore';
+    private const string ICON_ARCHIVE_RESTORE = 'archived-restore';
 
     protected function getConfigureEventName(): string
     {

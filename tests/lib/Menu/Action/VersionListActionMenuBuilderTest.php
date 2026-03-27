@@ -22,7 +22,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
     private const ITEM_RESTORE_VERSION = 'version_list__action__restore_version';
 
     private const RESTORE_ACTION_ITEM_EXTRAS = [
-        'icon' => 'archive-restore',
+        'icon' => 'archived-restore',
         'orderNumber' => 10,
         'translation_domain' => 'ibexa_action_menu',
     ];
