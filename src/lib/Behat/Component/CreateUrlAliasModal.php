@@ -46,7 +46,7 @@ final class CreateUrlAliasModal extends Component
     private function setRedirectToggle(bool $shouldBeChecked): void
     {
         $toggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
-        $isChecked = $toggle->hasClass('ibexa-toggle--is-checked');
+        $isChecked = $toggle->hasClass('ids-toggle--checked');
         if ($shouldBeChecked !== $isChecked) {
             $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
         }
