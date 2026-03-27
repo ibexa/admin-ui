@@ -48,25 +48,25 @@
 
                 {% set col_raw %}
                     <div class="ibexa-content-locations__visibility-toggler">
-                        <div class="ibexa-toggle ibexa-toggle--checkbox {{ not can_hide[location.id] ? 'ibexa-toggle--is-disabled' }} {{ not location.explicitlyHidden ? 'ibexa-toggle--is-checked' }}">
-                            <label class="ibexa-toggle__switcher">
-                                <span class="ibexa-toggle__indicator"></span>
-                                <input
-                                    type="checkbox"
-                                    class="ibexa-toggle__input ibexa-content-locations__visibility-checkbox"
-                                    {{ not location.explicitlyHidden ? 'checked' }}
+                        <twig:ibexa:toggle_button:input
+                            name="updateVisibility"
+                            :checked="not location.explicitlyHidden"
+                            :disabled="not can_hide[location.id]"
+                            :value="location.id"
+                            onLabel="{{ 'toggle_widget.label.on'|trans|desc('On') }}"
+                            offLabel="{{ 'toggle_widget.label.off'|trans|desc('Off') }}"
+                        >
+                            <twig:block name="input">
+                                <twig:ibexa:checkbox:input
                                     name="updateVisibility"
-                                    {{ not can_hide[location.id] ? 'disabled' }}
-                                    value="{{ location.id }}"
+                                    class="ibexa-content-locations__visibility-checkbox"
+                                    :checked="not location.explicitlyHidden"
+                                    :disabled="not can_hide[location.id]"
+                                    :value="location.id"
+                                    data-ids-custom-init="1"
                                 />
-                            </label>
-                            <span class="ibexa-toggle__label ibexa-toggle__label--on">
-                                {{ 'toggle_widget.label.on'|trans|desc('On') }}
-                            </span>
-                            <span class="ibexa-toggle__label ibexa-toggle__label--off mr-2">
-                                {{ 'toggle_widget.label.off'|trans|desc('Off') }}
-                            </span>
-                        </div>
+                            </twig:block>
+                        </twig:ibexa:toggle_button:input>
                         <label class="ibexa-content-locations__visibility-toggler-label {{ not location.invisible ? 'ibexa-content-locations__visibility-toggler-label--hidden' }}">
                             <svg class="ibexa-icon ibexa-icon--small-medium">
                                 <use xlink:href="{{ ibexa_icon_path('system-information') }}"></use>
