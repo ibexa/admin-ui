@@ -39,14 +39,12 @@
 
         {% if main_translation_switch %}
             {% set col_raw %}
-                <input
-                    class="ibexa-input ibexa-input--radio"
-                    type="radio"
-                    {{ translation.main ? 'checked' }}
-                    {{ not translation.canEdit ? 'disabled' }}
+                <twig:ibexa:radio_button:input
                     name="main_translation_update"
+                    :checked="translation.main"
+                    :disabled="not translation.canEdit"
                     value="{{ translation.languageCode }}"
-                >
+                />
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{
                 content: col_raw,
