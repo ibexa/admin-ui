@@ -153,8 +153,35 @@
 {%- endblock -%}
 
 {%- block radio_widget -%}
-    {%- set attr = attr|merge({class: 'ibexa-input ibexa-input--radio ' ~ attr.class|default('') }) -%}
-    {{ parent() }}
+    {%- set attr_class = attr.class|default('') -%}
+    {%- set row_class = '' -%}
+    {%- if 'btn-check' not in attr_class -%}
+        {%- set row_class = 'form-check' -%}
+    {%- endif -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {%- if 'radio-inline' in parent_label_class -%}
+        {%- set row_class = row_class ~ ' form-check-inline' -%}
+    {%- endif -%}
+    {%- set component_attr = attr|merge({ class: attr_class|trim }) -%}
+    {%- if row_class is not empty -%}
+        <div class="{{ row_class }}">
+    {%- endif -%}
+    {{- form_label(form, null, { widget: block('radio_widget_input_ds') }) -}}
+    {%- if row_class is not empty -%}
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block radio_widget_input_ds -%}
+    <twig:ibexa:radio_button:input
+        id="{{ id }}"
+        name="{{ full_name }}"
+        :checked="checked"
+        :disabled="disabled"
+        :required="required"
+        value="{{ (value is defined ? value : '') ~ '' }}"
+        {{ ...component_attr }}
+    />
 {%- endblock -%}
 
 {%- block trash_item_checkbox_widget -%}
