@@ -1,5 +1,6 @@
 import { isSafari } from './browser.helper';
 import { getBootstrap } from './context.helper';
+import { stripHTML } from './text.helper';
 
 const { document: doc } = window;
 
@@ -118,7 +119,7 @@ const getTextHeight = (text, styles) => {
     return texHeight;
 };
 const isTitleEllipsized = (node) => {
-    const title = node.dataset.originalTitle;
+    const title = stripHTML(node.dataset.originalTitle);
     const { width: nodeWidth, height: nodeHeight } = node.getBoundingClientRect();
     const computedNodeStyles = getComputedStyle(node);
     const styles = {
@@ -226,6 +227,7 @@ const parse = (baseElement = doc) => {
             if (hasNewTitle) {
                 tooltipNode.dataset.originalTitle = tooltipNode.title;
             }
+
             const tooltipInstance = bootstrap.Tooltip.getInstance(tooltipNode);
             const hasTooltip = !!tooltipInstance;
 
