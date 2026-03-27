@@ -17,4 +17,12 @@ const escapeHTMLAttribute = (str: unknown): string => {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 };
 
-export { escapeHTML, escapeHTMLAttribute };
+const stripHTML = (str: string): string => {
+    const tempNode = doc.createElement('div');
+
+    tempNode.innerHTML = str;
+
+    return tempNode.textContent ?? '';
+};
+
+export { escapeHTML, escapeHTMLAttribute, stripHTML };
