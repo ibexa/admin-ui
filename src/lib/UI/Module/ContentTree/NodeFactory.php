@@ -68,7 +68,8 @@ final class NodeFactory
         int $depth = 0,
         ?string $sortClause = null,
         string $sortOrder = Query::SORT_ASC,
-        ?CriterionInterface $requestFilter = null
+        ?CriterionInterface $requestFilter = null,
+        ?int $translationsLimit = null
     ): Node {
         $uninitializedContentInfoList = [];
         $containerLocations = [];
@@ -88,6 +89,12 @@ final class NodeFactory
             $bookmarkedLocations,
             $requestFilter
         );
+
+        if ($translationsLimit !== null) {
+            // When translation limit is provided only the first chosen amount of translations will be supplied to node
+            $uninitializedContentInfoList = array_splice($uninitializedContentInfoList, 0, $translationsLimit);
+        }
+
         $versionInfoById = $this->contentService->loadVersionInfoListByContentInfo($uninitializedContentInfoList);
 
         $aggregatedChildrenCount = null;
@@ -95,7 +102,7 @@ final class NodeFactory
             $aggregatedChildrenCount = $this->countAggregatedSubitems($containerLocations, $requestFilter);
         }
 
-        $this->supplyTranslatedContentName($node, $versionInfoById);
+        $this->supplyContentName($node, $versionInfoById);
         $this->supplyChildrenCount($node, $aggregatedChildrenCount, $requestFilter);
 
         return $node;
@@ -374,7 +381,7 @@ final class NodeFactory
             $location->getId(),
             $location->getContentId(),
             $contentInfo->currentVersionNo,
-            '', // node name will be provided later by `supplyTranslatedContentName` method
+            $contentInfo->getName(),
             null !== $contentType ? $contentType->getIdentifier() : '',
             null === $contentType || $contentType->isContainer(),
             $location->isInvisible(),
@@ -402,16 +409,16 @@ final class NodeFactory
     /**
      * @param \Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo[] $versionInfoById
      */
-    private function supplyTranslatedContentName(Node $node, array $versionInfoById): void
+    private function supplyContentName(Node $node, array $versionInfoById): void
     {
-        if ($node->contentId !== self::TOP_NODE_CONTENT_ID) {
+        if ($node->contentId !== self::TOP_NODE_CONTENT_ID && isset($versionInfoById[$node->contentId])) {
             $node->name = $this->translationHelper->getTranslatedContentNameByVersionInfo(
                 $versionInfoById[$node->contentId]
             );
         }
 
         foreach ($node->children as $child) {
-            $this->supplyTranslatedContentName($child, $versionInfoById);
+            $this->supplyContentName($child, $versionInfoById);
         }
     }
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ContentTreeTranslatedNamesList">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entry" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="contentId" type="xs:integer" />
+                            <xs:element name="translatedName" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="languageCode" type="xs:string" />
+                                        <xs:element name="name" type="xs:string" />
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="media-type" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
