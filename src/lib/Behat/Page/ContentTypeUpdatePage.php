@@ -73,7 +73,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
             new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
             new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
-            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
+            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ids-input--radio'),
             new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
             new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
