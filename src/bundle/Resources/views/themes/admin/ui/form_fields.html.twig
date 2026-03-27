@@ -1,6 +1,6 @@
 {% extends 'bootstrap_5_layout.html.twig' %}
 
-{% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+{% use '@ibexadesign/ui/form_fields/toggle_widget_ds.html.twig' %}
 {% use '@ibexadesign/ui/form_fields/dropdown_widget.html.twig' %}
 
 {%- block button_widget -%}
@@ -504,7 +504,7 @@
 {%- endblock %}
 
 {% block content_type_meta_field_definition_enabled_row -%}
-    {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+    {% use '@ibexadesign/ui/form_fields/toggle_widget_ds.html.twig' %}
 
     <div class="ibexa-content-type-edit__form-field ibexa-form-field form-group">
         {{ block('form_label') }}
