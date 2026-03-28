@@ -24,7 +24,7 @@
     </div>
     <div class="ibexa-filters__items">
         <div class="ibexa-filters__item ibexa-filters__item--language-selector" {% if form.search_language.vars.choices|length == 1 %} hidden {% endif %}>
-            <label class="ibexa-label">{{ 'search.language'|trans|desc('Language') }}</label>
+            <twig:ibexa:label>{{ 'search.language'|trans|desc('Language') }}</twig:ibexa:label>
             {{ form_widget(form.search_language, {'attr': {'class': 'ibexa-filters__select'}}) }}
         </div>
         <div class="ibexa-filters__item ibexa-filters__item--content-type">
@@ -37,7 +37,7 @@
             }) }}
         </div>
         <div class="ibexa-filters__item ibexa-filters__item--modified">
-            <label class="ibexa-label">{{ 'search.last.modified'|trans|desc('Last modified') }}</label>
+            <twig:ibexa:label>{{ 'search.last.modified'|trans|desc('Last modified') }}</twig:ibexa:label>
             {{ form_widget(form.last_modified_select, {
                 'attr': {
                     'class': 'ibexa-filters__select',
@@ -47,7 +47,7 @@
             {{ form_errors(form.last_modified_select) }}
         </div>
         <div class="ibexa-filters__item ibexa-filters__item--created">
-            <label class="ibexa-label">{{ 'search.created'|trans|desc('Created') }}</label>
+            <twig:ibexa:label>{{ 'search.created'|trans|desc('Created') }}</twig:ibexa:label>
             {{ form_widget(form.created_select, {
                 'attr': {
                     'class': 'ibexa-filters__select',
@@ -57,7 +57,7 @@
             {{ form_errors(form.created_select) }}
         </div>
         <div class="ibexa-filters__item ibexa-filters__item--creator">
-            <label class="ibexa-label">{{ 'search.creator'|trans|desc('Creator') }}</label>
+            <twig:ibexa:label>{{ 'search.creator'|trans|desc('Creator') }}</twig:ibexa:label>
             {% set creator = form.vars.data.creator %}
             {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
                 {% trans_default_domain 'ibexa_search' %}
@@ -75,7 +75,7 @@
         </div>
         {% if form.section is defined %}
             <div class="ibexa-filters__item ibexa-filters__item--section">
-                <label class="ibexa-label">{{ 'search.section'|trans|desc('Section') }}</label>
+                <twig:ibexa:label>{{ 'search.section'|trans|desc('Section') }}</twig:ibexa:label>
                 {{ form_widget(form.section, {
                     'attr': {'class': 'ibexa-filters__select'},
                     'terms': sections_terms
@@ -83,7 +83,7 @@
             </div>
         {% endif %}
         <div class="ibexa-filters__item ibexa-filters__item--subtree">
-            <label class="ibexa-label">{{ 'search.subtree'|trans|desc('Subtree') }}</label>
+            <twig:ibexa:label>{{ 'search.subtree'|trans|desc('Subtree') }}</twig:ibexa:label>
             {% set items = [] %}
 
             {% if content_breadcrumbs is not empty %}
