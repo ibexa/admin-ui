@@ -179,8 +179,15 @@
         top: calculateRem(10px);
         display: none;
 
-        .ibexa-input {
+        .ibexa-input,
+        .ids-input {
             background-color: $ibexa-color-white;
+        }
+
+        &--hovered {
+            .ids-input {
+                border-color: $ibexa-color-primary;
+            }
         }
     }
 
