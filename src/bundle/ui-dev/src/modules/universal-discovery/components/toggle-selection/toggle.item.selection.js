@@ -13,7 +13,7 @@ const ToggleItemSelection = ({ item, isDisabled = false, isPreselected = false, 
     const className = createCssClassNames({
         'c-udw-toggle-selection ibexa-input': true,
         'ibexa-input--checkbox': multiple,
-        'ibexa-input--radio': !multiple,
+        'ids-input ids-input--radio': !multiple,
         'c-udw-toggle-selection--hidden': isHidden,
     });
     const inputType = multiple ? 'checkbox' : 'radio';
