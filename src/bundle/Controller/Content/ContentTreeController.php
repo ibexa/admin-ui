@@ -95,7 +95,7 @@ final class ContentTreeController extends RestController
             )
         );
 
-        $sortClause = $request->query->get('sortClause', null);
+        $sortClause = $request->query->get('sortClause');
         $sortOrder = $request->query->getAlpha('sortOrder', Query::SORT_ASC);
         $translationsLimit = $request->query->getInt('translationsLimit', 30);
 

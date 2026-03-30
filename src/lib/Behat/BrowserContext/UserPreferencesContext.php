@@ -58,7 +58,15 @@ final readonly class UserPreferencesContext implements Context
     }
 
     /**
-     * @Given I disable help center
+     * @Then :fieldName field validates with error message :expectedMessage
+     */
+    public function iValidateOldPassword(string $expectedMessage): void
+    {
+        $this->changePasswordPage->verifyPasswordValidationMessage($expectedMessage);
+    }
+
+    /**
+     * @Given I disable Help center
      */
     public function iDisableHelpCenter(): void
     {
