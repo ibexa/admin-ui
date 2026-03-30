@@ -21,7 +21,9 @@
 
 {% if item.children|length > 3 %}
     <div class="ibexa-action-list-more">
-        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-action-list-more__trigger">
+        {% set dropdownButtonClass = 'ibexa-action-list-more__trigger-' ~ random() %}
+
+        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text {{ dropdownButtonClass }}">
             <svg class="ibexa-icon ibexa-icon--small-medium">
                 <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
             </svg>
@@ -30,7 +32,7 @@
         {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
             groups: [{ id: 'default', items: menu_items }],
             attr: {
-                'data-trigger-element-selector': '.ibexa-action-list-more__trigger',
+                'data-trigger-element-selector': '.' ~ dropdownButtonClass,
                 'data-initial-branch-placement': 'bottom-end',
             },
         }) }}
