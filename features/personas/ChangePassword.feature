@@ -24,6 +24,6 @@ Feature: Verify that an User allowed to change password can change his password
     And I switch to "Account settings" tab in User settings
     And I click on the change password button
     When I change password from "Passw0rd-42" to "Passw0rd-44"
-    And I perform the "Save and close" action
+    And I perform the "Save" action
     Then "Current password" field validates with error message "Current password is incorrect."
-    
+
