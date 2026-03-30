@@ -1,5 +1,7 @@
+{% set is_rtl = app.request.query.get('rtl') == '1' %}
+
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.locale }}" {{ is_rtl ? 'dir="rtl"' : '' }}>
     <head>
         <meta charset="UTF-8" />
         <meta name="CSRF-Token" content="{{ csrf_token(ibexa_get_rest_csrf_token_intention()) }}" />
@@ -94,7 +96,14 @@
             <script type="text/javascript" src="//cdn.crowdin.com/jipt/jipt.js"></script>
         {% endif %}
         <title>{% block title %}Ibexa DXP{% endblock %}</title>
-        {{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }}
+        
+        {% if is_rtl %}
+            {{ encore_entry_link_tags('ibexa-admin-ui-layout-css-rtl', null, 'ibexa') }}
+            {{ encore_entry_link_tags('ibexa-admin-ui-overwrite-rtl-css', null, 'ibexa') }}
+        {% else %}
+            {{ encore_entry_link_tags('ibexa-admin-ui-layout-css', null, 'ibexa') }}
+        {% endif %}
+
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('bundles/ibexaadminui/img/favicon.ico') }}" />
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('bundles/ibexaadminui/img/favicon-16x16.png') }}" />

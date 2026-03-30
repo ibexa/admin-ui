@@ -60,6 +60,9 @@ const isPrintPressed = (event) => {
 const isSelectAllPressed = (event) => {
     return isShortcutWithLetter(event, 'a');
 };
+const isRtl = () => {
+    return document.documentElement.dir === 'rtl';
+};
 
 export {
     isWindows,
@@ -74,4 +77,5 @@ export {
     isPrintPressed,
     isSelectAllPressed,
     isShortcutWithLetter,
+    isRtl,
 };

@@ -1,0 +1,39 @@
+[dir=rtl] {
+    .ibexa-tabs.ibexa-tabs {
+        &:not(.ibexa-tabs--switcher) {
+            .ibexa-tabs {
+                &__tab-corner {
+                    transform: rotateY(180deg);
+                }
+            }
+        }
+    }
+
+    .ibexa-header-user-menu {
+        justify-content: left;
+    }
+
+    .ibexa-main-menu {
+        &__navbar {
+            &--second-level {
+                &.ibexa-main-menu__navbar--collapsed {
+                    .ibexa-main-menu {
+                        &__toggler {
+                            .ibexa-icon {
+                                transform: rotateY(0deg);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__toggler {
+            margin-left: calculateRem(6px);
+
+            .ibexa-icon {
+                transform: rotateY(180deg);
+            }
+        }
+    }
+}
