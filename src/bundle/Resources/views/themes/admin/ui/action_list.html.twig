@@ -21,9 +21,9 @@
 
 {% if item.children|length > 3 %}
     <div class="ibexa-action-list-more">
-        {% set dropdownButtonClass = 'ibexa-action-list-more__trigger-' ~ random() %}
+        {% set btn_data_dropdown_trigger = 'ibexa-action-list-more__trigger-' ~ random() %}
 
-        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text {{ dropdownButtonClass }}">
+        <button type="button" class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text" data-dropdown-trigger="{{ btn_data_dropdown_trigger }}">
             <svg class="ibexa-icon ibexa-icon--small-medium">
                 <use xlink:href="{{ ibexa_icon_path('options') }}"></use>
             </svg>
@@ -32,7 +32,7 @@
         {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
             groups: [{ id: 'default', items: menu_items }],
             attr: {
-                'data-trigger-element-selector': '.' ~ dropdownButtonClass,
+                'data-trigger-element-selector': '[data-dropdown-trigger="' ~ btn_data_dropdown_trigger ~ '"]',
                 'data-initial-branch-placement': 'bottom-end',
             },
         }) }}
