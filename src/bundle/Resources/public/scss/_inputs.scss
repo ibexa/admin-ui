@@ -529,6 +529,10 @@
     }
 }
 
+.form-check-input:checked {
+  background-color: $ibexa-color-white;
+}
+
 .form-check-input:checked[type=checkbox] {
   --bs-form-check-bg-image: none;
 }
