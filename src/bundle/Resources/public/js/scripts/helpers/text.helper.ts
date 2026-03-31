@@ -18,11 +18,11 @@ const escapeHTMLAttribute = (str: unknown): string => {
 };
 
 const stripHTML = (str: string): string => {
-    const tempNode = doc.createElement('div');
+    const divNode = doc.createElement('div');
 
-    tempNode.innerHTML = str;
+    divNode.innerHTML = str;
 
-    return tempNode.textContent ?? '';
+    return divNode.textContent ?? '';
 };
 
 export { escapeHTML, escapeHTMLAttribute, stripHTML };
