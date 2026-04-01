@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
-use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -21,7 +20,7 @@ final class IbexaDropdown extends Component
     {
         $this->getHTMLPage()
             ->setTimeout(5)
-            ->waitUntilCondition(new ElementTransitionHasEndedCondition($this->getHTMLPage(), $this->getLocator('isIbexaDropdownVisible')));
+            ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('isIbexaDropdownVisible')));
     }
 
     protected function specifyLocators(): array
