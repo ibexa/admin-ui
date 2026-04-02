@@ -28,9 +28,7 @@ final class ContentActionsMenu extends Component
 
     private function clickStandaloneButton(string $buttonName): void
     {
-        $buttons = $this->getHTMLPage()
-            ->findAll($this->getLocator('menuButton'))
-            ->filterBy(new ElementTextCriterion($buttonName));
+        $buttons = $this->getStandaloneButtons($buttonName);
 
         if ($buttons->any()) {
             $buttons->single()->execute(new MouseOverAndClick());
@@ -38,10 +36,22 @@ final class ContentActionsMenu extends Component
             return;
         }
 
-        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        $moreButtons = $this->getHTMLPage()->findAll($this->getLocator('moreButton'));
+        if (!$moreButtons->any()) {
+            throw new \RuntimeException(sprintf('Standalone action button "%s" was not found.', $buttonName));
+        }
+
+        $moreButtons->single()->click();
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
             ->getByCriterion(new ElementTextCriterion($buttonName))->click();
+    }
+
+    private function getStandaloneButtons(string $buttonName)
+    {
+        return $this->getHTMLPage()
+            ->findAll($this->getLocator('menuButton'))
+            ->filterBy(new ElementTextCriterion($buttonName));
     }
 
     private function clickButtonInGroup(string $groupName, string $buttonName): void
