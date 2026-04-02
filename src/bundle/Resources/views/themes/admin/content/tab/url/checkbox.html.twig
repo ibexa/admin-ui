@@ -2,7 +2,7 @@
 
 {%- block checkbox_widget -%}
     {% if value is defined %}
-        {% set attr = attr|merge({'value': value}) %}
+        {% set attr = attr|merge({'value': value ~ ''}) %}
     {% endif %}
     {% if checked %}
         {% set attr = attr|merge({'checked': checked}) %}
