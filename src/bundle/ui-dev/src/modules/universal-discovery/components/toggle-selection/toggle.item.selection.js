@@ -11,9 +11,9 @@ const ToggleItemSelection = ({ item, isDisabled = false, isPreselected = false, 
     const isSelected = selectedItems.some((selectedItem) => selectedItem.type === item.type && selectedItem.id === item.id);
     const isSelectionBlocked = multipleItemsLimit !== 0 && selectedItems.length >= multipleItemsLimit && !isSelected;
     const className = createCssClassNames({
-        'c-udw-toggle-selection ibexa-input': true,
-        'ibexa-input--checkbox': multiple,
-        'ibexa-input--radio': !multiple,
+        'c-udw-toggle-selection ids-input': true,
+        'ids-input--checkbox': multiple,
+        'ids-input--radio': !multiple,
         'c-udw-toggle-selection--hidden': isHidden,
     });
     const inputType = multiple ? 'checkbox' : 'radio';

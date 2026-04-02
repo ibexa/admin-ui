@@ -13,10 +13,11 @@
     {%- block content -%}
         {%- if has_checkbox|default(false) -%}
             <div class="ibexa-table__header-cell-checkbox-wrapper">
-                <input
-                    class="ibexa-input ibexa-input--checkbox ibexa-table__header-cell-checkbox
+                <twig:ibexa:checkbox:input
+                    name="{{ attr.name|default('table-header-checkbox') }}"
+                    inputClass="ibexa-table__header-cell-checkbox
                         {%- if is_custom_bulk|default(false) %} ibexa-table__header-cell-checkbox--custom-init{%- endif -%}"
-                    type="checkbox">
+                />
             </div>
         {%- else -%}
             <span

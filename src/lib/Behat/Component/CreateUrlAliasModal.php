@@ -46,9 +46,15 @@ final class CreateUrlAliasModal extends Component
     private function setRedirectToggle(bool $shouldBeChecked): void
     {
         $toggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
-        $isChecked = $toggle->hasClass('ibexa-toggle--is-checked');
+        $isChecked = $toggle->hasClass('ids-toggle--checked');
         if ($shouldBeChecked !== $isChecked) {
-            $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
+            $toggle->click();
+
+            $this->getHTMLPage()->setTimeout(5)->waitUntil(function () use ($shouldBeChecked): bool {
+                $updatedToggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
+
+                return $updatedToggle->hasClass('ids-toggle--checked') === $shouldBeChecked;
+            }, 'Redirect toggle state did not update');
         }
     }
 
@@ -76,7 +82,7 @@ final class CreateUrlAliasModal extends Component
             new VisibleCSSLocator('createButton', '#custom_url_add_add'),
             new VisibleCSSLocator('pathInput', '#custom_url_add_path'),
             new VisibleCSSLocator('languageDropdown', '.ibexa-custom-url-from__item .ibexa-dropdown__selection-info'),
-            new VisibleCSSLocator('redirectToggle', '.ibexa-custom-url-from__item .ibexa-toggle'),
+            new VisibleCSSLocator('redirectToggle', '.ibexa-custom-url-from__item .ids-toggle'),
         ];
     }
 }

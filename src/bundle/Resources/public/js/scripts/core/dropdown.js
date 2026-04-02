@@ -152,7 +152,7 @@
 
             this.sourceInput.querySelectorAll('option').forEach((option) => (option.selected = false));
             this.itemsListContainer.querySelectorAll('.ibexa-dropdown__item--selected').forEach((option) => {
-                const checkbox = option.querySelector('.ibexa-input--checkbox');
+                const checkbox = option.querySelector('.ibexa-dropdown__item-checkbox');
 
                 option.classList.remove('ibexa-dropdown__item--selected');
 
@@ -211,7 +211,11 @@
             const value = this.getValueFromElement(element);
 
             if (value && !this.canSelectOnlyOne) {
-                element.querySelector('.ibexa-input').checked = selected;
+                const checkbox = element.querySelector('.ibexa-dropdown__item-checkbox');
+
+                if (checkbox) {
+                    checkbox.checked = selected;
+                }
             }
 
             this.itemsListContainer.querySelector(`[data-value=${value}]`).classList.toggle('ibexa-dropdown__item--selected', selected);
@@ -314,7 +318,11 @@
             itemSelected.classList.remove('ibexa-dropdown__item--selected');
 
             if (!this.canSelectOnlyOne) {
-                itemSelected.querySelector('.ibexa-input').checked = false;
+                const checkbox = itemSelected.querySelector('.ibexa-dropdown__item-checkbox');
+
+                if (checkbox) {
+                    checkbox.checked = false;
+                }
             }
 
             if (optionSelect) {

@@ -28,9 +28,7 @@ final class ContentActionsMenu extends Component
 
     private function clickStandaloneButton(string $buttonName): void
     {
-        $buttons = $this->getHTMLPage()
-            ->findAll($this->getLocator('menuButton'))
-            ->filterBy(new ElementTextCriterion($buttonName));
+        $buttons = $this->getStandaloneButtons($buttonName);
 
         if ($buttons->any()) {
             $buttons->single()->execute(new MouseOverAndClick());
@@ -38,10 +36,22 @@ final class ContentActionsMenu extends Component
             return;
         }
 
-        $this->getHTMLPage()->find($this->getLocator('moreButton'))->click();
+        $moreButtons = $this->getHTMLPage()->findAll($this->getLocator('moreButton'));
+        if (!$moreButtons->any()) {
+            throw new \RuntimeException(sprintf('Standalone action button "%s" was not found.', $buttonName));
+        }
+
+        $moreButtons->single()->click();
         $this->getHTMLPage()
             ->findAll($this->getLocator('expandedMenuButton'))
             ->getByCriterion(new ElementTextCriterion($buttonName))->click();
+    }
+
+    private function getStandaloneButtons(string $buttonName)
+    {
+        return $this->getHTMLPage()
+            ->findAll($this->getLocator('menuButton'))
+            ->filterBy(new ElementTextCriterion($buttonName));
     }
 
     private function clickButtonInGroup(string $groupName, string $buttonName): void
@@ -116,7 +126,7 @@ final class ContentActionsMenu extends Component
     {
         return [
             new VisibleCSSLocator('label', '.ibexa-btn__label'),
-            new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn'),
+            new VisibleCSSLocator('menuButton', '.ibexa-context-menu .ibexa-btn, .ibexa-context-menu .ids-button'),
             new VisibleCSSLocator('button', '.ibexa-popup-menu__item-content'),
             new VisibleCSSLocator('toggle', '.ibexa-split-btn__toggle-btn '),
             new VisibleCSSLocator('splitButton', '.ibexa-split-btn'),

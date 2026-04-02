@@ -49,6 +49,7 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.focus.mode.js'),
     path.resolve(__dirname, '../public/js/scripts/sidebar/main.menu.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
+    path.resolve('./vendor/ibexa/design-system-twig/src/bundle/Resources/public/ts/init_components.ts'),
     path.resolve(__dirname, '../public/js/scripts/admin.table.js'),
     path.resolve(__dirname, '../public/js/scripts/core/collapse.js'),
     path.resolve(__dirname, '../public/js/scripts/admin.dropdown.js'),
