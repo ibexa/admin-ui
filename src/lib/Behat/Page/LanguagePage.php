@@ -56,7 +56,7 @@ final class LanguagePage extends Page
             $hasEnabledField = $this
                 ->getHTMLPage()
                 ->find($this->getLocator('enabledField'))
-                ->isChecked();
+                ->hasAttribute('checked');
 
             $shouldHaveEnabledField = 'true' === $languageProperties['Enabled'];
             $hasExpectedEnabledFieldValue = $hasEnabledField === $shouldHaveEnabledField;
