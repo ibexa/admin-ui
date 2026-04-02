@@ -65,6 +65,14 @@ final class UpperMenu extends Component
 
         if ($expectedModeStatus != $isEnabled) {
             $this->getHTMLPage()->find($this->getLocator('userFocusMode'))->click();
+
+            $this->getHTMLPage()->setTimeout(10)->waitUntil(function (): bool {
+                return !$this->getHTMLPage()->findAll($this->getLocator('userSettingsPopup'))->any();
+            }, 'Focus mode dropdown did not close after toggling');
+
+            $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($expectedModeStatus): bool {
+                return $this->getHTMLPage()->findAll($this->getLocator('focusModeBadge'))->any() === $expectedModeStatus;
+            }, 'Focus mode state did not update after toggling');
         } else {
             $this->toggleUserDropdown();
         }
