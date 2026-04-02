@@ -9,7 +9,7 @@
         {% set attr = attr|merge({ 'checked': 'checked' }) %}
     {% endif %}
     {% if value is defined %}
-        {% set attr = attr|merge({ 'value': value }) %}
+        {% set attr = attr|merge({ 'value': value ~ '' }) %}
     {% endif %}
 
     {% set input_content %}
@@ -28,7 +28,7 @@
         :checked="checked|default(false)"
         :disabled="is_disabled"
         :required="required|default(false)"
-        :value="value is defined ? value : null"
+        value="{{ value is defined ? value ~ '' : '' }}"
         size="{{ small|default(false) ? 'small' : 'medium' }}"
         onLabel="{{ label_on|default(default_label_on) }}"
         offLabel="{{ label_off|default(default_label_off) }}"
