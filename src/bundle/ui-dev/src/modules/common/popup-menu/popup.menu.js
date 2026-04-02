@@ -25,21 +25,24 @@ const PopupMenu = ({ extraClasses, footer, items, onItemClick, positionOffset, r
     });
     const calculateAndSetItemsListStyles = useCallback(() => {
         const itemsStyles = {};
-        const { top: referenceTop, left: referenceLeft } = referenceElement.getBoundingClientRect();
-        const { height: containerHeight } = containerRef.current.getBoundingClientRect();
+        const { top: referenceTop, left: referenceLeft, width: referenceWidth } = referenceElement.getBoundingClientRect();
+        const { height: containerHeight, width: containerWidth } = containerRef.current.getBoundingClientRect();
         const bottom = referenceTop + containerHeight;
+        const shouldBeShownOnLeft = referenceLeft + containerWidth > window.innerWidth;
+        const horizontalPosition = shouldBeShownOnLeft ? 'left' : 'right';
+        const referenceCalculatedLeft = shouldBeShownOnLeft ? referenceLeft - containerWidth + referenceWidth : referenceLeft;
 
         if (window.innerHeight - bottom > MIN_ITEMS_LIST_HEIGHT) {
-            const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'bottom');
+            const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'bottom', horizontalPosition);
 
             itemsStyles.top = referenceTop + offsetY;
-            itemsStyles.left = referenceLeft + offsetX;
+            itemsStyles.left = referenceCalculatedLeft + offsetX;
             itemsStyles.maxHeight = window.innerHeight - itemsStyles.top;
         } else {
-            const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'top');
+            const { x: offsetX, y: offsetY } = positionOffset(referenceElement, 'top', horizontalPosition);
 
             itemsStyles.top = referenceTop + offsetY;
-            itemsStyles.left = referenceLeft + offsetX;
+            itemsStyles.left = referenceCalculatedLeft + offsetX;
             itemsStyles.maxHeight = itemsStyles.top;
             itemsStyles.transform = 'translateY(-100%)';
         }
