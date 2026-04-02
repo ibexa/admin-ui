@@ -12,7 +12,6 @@ use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
-use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
@@ -23,7 +22,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value): void
     {
         $this->expandLastFieldDefinition();
-        $this->getHTMLPage()
+        $lastFieldDefinition = $this->getHTMLPage()->findAll($this->getLocator('fieldDefinition'))->last();
+
+        $lastFieldDefinition
             ->find($this->getLocator('fieldDefinitionOpenContainer'))
             ->findAll($this->getLocator('field'))
             ->getByCriterion(new ElementTextCriterion($label))
@@ -40,27 +41,22 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
             $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-            $fieldDefinition->click();
+
+            if ($fieldDefinition->findAll($this->getLocator('fieldDefinitionOpenContainer'))->any()) {
+                return true;
+            }
+
+            $fieldDefinition->find($this->getLocator('fieldDefinitionToggle'))->click();
+
             $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
-                new ElementNotExistsCondition(
+                new ElementExistsCondition(
                     $fieldDefinition,
-                    new VisibleCSSLocator('isCollapsed', 'button.collapsed')
+                    $this->getLocator('fieldDefinitionOpenContainer')
                 )
             );
 
             return true;
         }, 'Error expanding the last Field definition');
-
-        $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-        $this
-            ->getHTMLPage()
-            ->setTimeout(10)
-            ->waitUntilCondition(
-                new ElementTransitionHasEndedCondition(
-                    $lastFieldDefinition,
-                    new VisibleCSSLocator('transition', 'div')
-                )
-            );
     }
 
     public function specifyLocators(): array
@@ -72,9 +68,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
             new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
-            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
+            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse__toggle-btn--status'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ids-input--radio'),
-            new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('fieldDefinitionOpenContainer', '.ibexa-collapse__body.show .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
             new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
         ]);
