@@ -13,6 +13,8 @@ use Ibexa\ContentForms\Data\Content\ContentUpdateData;
 use Ibexa\ContentForms\Event\ContentFormEvents;
 use Ibexa\ContentForms\Event\FormActionEvent;
 use Ibexa\Contracts\ContentForms\Data\Content\FieldData;
+use Ibexa\Contracts\Core\FieldType\ReferenceAwareExternalStorage;
+use Ibexa\Contracts\Core\Options\Context;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -45,7 +47,13 @@ final readonly class TranslationFormProcessor implements EventSubscriberInterfac
             return;
         }
 
-        $contentDraft = $this->contentService->createContentDraft($data->content->getContentInfo());
+        $contentDraft = $this->contentService->createContentDraft(
+            $data->content->getContentInfo(),
+            null,
+            null,
+            null,
+            new Context([ReferenceAwareExternalStorage::REFERENCE_LANGUAGE_CODE => $data->initialLanguageCode])
+        );
         $fields = array_filter($data->fieldsData, static function (FieldData $fieldData) use ($contentDraft, $data): bool {
             $mainLanguageCode = $contentDraft->getVersionInfo()->getContentInfo()->getMainLanguageCode();
 
