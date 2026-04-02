@@ -4,7 +4,7 @@
             <twig:ibexa:checkbox:input
                 name="{{ full_name }}"
                 inputClass="ibexa-field-edit-preview__checkbox"
-                value="{{ value|default('') }}"
+                value="{{ value|default('') ~ '' }}"
                 :checked="checked"
                 :disabled="disabled"
                 :required="required"
