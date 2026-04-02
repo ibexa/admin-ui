@@ -11,6 +11,8 @@ namespace Ibexa\AdminUi\EventListener;
 use Ibexa\Contracts\AdminUi\Autosave\AutosaveServiceInterface;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyCreateEvent;
 use Ibexa\Contracts\AdminUi\Event\ContentProxyTranslateEvent;
+use Ibexa\Contracts\Core\FieldType\ReferenceAwareExternalStorage;
+use Ibexa\Contracts\Core\Options\Context;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\LocationService;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
@@ -104,7 +106,13 @@ final readonly class ContentProxyCreateDraftListener implements EventSubscriberI
             $contentUpdateStruct->fields = $this->getTranslatedContentFields($content, $toLanguageCode);
         }
 
-        $contentDraft = $this->contentService->createContentDraft($content->getContentInfo());
+        $contentDraft = $this->contentService->createContentDraft(
+            $content->getContentInfo(),
+            null,
+            null,
+            null,
+            new Context([ReferenceAwareExternalStorage::REFERENCE_LANGUAGE_CODE => $toLanguageCode])
+        );
 
         $this->contentService->updateContent(
             $contentDraft->getVersionInfo(),
