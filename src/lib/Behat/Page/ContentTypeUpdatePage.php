@@ -46,9 +46,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
                 return true;
             }
 
-            $fieldDefinition->find($this->getLocator('fieldDefinitionToggle'))->click();
+            $fieldDefinition->find($this->getLocator('fieldDefinitionToggle'))->execute(new MouseOverAndClick());
 
-            $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
+            $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
                 new ElementExistsCondition(
                     $fieldDefinition,
                     $this->getLocator('fieldDefinitionOpenContainer')
@@ -68,7 +68,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
             new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
-            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse__toggle-btn--status'),
+            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse__toggle-btn--title'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ids-input--radio'),
             new VisibleCSSLocator('fieldDefinitionOpenContainer', '.ibexa-collapse__body.show .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
