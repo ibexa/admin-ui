@@ -52,11 +52,11 @@
 
             <div class="ibexa-field-edit-preview__details">
                 <span class="ibexa-field-edit-preview__file-name-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans|desc('File name') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_name.label'|trans|desc('File name') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-name">{{ form.parent.vars.value.value.fileName }}</p>
                 </span>
                 <span class="ibexa-field-edit-preview__file-size-wrapper">
-                    <label class="ibexa-label form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans|desc('Size') }}</label>
+                    <twig:ibexa:label class="form-label">{{ 'content.field_type.ibexa_media.file_size.label'|trans|desc('Size') }}</twig:ibexa:label>
                     <p class="ibexa-field-edit-preview__file-size">{{ form.parent.vars.value.value.fileSize|ibexa_file_size(2) }}</p>
                 </span>
                 <div class="ibexa-field-edit-preview__settings">
@@ -66,9 +66,9 @@
                     </div>
                 </div>
                 <div class="ibexa-field-edit-preview__control">
-                    <label class="ibexa-label form-label">
+                    <twig:ibexa:label class="form-label">
                         {{ 'content.field_type.ibexa_media.player_settings'|trans({}, 'ibexa_content_forms_content')|desc('Player settings') }}
-                    </label>
+                    </twig:ibexa:label>
                     <div class="ibexa-field-edit-preview__toggles">
                         {{ form_row(form.hasController, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}
                         {{ form_row(form.autoplay, {'label_attr': {'class': 'checkbox-inline'}, attr: { disabled: readonly }}) }}

@@ -14,7 +14,7 @@
 {%- endblock submit_widget %}
 
 {% block form_label -%}
-    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ibexa-label')|trim}) -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ids-label')|trim}) -%}
     {%- set is_only_errors = label is same as(false) -%}
     {% if not is_only_errors -%}
         {{ parent() }}
