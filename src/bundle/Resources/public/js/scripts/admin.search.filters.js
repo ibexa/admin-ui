@@ -37,7 +37,7 @@
     const lastCreatedEndDate = doc.querySelector(lastCreatedEndDateSelector);
     const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
     const isInitializedCreatorInput = !!creatorInput.value;
-    const creatorInputButtonClear = creatorInput.parentElement.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
+    const creatorInputBtnClear = creatorInput.parentElement.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
     const contentTypeCheckboxes = doc.querySelectorAll('.ibexa-content-type-selector__item [type="checkbox"]');
@@ -346,5 +346,5 @@
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
-    creatorInputButtonClear.addEventListener('click', handleResetUser, false);
+    creatorInputBtnClear.addEventListener('click', handleResetUser, false);
 })(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOM);
