@@ -1,11 +1,11 @@
 {% extends view_base_layout is defined ? view_base_layout : '@ibexadesign/ui/layout.html.twig' %}
 
-{% macro main_container_classes(anchor_params, ignored_content_fields) %}
+{% macro anchor_container_classes(anchor_params, ignored_content_fields) %}
     {%- set has_anchor_menu_items = (anchor_params.items|default([])|length > 1)
         or (ignored_content_fields|default([]) is not empty) -%}
     {%- set has_anchor_close_btn = anchor_params.close_href|default(null) is not empty -%}
 
-    {%- set classes = ['ibexa-main-container--edit-container'] -%}
+    {%- set classes = [] -%}
 
     {%- set classes = classes|merge([ has_anchor_menu_items ? 'ibexa-main-container--with-anchor-menu-items' : 'ibexa-main-container--without-anchor-menu-items' ]) -%}
     {%- set classes = classes|merge([ not has_anchor_close_btn ? 'ibexa-main-container--without-anchor-close-btn' : '' ]) -%}
@@ -13,10 +13,11 @@
     {{- classes|join(' ') -}}
 {% endmacro %}
 
-{% from _self import main_container_classes %}
+{% from _self import anchor_container_classes %}
 
 {% block main_container_class %}
-    {{ main_container_classes(anchor_params|default({}), ignored_content_fields|default([])) }}
+    ibexa-main-container--edit-container
+    {{ anchor_container_classes(anchor_params|default({}), ignored_content_fields|default([])) }}
 {% endblock %}
 
 {% block header_row %}{% endblock %}
