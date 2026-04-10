@@ -5,9 +5,7 @@
         or (ignored_content_fields|default([]) is not empty) -%}
     {%- set has_anchor_close_btn = anchor_params.close_href|default(null) is not empty -%}
 
-    {%- set classes = [] -%}
-
-    {%- set classes = classes|merge([ has_anchor_menu_items ? 'ibexa-main-container--with-anchor-menu-items' : 'ibexa-main-container--without-anchor-menu-items' ]) -%}
+    {%- set classes = [ has_anchor_menu_items ? 'ibexa-main-container--with-' : 'ibexa-main-container--without-anchor-menu-items' ] -%}
     {%- set classes = classes|merge([ not has_anchor_close_btn ? 'ibexa-main-container--without-anchor-close-btn' : '' ]) -%}
 
     {{- classes|join(' ') -}}
