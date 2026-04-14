@@ -75,8 +75,11 @@
 
     &__table-header {
         display: grid;
-        grid-template: 'title clear-search-btn' 'subtitle subtitle';
-        justify-content: start;
+        grid-template:
+            'title clear-search-btn .' auto
+            'subtitle subtitle subtitle' auto
+            'search_tags search_tags search_tags' auto
+            / max-content auto 1fr;
     }
 
     &__table-tile {
@@ -94,6 +97,13 @@
         display: inline-block;
         margin-bottom: calculateRem(8px);
         font-size: $ibexa-text-font-size-medium;
+    }
+
+    &__search-tags {
+        grid-area: search_tags;
+        display: flex;
+        flex-wrap: wrap;
+        gap: calculateRem(8px);
     }
 
     .c-content-table {
