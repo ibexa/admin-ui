@@ -16,7 +16,6 @@
     {% set body_rows = [] %}
     {% for translation in translations %}
         {% set body_row_cols = [] %}
-        {% set is_main = translation.languageCode == content.contentInfo.mainLanguageCode %}
 
         {% set col_raw %}
             {% if can_translate %}
