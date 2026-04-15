@@ -161,9 +161,12 @@
         {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ibexa_selection-single')|trim}) %}
 
         {% set field_value = options[field.value.selection|first]|escape %}
+        {% set simple_block_field_content %}
+            {{ block( 'simple_block_field' ) }}
+        {% endset %}
 
         <twig:ibexa:tag type="neutral">
-            {{ block( 'simple_block_field' ) }}
+            {{ simple_block_field_content }}
         </twig:ibexa:tag>
     {% endif %}
 {% endblock %}
