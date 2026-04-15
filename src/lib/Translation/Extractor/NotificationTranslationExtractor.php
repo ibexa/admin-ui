@@ -74,7 +74,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->logger = new NullLogger();
     }
 
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
@@ -94,7 +94,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
             )) {
             $this->previousNode = $node;
 
-            return;
+            return null;
         }
 
         $ignore = false;
@@ -115,7 +115,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
                 }
             }
         } else {
-            return;
+            return null;
         }
 
         $idArg = $node->args[0] ?? null;
@@ -172,30 +172,33 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         return null;
     }
 
-    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
+    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
     {
         $this->file = $file;
         $this->catalogue = $catalogue;
         $this->traverser->traverse($ast);
     }
 
-    public function beforeTraverse(array $nodes)
+    public function beforeTraverse(array $nodes): ?array
     {
+        return null;
     }
 
     public function leaveNode(Node $node)
     {
+        return null;
     }
 
-    public function afterTraverse(array $nodes)
+    public function afterTraverse(array $nodes): ?array
+    {
+        return null;
+    }
+
+    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
     {
     }
 
-    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue)
-    {
-    }
-
-    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
+    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast): void
     {
     }
 
