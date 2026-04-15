@@ -107,31 +107,42 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
             return null;
         }
 
-        if (!$node->args[0]->value instanceof String_) {
+        $idArg = $node->args[0] ?? null;
+        if (!$idArg instanceof Node\Arg) {
+            return null;
+        }
+
+        $idExpr = $idArg->value;
+        if (!$idExpr instanceof String_) {
             if ($ignore) {
                 return null;
             }
 
-            $message = sprintf('Can only extract the translation id from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($node->args[0]->value), $this->file, $node->args[0]->value->getLine());
+            $message = sprintf('Can only extract the translation id from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($idExpr), $this->file, $idExpr->getLine());
 
             $this->logger->error($message);
+
+            return null;
         }
 
-        $id = $node->args[0]->value->value;
+        $id = $idExpr->value;
 
         $index = $this->methodsToExtractFrom[strtolower($methodCallNodeName)];
-        if (isset($node->args[$index])) {
-            if (!$node->args[$index]->value instanceof String_) {
+        if (isset($node->args[$index]) && $node->args[$index] instanceof Node\Arg) {
+            $domainExpr = $node->args[$index]->value;
+            if (!$domainExpr instanceof String_) {
                 if ($ignore) {
                     return null;
                 }
 
-                $message = sprintf('Can only extract the translation domain from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($node->args[$index]->value), $this->file, $node->args[$index]->value->getLine());
+                $message = sprintf('Can only extract the translation domain from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($domainExpr), $this->file, $domainExpr->getLine());
 
                 $this->logger->error($message);
+
+                return null;
             }
 
-            $domain = $node->args[$index]->value->value;
+            $domain = $domainExpr->value;
         } else {
             $domain = 'messages';
         }
@@ -187,7 +198,8 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     {
         // check if there is a doc comment for the ID argument
         // ->trans(/** @Desc("FOO") */ 'my.id')
-        if (null !== $comment = $node->args[0]->getDocComment()) {
+        $idArg = $node->args[0] ?? null;
+        if ($idArg instanceof Node\Arg && null !== $comment = $idArg->getDocComment()) {
             return $comment->getText();
         }
 
@@ -202,7 +214,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         if (null !== $this->previousNode && $this->previousNode->getDocComment() !== null) {
             $comment = $this->previousNode->getDocComment();
 
-            return is_object($comment) ? $comment->getText() : $comment;
+            return $comment->getText();
         }
 
         return null;
