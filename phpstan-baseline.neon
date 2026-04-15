@@ -12474,92 +12474,14 @@ parameters:
 			path: src/lib/Translation/Extractor/LimitationTranslationExtractor.php
 
 		-
-			message: '#^Access to an undefined property PhpParser\\Node\:\:\$args\.$#'
-			identifier: property.notFound
-			count: 5
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Call to function is_object\(\) with PhpParser\\Comment\\Doc will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
 			message: '#^Instanceof between string and PhpParser\\Comment\\Doc will always evaluate to false\.$#'
 			identifier: instanceof.alwaysFalse
 			count: 1
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
 
 		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:afterTraverse\(\) should return array\<PhpParser\\Node\>\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:beforeTraverse\(\) should return array\<PhpParser\\Node\>\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:enterNode\(\) should return int\|PhpParser\\Node\|null but empty return statement found\.$#'
-			identifier: return.empty
-			count: 4
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:enterNode\(\) should return int\|PhpParser\\Node\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:leaveNode\(\) should return array\<PhpParser\\Node\>\|int\|PhpParser\\Node\|null but return statement is missing\.$#'
-			identifier: return.missing
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:setLogger\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitFile\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitPhpFile\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
 			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitPhpFile\(\) has parameter \$ast with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Method Ibexa\\AdminUi\\Translation\\Extractor\\NotificationTranslationExtractor\:\:visitTwigFile\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Parameter \#1 \$desc of method JMS\\TranslationBundle\\Model\\Message\:\:setDesc\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Parameter \#1 \$meaning of method JMS\\TranslationBundle\\Model\\Message\:\:setMeaning\(\) expects string, string\|null given\.$#'
-			identifier: argument.type
 			count: 1
 			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
 

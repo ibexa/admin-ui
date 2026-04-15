@@ -24,6 +24,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use SplFileInfo;
 use Twig\Node\Node as TwigNode;
 
 /**
@@ -73,7 +74,7 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         $this->logger = new NullLogger();
     }
 
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
     }
@@ -86,10 +87,14 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         }
 
         if (!is_string($methodCallNodeName)
-            || !in_array(strtolower($methodCallNodeName), array_map('strtolower', array_keys($this->methodsToExtractFrom)))) {
+            || !in_array(
+                strtolower($methodCallNodeName),
+                array_map('strtolower', array_keys($this->methodsToExtractFrom)),
+                true
+            )) {
             $this->previousNode = $node;
 
-            return;
+            return null;
         }
 
         $ignore = false;
@@ -110,69 +115,90 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
                 }
             }
         } else {
-            return;
+            return null;
         }
 
-        if (!$node->args[0]->value instanceof String_) {
+        $idArg = $node->args[0] ?? null;
+        if (!$idArg instanceof Node\Arg) {
+            return null;
+        }
+
+        $idExpr = $idArg->value;
+        if (!$idExpr instanceof String_) {
             if ($ignore) {
-                return;
+                return null;
             }
 
-            $message = sprintf('Can only extract the translation id from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($node->args[0]->value), $this->file, $node->args[0]->value->getLine());
+            $message = sprintf('Can only extract the translation id from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($idExpr), $this->file, $idExpr->getLine());
 
             $this->logger->error($message);
+
+            return null;
         }
 
-        $id = $node->args[0]->value->value;
+        $id = $idExpr->value;
 
         $index = $this->methodsToExtractFrom[strtolower($methodCallNodeName)];
-        if (isset($node->args[$index])) {
-            if (!$node->args[$index]->value instanceof String_) {
+        if (isset($node->args[$index]) && $node->args[$index] instanceof Node\Arg) {
+            $domainExpr = $node->args[$index]->value;
+            if (!$domainExpr instanceof String_) {
                 if ($ignore) {
-                    return;
+                    return null;
                 }
 
-                $message = sprintf('Can only extract the translation domain from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($node->args[$index]->value), $this->file, $node->args[$index]->value->getLine());
+                $message = sprintf('Can only extract the translation domain from a scalar string, not from "%s". Refactor your code to make it extractable, or add the doc comment /** @Ignore */ to this code element (in %s on line %d).', get_class($domainExpr), $this->file, $domainExpr->getLine());
 
                 $this->logger->error($message);
+
+                return null;
             }
 
-            $domain = $node->args[$index]->value->value;
+            $domain = $domainExpr->value;
         } else {
             $domain = 'messages';
         }
 
-        $message = new Message($id, $domain);
-        $message->setDesc($desc);
-        $message->setMeaning($meaning);
-        $message->addSource($this->fileSourceFactory->create($this->file, $node->getLine()));
-        $this->catalogue->add($message);
+        if ($this->catalogue !== null) {
+            $message = new Message($id, $domain);
+            $message->setDesc($desc ?? '');
+            $message->setMeaning($meaning ?? '');
+            if ($this->file !== null) {
+                $message->addSource($this->fileSourceFactory->create($this->file, $node->getLine()));
+            }
+
+            $this->catalogue->add($message);
+        }
+
+        return null;
     }
 
-    public function visitPhpFile(\SplFileInfo $file, MessageCatalogue $catalogue, array $ast)
+    public function visitPhpFile(SplFileInfo $file, MessageCatalogue $catalogue, array $ast): void
     {
         $this->file = $file;
         $this->catalogue = $catalogue;
         $this->traverser->traverse($ast);
     }
 
-    public function beforeTraverse(array $nodes)
+    public function beforeTraverse(array $nodes): ?array
     {
+        return null;
     }
 
     public function leaveNode(Node $node)
     {
+        return null;
     }
 
-    public function afterTraverse(array $nodes)
+    public function afterTraverse(array $nodes): ?array
+    {
+        return null;
+    }
+
+    public function visitFile(SplFileInfo $file, MessageCatalogue $catalogue): void
     {
     }
 
-    public function visitFile(\SplFileInfo $file, MessageCatalogue $catalogue)
-    {
-    }
-
-    public function visitTwigFile(\SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast)
+    public function visitTwigFile(SplFileInfo $file, MessageCatalogue $catalogue, TwigNode $ast): void
     {
     }
 
@@ -180,7 +206,8 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
     {
         // check if there is a doc comment for the ID argument
         // ->trans(/** @Desc("FOO") */ 'my.id')
-        if (null !== $comment = $node->args[0]->getDocComment()) {
+        $idArg = $node->args[0] ?? null;
+        if ($idArg instanceof Node\Arg && null !== $comment = $idArg->getDocComment()) {
             return $comment->getText();
         }
 
@@ -190,10 +217,12 @@ class NotificationTranslationExtractor implements LoggerAwareInterface, FileVisi
         // /** @Desc("FOO") */ $translator->trans('my.id')
         if (null !== $comment = $node->getDocComment()) {
             return $comment->getText();
-        } elseif (null !== $this->previousNode && $this->previousNode->getDocComment() !== null) {
+        }
+
+        if (null !== $this->previousNode && $this->previousNode->getDocComment() !== null) {
             $comment = $this->previousNode->getDocComment();
 
-            return is_object($comment) ? $comment->getText() : $comment;
+            return $comment->getText();
         }
 
         return null;
