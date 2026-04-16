@@ -22,7 +22,7 @@
 {%- endblock form_label %}
 
 {% block checkbox_radio_label -%}
-    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ids-choice-input-label ids-choice-input-field__label')|trim}) -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ibexa-label ibexa-label--checkbox-radio')|trim}) -%}
     {{ parent() }}
 {%- endblock checkbox_radio_label %}
 
