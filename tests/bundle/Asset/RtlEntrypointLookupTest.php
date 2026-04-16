@@ -53,10 +53,12 @@ final class RtlEntrypointLookupTest extends TestCase
             ->willReturn(true);
 
         $this->inner
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('entryExists')
-            ->with('foo-rtl')
-            ->willReturn(true);
+            ->willReturnMap([
+                ['foo-rtl', true],
+                ['foo-rtl-override', false],
+            ]);
 
         $this->inner
             ->expects(self::once())
@@ -67,6 +69,35 @@ final class RtlEntrypointLookupTest extends TestCase
         self::assertSame(['foo-rtl.css'], $this->lookup->getCssFiles('foo'));
     }
 
+    public function testGetCssFilesAppendsOverrideWhenRtlVariantAndOverrideExist(): void
+    {
+        $this->rtlModeResolver
+            ->expects(self::once())
+            ->method('isRtl')
+            ->willReturn(true);
+
+        $this->inner
+            ->expects(self::exactly(2))
+            ->method('entryExists')
+            ->willReturnMap([
+                ['foo-rtl', true],
+                ['foo-rtl-override', true],
+            ]);
+
+        $this->inner
+            ->expects(self::exactly(2))
+            ->method('getCssFiles')
+            ->willReturnMap([
+                ['foo-rtl', ['foo-rtl.css']],
+                ['foo-rtl-override', ['foo-rtl-override.css']],
+            ]);
+
+        self::assertSame(
+            ['foo-rtl.css', 'foo-rtl-override.css'],
+            $this->lookup->getCssFiles('foo'),
+        );
+    }
+
     public function testGetCssFilesDoesNotSwapWhenRtlVariantDoesNotExist(): void
     {
         $this->rtlModeResolver
@@ -75,10 +106,12 @@ final class RtlEntrypointLookupTest extends TestCase
             ->willReturn(true);
 
         $this->inner
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('entryExists')
-            ->with('foo-rtl')
-            ->willReturn(false);
+            ->willReturnMap([
+                ['foo-rtl', false],
+                ['foo-override', false],
+            ]);
 
         $this->inner
             ->expects(self::once())
@@ -87,6 +120,35 @@ final class RtlEntrypointLookupTest extends TestCase
             ->willReturn(['foo.css']);
 
         self::assertSame(['foo.css'], $this->lookup->getCssFiles('foo'));
+    }
+
+    public function testGetCssFilesAppendsOverrideWhenOnlyOverrideExists(): void
+    {
+        $this->rtlModeResolver
+            ->expects(self::once())
+            ->method('isRtl')
+            ->willReturn(true);
+
+        $this->inner
+            ->expects(self::exactly(2))
+            ->method('entryExists')
+            ->willReturnMap([
+                ['foo-rtl', false],
+                ['foo-override', true],
+            ]);
+
+        $this->inner
+            ->expects(self::exactly(2))
+            ->method('getCssFiles')
+            ->willReturnMap([
+                ['foo', ['foo.css']],
+                ['foo-override', ['foo-override.css']],
+            ]);
+
+        self::assertSame(
+            ['foo.css', 'foo-override.css'],
+            $this->lookup->getCssFiles('foo'),
+        );
     }
 
     public function testGetCssFilesDoesNotSwapWhenNotRtl(): void
