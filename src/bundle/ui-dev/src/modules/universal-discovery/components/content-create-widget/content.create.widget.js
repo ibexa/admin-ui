@@ -243,7 +243,7 @@ const ContentCreateWidget = () => {
                                                 <div key={identifier} className={className} onClick={updateSelectedContentType}>
                                                     <Icon customPath={thumbnail} extraClasses="ibexa-icon--small-medium" />
                                                     <div className="form-check">
-                                                        <div className="ibexa-label ibexa-label--checkbox-radio form-check-label">
+                                                        <div className="ids-choice-input-label ids-choice-input-field__label form-check-label">
                                                             {name}
                                                         </div>
                                                     </div>
