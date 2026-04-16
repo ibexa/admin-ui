@@ -223,12 +223,6 @@ parameters:
 			path: src/bundle/Controller/ContentTypeGroupController.php
 
 		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
-			path: src/bundle/Controller/ContentTypeGroupController.php
-
-		-
 			message: '#^Parameter \#1 \$contentTypeGroup of method Ibexa\\Contracts\\Core\\Repository\\ContentTypeService\:\:deleteContentTypeGroup\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentTypeGroup\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -283,12 +277,6 @@ parameters:
 			path: src/bundle/Controller/LanguageController.php
 
 		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
-			path: src/bundle/Controller/LanguageController.php
-
-		-
 			message: '#^Parameter \#1 \$language of method Ibexa\\Contracts\\Core\\Repository\\LanguageService\:\:deleteLanguage\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Language\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -299,12 +287,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/bundle/Controller/LanguageController.php
-
-		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: src/bundle/Controller/LinkManagerController.php
 
 		-
 			message: '#^Cannot access property \$parentLocationId on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Location\|null\.$#'
@@ -403,12 +385,6 @@ parameters:
 			path: src/bundle/Controller/ObjectStateController.php
 
 		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
-			path: src/bundle/Controller/ObjectStateController.php
-
-		-
 			message: '#^Parameter \#1 \$contentInfo of method Ibexa\\Contracts\\Core\\Repository\\ObjectStateService\:\:setContentState\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo, Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\ContentInfo\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -460,12 +436,6 @@ parameters:
 			message: '#^Cannot access property \$mainLanguageCode on Ibexa\\Contracts\\Core\\Repository\\Values\\ObjectState\\ObjectStateGroup\|null\.$#'
 			identifier: property.nonObject
 			count: 1
-			path: src/bundle/Controller/ObjectStateGroupController.php
-
-		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
 			path: src/bundle/Controller/ObjectStateGroupController.php
 
 		-
@@ -547,12 +517,6 @@ parameters:
 			path: src/bundle/Controller/RoleController.php
 
 		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
-			path: src/bundle/Controller/RoleController.php
-
-		-
 			message: '#^Parameter \#1 \$role of method Ibexa\\Contracts\\Core\\Repository\\RoleService\:\:deleteRole\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role, Ibexa\\Contracts\\Core\\Repository\\Values\\User\\Role\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -580,12 +544,6 @@ parameters:
 			message: '#^Cannot call method getName\(\) on Ibexa\\Contracts\\Core\\Repository\\Values\\Content\\Section\|null\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: src/bundle/Controller/SectionController.php
-
-		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
 			path: src/bundle/Controller/SectionController.php
 
 		-
@@ -646,12 +604,6 @@ parameters:
 			message: '#^Argument of an invalid type array\<bool\>\|null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
-			path: src/bundle/Controller/URLWildcardController.php
-
-		-
-			message: '#^PHPDoc tag @var with type Symfony\\Component\\Form\\Form is not subtype of native type Symfony\\Component\\Form\\FormInterface\.$#'
-			identifier: varTag.nativeType
-			count: 2
 			path: src/bundle/Controller/URLWildcardController.php
 
 		-
@@ -2711,18 +2663,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: src/lib/Translation/Extractor/JavaScriptFileVisitor.php
-
-		-
-			message: '#^Access to an undefined property PhpParser\\Node\:\:\$args\.$#'
-			identifier: property.notFound
-			count: 5
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
-
-		-
-			message: '#^Call to function is_object\(\) with PhpParser\\Comment\\Doc will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: src/lib/Translation/Extractor/NotificationTranslationExtractor.php
 
 		-
 			message: '#^Instanceof between string and PhpParser\\Comment\\Doc will always evaluate to false\.$#'
