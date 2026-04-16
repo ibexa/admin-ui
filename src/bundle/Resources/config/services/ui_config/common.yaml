@@ -156,6 +156,11 @@ services:
         tags:
             - { name: ibexa.admin_ui.config.provider, key: 'damWidget' }
 
+    Ibexa\Bundle\AdminUi\Asset\RtlEntrypointLookup:
+        decorates: 'webpack_encore.entrypoint_lookup[ibexa]'
+        arguments:
+            $inner: '@.inner'
+
     # Resolvers
     Ibexa\AdminUi\REST\Generator\ApplicationConfigRestGeneratorRegistry:
         arguments:
