@@ -34,11 +34,22 @@ final readonly class RtlEntrypointLookup implements EntrypointLookupInterface, I
      */
     public function getCssFiles(string $entryName): array
     {
-        if ($this->rtlModeResolver->isRtl() && $this->entryExists($entryName . '-rtl')) {
+        if (!$this->rtlModeResolver->isRtl()) {
+            return $this->inner->getCssFiles($entryName);
+        }
+
+        if ($this->entryExists($entryName . '-rtl')) {
             $entryName .= '-rtl';
         }
 
-        return $this->inner->getCssFiles($entryName);
+        $files = $this->inner->getCssFiles($entryName);
+
+        $overrideEntryName = $entryName . '-override';
+        if ($this->entryExists($overrideEntryName)) {
+            $files = array_merge($files, $this->inner->getCssFiles($overrideEntryName));
+        }
+
+        return $files;
     }
 
     private function entryExists(string $entryName): bool
