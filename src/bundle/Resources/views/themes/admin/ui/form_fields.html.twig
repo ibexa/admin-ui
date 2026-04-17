@@ -401,17 +401,28 @@
         {%- set attr = attr|merge({class: (attr.class|default('') ~ ' ibexa-input ibexa-input--text')|trim}) -%}
         {%- set empty_placeholder_for_hiding_clear_btn_with_css = ' ' -%}
         {%- set attr = attr|merge({placeholder: (attr.placeholder is defined and attr.placeholder is not null) ? attr.placeholder : empty_placeholder_for_hiding_clear_btn_with_css}) -%}
+        {%- set input_attr = attr|merge({
+            id: id,
+            name: full_name,
+            value: value is same as(null) ? '' : value,
+            'data-ids-custom-init': 'true',
+        }) -%}
         {%- set input_html -%}
             {{ parent() }}
         {%- endset -%}
-        {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search, should_clear_button_send_form } -%}
+        {%- embed '@ibexadesign/ui/component/input_text_ds.html.twig' with {
+            has_search,
+            should_clear_button_send_form,
+            input_attr,
+            is_disabled: attr.disabled|default(false) or disabled|default(false),
+            extra_actions_after: extra_actions_after|default(null),
+        } -%}
             {% block content %}
                 {{ input_html }}
             {% endblock %}
 
             {% block actions %}
                 {{ parent() }}
-                {{ extra_actions_after|default(null) }}
             {% endblock %}
         {%- endembed -%}
     {%- else -%}
