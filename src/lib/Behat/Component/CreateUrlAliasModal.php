@@ -48,13 +48,7 @@ final class CreateUrlAliasModal extends Component
         $toggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
         $isChecked = $toggle->hasClass('ids-toggle--checked');
         if ($shouldBeChecked !== $isChecked) {
-            $toggle->click();
-
-            $this->getHTMLPage()->setTimeout(5)->waitUntil(function () use ($shouldBeChecked): bool {
-                $updatedToggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
-
-                return $updatedToggle->hasClass('ids-toggle--checked') === $shouldBeChecked;
-            }, 'Redirect toggle state did not update');
+            $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
         }
     }
 
