@@ -23,9 +23,7 @@
 {% set can_use_ds_input = input_attr is not empty
     and not is_multiline
     and normalized_type in ds_supported_types
-    and extra_btn.label is empty
     and right_side_label is not defined
-    and not should_clear_button_send_form
 %}
 
 {% if can_use_ds_input %}
@@ -42,9 +40,24 @@
         disabled: is_disabled,
         has_search_action: has_search and normalized_type != 'password',
         search_button_type: search_button_type|default('submit'),
+        send_form_after_clearing: should_clear_button_send_form,
     }) %}
+    {% set extra_btn_markup %}
+        {% if extra_btn.label is not empty %}
+            <button {{ html.attributes(extra_btn.attr) }}>
+                {{- extra_btn.label -}}
+            </button>
+        {% endif %}
+    {% endset %}
+    {% set combined_actions_after = '' %}
+    {% if extra_btn.label is not empty %}
+        {% set combined_actions_after = combined_actions_after ~ extra_btn_markup %}
+    {% endif %}
     {% if extra_actions_after|default(null) is not empty %}
-        {% set ds_input = ds_input|merge({ actions_after: extra_actions_after }) %}
+        {% set combined_actions_after = combined_actions_after ~ extra_actions_after %}
+    {% endif %}
+    {% if combined_actions_after is not empty %}
+        {% set ds_input = ds_input|merge({ actions_after: combined_actions_after }) %}
     {% endif %}
 
     <div {{ html.attributes(wrapper_attr) }}>
