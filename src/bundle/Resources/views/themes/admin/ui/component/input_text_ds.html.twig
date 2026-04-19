@@ -1,7 +1,8 @@
 {% import '@ibexadesign/ui/component/macros.html.twig' as html %}
 
 {% set type = type|default('text') %}
-{% set is_password_type = type == 'password' %}
+{% set normalized_type = is_password_input|default(false) ? 'password' : type %}
+{% set is_password_type = normalized_type == 'password' %}
 {% set is_password_input = is_password_input|default(is_password_type) %}
 {% set has_search = has_search|default(false) %}
 {% set is_multiline = is_multiline|default(false) %}
@@ -21,9 +22,7 @@
 {% set ds_supported_types = ['text', 'password', 'email', 'number', 'tel', 'search', 'url'] %}
 {% set can_use_ds_input = input_attr is not empty
     and not is_multiline
-    and type in ds_supported_types
-    and not has_search
-    and not is_password_input
+    and normalized_type in ds_supported_types
     and extra_btn.label is empty
     and right_side_label is not defined
     and not should_clear_button_send_form
@@ -33,12 +32,16 @@
     {% set wrapper_attr = wrapper_attr|merge({
         class: (wrapper_attr.class|default('')
             ~ ' ibexa-input-text-wrapper ibexa-input-text-wrapper--ds'
-            ~ " ibexa-input-text-wrapper--type-#{type}"
+            ~ (has_search ? ' ibexa-input-text-wrapper--search')
+            ~ (is_password_type ? ' ibexa-input-text-wrapper--password')
+            ~ " ibexa-input-text-wrapper--type-#{normalized_type}"
         )|trim
     }) %}
     {% set ds_input = input_attr|merge({
-        type,
+        type: normalized_type,
         disabled: is_disabled,
+        has_search_action: has_search and normalized_type != 'password',
+        search_button_type: search_button_type|default('submit'),
     }) %}
     {% if extra_actions_after|default(null) is not empty %}
         {% set ds_input = ds_input|merge({ actions_after: extra_actions_after }) %}
