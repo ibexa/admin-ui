@@ -6,4 +6,4 @@ services:
 
     Ibexa\AdminUi\UI\Config\Provider\IsRtl:
         tags:
-            - { name: ibexa.admin_ui.config.provider, key: 'ibexa_is_rtl' }
+            - { name: ibexa.admin_ui.config.provider, key: 'isRtl' }
