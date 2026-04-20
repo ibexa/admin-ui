@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}" {{ ibexa_is_rtl ? 'dir="rtl"' : '' }}>
+<html lang="{{ app.request.locale }}" {{ ibexa_admin_ui_config.ibexa_is_rtl ? 'dir="rtl"' : '' }}>
     <head>
         <meta charset="UTF-8" />
         <meta name="CSRF-Token" content="{{ csrf_token(ibexa_get_rest_csrf_token_intention()) }}" />

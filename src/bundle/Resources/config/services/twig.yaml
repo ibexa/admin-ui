@@ -37,7 +37,3 @@ services:
     Ibexa\Bundle\AdminUi\Templating\Twig\LocationExtension:
         tags:
             - { name: twig.extension }
-
-    Ibexa\Bundle\AdminUi\Templating\Twig\RtlExtension:
-        tags:
-            - { name: twig.extension }
