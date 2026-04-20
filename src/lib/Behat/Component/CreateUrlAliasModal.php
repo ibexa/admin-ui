@@ -48,7 +48,7 @@ final class CreateUrlAliasModal extends Component
         $toggle = $this->getHTMLPage()->find($this->getLocator('redirectToggle'));
         $isChecked = $toggle->hasClass('ids-toggle--checked');
         if ($shouldBeChecked !== $isChecked) {
-            $this->getHTMLPage()->find($this->getLocator('redirectToggle'))->click();
+            $this->getHTMLPage()->find(new VisibleCSSLocator('toggle', '.ibexa-custom-url-from__item .ids-toggle .ids-toggle__widget'))->click();
         }
     }
 
