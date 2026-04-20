@@ -22,9 +22,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
     public function fillFieldDefinitionFieldWithValue(string $fieldName, string $label, string $value): void
     {
         $this->expandLastFieldDefinition();
-        $lastFieldDefinition = $this->getHTMLPage()->findAll($this->getLocator('fieldDefinition'))->last();
-
-        $lastFieldDefinition
+        $this->getHTMLPage()
             ->find($this->getLocator('fieldDefinitionOpenContainer'))
             ->findAll($this->getLocator('field'))
             ->getByCriterion(new ElementTextCriterion($label))
@@ -41,22 +39,27 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
             $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-
-            if ($fieldDefinition->findAll($this->getLocator('fieldDefinitionOpenContainer'))->any()) {
-                return true;
-            }
-
-            $fieldDefinition->find($this->getLocator('fieldDefinitionToggle'))->execute(new MouseOverAndClick());
-
-            $this->getHTMLPage()->setTimeout(5)->waitUntilCondition(
-                new ElementExistsCondition(
+            $fieldDefinition->find(new VisibleCSSLocator('collapseButton', 'button.ibexa-collapse__toggle-btn'))->click();
+            $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
+                new ElementNotExistsCondition(
                     $fieldDefinition,
-                    $this->getLocator('fieldDefinitionOpenContainer')
+                    new VisibleCSSLocator('isCollapsed', 'button.collapsed')
                 )
             );
 
             return true;
         }, 'Error expanding the last Field definition');
+
+        $lastFieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
+        $this
+            ->getHTMLPage()
+            ->setTimeout(10)
+            ->waitUntilCondition(
+                new ElementTransitionHasEndedCondition(
+                    $lastFieldDefinition,
+                    new VisibleCSSLocator('transition', 'div')
+                )
+            );
     }
 
     public function specifyLocators(): array
