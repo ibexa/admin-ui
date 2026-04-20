@@ -12,6 +12,7 @@ use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
+use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
