@@ -69,8 +69,8 @@ final class DamWidgetTest extends TestCase
     private const IMAGE_AGGREGATIONS = [
         'KeywordTermAggregation' => [
             'name' => 'keywords',
-            'contentTypeIdentifier' => 'keywords',
-            'fieldDefinitionIdentifier' => 'keywords',
+            'contentTypeIdentifier' => self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER,
+            'fieldDefinitionIdentifier' => 'tags',
         ],
     ];
 
@@ -153,9 +153,14 @@ final class DamWidgetTest extends TestCase
      */
     public function provideDataForTestGetConfig(): iterable
     {
+        $imageContentType = $this->createContentTypeMock(self::IMAGE_FOO_NAME_SCHEMA);
+        $imageContentType->expects(self::atLeastOnce())
+            ->method('hasFieldDefinition')
+            ->willReturn(true);
+
         $loadContentTypeValueMap = [
             [self::FOLDER_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::FOLDER_NAME_SCHEMA)],
-            [self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::IMAGE_FOO_NAME_SCHEMA)],
+            [self::IMAGE_FOO_CONTENT_TYPE_IDENTIFIER, [], $imageContentType],
             [self::IMAGE_BAR_CONTENT_TYPE_IDENTIFIER, [], $this->createContentTypeMock(self::IMAGE_BAR_NAME_SCHEMA)],
         ];
 
@@ -189,6 +194,9 @@ final class DamWidgetTest extends TestCase
         ];
     }
 
+    /**
+     * @phpstan-return \Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType & \PHPUnit\Framework\MockObject\MockObject
+     */
     private function createContentTypeMock(string $nameSchema): ContentType
     {
         $contentType = $this->createMock(ContentType::class);

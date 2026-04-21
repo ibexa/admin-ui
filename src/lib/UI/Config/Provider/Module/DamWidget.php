@@ -13,6 +13,7 @@ use Ibexa\Contracts\Core\Container\ApiLoader\RepositoryConfigurationProviderInte
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\NameSchema\SchemaIdentifierExtractorInterface;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Core\Base\Exceptions\NotFoundException;
 
 /**
  * @phpstan-type TConfig array{
@@ -86,9 +87,23 @@ final readonly class DamWidget implements ProviderInterface
     {
         $imageConfig = [
             'showImageFilters' => $this->showImageFilters(),
-            'aggregations' => $this->config['image']['aggregations'],
+            'aggregations' => [],
             'enableMultipleDownload' => extension_loaded('zip'),
         ];
+
+        // The content type may not have the default fields; in that case, don't add the aggregations
+        foreach ($this->config['image']['aggregations'] as $key => $aggregation) {
+            try {
+                $imageType = $this->contentTypeService->loadContentTypeByIdentifier(
+                    $aggregation['contentTypeIdentifier']
+                );
+                if ($imageType->hasFieldDefinition($aggregation['fieldDefinitionIdentifier'])) {
+                    $imageConfig['aggregations'][$key] = $aggregation;
+                }
+            } catch (NotFoundException $e) {
+                $imageConfig['aggregations'][$key] = [];
+            }
+        }
 
         $mappings = [];
         $contentTypeIdentifiers = [];
