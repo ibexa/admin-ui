@@ -176,6 +176,11 @@
         <target state="new">Define a Subtree or Section limitation</target>
         <note>key: validator.define_subtree_or_section_limitation</note>
       </trans-unit>
+      <trans-unit id="c620f79594b4a8ce3d4f356cfb2d3fe454c6ecb7" resname="ibexa.matrix.column.identifier.format">
+        <source>Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.</source>
+        <target state="new">Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.</target>
+        <note>key: ibexa.matrix.column.identifier.format</note>
+      </trans-unit>
     </body>
   </file>
 </xliff>
