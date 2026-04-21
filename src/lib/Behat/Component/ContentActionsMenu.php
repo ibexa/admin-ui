@@ -11,6 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
+use Ibexa\Behat\Browser\Element\ElementCollectionInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class ContentActionsMenu extends Component
@@ -47,7 +48,7 @@ final class ContentActionsMenu extends Component
             ->getByCriterion(new ElementTextCriterion($buttonName))->click();
     }
 
-    private function getStandaloneButtons(string $buttonName): string
+    private function getStandaloneButtons(string $buttonName): ElementCollectionInterface
     {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('menuButton'))
