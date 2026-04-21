@@ -47,7 +47,7 @@ final class ContentActionsMenu extends Component
             ->getByCriterion(new ElementTextCriterion($buttonName))->click();
     }
 
-    private function getStandaloneButtons(string $buttonName)
+    private function getStandaloneButtons(string $buttonName): ElementCollectionInterface
     {
         return $this->getHTMLPage()
             ->findAll($this->getLocator('menuButton'))
