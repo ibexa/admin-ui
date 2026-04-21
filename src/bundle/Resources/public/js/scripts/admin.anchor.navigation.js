@@ -136,18 +136,20 @@
     const attachMenuTabShowEvents = () => {
         doc.querySelectorAll('.ibexa-anchor-navigation .ibexa-tabs__tab:not(.ibexa-tabs__tab--more)').forEach((tabLink) => {
             tabLink.addEventListener('shown.bs.tab', (event) => {
-                const { target, relatedTarget } = event;
-                const prevHashId = getTabHash(relatedTarget);
-                const currHashId = getTabHash(target);
-                const prevMainContentTab = doc.querySelector(`[data-id="${prevHashId}"]`);
-                const currMainContentTab = doc.querySelector(`[data-id="${currHashId}"]`);
-
-                prevMainContentTab?.classList.toggle('ibexa-anchor-navigation__section-group--active', false);
-                currMainContentTab?.classList.toggle('ibexa-anchor-navigation__section-group--active', true);
-
-                initFitSection();
+                onAnchorTabShow(event);
             });
         });
+    };
+    const onAnchorTabShow = (event) => {
+        const { target, relatedTarget } = event;
+        const prevHashId = getTabHash(relatedTarget);
+        const currHashId = getTabHash(target);
+        const prevMainContentTabs = doc.querySelectorAll(`[data-id="${prevHashId}"]`);
+        const currMainContentTabs = doc.querySelectorAll(`[data-id="${currHashId}"]`);
+
+        prevMainContentTabs?.forEach((tab) => tab.classList.toggle('ibexa-anchor-navigation__section-group--active', false));
+        currMainContentTabs?.forEach((tab) => tab.classList.toggle('ibexa-anchor-navigation__section-group--active', true));
+        initFitSection();
     };
     const attachMenuSectionsEvents = () => {
         const items = doc.querySelectorAll('.ibexa-anchor-navigation-menu .ibexa-anchor-navigation-menu__sections-item-btn');
