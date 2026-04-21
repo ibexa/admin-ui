@@ -27,14 +27,6 @@
 %}
 
 {% if can_use_ds_input %}
-    {% set wrapper_attr = wrapper_attr|merge({
-        class: (wrapper_attr.class|default('')
-            ~ ' ibexa-input-text-wrapper ibexa-input-text-wrapper--ds'
-            ~ (has_search ? ' ibexa-input-text-wrapper--search')
-            ~ (is_password_type ? ' ibexa-input-text-wrapper--password')
-            ~ " ibexa-input-text-wrapper--type-#{normalized_type}"
-        )|trim
-    }) %}
     {% set ds_input = input_attr|merge({
         type: normalized_type,
         disabled: is_disabled,
@@ -60,10 +52,8 @@
         {% set ds_input = ds_input|merge({ actions_after: combined_actions_after }) %}
     {% endif %}
 
-    <div {{ html.attributes(wrapper_attr) }}>
-        <twig:ibexa:input_text:input {{ ...ds_input }} />
-        {{ block('extra_content') }}
-    </div>
+    <twig:ibexa:input_text:input {{ ...ds_input }} />
+    {{ block('extra_content') }}
 {% else %}
     {% set wrapper_attr = wrapper_attr|merge({
         class: (wrapper_attr.class|default('')
