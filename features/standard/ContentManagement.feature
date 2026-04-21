@@ -113,7 +113,7 @@ Scenario: Content can be copied
     And I'm on Content view Page for "ContentManagement/TestArticleToHide"
     Then I should see the alert "This Content item or its Location is hidden." appear
 
-  @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @IbexaHeadless @IbexaExperience @IbexaCommerce @IbexaDXP
   Scenario: Content item can be hidden
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -134,7 +134,7 @@ Scenario: Content can be copied
     And I should be on Content view Page for "ContentManagement/TestArticleToHide"
     Then success notification that "Content item 'TestArticleToHide' revealed." appears
 
-  @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @IbexaHeadless @IbexaExperience @IbexaCommerce @IbexaDXP
   Scenario: Content can be hidden later
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
@@ -152,7 +152,7 @@ Scenario: Content can be copied
     And I clear the behat cache directory
     Then I should see the alert "This Content item or its Location is hidden." appear
 
-  @IbexaHeadless @IbexaExperience @IbexaCommerce
+  @IbexaHeadless @IbexaExperience @IbexaCommerce @IbexaDXP
   Scenario: Content hide later can be cancelled
     Given a "folder" Content item named "ContentManagement" exists in root
       | name              | short_name        |
