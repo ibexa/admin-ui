@@ -4,7 +4,7 @@
     const headerSearchInput = document.querySelector<HTMLInputElement>('.ibexa-global-search__input');
     const languageSelector = document.querySelector<HTMLSelectElement>('.ibexa-filters__item--language-selector .ibexa-filters__select');
     const headerSearchSubmitBtn = document.querySelector<HTMLButtonElement>(
-        '.ibexa-main-header .ibexa-input-text-wrapper__action-btn--search',
+        '.ibexa-main-header .ids-input-text__search-btn, .ibexa-main-header .ibexa-input-text-wrapper__action-btn--search',
     );
 
     if (!headerSearchInput || !searchInput || !searchForm) {

@@ -9,7 +9,7 @@ export class UserInvitationModal {
         this.modal = options.modal;
         this.stickyTopContainer = this.modal.querySelector('.ibexa-user-invitation-modal__sticky-top');
         this.searchInput = this.modal.querySelector('.ibexa-user-invitation-modal__search-input');
-        this.searchBtn = this.modal.querySelector('.ibexa-input-text-wrapper__action-btn--search');
+        this.searchBtn = this.modal.querySelector('.ids-input-text__search-btn, .ibexa-input-text-wrapper__action-btn--search');
         this.searchNoEntries = this.modal.querySelector('.ibexa-user-invitation-modal__search-no-entries');
         this.badFileAlert = this.modal.querySelector('.ibexa-user-invitation-modal__bad-file-alert');
         this.badFileAlertCloseBtn = this.badFileAlert.querySelector('.ibexa-alert__close-btn');
@@ -490,7 +490,7 @@ export class UserInvitationModal {
         this.goToNextIssueBtn.addEventListener('click', this.scrollToNextIssue, false);
 
         this.searchInput.addEventListener('keyup', this.handleSearch, false);
-        this.searchBtn.addEventListener('keyup', this.handleSearch, false);
+        this.searchBtn?.addEventListener('keyup', this.handleSearch, false);
 
         this.fakeSubmitBtn.addEventListener(
             'click',

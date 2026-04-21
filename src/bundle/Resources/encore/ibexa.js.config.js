@@ -249,9 +249,13 @@ module.exports = (Encore) => {
         ])
         .addEntry('ibexa-admin-ui-login-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
+            path.resolve('./vendor/ibexa/design-system-twig/src/bundle/Resources/public/ts/init_components.ts'),
             path.resolve(__dirname, '../public/js/scripts/login.js'),
         ])
-        .addEntry('ibexa-admin-ui-reset-password-js', [path.resolve(__dirname, '../public/js/scripts/admin.input.text.js')])
+        .addEntry('ibexa-admin-ui-reset-password-js', [
+            path.resolve(__dirname, '../public/js/scripts/admin.input.text.js'),
+            path.resolve('./vendor/ibexa/design-system-twig/src/bundle/Resources/public/ts/init_components.ts'),
+        ])
         .addEntry('ibexa-admin-ui-user-invitation-modal', [path.resolve(__dirname, '../public/js/scripts/user.invitation.modal.js')])
         .addEntry('ibexa-admin-ui-tabs-js', [
             path.resolve(__dirname, '../public/js/scripts/admin.location.tab.js'),
