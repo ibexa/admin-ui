@@ -37,8 +37,8 @@ Feature: User management
       | First name  | testuseredited |
       | Last name   | lastnameedited |
     And I set content fields for user
-      | label         | Username  | Password    | Confirm password  | Email          |
-      | User account  | testuser  | Test123456  | Test123456        | test@test.org  |
+      | label         | Username  | Password    | Confirm password  | Email          | Enabled |
+      | User account  | testuser  | Test123456  | Test123456        | test@test.org  | Yes     | 
     And I perform the "Update" action
     Then I should be on Content view Page for "Users/testuseredited lastnameedited"
     And content attributes equal
