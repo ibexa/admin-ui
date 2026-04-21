@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
-use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
@@ -28,7 +27,7 @@ final class User extends FieldTypeComponent
         $this->setSpecificFieldValue('password', $parameters['Password']);
         $this->setSpecificFieldValue('confirmPassword', $parameters['Confirm password']);
         $this->setSpecificFieldValue('email', $parameters['Email']);
-        $this->setEnabledField(($parameters['Enabled'] ?? 'Yes') === 'Yes');
+        $this->setEnabledField(true);
     }
 
     public function setSpecificFieldValue(string $fieldName, string $value): void
@@ -91,28 +90,20 @@ final class User extends FieldTypeComponent
             new VisibleCSSLocator('confirmPassword', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_password_second,#ezplatform_content_forms_user_update_fieldsData_user_account_value_password_second'),
             new VisibleCSSLocator('email', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_email,#ezplatform_content_forms_user_update_fieldsData_user_account_value_email'),
             new VisibleCSSLocator('buttonEnabled', '.ids-toggle__widget'),
-            new VisibleCSSLocator('buttonEnabledWrapper', '.ids-toggle'),
+            new VisibleCSSLocator('buttonEnabledLabel', '.ids-toggle__label'),
             new VisibleCSSLocator('buttonEnabledToggleConfirmation', '.ids-toggle--checked'),
         ];
     }
 
     private function setEnabledField(bool $enabled): void
     {
-        $parentField = $this->getHTMLPage()->find($this->parentLocator);
-        $enabledToggleSelector = CSSLocatorBuilder::base($this->parentLocator)
-            ->withDescendant($this->getLocator('buttonEnabledToggleConfirmation'))
-            ->build();
-        $isCurrentlyEnabled = $parentField->findAll($this->getLocator('buttonEnabledToggleConfirmation'))->any();
-
+        $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabledLabel'))->getText() === 'On';
         if ($isCurrentlyEnabled !== $enabled) {
             $script = sprintf("document.querySelector('%s %s').click()", $this->parentLocator->getSelector(), $this->getLocator('buttonEnabled')->getSelector());
             $this->getHTMLPage()->executeJavaScript($script);
-
-            $condition = $enabled
-                ? new ElementExistsCondition($this->getHTMLPage(), $enabledToggleSelector)
-                : new ElementNotExistsCondition($this->getHTMLPage(), $enabledToggleSelector);
-
-            $this->getHTMLPage()->setTimeout(10)->waitUntilCondition($condition);
+            $this->getHTMLPage()
+                ->setTimeout(10)
+                ->waitUntilCondition(new ElementExistsCondition($this->getHTMLPage(), $this->getLocator('buttonEnabledToggleConfirmation')));
         }
     }
 }
