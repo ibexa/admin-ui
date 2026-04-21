@@ -2,6 +2,8 @@
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     const SELETOR_FIELD_INPUTS =
         '.ibexa-input-text-wrapper:not(.ibexa-input-text-wrapper--search) > input.ibexa-input--text:not([hidden]):not(ibexa-input-text-wrapper--search)';
+    const MATRIX_COLUMN_ID_PATTERN = /^[A-Za-z0-9_][A-Za-z0-9_:-]*$/;
+    const MATRIX_COLUMN_ID_ERROR_CLASS = 'ibexa-matrix-settings__identifier-error';
     const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
     let sourceContainer = null;
     let currentDraggedItem = null;
@@ -368,37 +370,71 @@
     const mouseLeaveInputHandlerForFirefox = ({ currentTarget, type }) => {
         toggleDraggableForFirefox(currentTarget, type === 'mouseenter');
     };
+    const isMatrixColumnIdInput = (input) => {
+        return input.name?.endsWith('[identifier]') && !!input.closest('.ibexa-matrix-settings__column');
+    };
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
+        const isMatrixColumnId = isMatrixColumnIdInput(input);
+        const isMatrixColumnIdInvalid = !isInputEmpty && isMatrixColumnId && !MATRIX_COLUMN_ID_PATTERN.test(input.value);
         const field = input.closest('.form-group');
         const labelNode = field?.querySelector('.ibexa-label');
         const errorNode = field?.querySelector('.ibexa-form-error');
+        const isInvalid = isInputEmpty || isMatrixColumnIdInvalid;
 
-        input.classList.toggle('is-invalid', isInputEmpty);
+        input.classList.toggle('is-invalid', isInvalid);
 
         if (errorNode && labelNode) {
             errorNode.innerHTML = '';
 
-            if (isInputEmpty) {
+            if (isInvalid) {
                 const fieldName = labelNode.innerHTML;
-                const errorMessage = ibexa.errors.emptyField.replace('{fieldName}', fieldName);
+                const errorMessage = isInputEmpty
+                    ? ibexa.errors.emptyField.replace('{fieldName}', fieldName)
+                    : Translator.trans(
+                          /*@Desc('Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.')*/ 'ibexa.matrix.column.identifier.format',
+                          {},
+                          'validators',
+                      );
                 const formattedError = ibexa.helpers.formValidation.formatErrorLine(errorMessage);
 
                 errorNode.append(formattedError);
             }
         }
 
-        isEditFormValid = isEditFormValid && !isInputEmpty;
+        isEditFormValid = isEditFormValid && !isInvalid;
     };
     const validateMatrixColumns = (columnSettingsNode) => {
         const columns = columnSettingsNode.querySelectorAll('.ibexa-matrix-settings__column');
         const requiredInputs = columnSettingsNode.querySelectorAll('.ibexa-input[required]');
+        const idInputs = columnSettingsNode.querySelectorAll('.ibexa-input--matrix-column-identifier');
         const hasAddedColumns = columns.length > 0;
+        const hasInvalidId = [...idInputs].some((input) => input.value && !MATRIX_COLUMN_ID_PATTERN.test(input.value));
         const hasEmptyRequiredInputs = [...requiredInputs].some((input) => !input.value);
-        const isValid = hasAddedColumns && !hasEmptyRequiredInputs;
         const errorNode = columnSettingsNode.querySelector('.ibexa-form-error');
+        const quantityErrorNode = errorNode.querySelector(`.ibexa-form-error__row:not(.${MATRIX_COLUMN_ID_ERROR_CLASS})`);
+        const idErrorNode = errorNode.querySelector(`.${MATRIX_COLUMN_ID_ERROR_CLASS}`);
+        const isValid = hasAddedColumns && !hasEmptyRequiredInputs && !hasInvalidId;
 
-        errorNode.toggleAttribute('hidden', hasAddedColumns);
+        idErrorNode?.remove();
+
+        if (hasInvalidId) {
+            const formattedError = ibexa.helpers.formValidation.formatErrorLine(
+                Translator.trans(
+                    /*@Desc('Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.')*/ 'ibexa.matrix.column.identifier.format',
+                    {},
+                    'validators',
+                ),
+            );
+
+            formattedError.classList.add(MATRIX_COLUMN_ID_ERROR_CLASS);
+            quantityErrorNode?.setAttribute('hidden', true);
+            errorNode.append(formattedError);
+        } else {
+            quantityErrorNode?.removeAttribute('hidden');
+        }
+
+        errorNode.toggleAttribute('hidden', hasAddedColumns && !hasInvalidId);
 
         return isValid;
     };
