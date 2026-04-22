@@ -198,6 +198,7 @@ export default class TableViewItemComponent extends PureComponent {
             type: 'number',
             defaultValue: this.state.priorityValue,
             onChange: this.storePriorityValue,
+            key: 'editable-priority',
         };
         const priorityWrapperAttrs = {};
         const innerWrapperAttrs = {};
@@ -205,6 +206,7 @@ export default class TableViewItemComponent extends PureComponent {
         if (!this.state.priorityInputEnabled) {
             delete inputAttrs.defaultValue;
             inputAttrs.value = this.state.priorityValue;
+            inputAttrs.key = 'readonly-priority';
             priorityWrapperAttrs.onClick = this.enablePriorityInput;
             innerWrapperAttrs.hidden = true;
         }
