@@ -43,7 +43,7 @@ final class PolicyCreateRightSidebarBuilder extends AbstractBuilder implements T
                 self::ITEM__CREATE,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => sprintf('#%s', $saveId),
                     ],
                 ]

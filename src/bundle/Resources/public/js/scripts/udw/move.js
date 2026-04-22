@@ -1,5 +1,5 @@
 (function (global, doc, ibexa, React, ReactDOMClient, Translator) {
-    const btns = doc.querySelectorAll('.ibexa-btn--udw-move');
+    const btns = doc.querySelectorAll('.ids-btn--udw-move');
     const form = doc.querySelector('form[name="location_move"]');
 
     if (!form) {

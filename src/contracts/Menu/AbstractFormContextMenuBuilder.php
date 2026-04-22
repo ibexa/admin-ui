@@ -55,7 +55,7 @@ abstract class AbstractFormContextMenuBuilder extends AbstractBuilder
                 [
                     'label' => self::getActionLabel(),
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => $options['submit_selector'] ?? '#',
                     ],
                     'translation_domain' => 'ibexa_menu',

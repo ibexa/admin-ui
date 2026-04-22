@@ -32,8 +32,8 @@ class Dialog extends Component
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('confirm', '.modal.show button[type="submit"],.modal.show button[data-click], .modal.show .ibexa-btn--confirm, .modal.show .ibexa-btn--primary, .modal.show .ids-btn--confirm, .modal.show .ids-btn--primary'),
-            new VisibleCSSLocator('decline', '.modal.show .ids-btn--secondary, .modal.show .ibexa-btn--secondary'),
+            new VisibleCSSLocator('confirm', '.modal.show button[type="submit"],.modal.show button[data-click], .modal.show .ids-btn--confirm, .modal.show .ids-btn--primary'),
+            new VisibleCSSLocator('decline', '.modal.show .ids-btn--secondary'),
         ];
     }
 }

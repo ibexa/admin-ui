@@ -2,11 +2,11 @@
     class EditTranslation {
         constructor(config) {
             this.container = config.container;
-            this.toggler = config.container.querySelector('.ids-button--translations-list-toggler');
+            this.toggler = config.container.querySelector('.ids-btn--translations-list-toggler');
             this.extraActionsContainer = config.container.querySelector('.ibexa-extra-actions');
             this.closeBtn = config.container.querySelector('.ibexa-extra-actions__close-btn');
             this.confirmBtn = config.container.querySelector('.ibexa-extra-actions__confirm-btn');
-            this.languagesBtns = config.container.querySelectorAll('.ids-button--select-language');
+            this.languagesBtns = config.container.querySelectorAll('.ids-btn--select-language');
             this.backdrop = config.backdrop;
 
             this.tableNode = null;
@@ -64,8 +64,8 @@
             this.confirmBtn.dataset.languageCode = languageCode;
             this.confirmBtn.disabled = false;
 
-            this.languagesBtns.forEach((btn) => btn.classList.remove('ids-button--active'));
-            event.currentTarget.classList.add('ids-button--active');
+            this.languagesBtns.forEach((btn) => btn.classList.remove('ids-btn--active'));
+            event.currentTarget.classList.add('ids-btn--active');
         }
 
         resetLanguageSelector() {
@@ -73,7 +73,7 @@
             this.confirmBtn.dataset.languageCode = null;
             this.confirmBtn.disabled = true;
 
-            this.languagesBtns.forEach((btn) => btn.classList.remove('ids-button--active'));
+            this.languagesBtns.forEach((btn) => btn.classList.remove('ids-btn--active'));
         }
 
         init() {

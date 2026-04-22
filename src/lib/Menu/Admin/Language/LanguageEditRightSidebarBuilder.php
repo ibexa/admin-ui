@@ -40,7 +40,7 @@ final class LanguageEditRightSidebarBuilder extends AbstractBuilder implements T
             self::ITEM__SAVE_AND_CLOSE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $saveAndCloseId),
                 ],
             ]
