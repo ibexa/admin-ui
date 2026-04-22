@@ -373,6 +373,12 @@
     const isMatrixColumnIdInput = (input) => {
         return input.name?.endsWith('[identifier]') && !!input.closest('.ibexa-matrix-settings__column');
     };
+    const getMatrixColumnIdFormatError = () =>
+        Translator.trans(
+            /*@Desc("Matrix identifier may only contain letters from &quot;a&quot; to &quot;z&quot;, numbers, hyphens and underscores.")*/ 'ibexa.matrix.column.identifier.format',
+            {},
+            'validators',
+        );
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
         const isMatrixColumnId = isMatrixColumnIdInput(input);
@@ -391,11 +397,7 @@
                 const fieldName = labelNode.innerHTML;
                 const errorMessage = isInputEmpty
                     ? ibexa.errors.emptyField.replace('{fieldName}', fieldName)
-                    : Translator.trans(
-                          /*@Desc('Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.')*/ 'ibexa.matrix.column.identifier.format',
-                          {},
-                          'validators',
-                      );
+                    : getMatrixColumnIdFormatError();
                 const formattedError = ibexa.helpers.formValidation.formatErrorLine(errorMessage);
 
                 errorNode.append(formattedError);
@@ -419,13 +421,7 @@
         idErrorNode?.remove();
 
         if (hasInvalidId) {
-            const formattedError = ibexa.helpers.formValidation.formatErrorLine(
-                Translator.trans(
-                    /*@Desc('Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.')*/ 'ibexa.matrix.column.identifier.format',
-                    {},
-                    'validators',
-                ),
-            );
+            const formattedError = ibexa.helpers.formValidation.formatErrorLine(getMatrixColumnIdFormatError());
 
             formattedError.classList.add(MATRIX_COLUMN_ID_ERROR_CLASS);
             quantityErrorNode?.setAttribute('hidden', true);
