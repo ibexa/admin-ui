@@ -370,9 +370,6 @@
     const mouseLeaveInputHandlerForFirefox = ({ currentTarget, type }) => {
         toggleDraggableForFirefox(currentTarget, type === 'mouseenter');
     };
-    const isMatrixColumnIdInput = (input) => {
-        return input.name?.endsWith('[identifier]') && !!input.closest('.ibexa-matrix-settings__column');
-    };
     const getMatrixColumnIdFormatError = () =>
         Translator.trans(
             /*@Desc("Matrix identifier may only contain letters from &quot;a&quot; to &quot;z&quot;, numbers, hyphens and underscores.")*/ 'ibexa.matrix.column.identifier.format',
@@ -381,7 +378,7 @@
         );
     const validateInput = (input) => {
         const isInputEmpty = !input.value;
-        const isMatrixColumnId = isMatrixColumnIdInput(input);
+        const isMatrixColumnId = input.classList.contains('ibexa-input--matrix-column-identifier');
         const isMatrixColumnIdInvalid = !isInputEmpty && isMatrixColumnId && !MATRIX_COLUMN_ID_PATTERN.test(input.value);
         const field = input.closest('.form-group');
         const labelNode = field?.querySelector('.ibexa-label');
