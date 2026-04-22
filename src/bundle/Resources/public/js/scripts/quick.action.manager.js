@@ -1,4 +1,4 @@
-import { isRtl } from "@ibexa-admin-ui-helpers/system.helper";
+import { isRtl } from '@ibexa-admin-ui-helpers/system.helper';
 
 (function (global, doc) {
     const ACTION_BTN_VERTICAL_SPACING = 4.3;

@@ -2,8 +2,8 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 
 [dir='rtl'] {
-    .ibexa-theme  {
-         .ibexa-tabs.ibexa-tabs {
+    .ibexa-theme {
+        .ibexa-tabs.ibexa-tabs {
             &:not(.ibexa-tabs--switcher) {
                 .ibexa-tabs {
                     &__tab-corner {
