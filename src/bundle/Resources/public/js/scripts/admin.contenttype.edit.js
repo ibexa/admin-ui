@@ -2,7 +2,7 @@
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     const SELETOR_FIELD_INPUTS =
         '.ibexa-input-text-wrapper:not(.ibexa-input-text-wrapper--search) > input.ibexa-input--text:not([hidden]):not(ibexa-input-text-wrapper--search)';
-    const MATRIX_COLUMN_ID_PATTERN = /^[A-Za-z0-9_][A-Za-z0-9_:-]*$/;
+    const MATRIX_COLUMN_ID_PATTERN = /^\w[\w:-]*$/;
     const MATRIX_COLUMN_ID_ERROR_CLASS = 'ibexa-matrix-settings__identifier-error';
     const TIMEOUT_REMOVE_HIGHLIGHT = 3000;
     let sourceContainer = null;
