@@ -26,7 +26,7 @@
                     type="tertiary-alt"
                     icon="caret-back"
                     icon_size="small"
-                    class="ids-button--close-config-panel"
+                    class="ids-btn--close-config-panel"
                 />
                 <h2 class="ibexa-side-panel__title">{{ title }}</h2>
             {% endblock %}
@@ -34,12 +34,13 @@
             
             <div {{ html.attributes(attr_footer) }}>
                 {% block footer %}
-                    <button
-                        type="button"
-                        class="btn ibexa-btn ibexa-btn--info ibexa-side-panel__cancel-btn ibexa-btn--close-config-panel"
+                    <twig:ibexa:button
+                        html_type="button"
+                        type="secondary"
+                        class="ibexa-side-panel__cancel-btn ids-btn--close-config-panel"
                     >
                         {{ 'side_panel.btn.cancel_label'|trans|desc('Cancel') }}
-                    </button>
+                    </twig:ibexa:button>
                 {% endblock %}
             </div>
         </div>
