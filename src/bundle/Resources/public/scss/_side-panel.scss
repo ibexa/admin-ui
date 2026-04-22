@@ -29,15 +29,12 @@
     &__footer {
         display: flex;
         align-items: center;
+        gap: calculateRem(16px);
         box-shadow: 0 0 calculateRem(16px) 0 rgba($ibexa-color-dark, 0.16);
         z-index: 1000;
         width: calculateRem(516px);
         position: fixed;
         bottom: 0;
-
-        .ibexa-btn {
-            margin-right: calculateRem(16px);
-        }
 
         .ibexa-notifications-modal__footer {
             width: calculateRem(516px);

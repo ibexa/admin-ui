@@ -2,7 +2,7 @@
     doc.addEventListener(
         'DOMContentLoaded',
         () => {
-            const buttons = doc.querySelectorAll('.ids-button--trigger, .ibexa-btn--trigger');
+            const buttons = doc.querySelectorAll('.ids-btn--trigger, .ids-button--trigger, .ibexa-btn--trigger');
             const trigger = (event) => {
                 event.preventDefault();
 
