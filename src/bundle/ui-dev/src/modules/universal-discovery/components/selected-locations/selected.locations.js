@@ -6,6 +6,7 @@ import {
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/tooltips.helper';
 import { getBootstrap, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
+import { Button, ButtonType, ButtonSize } from '@ids-components/components/Button';
 import Icon from '../../../common/icon/icon';
 import SelectedLocationsItem from './selected.locations.item';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
