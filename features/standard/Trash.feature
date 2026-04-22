@@ -126,6 +126,7 @@ Feature: Trash management
     When I filter search by "Media" section
     Then there is a "Folder" "TrashSearch4" on Trash list
 
+  @IbexaDXP
   Scenario: Element in trash can be found by search and filtered by content item creator
     Given I create a user "TrashAdmin" with last name "Admin" in group "Administrator users"
     And a "folder" Content item named "TrashTest" exists in root
