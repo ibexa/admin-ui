@@ -41,7 +41,7 @@ final class ObjectStateEditRightSidebarBuilder extends AbstractBuilder implement
             self::ITEM__SAVE_AND_CLOSE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $saveAndCloseId),
                 ],
             ]

@@ -1,5 +1,5 @@
 (function (global, doc) {
-    const editButtons = doc.querySelectorAll('.ibexa-btn--edit');
+    const editButtons = doc.querySelectorAll('.ids-btn--edit');
 
     editButtons.forEach((editButton) => {
         const languageRadioOption = doc.querySelector(

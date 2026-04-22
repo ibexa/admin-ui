@@ -80,13 +80,13 @@
         &.ibexa-input.form-control:disabled {
             background-color: $ibexa-color-white;
 
-            & + .ids-button--reset-creator {
+            & + .ids-btn--reset-creator {
                 display: block;
             }
         }
     }
 
-    .ids-button--reset-creator {
+    .ids-btn--reset-creator {
         display: none;
         position: absolute;
         right: 0;

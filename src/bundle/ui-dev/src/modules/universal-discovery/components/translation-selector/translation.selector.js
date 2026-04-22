@@ -112,15 +112,15 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                 </div>
             </div>
             <div className="ibexa-extra-actions__confirm-wrapper">
-                <button
-                    type="submit"
-                    className="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary"
+                <Button
+                    type={ButtonType.Primary}
+                    className="ibexa-extra-actions__confirm-btn"
                     disabled={!activeLanguage}
                     onClick={() => selectTranslation(activeLanguage)}
                 >
                     {Translator.trans(/*@Desc("Edit")*/ 'meta_preview.edit.languages.edit', {}, 'ibexa_universal_discovery_widget')}
-                </button>
-                <Button type={ButtonType.Secondary} onClick={hideTranslationSelector} className="ibexa-btn--close">
+                </Button>
+                <Button type={ButtonType.Secondary} onClick={hideTranslationSelector} className="ids-btn--close">
                     {Translator.trans(/*@Desc("Discard")*/ 'meta_preview.edit.languages.discard', {}, 'ibexa_universal_discovery_widget')}
                 </Button>
             </div>

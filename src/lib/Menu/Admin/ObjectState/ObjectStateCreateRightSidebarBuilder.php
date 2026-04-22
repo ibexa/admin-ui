@@ -40,7 +40,7 @@ final class ObjectStateCreateRightSidebarBuilder extends AbstractBuilder impleme
             self::ITEM__CREATE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => '#object_state_create_create',
                 ],
             ]

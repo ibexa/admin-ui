@@ -44,7 +44,7 @@ final class UserEditRightSidebarBuilder extends AbstractBuilder implements Trans
                 self::ITEM__UPDATE,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_update_update',
                     ],
                 ]
@@ -53,7 +53,7 @@ final class UserEditRightSidebarBuilder extends AbstractBuilder implements Trans
                 self::ITEM__CANCEL,
                 [
                     'attributes' => [
-                        'class' => 'ibexa-btn--trigger',
+                        'class' => 'ids-btn--trigger',
                         'data-click' => '#ezplatform_content_forms_user_update_cancel',
                     ],
                 ]
