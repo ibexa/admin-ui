@@ -1,4 +1,4 @@
-import { isRtl } from "@ibexa-admin-ui-helpers/system.helper";
+import { isRtl } from '@ibexa-admin-ui-helpers/system.helper';
 
 (function (global, doc, ibexa) {
     const SECOND_LEVEL_COLLAPSED_WIDTH = 48;
@@ -168,7 +168,8 @@ import { isRtl } from "@ibexa-admin-ui-helpers/system.helper";
     const triggerSecondLevelChangeWidth = ({ clientX }) => {
         const resizeValue = isRtl() ? resizeStartPositionX - clientX : clientX - resizeStartPositionX;
         const calculatedMenuWidth = secondMenuLevelCurrentWidth + resizeValue;
-        const newMenuWidth = calculatedMenuWidth > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? calculatedMenuWidth : SECOND_LEVEL_COLLAPSED_WIDTH;
+        const newMenuWidth =
+            calculatedMenuWidth > SECOND_LEVEL_MANUAL_RESIZE_MIN_WIDTH ? calculatedMenuWidth : SECOND_LEVEL_COLLAPSED_WIDTH;
 
         ibexa.helpers.cookies.setBackOfficeCookie('ibexa-aui_menu-secondary-width', newMenuWidth);
         setWidthOfSecondLevelMenu();

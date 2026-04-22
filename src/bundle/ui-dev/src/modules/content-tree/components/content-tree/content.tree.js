@@ -101,7 +101,9 @@ export default class ContentTree extends Component {
 
         this.setState(
             (state) => ({
-                resizedContainerWidth: state.containerWidth + (isRtl() ? state.resizeStartPositionX - currentPositionX : currentPositionX - state.resizeStartPositionX),
+                resizedContainerWidth:
+                    state.containerWidth +
+                    (isRtl() ? state.resizeStartPositionX - currentPositionX : currentPositionX - state.resizeStartPositionX),
             }),
             () => {
                 document.body.dispatchEvent(new CustomEvent('ibexa-content-resized'));
