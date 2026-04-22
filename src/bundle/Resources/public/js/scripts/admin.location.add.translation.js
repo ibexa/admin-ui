@@ -9,7 +9,7 @@
         if (!modal) {
             return;
         }
-        const buttonCreate = modal.querySelector('.ids-button--create-translation');
+        const buttonCreate = modal.querySelector('.ids-btn--create-translation');
         if (!buttonCreate) {
             return;
         }

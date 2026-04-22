@@ -9,7 +9,7 @@
     }
 
     if (modal) {
-        modal.querySelector('.ids-button--confirm').addEventListener('click', () => {
+        modal.querySelector('.ids-btn--confirm').addEventListener('click', () => {
             visiblity.value = 0;
             form.submit();
         });

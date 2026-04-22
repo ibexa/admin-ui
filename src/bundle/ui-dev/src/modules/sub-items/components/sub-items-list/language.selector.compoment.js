@@ -65,13 +65,13 @@ const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], hand
             <div className="ibexa-extra-actions__confirm-wrapper">
                 <button
                     type="submit"
-                    className="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary"
+                    className="ids-btn ids-btn--primary ibexa-extra-actions__confirm-btn"
                     ref={submitBtnRef}
                     disabled={!activeLanguage}
                 >
                     {Translator.trans(/*@Desc("Edit")*/ 'edit.languages.edit', {}, 'ibexa_sub_items')}
                 </button>
-                <button type="button" className="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary" ref={discardBtnRef}>
+                <button type="button" className="ids-btn ids-btn--secondary ids-btn--close" ref={discardBtnRef}>
                     {Translator.trans(/*@Desc("Discard")*/ 'edit.languages.discard', {}, 'ibexa_sub_items')}
                 </button>
             </div>

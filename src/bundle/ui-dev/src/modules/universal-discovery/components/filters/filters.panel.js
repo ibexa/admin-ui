@@ -23,7 +23,7 @@ const FiltersPanel = ({ children = null, isApplyButtonEnabled, makeSearch, clear
                         size={ButtonSize.Small}
                         onClick={makeSearch}
                         disabled={!isApplyButtonEnabled}
-                        className="ibexa-btn--apply"
+                        className="ids-btn--apply"
                     >
                         {applyLabel}
                     </Button>
