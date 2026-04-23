@@ -1,5 +1,5 @@
 (function (global, doc, bootstrap) {
-    const hideButton = doc.querySelector('.ibexa-btn--hide');
+    const hideButton = doc.querySelector('.ids-btn--hide');
     const modal = doc.querySelector('#hide-content-modal');
     const form = doc.querySelector('form[name="content_visibility_update"]');
     const visiblity = doc.querySelector('#content_visibility_update_visible');
