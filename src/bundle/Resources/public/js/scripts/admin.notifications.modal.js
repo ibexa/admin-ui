@@ -330,7 +330,9 @@
 
     panel.querySelectorAll(SELECTOR_MODAL_RESULTS).forEach((link) => link.addEventListener('click', handleModalResultsClick, false));
     markAllAsReadBtn.addEventListener('click', markAllAsRead, false);
-    deleteConfirmationModal?.querySelector('.ibexa-notifications-modal--delete--confirm')?.addEventListener('click', deleteNotification, false);
+    deleteConfirmationModal
+        ?.querySelector('.ibexa-notifications-modal--delete--confirm')
+        ?.addEventListener('click', deleteNotification, false);
 
     const getNotificationsStatusLoop = () => {
         getNotificationsStatus().finally(() => {
