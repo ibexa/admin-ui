@@ -363,7 +363,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     private function addHideMenuItem(ItemInterface $menu, bool $canHide): void
     {
         $attributes = [
-            'class' => 'ibexa-btn--hide',
+            'class' => 'ids-btn--hide',
             'data-actions' => 'hide',
         ];
 
