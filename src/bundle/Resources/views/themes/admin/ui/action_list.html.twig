@@ -4,7 +4,7 @@
 
 {% for action in item.children %}
     {% set action_attrs = action.attributes|default({})|merge({
-        class: 'ids-btn ids-btn--tertiary-alt ids-btn--medium ibexa-btn--no-text ' ~ action.attributes.class|default(''),
+        class: 'ids-btn ids-btn--tertiary-alt ids-btn--medium ' ~ action.attributes.class|default(''),
     }) %}
     {% if action.uri %}
         {% set action_attrs = action_attrs|merge({ href: action.uri }) %}
@@ -25,7 +25,7 @@
 
         <button
             type="button"
-            class="ids-btn ids-btn--tertiary-alt ids-btn--medium ibexa-btn--no-text"
+            class="ids-btn ids-btn--tertiary-alt ids-btn--medium"
             data-dropdown-trigger="{{ btn_data_dropdown_trigger }}"
         >
             <svg class="ibexa-icon ibexa-icon--small-medium">
