@@ -3,6 +3,16 @@
 
 [dir='rtl'] {
     .ibexa-theme {
+        .ibexa-tabs.ibexa-tabs {
+            &:not(.ibexa-tabs--switcher) {
+                .ibexa-tabs {
+                    &__tab-corner {
+                        transform: rotateY(180deg);
+                    }
+                }
+            }
+        }
+        
         .ibexa-header-user-menu {
             justify-content: left;
         }
