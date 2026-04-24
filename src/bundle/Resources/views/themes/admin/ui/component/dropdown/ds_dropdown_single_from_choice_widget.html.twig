@@ -1,0 +1,29 @@
+{% extends '@IbexaDesignSystemTwig/themes/standard/design_system/partials/base_dropdown.html.twig' %}
+
+{% set class = 'ids-dropdown--single' %}
+{% set is_empty = (value|default('') == '') %}
+{% set placeholder_item = items|filter(item => item.id == '')|first %}
+{% set placeholder_label = placeholder_item.label|default('ibexa.dropdown.placeholder'|trans) %}
+{% set selected_item = items|filter(item => item.id == value|default(''))|first %}
+{% set selected_label = selected_item.label|default('') %}
+{% set max_visible_items = max_visible_items|default(10) %}
+{% set is_search_visible = items|length > max_visible_items %}
+{% set item_template_props = item_template_props|default({
+    id: '{{ id }}',
+    label: '{{ label }}',
+}) %}
+{% set error = error|default(false) %}
+
+{% block source %}
+    {{ source|raw }}
+{% endblock source %}
+
+{% block placeholder %}
+    <div class="ids-dropdown__placeholder"{% if not is_empty %} hidden{% endif %}>
+        {{ placeholder_label }}
+    </div>
+{% endblock placeholder %}
+
+{% block selected_items %}
+    {{ selected_label }}
+{% endblock selected_items %}

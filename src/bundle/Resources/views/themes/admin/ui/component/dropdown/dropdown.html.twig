@@ -149,15 +149,15 @@
                 {% endif %}
             {% endblock items_list_header %}
 
-            {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
-                {% block content %}
-                    <input
-                        type="text"
-                        placeholder="{{ 'dropdown.search'|trans|desc('Search...') }}"
-                        class="ibexa-dropdown__items-filter ibexa-input ibexa-input--text ibexa-input--small form-control"
-                    />
-                {% endblock %}
-            {%- endembed -%}
+            {%- include '@ibexadesign/ui/component/input_text_ds.html.twig' with {
+                has_search: true,
+                input_attr: {
+                    type: 'text',
+                    size: 'small',
+                    class: 'ibexa-dropdown__items-filter ibexa-input ibexa-input--text ibexa-input--small form-control',
+                    placeholder: 'dropdown.search'|trans|desc('Search...')
+                }
+            } only -%}
 
             {% if has_select_all_toggler and choices_flat|length >= min_select_all_toggler_items %}
                 {% set selection_toggler_label = value|length
