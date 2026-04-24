@@ -16,3 +16,9 @@
         color: initial;
     }
 }
+
+.ibexa-search-view {
+    .ibexa-dropdown-popover {
+        z-index: 1060;
+    }
+}
