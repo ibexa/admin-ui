@@ -186,8 +186,10 @@
         display: flex;
         flex-direction: column;
 
-        .ibexa-input-text-wrapper {
+        .ibexa-input-text-wrapper,
+        .ids-input-text {
             width: 100%;
+            display: block;
             padding: calculateRem(8px) calculateRem(12px);
 
             &__actions {
@@ -196,7 +198,8 @@
         }
 
         &--search-hidden {
-            .ibexa-input-text-wrapper {
+            .ibexa-input-text-wrapper,
+            .ids-input-text {
                 display: none;
             }
         }

@@ -20,17 +20,15 @@
     <div {{ html.attributes(branch_attr, is_template) }}>
         <div class="ibexa-multilevel-popup-menu__search {{ not hasSearch|default(false) ? 'ibexa-multilevel-popup-menu__search--hidden' }}">
             {% block search %}
-                {%- embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: true } only -%}
-                    {% block content %}
-                        {% trans_default_domain 'ibexa_multilevel_popup_menu' %}
-
-                        <input
-                            type="text"
-                            placeholder="{{ 'search.placeholder'|trans|desc('Search...') }}"
-                            class="ibexa-input ibexa-input--small ibexa-input--text form-control ibexa-multilevel-popup-menu__search-input"
-                        />
-                    {% endblock %}
-                {%- endembed -%}
+                {%- include '@ibexadesign/ui/component/input_text_ds.html.twig' with {
+                    has_search: true,
+                    input_attr: {
+                        type: 'text',
+                        size: 'small',
+                        class: 'ibexa-input ibexa-input--small ibexa-input--text form-control ibexa-multilevel-popup-menu__search-input',
+                        placeholder: 'search.placeholder'|trans({}, 'ibexa_multilevel_popup_menu')|desc('Search...')
+                    }
+                } only -%}
             {% endblock %}
         </div>
 

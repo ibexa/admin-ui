@@ -7,8 +7,12 @@
 
     const discardBtns = modal.querySelectorAll('[data-bs-dismiss="modal"]');
     const submitBtn = modal.querySelector('[type="submit"]');
-    const inputs = [...modal.querySelectorAll('[required="required"]')];
+    const inputs = [...modal.querySelectorAll('[required], [required="required"]')];
     const toggleButtonState = () => {
+        if (!submitBtn || inputs.length === 0) {
+            return;
+        }
+
         const isInvalid = inputs.some((input) => input.value.trim().length === 0);
         const methodName = isInvalid ? 'setAttribute' : 'removeAttribute';
 

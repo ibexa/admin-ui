@@ -1,0 +1,131 @@
+{% import '@ibexadesign/ui/component/macros.html.twig' as html %}
+
+{% set type = type|default('text') %}
+{% set normalized_type = is_password_input|default(false) ? 'password' : type %}
+{% set is_password_type = normalized_type == 'password' %}
+{% set is_password_input = is_password_input|default(is_password_type) %}
+{% set has_search = has_search|default(false) %}
+{% set is_multiline = is_multiline|default(false) %}
+{% set is_disabled = is_disabled|default(false) %}
+{% set input_attr = input_attr|default({}) %}
+{% set extra_btn = extra_btn|default({})|merge({
+    label: extra_btn.label|default(''),
+    attr: extra_btn.attr|default({})|merge({
+        type: extra_btn.type|default('button'),
+        class: (extra_btn.attr.class|default('')
+            ~ ' btn ibexa-btn ibexa-btn--info ibexa-input-text-wrapper__action-btn--extra-btn'
+        )|trim
+    })
+}) %}
+{% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
+{% set wrapper_attr = wrapper_attr|default({}) %}
+{% set ds_supported_types = ['text', 'password', 'email', 'number', 'tel', 'search', 'url'] %}
+{% set can_use_ds_input = input_attr is not empty
+    and not is_multiline
+    and normalized_type in ds_supported_types
+    and right_side_label is not defined
+%}
+
+{% if can_use_ds_input %}
+    {% set ds_input = input_attr|merge({
+        type: normalized_type,
+        disabled: is_disabled,
+        has_search_action: has_search and normalized_type != 'password',
+        search_button_type: search_button_type|default('submit'),
+        send_form_after_clearing: should_clear_button_send_form,
+    }) %}
+    {% set extra_btn_markup %}
+        {% if extra_btn.label is not empty %}
+            <button {{ html.attributes(extra_btn.attr) }}>
+                {{- extra_btn.label -}}
+            </button>
+        {% endif %}
+    {% endset %}
+    {% set combined_actions_after = '' %}
+    {% if extra_btn.label is not empty %}
+        {% set combined_actions_after = combined_actions_after ~ extra_btn_markup %}
+    {% endif %}
+    {% if extra_actions_after|default(null) is not empty %}
+        {% set combined_actions_after = combined_actions_after ~ extra_actions_after %}
+    {% endif %}
+    {% if combined_actions_after is not empty %}
+        {% set ds_input = ds_input|merge({ actions_after: combined_actions_after }) %}
+    {% endif %}
+
+    <twig:ibexa:input_text:input {{ ...ds_input }} />
+    {{ block('extra_content') }}
+{% else %}
+    {% set wrapper_attr = wrapper_attr|merge({
+        class: (wrapper_attr.class|default('')
+            ~ ' ibexa-input-text-wrapper'
+            ~ (has_search ? ' ibexa-input-text-wrapper--search')
+            ~ (is_password_input ? ' ibexa-input-text-wrapper--password')
+            ~ " ibexa-input-text-wrapper--type-#{type}"
+            ~ (extra_btn.label ? ' ibexa-input-text-wrapper--extra-btn')
+            ~ (is_multiline ? ' ibexa-input-text-wrapper--multiline')
+            ~ (right_side_label is defined ? ' ibexa-input-text-wrapper--has-right-side-label')
+        )|trim
+    }) %}
+
+    <div {{ html.attributes(wrapper_attr) }}>
+        <div class="ibexa-input-text-wrapper__input-wrapper">
+            {% block content %}{% endblock %}
+            <div class="ibexa-input-text-wrapper__actions">
+                {% block actions %}
+                    <button
+                        type="button"
+                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--clear"
+                        tabindex="-1"
+                        {{ is_disabled ? 'disabled' }}
+                        {% if should_clear_button_send_form %}data-send-form-after-clearing{% endif %}
+                    >
+                        <svg class="ibexa-icon ibexa-icon--tiny-small">
+                            <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
+                        </svg>
+                    </button>
+                    {% if is_password_input %}
+                        <button
+                            type="button"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--password-toggler"
+                            tabindex="5"
+                            {{ is_disabled ? 'disabled' }}
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-show">
+                                <use xlink:href="{{ ibexa_icon_path('view') }}"></use>
+                            </svg>
+                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-input-text-wrapper__password-hide d-none">
+                                <use xlink:href="{{ ibexa_icon_path('view-hide') }}"></use>
+                            </svg>
+                        </button>
+                    {% elseif has_search %}
+                        <button
+                            type="{{ search_button_type|default('submit') }}"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-input-text-wrapper__action-btn ibexa-input-text-wrapper__action-btn--search"
+                            tabindex="-1"
+                            {{ is_disabled ? 'disabled' }}
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small-medium">
+                                <use xlink:href="{{ ibexa_icon_path('search') }}"></use>
+                            </svg>
+                        </button>
+                    {% elseif extra_btn.label is not empty %}
+                        <button {{ html.attributes(extra_btn.attr) }}>
+                            {{- extra_btn.label -}}
+                        </button>
+                    {% endif %}
+                    {{ extra_actions_after|default(null) }}
+                {% endblock %}
+            </div>
+        </div>
+        {% block right_side_label %}
+            {% if right_side_label is defined %}
+                <div class="ibexa-input-text-wrapper__right-side-label-wrapper">
+                    <div class="ibexa-input-text-wrapper__right-side-label">
+                        {{ right_side_label }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endblock %}
+        {% block extra_content %}{% endblock %}
+    </div>
+{% endif %}
