@@ -11,26 +11,31 @@
     {% endif %}
 {% endset %}
 
-{% embed '@ibexadesign/ui/component/tab/tabs_header.html.twig' with {
-    tabs,
-    active_tab,
-    hide_toggler: hide_toggler|default(false),
-    include_tab_more: include_tab_more|default(false),
-    tab_corner_disabled: tab_corner_disabled|default(false),
-} %}
-    {% block tabs_list_after %}
-        {{ tabs_list_after_content }}
-    {% endblock %}
-{% endembed %}
+{% if tabs|length > 1 %}
+    {% embed '@ibexadesign/ui/component/tab/tabs_header.html.twig' with {
+        tabs,
+        active_tab,
+        hide_toggler: hide_toggler|default(false),
+        include_tab_more: include_tab_more|default(false),
+        tab_corner_disabled: tab_corner_disabled|default(false),
+    } %}
+        {% block tabs_list_after %}
+            {{ tabs_list_after_content }}
+        {% endblock %}
+    {% endembed %}
 
-<div class="tab-content ibexa-tab-content {{ tab_content_class|default('') }}" {{ html.attributes(tab_content_attributes|default({})) }}>
-    {% block tab_content %}
-        {% for tab in tabs %}
-            {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with tab|merge({ active: tab == active_tab }) %}
-                {% block content %}
-                    {{ tab.content|default('')|raw }}
-                {% endblock %}
-            {% endembed %}
-        {% endfor %}
-    {% endblock %}
-</div>
+    <div class="tab-content ibexa-tab-content {{ tab_content_class|default('') }}" {{ html.attributes(tab_content_attributes|default({})) }}>
+        {% block tab_content %}
+            {% for tab in tabs %}
+                {% embed '@ibexadesign/ui/component/tab/tab_pane.html.twig' with tab|merge({ active: tab == active_tab }) %}
+                    {% block content %}
+                        {{ tab.content|default('')|raw }}
+                    {% endblock %}
+                {% endembed %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+{% elseif tabs|length == 1 %}
+    {% set single_tab = tabs|first %}
+    {{ single_tab.content|default('')|raw }}
+{% endif %}
