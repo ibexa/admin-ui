@@ -22,6 +22,7 @@ use Ibexa\Contracts\Core\Repository\LanguageService;
 use Ibexa\Contracts\Core\Repository\PermissionResolver;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\Location;
+use Ibexa\TwigComponents\Component\Registry as ComponentRegistry;
 use JMS\TranslationBundle\Annotation\Desc;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -42,7 +43,8 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
         EventDispatcherInterface $eventDispatcher,
         private readonly FormFactoryInterface $formFactory,
         private readonly PermissionResolver $permissionResolver,
-        private readonly LanguageService $languageService
+        private readonly LanguageService $languageService,
+        private readonly ComponentRegistry $componentRegistry
     ) {
         parent::__construct($twig, $translator, $eventDispatcher);
     }
@@ -94,6 +96,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
             iterator_to_array($this->languageService->loadLanguages()),
             'languageCode'
         );
+        $hasTranslationActions = $this->componentRegistry->getComponents('admin-ui-content-translations-row-actions') !== [];
 
         $canTranslate = $this->permissionResolver->canUser(
             'content',
@@ -112,6 +115,7 @@ class TranslationsTab extends AbstractEventDispatchingTab implements OrderedTabI
             'form_main_translation_update' => $mainTranslationUpdateForm->createView(),
             'main_translation_switch' => true,
             'can_translate' => $canTranslate,
+            'has_translation_actions' => $hasTranslationActions,
         ];
 
         return array_replace($contextParameters, $viewParameters);

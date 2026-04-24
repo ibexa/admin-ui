@@ -4,6 +4,7 @@
 
 {% import _self as tab %}
 {% set can_translate = can_translate is defined ? can_translate : true %}
+{% set has_translation_actions = has_translation_actions|default(false) %}
 <section>
     {% if can_translate %}
         {{ form_start(form_translation_remove, {
@@ -54,6 +55,23 @@
             }]) %}
         {% endif %}
 
+        {% set row_actions %}
+            {% if has_translation_actions %}
+                {{ ibexa_twig_component_group('admin-ui-content-translations-row-actions', {
+                    content: content,
+                    location: location,
+                    translation: translation
+                }) }}
+            {% endif %}
+        {% endset %}
+        {% if has_translation_actions %}
+            {% set body_row_cols = body_row_cols|merge([{
+                has_action_btns: true,
+                content: row_actions,
+                raw: true,
+            }]) %}
+        {% endif %}
+
         {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
     {% endfor %}
 
@@ -72,6 +90,10 @@
         {% set head_cols = head_cols|merge([{
             content: 'tab.translations.main_language'|trans|desc('Main language'),
         }]) %}
+    {% endif %}
+
+    {% if has_translation_actions %}
+        {% set head_cols = head_cols|merge([{ }]) %}
     {% endif %}
 
     {% include '@ibexadesign/ui/component/table/table.html.twig' with {
