@@ -86,6 +86,11 @@
         <target state="new">The Language code {{ value }} contains illegal characters. Language code should start with a letter, digit or underscore and only contain letters, digits, numbers, underscores, hyphens and colons.</target>
         <note>key: ibexa.language.language_code.format</note>
       </trans-unit>
+      <trans-unit id="3243217a06465230d521ed024d8d7cbab3f8701d" resname="ibexa.matrix.column.identifier.format">
+        <source>Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.</source>
+        <target state="new">Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.</target>
+        <note>key: ibexa.matrix.column.identifier.format</note>
+      </trans-unit>
       <trans-unit id="cf558f546b83d94f1272929f81c64bd33d2997bc" resname="js.error.address_not_found">
         <source>Provided address does not exist</source>
         <target state="new">Provided address does not exist</target>
