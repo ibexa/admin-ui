@@ -59,18 +59,15 @@
         <div class="ibexa-filters__item ibexa-filters__item--creator">
             <label class="ibexa-label">{{ 'search.creator'|trans|desc('Creator') }}</label>
             {% set creator = form.vars.data.creator %}
-            {% embed '@ibexadesign/ui/component/input_text.html.twig' with { has_search: false } %}
-                {% trans_default_domain 'ibexa_search' %}
-                {% block content %}
-                    <input
-                        type="text"
-                        class="ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control"
-                        data-content-type-identifiers="{{ user_content_type_identifier|join(',') }}"
-                        value="{{ creator is not empty ? ibexa_content_name(creator) }}"
-                        placeholder="{{ 'search.creator_input.placeholder'|trans|desc('Type creator\'s name') }}"
-                    />
-                {% endblock %}
-            {% endembed %}
+            {% include '@ibexadesign/ui/component/input_text_ds.html.twig' with {
+                input_attr: {
+                    type: 'text',
+                    class: 'ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control',
+                    'data-content-type-identifiers': user_content_type_identifier|join(','),
+                    value: creator is not empty ? ibexa_content_name(creator) : '',
+                    placeholder: 'search.creator_input.placeholder'|trans|desc('Type creator\'s name')
+                }
+            } %}
             <ul class="ibexa-filters__user-list ibexa-filters__user-list--hidden"></ul>
         </div>
         {% if form.section is defined %}
