@@ -24,4 +24,4 @@ const getBrowserTimezone = () => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
 };
 
-export { convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone };
+export { formatDate, convertDateToTimezone, formatFullDateTime, formatShortDateTime, getBrowserTimezone };
