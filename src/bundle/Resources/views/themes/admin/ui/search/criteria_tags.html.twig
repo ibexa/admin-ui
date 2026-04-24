@@ -2,13 +2,11 @@
 
 <div class="ibexa-search-criteria-tags">
     {% if form.children.search_language.vars.value != '' %}
-        <div class="ibexa-tag ibexa-search-criteria-tags__tag">
-            <div class="ibexa-tag__content">
-                {{ 'search.in_language'|trans({
-                    '%search_language%': form.children.search_language.vars.data.name,
-                })|desc('in %search_language%')}}
-            </div>
-        </div>
+        <twig:ibexa:tag type="neutral" class="ibexa-search-criteria-tags__tag">
+            {{ 'search.in_language'|trans({
+                '%search_language%': form.children.search_language.vars.data.name,
+            })|desc('in %search_language%')}}
+        </twig:ibexa:tag>
     {% endif %}
 
     {% if form.content_types.vars.data is not empty %}
