@@ -19,8 +19,13 @@
         <section>
             <div class="card ibexa-card ibexa-card--light">
                 <div class="card-body ibexa-card__body ibexa-form-block">
-                    {{ form_row(form_section_update.name, { row_attr: { class: 'ibexa-form-field' } }) }}
-                    {{ form_row(form_section_update.identifier, { row_attr: { class: 'ibexa-form-field' } }) }}
+                    {{ form_row(form_section_update.name, {
+                        row_attr: { class: 'ibexa-form-field' },
+                        attr: { 'data-autogenerate-identifier-target-selector': '#' ~ form_section_update.identifier.vars.id }
+                    }) }}
+                    {{ form_row(form_section_update.identifier, {
+                        row_attr: { class: 'ibexa-form-field' }
+                    }) }}
                 </div>
             </div>
         </section>
