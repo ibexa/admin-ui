@@ -75,7 +75,7 @@ class TrashSearch extends Component
         new VisibleCSSLocator('mainSearchBox', '.ibexa-adaptive-filters--inside-container'),
         new VisibleCSSLocator('mainSearchBoxInput', '#trash_search_content_name'),
         new VisibleCSSLocator('creatorSearchBoxInput', '.ibexa-trash-search-form__item--creator .ibexa-input--text'),
-        new VisibleCSSLocator('mainSearchBoxConfirmButton', '.ibexa-adaptive-filters__static-left .ibexa-input-text-wrapper--type-text .ibexa-input-text-wrapper__action-btn--search'),
+        new VisibleCSSLocator('mainSearchBoxConfirmButton', '.ibexa-adaptive-filters__static-left .ibexa-input-text-wrapper--type-text .ibexa-input-text-wrapper__action-btn--search, .ibexa-adaptive-filters__static-left .ids-input-text__search-btn'),
         new VisibleCSSLocator('contentTypeFilterDropdown', 'label[for="trash_search_content_type"] ~ .ibexa-dropdown'),
         new VisibleCSSLocator('sectionFilterDropdown', 'label[for="trash_search_section"] ~ .ibexa-dropdown'),
         new VisibleCSSLocator('creatorFilterDropdown', '.ibexa-trash-search-form__user-list li'),
