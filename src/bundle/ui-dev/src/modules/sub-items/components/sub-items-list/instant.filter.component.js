@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 import { createCssClassNames } from '@ibexa-admin-ui-modules/common/helpers/css.class.names';
@@ -26,16 +27,18 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
     }, [items, filterQuery]);
 
     return (
-        <div className="ibexa-instant-filter">
-            <div className={searchInputWrapperClassName}>
-                <input
-                    type="text"
-                    className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
-                    placeholder={Translator.trans(/*@Desc("Search...")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
-                    value={filterQuery}
-                    onChange={(event) => setFilterQuery(event.target.value)}
-                />
-            </div>
+            <div className="ibexa-instant-filter">
+                <div className={searchInputWrapperClassName}>
+                    <InputTextInput
+                        extraAria={{
+                            className: 'ids-input ids-input--text ibexa-instant-filter__input',
+                        }}
+                        name="sub-items-filter"
+                        onChange={setFilterQuery}
+                        placeholder={Translator.trans(/*@Desc("Search...")*/ 'instant.filter.placeholder', {}, 'ibexa_sub_items')}
+                        value={filterQuery}
+                    />
+                </div>
             <div className="ibexa-instant-filter__desc">
                 {Translator.trans(/*@Desc("Languages")*/ 'instant.filter.languages.select_language.desc', {}, 'ibexa_sub_items')}
             </div>

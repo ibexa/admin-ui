@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
@@ -61,8 +62,8 @@ const ContentCreateWidget = () => {
     const close = () => {
         setCreateContentVisible(false);
     };
-    const updateFilterQuery = (event) => {
-        const query = event.target.value.toLowerCase();
+    const updateFilterQuery = (value) => {
+        const query = value.toLowerCase();
 
         setFilterQuery(query);
     };
@@ -201,13 +202,15 @@ const ContentCreateWidget = () => {
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
                         <div className="ibexa-instant-filter">
                             <div className={instantFilterInputWrapperClassName}>
-                                <input
-                                    value={filterQuery}
-                                    autoFocus={true}
-                                    className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
-                                    type="text"
-                                    placeholder={placeholder}
+                                <InputTextInput
+                                    extraAria={{
+                                        autoFocus: true,
+                                        className: 'ids-input ids-input--text ibexa-instant-filter__input',
+                                    }}
+                                    name="content-type-filter"
                                     onChange={updateFilterQuery}
+                                    placeholder={placeholder}
+                                    value={filterQuery}
                                 />
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 
@@ -88,16 +89,18 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
             <div className="ibexa-extra-actions__content">
                 <div className="ibexa-instant-filter">
                     <div className={searchInputWrapperClassName}>
-                        <input
-                            type="text"
-                            className="ibexa-instant-filter__input ibexa-input ibexa-input--text form-control"
+                        <InputTextInput
+                            extraAria={{
+                                className: 'ids-input ids-input--text ibexa-instant-filter__input',
+                            }}
+                            name="translation-filter"
+                            onChange={setFilterQuery}
                             placeholder={Translator.trans(
                                 /*@Desc("Search...")*/ 'instant.filter.languages.placeholder',
                                 {},
                                 'ibexa_universal_discovery_widget',
                             )}
                             value={filterQuery}
-                            onChange={(event) => setFilterQuery(event.target.value)}
                         />
                     </div>
                     <div className="ibexa-instant-filter__desc">
