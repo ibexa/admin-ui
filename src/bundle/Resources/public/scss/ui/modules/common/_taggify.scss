@@ -20,6 +20,10 @@
         flex: 1 1 auto;
         order: 2;
         margin: calculateRem(2px);
+
+        .c-taggify__new-tag-input-wrapper {
+            width: 100%;
+        }
     }
 
     &__tags {
@@ -35,6 +39,7 @@
         border: 0 none;
         outline: none;
         background: transparent;
+        padding: 0;
     }
 
     &__bottom-hint {
