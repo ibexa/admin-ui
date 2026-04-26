@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 import { SelectedContentTypesContext } from '../search/search';
 import { AllowedContentTypesContext } from '../../universal.discovery.module';
 
@@ -11,8 +13,8 @@ const ContentTypeSelector = () => {
     const { contentTypes: contentTypesMap } = adminUiConfig;
     const allowedContentTypes = useContext(AllowedContentTypesContext);
     const [selectedContentTypes, dispatchSelectedContentTypesAction] = useContext(SelectedContentTypesContext);
-    const handleContentTypeSelect = ({ nativeEvent }) => {
-        const { contentTypeIdentifier } = nativeEvent.target.dataset;
+    const handleContentTypeSelect = (_checked, event) => {
+        const { contentTypeIdentifier } = event.currentTarget.dataset;
         const action = { contentTypeIdentifier };
 
         action.type = selectedContentTypes.includes(contentTypeIdentifier) ? 'REMOVE_CONTENT_TYPE' : 'ADD_CONTENT_TYPE';
@@ -44,8 +46,7 @@ const ContentTypeSelector = () => {
                                 return (
                                     <li key={contentType.identifier} className="c-content-type-selector-list__item">
                                         <div className="form-check form-check-inline">
-                                            <input
-                                                type="checkbox"
+                                            <CheckboxInput
                                                 id={`ibexa-search-content-type-${contentType.identifier}`}
                                                 className="ids-input ids-input--checkbox c-content-type-selector-list__checkbox"
                                                 value={contentType.identifier}
