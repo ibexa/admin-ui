@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { MultipleConfigContext, SelectedItemsContext } from '../../universal.discovery.module';
 
@@ -25,6 +27,19 @@ const ToggleItemSelection = ({ item, isDisabled = false, isPreselected = false, 
 
         inputRef.current.indeterminate = isIndeterminate;
     }, [isIndeterminate]);
+
+    if (multiple) {
+        return (
+            <CheckboxInput
+                ref={inputRef}
+                className={className}
+                checked={isPreselected || isSelected}
+                disabled={isSelectionBlocked || isDisabled || isHidden}
+                indeterminate={isIndeterminate}
+                readOnly={true}
+            />
+        );
+    }
 
     return (
         <input
