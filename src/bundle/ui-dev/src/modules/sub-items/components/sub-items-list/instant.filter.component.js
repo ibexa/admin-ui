@@ -44,8 +44,8 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
                     const radioId = `item_${item.value}`;
                     const labelClassName = createCssClassNames({
                         'form-check-label': true,
-                        'ibexa-label': true,
-                        'ibexa-label--active': activeLanguage === item.value,
+                        'ids-label': true,
+                        'ids-label--active': activeLanguage === item.value,
                     });
 
                     return (

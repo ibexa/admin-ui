@@ -8,7 +8,7 @@
     background-image: url('/bundles/ibexaadminui/img/login-background.jpg');
     background-size: cover;
 
-    .ibexa-label {
+    .ids-label {
         margin-top: calculateRem(40px);
     }
 
@@ -81,7 +81,7 @@
         margin-top: calculateRem(32px);
 
         & + .has-error {
-            .ibexa-label {
+            .ids-label {
                 margin-top: 0;
             }
         }
