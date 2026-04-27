@@ -47,7 +47,11 @@
 
 {% set popup_items = popup_items|merge([{
     label: 'notification.delete'|trans|desc('Delete'),
-    action_attr: { class: 'ibexa-notifications-modal--delete', 'data-notification-id': notification.id },
+    action_attr: {
+        class: 'ibexa-notifications-open-modal-button',
+        'data-notification-id': notification.id,
+        'data-bs-toggle': 'modal',
+        'data-bs-target': '#delete-notification-modal', }
 }]) %}
 
 {% embed '@ibexadesign/ui/component/table/table_body_row.html.twig' with {
