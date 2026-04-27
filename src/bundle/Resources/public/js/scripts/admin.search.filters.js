@@ -36,6 +36,8 @@
     const lastCreatedStartDate = doc.querySelector(lastCreatedStartDateSelector);
     const lastCreatedEndDate = doc.querySelector(lastCreatedEndDateSelector);
     const creatorInput = doc.querySelector('.ibexa-filters__item--creator .ibexa-input');
+    const isInitializedCreatorInput = !!creatorInput.value;
+    const creatorInputBtnClear = creatorInput.parentElement.querySelector('.ibexa-input-text-wrapper__action-btn--clear');
     const searchCreatorInput = doc.querySelector('#search_creator');
     const usersList = doc.querySelector('.ibexa-filters__item--creator .ibexa-filters__user-list');
     const contentTypeCheckboxes = doc.querySelectorAll('.ibexa-content-type-selector__item [type="checkbox"]');
@@ -79,7 +81,7 @@
         const contentTypeOption = contentTypeSelect.querySelector('option');
         const isContentTypeSelected = contentTypeOption.innerHTML !== contentTypeOption.dataset.default;
         const isSectionSelected = sectionSelect ? !!sectionSelect.value : false;
-        const isCreatorSelected = !!searchCreatorInput.value;
+        const isCreatorSelected = !!searchCreatorInput.value !== isInitializedCreatorInput;
         const isSubtreeSelected = !!subtreeInput.value.trim().length;
         let isModifiedSelected = !!lastModifiedSelectNode.value;
         let isCreatedSelected = !!lastCreatedSelectNode.value;
@@ -344,4 +346,5 @@
     contentTypeCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', filterByContentType, false));
     showMoreBtns.forEach((showMoreBtn) => showMoreBtn.addEventListener('click', showMoreContentTypes, false));
     selectSubtreeBtn.addEventListener('click', openSubtreeUDW, false);
+    creatorInputBtnClear.addEventListener('click', handleResetUser, false);
 })(window, window.document, window.ibexa, window.flatpickr, window.React, window.ReactDOM);
