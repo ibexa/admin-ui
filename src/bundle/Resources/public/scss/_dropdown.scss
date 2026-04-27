@@ -557,3 +557,12 @@
         margin: calculateRem(5px) calculateRem(8px);
     }
 }
+
+.ibexa-dropdown__item--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ibexa-dropdown__item--disabled * {
+    pointer-events: none;
+}
