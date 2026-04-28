@@ -1,6 +1,6 @@
 {% extends 'bootstrap_5_layout.html.twig' %}
 
-{% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+{% use '@ibexadesign/ui/form_fields/toggle_widget_ds.html.twig' %}
 {% use '@ibexadesign/ui/form_fields/dropdown_widget.html.twig' %}
 
 {%- block button_widget -%}
@@ -148,17 +148,51 @@
 {%- endblock -%}
 
 {%- block checkbox_widget -%}
-    {%- set attr = attr|merge({class: 'ibexa-input ibexa-input--checkbox ' ~ attr.class|default('') }) -%}
+    {%- set attr_class = attr.class|default('') -%}
+    {%- if 'btn-check' not in attr_class -%}
+        {%- set attr_class = 'ids-input ids-input--checkbox form-check-input ' ~ attr_class -%}
+    {%- else -%}
+        {%- set attr_class = 'ids-input ids-input--checkbox ' ~ attr_class -%}
+    {%- endif -%}
+    {%- set attr = attr|merge({class: attr_class|trim }) -%}
     {{ parent() }}
 {%- endblock -%}
 
 {%- block radio_widget -%}
-    {%- set attr = attr|merge({class: 'ibexa-input ibexa-input--radio ' ~ attr.class|default('') }) -%}
-    {{ parent() }}
+    {%- set attr_class = attr.class|default('') -%}
+    {%- set row_class = '' -%}
+    {%- if 'btn-check' not in attr_class -%}
+        {%- set attr_class = attr_class ~ ' form-check-input' -%}
+        {%- set row_class = 'form-check' -%}
+    {%- endif -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {%- if 'radio-inline' in parent_label_class -%}
+        {%- set row_class = row_class ~ ' form-check-inline' -%}
+    {%- endif -%}
+    {%- set component_attr = attr|merge({ class: attr_class|trim }) -%}
+    {%- if row_class is not empty -%}
+        <div class="{{ row_class }}">
+    {%- endif -%}
+    {{- form_label(form, null, { widget: block('radio_widget_input_ds') }) -}}
+    {%- if row_class is not empty -%}
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block radio_widget_input_ds -%}
+    <twig:ibexa:radio_button:input
+        id="{{ id }}"
+        name="{{ full_name }}"
+        :checked="checked"
+        :disabled="disabled"
+        :required="required"
+        value="{{ (value is defined ? value : '') ~ '' }}"
+        {{ ...component_attr }}
+    />
 {%- endblock -%}
 
 {%- block trash_item_checkbox_widget -%}
-    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="checkbox" class="ids-input ids-input--checkbox form-check-input" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock -%}
 
 {%- block _trash_item_restore_restore_widget -%}
@@ -504,7 +538,7 @@
 {%- endblock %}
 
 {% block content_type_meta_field_definition_enabled_row -%}
-    {% use '@ibexadesign/ui/form_fields/toggle_widget.html.twig' %}
+    {% use '@ibexadesign/ui/form_fields/toggle_widget_ds.html.twig' %}
 
     <div class="ibexa-content-type-edit__form-field ibexa-form-field form-group">
         {{ block('form_label') }}

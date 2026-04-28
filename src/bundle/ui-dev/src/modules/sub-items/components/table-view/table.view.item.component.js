@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 import { getTranslator } from '@ibexa-admin-ui-helpers/context.helper';
 import { getContentTypeIconUrl } from '@ibexa-admin-ui-helpers/content.type.helper';
 import { formatShortDateTime } from '@ibexa-admin-ui-helpers/timezone.helper';
@@ -422,7 +424,7 @@ export default class TableViewItemComponent extends PureComponent {
     }
 
     componentDidMount() {
-        parseCheckbox('.c-table-view-item__cell .ibexa-input--checkbox', 'c-table-view-item--active');
+        parseCheckbox('.c-table-view-item__cell .c-table-view-item__checkbox', 'c-table-view-item--active');
     }
 
     render() {
@@ -439,9 +441,8 @@ export default class TableViewItemComponent extends PureComponent {
         return (
             <tr className="ibexa-table__row c-table-view-item">
                 <td className="ibexa-table__cell c-table-view-item__cell c-table-view-item__cell--checkbox">
-                    <input
-                        type="checkbox"
-                        className="ibexa-input ibexa-input--checkbox"
+                    <CheckboxInput
+                        className="ids-input ids-input--checkbox c-table-view-item__checkbox"
                         checked={isSelected}
                         onChange={this.onSelectCheckboxChange}
                     />

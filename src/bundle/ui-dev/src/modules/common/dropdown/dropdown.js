@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 import { createCssClassNames } from '../../common/helpers/css.class.names';
 import Icon from '../../common/icon/icon';
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
@@ -83,7 +85,11 @@ const Dropdown = ({
                 }}
             >
                 {!single && (
-                    <input type="checkbox" className="ibexa-input ibexa-input--checkbox" checked={isItemSelected} onChange={() => {}} />
+                    <CheckboxInput
+                        className="ids-input ids-input--checkbox ibexa-dropdown__item-checkbox"
+                        checked={isItemSelected}
+                        onChange={() => {}}
+                    />
                 )}
                 <span className="ibexa-dropdown__item-label">{item.label}</span>
                 {single && (

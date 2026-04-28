@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { MultipleConfigContext, SelectedItemsContext } from '../../universal.discovery.module';
 
@@ -11,9 +13,9 @@ const ToggleItemSelection = ({ item, isDisabled = false, isPreselected = false, 
     const isSelected = selectedItems.some((selectedItem) => selectedItem.type === item.type && selectedItem.id === item.id);
     const isSelectionBlocked = multipleItemsLimit !== 0 && selectedItems.length >= multipleItemsLimit && !isSelected;
     const className = createCssClassNames({
-        'c-udw-toggle-selection ibexa-input': true,
-        'ibexa-input--checkbox': multiple,
-        'ibexa-input--radio': !multiple,
+        'c-udw-toggle-selection ids-input': true,
+        'ids-input--checkbox': multiple,
+        'ids-input--radio': !multiple,
         'c-udw-toggle-selection--hidden': isHidden,
     });
     const inputType = multiple ? 'checkbox' : 'radio';
@@ -25,6 +27,19 @@ const ToggleItemSelection = ({ item, isDisabled = false, isPreselected = false, 
 
         inputRef.current.indeterminate = isIndeterminate;
     }, [isIndeterminate]);
+
+    if (multiple) {
+        return (
+            <CheckboxInput
+                ref={inputRef}
+                className={className}
+                checked={isPreselected || isSelected}
+                disabled={isSelectionBlocked || isDisabled || isHidden}
+                indeterminate={isIndeterminate}
+                readOnly={true}
+            />
+        );
+    }
 
     return (
         <input
