@@ -1,0 +1,13 @@
+services:
+    ibexa.admin_ui.languages.tab_group:
+        parent: Ibexa\AdminUi\Component\TabsComponent
+        arguments:
+            $template: '@@ibexadesign/ui/tab/languages.html.twig'
+            $groupIdentifier: 'languages'
+        tags:
+            - { name: ibexa.twig.component, group: 'admin-ui-languages-tab-groups' }
+
+    Ibexa\AdminUi\Tab\Language\LanguagesTab:
+        parent: Ibexa\Contracts\AdminUi\Tab\AbstractTab
+        tags:
+            - { name: ibexa.admin_ui.tab, group: 'languages' }

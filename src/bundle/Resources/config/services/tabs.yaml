@@ -2,6 +2,7 @@ imports:
     - { resource: tabs/locationview.yaml }
     - { resource: tabs/content_type.yaml }
     - { resource: tabs/url_management.yaml }
+    - { resource: tabs/languages.yaml }
 
 services:
     _defaults:

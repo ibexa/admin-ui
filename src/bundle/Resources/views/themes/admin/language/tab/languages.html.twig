@@ -1,0 +1,138 @@
+{% trans_default_domain 'ibexa_language' %}
+
+{% from '@ibexadesign/ui/component/macros.html.twig' import results_headline %}
+
+{% form_theme form_languages_delete '@ibexadesign/ui/form_fields.html.twig' %}
+
+<section class="container ibexa-container">
+    {% set body_rows = [] %}
+    {% for language in pager.currentPageResults %}
+        {% set body_row_cols = [] %}
+
+        {% set col_raw %}
+            {% if can_administrate %}
+                {{ form_widget(form_languages_delete.languages[language.id]) }}
+            {% else %}
+                {% do form_languages_delete.languages.setRendered %}
+            {% endif %}
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            has_checkbox: true,
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set col_raw %}
+            <a href="{{ path('ibexa.language.view', {'languageId': language.id}) }}">
+                {{ language.name }}
+            </a>
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set body_row_cols = body_row_cols|merge([
+            { content: language.languageCode },
+            { content: language.id },
+        ]) %}
+
+        {% set col_raw %}
+            <div class="form-check">
+                <input
+                    type="checkbox"
+                    title="{{ language.enabled ? 'language.enabled'|trans|desc('Enabled') : 'language.disabled'|trans|desc('Disabled') }}"
+                    class="ibexa-input ibexa-input--checkbox form-check-input"
+                    disabled
+                    {% if language.enabled %}checked{% endif %}
+                >
+            </div>
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            content: col_raw,
+            center_content: true,
+            raw: true,
+        }]) %}
+
+        {% set col_raw %}
+            {% if can_administrate %}
+                <a
+                    title="{{ 'language.edit'|trans|desc('Edit') }}"
+                    href="{{ path('ibexa.language.edit', {'languageId': language.id}) }}"
+                    class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                >
+                    <svg class="ibexa-icon ibexa-icon--small-medium">
+                        <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
+                    </svg>
+                </a>
+            {% endif %}
+        {% endset %}
+        {% set body_row_cols = body_row_cols|merge([{
+            has_action_btns: true,
+            content: col_raw,
+            raw: true,
+        }]) %}
+
+        {% set body_rows = body_rows|merge([{ cols: body_row_cols }]) %}
+    {% endfor %}
+
+    {% embed '@ibexadesign/ui/component/table/table.html.twig' with {
+        headline: custom_results_headline ?? results_headline(pager.getNbResults()),
+        head_cols: [
+            { has_checkbox: true },
+            { content: 'language.name'|trans|desc('Name') },
+            { content: 'language.code'|trans|desc('Code') },
+            { content: 'language.id'|trans|desc('ID') },
+            {
+                content: 'language.enabled'|trans|desc('Enabled'),
+                center_content: true,
+            },
+            {},
+        ],
+        body_rows,
+    } %}
+        {% block header %}
+            {% embed '@ibexadesign/ui/component/table/table_header.html.twig' %}
+                {% block actions %}
+                    {% if can_administrate %}
+                        {% set modal_data_target = 'delete-languages-modal' %}
+                        <button
+                            id="delete-languages"
+                            type="button"
+                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
+                            disabled
+                            data-bs-toggle="modal"
+                            data-bs-target="#{{ modal_data_target }}"
+                        >
+                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
+                                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
+                            </svg>
+                            <span class="ibexa-btn__small">
+                                {{ 'language.delete'|trans|desc('Delete') }}
+                            </span>
+                        </button>
+                        {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
+                            id: modal_data_target,
+                            message: 'language.modal.message'|trans|desc('Delete the languages?'),
+                            data_click: '#languages_delete_delete',
+                        } %}
+                    {% endif %}
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+
+        {% block between_header_and_table %}
+            {{ form_start(form_languages_delete, {
+                action: path('ibexa.language.bulk_delete'),
+                attr: {'class': 'ibexa-toggle-btn-state', 'data-toggle-button-id': '#delete-languages'}
+            }) }}
+        {% endblock %}
+    {% endembed %}
+    {{ form_end(form_languages_delete) }}
+
+    {% if pager.haveToPaginate %}
+        {% include '@ibexadesign/ui/pagination.html.twig' with {
+            pager: pager,
+        } %}
+    {% endif %}
+</section>
