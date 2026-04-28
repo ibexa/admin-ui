@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Ibexa\AdminUi\Behat\Component;
 
+use Behat\Mink\Session;
 use Exception;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
@@ -20,7 +21,15 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 
 final class UserNotificationPopup extends Component
 {
-    public function clickNotification(string $expectedType, string $expectedDescription): void
+    private Dialog $dialog;
+
+    public function __construct(Session $session, Dialog $dialog)
+    {
+        parent::__construct($session);
+        $this->dialog = $dialog;
+    }
+
+    public function clickNotification(string $expectedType, string $expectedDescription)
     {
         $notifications = $this->getHTMLPage()->findAll($this->getLocator('notificationItem'));
 
@@ -125,7 +134,13 @@ final class UserNotificationPopup extends Component
             );
     }
 
-    public function findActionButton(string $buttonText): ElementInterface
+    public function confirmDeletion(): void
+    {
+        $this->dialog->verifyIsLoaded();
+        $this->dialog->confirm();
+    }
+
+    public function findActionButton(string $buttonText): ?ElementInterface
     {
         $this->getHTMLPage()
             ->setTimeout(10)

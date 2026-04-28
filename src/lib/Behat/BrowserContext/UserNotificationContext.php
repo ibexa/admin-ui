@@ -83,6 +83,14 @@ final readonly class UserNotificationContext implements Context
     }
 
     /**
+     * @When I confirm deletion of notification
+     */
+    public function iConfirmDeletionOfNotification(): void
+    {
+        $this->userNotificationPopup->confirmDeletion();
+    }
+
+    /**
      * @Then the notification should have :expectedAction action available
      */
     public function verifyNotificationAction(string $expectedAction): void
