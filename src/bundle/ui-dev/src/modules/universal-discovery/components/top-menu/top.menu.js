@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import TopMenuSearchInput from './top.menu.search.input';
 import Icon from '../../../common/icon/icon';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { TitleContext, CancelContext } from '../../universal.discovery.module';
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
@@ -52,15 +53,14 @@ const TopMenu = ({
             </div>
             <TopMenuSearchInput isSearchOpened={isSearchOpened} setIsSearchOpened={setIsSearchOpened} />
             <span className="c-top-menu__cancel-btn-wrapper">
-                <button
-                    className="c-top-menu__cancel-btn btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
-                    type="button"
+                <Button
+                    type={ButtonType.TertiaryAlt}
+                    icon="discard"
                     onClick={cancelUDW}
                     title={backTitle}
-                    data-tooltip-container-selector=".c-top-menu__cancel-btn-wrapper"
-                >
-                    <Icon name="discard" extraClasses="ibexa-icon--medium" />
-                </button>
+                    className="c-top-menu__cancel-btn"
+                    extraAria={{ 'data-tooltip-container-selector': '.c-top-menu__cancel-btn-wrapper' }}
+                />
             </span>
         </div>
     );

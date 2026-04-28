@@ -148,7 +148,7 @@ final class VersionListActionMenuBuilderTest extends BaseActionMenuBuilderTest
             null,
             self::RESTORE_ACTION_ITEM_EXTRAS,
             [
-                'class' => 'ibexa-btn--content-edit',
+                'class' => 'ids-btn--content-edit',
                 'data-content-id' => 1,
                 'data-language-code' => 'eng-GB',
                 'data-version-no' => 1,

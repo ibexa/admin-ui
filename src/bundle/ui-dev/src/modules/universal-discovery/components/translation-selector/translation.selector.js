@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { getAdminUiConfig, getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
 
@@ -111,17 +112,17 @@ const TranslationSelectorButton = ({ hideTranslationSelector, selectTranslation,
                 </div>
             </div>
             <div className="ibexa-extra-actions__confirm-wrapper">
-                <button
-                    type="submit"
-                    className="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary"
+                <Button
+                    type={ButtonType.Primary}
+                    className="ibexa-extra-actions__confirm-btn"
                     disabled={!activeLanguage}
                     onClick={() => selectTranslation(activeLanguage)}
                 >
                     {Translator.trans(/*@Desc("Edit")*/ 'meta_preview.edit.languages.edit', {}, 'ibexa_universal_discovery_widget')}
-                </button>
-                <button type="button" className="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary" onClick={hideTranslationSelector}>
+                </Button>
+                <Button type={ButtonType.Secondary} onClick={hideTranslationSelector} className="ids-btn--close">
                     {Translator.trans(/*@Desc("Discard")*/ 'meta_preview.edit.languages.discard', {}, 'ibexa_universal_discovery_widget')}
-                </button>
+                </Button>
             </div>
         </div>
     );

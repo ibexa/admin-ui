@@ -37,7 +37,8 @@
         &--more {
             position: relative;
 
-            .ibexa-btn--more {
+            .ibexa-btn--more,
+            .ibexa-btn--more.ids-btn {
                 align-items: center;
                 height: calculateRem(48px);
             }

@@ -10,7 +10,6 @@ namespace Ibexa\AdminUi\Behat\Page;
 
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
-use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementsCountCondition;
 use Ibexa\Behat\Browser\Element\Condition\ElementTransitionHasEndedCondition;
 use Ibexa\Behat\Browser\Element\Criterion\ElementAttributeCriterion;
@@ -37,14 +36,21 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             'lastFieldDefinition',
             'div.ibexa-collapse__body-content div.ibexa-collapse--field-definition'
         );
+        $toggleBtnLocator = new VisibleCSSLocator('toggleBtn', '.ibexa-collapse__toggle-btn--title');
+        $expandedBodyLocator = new VisibleCSSLocator('expandedBody', '.ibexa-collapse__body.show');
 
-        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
+        $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator, $toggleBtnLocator, $expandedBodyLocator): bool {
             $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-            $fieldDefinition->click();
+
+            $isAlreadyExpanded = $fieldDefinition->setTimeout(0)->findAll($expandedBodyLocator)->any();
+            if (!$isAlreadyExpanded) {
+                $fieldDefinition->find($toggleBtnLocator)->click();
+            }
+
             $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
-                new ElementNotExistsCondition(
+                new ElementExistsCondition(
                     $fieldDefinition,
-                    new VisibleCSSLocator('isCollapsed', 'button.collapsed')
+                    $expandedBodyLocator
                 )
             );
 
@@ -74,7 +80,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
             new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
             new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
-            new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('fieldDefinitionOpenContainer', '.ibexa-collapse__body.show .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
             new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
         ]);

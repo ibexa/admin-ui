@@ -53,7 +53,7 @@ final class UserSettingsPage extends Page
     protected function specifyLocators(): array
     {
         return [
-            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('button', '.ids-btn'),
             new VisibleCSSLocator('title', '.ibexa-edit-header__title,.ibexa-page-title__content'),
             new VisibleCSSLocator('autosaveDraftValueDropdown', '#user_setting_update_autosave div.ibexa-dropdown__wrapper > ul'),
             new VisibleCSSLocator('autosaveIntervalEdit', '#user_setting_update_autosave_interval_value'),
@@ -66,7 +66,7 @@ final class UserSettingsPage extends Page
         $this->getHTMLPage()
             ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
             ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header__headline'), 'Content authoring'))
-            ->find(new VisibleCSSLocator('editButton', ' .ibexa-btn__label'))
+            ->find(new VisibleCSSLocator('editButton', ' .ids-btn__label'))
             ->assert()->textEquals('Edit')
             ->click();
     }
@@ -98,7 +98,7 @@ final class UserSettingsPage extends Page
         $this->getHTMLPage()
             ->findAll(new VisibleCSSLocator('settingsSection', '#ibexa-tab-my-preferences .ibexa-details'))
             ->getByCriterion(new ChildElementTextCriterion(new VisibleCSSLocator('settingHeader', '.ibexa-table-header__headline'), 'Browsing'))
-            ->find(new VisibleCSSLocator('editButton', ' .ibexa-btn__label'))
+            ->find(new VisibleCSSLocator('editButton', ' .ids-btn__label'))
             ->assert()->textEquals('Edit')
             ->click();
     }

@@ -33,7 +33,7 @@ final class URLEditRightSidebarBuilder extends AbstractBuilder implements Transl
             self::ITEM__SAVE_AND_CLOSE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => $options['save_and_close_selector'],
                 ],
             ]

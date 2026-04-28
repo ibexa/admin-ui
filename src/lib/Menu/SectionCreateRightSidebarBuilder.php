@@ -38,7 +38,7 @@ final class SectionCreateRightSidebarBuilder extends AbstractBuilder implements 
             self::ITEM__CREATE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => '#section_create_create',
                 ],
             ]

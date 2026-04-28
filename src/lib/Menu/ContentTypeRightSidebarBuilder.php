@@ -54,7 +54,7 @@ final class ContentTypeRightSidebarBuilder extends AbstractBuilder implements Tr
         $menu = $this->factory->createItem('root');
 
         $editAttributes = [
-            'class' => 'ibexa-btn--extra-actions ibexa-btn--edit',
+            'class' => 'ids-btn--extra-actions ids-btn--edit',
             'data-actions' => 'edit',
         ];
         $canEdit = $this->permissionResolver->canUser(

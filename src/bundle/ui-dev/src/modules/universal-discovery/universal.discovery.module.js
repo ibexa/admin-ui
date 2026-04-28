@@ -23,6 +23,8 @@ import {
     getTranslator,
     SYSTEM_ROOT_LOCATION_ID,
 } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper';
+import { AssetsProvider } from '@ids-components/context/Assets';
 import { useSelectedItemsReducer } from './hooks/useSelectedItemsReducer';
 
 const { document } = window;
@@ -540,8 +542,9 @@ const UniversalDiscoveryModule = ({
     }, [currentView]);
 
     return (
-        <div className={className}>
-            <UDWContext.Provider value={true}>
+        <AssetsProvider value={{ getIconPath }}>
+            <div className={className}>
+                <UDWContext.Provider value={true}>
                 <RestInfoContext.Provider value={restInfo}>
                     <BlockFetchLocationHookContext.Provider value={[isFetchLocationHookBlocked, setIsFetchLocationHookBlocked]}>
                         <AllowRedirectsContext.Provider value={allowRedirects}>
@@ -696,8 +699,9 @@ const UniversalDiscoveryModule = ({
                         </AllowRedirectsContext.Provider>
                     </BlockFetchLocationHookContext.Provider>
                 </RestInfoContext.Provider>
-            </UDWContext.Provider>
-        </div>
+                </UDWContext.Provider>
+            </div>
+        </AssetsProvider>
     );
 };
 

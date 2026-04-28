@@ -60,10 +60,10 @@
         </div>
     {% endblock %}
     {% block footer_content %}
-        {{ form_widget(form.add, {'attr': {'class': 'btn ibexa-btn ibexa-btn--primary', 'disabled': 'disabled'}}) }}
-        <button type="button" class="btn ibexa-btn ibexa-btn--secondary" data-bs-dismiss="modal">
+        {{ form_widget(form.add, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium', 'disabled': 'disabled'}}) }}
+        <twig:ibexa:button html_type="button" type="secondary" data-bs-dismiss="modal">
             {{ 'tab.urls.add.cancel'|trans|desc('Cancel') }}
-        </button>
+        </twig:ibexa:button>
     {% endblock %}
     {% block content_after %}
         {{ form_end(form) }}

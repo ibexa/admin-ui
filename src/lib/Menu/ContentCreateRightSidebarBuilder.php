@@ -36,7 +36,7 @@ final class ContentCreateRightSidebarBuilder extends AbstractBuilder implements 
     public const string ITEM__PREVIEW = 'content_create__sidebar_right__preview';
     public const string ITEM__CANCEL = 'content_create__sidebar_right__cancel';
 
-    public const string BTN_TRIGGER_CLASS = 'ibexa-btn--trigger';
+    public const string BTN_TRIGGER_CLASS = 'ids-btn--trigger';
     public const array BTN_DISABLED_ATTR = ['disabled' => 'disabled'];
 
     public function __construct(

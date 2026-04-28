@@ -205,19 +205,21 @@
         </script>
 
         <div class="ibexa_selection-settings-toolbar">
-            <button
-                type="button"
-                class="ibexa_selection-settings-option-add btn ibexa-btn ibexa-btn--secondary"
+            <twig:ibexa:button
+                html_type="button"
+                type="secondary"
+                class="ibexa_selection-settings-option-add"
             >
-                {{ "field_definition.ibexa_selection.add_option"|trans({}, 'ibexa_content_type')|desc("Add an option") }}
-            </button>
-            <button
-                type="button"
-                class="ibexa_selection-settings-option-remove btn ibexa-btn ibexa-btn--secondary"
-                disabled
+                {{ 'field_definition.ibexa_selection.add_option'|trans({}, 'ibexa_content_type')|desc('Add an option') }}
+            </twig:ibexa:button>
+            <twig:ibexa:button
+                html_type="button"
+                type="secondary"
+                class="ibexa_selection-settings-option-remove"
+                :disabled="true"
             >
-                {{ "field_definition.ibexa_selection.remove_selected_options"|trans({}, 'ibexa_content_type')|desc("Remove selected options") }}
-            </button>
+                {{ 'field_definition.ibexa_selection.remove_selected_options'|trans({}, 'ibexa_content_type')|desc('Remove selected options') }}
+            </twig:ibexa:button>
         </div>
 
         {% do form.options.setRendered %}

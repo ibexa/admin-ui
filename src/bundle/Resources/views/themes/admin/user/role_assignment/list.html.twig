@@ -74,32 +74,30 @@
 
                 {% block actions %}
                     {% if can_assign %}
-                        <a
+                        <twig:ibexa:link
                             href="{{ path('ibexa.role_assignment.create', {roleId: role.id}) }}"
-                            class="btn ibexa-btn ibexa-btn--tertiary ibexa-btn--small">
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--relations">
-                                <use xlink:href="{{ ibexa_icon_path('assign-user') }}"></use>
-                            </svg>
-                            <span class="ibexa-btn__label">
-                                {{ 'role_assignment.view.list.action.add'|trans|desc('Assign to Users/Groups') }}
-                            </span>
-                        </a>
-                        {% set modal_data_target = 'delete-role-assignments-modal' %}
-                        <button
-                            id="delete-role-assignments"
-                            type="button"
-                            class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--small"
-                            disabled
-                            data-bs-toggle="modal"
-                            data-bs-target="#{{ modal_data_target }}"
+                            variant="button"
+                            type="tertiary"
+                            size="small"
+                            icon="assign-user"
+                            icon_size="small-medium"
                         >
-                            <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--trash">
-                                <use xlink:href="{{ ibexa_icon_path('trash') }}"></use>
-                            </svg>
-                            <span class="ibexa-btn__label">
-                                {{ 'role_assignment.view.list.action.delete'|trans|desc('Unassign') }}
-                            </span>
-                        </button>
+                            {{ 'role_assignment.view.list.action.add'|trans|desc('Assign to Users/Groups') }}
+                        </twig:ibexa:link>
+                        {% set modal_data_target = 'delete-role-assignments-modal' %}
+                        <twig:ibexa:button
+                            id="delete-role-assignments"
+                            html_type="button"
+                            type="tertiary-alt"
+                            size="small"
+                            icon="trash"
+                            icon_size="small"
+                            :disabled="true"
+                            data-bs-toggle="modal"
+                            :data-bs-target="'#' ~ modal_data_target"
+                        >
+                            {{ 'role_assignment.view.list.action.delete'|trans|desc('Unassign') }}
+                        </twig:ibexa:button>
                         {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
                             'id': modal_data_target,
                             'message': 'role_assignments.modal.message'|trans|desc('Do you want to unassign the Users/Groups?'),

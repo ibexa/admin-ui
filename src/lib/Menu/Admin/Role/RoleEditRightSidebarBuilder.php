@@ -40,7 +40,7 @@ final class RoleEditRightSidebarBuilder extends AbstractBuilder implements Trans
             self::ITEM__SAVE_AND_CLOSE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => sprintf('#%s', $saveAndCloseId),
                 ],
             ]
