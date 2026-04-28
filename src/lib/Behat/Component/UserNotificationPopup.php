@@ -29,7 +29,7 @@ final class UserNotificationPopup extends Component
         $this->dialog = $dialog;
     }
 
-    public function clickNotification(string $expectedType, string $expectedDescription)
+    public function clickNotification(string $expectedType, string $expectedDescription): void
     {
         $notifications = $this->getHTMLPage()->findAll($this->getLocator('notificationItem'));
 
@@ -140,7 +140,7 @@ final class UserNotificationPopup extends Component
         $this->dialog->confirm();
     }
 
-    public function findActionButton(string $buttonText): ?ElementInterface
+    public function findActionButton(string $buttonText): ElementInterface
     {
         $this->getHTMLPage()
             ->setTimeout(10)
