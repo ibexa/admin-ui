@@ -4,11 +4,20 @@
     {% set udw_context = {
         'languageCode': root_form.vars.languageCode,
     } %}
+    {% set has_source_language = block('richtext_widget_source_language_block') is defined %}
     <div class="hidden" data-udw-config-name="richtext_embed" data-udw-config="{{ ibexa_udw_config('richtext_embed', udw_context) }}"></div>
     <div class="hidden" data-udw-config-name="richtext_embed_image" data-udw-config="{{ ibexa_udw_config('richtext_embed_image', udw_context) }}"></div>
     {%- block richtext_extra_config -%}{%- endblock -%}
     {{ ibexa_twig_component_group('admin-ui-richtext-config') }}
-    <div class="ibexa-data-source__richtext" id="{{ form.vars.id }}__editable"></div>
+    <div 
+        class="ibexa-data-source__richtext {{ has_source_language ? 'ibexa-data-source__richtext--with-source-language' : '' }}" 
+        id="{{ form.vars.id }}__editable" 
+        {{ has_source_language ? 'data-placement-target-language=' ~ attr['data-placement-target-language']|default('right') ~ '' : '' }}
+    ></div>
+    {% if has_source_language %}
+        {{- block('richtext_widget_source_language_block') -}}
+    {% endif %}
+
     <div class="ibexa-richtext-tools">
         <ul class="ibexa-elements-path"></ul>
         {% if ibexa_user_settings['character_counter'] == 'enabled' %}
