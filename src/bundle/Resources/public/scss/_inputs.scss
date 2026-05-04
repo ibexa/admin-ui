@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/inputs' as *;
+@use 'sass:color';
 
 .form-control {
     &--is-invalid {
@@ -36,7 +37,7 @@
     &.ibexa-input--text.form-control:focus,
     &.ibexa-input--date.form-control:focus {
         border-color: var(--ibexa-input-focus-border-color, #{$ibexa-color-primary});
-        box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{rgba($ibexa-color-primary, 0.25)});
+        box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{color.change($ibexa-color-primary, $alpha: 0.25)});
 
         &.is-invalid {
             box-shadow: none;
@@ -231,7 +232,8 @@
                     height: calculateRem(16px);
                     border-radius: calculateRem(8px);
                     background: transparent;
-                    box-shadow: 0 0 0 calculateRem(4px) var(--ibexa-input-focus-shadow-color, #{rgba($ibexa-color-primary, 0.25)});
+                    box-shadow: 0 0 0 calculateRem(4px)
+                        var(--ibexa-input-focus-shadow-color, #{color.change($ibexa-color-primary, $alpha: 0.25)});
                 }
             }
         }
@@ -246,7 +248,7 @@
         &.ibexa-input--text.form-control:focus,
         &.ibexa-input--date.form-control:focus {
             border-color: $ibexa-color-info;
-            box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-info, 0.75);
+            box-shadow: 0 0 calculateRem(3px) 0 color.change($ibexa-color-info, $alpha: 0.75);
         }
 
         &.ibexa-input {
@@ -263,7 +265,7 @@
 
                     &:focus {
                         &::after {
-                            box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-info, 0.75);
+                            box-shadow: 0 0 calculateRem(3px) 0 color.change($ibexa-color-info, $alpha: 0.75);
                         }
                     }
                 }
@@ -373,7 +375,7 @@
     &--is-focused {
         .ibexa-toggle {
             &__switcher {
-                box-shadow: 0 0 calculateRem(3px) 0 rgba($ibexa-color-primary, 0.75);
+                box-shadow: 0 0 calculateRem(3px) 0 color.change($ibexa-color-primary, $alpha: 0.75);
             }
         }
     }

@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-field-edit--with-preview {
     &,
@@ -104,7 +105,7 @@
                     border-radius: $ibexa-border-radius;
                     padding: calculateRem(4px);
                     background-color: $ibexa-color-white;
-                    box-shadow: calculateRem(-4px) calculateRem(10px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.15);
+                    box-shadow: calculateRem(-4px) calculateRem(10px) calculateRem(20px) 0 color.change($ibexa-color-info, $alpha: 0.15);
                     z-index: 1;
                 }
             }

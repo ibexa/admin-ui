@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-header-user-menu {
     display: flex;
@@ -41,7 +42,7 @@
         padding: calculateRem(2px);
         border-radius: calculateRem(12px);
         border: 0;
-        background: rgba($ibexa-color-white, 0.1);
+        background: color.change($ibexa-color-white, $alpha: 0.1);
 
         .ibexa-icon {
             fill: $ibexa-color-white;

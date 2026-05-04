@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-main-menu {
     @mixin hidden-main-menu-node {
@@ -328,7 +329,7 @@
         right: 0;
         width: calculateRem(1px);
         height: 100%;
-        background-color: rgba($ibexa-color-dark, 0.8);
+        background-color: color.change($ibexa-color-dark, $alpha: 0.8);
 
         &:hover {
             background-color: $ibexa-color-info;
@@ -357,6 +358,6 @@
     }
 
     &__first-level-popup-menu {
-        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(67px) 0 rgba($ibexa-color-info, 0.5);
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(67px) 0 color.change($ibexa-color-info, $alpha: 0.5);
     }
 }

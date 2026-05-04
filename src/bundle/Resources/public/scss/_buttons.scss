@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use 'extra-actions';
+@use 'sass:color';
 
 .ibexa-btn {
     display: inline-flex;
@@ -99,7 +100,7 @@
             color: $ibexa-color-dark-400;
             fill: $ibexa-color-dark-400;
             border-color: $ibexa-color-dark-200;
-            background-color: rgba($ibexa-color-light, 0.4);
+            background-color: color.change($ibexa-color-light, $alpha: 0.4);
         }
     }
 
@@ -356,7 +357,7 @@
         &:not(.ibexa-btn--selected) {
             &:focus {
                 border-color: $ibexa-color-info;
-                box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-info, 0.2);
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-info, $alpha: 0.2);
             }
         }
 
@@ -405,7 +406,7 @@
 
         &:not(.ibexa-btn--selected) {
             &:focus {
-                box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-white, 0.2);
+                box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-white, $alpha: 0.2);
             }
         }
 
@@ -438,7 +439,7 @@
         &:focus {
             color: $ibexa-color-white;
             border-color: $ibexa-color-white;
-            box-shadow: 0 0 0 calculateRem(3px) rgba($ibexa-color-white, 0.2);
+            box-shadow: 0 0 0 calculateRem(3px) color.change($ibexa-color-white, $alpha: 0.2);
 
             .ibexa-icon {
                 fill: $ibexa-color-white;
@@ -452,7 +453,7 @@
             border-color: $ibexa-color-white;
             box-shadow:
                 0 0 0 transparent,
-                0 calculateRem(22px) calculateRem(24px) 0 rgba($ibexa-color-white, 0.2);
+                0 calculateRem(22px) calculateRem(24px) 0 color.change($ibexa-color-white, $alpha: 0.2);
 
             .ibexa-icon {
                 fill: $ibexa-color-white;
@@ -485,7 +486,7 @@
         border-color: $ibexa-color-light;
 
         &:hover {
-            box-shadow: 0 calculateRem(11px) calculateRem(12px) 0 rgba($ibexa-color-dark, 0.1);
+            box-shadow: 0 calculateRem(11px) calculateRem(12px) 0 color.change($ibexa-color-dark, $alpha: 0.1);
 
             .ibexa-icon {
                 fill: $ibexa-color-dark;
@@ -502,7 +503,7 @@
 
         &:focus-visible {
             border: calculateRem(1px) solid $ibexa-color-primary;
-            box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
+            box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-primary, $alpha: 0.25);
         }
 
         &.disabled,

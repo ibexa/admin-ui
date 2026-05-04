@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/mixins/tooltips' as *;
+@use 'sass:color';
 
 .ibexa-tooltip {
     z-index: 1500;
@@ -80,7 +81,7 @@
         .ibexa-tooltip {
             &__inner {
                 border-color: transparent;
-                box-shadow: 0 calculateRem(2px) calculateRem(8px) rgba($ibexa-color-dark, 0.15);
+                box-shadow: 0 calculateRem(2px) calculateRem(8px) color.change($ibexa-color-dark, $alpha: 0.15);
             }
         }
     }
