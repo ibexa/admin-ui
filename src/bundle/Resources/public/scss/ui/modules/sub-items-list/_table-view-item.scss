@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .c-table-view-item {
     &__translation {
@@ -10,11 +11,11 @@
         transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
 
         .ibexa-table.table &--shadow-left {
-            box-shadow: calculateRem(-13px) calculateRem(5px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.1);
+            box-shadow: calculateRem(-13px) calculateRem(5px) calculateRem(20px) 0 color.change($ibexa-color-info, $alpha: 0.1);
         }
 
         .ibexa-table.table &--shadow-right {
-            box-shadow: calculateRem(13px) calculateRem(5px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.1);
+            box-shadow: calculateRem(13px) calculateRem(5px) calculateRem(20px) 0 color.change($ibexa-color-info, $alpha: 0.1);
         }
 
         &--content-type {

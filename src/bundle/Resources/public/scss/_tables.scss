@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-table {
     font-size: $ibexa-text-font-size;
@@ -273,7 +274,7 @@
         .ibexa-table__head-row {
             .ibexa-table__cell:last-of-type,
             .ibexa-table__header-cell:last-of-type {
-                box-shadow: calculateRem(-13px) calculateRem(5px) calculateRem(20px) 0 rgba($ibexa-color-info, 0.1);
+                box-shadow: calculateRem(-13px) calculateRem(5px) calculateRem(20px) 0 color.change($ibexa-color-info, $alpha: 0.1);
             }
         }
     }

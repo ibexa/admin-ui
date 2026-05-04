@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .ibexa-grid-view-item {
     $self: &;
@@ -10,7 +11,7 @@
     border: calculateRem(1px) solid $ibexa-color-light;
     border-radius: calculateRem(12px);
     background: $ibexa-color-white;
-    box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 rgba($ibexa-color-black, 0.05);
+    box-shadow: calculateRem(4px) calculateRem(2px) calculateRem(17px) 0 color.change($ibexa-color-black, $alpha: 0.05);
     transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
     min-width: calculateRem(290px);
     max-width: calculateRem(290px);
