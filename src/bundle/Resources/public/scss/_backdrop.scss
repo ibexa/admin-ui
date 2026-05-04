@@ -1,4 +1,5 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
+@use 'sass:color';
 
 .ibexa-backdrop {
     display: none;
@@ -8,7 +9,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba($ibexa-color-dark, 0.4);
+    background-color: color.change($ibexa-color-dark, $alpha: 0.4);
 
     &--active {
         display: block;
