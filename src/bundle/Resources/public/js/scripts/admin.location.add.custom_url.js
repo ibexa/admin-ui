@@ -18,11 +18,19 @@
         };
         const toggleSiteAccessSelect = (event) => {
             const isChecked = event.target.checked;
-            const siteAccessSelect = modal.querySelector('.ibexa-custom-url-from__item--siteacces .ibexa-dropdown');
+            const siteAccessSelect = modal.querySelector('.ibexa-custom-url-from__item--siteacces .ibexa-dropdown, .ibexa-custom-url-from__item--siteacces .ids-dropdown');
+            const sourceSelect = siteAccessSelect?.querySelector('.ibexa-input--select, .ids-dropdown__source select');
 
-            siteAccessSelect.classList.toggle('ibexa-dropdown--is-disabled', isChecked);
+            siteAccessSelect?.classList.toggle('ibexa-dropdown--is-disabled', isChecked);
+            siteAccessSelect?.classList.toggle('ibexa-dropdown--disabled', isChecked);
+            siteAccessSelect?.classList.toggle('ids-dropdown--disabled', isChecked);
+
+            if (sourceSelect) {
+                sourceSelect.disabled = isChecked;
+            }
         };
 
+        toggleSiteAccessSelect({ target: siteRootCheckbox });
         input.addEventListener('input', toggleButtonState, false);
         siteRootCheckbox.addEventListener('change', toggleSiteAccessSelect, false);
         discardBtns.forEach((btn) => btn.addEventListener('click', clearValues, false));
