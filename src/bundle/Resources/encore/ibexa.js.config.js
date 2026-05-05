@@ -7,6 +7,10 @@ const layout = [
     path.resolve(__dirname, '../public/js/scripts/admin.format.date.js'),
     path.resolve(__dirname, '../public/js/scripts/core/draggable.js'),
     path.resolve(__dirname, '../public/js/scripts/core/dropdown.js'),
+    path.resolve(
+        __dirname,
+        '../../../../../design-system-twig/src/bundle/Resources/public/ts/init_components.ts',
+    ),
     path.resolve(__dirname, '../public/js/scripts/core/backdrop.js'),
     path.resolve(__dirname, '../public/js/scripts/core/custom.tooltip.js'),
     path.resolve(__dirname, '../public/js/scripts/core/base.chart.js'),

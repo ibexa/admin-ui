@@ -36,7 +36,7 @@ import { getInstance } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scri
 
                 node.checked = value;
             } else if (node.tagName === 'SELECT') {
-                const dropdownContainer = node.closest('.ibexa-dropdown');
+                const dropdownContainer = node.closest('.ibexa-dropdown, .ids-dropdown');
 
                 if (dropdownContainer) {
                     const dropdownInstance = getInstance(dropdownContainer);

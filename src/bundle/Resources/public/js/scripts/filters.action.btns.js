@@ -4,7 +4,7 @@
     containers.forEach((container) => {
         const clearBtn = container.querySelector('.ibexa-adaptive-filters__clear-btn');
         const applyBtn = container.querySelector('.ibexa-adaptive-filters__submit-btn');
-        const dropdownNodes = [...container.querySelectorAll('.ibexa-dropdown')];
+        const dropdownNodes = [...container.querySelectorAll('.ibexa-dropdown, .ids-dropdown')];
         const textInputNodes = [...container.querySelectorAll('.ibexa-input--text')];
         const dateInputNodes = [...container.querySelectorAll('.ibexa-input--date')];
         const originalValuesMap = new Map();
@@ -40,8 +40,8 @@
             return (
                 textInputNodes.every((textInputNode) => textInputNode.disabled || textInputNode.value === '') &&
                 dropdownNodes.every((dropdownNode) => {
-                    const isDisabled = dropdownNode.classList.contains('ibexa-dropdown--disabled');
-                    const selectNode = dropdownNode.querySelector('.ibexa-input--select');
+                    const isDisabled = dropdownNode.classList.contains('ibexa-dropdown--disabled') || dropdownNode.classList.contains('ids-dropdown--disabled');
+                    const selectNode = dropdownNode.querySelector('.ibexa-input--select, .ids-dropdown__source select');
                     const dropdown = dropdownNode.ibexaInstance;
 
                     return isDisabled || (dropdown.canSelectOnlyOne ? selectNode.selectedIndex === 0 : selectNode.selectedIndex === -1);
@@ -78,7 +78,7 @@
                 }
             });
             dropdownNodes.forEach((dropdownNode) => {
-                const isDisabled = dropdownNode.classList.contains('ibexa-dropdown--disabled');
+                const isDisabled = dropdownNode.classList.contains('ibexa-dropdown--disabled') || dropdownNode.classList.contains('ids-dropdown--disabled');
 
                 if (!isDisabled) {
                     const dropdown = dropdownNode.ibexaInstance;
@@ -135,7 +135,7 @@
         }
 
         dropdownNodes.forEach((dropdownNode) => {
-            const select = dropdownNode.querySelector('.ibexa-input--select');
+            const select = dropdownNode.querySelector('.ibexa-input--select, .ids-dropdown__source select');
 
             select.addEventListener('change', handleInputChange, false);
         });
