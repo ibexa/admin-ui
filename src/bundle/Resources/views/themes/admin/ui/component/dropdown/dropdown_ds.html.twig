@@ -67,16 +67,21 @@
     or preferred_choices_flat|filter(choice => choice.icon is defined)|length > 0
     or choices_flat|filter(choice => choice.icon is defined)|length > 0
 %}
-{% set placeholder = placeholder is defined and placeholder is not none
+{% set translated_placeholder = placeholder is defined and placeholder is not none
     ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain))
+    : null
+%}
+{% set empty_placeholder_fallback = 'ibexa.dropdown.placeholder.all'|trans({}, 'ibexa_design_system_twig')|desc('All') %}
+{% set empty_placeholder_label = translated_placeholder is not same as(null)
+    ? translated_placeholder|trim|default(empty_placeholder_fallback)
     : null
 %}
 {% set normalized_ds_items = normalized_items|map(choice => {
     id: choice.value,
     label: choice.label,
 }) %}
-{% set ds_items = not multiple and placeholder is not same as(null)
-    ? [{ id: '', label: placeholder }]|merge(normalized_ds_items)
+{% set ds_items = not multiple and translated_placeholder is not same as(null)
+    ? [{ id: '', label: empty_placeholder_label }]|merge(normalized_ds_items)
     : normalized_ds_items
 %}
 {% set ds_value = multiple
@@ -96,7 +101,7 @@
     ? (ds_items|filter(item => item.id == ds_value)|first)
     : null
 %}
-{% set default_selected_item = not multiple and (placeholder is not defined or placeholder is same as(null))
+{% set default_selected_item = not multiple and translated_placeholder is same as(null)
     ? ds_items|first
     : null
 %}
@@ -119,7 +124,6 @@
 ) %}
 
 {% if can_use_ds %}
-    {# {{ dump() }} #}
     {% include multiple
         ? '@ibexadesign/ui/component/dropdown/dropdown_ds_multi.html.twig'
         : '@ibexadesign/ui/component/dropdown/dropdown_ds_single.html.twig'
@@ -140,7 +144,7 @@
                 hidden: is_hidden|default(false),
             },
             name: name|default('dropdown'),
-            placeholder: placeholder,
+            placeholder: translated_placeholder,
         } only %}
 {% else %}
     {% set legacy_context = {
@@ -160,7 +164,7 @@
         is_selector: is_selector|default(false),
         is_dynamic: is_dynamic|default(false),
         has_select_all_toggler: has_select_all_toggler|default(false),
-        placeholder: placeholder,
+        placeholder: translated_placeholder,
         item_icon_class: item_icon_class|default(''),
         attr: attr|default({}),
     } %}
