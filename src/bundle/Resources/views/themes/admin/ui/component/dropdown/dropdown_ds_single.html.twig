@@ -6,12 +6,6 @@
     {{ source|raw }}
 {% endblock source %}
 
-{% block placeholder %}
-    <div class="ids-dropdown__placeholder"{% if not is_empty %} hidden{% endif %}>
-        {{ placeholder|default('ibexa.dropdown.placeholder'|trans({}, 'ibexa_design_system_twig')) }}
-    </div>
-{% endblock placeholder %}
-
 {% block selected_items %}
     {{ selected_label }}
 {% endblock selected_items %}
