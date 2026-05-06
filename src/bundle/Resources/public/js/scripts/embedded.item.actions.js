@@ -1,7 +1,7 @@
 (function (global, doc, ibexa, Routing, Translator, Popper) {
     const MIN_ITEMS_NUMBER_TO_SHOW_SEARCH = 10;
     const MENU_PROPS = {
-        placement: 'bottom-start',
+        placement: 'bottom-end',
         fallbackPlacements: ['top-end', 'top-start'],
     };
     const token = document.querySelector('meta[name="CSRF-Token"]').content;
