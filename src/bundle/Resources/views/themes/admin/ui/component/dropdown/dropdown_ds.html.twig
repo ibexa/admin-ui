@@ -119,6 +119,7 @@
 ) %}
 
 {% if can_use_ds %}
+    {# {{ dump() }} #}
     {% include multiple
         ? '@ibexadesign/ui/component/dropdown/dropdown_ds_multi.html.twig'
         : '@ibexadesign/ui/component/dropdown/dropdown_ds_single.html.twig'
@@ -135,6 +136,9 @@
             disabled: is_disabled,
             error: false,
             class: class|default(''),
+            attributes: {
+                hidden: is_hidden|default(false),
+            },
             name: name|default('dropdown'),
             placeholder: placeholder,
         } only %}
