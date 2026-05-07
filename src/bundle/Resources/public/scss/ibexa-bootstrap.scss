@@ -1,49 +1,67 @@
 @use 'sass:string';
+@use 'sass:color';
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+
+$bootstrap-white: color.to-space($ibexa-color-white, rgb);
+$bootstrap-black: color.to-space($ibexa-color-black, rgb);
+$bootstrap-light: color.to-space($ibexa-color-light, rgb);
+$bootstrap-light-200: color.to-space($ibexa-color-light-200, rgb);
+$bootstrap-light-300: color.to-space($ibexa-color-light-300, rgb);
+$bootstrap-light-500: color.to-space($ibexa-color-light-500, rgb);
+$bootstrap-light-600: color.to-space($ibexa-color-light-600, rgb);
+$bootstrap-dark: color.to-space($ibexa-color-dark, rgb);
+$bootstrap-dark-200: color.to-space($ibexa-color-dark-200, rgb);
+$bootstrap-dark-300: color.to-space($ibexa-color-dark-300, rgb);
+$bootstrap-dark-400: color.to-space($ibexa-color-dark-400, rgb);
+$bootstrap-primary: color.to-space($ibexa-color-primary, rgb);
+$bootstrap-success: color.to-space($ibexa-color-success, rgb);
+$bootstrap-warning: color.to-space($ibexa-color-warning, rgb);
+$bootstrap-danger: color.to-space($ibexa-color-danger, rgb);
+
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/bootstrap/scss/bootstrap.scss' with (
     // boostrap variables
-    $white: $ibexa-color-white,
-    $gray-100: $ibexa-color-light-300,
-    $gray-200: $ibexa-color-light-300,
-    $gray-300: $ibexa-color-light-200,
-    $gray-400: $ibexa-color-light-200,
-    $gray-500: $ibexa-color-light-500,
-    $gray-600: $ibexa-color-light-500,
-    $gray-700: $ibexa-color-light,
-    $gray-800: $ibexa-color-light,
-    $gray-900: $ibexa-color-dark-300,
-    $black: $ibexa-color-black,
+    $white: $bootstrap-white,
+    $gray-100: $bootstrap-light-300,
+    $gray-200: $bootstrap-light-300,
+    $gray-300: $bootstrap-light-200,
+    $gray-400: $bootstrap-light-200,
+    $gray-500: $bootstrap-light-500,
+    $gray-600: $bootstrap-light-500,
+    $gray-700: $bootstrap-light,
+    $gray-800: $bootstrap-light,
+    $gray-900: $bootstrap-dark-300,
+    $black: $bootstrap-black,
     $grays: (
-        100: $ibexa-color-light-300,
-        200: $ibexa-color-light-300,
-        300: $ibexa-color-light-200,
-        400: $ibexa-color-light-200,
-        500: $ibexa-color-light-500,
-        600: $ibexa-color-light-500,
-        700: $ibexa-color-light,
-        800: $ibexa-color-light,
-        900: $ibexa-color-dark-300
+        100: $bootstrap-light-300,
+        200: $bootstrap-light-300,
+        300: $bootstrap-light-200,
+        400: $bootstrap-light-200,
+        500: $bootstrap-light-500,
+        600: $bootstrap-light-500,
+        700: $bootstrap-light,
+        800: $bootstrap-light,
+        900: $bootstrap-dark-300
     ),
-    $blue: $ibexa-color-primary,
-    $red: $ibexa-color-primary,
-    $orange: $ibexa-color-primary,
-    $yellow: $ibexa-color-warning,
-    $green: $ibexa-color-success,
-    $teal: $ibexa-color-white,
+    $blue: $bootstrap-primary,
+    $red: $bootstrap-primary,
+    $orange: $bootstrap-primary,
+    $yellow: $bootstrap-warning,
+    $green: $bootstrap-success,
+    $teal: $bootstrap-white,
     $pink: #e83e8c,
     $indigo: #6610f2,
     $purple: #6f42c1,
     $cyan: #17a2b8,
     $colors: (
-        'blue': $ibexa-color-primary,
-        'red': $ibexa-color-primary,
-        'orange': $ibexa-color-primary,
-        'yellow': $ibexa-color-warning,
-        'green': $ibexa-color-success,
-        'teal': $ibexa-color-white,
-        'white': $ibexa-color-white,
-        'gray': $ibexa-color-dark-300,
+        'blue': $bootstrap-primary,
+        'red': $bootstrap-primary,
+        'orange': $bootstrap-primary,
+        'yellow': $bootstrap-warning,
+        'green': $bootstrap-success,
+        'teal': $bootstrap-white,
+        'white': $bootstrap-white,
+        'gray': $bootstrap-dark-300,
         'gray-dark': #e83e8c,
         'indigo': #6610f2,
         'purple': #6f42c1,
@@ -51,13 +69,13 @@
         'cyan': #17a2b8
     ),
     $theme-colors: (
-        primary: $ibexa-color-primary,
-        secondary: $ibexa-color-dark-400,
-        success: $ibexa-color-success,
-        warning: $ibexa-color-warning,
-        danger: $ibexa-color-danger,
-        light: $ibexa-color-light-200,
-        dark: $ibexa-color-dark,
+        primary: $bootstrap-primary,
+        secondary: $bootstrap-dark-400,
+        success: $bootstrap-success,
+        warning: $bootstrap-warning,
+        danger: $bootstrap-danger,
+        light: $bootstrap-light-200,
+        dark: $bootstrap-dark,
         info: #17a2b8
     ),
     // Typography
@@ -70,14 +88,14 @@
     $h6-font-size: calculateRem(12px),
     $headings-font-weight: 700,
     $headings-font-family: $ibexa-font-family-headings,
-    $text-muted: $ibexa-color-dark-400,
+    $text-muted: $bootstrap-dark-400,
     // Fonts
     $font-family-sans-serif: $ibexa-font-family,
     // Tables
-    $table-bg: $ibexa-color-white,
+    $table-bg: $bootstrap-white,
     $table-border-width: 0,
-    $table-border-color: $ibexa-color-light-600,
-    $table-hover-bg: $ibexa-color-light-300,
+    $table-border-color: $bootstrap-light-600,
+    $table-hover-bg: $bootstrap-light-300,
     // Breadcrumbs
     $breadcrumb-font-size: calculateRem(12px),
     $breadcrumb-padding-y: 0,
@@ -86,35 +104,35 @@
     $breadcrumb-divider: string.quote('>'),
     // Links
     $link-decoration: underline,
-    $link-color: $ibexa-color-dark,
+    $link-color: $bootstrap-dark,
     $link-hover-decoration: underline,
-    $link-hover-color: $ibexa-color-primary,
+    $link-hover-color: $bootstrap-primary,
     // Body
-    $body-bg: $ibexa-color-white,
-    $body-color: $ibexa-color-dark,
+    $body-bg: $bootstrap-white,
+    $body-color: $bootstrap-dark,
     // Pagination
-    $pagination-color: $ibexa-color-dark,
-    $pagination-bg: $ibexa-color-white,
+    $pagination-color: $bootstrap-dark,
+    $pagination-bg: $bootstrap-white,
     $pagination-border-width: calculateRem(1px),
     $pagination-border-color: transparent,
     $pagination-padding-y: 0,
     $pagination-padding-x: 0,
-    $pagination-focus-color: $ibexa-color-dark,
+    $pagination-focus-color: $bootstrap-dark,
     $pagination-focus-bg: transparent,
-    $pagination-active-color: $ibexa-color-dark,
-    $pagination-active-bg: $ibexa-color-light-300,
+    $pagination-active-color: $bootstrap-dark,
+    $pagination-active-bg: $bootstrap-light-300,
     $pagination-active-border-color: transparent,
     $pagination-hover-bg: transparent,
-    $pagination-hover-color: $ibexa-color-dark,
-    $pagination-hover-border-color: $ibexa-color-dark,
-    $pagination-disabled-color: $ibexa-color-dark-200,
+    $pagination-hover-color: $bootstrap-dark,
+    $pagination-hover-border-color: $bootstrap-dark,
+    $pagination-disabled-color: $bootstrap-dark-200,
     $pagination-disabled-bg: transparent,
     $pagination-disabled-border-color: transparent,
     // Modals
     $modal-header-padding-y: calculateRem(26px),
     $modal-header-padding-x: 0,
     $modal-header-border-width: calculateRem(1px),
-    $modal-header-border-color: $ibexa-color-light-500,
+    $modal-header-border-color: $bootstrap-light-500,
     $modal-content-border-width: 0,
     $modal-content-border-radius: $ibexa-border-radius,
     $modal-inner-padding: calculateRem(24px),
@@ -134,13 +152,13 @@
     $container-max-widths: (sm: 540px, md: 720px, lg: 960px, xl: 1470px),
     //Inputs
     $input-bg: transparent,
-    $input-color: $ibexa-color-dark,
-    $input-border-color: $ibexa-color-dark-300,
+    $input-color: $bootstrap-dark,
+    $input-border-color: $bootstrap-dark-300,
     $input-box-shadow: none,
     $input-focus-bg: transparent,
-    $input-focus-border-color: $ibexa-color-primary,
-    $input-focus-color: $ibexa-color-dark-300,
-    $input-focus-box-shadow: 0 0 calculateRem(2px) 0 rgba($ibexa-color-primary, 0.75),
+    $input-focus-border-color: $bootstrap-primary,
+    $input-focus-color: $bootstrap-dark-300,
+    $input-focus-box-shadow: 0 0 calculateRem(2px) 0 color.change($bootstrap-primary, $alpha: 0.75),
     //Buttons
     $btn-line-height: calculateRem(16px),
     $btn-font-size: calculateRem(15px),
@@ -153,6 +171,6 @@
     $accordion-border-radius: 0,
     $accordion-button-padding-y: calculateRem(8px),
     $accordion-button-padding-x: calculateRem(12px),
-    $accordion-button-active-bg: $ibexa-color-white,
-    $accordion-button-active-color: $ibexa-color-dark
+    $accordion-button-active-bg: $bootstrap-white,
+    $accordion-button-active-color: $bootstrap-dark
 );
