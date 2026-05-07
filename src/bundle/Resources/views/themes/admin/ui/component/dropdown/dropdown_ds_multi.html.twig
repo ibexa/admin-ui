@@ -24,14 +24,18 @@
 {% endblock item_content %}
 
 {% block selected_items %}
-    <div class="ids-overflow-list">
-        <div class="ids-overflow-list__items">
-            {% for item in selected_items %}
-                <twig:ibexa:chip data-id="{{ item.id }}" class="ids-dropdown__selected-item">
-                    {{ item.label }}
-                </twig:ibexa:chip>
-            {% endfor %}
+    {% embed '@IbexaDesignSystemTwig/themes/standard/design_system/components/overflow_list.html.twig' with {
+        items: selected_items,
+        item_template_props: selected_item_template_props,
+        hidden_count_template: hidden_count_template,
+    } only %}
+        {% block item %}
+            <twig:ibexa:chip data-id="{{ item.id }}" class="ids-dropdown__selected-item">
+                {{ item.label }}
+            </twig:ibexa:chip>
+        {% endblock item %}
 
+        {% block more_item_current %}
             <twig:ibexa:chip
                 :isDeletable="false"
                 class="ids-dropdown__selected-item ids-dropdown__selected-item--more"
@@ -39,18 +43,12 @@
             >
                 +0
             </twig:ibexa:chip>
-        </div>
-        <template class="ids-overflow-list__template" data-id="item">
-            {% with { item: selected_item_template_props } %}
-                <twig:ibexa:chip data-id="{{ item.id }}" class="ids-dropdown__selected-item">
-                    {{ item.label }}
-                </twig:ibexa:chip>
-            {% endwith %}
-        </template>
-        <template class="ids-overflow-list__template" data-id="item_more">
+        {% endblock more_item_current %}
+
+        {% block more_item_template %}
             <twig:ibexa:chip :isDeletable="false" class="ids-dropdown__selected-item ids-dropdown__selected-item--more">
                 +{{ hidden_count_template }}
             </twig:ibexa:chip>
-        </template>
-    </div>
+        {% endblock more_item_template %}
+    {% endembed %}
 {% endblock selected_items %}
