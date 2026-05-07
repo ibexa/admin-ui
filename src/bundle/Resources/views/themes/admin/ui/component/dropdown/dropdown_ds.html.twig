@@ -5,10 +5,6 @@
 {% set custom_init = custom_init|default(false) %}
 {% set is_disabled = is_disabled|default(false) or attr.readonly|default(false) %}
 {% set max_visible_items = 5 %}
-{% set item_template_props = {
-    id: '{{ id }}',
-    label: '{{ label }}',
-} %}
 {% set preferred_choices_flat = preferred_choices
     | map(choice => choice.choices is defined ? choice.choices : [choice])
     | reduce((carry, choices) => carry|merge(choices), [])
@@ -96,18 +92,8 @@
 {% set has_min_search_items = min_search_items is defined and min_search_items is not null %}
 {% set has_min_select_all_toggler_items = min_select_all_toggler_items is defined and min_select_all_toggler_items is not null %}
 {% set has_min_item_width = min_item_width is defined and min_item_width is not null %}
-{% set selected_items = multiple ? ds_items|filter(item => item.id in ds_value) : [] %}
-{% set selected_item = not multiple
-    ? (ds_items|filter(item => item.id == ds_value)|first)
-    : null
-%}
-{% set default_selected_item = not multiple and translated_placeholder is same as(null)
-    ? ds_items|first
-    : null
-%}
-{% set effective_selected_item = selected_item ?: default_selected_item %}
-{% set selected_label = effective_selected_item.label|default('') %}
-{% set is_empty = multiple ? ds_value is empty : effective_selected_item is null %}
+{% set has_grouped_preferred_choices = preferred_choices|filter(choice => choice.choices is defined)|length > 0 %}
+{% set has_grouped_choices = choices|filter(choice => choice.choices is defined)|length > 0 %}
 {% set can_use_ds = not (
     custom_init
     or has_selected_item_template_path
@@ -121,31 +107,33 @@
     or is_ghost|default(false)
     or has_min_search_items
     or has_min_item_width
+    or has_grouped_preferred_choices
+    or has_grouped_choices
 ) %}
 
 {% if can_use_ds %}
-    {% include multiple
-        ? '@ibexadesign/ui/component/dropdown/dropdown_ds_multi.html.twig'
-        : '@ibexadesign/ui/component/dropdown/dropdown_ds_single.html.twig'
-        with {
-            source: source|default(''),
-            items: ds_items,
-            value: ds_value,
-            selected_items: selected_items,
-            selected_label: selected_label,
-            is_empty: is_empty,
-            is_search_visible: ds_items|length >= max_visible_items,
-            max_visible_items: max_visible_items,
-            item_template_props: item_template_props,
-            disabled: is_disabled,
-            error: false,
-            class: class|default(''),
-            attributes: {
-                hidden: is_hidden|default(false),
-            },
-            name: name|default('dropdown'),
-            placeholder: translated_placeholder,
-        } only %}
+    {% set ds_dropdown_props = {
+        name: name|default('dropdown'),
+        items: ds_items,
+        value: ds_value,
+        disabled: is_disabled,
+        maxVisibleItems: max_visible_items,
+        class: class|default(''),
+    } %}
+    {% set ds_dropdown_props = translated_placeholder is not same as(null)
+        ? ds_dropdown_props|merge({ placeholder: translated_placeholder })
+        : ds_dropdown_props
+    %}
+    {% set ds_dropdown_props = is_hidden|default(false)
+        ? ds_dropdown_props|merge({ hidden: true })
+        : ds_dropdown_props
+    %}
+
+    {% if multiple %}
+        <twig:ibexa:dropdown_multi:input {{ ...ds_dropdown_props }} />
+    {% else %}
+        <twig:ibexa:dropdown_single:input {{ ...ds_dropdown_props }} />
+    {% endif %}
 {% else %}
     {% set legacy_context = {
         source: source|default(null),
