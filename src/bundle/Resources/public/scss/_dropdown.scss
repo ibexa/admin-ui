@@ -559,6 +559,14 @@
     }
 }
 
+.ids-dropdown {
+    &__selection-info,
+    &__selection-info-items,
+    .ids-overflow-list {
+        min-width: 0;
+    }
+}
+
 .form-inline {
     .ibexa-dropdown {
         margin: calculateRem(5px) calculateRem(8px);
