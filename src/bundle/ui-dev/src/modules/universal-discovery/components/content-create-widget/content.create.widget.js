@@ -2,10 +2,9 @@ import React, { useContext, useState, useEffect, useRef, useMemo } from 'react';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import Icon from '../../../common/icon/icon';
-import Dropdown from '../../../common/dropdown/dropdown';
+import { DropdownSingleInput } from '@ids-components/components/Dropdown';
 
 import {
-    DropdownPortalRefContext,
     CreateContentWidgetContext,
     ActiveTabContext,
     ContentOnTheFlyDataContext,
@@ -29,7 +28,6 @@ const ContentCreateWidget = () => {
     const Translator = getTranslator();
     const adminUiConfig = getAdminUiConfig();
     const refContentTree = useRef(null);
-    const dropdownListRef = useContext(DropdownPortalRefContext);
     const [markedLocationId] = useContext(MarkedLocationIdContext);
     const [loadedLocationsMap] = useContext(LoadedLocationsMapContext);
     const { allowedLanguages, preselectedLanguage, preselectedContentType } = useContext(ContentOnTheFlyConfigContext);
@@ -189,13 +187,13 @@ const ContentCreateWidget = () => {
                 <div className="ibexa-extra-actions__content">
                     <label className="ibexa-label ibexa-extra-actions__section-header">{selectLanguageLabel}</label>
                     <div className="ibexa-extra-actions__section-content">
-                        <Dropdown
-                            dropdownListRef={dropdownListRef}
+                        <DropdownSingleInput
+                            className="c-udw-dropdown"
+                            items={languageOptions.map(({ value, label }) => ({ id: value, label }))}
+                            maxVisibleItems={5}
+                            name=""
                             onChange={updateSelectedLanguage}
-                            single={true}
                             value={selectedLanguage}
-                            options={languageOptions}
-                            extraClasses="c-udw-dropdown"
                         />
                     </div>
                     <div className="ibexa-extra-actions__section-content ibexa-extra-actions__section-content--content-type">
