@@ -16,7 +16,7 @@ final readonly class DisableSiteRootCheckboxIfRootLocationListener
     public function onPreSetData(FormEvent $event): void
     {
         $location = $event->getData()->getLocation();
-        if (null === $location || 1 < $location->depth) {
+        if (null === $location || 1 < $location->getDepth()) {
             return;
         }
 
