@@ -4,7 +4,36 @@
 {% set multiple = multiple|default(false) %}
 {% set custom_init = custom_init|default(false) %}
 {% set is_disabled = is_disabled|default(false) or attr.readonly|default(false) %}
+{% set source = source|default(null) %}
+{% set source_attr = source_attr|default({}) %}
+{% set source_id = source_id|default(source_attr.id|default(null)) %}
+{% set source_name = source_name|default(source_attr.name|default(name|default('dropdown'))) %}
 {% set max_visible_items = 5 %}
+{% set excluded_source_attr_keys = [
+    'dropdown_hidden',
+    'dropdown_class',
+    'dropdown_custom_init',
+    'is_small',
+    'is_ghost',
+    'is_selector',
+    'is_dynamic',
+    'has_select_all_toggler',
+] %}
+{% set normalized_source_attr = {} %}
+{% for key, item in source_attr %}
+    {% if key not in excluded_source_attr_keys %}
+        {% set normalized_source_attr = normalized_source_attr|merge({ (key): item }) %}
+    {% endif %}
+{% endfor %}
+{% set normalized_source_attr = normalized_source_attr|merge({
+    name: source_name,
+    disabled: is_disabled,
+    required: required|default(false),
+}) %}
+{% set normalized_source_attr = source_id is not null
+    ? normalized_source_attr|merge({ id: source_id })
+    : normalized_source_attr
+%}
 {% set preferred_choices_flat = preferred_choices
     | map(choice => choice.choices is defined ? choice.choices : [choice])
     | reduce((carry, choices) => carry|merge(choices), [])
@@ -113,12 +142,14 @@
 
 {% if can_use_ds %}
     {% set ds_dropdown_props = {
-        name: name|default('dropdown'),
+        name: source_name,
         items: ds_items,
         value: ds_value,
         disabled: is_disabled,
         maxVisibleItems: max_visible_items,
         class: class|default(''),
+        source: source,
+        sourceAttributes: normalized_source_attr,
     } %}
     {% set ds_dropdown_props = translated_placeholder is not same as(null)
         ? ds_dropdown_props|merge({ placeholder: translated_placeholder })
