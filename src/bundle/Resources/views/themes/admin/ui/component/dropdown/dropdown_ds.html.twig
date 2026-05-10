@@ -132,6 +132,7 @@
     or is_selector|default(false)
     or has_items_class
     or has_items_list_header
+    or is_small|default(false)
     or is_ghost|default(false)
     or has_min_search_items
     or has_min_item_width
@@ -147,7 +148,6 @@
         disabled: is_disabled,
         maxVisibleItems: max_visible_items,
         class: class|default(''),
-        size: is_small|default(false) ? 'small' : 'medium',
         source: source,
         sourceAttributes: normalized_source_attr,
     } %}
