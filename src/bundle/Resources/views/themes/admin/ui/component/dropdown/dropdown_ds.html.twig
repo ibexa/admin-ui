@@ -97,7 +97,7 @@
         disabled: is_disabled,
         maxVisibleItems: max_visible_items,
         class: class|default(''),
-        source: source,
+        source,
         sourceAttributes: normalized_source_attr,
     } %}
     {% set ds_dropdown_props = translated_placeholder is not same as(null)
@@ -116,16 +116,16 @@
     {% endif %}
 {% else %}
     {% set legacy_context = {
-        source: source|default(null),
-        choices: choices,
-        preferred_choices: preferred_choices,
-        value: value,
-        multiple: multiple,
-        custom_init: custom_init,
+        source,
+        choices,
+        preferred_choices,
+        value,
+        multiple,
+        custom_init,
         class: class|default(''),
-        translation_domain: translation_domain,
+        translation_domain,
         custom_form: custom_form is defined ? custom_form : true,
-        is_disabled: is_disabled,
+        is_disabled,
         is_hidden: is_hidden|default(false),
         is_small: is_small|default(false),
         is_ghost: is_ghost|default(false),
