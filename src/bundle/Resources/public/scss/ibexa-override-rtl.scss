@@ -112,15 +112,13 @@
         }
     }
 
-    .ibexa-data-source__map {
-        direction: ltr;
-    }
-
     .ibexa-workflow-diagram {
         direction: ltr;
     }
 
     .ibexa-data-source__map {
+        direction: ltr;
+
         .leaflet-pane,
         .leaflet-tile {
             right: auto;
