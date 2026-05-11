@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 import { AssetsProvider, TranslatorProvider } from '@ids-components/context';
 
@@ -15,7 +16,7 @@ const DesignSystemProvider = ({ children }) => {
     );
     const translatorContextValue = useMemo(
         () => ({
-            trans: (key, parameters = {}, domain) => Translator.trans(key, parameters, domain),
+            trans: (key, parameters, domain) => Translator.trans(key, parameters ?? {}, domain),
         }),
         [Translator],
     );
@@ -25,6 +26,10 @@ const DesignSystemProvider = ({ children }) => {
             <TranslatorProvider value={translatorContextValue}>{children}</TranslatorProvider>
         </AssetsProvider>
     );
+};
+
+DesignSystemProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default DesignSystemProvider;
