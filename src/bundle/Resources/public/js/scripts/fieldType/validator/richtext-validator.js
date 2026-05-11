@@ -24,6 +24,11 @@ class RichTextValidator extends ibexa.BaseFieldValidator {
         const fieldContainer = event.currentTarget.closest(this.selectorField);
         const isRequired = fieldContainer.classList.contains('ibexa-field-edit--required');
         const label = fieldContainer.querySelector(this.labelSelector)?.innerHTML;
+
+        if (!this.richtextEditor.editor) {
+            return { isError: false };
+        }
+
         const isEmpty = !this.richtextEditor.getData().length;
         const isError = isRequired && isEmpty;
         const result = { isError };
