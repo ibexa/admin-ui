@@ -32,69 +32,69 @@
         <note>key: authentication.credentials_expired.reset_password</note>
       </trans-unit>
       <trans-unit id="d2293b387ecddbc6173fd579abd37873fcbc5e97" resname="authentication.forgot_password">
+        <source>Forgot password</source>
+        <target state="new">Forgot password</target>
+        <note>key: authentication.forgot_password</note>
+      </trans-unit>
+      <trans-unit id="4d1ff50d394507d604a81017415b26d8d290e116" resname="authentication.forgot_your_password">
         <source>Forgot your password?</source>
         <target state="new">Forgot your password?</target>
-        <note>key: authentication.forgot_password</note>
+        <note>key: authentication.forgot_your_password</note>
       </trans-unit>
       <trans-unit id="a56a6630cc335b8a63f8632263aef6625f731929" resname="authentication.login">
         <source>Login</source>
         <target state="new">Login</target>
         <note>key: authentication.login</note>
       </trans-unit>
+      <trans-unit id="3bb0777089e202078ba8b41005ebe92a47b435b6" resname="authentication.login_or">
+        <source>or</source>
+        <target state="new">or</target>
+        <note>key: authentication.login_or</note>
+      </trans-unit>
       <trans-unit id="da44d8915172b0c8a874e26956f44aa5501c7e6b" resname="authentication.password">
         <source>Password</source>
         <target state="new">Password</target>
         <note>key: authentication.password</note>
       </trans-unit>
-      <trans-unit id="7a3631c8f70b8b52f902530ad052c71609eb7177" resname="authentication.reset_your_password">
-        <source>Reset your password</source>
-        <target state="new">Reset your password</target>
-        <note>key: authentication.reset_your_password</note>
-      </trans-unit>
-      <trans-unit id="f7771b5d011f529e37d3b4c94319f52e709256c3" resname="authentication.reset_your_password.back">
-        <source>Back</source>
-        <target state="new">Back</target>
-        <note>key: authentication.reset_your_password.back</note>
-      </trans-unit>
       <trans-unit id="930de05604c9de549497278656b63f7721e65ce5" resname="authentication.reset_your_password.back_to_sign_in">
-        <source>Go back to Sign in</source>
-        <target state="new">Go back to Sign in</target>
+        <source>Back to sign in page</source>
+        <target state="new">Back to sign in page</target>
         <note>key: authentication.reset_your_password.back_to_sign_in</note>
       </trans-unit>
-      <trans-unit id="9143793289ea0e20c3dc9f752d43cc727f2dba01" resname="authentication.username">
-        <source>Username</source>
-        <target state="new">Username</target>
-        <note>key: authentication.username</note>
+      <trans-unit id="daab336a9cb12d2d04146c55228268227cf1017a" resname="authentication.sign_in">
+        <source>Sign in</source>
+        <target state="new">Sign in</target>
+        <note>key: authentication.sign_in</note>
+      </trans-unit>
+      <trans-unit id="f9df7877227a2ccf91924ca73897935e89ca5877" resname="authentication.sso">
+        <source>Sign in with SSO</source>
+        <target state="new">Sign in with SSO</target>
+        <note>key: authentication.sso</note>
       </trans-unit>
       <trans-unit id="b84cc93e7b7f2a9eb0be3e95db4ffde11a97a520" resname="back.to.top">
         <source>Go to top</source>
         <target state="new">Go to top</target>
         <note>key: back.to.top</note>
       </trans-unit>
-      <trans-unit id="4daaec218376e009b83ec7f46efed4f0db0bc776" resname="base.get_started">
-        <source>Get started</source>
-        <target state="new">Get started</target>
-        <note>key: base.get_started</note>
-      </trans-unit>
-      <trans-unit id="c82a33e6a2272aab44ff7b78c90817c0fc8768cb" resname="base.need_assistance">
-        <source>Get to know Ibexa DXP</source>
-        <target state="new">Get to know Ibexa DXP</target>
-        <note>key: base.need_assistance</note>
+      <trans-unit id="db18bf896c4960a418c58ab3f74d69d3408f8f5c" resname="base.documentation">
+        <source>Documentation</source>
+        <target state="new">Documentation</target>
+        <note>key: base.documentation</note>
       </trans-unit>
       <trans-unit id="2db35ee6d4dcf83edd936a8a8a6baabd1e4ffd76" resname="base.registration">
         <source>Registration</source>
         <target state="new">Registration</target>
         <note>key: base.registration</note>
       </trans-unit>
-      <trans-unit id="34e898c4a61c4925b523416b0c7ecd9574d8e48b" resname="base.visit_support">
-        <source><![CDATA[See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%]]></source>
-        <target state="new"><![CDATA[See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%]]></target>
-        <note>key: base.visit_support</note>
+      <trans-unit id="b5305384fa0fd949ec756891f50f093fd26dd06c" resname="base.sign_in">
+        <source>Sign in to Cohesivo</source>
+        <target state="new">Sign in to Cohesivo</target>
+        <note>key: base.sign_in</note>
       </trans-unit>
-      <trans-unit id="59c7ae16de21fe5b4f16ac740a708e72fff4654a" resname="base.welcome">
-        <source><![CDATA[Welcome to<br/> Ibexa DXP]]></source>
-        <target state="new"><![CDATA[Welcome to<br/> Ibexa DXP]]></target>
-        <note>key: base.welcome</note>
+      <trans-unit id="88a1ca3feeca0c47f32329bac911563a1120b8eb" resname="base.support">
+        <source>Support</source>
+        <target state="new">Support</target>
+        <note>key: base.support</note>
       </trans-unit>
       <trans-unit id="d21d07085caa55b0fee2fc054a6878bbdb24ae78" resname="breadcrumb.admin">
         <source>Admin</source>
@@ -302,8 +302,8 @@
         <note>key: ezplatform.registration_confirmation.message</note>
       </trans-unit>
       <trans-unit id="40dd2934190789b016771a0fc3b41dcdfe0bb920" resname="ezplatform.reset_user_password.change_password">
-        <source>Change password</source>
-        <target state="new">Change password</target>
+        <source>Set new password</source>
+        <target state="new">Set new password</target>
         <note>key: ezplatform.reset_user_password.change_password</note>
       </trans-unit>
       <trans-unit id="8359e9b6409139537d0eaeeacaedbc4d0912a105" resname="ezplatform.reset_user_password.link_is_not_valid">
@@ -330,11 +330,6 @@
         <source>Cancel</source>
         <target state="new">Cancel</target>
         <note>key: form.cancel</note>
-      </trans-unit>
-      <trans-unit id="1c83b9fb831b59adffc151e074e3940afb422d59" resname="ibexa.forgot_user_password.reset_your_password">
-        <source>Reset your password</source>
-        <target state="new">Reset your password</target>
-        <note>key: ibexa.forgot_user_password.reset_your_password</note>
       </trans-unit>
       <trans-unit id="621bf74d73c79b7c57b8a0ce6f46e3069e237ba6" resname="ibexa.forgot_user_password.success">
         <source><![CDATA[<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>]]></source>
