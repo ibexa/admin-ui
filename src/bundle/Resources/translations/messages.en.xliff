@@ -332,8 +332,8 @@
         <note>key: form.cancel</note>
       </trans-unit>
       <trans-unit id="621bf74d73c79b7c57b8a0ce6f46e3069e237ba6" resname="ibexa.forgot_user_password.success">
-        <source><![CDATA[<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>]]></source>
-        <target state="new"><![CDATA[<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>]]></target>
+        <source><![CDATA[<p>If you don’t receive the email, double-check your email address and spam folder.</p>]]></source>
+        <target state="new"><![CDATA[<p>If you don’t receive the email, double-check your email address and spam folder.</p>]]></target>
         <note>key: ibexa.forgot_user_password.success</note>
       </trans-unit>
       <trans-unit id="7c3724a02caf347d184892eab61db61ec54c1439" resname="ibexa.forgot_user_password.success.alert">

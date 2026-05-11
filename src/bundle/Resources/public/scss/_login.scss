@@ -21,7 +21,7 @@
         max-width: calculateRem(750px);
         background: $ibexa-color-white;
         min-height: 100vh;
-        padding: calculateRem(140px) calculateRem(175px);
+        padding: calculateRem(140px) 0;
         display: flex;
     }
 
@@ -47,6 +47,8 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        max-width: calculateRem(400px);
+        margin: 0 auto;
         min-height: 100%;
         flex: 1;
         justify-content: flex-start;
@@ -110,7 +112,7 @@
 
         span {
             padding: 0 calculateRem(20px);
-            font-size: $text-font-size-xl;
+            font-size: $text-font-size-s;
             line-height: 1;
         }
     }
