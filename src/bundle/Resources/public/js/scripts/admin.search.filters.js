@@ -2,21 +2,23 @@
     const { escapeHTML, escapeHTMLAttribute } = ibexa.helpers.text;
     const { dangerouslySetInnerHTML } = ibexa.helpers.dom;
     const { getInstance } = ibexa.helpers.objectInstances;
-    const SELECTOR_DROPDOWN = '.ibexa-dropdown, .ids-dropdown';
-    const SELECTOR_DROPDOWN_SOURCE_SELECT = '.ibexa-input--select, .ids-dropdown__source select';
     let getUsersTimeout;
     const SELECTOR_TAG = '.ibexa-tag';
     const token = doc.querySelector('meta[name="CSRF-Token"]').content;
     const siteaccess = doc.querySelector('meta[name="SiteAccess"]').content;
     const filters = doc.querySelector('.ibexa-filters');
-    const getDropdownContainer = (selector) => filters.querySelector(`${selector} ${SELECTOR_DROPDOWN}`);
-    const getDropdownSourceSelect = (selector) => filters.querySelector(`${selector} ${SELECTOR_DROPDOWN_SOURCE_SELECT}`);
     const clearBtn = filters.querySelector('.ibexa-btn--clear');
     const applyBtn = filters.querySelector('.ibexa-btn--apply');
     const contentTypeSelect = doc.querySelector('.ibexa-filters__item--content-type .ibexa-filters__select');
-    const sectionSelect = getDropdownSourceSelect('.ibexa-filters__item--section');
-    const lastModifiedDropdownNode = getDropdownContainer('.ibexa-filters__item--modified');
-    const lastModifiedSelectNode = getDropdownSourceSelect('.ibexa-filters__item--modified');
+    const sectionSelect = filters.querySelector(
+        '.ibexa-filters__item--section .ibexa-input--select, .ibexa-filters__item--section .ids-dropdown__source select',
+    );
+    const lastModifiedDropdownNode = filters.querySelector(
+        '.ibexa-filters__item--modified .ibexa-dropdown, .ibexa-filters__item--modified .ids-dropdown',
+    );
+    const lastModifiedSelectNode = filters.querySelector(
+        '.ibexa-filters__item--modified .ibexa-input--select, .ibexa-filters__item--modified .ids-dropdown__source select',
+    );
     const lastModifiedSelect = getInstance(lastModifiedDropdownNode);
     const lastModifiedDateRangeNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-date-time-range-single');
     const lastModifiedDateRange = getInstance(lastModifiedDateRangeNode);
@@ -28,8 +30,12 @@
     const lastModifiedPeriod = doc.querySelector(lastModifiedPeriodSelector);
     const lastModifiedStartDate = doc.querySelector(lastModifiedStartSelector);
     const lastModifiedEndDate = doc.querySelector(lastModifiedEndSelector);
-    const lastCreatedDropdownNode = getDropdownContainer('.ibexa-filters__item--created');
-    const lastCreatedSelectNode = getDropdownSourceSelect('.ibexa-filters__item--created');
+    const lastCreatedDropdownNode = filters.querySelector(
+        '.ibexa-filters__item--created .ibexa-dropdown, .ibexa-filters__item--created .ids-dropdown',
+    );
+    const lastCreatedSelectNode = filters.querySelector(
+        '.ibexa-filters__item--created .ibexa-input--select, .ibexa-filters__item--created .ids-dropdown__source select',
+    );
     const lastCreatedSelect = getInstance(lastCreatedDropdownNode);
     const lastCreatedDateRangeNode = doc.querySelector('.ibexa-filters__item--created .ibexa-date-time-range-single');
     const lastCreatedDateRange = getInstance(lastCreatedDateRangeNode);
