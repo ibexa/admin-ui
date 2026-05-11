@@ -10,21 +10,9 @@
 {% set source_id = source_id|default(source_attr.id|default(null)) %}
 {% set source_name = source_name|default(source_attr.name|default(name|default('dropdown'))) %}
 {% set max_visible_items = 5 %}
-{% set excluded_source_attr_keys = [
-    'dropdown_hidden',
-    'dropdown_class',
-    'dropdown_custom_init',
-    'is_small',
-    'is_ghost',
-    'is_selector',
-    'is_dynamic',
-    'has_select_all_toggler',
-] %}
 {% set normalized_source_attr = {} %}
 {% for key, item in source_attr %}
-    {% if key not in excluded_source_attr_keys %}
-        {% set normalized_source_attr = normalized_source_attr|merge({ (key): item }) %}
-    {% endif %}
+    {% set normalized_source_attr = normalized_source_attr|merge({ (key): item }) %}
 {% endfor %}
 {% set normalized_source_attr = normalized_source_attr|merge({
     name: source_name,
