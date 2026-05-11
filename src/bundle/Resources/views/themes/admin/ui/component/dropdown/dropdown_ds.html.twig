@@ -34,64 +34,6 @@
     ? normalized_source_attr|merge({ id: source_id })
     : normalized_source_attr
 %}
-{% set preferred_choices_flat = preferred_choices
-    | map(choice => choice.choices is defined ? choice.choices : [choice])
-    | reduce((carry, choices) => carry|merge(choices), [])
-%}
-{% set choices_flat = choices
-    | map(choice => choice.choices is defined ? choice.choices : [choice])
-    | reduce((carry, choices) => carry|merge(choices), [])
-%}
-
-{% set normalized_preferred_choices = preferred_choices
-    | map(choice => choice.choices is defined
-        ? choice.choices|map(child => {
-            value: child.value ~ '',
-            label: '['
-                ~ (translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain))
-                ~ ']: '
-                ~ (translation_domain is same as(false) ? child.label : child.label|trans({}, translation_domain)),
-        })
-        : [{
-            value: choice.value ~ '',
-            label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
-        }]
-    )
-    | reduce((carry, choices) => carry|merge(choices), [])
-%}
-{% set normalized_choices = choices
-    | map(choice => choice.choices is defined
-        ? choice.choices|map(child => {
-            value: child.value ~ '',
-            label: '['
-                ~ (translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain))
-                ~ ']: '
-                ~ (translation_domain is same as(false) ? child.label : child.label|trans({}, translation_domain)),
-        })
-        : [{
-            value: choice.value ~ '',
-            label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
-        }]
-    )
-    | reduce((carry, choices) => carry|merge(choices), [])
-%}
-{% set normalized_choices_data = normalized_preferred_choices
-    | merge(normalized_choices)
-    | reduce((carry, choice) => choice.value in carry.values
-        ? carry
-        : {
-            items: carry.items|merge([choice]),
-            values: carry.values|merge([choice.value]),
-        }, {
-            items: [],
-            values: [],
-        })
-%}
-{% set normalized_items = normalized_choices_data.items %}
-{% set has_icons = item_icon is defined
-    or preferred_choices_flat|filter(choice => choice.icon is defined)|length > 0
-    or choices_flat|filter(choice => choice.icon is defined)|length > 0
-%}
 {% set translated_placeholder = placeholder is defined and placeholder is not none
     ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain))
     : null
@@ -101,18 +43,7 @@
     ? translated_placeholder|trim|default(empty_placeholder_fallback)
     : null
 %}
-{% set normalized_ds_items = normalized_items|map(choice => {
-    id: choice.value,
-    label: choice.label,
-}) %}
-{% set ds_items = not multiple and translated_placeholder is not same as(null)
-    ? [{ id: '', label: empty_placeholder_label }]|merge(normalized_ds_items)
-    : normalized_ds_items
-%}
-{% set ds_value = multiple
-    ? (value is iterable ? value|map(item => item ~ '') : [])
-    : (value is not null ? value ~ '' : '')
-%}
+
 {% set has_selected_item_template_path = selected_item_template_path is defined and selected_item_template_path is not null %}
 {% set has_list_item_template_path = list_item_template_path is defined and list_item_template_path is not null %}
 {% set has_selected_item_label = selected_item_label is defined and selected_item_label is not empty %}
@@ -123,6 +54,7 @@
 {% set has_min_item_width = min_item_width is defined and min_item_width is not null %}
 {% set has_grouped_preferred_choices = preferred_choices|filter(choice => choice.choices is defined)|length > 0 %}
 {% set has_grouped_choices = choices|filter(choice => choice.choices is defined)|length > 0 %}
+
 {% set can_use_ds = not (
     custom_init
     or has_selected_item_template_path
@@ -141,6 +73,38 @@
 ) %}
 
 {% if can_use_ds %}
+    {% set normalized_preferred_choices = preferred_choices|map(choice => {
+        value: choice.value ~ '',
+        label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
+    }) %}
+    {% set normalized_choices = choices|map(choice => {
+        value: choice.value ~ '',
+        label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
+    }) %}
+    {% set normalized_items = normalized_preferred_choices
+        | merge(normalized_choices)
+        | reduce((carry, choice) => choice.value in carry.values
+            ? carry
+            : {
+                items: carry.items|merge([choice]),
+                values: carry.values|merge([choice.value]),
+            }, {
+                items: [],
+                values: [],
+            })
+    %}
+    {% set normalized_ds_items = normalized_items.items|map(choice => {
+        id: choice.value,
+        label: choice.label,
+    }) %}
+    {% set ds_items = not multiple and translated_placeholder is not same as(null)
+        ? [{ id: '', label: empty_placeholder_label }]|merge(normalized_ds_items)
+        : normalized_ds_items
+    %}
+    {% set ds_value = multiple
+        ? (value is iterable ? value|map(item => item ~ '') : [])
+        : (value is not null ? value ~ '' : '')
+    %}
     {% set ds_dropdown_props = {
         name: source_name,
         items: ds_items,
