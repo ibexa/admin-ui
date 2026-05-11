@@ -10,28 +10,22 @@
         <script src="{{ asset('bundles/ibexaadminuiassets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     </head>
     <body class="ibexa-login-view">
-        <div class="container-fluid ibexa-main-container">
-            <div class="row ibexa-login">
-                <img class="ibexa-login__logo" src="{{ asset('bundles/ibexaadminui/img/ibexa-logo.svg') }}" alt="ibexa" />
-                <div class="container ibexa-login__content-wrapper">
-                    <div class="row ibexa-login__content-row">
-                        <div class="col-4 ibexa-login__info-col">
-                            <h1 class="ibexa-login__info-headline">{{ 'base.welcome'|trans|desc('Welcome to<br/> Ibexa DXP')|raw }}</h1>
-                            <div class="ibexa-login__support-wrapper">
-                                <h3 class="ibexa-login__support-headline">{{ 'base.need_assistance'|trans|desc('Get to know Ibexa DXP') }}</h3>
-                                <span class="ibexa-login__support-content">
-                                    {{ 'base.visit_support'|trans({
-                                        '%ibexa_documentation_link%': '<a class="ibexa-link ibexa-link--light ibexa-link--no-hover-color" href="https://developers.ibexa.co/documentation-hub">official documentation</a>',
-                                        '%ibexa_contact_link%': '<a class="ibexa-link ibexa-link--light ibexa-link--no-hover-color" href="https://www.ibexa.co/about-ibexa/contact-us">Contact us</a>'
-                                    })| desc('See the %ibexa_documentation_link%<br/>or %ibexa_contact_link%')|raw }}
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col-4 ibexa-login__actions-col">
+        <div class="ibexa-main-container">
+            <div class="ibexa-login">
+                <div class="ibexa-login__sidebar" aria-hidden="true"></div>
+                <div class="ibexa-login__panel">
+                    <div class="ibexa-login__actions">
+                        <img class="ibexa-login__logo" src="{{ asset('bundles/ibexaadminui/img/cohesivo-logo-alt.svg') }}" alt="ibexa" />
+                        <div class="ibexa-login__form">
                             {%- block content -%} {%- endblock content -%}
+                        </div>
+                        <div class="ibexa-login__panel-footer">
+                            <a href="https://doc.ibexa.co/en/latest/" target="_blank" rel="noopener noreferrer">{{ 'base.documentation'|trans|desc('Documentation') }}</a>
+                            <a href="https://support.ibexa.co/login" target="_blank" rel="noopener noreferrer">{{ 'base.support'|trans|desc('Support') }}</a>
                         </div>
                     </div>
                 </div>
+                <div class="ibexa-login__background" aria-hidden="true"></div>
             </div>
         </div>
 

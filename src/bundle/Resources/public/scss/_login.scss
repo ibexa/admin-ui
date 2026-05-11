@@ -1,78 +1,56 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/colors' as *;
+@use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/typography' as *;
 
 .ibexa-login {
-    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
     min-height: 100vh;
-    overflow: auto;
-    background-image: url('/bundles/ibexaadminui/img/login-background.jpg');
-    background-size: cover;
+    height: 100%;
+
+    &__sidebar {
+        flex: 0 0 calculateRem(64px);
+        border-right: calculateRem(1px) solid $ibexa-color-light;
+        background: $ibexa-color-black;
+    }
+
+    &__panel {
+        flex: 0 1 calculateRem(750px);
+        max-width: calculateRem(750px);
+        background: $ibexa-color-white;
+        min-height: 100vh;
+        padding: calculateRem(140px) calculateRem(175px);
+        display: flex;
+    }
+
+    &__background {
+        flex: 1 1 auto;
+        min-width: 0;
+        background-image: url('/bundles/ibexaadminui/img/login-background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 
     .ibexa-label {
-        margin-top: calculateRem(40px);
+        margin-top: calculateRem(16px);
     }
 
     &__logo {
-        position: absolute;
-        top: calculateRem(30px);
-        left: calculateRem(30px);
-        max-width: calculateRem(100px);
+        max-width: calculateRem(250px);
+        margin-bottom: calculateRem(32px);
     }
 
-    &__info-col {
-        color: $ibexa-color-white;
+    &__actions {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        padding: calculateRem(24px);
-        max-height: 90vh;
+        width: 100%;
+        min-height: 100%;
+        flex: 1;
+        justify-content: flex-start;
     }
-
-    &__info-headline {
-        font-size: calculateRem(60px);
-    }
-
-    &__actions-col {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        color: $ibexa-color-dark;
-        background: $ibexa-color-white;
-        min-height: calculateRem(600px);
-        border-radius: $ibexa-border-radius;
-        padding: calculateRem(90px) calculateRem(120px);
-        align-self: flex-start;
-    }
-
-    &__content-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    &__content-row {
-        justify-content: center;
-        padding: calculateRem(48px) 0;
-    }
-
-    &__support-wrapper {
-        position: relative;
-        padding-top: calculateRem(24px);
-    }
-
-    &__support-content {
-        font-size: $ibexa-text-font-size-medium;
-
-        &::before {
-            content: '';
-            width: calculateRem(100px);
-            height: calculateRem(4px);
-            background-image: $ibexa-gradient-danger-primary;
-            position: absolute;
-            top: 0;
-        }
-    }
-
     &__support-headline {
         margin-bottom: calculateRem(16px);
     }
@@ -87,24 +65,18 @@
         }
     }
 
+    &__actions-subheadline {
+        font-size: $text-font-size-s;
+        color: $color-neutral-160;
+    }
+
     &__btn {
         margin-top: calculateRem(16px);
+        width: 100%;
+        justify-content: center;
 
         &--register,
-        &--sign-in {
-            width: 100%;
-            justify-content: center;
-            margin-top: calculateRem(40px);
-        }
-
-        &--back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-        }
-
+        &--sign-in,
         &--reset-password,
         &--change-password {
             margin-top: calculateRem(32px);
@@ -113,12 +85,67 @@
 
     &__link-wrapper {
         display: flex;
-        justify-content: center;
-        margin-top: calculateRem(14px);
+        justify-content: flex-end;
+        margin-top: auto;
+        padding-top: calculateRem(24px);
         font-size: $ibexa-text-font-size-medium;
+        gap: calculateRem(16px);
+    }
+
+    &__or-divider {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: calculateRem(24px);
+        margin-bottom: calculateRem(8px);
+        color: $ibexa-color-dark;
+
+        &::before,
+        &::after {
+            content: '';
+            flex: 1;
+            height: calculateRem(1px);
+            background: $ibexa-color-light;
+        }
+
+        span {
+            padding: 0 calculateRem(20px);
+            font-size: $text-font-size-xl;
+            line-height: 1;
+        }
     }
 
     &__forgot-password-form {
         margin-top: calculateRem(16px);
+    }
+
+    &__actions-headline {
+        font-size: $text-font-size-3xl;
+        margin-bottom: calculateRem(4px);
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        flex: 1;
+    }
+
+    &__panel-footer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: calculateRem(16px);
+        font-size: $text-font-size-s;
+    }
+
+    &__success-toast {
+        margin-top: calculateRem(4px);
+
+        &.ibexa-alert {
+            min-height: unset;
+        }
     }
 }
