@@ -1537,43 +1537,43 @@ parameters:
 			path: src/lib/Form/DataMapper/RoleCopyMapper.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentInfoTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ContentInfoTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ContentTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTypeGroupTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTypeGroupTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ContentTypeGroupTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTypeTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ContentTypeTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ContentTypeTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalToArrayTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalToArrayTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/DateIntervalToArrayTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\DateIntervalTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/DateIntervalTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\BinaryFileValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\BinaryFileValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/BinaryFileValueTransformer.php
@@ -1585,7 +1585,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/BinaryFileValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\DateTimeValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\DateTimeValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/DateTimeValueTransformer.php
@@ -1597,7 +1597,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/DateTimeValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\DateValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\DateValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/DateValueTransformer.php
@@ -1609,7 +1609,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/DateValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\FieldValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\FieldValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/FieldValueTransformer.php
@@ -1621,7 +1621,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageAssetValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageAssetValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
@@ -1633,49 +1633,49 @@ parameters:
 			path: src/lib/Form/DataTransformer/FieldType/ImageAssetValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\ImageValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/ImageValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\KeywordValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\KeywordValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/KeywordValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\RelationListValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\RelationListValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/RelationListValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\RelationValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\RelationValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/RelationValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\TimeValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\FieldType\\TimeValueTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/FieldType/TimeValueTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LanguageTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/LanguageTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/LocationTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationsTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\LocationsTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/LocationsTransformer.php
@@ -1693,43 +1693,43 @@ parameters:
 			path: src/lib/Form/DataTransformer/MultilingualSelectionTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ObjectStateGroupTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ObjectStateGroupTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ObjectStateGroupTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ObjectStateTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\ObjectStateTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/ObjectStateTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\PolicyTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\PolicyTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/PolicyTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\SectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\SectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/SectionTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\SectionsTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\SectionsTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/SectionsTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\TrashItemTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\TrashItemTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/TrashItemTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UDWBasedValueModelTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UDWBasedValueModelTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/UDWBasedValueModelTransformer.php
@@ -1741,7 +1741,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/UDWBasedValueModelTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UserCollectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UserCollectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
@@ -1753,7 +1753,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/UserCollectionTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UserGroupCollectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\UserGroupCollectionTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
@@ -1765,7 +1765,7 @@ parameters:
 			path: src/lib/Form/DataTransformer/UserGroupCollectionTransformer.php
 
 		-
-			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\VersionInfoTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: T, R$#'
+			message: '#^Class Ibexa\\AdminUi\\Form\\DataTransformer\\VersionInfoTransformer implements generic interface Symfony\\Component\\Form\\DataTransformerInterface but does not specify its types\: TValue, TTransformedValue$#'
 			identifier: missingType.generics
 			count: 1
 			path: src/lib/Form/DataTransformer/VersionInfoTransformer.php
