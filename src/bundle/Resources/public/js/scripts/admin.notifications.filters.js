@@ -1,6 +1,5 @@
 (function (global, doc) {
     const SELECTOR_FILTER_CHECKBOX = '.ids-input--checkbox:not([name="dropdown-checkbox"])';
-    const SELECTOR_DROPDOWN_SOURCE_SELECT = '.ibexa-dropdown__source .ibexa-input--select, .ids-dropdown__source select';
     const searchForm = doc.querySelector('.ibexa-list-search-form');
     const filtersContainerNode = doc.querySelector('.ibexa-list-filters');
     const applyFiltersBtn = filtersContainerNode.querySelector('.ids-btn--apply');
@@ -14,7 +13,9 @@
             return;
         }
 
-        const sourceSelect = filterNode.querySelector(`.ibexa-list-filters__item-content ${SELECTOR_DROPDOWN_SOURCE_SELECT}`);
+        const sourceSelect = filterNode.querySelector(
+            '.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select, .ibexa-list-filters__item-content .ids-dropdown__source select',
+        );
         const checkboxes = filterNode.querySelectorAll(`.ibexa-list-filters__item-content ${SELECTOR_FILTER_CHECKBOX}`);
         const timePicker = filterNode.querySelector('.ibexa-date-time-picker__input');
 
@@ -55,7 +56,9 @@
             return;
         }
 
-        const sourceSelect = filterNode.querySelector(`.ibexa-list-filters__item-content ${SELECTOR_DROPDOWN_SOURCE_SELECT}`);
+        const sourceSelect = filterNode.querySelector(
+            '.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select, .ibexa-list-filters__item-content .ids-dropdown__source select',
+        );
 
         sourceSelect?.addEventListener('change', filterChange, false);
     };
@@ -77,7 +80,7 @@
             return;
         }
 
-        const select = filterNode.querySelector(SELECTOR_DROPDOWN_SOURCE_SELECT);
+        const select = filterNode.querySelector('.ibexa-dropdown__source .ibexa-input--select, .ids-dropdown__source select');
         const checkedCheckboxes = filterNode.querySelectorAll(`${SELECTOR_FILTER_CHECKBOX}:checked`);
 
         if (isNodeDatePicker(filterNode)) {
