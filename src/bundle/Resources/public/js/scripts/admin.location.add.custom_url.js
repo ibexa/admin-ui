@@ -21,9 +21,11 @@
             const siteAccessSelect = modal.querySelector('.ibexa-custom-url-from__item--siteacces .ibexa-dropdown, .ibexa-custom-url-from__item--siteacces .ids-dropdown');
             const sourceSelect = siteAccessSelect?.querySelector('.ibexa-input--select, .ids-dropdown__source select');
 
-            siteAccessSelect?.classList.toggle('ibexa-dropdown--is-disabled', isChecked);
-            siteAccessSelect?.classList.toggle('ibexa-dropdown--disabled', isChecked);
-            siteAccessSelect?.classList.toggle('ids-dropdown--disabled', isChecked);
+            if (siteAccessSelect?.classList.contains('ibexa-dropdown')) {
+                siteAccessSelect.classList.toggle('ibexa-dropdown--disabled', isChecked);
+            } else if (siteAccessSelect?.classList.contains('ids-dropdown')) {
+                siteAccessSelect.classList.toggle('ids-dropdown--disabled', isChecked);
+            }
 
             if (sourceSelect) {
                 sourceSelect.disabled = isChecked;
