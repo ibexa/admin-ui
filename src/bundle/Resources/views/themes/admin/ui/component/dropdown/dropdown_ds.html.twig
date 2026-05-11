@@ -9,12 +9,7 @@
 {% set source_attr = source_attr|default({}) %}
 {% set source_id = source_id|default(source_attr.id|default(null)) %}
 {% set source_name = source_name|default(source_attr.name|default(name|default('dropdown'))) %}
-{% set max_visible_items = 5 %}
-{% set normalized_source_attr = {} %}
-{% for key, item in source_attr %}
-    {% set normalized_source_attr = normalized_source_attr|merge({ (key): item }) %}
-{% endfor %}
-{% set normalized_source_attr = normalized_source_attr|merge({
+{% set normalized_source_attr = source_attr|merge({
     name: source_name,
     disabled: is_disabled,
     required: required|default(false),
@@ -62,6 +57,7 @@
 ) %}
 
 {% if can_use_ds %}
+    {% set max_visible_items = 5 %}
     {% set normalized_preferred_choices = preferred_choices|map(choice => {
         value: choice.value ~ '',
         label: translation_domain is same as(false) ? choice.label : choice.label|trans({}, translation_domain),
