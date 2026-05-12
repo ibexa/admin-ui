@@ -51,8 +51,7 @@ const Dropdown = ({
         calculateAndSetItemsListStyles();
         setIsExpanded((prevState) => !prevState && !disabled);
     };
-    const updateFilterValue = (value) => setFilterText(value);
-    const resetInputValue = () => setFilterText('');
+    const updateFilterValue = (value, event) => setFilterText(event?.target.value ?? value);
     const showItem = (itemValue, searchedTerm) => {
         if (searchedTerm.length < 3) {
             return true;
@@ -134,15 +133,6 @@ const Dropdown = ({
                     name="dropdown-filter"
                     onChange={updateFilterValue}
                     placeholder={searchPlaceholder}
-                    processActions={(actions) =>
-                        actions.map((action) => ({
-                            ...action,
-                            component:
-                                action.id === 'clear'
-                                    ? React.cloneElement(action.component, { onClick: resetInputValue })
-                                    : action.component,
-                        }))
-                    }
                     searchButtonType="button"
                     size={InputTextInputSize.Small}
                     value={filterText}

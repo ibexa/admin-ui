@@ -9,8 +9,7 @@ const MIN_SEARCH_ITEMS_DEFAULT = 5;
 const PopupMenuSearch = ({ numberOfItems, filterText = '', setFilterText }) => {
     const Translator = getTranslator();
     const searchPlaceholder = Translator.trans(/* @Desc("Search...") */ 'ibexa_popup_menu.search.placeholder', {}, 'ibexa_popup_menu');
-    const updateFilterValue = (event) => setFilterText(event.target.value);
-    const resetInputValue = () => setFilterText('');
+    const updateFilterValue = (value, event) => setFilterText(event?.target.value ?? value);
 
     if (numberOfItems < MIN_SEARCH_ITEMS_DEFAULT) {
         return null;
@@ -25,17 +24,8 @@ const PopupMenuSearch = ({ numberOfItems, filterText = '', setFilterText }) => {
                 }}
                 hasSearchAction={true}
                 name="popup-menu-search"
-                onChange={(value) => updateFilterValue({ target: { value } })}
+                onChange={updateFilterValue}
                 placeholder={searchPlaceholder}
-                processActions={(actions) =>
-                    actions.map((action) => ({
-                        ...action,
-                        component:
-                            action.id === 'clear'
-                                ? React.cloneElement(action.component, { onClick: resetInputValue })
-                                : action.component,
-                    }))
-                }
                 searchButtonType="button"
                 size={InputTextInputSize.Small}
                 value={filterText}
