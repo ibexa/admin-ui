@@ -62,7 +62,7 @@
             {% include '@ibexadesign/ui/component/input_text_ds.html.twig' with {
                 input_attr: {
                     type: 'text',
-                    class: 'ibexa-input ibexa-input--text ibexa-available-field-types__sidebar-filter form-control',
+                    class: 'ibexa-available-field-types__sidebar-filter',
                     'data-content-type-identifiers': user_content_type_identifier|join(','),
                     value: creator is not empty ? ibexa_content_name(creator) : '',
                     placeholder: 'search.creator_input.placeholder'|trans|desc('Type creator\'s name')
