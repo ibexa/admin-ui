@@ -1,9 +1,9 @@
-{% macro render_form_field(formField) -%}
+{% macro render_form_field(formField, attr) -%}
     {% trans_default_domain 'ibexa_content_edit' %}
 
     {% if not formField.rendered %}
         {% if formField.value is defined %}
-            {{- form_widget(formField) -}}
+            {{- form_widget(formField, { 'attr': attr }) -}}
         {% else %}
             <div class="ibexa-field-edit ibexa-form-field ibexa-field-edit--eznoneditable">
                 {{- form_label(formField) -}}
@@ -16,10 +16,10 @@
     {% endif %}
 {%- endmacro -%}
 
-{% macro render_field_group(group, form) -%}
+{% macro render_field_group(group, form, attr) -%}
     {% for field in group %}
         {% set formField = form.fieldsData[field] %}
 
-        {{ _self.render_form_field(formField) }}
+        {{ _self.render_form_field(formField, attr) }}
     {% endfor %}
 {%- endmacro -%}
