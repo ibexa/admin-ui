@@ -58,6 +58,7 @@
     &__actions {
         display: flex;
         align-items: flex-end;
+        gap: calculateRem(16px);
     }
 
     &__toggler-wrapper {
