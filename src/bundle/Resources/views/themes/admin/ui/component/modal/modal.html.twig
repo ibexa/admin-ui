@@ -51,7 +51,7 @@
 {% set close_btn_title = 'close_btn.title'|trans({}, 'ibexa_modal')|desc('Close') %}
 {% set close_btn_aria_label = 'close_btn.aria_label'|trans({}, 'ibexa_modal')|desc('Close') %}
 {% set attr_close_btn = attr_close_btn|default({})|merge({
-    class: ('close ibexa-btn ibexa-btn--ghost ' ~ attr_close_btn.class|default(''))|trim,
+    class: ('close ibexa-btn ibexa-btn--small ibexa-btn--ghost ' ~ attr_close_btn.class|default(''))|trim,
     type: attr_close_btn.type|default('button'),
     title: attr_close_btn.title|default(close_btn_title),
     'data-bs-dismiss': attr_close_btn['data-bs-dismiss']|default('modal'),
@@ -62,7 +62,7 @@
 {% set close_btn %}
     <button {{ html.attributes(attr_close_btn) }}>
         <svg
-            class="ibexa-icon ibexa-icon--medium"
+            class="ibexa-icon ibexa-icon--small"
             aria-hidden="true"
         >
             <use xlink:href="{{ ibexa_icon_path('discard') }}"></use>
