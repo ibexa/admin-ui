@@ -10,6 +10,7 @@
 
     &__loader {
         margin: calculateRem(10px);
+        padding: calculateRem(10px);
 
         @include spinner(calculateRem(24px), calculateRem(3px));
     }
