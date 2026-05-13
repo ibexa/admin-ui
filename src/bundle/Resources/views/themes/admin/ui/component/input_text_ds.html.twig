@@ -17,9 +17,11 @@
         )|trim
     })
 }) %}
+
 {% set should_clear_button_send_form = should_clear_button_send_form|default(false) %}
 {% set wrapper_attr = wrapper_attr|default({}) %}
 {% set ds_supported_types = ['text', 'password', 'email', 'number', 'tel', 'search', 'url'] %}
+
 {% set can_use_ds_input = input_attr is not empty
     and not is_multiline
     and normalized_type in ds_supported_types
@@ -34,6 +36,7 @@
         search_button_type: search_button_type|default('submit'),
         send_form_after_clearing: should_clear_button_send_form,
     }) %}
+
     {% set extra_btn_markup %}
         {% if extra_btn.label is not empty %}
             <button {{ html.attributes(extra_btn.attr) }}>
@@ -41,13 +44,17 @@
             </button>
         {% endif %}
     {% endset %}
+
     {% set combined_actions_after = '' %}
+
     {% if extra_btn.label is not empty %}
         {% set combined_actions_after = combined_actions_after ~ extra_btn_markup %}
     {% endif %}
+
     {% if extra_actions_after|default(null) is not empty %}
         {% set combined_actions_after = combined_actions_after ~ extra_actions_after %}
     {% endif %}
+
     {% if combined_actions_after is not empty %}
         {% set ds_input = ds_input|merge({ actions_after: combined_actions_after }) %}
     {% endif %}
