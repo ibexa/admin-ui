@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput, InputTextInputSize } from '@ids-components/components/InputText';
 
 import { getTranslator } from '@ibexa-admin-ui-helpers/context.helper';
 import { getContentTypeIconUrl } from '@ibexa-admin-ui-helpers/content.type.helper';
@@ -109,9 +110,7 @@ export default class TableViewItemComponent extends PureComponent {
      * @memberof TableViewItemComponent
      */
     storePriorityValue(event) {
-        event.preventDefault();
-
-        this.setState(() => ({ priorityValue: this._refPriorityInput.value }));
+        this.setState(() => ({ priorityValue: event }));
     }
 
     /**
@@ -196,17 +195,12 @@ export default class TableViewItemComponent extends PureComponent {
     renderPriorityCell() {
         const inputAttrs = {
             type: 'number',
-            defaultValue: this.state.priorityValue,
-            onChange: this.storePriorityValue,
-            key: 'editable-priority',
+            value: this.state.priorityValue,
         };
         const priorityWrapperAttrs = {};
         const innerWrapperAttrs = {};
 
         if (!this.state.priorityInputEnabled) {
-            delete inputAttrs.defaultValue;
-            inputAttrs.value = this.state.priorityValue;
-            inputAttrs.key = 'readonly-priority';
             priorityWrapperAttrs.onClick = this.enablePriorityInput;
             innerWrapperAttrs.hidden = true;
         }
@@ -214,9 +208,15 @@ export default class TableViewItemComponent extends PureComponent {
         return (
             <div className="c-table-view-item__priority-wrapper" {...priorityWrapperAttrs}>
                 <div className="c-table-view-item__inner-wrapper c-table-view-item__inner-wrapper--input">
-                    <input
-                        className="ibexa-input ibexa-input--text ibexa-input--small c-table-view-item__priority-value ibexa-input"
+                    <InputTextInput
+                        extraAria={{
+                            className: 'c-table-view-item__priority-value',
+                        }}
+                        name="priority"
+                        onChange={this.storePriorityValue}
+                        processActions={() => []}
                         ref={this.setPriorityInputRef}
+                        size={InputTextInputSize.Small}
                         {...inputAttrs}
                     />
                 </div>

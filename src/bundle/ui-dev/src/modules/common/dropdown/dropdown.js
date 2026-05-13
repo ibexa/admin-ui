@@ -128,7 +128,7 @@ const Dropdown = ({
                 <InputTextInput
                     className="ibexa-dropdown__items-filter-wrapper"
                     extraAria={{
-                        className: 'ids-input ids-input--text ids-input--small ibexa-dropdown__items-filter',
+                        className: 'ibexa-dropdown__items-filter',
                     }}
                     hasSearchAction={true}
                     name="dropdown-filter"

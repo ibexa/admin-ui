@@ -11,7 +11,7 @@ const Search = ({ onChange, placeholder = '', extraClasses = '', value }) => {
     return (
         <InputTextInput
             extraAria={{
-                className: `ids-input ids-input--text ${extraClasses}`.trim(),
+                className: extraClasses,
             }}
             hasSearchAction={true}
             name="filter"

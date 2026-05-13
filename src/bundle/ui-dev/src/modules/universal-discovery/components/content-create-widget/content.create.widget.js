@@ -205,7 +205,7 @@ const ContentCreateWidget = () => {
                                 <InputTextInput
                                     extraAria={{
                                         autoFocus: true,
-                                        className: 'ids-input ids-input--text ibexa-instant-filter__input',
+                                        className: 'ibexa-instant-filter__input',
                                     }}
                                     name="content-type-filter"
                                     onChange={updateFilterQuery}
