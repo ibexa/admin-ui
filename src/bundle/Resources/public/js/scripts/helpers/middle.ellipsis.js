@@ -2,6 +2,7 @@ import { parse as parseTooltips } from './tooltips.helper';
 import { escapeHTML } from './text.helper';
 
 const { document: doc } = window;
+const ELLIPSIZED_CLASS = 'ibexa-middle-ellipsis--ellipsized';
 const resizeEllipsisObserver = new ResizeObserver((entries) => {
     entries.forEach((entry) => {
         parse(entry.target);
@@ -23,6 +24,8 @@ const parse = (baseElement = doc) => {
     }
 
     middleEllipsisContainers.forEach((middleEllipsisContainer) => {
+        middleEllipsisContainer.classList.remove(ELLIPSIZED_CLASS);
+
         const partStart = middleEllipsisContainer.querySelector('.ibexa-middle-ellipsis__name--start');
         const isEllipsized = partStart.scrollWidth > partStart.offsetWidth;
 
@@ -34,7 +37,7 @@ const parse = (baseElement = doc) => {
             middleEllipsisContainer.dataset.bsOriginalTitle = partStartContentNode.innerHTML;
         }
 
-        middleEllipsisContainer.classList.toggle('ibexa-middle-ellipsis--ellipsized', isEllipsized);
+        middleEllipsisContainer.classList.toggle(ELLIPSIZED_CLASS, isEllipsized);
         parseTooltips(middleEllipsisContainer);
 
         resizeEllipsisObserver.observe(middleEllipsisContainer);
