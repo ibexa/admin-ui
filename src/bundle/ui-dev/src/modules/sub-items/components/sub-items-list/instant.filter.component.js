@@ -31,7 +31,7 @@ const InstantFilter = ({ items = [], handleItemChange = () => {}, isSearchEnable
                 <div className={searchInputWrapperClassName}>
                     <InputTextInput
                         extraAria={{
-                            className: 'ids-input ids-input--text ibexa-instant-filter__input',
+                            className: 'ibexa-instant-filter__input',
                         }}
                         name="sub-items-filter"
                         onChange={setFilterQuery}
