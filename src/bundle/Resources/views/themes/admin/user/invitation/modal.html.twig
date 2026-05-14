@@ -65,7 +65,6 @@
                     {% endblock %}
                     {% block actions %}
                         <twig:ibexa:button
-                            html_type="button"
                             type="secondary"
                             size="small"
                             class="ibexa-user-invitation-modal__next-issue-btn"
@@ -104,7 +103,6 @@
                     ) }}
                 </div>
                 <twig:ibexa:button
-                    html_type="button"
                     type="tertiary"
                     size="small"
                     icon="add"
@@ -128,7 +126,6 @@
                         {{ 'modal.or'|trans|desc('or') }}
                     </div>
                     <twig:ibexa:button
-                        html_type="button"
                         type="secondary"
                         class="ibexa-user-invitation-modal__file-select"
                         tabIndex="-1"
@@ -148,7 +145,6 @@
     {% endblock %}
     {% block footer_content %}
         <twig:ibexa:button
-            html_type="button"
             type="primary"
             class="ibexa-user-invitation-modal__fake-submit-btn"
         >
@@ -161,7 +157,6 @@
             },
         }) }}
         <twig:ibexa:button
-            html_type="button"
             type="secondary"
             class="ibexa-user-invitation-modal__cancel-btn"
             data-bs-dismiss="modal"

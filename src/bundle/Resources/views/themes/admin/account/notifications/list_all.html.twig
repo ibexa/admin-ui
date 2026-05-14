@@ -14,7 +14,6 @@
 {% block header %}
     <div class="ibexa-notification-list__btn">
         <twig:ibexa:button
-            html_type="button"
             type="secondary"
             class="ibexa-notification-list__mark-all-as-read"
             :disabled="no_items"
@@ -117,7 +116,6 @@
     <div class="ibexa-notification-list__table-btns">
         <twig:ibexa:button
             id="confirm-mark-selected-as-read"
-            html_type="button"
             type="tertiary-alt"
             size="small"
             icon="mail-open"
@@ -126,7 +124,6 @@
         >{{ 'notification.mark_as_read'|trans|desc('Mark as read') }}</twig:ibexa:button>
         <twig:ibexa:button
             id="confirm-selection_remove"
-            html_type="button"
             type="tertiary-alt"
             size="small"
             icon="trash"
