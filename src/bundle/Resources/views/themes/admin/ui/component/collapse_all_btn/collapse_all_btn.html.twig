@@ -1,7 +1,12 @@
 {% trans_default_domain 'ibexa_collapse' %}
 
 <div class="ibexa-multi-collapse__header">
-    <button type="button" data-multi-collapse-btn-id="{{ multi_collapse_btn_id }}" class="ibexa-multi-collapse-btn ids-btn ids-btn--tertiary-alt ids-btn--small">
-        {{ 'collapse.collapse_all'|trans({}, 'ibexa_collapse')|desc('Collapse all sections') }}
-    </button>
+    <twig:ibexa:button
+    type="tertiary-alt"
+    size="small"
+    class="ibexa-multi-collapse-btn"
+    data-multi-collapse-btn-id="{{ multi_collapse_btn_id }}"
+>
+            {{ 'collapse.collapse_all'|trans({}, 'ibexa_collapse')|desc('Collapse all sections') }}
+</twig:ibexa:button>
 </div>
