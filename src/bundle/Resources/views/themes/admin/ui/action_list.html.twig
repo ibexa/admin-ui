@@ -24,11 +24,11 @@
         {% set btn_data_dropdown_trigger = 'ibexa-action-list-more__trigger-' ~ random() %}
 
         <twig:ibexa:button
-    type="tertiary-alt"
-    icon="options"
-    icon_only="true"
-    data-dropdown-trigger="{{ btn_data_dropdown_trigger }}"
- />
+            type="tertiary-alt"
+            icon="options"
+            icon_only="true"
+            data-dropdown-trigger="{{ btn_data_dropdown_trigger }}"
+        />
 
         {{ include('@ibexadesign/ui/component/multilevel_popup_menu/multilevel_popup_menu.html.twig', {
             groups: [{ id: 'default', items: menu_items }],
