@@ -148,28 +148,26 @@
 } %}
 
 {% macro table_header_tools(form_add, form_remove, can_add) %}
-    {{ component('ibexa:button', {
-        type: 'tertiary-alt',
-        size: 'small',
-        icon: 'add',
-        label: 'tab.locations.action.add'|trans|desc('Add'),
-        class: 'ibexa-btn--udw-add',
-        'data-udw-config': ibexa_udw_config('add_location', {}),
-        disabled: not can_add,
-    }) }}
+    <twig:ibexa:button
+        type="tertiary-alt"
+        size="small"
+        icon="add"
+        class="ibexa-btn--udw-add"
+        :data-udw-config="ibexa_udw_config('add_location', {})"
+        :disabled="not can_add"
+    >{{ 'tab.locations.action.add'|trans|desc('Add') }}</twig:ibexa:button>
 
     {% set modal_data_target = 'delete-content-types-modal' %}
-    {{ component('ibexa:button', {
-        html_type: 'button',
-        id: 'delete-locations',
-        type: 'tertiary-alt',
-        size: 'small',
-        icon: 'trash',
-        label: 'tab.locations.action.delete'|trans|desc('Delete'),
-        disabled: true,
-        'data-bs-toggle': 'modal',
-        'data-bs-target': '#' ~ modal_data_target,
-    }) }}
+    <twig:ibexa:button
+        html_type="button"
+        id="delete-locations"
+        type="tertiary-alt"
+        size="small"
+        icon="trash"
+        :disabled="true"
+        data-bs-toggle="modal"
+        :data-bs-target="'#' ~ modal_data_target"
+    >{{ 'tab.locations.action.delete'|trans|desc('Delete') }}</twig:ibexa:button>
     {% include '@ibexadesign/ui/modal/bulk_delete_confirmation.html.twig' with {
         'id': modal_data_target,
         'message': 'tab.locations.modal.message'|trans|desc('Do you want to delete the Location? All its sub-items will be sent to Trash.'),
