@@ -133,4 +133,12 @@
     .ibexa-search-form {
         grid-template-columns: calc(100% - #{calculateRem(294px)}) calculateRem(305px);
     }
+
+    .ibexa-list-filters {
+        &__expand-btn {
+            .ibexa-list-filters__collapse-icon {
+                transform: rotate(180deg);
+            }
+        }
+    }
 }
