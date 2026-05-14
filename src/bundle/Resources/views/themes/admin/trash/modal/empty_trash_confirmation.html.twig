@@ -17,7 +17,7 @@
             'action': path('ibexa.trash.empty')
         }) }}
         {{ form_widget(form.empty, {'attr': {'class': 'ids-btn ids-btn--primary ids-btn--medium'}}) }}
-        <twig:ibexa:button html_type="button" type="secondary" data-bs-dismiss="modal">
+        <twig:ibexa:button type="secondary" data-bs-dismiss="modal">
             {{ 'trash.delete.button.cancel'|trans|desc('Cancel') }}
         </twig:ibexa:button>
         {{ form_widget(form.empty_trash, {'label_attr': {'class': 'checkbox-inline'}, 'attr': {'hidden': true}}) }}

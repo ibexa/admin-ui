@@ -49,7 +49,6 @@
         {% set defaultTooltip = 'notification.go_to_content'|trans({}, 'ibexa_notifications')|desc('Go to content') %}
 
         <twig:ibexa:button
-            html_type="button"
             type="tertiary-alt"
             size="small"
             icon="button"
@@ -115,7 +114,6 @@
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' %}
             {% block content %}
                 <twig:ibexa:button
-                    html_type="button"
                     type="tertiary-alt"
                     size="small"
                     icon="mail-open"
@@ -124,7 +122,6 @@
                     class="{{ ('ibexa-notification-view-all__mail ibexa-notification-view-all__mail-open ' ~ (is_read ? 'ibexa-notification-view-all__icon-hidden'))|trim }}"
                 />
                 <twig:ibexa:button
-                    html_type="button"
                     type="tertiary-alt"
                     size="small"
                     icon="mail"

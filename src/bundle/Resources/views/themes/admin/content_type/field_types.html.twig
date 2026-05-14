@@ -206,14 +206,12 @@
 
         <div class="ibexa_selection-settings-toolbar">
             <twig:ibexa:button
-                html_type="button"
                 type="secondary"
                 class="ibexa_selection-settings-option-add"
             >
                 {{ 'field_definition.ibexa_selection.add_option'|trans({}, 'ibexa_content_type')|desc('Add an option') }}
             </twig:ibexa:button>
             <twig:ibexa:button
-                html_type="button"
                 type="secondary"
                 class="ibexa_selection-settings-option-remove"
                 :disabled="true"

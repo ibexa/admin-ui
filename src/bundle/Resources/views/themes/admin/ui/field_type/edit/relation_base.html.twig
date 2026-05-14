@@ -9,7 +9,6 @@
     {% set readonly = attr.readonly|default(false) %}
     {% set remove_item_btn %}
         <twig:ibexa:button
-            html_type="button"
             type="tertiary-alt"
             icon="trash"
             icon_size="small-medium"
@@ -263,7 +262,6 @@
                     {% block actions %}
                         {% if limit != 1 %}
                             <twig:ibexa:button
-                                html_type="button"
                                 type="secondary"
                                 size="small"
                                 :disabled="true"
@@ -279,7 +277,6 @@
                                 {{ 'ibexa_object_relation_list.cta.select'|trans|desc('Select Item') }}
                             </twig:ibexa:button>
                             <twig:ibexa:button
-                                html_type="button"
                                 type="tertiary-alt"
                                 size="small"
                                 icon="trash"
@@ -305,7 +302,6 @@
         } %}
         {% set udw_config = ibexa_udw_config(limit == 1 ? 'single' : 'multiple', udw_config_parameters) %}
         <twig:ibexa:button
-            html_type="button"
             type="secondary"
             :disabled="readonly|default(false)"
             data-udw-config="{{ udw_config }}"

@@ -118,7 +118,6 @@
 {% macro table_header_tools(form_translation_remove, can_translate) %}
     {% if can_translate %}
         <twig:ibexa:button
-            html_type="button"
             type="tertiary-alt"
             size="small"
             icon="add"
@@ -129,7 +128,6 @@
 
         {% set modal_data_target = 'delete-translations-modal' %}
         <twig:ibexa:button
-            html_type="button"
             id="delete-translations"
             type="tertiary-alt"
             size="small"

@@ -50,7 +50,6 @@
 {% macro table_header_tools(form_custom_url_remove, can_edit_custom_url) %}
     {% if can_edit_custom_url %}
         <twig:ibexa:button
-            html_type="button"
             type="tertiary"
             size="small"
             icon="add"
@@ -62,7 +61,6 @@
         {% set modal_data_target = 'delete-custom-url-modal' %}
         <twig:ibexa:button
             id="delete-custom-urls"
-            html_type="button"
             type="tertiary-alt"
             size="small"
             icon="trash"
