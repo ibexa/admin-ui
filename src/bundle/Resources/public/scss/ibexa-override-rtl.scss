@@ -98,6 +98,10 @@
         &:checked:disabled::after {
             border-left-color: var(--ibexa-input-checked-disabled-text-color, #{$ibexa-color-white});
         }
+
+        &:indeterminate:after {
+            transform: translateY(-50%);
+        }
     }
 
     .ibexa-input-text-wrapper {
@@ -124,5 +128,9 @@
             right: auto;
             left: 0;
         }
+    }
+
+    .ibexa-search-form {
+        grid-template-columns: calc(100% - #{calculateRem(294px)}) calculateRem(305px);
     }
 }
