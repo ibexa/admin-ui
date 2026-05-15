@@ -128,12 +128,12 @@ final class ObjectStateGroupPage extends Page
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
             new VisibleCSSLocator('objectStatesTable', '[name="object_states_delete"]'),
-            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
-            new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash'),
+            new VisibleCSSLocator('createButton', 'a[href*="/state/state/create"]'),
+            new VisibleCSSLocator('deleteButton', '#delete-object-state'),
             new VisibleCSSLocator('objectStateGroupAttribute', '.ibexa-details__item'),
             new VisibleCSSLocator('label', '.ibexa-label'),
             new VisibleCSSLocator('value', '.ibexa-details__item-content'),
-            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('button', '.ids-btn'),
         ];
     }
 }

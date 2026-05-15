@@ -38,7 +38,7 @@ final class UserSettingUpdateRightSidebarBuilder extends AbstractBuilder impleme
             self::ITEM__SAVE,
             [
                 'attributes' => [
-                    'class' => 'ibexa-btn--trigger',
+                    'class' => 'ids-btn--trigger',
                     'data-click' => '#user_setting_update_update',
                 ],
             ]

@@ -45,15 +45,14 @@
 
             {% set col_raw %}
                 {% if can_edit %}
-                    <a
+                    <twig:ibexa:link
                         href="{{ edit_url }}"
-                        class="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text"
+                        variant="button"
+                        type="tertiary-alt"
+                        icon="edit"
+                        icon_size="small"
                         title="{{ 'url.action.edit'|trans|desc('Edit') }}"
-                    >
-                        <svg class="ibexa-icon ibexa-icon--small-medium ibexa-icon--edit">
-                            <use xlink:href="{{ ibexa_icon_path('edit') }}"></use>
-                        </svg>
-                    </a>
+                    />
                 {% endif %}
             {% endset %}
             {% set body_row_cols = body_row_cols|merge([{

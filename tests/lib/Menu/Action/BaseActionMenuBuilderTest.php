@@ -32,7 +32,7 @@ abstract class BaseActionMenuBuilderTest extends TestCase
     protected const string ROUTE_VERSION_HAS_NO_CONFLICT = 'ibexa.version.has_no_conflict';
     protected const string ROUTE_CONTENT_EDIT_DRAFT = '/content/edit/draft/%d/%d/%s';
     protected const string ROUTE_USER_UPDATE = '/user/update/%d/%d/%s';
-    protected const string IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ibexa-btn--content-draft-edit';
+    protected const string IBEXA_BTN_CONTENT_DRAFT_EDIT_CLASS = 'ids-btn--content-draft-edit';
 
     protected const array EDIT_ACTION_ITEM_EXTRAS = [
         'icon' => 'edit',

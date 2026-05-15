@@ -103,8 +103,8 @@ final class SectionsPage extends Page
     {
         return [
             new VisibleCSSLocator('pageTitle', '.ibexa-page-title h1'),
-            new VisibleCSSLocator('createButton', '.ibexa-icon--create'),
-            new VisibleCSSLocator('deleteButton', '.ibexa-icon--trash,button[data-original-title^="Delete"]'),
+            new VisibleCSSLocator('createButton', 'a[href$="/section/create"]'),
+            new VisibleCSSLocator('deleteButton', '#delete-sections'),
             new VisibleCSSLocator('tableContainer', '.ibexa-container'),
             new VisibleCSSLocator('scrollableContainer', '.ibexa-back-to-top-scroll-container'),
         ];

@@ -1,12 +1,16 @@
 {% extends '@ibexadesign/account/base.html.twig' %}
 
 {%- block content -%}
-    <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--ghost ibexa-login__btn--back">
-        <svg class="ibexa-icon ibexa-icon--small-medium">
-            <use xlink:href="{{ ibexa_icon_path('back') }}"></use>
-        </svg>
-        <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
-    </a>
+    <twig:ibexa:link
+        href="{{ path('login') }}"
+        variant="button"
+        type="tertiary-alt"
+        icon="arrow-left"
+        icon_size="small-medium"
+        class="ibexa-login__btn--back"
+    >
+        {{ 'authentication.reset_your_password.back'|trans|desc('Back') }}
+    </twig:ibexa:link>
     <h2 class="ibexa-login__actions-headline">{{ 'ibexa.forgot_user_password.reset_your_password'|trans|desc('Reset your password') }}</h2>
     {% embed '@ibexadesign/ui/component/alert/alert.html.twig' with {
         type: 'success',
@@ -23,8 +27,12 @@
         |desc('<p>If you don’t receive the email, double check that you entered the correct email address and check your spam folder.</p>') }}
     </p>
     <div class="ibexa-login__actions">
-        <a href="{{ path('login') }}" class="btn ibexa-btn ibexa-btn--primary">
-            <span class="ibexa-btn__label">{{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Go back to Sign in') }}
-        </a>
+        <twig:ibexa:link
+            href="{{ path('login') }}"
+            variant="button"
+            type="primary"
+        >
+            {{ 'authentication.reset_your_password.back_to_sign_in'|trans|desc('Go back to Sign in') }}
+        </twig:ibexa:link>
     </div>
 {%- endblock content -%}

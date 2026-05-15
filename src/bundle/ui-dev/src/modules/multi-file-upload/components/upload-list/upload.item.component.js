@@ -342,15 +342,15 @@ export default class UploadItemComponent extends Component {
         const label = Translator.trans(/* @Desc("Abort") */ 'abort.label', {}, 'ibexa_multi_file_upload');
 
         return (
-            <button
-                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--abort"
+            <Button
+                type={ButtonType.TertiaryAlt}
+                size={ButtonSize.Small}
+                icon="trash"
                 onClick={this.abortUploading}
                 title={label}
-                tabIndex="-1"
-                type="button"
-            >
-                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
-            </button>
+                className="c-upload-list-item__action c-upload-list-item__action--abort"
+                extraAria={{ tabIndex: -1 }}
+            />
         );
     }
 
@@ -384,16 +384,16 @@ export default class UploadItemComponent extends Component {
         const label = Translator.trans(/* @Desc("Edit") */ 'edit.label', {}, 'ibexa_multi_file_upload');
 
         return (
-            <button
-                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--edit"
-                title={label}
+            <Button
+                type={ButtonType.TertiaryAlt}
+                size={ButtonSize.Small}
+                icon="edit"
                 onClick={this.handleEditBtnClick}
-                tabIndex="-1"
-                type="button"
+                title={label}
                 disabled={!struct}
-            >
-                <Icon name="edit" extraClasses="ibexa-icon--small-medium" />
-            </button>
+                className="c-upload-list-item__action c-upload-list-item__action--edit"
+                extraAria={{ tabIndex: -1 }}
+            />
         );
     }
 
@@ -409,16 +409,16 @@ export default class UploadItemComponent extends Component {
         const label = Translator.trans(/* @Desc("Delete") */ 'delete.label', {}, 'ibexa_multi_file_upload');
 
         return (
-            <button
-                className="btn ibexa-btn ibexa-btn--ghost ibexa-btn--no-text ibexa-btn--small c-upload-list-item__action c-upload-list-item__action--delete"
+            <Button
+                type={ButtonType.TertiaryAlt}
+                size={ButtonSize.Small}
+                icon="trash"
                 onClick={this.deleteFile}
                 title={label}
-                tabIndex="-1"
-                type="button"
                 disabled={!(struct || failed)}
-            >
-                <Icon name="trash" extraClasses="ibexa-icon--small-medium" />
-            </button>
+                className="c-upload-list-item__action c-upload-list-item__action--delete"
+                extraAria={{ tabIndex: -1 }}
+            />
         );
     }
 

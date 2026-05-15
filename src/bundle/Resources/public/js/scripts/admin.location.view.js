@@ -29,7 +29,7 @@ import { checkIsContainer } from './helpers/content.type.helper';
             bootstrap.Modal.getOrCreateInstance(doc.querySelector('#version-draft-conflict-modal')).hide();
         };
         const attachModalListeners = (wrapper) => {
-            const addDraftButton = wrapper.querySelector('.ibexa-btn--add-draft');
+            const addDraftButton = wrapper.querySelector('.ids-btn--add-draft');
             const conflictModal = doc.querySelector('#version-draft-conflict-modal');
 
             if (addDraftButton) {
@@ -37,7 +37,7 @@ import { checkIsContainer } from './helpers/content.type.helper';
             }
 
             wrapper
-                .querySelectorAll('.ibexa-btn--prevented')
+                .querySelectorAll('.ids-btn--prevented')
                 .forEach((btn) => btn.addEventListener('click', (event) => event.preventDefault(), false));
 
             if (conflictModal) {

@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getTranslator } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/context.helper';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import InstantFilter from '../sub-items-list/instant.filter.component';
@@ -10,8 +11,6 @@ const MIN_ITEMS_WITH_SEARCH = 10;
 
 const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], handleItemChange = () => {}, close = () => {} }) => {
     const Translator = getTranslator();
-    const discardBtnRef = useRef(null);
-    const submitBtnRef = useRef(null);
     const [activeLanguage, setActiveLanguage] = useState('');
     const isSearchEnabled = languageItems.length >= MIN_ITEMS_WITH_SEARCH;
     const className = createCssClassNames({
@@ -33,15 +32,14 @@ const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], hand
     const resetLanguageSelector = () => {
         setActiveLanguage('');
     };
+    const handleDiscardClick = (event) => {
+        closeSelector(event);
+    };
 
     useEffect(() => {
-        discardBtnRef.current?.addEventListener('click', closeSelector, false);
-        submitBtnRef.current?.addEventListener('click', dispatchSubmitFormEvent, false);
         document.body.addEventListener('ibexa:edit-content-reset-language-selector', resetLanguageSelector, false);
 
         return () => {
-            discardBtnRef.current?.removeEventListener('click', closeSelector);
-            submitBtnRef.current?.removeEventListener('click', dispatchSubmitFormEvent);
             document.body.removeEventListener('ibexa:edit-content-reset-language-selector', resetLanguageSelector);
         };
     }, []);
@@ -63,17 +61,17 @@ const LanguageSelector = ({ isOpen = false, label = '', languageItems = [], hand
                 />
             </div>
             <div className="ibexa-extra-actions__confirm-wrapper">
-                <button
-                    type="submit"
-                    className="btn ibexa-extra-actions__confirm-btn ibexa-btn ibexa-btn--primary"
-                    ref={submitBtnRef}
+                <Button
+                    type={ButtonType.Primary}
+                    className="ibexa-extra-actions__confirm-btn"
+                    onClick={dispatchSubmitFormEvent}
                     disabled={!activeLanguage}
                 >
                     {Translator.trans(/*@Desc("Edit")*/ 'edit.languages.edit', {}, 'ibexa_sub_items')}
-                </button>
-                <button type="button" className="btn ibexa-btn--close ibexa-btn ibexa-btn--secondary" ref={discardBtnRef}>
+                </Button>
+                <Button type={ButtonType.Secondary} className="ids-btn--close" onClick={handleDiscardClick}>
                     {Translator.trans(/*@Desc("Discard")*/ 'edit.languages.discard', {}, 'ibexa_sub_items')}
-                </button>
+                </Button>
             </div>
         </div>
     );

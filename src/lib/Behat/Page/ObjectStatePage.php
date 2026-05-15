@@ -91,7 +91,7 @@ final class ObjectStatePage extends Page
             new VisibleCSSLocator('objectStateAttribute', '.ibexa-details__item'),
             new VisibleCSSLocator('label', '.ibexa-label'),
             new VisibleCSSLocator('value', '.ibexa-details__item-content'),
-            new VisibleCSSLocator('button', '.ibexa-btn'),
+            new VisibleCSSLocator('button', '.ids-btn'),
         ];
     }
 

@@ -176,7 +176,7 @@
         udwRoot = ReactDOMClient.createRoot(udwContainer);
         udwRoot.render(
             React.createElement(ibexa.modules.UniversalDiscovery, {
-                onConfirm: handleUdwConfirm.bind(this, event.target),
+                onConfirm: handleUdwConfirm.bind(this, event.currentTarget),
                 onCancel: closeUDW,
                 title,
                 multiple: true,

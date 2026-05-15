@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import { createCssClassNames } from '../helpers/css.class.names';
+import { Button, ButtonType } from '@ids-components/components/Button';
 
 const ICON_NAME_MAP = {
     info: 'about',
@@ -51,9 +52,7 @@ const Alert = ({
                 <div className="ibexa-alert__extra_content">{children}</div>
             </div>
             {showCloseBtn && (
-                <button className="btn ibexa-btn ibexa-btn--no-text ibexa-alert__close-btn" type="button" onClick={onClose}>
-                    <Icon name="discard" extraClasses="ibexa-icon--tiny" />
-                </button>
+                <Button type={ButtonType.TertiaryAlt} onClick={onClose} icon="discard" className="ibexa-alert__close-btn" />
             )}
         </div>
     );

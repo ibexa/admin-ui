@@ -120,7 +120,7 @@ final class VersionListActionMenuBuilder extends AbstractActionBuilder implement
                     self::TRANSLATION_DOMAIN
                 ),
                 'attributes' => [
-                    'class' => 'ibexa-btn--content-edit',
+                    'class' => 'ids-btn--content-edit',
                     'data-content-id' => $versionInfo->getContentInfo()->getId(),
                     'data-language-code' => $versionInfo->getInitialLanguage()->getLanguageCode(),
                     'data-version-no' => $versionInfo->getVersionNo(),

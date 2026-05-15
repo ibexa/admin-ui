@@ -16,6 +16,12 @@
         border-bottom-right-radius: 0;
     }
 
+    &__main-btn.ids-btn {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: calculateRem(48px);
+    }
+
     &__split {
         display: none;
         z-index: 2;
@@ -27,21 +33,30 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
 
+        .ids-icon,
         .ibexa-icon {
             transition: all $ibexa-admin-transition-duration $ibexa-admin-transition;
         }
 
         &--subitems-opened {
+            .ids-icon,
             .ibexa-icon {
                 transform: rotate(180deg);
             }
         }
     }
 
+    &__toggle-btn.ids-btn {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        height: calculateRem(48px);
+    }
+
     &--primary {
         background-image: $ibexa-gradient-danger-primary;
         border-radius: $ibexa-border-radius;
 
+        .ids-btn.ids-btn--primary,
         .ibexa-btn.ibexa-btn--primary {
             background-image: none;
         }
