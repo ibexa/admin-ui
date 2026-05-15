@@ -158,6 +158,7 @@ services:
 
     Ibexa\Bundle\AdminUi\Asset\RtlEntrypointLookup:
         decorates: 'webpack_encore.entrypoint_lookup[ibexa]'
+        decoration_on_invalid: ignore
         arguments:
             $inner: '@.inner'
 
