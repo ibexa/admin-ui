@@ -1,0 +1,13 @@
+{% set tabs_to_show = tabs|map((tab, index) => {
+    id: group ~ '-' ~ tab.identifier,
+    label: tab.name,
+    content: tab.view,
+    active: index == 0,
+}) %}
+{% include '@ibexadesign/ui/component/tab/tabs.html.twig' with {
+    tabs: tabs_to_show,
+} %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('ibexa-admin-ui-tabs-js', null, 'ibexa') }}
+{% endblock %}
