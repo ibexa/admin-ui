@@ -45,7 +45,7 @@ final class RtlEntrypointLookupTest extends TestCase
         self::assertSame(['foo.js'], $this->lookup->getJavaScriptFiles('foo'));
     }
 
-    public function testGetCssFilesSwapsToRtlVariantWhenRtlAndVariantExists(): void
+    public function testGetCssFilesAppendsRtlVariantWhenRtlAndVariantExists(): void
     {
         $this->rtlModeResolver
             ->expects(self::once())
@@ -57,16 +57,18 @@ final class RtlEntrypointLookupTest extends TestCase
             ->method('entryExists')
             ->willReturnMap([
                 ['foo-rtl', true],
-                ['foo-rtl-override-rtl-css', false],
+                ['foo-override-rtl-css', false],
             ]);
 
         $this->inner
-            ->expects(self::once())
+            ->expects(self::exactly(2))
             ->method('getCssFiles')
-            ->with('foo-rtl')
-            ->willReturn(['foo-rtl.css']);
+            ->willReturnMap([
+                ['foo', ['foo.css']],
+                ['foo-rtl', ['foo-rtl.css']],
+            ]);
 
-        self::assertSame(['foo-rtl.css'], $this->lookup->getCssFiles('foo'));
+        self::assertSame(['foo.css', 'foo-rtl.css'], $this->lookup->getCssFiles('foo'));
     }
 
     public function testGetCssFilesAppendsOverrideWhenRtlVariantAndOverrideExist(): void
@@ -81,19 +83,20 @@ final class RtlEntrypointLookupTest extends TestCase
             ->method('entryExists')
             ->willReturnMap([
                 ['foo-rtl', true],
-                ['foo-rtl-override-rtl-css', true],
+                ['foo-override-rtl-css', true],
             ]);
 
         $this->inner
-            ->expects(self::exactly(2))
+            ->expects(self::exactly(3))
             ->method('getCssFiles')
             ->willReturnMap([
+                ['foo', ['foo.css']],
                 ['foo-rtl', ['foo-rtl.css']],
-                ['foo-rtl-override-rtl-css', ['foo-rtl-override-rtl-css.css']],
+                ['foo-override-rtl-css', ['foo-override-rtl-css.css']],
             ]);
 
         self::assertSame(
-            ['foo-rtl.css', 'foo-rtl-override-rtl-css.css'],
+            ['foo.css', 'foo-rtl.css', 'foo-override-rtl-css.css'],
             $this->lookup->getCssFiles('foo'),
         );
     }

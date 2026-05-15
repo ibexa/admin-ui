@@ -38,18 +38,19 @@ final readonly class RtlEntrypointLookup implements EntrypointLookupInterface, I
             return $this->inner->getCssFiles($entryName);
         }
 
-        if ($this->entryExists($entryName . '-rtl')) {
-            $entryName .= '-rtl';
-        }
-
         $files = $this->inner->getCssFiles($entryName);
 
-        $overrideEntryName = $entryName . '-override-rtl-css';
-        if ($this->entryExists($overrideEntryName)) {
-            $files = array_merge($files, $this->inner->getCssFiles($overrideEntryName));
-        }
+        $rtlEntryName = $entryName . '-rtl';
+        $rtlFiles = $this->entryExists($rtlEntryName)
+            ? $this->inner->getCssFiles($rtlEntryName)
+            : [];
 
-        return $files;
+        $overrideRtlEntryName = $entryName . '-override-rtl-css';
+        $overrideRtlFiles = $this->entryExists($overrideRtlEntryName)
+            ? $this->inner->getCssFiles($overrideRtlEntryName)
+            : [];
+
+        return array_merge($files, $rtlFiles, $overrideRtlFiles);
     }
 
     private function entryExists(string $entryName): bool
