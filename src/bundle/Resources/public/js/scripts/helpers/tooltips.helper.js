@@ -119,7 +119,8 @@ const getTextHeight = (text, styles) => {
     return texHeight;
 };
 const isTitleEllipsized = (node) => {
-    const title = stripHTML(node.dataset.originalTitle);
+    const useHtml = node.dataset.tooltipUseHtml !== undefined;
+    const title = useHtml ? stripHTML(node.dataset.originalTitle) : node.dataset.originalTitle;
     const { width: nodeWidth, height: nodeHeight } = node.getBoundingClientRect();
     const computedNodeStyles = getComputedStyle(node);
     const styles = {
