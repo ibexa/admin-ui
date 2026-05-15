@@ -1,0 +1,40 @@
+{%- block toggle_widget -%}
+    {% set default_label_on = 'toggle_widget.label.on'|trans|desc('On') %}
+    {% set default_label_off = 'toggle_widget.label.off'|trans|desc('Off') %}
+    {% set field_type = block_prefixes[1]|default('choice') %}
+    {% set attr = attr|default({}) %}
+    {% set is_disabled = disabled|default(false) or attr.readonly|default(false) %}
+
+    {% if checked|default(false) %}
+        {% set attr = attr|merge({ 'checked': 'checked' }) %}
+    {% endif %}
+    {% if value is defined %}
+        {% set attr = attr|merge({ 'value': value ~ '' }) %}
+    {% endif %}
+
+    {% set input_content %}
+        {% if custom_inputs is defined %}
+            {{ custom_inputs }}
+        {% elseif field_type == 'choice' %}
+            {{ block('choice_widget') }}
+        {% else %}
+            <input type="checkbox" {% with attr %}{{ block('widget_attributes') }}{% endwith %} />
+        {% endif %}
+    {% endset %}
+
+    <twig:ibexa:toggle_button:input
+        :id="id"
+        name="{{ full_name }}"
+        :checked="checked|default(false)"
+        :disabled="is_disabled"
+        :required="required|default(false)"
+        value="{{ value is defined ? value ~ '' : '' }}"
+        size="{{ small|default(false) ? 'small' : 'medium' }}"
+        onLabel="{{ label_on|default(default_label_on) }}"
+        offLabel="{{ label_off|default(default_label_off) }}"
+    >
+        <twig:block name="input">
+            {{ input_content|raw }}
+        </twig:block>
+    </twig:ibexa:toggle_button:input>
+{%- endblock -%}

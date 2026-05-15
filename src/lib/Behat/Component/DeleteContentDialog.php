@@ -20,7 +20,7 @@ final class DeleteContentDialog extends Dialog
     public function specifyLocators(): array
     {
         return array_merge(parent::specifyLocators(), [
-            new VisibleCSSLocator('trashConfirmCheckbox', '.modal-content .ibexa-input--checkbox'),
+            new VisibleCSSLocator('trashConfirmCheckbox', '.modal-content .ids-input--checkbox'),
         ]);
     }
 }

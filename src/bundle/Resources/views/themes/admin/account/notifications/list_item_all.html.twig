@@ -87,11 +87,11 @@
         {% embed '@ibexadesign/ui/component/table/table_body_cell.html.twig' with { class: 'ibexa-table__cell--has-checkbox' } %}
             {% block content %}
                 <div class="form-check">
-                    <input
+                    <twig:ibexa:checkbox:input
+                        name="{{ 'notification-checkbox-' ~ notification.id }}"
+                        inputClass="ibexa-notification-list__mark-row-checkbox form-check-input"
                         data-notification-id="{{ notification.id }}"
-                        data-form-checkbox-id="notification_selection_notifications_{{ notification.id}}"
-                        type="checkbox"
-                        class="ibexa-input ibexa-input--checkbox ibexa-notification-list__mark-row-checkbox form-check-input"
+                        data-form-checkbox-id="notification_selection_notifications_{{ notification.id }}"
                     />
                 </div>
             {% endblock %}
@@ -153,4 +153,3 @@
         {% endembed %}
     {% endblock %}
 {% endembed %}
-

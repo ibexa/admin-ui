@@ -1,16 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { CheckboxInput } from '@ids-components/components/Checkbox';
+
 const ThreeStateCheckboxComponent = ({ indeterminate = false, ...restOfProps }) => (
-    <input
-        {...restOfProps}
-        type="checkbox"
-        ref={(input) => {
-            if (input) {
-                input.indeterminate = indeterminate;
-            }
-        }}
-    />
+    <CheckboxInput {...restOfProps} indeterminate={indeterminate} />
 );
 
 ThreeStateCheckboxComponent.propTypes = {

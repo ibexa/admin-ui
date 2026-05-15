@@ -89,14 +89,15 @@ final class User extends FieldTypeComponent
             new VisibleCSSLocator('password', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_password_first,#ezplatform_content_forms_user_update_fieldsData_user_account_value_password_first'),
             new VisibleCSSLocator('confirmPassword', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_password_second,#ezplatform_content_forms_user_update_fieldsData_user_account_value_password_second'),
             new VisibleCSSLocator('email', '#ezplatform_content_forms_user_create_fieldsData_user_account_value_email,#ezplatform_content_forms_user_update_fieldsData_user_account_value_email'),
-            new VisibleCSSLocator('buttonEnabled', '.ibexa-toggle--checkbox'),
-            new VisibleCSSLocator('buttonEnabledToggleConfirmation', '.ibexa-toggle--is-checked'),
+            new VisibleCSSLocator('buttonEnabled', '.ids-toggle__widget'),
+            new VisibleCSSLocator('buttonEnabledLabel', '.ids-toggle__label'),
+            new VisibleCSSLocator('buttonEnabledToggleConfirmation', '.ids-toggle--checked'),
         ];
     }
 
     private function setEnabledField(bool $enabled): void
     {
-        $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabled'))->getText() === 'On';
+        $isCurrentlyEnabled = $this->getHTMLPage()->find($this->parentLocator)->find($this->getLocator('buttonEnabledLabel'))->getText() === 'On';
         if ($isCurrentlyEnabled !== $enabled) {
             $script = sprintf("document.querySelector('%s %s').click()", $this->parentLocator->getSelector(), $this->getLocator('buttonEnabled')->getSelector());
             $this->getHTMLPage()->executeJavaScript($script);

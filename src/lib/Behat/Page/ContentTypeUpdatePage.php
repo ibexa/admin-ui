@@ -40,7 +40,7 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
 
         $this->getHTMLPage()->setTimeout(10)->waitUntil(function () use ($fieldDefinitionLocator): bool {
             $fieldDefinition = $this->getHTMLPage()->findAll($fieldDefinitionLocator)->last();
-            $fieldDefinition->click();
+            $fieldDefinition->find(new VisibleCSSLocator('collapseButton', 'button.ibexa-collapse__toggle-btn'))->click();
             $this->getHTMLPage()->setTimeout(3)->waitUntilCondition(
                 new ElementNotExistsCondition(
                     $fieldDefinition,
@@ -72,9 +72,9 @@ class ContentTypeUpdatePage extends AdminUpdateItemPage
             new VisibleCSSLocator('contentTypeCategoryList', ' div.ibexa-content-type-edit__add-field-definitions-group > ul > li:nth-child(n):not(.ibexa-popup-menu__item-action--disabled)'),
             new VisibleCSSLocator('availableFieldLabelList', '.ibexa-available-field-types__list > li:not(.ibexa-available-field-type--hidden)'),
             new VisibleCSSLocator('workspace', '.ibexa-collapse__body-content'),
-            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse:nth-last-child(2) > div.ibexa-collapse__header > button:last-child:not([data-bs-target="#content_collapse"])'),
-            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ibexa-input--radio'),
-            new VisibleCSSLocator('fieldDefinitionOpenContainer', '[data-collapsed="false"] .ibexa-content-type-edit__field-definition-content'),
+            new VisibleCSSLocator('fieldDefinitionToggle', '.ibexa-collapse__toggle-btn--title'),
+            new VisibleCSSLocator('selectLaunchEditorMode', '.form-check .ids-input--radio'),
+            new VisibleCSSLocator('fieldDefinitionOpenContainer', '.ibexa-collapse__body.show .ibexa-content-type-edit__field-definition-content'),
             new VisibleCSSLocator('selectBlocksDropdown', '.ibexa-page-select-items__toggler'),
             new VisibleCSSLocator('fieldDefinitionSearch', '.ibexa-available-field-types__sidebar-filter'),
         ]);

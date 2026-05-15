@@ -222,7 +222,7 @@ final class UniversalDiscoveryWidget extends Component
             new CSSLocator('categoryTabSelector', '.c-tab-selector__item'),
             new CSSLocator('selectedTab', '.c-tab-selector__item--selected'),
             new VisibleCSSLocator('contentIframe', '.c-content-edit__iframe, .m-content-create__iframe'),
-            new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ibexa-input--checkbox'),
+            new VisibleCSSLocator('multiselect', '.m-ud .c-finder-leaf .ids-input--checkbox'),
             new VisibleCSSLocator('selectedItemName', '.c-content-meta-preview__content-name'),
             new VisibleCSSLocator('previewImage', '.c-content-meta-preview__preview'),
             new VisibleCSSLocator('createNewButton', '.c-content-create-button__btn'),

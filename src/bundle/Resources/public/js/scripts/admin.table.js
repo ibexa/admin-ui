@@ -1,4 +1,5 @@
 (function (global, doc) {
+    const SELECTOR_TABLE_CHECKBOX = '.ids-input--checkbox';
     const ibexaTables = doc.querySelectorAll('.ibexa-table');
     const setMainCheckboxState = (mainCheckbox, subCheckboxes, event) => {
         const isFromJS = event?.detail?.isFromJS ?? false;
@@ -61,9 +62,9 @@
             }
 
             const mainCheckboxIndex = [...headCells].indexOf(headCellWithCheckbox);
-            const mainCheckbox = headCellWithCheckbox.querySelector('.ibexa-input--checkbox');
+            const mainCheckbox = headCellWithCheckbox.querySelector(SELECTOR_TABLE_CHECKBOX);
             const subCheckboxes = tableBody.querySelectorAll(
-                `.ibexa-table__cell--has-checkbox:nth-child(${mainCheckboxIndex + 1}) .ibexa-input--checkbox`,
+                `.ibexa-table__cell--has-checkbox:nth-child(${mainCheckboxIndex + 1}) ${SELECTOR_TABLE_CHECKBOX}`,
             );
 
             if (!mainCheckbox) {
@@ -138,7 +139,7 @@
 
     const uncheckCheckboxes = (table) => {
         const mainCheckbox = table.querySelector('.ibexa-table__header-cell-checkbox');
-        const subCheckboxes = [...table.querySelectorAll('.ibexa-table__cell--has-checkbox .ibexa-input--checkbox')];
+        const subCheckboxes = [...table.querySelectorAll(`.ibexa-table__cell--has-checkbox ${SELECTOR_TABLE_CHECKBOX}`)];
 
         mainCheckbox.checked = false;
         mainCheckbox.indeterminate = false;

@@ -28,8 +28,8 @@
         border-color: $ibexa-color-dark;
         text-decoration: none;
 
-        .ibexa-input--checkbox,
-        .ibexa-input--radio {
+        .ids-input--checkbox,
+        .ids-input--radio {
             border-color: $ibexa-color-primary;
         }
     }
@@ -179,8 +179,15 @@
         top: calculateRem(10px);
         display: none;
 
-        .ibexa-input {
+        .ibexa-input,
+        .ids-input {
             background-color: $ibexa-color-white;
+        }
+
+        &--hovered {
+            .ids-input {
+                border-color: $ibexa-color-primary;
+            }
         }
     }
 

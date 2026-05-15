@@ -3,7 +3,7 @@
 
     editButtons.forEach((editButton) => {
         const languageRadioOption = doc.querySelector(
-            `.ibexa-extra-actions--edit.ibexa-extra-actions--prevent-show[data-actions="${editButton.dataset.actions}"] .ibexa-input--radio`,
+            `.ibexa-extra-actions--edit.ibexa-extra-actions--prevent-show[data-actions="${editButton.dataset.actions}"] .ids-input--radio`,
         );
 
         if (!languageRadioOption) {

@@ -1,7 +1,14 @@
 {% block checkbox_row %}
     <div class="ibexa-field-edit-preview__info ibexa-field-edit-preview__info--{{ name }}">
         <div class="ibexa-field-edit-preview__input-wrapper ibexa-field-edit-preview__input-wrapper--checkbox-input">
-            <input class="ibexa-input ibexa-input--checkbox" type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}>
+            <twig:ibexa:checkbox:input
+                name="{{ full_name }}"
+                inputClass="ibexa-field-edit-preview__checkbox"
+                value="{{ value|default('') ~ '' }}"
+                :checked="checked"
+                :disabled="disabled"
+                :required="required"
+            />
             <span class="ibexa-data-source__label-text">{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
         </div>
     </div>
@@ -23,4 +30,3 @@
         </div>
     </div>
 {% endblock %}
-
