@@ -150,21 +150,24 @@
         {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ibexa_selection-multiple')|trim}) %}
         <ul {{ block( 'field_attributes' ) }}>
         {% for selectedIndex in field.value.selection %}
-            <li class="ibexa-selection__item ibexa-tag">
-                <div class="ibexa-tag__content">
+            <li class="ibexa-selection__item">
+                <twig:ibexa:tag type="neutral">
                     {{ options[selectedIndex] }}
-                </div>
+                </twig:ibexa:tag>
             </li>
         {% endfor %}
         </ul>
     {% elseif not fieldSettings.isMultiple %}
-        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ibexa_selection-single ibexa-tag')|trim}) %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' ibexa-field-preview ibexa-field-preview--ibexa_selection-single')|trim}) %}
 
         {% set field_value = options[field.value.selection|first]|escape %}
-
-        <div class="ibexa-tag__content">
+        {% set simple_block_field_content %}
             {{ block( 'simple_block_field' ) }}
-        </div>
+        {% endset %}
+
+        <twig:ibexa:tag type="neutral">
+            {{ simple_block_field_content }}
+        </twig:ibexa:tag>
     {% endif %}
 {% endblock %}
 
