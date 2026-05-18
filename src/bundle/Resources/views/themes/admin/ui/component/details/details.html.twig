@@ -39,9 +39,13 @@
                         class="ibexa-details__item {{ item_inline|default(false) ? 'ibexa-details__item--inline' ~
                         (is_field_empty ? ' ibexa-details__item--hidden') }}"
                     >
-                        <twig:ibexa:label class="ibexa-details__item-label">
-                            {{ item.label }}
-                        </twig:ibexa:label>
+                        {% if item_inline|default(false) %}
+                            <div class="ibexa-details__item-label">{{ item.label }}</div>
+                        {% else %}
+                            <twig:ibexa:label class="ibexa-details__item-label">
+                                {{ item.label }}
+                            </twig:ibexa:label>
+                        {% endif %}
 
                         <div class="ibexa-details__item-content-wrapper">
                             <div
