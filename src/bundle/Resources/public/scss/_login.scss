@@ -4,34 +4,77 @@
 @use '@ibexa-admin-ui-assets/src/bundle/Resources/public/vendors/ids-assets/dist/scss/variables/typography' as *;
 
 .ibexa-login {
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
     min-height: 100vh;
     height: 100%;
 
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        background-image: url('/bundles/ibexaadminui/img/login-background.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
     &__sidebar {
+        position: relative;
+        z-index: 1;
         flex: 0 0 calculateRem(64px);
         border-right: calculateRem(1px) solid $ibexa-color-light;
         background: $ibexa-color-black;
     }
 
+    &__sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: calculateRem(8px);
+        list-style: none;
+        margin: 0;
+        padding: calculateRem(32px) 0 0;
+    }
+
+    &__sidebar-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: calculateRem(64px);
+        text-decoration: none;
+        color: $ibexa-color-white;
+
+        &:hover {
+            color: $ibexa-color-primary;
+        }
+    }
+
+    &__sidebar-link-icon {
+        width: calculateRem(24px);
+        height: calculateRem(24px);
+    }
+
+    &__sidebar-link-text {
+        text-align: center;
+        font-size: calculateRem(10px);
+        margin-top: calculateRem(4px);
+    }
+
     &__panel {
-        flex: 0 1 calculateRem(750px);
+        position: relative;
+        z-index: 1;
+        flex: 0 1 55%;
         max-width: calculateRem(750px);
         background: $ibexa-color-white;
         min-height: 100vh;
         padding: calculateRem(140px) 0;
         display: flex;
-    }
-
-    &__background {
-        flex: 1 1 auto;
-        min-width: 0;
-        background-image: url('/bundles/ibexaadminui/img/login-background.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
     }
 
     .ibexa-label {
