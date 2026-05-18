@@ -12,7 +12,6 @@ use Ibexa\AdminUi\UI\Value\ValueFactory;
 use Ibexa\Contracts\Core\Repository\ContentService;
 use Ibexa\Contracts\Core\Repository\Values\Content\ContentInfo;
 use Ibexa\Contracts\Core\Repository\Values\Content\VersionInfo;
-use function Ibexa\PolyfillPhp82\iterator_to_array;
 
 class VersionsDataset
 {
