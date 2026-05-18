@@ -11,3 +11,4 @@ package-lock.json
 composer.lock
 /var
 tsconfig.json
+/tests/playwright_ts/node_modules/
