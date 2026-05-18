@@ -37,5 +37,7 @@
     </div>
 {% elseif tabs|length == 1 %}
     {% set single_tab = tabs|first %}
-    {{ single_tab.content|default('')|raw }}
+    <div class="container ibexa-container">
+        {{ single_tab.content|default('')|raw }}
+    </div>
 {% endif %}
