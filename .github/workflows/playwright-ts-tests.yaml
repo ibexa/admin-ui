@@ -1,0 +1,115 @@
+name: Playwright TS Browser Tests
+
+on:
+    push:
+        branches:
+            - '5.0'
+    pull_request:
+        branches:
+            - '5.0'
+
+jobs:
+    playwright-ts-tests:
+        name: "Browser tests (Playwright TS)"
+        runs-on: ubuntu-24.04
+        timeout-minutes: 30
+
+        env:
+            PROJECT_EDITION: headless
+            PROJECT_VERSION: 5.0.x-dev
+            PROJECT_BUILD_DIR: /home/runner/build/project
+            APP_ENV: behat
+            APP_DEBUG: 1
+            PHP_IMAGE: ghcr.io/ibexa/docker/php:8.3-node22
+            COMPOSER_MAX_PARALLEL_HTTP: 6
+            PHP_INI_ENV_memory_limit: -1
+            COMPOSER_MEMORY_LIMIT: -1
+            COMPOSE_FILE: doc/docker/base-dev.yml:doc/docker/db-postgresql.yml
+
+        steps:
+            - name: Generate GitHub App token
+              uses: actions/create-github-app-token@v2
+              id: generate_token
+              with:
+                  app-id: ${{ secrets.AUTOMATION_CLIENT_ID }}
+                  private-key: ${{ secrets.AUTOMATION_CLIENT_SECRET }}
+                  owner: ${{ github.repository_owner }}
+
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.3'
+                  extensions: pdo_pgsql, gd, redis, intl
+                  tools: composer:v2
+
+            - if: env.SATIS_NETWORK_KEY != ''
+              name: Add composer keys for private packagist
+              run: |
+                  composer config http-basic.updates.ibexa.co $SATIS_NETWORK_KEY $SATIS_NETWORK_TOKEN
+              env:
+                  SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+                  SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+
+            - name: Add composer key for GitHub App
+              if: ${{ steps.generate_token.outputs.token != '' }}
+              run: |
+                  composer config github-oauth.github.com $GITHUB_TOKEN
+              env:
+                  GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+
+            - name: Set up project
+              run: |
+                  curl -L "https://raw.githubusercontent.com/ibexa/ci-scripts/main/bin/${PROJECT_VERSION}/prepare_project_edition.sh" > prepare_project_edition.sh
+                  chmod +x prepare_project_edition.sh
+                  ./prepare_project_edition.sh ${PROJECT_EDITION} ${PROJECT_VERSION} ${COMPOSE_FILE} ${PHP_IMAGE}
+
+            - name: Disable ibexa_integrated_help
+              working-directory: ${{ env.PROJECT_BUILD_DIR }}
+              run: |
+                  docker compose --env-file=.env exec -T --user www-data app sh -c "printf 'ibexa_integrated_help:\n    enabled: false\n' > config/packages/ibexa_integrated_help.yaml"
+                  docker compose --env-file=.env exec -T --user www-data app sh -c "php -d memory_limit=1G bin/console cache:clear"
+
+            - name: Warm up web application
+              run: curl -sI --max-time 120 http://localhost:8080/admin/login || true
+
+            - name: Fix file permissions for host runner
+              run: sudo chmod -R a+rw ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
+
+            - name: Install Playwright dependencies
+              working-directory: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
+              run: |
+                  npm install
+                  npx playwright install chromium --with-deps
+
+            - name: Run Playwright TS tests
+              working-directory: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts
+              env:
+                  APP_URL: http://localhost:8080
+                  HEADLESS: true
+              run: npx playwright test
+
+            - name: Upload Playwright traces
+              if: failure()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: playwright-ts-traces
+                  path: ${{ env.PROJECT_BUILD_DIR }}/vendor/ibexa/admin-ui/tests/playwright_ts/artifacts/test-results/
+                  if-no-files-found: ignore
+
+            - name: Link to traces in summary
+              if: failure()
+              run: |
+                  echo "## Playwright Traces" >> $GITHUB_STEP_SUMMARY
+                  echo "Download **playwright-ts-traces** artifact, then run:" >> $GITHUB_STEP_SUMMARY
+                  echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+                  echo "npx playwright show-trace <trace.zip>" >> $GITHUB_STEP_SUMMARY
+                  echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+                  echo "Or open online: https://trace.playwright.dev" >> $GITHUB_STEP_SUMMARY
