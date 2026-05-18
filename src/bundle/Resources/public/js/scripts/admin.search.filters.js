@@ -10,9 +10,16 @@
     const clearBtn = filters.querySelector('.ibexa-btn--clear');
     const applyBtn = filters.querySelector('.ibexa-btn--apply');
     const contentTypeSelect = doc.querySelector('.ibexa-filters__item--content-type .ibexa-filters__select');
-    const sectionSelect = doc.querySelector('.ibexa-filters__item--section .ibexa-filters__select');
-    const lastModifiedSelectNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-filters__select');
-    const lastModifiedSelect = getInstance(lastModifiedSelectNode);
+    const sectionSelect = filters.querySelector(
+        '.ibexa-filters__item--section .ibexa-input--select, .ibexa-filters__item--section .ids-dropdown__source select',
+    );
+    const lastModifiedDropdownNode = filters.querySelector(
+        '.ibexa-filters__item--modified .ibexa-dropdown, .ibexa-filters__item--modified .ids-dropdown',
+    );
+    const lastModifiedSelectNode = filters.querySelector(
+        '.ibexa-filters__item--modified .ibexa-input--select, .ibexa-filters__item--modified .ids-dropdown__source select',
+    );
+    const lastModifiedSelect = getInstance(lastModifiedDropdownNode);
     const lastModifiedDateRangeNode = doc.querySelector('.ibexa-filters__item--modified .ibexa-date-time-range-single');
     const lastModifiedDateRange = getInstance(lastModifiedDateRangeNode);
     const {
@@ -23,8 +30,13 @@
     const lastModifiedPeriod = doc.querySelector(lastModifiedPeriodSelector);
     const lastModifiedStartDate = doc.querySelector(lastModifiedStartSelector);
     const lastModifiedEndDate = doc.querySelector(lastModifiedEndSelector);
-    const lastCreatedSelectNode = doc.querySelector('.ibexa-filters__item--created .ibexa-filters__select');
-    const lastCreatedSelect = getInstance(lastCreatedSelectNode);
+    const lastCreatedDropdownNode = filters.querySelector(
+        '.ibexa-filters__item--created .ibexa-dropdown, .ibexa-filters__item--created .ids-dropdown',
+    );
+    const lastCreatedSelectNode = filters.querySelector(
+        '.ibexa-filters__item--created .ibexa-input--select, .ibexa-filters__item--created .ids-dropdown__source select',
+    );
+    const lastCreatedSelect = getInstance(lastCreatedDropdownNode);
     const lastCreatedDateRangeNode = doc.querySelector('.ibexa-filters__item--created .ibexa-date-time-range-single');
     const lastCreatedDateRange = getInstance(lastCreatedDateRangeNode);
     const {
@@ -63,9 +75,8 @@
             sectionSelect[0].selected = true;
         }
 
-        lastModifiedSelectNode[0].selected = true;
-        lastCreatedSelectNode[0].selected = true;
-        lastModifiedSelectNode.querySelector('option').selected = true;
+        lastModifiedSelect.selectFirstOption();
+        lastCreatedSelect.selectFirstOption();
         lastModifiedPeriod.value = '';
         lastModifiedEnd.value = '';
         lastCreatedPeriod.value = '';
@@ -240,7 +251,10 @@
         removeSearchTag(event);
     };
     const clearSection = (event) => {
-        sectionSelect[0].selected = true;
+        if (sectionSelect) {
+            sectionSelect[0].selected = true;
+        }
+
         removeSearchTag(event);
     };
     const clearSubtree = (event) => {

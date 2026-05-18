@@ -1,3 +1,5 @@
+import { DropdownMultiInput, DropdownSingleInput } from '../../../../../../../design-system-twig/src/bundle/Resources/public/ts/components/dropdown';
+
 (function (global, doc, ibexa, Routing, Translator, bootstrap) {
     const SELECTOR_INPUTS_TO_VALIDATE = '.ibexa-input[required]:not([disabled]):not([hidden])';
     const SELETOR_FIELD_INPUTS =
@@ -100,6 +102,35 @@
         return fieldNode;
     };
     const attachFieldDefinitionNodeEvents = (fieldNode, { targetContainer }) => {
+        const initDropdown = (dropdownContainer) => {
+            const dropdownAlreadyInitialized = !!ibexa.helpers.objectInstances.getInstance(dropdownContainer);
+
+            if (dropdownAlreadyInitialized) {
+                return;
+            }
+
+            if (dropdownContainer.classList.contains('ids-dropdown--multi')) {
+                const dropdown = new DropdownMultiInput(dropdownContainer);
+
+                dropdown.init();
+
+                return;
+            }
+
+            if (dropdownContainer.classList.contains('ids-dropdown--single')) {
+                const dropdown = new DropdownSingleInput(dropdownContainer);
+
+                dropdown.init();
+
+                return;
+            }
+
+            const dropdown = new ibexa.core.Dropdown({
+                container: dropdownContainer,
+            });
+
+            dropdown.init();
+        };
         const fieldGroupInput = fieldNode.querySelector('.ibexa-input--field-group');
         const fieldDefinitionsInputs = fieldNode.querySelectorAll(SELETOR_FIELD_INPUTS);
         const removeFieldBtns = fieldNode.querySelectorAll('.ibexa-collapse__extra-action-button--remove-field-definitions');
@@ -120,20 +151,10 @@
             });
         }
 
-        const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown');
+        const dropdowns = fieldNode.querySelectorAll('.ibexa-dropdown, .ids-dropdown');
 
         dropdowns.forEach((dropdownContainer) => {
-            const dropdownAlreadyInitialized = !!ibexa.helpers.objectInstances.getInstance(dropdownContainer);
-
-            if (dropdownAlreadyInitialized) {
-                return;
-            }
-
-            const dropdown = new ibexa.core.Dropdown({
-                container: dropdownContainer,
-            });
-
-            dropdown.init();
+            initDropdown(dropdownContainer);
         });
 
         draggableGroups.forEach((group) => {

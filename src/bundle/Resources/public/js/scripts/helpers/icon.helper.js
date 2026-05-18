@@ -1,9 +1,9 @@
 import { getAdminUiConfig } from './context.helper';
 
-const getIconPath = (aliasPath, iconSet) => {
+const getIconPath = (iconName, iconSet, useLegacyNames = true) => {
     const adminUiConfig = getAdminUiConfig();
     const { defaultIconSet, iconSets, iconAliases } = adminUiConfig.iconPaths;
-    const path = iconAliases[aliasPath] || aliasPath;
+    const path = useLegacyNames ? iconAliases[iconName] || iconName : iconName;
 
     if (!iconSet) {
         iconSet = defaultIconSet;

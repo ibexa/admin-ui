@@ -13,9 +13,9 @@ import {
     SelectedSubtreeBreadcrumbsContext,
 } from '../search/search';
 
-import UniversalDiscoveryModule, { DropdownPortalRefContext } from '../../universal.discovery.module';
+import UniversalDiscoveryModule from '../../universal.discovery.module';
 
-import Dropdown from '../../../common/dropdown/dropdown';
+import { DropdownSingleInput } from '@ids-components/components/Dropdown';
 import ContentTypeSelector from '../content-type-selector/content.type.selector';
 import Icon from '../../../common/icon/icon';
 
@@ -35,7 +35,6 @@ const Filters = ({ search }) => {
     const [selectedLanguage, setSelectedLanguage] = useContext(SelectedLanguageContext);
     const [selectedSubtreeBreadcrumbs, setSelectedSubtreeBreadcrumbs] = useContext(SelectedSubtreeBreadcrumbsContext);
     const prevSelectedLanguage = useRef(selectedLanguage);
-    const dropdownListRef = useContext(DropdownPortalRefContext);
     const [filtersCleared, setFiltersCleared] = useState(false);
     const [isNestedUdwOpened, setIsNestedUdwOpened] = useState(false);
     const filterSubtreeUdwConfig = JSON.parse(window.document.querySelector('#react-udw').dataset.filterSubtreeUdwConfig);
@@ -152,24 +151,24 @@ const Filters = ({ search }) => {
             {isNestedUdwOpened && ReactDOM.createPortal(<UniversalDiscoveryModule {...nestedUdwConfig} />, nestedUdwContainer.current)}
             <FiltersPanel isApplyButtonEnabled={isApplyButtonEnabled} makeSearch={makeSearch} clearFilters={clearFilters}>
                 <FiltersRow title={languageLabel} extraClasses="c-filters-row--language">
-                    <Dropdown
-                        dropdownListRef={dropdownListRef}
-                        single={true}
+                    <DropdownSingleInput
+                        className="ibexa-dropdown--small c-udw-dropdown"
+                        items={languageOptions.map(({ value, label }) => ({ id: value, label }))}
+                        maxVisibleItems={5}
+                        name=""
                         onChange={updateSelectedLanguage}
                         value={selectedLanguage}
-                        options={languageOptions}
-                        extraClasses="ibexa-dropdown--small c-udw-dropdown"
                     />
                 </FiltersRow>
                 <ContentTypeSelector />
                 <FiltersRow title={sectionLabel}>
-                    <Dropdown
-                        dropdownListRef={dropdownListRef}
-                        single={true}
+                    <DropdownSingleInput
+                        className="ibexa-dropdown--small c-udw-dropdown"
+                        items={sectionOptions.map(({ value, label }) => ({ id: value, label }))}
+                        maxVisibleItems={5}
+                        name=""
                         onChange={updateSection}
                         value={selectedSection}
-                        options={sectionOptions}
-                        extraClasses="ibexa-dropdown--small c-udw-dropdown"
                     />
                 </FiltersRow>
                 <FiltersRow title={subtreeLabel}>

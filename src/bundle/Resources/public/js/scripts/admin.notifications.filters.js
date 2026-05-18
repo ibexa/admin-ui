@@ -12,7 +12,9 @@
             return;
         }
 
-        const sourceSelect = filterNode.querySelector('.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select');
+        const sourceSelect = filterNode.querySelector(
+            '.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select, .ibexa-list-filters__item-content .ids-dropdown__source select',
+        );
         const checkboxes = filterNode.querySelectorAll(
             '.ibexa-list-filters__item-content .ibexa-input--checkbox:not([name="dropdown-checkbox"])',
         );
@@ -57,7 +59,9 @@
             return;
         }
 
-        const sourceSelect = filterNode.querySelector('.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select');
+        const sourceSelect = filterNode.querySelector(
+            '.ibexa-list-filters__item-content .ibexa-dropdown__source .ibexa-input--select, .ibexa-list-filters__item-content .ids-dropdown__source select',
+        );
 
         sourceSelect?.addEventListener('change', filterChange, false);
     };
@@ -79,7 +83,7 @@
             return;
         }
 
-        const select = filterNode.querySelector('.ibexa-dropdown__source .ibexa-input--select');
+        const select = filterNode.querySelector('.ibexa-dropdown__source .ibexa-input--select, .ids-dropdown__source select');
         const checkedCheckboxes = filterNode.querySelectorAll('.ibexa-input--checkbox:checked');
 
         if (isNodeDatePicker(filterNode)) {
