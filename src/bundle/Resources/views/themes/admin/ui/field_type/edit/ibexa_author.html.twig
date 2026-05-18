@@ -36,8 +36,8 @@
         </button>
     </div>
     <div class="ibexa-data-source__labels">
-        <label class="ibexa-label form-label">{{ 'ibexa_author.name'|trans|desc('Name') }}</label>
-        <label class="ibexa-label form-label">{{ 'ibexa_author.Email'|trans|desc('Email') }}</label>
+        <twig:ibexa:label class="form-label">{{ 'ibexa_author.name'|trans|desc('Name') }}</twig:ibexa:label>
+        <twig:ibexa:label class="form-label">{{ 'ibexa_author.Email'|trans|desc('Email') }}</twig:ibexa:label>
     </div>
     {% for child in form.authors %}
         {{ form_row(child, { attr: { readonly: readonly}}) }}

@@ -85,7 +85,7 @@ final class RoleUpdatePage extends AdminUpdateItemPage
                 new VisibleCSSLocator('limitationDropdown', '.ibexa-dropdown__selection-info'),
                 new VisibleCSSLocator('limitationDropdownOption', '.ibexa-dropdown-popover .ibexa-dropdown__items .ibexa-dropdown__item'),
                 new VisibleCSSLocator('limitationDropdownOptionRemove', '.ibexa-dropdown__remove-selection'),
-                new VisibleCSSLocator('labelSelector', '.ibexa-label'),
+                new VisibleCSSLocator('labelSelector', '.ids-label'),
                 new VisibleCSSLocator('policyAssignmentSelect', '#role_assignment_create_limitation_type_section'),
                 new VisibleCSSLocator('ibexaDropdownSelectionInfo', 'div.ibexa-dropdown__wrapper > ul.ibexa-dropdown__selection-info'),
                 new VisibleCSSLocator('newPolicySelectList', '#policy_create_policy'),

@@ -7,7 +7,7 @@
 }) %}
 
 {% set single_label_attr = single_label_attr|default({})|merge({
-    class: ('ibexa-label ' ~ single_label_attr.class|default(''))|trim,
+    class: ('ids-label ' ~ single_label_attr.class|default(''))|trim,
 }) %}
 
 {% set inputs_wrapper_attr = inputs_wrapper_attr|default({})|merge({

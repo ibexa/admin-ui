@@ -16,11 +16,11 @@
                         </svg>
                     {% endif %}
 
-                    <div class="ibexa-label ibexa-label--small ibexa-edit-header__action-name">
+                    <twig:ibexa:label class="ibexa-label--small ibexa-edit-header__action-name">
                         {{ action_name|default('') }}
                         {{ action_object|default('') }}
                         {{ content_type_name|default('') }}
-                    </div>
+                    </twig:ibexa:label>
                 </div>
 
                 {% if show_autosave_status|default(false) %}

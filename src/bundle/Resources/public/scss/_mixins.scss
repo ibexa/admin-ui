@@ -4,7 +4,7 @@
 
 @mixin datetime-field() {
     &.is-invalid {
-        .ibexa-label {
+        .ids-label {
             color: $ibexa-color-danger;
         }
 
