@@ -87,8 +87,8 @@
         <note>key: ibexa.language.language_code.format</note>
       </trans-unit>
       <trans-unit id="3243217a06465230d521ed024d8d7cbab3f8701d" resname="ibexa.matrix.column.identifier.format">
-        <source>Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.</source>
-        <target state="new">Matrix identifier may only contain letters from "a" to "z", numbers, hyphens and underscores.</target>
+        <source>An identifier must start with an alphanumeric or underscore character and can contain hyphens and colons.</source>
+        <target state="new">An identifier must start with an alphanumeric or underscore character and can contain hyphens and colons.</target>
         <note>key: ibexa.matrix.column.identifier.format</note>
       </trans-unit>
       <trans-unit id="cf558f546b83d94f1272929f81c64bd33d2997bc" resname="js.error.address_not_found">

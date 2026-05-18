@@ -372,7 +372,7 @@
     };
     const getMatrixColumnIdFormatError = () =>
         Translator.trans(
-            /*@Desc("Matrix identifier may only contain letters from &quot;a&quot; to &quot;z&quot;, numbers, hyphens and underscores.")*/ 'ibexa.matrix.column.identifier.format',
+            /*@Desc("An identifier must start with an alphanumeric or underscore character and can contain hyphens and colons.")*/ 'ibexa.matrix.column.identifier.format',
             {},
             'validators',
         );
