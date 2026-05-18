@@ -27,7 +27,6 @@
         "ibexa/content-forms": "~6.0.x-dev",
         "ibexa/core": "~6.0.x-dev",
         "ibexa/design-engine": "~6.0.x-dev",
-        "ibexa/polyfill-php82": "^1.0",
         "ibexa/rest": "~6.0.x-dev",
         "ibexa/search": "~6.0.x-dev",
         "ibexa/twig-components": "~6.0.x-dev",
