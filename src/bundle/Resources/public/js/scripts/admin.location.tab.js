@@ -11,7 +11,7 @@
         currentTab.classList.add(CLASS_TAB_ACTIVE);
     };
     const changeHashForPageReload = (hash) => {
-        global.location.hash = `${hash}#tab`;
+        global.history.replaceState(null, '', `${hash}#tab`);
     };
     const handleTabShown = (event) => {
         const { target, relatedTarget } = event;
@@ -35,6 +35,7 @@
         bootstrap.Tab.getOrCreateInstance(activeHashTabLink).show();
 
         switchActiveTabs(activeHashTab, currentActiveTab);
+        changeHashForPageReload(activeHashTabLink.hash);
 
         doc.body.dispatchEvent(new CustomEvent('ibexa:tabs:hash-tab-activated'));
     };
