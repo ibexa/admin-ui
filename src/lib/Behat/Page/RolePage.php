@@ -18,7 +18,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 class RolePage extends Page
 {
@@ -176,10 +176,10 @@ class RolePage extends Page
         $actualAssignments = $this->assignments->getColumnValues(['User/Group', 'Limitation']);
 
         foreach ($expectedAssignments as $expectedAssignment) {
-            Assert::assertContains($expectedAssignment, $actualAssignments);
+            Assert::inArray($expectedAssignment, $actualAssignments);
         }
 
-        Assert::assertCount(count($expectedAssignments), $actualAssignments);
+        Assert::count($actualAssignments, count($expectedAssignments));
     }
 
     public function startAssigningUsers(): void

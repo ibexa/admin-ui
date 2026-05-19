@@ -12,7 +12,7 @@ use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class User extends FieldTypeComponent
 {
@@ -53,14 +53,14 @@ final class User extends FieldTypeComponent
      */
     public function verifyValue(array $value): void
     {
-        Assert::assertEquals(
-            $value['username'],
+        Assert::eq(
             $this->getValue()['username'],
+            $value['username'],
             sprintf('Field %s has wrong value', $value['label'])
         );
-        Assert::assertEquals(
-            $value['email'],
+        Assert::eq(
             $this->getValue()['email'],
+            $value['email'],
             sprintf('Field %s has wrong value', $value['label'])
         );
     }
@@ -75,9 +75,9 @@ final class User extends FieldTypeComponent
             ->findAll($locator)
             ->mapBy(new ElementTextMapper());
 
-        Assert::assertEquals($values['Username'], $actualUsername, sprintf('Expected: %s Actual: %s', $values['Username'], $actualUsername));
-        Assert::assertEquals($values['Email'], $actualEmail, sprintf('Expected: %s Actual: %s', $values['Email'], $actualEmail));
-        Assert::assertEquals($values['Enabled'], $actualEnabled, sprintf('Expected: %s Actual: %s', $values['Enabled'], $actualEnabled));
+        Assert::eq($actualUsername, $values['Username'], sprintf('Expected: %s Actual: %s', $values['Username'], $actualUsername));
+        Assert::eq($actualEmail, $values['Email'], sprintf('Expected: %s Actual: %s', $values['Email'], $actualEmail));
+        Assert::eq($actualEnabled, $values['Enabled'], sprintf('Expected: %s Actual: %s', $values['Enabled'], $actualEnabled));
     }
 
     protected function specifyLocators(): array

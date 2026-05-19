@@ -13,7 +13,7 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\ObjectStateGroupPage;
 use Ibexa\AdminUi\Behat\Page\ObjectStateGroupsPage;
 use Ibexa\AdminUi\Behat\Page\ObjectStatePage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class ObjectStatesContext implements Context
 {
@@ -29,7 +29,7 @@ final readonly class ObjectStatesContext implements Context
      */
     public function isObjectStateOnTheList(string $objectStateGroupName): void
     {
-        Assert::assertTrue(
+        Assert::true(
             $this->objectStateGroupsPage->isObjectStateGroupOnTheList($objectStateGroupName)
         );
     }
@@ -58,7 +58,7 @@ final readonly class ObjectStatesContext implements Context
     public function objectStateGroupIsEmpty(string $objectStateGroupName): void
     {
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
-        Assert::assertFalse($this->objectStateGroupPage->hasObjectStates());
+        Assert::false($this->objectStateGroupPage->hasObjectStates());
     }
 
     /**
@@ -67,7 +67,7 @@ final readonly class ObjectStatesContext implements Context
     public function objectStateGroupHasAttributes(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
-            Assert::assertTrue($this->objectStateGroupPage->hasAttribute($row['label'], $row['value']));
+            Assert::true($this->objectStateGroupPage->hasAttribute($row['label'], $row['value']));
         }
     }
 
@@ -77,7 +77,7 @@ final readonly class ObjectStatesContext implements Context
     public function objectStateHasAttributes(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
-            Assert::assertTrue($this->objectStatePage->hasAttribute($row['label'], $row['value']));
+            Assert::true($this->objectStatePage->hasAttribute($row['label'], $row['value']));
         }
     }
 
@@ -86,7 +86,7 @@ final readonly class ObjectStatesContext implements Context
      */
     public function noObjectStateOnTheList(string $objectStateGroupName): void
     {
-        Assert::assertFalse($this->objectStateGroupsPage->isObjectStateGroupOnTheList($objectStateGroupName));
+        Assert::false($this->objectStateGroupsPage->isObjectStateGroupOnTheList($objectStateGroupName));
     }
 
     /**
@@ -129,7 +129,7 @@ final readonly class ObjectStatesContext implements Context
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->verifyIsLoaded();
 
-        Assert::assertFalse(
+        Assert::false(
             $this->objectStateGroupPage->hasObjectState($objectStateName),
         );
     }
@@ -142,7 +142,7 @@ final readonly class ObjectStatesContext implements Context
         $this->objectStateGroupPage->setExpectedObjectStateGroupName($objectStateGroupName);
         $this->objectStateGroupPage->verifyIsLoaded();
 
-        Assert::assertTrue(
+        Assert::true(
             $this->objectStateGroupPage->hasObjectState($objectStateName),
         );
     }

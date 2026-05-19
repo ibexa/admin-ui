@@ -16,7 +16,7 @@ use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\ObjectState\ObjectState;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ObjectStatePage extends Page
 {
@@ -72,9 +72,9 @@ final class ObjectStatePage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertEquals(
-            sprintf('Object state: %s', $this->expectedObjectStateName),
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText(),
+            sprintf('Object state: %s', $this->expectedObjectStateName)
         );
     }
 

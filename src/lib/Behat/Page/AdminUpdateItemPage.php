@@ -18,7 +18,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Locator\XPathLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 class AdminUpdateItemPage extends Page
 {
@@ -75,7 +75,7 @@ class AdminUpdateItemPage extends Page
     public function verifyIsLoaded(): void
     {
         $this->contentActionsMenu->verifyIsLoaded();
-        Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('formElement'))->isVisible());
+        Assert::true($this->getHTMLPage()->find($this->getLocator('formElement'))->isVisible());
     }
 
     protected function specifyLocators(): array

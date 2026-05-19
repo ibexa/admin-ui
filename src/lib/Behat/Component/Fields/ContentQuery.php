@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ContentQuery extends NonEditableField
 {
@@ -24,7 +24,7 @@ final class ContentQuery extends NonEditableField
         $actualItems = $this->getValueInItemView();
         $commonItems = array_intersect($expectedItems, $actualItems);
 
-        Assert::assertEquals([], array_diff($expectedItems, $commonItems));
+        Assert::eq(array_diff($expectedItems, $commonItems), []);
     }
 
     public function specifyLocators(): array

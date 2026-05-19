@@ -13,7 +13,7 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Component\UserNotificationPopup;
 use Ibexa\AdminUi\Behat\Page\NotificationsViewAllPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class UserNotificationContext implements Context
 {
@@ -37,7 +37,7 @@ final readonly class UserNotificationContext implements Context
      */
     public function thereIsNotificationForCurrentUser(): void
     {
-        Assert::assertTrue($this->upperMenu->hasUnreadNotification());
+        Assert::true($this->upperMenu->hasUnreadNotification());
     }
 
     /**
@@ -138,7 +138,7 @@ final readonly class UserNotificationContext implements Context
      */
     public function verifyNotificationStatus(string $notificationTitle, string $notificationStatus): void
     {
-        Assert::assertEquals($notificationStatus, $this->notificationsViewAllPage->getStatusForNotification($notificationTitle));
+        Assert::eq($this->notificationsViewAllPage->getStatusForNotification($notificationTitle), $notificationStatus);
     }
 
     /**

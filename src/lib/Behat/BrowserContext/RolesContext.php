@@ -13,7 +13,7 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\RolePage;
 use Ibexa\AdminUi\Behat\Page\RolesPage;
 use Ibexa\AdminUi\Behat\Page\RoleUpdatePage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class RolesContext implements Context
 {
@@ -60,7 +60,7 @@ final readonly class RolesContext implements Context
     public function thereIsAPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
-        Assert::assertTrue(
+        Assert::true(
             $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
         );
     }
@@ -71,7 +71,7 @@ final readonly class RolesContext implements Context
     public function thereIsNoPolicy(string $moduleAndFunction, string $limitation, string $roleName): void
     {
         $this->rolePage->setExpectedRoleName($roleName);
-        Assert::assertFalse(
+        Assert::false(
             $this->rolePage->isRoleWithLimitationPresent($moduleAndFunction, $limitation)
         );
     }
@@ -150,7 +150,7 @@ final readonly class RolesContext implements Context
      */
     public function thereSNoRoleOnRoleList(string $roleName): void
     {
-        Assert::assertFalse($this->rolesPage->isRoleOnTheList($roleName));
+        Assert::false($this->rolesPage->isRoleOnTheList($roleName));
     }
 
     /**
@@ -166,7 +166,7 @@ final readonly class RolesContext implements Context
      */
     public function thereARoleOnRoleList(string $roleName): void
     {
-        Assert::assertTrue($this->rolesPage->isRoleOnTheList($roleName));
+        Assert::true($this->rolesPage->isRoleOnTheList($roleName));
     }
 
     /**
@@ -183,7 +183,7 @@ final readonly class RolesContext implements Context
      */
     public function policiesListIsEmpty(): void
     {
-        Assert::assertFalse($this->rolePage->hasPolicies());
+        Assert::false($this->rolePage->hasPolicies());
     }
 
     /**
@@ -199,7 +199,7 @@ final readonly class RolesContext implements Context
      */
     public function assignmentsListIsEmpty(): void
     {
-        Assert::assertFalse($this->rolePage->hasAssignments());
+        Assert::false($this->rolePage->hasAssignments());
     }
 
     /**

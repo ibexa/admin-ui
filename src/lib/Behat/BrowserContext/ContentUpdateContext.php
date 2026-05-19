@@ -13,7 +13,7 @@ use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Component\Fields\NonEditableField;
 use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\UserUpdatePage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class ContentUpdateContext implements Context
 {
@@ -50,7 +50,7 @@ final readonly class ContentUpdateContext implements Context
     public function verifyFieldIsNotEditable(string $fieldName): void
     {
         $field = $this->contentUpdateItemPage->getField($fieldName);
-        Assert::assertEquals(NonEditableField::EXPECTED_NON_EDITABLE_TEXT, $field->getValue()[0]);
+        Assert::eq($field->getValue()[0], NonEditableField::EXPECTED_NON_EDITABLE_TEXT);
     }
 
     /**

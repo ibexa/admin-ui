@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Breadcrumb extends Component
 {
@@ -36,7 +36,7 @@ final class Breadcrumb extends Component
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('breadcrumbItem'))->isVisible());
+        Assert::true($this->getHTMLPage()->find($this->getLocator('breadcrumbItem'))->isVisible());
     }
 
     protected function specifyLocators(): array

@@ -12,7 +12,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\SectionPage;
 use Ibexa\AdminUi\Behat\Page\SectionsPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class SectionsContext implements Context
 {
@@ -49,7 +49,7 @@ final readonly class SectionsContext implements Context
             $expectedName = $contentItem['Name'];
             $expectedContentType = $contentItem['content type'];
             $expectedPath = $contentItem['Path'];
-            Assert::assertTrue(
+            Assert::true(
                 $this->sectionPage->hasAssignedItem(
                     ['Name' => $expectedName, 'Content type' => $expectedContentType, 'Path' => $expectedPath]
                 )
@@ -62,7 +62,7 @@ final readonly class SectionsContext implements Context
      */
     public function thereSNoSectionOnSectionList(string $sectionName): void
     {
-        Assert::assertFalse($this->sectionsPage->isSectionOnTheList($sectionName));
+        Assert::false($this->sectionsPage->isSectionOnTheList($sectionName));
     }
 
     /**
@@ -94,7 +94,7 @@ final readonly class SectionsContext implements Context
      */
     public function thereASectionOnSectionList(string $sectionName): void
     {
-        Assert::assertTrue($this->sectionsPage->isSectionOnTheList($sectionName));
+        Assert::true($this->sectionsPage->isSectionOnTheList($sectionName));
     }
 
     /**
@@ -102,7 +102,7 @@ final readonly class SectionsContext implements Context
      */
     public function sectionOnSectionListHasNoAssignedContentItems(string $sectionName): void
     {
-        Assert::assertEquals(0, $this->sectionsPage->getAssignedContentItemsCount($sectionName));
+        Assert::eq($this->sectionsPage->getAssignedContentItemsCount($sectionName), 0);
     }
 
     /**
@@ -111,7 +111,7 @@ final readonly class SectionsContext implements Context
     public function sectionHasNoAssignedContentItems(string $sectionName): void
     {
         $this->sectionPage->setExpectedSectionName($sectionName);
-        Assert::assertEquals(0, $this->sectionPage->hasAssignedItems());
+        Assert::eq($this->sectionPage->hasAssignedItems(), 0);
     }
 
     /**
@@ -128,7 +128,7 @@ final readonly class SectionsContext implements Context
      */
     public function contentListIsEmpty(): void
     {
-        Assert::assertTrue($this->sectionPage->isContentListEmpty());
+        Assert::true($this->sectionPage->isContentListEmpty());
     }
 
     /**
@@ -147,7 +147,7 @@ final readonly class SectionsContext implements Context
         $expectedSectionName = $sectionData->getHash()[0]['Name'];
         $expectedSectionIdentifier = $sectionData->getHash()[0]['Identifier'];
 
-        Assert::assertTrue(
+        Assert::true(
             $this->sectionPage->hasProperties(['Name' => $expectedSectionName, 'Identifier' => $expectedSectionIdentifier])
         );
     }
@@ -175,7 +175,7 @@ final readonly class SectionsContext implements Context
      */
     public function sectionHasAssignedContentItems(string $sectionName): void
     {
-        Assert::assertGreaterThan(0, $this->sectionsPage->getAssignedContentItemsCount($sectionName));
+        Assert::greaterThan($this->sectionsPage->getAssignedContentItemsCount($sectionName), 0);
     }
 
     /**
@@ -183,6 +183,6 @@ final readonly class SectionsContext implements Context
      */
     public function sectionCannotBeSelected(string $sectionName): void
     {
-        Assert::assertFalse($this->sectionsPage->canBeSelected($sectionName));
+        Assert::false($this->sectionsPage->canBeSelected($sectionName));
     }
 }

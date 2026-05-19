@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Authors extends FieldTypeComponent
 {
@@ -52,15 +52,15 @@ final class Authors extends FieldTypeComponent
         $expectedEmail = $values['email'];
 
         $actualFieldValues = $this->getValue();
-        Assert::assertEquals(
-            $expectedName,
+        Assert::eq(
             $actualFieldValues['name'],
+            $expectedName,
             sprintf('Field %s has wrong value', $values['label'])
         );
 
-        Assert::assertEquals(
-            $expectedEmail,
+        Assert::eq(
             $actualFieldValues['email'],
+            $expectedEmail,
             sprintf('Field %s has wrong value', $values['label'])
         );
     }
@@ -70,9 +70,9 @@ final class Authors extends FieldTypeComponent
      */
     public function verifyValueInItemView(array $values): void
     {
-        Assert::assertEquals(
-            sprintf('%s <%s>', $values['name'], $values['email']),
+        Assert::eq(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            sprintf('%s <%s>', $values['name'], $values['email']),
             'Field has wrong value'
         );
     }

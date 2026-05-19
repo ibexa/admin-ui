@@ -14,7 +14,7 @@ use Ibexa\AdminUi\Behat\Page\ContentTypeGroupPage;
 use Ibexa\AdminUi\Behat\Page\ContentTypeGroupsPage;
 use Ibexa\AdminUi\Behat\Page\ContentTypePage;
 use Ibexa\AdminUi\Behat\Page\ContentTypeUpdatePage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class ContentTypeContext implements Context
 {
@@ -32,7 +32,7 @@ final readonly class ContentTypeContext implements Context
     public function contentTypeHasProperGlobalProperties(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
-            Assert::assertTrue($this->contentTypePage->hasProperty($row['label'], $row['value']));
+            Assert::true($this->contentTypePage->hasProperty($row['label'], $row['value']));
         }
     }
 
@@ -58,7 +58,7 @@ final readonly class ContentTypeContext implements Context
     public function contentTypeHasProperFields(TableNode $table): void
     {
         foreach ($table->getHash() as $row) {
-            Assert::assertTrue($this->contentTypePage->hasFieldType(
+            Assert::true($this->contentTypePage->hasFieldType(
                 ['Name' => $row['fieldName'], 'Type' => $row['fieldType']]
             ));
         }
@@ -69,7 +69,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereSNoOnContentTypesList(string $contentTypeName): void
     {
-        Assert::assertFalse($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
+        Assert::false($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
 
     /**
@@ -77,7 +77,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereSNoOnContentTypesGroupList(string $contentTypeGroupName): void
     {
-        Assert::assertFalse($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
+        Assert::false($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
     }
 
     /**
@@ -85,7 +85,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereSAOnContentTypesGroupList(string $contentTypeGroupName): void
     {
-        Assert::assertTrue($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
+        Assert::true($this->contentTypeGroupsPage->isContentTypeGroupOnTheList($contentTypeGroupName));
     }
 
     /**
@@ -93,7 +93,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereAContentTypeOnContentTypesList(string $contentTypeName): void
     {
-        Assert::assertTrue($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
+        Assert::true($this->contentTypeGroupPage->isContentTypeOnTheList($contentTypeName));
     }
 
     /**
@@ -187,7 +187,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereAreNoContentTypes(): void
     {
-        Assert::assertFalse($this->contentTypeGroupPage->hasContentTypes());
+        Assert::false($this->contentTypeGroupPage->hasContentTypes());
     }
 
     /**
@@ -195,7 +195,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereIsAnEmptyContentTypeGroup(string $contentTypeGroupName): void
     {
-        Assert::assertFalse($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
+        Assert::false($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
     }
 
     /**
@@ -203,7 +203,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function thereIsANonEmptyContentTypeGroup(string $contentTypeGroupName): void
     {
-        Assert::assertTrue($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
+        Assert::true($this->contentTypeGroupPage->hasAssignedContentItems($contentTypeGroupName));
     }
 
     /**
@@ -211,7 +211,7 @@ final readonly class ContentTypeContext implements Context
      */
     public function contentTypeGroupCannotBeSelected(string $contentTypeGroupName): void
     {
-        Assert::assertFalse($this->contentTypeGroupsPage->canBeSelected($contentTypeGroupName));
+        Assert::false($this->contentTypeGroupsPage->canBeSelected($contentTypeGroupName));
     }
 
     /**

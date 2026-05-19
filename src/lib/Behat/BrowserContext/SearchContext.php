@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\SearchPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class SearchContext implements Context
 {
@@ -35,6 +35,6 @@ final readonly class SearchContext implements Context
      */
     public function searchResults(string $contentItemName): void
     {
-        Assert::assertTrue($this->searchPage->isElementInResults(['Name' => $contentItemName]));
+        Assert::true($this->searchPage->isElementInResults(['Name' => $contentItemName]));
     }
 }
