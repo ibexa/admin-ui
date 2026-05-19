@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { InputTextInput } from '@ids-components/components/InputText';
 
 import Icon from '../icon/icon';
 import Tag from '../tag/tag';
@@ -74,14 +75,18 @@ const Taggify = forwardRef(
             >
                 <div className="c-taggify__adding-area">
                     <div className="c-taggify__inputs">
-                        <input
-                            ref={newTagContentInputRef}
-                            className="c-taggify__new-tag-input"
-                            type="text"
-                            value={newTagContent}
-                            onChange={({ currentTarget }) => setNewTagContent(currentTarget.value)}
-                            onKeyUp={handleInputKeyUp}
+                        <InputTextInput
+                            className="c-taggify__new-tag-input-wrapper"
+                            extraAria={{
+                                className: 'c-taggify__new-tag-input',
+                                onKeyUp: handleInputKeyUp,
+                            }}
+                            name="taggify-input"
                             onBlur={() => addTags([newTagContent])}
+                            onChange={setNewTagContent}
+                            processActions={() => []}
+                            ref={newTagContentInputRef}
+                            value={newTagContent}
                         />
                     </div>
                     <div className="c-taggify__tags">
