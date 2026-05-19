@@ -52,8 +52,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     public const ITEM__REVEAL = 'content__sidebar_right__reveal';
     public const ITEM__INVITE = 'content__sidebar_right__invite';
 
-    private const CREATE_USER_LABEL = 'sidebar_right.create_user';
-
     /** @var \Ibexa\Contracts\Core\Repository\PermissionResolver */
     private $permissionResolver;
 
@@ -74,6 +72,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
 
     private SiteaccessResolverInterface  $siteaccessResolver;
 
+    private ContentRightSidebarLabelFactoryInterface $labelFactory;
+
     public function __construct(
         MenuItemFactoryInterface $factory,
         EventDispatcherInterface $eventDispatcher,
@@ -83,7 +83,8 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         LocationService $locationService,
         UniversalDiscoveryExtension $udwExtension,
         PermissionCheckerInterface $permissionChecker,
-        SiteaccessResolverInterface $siteaccessResolver
+        SiteaccessResolverInterface $siteaccessResolver,
+        ContentRightSidebarLabelFactory $labelFactory
     ) {
         parent::__construct($factory, $eventDispatcher);
 
@@ -94,6 +95,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
         $this->udwExtension = $udwExtension;
         $this->permissionChecker = $permissionChecker;
         $this->siteaccessResolver = $siteaccessResolver;
+        $this->labelFactory = $labelFactory;
     }
 
     /**
@@ -199,7 +201,7 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
                     'attributes' => $canCreate
                         ? $createAttributes
                         : array_merge($createAttributes, ['disabled' => 'disabled']),
-                    'label' => $contentIsUserGroup ? self::CREATE_USER_LABEL : self::ITEM__CREATE,
+                    'label' => $this->labelFactory->createLabel($contentType),
                 ]
             ),
         ]);
@@ -323,7 +325,6 @@ class ContentRightSidebarBuilder extends AbstractBuilder implements TranslationC
     {
         return [
             (new Message(self::ITEM__CREATE, 'ibexa_menu'))->setDesc('Create content'),
-            (new Message(self::CREATE_USER_LABEL, 'ibexa_menu'))->setDesc('Create user'),
             (new Message(self::ITEM__EDIT, 'ibexa_menu'))->setDesc('Edit'),
             (new Message(self::ITEM__PREVIEW, 'ibexa_menu'))->setDesc('Preview'),
             (new Message(self::ITEM__SEND_TO_TRASH, 'ibexa_menu'))->setDesc('Send to trash'),
