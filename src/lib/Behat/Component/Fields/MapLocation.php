@@ -10,8 +10,8 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use Webmozart\Assert\Assert;
 use RuntimeException;
+use Webmozart\Assert\Assert;
 
 final class MapLocation extends FieldTypeComponent
 {
