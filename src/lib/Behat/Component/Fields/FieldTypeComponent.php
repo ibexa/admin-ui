@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 abstract class FieldTypeComponent extends Component implements FieldTypeComponentInterface
 {
@@ -48,9 +48,9 @@ abstract class FieldTypeComponent extends Component implements FieldTypeComponen
 
     public function verifyValueInItemView(array $values): void
     {
-        Assert::assertEquals(
-            $values['value'],
+        Assert::eq(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            $values['value'],
             'Field has wrong value'
         );
     }
@@ -64,9 +64,9 @@ abstract class FieldTypeComponent extends Component implements FieldTypeComponen
 
     public function verifyValueInEditView(array $values): void
     {
-        Assert::assertEquals(
-            $values['value'],
-            $this->getValue()[0]
+        Assert::eq(
+            $this->getValue()[0],
+            $values['value']
         );
     }
 

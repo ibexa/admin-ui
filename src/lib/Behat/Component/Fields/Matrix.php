@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 use Ibexa\Behat\Browser\Element\Mapper\ElementTextMapper;
 use Ibexa\Behat\Browser\Locator\LocatorInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Matrix extends FieldTypeComponent
 {
@@ -50,7 +50,7 @@ final class Matrix extends FieldTypeComponent
             $this->getLocator('viewModeTableRow')
         );
 
-        Assert::assertEquals($values['value'], $parsedTable);
+        Assert::eq($parsedTable, $values['value']);
     }
 
     public function getFieldTypeIdentifier(): string

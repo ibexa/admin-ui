@@ -13,7 +13,7 @@ use Ibexa\Behat\Browser\FileUpload\FileUploadHelper;
 use Ibexa\Behat\Browser\Locator\CSSLocator;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Media extends FieldTypeComponent
 {
@@ -38,19 +38,19 @@ final class Media extends FieldTypeComponent
     {
         $filename = str_replace('.zip', '', $values['value']);
 
-        Assert::assertStringContainsString(
-            $filename,
+        Assert::contains(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            $filename,
             'Media has wrong file name'
         );
 
-        Assert::assertStringContainsString(
-            $filename,
+        Assert::contains(
             $this->getHTMLPage()->find(
                 CSSLocatorBuilder::base($this->parentLocator)
                     ->withDescendant($this->getLocator('video'))
                     ->build()
             )->getAttribute('src'),
+            $filename,
             'Media has wrong source'
         );
     }

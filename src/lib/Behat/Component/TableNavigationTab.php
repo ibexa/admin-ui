@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextFragmentCriterion;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class TableNavigationTab extends Component
 {
@@ -34,7 +34,7 @@ final class TableNavigationTab extends Component
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('activeNavLink'))->isVisible());
+        Assert::true($this->getHTMLPage()->find($this->getLocator('activeNavLink'))->isVisible());
     }
 
     protected function specifyLocators(): array

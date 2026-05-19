@@ -12,7 +12,7 @@ use Behat\Mink\Session;
 use Ibexa\AdminUi\Behat\Component\DateAndTimePopup;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class DateAndTime extends FieldTypeComponent
 {
@@ -56,7 +56,7 @@ final class DateAndTime extends FieldTypeComponent
             self::VIEW_DATE_TIME_FORMAT
         );
 
-        Assert::assertEquals($expectedDateAndTimeValue, $actualTimeValue);
+        Assert::eq($actualTimeValue, $expectedDateAndTimeValue);
     }
 
     public function getValue(): array
@@ -81,9 +81,9 @@ final class DateAndTime extends FieldTypeComponent
             self::VIEW_DATE_TIME_FORMAT
         );
 
-        Assert::assertEquals(
-            $expectedDate,
+        Assert::eq(
             $actualDate,
+            $expectedDate,
             'Field has wrong value'
         );
     }

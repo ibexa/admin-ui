@@ -10,8 +10,8 @@ namespace Ibexa\AdminUi\Behat\Component\Fields;
 
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
 use RuntimeException;
+use Webmozart\Assert\Assert;
 
 final class MapLocation extends FieldTypeComponent
 {
@@ -60,19 +60,19 @@ final class MapLocation extends FieldTypeComponent
         $expectedLongitude = $values['longitude'];
         $expectedAddress = $values['address'];
 
-        Assert::assertEquals(
-            $expectedLatitude,
+        Assert::eq(
             $this->getValue()['latitude'],
+            $expectedLatitude,
             sprintf('Field %s has wrong latitude value', $values['label'])
         );
-        Assert::assertEquals(
-            $expectedLongitude,
+        Assert::eq(
             $this->getValue()['longitude'],
+            $expectedLongitude,
             sprintf('Field %s has wrong longitude value', $values['label'])
         );
-        Assert::assertEquals(
-            $expectedAddress,
+        Assert::eq(
             $this->getValue()['address'],
+            $expectedAddress,
             sprintf('Field %s has wrong address value', $values['label'])
         );
     }
@@ -97,9 +97,9 @@ final class MapLocation extends FieldTypeComponent
         $actualLatitude = $this->formatToOneDecimalPlace($matches[2]);
         $actualLongitude = $this->formatToOneDecimalPlace($matches[3]);
 
-        Assert::assertEquals($values['address'], $actualAddress);
-        Assert::assertEquals($values['latitude'], $actualLatitude);
-        Assert::assertEquals($values['longitude'], $actualLongitude);
+        Assert::eq($actualAddress, $values['address']);
+        Assert::eq($actualLatitude, $values['latitude']);
+        Assert::eq($actualLongitude, $values['longitude']);
     }
 
     public function getFieldTypeIdentifier(): string

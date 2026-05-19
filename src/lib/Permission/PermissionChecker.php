@@ -117,8 +117,8 @@ final readonly class PermissionChecker implements PermissionCheckerInterface
 
         $restrictedSubtrees = $this->getRestrictions($hasAccess, SubtreeLimitation::class);
         $canCreateInSubtree = empty($restrictedSubtrees) || !empty(array_filter($restrictedSubtrees, static function ($restrictedSubtree) use ($location): bool {
-                return str_starts_with($location->getPathString(), $restrictedSubtree);
-            }));
+            return str_starts_with($location->getPathString(), $restrictedSubtree);
+        }));
 
         if (false === $canCreateInSubtree) {
             return false;

@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Condition\ElementExistsCondition;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class Notification extends Component
 {
@@ -37,7 +37,7 @@ final class Notification extends Component
 
     public function verifyAlertFailure(): void
     {
-        Assert::assertTrue(
+        Assert::true(
             $this->getHTMLPage()
                 ->setTimeout(self::TIMEOUT)
                 ->find($this->getLocator('failureAlert'))

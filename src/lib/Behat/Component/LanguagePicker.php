@@ -12,7 +12,7 @@ use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Element\Criterion\ElementTextCriterion;
 use Ibexa\Behat\Browser\Element\ElementInterface;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class LanguagePicker extends Component
 {
@@ -43,7 +43,7 @@ final class LanguagePicker extends Component
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertTrue($this->isVisible());
+        Assert::true($this->isVisible());
     }
 
     protected function specifyLocators(): array

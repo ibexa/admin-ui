@@ -15,7 +15,7 @@ use Ibexa\AdminUi\Behat\Component\UniversalDiscoveryWidget;
 use Ibexa\Behat\Browser\Element\Action\MouseOverAndClick;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ContentRelationSingle extends FieldTypeComponent
 {
@@ -89,9 +89,9 @@ final class ContentRelationSingle extends FieldTypeComponent
 
         $viewPatternRegex = '/Single relation[\w\/,: ]* %s [\w \/,:]*/';
 
-        Assert::assertMatchesRegularExpression(
-            sprintf($viewPatternRegex, $value),
+        Assert::regex(
             $this->getHTMLPage()->find($this->parentLocator)->getText(),
+            sprintf($viewPatternRegex, $value),
             'Field has wrong value'
         );
     }

@@ -20,8 +20,8 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use InvalidArgumentException;
-use PHPUnit\Framework\Assert;
 use RuntimeException;
+use Webmozart\Assert\Assert;
 
 class ContentUpdateItemPage extends Page
 {
@@ -50,11 +50,11 @@ class ContentUpdateItemPage extends Page
     public function verifyIsLoaded(): void
     {
         if ($this->pageTitle !== null) {
-            Assert::assertEquals(
-                $this->pageTitle,
+            Assert::eq(
                 $this->getHTMLPage()
                     ->setTimeout(20)
-                    ->find($this->getLocator('pageTitle'))->getText()
+                    ->find($this->getLocator('pageTitle'))->getText(),
+                $this->pageTitle
             );
         }
         $this->getHTMLPage()
@@ -198,7 +198,7 @@ class ContentUpdateItemPage extends Page
             }
         }
 
-        Assert::fail(sprintf('Field %s not found. Found: %s', $fieldName, implode(',', $foundFields)));
+        throw new \RuntimeException(sprintf('Field %s not found. Found: %s', $fieldName, implode(',', $foundFields)));
     }
 
     /**
@@ -285,7 +285,7 @@ class ContentUpdateItemPage extends Page
             usleep(500000);
             --$iteration_count;
         }
-        Assert::fail('Draft has not been autosaved for 15 seconds');
+        throw new \RuntimeException('Draft has not been autosaved for 15 seconds');
     }
 
     public function isAutosaveDraftSavedNotificationVisible(): bool

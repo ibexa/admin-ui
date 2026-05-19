@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\Component;
 
 use Ibexa\Behat\Browser\Component\Component;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ContentTree extends Component
 {
@@ -21,7 +21,7 @@ final class ContentTree extends Component
 
     public function verifyItemExists(string $itemPath): void
     {
-        Assert::assertTrue($this->itemExists($itemPath));
+        Assert::true($this->itemExists($itemPath));
     }
 
     private function itemExists(string $itemPath): bool

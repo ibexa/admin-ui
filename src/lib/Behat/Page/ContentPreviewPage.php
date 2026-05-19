@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\Page;
 use ErrorException;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ContentPreviewPage extends Page
 {
@@ -22,7 +22,7 @@ final class ContentPreviewPage extends Page
 
     public function verifyIsLoaded(): void
     {
-        Assert::assertTrue($this->getHTMLPage()->find($this->getLocator('previewNav'))->isVisible());
+        Assert::true($this->getHTMLPage()->find($this->getLocator('previewNav'))->isVisible());
     }
 
     public function getName(): string

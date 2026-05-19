@@ -12,7 +12,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\LanguagePage;
 use Ibexa\AdminUi\Behat\Page\LanguagesPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class LanguageContext implements Context
 {
@@ -35,7 +35,7 @@ final readonly class LanguageContext implements Context
      */
     public function thereSNoLanguageOnLanguageList(string $languageName): void
     {
-        Assert::assertFalse($this->languagesPage->isLanguageOnTheList($languageName));
+        Assert::false($this->languagesPage->isLanguageOnTheList($languageName));
     }
 
     /**
@@ -51,7 +51,7 @@ final readonly class LanguageContext implements Context
      */
     public function thereALanguageOnLanguageList(string $languageName): void
     {
-        Assert::assertTrue($this->languagesPage->isLanguageOnTheList($languageName));
+        Assert::true($this->languagesPage->isLanguageOnTheList($languageName));
     }
 
     /**
@@ -72,7 +72,7 @@ final readonly class LanguageContext implements Context
         $expectedCode = $languageData->getHash()[0]['Language code'];
         $expectedEnabledFlag = $languageData->getHash()[0]['Enabled'];
 
-        Assert::assertTrue(
+        Assert::true(
             $this->languagePage->hasProperties([
                 'Name' => $expectedName,
                 'Language code' => $expectedCode,
