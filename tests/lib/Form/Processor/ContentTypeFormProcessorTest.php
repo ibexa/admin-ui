@@ -279,13 +279,13 @@ final class ContentTypeFormProcessorTest extends TestCase
                                          ContentTypeDraft $actualContentTypeDraft,
                                          FieldDefinition $actualFieldDefinition
                                      ) use ($matcher, $contentTypeDraft, $fieldDefinition2, $fieldDefinition3): void {
-                                        self::assertSame($contentTypeDraft, $actualContentTypeDraft);
-                                        match ($matcher->getInvocationCount()) {
-                                            1 => self::assertSame($fieldDefinition2, $actualFieldDefinition),
-                                            2 => self::assertSame($fieldDefinition3, $actualFieldDefinition),
-                                            default => self::fail('Unexpected invocation count matched'),
-                                        };
-                                    }
+                                         self::assertSame($contentTypeDraft, $actualContentTypeDraft);
+                                         match ($matcher->getInvocationCount()) {
+                                             1 => self::assertSame($fieldDefinition2, $actualFieldDefinition),
+                                             2 => self::assertSame($fieldDefinition3, $actualFieldDefinition),
+                                             default => self::fail('Unexpected invocation count matched'),
+                                         };
+                                     }
                                  )
         ;
 

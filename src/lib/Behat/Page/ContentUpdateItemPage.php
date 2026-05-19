@@ -20,8 +20,8 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use InvalidArgumentException;
-use Webmozart\Assert\Assert;
 use RuntimeException;
+use Webmozart\Assert\Assert;
 
 class ContentUpdateItemPage extends Page
 {
