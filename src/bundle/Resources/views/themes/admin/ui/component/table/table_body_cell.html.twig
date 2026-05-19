@@ -1,5 +1,5 @@
+{% block table_body_cell %}
 {% import "@ibexadesign/ui/component/macros.html.twig" as html %}
-{% import "@ibexadesign/ui/component/table/table_macros.html.twig" as table_macros %}
 
 <td
     class="ibexa-table__cell
@@ -12,9 +12,11 @@
     {{ html.attributes(attr|default({})) }}
 >
     {%- block content -%}
+        {% import "@ibexadesign/ui/component/table/table_macros.html.twig" as table_macros %}
         {%- if has_action_btns|default(false) -%}
             <div class="ibexa-table__cell-btns-wrapper">
                 {%- block action_btns_content -%}
+                    {% import "@ibexadesign/ui/component/table/table_macros.html.twig" as table_macros %}
                     {{- table_macros.conditional_escape(content, raw|default(false)) -}}
                 {%- endblock -%}
             </div>
@@ -23,3 +25,4 @@
         {%- endif -%}
     {%- endblock -%}
 </td>
+{% endblock %}
