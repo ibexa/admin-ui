@@ -61,7 +61,7 @@
                     invalidStateSelectors: [SELECTOR_TAGGIFY, SELECTOR_LABEL],
                 },
                 {
-                    selector: `${SELECTOR_FIELD} .ibexa-data-source__input.form-control`,
+                    selector: `${SELECTOR_FIELD} .ibexa-data-source__input`,
                     eventName: 'change',
                     callback: 'validateKeywords',
                     errorNodeSelectors: [SELECTOR_ERROR_NODE],
@@ -70,7 +70,7 @@
             ],
         });
 
-        const keywordInput = field.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input.form-control');
+        const keywordInput = field.querySelector('.ibexa-data-source__input-wrapper .ibexa-data-source__input');
         class EzKeywordTaggify extends ibexa.core.Taggify {
             afterTagsUpdate() {
                 const tags = [...this.tags];
