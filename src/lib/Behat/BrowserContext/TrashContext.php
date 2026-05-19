@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Ibexa\AdminUi\Behat\Page\TrashPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class TrashContext implements Context
 {
@@ -24,7 +24,7 @@ final readonly class TrashContext implements Context
      */
     public function trashIsEmpty(): void
     {
-        Assert::assertTrue(
+        Assert::true(
             $this->trashPage->isEmpty(),
             'Trash is not empty.'
         );
@@ -35,7 +35,7 @@ final readonly class TrashContext implements Context
      */
     public function trashIsNotEmpty(): void
     {
-        Assert::assertFalse(
+        Assert::false(
             $this->trashPage->isEmpty(),
             'Trash is empty.'
         );
@@ -90,7 +90,7 @@ final readonly class TrashContext implements Context
      */
     public function thereIsItemOnTrashList(string $itemType, string $itemName): void
     {
-        Assert::assertTrue($this->trashPage->hasElement($itemType, $itemName));
+        Assert::true($this->trashPage->hasElement($itemType, $itemName));
     }
 
     /**
@@ -98,7 +98,7 @@ final readonly class TrashContext implements Context
      */
     public function thereIsNoItemOnTrashList(string $itemType, string $itemName): void
     {
-        Assert::assertFalse($this->trashPage->hasElement($itemType, $itemName));
+        Assert::false($this->trashPage->hasElement($itemType, $itemName));
     }
 
     /**

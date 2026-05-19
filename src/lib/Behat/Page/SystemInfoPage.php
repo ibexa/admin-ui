@@ -17,7 +17,7 @@ use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
 use Ibexa\Behat\Browser\Page\Page;
 use Ibexa\Behat\Browser\Routing\Router;
 use InvalidArgumentException;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class SystemInfoPage extends Page
 {
@@ -57,7 +57,7 @@ final class SystemInfoPage extends Page
         $names = array_column($actualPackageData, 'Name');
 
         foreach ($packages as $package) {
-            Assert::assertContains($package, $names);
+            Assert::inArray($package, $names);
         }
     }
 

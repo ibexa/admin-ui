@@ -12,7 +12,7 @@ use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\UpperMenu;
 use Ibexa\AdminUi\Behat\Page\ContentUpdateItemPage;
 use Ibexa\AdminUi\Behat\Page\DashboardPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class DashboardContext implements Context
 {
@@ -36,7 +36,7 @@ final readonly class DashboardContext implements Context
      */
     public function goingToDashboardISeeDraft(string $draftName): void
     {
-        Assert::assertTrue($this->dashboardPage->isDraftOnList($draftName));
+        Assert::true($this->dashboardPage->isDraftOnList($draftName));
     }
 
     /**
@@ -44,7 +44,7 @@ final readonly class DashboardContext implements Context
      */
     public function goingToDashboardISeeNoDraft(string $draftName): void
     {
-        Assert::assertFalse($this->dashboardPage->isDraftOnList($draftName));
+        Assert::false($this->dashboardPage->isDraftOnList($draftName));
     }
 
     /**

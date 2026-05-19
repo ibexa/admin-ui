@@ -10,7 +10,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Component\Notification;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 /** Context for actions on notifications */
 final readonly class NotificationContext implements Context
@@ -29,7 +29,7 @@ final readonly class NotificationContext implements Context
 
         $this->notification->verifyIsLoaded();
         $this->notification->verifyAlertSuccess();
-        Assert::assertEquals($expectedMessage, $this->notification->getMessage());
+        Assert::eq($this->notification->getMessage(), $expectedMessage);
         $this->notification->closeAlert();
     }
 
@@ -62,7 +62,7 @@ final readonly class NotificationContext implements Context
     {
         $this->notification->verifyIsLoaded();
         $this->notification->verifyAlertFailure();
-        Assert::assertStringContainsString($message, $this->notification->getMessage());
+        Assert::contains($this->notification->getMessage(), $message);
         $this->notification->closeAlert();
     }
 }

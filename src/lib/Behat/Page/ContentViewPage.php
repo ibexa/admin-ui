@@ -33,7 +33,7 @@ use Ibexa\Behat\Core\Behat\ArgumentParser;
 use Ibexa\Contracts\Core\Repository\Repository;
 use Ibexa\Contracts\Core\Repository\Values\Content\Content;
 use Ibexa\Contracts\Core\Repository\Values\Content\URLAlias;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -184,20 +184,20 @@ class ContentViewPage extends Page
         $this->getHTMLPage()->find($this->getLocator('mainContainer'))->assert()->isVisible();
         $this->contentActionsMenu->verifyIsLoaded();
 
-        Assert::assertStringContainsString(
-            $this->expectedContentName ?? '',
+        Assert::contains(
             $this->breadcrumb->getBreadcrumb(),
+            $this->expectedContentName ?? '',
             'Breadcrumb shows invalid path'
         );
 
-        Assert::assertEquals(
-            $this->expectedContentName,
-            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('pageTitle'))->getText(),
+            $this->expectedContentName
         );
 
-        Assert::assertEquals(
-            $this->expectedContentType,
-            $this->getHTMLPage()->find($this->getLocator('contentType'))->getText()
+        Assert::eq(
+            $this->getHTMLPage()->find($this->getLocator('contentType'))->getText(),
+            $this->expectedContentType
         );
     }
 
@@ -216,8 +216,8 @@ class ContentViewPage extends Page
 
         if ($language !== null) {
             $availableLanguages = $this->languagePicker->getLanguages();
-            Assert::assertGreaterThan(1, count($availableLanguages));
-            Assert::assertContains($language, $availableLanguages);
+            Assert::greaterThan(count($availableLanguages), 1);
+            Assert::inArray($language, $availableLanguages);
             $this->languagePicker->chooseLanguage($language);
         }
     }
@@ -342,7 +342,7 @@ class ContentViewPage extends Page
             );
 
         $urlAlias = $repository->getURLAliasService()->lookup($locationPath);
-        Assert::assertEquals(URLAlias::LOCATION, $urlAlias->type);
+        Assert::eq($urlAlias->type, URLAlias::LOCATION);
 
         return $repository->getLocationService()
             ->loadLocation((int) $urlAlias->destination)

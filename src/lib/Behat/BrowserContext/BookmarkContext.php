@@ -11,7 +11,7 @@ namespace Ibexa\AdminUi\Behat\BrowserContext;
 use Behat\Behat\Context\Context;
 use Ibexa\AdminUi\Behat\Page\BookmarksPage;
 use Ibexa\AdminUi\Behat\Page\ContentViewPage;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final readonly class BookmarkContext implements Context
 {
@@ -36,7 +36,7 @@ final readonly class BookmarkContext implements Context
      */
     public function contentItemIsBookmarked(): void
     {
-        Assert::assertTrue($this->contentViewPage->isBookmarked());
+        Assert::true($this->contentViewPage->isBookmarked());
     }
 
     /**
@@ -44,7 +44,7 @@ final readonly class BookmarkContext implements Context
      */
     public function contentItemIsDisplayed(string $contentName): void
     {
-        Assert::assertTrue($this->bookmarksPage->isBookmarked($contentName));
+        Assert::true($this->bookmarksPage->isBookmarked($contentName));
     }
 
     /**
@@ -52,7 +52,7 @@ final readonly class BookmarkContext implements Context
      */
     public function contentItemIsNotDisplayed(string $contentName): void
     {
-        Assert::assertFalse($this->bookmarksPage->isBookmarked($contentName));
+        Assert::false($this->bookmarksPage->isBookmarked($contentName));
     }
 
     /**

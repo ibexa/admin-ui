@@ -15,7 +15,7 @@ use Ibexa\Behat\Browser\Element\Condition\ElementNotExistsCondition;
 use Ibexa\Behat\Browser\FileUpload\FileUploadHelper;
 use Ibexa\Behat\Browser\Locator\CSSLocatorBuilder;
 use Ibexa\Behat\Browser\Locator\VisibleCSSLocator;
-use PHPUnit\Framework\Assert;
+use Webmozart\Assert\Assert;
 
 final class ImageAsset extends Image
 {
@@ -45,7 +45,7 @@ final class ImageAsset extends Image
 
         $this->notification->verifyAlertSuccess();
 
-        Assert::assertEquals(self::IMAGE_ASSET_NOTIFICATION_MESSAGE, $this->notification->getMessage());
+        Assert::eq($this->notification->getMessage(), self::IMAGE_ASSET_NOTIFICATION_MESSAGE);
     }
 
     public function selectFromRepository(string $path): void
