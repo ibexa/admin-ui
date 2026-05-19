@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\AdminUi\UI\Config\Provider\IsRtl:
+        tags:
+            - { name: ibexa.admin_ui.config.provider, key: 'isRtl' }

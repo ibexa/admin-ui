@@ -5,6 +5,7 @@ import FinderLeaf from './finder.leaf';
 import Icon from '../../../common/icon/icon';
 import Spinner from '../../../common/spinner/spinner';
 import { getIconPath } from '@ibexa-admin-ui/src/bundle/Resources/public/js/scripts/helpers/icon.helper.js';
+import { isRtl } from '@ibexa-admin-ui-helpers/system.helper';
 
 import { createCssClassNames } from '../../../common/helpers/css.class.names';
 import { useFindLocationsByParentLocationIdFetch } from '../../hooks/useFindLocationsByParentLocationIdFetch';
@@ -53,7 +54,8 @@ const FinderBranch = ({ locationData, itemsPerPage = 50 }) => {
         dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { ...locationData, collapsed: false } });
     };
     const changeBranchWidth = ({ clientX }) => {
-        let newBranchWidth = branchCurrentWidth + (clientX - resizeStartPositionX);
+        const resizeValue = isRtl() ? resizeStartPositionX - clientX : clientX - resizeStartPositionX;
+        let newBranchWidth = branchCurrentWidth + resizeValue;
 
         if (newBranchWidth < 50) {
             dispatchLoadedLocationsAction({ type: 'UPDATE_LOCATIONS', data: { ...locationData, collapsed: true } });

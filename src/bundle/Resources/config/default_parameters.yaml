@@ -106,3 +106,5 @@ parameters:
     ibexa.dam_widget.image.download_limit: 25
 
     ibexa.dam_widget.folder.content_type_identifier: folder
+
+    ibexa.admin_ui.rtl_languages: ['ar', 'he', 'fa', 'ur', 'yi', 'iw', 'kd', 'ps']

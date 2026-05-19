@@ -114,6 +114,9 @@ final class AdminUiIbexaTestKernel extends IbexaTestKernel
     {
         $container->loadFromExtension('webpack_encore', [
             'output_path' => dirname(__DIR__, 2) . '/var/encore/output',
+            'builds' => [
+                'ibexa' => dirname(__DIR__, 2) . '/var/encore/output',
+            ],
         ]);
 
         // bazinga's locale_fallback
