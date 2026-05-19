@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 .m-sub-items {
     margin-top: calculateRem(30px);
@@ -57,7 +58,7 @@
         content: '';
         position: absolute;
         z-index: 999;
-        background: rgba($ibexa-color-black, 0.35);
+        background: color.change($ibexa-color-black, $alpha: 0.35);
         top: 0;
         left: 0;
         right: 0;

@@ -1,5 +1,6 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
+@use 'sass:color';
 
 @mixin edit-language-item {
     display: block;
@@ -15,7 +16,7 @@
     &:active {
         outline: none;
         border-color: $ibexa-color-primary;
-        box-shadow: 0 0 0 calculateRem(4px) rgba($ibexa-color-primary, 0.25);
+        box-shadow: 0 0 0 calculateRem(4px) color.change($ibexa-color-primary, $alpha: 0.25);
     }
 
     &:hover {

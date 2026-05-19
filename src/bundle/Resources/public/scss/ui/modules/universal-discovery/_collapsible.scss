@@ -1,6 +1,7 @@
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/custom.scss' as *;
 @use '@ibexa-admin-ui/src/bundle/Resources/public/scss/functions/calculate.rem' as *;
 @use 'mixins/collapsible-arrow' as *;
+@use 'sass:color';
 
 .c-collapsible {
     $self: &;
@@ -45,7 +46,7 @@
         border-style: solid;
         border-color: $ibexa-color-light;
         border-width: calculateRem(1px) 0;
-        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 rgba($ibexa-color-info, 0.05);
+        box-shadow: calculateRem(4px) calculateRem(22px) calculateRem(47px) 0 color.change($ibexa-color-info, $alpha: 0.05);
 
         @include collapsible-arrow;
     }
