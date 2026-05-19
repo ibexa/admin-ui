@@ -313,12 +313,6 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: '#^Parameter \#1 \$array of class Pagerfanta\\Adapter\\ArrayAdapter constructor expects array, iterable\<Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: '#^Parameter \#1 \$contentType of method Ibexa\\Bundle\\AdminUi\\Controller\\ContentTypeController\:\:tryToCreateContentTypeDraft\(\) expects Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType, Ibexa\\Contracts\\Core\\Repository\\Values\\ContentType\\ContentType\|null given\.$#'
 			identifier: argument.type
 			count: 2
