@@ -1,7 +1,10 @@
 {% extends '@ibexadesign/account/base.html.twig' %}
+{# TODO: waiting for implementation #}
+{% set is_sso = false %}
 
 {%- block content -%}
-    <h2 class="ibexa-login__actions-headline">{{ 'base.get_started'|trans|desc('Get started') }}</h2>
+    {# TODO: change to <twig:ibexa:label when ready #}
+    <div class="ibexa-login__actions-headline">{{ 'base.sign_in'|trans|desc('Sign in to Cohesivo') }}</div>
 
     {% block login_form %}
         {{ ibexa_twig_component_group('admin-ui-login-form-before') }}
@@ -22,7 +25,7 @@
                 {% block login_form_fields %}
                     <div class="form-group{% if error %} has-error{% endif %}">
                         <div class="ibexa-login__input-label-wrapper">
-                            <label class="ibexa-label" for="username">{{ 'authentication.username'|trans|desc('Username') }}</label>
+                            <label class="ibexa-label" for="username">{{ 'authentication.login'|trans|desc('Login') }}</label>
                         </div>
                         {%- embed '@ibexadesign/ui/component/input_text.html.twig' -%}
                             {% block content %}
@@ -66,17 +69,30 @@
                 {% endblock %}
 
                 {% block login_form_buttons %}
+                    <div class="ibexa-login__link-wrapper">
+                        <a href="{{ path('ibexa.user.forgot_password') }}" tabindex="4">{{ 'authentication.forgot_your_password'|trans|desc('Forgot your password?') }}</a>
+                    </div>
                     <button
                         type="submit"
                         class="btn ibexa-btn ibexa-btn--primary ibexa-login__btn ibexa-login__btn--sign-in"
                         tabindex="3"
                         disabled
                     >
-                        {{ 'authentication.login'|trans|desc('Login') }}
+                        {{ 'authentication.sign_in'|trans|desc('Sign in') }}
                     </button>
-                    <div class="ibexa-login__link-wrapper">
-                        <a href="{{ path('ibexa.user.forgot_password') }}" tabindex="4">{{ 'authentication.forgot_password'|trans|desc('Forgot your password?') }}</a>
-                    </div>
+                    {% if is_sso %}
+                        <div class="ibexa-login__or-divider">
+                            <span>{{ 'authentication.login_or'|trans|desc('or') }}</span>
+                        </div>
+                        <button
+                            type="submit"
+                            class="btn ibexa-btn ibexa-btn--secondary ibexa-login__btn"
+                            tabindex="3"
+                            disabled
+                        >
+                            {{ 'authentication.sso'|trans|desc('Sign in with SSO') }}
+                        </button>
+                    {% endif %}
                 {% endblock %}
             </fieldset>
         </form>
